@@ -107,7 +107,11 @@
                 "home": "Home",
                 "search_and_explore": "Search and Explore",
                 "notifications": "Notifications",
-                "profile": "Profile"
+                "profile": "Profile",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -444,6 +448,7 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Duration: %s",
                 "thirty_minutes": "30 minutes",
                 "one_hour": "1 Hour",
@@ -619,7 +624,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Favorites"
         },
         "notification": {
             "title": {

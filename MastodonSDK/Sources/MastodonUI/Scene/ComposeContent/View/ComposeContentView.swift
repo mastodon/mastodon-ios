@@ -180,20 +180,30 @@ extension ComposeContentView {
                 ReorderableForEach(
                     items: $viewModel.pollOptions
                 ) { $pollOption in
-                    let _index = viewModel.pollOptions.firstIndex(of: pollOption)
-                    PollOptionRow(
-                        viewModel: pollOption,
-                        index: _index,
-                        deleteBackwardResponseTextFieldRelayDelegate: viewModel
-                    ) { textField in
-                        viewModel.customEmojiPickerInputViewModel.configure(textInput: textField)
+                    if let _index = viewModel.pollOptions.firstIndex(of: pollOption) {
+                        PollOptionRow(
+                            viewModel: pollOption,
+                            index: _index,
+                            moveUp: _index == 0 ? nil : {
+                                viewModel.pollOptions.swapAt(_index, _index - 1)
+                            },
+                            moveDown: _index == viewModel.pollOptions.count - 1 ? nil : {
+                                viewModel.pollOptions.swapAt(_index, _index + 1)
+                            },
+                            removeOption: viewModel.pollOptions.count <= 2 ? nil : {
+                                viewModel.pollOptions.remove(at: _index)
+                            },
+                            deleteBackwardResponseTextFieldRelayDelegate: viewModel
+                        ) { textField in
+                            viewModel.customEmojiPickerInputViewModel.configure(textInput: textField)
+                        }
                     }
                 }
                 if viewModel.maxPollOptionLimit != viewModel.pollOptions.count {
-                    PollAddOptionRow()
-                        .onTapGesture {
-                            viewModel.createNewPollOptionIfCould()
-                        }
+                    Button(action: viewModel.createNewPollOptionIfCould) {
+                        PollAddOptionRow()
+                            .accessibilityLabel(L10n.Scene.Compose.Poll.addOption)
+                    }
                 }
                 Menu {
                     Picker(selection: $viewModel.pollExpireConfigurationOption) {
@@ -214,6 +224,8 @@ extension ComposeContentView {
                 }
             }
         }   // end VStack
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(L10n.Scene.Compose.Poll.title)
     }
     
     // MARK: - media

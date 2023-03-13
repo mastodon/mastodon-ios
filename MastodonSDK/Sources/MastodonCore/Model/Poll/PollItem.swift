@@ -11,4 +11,5 @@ import CoreDataStack
 
 public enum PollItem: Hashable {
     case option(record: ManagedObjectRecord<PollOption>)
+    case history(option: StatusEdit.Poll.Option)
 }

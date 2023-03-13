@@ -19,7 +19,6 @@ import MastodonLocalization
 import MastodonSDK
 
 final class ComposeViewController: UIViewController, NeedsDependency {
-    
     static let minAutoCompleteVisibleHeight: CGFloat = 100
         
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -29,13 +28,34 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     var viewModel: ComposeViewModel!
 
     let logger = Logger(subsystem: "ComposeViewController", category: "logic")
-    
+
+    init(viewModel: ComposeViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
     lazy var composeContentViewModel: ComposeContentViewModel = {
+
+        let composeContext: ComposeContentViewModel.ComposeContext
+        let initialContent: String
+
+        switch viewModel.composeContext {
+        case .composeStatus:
+            composeContext = .composeStatus
+            initialContent = viewModel.initialContent
+        case .editStatus(let status, let statusSource):
+            composeContext = .editStatus(status: status, statusSource: statusSource)
+            initialContent = statusSource.text
+        }
+
         return ComposeContentViewModel(
             context: context,
             authContext: viewModel.authContext,
+            composeContext: composeContext,
             destination: viewModel.destination,
-            initialContent: viewModel.initialContent
+            initialContent: initialContent
         )
     }()
     private(set) lazy var composeContentViewController: ComposeContentViewController = {
@@ -46,16 +66,38 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
 
-    let publishButton: UIButton = {
+    private lazy var publishButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
         button.cornerRadius = 10
         button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
+        button.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
         return button
     }()
+
+    private lazy var saveButton: UIButton = {
+        let button = RoundedEdgesButton(type: .custom)
+        button.cornerRadius = 10
+        button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.setTitle(L10n.Common.Controls.Actions.save, for: .normal)
+        button.addTarget(self, action: #selector(ComposeViewController.publishStatusEdit(_:)), for: .touchUpInside)
+        return button
+    }()
+
+    private(set) lazy var saveBarButtonItem: UIBarButtonItem = {
+        configurePublishButtonApperance(button: saveButton)
+        let shadowBackgroundContainer = ShadowBackgroundContainer()
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        shadowBackgroundContainer.addSubview(saveButton)
+        saveButton.pinToParent()
+        let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
+        return barButtonItem
+    }()
+
     private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
-        configurePublishButtonApperance()
+        configurePublishButtonApperance(button: publishButton)
         let shadowBackgroundContainer = ShadowBackgroundContainer()
         publishButton.translatesAutoresizingMaskIntoConstraints = false
         shadowBackgroundContainer.addSubview(publishButton)
@@ -63,12 +105,13 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
         return barButtonItem
     }()
-    private func configurePublishButtonApperance() {
-        publishButton.adjustsImageWhenHighlighted = false
-        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
-        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
-        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
-        publishButton.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
+
+    private func configurePublishButtonApperance(button: UIButton) {
+        button.adjustsImageWhenHighlighted = false
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+        button.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
     }
 
     deinit {
@@ -83,18 +126,17 @@ extension ComposeViewController {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = cancelBarButtonItem
-        navigationItem.rightBarButtonItem = publishBarButtonItem
         viewModel.traitCollectionDidChangePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 guard self.traitCollection.userInterfaceIdiom == .pad else { return }
-                let items = [self.publishBarButtonItem]
-                self.navigationItem.rightBarButtonItems = items
+                self.navigationItem.rightBarButtonItem = self.rightBarButtonItemForCurrentContext
             }
             .store(in: &disposeBag)
-        publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
-        
+
+        navigationItem.rightBarButtonItem = rightBarButtonItemForCurrentContext
+
         addChild(composeContentViewController)
         composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(composeContentViewController.view)
@@ -119,8 +161,14 @@ extension ComposeViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
-        configurePublishButtonApperance()
+
+        switch viewModel.composeContext {
+        case .composeStatus:
+            configurePublishButtonApperance(button: publishButton)
+        case .editStatus:
+            configurePublishButtonApperance(button: saveButton)
+        }
+
         viewModel.traitCollectionDidChangePublisher.send()
     }
     
@@ -141,6 +189,14 @@ extension ComposeViewController {
         present(alertController, animated: true, completion: nil)
     }
 
+    private var rightBarButtonItemForCurrentContext: UIBarButtonItem {
+        switch viewModel.composeContext {
+        case .composeStatus:
+            return publishBarButtonItem
+        case .editStatus:
+            return saveBarButtonItem
+        }
+    }
 }
 
 extension ComposeViewController {
@@ -155,8 +211,7 @@ extension ComposeViewController {
     }
     
     @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
+
         do {
             try composeContentViewModel.checkAttachmentPrecondition()
         } catch {
@@ -185,7 +240,34 @@ extension ComposeViewController {
 
         dismiss(animated: true, completion: nil)
     }
-    
+
+    @objc
+    private func publishStatusEdit(_ sender: Any) {
+        do {
+            try composeContentViewModel.checkAttachmentPrecondition()
+        } catch {
+            let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+            alertController.addAction(okAction)
+            _ = coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            return
+        }
+
+        do {
+            guard let editStatusPublisher = try composeContentViewModel.statusEditPublisher() else { return }
+            viewModel.context.publisherService.enqueue(
+                statusPublisher: editStatusPublisher,
+                authContext: viewModel.authContext
+            )
+        } catch {
+            let alertController = UIAlertController.standardAlert(of: error)
+            present(alertController, animated: true)
+            return
+        }
+
+        dismiss(animated: true, completion: nil)
+
+    }
 }
 
 extension ComposeViewController {

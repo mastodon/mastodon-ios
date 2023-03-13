@@ -15,6 +15,7 @@ extension Persistence.PollOption {
     
     public struct PersistContext {
         public let index: Int
+        public let poll: Poll
         public let entity: Mastodon.Entity.Poll.Option
         public let me: MastodonUser?
         public let networkDate: Date
@@ -22,11 +23,13 @@ extension Persistence.PollOption {
         
         public init(
             index: Int,
+            poll: Poll,
             entity: Mastodon.Entity.Poll.Option,
             me: MastodonUser?,
             networkDate: Date
         ) {
             self.index = index
+            self.poll = poll
             self.entity = entity
             self.me = me
             self.networkDate = networkDate
@@ -66,6 +69,7 @@ extension Persistence.PollOption {
         context: PersistContext
     ) -> PollOption {
         let property = PollOption.Property(
+            poll: context.poll,
             index: context.index,
             entity: context.entity,
             networkDate: context.networkDate
@@ -81,6 +85,7 @@ extension Persistence.PollOption {
     ) {
         guard context.networkDate > option.updatedAt else { return }
         let property = PollOption.Property(
+            poll: context.poll,
             index: context.index,
             entity: context.entity,
             networkDate: context.networkDate

@@ -120,8 +120,10 @@ extension Persistence.Status {
                 )
             )
             let author = authorResult.user
+            let application: Application? = createApplication(in: managedObjectContext, context: .init(entity: context.entity))
                 
             let relationship = Status.Relationship(
+                application: application,
                 author: author,
                 reblog: reblog,
                 poll: poll,
@@ -197,7 +199,9 @@ extension Persistence.Status {
         )
         status.update(property: property)
         if let poll = status.poll, let entity = context.entity.poll {
-            Persistence.Poll.merge(
+            // update poll
+            Persistence.Poll.update(
+                in: managedObjectContext, 
                 poll: poll,
                 context: Persistence.Poll.PersistContext(
                     domain: context.domain,
@@ -205,6 +209,40 @@ extension Persistence.Status {
                     me: context.me,
                     networkDate: context.networkDate
                 )
+            )
+        } else if let entity = context.entity.poll {
+            // add poll
+            let result = Persistence.Poll.createOrMerge(
+                in: managedObjectContext,
+                context: Persistence.Poll.PersistContext(
+                    domain: context.domain,
+                    entity: entity,
+                    me: context.me,
+                    networkDate: context.networkDate
+                )
+            )
+
+            status.configure(
+                relationship:
+                    Status.Relationship(
+                        application: status.application,
+                        author: status.author,
+                        reblog: status.reblog,
+                        poll: result.poll,
+                        card: status.card
+                    )
+            )
+        } else if status.poll != nil, context.entity.poll == nil {
+            // remove poll
+            status.configure(
+                relationship:
+                    Status.Relationship(
+                        application: status.application,
+                        author: status.author,
+                        reblog: status.reblog,
+                        poll: nil,
+                        card: status.card
+                    )
             )
         }
 
@@ -243,5 +281,21 @@ extension Persistence.Status {
             context.entity.favourited.flatMap { status.update(liked: $0, by: user) }
         }
     }
-    
+
+    private static func createApplication(
+        in managedObjectContext: NSManagedObjectContext,
+        context: MastodonApplication.PersistContext
+    ) -> Application? {
+        guard let application = context.entity.application else { return nil }
+
+        let persistedApplication = Application.insert(into: managedObjectContext, property: .init(name: application.name, website: application.website, vapidKey: application.vapidKey))
+
+        return persistedApplication
+    }
+
+    enum MastodonApplication {
+        public struct PersistContext {
+            let entity: Mastodon.Entity.Status
+        }
+    }
 }

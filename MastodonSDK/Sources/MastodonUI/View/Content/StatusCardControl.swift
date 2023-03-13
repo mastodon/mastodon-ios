@@ -16,7 +16,7 @@ import WebKit
 
 public protocol StatusCardControlDelegate: AnyObject {
     func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)
-    func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> UIMenu?
+    func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]?
 }
 
 public final class StatusCardControl: UIControl {
@@ -130,6 +130,8 @@ public final class StatusCardControl: UIControl {
 
         addInteraction(UIContextMenuInteraction(delegate: self))
         addInteraction(UIPointerInteraction(delegate: self))
+        isAccessibilityElement = true
+        accessibilityTraits.insert(.link)
     }
     
     required init?(coder: NSCoder) {
@@ -237,6 +239,13 @@ public final class StatusCardControl: UIControl {
         dividerView.backgroundColor = theme.separator
         imageView.backgroundColor = UIColor.tertiarySystemFill
     }
+
+    public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
+        get {
+            delegate?.statusCardControlMenu(self)?.map(\.accessibilityCustomAction)
+        }
+        set {}
+    }
 }
 
 // MARK: WKWebView delegates
@@ -296,8 +305,11 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
 // MARK: UIContextMenuInteractionDelegate
 extension StatusCardControl {
     public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { elements in
-            self.delegate?.statusCardControlMenu(self)
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            if let elements = self.delegate?.statusCardControlMenu(self)?.map(\.menuElement) {
+                return UIMenu(children: elements)
+            }
+            return nil
         }
     }
 

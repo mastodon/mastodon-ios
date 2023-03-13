@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/emoji/)
-    public struct Emoji: Codable {
+    public struct Emoji: Codable, Sendable {
         public let shortcode: String
         public let url: String
         public let staticURL: String

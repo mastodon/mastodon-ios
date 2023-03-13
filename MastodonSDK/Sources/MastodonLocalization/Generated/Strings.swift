@@ -132,6 +132,8 @@ public enum L10n {
         public static let done = L10n.tr("Localizable", "Common.Controls.Actions.Done", fallback: "Done")
         /// Edit
         public static let edit = L10n.tr("Localizable", "Common.Controls.Actions.Edit", fallback: "Edit")
+        /// Edit
+        public static let editPost = L10n.tr("Localizable", "Common.Controls.Actions.EditPost", fallback: "Edit")
         /// Find people to follow
         public static let findPeople = L10n.tr("Localizable", "Common.Controls.Actions.FindPeople", fallback: "Find people to follow")
         /// Manually search instead
@@ -290,6 +292,10 @@ public enum L10n {
       public enum Status {
         /// Content Warning
         public static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning", fallback: "Content Warning")
+        /// Edited %@
+        public static func editedAtTimestampPrefix(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.EditedAtTimestampPrefix", String(describing: p1), fallback: "Edited %@")
+        }
         /// %@ via %@
         public static func linkViaUser(_ p1: Any, _ p2: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.LinkViaUser", String(describing: p1), String(describing: p2), fallback: "%@ via %@")
@@ -298,6 +304,10 @@ public enum L10n {
         public static let loadEmbed = L10n.tr("Localizable", "Common.Controls.Status.LoadEmbed", fallback: "Load Embed")
         /// Tap anywhere to reveal
         public static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning", fallback: "Tap anywhere to reveal")
+        /// %@ via %@
+        public static func postedViaApplication(_ p1: Any, _ p2: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.PostedViaApplication", String(describing: p1), String(describing: p2), fallback: "%@ via %@")
+        }
         /// Sensitive Content
         public static let sensitiveContent = L10n.tr("Localizable", "Common.Controls.Status.SensitiveContent", fallback: "Sensitive Content")
         /// Show Post
@@ -339,6 +349,26 @@ public enum L10n {
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite", fallback: "Unfavorite")
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo reblog")
+        }
+        public enum Buttons {
+          /// Last edit %@
+          public static func editHistoryDetail(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Buttons.EditHistoryDetail", String(describing: p1), fallback: "Last edit %@")
+          }
+          /// Edit History
+          public static let editHistoryTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.EditHistoryTitle", fallback: "Edit History")
+          /// Favorites
+          public static let favoritesTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.FavoritesTitle", fallback: "Favorites")
+          /// Reblogs
+          public static let reblogsTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.ReblogsTitle", fallback: "Reblogs")
+        }
+        public enum EditHistory {
+          /// Original Post · %@
+          public static func originalPost(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.EditHistory.OriginalPost", String(describing: p1), fallback: "Original Post · %@")
+          }
+          /// Edit History
+          public static let title = L10n.tr("Localizable", "Common.Controls.Status.EditHistory.Title", fallback: "Edit History")
         }
         public enum Media {
           /// %@, attachment %d of %d
@@ -422,6 +452,12 @@ public enum L10n {
         public static let profile = L10n.tr("Localizable", "Common.Controls.Tabs.Profile", fallback: "Profile")
         /// Search and Explore
         public static let searchAndExplore = L10n.tr("Localizable", "Common.Controls.Tabs.SearchAndExplore", fallback: "Search and Explore")
+        public enum A11Y {
+          /// Explore
+          public static let explore = L10n.tr("Localizable", "Common.Controls.Tabs.A11Y.Explore", fallback: "Explore")
+          /// Search
+          public static let search = L10n.tr("Localizable", "Common.Controls.Tabs.A11Y.Search", fallback: "Search")
+        }
       }
       public enum Timeline {
         /// Filtered
@@ -593,10 +629,16 @@ public enum L10n {
         public static let photoLibrary = L10n.tr("Localizable", "Scene.Compose.MediaSelection.PhotoLibrary", fallback: "Photo Library")
       }
       public enum Poll {
+        /// Add Option
+        public static let addOption = L10n.tr("Localizable", "Scene.Compose.Poll.AddOption", fallback: "Add Option")
         /// Duration: %@
         public static func durationTime(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Poll.DurationTime", String(describing: p1), fallback: "Duration: %@")
         }
+        /// Move Down
+        public static let moveDown = L10n.tr("Localizable", "Scene.Compose.Poll.MoveDown", fallback: "Move Down")
+        /// Move Up
+        public static let moveUp = L10n.tr("Localizable", "Scene.Compose.Poll.MoveUp", fallback: "Move Up")
         /// 1 Day
         public static let oneDay = L10n.tr("Localizable", "Scene.Compose.Poll.OneDay", fallback: "1 Day")
         /// 1 Hour
@@ -605,6 +647,8 @@ public enum L10n {
         public static func optionNumber(_ p1: Int) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Poll.OptionNumber", p1, fallback: "Option %ld")
         }
+        /// Remove Option
+        public static let removeOption = L10n.tr("Localizable", "Scene.Compose.Poll.RemoveOption", fallback: "Remove Option")
         /// 7 Days
         public static let sevenDays = L10n.tr("Localizable", "Scene.Compose.Poll.SevenDays", fallback: "7 Days")
         /// 6 Hours
@@ -617,8 +661,12 @@ public enum L10n {
         public static let thirtyMinutes = L10n.tr("Localizable", "Scene.Compose.Poll.ThirtyMinutes", fallback: "30 minutes")
         /// 3 Days
         public static let threeDays = L10n.tr("Localizable", "Scene.Compose.Poll.ThreeDays", fallback: "3 Days")
+        /// Poll
+        public static let title = L10n.tr("Localizable", "Scene.Compose.Poll.Title", fallback: "Poll")
       }
       public enum Title {
+        /// Edit Post
+        public static let editPost = L10n.tr("Localizable", "Scene.Compose.Title.EditPost", fallback: "Edit Post")
         /// New Post
         public static let newPost = L10n.tr("Localizable", "Scene.Compose.Title.NewPost", fallback: "New Post")
         /// New Reply
@@ -700,8 +748,8 @@ public enum L10n {
       public static let title = L10n.tr("Localizable", "Scene.Familiarfollowers.Title", fallback: "Followers you familiar")
     }
     public enum Favorite {
-      /// Your Favorites
-      public static let title = L10n.tr("Localizable", "Scene.Favorite.Title", fallback: "Your Favorites")
+      /// Favorites
+      public static let title = L10n.tr("Localizable", "Scene.Favorite.Title", fallback: "Favorites")
     }
     public enum FavoritedBy {
       /// Favorited By

@@ -597,6 +597,10 @@ extension NotificationView: StatusViewDelegate {
     public func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton) {
         assertionFailure()
     }
+
+    public func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton) {
+        assertionFailure()
+    }
     
     public func statusView(_ statusView: StatusView, accessibilityActivate: Void) {
         assertionFailure()
@@ -606,7 +610,7 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
 
-    public func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu? {
+    public func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]? {
         assertionFailure()
         return nil
     }
