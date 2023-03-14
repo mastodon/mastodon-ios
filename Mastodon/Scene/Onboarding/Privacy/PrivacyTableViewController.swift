@@ -115,6 +115,7 @@ extension PrivacyTableViewController: UITableViewDataSource {
         var contentConfiguration = cell.defaultContentConfiguration()
         contentConfiguration.textProperties.color = Asset.Colors.Brand.blurple.color
         contentConfiguration.text = row.title
+        cell.accessibilityTraits = [.button, .link]
 
         cell.contentConfiguration = contentConfiguration
 
