@@ -727,23 +727,27 @@ extension StatusView.ViewModel {
     }
     
     private func bindAccessibility(statusView: StatusView) {
-        let shortAuthorAccessibilityLabel = Publishers.CombineLatest3(
+        let shortAuthorAccessibilityLabel = Publishers.CombineLatest4(
             $header,
             $authorName,
+            $authorUsername,
             $timestampText
         )
-        .map { header, authorName, timestamp -> String? in
+        .map { header, authorName, authorUsername, timestamp -> String? in
             var strings: [String?] = []
             
             switch header {
             case .none:
                 strings.append(authorName?.string)
+                strings.append(authorUsername)
             case .reply(let info):
                 strings.append(authorName?.string)
+                strings.append(authorUsername)
                 strings.append(info.header.string)
             case .repost(let info):
                 strings.append(info.header.string)
                 strings.append(authorName?.string)
+                strings.append(authorUsername)
             }
 
             if statusView.style != .editHistory {
