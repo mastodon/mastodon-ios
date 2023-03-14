@@ -24,7 +24,8 @@ extension CategoryPickerSection {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickServerCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as! PickServerCategoryCollectionViewCell
 
             cell.titleLabel.text = item.title
-
+            cell.accessibilityTraits = [.button]
+    
             switch item {
             case .category(_):
                 cell.chevron.isHidden = true
