@@ -66,9 +66,17 @@ class WelcomeContentCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate(constraints)
     }
+    
+    private func updateAccessibility() {
+        accessibilityElements = [titleView, label]
+        accessibilityLabel = "\(titleView.accessibilityLabel ?? ""), \(label.accessibilityLabel ?? "")"
+        isAccessibilityElement = true
+    }
 
     func update(with page: WelcomeContentPage) {
         titleView.attributedText = page.title
+        titleView.accessibilityLabel = page.accessibilityLabel
         label.text = page.content
+        updateAccessibility()
     }
 }
