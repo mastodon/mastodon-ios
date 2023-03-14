@@ -285,3 +285,10 @@ extension MastodonRegisterViewModel {
         return attributeString
     }
 }
+
+extension MastodonRegisterViewModel {
+    var accessibilityLabelUsernameField: String {
+        let username = username.isEmpty ? L10n.Scene.Register.Input.Username.placeholder : username
+        return "@\(username)@\(domain)"
+    }
+}
