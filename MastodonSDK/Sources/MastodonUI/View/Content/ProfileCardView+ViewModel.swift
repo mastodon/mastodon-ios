@@ -60,8 +60,6 @@ extension ProfileCardView {
                 switch userInterfaceStyle {
                 case .dark:
                     switch theme.themeName {
-                    case .mastodon:
-                        self.backgroundColor = theme.systemBackgroundColor
                     case .system:
                         self.backgroundColor = theme.secondarySystemBackgroundColor
                     }
