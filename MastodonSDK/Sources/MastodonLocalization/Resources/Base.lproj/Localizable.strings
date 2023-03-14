@@ -114,6 +114,8 @@ Please check your internet connection.";
 "Common.Controls.Status.Actions.TapThenHoldToShowMenu" = "Tap then hold to show menu";
 "Common.Controls.Status.Actions.Unfavorite" = "Unfavorite";
 "Common.Controls.Status.Actions.Unreblog" = "Undo reblog";
+"Common.Controls.Status.Actions.A11yLabels.Reblog" = "Re-blog";
+"Common.Controls.Status.Actions.A11yLabels.Unreblog" = "Undo re-blog";
 "Common.Controls.Status.ContentWarning" = "Content Warning";
 "Common.Controls.Status.LinkViaUser" = "%@ via %@";
 "Common.Controls.Status.LoadEmbed" = "Load Embed";

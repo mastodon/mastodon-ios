@@ -349,6 +349,12 @@ public enum L10n {
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite", fallback: "Unfavorite")
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo reblog")
+          public enum A11yLabels {
+            /// Re-blog
+            public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.A11yLabels.Reblog", fallback: "Re-blog")
+            /// Undo re-blog
+            public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.A11yLabels.Unreblog", fallback: "Undo re-blog")
+          }
         }
         public enum Buttons {
           /// Last edit %@
@@ -1702,6 +1708,10 @@ public enum L10n {
       /// Plural format key: "%#@reblog_count@"
       public static func reblog(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.reblog", p1, fallback: "Plural format key: \"%#@reblog_count@\"")
+      }
+      /// Plural format key: "%#@reblog_count@"
+      public static func reblogA11y(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.reblog_a11y", p1, fallback: "Plural format key: \"%#@reblog_count@\"")
       }
       /// Plural format key: "%#@reply_count@"
       public static func reply(_ p1: Int) -> String {
