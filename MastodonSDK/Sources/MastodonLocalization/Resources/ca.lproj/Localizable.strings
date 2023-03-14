@@ -465,7 +465,6 @@ carregat a Mastodon.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Desactiva emojis animats";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Obre enllaços a Mastodon";
 "Scene.Settings.Section.Preference.Title" = "Preferències";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Mode negre fosc autèntic";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Utilitza el navegador predeterminat per a obrir enllaços";
 "Scene.Settings.Section.SpicyZone.Clear" = "Esborra la memòria cau de Mèdia";
 "Scene.Settings.Section.SpicyZone.Signout" = "Tancar Sessió";

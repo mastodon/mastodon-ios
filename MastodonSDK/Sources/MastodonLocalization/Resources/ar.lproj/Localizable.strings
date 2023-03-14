@@ -466,7 +466,6 @@
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "تَعطيلُ الرُموزِ التَّعبيريَّةِ المُتحرِّكَة";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "فَتحُ الرَّوابِطِ فِي مَاستودُون";
 "Scene.Settings.Section.Preference.Title" = "التَّفضيلات";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "النَّمَطُ الأسوَدُ الداكِنُ الحَقيقي";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "اِستِخدامُ المُتصفِّحِ الاِفتراضي لِفتحِ الرَّوابِط";
 "Scene.Settings.Section.SpicyZone.Clear" = "مَحوُ ذاكِرَةِ التَّخزينِ المُؤقَّتِ لِلوسائِط";
 "Scene.Settings.Section.SpicyZone.Signout" = "تَسجيلُ الخُروج";

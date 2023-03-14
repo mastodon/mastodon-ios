@@ -465,7 +465,6 @@
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "ปิดใช้งานอีโมจิแบบเคลื่อนไหว";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "เปิดลิงก์ใน Mastodon";
 "Scene.Settings.Section.Preference.Title" = "การกำหนดลักษณะ";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "โหมดมืดดำสนิท";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์";
 "Scene.Settings.Section.SpicyZone.Clear" = "ล้างแคชสื่อ";
 "Scene.Settings.Section.SpicyZone.Signout" = "ลงชื่อออก";

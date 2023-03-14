@@ -1456,8 +1456,6 @@ public enum L10n {
           public static let openLinksInMastodon = L10n.tr("Localizable", "Scene.Settings.Section.Preference.OpenLinksInMastodon", fallback: "Open links in Mastodon")
           /// Preferences
           public static let title = L10n.tr("Localizable", "Scene.Settings.Section.Preference.Title", fallback: "Preferences")
-          /// True black dark mode
-          public static let trueBlackDarkMode = L10n.tr("Localizable", "Scene.Settings.Section.Preference.TrueBlackDarkMode", fallback: "True black dark mode")
           /// Use default browser to open links
           public static let usingDefaultBrowser = L10n.tr("Localizable", "Scene.Settings.Section.Preference.UsingDefaultBrowser", fallback: "Use default browser to open links")
         }

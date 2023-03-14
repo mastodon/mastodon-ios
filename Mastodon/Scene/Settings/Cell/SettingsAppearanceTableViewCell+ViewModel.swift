@@ -16,7 +16,7 @@ extension SettingsAppearanceTableViewCell {
 
         // input
         @Published public var customUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
-        @Published public var preferredTrueBlackDarkMode = false
+
         // output
         @Published public var appearanceMode: SettingsItem.AppearanceMode = .system
 
@@ -36,37 +36,24 @@ extension SettingsAppearanceTableViewCell {
 
 extension SettingsAppearanceTableViewCell.ViewModel {
     func bind(cell: SettingsAppearanceTableViewCell) {
-        Publishers.CombineLatest(
-            $customUserInterfaceStyle.removeDuplicates(),
-            $preferredTrueBlackDarkMode.removeDuplicates()
-        )
-        .debounce(for: 0.1, scheduler: DispatchQueue.main)
-        .receive(on: DispatchQueue.main)
-        .sink { customUserInterfaceStyle, preferredTrueBlackDarkMode in
-            cell.appearanceViews.forEach { view in
-                view.selected = false
+        $customUserInterfaceStyle.removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { customUserInterfaceStyle in
+                cell.appearanceViews.forEach { view in
+                    view.selected = false
+                }
+                
+                switch customUserInterfaceStyle {
+                case .unspecified:
+                    cell.systemAppearanceView.selected = true
+                case .dark:
+                    cell.darkAppearanceView.selected = true
+                case .light:
+                    cell.lightAppearanceView.selected = true
+                @unknown default:
+                    assertionFailure()
+                }
             }
-            
-            switch customUserInterfaceStyle {
-            case .unspecified:
-                cell.systemAppearanceView.selected = true
-            case .dark:
-                cell.darkAppearanceView.selected = true
-            case .light:
-                cell.lightAppearanceView.selected = true
-            @unknown default:
-                assertionFailure()
-            }
-        }
-        .store(in: &disposeBag)
-    }
-}
-
-extension SettingsAppearanceTableViewCell {
-    func configure(setting: Setting) {
-        setting.publisher(for: \.preferredTrueBlackDarkMode)
-            .assign(to: \.preferredTrueBlackDarkMode, on: viewModel)
             .store(in: &disposeBag)
     }
-    
 }

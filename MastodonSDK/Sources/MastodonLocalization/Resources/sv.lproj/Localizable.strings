@@ -465,7 +465,6 @@ laddas upp till Mastodon.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Inaktivera animerade emojis";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Öppna länkar i Mastodon";
 "Scene.Settings.Section.Preference.Title" = "Inställningar";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "True black-mörkt läge";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Använd standardwebbläsare för att öppna länkar";
 "Scene.Settings.Section.SpicyZone.Clear" = "Rensa mediacache";
 "Scene.Settings.Section.SpicyZone.Signout" = "Logga ut";

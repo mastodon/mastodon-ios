@@ -466,7 +466,6 @@
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "禁用动画表情";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "在 Mastodon 中打开链接";
 "Scene.Settings.Section.Preference.Title" = "偏好";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "纯黑模式";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "使用默认浏览器打开链接";
 "Scene.Settings.Section.SpicyZone.Clear" = "清除图片缓存";
 "Scene.Settings.Section.SpicyZone.Signout" = "退出";

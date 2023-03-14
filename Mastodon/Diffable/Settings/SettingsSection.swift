@@ -42,12 +42,8 @@ extension SettingsSection {
             weak settingsToggleCellDelegate
         ] tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .appearance(let record):
+            case .appearance:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsAppearanceTableViewCell.self), for: indexPath) as! SettingsAppearanceTableViewCell
-                managedObjectContext.performAndWait {
-                    guard let setting = record.object(in: managedObjectContext) else { return }
-                    cell.configure(setting: setting)
-                }
                 cell.delegate = settingsAppearanceTableViewCellDelegate
                 return cell
             case .preference(let record, _):

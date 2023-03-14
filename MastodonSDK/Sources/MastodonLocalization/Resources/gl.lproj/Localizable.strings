@@ -465,7 +465,6 @@ ser subido a Mastodon.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Desactivar emojis animados";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Abrir ligazóns en Mastodon";
 "Scene.Settings.Section.Preference.Title" = "Preferencias";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Modo negro verdadeiro";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Usar navegador por defecto para as ligazóns";
 "Scene.Settings.Section.SpicyZone.Clear" = "Limpar caché multimedia";
 "Scene.Settings.Section.SpicyZone.Signout" = "Pechar sesión";
