@@ -370,6 +370,9 @@ extension MainTabBarController {
         
         updateTabBarDisplay()
         
+        composeButton.addInteraction(UILargeContentViewerInteraction())
+        composeButton.showsLargeContentViewer = true
+        composeButton.largeContentTitle = L10n.Common.Controls.Actions.compose
         composeButton.addTarget(self, action: #selector(MainTabBarController.composeButtonDidPressed(_:)), for: .touchUpInside)
         
         #if DEBUG
