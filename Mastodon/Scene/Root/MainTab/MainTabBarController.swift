@@ -27,6 +27,7 @@ class MainTabBarController: UITabBarController {
     var authContext: AuthContext?
     
     private let largeContentViewerInteraction = UILargeContentViewerInteraction()
+    private let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
     
     let composeButttonShadowBackgroundContainer = ShadowBackgroundContainer()
     let composeButton: UIButton = {
@@ -351,7 +352,6 @@ extension MainTabBarController {
             self.avatarURLObserver = nil
         }
 
-        let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBarLongPressGestureRecognizer.delegate = self
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
@@ -853,5 +853,17 @@ extension MainTabBarController {
 extension MainTabBarController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         true
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if gestureRecognizer == tabBarLongPressGestureRecognizer {
+            if UILargeContentViewerInteraction.isEnabled {
+                tabBarLongPressGestureRecognizer.minimumPressDuration = 1.5
+            } else {
+                // default duration per docs
+                tabBarLongPressGestureRecognizer.minimumPressDuration = 0.5
+            }
+        }
+        return true
     }
 }
