@@ -70,7 +70,13 @@ extension DiscoveryForYouViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isFetching in
                 guard let self = self else { return }
-                if !isFetching {
+                if isFetching {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        if !self.refreshControl.isRefreshing {
+                            self.refreshControl.beginRefreshing()
+                        }
+                    }
+                } else {
                     self.refreshControl.endRefreshing()
                 }
             }
