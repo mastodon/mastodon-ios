@@ -16,7 +16,7 @@ public protocol ProfileCardViewDelegate: AnyObject {
     func profileCardView(_ profileCardView: ProfileCardView, familiarFollowersDashboardViewDidPressed view: FamiliarFollowersDashboardView)
 }
 
-public final class ProfileCardView: UIView {
+public final class ProfileCardView: UIView, AXCustomContentProvider {
     
     let logger = Logger(subsystem: "ProfileCardView", category: "View")
     
@@ -27,7 +27,9 @@ public final class ProfileCardView: UIView {
     weak var delegate: ProfileCardViewDelegate?
     private var _disposeBag = Set<AnyCancellable>()
     var disposeBag = Set<AnyCancellable>()
-    
+
+    public var accessibilityCustomContent: [AXCustomContent]! = []
+
     let container = UIStackView()
     
     let bannerImageView: UIImageView = {

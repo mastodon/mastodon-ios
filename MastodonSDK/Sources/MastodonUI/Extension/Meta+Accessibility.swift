@@ -7,6 +7,7 @@
 
 import Meta
 import MastodonLocalization
+import Foundation
 
 extension Meta {
     public var accessibilityLabel: String? {
@@ -23,5 +24,16 @@ extension Meta {
         case .emoji:
             return nil
         }
+    }
+}
+
+extension MetaContent {
+    public var accessibilityLabel: String {
+        return entities.reversed().reduce(string) { string, entity in
+            if case .emoji(_, let shortcode, _, _) = entity.meta {
+                return (string as NSString).replacingCharacters(in: entity.range, with: ":" + shortcode + ":")
+            }
+            return string
+        } as String
     }
 }

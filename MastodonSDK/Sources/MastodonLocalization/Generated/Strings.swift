@@ -899,6 +899,8 @@ public enum L10n {
         public static let showBannerImage = L10n.tr("Localizable", "Scene.Profile.Accessibility.ShowBannerImage", fallback: "Show banner image")
       }
       public enum Dashboard {
+        /// mutuals
+        public static let familiarFollowers = L10n.tr("Localizable", "Scene.Profile.Dashboard.FamiliarFollowers", fallback: "mutuals")
         /// followers
         public static let myFollowers = L10n.tr("Localizable", "Scene.Profile.Dashboard.MyFollowers", fallback: "followers")
         /// following

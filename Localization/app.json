@@ -548,7 +548,8 @@
                 "my_followers": "followers",
                 "other_posts": "posts",
                 "other_following": "following",
-                "other_followers": "followers"
+                "other_followers": "followers",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Joined",
