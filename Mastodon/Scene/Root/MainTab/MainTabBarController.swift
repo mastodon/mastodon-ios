@@ -26,6 +26,8 @@ class MainTabBarController: UITabBarController {
     
     var authContext: AuthContext?
     
+    private let largeContentViewerInteraction = UILargeContentViewerInteraction()
+    
     let composeButttonShadowBackgroundContainer = ShadowBackgroundContainer()
     let composeButton: UIButton = {
         let button = UIButton()
@@ -180,6 +182,8 @@ class MainTabBarController: UITabBarController {
         self.coordinator = coordinator
         self.authContext = authContext
         super.init(nibName: nil, bundle: nil)
+        tabBar.addInteraction(largeContentViewerInteraction)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -349,6 +353,7 @@ extension MainTabBarController {
 
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
+        tabBarLongPressGestureRecognizer.delegate = self
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
 
         // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
@@ -843,4 +848,10 @@ extension MainTabBarController {
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     
+}
+
+extension MainTabBarController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        true
+    }
 }
