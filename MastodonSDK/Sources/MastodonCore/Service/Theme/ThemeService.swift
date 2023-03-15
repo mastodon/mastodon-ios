@@ -72,7 +72,6 @@ extension ThemeService {
         tabBarAppearance.compactInlineLayoutAppearance = tabBarItemAppearance
 
         tabBarAppearance.backgroundColor = theme.tabBarBackgroundColor
-        tabBarAppearance.selectionIndicatorTintColor = ThemeService.tintColor
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().barTintColor = theme.tabBarBackgroundColor

@@ -82,7 +82,7 @@ extension SidebarViewModel {
                 accessoryImage: item == .me ? .chevronUpChevronDown : nil,
                 title: item.title,
                 image: item.image,
-                activeImage: item.selectedImage,
+                activeImage: item.selectedImage.withTintColor(Asset.Colors.brand.color, renderingMode: .alwaysOriginal),
                 imageURL: imageURL
             )
             cell.setNeedsUpdateConfiguration()
@@ -116,14 +116,14 @@ extension SidebarViewModel {
                     }()
                     
                     let image: UIImage = {
-                        if currentTab == .notifications {
-                            return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadgeFill.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
+                        if hasUnreadPushNotification {
+                            return UIImage(systemName: "bell.badge")!
                         } else {
-                            return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadge.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+                            return MainTabBarController.Tab.notifications.image
                         }
                     }()
                     cell.item?.image = image
-                    cell.item?.activeImage = image
+                    cell.item?.activeImage = image.withTintColor(Asset.Colors.brand.color, renderingMode: .alwaysOriginal)
                     cell.setNeedsUpdateConfiguration()
                 }
                 .store(in: &cell.disposeBag)
@@ -168,8 +168,8 @@ extension SidebarViewModel {
                     isActive: false,
                     accessoryImage: self.currentTab == .me ? .chevronUpChevronDown : nil,
                     title: L10n.Common.Controls.Actions.compose,
-                    image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
-                    activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
+                    image: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
+                    activeImage: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
                     imageURL: nil
                 )
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
@@ -215,8 +215,8 @@ extension SidebarViewModel {
             let item = SidebarListContentView.Item(
                 isActive: false,
                 title: L10n.Common.Controls.Actions.compose,
-                image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
-                activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
+                image: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
+                activeImage: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
                 imageURL: nil
             )
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)

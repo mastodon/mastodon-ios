@@ -182,7 +182,6 @@ extension MainTabBarController {
             viewController.tabBarItem.tag = tab.tag
             viewController.tabBarItem.title = tab.title     // needs for acessiblity large content label
             viewController.tabBarItem.image = tab.image.imageWithoutBaseline()
-            viewController.tabBarItem.selectedImage = tab.selectedImage.imageWithoutBaseline()
             viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
             viewController.tabBarItem.accessibilityLabel = tab.title
             viewController.tabBarItem.accessibilityUserInputLabels = tab.inputLabels
@@ -265,10 +264,10 @@ extension MainTabBarController {
             } ?? false
             
             let image: UIImage = {
-                if currentTab == .notifications {
-                    return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadgeFill.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
+                if hasUnreadPushNotification {
+                    return UIImage(systemName: "bell.badge")!
                 } else {
-                    return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadge.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+                    return Tab.notifications.image
                 }
             }()
             notificationViewController.tabBarItem.image = image.imageWithoutBaseline()

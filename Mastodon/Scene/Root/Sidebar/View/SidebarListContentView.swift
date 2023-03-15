@@ -103,7 +103,7 @@ extension SidebarListContentView {
         // configure model
         imageView.isHidden = item.imageURL != nil
         avatarButton.isHidden = item.imageURL == nil
-        imageView.image = item.isActive ? item.activeImage.withRenderingMode(.alwaysTemplate) : item.image.withRenderingMode(.alwaysTemplate)
+        imageView.image = item.isActive ? item.activeImage : item.image.withRenderingMode(.alwaysTemplate)
         accessoryImageView.image = item.accessoryImage
         accessoryImageView.isHidden = item.accessoryImage == nil
         accessoryImageView.tintColor = item.isActive ? .label : .secondaryLabel
