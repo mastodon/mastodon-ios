@@ -227,7 +227,7 @@ extension ActionToolbarContainer {
     public func configureReblog(count: Int, isEnabled: Bool, isHighlighted: Bool) {
         let title = ActionToolbarContainer.title(from: count)
         reblogButton.setTitle(title, for: .normal)
-        reblogButton.accessibilityValue = L10n.Plural.Count.reblog(count)
+        reblogButton.accessibilityValue = L10n.Plural.Count.reblogA11y(count)
         reblogButton.isEnabled = isEnabled
         reblogButton.setImage(ActionToolbarContainer.reblogImage, for: .normal)
         let tintColor = isHighlighted ? Asset.Colors.successGreen.color : Asset.Colors.Button.actionToolbar.color
@@ -237,10 +237,10 @@ extension ActionToolbarContainer {
         
         if isHighlighted {
             reblogButton.accessibilityTraits.insert(.selected)
-            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.unreblog
+            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.A11yLabels.unreblog
         } else {
             reblogButton.accessibilityTraits.remove(.selected)
-            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.reblog
+            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.A11yLabels.reblog
         }
         reblogButton.accessibilityCustomActions = [
             UIAccessibilityCustomAction(name: "Show All Reblogs") { [weak self] action in
