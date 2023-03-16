@@ -71,6 +71,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let urlContext = connectionOptions.urlContexts.first {
             handleUrl(context: urlContext)
         }
+
+        if let userActivity = connectionOptions.userActivities.first {
+            handleUniversalLink(userActivity: userActivity)
+        }
         
         #if SNAPSHOT
         // speedup animation
@@ -129,6 +133,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        handleUniversalLink(userActivity: userActivity)
+    }
+
+    private func handleUniversalLink(userActivity: NSUserActivity) {
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
               let incomingURL = userActivity.webpageURL,
               let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true) else {
@@ -167,11 +175,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     from: nil,
                     transition: .show
                 )
-                
+
             case (profile, statusID):
                 Task {
                     guard let statusOnMyInstance = try await AppContext.shared.apiService.search(query: .init(q: incomingURL.absoluteString, resolve: true), authenticationBox: authContext.mastodonAuthenticationBox).value.statuses.first else { return }
-                    
+
                     let threadViewModel = RemoteThreadViewModel(
                         context: AppContext.shared,
                         authContext: authContext,
@@ -179,12 +187,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     )
                     coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
                 }
-                
+
             case (_, _):
                 break
                 // do nothing
         }
-        
+
     }
 }
 
