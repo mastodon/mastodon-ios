@@ -128,63 +128,64 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
 
-  func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-    guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-        let incomingURL = userActivity.webpageURL,
-        let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true) else {
-        return
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+              let incomingURL = userActivity.webpageURL,
+              let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true) else {
+            return
+        }
+
+        guard let path = components.path, let authContext = coordinator?.authContext else {
+            return
+        }
+
+        let pathElements = path.split(separator: "/")
+
+        let profile: String?
+        if let profileInPath = pathElements[safe: 0] {
+            profile = String(profileInPath)
+        } else {
+            profile = nil
+        }
+
+        let statusID: String?
+        if let statusIDInPath = pathElements[safe: 1] {
+            statusID = String(statusIDInPath)
+        } else {
+            statusID = nil
+        }
+
+        switch (profile, statusID) {
+            case (profile, nil):
+                let profileViewModel = RemoteProfileViewModel(
+                    context: AppContext.shared,
+                    authContext: authContext,
+                    acct: incomingURL.absoluteString
+                )
+                self.coordinator?.present(
+                    scene: .profile(viewModel: profileViewModel),
+                    from: nil,
+                    transition: .show
+                )
+                
+            case (profile, statusID):
+                Task {
+                    guard let statusOnMyInstance = try await AppContext.shared.apiService.search(query: .init(q: incomingURL.absoluteString, resolve: true), authenticationBox: authContext.mastodonAuthenticationBox).value.statuses.first else { return }
+                    
+                    let threadViewModel = RemoteThreadViewModel(
+                        context: AppContext.shared,
+                        authContext: authContext,
+                        statusID: statusOnMyInstance.id
+                    )
+                    coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+                }
+                
+            case (_, _):
+                break
+                // do nothing
+        }
+        
     }
-
-    guard let path = components.path, let authContext = coordinator?.authContext else {
-        return
-    }
-
-    let pathElements = path.split(separator: "/")
-
-    let profile: String?
-    if let profileInPath = pathElements[safe: 0] {
-      profile = String(profileInPath)
-    } else {
-      profile = nil
-    }
-
-    let statusID: String?
-    if let statusIDInPath = pathElements[safe: 1] {
-      statusID = String(statusIDInPath)
-    } else {
-      statusID = nil
-    }
-
-    switch (profile, statusID) {
-      case (profile, nil):
-        guard let profile else { return }
-
-        let profileViewModel = RemoteProfileViewModel(
-          context: AppContext.shared,
-          authContext: authContext,
-          acct: profile
-        )
-        self.coordinator?.present(
-          scene: .profile(viewModel: profileViewModel),
-          from: nil,
-          transition: .show
-        )
-
-      case (profile, statusID):
-        guard let statusID else { return }
-        let threadViewModel = RemoteThreadViewModel(
-          context: AppContext.shared,
-          authContext: authContext,
-          statusID: statusID
-        )
-        coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
-
-      case (_, _):
-        break
-        // do nothing
-    }
-
-  }
 }
 
 extension SceneDelegate {
