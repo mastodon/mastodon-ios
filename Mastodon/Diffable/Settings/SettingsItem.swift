@@ -13,7 +13,6 @@ import MastodonLocalization
 
 enum SettingsItem {
     case appearance(record: ManagedObjectRecord<Setting>)
-    case appearancePreference(record: ManagedObjectRecord<Setting>, appearanceType: AppearanceType)
     case preference(settingRecord: ManagedObjectRecord<Setting>, preferenceType: PreferenceType)
     case notification(settingRecord: ManagedObjectRecord<Setting>, switchMode: NotificationSwitchMode)
     case boringZone(item: Link)
@@ -27,15 +26,7 @@ extension SettingsItem {
         case dark
         case light
     }
-    
-    enum AppearanceType: Hashable {
-        case preferredTrueDarkMode
-        
-        var title: String {
-            return L10n.Scene.Settings.Section.Preference.trueBlackDarkMode
-        }
-    }
-    
+
     enum NotificationSwitchMode: CaseIterable, Hashable {
         case favorite
         case follow
@@ -105,10 +96,6 @@ extension SettingsItem: Hashable {
         case .appearance(let record):
             hasher.combine(String(describing: SettingsItem.AppearanceMode.self))
             hasher.combine(record)
-        case .appearancePreference(let record, let appearanceType):
-            hasher.combine(String(describing: SettingsItem.AppearanceType.self))
-            hasher.combine(record)
-            hasher.combine(appearanceType)
         case .notification(let settingObjectID, let switchMode):
             hasher.combine(String(describing: SettingsItem.notification.self))
             hasher.combine(settingObjectID)

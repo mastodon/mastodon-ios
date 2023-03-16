@@ -477,7 +477,6 @@
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Отключить анимацию эмодзи";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Открывать ссылки в Мастодоне";
 "Scene.Settings.Section.Preference.Title" = "Предпочтения";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Полноценно чёрный режим";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Использовать браузер по умолчанию для открытия ссылок";
 "Scene.Settings.Section.SpicyZone.Clear" = "Очистить кэш медиа";
 "Scene.Settings.Section.SpicyZone.Signout" = "Выйти из учётной записи";

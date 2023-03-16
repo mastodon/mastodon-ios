@@ -461,7 +461,6 @@ nahrán do Mastodonu.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Zakázat animované emoji";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Otevřít odkazy v Mastodonu";
 "Scene.Settings.Section.Preference.Title" = "Předvolby";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Skutečný černý tmavý režim";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Použít výchozí prohlížeč pro otevírání odkazů";
 "Scene.Settings.Section.SpicyZone.Clear" = "Vymazat mezipaměť médií";
 "Scene.Settings.Section.SpicyZone.Signout" = "Odhlásit se";

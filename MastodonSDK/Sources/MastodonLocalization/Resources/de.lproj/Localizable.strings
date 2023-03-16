@@ -466,7 +466,6 @@ beliebigen Server.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Animierte Emojis deaktivieren";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Links in Mastodon öffnen";
 "Scene.Settings.Section.Preference.Title" = "Präferenzen";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Vollständig dunkler Dunkelmodus";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Standardbrowser zum Öffnen von Links verwenden";
 "Scene.Settings.Section.SpicyZone.Clear" = "Medien-Cache leeren";
 "Scene.Settings.Section.SpicyZone.Signout" = "Abmelden";

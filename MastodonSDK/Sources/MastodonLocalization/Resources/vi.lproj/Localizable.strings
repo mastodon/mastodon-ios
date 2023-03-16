@@ -465,7 +465,6 @@ tải lên Mastodon.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Tắt emoji dạng GIF";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Mở liên kết trong Mastodon";
 "Scene.Settings.Section.Preference.Title" = "Chung";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Chế độ tối chân thật";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Dùng trình duyệt mặc định";
 "Scene.Settings.Section.SpicyZone.Clear" = "Xóa bộ nhớ đệm";
 "Scene.Settings.Section.SpicyZone.Signout" = "Đăng xuất";

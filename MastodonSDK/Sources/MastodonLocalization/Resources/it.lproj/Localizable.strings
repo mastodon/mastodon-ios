@@ -465,7 +465,6 @@ caricato su Mastodon.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Disabilita emoji animate";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Apri i link in Mastodon";
 "Scene.Settings.Section.Preference.Title" = "Preferenze";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Modalità molto scura";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Usa browser predefinito per aprire i collegamenti";
 "Scene.Settings.Section.SpicyZone.Clear" = "Cancella la cache multimediale";
 "Scene.Settings.Section.SpicyZone.Signout" = "Esci";

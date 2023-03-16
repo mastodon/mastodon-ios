@@ -460,7 +460,6 @@
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "停用動畫 emoji";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "在 Mastodon 中開啟連結";
 "Scene.Settings.Section.Preference.Title" = "偏好設定";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "真☆闇黑模式";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "使用預設瀏覽器開啟連結";
 "Scene.Settings.Section.SpicyZone.Clear" = "清除媒體快取";
 "Scene.Settings.Section.SpicyZone.Signout" = "登出";

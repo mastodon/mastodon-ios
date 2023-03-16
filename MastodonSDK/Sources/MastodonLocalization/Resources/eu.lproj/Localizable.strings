@@ -466,7 +466,6 @@ edozein zerbitzari.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Desgaitu emoji animatuak";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Ireki estekak Mastodonen";
 "Scene.Settings.Section.Preference.Title" = "Hobespenak";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Benetako modu beltz iluna";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Erabili nabigatzaile lehenetsia estekak irekitzeko";
 "Scene.Settings.Section.SpicyZone.Clear" = "Garbitu multimediaren cachea";
 "Scene.Settings.Section.SpicyZone.Signout" = "Amaitu saioa";

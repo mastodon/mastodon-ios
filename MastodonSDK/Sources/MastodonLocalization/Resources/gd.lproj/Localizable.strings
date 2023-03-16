@@ -465,7 +465,6 @@ a luchdadh suas gu Mastodon.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Cuir beothachadh nan Emojis à comas";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Fosgail ceanglaichean ann am Mastodon";
 "Scene.Settings.Section.Preference.Title" = "Roghainnean";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Modh dubh dorcha";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Cleachd am brabhsair bunaiteach airson ceanglaichean fhosgladh";
 "Scene.Settings.Section.SpicyZone.Clear" = "Falamhaich tasgadan nam meadhanan";
 "Scene.Settings.Section.SpicyZone.Signout" = "Clàraich a-mach";

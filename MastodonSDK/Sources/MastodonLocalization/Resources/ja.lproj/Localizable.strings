@@ -460,7 +460,6 @@
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "絵文字のアニメーションを無効化する";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Mastodonでリンクを開く";
 "Scene.Settings.Section.Preference.Title" = "環境設定";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "真っ黒なダークテーマを使用する";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "既定のブラウザでリンクを開く";
 "Scene.Settings.Section.SpicyZone.Clear" = "メディアキャッシュをクリア";
 "Scene.Settings.Section.SpicyZone.Signout" = "サインアウト";

@@ -10,15 +10,14 @@ import MastodonExtension
 
 public enum ThemeName: String, CaseIterable {
     case system
-    case mastodon
 }
 
 extension UserDefaults {
 
     @objc public dynamic var currentThemeNameRawValue: String {
         get {
-            register(defaults: [#function: ThemeName.mastodon.rawValue])
-            return string(forKey: #function) ?? ThemeName.mastodon.rawValue
+            register(defaults: [#function: ThemeName.system.rawValue])
+            return string(forKey: #function) ?? ThemeName.system.rawValue
         }
         set { self[#function] = newValue }
     }

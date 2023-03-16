@@ -465,7 +465,6 @@ možno naložiti v Mastodon.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Onemogoči animirane emotikone";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Odpri povezave v Mastodonu";
 "Scene.Settings.Section.Preference.Title" = "Nastavitve";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Resnično črni temni način";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Uporabi privzeti brskalnik za odpiranje povezav";
 "Scene.Settings.Section.SpicyZone.Clear" = "Počisti medijski predpomnilnik";
 "Scene.Settings.Section.SpicyZone.Signout" = "Odjava";

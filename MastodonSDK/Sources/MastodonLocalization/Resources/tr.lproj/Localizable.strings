@@ -464,7 +464,6 @@ yüklenemiyor.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Hareketli emojileri devre dışı bırak";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Bağlantıları Mastodon içinden aç";
 "Scene.Settings.Section.Preference.Title" = "Tercihler";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Tam siyah koyu modu";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Bağlantıları varsayılan tarayıcıda aç";
 "Scene.Settings.Section.SpicyZone.Clear" = "Medya Önbelleğini Temizle";
 "Scene.Settings.Section.SpicyZone.Signout" = "Oturumu Kapat";

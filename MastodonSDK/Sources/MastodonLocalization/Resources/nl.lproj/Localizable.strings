@@ -460,7 +460,6 @@ klik op de link om uw account te bevestigen.";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Geanimeerde emojis uitschakelen";
 "Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Open links in Mastodon";
 "Scene.Settings.Section.Preference.Title" = "Instellingen";
-"Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Echt zwarte donker uiterlijk";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Gebruik de standaard browser om links te openen";
 "Scene.Settings.Section.SpicyZone.Clear" = "Mediacache wissen";
 "Scene.Settings.Section.SpicyZone.Signout" = "Afmelden";
