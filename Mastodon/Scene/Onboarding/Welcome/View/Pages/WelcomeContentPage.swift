@@ -49,6 +49,17 @@ enum WelcomeContentPage: CaseIterable {
         }
     }
     
+    var accessibilityLabel: String {
+        switch self {
+        case .whatIsMastodon:
+            return L10n.Scene.Welcome.Education.A11y.WhatIsMastodon.title
+        case .mastodonIsLikeThat:
+            return L10n.Scene.Welcome.Education.MastodonIsLikeThat.title
+        case .howDoIPickAServer:
+            return L10n.Scene.Welcome.Education.HowDoIPickAServer.title
+        }
+    }
+    
     var content: String {
         switch self {
         case .whatIsMastodon:

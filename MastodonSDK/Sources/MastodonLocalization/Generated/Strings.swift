@@ -1498,6 +1498,12 @@ public enum L10n {
       /// back in your hands.
       public static let slogan = L10n.tr("Localizable", "Scene.Welcome.Slogan", fallback: "Social networking\nback in your hands.")
       public enum Education {
+        public enum A11y {
+          public enum WhatIsMastodon {
+            /// What is Mastodon?
+            public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.A11y.WhatIsMastodon.title", fallback: "What is Mastodon?")
+          }
+        }
         public enum HowDoIPickAServer {
           /// Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.
           /// 
