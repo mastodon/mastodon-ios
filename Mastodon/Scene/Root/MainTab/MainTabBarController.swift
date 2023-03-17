@@ -463,8 +463,14 @@ extension MainTabBarController {
     }
     
     private func updateAvatarButtonAppearance() {
-        accountSwitcherChevron.tintColor = currentTab == .me ? .label : .secondaryLabel
-        avatarButton.borderColor = currentTab == .me ? .label : .systemFill
+        if currentTab == .me {
+            accountSwitcherChevron.tintColor = Asset.Colors.brand.color
+            avatarButton.borderColor = Asset.Colors.brand.color
+        } else {
+            accountSwitcherChevron.tintColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
+            avatarButton.borderColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
+        }
+
         avatarButton.setNeedsLayout()
     }
     
