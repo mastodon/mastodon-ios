@@ -68,7 +68,6 @@ class WelcomeContentCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateAccessibility() {
-        accessibilityElements = [titleView, label]
         accessibilityLabel = "\(titleView.accessibilityLabel ?? ""), \(label.accessibilityLabel ?? "")"
         isAccessibilityElement = true
     }
