@@ -74,12 +74,14 @@ extension ActionToolbarContainer {
         let buttons = [replyButton, reblogButton, favoriteButton, shareButton]
         buttons.forEach { button in
             button.tintColor = Asset.Colors.Button.actionToolbar.color
-            button.titleLabel?.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
+            button.titleLabel?.font = UIFontMetrics(forTextStyle: .caption1)
+                .scaledFont(for: .monospacedDigitSystemFont(ofSize: 12, weight: .regular))
+            button.titleLabel?.adjustsFontForContentSizeCategory = true
             button.setTitle("", for: .normal)
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
             button.setInsets(forContentPadding: .zero, imageTitlePadding: 4)
-            button.showsLargeContentViewer = true
+            button.adjustsImageSizeForAccessibilityContentSizeCategory = true
         }
         // add more expand for menu button
         shareButton.expandEdgeInsets = UIEdgeInsets(top: -10, left: -20, bottom: -10, right: -20)
