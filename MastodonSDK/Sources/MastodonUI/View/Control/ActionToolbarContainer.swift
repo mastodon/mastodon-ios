@@ -35,6 +35,8 @@ public final class ActionToolbarContainer: UIView {
     public weak var delegate: ActionToolbarContainerDelegate?
     
     private let container = UIStackView()
+    private let firstContainer = UIStackView()
+    private let secondContainer = UIStackView()
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,18 +61,13 @@ extension ActionToolbarContainer {
             trailingAnchor.constraint(equalTo: container.trailingAnchor),
             bottomAnchor.constraint(equalTo: container.bottomAnchor),
         ])
-        
+
         replyButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         reblogButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         addInteraction(UILargeContentViewerInteraction())
 
-        container.arrangedSubviews.forEach { subview in
-            container.removeArrangedSubview(subview)
-            subview.removeFromSuperview()
-        }
-        
         let buttons = [replyButton, reblogButton, favoriteButton, shareButton]
         buttons.forEach { button in
             button.tintColor = Asset.Colors.Button.actionToolbar.color
@@ -100,16 +97,27 @@ extension ActionToolbarContainer {
         shareButton.setImage(ActionToolbarContainer.shareImage, for: .normal)
 
         container.axis = .horizontal
-        container.distribution = .equalSpacing
+        container.distribution = .fillEqually
 
         replyButton.translatesAutoresizingMaskIntoConstraints = false
         reblogButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.translatesAutoresizingMaskIntoConstraints = false
-        container.addArrangedSubview(replyButton)
-        container.addArrangedSubview(reblogButton)
-        container.addArrangedSubview(favoriteButton)
-        container.addArrangedSubview(shareButton)
+
+        firstContainer.addArrangedSubview(replyButton)
+        firstContainer.addArrangedSubview(reblogButton)
+        firstContainer.translatesAutoresizingMaskIntoConstraints = false
+        firstContainer.axis = .horizontal
+        firstContainer.distribution = .equalCentering
+        container.addArrangedSubview(firstContainer)
+
+        secondContainer.addArrangedSubview(favoriteButton)
+        secondContainer.addArrangedSubview(shareButton)
+        secondContainer.translatesAutoresizingMaskIntoConstraints = false
+        secondContainer.axis = .horizontal
+        secondContainer.distribution = .equalSpacing
+        container.addArrangedSubview(secondContainer)
+
         NSLayoutConstraint.activate([
             replyButton.heightAnchor.constraint(equalToConstant: 36).priority(.defaultHigh),
             replyButton.heightAnchor.constraint(equalTo: reblogButton.heightAnchor).priority(.defaultHigh),
@@ -120,6 +128,14 @@ extension ActionToolbarContainer {
         ])
         shareButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         shareButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+
+        traitCollectionDidChange(nil)
+    }
+
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        container.axis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? .vertical : .horizontal
     }
 }
 
