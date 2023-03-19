@@ -38,7 +38,7 @@ There is a self-hosted Swift Package that contains the common libraries to build
 - MastodonUI: App UI components
 
 #### CoreDataStack
-App uses Core Data as the backend to persist all entitles from the server. So the app has the capability to keep the timeline and notifications. Another reason for using a database is it makes the app could respond to entity changes between different sources. For example, a user could skim in the home timeline and then interact with the same post on other pages with favorite or reblog action. Core Data will handle the property modifications and notify the home timeline to update the view.
+App uses Core Data as the backend to persist all entities from the server. So the app has the capability to keep the timeline and notifications. Another reason for using a database is it makes the app could respond to entity changes between different sources. For example, a user could skim in the home timeline and then interact with the same post on other pages with favorite or reblog action. Core Data will handle the property modifications and notify the home timeline to update the view.
 
 To simplify the database operations. There is only one persistent store for all accounts. We use `domain` to identify entity for different servers (a.k.a instance). Do not mix the `domain` with the Mastodon remote server name. For example. The domain is `mastodon.online` whereever the post (e.g. post come from `mstdn.jp`) and friends from for the account sign in `mastodon.online`. Also, do not only rely on `id` because it has conflict potential between different `domain`. The unique predicate is `domain` + `id`.
 
