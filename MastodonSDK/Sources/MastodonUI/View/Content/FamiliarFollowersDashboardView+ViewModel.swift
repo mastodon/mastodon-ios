@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import Meta
 import MastodonCore
 import MastodonMeta
 import MastodonLocalization
@@ -23,6 +24,8 @@ extension FamiliarFollowersDashboardView {
         @Published var names: [String] = []
         @Published var emojis: MastodonContent.Emojis = [:]
         @Published var backgroundColor: UIColor?
+
+        @Published var label: MetaContent?
     }
 }
 
@@ -74,11 +77,11 @@ extension FamiliarFollowersDashboardView.ViewModel {
         }
         .store(in: &disposeBag)
         
-        Publishers.CombineLatest(
+        let label = Publishers.CombineLatest(
             $names,
             $emojis
         )
-        .sink { names, emojis in
+        .map { (names, emojis) -> MetaContent in
             let content: String = {
                 guard names.count > 0 else { return " " }
                 
@@ -97,13 +100,18 @@ extension FamiliarFollowersDashboardView.ViewModel {
             }()
             let document = MastodonContent(content: content, emojis: emojis)
             do {
-                let metaContent = try MastodonMetaContent.convert(document: document)
-                view.descriptionMetaLabel.configure(content: metaContent)
+                return try MastodonMetaContent.convert(document: document)
             } catch {
                 assertionFailure()
-                view.descriptionMetaLabel.configure(content: PlaintextMetaContent(string: content))
+                return PlaintextMetaContent(string: content)
             }            
         }
-        .store(in: &disposeBag)
+
+        label
+            .sink { [weak self] metaContent in
+                view.descriptionMetaLabel.configure(content: metaContent)
+                self?.label = metaContent
+            }
+            .store(in: &disposeBag)
     }
 }
