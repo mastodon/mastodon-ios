@@ -265,7 +265,7 @@
             "log_in": "เข้าสู่ระบบ",
             "education": {
                 "what_is_mastodon": {
-                    "title": "What is",
+                    "title": "คืออะไร",
                     "description": "จินตนาการว่าคุณมีที่อยู่อีเมลที่ลงท้ายด้วย @example.com\n\nคุณยังคงสามารถส่งและรับอีเมลจากใครก็ตาม แม้ว่าอีเมลของเขาจะลงท้ายด้วย @gmail.com หรือ @icloud.com หรือ @example.com ก็ตาม"
                 },
                 "mastodon_is_like_that": {
@@ -553,7 +553,7 @@
                 "other_posts": "โพสต์",
                 "other_following": "กำลังติดตาม",
                 "other_followers": "ผู้ติดตาม",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "คนที่มีร่วมกัน"
             },
             "fields": {
                 "joined": "เข้าร่วมเมื่อ",
