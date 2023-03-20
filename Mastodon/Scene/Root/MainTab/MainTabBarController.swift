@@ -30,7 +30,11 @@ class MainTabBarController: UITabBarController {
     
     static let avatarButtonSize = CGSize(width: 25, height: 25)
     let avatarButton = CircleAvatarButton()
-    let accountSwitcherChevron = UIImageView(image: .chevronUpChevronDown)
+    let accountSwitcherChevron = UIImageView(
+        image: .chevronUpChevronDown?.withConfiguration(
+            UIImage.SymbolConfiguration(weight: .bold)
+        )
+    )
     
     @Published var currentTab: Tab = .home
         

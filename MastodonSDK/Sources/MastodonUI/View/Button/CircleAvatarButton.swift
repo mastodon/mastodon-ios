@@ -13,7 +13,7 @@ public final class CircleAvatarButton: AvatarButton {
     @Published public var needsHighlighted = false
     
     public var borderColor: UIColor = UIColor.systemFill
-    public var borderWidth: CGFloat = 1.0
+    public var borderWidth: CGFloat = 2.0
     
     public override func updateAppearance() {
         super.updateAppearance()
