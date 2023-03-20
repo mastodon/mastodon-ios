@@ -102,7 +102,7 @@
                     "title": "Перакласці з %s",
                     "unknown_language": "Невядомая"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Рэдагаваць"
             },
             "tabs": {
                 "home": "Галоўная",
@@ -110,8 +110,8 @@
                 "notifications": "Апавяшчэнні",
                 "profile": "Профіль",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Пошук",
+                    "explore": "Агляд"
                 }
             },
             "keyboard": {
@@ -173,8 +173,8 @@
                     "share_link_in_post": "Падзяліцеся спасылкай у допісе",
                     "tap_then_hold_to_show_menu": "Націсніце і ўтрымлівайце, каб паказаць меню",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Пашырыць",
+                        "unreblog": "Скасаваць пашырэнне"
                     }
                 },
                 "tag": {
@@ -195,7 +195,7 @@
                     "translated_from": "Перакладзена з %s з дапамогай %s",
                     "unknown_language": "Невядомая",
                     "unknown_provider": "Невядомы",
-                    "show_original": "Show Original"
+                    "show_original": "Паказаць арыгінал"
                 },
                 "media": {
                     "accessibility_label": "%s, далучэнне %d з %d",
@@ -203,16 +203,16 @@
                     "expand_gif_hint": "Разгортванне GIF. Двойчы націсніце і ўтрымлівайце, каб паказаць дзеянні",
                     "expand_video_hint": "Паказ відэаплэера. Двойчы націсніце і ўтрымлівайце, каб паказаць дзеянні"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s праз %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Пашырэнні",
+                    "favorites_title": "Абраныя",
+                    "edit_history_title": "Гісторыя рэдагавання",
+                    "edit_history_detail": "Апошняе рэдагаванне %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Адрэдагавана %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "Гісторыя рэдагавання",
                     "original_post": "Original Post · %s"
                 }
             },
@@ -266,15 +266,15 @@
             "education": {
                 "what_is_mastodon": {
                     "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                    "description": "Уявіце, што ў вас ёсць адрас электроннай пошты, які заканчваецца на @example.com.\n\nВы па-ранейшаму можаце адпраўляць і атрымліваць электронныя лісты ад каго захочаце, нават калі іх электронная пошта заканчваецца на @gmail.com, @icloud.com або @example.com."
                 },
                 "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                    "title": "Mastodon такі",
+                    "description": "Ваш ідэнтыфікатар можа быць @gothgirl654@example.social, але вы ўсё яшчэ можаце падпісвацца, пашыраць і перапісвацца з @fallout5ever@example.online."
                 },
                 "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                    "title": "Як выбраць сервер?",
+                    "description": "Розныя людзі выбіраюць розныя серверы па розных прычынах. art.example з'яўляецца выдатным месцам для мастакоў, у той час як glasgow.example можа быць добрым выбарам для шатландцаў.\n\nВы не памыліцеся ні з адным з нашых рэкамендаваных сервераў, так што незалежна ад таго, які вы выбераце (або калі ўведзяце ваш уласны ў радку пошуку сервера), вы нідзе нічога не прапусціце."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -293,7 +293,7 @@
         "server_picker": {
             "title": "Pick Server",
             "button": {
-                "language": "Language",
+                "language": "Мова",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Усе",
@@ -328,29 +328,29 @@
                 "no_results": "Няма вынікаў"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Усе",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "Усе"
             },
             "search": {
                 "placeholder": "Search name or URL"
             }
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "Прыватнасць",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "server": "Палітыка прыватнасці - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "Прыняць"
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Стварыць уліковы запіс",
             "input": {
                 "avatar": {
                     "delete": "Выдаліць"
@@ -368,7 +368,7 @@
                 },
                 "password": {
                     "placeholder": "пароль",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Пацвердзіць пароль",
                     "require": "Ваш пароль павінен мець як мінімум:",
                     "character_limit": "8 сімвалаў",
                     "accessibility": {
@@ -417,11 +417,11 @@
             "terms_of_service": "умовы выкарыстання",
             "privacy_policy": "палітыка канфідэнцыяльнасці",
             "button": {
-                "confirm": "I agree"
+                "confirm": "Прыняць"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "Праверце паштовую скрыню",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
                 "resend": "Адправіць паўторна"
@@ -464,7 +464,7 @@
             "title": {
                 "new_post": "Новы допіс",
                 "new_reply": "Новы адказ",
-                "edit_post": "Edit Post"
+                "edit_post": "Рэдагаваць допіс"
             },
             "media_selection": {
                 "camera": "Зрабіць фота",
@@ -488,7 +488,7 @@
                 "server_processing_state": "Апрацоўка сервера..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Апытанне",
                 "duration_time": "Працягласць: %s",
                 "thirty_minutes": "30 хвілін",
                 "one_hour": "1 гадзіна",
@@ -501,8 +501,8 @@
                 "the_poll_has_empty_option": "Апытанне мае пусты варыянт",
                 "add_option": "Add Option",
                 "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "move_up": "Перамясціць уверх",
+                "move_down": "Перамясціць уніз"
             },
             "content_warning": {
                 "placeholder": "Напішыце сваё папярэджанне тут..."
@@ -536,8 +536,8 @@
                 "select_visibility_entry": "Выберыце бачнасць - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
+                "title": "Мова допісу",
+                "suggested": "Прапанаваныя",
                 "recent": "Recent",
                 "other": "Other Language…"
             }
@@ -854,7 +854,7 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
+            "configuration_display_name": "Падпісчыкі",
             "configuration_description": "Show number of followers.",
             "title": "FOLLOWERS",
             "followers_today": "%s followers today"
