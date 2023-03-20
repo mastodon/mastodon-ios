@@ -78,7 +78,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>ติดตามโดย %1$@ และ %ld ที่ร่วมกัน</string>
+        <string>ติดตามโดย %1$@ และ %ld คนที่มีร่วมกัน</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
