@@ -101,13 +101,18 @@
                 "translate_post": {
                     "title": "Cyfieithu o %s",
                     "unknown_language": "Anhysbys"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "Hafan",
                 "search_and_explore": "Chwilio ac Archwilio",
                 "notifications": "Hysbysiadau",
-                "profile": "Proffil"
+                "profile": "Proffil",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +171,11 @@
                     "show_gif": "Dangos GIF",
                     "show_video_player": "Dangos chwaraewr fideo",
                     "share_link_in_post": "Rhannu'r Ddolen yn y Postiad",
-                    "tap_then_hold_to_show_menu": "Tapiwch a gwasgu i gael y ddewislen"
+                    "tap_then_hold_to_show_menu": "Tapiwch a gwasgu i gael y ddewislen",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -186,7 +195,25 @@
                     "translated_from": "Cyfieithwyd o %s gan ddefnyddio %s",
                     "unknown_language": "Anhysbys",
                     "unknown_provider": "Anhysbys",
-                    "show_original": "Dangos y Gwreiddiol"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, attachment %d of %d",
+                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -235,7 +262,26 @@
         "welcome": {
             "slogan": "Rhwydweithio cymdeithasol, \nyn eich dwylo chi.",
             "get_started": "Cychwyn Arni",
-            "log_in": "Mewngofnodi"
+            "log_in": "Mewngofnodi",
+            "education": {
+                "what_is_mastodon": {
+                    "title": "What is",
+                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                },
+                "mastodon_is_like_that": {
+                    "title": "Mastodon is like that",
+                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                },
+                "how_do_i_pick_a_server": {
+                    "title": "How do I pick a server?",
+                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "Croeso nôl",
@@ -245,9 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Mae Mastodon yn cynnwys defnyddwyr o weinyddion gwahanol.",
-            "subtitle": "Dewiswch gweinydd yn ôl eich lleoliad, diddordebau, neu defnydd cyffredin. Gallwch siarad gydag unrhywun ar Mastodon, yn annibynnol o weinyddion chi.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Popeth",
                     "all_accessiblity_description": "Categori: Popeth",
@@ -279,18 +326,39 @@
                 "finding_servers": "Wrthi'n chwilio am weinyddion sydd ar gael...",
                 "bad_network": "Digwyddodd gwall wrth lwytho'r data. Gwiriwch eich cyswllt â'r rhyngrwyd.",
                 "no_results": "Dim canlyniadau"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            }
+        },
+        "privacy": {
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I agree"
             }
         },
         "register": {
-            "title": "Rhoi popeth yn ei le ar %s",
-            "lets_get_you_set_up_on_domain": "Rhoi popeth yn ei le ar %s",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "Dileu"
                 },
                 "username": {
                     "placeholder": "enw defnyddiwr",
-                    "duplicate_prompt": "Defnyddir yr enw hwn yn barod."
+                    "duplicate_prompt": "Defnyddir yr enw hwn yn barod.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "enw arddangos"
@@ -300,6 +368,7 @@
                 },
                 "password": {
                     "placeholder": "cyfrinair",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "Mae angen i'ch cyfrinair gael o leiaf:",
                     "character_limit": "8 nod",
                     "accessibility": {
@@ -348,15 +417,13 @@
             "terms_of_service": "telerau gwasanaeth",
             "privacy_policy": "polisi preifatrwydd",
             "button": {
-                "confirm": "Rwy'n cytuno"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "Un peth olaf.",
-            "subtitle": "Tapiwch ar y ddolen yn eich e-bost i ddilysu eich cyfrif.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tapiwch ar y ddolen yn eich e-bost i ddilysu eich cyfrif",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Agor ap e-byst",
                 "resend": "Ailanfon"
             },
             "dont_receive_email": {
@@ -369,6 +436,11 @@
                 "description": "Rydym newydd anfon e-bost atoch chi. Gwiriwch eich ffolder 'junk' os nad ydych wedi ei gwneud.",
                 "mail": "Mail",
                 "open_email_client": "Agor Cleient E-byst"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +451,7 @@
                 "published": "Wedi cyhoeddi!",
                 "Publishing": "Wrthi'n cyhoeddi...",
                 "accessibility": {
-                    "logo_label": "Botwm Logo",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tapiwch i sgrolio i'r frig, a thapiwch eto er mwyn mynd i'r lleoliad blaenorol"
                 }
             }
@@ -391,7 +463,8 @@
         "compose": {
             "title": {
                 "new_post": "Tŵt Newydd",
-                "new_reply": "Ymateb Newydd"
+                "new_reply": "Ymateb Newydd",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Tynnu Llun",
@@ -415,6 +488,7 @@
                 "server_processing_state": "Mae'r gweinydd yn prosesu..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Hyd: %s",
                 "thirty_minutes": "30 munud",
                 "one_hour": "1 awr",
@@ -424,7 +498,11 @@
                 "seven_days": "7 diwrnod",
                 "option_number": "Opsiwn %ld",
                 "the_poll_is_invalid": "Nid yw'r pôl yn ddilys",
-                "the_poll_has_empty_option": "Mae gan y pôl opsiwn gwag"
+                "the_poll_has_empty_option": "Mae gan y pôl opsiwn gwag",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Ysgrifenwch rybudd manwl yma..."
@@ -456,6 +534,12 @@
                 "toggle_content_warning": "Toglo Rhybudd Cynnwys",
                 "append_attachment_entry": "Ychwanegu Atodiad - %s",
                 "select_visibility_entry": "Dewis Preifatrwydd - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +552,8 @@
                 "my_followers": "dilynwyr",
                 "other_posts": "postiadu",
                 "other_following": "yn dilyn",
-                "other_followers": "dilynwyr"
+                "other_followers": "dilynwyr",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Ymunwyd",
@@ -584,7 +669,7 @@
             "intro": "Dyma'r postiadau sy'n denu tipyn o sylw yn eich cŵr Mastodon."
         },
         "favorite": {
-            "title": "Eich Ffefrynnau"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +731,6 @@
                 },
                 "preference": {
                     "title": "Dewisiadau",
-                    "true_black_dark_mode": "Gwedd tywyll go iawn",
                     "disable_avatar_animation": "Analluogi rhithffurfiau wedi'u hanimeiddio",
                     "disable_emoji_animation": "Analluogi emoji wedi'u hanimeiddio",
                     "using_default_browser": "Defnyddio porwr rhagosodedig i agor dolenni",
@@ -757,6 +841,37 @@
                 "follow": "Dilyn",
                 "unfollow": "Dad-ddilyn"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }
