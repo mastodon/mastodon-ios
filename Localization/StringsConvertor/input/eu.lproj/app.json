@@ -101,13 +101,18 @@
                 "translate_post": {
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "Hasiera",
                 "search_and_explore": "Search and Explore",
                 "notifications": "Notifications",
-                "profile": "Profila"
+                "profile": "Profila",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +171,11 @@
                     "show_gif": "Erakutsi GIFa",
                     "show_video_player": "Erakutsi bideo-erreproduzigailua",
                     "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Sakatu eta eutsi menua erakusteko"
+                    "tap_then_hold_to_show_menu": "Sakatu eta eutsi menua erakusteko",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URLa",
@@ -186,7 +195,25 @@
                     "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
                     "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, attachment %d of %d",
+                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -235,7 +262,26 @@
         "welcome": {
             "slogan": "Sare sozialak\nberriz zure eskuetan.",
             "get_started": "Nola hasi",
-            "log_in": "Hasi saioa"
+            "log_in": "Hasi saioa",
+            "education": {
+                "what_is_mastodon": {
+                    "title": "What is",
+                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                },
+                "mastodon_is_like_that": {
+                    "title": "Mastodon is like that",
+                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                },
+                "how_do_i_pick_a_server": {
+                    "title": "How do I pick a server?",
+                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "Ongi etorri berriro ere",
@@ -245,9 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Aukeratu zerbitzari bat,\nedozein zerbitzari.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Guztiak",
                     "all_accessiblity_description": "Kategoria: Guztiak",
@@ -279,18 +326,39 @@
                 "finding_servers": "Erabilgarri dauden zerbitzariak bilatzen...",
                 "bad_network": "Arazoren bat egon da datuak kargatzean. Egiaztatu zure Interneteko konexioa.",
                 "no_results": "Emaitzarik ez"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            }
+        },
+        "privacy": {
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I agree"
             }
         },
         "register": {
-            "title": "Hitz egin iezaguzu zuri buruz.",
-            "lets_get_you_set_up_on_domain": "%s zerbitzariko kontua prestatuko dizugu",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "Ezabatu"
                 },
                 "username": {
                     "placeholder": "erabiltzaile-izena",
-                    "duplicate_prompt": "Erabiltzaile-izen hau hartuta dago."
+                    "duplicate_prompt": "Erabiltzaile-izen hau hartuta dago.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "pantaila-izena"
@@ -300,6 +368,7 @@
                 },
                 "password": {
                     "placeholder": "pasahitza",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "Zure pasahitzak izan behar ditu gutxienez:",
                     "character_limit": "8 karaktere",
                     "accessibility": {
@@ -348,15 +417,13 @@
             "terms_of_service": "zerbitzu-baldintzak",
             "privacy_policy": "pribatutasun-gidalerroak",
             "button": {
-                "confirm": "Ados nago"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "Eta azkenik...",
-            "subtitle": "Sakatu epostaz bidali dizugun loturan zure kontua egiaztatzeko.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Sakatu epostaz bidali dizugun loturan zure kontua egiaztatzeko",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Ireki eposta aplikazioa",
                 "resend": "Berbidali"
             },
             "dont_receive_email": {
@@ -369,6 +436,11 @@
                 "description": "Eposta bat bidali dizugu. Egiaztatu zure zaborraren karpeta.",
                 "mail": "Posta",
                 "open_email_client": "Ireki eposta bezeroa"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +451,7 @@
                 "published": "Argitaratua!",
                 "Publishing": "Bidalketa argitaratzen...",
                 "accessibility": {
-                    "logo_label": "Logo botoia",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -391,7 +463,8 @@
         "compose": {
             "title": {
                 "new_post": "Bidalketa berria",
-                "new_reply": "Erantzun berria"
+                "new_reply": "Erantzun berria",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Atera argazkia",
@@ -415,6 +488,7 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Iraupena: %s",
                 "thirty_minutes": "30 minutu",
                 "one_hour": "Ordu 1",
@@ -424,7 +498,11 @@
                 "seven_days": "7 egun",
                 "option_number": "%ld aukera",
                 "the_poll_is_invalid": "Inkesta ez da balekoa",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_has_empty_option": "The poll has empty option",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Idatzi abisu zehatz bat hemen..."
@@ -456,6 +534,12 @@
                 "toggle_content_warning": "Txandakatu edukiaren abisua",
                 "append_attachment_entry": "Gehitu eranskina - %s",
                 "select_visibility_entry": "Hautatu ikusgaitasuna - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +552,8 @@
                 "my_followers": "followers",
                 "other_posts": "posts",
                 "other_following": "following",
-                "other_followers": "followers"
+                "other_followers": "followers",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Joined",
@@ -584,7 +669,7 @@
             "intro": "Hauek dira zure Mastodon txokoan beraien lekua hartzen ari diren argitalpenak."
         },
         "favorite": {
-            "title": "Zure gogokoak"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +731,6 @@
                 },
                 "preference": {
                     "title": "Hobespenak",
-                    "true_black_dark_mode": "Benetako modu beltz iluna",
                     "disable_avatar_animation": "Desgaitu abatar animatuak",
                     "disable_emoji_animation": "Desgaitu emoji animatuak",
                     "using_default_browser": "Erabili nabigatzaile lehenetsia estekak irekitzeko",
@@ -757,6 +841,37 @@
                 "follow": "Follow",
                 "unfollow": "Unfollow"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }
