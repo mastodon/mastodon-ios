@@ -83,7 +83,7 @@
                 "sign_up": "계정 생성",
                 "see_more": "더 보기",
                 "preview": "미리보기",
-                "copy": "Copy",
+                "copy": "복사",
                 "share": "공유",
                 "share_user": "%s를 공유",
                 "share_post": "게시물 공유",
@@ -99,15 +99,20 @@
                 "settings": "설정",
                 "delete": "삭제",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
-                }
+                    "title": "%s에서 번역됨",
+                    "unknown_language": "알 수 없음"
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "홈",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
-                "profile": "프로필"
+                "search_and_explore": "검색과 발견",
+                "notifications": "알림",
+                "profile": "프로필",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +171,11 @@
                     "show_gif": "GIF 보기",
                     "show_video_player": "비디오 플레이어 보기",
                     "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -186,7 +195,25 @@
                     "translated_from": "%s에서 %s를 사용해 번역됨",
                     "unknown_language": "알 수 없음",
                     "unknown_provider": "알 수 없음",
-                    "show_original": "원본 보기"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, attachment %d of %d",
+                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -235,7 +262,26 @@
         "welcome": {
             "slogan": "소셜 네트워킹을\n여러분의 손에 돌려드립니다.",
             "get_started": "시작하기",
-            "log_in": "로그인"
+            "log_in": "로그인",
+            "education": {
+                "what_is_mastodon": {
+                    "title": "What is",
+                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                },
+                "mastodon_is_like_that": {
+                    "title": "Mastodon is like that",
+                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                },
+                "how_do_i_pick_a_server": {
+                    "title": "How do I pick a server?",
+                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "돌아오신 것을 환영합니다",
@@ -245,9 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "서버를 고르세요,\n아무 서버나 좋습니다.",
-            "subtitle": "당신의 지역이나, 관심사에 따라, 혹은 그냥 일반적인 목적의 서버를 고르세요. 어떤 서버를 고르더라도 마스토돈의 다른 모두와 소통할 수 있습니다.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "모두",
                     "all_accessiblity_description": "분류: 전체",
@@ -279,18 +326,39 @@
                 "finding_servers": "사용 가능한 서버를 찾는 중입니다...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "결과 없음"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            }
+        },
+        "privacy": {
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I agree"
             }
         },
         "register": {
-            "title": "%s에 가입하기 위한 정보들을 입력하세요",
-            "lets_get_you_set_up_on_domain": "%s에 가입하기 위한 정보들을 입력하세요",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "삭제"
                 },
                 "username": {
                     "placeholder": "사용자명",
-                    "duplicate_prompt": "이 사용자명은 이미 사용중입니다."
+                    "duplicate_prompt": "이 사용자명은 이미 사용중입니다.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "표시되는 이름"
@@ -300,6 +368,7 @@
                 },
                 "password": {
                     "placeholder": "암호",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "암호의 최소 요구사항:",
                     "character_limit": "8글자",
                     "accessibility": {
@@ -348,15 +417,13 @@
             "terms_of_service": "이용약관",
             "privacy_policy": "개인정보 정책",
             "button": {
-                "confirm": "동의합니다"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "마지막으로.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Open Email App",
                 "resend": "재전송"
             },
             "dont_receive_email": {
@@ -369,6 +436,11 @@
                 "description": "이메일을 보냈습니다. 만약 받지 못했다면 스팸메일함을 확인하세요.",
                 "mail": "메일",
                 "open_email_client": "이메일 앱 열기"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +451,7 @@
                 "published": "게시됨!",
                 "Publishing": "게시물 게시중...",
                 "accessibility": {
-                    "logo_label": "로고 버튼",
+                    "logo_label": "마스토돈",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -391,7 +463,8 @@
         "compose": {
             "title": {
                 "new_post": "새 게시물",
-                "new_reply": "새 답글"
+                "new_reply": "새 답글",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "사진 촬영",
@@ -415,6 +488,7 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "기간: %s",
                 "thirty_minutes": "30분",
                 "one_hour": "1시간",
@@ -424,7 +498,11 @@
                 "seven_days": "7일",
                 "option_number": "옵션 %ld",
                 "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_has_empty_option": "The poll has empty option",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "정확한 경고 문구를 여기에 작성하세요…"
@@ -456,6 +534,12 @@
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "Select Visibility - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +552,8 @@
                 "my_followers": "followers",
                 "other_posts": "posts",
                 "other_following": "following",
-                "other_followers": "followers"
+                "other_followers": "followers",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "가입일",
@@ -584,7 +669,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "내 즐겨찾기"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +731,6 @@
                 },
                 "preference": {
                     "title": "설정",
-                    "true_black_dark_mode": "트루 블랙 어두운 모드",
                     "disable_avatar_animation": "움직이는 아바타 비활성화",
                     "disable_emoji_animation": "움직이는 에모지 비활성화",
                     "using_default_browser": "기본 브라우저로 링크 열기",
@@ -757,6 +841,37 @@
                 "follow": "팔로우",
                 "unfollow": "팔로우 해제"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }
