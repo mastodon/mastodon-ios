@@ -845,33 +845,33 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Questo non sembra essere un collegamento valido di Mastodon."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Siamo spiacenti, ma questa famiglia di widget non è supportata.",
+            "user_not_logged_in": "Per favore apri Mastodon per accedere ad un account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Seguaci",
+            "configuration_description": "Mostra il numero dei seguaci.",
+            "title": "SEGUACI",
+            "followers_today": "%s seguaci oggi"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Più seguaci",
+            "configuration_description": "Mostra il numero di seguaci per più account.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Un altro seguace",
+                "account_name": "altro@seguace.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Ultimi seguaci",
+            "configuration_description": "Mostra gli ultimi seguaci.",
+            "title": "Ultimi seguaci",
+            "last_update": "Ultimo aggiornamento: %s"
         }
     }
 }
