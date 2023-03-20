@@ -29,6 +29,10 @@ final class SidebarViewModel {
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     @Published private(set) var isReadyForWizardAvatarButton = false
+    
+    private let chevronImage = UIImage.chevronUpChevronDown?.withConfiguration(
+        UIImage.SymbolConfiguration(weight: .bold)
+    )
 
     init(context: AppContext, authContext: AuthContext?) {
         self.context = context
@@ -79,7 +83,7 @@ extension SidebarViewModel {
             }()
             cell.item = SidebarListContentView.Item(
                 isActive: false,
-                accessoryImage: item == .me ? .chevronUpChevronDown : nil,
+                accessoryImage: item == .me ? self.chevronImage : nil,
                 title: item.title,
                 image: item.image,
                 activeImage: item.selectedImage.withTintColor(Asset.Colors.brand.color, renderingMode: .alwaysOriginal),
@@ -166,7 +170,7 @@ extension SidebarViewModel {
             case .compose:
                 let item = SidebarListContentView.Item(
                     isActive: false,
-                    accessoryImage: self.currentTab == .me ? .chevronUpChevronDown : nil,
+                    accessoryImage: self.currentTab == .me ? self.chevronImage : nil,
                     title: L10n.Common.Controls.Actions.compose,
                     image: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
                     activeImage: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
