@@ -102,7 +102,7 @@
                     "title": "Þýða úr %s",
                     "unknown_language": "Óþekkt"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Breyta"
             },
             "tabs": {
                 "home": "Heim",
@@ -110,8 +110,8 @@
                 "notifications": "Tilkynningar",
                 "profile": "Notandasnið",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Leita",
+                    "explore": "Kanna"
                 }
             },
             "keyboard": {
@@ -173,8 +173,8 @@
                     "share_link_in_post": "Deila tengli í færslu",
                     "tap_then_hold_to_show_menu": "Ýttu og haltu til að sýna valmynd",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Endurbirta",
+                        "unreblog": "Afturkalla endurbirtingu"
                     }
                 },
                 "tag": {
@@ -195,7 +195,7 @@
                     "translated_from": "Þýtt úr %s með %s",
                     "unknown_language": "Óþekkt",
                     "unknown_provider": "Óþekkt",
-                    "show_original": "Show Original"
+                    "show_original": "Birta upprunalegt"
                 },
                 "media": {
                     "accessibility_label": "%s, viðhengi %d af %d",
@@ -203,17 +203,17 @@
                     "expand_gif_hint": "Útvíkkar GIF-myndina. Tvípikkaðu og haltu til að birta aðgerðir",
                     "expand_video_hint": "Birtir myndspilarann. Tvípikkaðu og haltu til að birta aðgerðir"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s með %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Endurbirtingar",
+                    "favorites_title": "Eftirlæti",
+                    "edit_history_title": "Breytingaferill",
+                    "edit_history_detail": "Síðasta breyting %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Breytti %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Breytingaferill",
+                    "original_post": "Upprunaleg færsla · %s"
                 }
             },
             "friendship": {
@@ -265,20 +265,20 @@
             "log_in": "Skrá inn",
             "education": {
                 "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                    "title": "Hvað er",
+                    "description": "Ímyndaðu þér að þú sért með tölvupóstfang sem endar á @lén.is.\n\nÞú getur alltaf tekið við og sent tölvupóst til allra, jafnvel þótt tölvupóstfangið þeirra endi á @gmail.com, @icloud.com eða @lén.is."
                 },
                 "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                    "title": "Mastodon er svona",
+                    "description": "Auðkennið þitt gæti verið @gothgirl654@example.social, en þú getur samt fylgst með, endurbirt og spjallað við @fallout5ever@example.online."
                 },
                 "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                    "title": "Hvernig vel ég netþjón?",
+                    "description": "Mismunandi fólk velur sér mismunandi netþjóna af ýmsum ólíkum ástæðum. Netþjónninn art.example er frábær staður fyrir listafólk, á meðan glasgow.example gæti verið góður kostur fyrir suma skota.\n\nÞú getur eiginlega ekki lent á röngum stað á neinum að þeim netþjónum sem við mælum með, þannig að hvern þeirra sem þú velur (eða ef þú setur inn þinn eigin netþjón í leitarreitinn), þá ættirðu ekki að missa af neinu neinsstaðar."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Hvað er Mastodon?"
                     }
                 }
             }
@@ -291,10 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Veldu netþjón",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Tungumál",
+                "signup_speed": "Hraði nýskráninga",
                 "category": {
                     "all": "Allt",
                     "all_accessiblity_description": "Flokkur: Allt",
@@ -328,29 +328,29 @@
                 "no_results": "Engar niðurstöður"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Allt",
+                "instant": "Nýskráning á stundinni",
+                "manually_reviewed": "Handvirk yfirferð"
             },
             "language": {
-                "all": "All"
+                "all": "Allt"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Leitaðu að nafni eða slóð"
             }
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "Gagnaleynd",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Persónuverndarstefna - Mastodon fyrir iOS",
+                "server": "Persónuverndarstefna - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "Ég samþykki"
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Búa til notandaaðgang",
             "input": {
                 "avatar": {
                     "delete": "Eyða"
@@ -358,7 +358,7 @@
                 "username": {
                     "placeholder": "notandanafn",
                     "duplicate_prompt": "Þetta notandanafn er þegar í notkun.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "forvitni_%@"
                 },
                 "display_name": {
                     "placeholder": "birtingarnafn"
@@ -368,7 +368,7 @@
                 },
                 "password": {
                     "placeholder": "lykilorð",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Staðfestu lykilorðið",
                     "require": "Lykilorðið þitt þarf að minnsta kosti:",
                     "character_limit": "8 stafi",
                     "accessibility": {
@@ -417,12 +417,12 @@
             "terms_of_service": "þjónustuskilmálar",
             "privacy_policy": "persónuverndarstefna",
             "button": {
-                "confirm": "I agree"
+                "confirm": "Ég samþykki"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Athugaðu innhólfið þitt",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Ýttu á tengilinn sem við sendum þér til að staðfesta %@. Við bíðum á meðan.",
             "button": {
                 "resend": "Endursenda"
             },
@@ -438,9 +438,9 @@
                 "open_email_client": "Opna tölvupóstforrit"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Fékkstu ekki neinn tengil?",
+                "resend_in": "Senda aftur (%@)",
+                "resend_now": "Senda aftur núna."
             }
         },
         "home_timeline": {
@@ -464,7 +464,7 @@
             "title": {
                 "new_post": "Ný færsla",
                 "new_reply": "Nýtt svar",
-                "edit_post": "Edit Post"
+                "edit_post": "Breyta færslu"
             },
             "media_selection": {
                 "camera": "Taktu mynd",
@@ -488,7 +488,7 @@
                 "server_processing_state": "Netþjónn er að vinna..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Könnun",
                 "duration_time": "Tímalengd: %s",
                 "thirty_minutes": "30 mínútur",
                 "one_hour": "1 klukkustund",
@@ -499,10 +499,10 @@
                 "option_number": "Valkostur %ld",
                 "the_poll_is_invalid": "Könnunin er ógild",
                 "the_poll_has_empty_option": "Könnunin er með auðan valkost",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Bæta við valkosti",
+                "remove_option": "Fjarlægja valkost",
+                "move_up": "Færa upp",
+                "move_down": "Færa niður"
             },
             "content_warning": {
                 "placeholder": "Skrifaðu nákvæma aðvörun hér..."
@@ -536,10 +536,10 @@
                 "select_visibility_entry": "Veldu sýnileika - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "Tungumál færslu",
+                "suggested": "Tillaga",
+                "recent": "Nýlegt",
+                "other": "Annað tungumál…"
             }
         },
         "profile": {
@@ -553,7 +553,7 @@
                 "other_posts": "færslur",
                 "other_following": "er fylgst með",
                 "other_followers": "fylgjendur",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "sameiginlegir"
             },
             "fields": {
                 "joined": "Gerðist þátttakandi",
@@ -669,7 +669,7 @@
             "intro": "Þetta eru færslurnar sem eru að fá aukna athygli í þínu horni á Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Eftirlæti"
         },
         "notification": {
             "title": {
@@ -845,33 +845,33 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Þetta lítur ekki út fyrir að vera gildur Mastodon-tengill."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Því miður er þessi flokkur viðmótshluta ekki studdur.",
+            "user_not_logged_in": "Opnaðu Mastodon til að skrá þig inn á notandaaðgang."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Fylgjendur",
+            "configuration_description": "Birta fjölda fylgjenda.",
+            "title": "FYLGJENDUR",
+            "followers_today": "%s fylgjendur í dag"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Margir fylgjendur",
+            "configuration_description": "Birta fjölda fylgjenda á mörgum notandaaðgöngum.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Annar fylgjandi",
+                "account_name": "annar@fylgjandi.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Nýjustu fylgjendur",
+            "configuration_description": "Birta nýjustu fylgjendurna.",
+            "title": "Nýjustu fylgjendur",
+            "last_update": "Síðasta uppfærsla: %s"
         }
     }
 }
