@@ -101,13 +101,18 @@
                 "translate_post": {
                     "title": "Prevedi iz: %s",
                     "unknown_language": "Neznano"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "Domov",
                 "search_and_explore": "Poišči in razišči",
                 "notifications": "Obvestila",
-                "profile": "Profil"
+                "profile": "Profil",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +171,11 @@
                     "show_gif": "Pokaži GIF",
                     "show_video_player": "Pokaži predvajalnik",
                     "share_link_in_post": "Deli povezavo v objavi",
-                    "tap_then_hold_to_show_menu": "Tapnite, nato držite, da se pojavi meni"
+                    "tap_then_hold_to_show_menu": "Tapnite, nato držite, da se pojavi meni",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -186,7 +195,25 @@
                     "translated_from": "Prevedeno iz %s s pomočjo %s",
                     "unknown_language": "Neznano",
                     "unknown_provider": "Neznano",
-                    "show_original": "Pokaži izvirnik"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, priponka %d od %d",
+                    "expand_image_hint": "Razširi sliko. Dvakrat tapnite in držite, da se pokažejo dejanja",
+                    "expand_gif_hint": "Razširi GIF. Dvakrat tapnite in držite, da se pokažejo dejanja",
+                    "expand_video_hint": "Pokaže predvajalnik videoposnetkov. Dvakrat tapnite in držite, da se pokažejo dejanja"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -235,7 +262,26 @@
         "welcome": {
             "slogan": "Družbeno mreženje\nspet v vaših rokah.",
             "get_started": "Začnite",
-            "log_in": "Prijava"
+            "log_in": "Prijava",
+            "education": {
+                "what_is_mastodon": {
+                    "title": "What is",
+                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                },
+                "mastodon_is_like_that": {
+                    "title": "Mastodon is like that",
+                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                },
+                "how_do_i_pick_a_server": {
+                    "title": "How do I pick a server?",
+                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "Dobrodošli nazaj",
@@ -245,9 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Mastodon tvorijo uporabniki z različnih strežnikov.",
-            "subtitle": "Strežnik izberite glede na svojo regijo, zanimanje ali pa kar splošno. Še vedno lahko klepetate s komer koli na Mastodonu, ne glede na strežnik.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Vse",
                     "all_accessiblity_description": "Kategorija: vse",
@@ -279,18 +326,39 @@
                 "finding_servers": "Iskanje razpoložljivih strežnikov ...",
                 "bad_network": "Med nalaganjem podatkov je prišlo do napake. Preverite svojo internetno povezavo.",
                 "no_results": "Ni rezultatov"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            }
+        },
+        "privacy": {
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I agree"
             }
         },
         "register": {
-            "title": "Naj vas namestimo na %s",
-            "lets_get_you_set_up_on_domain": "Naj vas namestimo na %s",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "Izbriši"
                 },
                 "username": {
                     "placeholder": "uporabniško ime",
-                    "duplicate_prompt": "To ime je že zasedeno."
+                    "duplicate_prompt": "To ime je že zasedeno.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "pojavno ime"
@@ -300,6 +368,7 @@
                 },
                 "password": {
                     "placeholder": "geslo",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "Vaše geslo potrebuje vsaj:",
                     "character_limit": "8 znakov",
                     "accessibility": {
@@ -348,15 +417,13 @@
             "terms_of_service": "pogoji uporabe",
             "privacy_policy": "pravilnik o zasebnosti",
             "button": {
-                "confirm": "Strinjam se"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "Še zadnja stvar.",
-            "subtitle": "Tapnite povezavo, ki smo vam jo poslali po e-pošti, da overite svoj račun.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tapnite povezavo, ki smo vam jo poslali po e-pošti, da overite svoj račun",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Odpri aplikacijo za e-pošto",
                 "resend": "Ponovno pošlji"
             },
             "dont_receive_email": {
@@ -369,6 +436,11 @@
                 "description": "Ravnokar smo vam poslali e-sporočilo. Preverite neželeno pošto, če sporočila ne najdete med dohodno pošto.",
                 "mail": "E-pošta",
                 "open_email_client": "Odpri odjemalca e-pošte"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +451,7 @@
                 "published": "Objavljeno!",
                 "Publishing": "Objavljanje objave ...",
                 "accessibility": {
-                    "logo_label": "Gumb logotipa",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tapnite, da podrsate na vrh; tapnite znova, da se pomaknete na prejšnji položaj"
                 }
             }
@@ -391,7 +463,8 @@
         "compose": {
             "title": {
                 "new_post": "Nova objava",
-                "new_reply": "Nov odgovor"
+                "new_reply": "Nov odgovor",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Posnemi fotografijo",
@@ -415,6 +488,7 @@
                 "server_processing_state": "Obdelovanje na strežniku ..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Trajanje: %s",
                 "thirty_minutes": "30 minut",
                 "one_hour": "1 ura",
@@ -424,7 +498,11 @@
                 "seven_days": "7 dni",
                 "option_number": "Možnost %ld",
                 "the_poll_is_invalid": "Anketa je neveljavna",
-                "the_poll_has_empty_option": "Anketa ima prazno izbiro"
+                "the_poll_has_empty_option": "Anketa ima prazno izbiro",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Tukaj zapišite opozorilo ..."
@@ -456,6 +534,12 @@
                 "toggle_content_warning": "Preklopi opozorilo o vsebini",
                 "append_attachment_entry": "Dodaj priponko - %s",
                 "select_visibility_entry": "Izberite vidnost - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +552,8 @@
                 "my_followers": "sledilcev",
                 "other_posts": "objav",
                 "other_following": "sledi",
-                "other_followers": "sledilcev"
+                "other_followers": "sledilcev",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Pridružen_a",
@@ -584,7 +669,7 @@
             "intro": "To so objave, ki plenijo pozornost na vašem koncu Mastodona."
         },
         "favorite": {
-            "title": "Vaši priljubljeni"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +731,6 @@
                 },
                 "preference": {
                     "title": "Nastavitve",
-                    "true_black_dark_mode": "Resnično črni temni način",
                     "disable_avatar_animation": "Onemogoči animirane avatarje",
                     "disable_emoji_animation": "Onemogoči animirane emotikone",
                     "using_default_browser": "Uporabi privzeti brskalnik za odpiranje povezav",
@@ -757,6 +841,37 @@
                 "follow": "Sledi",
                 "unfollow": "Prenehaj slediti"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }
