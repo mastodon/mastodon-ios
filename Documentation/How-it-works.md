@@ -50,7 +50,7 @@ First, select the `CoreData.xcdatamodeld` file and in menu `Editor > Add Model V
 Then use the `Add Entity` button create new Entity. 
 1. Give a name in data model inspect panel. 
 2. Also, set the `Module` to `CoreDataStack`. 
-3. Set the `Codegen` to  `Manual/None`. We use `Soucery` generates the template code.
+3. Set the `Codegen` to  `Manual/None`. We use `Sourcery` to generate the template code.
 4. Create the `Entity.swift` file and declear the properties and relationships.
 
 ###### How to add or remove property for Entity
