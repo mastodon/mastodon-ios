@@ -53,7 +53,7 @@
                 "message": "Successfully cleaned %s cache."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "노트",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
                 "button": "확인"
             }
@@ -102,7 +102,7 @@
                     "title": "%s에서 번역됨",
                     "unknown_language": "알 수 없음"
                 },
-                "edit_post": "Edit"
+                "edit_post": "수정"
             },
             "tabs": {
                 "home": "홈",
@@ -110,8 +110,8 @@
                 "notifications": "알림",
                 "profile": "프로필",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "검색",
+                    "explore": "둘러보기"
                 }
             },
             "keyboard": {
