@@ -226,7 +226,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
             LabeledAction(
                 title: L10n.Common.Controls.Status.Actions.shareLinkInPost,
-                asset: Asset.ObjectsAndTools.squareAndPencil
+                image: UIImage(systemName: "square.and.pencil")
             ) {
                 DispatchQueue.main.async {
                     self.coordinator.present(

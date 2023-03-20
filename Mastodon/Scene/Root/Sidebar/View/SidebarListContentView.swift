@@ -11,6 +11,7 @@ import MetaTextKit
 import FLAnimatedImage
 import MastodonCore
 import MastodonUI
+import MastodonAsset
 
 final class SidebarListContentView: UIView, UIContentView {
     
@@ -20,7 +21,7 @@ final class SidebarListContentView: UIView, UIContentView {
     let avatarButton: CircleAvatarButton = {
         let button = CircleAvatarButton()
         button.borderWidth = 2
-        button.borderColor = UIColor.label
+        button.borderColor = Asset.Colors.brand.color
         return button
     }()
     private let accessoryImageView = UIImageView(image: nil)
@@ -103,10 +104,10 @@ extension SidebarListContentView {
         // configure model
         imageView.isHidden = item.imageURL != nil
         avatarButton.isHidden = item.imageURL == nil
-        imageView.image = item.isActive ? item.activeImage.withRenderingMode(.alwaysTemplate) : item.image.withRenderingMode(.alwaysTemplate)
+        imageView.image = item.isActive ? item.activeImage : item.image.withRenderingMode(.alwaysTemplate)
         accessoryImageView.image = item.accessoryImage
         accessoryImageView.isHidden = item.accessoryImage == nil
-        accessoryImageView.tintColor = item.isActive ? .label : .secondaryLabel
+        accessoryImageView.tintColor = item.isActive ? Asset.Colors.brand.color : .secondaryLabel
         avatarButton.avatarImageView.setImage(
             url: item.imageURL,
             placeholder: avatarButton.avatarImageView.image ?? .placeholder(color: .systemFill),  // reuse to avoid blink
