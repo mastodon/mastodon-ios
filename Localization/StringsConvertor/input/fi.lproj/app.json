@@ -102,7 +102,7 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Muokkaa"
             },
             "tabs": {
                 "home": "Koti",
@@ -110,8 +110,8 @@
                 "notifications": "Notifications",
                 "profile": "Profiili",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Haku",
+                    "explore": "Selaa"
                 }
             },
             "keyboard": {
@@ -173,8 +173,8 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Edelleenjaa",
+                        "unreblog": "Peru edelleenjako"
                     }
                 },
                 "tag": {
@@ -195,7 +195,7 @@
                     "translated_from": "Käännetty kielestä %s palvelulla %s",
                     "unknown_language": "Unknown",
                     "unknown_provider": "Tuntematon",
-                    "show_original": "Show Original"
+                    "show_original": "Näytä alkuperäinen"
                 },
                 "media": {
                     "accessibility_label": "%s, liite %d/%d",
@@ -203,17 +203,17 @@
                     "expand_gif_hint": "Laajentaa GIF-kuvan. Näytä toiminnot kaksoisnapautuksella ja painamalla",
                     "expand_video_hint": "Näyttää videosoittimen. Näytä toiminnot kaksoisnapautuksella ja painamalla"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s sovelluksella %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Edelleenjaot",
+                    "favorites_title": "Suosikit",
+                    "edit_history_title": "Muokkaushistoria",
+                    "edit_history_detail": "Muokattiin viimeksi %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Muokattiin %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Muokkaushistoria",
+                    "original_post": "Alkuperäinen julkaisu · %s"
                 }
             },
             "friendship": {
@@ -265,20 +265,20 @@
             "log_in": "Log In",
             "education": {
                 "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                    "title": "Mikä on",
+                    "description": "Kuvittele, että sinulla on sähköpostiosoite, joka päättyy @esimerkki.fi.\n\nVoit silti lähettää ja vastaanottaa viestejä kenelle/keneltä tahansa, vaikka heidän osoitteensa päättyvät @gmail.com, @icloud.com tai @esimerkki.fi."
                 },
                 "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                    "title": "Mastodon on sellainen",
+                    "description": "Tunnuksesi saattaa olla @gothgirl654@esimerkki.social, mutta voit silti seurata, edelleenjakaa ja keskustella tunnuksen @fallout5ever@esimerkki.online kanssa."
                 },
                 "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                    "title": "Miten valitsen palvelimen?",
+                    "description": "Eri henkilöt valitsevat eri palvelimia vaihtelevista syistä. taide.esimerkki on loistava paikka taiteilijoille, kun taas maarianhamina.esimerkki voi olla hyvä valinta ahvenanmaalaisille.\n\nMikään suosittelemistamme palvelimista ei vie sinua metsään, joten valinnastasi riippumatta (tai vaikka syöttäisit oman vaihtoehdon palvelinhakuun) et jää koskaan paitsi mistään."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Mikä Mastodon on?"
                     }
                 }
             }
@@ -291,10 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Valitse palvelin",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Kieli",
+                "signup_speed": "Rekisteröintinopeus",
                 "category": {
                     "all": "Kaikki",
                     "all_accessiblity_description": "Kategoria: Kaikki",
@@ -328,29 +328,29 @@
                 "no_results": "Ei hakutuloksia"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Kaikki",
+                "instant": "Välitön rekisteröityminen",
+                "manually_reviewed": "Manuaalinen hyväksyntä"
             },
             "language": {
-                "all": "All"
+                "all": "Kaikki"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Etsi nimeä tai URL-osoitetta"
             }
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "Yksityisyys",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Tietosuojakäytäntö - Mastodon iOS:lle",
+                "server": "Tietosuojakäytäntö - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "Hyväksyn"
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Luo tili",
             "input": {
                 "avatar": {
                     "delete": "Poista"
@@ -358,7 +358,7 @@
                 "username": {
                     "placeholder": "käyttäjänimi",
                     "duplicate_prompt": "Tämä käyttäjänimi on varattu.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "häkellyttävä_%@"
                 },
                 "display_name": {
                     "placeholder": "näyttönimi"
@@ -368,7 +368,7 @@
                 },
                 "password": {
                     "placeholder": "salasana",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Vahvista salasana",
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
                     "accessibility": {
@@ -417,12 +417,12 @@
             "terms_of_service": "käyttöehdot",
             "privacy_policy": "tietosuojakäytäntö",
             "button": {
-                "confirm": "I agree"
+                "confirm": "Hyväksyn"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Tarkasta postilaatikkosi",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Napauta lähettämäämme linkkiä vahvistaaksesi tunnuksen %@. Odotamme täällä.",
             "button": {
                 "resend": "Resend"
             },
@@ -438,9 +438,9 @@
                 "open_email_client": "Avaa sähköpostisovellus"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Etkö saanut linkkiä?",
+                "resend_in": "Lähetä uudelleen (%@)",
+                "resend_now": "Lähetä uudelleen nyt."
             }
         },
         "home_timeline": {
@@ -464,7 +464,7 @@
             "title": {
                 "new_post": "Uusi julkaisu",
                 "new_reply": "Uusi vastaus",
-                "edit_post": "Edit Post"
+                "edit_post": "Muokkaa julkaisua"
             },
             "media_selection": {
                 "camera": "Ota kuva",
@@ -488,7 +488,7 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Kysely",
                 "duration_time": "Kesto: %s",
                 "thirty_minutes": "30 minuuttia",
                 "one_hour": "1 tunti",
@@ -499,10 +499,10 @@
                 "option_number": "Vaihtoehto %ld",
                 "the_poll_is_invalid": "The poll is invalid",
                 "the_poll_has_empty_option": "The poll has empty option",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Lisää vaihtoehto",
+                "remove_option": "Poista vaihtoehto",
+                "move_up": "Siirrä ylemmäs",
+                "move_down": "Siirrä alemmas"
             },
             "content_warning": {
                 "placeholder": "Kirjoita tarkka varoitus tähän..."
@@ -536,10 +536,10 @@
                 "select_visibility_entry": "Valitse näkyvyys - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "Julkaisun kieli",
+                "suggested": "Ehdotettu",
+                "recent": "Uusimmat",
+                "other": "Muu kieli…"
             }
         },
         "profile": {
@@ -553,7 +553,7 @@
                 "other_posts": "julkaisut",
                 "other_following": "seurattavat",
                 "other_followers": "seuraajat",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "yhteiset"
             },
             "fields": {
                 "joined": "Joined",
@@ -669,7 +669,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Suosikit"
         },
         "notification": {
             "title": {
@@ -845,33 +845,33 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Tämä ei näytä olevan kelvollinen Mastodon-linkki."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Valitettavasti tätä widgettiperhettä ei tueta.",
+            "user_not_logged_in": "Avaa Mastodon kirjautuaksesi tilille."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Seuraajat",
+            "configuration_description": "Näytä seuraajien määrä.",
+            "title": "SEURAAJAT",
+            "followers_today": "%s seuraajaa tänään"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Useita seuraajia",
+            "configuration_description": "Näytä seuraajien määrä useille tileille.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Toinen seuraaja",
+                "account_name": "toinen@seuraaja.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Uusimmat seuraajat",
+            "configuration_description": "Näyyä uusimmat seuraajat.",
+            "title": "Uusimmat seuraajat",
+            "last_update": "Päivitettiin viimeksi %s"
         }
     }
 }
