@@ -195,7 +195,7 @@
                     "translated_from": "แปลจาก %s โดยใช้ %s",
                     "unknown_language": "ไม่รู้จัก",
                     "unknown_provider": "ไม่รู้จัก",
-                    "show_original": "Show Original"
+                    "show_original": "แสดงดั้งเดิม"
                 },
                 "media": {
                     "accessibility_label": "%s ไฟล์แนบ %d จาก %d",
@@ -203,17 +203,17 @@
                     "expand_gif_hint": "ขยาย GIF แตะสองครั้งค้างไว้เพื่อแสดงการกระทำ",
                     "expand_video_hint": "แสดงตัวเล่นวิดีโอ แตะสองครั้งค้างไว้เพื่อแสดงการกระทำ"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s ผ่าน %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "การดัน",
+                    "favorites_title": "รายการโปรด",
+                    "edit_history_title": "ประวัติการแก้ไข",
+                    "edit_history_detail": "การแก้ไขล่าสุดเมื่อ %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "แก้ไขเมื่อ %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "ประวัติการแก้ไข",
+                    "original_post": "โพสต์ดั้งเดิม · %s"
                 }
             },
             "friendship": {
@@ -266,19 +266,19 @@
             "education": {
                 "what_is_mastodon": {
                     "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                    "description": "จินตนาการว่าคุณมีที่อยู่อีเมลที่ลงท้ายด้วย @example.com\n\nคุณยังคงสามารถส่งและรับอีเมลจากใครก็ตาม แม้ว่าอีเมลของเขาจะลงท้ายด้วย @gmail.com หรือ @icloud.com หรือ @example.com ก็ตาม"
                 },
                 "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                    "title": "Mastodon เป็นเช่นนั้น",
+                    "description": "นามของคุณอาจเป็น @gothgirl654@example.social แต่คุณยังคงสามารถติดตาม ดัน และแชทกับ @fallout5ever@example.online"
                 },
                 "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                    "title": "ฉันจะเลือกเซิร์ฟเวอร์อย่างไร?",
+                    "description": "ต่างคนต่างเลือกเซิร์ฟเวอร์ด้วยเหตุผลต่าง ๆ art.example เป็นสถานที่ที่ยอดเยี่ยมสำหรับศิลปิน ขณะที่ glasgow.example อาจเป็นตัวเลือกที่ดีสำหรับชาวสกอต\n\nรับรองว่าคุณต้องชอบเซิร์ฟเวอร์ที่แนะนำของเราใดก็ตาม ดังนั้นไม่ว่าเซิร์ฟเวอร์ใดที่คุณเลือก (หรือหากคุณป้อนของคุณเองในแถบค้นหาเซิร์ฟเวอร์) คุณจะไม่พลาดความเคลื่อนไหวที่ใดก็ตาม"
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Mastodon คืออะไร?"
                     }
                 }
             }
@@ -291,10 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "เลือกเซิร์ฟเวอร์",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "ภาษา",
+                "signup_speed": "ความเร็วการลงทะเบียน",
                 "category": {
                     "all": "ทั้งหมด",
                     "all_accessiblity_description": "หมวดหมู่: ทั้งหมด",
@@ -328,29 +328,29 @@
                 "no_results": "ไม่มีผลลัพธ์"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "ทั้งหมด",
+                "instant": "การลงทะเบียนทันที",
+                "manually_reviewed": "การตรวจทานด้วยตนเอง"
             },
             "language": {
-                "all": "All"
+                "all": "ทั้งหมด"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "ค้นหาชื่อหรือ URL"
             }
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "ความเป็นส่วนตัว",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS",
+                "server": "นโยบายความเป็นส่วนตัว - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "ฉันเห็นด้วย"
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "สร้างบัญชี",
             "input": {
                 "avatar": {
                     "delete": "ลบ"
@@ -368,7 +368,7 @@
                 },
                 "password": {
                     "placeholder": "รหัสผ่าน",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "ยืนยันรหัสผ่าน",
                     "require": "รหัสผ่านของคุณจำเป็นต้องมีอย่างน้อย:",
                     "character_limit": "8 ตัวอักษร",
                     "accessibility": {
@@ -417,12 +417,12 @@
             "terms_of_service": "เงื่อนไขการให้บริการ",
             "privacy_policy": "นโยบายความเป็นส่วนตัว",
             "button": {
-                "confirm": "I agree"
+                "confirm": "ฉันเห็นด้วย"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "ตรวจสอบกล่องขาเข้าของคุณ",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "แตะลิงก์ที่เราส่งถึงคุณเพื่อยืนยัน %@ เราจะรออยู่ตรงนี้",
             "button": {
                 "resend": "ส่งใหม่"
             },
@@ -438,9 +438,9 @@
                 "open_email_client": "เปิดไคลเอ็นต์อีเมล"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "ไม่ได้รับลิงก์?",
+                "resend_in": "ส่งใหม่ (%@)",
+                "resend_now": "ส่งใหม่ตอนนี้"
             }
         },
         "home_timeline": {
@@ -464,7 +464,7 @@
             "title": {
                 "new_post": "โพสต์ใหม่",
                 "new_reply": "การตอบกลับใหม่",
-                "edit_post": "Edit Post"
+                "edit_post": "แก้ไขโพสต์"
             },
             "media_selection": {
                 "camera": "ถ่ายรูป",
@@ -488,7 +488,7 @@
                 "server_processing_state": "เซิร์ฟเวอร์กำลังประมวลผล..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "การสำรวจความคิดเห็น",
                 "duration_time": "ระยะเวลา: %s",
                 "thirty_minutes": "30 นาที",
                 "one_hour": "1 ชั่วโมง",
@@ -499,10 +499,10 @@
                 "option_number": "ตัวเลือก %ld",
                 "the_poll_is_invalid": "การสำรวจความคิดเห็นไม่ถูกต้อง",
                 "the_poll_has_empty_option": "การสำรวจความคิดเห็นมีตัวเลือกที่ว่างเปล่า",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "เพิ่มตัวเลือก",
+                "remove_option": "เอาตัวเลือกออก",
+                "move_up": "ย้ายขึ้น",
+                "move_down": "ย้ายลง"
             },
             "content_warning": {
                 "placeholder": "เขียนคำเตือนที่ถูกต้องที่นี่..."
@@ -536,10 +536,10 @@
                 "select_visibility_entry": "เลือกการมองเห็น - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "ภาษาของโพสต์",
+                "suggested": "แนะนำ",
+                "recent": "ล่าสุด",
+                "other": "ภาษาอื่น…"
             }
         },
         "profile": {
@@ -669,7 +669,7 @@
             "intro": "นี่คือโพสต์ที่กำลังได้รับความสนใจในมุมของ Mastodon ของคุณ"
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "รายการโปรด"
         },
         "notification": {
             "title": {
@@ -845,33 +845,33 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "ดูเหมือนว่าสิ่งนี้จะไม่ใช่ลิงก์ Mastodon ที่ถูกต้อง"
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "ขออภัยแต่ไม่รองรับตระกูลวิดเจ็ตนี้",
+            "user_not_logged_in": "โปรดเปิด Mastodon เพื่อเข้าสู่ระบบบัญชี"
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "ผู้ติดตาม",
+            "configuration_description": "แสดงจำนวนผู้ติดตาม",
+            "title": "ผู้ติดตาม",
+            "followers_today": "%s ผู้ติดตามวันนี้"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "หลายผู้ติดตาม",
+            "configuration_description": "แสดงจำนวนผู้ติดตามสำหรับหลายบัญชี",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "ผู้ติดตามอื่น",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "ผู้ติดตามล่าสุด",
+            "configuration_description": "แสดงผู้ติดตามล่าสุด",
+            "title": "ผู้ติดตามล่าสุด",
+            "last_update": "การอัปเดตล่าสุด: %s"
         }
     }
 }
