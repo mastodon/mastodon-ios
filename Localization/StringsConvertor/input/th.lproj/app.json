@@ -102,7 +102,7 @@
                     "title": "แปลจาก %s",
                     "unknown_language": "ไม่รู้จัก"
                 },
-                "edit_post": "Edit"
+                "edit_post": "แก้ไข"
             },
             "tabs": {
                 "home": "หน้าแรก",
@@ -110,8 +110,8 @@
                 "notifications": "การแจ้งเตือน",
                 "profile": "โปรไฟล์",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "ค้นหา",
+                    "explore": "สำรวจ"
                 }
             },
             "keyboard": {
@@ -173,8 +173,8 @@
                     "share_link_in_post": "แบ่งปันลิงก์ในโพสต์",
                     "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "ดัน",
+                        "unreblog": "เลิกทำการดัน"
                     }
                 },
                 "tag": {
