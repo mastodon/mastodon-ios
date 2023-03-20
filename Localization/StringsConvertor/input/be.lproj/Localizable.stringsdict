@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>a11y.plural.count.unread.notification</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@notification_count_unread_notification@</string>
+      <key>notification_count_unread_notification</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 непрачытанае апавяшчэнне</string>
+        <key>few</key>
+        <string>%ld непрачытаныя апавяшчэнні</string>
+        <key>many</key>
+        <string>%ld непрачытаных апавяшчэнняў</string>
+        <key>other</key>
+        <string>%ld непрачытаных апавяшчэнняў</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.input_limit_exceeds</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Ліміт уводу перавышаны на %#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 сімвал</string>
+        <key>few</key>
+        <string>%ld сімвалы</string>
+        <key>many</key>
+        <string>%ld сімвалаў</string>
+        <key>other</key>
+        <string>%ld сімвалаў</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.input_limit_remains</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Ліміт уводу застаецца %#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 сімвал</string>
+        <key>few</key>
+        <string>%ld сімвалы</string>
+        <key>many</key>
+        <string>%ld сімвалаў</string>
+        <key>other</key>
+        <string>%ld сімвалаў</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Застаўся 1 сімвал</string>
+        <key>few</key>
+        <string>Засталіся %ld сімвалы</string>
+        <key>many</key>
+        <string>Засталося %ld сімвалаў</string>
+        <key>other</key>
+        <string>Засталося %ld сімвалаў</string>
+      </dict>
+    </dict>
+    <key>plural.count.followed_by_and_mutual</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@names@%#@count_mutual@</string>
+      <key>names</key>
+      <dict>
+        <key>one</key>
+        <string></string>
+        <key>few</key>
+        <string></string>
+        <key>many</key>
+        <string></string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string></string>
+      </dict>
+      <key>count_mutual</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%1$@ і яшчэ 1 чалавек падпісаны</string>
+        <key>few</key>
+        <string>%1$@ і яшчэ %ld чалавекі падпісаны</string>
+        <key>many</key>
+        <string>%1$@ і яшчэ %ld чалавек падпісаны</string>
+        <key>other</key>
+        <string>%1$@ і яшчэ %ld чалавек падпісаны</string>
+      </dict>
+    </dict>
+    <key>plural.count.metric_formatted.post</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%@ %#@post_count@</string>
+      <key>post_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>допіс</string>
+        <key>few</key>
+        <string>допісы</string>
+        <key>many</key>
+        <string>допісаў</string>
+        <key>other</key>
+        <string>допісаў</string>
+      </dict>
+    </dict>
+    <key>plural.count.media</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@media_count@</string>
+      <key>media_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 медыя</string>
+        <key>few</key>
+        <string>%ld медыя</string>
+        <key>many</key>
+        <string>%ld медыя</string>
+        <key>other</key>
+        <string>%ld медыя</string>
+      </dict>
+    </dict>
+    <key>plural.count.post</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@post_count@</string>
+      <key>post_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 допіс</string>
+        <key>few</key>
+        <string>%ld допісы</string>
+        <key>many</key>
+        <string>%ld допісаў</string>
+        <key>other</key>
+        <string>%ld допісаў</string>
+      </dict>
+    </dict>
+    <key>plural.count.favorite</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@favorite_count@</string>
+      <key>favorite_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 дадаў у абранае</string>
+        <key>few</key>
+        <string>%ld дадалі ў абранае</string>
+        <key>many</key>
+        <string>%ld дадалі ў абранае</string>
+        <key>other</key>
+        <string>%ld дадалі ў абранае</string>
+      </dict>
+    </dict>
+    <key>plural.count.reblog</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reblog_count@</string>
+      <key>reblog_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 пашырэнне</string>
+        <key>few</key>
+        <string>%ld пашырэнні</string>
+        <key>many</key>
+        <string>%ld пашырэнняў</string>
+        <key>other</key>
+        <string>%ld пашырэнняў</string>
+      </dict>
+    </dict>
+    <key>plural.count.reblog_a11y</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reblog_count@</string>
+      <key>reblog_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 re-blog</string>
+        <key>few</key>
+        <string>%ld re-blogs</string>
+        <key>many</key>
+        <string>%ld re-blogs</string>
+        <key>other</key>
+        <string>%ld re-blogs</string>
+      </dict>
+    </dict>
+    <key>plural.count.reply</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reply_count@</string>
+      <key>reply_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 адказ</string>
+        <key>few</key>
+        <string>%ld адказы</string>
+        <key>many</key>
+        <string>%ld адказаў</string>
+        <key>other</key>
+        <string>%ld адказаў</string>
+      </dict>
+    </dict>
+    <key>plural.count.vote</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@vote_count@</string>
+      <key>vote_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 голас</string>
+        <key>few</key>
+        <string>%ld галасы</string>
+        <key>many</key>
+        <string>%ld галасоў</string>
+        <key>other</key>
+        <string>%ld галасоў</string>
+      </dict>
+    </dict>
+    <key>plural.count.voter</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@voter_count@</string>
+      <key>voter_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 удзельнік</string>
+        <key>few</key>
+        <string>%ld удзельнікі</string>
+        <key>many</key>
+        <string>%ld удзельнікаў</string>
+        <key>other</key>
+        <string>%ld удзельнікаў</string>
+      </dict>
+    </dict>
+    <key>plural.people_talking</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_people_talking@</string>
+      <key>count_people_talking</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 чалавек размаўляе</string>
+        <key>few</key>
+        <string>%ld чалавекі размаўляюць</string>
+        <key>many</key>
+        <string>%ld чалавек размаўляюць</string>
+        <key>other</key>
+        <string>%ld чалавек размаўляюць</string>
+      </dict>
+    </dict>
+    <key>plural.count.following</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_following@</string>
+      <key>count_following</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 падпісаны</string>
+        <key>few</key>
+        <string>%ld падпісаныя</string>
+        <key>many</key>
+        <string>%ld падпісаных</string>
+        <key>other</key>
+        <string>%ld падпісаных</string>
+      </dict>
+    </dict>
+    <key>plural.count.follower</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_follower@</string>
+      <key>count_follower</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 падпісчык</string>
+        <key>few</key>
+        <string>%ld падпісчыкі</string>
+        <key>many</key>
+        <string>%ld падпісчыкаў</string>
+        <key>other</key>
+        <string>%ld падпісчыкаў</string>
+      </dict>
+    </dict>
+    <key>date.year.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_year_left@</string>
+      <key>count_year_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Застаўся 1 год</string>
+        <key>few</key>
+        <string>%ld гады засталося</string>
+        <key>many</key>
+        <string>%ld гадоў засталося</string>
+        <key>other</key>
+        <string>%ld гадоў засталося</string>
+      </dict>
+    </dict>
+    <key>date.month.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_month_left@</string>
+      <key>count_month_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Застаўся 1 месяц</string>
+        <key>few</key>
+        <string>%ld месяцы засталося</string>
+        <key>many</key>
+        <string>%ld месяцаў засталося</string>
+        <key>other</key>
+        <string>%ld месяцаў засталося</string>
+      </dict>
+    </dict>
+    <key>date.day.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_day_left@</string>
+      <key>count_day_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Застаўся 1 дзень</string>
+        <key>few</key>
+        <string>%ld дні засталося</string>
+        <key>many</key>
+        <string>%ld дзён засталося</string>
+        <key>other</key>
+        <string>%ld дзён засталося</string>
+      </dict>
+    </dict>
+    <key>date.hour.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_hour_left@</string>
+      <key>count_hour_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Засталася 1 гадзіна</string>
+        <key>few</key>
+        <string>%ld гадзіны засталося</string>
+        <key>many</key>
+        <string>%ld гадзін засталося</string>
+        <key>other</key>
+        <string>%ld гадзін засталося</string>
+      </dict>
+    </dict>
+    <key>date.minute.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_minute_left@</string>
+      <key>count_minute_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Засталася 1 хвіліна</string>
+        <key>few</key>
+        <string>%ld хвіліны засталося</string>
+        <key>many</key>
+        <string>%ld хвілін засталося</string>
+        <key>other</key>
+        <string>%ld хвілін засталося</string>
+      </dict>
+    </dict>
+    <key>date.second.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_second_left@</string>
+      <key>count_second_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Засталася 1 секунда</string>
+        <key>few</key>
+        <string>%ld секунды засталося</string>
+        <key>many</key>
+        <string>%ld секунд засталося</string>
+        <key>other</key>
+        <string>%ld секунд засталося</string>
+      </dict>
+    </dict>
+    <key>date.year.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_year_ago_abbr@</string>
+      <key>count_year_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 год таму</string>
+        <key>few</key>
+        <string>%ld гады таму</string>
+        <key>many</key>
+        <string>%ld гадоў таму</string>
+        <key>other</key>
+        <string>%ld гадоў таму</string>
+      </dict>
+    </dict>
+    <key>date.month.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_month_ago_abbr@</string>
+      <key>count_month_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 месяц таму</string>
+        <key>few</key>
+        <string>%ld месяцы таму</string>
+        <key>many</key>
+        <string>%ld месяцаў таму</string>
+        <key>other</key>
+        <string>%ld месяцаў таму</string>
+      </dict>
+    </dict>
+    <key>date.day.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_day_ago_abbr@</string>
+      <key>count_day_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 дзень таму</string>
+        <key>few</key>
+        <string>%ld дні таму</string>
+        <key>many</key>
+        <string>%ld дзён таму</string>
+        <key>other</key>
+        <string>%ld дзён таму</string>
+      </dict>
+    </dict>
+    <key>date.hour.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_hour_ago_abbr@</string>
+      <key>count_hour_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 гадзіну таму</string>
+        <key>few</key>
+        <string>%ld гадзіны таму</string>
+        <key>many</key>
+        <string>%ld гадзін таму</string>
+        <key>other</key>
+        <string>%ld гадзін таму</string>
+      </dict>
+    </dict>
+    <key>date.minute.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_minute_ago_abbr@</string>
+      <key>count_minute_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 хвіліну таму</string>
+        <key>few</key>
+        <string>%ld хвіліны таму</string>
+        <key>many</key>
+        <string>%ld хвілін таму</string>
+        <key>other</key>
+        <string>%ld хвілін таму</string>
+      </dict>
+    </dict>
+    <key>date.second.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_second_ago_abbr@</string>
+      <key>count_second_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 секунду таму</string>
+        <key>few</key>
+        <string>%ld секунды таму</string>
+        <key>many</key>
+        <string>%ld секунд таму</string>
+        <key>other</key>
+        <string>%ld секунд таму</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>
