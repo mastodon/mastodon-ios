@@ -37,7 +37,7 @@
                 "confirm": "登出"
             },
             "block_domain": {
-                "title": "真的非常確定要封鎖整個 %s 網域嗎？大部分情況下，您只需要封鎖或靜音少數特定的帳號能滿足需求了。您將不能看到來自此網域的內容。您來自該網域的跟隨者也將被移除。",
+                "title": "真的非常確定要封鎖整個 %s 網域嗎？大部分情況下，您只需要封鎖或靜音少數特定的帳號已能滿足需求。您將不能看到來自此網域的內容。您來自該網域的跟隨者也將被移除。",
                 "block_entire_domain": "封鎖網域"
             },
             "save_photo_failure": {
@@ -101,13 +101,18 @@
                 "translate_post": {
                     "title": "翻譯自 %s",
                     "unknown_language": "未知"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "首頁",
                 "search_and_explore": "搜尋與探索",
                 "notifications": "通知",
-                "profile": "個人檔案"
+                "profile": "個人檔案",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +171,11 @@
                     "show_gif": "顯示 GIF",
                     "show_video_player": "顯示影片播放器",
                     "share_link_in_post": "於嘟文中分享鏈結",
-                    "tap_then_hold_to_show_menu": "輕觸然後按住以顯示選單"
+                    "tap_then_hold_to_show_menu": "輕觸然後按住以顯示選單",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "網址",
@@ -186,7 +195,25 @@
                     "translated_from": "透過 %s 翻譯 %s",
                     "unknown_language": "未知",
                     "unknown_provider": "未知",
-                    "show_original": "顯示原文"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s 附件 %d 之 %d",
+                    "expand_image_hint": "展開圖片。雙擊然後按住以顯示動作",
+                    "expand_gif_hint": "展開 GIF 圖片。雙擊然後按住以顯示動作",
+                    "expand_video_hint": "展開影片播放器。雙擊然後按住以顯示動作"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -235,7 +262,26 @@
         "welcome": {
             "slogan": "社群網路\n還權於您。",
             "get_started": "新手上路",
-            "log_in": "登入"
+            "log_in": "登入",
+            "education": {
+                "what_is_mastodon": {
+                    "title": "What is",
+                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                },
+                "mastodon_is_like_that": {
+                    "title": "Mastodon is like that",
+                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                },
+                "how_do_i_pick_a_server": {
+                    "title": "How do I pick a server?",
+                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "歡迎回來",
@@ -245,9 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Mastodon 由不同伺服器的使用者組成。",
-            "subtitle": "基於您的興趣、地區、或一般用途選定一個伺服器。您仍會與任何伺服器中的每個人連結。",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "全部",
                     "all_accessiblity_description": "分類：全部",
@@ -279,18 +326,39 @@
                 "finding_servers": "尋找可用的伺服器...",
                 "bad_network": "讀取資料時發生錯誤。請檢查您的網路連線。",
                 "no_results": "沒有結果"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            }
+        },
+        "privacy": {
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I agree"
             }
         },
         "register": {
-            "title": "讓我們一起設定 %s 吧！",
-            "lets_get_you_set_up_on_domain": "讓我們一起設定 %s 吧！",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "刪除"
                 },
                 "username": {
                     "placeholder": "使用者名稱",
-                    "duplicate_prompt": "此使用者名稱已被佔用。"
+                    "duplicate_prompt": "這個帳號已經被註冊過囉。",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "顯示名稱"
@@ -300,6 +368,7 @@
                 },
                 "password": {
                     "placeholder": "密碼",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "您的密碼必須是至少：",
                     "character_limit": "8 個字元",
                     "accessibility": {
@@ -348,15 +417,13 @@
             "terms_of_service": "服務條款",
             "privacy_policy": "隱私權政策",
             "button": {
-                "confirm": "我已閱讀並同意"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "最後一步。",
-            "subtitle": "點擊我們寄送給您的帳號驗證連結。",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "點擊我們寄送給您的帳號驗證連結",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "開啟電子郵件 App",
                 "resend": "重新發送"
             },
             "dont_receive_email": {
@@ -369,6 +436,11 @@
                 "description": "我們剛寄送您一封電子郵件。請檢查您的垃圾信件夾。",
                 "mail": "電子郵件",
                 "open_email_client": "請開啟電子郵件程式"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +451,7 @@
                 "published": "嘟出去！",
                 "Publishing": "發表嘟文...",
                 "accessibility": {
-                    "logo_label": "標誌按鈕",
+                    "logo_label": "Mastodon",
                     "logo_hint": "輕點一下捲至頂端並且再點ㄧ下回到原先位置"
                 }
             }
@@ -391,7 +463,8 @@
         "compose": {
             "title": {
                 "new_post": "新增嘟文",
-                "new_reply": "新增回覆"
+                "new_reply": "新增回覆",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "拍攝照片",
@@ -415,6 +488,7 @@
                 "server_processing_state": "伺服器處理中..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "持續時間：%s",
                 "thirty_minutes": "30 分鐘",
                 "one_hour": "一小時",
@@ -424,7 +498,11 @@
                 "seven_days": "七天",
                 "option_number": "選項 %ld",
                 "the_poll_is_invalid": "此投票是無效的",
-                "the_poll_has_empty_option": "此投票有空白選項"
+                "the_poll_has_empty_option": "此投票有空白選項",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "請於此處寫下精準的警告..."
@@ -456,11 +534,17 @@
                 "toggle_content_warning": "切換內容警告",
                 "append_attachment_entry": "新增附件 - %s",
                 "select_visibility_entry": "選擇可見性 - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
             "header": {
-                "follows_you": "跟隨了您"
+                "follows_you": "已跟隨您"
             },
             "dashboard": {
                 "my_posts": "嘟文",
@@ -468,7 +552,8 @@
                 "my_followers": "跟隨者",
                 "other_posts": "嘟文",
                 "other_following": "正在跟隨",
-                "other_followers": "跟隨者"
+                "other_followers": "跟隨者",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "加入時間",
@@ -584,7 +669,7 @@
             "intro": "這些嘟文正在您 Mastodon 的角落受到注目。"
         },
         "favorite": {
-            "title": "您的最愛"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -592,9 +677,9 @@
                 "Mentions": "提及"
             },
             "notification_description": {
-                "followed_you": "跟隨了您",
-                "favorited_your_post": "最愛了您的嘟文",
-                "reblogged_your_post": "轉嘟了您的嘟文",
+                "followed_you": "已跟隨您",
+                "favorited_your_post": "已將您的嘟文加入最愛",
+                "reblogged_your_post": "已轉嘟您的嘟文",
                 "mentioned_you": "提到了您",
                 "request_to_follow_you": "要求跟隨您",
                 "poll_has_ended": "投票已結束"
@@ -646,7 +731,6 @@
                 },
                 "preference": {
                     "title": "偏好設定",
-                    "true_black_dark_mode": "真☆闇黑模式",
                     "disable_avatar_animation": "停用動畫大頭貼",
                     "disable_emoji_animation": "停用動畫 emoji",
                     "using_default_browser": "使用預設瀏覽器開啟連結",
@@ -700,7 +784,7 @@
             },
             "step_two": {
                 "step_2_of_4": "四個步驟中的第二步",
-                "which_rules_are_being_violated": "違反了哪些規則？",
+                "which_rules_are_being_violated": "已違反哪些規則？",
                 "select_all_that_apply": "請選擇所有適用的選項",
                 "i_just_don’t_like_it": "就是不順眼"
             },
@@ -757,6 +841,37 @@
                 "follow": "跟隨",
                 "unfollow": "取消跟隨"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }
