@@ -101,13 +101,18 @@
                 "translate_post": {
                     "title": "Dịch từ %s",
                     "unknown_language": "Chưa xác định"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "Bảng tin",
                 "search_and_explore": "Tìm và Khám Phá",
                 "notifications": "Thông báo",
-                "profile": "Trang hồ sơ"
+                "profile": "Trang hồ sơ",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +171,11 @@
                     "show_gif": "Hiển thị GIF",
                     "show_video_player": "Hiện trình phát video",
                     "share_link_in_post": "Chia sẻ liên kết trong Tút",
-                    "tap_then_hold_to_show_menu": "Nhấn giữ để hiện menu"
+                    "tap_then_hold_to_show_menu": "Nhấn giữ để hiện menu",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -186,7 +195,25 @@
                     "translated_from": "Dịch từ %s bằng %s",
                     "unknown_language": "Không xác định",
                     "unknown_provider": "Không biết",
-                    "show_original": "Bản gốc"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, đính kèm %d từ %d",
+                    "expand_image_hint": "Mở rộng hình. Nhấn hai lần và giữ để hiện hành động",
+                    "expand_gif_hint": "Mở rộng GIF. Nhấn hai lần và giữ để hiện hành động",
+                    "expand_video_hint": "Hiện trình phát video. Nhấn hai lần và giữ để hiện hành động"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -235,7 +262,26 @@
         "welcome": {
             "slogan": "Mạng xã hội\ndo bạn kiểm soát.",
             "get_started": "Bắt đầu",
-            "log_in": "Đăng nhập"
+            "log_in": "Đăng nhập",
+            "education": {
+                "what_is_mastodon": {
+                    "title": "What is",
+                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                },
+                "mastodon_is_like_that": {
+                    "title": "Mastodon is like that",
+                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                },
+                "how_do_i_pick_a_server": {
+                    "title": "How do I pick a server?",
+                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "Chào mừng trở lại!",
@@ -245,9 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Mastodon gồm nhiều máy chủ với thành viên riêng.",
-            "subtitle": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Bạn vẫn có thể giao tiếp với bất cứ ai mà không phụ thuộc vào máy chủ của họ.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Toàn bộ",
                     "all_accessiblity_description": "Phân loại: Toàn bộ",
@@ -279,18 +326,39 @@
                 "finding_servers": "Đang tìm máy chủ hoạt động...",
                 "bad_network": "Đã xảy ra lỗi. Hãy thử lại hoặc kiểm tra kết nối internet của bạn.",
                 "no_results": "Không có kết quả"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            }
+        },
+        "privacy": {
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I agree"
             }
         },
         "register": {
-            "title": "Hãy để tôi đăng ký trên %s",
-            "lets_get_you_set_up_on_domain": "Hãy để tôi đăng ký trên %s",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "Xóa"
                 },
                 "username": {
                     "placeholder": "tên người dùng",
-                    "duplicate_prompt": "Tên người dùng đã tồn tại."
+                    "duplicate_prompt": "Tên người dùng đã tồn tại.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "biệt danh"
@@ -300,6 +368,7 @@
                 },
                 "password": {
                     "placeholder": "mật khẩu",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "Mật khẩu phải tối thiểu:",
                     "character_limit": "8 ký tự",
                     "accessibility": {
@@ -342,21 +411,19 @@
             }
         },
         "server_rules": {
-            "title": "Quy tắc máy chủ.",
+            "title": "Nội quy máy chủ.",
             "subtitle": "Được ban hành và áp dụng bởi quản trị viên %s",
             "prompt": "Tiếp tục nghĩa là bạn đồng ý điều khoản dịch vụ và chính sách bảo mật của %s.",
             "terms_of_service": "điều khoản dịch vụ",
             "privacy_policy": "chính sách bảo mật",
             "button": {
-                "confirm": "Tôi đồng ý"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "Còn điều này nữa.",
-            "subtitle": "Nhấn vào liên kết chúng tôi gửi qua email để xác thực tài khoản.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Nhấn vào liên kết chúng tôi gửi qua email để xác thực tài khoản",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Mở ứng dụng email",
                 "resend": "Gửi lại"
             },
             "dont_receive_email": {
@@ -369,6 +436,11 @@
                 "description": "Chúng tôi vừa gửi email cho bạn. Kiểm tra thư rác nếu bạn không thấy.",
                 "mail": "Email",
                 "open_email_client": "Mở ứng dụng email"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +451,7 @@
                 "published": "Đã đăng!",
                 "Publishing": "Đang đăng tút...",
                 "accessibility": {
-                    "logo_label": "Nút biểu tượng",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Nhấn để cuộn lên trên và nhấn lại lần nữa để trở về vị trí cũ"
                 }
             }
@@ -391,7 +463,8 @@
         "compose": {
             "title": {
                 "new_post": "Viết tút",
-                "new_reply": "Viết trả lời"
+                "new_reply": "Viết trả lời",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Chụp ảnh",
@@ -415,6 +488,7 @@
                 "server_processing_state": "Máy chủ đang xử lý..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Thời hạn: %s",
                 "thirty_minutes": "30 phút",
                 "one_hour": "1 giờ",
@@ -424,7 +498,11 @@
                 "seven_days": "7 ngày",
                 "option_number": "Lựa chọn %ld",
                 "the_poll_is_invalid": "Bình chọn không hợp lệ",
-                "the_poll_has_empty_option": "Thiếu lựa chọn"
+                "the_poll_has_empty_option": "Thiếu lựa chọn",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Viết nội dung ẩn của bạn ở đây..."
@@ -456,6 +534,12 @@
                 "toggle_content_warning": "Mở nội dung ẩn",
                 "append_attachment_entry": "Thêm media - %s",
                 "select_visibility_entry": "Thay đổi quyền riêng tư - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -463,12 +547,13 @@
                 "follows_you": "Đang theo dõi bạn"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "tút",
+                "my_following": "theo dõi",
+                "my_followers": "người theo dõi",
+                "other_posts": "tút",
+                "other_following": "theo dõi",
+                "other_followers": "người theo dõi",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Đã tham gia",
@@ -584,7 +669,7 @@
             "intro": "Đây là những tút thu hút được sự chú ý trong góc Mastodon của bạn."
         },
         "favorite": {
-            "title": "Lượt thích"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +731,6 @@
                 },
                 "preference": {
                     "title": "Chung",
-                    "true_black_dark_mode": "Chế độ tối chân thật",
                     "disable_avatar_animation": "Tắt ảnh đại diện GIF",
                     "disable_emoji_animation": "Tắt emoji dạng GIF",
                     "using_default_browser": "Dùng trình duyệt mặc định",
@@ -693,14 +777,14 @@
                 "it_is_not_something_you_want_to_see": "Đó không phải là thứ gì mà bạn muốn thấy",
                 "its_spam": "Đây là spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Liên kết độc hại, tạo tương tác giả hoặc trả lời lặp đi lặp lại",
-                "it_violates_server_rules": "Vi phạm quy tắc máy chủ",
-                "you_are_aware_that_it_breaks_specific_rules": "Bạn nhận thấy nó vi phạm quy tắc máy chủ",
+                "it_violates_server_rules": "Vi phạm nội quy máy chủ",
+                "you_are_aware_that_it_breaks_specific_rules": "Bạn nhận thấy nó vi phạm nội quy máy chủ",
                 "its_something_else": "Một lý do khác",
                 "the_issue_does_not_fit_into_other_categories": "Vấn đề không nằm trong những mục trên"
             },
             "step_two": {
                 "step_2_of_4": "Bước 2 trong 4",
-                "which_rules_are_being_violated": "Vi phạm quy tắc nào?",
+                "which_rules_are_being_violated": "Vi phạm nội quy nào?",
                 "select_all_that_apply": "Chọn tất cả những gì phù hợp",
                 "i_just_don’t_like_it": "Tôi không thích nó"
             },
@@ -757,6 +841,37 @@
                 "follow": "Theo dõi",
                 "unfollow": "Ngưng theo dõi"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }
