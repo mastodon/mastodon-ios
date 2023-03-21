@@ -102,7 +102,7 @@
                     "title": "翻譯自 %s",
                     "unknown_language": "未知"
                 },
-                "edit_post": "Edit"
+                "edit_post": "編輯"
             },
             "tabs": {
                 "home": "首頁",
@@ -110,8 +110,8 @@
                 "notifications": "通知",
                 "profile": "個人檔案",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "搜尋",
+                    "explore": "探索"
                 }
             },
             "keyboard": {
@@ -173,8 +173,8 @@
                     "share_link_in_post": "於嘟文中分享鏈結",
                     "tap_then_hold_to_show_menu": "輕觸然後按住以顯示選單",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "轉嘟",
+                        "unreblog": "取消轉嘟"
                     }
                 },
                 "tag": {
@@ -195,7 +195,7 @@
                     "translated_from": "透過 %s 翻譯 %s",
                     "unknown_language": "未知",
                     "unknown_provider": "未知",
-                    "show_original": "Show Original"
+                    "show_original": "顯示原文"
                 },
                 "media": {
                     "accessibility_label": "%s 附件 %d 之 %d",
@@ -203,17 +203,17 @@
                     "expand_gif_hint": "展開 GIF 圖片。雙擊然後按住以顯示動作",
                     "expand_video_hint": "展開影片播放器。雙擊然後按住以顯示動作"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s 透過 %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "轉嘟",
+                    "favorites_title": "最愛",
+                    "edit_history_title": "編輯記錄",
+                    "edit_history_detail": "上次編輯於 %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "編輯於 %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "編輯記錄",
+                    "original_post": "原始嘟文 · %s"
                 }
             },
             "friendship": {
@@ -265,20 +265,20 @@
             "log_in": "登入",
             "education": {
                 "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                    "title": "什麼是",
+                    "description": "想像您擁有以 @example.com 結尾的 email 信箱地址。\n\n您仍可發送及接收來自任何人的電子郵件，無論他們的信箱是來自 @gmail.com 或 @icloud.com 或 @example.com。"
                 },
                 "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                    "title": "Mastodon 就像這樣",
+                    "description": "您的帳號可以是 @gothgirl654@example.social，但您仍可跟隨、轉嘟或是與 @fallout5ever@example.online 聊天互動。"
                 },
                 "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                    "title": "如何挑選伺服器？",
+                    "description": "不同人基於各式各樣的原因挑選不同的伺服器。art.example 也許對藝術家來說是個好地方，glasgow.example 也許對於蘇格蘭人來說是個好選擇。\n\n任何我們推薦的伺服器都是不錯的選擇（或著您也能從搜尋欄中輸入您自己的伺服器），您不會錯過任何來自聯邦宇宙角落的嘟嘟聲。"
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "什麼是 Mastodon？"
                     }
                 }
             }
@@ -291,10 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "挑選伺服器",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "語言",
+                "signup_speed": "註冊速度",
                 "category": {
                     "all": "全部",
                     "all_accessiblity_description": "分類：全部",
@@ -328,29 +328,29 @@
                 "no_results": "沒有結果"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "全部",
+                "instant": "立即註冊",
+                "manually_reviewed": "手動審核"
             },
             "language": {
-                "all": "All"
+                "all": "全部"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "搜尋名稱或 URL"
             }
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "隱私權",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "隱私權政策 - Mastodon for iOS",
+                "server": "隱私權政策 - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "我已閱讀並同意"
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "新增帳號",
             "input": {
                 "avatar": {
                     "delete": "刪除"
@@ -368,7 +368,7 @@
                 },
                 "password": {
                     "placeholder": "密碼",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "確認密碼",
                     "require": "您的密碼必須是至少：",
                     "character_limit": "8 個字元",
                     "accessibility": {
@@ -417,12 +417,12 @@
             "terms_of_service": "服務條款",
             "privacy_policy": "隱私權政策",
             "button": {
-                "confirm": "I agree"
+                "confirm": "我已閱讀並同意"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "請檢查您的收件夾",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "請點擊我們寄給您連結以驗證 %@。我們將在此稍候。",
             "button": {
                 "resend": "重新發送"
             },
@@ -438,9 +438,9 @@
                 "open_email_client": "請開啟電子郵件程式"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "無法取得連結嗎？",
+                "resend_in": "重新傳送 (%@)",
+                "resend_now": "立即重新傳送。"
             }
         },
         "home_timeline": {
@@ -464,7 +464,7 @@
             "title": {
                 "new_post": "新增嘟文",
                 "new_reply": "新增回覆",
-                "edit_post": "Edit Post"
+                "edit_post": "編輯嘟文"
             },
             "media_selection": {
                 "camera": "拍攝照片",
@@ -488,7 +488,7 @@
                 "server_processing_state": "伺服器處理中..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "投票",
                 "duration_time": "持續時間：%s",
                 "thirty_minutes": "30 分鐘",
                 "one_hour": "一小時",
@@ -499,10 +499,10 @@
                 "option_number": "選項 %ld",
                 "the_poll_is_invalid": "此投票是無效的",
                 "the_poll_has_empty_option": "此投票有空白選項",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "新增選項",
+                "remove_option": "移除選項",
+                "move_up": "向上移",
+                "move_down": "向下移"
             },
             "content_warning": {
                 "placeholder": "請於此處寫下精準的警告..."
@@ -536,10 +536,10 @@
                 "select_visibility_entry": "選擇可見性 - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "嘟文語言",
+                "suggested": "建議",
+                "recent": "最近的",
+                "other": "其他語言..."
             }
         },
         "profile": {
