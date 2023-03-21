@@ -212,7 +212,7 @@
                 },
                 "edited_at_timestamp_prefix": "Edited %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "수정 내역",
                     "original_post": "Original Post · %s"
                 }
             },
