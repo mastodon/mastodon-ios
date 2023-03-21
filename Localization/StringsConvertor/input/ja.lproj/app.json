@@ -102,7 +102,7 @@
                     "title": "%sから翻訳",
                     "unknown_language": "不明"
                 },
-                "edit_post": "Edit"
+                "edit_post": "編集"
             },
             "tabs": {
                 "home": "ホーム",
@@ -110,8 +110,8 @@
                 "notifications": "通知",
                 "profile": "プロフィール",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "検索",
+                    "explore": "みつける"
                 }
             },
             "keyboard": {
@@ -173,8 +173,8 @@
                     "share_link_in_post": "投稿でリンクを共有",
                     "tap_then_hold_to_show_menu": "長押しでメニュー表示",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "ブーストする",
+                        "unreblog": "ブーストを取り消す"
                     }
                 },
                 "tag": {
@@ -195,7 +195,7 @@
                     "translated_from": "%sから翻訳 (%sを使用)",
                     "unknown_language": "不明",
                     "unknown_provider": "不明",
-                    "show_original": "Show Original"
+                    "show_original": "元のページを開く"
                 },
                 "media": {
                     "accessibility_label": "%s, これは %d 件目の添付メディアです。全部で %d 件の添付メディアがあります。",
@@ -203,17 +203,17 @@
                     "expand_gif_hint": "GIF を拡大します。ダブルタップして長押しすると動作が表示されます。",
                     "expand_video_hint": "動画を表示します。ダブルタップして長押しするとアクションを表示します"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s に %s から投稿",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "ブースト",
+                    "favorites_title": "お気に入り",
+                    "edit_history_title": "編集履歴",
+                    "edit_history_detail": "最終更新日 %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "%sに編集",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "編集履歴",
+                    "original_post": "オリジナルの投稿 · %s"
                 }
             },
             "friendship": {
