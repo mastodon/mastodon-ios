@@ -228,7 +228,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>%ld poobjava</string>
         <key>two</key>
         <string>%ld re-blogs</string>
         <key>few</key>
