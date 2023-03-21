@@ -422,7 +422,7 @@
         },
         "confirm_email": {
             "title": "請檢查您的收件夾",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "請點擊我們寄給您連結以驗證 %@。我們將在此稍候。",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "請點擊我們寄給您連結以驗證 %@。我們將於此稍候。",
             "button": {
                 "resend": "重新發送"
             },
@@ -553,7 +553,7 @@
                 "other_posts": "嘟文",
                 "other_following": "正在跟隨",
                 "other_followers": "跟隨者",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "互相跟隨"
             },
             "fields": {
                 "joined": "加入時間",
@@ -669,7 +669,7 @@
             "intro": "這些嘟文正在您 Mastodon 的角落受到注目。"
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "最愛"
         },
         "notification": {
             "title": {
@@ -845,33 +845,33 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "這似乎並不是有效的 Mastodon 連結。"
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "很抱歉，不支援此小工具尺寸",
+            "user_not_logged_in": "請開啟 Mastodon 以登入帳號。"
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "跟隨者",
+            "configuration_description": "顯示跟隨者數量。",
+            "title": "跟隨者",
+            "followers_today": "本日有 %s 個跟隨者"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "多個跟隨者",
+            "configuration_description": "顯示多個帳號的跟隨者數量。",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "另一個跟隨者",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "最新的跟隨者",
+            "configuration_description": "顯示最新的跟隨者。",
+            "title": "最新的跟隨者",
+            "last_update": "最後更新於：%s"
         }
     }
 }
