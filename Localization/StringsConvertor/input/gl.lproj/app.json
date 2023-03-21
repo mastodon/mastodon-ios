@@ -102,7 +102,7 @@
                     "title": "Traducido do %s",
                     "unknown_language": "Descoñecido"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Editar"
             },
             "tabs": {
                 "home": "Inicio",
@@ -110,8 +110,8 @@
                 "notifications": "Notificacións",
                 "profile": "Perfil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Buscar",
+                    "explore": "Descubrir"
                 }
             },
             "keyboard": {
@@ -173,8 +173,8 @@
                     "share_link_in_post": "Compartir Ligazón na Publicación",
                     "tap_then_hold_to_show_menu": "Toca e mantén preso para menú",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Promover",
+                        "unreblog": "Retirar promoción"
                     }
                 },
                 "tag": {
@@ -195,7 +195,7 @@
                     "translated_from": "Traducido do %s usando %s",
                     "unknown_language": "Descoñecido",
                     "unknown_provider": "Descoñecido",
-                    "show_original": "Show Original"
+                    "show_original": "Mostrar o orixinal"
                 },
                 "media": {
                     "accessibility_label": "%s, adxunto %d de %d",
@@ -203,17 +203,17 @@
                     "expand_gif_hint": "Desprega o GIF. Dobre toque e manter para mostrar accións",
                     "expand_video_hint": "Mostra o reprodutor. Dobre toque e manter para mostrar accións"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s vía %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Promocións",
+                    "favorites_title": "Favoritas",
+                    "edit_history_title": "Editar historial",
+                    "edit_history_detail": "Última edición %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Editada %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Historial de edicións",
+                    "original_post": "Orixinal · %s"
                 }
             },
             "friendship": {
@@ -265,20 +265,20 @@
             "log_in": "Acceder",
             "education": {
                 "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                    "title": "Que é",
+                    "description": "Imaxina que tes un enderezo de email que remata con @exemplo.com.\n\nPodes intercambiar mensaxes con calquera persoa, incluso se o seu email remata en @gmail.com ou @icloud.com ou @exemplo.com."
                 },
                 "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                    "title": "Mastodon é o mesmo",
+                    "description": "O teu identificador pode ser @rula654@exemplo.social, pero podes seguir, promover e conversar con @gz4libre@exemplo.online."
                 },
                 "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                    "title": "Como elexir un servidor?",
+                    "description": "Pode haber moitas razóns para elexir un servidor. art.exemplo é un bo lugar para artistas, mentras glasgow.exemplo podería ser axeitado para persoas escocesas.\n\nNon terás problemas con calquera dos servidores recomendados, así que independentemente do que elixas (ou se escribes o teu propio na caixa de busca) non botarás nada en falta."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Que é Mastodon?"
                     }
                 }
             }
@@ -291,10 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Elixe un Servidor",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Idioma",
+                "signup_speed": "Rapidez no rexistro",
                 "category": {
                     "all": "Todo",
                     "all_accessiblity_description": "Categoría: Todo",
@@ -328,29 +328,29 @@
                 "no_results": "Sen resultados"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Todo",
+                "instant": "Rexistro Instantáneo",
+                "manually_reviewed": "Revisión manual"
             },
             "language": {
-                "all": "All"
+                "all": "Todo"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Buscar por nome ou URL"
             }
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "Privacidade",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Política de Privacidade - Mastodon para iOS",
+                "server": "Política de Privacidade - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "Acepto"
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Crear conta",
             "input": {
                 "avatar": {
                     "delete": "Eliminar"
