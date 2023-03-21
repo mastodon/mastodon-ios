@@ -9,7 +9,7 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>88xZPY</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>22D49</string>
+	<string>22D68</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
 	<string>14C18</string>
 	<key>INIntentDefinitionToolsVersion</key>
@@ -348,8 +348,38 @@
 			<true/>
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
+			<key>INIntentLastParameterTag</key>
+			<integer>1</integer>
 			<key>INIntentName</key>
 			<string>LatestFollowers</string>
+			<key>INIntentParameters</key>
+			<array>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Parameter</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>sFTGjN</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>1</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>Sentences</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>Cnairs</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>parameter</string>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>1</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+			</array>
 			<key>INIntentResponse</key>
 			<dict>
 				<key>INIntentResponseCodes</key>
@@ -370,6 +400,89 @@
 			<string>Latest Followers</string>
 			<key>INIntentTitleID</key>
 			<string>ZLZ6sg</string>
+			<key>INIntentType</key>
+			<string>Custom</string>
+			<key>INIntentVerb</key>
+			<string>View</string>
+		</dict>
+		<dict>
+			<key>INIntentCategory</key>
+			<string>information</string>
+			<key>INIntentDescription</key>
+			<string>Hashtag</string>
+			<key>INIntentDescriptionID</key>
+			<string>A1rwKl</string>
+			<key>INIntentEligibleForWidgets</key>
+			<true/>
+			<key>INIntentIneligibleForSuggestions</key>
+			<true/>
+			<key>INIntentLastParameterTag</key>
+			<integer>1</integer>
+			<key>INIntentName</key>
+			<string>Hashtag</string>
+			<key>INIntentParameters</key>
+			<array>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Hashtag</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>GTUbZg</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>1</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>Sentences</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>YdkgW1</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>hashtag</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>1</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+			</array>
+			<key>INIntentResponse</key>
+			<dict>
+				<key>INIntentResponseCodes</key>
+				<array>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>success</string>
+						<key>INIntentResponseCodeSuccess</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>failure</string>
+					</dict>
+				</array>
+			</dict>
+			<key>INIntentTitle</key>
+			<string>Hashtag</string>
+			<key>INIntentTitleID</key>
+			<string>OcUp1W</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
 			<key>INIntentVerb</key>

@@ -150,6 +150,8 @@
 		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
 		D8E5C346296DAB84007E76A7 /* DataSourceFacade+Status+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */; };
 		D8E5C349296DB8A3007E76A7 /* StatusEditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */; };
+		D8F8A03A29CA5C15000195DD /* HashtagWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */; };
+		D8F8A03C29CA5CB6000195DD /* HashtagWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
@@ -794,6 +796,8 @@
 		D8A6FE6629325F5900666A47 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Status+History.swift"; sourceTree = "<group>"; };
 		D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryViewController.swift; sourceTree = "<group>"; };
+		D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidgetView.swift; sourceTree = "<group>"; };
+		D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidget.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
@@ -1461,6 +1465,7 @@
 		2A86A14329892700007F1062 /* Variants */ = {
 			isa = PBXGroup;
 			children = (
+				D8F8A03829CA5C02000195DD /* Hashtag */,
 				2A86A14429892709007F1062 /* FollowersCount */,
 				2A86A14729892B1B007F1062 /* MultiFollowersCount */,
 				2A9D0662298C045000BF38CB /* LatestFollowers */,
@@ -1831,6 +1836,15 @@
 				2A3D9B7D29A8F33A00F30313 /* StatusHistoryView.swift */,
 			);
 			path = "Edit History";
+			sourceTree = "<group>";
+		};
+		D8F8A03829CA5C02000195DD /* Hashtag */ = {
+			isa = PBXGroup;
+			children = (
+				D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */,
+				D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */,
+			);
+			path = Hashtag;
 			sourceTree = "<group>";
 		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
@@ -3510,7 +3524,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F8A03A29CA5C15000195DD /* HashtagWidgetView.swift in Sources */,
 				2A33062D2987DBFA001D4C51 /* FollowersCountHistory.swift in Sources */,
+				D8F8A03C29CA5CB6000195DD /* HashtagWidget.swift in Sources */,
 				2A9D0666298C05A800BF38CB /* LatestFollowersWidgetView.swift in Sources */,
 				2AB5011E299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
 				2A86A14B2989326E007F1062 /* MultiFollowersCountWidgetView.swift in Sources */,
