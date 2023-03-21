@@ -93,8 +93,10 @@ public final class NotificationView: UIView {
     
     public let menuButton: UIButton = {
         let button = HitTestExpandedButton(type: .system)
+        button.tintColor = Asset.Colors.Label.secondary.color
         let image = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
         button.setImage(image, for: .normal)
+        button.accessibilityLabel = L10n.Common.Controls.Status.Actions.menu
         return button
     }()
     
