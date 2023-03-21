@@ -101,13 +101,18 @@
                 "translate_post": {
                     "title": "الترجَمَة مِن %s",
                     "unknown_language": "غير مَعرُوفة"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "الرَّئِيسَة",
                 "search_and_explore": "البَحث وَالاِستِكشاف",
                 "notifications": "الإشعارات",
-                "profile": "المِلَفُّ التَّعريفِيّ"
+                "profile": "المِلَفُّ التَّعريفِيّ",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +171,11 @@
                     "show_gif": "أظْهِر GIF",
                     "show_video_player": "أظْهِر مُشَغِّلَ المَقاطِعِ المَرئِيَّة",
                     "share_link_in_post": "مُشارَكَة الرابِط فِي مَنشور",
-                    "tap_then_hold_to_show_menu": "اُنقُر مُطَوَّلًا لِإظْهَارِ القائِمَة"
+                    "tap_then_hold_to_show_menu": "اُنقُر مُطَوَّلًا لِإظْهَارِ القائِمَة",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "عنوان URL",
@@ -186,7 +195,25 @@
                     "translated_from": "الترجَمَة مِن %s بِاستِخدَام %s",
                     "unknown_language": "غير مَعرُوفة",
                     "unknown_provider": "غير مَعرُوف",
-                    "show_original": "Shown Original"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, attachment %d of %d",
+                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -235,7 +262,26 @@
         "welcome": {
             "slogan": "شبكات التواصل الاجتماعي\nمرة أُخرى بين يديك.",
             "get_started": "ابدأ الآن",
-            "log_in": "تسجيلُ الدخول"
+            "log_in": "تسجيلُ الدخول",
+            "education": {
+                "what_is_mastodon": {
+                    "title": "What is",
+                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                },
+                "mastodon_is_like_that": {
+                    "title": "Mastodon is like that",
+                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                },
+                "how_do_i_pick_a_server": {
+                    "title": "How do I pick a server?",
+                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "مَرحَبًا بِكَ مُجَدَّدًا",
@@ -245,9 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "اِختر خادِم،\nأيًّا مِنهُم.",
-            "subtitle": "اِختر خادمًا بناءً على منطقتك، اِهتماماتك أو يُمكنك حتى اِختيارُ مجتمعٍ ذِي غرضٍ عام. بِإمكانِكَ الدردشة مع أي شخص على مَاستودُون، بغض النظر عن الخادم الخاصة بك.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "الكُل",
                     "all_accessiblity_description": "الفِئَة: الكُل",
@@ -279,18 +326,39 @@
                 "finding_servers": "يجري إيجاد خوادم متوفِّرَة...",
                 "bad_network": "حدث خطأٌ ما أثناء تحميل البيانات. تحقَّق من اتصالك بالإنترنت.",
                 "no_results": "لا توجد نتائج"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            }
+        },
+        "privacy": {
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I agree"
             }
         },
         "register": {
-            "title": "أخبرنا عن نفسك.",
-            "lets_get_you_set_up_on_domain": "دَعنا نَبدَأُ بِإعدادِكَ عَلَى %s",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "حذف"
                 },
                 "username": {
                     "placeholder": "اِسمُ مُستَخدِم",
-                    "duplicate_prompt": "اِسم المُستَخدِم هذا مأخوذٌ بالفعل."
+                    "duplicate_prompt": "اِسم المُستَخدِم هذا مأخوذٌ بالفعل.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "اِسمُ عَرض"
@@ -300,6 +368,7 @@
                 },
                 "password": {
                     "placeholder": "رمز سري",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "رمز المرور الخاص بك يجب أن يحتوي على الأقل:",
                     "character_limit": "ثمانيةُ خانات",
                     "accessibility": {
@@ -348,15 +417,13 @@
             "terms_of_service": "شُرُوط الخِدمَة",
             "privacy_policy": "سِياسَة الخُصُوصيَّة",
             "button": {
-                "confirm": "أنا مُوافِق"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "شيءٌ أخير.",
-            "subtitle": "أنقر على الرابط المرسل إليك لاستيثاق حسابك.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "اُنقُر عَلَى الرَّابِطِ الَّذي أرسَلناهُ إليكَ عَبرَ البَريدِ الإلِكتُرُونيّ لِلتَّحَقُقِ مِن حِسابِك",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "فتح تطبيق البريد الإلكتروني",
                 "resend": "إعادَةُ الإرسال"
             },
             "dont_receive_email": {
@@ -369,6 +436,11 @@
                 "description": "لقد أرسلنا لك بريدًا إلكترونيًا للتو. تحقق من مجلد البريد غير الهام الخاص بك إذا لم تكن قد فعلت ذلك.",
                 "mail": "البريد",
                 "open_email_client": "فتح عميل البريد الإلكتروني"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +451,7 @@
                 "published": "تمَّ النَّشر!",
                 "Publishing": "يَجري نَشر المُشارَكَة...",
                 "accessibility": {
-                    "logo_label": "ُّزِرُّ الشِّعار",
+                    "logo_label": "Mastodon",
                     "logo_hint": "اُنقُر لِلتمريرِ لأعلى واُنقُر مَرّةً أُخرَى لِلذَّهابِ إلَى المَوقِعِ السَّابِق"
                 }
             }
@@ -391,7 +463,8 @@
         "compose": {
             "title": {
                 "new_post": "مَنشُورٌ جَديد",
-                "new_reply": "رَدٌّ جديد"
+                "new_reply": "رَدٌّ جديد",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "اِلتِقاطُ صُورَة",
@@ -415,6 +488,7 @@
                 "server_processing_state": "مُعالجة الخادم جارِيَة..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "المُدَّة: %s",
                 "thirty_minutes": "ثلاثون دقيقة",
                 "one_hour": "ساعةٌ واحدة",
@@ -424,7 +498,11 @@
                 "seven_days": "سبعةُ أيام",
                 "option_number": "الخيار %ld",
                 "the_poll_is_invalid": "الاِستِطلاعُ غيرُ صالِح",
-                "the_poll_has_empty_option": "يوجَدُ خِيارٌ فارِغٌ فِي الاِستِطلاع"
+                "the_poll_has_empty_option": "يوجَدُ خِيارٌ فارِغٌ فِي الاِستِطلاع",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "اكتب تَحذيرًا دَقيقًا هُنا..."
@@ -456,6 +534,12 @@
                 "toggle_content_warning": "تبديل تحذير المُحتَوى",
                 "append_attachment_entry": "إضافة مُرفَق - %s",
                 "select_visibility_entry": "اختر مدى الظهور - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +552,8 @@
                 "my_followers": "مُتابِعُون",
                 "other_posts": "مَنشورات",
                 "other_following": "مُتابَعُون",
-                "other_followers": "مُتابِعُون"
+                "other_followers": "مُتابِعُون",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Joined",
@@ -584,7 +669,7 @@
             "intro": "هَذِهِ هِيَ المَنشُوراتُ الَّتي تَكْتَسِبُ شَعبِيَّةً فِي الرُّكنِ الخاصِّ بِكَ مِن مَاستُودون."
         },
         "favorite": {
-            "title": "مُفضَّلَتُك"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +731,6 @@
                 },
                 "preference": {
                     "title": "التَّفضيلات",
-                    "true_black_dark_mode": "النَّمَطُ الأسوَدُ الداكِنُ الحَقيقي",
                     "disable_avatar_animation": "تَعطيلُ الصوَرِ الرمزيَّةِ المُتحرِّكَة",
                     "disable_emoji_animation": "تَعطيلُ الرُموزِ التَّعبيريَّةِ المُتحرِّكَة",
                     "using_default_browser": "اِستِخدامُ المُتصفِّحِ الاِفتراضي لِفتحِ الرَّوابِط",
@@ -757,6 +841,37 @@
                 "follow": "مُتابَعَة",
                 "unfollow": "إلغاءُ المُتابَعَة"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }

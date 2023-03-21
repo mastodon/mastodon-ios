@@ -101,13 +101,18 @@
                 "translate_post": {
                     "title": "Traducido do %s",
                     "unknown_language": "Descoñecido"
-                }
+                },
+                "edit_post": "Editar"
             },
             "tabs": {
                 "home": "Inicio",
                 "search_and_explore": "Buscar e Explorar",
                 "notifications": "Notificacións",
-                "profile": "Perfil"
+                "profile": "Perfil",
+                "a11y": {
+                    "search": "Buscar",
+                    "explore": "Descubrir"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +171,11 @@
                     "show_gif": "Mostrar GIF",
                     "show_video_player": "Mostrar reprodutor de vídeo",
                     "share_link_in_post": "Compartir Ligazón na Publicación",
-                    "tap_then_hold_to_show_menu": "Toca e mantén preso para menú"
+                    "tap_then_hold_to_show_menu": "Toca e mantén preso para menú",
+                    "a11y_labels": {
+                        "reblog": "Promover",
+                        "unreblog": "Retirar promoción"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -187,6 +196,24 @@
                     "unknown_language": "Descoñecido",
                     "unknown_provider": "Descoñecido",
                     "show_original": "Mostrar o orixinal"
+                },
+                "media": {
+                    "accessibility_label": "%s, adxunto %d de %d",
+                    "expand_image_hint": "Desprega a imaxe. Dobre toque e manter para mostrar accións",
+                    "expand_gif_hint": "Desprega o GIF. Dobre toque e manter para mostrar accións",
+                    "expand_video_hint": "Mostra o reprodutor. Dobre toque e manter para mostrar accións"
+                },
+                "posted_via_application": "%s vía %s",
+                "buttons": {
+                    "reblogs_title": "Promocións",
+                    "favorites_title": "Favoritas",
+                    "edit_history_title": "Editar historial",
+                    "edit_history_detail": "Última edición %s"
+                },
+                "edited_at_timestamp_prefix": "Editada %s",
+                "edit_history": {
+                    "title": "Historial de edicións",
+                    "original_post": "Orixinal · %s"
                 }
             },
             "friendship": {
@@ -235,7 +262,26 @@
         "welcome": {
             "slogan": "Comunicación social\nde volta ás túas mans.",
             "get_started": "Crear conta",
-            "log_in": "Acceder"
+            "log_in": "Acceder",
+            "education": {
+                "what_is_mastodon": {
+                    "title": "Que é",
+                    "description": "Imaxina que tes un enderezo de email que remata con @exemplo.com.\n\nPodes intercambiar mensaxes con calquera persoa, incluso se o seu email remata en @gmail.com ou @icloud.com ou @exemplo.com."
+                },
+                "mastodon_is_like_that": {
+                    "title": "Mastodon é o mesmo",
+                    "description": "O teu identificador pode ser @rula654@exemplo.social, pero podes seguir, promover e conversar con @gz4libre@exemplo.online."
+                },
+                "how_do_i_pick_a_server": {
+                    "title": "Como elexir un servidor?",
+                    "description": "Pode haber moitas razóns para elexir un servidor. art.exemplo é un bo lugar para artistas, mentras glasgow.exemplo podería ser axeitado para persoas escocesas.\n\nNon terás problemas con calquera dos servidores recomendados, así que independentemente do que elixas (ou se escribes o teu propio na caixa de busca) non botarás nada en falta."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "Que é Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "Benvido outra vez",
@@ -245,9 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Mastodon fórmano as persoas das diferentes comunidades.",
-            "subtitle": "Elixe un servidor en función dos teus intereses, rexión o un de propósito xeral. Poderás conversar con calquera en Mastodon, independentemente do servidor que elixas.",
+            "title": "Elixe un Servidor",
             "button": {
+                "language": "Idioma",
+                "signup_speed": "Rapidez no rexistro",
                 "category": {
                     "all": "Todo",
                     "all_accessiblity_description": "Categoría: Todo",
@@ -279,18 +326,39 @@
                 "finding_servers": "Buscando servidores dispoñibles...",
                 "bad_network": "Algo fallou ao cargar os datos. Comproba a conexión a internet.",
                 "no_results": "Sen resultados"
+            },
+            "signup_speed": {
+                "all": "Todo",
+                "instant": "Rexistro Instantáneo",
+                "manually_reviewed": "Revisión manual"
+            },
+            "language": {
+                "all": "Todo"
+            },
+            "search": {
+                "placeholder": "Buscar por nome ou URL"
+            }
+        },
+        "privacy": {
+            "title": "Privacidade",
+            "policy": {
+                "ios": "Política de Privacidade - Mastodon para iOS",
+                "server": "Política de Privacidade - %s"
+            },
+            "button": {
+                "confirm": "Acepto"
             }
         },
         "register": {
-            "title": "Imos crear a túa conta en %s",
-            "lets_get_you_set_up_on_domain": "Imos crear a túa conta en %s",
+            "title": "Crear conta",
             "input": {
                 "avatar": {
                     "delete": "Eliminar"
                 },
                 "username": {
                     "placeholder": "identificador",
-                    "duplicate_prompt": "Este nome de usuaria xa está en uso."
+                    "duplicate_prompt": "Este nome de usuaria xa está en uso.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "nome público"
@@ -300,6 +368,7 @@
                 },
                 "password": {
                     "placeholder": "contrasinal",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "O contrasinal debe ter polo menos:",
                     "character_limit": "8 caracteres",
                     "accessibility": {
@@ -348,15 +417,13 @@
             "terms_of_service": "termos do servizo",
             "privacy_policy": "polícica de privacidade",
             "button": {
-                "confirm": "Acepto"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "O último detalle.",
-            "subtitle": "Preme na ligazón que che enviamos ao email para verificar a conta.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Preme na ligazón que che enviamos ao email para verificar a conta",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Abrir app de email",
                 "resend": "Reenviar"
             },
             "dont_receive_email": {
@@ -369,6 +436,11 @@
                 "description": "Enviámosche un email. Se non aparece, mira no cartafol do lixo.",
                 "mail": "Correo",
                 "open_email_client": "Abrir cliente de email"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +451,7 @@
                 "published": "Publicado!",
                 "Publishing": "Publicando...",
                 "accessibility": {
-                    "logo_label": "Botón do logo",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Toca para ir arriba e toca outra vez para volver ao mesmo lugar"
                 }
             }
@@ -391,7 +463,8 @@
         "compose": {
             "title": {
                 "new_post": "Nova publicación",
-                "new_reply": "Nova resposta"
+                "new_reply": "Nova resposta",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Facer foto",
@@ -415,6 +488,7 @@
                 "server_processing_state": "Procesando no servidor..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Duración: %s",
                 "thirty_minutes": "30 minutos",
                 "one_hour": "1 Hora",
@@ -424,7 +498,11 @@
                 "seven_days": "7 Días",
                 "option_number": "Opción %ld",
                 "the_poll_is_invalid": "A enquisa non é válida",
-                "the_poll_has_empty_option": "A enquisa ten unha opción baleira"
+                "the_poll_has_empty_option": "A enquisa ten unha opción baleira",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Escribe o teu aviso aquí..."
@@ -456,6 +534,12 @@
                 "toggle_content_warning": "Marcar con Aviso sobre o contido",
                 "append_attachment_entry": "Engadir anexo - %s",
                 "select_visibility_entry": "Elexir visibilidade - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +552,8 @@
                 "my_followers": "seguidoras",
                 "other_posts": "publicacións",
                 "other_following": "seguindo",
-                "other_followers": "seguidoras"
+                "other_followers": "seguidoras",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Uniuse",
@@ -584,7 +669,7 @@
             "intro": "Estas son as publicacións en voga no teu recuncho de Mastodon."
         },
         "favorite": {
-            "title": "Publicacións Favoritas"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +731,6 @@
                 },
                 "preference": {
                     "title": "Preferencias",
-                    "true_black_dark_mode": "Modo negro verdadeiro",
                     "disable_avatar_animation": "Desactivar avatares animados",
                     "disable_emoji_animation": "Desactivar emojis animados",
                     "using_default_browser": "Usar navegador por defecto para as ligazóns",
@@ -757,6 +841,37 @@
                 "follow": "Seguir",
                 "unfollow": "Deixar de seguir"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }

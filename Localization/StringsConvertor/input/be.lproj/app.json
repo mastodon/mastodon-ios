@@ -1,0 +1,877 @@
+{
+    "common": {
+        "alerts": {
+            "common": {
+                "please_try_again": "Паспрабуйце яшчэ раз.",
+                "please_try_again_later": "Паўтарыце спробу пазней."
+            },
+            "sign_up_failure": {
+                "title": "Памылка пры рэгістрацыі"
+            },
+            "server_error": {
+                "title": "Памылка сервера"
+            },
+            "vote_failure": {
+                "title": "Памылка пры галасаванні",
+                "poll_ended": "Апытанне завяршылася"
+            },
+            "discard_post_content": {
+                "title": "Скасаваць чарнавік",
+                "message": "Пацвердзіце, каб скасаваць змесціва допісу."
+            },
+            "publish_post_failure": {
+                "title": "Памылка пры публікацыі",
+                "message": "Не ўдалося апублікаваць допіс.\nПраверце злучэнне з інтэрнэтам.",
+                "attachments_message": {
+                    "video_attach_with_photo": "Немагчыма прымацаваць відэа да допісу, які ўжо змяшчае выявы.",
+                    "more_than_one_video": "Немагчыма дадаць больш за адно відэа."
+                }
+            },
+            "edit_profile_failure": {
+                "title": "Памылка пры рэдагаванні профілю",
+                "message": "Не атрымалася змяніць профіль. Паспрабуйце яшчэ раз."
+            },
+            "sign_out": {
+                "title": "Выйсці",
+                "message": "Вы ўпэўненыя, што хочаце выйсці?",
+                "confirm": "Выйсці"
+            },
+            "block_domain": {
+                "title": "Вы абсалютна дакладна ўпэўнены, што хочаце заблакіраваць %s зусім? У большасці выпадкаў, дастаткова некалькіх мэтавых блакіровак ці ігнараванняў. Вы перастанеце бачыць змесціва з гэтага дамену і вашы падпіскі з гэтага дамену будуць выдаленыя.",
+                "block_entire_domain": "Заблакіраваць дамен"
+            },
+            "save_photo_failure": {
+                "title": "Памылка пры захаванні фотам",
+                "message": "Дайце дазвол на доступ да бібліятэкі фатаграфій, каб захаваць фатаграфію."
+            },
+            "delete_post": {
+                "title": "Выдаліць допіс",
+                "message": "Вы ўпэўненыя, што хочаце выдаліць гэты допіс?"
+            },
+            "clean_cache": {
+                "title": "Ачысціць кэш",
+                "message": "Паспяхова ачышчаны %s кэшу."
+            },
+            "translation_failed": {
+                "title": "Нататка",
+                "message": "Збой перакладу. Магчыма, адміністратар не ўключыў пераклады на гэтым серверы або гэты сервер працуе са старой версіяй Mastodon, дзе пераклады яшчэ не падтрымліваюцца.",
+                "button": "Добра"
+            }
+        },
+        "controls": {
+            "actions": {
+                "back": "Назад",
+                "next": "Далей",
+                "previous": "Назад",
+                "open": "Адкрыць",
+                "add": "Дадаць",
+                "remove": "Выдаліць",
+                "edit": "Рэдагаваць",
+                "save": "Захаваць",
+                "ok": "OK",
+                "done": "Гатова",
+                "confirm": "Пацвердзіць",
+                "continue": "Працягнуць",
+                "compose": "Стварыць",
+                "cancel": "Скасаваць",
+                "discard": "Скасаваць",
+                "try_again": "Паўтарыце спробу",
+                "take_photo": "Зрабіць фота",
+                "save_photo": "Захаваць фота",
+                "copy_photo": "Капіраваць фота",
+                "sign_in": "Увайсці",
+                "sign_up": "Стварыць уліковы запіс",
+                "see_more": "Паказаць больш",
+                "preview": "Перадпрагляд",
+                "copy": "Скапіраваць",
+                "share": "Абагуліць",
+                "share_user": "Абагуліць %s",
+                "share_post": "Абагуліць допіс",
+                "open_in_safari": "Адкрыць у Safari",
+                "open_in_browser": "Адкрыць у браўзеры",
+                "find_people": "Знайсці людзей, каб падпісацца",
+                "manually_search": "Замест гэтага шукайце ўручную",
+                "skip": "Прапусціць",
+                "reply": "Адказаць",
+                "report_user": "Паскардзіцца на %s",
+                "block_domain": "Заблакіраваць %s",
+                "unblock_domain": "Разблакіраваць %s",
+                "settings": "Налады",
+                "delete": "Выдаліць",
+                "translate_post": {
+                    "title": "Перакласці з %s",
+                    "unknown_language": "Невядомая"
+                },
+                "edit_post": "Рэдагаваць"
+            },
+            "tabs": {
+                "home": "Галоўная",
+                "search_and_explore": "Шукайце і адкрывайце",
+                "notifications": "Апавяшчэнні",
+                "profile": "Профіль",
+                "a11y": {
+                    "search": "Пошук",
+                    "explore": "Агляд"
+                }
+            },
+            "keyboard": {
+                "common": {
+                    "switch_to_tab": "Пераключыць на %s",
+                    "compose_new_post": "Стварыць новы допіс",
+                    "show_favorites": "Паказаць абраныя",
+                    "open_settings": "Адкрыць налады"
+                },
+                "timeline": {
+                    "previous_status": "Папярэдні допіс",
+                    "next_status": "Наступны допіс",
+                    "open_status": "Адкрыць допіс",
+                    "open_author_profile": "Адкрыць профіль аўтара",
+                    "open_reblogger_profile": "Адкрыць профіль пашырыўшага",
+                    "reply_status": "Адказаць на допіс",
+                    "toggle_reblog": "Пашырыць ці ўбраць пашырэнне",
+                    "toggle_favorite": "Дадаць ці прыбраць з абранага",
+                    "toggle_content_warning": "Уключыць/адключыць папярэджанне аб змесціве",
+                    "preview_image": "Перадпрагляд відарыса"
+                },
+                "segmented_control": {
+                    "previous_section": "Папярэдні раздзел",
+                    "next_section": "Наступны раздзел"
+                }
+            },
+            "status": {
+                "user_reblogged": "%s пашырыў",
+                "user_replied_to": "Адказаў %s",
+                "show_post": "Паказаць допіс",
+                "show_user_profile": "Паказаць профіль карыстальніка",
+                "content_warning": "Папярэджанне аб змесціве",
+                "sensitive_content": "Далікатнае змесціва",
+                "media_content_warning": "Націсніце ў любым месцы, каб паказаць",
+                "tap_to_reveal": "Націсніце, каб паказаць",
+                "load_embed": "Загрузіць убудаваны",
+                "link_via_user": "%s праз %s",
+                "poll": {
+                    "vote": "Прагаласаваць",
+                    "closed": "Завершана"
+                },
+                "meta_entity": {
+                    "url": "Спасылка: %s",
+                    "hashtag": "Хэштэг: %s",
+                    "mention": "Паказаць профіль: %s",
+                    "email": "Электронная пошта: %s"
+                },
+                "actions": {
+                    "reply": "Адказаць",
+                    "reblog": "Пашырыць",
+                    "unreblog": "Скасаваць пашырэнне",
+                    "favorite": "Абранае",
+                    "unfavorite": "Выдаліць з абраных",
+                    "menu": "Меню",
+                    "hide": "Схаваць",
+                    "show_image": "Паказаць відарыс",
+                    "show_gif": "Паказаць GIF",
+                    "show_video_player": "Паказаць відэаплэер",
+                    "share_link_in_post": "Падзяліцеся спасылкай у допісе",
+                    "tap_then_hold_to_show_menu": "Націсніце і ўтрымлівайце, каб паказаць меню",
+                    "a11y_labels": {
+                        "reblog": "Пашырыць",
+                        "unreblog": "Скасаваць пашырэнне"
+                    }
+                },
+                "tag": {
+                    "url": "URL",
+                    "mention": "Згадванне",
+                    "link": "Спасылка",
+                    "hashtag": "Хэштэг",
+                    "email": "Электронная пошта",
+                    "emoji": "Эмодзі"
+                },
+                "visibility": {
+                    "unlisted": "Кожны можа бачыць гэты допіс, але ён не адлюстроўваецца ў публічнай стужцы.",
+                    "private": "Толькі іх падпісчыкі могуць бачыць гэты допіс.",
+                    "private_from_me": "Толькі мае падпісчыкі могуць бачыць гэты допіс.",
+                    "direct": "Толькі згаданы карыстальнік можа бачыць гэты пост."
+                },
+                "translation": {
+                    "translated_from": "Перакладзена з %s з дапамогай %s",
+                    "unknown_language": "Невядомая",
+                    "unknown_provider": "Невядомы",
+                    "show_original": "Паказаць арыгінал"
+                },
+                "media": {
+                    "accessibility_label": "%s, далучэнне %d з %d",
+                    "expand_image_hint": "Разгортванне відарыса. Двойчы націсніце і ўтрымлівайце, каб паказаць дзеянні",
+                    "expand_gif_hint": "Разгортванне GIF. Двойчы націсніце і ўтрымлівайце, каб паказаць дзеянні",
+                    "expand_video_hint": "Паказ відэаплэера. Двойчы націсніце і ўтрымлівайце, каб паказаць дзеянні"
+                },
+                "posted_via_application": "%s праз %s",
+                "buttons": {
+                    "reblogs_title": "Пашырэнні",
+                    "favorites_title": "Абраныя",
+                    "edit_history_title": "Гісторыя рэдагавання",
+                    "edit_history_detail": "Апошняе рэдагаванне %s"
+                },
+                "edited_at_timestamp_prefix": "Адрэдагавана %s",
+                "edit_history": {
+                    "title": "Гісторыя рэдагавання",
+                    "original_post": "Original Post · %s"
+                }
+            },
+            "friendship": {
+                "follow": "Падпісацца",
+                "following": "Падпісаны",
+                "request": "Запыт",
+                "pending": "Чакаецца",
+                "block": "Заблакіраваць",
+                "block_user": "Заблакіраваць %s",
+                "block_domain": "Заблакіраваць %s",
+                "unblock": "Разблакіраваць",
+                "unblock_user": "Разблакіраваць %s",
+                "blocked": "Заблакіраваны",
+                "mute": "Ігнараваць",
+                "mute_user": "Ігнараваць %s",
+                "unmute": "Не ігнараваць",
+                "unmute_user": "Не ігнараваць %s",
+                "muted": "Ігнаруецца",
+                "edit_info": "Рэдагаваць інфармацыю",
+                "show_reblogs": "Паказаць пашырэнні",
+                "hide_reblogs": "Схаваць пашырэнні"
+            },
+            "timeline": {
+                "filtered": "Адфільтравана",
+                "timestamp": {
+                    "now": "Толькі што"
+                },
+                "loader": {
+                    "load_missing_posts": "Загрузіць адсутныя допісы",
+                    "loading_missing_posts": "Загрузка адсутных допісаў...",
+                    "show_more_replies": "Паказаць больш адказаў"
+                },
+                "header": {
+                    "no_status_found": "Допіс не знойдзены",
+                    "blocking_warning": "Вы не можаце праглядаць профіль гэтага карыстальніка, \nпакуль не разблакіруеце яго.\nВось так для іх выглядае ваш профіль.",
+                    "user_blocking_warning": "Вы не можаце праглядаць профіль %s, \nпакуль не разблакіруеце яго.\nВось так для іх выглядае ваш профіль.",
+                    "blocked_warning": "Вы не можаце праглядаць профіль гэтага карыстальніка, \nпакуль ён не разблакіруе вас.",
+                    "user_blocked_warning": "Вы не можаце праглядаць профіль %s, \nпакуль ён не разблакіруе вас.",
+                    "suspended_warning": "Уліковы запіс гэтага карыстальніка прыпынены.",
+                    "user_suspended_warning": "Уліковы запіс %s прыпынены."
+                }
+            }
+        }
+    },
+    "scene": {
+        "welcome": {
+            "slogan": "Сацыяльная сетка пад вашым кантролем.",
+            "get_started": "Пачаць",
+            "log_in": "Увайсці",
+            "education": {
+                "what_is_mastodon": {
+                    "title": "What is",
+                    "description": "Уявіце, што ў вас ёсць адрас электроннай пошты, які заканчваецца на @example.com.\n\nВы па-ранейшаму можаце адпраўляць і атрымліваць электронныя лісты ад каго захочаце, нават калі іх электронная пошта заканчваецца на @gmail.com, @icloud.com або @example.com."
+                },
+                "mastodon_is_like_that": {
+                    "title": "Mastodon такі",
+                    "description": "Ваш ідэнтыфікатар можа быць @gothgirl654@example.social, але вы ўсё яшчэ можаце падпісвацца, пашыраць і перапісвацца з @fallout5ever@example.online."
+                },
+                "how_do_i_pick_a_server": {
+                    "title": "Як выбраць сервер?",
+                    "description": "Розныя людзі выбіраюць розныя серверы па розных прычынах. art.example з'яўляецца выдатным месцам для мастакоў, у той час як glasgow.example можа быць добрым выбарам для шатландцаў.\n\nВы не памыліцеся ні з адным з нашых рэкамендаваных сервераў, так што незалежна ад таго, які вы выбераце (або калі ўведзяце ваш уласны ў радку пошуку сервера), вы нідзе нічога не прапусціце."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
+        },
+        "login": {
+            "title": "З вяртаннем",
+            "subtitle": "Увайдзіце на серверы, дзе вы стварылі свой уліковы запіс.",
+            "server_search_field": {
+                "placeholder": "Увядзіце URL або адрас сервера"
+            }
+        },
+        "server_picker": {
+            "title": "Pick Server",
+            "button": {
+                "language": "Мова",
+                "signup_speed": "Sign-up Speed",
+                "category": {
+                    "all": "Усе",
+                    "all_accessiblity_description": "Катэгорыя: Усе",
+                    "academia": "акадэмія",
+                    "activism": "актывізм",
+                    "food": "ежа",
+                    "furry": "фуры",
+                    "games": "гульні",
+                    "general": "асноўныя",
+                    "journalism": "журналістыка",
+                    "lgbt": "лгбт",
+                    "regional": "рэгіянальныя",
+                    "art": "мастацтва",
+                    "music": "музыка",
+                    "tech": "тэхналогіі"
+                },
+                "see_less": "Паказаць менш",
+                "see_more": "Паказаць больш"
+            },
+            "label": {
+                "language": "МОВА",
+                "users": "КАРЫСТАЛЬНІКІ",
+                "category": "КАТЭГОРЫЯ"
+            },
+            "input": {
+                "search_servers_or_enter_url": "Знайдзіце супольнасць або ўвядзіце URL"
+            },
+            "empty_state": {
+                "finding_servers": "Пошук даступных сервераў...",
+                "bad_network": "Нешта пайшло не так падчас загрузкі даных. Праверце інтэрнэт-злучэнне.",
+                "no_results": "Няма вынікаў"
+            },
+            "signup_speed": {
+                "all": "Усе",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "Усе"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            }
+        },
+        "privacy": {
+            "title": "Прыватнасць",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Палітыка прыватнасці - %s"
+            },
+            "button": {
+                "confirm": "Прыняць"
+            }
+        },
+        "register": {
+            "title": "Стварыць уліковы запіс",
+            "input": {
+                "avatar": {
+                    "delete": "Выдаліць"
+                },
+                "username": {
+                    "placeholder": "імя карыстальніка",
+                    "duplicate_prompt": "Гэта імя карыстальніка занята.",
+                    "suggestion": "amazing_%@"
+                },
+                "display_name": {
+                    "placeholder": "бачнае імя"
+                },
+                "email": {
+                    "placeholder": "электронная пошта"
+                },
+                "password": {
+                    "placeholder": "пароль",
+                    "confirmation_placeholder": "Пацвердзіць пароль",
+                    "require": "Ваш пароль павінен мець як мінімум:",
+                    "character_limit": "8 сімвалаў",
+                    "accessibility": {
+                        "checked": "адзначаны галачкай",
+                        "unchecked": "галачка знятая"
+                    },
+                    "hint": "Ваш пароль павінен змяшчаць мінімум восем сімвалаў"
+                },
+                "invite": {
+                    "registration_user_invite_request": "Чаму вы жадаеце далучыцца?"
+                }
+            },
+            "error": {
+                "item": {
+                    "username": "Імя карыстальніка",
+                    "email": "Электронная пошта",
+                    "password": "Пароль",
+                    "agreement": "Пагадненне",
+                    "locale": "Мова",
+                    "reason": "Прычына"
+                },
+                "reason": {
+                    "blocked": "%s змяшчае забароненага пастаўшчыка email",
+                    "unreachable": "%s не існуе",
+                    "taken": "%s ужо выкарыстоўваецца",
+                    "reserved": "%s з'яўляецца зарэзерваваным ключавым словам",
+                    "accepted": "%s павінна быць прынята",
+                    "blank": "%s абавязковы",
+                    "invalid": "%s несапраўдны",
+                    "too_long": "%s занадта доўгі",
+                    "too_short": "%s занадта кароткі",
+                    "inclusion": "%s не з'яўляецца значэннем, якое падтрымліваецца"
+                },
+                "special": {
+                    "username_invalid": "Імя карыстальніка павінна змяшчаць толькі літары, лічбы і знак падкрэслівання",
+                    "username_too_long": "Імя карыстальніка занадта доўгае (не можа быць больш за 30 сімвалаў)",
+                    "email_invalid": "Несапраўдны адрас электроннай пошты",
+                    "password_too_short": "Пароль занадта кароткі (павінен быць не менш за 8 сімвалаў)"
+                }
+            }
+        },
+        "server_rules": {
+            "title": "Некаторыя асноўныя правілы.",
+            "subtitle": "Правілы вызначаныя мадэратарамі дамена %s.",
+            "prompt": "Працягваючы, вы згаджаецеся з умовамі выкарыстання і палітыкай канфідэнцыяльнасці %s.",
+            "terms_of_service": "умовы выкарыстання",
+            "privacy_policy": "палітыка канфідэнцыяльнасці",
+            "button": {
+                "confirm": "Прыняць"
+            }
+        },
+        "confirm_email": {
+            "title": "Праверце паштовую скрыню",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "button": {
+                "resend": "Адправіць паўторна"
+            },
+            "dont_receive_email": {
+                "title": "Праверце сваю пошту",
+                "description": "Праверце, ці правільны ваш адрас электроннай пошты, а таксама папку са спамам, калі вы гэтага яшчэ не зрабілі.",
+                "resend_email": "Адправіць email паўторна"
+            },
+            "open_email_app": {
+                "title": "Праверце вашу паштовую скрыню.",
+                "description": "Мы толькі што даслалі вам электронны ліст. Праверце папку са спамам, калі не знайшлі яго.",
+                "mail": "Пошта",
+                "open_email_client": "Адкрыць паштовы кліент"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
+            }
+        },
+        "home_timeline": {
+            "title": "Галоўная",
+            "navigation_bar_state": {
+                "offline": "Па-за сеткай",
+                "new_posts": "Паказаць новыя",
+                "published": "Апублікавана!",
+                "Publishing": "Допіс публікуецца...",
+                "accessibility": {
+                    "logo_label": "Mastodon",
+                    "logo_hint": "Націсніце, каб пракруціць уверх, і зноў націсніце, каб перайсці да папярэдняга месца"
+                }
+            }
+        },
+        "suggestion_account": {
+            "title": "Знайсці людзей, каб падпісацца",
+            "follow_explain": "Калі вы падпішацеся на кагосьці, вы ўбачыце яго допісы ў сваёй хатняй стужцы."
+        },
+        "compose": {
+            "title": {
+                "new_post": "Новы допіс",
+                "new_reply": "Новы адказ",
+                "edit_post": "Рэдагаваць допіс"
+            },
+            "media_selection": {
+                "camera": "Зрабіць фота",
+                "photo_library": "Галерэя",
+                "browse": "Агляд"
+            },
+            "content_input_placeholder": "Напішыце тое, аб чым думаеце",
+            "compose_action": "Апублікаваць",
+            "replying_to_user": "адказ %s",
+            "attachment": {
+                "photo": "фота",
+                "video": "відэа",
+                "attachment_broken": "Гэты %s пашкоджаны і не можа быць\nзапампаваны ў Mastodon.",
+                "description_photo": "Апішыце фота для людзей са слабым зрокам...",
+                "description_video": "Апішыце відэа для людзей са слабым зрокам...",
+                "load_failed": "Не ўдалося загрузіць",
+                "upload_failed": "Не ўдалося запампаваць",
+                "can_not_recognize_this_media_attachment": "Немагчыма распазнаць гэты медыяфайл",
+                "attachment_too_large": "Далучэнне занадта вялікае",
+                "compressing_state": "Сцісканне...",
+                "server_processing_state": "Апрацоўка сервера..."
+            },
+            "poll": {
+                "title": "Апытанне",
+                "duration_time": "Працягласць: %s",
+                "thirty_minutes": "30 хвілін",
+                "one_hour": "1 гадзіна",
+                "six_hours": "6 гадзін",
+                "one_day": "1 дзень",
+                "three_days": "3 дні",
+                "seven_days": "7 дзён",
+                "option_number": "Варыянт %ld",
+                "the_poll_is_invalid": "Апытанне мае памылкі",
+                "the_poll_has_empty_option": "Апытанне мае пусты варыянт",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Перамясціць уверх",
+                "move_down": "Перамясціць уніз"
+            },
+            "content_warning": {
+                "placeholder": "Напішыце сваё папярэджанне тут..."
+            },
+            "visibility": {
+                "public": "Публічны",
+                "unlisted": "Не ў спісе",
+                "private": "Толькі для падпісчыкаў",
+                "direct": "Толькі людзі, якіх я згадаў"
+            },
+            "auto_complete": {
+                "space_to_add": "Прабел, каб дадаць"
+            },
+            "accessibility": {
+                "append_attachment": "Дадаць далучэнне",
+                "append_poll": "Дадаць апытанне",
+                "remove_poll": "Выдаліць апытанне",
+                "custom_emoji_picker": "Меню карыстальніцкіх эмодзі",
+                "enable_content_warning": "Уключыць папярэджанне аб змесціве",
+                "disable_content_warning": "Адключыць папярэджанне аб змесціве",
+                "post_visibility_menu": "Меню бачнасці допісу",
+                "post_options": "Параметры допісу",
+                "posting_as": "Апублікаваць як %s"
+            },
+            "keyboard": {
+                "discard_post": "Скасаваць допіс",
+                "publish_post": "Апублікаваць допіс",
+                "toggle_poll": "Адкрыць/закрыць апытанне",
+                "toggle_content_warning": "Уключыць/адключыць папярэджанне аб змесціве",
+                "append_attachment_entry": "Дадаць далучэнне - %s",
+                "select_visibility_entry": "Выберыце бачнасць - %s"
+            },
+            "language": {
+                "title": "Мова допісу",
+                "suggested": "Прапанаваныя",
+                "recent": "Recent",
+                "other": "Other Language…"
+            }
+        },
+        "profile": {
+            "header": {
+                "follows_you": "Падпісаны(-а) на вас"
+            },
+            "dashboard": {
+                "my_posts": "допісы",
+                "my_following": "падпісаны",
+                "my_followers": "падпісчыкі",
+                "other_posts": "допісы",
+                "other_following": "падпісаны",
+                "other_followers": "падпісчыкі",
+                "familiar_followers": "mutuals"
+            },
+            "fields": {
+                "joined": "Далучыўся",
+                "add_row": "Дадаць радок",
+                "placeholder": {
+                    "label": "Пазнака",
+                    "content": "Змесціва"
+                },
+                "verified": {
+                    "short": "Спраўджана %s",
+                    "long": "Права ўласнасці на гэтую спасылку праверана %s"
+                }
+            },
+            "segmented_control": {
+                "posts": "Допісы",
+                "replies": "Адказы",
+                "posts_and_replies": "Допісы і адказы",
+                "media": "Медыя",
+                "about": "Аб праграме"
+            },
+            "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Ігнараваць уліковы запіс",
+                    "message": "Ігнараваць %s?"
+                },
+                "confirm_unmute_user": {
+                    "title": "Не ігнараваць уліковы запіс",
+                    "message": "Не ігнараваць %s?"
+                },
+                "confirm_block_user": {
+                    "title": "Заблакіраваць уліковы запіс",
+                    "message": "Заблакіраваць %s?"
+                },
+                "confirm_unblock_user": {
+                    "title": "Разблакіраваць уліковы запіс",
+                    "message": "Разблакіраваць %s?"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Паказаць пашырэнні",
+                    "message": "Пацвердзіце, каб паказаць пашырэнні"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Схаваць пашырэнні",
+                    "message": "Пацвердзіце, каб схаваць пашырэнні"
+                }
+            },
+            "accessibility": {
+                "show_avatar_image": "Паказаць аватар карыстальніка",
+                "edit_avatar_image": "Рэдагаваць аватар",
+                "show_banner_image": "Паказаць відарыс банера",
+                "double_tap_to_open_the_list": "Двойчы націсніце, каб адкрыць спіс"
+            }
+        },
+        "follower": {
+            "title": "падпісчык",
+            "footer": "Падпісчыкі з іншых сервераў не адлюстроўваюцца."
+        },
+        "following": {
+            "title": "падпісаны",
+            "footer": "Падпіскі з іншых сервераў не адлюстроўваюцца."
+        },
+        "familiarFollowers": {
+            "title": "Падпісчыкі, якіх вы ведаеце",
+            "followed_by_names": "Мае сярод падпісчыкаў %s"
+        },
+        "favorited_by": {
+            "title": "Дадалі ў абранае"
+        },
+        "reblogged_by": {
+            "title": "Пашырана"
+        },
+        "search": {
+            "title": "Пошук",
+            "search_bar": {
+                "placeholder": "Пошук хэштэгаў і карыстальнікаў",
+                "cancel": "Скасаваць"
+            },
+            "recommend": {
+                "button_text": "Прагледзець усе",
+                "hash_tag": {
+                    "title": "Папулярныя ў Mastodon",
+                    "description": "Хэштэгі, якія прыцягваюць увагу",
+                    "people_talking": "%s чалавек размаўляе"
+                },
+                "accounts": {
+                    "title": "Вам могуць спадабацца",
+                    "description": "Магчыма, вы захочаце падпісацца на гэтыя профілі",
+                    "follow": "Падпісацца"
+                }
+            },
+            "searching": {
+                "segment": {
+                    "all": "Усе",
+                    "people": "Людзі",
+                    "hashtags": "Хэштэгі",
+                    "posts": "Допісы"
+                },
+                "empty_state": {
+                    "no_results": "Няма вынікаў"
+                },
+                "recent_search": "Нядаўнія запыты",
+                "clear": "Ачысціць"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Допісы",
+                "hashtags": "Хэштэгі",
+                "news": "Навіны",
+                "community": "Супольнасць",
+                "for_you": "Для вас"
+            },
+            "intro": "Допісы, што набіраюць папулярнасць у вашым кутку Mastodon."
+        },
+        "favorite": {
+            "title": "Favorites"
+        },
+        "notification": {
+            "title": {
+                "Everything": "Усе",
+                "Mentions": "Згадванні"
+            },
+            "notification_description": {
+                "followed_you": "падпісаўся на вас",
+                "favorited_your_post": "дадаў ваш допіс у абранае",
+                "reblogged_your_post": "пашырыў ваш допіс",
+                "mentioned_you": "згадаў вас",
+                "request_to_follow_you": "адправіў запыт на падпіску",
+                "poll_has_ended": "апытанне завяршылася"
+            },
+            "keyobard": {
+                "show_everything": "Паказаць усё",
+                "show_mentions": "Паказаць згадванні"
+            },
+            "follow_request": {
+                "accept": "Прыняць",
+                "accepted": "Прынята",
+                "reject": "адхіліць",
+                "rejected": "Адхілена"
+            }
+        },
+        "thread": {
+            "back_title": "Допіс",
+            "title": "Допіс ад %s"
+        },
+        "settings": {
+            "title": "Налады",
+            "section": {
+                "appearance": {
+                    "title": "Знешні выгляд",
+                    "automatic": "Аўтаматычна",
+                    "light": "Заўсёды светлы",
+                    "dark": "Заўсёды цёмны"
+                },
+                "look_and_feel": {
+                    "title": "Знешні выгляд",
+                    "use_system": "Выкарыстоўваць сістэмны",
+                    "really_dark": "Сапраўды Цёмны",
+                    "sorta_dark": "Накшталт Цёмны",
+                    "light": "Светлы"
+                },
+                "notifications": {
+                    "title": "Апавяшчэнні",
+                    "favorites": "Дадае мой допіс у абранае",
+                    "follows": "Падпісаўся на мяне",
+                    "boosts": "Пашырае мой допіс",
+                    "mentions": "Згадвае мяне",
+                    "trigger": {
+                        "anyone": "кожны",
+                        "follower": "падпісчык",
+                        "follow": "нехта, на каго я падпісаны",
+                        "noone": "ніхто",
+                        "title": "Апавяшчаць мяне, калі"
+                    }
+                },
+                "preference": {
+                    "title": "Параметры",
+                    "disable_avatar_animation": "Адключыць анімацыю аватараў",
+                    "disable_emoji_animation": "Адключыць анімацыю эмодзі",
+                    "using_default_browser": "Выкарыстоўваць прадвызначаны браўзер для адкрыцця спасылак",
+                    "open_links_in_mastodon": "Адкрываць спасылкі ў Mastodon"
+                },
+                "boring_zone": {
+                    "title": "Нудная зона",
+                    "account_settings": "Налады ўліковага запісу",
+                    "terms": "Умовы выкарыстання",
+                    "privacy": "Палітыка канфідэнцыяльнасці"
+                },
+                "spicy_zone": {
+                    "title": "Вострая зона",
+                    "clear": "Ачысціць кэш медыя",
+                    "signout": "Выйсці"
+                }
+            },
+            "footer": {
+                "mastodon_description": "Mastodon — гэта праграма з адкрытым зыходным кодам. Вы можаце паведаміць аб праблемах на GitHub па адрасе %s (%s)"
+            },
+            "keyboard": {
+                "close_settings_window": "Закрыць акно налад"
+            }
+        },
+        "report": {
+            "title_report": "Скарга",
+            "title": "Паскардзіцца на %s",
+            "step1": "Крок 1 з 2",
+            "step2": "Крок 2 з 2",
+            "content1": "Ці ёсць іншыя допісы, якія вы хацелі б дадаць да скаргі?",
+            "content2": "Ці ёсць што-небудзь, што мадэратары павінны ведаць аб гэтай скарзе?",
+            "report_sent_title": "Дзякуй за вашу скаргу, мы яе разгледзім.",
+            "send": "Адправіць скаргу",
+            "skip_to_send": "Дасылаю без каментарыя",
+            "text_placeholder": "Увядзіце або ўстаўце дадатковыя каментарыі",
+            "reported": "Мае скаргі",
+            "step_one": {
+                "step_1_of_4": "Крок 1 з 4",
+                "whats_wrong_with_this_post": "Што не так з гэтым допісам?",
+                "whats_wrong_with_this_account": "Што не так з гэтым уліковым запісам?",
+                "whats_wrong_with_this_username": "Што не так з %s?",
+                "select_the_best_match": "Выберыце найлепшы варыянт",
+                "i_dont_like_it": "Мне не падабаецца",
+                "it_is_not_something_you_want_to_see": "Гэта не тое, што вы хочаце бачыць",
+                "its_spam": "Гэта спам",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Шкодныя спасылкі, фальшывыя ўзаемадзеянні або адказы, што паўтараюцца",
+                "it_violates_server_rules": "Гэта парушае правілы сервера",
+                "you_are_aware_that_it_breaks_specific_rules": "Вам вядома, што гэта парушае пэўныя правілы",
+                "its_something_else": "Гэта нешта іншае",
+                "the_issue_does_not_fit_into_other_categories": "Гэта праблема не падпадае ні пад адну з катэгорыі"
+            },
+            "step_two": {
+                "step_2_of_4": "Крок 2 з 4",
+                "which_rules_are_being_violated": "Якія правілы былі парушаны?",
+                "select_all_that_apply": "Абярыце ўсе варыянты, што падыходзяць",
+                "i_just_don’t_like_it": "Мне не падабаецца"
+            },
+            "step_three": {
+                "step_3_of_4": "Крок 3 з 4",
+                "are_there_any_posts_that_back_up_this_report": "Ці ёсць допісы, якія пацвярджаюць гэтую скаргу?",
+                "select_all_that_apply": "Абярыце ўсе варыянты, што падыходзяць"
+            },
+            "step_four": {
+                "step_4_of_4": "Крок 4 з 4",
+                "is_there_anything_else_we_should_know": "Што-небудзь яшчэ, што мы павінны ведаць?"
+            },
+            "step_final": {
+                "dont_want_to_see_this": "Не хочаце бачыць гэта?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Калі вы бачыце на Mastodon нешта, што вам не падабаецца, вы можаце выдаліць чалавека са свайго асяроддзя.",
+                "unfollow": "Адпісацца",
+                "unfollowed": "Адпісаліся",
+                "unfollow_user": "Адпісацца ад %s",
+                "mute_user": "Ігнараваць %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Вы не ўбачыце іх допісы або пашырэнні ў сваёй хатняй стужцы. Яны не даведаюцца, што вы іх ігнаруеце.",
+                "block_user": "Заблакіраваць %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Яны больш не змогуць падпісвацца на вас або бачыць вашыя допісы, але змогуць бачыць, што яны былі заблакіраваны.",
+                "while_we_review_this_you_can_take_action_against_user": "Пакуль мы разглядаем яе, вы можаце прыняць меры супраць %s"
+            }
+        },
+        "preview": {
+            "keyboard": {
+                "close_preview": "Зачыніць перадпрагляд",
+                "show_next": "Паказаць наступнае",
+                "show_previous": "Паказаць папярэдняе"
+            }
+        },
+        "account_list": {
+            "tab_bar_hint": "Бягучы профіль: %s. Двойчы націсніце і ўтрымлівайце, каб паказаць пераключальнік уліковых запісаў",
+            "dismiss_account_switcher": "Закрыць пераключальнік уліковых запісаў",
+            "add_account": "Дадаць уліковы запіс"
+        },
+        "wizard": {
+            "new_in_mastodon": "Новае ў Mastodon",
+            "multiple_account_switch_intro_description": "Пераключайцеся паміж некалькімі ўліковымі запісамі, утрымліваючы кнопку профілю.",
+            "accessibility_hint": "Двойчы націсніце, каб закрыць гэты майстар"
+        },
+        "bookmark": {
+            "title": "Закладкі"
+        },
+        "followed_tags": {
+            "title": "Тэгі, за якімі вы сочыце",
+            "header": {
+                "posts": "допісаў",
+                "participants": "ўдзельнікі",
+                "posts_today": "допісаў сёння"
+            },
+            "actions": {
+                "follow": "Падпісацца",
+                "unfollow": "Адпісацца"
+            }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Падпісчыкі",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
+        }
+    }
+}

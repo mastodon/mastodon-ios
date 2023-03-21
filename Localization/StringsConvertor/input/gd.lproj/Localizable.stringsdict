@@ -65,7 +65,7 @@
     <key>a11y.plural.count.characters_left</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@character_count@ air fhàgail</string>
+      <string>%#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld charactar</string>
+        <string>%ld charactar air fhàgail</string>
         <key>two</key>
-        <string>%ld charactar</string>
+        <string>%ld charactar air fhàgail</string>
         <key>few</key>
-        <string>%ld caractaran</string>
+        <string>%ld caractaran air fhàgail</string>
         <key>other</key>
-        <string>%ld caractar</string>
+        <string>%ld caractar air fhàgail</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -215,6 +215,26 @@
         <string>%ld brosnachaidhean</string>
         <key>other</key>
         <string>%ld brosnachadh</string>
+      </dict>
+    </dict>
+    <key>plural.count.reblog_a11y</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reblog_count@</string>
+      <key>reblog_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 re-blog</string>
+        <key>two</key>
+        <string>%ld re-blogs</string>
+        <key>few</key>
+        <string>%ld re-blogs</string>
+        <key>other</key>
+        <string>%ld re-blogs</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
