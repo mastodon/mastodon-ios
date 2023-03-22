@@ -102,7 +102,7 @@
                     "title": "Dịch từ %s",
                     "unknown_language": "Chưa xác định"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Sửa"
             },
             "tabs": {
                 "home": "Bảng tin",
@@ -110,8 +110,8 @@
                 "notifications": "Thông báo",
                 "profile": "Trang hồ sơ",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Tìm kiếm",
+                    "explore": "Khám phá"
                 }
             },
             "keyboard": {
@@ -195,7 +195,7 @@
                     "translated_from": "Dịch từ %s bằng %s",
                     "unknown_language": "Không xác định",
                     "unknown_provider": "Không biết",
-                    "show_original": "Show Original"
+                    "show_original": "Bản gốc"
                 },
                 "media": {
                     "accessibility_label": "%s, đính kèm %d từ %d",
@@ -203,16 +203,16 @@
                     "expand_gif_hint": "Mở rộng GIF. Nhấn hai lần và giữ để hiện hành động",
                     "expand_video_hint": "Hiện trình phát video. Nhấn hai lần và giữ để hiện hành động"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s qua %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Lượt đăng lại",
+                    "favorites_title": "Lượt thích",
+                    "edit_history_title": "Lịch sử chỉnh sửa",
+                    "edit_history_detail": "Sửa lần cuối %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Sửa %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "Lịch sử chỉnh sửa",
                     "original_post": "Original Post · %s"
                 }
             },
@@ -368,7 +368,7 @@
                 },
                 "password": {
                     "placeholder": "mật khẩu",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Nhập lại mật khẩu",
                     "require": "Mật khẩu phải tối thiểu:",
                     "character_limit": "8 ký tự",
                     "accessibility": {
@@ -417,11 +417,11 @@
             "terms_of_service": "điều khoản dịch vụ",
             "privacy_policy": "chính sách bảo mật",
             "button": {
-                "confirm": "I agree"
+                "confirm": "Tôi đồng ý"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "Kiểm tra hộp thư của bạn",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
                 "resend": "Gửi lại"
@@ -488,7 +488,7 @@
                 "server_processing_state": "Máy chủ đang xử lý..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Bình chọn",
                 "duration_time": "Thời hạn: %s",
                 "thirty_minutes": "30 phút",
                 "one_hour": "1 giờ",
