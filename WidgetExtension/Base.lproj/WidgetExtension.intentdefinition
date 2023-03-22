@@ -352,34 +352,6 @@
 			<integer>1</integer>
 			<key>INIntentName</key>
 			<string>LatestFollowers</string>
-			<key>INIntentParameters</key>
-			<array>
-				<dict>
-					<key>INIntentParameterConfigurable</key>
-					<true/>
-					<key>INIntentParameterDisplayName</key>
-					<string>Parameter</string>
-					<key>INIntentParameterDisplayNameID</key>
-					<string>sFTGjN</string>
-					<key>INIntentParameterDisplayPriority</key>
-					<integer>1</integer>
-					<key>INIntentParameterMetadata</key>
-					<dict>
-						<key>INIntentParameterMetadataCapitalization</key>
-						<string>Sentences</string>
-						<key>INIntentParameterMetadataDefaultValueID</key>
-						<string>Cnairs</string>
-					</dict>
-					<key>INIntentParameterName</key>
-					<string>parameter</string>
-					<key>INIntentParameterSupportsResolution</key>
-					<true/>
-					<key>INIntentParameterTag</key>
-					<integer>1</integer>
-					<key>INIntentParameterType</key>
-					<string>String</string>
-				</dict>
-			</array>
 			<key>INIntentResponse</key>
 			<dict>
 				<key>INIntentResponseCodes</key>
@@ -417,7 +389,7 @@
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentLastParameterTag</key>
-			<integer>1</integer>
+			<integer>5</integer>
 			<key>INIntentName</key>
 			<string>Hashtag</string>
 			<key>INIntentParameters</key>
@@ -445,6 +417,10 @@
 						<dict>
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Hashtag</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>zbXop9</string>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Configuration</string>
 						</dict>
@@ -454,11 +430,31 @@
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
 						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>There are ${count} options matching ‘${hashtag}’.</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>oQ0WOE</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>DisambiguationIntroduction</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Just to confirm, you wanted ‘${hashtag}’?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>REztzm</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Confirmation</string>
+						</dict>
 					</array>
-					<key>INIntentParameterSupportsResolution</key>
+					<key>INIntentParameterSupportsDynamicEnumeration</key>
 					<true/>
 					<key>INIntentParameterTag</key>
-					<integer>1</integer>
+					<integer>5</integer>
 					<key>INIntentParameterType</key>
 					<string>String</string>
 				</dict>
