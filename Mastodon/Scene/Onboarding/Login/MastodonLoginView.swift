@@ -21,8 +21,6 @@ class MastodonLoginView: UIView {
   private let searchContainerLeftPaddingView: UIView
 
   let tableView: UITableView
-  let navigationActionView: NavigationActionView
-  var bottomConstraint: NSLayoutConstraint?
 
   override init(frame: CGRect) {
 
@@ -64,15 +62,11 @@ class MastodonLoginView: UIView {
     tableView.keyboardDismissMode = .onDrag
     tableView.layer.cornerRadius = 10
 
-    navigationActionView = NavigationActionView()
-    navigationActionView.translatesAutoresizingMaskIntoConstraints = false
-
     super.init(frame: frame)
 
     addSubview(explanationTextLabel)
     addSubview(searchTextField)
     addSubview(tableView)
-    addSubview(navigationActionView)
     backgroundColor = Asset.Scene.Onboarding.background.color
 
     setupConstraints()
@@ -83,8 +77,6 @@ class MastodonLoginView: UIView {
   }
 
   private func setupConstraints() {
-
-    let bottomConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: navigationActionView.bottomAnchor)
 
     let constraints = [
       explanationTextLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -109,14 +101,9 @@ class MastodonLoginView: UIView {
       tableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 2),
       tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
       trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 16),
-      tableView.bottomAnchor.constraint(lessThanOrEqualTo: navigationActionView.topAnchor),
-
-      navigationActionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      navigationActionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      bottomConstraint,
+      tableView.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor),
     ]
 
-    self.bottomConstraint = bottomConstraint
     NSLayoutConstraint.activate(constraints)
   }
 
