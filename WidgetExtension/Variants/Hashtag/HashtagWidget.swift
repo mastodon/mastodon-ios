@@ -36,6 +36,8 @@ struct HashtagWidget: Widget {
         IntentConfiguration(kind: "Hashtag", intent: HashtagIntent.self, provider: HashtagWidgetProvider()) { entry in
             HashtagWidgetView()
         }
+        .configurationDisplayName("Hashtag")
+        .description("Show a Hashtag")
         .supportedFamilies(availableFamilies)
     }
 }

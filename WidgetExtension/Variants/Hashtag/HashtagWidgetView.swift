@@ -5,13 +5,13 @@ import SwiftUI
 struct HashtagWidgetView: View {
     var body: some View {
         //TODO: Lockscreen has a different design
-        HStack {
-            VStack {
+        VStack {
+            HStack {
                 Text("Username")
                 Text("@user@mastodon.social")
             }
             Text("Toot")
-            VStack {
+            HStack {
                 Image(systemName: "arrow.2.squarepath")
                 Text("Reblog Count")
                 Image(systemName: "star")
