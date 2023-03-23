@@ -358,7 +358,7 @@
                 "username": {
                     "placeholder": "ユーザー名",
                     "duplicate_prompt": "このユーザー名は使用されています",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "%@_don"
                 },
                 "display_name": {
                     "placeholder": "表示名"
@@ -368,7 +368,7 @@
                 },
                 "password": {
                     "placeholder": "パスワード",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "パスワード（確認用）",
                     "require": "パスワードには少なくとも以下が含まれている必要があります:",
                     "character_limit": "8 文字",
                     "accessibility": {
@@ -417,12 +417,12 @@
             "terms_of_service": "利用規約",
             "privacy_policy": "プライバシーポリシー",
             "button": {
-                "confirm": "I agree"
+                "confirm": "同意する"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "確認のメールを送信しました",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "%@ を認証するためのリンクをメールで送信しました。リンクをタップしてメールアドレスを認証してください。",
             "button": {
                 "resend": "再送信"
             },
@@ -438,9 +438,9 @@
                 "open_email_client": "メールアプリを開く"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "メールが届かない場合",
+                "resend_in": "再送信(%@)",
+                "resend_now": "メールを再送信する"
             }
         },
         "home_timeline": {
