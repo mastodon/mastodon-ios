@@ -80,7 +80,7 @@
                 "save_photo": "هەڵی بگرە",
                 "copy_photo": "لەبەری بگرەوە",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "زیاتر ببینە",
                 "preview": "پێشبینین",
                 "copy": "Copy",
@@ -350,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "بیسڕەوە"
