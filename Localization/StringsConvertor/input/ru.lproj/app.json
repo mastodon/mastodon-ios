@@ -80,7 +80,7 @@
                 "save_photo": "Сохранить изображение",
                 "copy_photo": "Скопировать изображение",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Ещё",
                 "preview": "Предпросмотр",
                 "copy": "Copy",
@@ -350,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Удалить"
