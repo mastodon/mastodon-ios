@@ -238,10 +238,10 @@ extension ActionToolbarContainer {
         
         if isHighlighted {
             reblogButton.accessibilityTraits.insert(.selected)
-            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.A11yLabels.unreblog
+            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.A11YLabels.unreblog
         } else {
             reblogButton.accessibilityTraits.remove(.selected)
-            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.A11yLabels.reblog
+            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.A11YLabels.reblog
         }
         reblogButton.accessibilityCustomActions = [
             UIAccessibilityCustomAction(name: "Show All Reblogs") { [weak self] action in
