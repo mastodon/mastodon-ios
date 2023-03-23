@@ -253,10 +253,8 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
             self.view.layoutIfNeeded()
         }
     }
-}
-
-private extension MastodonLoginViewController {
-    func setRightBarButtonState(_ state: RightBarButtonState) {
+    
+    private func setRightBarButtonState(_ state: RightBarButtonState) {
         switch state {
         case .normal:
             navigationItem.rightBarButtonItem = UIBarButtonItem(
