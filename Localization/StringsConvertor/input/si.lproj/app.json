@@ -80,7 +80,7 @@
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "තව බලන්න",
                 "preview": "පෙරදසුන",
                 "copy": "Copy",
@@ -350,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "මකන්න"
