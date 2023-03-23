@@ -358,7 +358,7 @@
                 "username": {
                     "placeholder": "identificador",
                     "duplicate_prompt": "Este nome de usuaria xa está en uso.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "rula_%@"
                 },
                 "display_name": {
                     "placeholder": "nome público"
@@ -368,7 +368,7 @@
                 },
                 "password": {
                     "placeholder": "contrasinal",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Confirmar contrasinal",
                     "require": "O contrasinal debe ter polo menos:",
                     "character_limit": "8 caracteres",
                     "accessibility": {
@@ -417,12 +417,12 @@
             "terms_of_service": "termos do servizo",
             "privacy_policy": "polícica de privacidade",
             "button": {
-                "confirm": "I agree"
+                "confirm": "Acepto"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Mira na caixa de correo",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Preme na ligazón que che enviamos para verificar a conta %@. Agardamos por ti.",
             "button": {
                 "resend": "Reenviar"
             },
@@ -438,9 +438,9 @@
                 "open_email_client": "Abrir cliente de email"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Non recibiches a Ligazón?",
+                "resend_in": "Reenviar (%@)",
+                "resend_now": "Reenviar agora."
             }
         },
         "home_timeline": {
@@ -464,7 +464,7 @@
             "title": {
                 "new_post": "Nova publicación",
                 "new_reply": "Nova resposta",
-                "edit_post": "Edit Post"
+                "edit_post": "Editar publicación"
             },
             "media_selection": {
                 "camera": "Facer foto",
@@ -488,7 +488,7 @@
                 "server_processing_state": "Procesando no servidor..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Enquisa",
                 "duration_time": "Duración: %s",
                 "thirty_minutes": "30 minutos",
                 "one_hour": "1 Hora",
@@ -499,10 +499,10 @@
                 "option_number": "Opción %ld",
                 "the_poll_is_invalid": "A enquisa non é válida",
                 "the_poll_has_empty_option": "A enquisa ten unha opción baleira",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Engadir opción",
+                "remove_option": "Quitar opción",
+                "move_up": "Mover cara arriba",
+                "move_down": "Mover cara abaixo"
             },
             "content_warning": {
                 "placeholder": "Escribe o teu aviso aquí..."
@@ -536,10 +536,10 @@
                 "select_visibility_entry": "Elexir visibilidade - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "Idioma de publicación",
+                "suggested": "Suxerido",
+                "recent": "Recentes",
+                "other": "Outro idioma…"
             }
         },
         "profile": {
@@ -553,7 +553,7 @@
                 "other_posts": "publicacións",
                 "other_following": "seguindo",
                 "other_followers": "seguidoras",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "mutuo"
             },
             "fields": {
                 "joined": "Uniuse",
@@ -669,7 +669,7 @@
             "intro": "Estas son as publicacións en voga no teu recuncho de Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Favoritas"
         },
         "notification": {
             "title": {
@@ -845,33 +845,33 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Non semella ser unha ligazón válida de Mastodon."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Unha mágoa, pero hai soporte para esta familia de Widgets.",
+            "user_not_logged_in": "Abre Mastodon para iniciar sesión coa Conta."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Seguidoras",
+            "configuration_description": "Mostrar o número de seguidoras.",
+            "title": "SEGUIDORAS",
+            "followers_today": "%s seguidoras hoxe"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Varias seguidoras",
+            "configuration_description": "Mostrar o número de seguidoras para varias contas.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Outra seguidora",
+                "account_name": "fulanito@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Últimas seguidoras",
+            "configuration_description": "Mostra seguidoras recentes.",
+            "title": "Últimas seguidoras",
+            "last_update": "Última actualización: %s"
         }
     }
 }
