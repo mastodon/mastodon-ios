@@ -101,7 +101,8 @@
                 "translate_post": {
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "Home",
@@ -170,7 +171,11 @@
                     "show_gif": "Show GIF",
                     "show_video_player": "Show video player",
                     "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -197,7 +202,20 @@
                     "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
+
             },
             "friendship": {
                 "follow": "Follow",
@@ -249,16 +267,21 @@
             "education": {
               "what_is_mastodon": {
                 "title": "What is",
-                "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.",
+                "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
               },
               "mastodon_is_like_that": {
                 "title": "Mastodon is like that",
-                "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.",
+                "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
               },
               "how_do_i_pick_a_server": {
                 "title": "How do I pick a server?",
-                "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.",
+                "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
               },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
             }
         },
         "login": {
@@ -271,6 +294,8 @@
         "server_picker": {
             "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "All",
                     "all_accessiblity_description": "Category: All",
@@ -302,19 +327,29 @@
                 "finding_servers": "Finding available servers...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "No results"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
             }
         },
         "privacy": {
             "title": "Privacy",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS";
-                "server" = "Privacy Policy - %s";
-
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
             },
             "button": {
                 "confirm": "I agree"
             }
-        }
+        },
         "register": {
             "title": "Create account",
             "input": {
@@ -323,7 +358,8 @@
                 },
                 "username": {
                     "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "duplicate_prompt": "This username is taken.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "display name"
@@ -382,14 +418,13 @@
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
+            "title": "Check Your Inbox",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Open Email App",
                 "resend": "Resend"
             },
             "dont_receive_email": {
@@ -402,6 +437,11 @@
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Client"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -424,7 +464,8 @@
         "compose": {
             "title": {
                 "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_reply": "New Reply",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Take Photo",
@@ -458,7 +499,11 @@
                 "seven_days": "7 Days",
                 "option_number": "Option %ld",
                 "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_has_empty_option": "The poll has empty option",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
@@ -687,7 +732,6 @@
                 },
                 "preference": {
                     "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
                     "using_default_browser": "Use default browser to open links",
@@ -799,6 +843,37 @@
                 "follow": "Follow",
                 "unfollow": "Unfollow"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }

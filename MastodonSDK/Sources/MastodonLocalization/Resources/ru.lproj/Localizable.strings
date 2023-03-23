@@ -40,6 +40,7 @@
 "Common.Controls.Actions.Discard" = "Отмена";
 "Common.Controls.Actions.Done" = "Готово";
 "Common.Controls.Actions.Edit" = "Изменить";
+"Common.Controls.Actions.EditPost" = "Edit";
 "Common.Controls.Actions.FindPeople" = "Подпишитесь на людей";
 "Common.Controls.Actions.ManuallySearch" = "Найти вручную";
 "Common.Controls.Actions.Next" = "Далее";
@@ -101,6 +102,8 @@
 "Common.Controls.Keyboard.Timeline.ToggleContentWarning" = "Раскрыть или спрятать содержимое";
 "Common.Controls.Keyboard.Timeline.ToggleFavorite" = "Добавить или убрать из избранного";
 "Common.Controls.Keyboard.Timeline.ToggleReblog" = "Продвинуть или убрать продвижение";
+"Common.Controls.Status.Actions.A11YLabels.Reblog" = "Re-blog";
+"Common.Controls.Status.Actions.A11YLabels.Unreblog" = "Undo re-blog";
 "Common.Controls.Status.Actions.Favorite" = "Добавить в избранное";
 "Common.Controls.Status.Actions.Hide" = "Скрыть";
 "Common.Controls.Status.Actions.Menu" = "Меню";
@@ -113,9 +116,20 @@
 "Common.Controls.Status.Actions.TapThenHoldToShowMenu" = "Нажмите и удерживайте, чтобы показать меню";
 "Common.Controls.Status.Actions.Unfavorite" = "Убрать из избранного";
 "Common.Controls.Status.Actions.Unreblog" = "Убрать продвижение";
+"Common.Controls.Status.Buttons.EditHistoryDetail" = "Last edit %@";
+"Common.Controls.Status.Buttons.EditHistoryTitle" = "Edit History";
+"Common.Controls.Status.Buttons.FavoritesTitle" = "Favorites";
+"Common.Controls.Status.Buttons.ReblogsTitle" = "Reblogs";
 "Common.Controls.Status.ContentWarning" = "Предупреждение о содержании";
+"Common.Controls.Status.EditHistory.OriginalPost" = "Original Post · %@";
+"Common.Controls.Status.EditHistory.Title" = "Edit History";
+"Common.Controls.Status.EditedAtTimestampPrefix" = "Edited %@";
 "Common.Controls.Status.LinkViaUser" = "%@ via %@";
 "Common.Controls.Status.LoadEmbed" = "Load Embed";
+"Common.Controls.Status.Media.AccessibilityLabel" = "%@, attachment %d of %d";
+"Common.Controls.Status.Media.ExpandGifHint" = "Expands the GIF. Double-tap and hold to show actions";
+"Common.Controls.Status.Media.ExpandImageHint" = "Expands the image. Double-tap and hold to show actions";
+"Common.Controls.Status.Media.ExpandVideoHint" = "Shows the video player. Double-tap and hold to show actions";
 "Common.Controls.Status.MediaContentWarning" = "Нажмите в любом месте, чтобы показать";
 "Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
 "Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";
@@ -123,6 +137,7 @@
 "Common.Controls.Status.MetaEntity.Url" = "Link: %@";
 "Common.Controls.Status.Poll.Closed" = "Завершён";
 "Common.Controls.Status.Poll.Vote" = "Проголосовать";
+"Common.Controls.Status.PostedViaApplication" = "%@ via %@";
 "Common.Controls.Status.SensitiveContent" = "Sensitive Content";
 "Common.Controls.Status.ShowPost" = "Показать пост";
 "Common.Controls.Status.ShowUserProfile" = "Показать профиль пользователя";
@@ -133,7 +148,7 @@
 "Common.Controls.Status.Tag.Mention" = "Упоминание";
 "Common.Controls.Status.Tag.Url" = "Ссылка";
 "Common.Controls.Status.TapToReveal" = "Нажмите, чтобы показать";
-"Common.Controls.Status.Translation.ShowOriginal" = "Shown Original";
+"Common.Controls.Status.Translation.ShowOriginal" = "Show Original";
 "Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
 "Common.Controls.Status.Translation.UnknownLanguage" = "Unknown";
 "Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
@@ -143,6 +158,8 @@
 "Common.Controls.Status.Visibility.Private" = "Only their followers can see this post.";
 "Common.Controls.Status.Visibility.PrivateFromMe" = "Only my followers can see this post.";
 "Common.Controls.Status.Visibility.Unlisted" = "Everyone can see this post but not display in the public timeline.";
+"Common.Controls.Tabs.A11Y.Explore" = "Explore";
+"Common.Controls.Tabs.A11Y.Search" = "Search";
 "Common.Controls.Tabs.Home" = "Главная";
 "Common.Controls.Tabs.Notifications" = "Notifications";
 "Common.Controls.Tabs.Profile" = "Профиль";
@@ -173,6 +190,7 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Загрузка недостающих постов...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "Показать больше ответов";
 "Common.Controls.Timeline.Timestamp.Now" = "Только что";
+"Extension.OpenIn.InvalidLinkError" = "This doesn't seem to be a valid Mastodon link.";
 "Scene.AccountList.AddAccount" = "Add Account";
 "Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
 "Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
@@ -208,28 +226,40 @@
 "Scene.Compose.Keyboard.SelectVisibilityEntry" = "Выбрать видимость — %@";
 "Scene.Compose.Keyboard.ToggleContentWarning" = "Добавить/убрать предупреждение о содержании";
 "Scene.Compose.Keyboard.TogglePoll" = "Добавить/убрать опрос";
+"Scene.Compose.Language.Other" = "Other Language…";
+"Scene.Compose.Language.Recent" = "Recent";
+"Scene.Compose.Language.Suggested" = "Suggested";
+"Scene.Compose.Language.Title" = "Post Language";
 "Scene.Compose.MediaSelection.Browse" = "Выбрать";
 "Scene.Compose.MediaSelection.Camera" = "Сделать фото";
 "Scene.Compose.MediaSelection.PhotoLibrary" = "Медиатека";
+"Scene.Compose.Poll.AddOption" = "Add Option";
 "Scene.Compose.Poll.DurationTime" = "Продолжительность: %@";
+"Scene.Compose.Poll.MoveDown" = "Move Down";
+"Scene.Compose.Poll.MoveUp" = "Move Up";
 "Scene.Compose.Poll.OneDay" = "1 день";
 "Scene.Compose.Poll.OneHour" = "1 час";
 "Scene.Compose.Poll.OptionNumber" = "Вариант %ld";
+"Scene.Compose.Poll.RemoveOption" = "Remove Option";
 "Scene.Compose.Poll.SevenDays" = "7 дней";
 "Scene.Compose.Poll.SixHours" = "6 часов";
 "Scene.Compose.Poll.ThePollHasEmptyOption" = "The poll has empty option";
 "Scene.Compose.Poll.ThePollIsInvalid" = "The poll is invalid";
 "Scene.Compose.Poll.ThirtyMinutes" = "30 минут";
 "Scene.Compose.Poll.ThreeDays" = "3 дня";
+"Scene.Compose.Poll.Title" = "Poll";
 "Scene.Compose.ReplyingToUser" = "ответ %@";
+"Scene.Compose.Title.EditPost" = "Edit Post";
 "Scene.Compose.Title.NewPost" = "Новый пост";
 "Scene.Compose.Title.NewReply" = "Новый ответ";
 "Scene.Compose.Visibility.Direct" = "Только для упомянутых людей";
 "Scene.Compose.Visibility.Private" = "Для подписчиков";
 "Scene.Compose.Visibility.Public" = "Публичный";
 "Scene.Compose.Visibility.Unlisted" = "Скрытый";
-"Scene.ConfirmEmail.Button.OpenEmailApp" = "Открыть приложение почты";
 "Scene.ConfirmEmail.Button.Resend" = "Отправить заново";
+"Scene.ConfirmEmail.DidntGetLink.Prefix" = "Didn't get a Link?";
+"Scene.ConfirmEmail.DidntGetLink.ResendIn" = "Resend (%@)";
+"Scene.ConfirmEmail.DidntGetLink.ResendNow" = "Resend now.";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Проверьте, правильно ли указан ваш e-mail адрес, а также папку «спам», если ещё не сделали этого.";
 "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Отправить ещё раз";
 "Scene.ConfirmEmail.DontReceiveEmail.Title" = "Проверьте свой e-mail адрес";
@@ -237,12 +267,8 @@
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "Почта";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "Открыть почтовый клиент";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "Проверьте вашу почту.";
-"Scene.ConfirmEmail.Subtitle" = "Мы только что отправили письмо на
-%@.
-Нажмите на ссылку в нём, чтобы
-подтвердить свою учётную запись.";
-"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we emailed to you to verify your account";
-"Scene.ConfirmEmail.Title" = "И ещё кое-что.";
+"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we sent you to verify %@. We’ll wait right here.";
+"Scene.ConfirmEmail.Title" = "Check Your Inbox";
 "Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
 "Scene.Discovery.Tabs.Community" = "Сообщество";
 "Scene.Discovery.Tabs.ForYou" = "For You";
@@ -251,7 +277,7 @@
 "Scene.Discovery.Tabs.Posts" = "Posts";
 "Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
 "Scene.Familiarfollowers.Title" = "Followers you familiar";
-"Scene.Favorite.Title" = "Ваше избранное";
+"Scene.Favorite.Title" = "Favorites";
 "Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.FollowedTags.Actions.Follow" = "Follow";
 "Scene.FollowedTags.Actions.Unfollow" = "Unfollow";
@@ -264,7 +290,7 @@
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Logo Button";
+"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Показать новые";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Не в сети";
 "Scene.HomeTimeline.NavigationBarState.Published" = "Опубликовано!";
@@ -272,7 +298,7 @@
 "Scene.HomeTimeline.Title" = "Главная";
 "Scene.Login.ServerSearchField.Placeholder" = "Enter URL or search for your server";
 "Scene.Login.Subtitle" = "Log you in on the server you created your account on.";
-"Scene.Login.Title" = "Welcome back";
+"Scene.Login.Title" = "Welcome Back";
 "Scene.Notification.FollowRequest.Accept" = "Accept";
 "Scene.Notification.FollowRequest.Accepted" = "Accepted";
 "Scene.Notification.FollowRequest.Reject" = "reject";
@@ -290,13 +316,21 @@
 "Scene.Preview.Keyboard.ClosePreview" = "Закрыть предпросмотр";
 "Scene.Preview.Keyboard.ShowNext" = "Следующее изображение";
 "Scene.Preview.Keyboard.ShowPrevious" = "Предыдущее изображение";
+"Scene.Privacy.Button.Confirm" = "I agree";
+"Scene.Privacy.Policy.Ios" = "Privacy Policy - Mastodon for iOS";
+"Scene.Privacy.Policy.Server" = "Privacy Policy - %@";
+"Scene.Privacy.Title" = "Privacy";
 "Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "Double tap to open the list";
 "Scene.Profile.Accessibility.EditAvatarImage" = "Edit avatar image";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "Show avatar image";
 "Scene.Profile.Accessibility.ShowBannerImage" = "Show banner image";
-"Scene.Profile.Dashboard.Followers" = "подписчики";
-"Scene.Profile.Dashboard.Following" = "подписки";
-"Scene.Profile.Dashboard.Posts" = "посты";
+"Scene.Profile.Dashboard.FamiliarFollowers" = "mutuals";
+"Scene.Profile.Dashboard.MyFollowers" = "followers";
+"Scene.Profile.Dashboard.MyFollowing" = "following";
+"Scene.Profile.Dashboard.MyPosts" = "posts";
+"Scene.Profile.Dashboard.OtherFollowers" = "followers";
+"Scene.Profile.Dashboard.OtherFollowing" = "following";
+"Scene.Profile.Dashboard.OtherPosts" = "posts";
 "Scene.Profile.Fields.AddRow" = "Добавить строку";
 "Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "Содержимое";
@@ -349,13 +383,14 @@
 "Scene.Register.Input.Password.Accessibility.Checked" = "checked";
 "Scene.Register.Input.Password.Accessibility.Unchecked" = "unchecked";
 "Scene.Register.Input.Password.CharacterLimit" = "8 characters";
+"Scene.Register.Input.Password.ConfirmationPlaceholder" = "Confirm Password";
 "Scene.Register.Input.Password.Hint" = "Пароль должен содержать не менее восьми символов";
 "Scene.Register.Input.Password.Placeholder" = "пароль";
 "Scene.Register.Input.Password.Require" = "Your password needs at least:";
 "Scene.Register.Input.Username.DuplicatePrompt" = "Это имя пользователя занято.";
 "Scene.Register.Input.Username.Placeholder" = "имя пользователя";
-"Scene.Register.LetsGetYouSetUpOnDomain" = "Let’s get you set up on %@";
-"Scene.Register.Title" = "Расскажите нам о себе.";
+"Scene.Register.Input.Username.Suggestion" = "amazing_%@";
+"Scene.Register.Title" = "Create account";
 "Scene.Report.Content1" = "Есть ли другие сообщения, которые вы хотите добавить в отчёт?";
 "Scene.Report.Content2" = "Есть ли что-то, что модераторы должны знать об этом сообщении?";
 "Scene.Report.ReportSentTitle" = "Thanks for reporting, we’ll look into this.";
@@ -430,8 +465,10 @@
 "Scene.ServerPicker.Button.Category.Music" = "музыка";
 "Scene.ServerPicker.Button.Category.Regional" = "региональные";
 "Scene.ServerPicker.Button.Category.Tech" = "технологии";
+"Scene.ServerPicker.Button.Language" = "Language";
 "Scene.ServerPicker.Button.SeeLess" = "Показать меньше";
 "Scene.ServerPicker.Button.SeeMore" = "Ещё";
+"Scene.ServerPicker.Button.SignupSpeed" = "Sign-up Speed";
 "Scene.ServerPicker.EmptyState.BadNetwork" = "Что-то пошло не так при загрузке данных. Проверьте подключение к интернету.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Ищем доступные сервера...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Нет результатов";
@@ -439,10 +476,13 @@
 "Scene.ServerPicker.Label.Category" = "КАТЕГОРИЯ";
 "Scene.ServerPicker.Label.Language" = "ЯЗЫК";
 "Scene.ServerPicker.Label.Users" = "ПОЛЬЗОВАТЕЛИ";
-"Scene.ServerPicker.Subtitle" = "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.";
-"Scene.ServerPicker.Title" = "Выберите сервер,
-любой сервер.";
-"Scene.ServerRules.Button.Confirm" = "Принимаю";
+"Scene.ServerPicker.Language.All" = "All";
+"Scene.ServerPicker.Search.Placeholder" = "Search name or URL";
+"Scene.ServerPicker.SignupSpeed.All" = "All";
+"Scene.ServerPicker.SignupSpeed.Instant" = "Instant Sign-up";
+"Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "Manual Review";
+"Scene.ServerPicker.Title" = "Pick Server";
+"Scene.ServerRules.Button.Confirm" = "I agree";
 "Scene.ServerRules.PrivacyPolicy" = "политика конфиденциальности";
 "Scene.ServerRules.Prompt" = "Продолжая, вы соглашаетесь с условиям использования и политикой конфиденциальности %@.";
 "Scene.ServerRules.Subtitle" = "Эти правила установлены администраторами %@.";
@@ -486,6 +526,17 @@
 "Scene.SuggestionAccount.Title" = "Подпишитесь на людей";
 "Scene.Thread.BackTitle" = "Пост";
 "Scene.Thread.Title" = "Пост %@";
+"Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
+"Scene.Welcome.Education.HowDoIPickAServer.Description" = "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.
+
+You can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.";
+"Scene.Welcome.Education.HowDoIPickAServer.Title" = "How do I pick a server?";
+"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.";
+"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "Mastodon is like that";
+"Scene.Welcome.Education.WhatIsMastodon.Description" = "Imagine you have an email address that ends with @example.com.
+
+You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.";
+"Scene.Welcome.Education.WhatIsMastodon.Title" = "What is";
 "Scene.Welcome.GetStarted" = "Присоединиться";
 "Scene.Welcome.LogIn" = "Вход";
 "Scene.Welcome.Slogan" = "Социальная сеть
@@ -493,3 +544,17 @@
 "Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
 "Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
 "Scene.Wizard.NewInMastodon" = "Новое в Мастодоне";
+"Widget.Common.UnsupportedWidgetFamily" = "Sorry but this Widget family is unsupported.";
+"Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
+"Widget.FollowersCount.ConfigurationDescription" = "Show number of followers.";
+"Widget.FollowersCount.ConfigurationDisplayName" = "Followers";
+"Widget.FollowersCount.FollowersToday" = "%@ followers today";
+"Widget.FollowersCount.Title" = "FOLLOWERS";
+"Widget.LatestFollowers.ConfigurationDescription" = "Show latest followers.";
+"Widget.LatestFollowers.ConfigurationDisplayName" = "Latest followers";
+"Widget.LatestFollowers.LastUpdate" = "Last update: %@";
+"Widget.LatestFollowers.Title" = "Latest followers";
+"Widget.MultipleFollowers.ConfigurationDescription" = "Show number of followers for multiple accounts.";
+"Widget.MultipleFollowers.ConfigurationDisplayName" = "Multiple followers";
+"Widget.MultipleFollowers.MockUser.AccountName" = "another@follower.social";
+"Widget.MultipleFollowers.MockUser.DisplayName" = "Another follower";
