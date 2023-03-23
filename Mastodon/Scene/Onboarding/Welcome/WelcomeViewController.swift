@@ -78,6 +78,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
 
     private(set) var pageControl: UIPageControl = {
         let pageControl = UIPageControl(frame: .zero)
+        pageControl.backgroundStyle = .prominent
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
     }()
@@ -91,7 +92,7 @@ extension WelcomeViewController {
         definesPresentationContext = true
         preferredContentSize = CGSize(width: 547, height: 678)
         
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = false
         view.overrideUserInterfaceStyle = .light
         
         setupOnboardingAppearance()
@@ -149,7 +150,7 @@ extension WelcomeViewController {
         scrollView.delegate = self
         
         NSLayoutConstraint.activate([
-            pageCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: computedTopAnchorInset),
+            pageCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             pageCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: pageCollectionView.trailingAnchor),
             pageControl.topAnchor.constraint(equalTo: pageCollectionView.bottomAnchor, constant: 16),

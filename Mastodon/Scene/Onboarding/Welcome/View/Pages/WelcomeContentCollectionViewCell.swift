@@ -15,7 +15,6 @@ class WelcomeContentCollectionViewCell: UICollectionViewCell {
     private let contentStackView: UIStackView
     private let titleView: UILabel
     private let label: UILabel
-    private let blurryBackgroundView: UIVisualEffectView
 
     override init(frame: CGRect) {
         titleView = UILabel()
@@ -36,15 +35,9 @@ class WelcomeContentCollectionViewCell: UICollectionViewCell {
         contentStackView.alignment = .leading
         contentStackView.spacing = 8
 
-        blurryBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialLight))
-        blurryBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        blurryBackgroundView.applyCornerRadius(radius: 8)
-
-        blurryBackgroundView.contentView.addSubview(contentStackView)
-        
         super.init(frame: frame)
 
-        addSubview(blurryBackgroundView)
+        addSubview(contentStackView)
         
         setupConstraints()
     }
@@ -53,15 +46,11 @@ class WelcomeContentCollectionViewCell: UICollectionViewCell {
     
     private func setupConstraints() {
         let constraints = [
-            blurryBackgroundView.topAnchor.constraint(equalTo: topAnchor),
-            blurryBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            trailingAnchor.constraint(equalTo: blurryBackgroundView.trailingAnchor, constant: 16),
-            bottomAnchor.constraint(greaterThanOrEqualTo: blurryBackgroundView.bottomAnchor),
-
-            contentStackView.topAnchor.constraint(equalTo: blurryBackgroundView.contentView.topAnchor, constant: 8),
-            contentStackView.leadingAnchor.constraint(equalTo: blurryBackgroundView.contentView.leadingAnchor, constant: 8),
-            blurryBackgroundView.contentView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
-            blurryBackgroundView.contentView.bottomAnchor.constraint(equalTo: contentStackView.bottomAnchor),
+            contentStackView.topAnchor.constraint(equalTo: topAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor, constant: 16),
+            bottomAnchor.constraint(greaterThanOrEqualTo: contentStackView.bottomAnchor),
         ]
         
         NSLayoutConstraint.activate(constraints)
