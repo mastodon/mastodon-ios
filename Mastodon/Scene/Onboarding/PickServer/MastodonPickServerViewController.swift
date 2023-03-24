@@ -378,6 +378,13 @@ extension MastodonPickServerViewController: UITableViewDelegate {
         guard case let .server(server, _) = item else { return }
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         viewModel.selectedServer.send(server)
+        
+        // Briefly highlight selected cell
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        cell.backgroundColor = Asset.Colors.selectionHighlight.color
+        UIView.animate(withDuration: 0.3, animations: {
+            cell.backgroundColor = .none
+        })
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
