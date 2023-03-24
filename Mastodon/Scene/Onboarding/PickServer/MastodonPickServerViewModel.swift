@@ -47,6 +47,7 @@ class MastodonPickServerViewModel: NSObject {
     let unindexedServers = CurrentValueSubject<[Mastodon.Entity.Server]?, Never>([])    // set nil when loading
     let viewWillAppear = PassthroughSubject<Void, Never>()
     let viewDidAppear = CurrentValueSubject<Void, Never>(Void())
+    let scrollToTop = PassthroughSubject<Void, Never>()
     @Published var additionalTableViewInsets: UIEdgeInsets = .zero
     
     // output
@@ -125,7 +126,7 @@ extension MastodonPickServerViewModel {
                 (selectedLanguage, manualApprovalRequired)
             }
         )
-        .map { indexedServers, selectCategoryItem, searchText, filters -> [Mastodon.Entity.Server] in
+        .map { [weak self] indexedServers, selectCategoryItem, searchText, filters -> [Mastodon.Entity.Server] in
             var indexedServers = indexedServers
 
             var _indexedServers: [Mastodon.Entity.Server] = []
@@ -151,6 +152,7 @@ extension MastodonPickServerViewModel {
             case .language(_), .signupSpeed(_):
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: nil, searchText: searchText)
             case .category(let category):
+                self?.scrollToTop.send()
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: category.category.rawValue, searchText: searchText)
             }
         }

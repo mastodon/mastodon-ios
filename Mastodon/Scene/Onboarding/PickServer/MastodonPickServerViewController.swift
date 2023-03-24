@@ -141,6 +141,13 @@ extension MastodonPickServerViewController {
             )
         }
         .store(in: &disposeBag)
+        
+        viewModel.scrollToTop
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.scroll(to: .top, animated: false)
+            }
+            .store(in: &disposeBag)
 
         authenticationViewModel
             .authenticated
