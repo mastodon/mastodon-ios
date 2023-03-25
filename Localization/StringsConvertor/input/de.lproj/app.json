@@ -102,7 +102,7 @@
                     "title": "Von %s übersetzen",
                     "unknown_language": "Unbekannt"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Bearbeiten"
             },
             "tabs": {
                 "home": "Startseite",
@@ -110,7 +110,7 @@
                 "notifications": "Mitteilungen",
                 "profile": "Profil",
                 "a11y": {
-                    "search": "Search",
+                    "search": "Suchen",
                     "explore": "Explore"
                 }
             },
