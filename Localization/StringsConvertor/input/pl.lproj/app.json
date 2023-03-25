@@ -102,7 +102,7 @@
                     "title": "Przetłumacz z %s",
                     "unknown_language": "Nieznany"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edytuj"
             },
             "tabs": {
                 "home": "Strona główna",
@@ -110,8 +110,8 @@
                 "notifications": "Powiadomienia",
                 "profile": "Profil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Szukaj",
+                    "explore": "Odkrywaj"
                 }
             },
             "keyboard": {
@@ -206,14 +206,14 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "favorites_title": "Ulubione",
+                    "edit_history_title": "Historia edycji",
+                    "edit_history_detail": "Ostatnio edytowane: %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Edytowano %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Historia edycji",
+                    "original_post": "Oryginalny post · %s"
                 }
             },
             "friendship": {
@@ -237,66 +237,66 @@
                 "hide_reblogs": "Ukryj podbicia"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrowany(-a)",
                 "timestamp": {
                     "now": "Teraz"
                 },
                 "loader": {
                     "load_missing_posts": "Załaduj brakujące wpisy",
                     "loading_missing_posts": "Ładowanie brakujących wpisów...",
-                    "show_more_replies": "Show more replies"
+                    "show_more_replies": "Pokaż więcej odpowiedzi"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
+                    "no_status_found": "Nie znaleziono posta",
+                    "blocking_warning": "Nie możesz wyświetlić profilu tego użytkownika\ndopóki nie odblokujesz go.\nTwój profil wygląda tak dla nich.",
+                    "user_blocking_warning": "Nie możesz wyświetlić profilu %s\ndopóki nie odblokujesz go.\nTwój profil wygląda tak dla nich.",
+                    "blocked_warning": "Nie możesz zobaczyć profilu tego użytkownika\n dopóki nie odblokują Cię.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "suspended_warning": "Ten użytkownik został zawieszony.",
+                    "user_suspended_warning": "Konto %s zostało zawieszone."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In",
+            "slogan": "Sieć społecznościowa, z powrotem w Twoich rękach.",
+            "get_started": "Rozpocznij",
+            "log_in": "Zaloguj się",
             "education": {
                 "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                    "title": "Czym jest",
+                    "description": "Wyobraź sobie, że masz adres e-mail, który kończy się @example.com.\n\nNadal możesz wysyłać i odbierać wiadomości od każdego, nawet jeśli ich e-mail kończy się na @gmail.com lub @icloud.com lub @przykład.com."
                 },
                 "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                    "title": "Mastodon jest podobny do",
+                    "description": "Twój nick może brzmieć @gothgirl654@example.social, ale nadal możesz obserwować, reblogować i rozmawiać z @fallout5ever@example.online."
                 },
                 "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                    "title": "Jaki wybrać serwer?",
+                    "description": "Różne osoby wybierają różne serwery z różnych powodu. art.example to świetne miejsce dla artystów, podczas gdy glasgow.przykład może być dobrym wyborem dla Szkotów.\n\nNie zrobisz źle wybierając dowolny z naszych rekomendowanych serwerów, dlatego niezależnie od tego który wybierzesz (lub jeśli wpiszesz swój własny na pasku wyszukiwania serwera), nigdy nie przegapisz niczego."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Czym jest Mastodon?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Witaj ponownie",
+            "subtitle": "Zaloguj się na serwerze, na którym utworzyłeś swoje konto.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Wprowadź adres URL lub wyszukaj swój serwer"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Wybierz serwer",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Język",
+                "signup_speed": "Szybkość rejestracji",
                 "category": {
-                    "all": "All",
+                    "all": "Wszystkie",
                     "all_accessiblity_description": "Category: All",
                     "academia": "academia",
                     "activism": "activism",
