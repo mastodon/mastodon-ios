@@ -2058,6 +2058,7 @@
 				DB98335F25C93B0400AD9700 /* Recovered References */,
 				D8A6FE6029325F5900666A47 /* Localization */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
 			tabWidth = 4;
 		};
