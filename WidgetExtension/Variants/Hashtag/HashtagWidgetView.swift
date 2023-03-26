@@ -1,13 +1,26 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import MastodonLocalization
 
 struct HashtagWidgetView: View {
 
     var entry: HashtagWidgetProvider.Entry
-    
+
+    @Environment(\.widgetFamily) var family
+
     var body: some View {
-        //TODO: Lockscreen has a different design
+        switch family {
+        case .systemMedium, .systemLarge:
+            viewForMediumWidget()
+        case .accessoryRectangular:
+            viewForRectangularAccessory()
+        default:
+            Text(L10n.Widget.Common.unsupportedWidgetFamily)
+        }
+    }
+
+    private func viewForMediumWidget() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(entry.hashtag.accountName)
@@ -47,5 +60,28 @@ struct HashtagWidgetView: View {
             }
         }
         .padding(EdgeInsets(top: 12, leading: 29, bottom: 12, trailing: 29))
+    }
+
+    private func viewForRectangularAccessory() -> some View {
+        VStack(alignment: .leading, spacing: 1) {
+            HStack(spacing: 3) {
+                Image("BrandIcon")
+                    .foregroundColor(.secondary)
+                Text("|")
+                    .foregroundColor(.secondary)
+                    .font(.system(size: UIFontMetrics.default.scaledValue(for: 9)))
+                Text(entry.hashtag.hashtag)
+                    .foregroundColor(.secondary)
+                    .font(.system(size: UIFontMetrics.default.scaledValue(for: 13)))
+                    .fontWeight(.heavy)
+
+            }
+            Text(entry.hashtag.content)
+                .foregroundColor(.primary)
+                .font(.system(size: UIFontMetrics.default.scaledValue(for: 16)))
+                .fontWeight(.medium)
+                .lineLimit(3)
+            Spacer()
+        }
     }
 }
