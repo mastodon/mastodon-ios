@@ -31,12 +31,14 @@ struct HashtagWidgetView: View {
                     .lineLimit(1)
                     .font(.caption)
                     .foregroundColor(.secondary)
-                Text("18h") //TODO: Implement
+                Text(entry.hashtag.timestamp.localizedShortTimeAgo(since: .now))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
 
+            //TODO: Check MetaLabelRepresentable, maybe it's a way to color Hashtags?
             Text(entry.hashtag.content)
+
             Spacer()
             HStack(alignment: .center, spacing: 16) {
                 HStack(spacing: 0) {
