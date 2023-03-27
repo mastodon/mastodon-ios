@@ -80,7 +80,7 @@
                 "save_photo": "Desa la foto",
                 "copy_photo": "Copia la foto",
                 "sign_in": "Inicia sessió",
-                "sign_up": "Create account",
+                "sign_up": "Crea un compte",
                 "see_more": "Mostra'n més",
                 "preview": "Vista prèvia",
                 "copy": "Copia",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Ben tornat",
             "subtitle": "T'inicia sessió en el servidor on has creat el teu compte.",
             "server_search_field": {
                 "placeholder": "Insereix la URL o cerca el teu servidor"
@@ -338,11 +338,11 @@
             "search": {
                 "placeholder": "Cerca nom o URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Escollirem un servidor basat en la teva llengua si continues sense res seleccionat.\nElegiremos un servidor basado en su idioma si continúa sin hacer una selección."
         },
         "privacy": {
             "title": "Privacitat",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Tot i que l'aplicació Mastodon no recull cap dada, el servidor mitjançant el qual et registres pot tenir una política diferent. Pren un minut per revisar i acceptar la política de privadesa de l'aplicació Mastodon i la política de privadesa del teu servidor.",
             "policy": {
                 "ios": "Política de Privacitat - Mastodon per a iOS",
                 "server": "Politìca de Privacitat - %s"
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Crea un compte",
             "input": {
                 "avatar": {
                     "delete": "Suprimeix"
