@@ -203,10 +203,7 @@ extension MediaGridContainerView {
         public func layout(in view: UIView, mediaViews: [MediaView]) {
             let count = mediaViews.count
             
-            if count<2 || count>maxCount {
-                assertionFailure("unexpected attachment count \(count)")
-                return
-            }
+            precondition(count >= 2 && count <= maxCount, "Unexpected attachment count \(count)")
             
             let layoutView = GridLayoutView()
             layoutView.translatesAutoresizingMaskIntoConstraints = false
@@ -218,7 +215,7 @@ extension MediaGridContainerView {
             layoutView.prepare(layout: layout, maxSize: maxSize)
             
             let containerWidth = maxSize.width
-            let containerHeight = CGFloat(layoutView.getMeasuredHeight())
+            let containerHeight = CGFloat(layoutView.measuredHeight)
             NSLayoutConstraint.activate([
                 view.widthAnchor.constraint(equalToConstant: containerWidth).priority(.required - 1),
                 view.heightAnchor.constraint(equalToConstant: containerHeight).priority(.required - 1),
@@ -227,41 +224,37 @@ extension MediaGridContainerView {
     }
 }
 
-class GridLayoutView : UIView {
+class GridLayoutView: UIView {
     private var layout: MediaLayoutResult?
     private(set) var measuredHeight = 0
-    
+
     private static let maxWidth = 400
     private static let gap = 2
-    
+
     public func prepare(layout: MediaLayoutResult, maxSize: CGSize) {
         self.layout = layout
-        let width: Float = min(Float(maxSize.width), Float(GridLayoutView.maxWidth))
-        let height: Float = (width*Float(layout.height)/MediaLayoutHelper.maxWidth)
+        let width: CGFloat = min(CGFloat(maxSize.width), CGFloat(GridLayoutView.maxWidth))
+        let height: CGFloat = (width * CGFloat(layout.height) / MediaLayoutHelper.maxWidth)
         measuredHeight = Int(height.rounded())
     }
-    
-    public func getMeasuredHeight() -> Int {
-        return measuredHeight
-    }
-    
+
     override func layoutSubviews() {
         guard let layout = layout else { return }
         var width: Int = min(GridLayoutView.maxWidth, Int(frame.width))
         let height: Int = Int(frame.height)
-        if layout.width<Int(MediaLayoutHelper.maxWidth) {
-            width = Int((Float(width)*(Float(layout.width)/MediaLayoutHelper.maxWidth)).rounded())
+        if layout.width < Int(MediaLayoutHelper.maxWidth) {
+            width = Int((CGFloat(width) * (CGFloat(layout.width) / MediaLayoutHelper.maxWidth)).rounded())
         }
-        
+
         var columnStarts: [Int] = []
         var columnEnds: [Int] = []
         var rowStarts: [Int] = []
         var rowEnds: [Int] = []
         var offset: Int = 0
-        
+
         for colSize in layout.columnSizes {
             columnStarts.append(offset)
-            offset += Int((Float(colSize)/Float(layout.width)*Float(width)).rounded())
+            offset += Int((CGFloat(colSize) / CGFloat(layout.width) * CGFloat(width)).rounded())
             columnEnds.append(offset)
             offset += GridLayoutView.gap
         }
@@ -269,19 +262,19 @@ class GridLayoutView : UIView {
         offset = 0
         for rowSize in layout.rowSizes {
             rowStarts.append(offset)
-            offset += Int((Float(rowSize)/Float(layout.height)*Float(height)).rounded())
+            offset += Int((CGFloat(rowSize) / CGFloat(layout.height) * CGFloat(height)).rounded())
             rowEnds.append(offset)
             offset += GridLayoutView.gap
         }
         rowEnds.append(height)
-        
+
         var xOffset: Int = 0
-        if Int(frame.width)>width {
-            xOffset = Int((Float(frame.width)/2.0-Float(width)/2.0).rounded())
+        if Int(frame.width) > width {
+            xOffset = Int((CGFloat(frame.width) / 2.0 - CGFloat(width) / 2.0).rounded())
         }
-        
+
         for (i, view) in subviews.enumerated() {
-            if i>=layout.tiles.count {
+            if i >= layout.tiles.count {
                 break // TODO make sure any additional subviews are only added at the end
             }
             let tile = layout.tiles[i]
@@ -289,7 +282,8 @@ class GridLayoutView : UIView {
             let rowSpan = max(1, tile.rowSpan) - 1
             let x = columnStarts[tile.startCol]
             let y = rowStarts[tile.startRow]
-            view.frame = CGRect(x: x+xOffset, y: y, width: columnEnds[tile.startCol+colSpan]-x, height: rowEnds[tile.startRow+rowSpan]-y)
+            view.frame = CGRect(x: x + xOffset, y: y, width: columnEnds[tile.startCol + colSpan] - x, height: rowEnds[tile.startRow + rowSpan] - y)
+            view.setNeedsLayout()
         }
     }
 }
