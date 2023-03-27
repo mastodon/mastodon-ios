@@ -27,6 +27,7 @@ struct HashtagWidgetView: View {
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.secondary)
+                    .lineLimit(1)
                 Text(entry.hashtag.account)
                     .lineLimit(1)
                     .font(.caption)
