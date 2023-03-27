@@ -870,6 +870,8 @@ public enum L10n {
       }
     }
     public enum Privacy {
+      /// Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.
+      public static let description = L10n.tr("Localizable", "Scene.Privacy.Description", fallback: "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.")
       /// Privacy
       public static let title = L10n.tr("Localizable", "Scene.Privacy.Title", fallback: "Privacy")
       public enum Button {
@@ -1282,6 +1284,8 @@ public enum L10n {
       }
     }
     public enum ServerPicker {
+      /// We’ll pick a server based on your language if you continue without making a selection.
+      public static let noServerSelectedHint = L10n.tr("Localizable", "Scene.ServerPicker.NoServerSelectedHint", fallback: "We’ll pick a server based on your language if you continue without making a selection.")
       /// Pick Server
       public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title", fallback: "Pick Server")
       public enum Button {
