@@ -2,6 +2,7 @@
 
 import Foundation
 import Intents
+import MastodonSDK
 
 class HashtagIntentHandler: INExtension, HashtagIntentHandling {
     func provideHashtagOptionsCollection(for intent: HashtagIntent, searchTerm: String?) async throws -> INObjectCollection<NSString> {
@@ -21,11 +22,21 @@ class HashtagIntentHandler: INExtension, HashtagIntentHandling {
                 .apiService
                 .search(query: .init(q: searchTerm, type: .hashtags), authenticationBox: authenticationBox)
                 .value
-                .hashtags.compactMap { $0.name as NSString }
+                .hashtags
+                .compactMap { $0.name as NSString }
+
             results = searchResults
 
         } else {
-            //TODO: Show hashtags I follow
+            let followedTags = try await WidgetExtension.appContext.apiService.getFollowedTags(
+                domain: authenticationBox.domain,
+                query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
+                authenticationBox: authenticationBox)
+                .value
+                .compactMap { $0.name as NSString }
+
+            results = followedTags
+
         }
 
         return INObjectCollection(items: results)
