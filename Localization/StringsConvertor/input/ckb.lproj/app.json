@@ -80,7 +80,7 @@
                 "save_photo": "هەڵی بگرە",
                 "copy_photo": "لەبەری بگرەوە",
                 "sign_in": "Log in",
-                "sign_up": "Create Account",
+                "sign_up": "Create account",
                 "see_more": "زیاتر ببینە",
                 "preview": "پێشبینین",
                 "copy": "Copy",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
+            "title": "Welcome back",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
@@ -337,10 +337,12 @@
             },
             "search": {
                 "placeholder": "Search name or URL"
-            }
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
@@ -350,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "بیسڕەوە"
