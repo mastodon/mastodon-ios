@@ -80,7 +80,7 @@
                 "save_photo": "Desa la foto",
                 "copy_photo": "Copia la foto",
                 "sign_in": "Inicia sessió",
-                "sign_up": "Crea un compte",
+                "sign_up": "Create account",
                 "see_more": "Mostra'n més",
                 "preview": "Vista prèvia",
                 "copy": "Copia",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Ben tornat",
+            "title": "Welcome back",
             "subtitle": "T'inicia sessió en el servidor on has creat el teu compte.",
             "server_search_field": {
                 "placeholder": "Insereix la URL o cerca el teu servidor"
@@ -337,10 +337,12 @@
             },
             "search": {
                 "placeholder": "Cerca nom o URL"
-            }
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "Privacitat",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Política de Privacitat - Mastodon per a iOS",
                 "server": "Politìca de Privacitat - %s"
@@ -350,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Crea un compte",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "Suprimeix"
