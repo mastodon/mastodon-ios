@@ -24,13 +24,13 @@ extension StatusView {
         var disposeBag = Set<AnyCancellable>()
         var observations = Set<NSKeyValueObservation>()
         public var objects = Set<NSManagedObject>()
-
+        
         let logger = Logger(subsystem: "StatusView", category: "ViewModel")
         
         public var context: AppContext?
         public var authContext: AuthContext?
         public var originalStatus: Status?
-
+        
         // Header
         @Published public var header: Header = .none
         
@@ -50,7 +50,7 @@ extension StatusView {
         @Published public var isCurrentlyTranslating = false
         @Published public var translatedFromLanguage: String?
         @Published public var translatedUsingProvider: String?
-
+        
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date, _ isEdited: Bool) -> String)?
         @Published public var timestampText = ""
@@ -65,7 +65,7 @@ extension StatusView {
         
         // Media
         @Published public var mediaViewConfigurations: [MediaView.Configuration] = []
-		@Published public var mediaLayout: MediaLayoutResult? = nil
+        @Published public var mediaLayout: MediaLayoutResult? = nil
         
         // Audio
         @Published public var audioConfigurations: [MediaView.Configuration] = []
@@ -79,10 +79,10 @@ extension StatusView {
         @Published public var voteCount = 0
         @Published public var expireAt: Date?
         @Published public var expired: Bool = false
-
+        
         // Card
         @Published public var card: Card?
-
+        
         // Visibility
         @Published public var visibility: MastodonVisibility = .public
         
@@ -103,7 +103,7 @@ extension StatusView {
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
         @Published public var favoriteCount: Int = 0
-
+        
         @Published public var statusEdits: [StatusEdit] = []
         @Published public var editedAt: Date? = nil
         
@@ -111,10 +111,10 @@ extension StatusView {
         @Published public var activeFilters: [Mastodon.Entity.Filter] = []
         @Published public var filterContext: Mastodon.Entity.Filter.Context?
         @Published public var isFiltered = false
-
+        
         @Published public var groupedAccessibilityLabel = ""
         @Published public var contentAccessibilityLabel = ""
-
+        
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .share()
@@ -306,7 +306,7 @@ extension StatusView.ViewModel {
                 statusView.spoilerOverlayView.spoilerMetaLabel.configure(content: spoilerContent)
                 // statusView.spoilerBannerView.label.configure(content: spoilerContent)
                 // statusView.setSpoilerBannerViewHidden(isHidden: !isContentReveal)
-
+                
             } else {
                 statusView.spoilerOverlayView.spoilerMetaLabel.reset()
                 // statusView.spoilerBannerView.label.reset()
@@ -323,7 +323,7 @@ extension StatusView.ViewModel {
             }
             
             let paragraphStyle = statusView.contentMetaText.paragraphStyle
-            if let language = language { 
+            if let language = language {
                 if #available(iOS 16, *) {
                     let direction = Locale.Language(identifier: language).characterDirection
                     paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
@@ -343,7 +343,7 @@ extension StatusView.ViewModel {
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
                 statusView.contentMetaText.textView.isHidden = false
-
+                
             } else {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
@@ -358,7 +358,7 @@ extension StatusView.ViewModel {
             self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): isContentReveal: \(isContentReveal)")
         }
         .store(in: &disposeBag)
-
+        
         $isMediaSensitive
             .sink { isSensitive in
                 guard isSensitive else { return }
@@ -375,7 +375,7 @@ extension StatusView.ViewModel {
                 statusView.authorView.contentSensitiveeToggleButton.setImage(image, for: .normal)
             }
             .store(in: &disposeBag)
-
+        
         $isCurrentlyTranslating
             .receive(on: DispatchQueue.main)
             .sink { isTranslating in
@@ -390,50 +390,50 @@ extension StatusView.ViewModel {
     }
     
     private func bindMedia(statusView: StatusView) {
-		Publishers.CombineLatest(
-			$mediaViewConfigurations,
-			$mediaLayout
-		)
+        Publishers.CombineLatest(
+            $mediaViewConfigurations,
+            $mediaLayout
+        )
         .sink { [weak self] configurations, mediaLayout in
-                guard let self = self else { return }
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): configure media")
-                
-                statusView.mediaGridContainerView.prepareForReuse()
-                
-                let maxSize = CGSize(
-                    width: statusView.contentMaxLayoutWidth,
-                    height: 9999        // fulfill the width
+            guard let self = self else { return }
+            self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): configure media")
+            
+            statusView.mediaGridContainerView.prepareForReuse()
+            
+            let maxSize = CGSize(
+                width: statusView.contentMaxLayoutWidth,
+                height: 9999        // fulfill the width
+            )
+            var needsDisplay = true
+            switch configurations.count {
+            case 0:
+                needsDisplay = false
+            case 1:
+                let configuration = configurations[0]
+                let adaptiveLayout = MediaGridContainerView.AdaptiveLayout(
+                    aspectRatio: configuration.aspectRadio,
+                    maxSize: maxSize
                 )
-                var needsDisplay = true
-                switch configurations.count {
-                case 0:
-                    needsDisplay = false
-                case 1:
-                    let configuration = configurations[0]
-                    let adaptiveLayout = MediaGridContainerView.AdaptiveLayout(
-                        aspectRatio: configuration.aspectRadio,
-                        maxSize: maxSize
-                    )
-                    let mediaView = statusView.mediaGridContainerView.dequeueMediaView(adaptiveLayout: adaptiveLayout)
+                let mediaView = statusView.mediaGridContainerView.dequeueMediaView(adaptiveLayout: adaptiveLayout)
+                mediaView.setup(configuration: configuration)
+            default:
+                guard let mediaLayout = mediaLayout else { return }
+                let gridLayout = MediaGridContainerView.GridLayout(
+                    count: configurations.count,
+                    maxSize: maxSize,
+                    layout: mediaLayout
+                )
+                let mediaViews = statusView.mediaGridContainerView.dequeueMediaView(gridLayout: gridLayout)
+                for (i, (configuration, mediaView)) in zip(configurations, mediaViews).enumerated() {
+                    guard i < MediaGridContainerView.maxCount else { break }
                     mediaView.setup(configuration: configuration)
-                default:
-					guard let mediaLayout = mediaLayout else { return }
-                    let gridLayout = MediaGridContainerView.GridLayout(
-                        count: configurations.count,
-                        maxSize: maxSize,
-						layout: mediaLayout
-                    )
-                    let mediaViews = statusView.mediaGridContainerView.dequeueMediaView(gridLayout: gridLayout)
-                    for (i, (configuration, mediaView)) in zip(configurations, mediaViews).enumerated() {
-                        guard i < MediaGridContainerView.maxCount else { break }
-                        mediaView.setup(configuration: configuration)
-                    }
-                }
-                if needsDisplay {
-                    statusView.setMediaDisplay()
                 }
             }
-            .store(in: &disposeBag)
+            if needsDisplay {
+                statusView.setMediaDisplay()
+            }
+        }
+        .store(in: &disposeBag)
         
         Publishers.CombineLatest(
             $mediaViewConfigurations,
@@ -478,32 +478,32 @@ extension StatusView.ViewModel {
             $voterCount,
             $voteCount
         )
-        .map { voterCount, voteCount -> String in
-            var description = ""
-            if let voterCount = voterCount {
-                description += L10n.Plural.Count.voter(voterCount)
-            } else {
-                description += L10n.Plural.Count.vote(voteCount)
+            .map { voterCount, voteCount -> String in
+                var description = ""
+                if let voterCount = voterCount {
+                    description += L10n.Plural.Count.voter(voterCount)
+                } else {
+                    description += L10n.Plural.Count.vote(voteCount)
+                }
+                return description
             }
-            return description
-        }
         let pollCountdownDescription = Publishers.CombineLatest3(
             $expireAt,
             $expired,
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
-        .map { expireAt, expired, _ -> String? in
-            guard !expired else {
-                return L10n.Common.Controls.Status.Poll.closed
+            .map { expireAt, expired, _ -> String? in
+                guard !expired else {
+                    return L10n.Common.Controls.Status.Poll.closed
+                }
+                
+                guard let expireAt = expireAt else {
+                    return nil
+                }
+                let timeLeft = expireAt.localizedTimeLeft()
+                
+                return timeLeft
             }
-            
-            guard let expireAt = expireAt else {
-                return nil
-            }
-            let timeLeft = expireAt.localizedTimeLeft()
-            
-            return timeLeft
-        }
         Publishers.CombineLatest(
             pollVoteDescription,
             pollCountdownDescription
@@ -523,7 +523,7 @@ extension StatusView.ViewModel {
                 statusView.pollVoteActivityIndicatorView.isHidden = true
                 return
             }
-
+            
             statusView.pollVoteButton.isHidden = isVoting
             statusView.pollVoteActivityIndicatorView.isHidden = !isVoting
             statusView.pollVoteActivityIndicatorView.startAnimating()
@@ -533,7 +533,7 @@ extension StatusView.ViewModel {
             .assign(to: \.isEnabled, on: statusView.pollVoteButton)
             .store(in: &disposeBag)
     }
-
+    
     private func bindCard(statusView: StatusView) {
         $card.sink { card in
             guard let card = card else { return }
@@ -615,14 +615,14 @@ extension StatusView.ViewModel {
                 }
                 return formatter.string(from: timestamp)
             }()
-
+            
             let text: String
             if let applicationName {
                 text = L10n.Common.Controls.Status.postedViaApplication(dateString, applicationName)
             } else {
                 text = dateString
             }
-
+            
             statusView.statusMetricView.dateLabel.text = text
         }
         .store(in: &disposeBag)
@@ -640,7 +640,7 @@ extension StatusView.ViewModel {
                 statusView.statusMetricView.favoriteButton.detailLabel.text = count.formatted()
             }
             .store(in: &disposeBag)
-
+        
         $editedAt
             .sink { editedAt in
                 if let editedAt {
@@ -676,49 +676,49 @@ extension StatusView.ViewModel {
             publishersTwo.eraseToAnyPublisher(),
             publishersThree.eraseToAnyPublisher()
         ).eraseToAnyPublisher()
-        .sink { tupleOne, tupleTwo, tupleThree in
-            let (authorName, isMyself) = tupleOne
-            let (isMuting, isBlocking, isBookmark) = tupleTwo
-            let (translatedFromLanguage, language) = tupleThree
-    
-            guard let name = authorName?.string else {
-                statusView.authorView.menuButton.menu = nil
-                return
-            }
-            
-            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
-                guard
-                    let context = self.context,
-                    let authContext = self.authContext
-                else {
-                    return nil
+            .sink { tupleOne, tupleTwo, tupleThree in
+                let (authorName, isMyself) = tupleOne
+                let (isMuting, isBlocking, isBookmark) = tupleTwo
+                let (translatedFromLanguage, language) = tupleThree
+                
+                guard let name = authorName?.string else {
+                    statusView.authorView.menuButton.menu = nil
+                    return
                 }
                 
-                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
-                context.managedObjectContext.performAndWait {
-                    guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
-                    else { return }
-                    configuration = authentication.instance?.configurationV2
-                }
-                return configuration
-            }()
-            
-            let menuContext = StatusAuthorView.AuthorMenuContext(
-                name: name,
-                isMuting: isMuting,
-                isBlocking: isBlocking,
-                isMyself: isMyself,
-                isBookmarking: isBookmark,
-                isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
-                isTranslated: translatedFromLanguage != nil,
-                statusLanguage: language
-            )
-            let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
-            authorView.menuButton.menu = menu
-            authorView.authorActions = actions
-            authorView.menuButton.showsMenuAsPrimaryAction = true
-        }
-        .store(in: &disposeBag)
+                lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
+                    guard
+                        let context = self.context,
+                        let authContext = self.authContext
+                    else {
+                        return nil
+                    }
+                    
+                    var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
+                    context.managedObjectContext.performAndWait {
+                        guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+                        else { return }
+                        configuration = authentication.instance?.configurationV2
+                    }
+                    return configuration
+                }()
+                
+                let menuContext = StatusAuthorView.AuthorMenuContext(
+                    name: name,
+                    isMuting: isMuting,
+                    isBlocking: isBlocking,
+                    isMyself: isMyself,
+                    isBookmarking: isBookmark,
+                    isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
+                    isTranslated: translatedFromLanguage != nil,
+                    statusLanguage: language
+                )
+                let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
+                authorView.menuButton.menu = menu
+                authorView.authorActions = actions
+                authorView.menuButton.showsMenuAsPrimaryAction = true
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindFilter(statusView: StatusView) {
@@ -726,7 +726,7 @@ extension StatusView.ViewModel {
             .sink { isFiltered in
                 statusView.containerStackView.isHidden = isFiltered
                 if isFiltered {
-                    statusView.setFilterHintLabelDisplay()                    
+                    statusView.setFilterHintLabelDisplay()
                 }
             }
             .store(in: &disposeBag)
@@ -739,30 +739,30 @@ extension StatusView.ViewModel {
             $authorUsername,
             $timestampText
         )
-        .map { header, authorName, authorUsername, timestamp -> String? in
-            var strings: [String?] = []
-            
-            switch header {
-            case .none:
-                strings.append(authorName?.string)
-                strings.append(authorUsername)
-            case .reply(let info):
-                strings.append(authorName?.string)
-                strings.append(authorUsername)
-                strings.append(info.header.string)
-            case .repost(let info):
-                strings.append(info.header.string)
-                strings.append(authorName?.string)
-                strings.append(authorUsername)
+            .map { header, authorName, authorUsername, timestamp -> String? in
+                var strings: [String?] = []
+                
+                switch header {
+                case .none:
+                    strings.append(authorName?.string)
+                    strings.append(authorUsername)
+                case .reply(let info):
+                    strings.append(authorName?.string)
+                    strings.append(authorUsername)
+                    strings.append(info.header.string)
+                case .repost(let info):
+                    strings.append(info.header.string)
+                    strings.append(authorName?.string)
+                    strings.append(authorUsername)
+                }
+                
+                if statusView.style != .editHistory {
+                    strings.append(timestamp)
+                }
+                
+                return strings.compactMap { $0 }.joined(separator: ", ")
             }
-
-            if statusView.style != .editHistory {
-                strings.append(timestamp)
-            }
-            
-            return strings.compactMap { $0 }.joined(separator: ", ")
-        }
-
+        
         let longTimestampFormatter = DateFormatter()
         longTimestampFormatter.dateStyle = .medium
         longTimestampFormatter.timeStyle = .short
@@ -778,7 +778,7 @@ extension StatusView.ViewModel {
             .map { timestampText, longTimestamp in
                 "\(timestampText). \(longTimestamp)"
             }
-
+        
         Publishers.CombineLatest4(
             $header,
             $authorName,
@@ -798,7 +798,7 @@ extension StatusView.ViewModel {
         }
         .assign(to: \.accessibilityLabel, on: statusView.authorView)
         .store(in: &disposeBag)
-
+        
         Publishers.CombineLatest3(
             $isContentReveal,
             $spoilerContent,
@@ -814,7 +814,7 @@ extension StatusView.ViewModel {
                 // TODO: replace with "Tap to reveal"
                 strings.append(L10n.Common.Controls.Status.mediaContentWarning)
             }
-
+            
             if isContentReveal {
                 strings.append(content?.string)
             }
@@ -837,17 +837,17 @@ extension StatusView.ViewModel {
                 statusView.spoilerOverlayView.accessibilityLabel = contentAccessibilityLabel
             }
             .store(in: &disposeBag)
-
+        
         let mediaAccessibilityLabel = $mediaViewConfigurations
             .map { configurations -> String? in
                 let count = configurations.count
                 return L10n.Plural.Count.media(count)
             }
-            
+        
         let replyLabel = $replyCount
             .map { [L10n.Common.Controls.Actions.reply, L10n.Plural.Count.reply($0)] }
             .map { $0.joined(separator: ", ") }
-
+        
         let reblogLabel = Publishers.CombineLatest($isReblog, $reblogCount)
             .map { isReblog, reblogCount in
                 [
@@ -856,7 +856,7 @@ extension StatusView.ViewModel {
                 ]
             }
             .map { $0.joined(separator: ", ") }
-
+        
         let favoriteLabel = Publishers.CombineLatest($isFavorite, $favoriteCount)
             .map { isFavorite, favoriteCount in
                 [
@@ -865,7 +865,7 @@ extension StatusView.ViewModel {
                 ]
             }
             .map { $0.joined(separator: ", ") }
-
+        
         Publishers.CombineLatest4(replyLabel, reblogLabel, $isReblogEnabled, favoriteLabel)
             .map { replyLabel, reblogLabel, canReblog, favoriteLabel in
                 let toolbar = statusView.actionToolbarContainer
@@ -886,7 +886,7 @@ extension StatusView.ViewModel {
             }
             .assign(to: \.toolbarActions, on: statusView)
             .store(in: &disposeBag)
-
+        
         let translatedFromLabel = Publishers.CombineLatest($translatedFromLanguage, $translatedUsingProvider)
             .map { (language, provider) -> String? in
                 if let language {
@@ -897,7 +897,7 @@ extension StatusView.ViewModel {
                 }
                 return nil
             }
-
+        
         translatedFromLabel
             .receive(on: DispatchQueue.main)
             .sink { label in
@@ -910,7 +910,7 @@ extension StatusView.ViewModel {
                 }
             }
             .store(in: &disposeBag)
-
+        
         Publishers.CombineLatest4(
             shortAuthorAccessibilityLabel,
             $contentAccessibilityLabel,
@@ -919,11 +919,11 @@ extension StatusView.ViewModel {
         )
         .map { author, content, translated, media in
             var labels: [String?] = [content, translated, media]
-
+            
             if statusView.style != .notification {
                 labels.insert(author, at: 0)
             }
-
+            
             return labels
                 .compactMap { $0 }
                 .joined(separator: ", ")
@@ -935,7 +935,7 @@ extension StatusView.ViewModel {
                 statusView.accessibilityLabel = accessibilityLabel
             }
             .store(in: &disposeBag)
-
+        
         Publishers.CombineLatest(
             $content,
             $isContentReveal.removeDuplicates()
