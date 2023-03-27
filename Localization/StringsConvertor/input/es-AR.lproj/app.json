@@ -80,7 +80,7 @@
                 "save_photo": "Guardar foto",
                 "copy_photo": "Copiar foto",
                 "sign_in": "Iniciar sesión",
-                "sign_up": "Create account",
+                "sign_up": "Crear cuenta",
                 "see_more": "Ver más",
                 "preview": "Previsualización",
                 "copy": "Copiar",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Te volvemos a dar la bienvenida",
             "subtitle": "Iniciá sesión en el servidor en donde creaste tu cuenta.",
             "server_search_field": {
                 "placeholder": "Ingresá la dirección web o buscá tu servidor"
@@ -338,11 +338,11 @@
             "search": {
                 "placeholder": "Buscar nombre o dirección web"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Seleccionaremos un servidor basado en tu idioma si continuás sin hacer una selección."
         },
         "privacy": {
             "title": "Privacidad",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Aunque la aplicación de Mastodon no recolecta ningún dato, el servidor al que te registrés puede tener una política diferente. Tomate un minuto para revisar y aceptar las políticas de privacidad de la aplicación de Mastodon y las políticas de privacidad de tu servidor.",
             "policy": {
                 "ios": "Política de privacidad - Mastodon para iOS",
                 "server": "Política de privacidad - %s"
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Crear cuenta",
             "input": {
                 "avatar": {
                     "delete": "Eliminar"
