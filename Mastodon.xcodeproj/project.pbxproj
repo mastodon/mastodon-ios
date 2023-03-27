@@ -247,7 +247,6 @@
 		DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */; };
 		DB47AB6227CF752B00CD73C7 /* MastodonUISnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47AB6127CF752B00CD73C7 /* MastodonUISnapshotTests.swift */; };
 		DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */; };
-		DB4932B126F1FB5300EF46D4 /* WizardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */; };
 		DB4932B926F31AD300EF46D4 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4932B826F31AD300EF46D4 /* BadgeButton.swift */; };
 		DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4AA6B227BA34B6009EC082 /* CellFrameCacheContainer.swift */; };
 		DB4F0963269ED06300D62E92 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0962269ED06300D62E92 /* SearchResultViewController.swift */; };
@@ -314,7 +313,6 @@
 		DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EA278ED8B0008A6B94 /* PollOptionView+Configuration.swift */; };
 		DB6746ED278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EC278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift */; };
 		DB6746F0278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EF278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift */; };
-		DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D08527312E67006A36CF /* WizardViewController.swift */; };
 		DB6804662636DC9000430867 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
 		DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */; };
 		DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A04925E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift */; };
@@ -904,7 +902,6 @@
 		DB47AB6127CF752B00CD73C7 /* MastodonUISnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUISnapshotTests.swift; sourceTree = "<group>"; };
 		DB47AB6327CF858400CD73C7 /* AppStoreSnapshotTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppStoreSnapshotTestPlan.xctestplan; sourceTree = "<group>"; };
 		DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+State.swift"; sourceTree = "<group>"; };
-		DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardCardView.swift; sourceTree = "<group>"; };
 		DB4932B826F31AD300EF46D4 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		DB4AA6B227BA34B6009EC082 /* CellFrameCacheContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFrameCacheContainer.swift; sourceTree = "<group>"; };
 		DB4B777F26CA4EFA00B087B3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -1000,7 +997,6 @@
 		DB6746EA278ED8B0008A6B94 /* PollOptionView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PollOptionView+Configuration.swift"; sourceTree = "<group>"; };
 		DB6746EC278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGenerateProtocolRelayDelegate.swift; sourceTree = "<group>"; };
 		DB6746EF278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGenerateProtocolDelegate.swift; sourceTree = "<group>"; };
-		DB67D08527312E67006A36CF /* WizardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardViewController.swift; sourceTree = "<group>"; };
 		DB68053E2638011000430867 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 		DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSKeyValueObservation.swift; sourceTree = "<group>"; };
 		DB68A04925E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveStatusBarStyleNavigationController.swift; sourceTree = "<group>"; };
@@ -2360,14 +2356,6 @@
 			path = Template;
 			sourceTree = "<group>";
 		};
-		DB67D08727312E6A006A36CF /* Wizard */ = {
-			isa = PBXGroup;
-			children = (
-				DB67D08527312E67006A36CF /* WizardViewController.swift */,
-			);
-			path = Wizard;
-			sourceTree = "<group>";
-		};
 		DB68A03825E900CC00CFDF14 /* Share */ = {
 			isa = PBXGroup;
 			children = (
@@ -2522,7 +2510,6 @@
 				DB6180E426391A500018D199 /* Transition */,
 				DB852D1D26FB021900FC9D81 /* Root */,
 				DB01409B25C40BB600F9F3CF /* Onboarding */,
-				DB67D08727312E6A006A36CF /* Wizard */,
 				DB9F58ED26EF435800E7BBE9 /* Account */,
 				2D38F1D325CD463600561493 /* HomeTimeline */,
 				0F2021F5261325ED000C64BF /* HashtagTimeline */,
@@ -2775,7 +2762,6 @@
 			children = (
 				D8A6FE5929323DC200666A47 /* Pages */,
 				DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */,
-				DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */,
 				DB0617EA277EF3820030EE79 /* GradientBorderView.swift */,
 			);
 			path = View;
@@ -3745,7 +3731,6 @@
 				5B90C45F262599800002E742 /* SettingsToggleTableViewCell.swift in Sources */,
 				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
 				DB0FCB7827957678006C02E2 /* DataSourceProvider+UITableViewDelegate.swift in Sources */,
-				DB4932B126F1FB5300EF46D4 /* WizardCardView.swift in Sources */,
 				DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */,
 				5D0393902612D259007FE196 /* WebViewController.swift in Sources */,
 				DB98EB6227B215EB0082E365 /* ReportResultViewController.swift in Sources */,
@@ -3903,7 +3888,6 @@
 				DBB45B5627B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift in Sources */,
 				D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */,
 				DB0FCB8027968F70006C02E2 /* MastodonStatusThreadViewModel.swift in Sources */,
-				DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */,
 				DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */,
 				DB0F9D54283EB3C000379AF8 /* ProfileHeaderView+ViewModel.swift in Sources */,
 				2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */,

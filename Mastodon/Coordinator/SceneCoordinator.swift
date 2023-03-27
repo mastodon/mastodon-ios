@@ -28,7 +28,6 @@ final public class SceneCoordinator {
     
     private(set) weak var tabBarController: MainTabBarController!
     private(set) weak var splitViewController: RootSplitViewController?
-    private(set) var wizardViewController: WizardViewController?
     
     private(set) var secondaryStackHashValues = Set<Int>()
     
@@ -248,19 +247,6 @@ extension SceneCoordinator {
                         from: self.sceneDelegate.window?.rootViewController,
                         transition: .modal(animated: true, completion: nil)
                     )
-                }
-            } else {
-                let wizardViewController = WizardViewController()
-                if !wizardViewController.items.isEmpty,
-                   let delegate = rootViewController as? WizardViewControllerDelegate
-                {
-                    // do not add as child view controller.
-                    // otherwise, the tab bar controller will add as a new tab
-                    wizardViewController.delegate = delegate
-                    wizardViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                    wizardViewController.view.frame = rootViewController.view.bounds
-                    rootViewController.view.addSubview(wizardViewController.view)
-                    self.wizardViewController = wizardViewController
                 }
             }
             

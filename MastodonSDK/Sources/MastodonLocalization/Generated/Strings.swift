@@ -1530,14 +1530,6 @@ public enum L10n {
         }
       }
     }
-    public enum Wizard {
-      /// Double tap to dismiss this wizard
-      public static let accessibilityHint = L10n.tr("Localizable", "Scene.Wizard.AccessibilityHint", fallback: "Double tap to dismiss this wizard")
-      /// Switch between multiple accounts by holding the profile button.
-      public static let multipleAccountSwitchIntroDescription = L10n.tr("Localizable", "Scene.Wizard.MultipleAccountSwitchIntroDescription", fallback: "Switch between multiple accounts by holding the profile button.")
-      /// New in Mastodon
-      public static let newInMastodon = L10n.tr("Localizable", "Scene.Wizard.NewInMastodon", fallback: "New in Mastodon")
-    }
   }
   public enum Widget {
     public enum Common {
