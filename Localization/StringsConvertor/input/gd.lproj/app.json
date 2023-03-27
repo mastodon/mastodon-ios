@@ -80,7 +80,7 @@
                 "save_photo": "Sàbhail an dealbh",
                 "copy_photo": "Dèan lethbhreac dhen dealbh",
                 "sign_in": "Clàraich a-steach",
-                "sign_up": "Cruthaich cunntas",
+                "sign_up": "Create account",
                 "see_more": "Seall a bharrachd",
                 "preview": "Ro-sheall",
                 "copy": "Dèan lethbhreac",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Fàilte air ais",
+            "title": "Welcome back",
             "subtitle": "Clàraich a-steach air an fhrithealaiche far an do chruthaich thu an cunntas agad.",
             "server_search_field": {
                 "placeholder": "Cuir a-steach URL an fhrithealaiche agad"
@@ -337,10 +337,12 @@
             },
             "search": {
                 "placeholder": "Search name or URL"
-            }
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
@@ -350,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "Sguab às"
