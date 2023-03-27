@@ -80,7 +80,7 @@
                 "save_photo": "Bewaar foto",
                 "copy_photo": "Kopieer foto",
                 "sign_in": "Inloggen",
-                "sign_up": "Create account",
+                "sign_up": "Account aanmaken",
                 "see_more": "Meer",
                 "preview": "Voorvertoning",
                 "copy": "Kopiëren",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Welkom terug",
             "subtitle": "Log je in op de server waarop je je account hebt aangemaakt.",
             "server_search_field": {
                 "placeholder": "Voer URL in of zoek naar uw server"
@@ -338,11 +338,11 @@
             "search": {
                 "placeholder": "Search name or URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Als je doorgaat zonder een selectie te maken, kiezen we een server gebaseerd op jouw taal."
         },
         "privacy": {
             "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Hoewel de Mastodon-app geen gegevens verzamelt, kan de server die je aanmeldt een ander beleid hebben. Neem even de tijd om het privacybeleid van de Mastodon-app en het privacybeleid van de server te bekijken en hiermee akkoord te gaan.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Account aanmaken",
             "input": {
                 "avatar": {
                     "delete": "Verwijderen"
