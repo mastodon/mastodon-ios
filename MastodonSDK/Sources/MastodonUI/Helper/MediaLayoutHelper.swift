@@ -30,7 +30,7 @@ class MediaLayoutHelper {
 	static let maxHeight: Float = 1777
 	static let minHeight: Float = 563
 	static let gap: Float = 1.5
-	static let maxRatio: Float = Float(maxWidth) / Float(maxHeight)
+	static let maxRatio = maxWidth / maxHeight
 	
 	public static func generateMediaLayout(attachments: [MastodonAttachment]) -> MediaLayoutResult? {
 		if attachments.count<2 {
@@ -42,7 +42,7 @@ class MediaLayoutHelper {
 		var allAreSquare = true
 		for att in attachments {
 			let ratio: Float = Float(att.size.width/att.size.height)
-			if ratio<=1.2 {
+			if ratio <= 1.2 {
 				allAreWide = false
 				if ratio<0.8 {
 					allAreSquare = false
@@ -282,7 +282,7 @@ class MediaLayoutHelper {
 				columnSizes.append(offset - gridLineOffsets[i]) // i is already offset by one here
 			}
 			
-			for (row, _) in rowTiles.enumerated() {
+			for row in 0..<rowTiles.count {
 				var columnOffset: Int = 0
 				for (tile, _) in rowTiles[row].enumerated() {
 					let startColumn = columnOffset

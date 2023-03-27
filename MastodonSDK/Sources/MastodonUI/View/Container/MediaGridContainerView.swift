@@ -229,7 +229,7 @@ extension MediaGridContainerView {
 
 class GridLayoutView : UIView {
 	private var layout: MediaLayoutResult?
-	private var measuredHeight = 0
+	private(set) var measuredHeight = 0
 	
 	private static let maxWidth = 400
 	private static let gap = 2
