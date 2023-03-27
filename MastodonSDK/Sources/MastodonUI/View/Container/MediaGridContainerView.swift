@@ -216,62 +216,6 @@ extension MediaGridContainerView {
 				layoutView.addSubview(mediaView)
 			}
 			layoutView.prepare(layout: layout, maxSize: maxSize)
-			
-            /*switch count {
-            case 1:
-                assertionFailure("should use Adaptive Layout")
-                containerVerticalStackView.addArrangedSubview(mediaViews[0])
-            case 2:
-                let horizontalStackView = createStackView(axis: .horizontal)
-                containerVerticalStackView.addArrangedSubview(horizontalStackView)
-                horizontalStackView.addArrangedSubview(mediaViews[0])
-                horizontalStackView.addArrangedSubview(mediaViews[1])
-            case 3:
-                let horizontalStackView = createStackView(axis: .horizontal)
-                containerVerticalStackView.addArrangedSubview(horizontalStackView)
-                horizontalStackView.addArrangedSubview(mediaViews[0])
-                
-                let verticalStackView = createStackView(axis: .vertical)
-                horizontalStackView.addArrangedSubview(verticalStackView)
-                verticalStackView.addArrangedSubview(mediaViews[1])
-                verticalStackView.addArrangedSubview(mediaViews[2])
-            case 4:
-                let topHorizontalStackView = createStackView(axis: .horizontal)
-                containerVerticalStackView.addArrangedSubview(topHorizontalStackView)
-                topHorizontalStackView.addArrangedSubview(mediaViews[0])
-                topHorizontalStackView.addArrangedSubview(mediaViews[1])
-                
-                let bottomHorizontalStackView = createStackView(axis: .horizontal)
-                containerVerticalStackView.addArrangedSubview(bottomHorizontalStackView)
-                bottomHorizontalStackView.addArrangedSubview(mediaViews[2])
-                bottomHorizontalStackView.addArrangedSubview(mediaViews[3])
-            case 5...9:
-                let topHorizontalStackView = createStackView(axis: .horizontal)
-                containerVerticalStackView.addArrangedSubview(topHorizontalStackView)
-                topHorizontalStackView.addArrangedSubview(mediaViews[0])
-                topHorizontalStackView.addArrangedSubview(mediaViews[1])
-                topHorizontalStackView.addArrangedSubview(mediaViews[2])
-                
-                func mediaViewOrPlaceholderView(at index: Int) -> UIView {
-                    return index < mediaViews.count ? mediaViews[index] : UIView()
-                }
-                let middleHorizontalStackView = createStackView(axis: .horizontal)
-                containerVerticalStackView.addArrangedSubview(middleHorizontalStackView)
-                middleHorizontalStackView.addArrangedSubview(mediaViews[3])
-                middleHorizontalStackView.addArrangedSubview(mediaViews[4])
-                middleHorizontalStackView.addArrangedSubview(mediaViewOrPlaceholderView(at: 5))
-                
-                if count > 6 {
-                    let bottomHorizontalStackView = createStackView(axis: .horizontal)
-                    containerVerticalStackView.addArrangedSubview(bottomHorizontalStackView)
-                    bottomHorizontalStackView.addArrangedSubview(mediaViewOrPlaceholderView(at: 6))
-                    bottomHorizontalStackView.addArrangedSubview(mediaViewOrPlaceholderView(at: 7))
-                    bottomHorizontalStackView.addArrangedSubview(mediaViewOrPlaceholderView(at: 8))
-                }
-            default:
-                assertionFailure()
-                return
-            }*/
             
             let containerWidth = maxSize.width
 			let containerHeight = CGFloat(layoutView.getMeasuredHeight())
