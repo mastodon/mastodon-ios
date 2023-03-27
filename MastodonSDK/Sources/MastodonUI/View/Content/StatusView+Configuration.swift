@@ -389,6 +389,7 @@ extension StatusView {
         
         let configurations = MediaView.configuration(status: status)
         viewModel.mediaViewConfigurations = configurations
+		viewModel.mediaLayout = MediaLayoutHelper.generateMediaLayout(attachments: status.attachments)
     }
     
     private func configurePollHistory(statusEdit: StatusEdit) {

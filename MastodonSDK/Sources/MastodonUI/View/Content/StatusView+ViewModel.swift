@@ -65,6 +65,7 @@ extension StatusView {
         
         // Media
         @Published public var mediaViewConfigurations: [MediaView.Configuration] = []
+		@Published public var mediaLayout: MediaLayoutResult? = nil
         
         // Audio
         @Published public var audioConfigurations: [MediaView.Configuration] = []
@@ -389,8 +390,11 @@ extension StatusView.ViewModel {
     }
     
     private func bindMedia(statusView: StatusView) {
-        $mediaViewConfigurations
-            .sink { [weak self] configurations in
+		Publishers.CombineLatest(
+			$mediaViewConfigurations,
+			$mediaLayout
+		)
+        .sink { [weak self] configurations, mediaLayout in
                 guard let self = self else { return }
                 self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): configure media")
                 
@@ -413,9 +417,11 @@ extension StatusView.ViewModel {
                     let mediaView = statusView.mediaGridContainerView.dequeueMediaView(adaptiveLayout: adaptiveLayout)
                     mediaView.setup(configuration: configuration)
                 default:
+					guard let mediaLayout = mediaLayout else { return }
                     let gridLayout = MediaGridContainerView.GridLayout(
                         count: configurations.count,
-                        maxSize: maxSize
+                        maxSize: maxSize,
+						layout: mediaLayout
                     )
                     let mediaViews = statusView.mediaGridContainerView.dequeueMediaView(gridLayout: gridLayout)
                     for (i, (configuration, mediaView)) in zip(configurations, mediaViews).enumerated() {

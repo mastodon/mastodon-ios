@@ -18,7 +18,7 @@ public protocol MediaGridContainerViewDelegate: AnyObject {
 public final class MediaGridContainerView: UIView {
     
     static let sensitiveToggleButtonSize = CGSize(width: 34, height: 34)
-    public static let maxCount = 9
+    public static let maxCount = 10
     
     let logger = Logger(subsystem: "MediaGridContainerView", category: "UI")
     
@@ -183,11 +183,12 @@ extension MediaGridContainerView {
         
         let count: Int
         let maxSize: CGSize
+		let layout: MediaLayoutResult
         
-        init(count: Int, maxSize: CGSize) {
-            self.count = min(count, 9)
+		init(count: Int, maxSize: CGSize, layout: MediaLayoutResult) {
+            self.count = min(count, 10)
             self.maxSize = maxSize
-        
+			self.layout = layout
         }
         
         private func createStackView(axis: NSLayoutConstraint.Axis) -> UIStackView {
@@ -200,13 +201,23 @@ extension MediaGridContainerView {
         }
         
         public func layout(in view: UIView, mediaViews: [MediaView]) {
-            let containerVerticalStackView = createStackView(axis: .vertical)
-            containerVerticalStackView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(containerVerticalStackView)
-            containerVerticalStackView.pinToParent()
-            
             let count = mediaViews.count
-            switch count {
+			
+			if count<2 || count>maxCount {
+				assertionFailure("unexpected attachment count \(count)")
+				return
+			}
+			
+			let layoutView = GridLayoutView()
+			layoutView.translatesAutoresizingMaskIntoConstraints = false
+			view.addSubview(layoutView)
+			layoutView.pinToParent()
+			for mediaView in mediaViews {
+				layoutView.addSubview(mediaView)
+			}
+			layoutView.prepare(layout: layout, maxSize: maxSize)
+			
+            /*switch count {
             case 1:
                 assertionFailure("should use Adaptive Layout")
                 containerVerticalStackView.addArrangedSubview(mediaViews[0])
@@ -260,10 +271,10 @@ extension MediaGridContainerView {
             default:
                 assertionFailure()
                 return
-            }
+            }*/
             
             let containerWidth = maxSize.width
-            let containerHeight = count > 6 ? containerWidth : containerWidth * 2 / 3
+			let containerHeight = CGFloat(layoutView.getMeasuredHeight())
             NSLayoutConstraint.activate([
                 view.widthAnchor.constraint(equalToConstant: containerWidth).priority(.required - 1),
                 view.heightAnchor.constraint(equalToConstant: containerHeight).priority(.required - 1),
@@ -271,3 +282,71 @@ extension MediaGridContainerView {
         }
     }
 }
+
+class GridLayoutView : UIView {
+	private var layout: MediaLayoutResult?
+	private var measuredHeight = 0
+	
+	private static let maxWidth = 400
+	private static let gap = 2
+	
+	public func prepare(layout: MediaLayoutResult, maxSize: CGSize) {
+		self.layout = layout
+		let width: Float = min(Float(maxSize.width), Float(GridLayoutView.maxWidth))
+		let height: Float = (width*Float(layout.height)/MediaLayoutHelper.maxWidth)
+		measuredHeight = Int(height.rounded())
+	}
+	
+	public func getMeasuredHeight() -> Int {
+		return measuredHeight
+	}
+	
+	override func layoutSubviews() {
+		guard let layout = layout else { return }
+		var width: Int = min(GridLayoutView.maxWidth, Int(frame.width))
+		let height: Int = Int(frame.height)
+		if layout.width<Int(MediaLayoutHelper.maxWidth) {
+			width = Int((Float(width)*(Float(layout.width)/MediaLayoutHelper.maxWidth)).rounded())
+		}
+		
+		var columnStarts: [Int] = []
+		var columnEnds: [Int] = []
+		var rowStarts: [Int] = []
+		var rowEnds: [Int] = []
+		var offset: Int = 0
+		
+		for colSize in layout.columnSizes {
+			columnStarts.append(offset)
+			offset += Int((Float(colSize)/Float(layout.width)*Float(width)).rounded())
+			columnEnds.append(offset)
+			offset += GridLayoutView.gap
+		}
+		columnEnds.append(width)
+		offset = 0
+		for rowSize in layout.rowSizes {
+			rowStarts.append(offset)
+			offset += Int((Float(rowSize)/Float(layout.height)*Float(height)).rounded())
+			rowEnds.append(offset)
+			offset += GridLayoutView.gap
+		}
+		rowEnds.append(height)
+		
+		var xOffset: Int = 0
+		if Int(frame.width)>width {
+			xOffset = Int((Float(frame.width)/2.0-Float(width)/2.0).rounded())
+		}
+		
+		for (i, view) in subviews.enumerated() {
+			if i>=layout.tiles.count {
+				break // TODO make sure any additional subviews are only added at the end
+			}
+			let tile = layout.tiles[i]
+			let colSpan = max(1, tile.colSpan) - 1
+			let rowSpan = max(1, tile.rowSpan) - 1
+			let x = columnStarts[tile.startCol]
+			let y = rowStarts[tile.startRow]
+			view.frame = CGRect(x: x+xOffset, y: y, width: columnEnds[tile.startCol+colSpan]-x, height: rowEnds[tile.startRow+rowSpan]-y)
+		}
+	}
+}
+
