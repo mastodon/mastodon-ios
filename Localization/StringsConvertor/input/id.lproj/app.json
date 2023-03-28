@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "kebijakan layanan",
             "privacy_policy": "kebijakan privasi",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Profil yang dipilih saat ini: %s. Ketuk dua kali kemudian tahan untuk tampilkan ikon beralih akun",
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Tambah Akun"
-        },
-        "wizard": {
-            "new_in_mastodon": "Baru di Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
         },
         "bookmark": {
             "title": "Tandai"
