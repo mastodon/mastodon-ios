@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "Nutzungsbedingungen",
             "privacy_policy": "Datenschutzerklärung",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Aktuell ausgewähltes Profil: %s. Doppeltippen dann gedrückt halten, um den Kontoschalter anzuzeigen",
             "dismiss_account_switcher": "Dialog zum Wechseln des Kontos schließen",
             "add_account": "Konto hinzufügen"
-        },
-        "wizard": {
-            "new_in_mastodon": "Neu in Mastodon",
-            "multiple_account_switch_intro_description": "Wechsel zwischen mehreren Konten durch Drücken der Profil-Schaltfläche.",
-            "accessibility_hint": "Doppeltippen, um diesen Assistenten zu schließen"
         },
         "bookmark": {
             "title": "Lesezeichen"
