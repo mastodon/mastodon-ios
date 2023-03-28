@@ -348,7 +348,7 @@
                 "server": "Politìca de Privacitat - %s"
             },
             "button": {
-                "confirm": "Hi estic d'acord"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "termes del servei",
             "privacy_policy": "política de privadesa",
             "button": {
-                "confirm": "Hi estic d'acord"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Perfil actual seleccionat: %s. Toca dues vegades i manté el dit per a mostrar el commutador de comptes",
             "dismiss_account_switcher": "Descartar el commutador de comptes",
             "add_account": "Afegir compte"
-        },
-        "wizard": {
-            "new_in_mastodon": "Nou a Mastodon",
-            "multiple_account_switch_intro_description": "Commuta entre diversos comptes mantenint premut el botó del perfil.",
-            "accessibility_hint": "Toca dues vegades per descartar l'assistent"
         },
         "bookmark": {
             "title": "Marcadors"
