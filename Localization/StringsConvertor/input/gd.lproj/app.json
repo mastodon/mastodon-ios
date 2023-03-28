@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "teirmichean na seirbheise",
             "privacy_policy": "poileasaidh prìobhaideachd",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "A’ phròifil air a taghadh: %s. Thoir gnogag dhùbailte is cùm sìos a ghearradh leum gu cunntas eile",
             "dismiss_account_switcher": "Leig seachad taghadh a’ chunntais",
             "add_account": "Cuir cunntas ris"
-        },
-        "wizard": {
-            "new_in_mastodon": "Na tha ùr ann am Mastodon",
-            "multiple_account_switch_intro_description": "Geàrr leum eadar iomadh cunntas le cumail sìos putan na pròifil.",
-            "accessibility_hint": "Thoir gnogag dhùbailte a’ leigeil seachad an draoidh seo"
         },
         "bookmark": {
             "title": "Comharran-lìn"
