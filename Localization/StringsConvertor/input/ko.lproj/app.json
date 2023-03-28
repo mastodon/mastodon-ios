@@ -80,7 +80,7 @@
                 "save_photo": "사진 저장",
                 "copy_photo": "사진 복사",
                 "sign_in": "로그인",
-                "sign_up": "Create account",
+                "sign_up": "계정 생성",
                 "see_more": "더 보기",
                 "preview": "미리보기",
                 "copy": "복사",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "돌아오신 것을 환영합니다",
             "subtitle": "계정을 만든 서버에 로그인.",
             "server_search_field": {
                 "placeholder": "URL을 입력하거나 서버를 검색"
@@ -338,11 +338,11 @@
             "search": {
                 "placeholder": "Search name or URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "아무 것도 고르지 않은 경우, 당신의 언어에 따라 서버를 골라드립니다."
         },
         "privacy": {
             "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "마스토돈 앱은 아무런 데이터도 수집하지 않지만, 가입한 서버의 정책은 다를 수도 있습니다. 잠시 시간을 들여 마스토돈 앱과 서버의 개인정보 정책을 확인한 후 동의해 주세요.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "계정 생성",
             "input": {
                 "avatar": {
                     "delete": "삭제"
