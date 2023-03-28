@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "شُرُوط الخِدمَة",
             "privacy_policy": "سِياسَة الخُصُوصيَّة",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "المِلَفُّ المُحدَّدُ حالِيًّا: %s. اُنقُر نَقرًا مُزدَوَجًا مَعَ الاِستِمرارِ لِإظهارِ مُبدِّلِ الحِساب",
             "dismiss_account_switcher": "تجاهُل مبدِّل الحِساب",
             "add_account": "إضافَةُ حِساب"
-        },
-        "wizard": {
-            "new_in_mastodon": "جديد في ماستودون",
-            "multiple_account_switch_intro_description": "بدِّل بين حسابات متعددة عبر الاستمرار بالضغط على زر الملف الشخصي.",
-            "accessibility_hint": "انقر نقرًا مزدوجًا لتجاهُل النافذة المنبثقة"
         },
         "bookmark": {
             "title": "العَلاماتُ المَرجعيَّة"
