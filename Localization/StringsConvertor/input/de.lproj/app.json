@@ -102,7 +102,7 @@
                     "title": "Von %s übersetzen",
                     "unknown_language": "Unbekannt"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Bearbeiten"
             },
             "tabs": {
                 "home": "Startseite",
@@ -110,7 +110,7 @@
                 "notifications": "Mitteilungen",
                 "profile": "Profil",
                 "a11y": {
-                    "search": "Search",
+                    "search": "Suchen",
                     "explore": "Explore"
                 }
             },
@@ -337,20 +337,22 @@
             },
             "search": {
                 "placeholder": "Search name or URL"
-            }
+            },
+            "no_server_selected_hint": "Wenn Sie fortfahren, ohne eine Auswahl zu treffen, wird ein Server auf der Grundlage Ihrer Sprache ausgewählt."
         },
         "privacy": {
             "title": "Privacy",
+            "description": "//Obwohl die Mastodon-App keine Daten sammelt, kann der Server, über den Sie sich anmelden, eine andere Richtlinie haben. Nehmen Sie sich eine Minute Zeit, um die Datenschutzrichtlinie der Mastodon-App und die Datenschutzrichtlinie Ihres Servers zu lesen und zu akzeptieren.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Konto erstellen",
             "input": {
                 "avatar": {
                     "delete": "Löschen"
@@ -417,7 +419,7 @@
             "terms_of_service": "Nutzungsbedingungen",
             "privacy_policy": "Datenschutzerklärung",
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {

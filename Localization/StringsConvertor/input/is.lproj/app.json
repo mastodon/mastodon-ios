@@ -80,7 +80,7 @@
                 "save_photo": "Vista mynd",
                 "copy_photo": "Afrita mynd",
                 "sign_in": "Skrá inn",
-                "sign_up": "Stofna notandaaðgang",
+                "sign_up": "Búa til notandaaðgang",
                 "see_more": "Sjá fleira",
                 "preview": "Forskoða",
                 "copy": "Afrita",
@@ -337,10 +337,12 @@
             },
             "search": {
                 "placeholder": "Leitaðu að nafni eða slóð"
-            }
+            },
+            "no_server_selected_hint": "Við munum velja netþjón út frá tungumálinu þínu, ef þú heldur áfram án þess að velja neitt."
         },
         "privacy": {
             "title": "Gagnaleynd",
+            "description": "Þó svo að Mastodon-forritið safni ekki neinum gögnum, má samt vera að netþjónninn sem þú skráðir þig á hafi aðra stefnu hvað slíkt varðar. Taktu þér tíma til að yfirfara og samþykkja persónuverndarstefnu Mastodon-forritsins og einnig hjá netþjóninum þínum.",
             "policy": {
                 "ios": "Persónuverndarstefna - Mastodon fyrir iOS",
                 "server": "Persónuverndarstefna - %s"

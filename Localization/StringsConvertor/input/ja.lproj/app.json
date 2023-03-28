@@ -80,7 +80,7 @@
                 "save_photo": "写真を保存",
                 "copy_photo": "写真をコピー",
                 "sign_in": "ログイン",
-                "sign_up": "アカウント作成",
+                "sign_up": "Create account",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
                 "copy": "コピー",
@@ -265,36 +265,36 @@
             "log_in": "ログイン",
             "education": {
                 "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                    "title": "つながりあう",
+                    "description": "Mastodonのしくみは電子メールとよく似ています。\n\n電子メールは ○○@example.com のようなメールアドレスを持っていれば、 □□@gmail.com や △△@icloud.com はもちろん、同じプロバイダの ◇◇@example.com など、どんな相手にもメールを送れます。"
                 },
                 "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
+                    "title": "サーバーからサーバーへ",
+                    "description": "電子メールと同様に、@gothgirl654@example.social というMastodonアカウントがあれば、ほかのサーバーの @fallout5ever@example.online をフォローして投稿をブーストしたり、メンションを送ることができます。"
                 },
                 "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                    "title": "サーバーをさがしてみよう",
+                    "description": "サーバーの選びかたは十人十色です。アーティスト同士が集まるサーバーもあれば、とある鉄道の沿線住民が集うサーバーもあります。\n\nアカウント作成に進むと、検索バーとおすすめのサーバーが表示されます。参加したいサーバーが決まっていない場合は、おすすめから選んでみましょう。どのサーバーを選んでも、どこの誰とでもつながれます。"
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "Mastodon とは？"
+                        "title": "つながりあうMastodon？"
                     }
                 }
             }
         },
         "login": {
-            "title": "ようこそ",
+            "title": "Welcome back",
             "subtitle": "アカウントを作成したサーバーにログインします。",
             "server_search_field": {
                 "placeholder": "URLを入力またはサーバーを検索"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "サーバーをさがす",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "言語",
+                "signup_speed": "登録方法",
                 "category": {
                     "all": "すべて",
                     "all_accessiblity_description": "カテゴリ: すべて",
@@ -328,25 +328,27 @@
                 "no_results": "なし"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "指定しない",
+                "instant": "開放",
+                "manually_reviewed": "承認制"
             },
             "language": {
-                "all": "All"
+                "all": "すべての言語"
             },
             "search": {
-                "placeholder": "Search name or URL"
-            }
+                "placeholder": "サーバー名またはURL"
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "プライバシーポリシー",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "プライバシーポリシー - Mastodon for iOS",
+                "server": "プライバシーポリシー - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "同意する"
             }
         },
         "register": {
@@ -358,7 +360,7 @@
                 "username": {
                     "placeholder": "ユーザー名",
                     "duplicate_prompt": "このユーザー名は使用されています",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "%@_don"
                 },
                 "display_name": {
                     "placeholder": "表示名"
@@ -368,7 +370,7 @@
                 },
                 "password": {
                     "placeholder": "パスワード",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "パスワード（確認用）",
                     "require": "パスワードには少なくとも以下が含まれている必要があります:",
                     "character_limit": "8 文字",
                     "accessibility": {
@@ -417,12 +419,12 @@
             "terms_of_service": "利用規約",
             "privacy_policy": "プライバシーポリシー",
             "button": {
-                "confirm": "I agree"
+                "confirm": "同意する"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "確認のメールを送信しました",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "%@ を認証するためのリンクをメールで送信しました。リンクをタップしてメールアドレスを認証してください。",
             "button": {
                 "resend": "再送信"
             },
@@ -438,9 +440,9 @@
                 "open_email_client": "メールアプリを開く"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "メールが届かない場合",
+                "resend_in": "再送信(%@)",
+                "resend_now": "メールを再送信する"
             }
         },
         "home_timeline": {

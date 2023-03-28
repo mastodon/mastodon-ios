@@ -80,7 +80,7 @@
                 "save_photo": "Uložit fotku",
                 "copy_photo": "Kopírovat fotografii",
                 "sign_in": "Přihlásit se",
-                "sign_up": "Vytvořit účet",
+                "sign_up": "Create account",
                 "see_more": "Zobrazit více",
                 "preview": "Náhled",
                 "copy": "Kopírovat",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Vítejte zpět",
+            "title": "Welcome back",
             "subtitle": "Přihlaste se na serveru, na kterém jste si vytvořili účet.",
             "server_search_field": {
                 "placeholder": "Zadejte URL nebo vyhledávejte váš server"
@@ -337,16 +337,18 @@
             },
             "search": {
                 "placeholder": "Search name or URL"
-            }
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "register": {
@@ -417,7 +419,7 @@
             "terms_of_service": "podmínky služby",
             "privacy_policy": "zásady ochrany osobních údajů",
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {

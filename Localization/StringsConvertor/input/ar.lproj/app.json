@@ -80,7 +80,7 @@
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
                 "sign_in": "تسجيلُ الدخول",
-                "sign_up": "إنشاءُ حِساب",
+                "sign_up": "Create account",
                 "see_more": "عرض المزيد",
                 "preview": "مُعاينة",
                 "copy": "نَسخ",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "مَرحَبًا بِكَ مُجَدَّدًا",
+            "title": "Welcome back",
             "subtitle": "سَجِّل دُخولَكَ إلى الخادِم الَّذي أنشأتَ حِسابَكَ فيه.",
             "server_search_field": {
                 "placeholder": "أدخِل عُنوانَ URL أو اِبحَث عَنِ الخادِمِ الخاصّ بِك"
@@ -337,16 +337,18 @@
             },
             "search": {
                 "placeholder": "Search name or URL"
-            }
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "register": {
@@ -417,7 +419,7 @@
             "terms_of_service": "شُرُوط الخِدمَة",
             "privacy_policy": "سِياسَة الخُصُوصيَّة",
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {

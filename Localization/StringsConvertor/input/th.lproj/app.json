@@ -337,10 +337,12 @@
             },
             "search": {
                 "placeholder": "ค้นหาชื่อหรือ URL"
-            }
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "ความเป็นส่วนตัว",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS",
                 "server": "นโยบายความเป็นส่วนตัว - %s"
@@ -350,7 +352,7 @@
             }
         },
         "register": {
-            "title": "สร้างบัญชี",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "ลบ"

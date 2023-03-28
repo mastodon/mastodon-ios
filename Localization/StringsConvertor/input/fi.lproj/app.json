@@ -80,7 +80,7 @@
                 "save_photo": "Tallenna kuva",
                 "copy_photo": "Kopioi kuva",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_up": "Luo tili",
                 "see_more": "Näytä lisää",
                 "preview": "Esikatselu",
                 "copy": "Copy",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
+            "title": "Tervetuloa takaisin",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
@@ -337,10 +337,12 @@
             },
             "search": {
                 "placeholder": "Etsi nimeä tai URL-osoitetta"
-            }
+            },
+            "no_server_selected_hint": "Palvelin valitaan kielesi perusteella, jos jatkat ilman valintaa."
         },
         "privacy": {
             "title": "Yksityisyys",
+            "description": "Vaikka Mastodon-sovellus ei kerää mitään tietoja, voi rekisteröitymiseen käyttämälläsi palvelimella olla eri käytäntö. Käytä hetki Mastodon-sovelluksen ja palvelimen tietosuojakäytäntöjen tarkasteluun ja hyväksyntään.",
             "policy": {
                 "ios": "Tietosuojakäytäntö - Mastodon iOS:lle",
                 "server": "Tietosuojakäytäntö - %s"

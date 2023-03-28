@@ -80,7 +80,7 @@
                 "save_photo": "Enregistrer la photo",
                 "copy_photo": "Copier la photo",
                 "sign_in": "Se connecter",
-                "sign_up": "Créer un compte",
+                "sign_up": "Create account",
                 "see_more": "Voir plus",
                 "preview": "Aperçu",
                 "copy": "Copier",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Content de vous revoir",
+            "title": "Welcome back",
             "subtitle": "Connectez-vous sur le serveur sur lequel vous avez créé votre compte.",
             "server_search_field": {
                 "placeholder": "Entrez l'URL ou recherchez votre serveur"
@@ -337,16 +337,18 @@
             },
             "search": {
                 "placeholder": "Search name or URL"
-            }
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "register": {
@@ -417,7 +419,7 @@
             "terms_of_service": "entente de service",
             "privacy_policy": "politique de confidentialité",
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {

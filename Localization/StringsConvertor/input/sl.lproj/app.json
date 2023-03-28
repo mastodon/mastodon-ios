@@ -80,7 +80,7 @@
                 "save_photo": "Shrani fotografijo",
                 "copy_photo": "Kopiraj fotografijo",
                 "sign_in": "Prijava",
-                "sign_up": "Ustvari račun",
+                "sign_up": "Create account",
                 "see_more": "Pokaži več",
                 "preview": "Predogled",
                 "copy": "Kopiraj",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Dobrodošli nazaj",
+            "title": "Welcome back",
             "subtitle": "Prijavite se na strežniku, na katerem ste ustvarili račun.",
             "server_search_field": {
                 "placeholder": "Vnesite URL ali poiščite svoj strežnik"
@@ -337,10 +337,12 @@
             },
             "search": {
                 "placeholder": "Iščite po imenu ali URL-ju"
-            }
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "Zasebnost",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Pravilnik o zasebnosti - Mastodon za iOS",
                 "server": "Pravilnik o zasebnosti - %s"
@@ -350,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Ustvari račun",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "Izbriši"

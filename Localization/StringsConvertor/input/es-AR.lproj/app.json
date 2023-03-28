@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Hola de nuevo",
+            "title": "Te volvemos a dar la bienvenida",
             "subtitle": "Iniciá sesión en el servidor en donde creaste tu cuenta.",
             "server_search_field": {
                 "placeholder": "Ingresá la dirección web o buscá tu servidor"
@@ -337,10 +337,12 @@
             },
             "search": {
                 "placeholder": "Buscar nombre o dirección web"
-            }
+            },
+            "no_server_selected_hint": "Seleccionaremos un servidor basado en tu idioma si continuás sin hacer una selección."
         },
         "privacy": {
             "title": "Privacidad",
+            "description": "Aunque la aplicación de Mastodon no recolecta ningún dato, el servidor al que te registrés puede tener una política diferente. Tomate un minuto para revisar y aceptar las políticas de privacidad de la aplicación de Mastodon y las políticas de privacidad de tu servidor.",
             "policy": {
                 "ios": "Política de privacidad - Mastodon para iOS",
                 "server": "Política de privacidad - %s"
