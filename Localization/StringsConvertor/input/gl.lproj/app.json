@@ -80,7 +80,7 @@
                 "save_photo": "Gardar foto",
                 "copy_photo": "Copiar foto",
                 "sign_in": "Acceder",
-                "sign_up": "Create account",
+                "sign_up": "Crear conta",
                 "see_more": "Ver máis",
                 "preview": "Vista previa",
                 "copy": "Copiar",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Benvida!",
             "subtitle": "Conéctate ao servidor no que creaches a conta.",
             "server_search_field": {
                 "placeholder": "Escribe o URL ou busca o teu servidor"
@@ -338,11 +338,11 @@
             "search": {
                 "placeholder": "Buscar por nome ou URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Se non elixes ti, escolleremos un servidor en función do teu idioma."
         },
         "privacy": {
             "title": "Privacidade",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Aínda que a app Mastodon non recolle ningún dato, o servidor no que abriches a conta podería ter unha política diferente. Toma un intre para revisar e aceptar a política de privacidade da app Mastodon e a política de privacidade do teu servidor.",
             "policy": {
                 "ios": "Política de Privacidade - Mastodon para iOS",
                 "server": "Política de Privacidade - %s"
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Crear conta",
             "input": {
                 "avatar": {
                     "delete": "Eliminar"
