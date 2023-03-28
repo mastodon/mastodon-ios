@@ -544,60 +544,6 @@ extension MainTabBarController: UITabBarControllerDelegate {
     }
 }
 
-// MARK: - WizardViewControllerDelegate
-extension MainTabBarController: WizardViewControllerDelegate {
-    func readyToLayoutItem(_ wizardViewController: WizardViewController, item: WizardViewController.Item) -> Bool {
-        switch item {
-        case .multipleAccountSwitch:
-            return isReadyForWizardAvatarButton
-        }
-    }
-    
-    func layoutSpotlight(_ wizardViewController: WizardViewController, item: WizardViewController.Item) -> UIBezierPath {
-        switch item {
-        case .multipleAccountSwitch:
-            guard let avatarButtonFrameInView = avatarButtonFrameInWizardView(wizardView: wizardViewController.view) else {
-                return UIBezierPath()
-            }
-            return UIBezierPath(ovalIn: avatarButtonFrameInView)
-        }
-    }
-    
-    func layoutWizardCard(_ wizardViewController: WizardViewController, item: WizardViewController.Item) {
-        switch item {
-        case .multipleAccountSwitch:
-            guard let avatarButtonFrameInView = avatarButtonFrameInWizardView(wizardView: wizardViewController.view) else {
-                return
-            }
-            let anchorView = UIView()
-            anchorView.frame = avatarButtonFrameInView
-            wizardViewController.backgroundView.addSubview(anchorView)
-            
-            let wizardCardView = WizardCardView()
-            wizardCardView.arrowRectCorner = view.traitCollection.layoutDirection == .leftToRight ? .bottomRight : .bottomLeft
-            wizardCardView.titleLabel.text = item.title
-            wizardCardView.descriptionLabel.text = item.description
-            
-            wizardCardView.translatesAutoresizingMaskIntoConstraints = false
-            wizardViewController.backgroundView.addSubview(wizardCardView)
-            NSLayoutConstraint.activate([
-                anchorView.topAnchor.constraint(equalTo: wizardCardView.bottomAnchor, constant: 13), // 13pt spacing
-                wizardCardView.trailingAnchor.constraint(equalTo: anchorView.centerXAnchor),
-                wizardCardView.widthAnchor.constraint(equalTo: wizardViewController.view.widthAnchor, multiplier: 2.0/3.0).priority(.required - 1),
-            ])
-            wizardCardView.setContentHuggingPriority(.defaultLow, for: .vertical)
-        }
-    }
-    
-    private func avatarButtonFrameInWizardView(wizardView: UIView) -> CGRect? {
-        guard let superview = avatarButton.superview else {
-            assertionFailure()
-            return nil
-        }
-        return superview.convert(avatarButton.frame, to: wizardView)
-    }
-}
-
 // HIG: keyboard UX
 // https://developer.apple.com/design/human-interface-guidelines/macos/user-interaction/keyboard/
 extension MainTabBarController {
