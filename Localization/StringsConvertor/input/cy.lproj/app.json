@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "telerau gwasanaeth",
             "privacy_policy": "polisi preifatrwydd",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Proffil cyfredol: %s. Tapiwch dwywaith a gwasgu i ddefnyddio'r newidiwr cyfrifon",
             "dismiss_account_switcher": "Diddymu Newidiwr Cyfrifon",
             "add_account": "Ychwanegu Cyfrif"
-        },
-        "wizard": {
-            "new_in_mastodon": "Newydd i Mastodon",
-            "multiple_account_switch_intro_description": "Newid rhwng cyfrifon gwahanol wrth wasgu'r botwm proffil.",
-            "accessibility_hint": "Tapiwch dwywaith i ddiddymu'r dewin hwn"
         },
         "bookmark": {
             "title": "Tudalnodau"
