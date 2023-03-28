@@ -348,7 +348,7 @@
                 "server": "Persónuverndarstefna - %s"
             },
             "button": {
-                "confirm": "Ég samþykki"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "þjónustuskilmálar",
             "privacy_policy": "persónuverndarstefna",
             "button": {
-                "confirm": "Ég samþykki"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Fyrirliggjandi valið notandasnið: %s. Tvípikkaðu og haltu niðri til að birta aðgangaskiptinn",
             "dismiss_account_switcher": "Loka aðgangaskipti",
             "add_account": "Bæta við notandaaðgangi"
-        },
-        "wizard": {
-            "new_in_mastodon": "Nýtt í Mastodon",
-            "multiple_account_switch_intro_description": "Skiptu milli notandaaðganga með því að halda niðri notandasniðshnappnum.",
-            "accessibility_hint": "Tvípikkaðu til að loka þessum leiðarvísi"
         },
         "bookmark": {
             "title": "Bókamerki"
