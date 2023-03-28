@@ -81,7 +81,7 @@ class PrivacyTableViewController: UIViewController, NeedsDependency {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.largeTitleDisplayMode = .always
         setupOnboardingAppearance()
     }
 

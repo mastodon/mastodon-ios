@@ -51,6 +51,8 @@ extension MastodonServerRulesViewController {
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(tableView: tableView)
+        
+        navigationItem.largeTitleDisplayMode = .always
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Scene.ServerRules.Button.confirm, style: .done, target: self, action: #selector(MastodonServerRulesViewController.nextButtonPressed(_:)))
         title = L10n.Scene.ServerRules.title
