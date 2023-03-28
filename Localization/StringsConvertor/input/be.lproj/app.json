@@ -348,7 +348,7 @@
                 "server": "Палітыка прыватнасці - %s"
             },
             "button": {
-                "confirm": "Прыняць"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "умовы выкарыстання",
             "privacy_policy": "палітыка канфідэнцыяльнасці",
             "button": {
-                "confirm": "Прыняць"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Бягучы профіль: %s. Двойчы націсніце і ўтрымлівайце, каб паказаць пераключальнік уліковых запісаў",
             "dismiss_account_switcher": "Закрыць пераключальнік уліковых запісаў",
             "add_account": "Дадаць уліковы запіс"
-        },
-        "wizard": {
-            "new_in_mastodon": "Новае ў Mastodon",
-            "multiple_account_switch_intro_description": "Пераключайцеся паміж некалькімі ўліковымі запісамі, утрымліваючы кнопку профілю.",
-            "accessibility_hint": "Двойчы націсніце, каб закрыць гэты майстар"
         },
         "bookmark": {
             "title": "Закладкі"
