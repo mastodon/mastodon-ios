@@ -80,7 +80,7 @@
                 "save_photo": "Foto speichern",
                 "copy_photo": "Foto kopieren",
                 "sign_in": "Anmelden",
-                "sign_up": "Create account",
+                "sign_up": "Konto erstellen",
                 "see_more": "Mehr anzeigen",
                 "preview": "Vorschau",
                 "copy": "Kopieren",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Willkommen zurück",
             "subtitle": "Melden Sie sich auf dem Server an, auf dem Sie Ihr Konto erstellt haben.",
             "server_search_field": {
                 "placeholder": "URL eingeben oder nach Server suchen"
@@ -338,7 +338,7 @@
             "search": {
                 "placeholder": "Search name or URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Wenn Sie fortfahren, ohne eine Auswahl zu treffen, wird ein Server auf der Grundlage Ihrer Sprache ausgewählt."
         },
         "privacy": {
             "title": "Privacy",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Konto erstellen",
             "input": {
                 "avatar": {
                     "delete": "Löschen"
