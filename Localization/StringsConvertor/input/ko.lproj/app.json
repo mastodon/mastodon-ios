@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "이용약관",
             "privacy_policy": "개인정보 정책",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "계정 추가"
-        },
-        "wizard": {
-            "new_in_mastodon": "마스토돈의 새 기능",
-            "multiple_account_switch_intro_description": "프로필 버튼을 꾹 눌러서 여러 계정 사이를 전환할 수 있습니다.",
-            "accessibility_hint": "두 번 탭하여 팝업 닫기"
         },
         "bookmark": {
             "title": "Bookmarks"
