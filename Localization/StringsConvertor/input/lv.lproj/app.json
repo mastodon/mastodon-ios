@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "pakalpojuma noteikumi",
             "privacy_policy": "privātuma nosacījumi",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Pašreizējais atlasītais profils: %s. Veic dubultskārienu un pēc tam turi, lai parādītu konta pārslēdzēju",
             "dismiss_account_switcher": "Noraidīt Konta Pārslēdzēju",
             "add_account": "Pievienot kontu"
-        },
-        "wizard": {
-            "new_in_mastodon": "Jaunums Mastodonā",
-            "multiple_account_switch_intro_description": "Pārslēdzies starp vairākiem kontiem, turot nospiestu profila pogu.",
-            "accessibility_hint": "Veic dubultskārienu, lai noraidītu šo vedni"
         },
         "bookmark": {
             "title": "Grāmatzīmes"
