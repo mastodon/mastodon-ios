@@ -338,21 +338,21 @@
             "search": {
                 "placeholder": "ค้นหาชื่อหรือ URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "เราจะเลือกเซิร์ฟเวอร์ตามภาษาของคุณหากคุณดำเนินการต่อโดยไม่ได้ทำการเลือก"
         },
         "privacy": {
             "title": "ความเป็นส่วนตัว",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "แม้ว่าแอป Mastodon ไม่เก็บรวบรวมข้อมูลใด ๆ เซิร์ฟเวอร์ที่คุณลงทะเบียนผ่านอาจมีนโยบายที่แตกต่างกัน ใช้เวลาสักครู่เพื่อตรวจทานและเห็นด้วยกับนโยบายความเป็นส่วนตัวของแอป Mastodon และนโยบายความเป็นส่วนตัวของเซิร์ฟเวอร์ของคุณ",
             "policy": {
                 "ios": "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS",
                 "server": "นโยบายความเป็นส่วนตัว - %s"
             },
             "button": {
-                "confirm": "ฉันเห็นด้วย"
+                "confirm": "I agree"
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "สร้างบัญชี",
             "input": {
                 "avatar": {
                     "delete": "ลบ"
@@ -419,7 +419,7 @@
             "terms_of_service": "เงื่อนไขการให้บริการ",
             "privacy_policy": "นโยบายความเป็นส่วนตัว",
             "button": {
-                "confirm": "ฉันเห็นด้วย"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "โปรไฟล์ที่เลือกในปัจจุบัน: %s แตะสองครั้งแล้วกดค้างไว้เพื่อแสดงตัวสลับบัญชี",
             "dismiss_account_switcher": "ปิดตัวสลับบัญชี",
             "add_account": "เพิ่มบัญชี"
-        },
-        "wizard": {
-            "new_in_mastodon": "มาใหม่ใน Mastodon",
-            "multiple_account_switch_intro_description": "สลับระหว่างหลายบัญชีโดยกดปุ่มโปรไฟล์ค้างไว้",
-            "accessibility_hint": "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้"
         },
         "bookmark": {
             "title": "ที่คั่นหน้า"
