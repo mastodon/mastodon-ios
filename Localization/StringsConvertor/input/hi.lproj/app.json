@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Add Account"
-        },
-        "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
         },
         "bookmark": {
             "title": "Bookmarks"
