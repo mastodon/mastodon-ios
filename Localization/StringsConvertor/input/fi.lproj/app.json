@@ -342,7 +342,7 @@
         },
         "privacy": {
             "title": "Yksityisyys",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Vaikka Mastodon-sovellus ei kerää mitään tietoja, voi rekisteröitymiseen käyttämälläsi palvelimella olla eri käytäntö. Käytä hetki Mastodon-sovelluksen ja palvelimen tietosuojakäytäntöjen tarkasteluun ja hyväksyntään.",
             "policy": {
                 "ios": "Tietosuojakäytäntö - Mastodon iOS:lle",
                 "server": "Tietosuojakäytäntö - %s"
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Luo tili",
             "input": {
                 "avatar": {
                     "delete": "Poista"
