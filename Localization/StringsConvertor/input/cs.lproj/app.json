@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "podmínky služby",
             "privacy_policy": "zásady ochrany osobních údajů",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Aktuální vybraný profil: %s. Dvojitým poklepáním zobrazíte přepínač účtů",
             "dismiss_account_switcher": "Zrušit přepínač účtů",
             "add_account": "Přidat účet"
-        },
-        "wizard": {
-            "new_in_mastodon": "Nový v Mastodonu",
-            "multiple_account_switch_intro_description": "Přepínání mezi více účty podržením tlačítka profilu.",
-            "accessibility_hint": "Dvojitým poklepáním tohoto průvodce odmítnete"
         },
         "bookmark": {
             "title": "Záložky"
