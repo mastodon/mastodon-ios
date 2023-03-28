@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "zerbitzu-baldintzak",
             "privacy_policy": "pribatutasun-gidalerroak",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Unean hautatutako profila: %s. Ukitu birritan, ondoren eduki sakatuta kontu-aldatzailea erakusteko",
             "dismiss_account_switcher": "Baztertu kontu-aldatzailea",
             "add_account": "Gehitu kontua"
-        },
-        "wizard": {
-            "new_in_mastodon": "Berria Mastodonen",
-            "multiple_account_switch_intro_description": "Aldatu hainbat konturen artean profilaren botoia sakatuta edukiz.",
-            "accessibility_hint": "Ukitu birritan morroi hau baztertzeko"
         },
         "bookmark": {
             "title": "Laster-markak"
