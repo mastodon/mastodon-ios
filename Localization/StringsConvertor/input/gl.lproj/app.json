@@ -348,7 +348,7 @@
                 "server": "Política de Privacidade - %s"
             },
             "button": {
-                "confirm": "Acepto"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "termos do servizo",
             "privacy_policy": "polícica de privacidade",
             "button": {
-                "confirm": "Acepto"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Perfil seleccionado: %s. Dobre toque e manter para mostrar o intercambiador de contas",
             "dismiss_account_switcher": "Desbotar intercambiador de contas",
             "add_account": "Engadir conta"
-        },
-        "wizard": {
-            "new_in_mastodon": "Novidade en Mastodon",
-            "multiple_account_switch_intro_description": "Cambia dunha conta a outra mantendo preso o botón do perfil.",
-            "accessibility_hint": "Dobre toque para desbotar este asistente"
         },
         "bookmark": {
             "title": "Marcadores"
