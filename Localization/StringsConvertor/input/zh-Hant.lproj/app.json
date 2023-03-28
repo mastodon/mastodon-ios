@@ -348,7 +348,7 @@
                 "server": "隱私權政策 - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "我已閱讀並同意"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "服務條款",
             "privacy_policy": "隱私權政策",
             "button": {
-                "confirm": "I agree"
+                "confirm": "我已閱讀並同意"
             }
         },
         "confirm_email": {
