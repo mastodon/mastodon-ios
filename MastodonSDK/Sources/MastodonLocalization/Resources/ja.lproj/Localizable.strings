@@ -61,7 +61,7 @@
 "Common.Controls.Actions.SharePost" = "投稿を共有";
 "Common.Controls.Actions.ShareUser" = "%@を共有";
 "Common.Controls.Actions.SignIn" = "ログイン";
-"Common.Controls.Actions.SignUp" = "アカウント作成";
+"Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "スキップ";
 "Common.Controls.Actions.TakePhoto" = "写真を撮る";
 "Common.Controls.Actions.TranslatePost.Title" = "%@から翻訳";
@@ -244,9 +244,9 @@
 "Scene.Compose.Visibility.Public" = "パブリック";
 "Scene.Compose.Visibility.Unlisted" = "非表示";
 "Scene.ConfirmEmail.Button.Resend" = "再送信";
-"Scene.ConfirmEmail.DidntGetLink.Prefix" = "Didn't get a Link?";
-"Scene.ConfirmEmail.DidntGetLink.ResendIn" = "Resend (%@)";
-"Scene.ConfirmEmail.DidntGetLink.ResendNow" = "Resend now.";
+"Scene.ConfirmEmail.DidntGetLink.Prefix" = "メールが届かない場合";
+"Scene.ConfirmEmail.DidntGetLink.ResendIn" = "再送信(%@)";
+"Scene.ConfirmEmail.DidntGetLink.ResendNow" = "メールを再送信する";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "メールアドレスが正しいかどうか、また、迷惑メールフォルダに入っていないかどうかも確認してください。";
 "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "もう一度メールを送信";
 "Scene.ConfirmEmail.DontReceiveEmail.Title" = "メールをチェックしてください";
@@ -254,8 +254,8 @@
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "メール";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "メールアプリを開く";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "メールを確認";
-"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we sent you to verify %@. We’ll wait right here.";
-"Scene.ConfirmEmail.Title" = "Check Your Inbox";
+"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "%@ を認証するためのリンクをメールで送信しました。リンクをタップしてメールアドレスを認証してください。";
+"Scene.ConfirmEmail.Title" = "確認のメールを送信しました";
 "Scene.Discovery.Intro" = "あなたのMastodonサーバーで注目を集めている投稿がここに表示されます。";
 "Scene.Discovery.Tabs.Community" = "コミュニティ";
 "Scene.Discovery.Tabs.ForYou" = "おすすめ";
@@ -285,7 +285,7 @@
 "Scene.HomeTimeline.Title" = "ホーム";
 "Scene.Login.ServerSearchField.Placeholder" = "URLを入力またはサーバーを検索";
 "Scene.Login.Subtitle" = "アカウントを作成したサーバーにログインします。";
-"Scene.Login.Title" = "ようこそ";
+"Scene.Login.Title" = "Welcome back";
 "Scene.Notification.FollowRequest.Accept" = "承認";
 "Scene.Notification.FollowRequest.Accepted" = "承諾済み";
 "Scene.Notification.FollowRequest.Reject" = "拒否";
@@ -303,10 +303,11 @@
 "Scene.Preview.Keyboard.ClosePreview" = "プレビューを閉じる";
 "Scene.Preview.Keyboard.ShowNext" = "次を見る";
 "Scene.Preview.Keyboard.ShowPrevious" = "前を見る";
-"Scene.Privacy.Button.Confirm" = "I agree";
-"Scene.Privacy.Policy.Ios" = "Privacy Policy - Mastodon for iOS";
-"Scene.Privacy.Policy.Server" = "Privacy Policy - %@";
-"Scene.Privacy.Title" = "Privacy";
+"Scene.Privacy.Button.Confirm" = "同意する";
+"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.";
+"Scene.Privacy.Policy.Ios" = "プライバシーポリシー - Mastodon for iOS";
+"Scene.Privacy.Policy.Server" = "プライバシーポリシー - %@";
+"Scene.Privacy.Title" = "プライバシーポリシー";
 "Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "ダブルタップでリストを開く";
 "Scene.Profile.Accessibility.EditAvatarImage" = "アバター画像を編集";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "アバター画像を表示";
@@ -370,13 +371,13 @@
 "Scene.Register.Input.Password.Accessibility.Checked" = "選択済";
 "Scene.Register.Input.Password.Accessibility.Unchecked" = "未選択";
 "Scene.Register.Input.Password.CharacterLimit" = "8 文字";
-"Scene.Register.Input.Password.ConfirmationPlaceholder" = "Confirm Password";
+"Scene.Register.Input.Password.ConfirmationPlaceholder" = "パスワード（確認用）";
 "Scene.Register.Input.Password.Hint" = "パスワードは最低でも8文字必要です。";
 "Scene.Register.Input.Password.Placeholder" = "パスワード";
 "Scene.Register.Input.Password.Require" = "パスワードには少なくとも以下が含まれている必要があります:";
 "Scene.Register.Input.Username.DuplicatePrompt" = "このユーザー名は使用されています";
 "Scene.Register.Input.Username.Placeholder" = "ユーザー名";
-"Scene.Register.Input.Username.Suggestion" = "amazing_%@";
+"Scene.Register.Input.Username.Suggestion" = "%@_don";
 "Scene.Register.Title" = "Create account";
 "Scene.Report.Content1" = "他に通報したい投稿はありますか？";
 "Scene.Report.Content2" = "この通報についてモデレーターに伝達しておきたい事項はありますか？";
@@ -452,10 +453,10 @@
 "Scene.ServerPicker.Button.Category.Music" = "音楽";
 "Scene.ServerPicker.Button.Category.Regional" = "地域";
 "Scene.ServerPicker.Button.Category.Tech" = "技術";
-"Scene.ServerPicker.Button.Language" = "Language";
+"Scene.ServerPicker.Button.Language" = "言語";
 "Scene.ServerPicker.Button.SeeLess" = "閉じる";
 "Scene.ServerPicker.Button.SeeMore" = "もっと見る";
-"Scene.ServerPicker.Button.SignupSpeed" = "Sign-up Speed";
+"Scene.ServerPicker.Button.SignupSpeed" = "登録方法";
 "Scene.ServerPicker.EmptyState.BadNetwork" = "データの読み込み中に何か問題が発生しました。インターネットの接続状況を確認してください。";
 "Scene.ServerPicker.EmptyState.FindingServers" = "利用可能なサーバーの検索...";
 "Scene.ServerPicker.EmptyState.NoResults" = "なし";
@@ -463,13 +464,14 @@
 "Scene.ServerPicker.Label.Category" = "カテゴリー";
 "Scene.ServerPicker.Label.Language" = "言語";
 "Scene.ServerPicker.Label.Users" = "ユーザー";
-"Scene.ServerPicker.Language.All" = "All";
-"Scene.ServerPicker.Search.Placeholder" = "Search name or URL";
-"Scene.ServerPicker.SignupSpeed.All" = "All";
-"Scene.ServerPicker.SignupSpeed.Instant" = "Instant Sign-up";
-"Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "Manual Review";
-"Scene.ServerPicker.Title" = "Pick Server";
-"Scene.ServerRules.Button.Confirm" = "I agree";
+"Scene.ServerPicker.Language.All" = "すべての言語";
+"Scene.ServerPicker.NoServerSelectedHint" = "We’ll pick a server based on your language if you continue without making a selection.";
+"Scene.ServerPicker.Search.Placeholder" = "サーバー名またはURL";
+"Scene.ServerPicker.SignupSpeed.All" = "指定しない";
+"Scene.ServerPicker.SignupSpeed.Instant" = "開放";
+"Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "承認制";
+"Scene.ServerPicker.Title" = "サーバーをさがす";
+"Scene.ServerRules.Button.Confirm" = "同意する";
 "Scene.ServerRules.PrivacyPolicy" = "プライバシーポリシー";
 "Scene.ServerRules.Prompt" = "同意することでお客様は以下のサービスの利用規約とプライバシーポリシーに従うことになります。 %@.";
 "Scene.ServerRules.Subtitle" = "これらのルールは、%@の管理者によって設定されています。";
@@ -513,17 +515,17 @@
 "Scene.SuggestionAccount.Title" = "フォローする人を探す";
 "Scene.Thread.BackTitle" = "投稿";
 "Scene.Thread.Title" = "%@の投稿";
-"Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "Mastodon とは？";
-"Scene.Welcome.Education.HowDoIPickAServer.Description" = "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.
+"Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "つながりあうMastodon？";
+"Scene.Welcome.Education.HowDoIPickAServer.Description" = "サーバーの選びかたは十人十色です。アーティスト同士が集まるサーバーもあれば、とある鉄道の沿線住民が集うサーバーもあります。
 
-You can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.";
-"Scene.Welcome.Education.HowDoIPickAServer.Title" = "How do I pick a server?";
-"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.";
-"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "Mastodon is like that";
-"Scene.Welcome.Education.WhatIsMastodon.Description" = "Imagine you have an email address that ends with @example.com.
+アカウント作成に進むと、検索バーとおすすめのサーバーが表示されます。参加したいサーバーが決まっていない場合は、おすすめから選んでみましょう。どのサーバーを選んでも、どこの誰とでもつながれます。";
+"Scene.Welcome.Education.HowDoIPickAServer.Title" = "サーバーをさがしてみよう";
+"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "電子メールと同様に、@gothgirl654@example.social というMastodonアカウントがあれば、ほかのサーバーの @fallout5ever@example.online をフォローして投稿をブーストしたり、メンションを送ることができます。";
+"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "サーバーからサーバーへ";
+"Scene.Welcome.Education.WhatIsMastodon.Description" = "Mastodonのしくみは電子メールとよく似ています。
 
-You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.";
-"Scene.Welcome.Education.WhatIsMastodon.Title" = "What is";
+電子メールは ○○@example.com のようなメールアドレスを持っていれば、 □□@gmail.com や △△@icloud.com はもちろん、同じプロバイダの ◇◇@example.com など、どんな相手にもメールを送れます。";
+"Scene.Welcome.Education.WhatIsMastodon.Title" = "つながりあう";
 "Scene.Welcome.GetStarted" = "はじめる";
 "Scene.Welcome.LogIn" = "ログイン";
 "Scene.Welcome.Slogan" = "ソーシャルネットワーキングを、あなたの手の中に.";

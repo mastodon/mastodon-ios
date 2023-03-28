@@ -338,10 +338,12 @@
             },
             "search": {
                 "placeholder": "Search name or URL"
-            }
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
@@ -823,14 +825,8 @@
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Add Account"
         },
-        "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
-        },
         "bookmark": {
             "title": "Bookmarks"
-
         },
         "followed_tags": {
             "title": "Followed Tags",

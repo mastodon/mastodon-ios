@@ -309,6 +309,7 @@
 "Scene.Preview.Keyboard.ShowNext" = "แสดงถัดไป";
 "Scene.Preview.Keyboard.ShowPrevious" = "แสดงก่อนหน้า";
 "Scene.Privacy.Button.Confirm" = "ฉันเห็นด้วย";
+"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.";
 "Scene.Privacy.Policy.Ios" = "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS";
 "Scene.Privacy.Policy.Server" = "นโยบายความเป็นส่วนตัว - %@";
 "Scene.Privacy.Title" = "ความเป็นส่วนตัว";
@@ -382,7 +383,7 @@
 "Scene.Register.Input.Username.DuplicatePrompt" = "มีการใช้ชื่อผู้ใช้นี้แล้ว";
 "Scene.Register.Input.Username.Placeholder" = "ชื่อผู้ใช้";
 "Scene.Register.Input.Username.Suggestion" = "amazing_%@";
-"Scene.Register.Title" = "สร้างบัญชี";
+"Scene.Register.Title" = "Create account";
 "Scene.Report.Content1" = "มีโพสต์อื่นใดที่คุณต้องการเพิ่มไปยังรายงานหรือไม่?";
 "Scene.Report.Content2" = "มีสิ่งใดที่ผู้ควบคุมควรทราบเกี่ยวกับรายงานนี้หรือไม่?";
 "Scene.Report.ReportSentTitle" = "ขอบคุณสำหรับการรายงาน เราจะตรวจสอบสิ่งนี้";
@@ -469,6 +470,7 @@
 "Scene.ServerPicker.Label.Language" = "ภาษา";
 "Scene.ServerPicker.Label.Users" = "ผู้ใช้";
 "Scene.ServerPicker.Language.All" = "ทั้งหมด";
+"Scene.ServerPicker.NoServerSelectedHint" = "We’ll pick a server based on your language if you continue without making a selection.";
 "Scene.ServerPicker.Search.Placeholder" = "ค้นหาชื่อหรือ URL";
 "Scene.ServerPicker.SignupSpeed.All" = "ทั้งหมด";
 "Scene.ServerPicker.SignupSpeed.Instant" = "การลงทะเบียนทันที";

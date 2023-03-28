@@ -289,7 +289,7 @@
 "Scene.HomeTimeline.Title" = "ماڵەوە";
 "Scene.Login.ServerSearchField.Placeholder" = "Enter URL or search for your server";
 "Scene.Login.Subtitle" = "Log you in on the server you created your account on.";
-"Scene.Login.Title" = "Welcome Back";
+"Scene.Login.Title" = "Welcome back";
 "Scene.Notification.FollowRequest.Accept" = "Accept";
 "Scene.Notification.FollowRequest.Accepted" = "Accepted";
 "Scene.Notification.FollowRequest.Reject" = "reject";
@@ -307,7 +307,8 @@
 "Scene.Preview.Keyboard.ClosePreview" = "پێشبینینەکە دابخە";
 "Scene.Preview.Keyboard.ShowNext" = "هی دواتر نیشان بدە";
 "Scene.Preview.Keyboard.ShowPrevious" = "هی پێشتر نیشان بدە";
-"Scene.Privacy.Button.Confirm" = "I agree";
+"Scene.Privacy.Button.Confirm" = "I Agree";
+"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.";
 "Scene.Privacy.Policy.Ios" = "Privacy Policy - Mastodon for iOS";
 "Scene.Privacy.Policy.Server" = "Privacy Policy - %@";
 "Scene.Privacy.Title" = "Privacy";
@@ -468,12 +469,13 @@
 "Scene.ServerPicker.Label.Language" = "زمان";
 "Scene.ServerPicker.Label.Users" = "بەکارهێنەر";
 "Scene.ServerPicker.Language.All" = "All";
+"Scene.ServerPicker.NoServerSelectedHint" = "We’ll pick a server based on your language if you continue without making a selection.";
 "Scene.ServerPicker.Search.Placeholder" = "Search name or URL";
 "Scene.ServerPicker.SignupSpeed.All" = "All";
 "Scene.ServerPicker.SignupSpeed.Instant" = "Instant Sign-up";
 "Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "Manual Review";
 "Scene.ServerPicker.Title" = "Pick Server";
-"Scene.ServerRules.Button.Confirm" = "I agree";
+"Scene.ServerRules.Button.Confirm" = "I Agree";
 "Scene.ServerRules.PrivacyPolicy" = "سیاسەتی تایبەتێتی";
 "Scene.ServerRules.Prompt" = "بەردەوامبوونت واتای ڕازیبوونتە بە مەرجەکانی خزمەتگوزاری و سیاسەتی تایبەتێتیی %@.";
 "Scene.ServerRules.Subtitle" = "ئەمانە لەلایەن چاودێرەکانی %@ دانراون و ناچار دەکرێن.";

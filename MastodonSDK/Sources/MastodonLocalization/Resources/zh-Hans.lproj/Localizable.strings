@@ -61,7 +61,7 @@
 "Common.Controls.Actions.SharePost" = "分享帖子";
 "Common.Controls.Actions.ShareUser" = "分享 %@";
 "Common.Controls.Actions.SignIn" = "登录";
-"Common.Controls.Actions.SignUp" = "创建账户";
+"Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "跳过";
 "Common.Controls.Actions.TakePhoto" = "拍照";
 "Common.Controls.Actions.TranslatePost.Title" = "翻译自 %@";
@@ -290,7 +290,7 @@
 "Scene.HomeTimeline.Title" = "主页";
 "Scene.Login.ServerSearchField.Placeholder" = "输入网址或搜索您的服务器";
 "Scene.Login.Subtitle" = "登入您账户所在的服务器。";
-"Scene.Login.Title" = "欢迎回来";
+"Scene.Login.Title" = "Welcome back";
 "Scene.Notification.FollowRequest.Accept" = "接受";
 "Scene.Notification.FollowRequest.Accepted" = "已接受";
 "Scene.Notification.FollowRequest.Reject" = "拒绝";
@@ -308,7 +308,8 @@
 "Scene.Preview.Keyboard.ClosePreview" = "关闭预览";
 "Scene.Preview.Keyboard.ShowNext" = "显示下一个";
 "Scene.Preview.Keyboard.ShowPrevious" = "显示前一个";
-"Scene.Privacy.Button.Confirm" = "I agree";
+"Scene.Privacy.Button.Confirm" = "I Agree";
+"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.";
 "Scene.Privacy.Policy.Ios" = "Privacy Policy - Mastodon for iOS";
 "Scene.Privacy.Policy.Server" = "Privacy Policy - %@";
 "Scene.Privacy.Title" = "Privacy";
@@ -469,12 +470,13 @@
 "Scene.ServerPicker.Label.Language" = "语言";
 "Scene.ServerPicker.Label.Users" = "用户";
 "Scene.ServerPicker.Language.All" = "All";
+"Scene.ServerPicker.NoServerSelectedHint" = "We’ll pick a server based on your language if you continue without making a selection.";
 "Scene.ServerPicker.Search.Placeholder" = "Search name or URL";
 "Scene.ServerPicker.SignupSpeed.All" = "All";
 "Scene.ServerPicker.SignupSpeed.Instant" = "Instant Sign-up";
 "Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "Manual Review";
 "Scene.ServerPicker.Title" = "Pick Server";
-"Scene.ServerRules.Button.Confirm" = "I agree";
+"Scene.ServerRules.Button.Confirm" = "I Agree";
 "Scene.ServerRules.PrivacyPolicy" = "隐私政策";
 "Scene.ServerRules.Prompt" = "如果继续，你必须遵守 %@ 的服务条款和隐私政策。";
 "Scene.ServerRules.Subtitle" = "这些规则由 %@ 的管理员设置。";
