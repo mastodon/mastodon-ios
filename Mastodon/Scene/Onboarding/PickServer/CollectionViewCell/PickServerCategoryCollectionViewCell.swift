@@ -62,7 +62,7 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
 
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1.0
-        applyCornerRadius(radius: 15)
+        applyCornerRadius(radius: 18)
 
         contentView.addSubview(container)
         contentView.addSubview(menuButton)
