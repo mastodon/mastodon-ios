@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "điều khoản dịch vụ",
             "privacy_policy": "chính sách bảo mật",
             "button": {
-                "confirm": "Tôi đồng ý"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Đang dùng tài khoản: %s. Nhấn hai lần và giữ để đổi sang tài khoản khác",
             "dismiss_account_switcher": "Bỏ qua chuyển đổi tài khoản",
             "add_account": "Thêm tài khoản"
-        },
-        "wizard": {
-            "new_in_mastodon": "Mới trên Mastodon",
-            "multiple_account_switch_intro_description": "Chuyển đổi giữa nhiều tài khoản bằng cách đè giữ nút tài khoản.",
-            "accessibility_hint": "Nhấn hai lần để bỏ qua"
         },
         "bookmark": {
             "title": "Tút đã lưu"
