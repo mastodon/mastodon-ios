@@ -348,7 +348,7 @@
                 "server": "Tietosuojakäytäntö - %s"
             },
             "button": {
-                "confirm": "Hyväksyn"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "käyttöehdot",
             "privacy_policy": "tietosuojakäytäntö",
             "button": {
-                "confirm": "Hyväksyn"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Nykyinen valittu profiili: %s. Kaksoisnapauta ja pidä sitten painettuna näytääksesi tilin vaihtajan",
             "dismiss_account_switcher": "Sulje tilin vaihtaja",
             "add_account": "Lisää tili"
-        },
-        "wizard": {
-            "new_in_mastodon": "Uutta Mastodonissa",
-            "multiple_account_switch_intro_description": "Vaihda useiden tilien välillä pitämällä profiilipainiketta painettuna.",
-            "accessibility_hint": "Hylkää tämä ohjattu toiminto kaksoisnapauttamalla"
         },
         "bookmark": {
             "title": "Bookmarks"
