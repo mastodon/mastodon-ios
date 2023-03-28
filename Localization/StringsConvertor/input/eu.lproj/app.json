@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "zerbitzu-baldintzak",
             "privacy_policy": "pribatutasun-gidalerroak",
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
