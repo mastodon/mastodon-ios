@@ -80,7 +80,7 @@
                 "save_photo": "Захаваць фота",
                 "copy_photo": "Капіраваць фота",
                 "sign_in": "Увайсці",
-                "sign_up": "Create account",
+                "sign_up": "Стварыць уліковы запіс",
                 "see_more": "Паказаць больш",
                 "preview": "Перадпрагляд",
                 "copy": "Скапіраваць",
@@ -284,7 +284,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "З вяртаннем",
             "subtitle": "Увайдзіце на серверы, дзе вы стварылі свой уліковы запіс.",
             "server_search_field": {
                 "placeholder": "Увядзіце URL або адрас сервера"
@@ -338,11 +338,11 @@
             "search": {
                 "placeholder": "Search name or URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Калі вы не выберыце сервер, то мы выберам яго на аснове вашай мовы."
         },
         "privacy": {
             "title": "Прыватнасць",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Хоць праграма Mastodon не збірае ніякіх даных, сервер, праз які вы зарэгістраваліся, можа мець іншую палітыку. Знайдзіце хвілінку, каб азнаёміцца і пагадзіцца з палітыкай прыватнасці праграмы Mastodon і палітыкай прыватнасці вашага сервера.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Палітыка прыватнасці - %s"
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Стварыць уліковы запіс",
             "input": {
                 "avatar": {
                     "delete": "Выдаліць"
