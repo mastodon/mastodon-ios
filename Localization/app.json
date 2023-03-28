@@ -870,6 +870,12 @@
             "configuration_description": "Show latest followers.",
             "title": "Latest followers",
             "last_update": "Last update: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Shows a recent status with the selected hashtag."
+            }
         }
     }
 }

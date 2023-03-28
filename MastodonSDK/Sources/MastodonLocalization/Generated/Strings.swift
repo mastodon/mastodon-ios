@@ -1543,6 +1543,14 @@ public enum L10n {
       /// FOLLOWERS
       public static let title = L10n.tr("Localizable", "Widget.FollowersCount.Title", fallback: "FOLLOWERS")
     }
+    public enum Hashtag {
+      public enum Configuration {
+        /// Shows a recent status with the selected hashtag
+        public static let description = L10n.tr("Localizable", "Widget.Hashtag.Configuration.Description", fallback: "Shows a recent status with the selected hashtag")
+        /// Hashtag
+        public static let displayName = L10n.tr("Localizable", "Widget.Hashtag.Configuration.DisplayName", fallback: "Hashtag")
+      }
+    }
     public enum LatestFollowers {
       /// Show latest followers.
       public static let configurationDescription = L10n.tr("Localizable", "Widget.LatestFollowers.ConfigurationDescription", fallback: "Show latest followers.")

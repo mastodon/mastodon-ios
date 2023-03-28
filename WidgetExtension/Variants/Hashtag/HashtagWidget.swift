@@ -3,6 +3,7 @@
 import WidgetKit
 import SwiftUI
 import MastodonSDK
+import MastodonLocalization
 
 struct HashtagWidgetProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> HashtagWidgetTimelineEntry {
@@ -145,9 +146,8 @@ struct HashtagWidget: Widget {
         IntentConfiguration(kind: "Hashtag", intent: HashtagIntent.self, provider: HashtagWidgetProvider()) { entry in
             HashtagWidgetView(entry: entry)
         }
-        //TODO: @zeitschlag Add Localization
-        .configurationDisplayName("Hashtag")
-        .description("Show a Hashtag")
+        .configurationDisplayName(L10n.Widget.Hashtag.Configuration.displayName)
+        .description(L10n.Widget.Hashtag.Configuration.description)
         .supportedFamilies(availableFamilies)
     }
 }

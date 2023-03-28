@@ -543,3 +543,5 @@ uploaded to Mastodon.";
 "Widget.MultipleFollowers.ConfigurationDisplayName" = "Multiple followers";
 "Widget.MultipleFollowers.MockUser.AccountName" = "another@follower.social";
 "Widget.MultipleFollowers.MockUser.DisplayName" = "Another follower";
+"Widget.Hashtag.Configuration.Description" = "Shows a recent status with the selected hashtag";
+"Widget.Hashtag.Configuration.DisplayName" = "Hashtag";
