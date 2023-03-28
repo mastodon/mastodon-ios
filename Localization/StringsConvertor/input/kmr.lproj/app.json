@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "mercên bikaranînê",
             "privacy_policy": "polîtikaya nihêniyê",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Profîla hilbijartî ya niha: %s. Du caran bitikîne û paşê dest bide ser da ku guhêrbara ajimêr were nîşandan",
             "dismiss_account_switcher": "Guherkera ajimêrê paş guh bike",
             "add_account": "Ajimêr tevlî bike"
-        },
-        "wizard": {
-            "new_in_mastodon": "Nû di Mastodon de",
-            "multiple_account_switch_intro_description": "Dest bide ser bişkoja profîlê da ku di navbera gelek ajimêrann de biguherînî.",
-            "accessibility_hint": "Du caran bitikîne da ku çarçoveyahilpekok ji holê rakî"
         },
         "bookmark": {
             "title": "Şûnpel"
