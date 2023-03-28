@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "kullanım şartları",
             "privacy_policy": "gizlilik politikası",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Şu anki seçili profil: %s. Hesap değiştiriciyi göstermek için iki kez dokunun ve basılı tutun",
             "dismiss_account_switcher": "Hesap Değiştiriciyi Kapat",
             "add_account": "Hesap Ekle"
-        },
-        "wizard": {
-            "new_in_mastodon": "Mastodon'da Yeni",
-            "multiple_account_switch_intro_description": "Profil butonuna basılı tutarak birden fazla hesap arasında geçiş yapın.",
-            "accessibility_hint": "Bu yardımı kapatmak için çift tıklayın"
         },
         "bookmark": {
             "title": "Yer İmleri"
