@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "användarvillkor",
             "privacy_policy": "integritetspolicy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
@@ -823,11 +823,6 @@
             "tab_bar_hint": "Nuvarande vald profil: %s. Dubbeltryck och håll för att visa kontoväxlare",
             "dismiss_account_switcher": "Stäng kontoväxlare",
             "add_account": "Lägg till konto"
-        },
-        "wizard": {
-            "new_in_mastodon": "Nytt i Mastodon",
-            "multiple_account_switch_intro_description": "Växla mellan flera konton genom att hålla inne profilknappen.",
-            "accessibility_hint": "Dubbeltryck för att avvisa den här guiden"
         },
         "bookmark": {
             "title": "Bokmärken"
