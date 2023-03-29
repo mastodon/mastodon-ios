@@ -35,6 +35,7 @@ struct SystemTheme: Theme {
 
     let separator = Asset.Theme.System.separator.color
 
+    let tableViewBackgroundColor: UIColor = .clear
     let tableViewCellBackgroundColor = Asset.Theme.System.tableViewCellBackground.color
     let tableViewCellSelectionBackgroundColor = Asset.Theme.System.tableViewCellSelectionBackground.color
 
