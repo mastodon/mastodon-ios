@@ -348,7 +348,7 @@
                 "server": "Persónuverndarstefna - %s"
             },
             "button": {
-                "confirm": "Ég samþykki"
+                "confirm": "I Agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "þjónustuskilmálar",
             "privacy_policy": "persónuverndarstefna",
             "button": {
-                "confirm": "Ég samþykki"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
