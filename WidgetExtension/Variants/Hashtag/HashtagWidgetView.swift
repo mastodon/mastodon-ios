@@ -37,8 +37,7 @@ struct HashtagWidgetView: View {
                     .foregroundColor(.secondary)
             }
 
-            //TODO: Check MetaLabelRepresentable, maybe it's a way to color Hashtags?
-            Text(entry.hashtag.content)
+            Text(statusHTML: entry.hashtag.content)
 
             Spacer()
             HStack(alignment: .center, spacing: 16) {
@@ -73,18 +72,58 @@ struct HashtagWidgetView: View {
                 Text("|")
                     .foregroundColor(.secondary)
                     .font(.system(size: UIFontMetrics.default.scaledValue(for: 9)))
-                Text(entry.hashtag.hashtag)
+                Text(statusHTML: entry.hashtag.content)
                     .foregroundColor(.secondary)
                     .font(.system(size: UIFontMetrics.default.scaledValue(for: 13)))
                     .fontWeight(.heavy)
 
             }
-            Text(entry.hashtag.content)
-                .foregroundColor(.primary)
-                .font(.system(size: UIFontMetrics.default.scaledValue(for: 16)))
-                .fontWeight(.medium)
-                .lineLimit(3)
+            Text(statusHTML: entry.hashtag.content)
             Spacer()
         }
     }
+}
+
+/// Inspired by: https://swiftuirecipes.com/blog/swiftui-text-with-html-via-nsattributedstring
+extension Text {
+    init(statusHTML htmlString: String) {
+      let fullHTML = """
+<!doctype html>
+<html>
+    <head>
+        <style>
+            body {
+                font-family: -apple-system;
+                font-size: 16px;
+            }
+
+            a {
+                color: #563ACC;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                a {
+                    color: ##858AFA
+                }
+            }
+        </style>
+    </head>
+    <body>
+        \(htmlString)
+    </body>
+  </html>
+"""
+
+      let attributedString: NSAttributedString
+      if let data = fullHTML.data(using: .unicode),
+         let attrString = try? NSAttributedString(data: data,
+                                                  options: [.documentType: NSAttributedString.DocumentType.html],
+                                                  documentAttributes: nil) {
+          attributedString = attrString
+      } else {
+          attributedString = NSAttributedString()
+      }
+
+      self.init(AttributedString(attributedString)) // uses the NSAttributedString initializer
+  }
 }
