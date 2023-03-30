@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "Ik ga akkoord"
+                "confirm": "I Agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "servicevoorwaarden",
             "privacy_policy": "privacybeleid",
             "button": {
-                "confirm": "Ik ga akkoord"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
