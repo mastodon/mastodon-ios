@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "Tôi đồng ý"
+                "confirm": "I Agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "điều khoản dịch vụ",
             "privacy_policy": "chính sách bảo mật",
             "button": {
-                "confirm": "Tôi đồng ý"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
