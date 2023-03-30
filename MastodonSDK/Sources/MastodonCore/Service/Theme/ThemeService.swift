@@ -77,6 +77,7 @@ extension ThemeService {
         UITabBar.appearance().barTintColor = theme.tabBarBackgroundColor
 
         // set table view cell appearance
+        UITableView.appearance().backgroundColor = theme.tableViewBackgroundColor
         UITableViewCell.appearance().backgroundColor = theme.tableViewCellBackgroundColor
         // FIXME: refactor
         // UITableViewCell.appearance(whenContainedInInstancesOf: [SettingsViewController.self]).backgroundColor = theme.secondarySystemGroupedBackgroundColor
