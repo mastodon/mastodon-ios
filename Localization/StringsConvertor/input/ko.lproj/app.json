@@ -348,7 +348,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "동의합니다"
+                "confirm": "I Agree"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "이용약관",
             "privacy_policy": "개인정보 정책",
             "button": {
-                "confirm": "동의합니다"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
