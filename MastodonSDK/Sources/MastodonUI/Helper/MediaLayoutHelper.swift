@@ -41,7 +41,7 @@ class MediaLayoutHelper {
         var allAreWide = true
         var allAreSquare = true
         for att in attachments {
-            let ratio: CGFloat = CGFloat(att.size.width / att.size.height)
+            let ratio: CGFloat = max(0.45, CGFloat(att.size.width / att.size.height))
             if ratio <= 1.2 {
                 allAreWide = false
                 if ratio < 0.8 {
