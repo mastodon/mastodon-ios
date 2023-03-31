@@ -153,7 +153,8 @@ extension MastodonConfirmEmailViewController {
         let nowIn60Seconds = Date().addingTimeInterval(60)
         let boldFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
         let regularFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
-
+        let digitFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: .monospacedDigitSystemFont(ofSize: 15, weight: .bold))
+        
         let timer = Timer(timeInterval: 1.0, repeats: true) { [weak self] in 
             guard Date() < nowIn60Seconds else {
                 self?.resendEmailButton.isEnabled = true
@@ -176,7 +177,7 @@ extension MastodonConfirmEmailViewController {
 
             var configuration = self?.resendEmailButton.configuration
 
-            let boldResendString = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.resendIn(Int(nowIn60Seconds.timeIntervalSinceNow) + 1), attributes: .init([.font: boldFont]))
+            let boldResendString = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.resendIn(Int(nowIn60Seconds.timeIntervalSinceNow) + 1), attributes: .init([.font: digitFont]))
             var attributedTitle = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.prefix, attributes: .init([.font: regularFont]))
 
             attributedTitle.append(AttributedString(" "))
