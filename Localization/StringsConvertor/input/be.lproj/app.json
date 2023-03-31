@@ -278,7 +278,7 @@
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Што такое Mastodon?"
                     }
                 }
             }
@@ -348,7 +348,7 @@
                 "server": "Палітыка прыватнасці - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Я згодны"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "умовы выкарыстання",
             "privacy_policy": "палітыка канфідэнцыяльнасці",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Я згодны"
             }
         },
         "confirm_email": {
