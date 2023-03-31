@@ -348,7 +348,7 @@
                 "server": "Política de privacidad - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Estoy de acuerdo"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "términos del servicio",
             "privacy_policy": "política de privacidad",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Estoy de acuerdo"
             }
         },
         "confirm_email": {
