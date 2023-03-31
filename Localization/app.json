@@ -80,7 +80,7 @@
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "See More",
                 "preview": "Preview",
                 "copy": "Copy",
@@ -353,7 +353,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Delete"
@@ -396,7 +396,7 @@
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
                     "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",

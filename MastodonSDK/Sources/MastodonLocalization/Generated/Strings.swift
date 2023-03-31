@@ -178,8 +178,8 @@ public enum L10n {
         }
         /// Log in
         public static let signIn = L10n.tr("Localizable", "Common.Controls.Actions.SignIn", fallback: "Log in")
-        /// Create account
-        public static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp", fallback: "Create account")
+        /// Create Account
+        public static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp", fallback: "Create Account")
         /// Skip
         public static let skip = L10n.tr("Localizable", "Common.Controls.Actions.Skip", fallback: "Skip")
         /// Take Photo
@@ -1004,8 +1004,8 @@ public enum L10n {
       public static let title = L10n.tr("Localizable", "Scene.RebloggedBy.Title", fallback: "Reblogged By")
     }
     public enum Register {
-      /// Create account
-      public static let title = L10n.tr("Localizable", "Scene.Register.Title", fallback: "Create account")
+      /// Create Account
+      public static let title = L10n.tr("Localizable", "Scene.Register.Title", fallback: "Create Account")
       public enum Error {
         public enum Item {
           /// Agreement
@@ -1046,9 +1046,9 @@ public enum L10n {
           public static func reserved(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Reserved", String(describing: p1), fallback: "%@ is a reserved keyword")
           }
-          /// %@ is already in use
+          /// %@ is already taken. How about:
           public static func taken(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Taken", String(describing: p1), fallback: "%@ is already in use")
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Taken", String(describing: p1), fallback: "%@ is already taken. How about:")
           }
           /// %@ is too long
           public static func tooLong(_ p1: Any) -> String {
