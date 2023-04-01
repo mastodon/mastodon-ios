@@ -91,19 +91,19 @@ extension ProfileFieldEditCollectionViewCell {
 
         contentView.preservesSuperviewLayoutMargins = true
         containerStackView.preservesSuperviewLayoutMargins = true
-        containerStackView.isLayoutMarginsRelativeArrangement = true
-
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
+
         contentView.addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
             containerStackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 11),
         ])
         
         let fieldContainer = UIStackView()
         fieldContainer.axis = .vertical
+        fieldContainer.spacing = 2
         containerStackView.addArrangedSubview(fieldContainer)
         
         fieldContainer.addArrangedSubview(keyTextField)
