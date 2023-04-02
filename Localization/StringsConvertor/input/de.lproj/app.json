@@ -173,8 +173,8 @@
                     "share_link_in_post": "Link im Beitrag teilen",
                     "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Teilen",
+                        "unreblog": "Nicht mehr teilen"
                     }
                 },
                 "tag": {
@@ -205,7 +205,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Geteilte Beiträge",
                     "favorites_title": "Favorites",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
