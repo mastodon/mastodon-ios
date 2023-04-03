@@ -736,7 +736,7 @@
                     "disable_avatar_animation": "停用動畫大頭貼",
                     "disable_emoji_animation": "停用動畫 emoji",
                     "using_default_browser": "使用預設瀏覽器開啟連結",
-                    "open_links_in_mastodon": "在 Mastodon 中開啟連結"
+                    "open_links_in_mastodon": "於 Mastodon 中開啟連結"
                 },
                 "boring_zone": {
                     "title": "無聊的這些",
@@ -751,7 +751,7 @@
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon 是開源軟體。您可以在 GitHub %s (%s) 上回報問題。"
+                "mastodon_description": "Mastodon 是開源軟體。您可以於 GitHub %s (%s) 回報問題。"
             },
             "keyboard": {
                 "close_settings_window": "關閉設定視窗"
