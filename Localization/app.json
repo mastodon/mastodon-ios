@@ -102,7 +102,9 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "join_default_server": "Join mastodon.social"
+
             },
             "tabs": {
                 "home": "Home",

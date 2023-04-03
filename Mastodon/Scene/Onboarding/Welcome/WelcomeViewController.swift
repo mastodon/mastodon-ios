@@ -30,6 +30,27 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     
     let buttonContainer = UIStackView()
 
+    private(set) lazy var joinDefaultServerButton: UIButton = {
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.attributedTitle = AttributedString(
+            L10n.Common.Controls.Actions.joinDefaultServer,
+            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+        )
+        buttonConfiguration.baseForegroundColor = .white
+        buttonConfiguration.background.backgroundColor = Asset.Colors.Brand.blurple.color
+        buttonConfiguration.background.cornerRadius = 14
+
+        buttonConfiguration.contentInsets = .init(top: WelcomeViewController.actionButtonPadding.top,
+                                                  leading: WelcomeViewController.actionButtonPadding.left,
+                                                  bottom: WelcomeViewController.actionButtonPadding.bottom,
+                                                  trailing: WelcomeViewController.actionButtonPadding.right)
+
+        let button = UIButton(configuration: buttonConfiguration)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+
+        return button
+    }()
+
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
@@ -44,6 +65,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         button.setTitleColor(.black, for: .normal)
         return button
     }()
+
     let signUpButtonShadowView = UIView()
     
     private(set) lazy var signInButton: UIButton = {
@@ -95,12 +117,20 @@ extension WelcomeViewController {
             buttonContainer.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
             view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: buttonContainer.bottomAnchor),
         ])
+
+        joinDefaultServerButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addArrangedSubview(joinDefaultServerButton)
+        NSLayoutConstraint.activate([
+            joinDefaultServerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+        ])
+
         
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(signUpButton)
         NSLayoutConstraint.activate([
             signUpButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
         ])
+
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(signInButton)
         NSLayoutConstraint.activate([
@@ -112,6 +142,7 @@ extension WelcomeViewController {
         buttonContainer.sendSubviewToBack(signUpButtonShadowView)
         signUpButtonShadowView.pinTo(to: signUpButton)
         
+        joinDefaultServerButton.addTarget(self, action: #selector(joinDefaultServer(_:)), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
         
@@ -198,6 +229,14 @@ extension WelcomeViewController {
 extension WelcomeViewController {
 
     //MARK: - Actions
+    @objc
+    private func joinDefaultServer(_ sender: UIButton) {
+        sender.configuration?.title = nil
+        sender.configuration?.showsActivityIndicator = true
+
+        //TODO: do whatever MastodonPickServerViewController.next is doing but with default server
+    }
+
     @objc
     private func signUpButtonDidClicked(_ sender: UIButton) {
         _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context)), from: self, transition: .show)

@@ -68,6 +68,7 @@ Please check your internet connection.";
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "Try Again";
 "Common.Controls.Actions.UnblockDomain" = "Unblock %@";
+"Common.Controls.Actions.JoinDefaultServer" = "Join mastodon.social";
 "Common.Controls.Friendship.Block" = "Block";
 "Common.Controls.Friendship.BlockDomain" = "Block %@";
 "Common.Controls.Friendship.BlockUser" = "Block %@";
