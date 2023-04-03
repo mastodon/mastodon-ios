@@ -146,8 +146,6 @@
 		D87BFC8F291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */; };
 		D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8916DBF29211BE500124085 /* ContentSizedTableView.swift */; };
 		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
-		D8A6FE5B293244B500666A47 /* WelcomeContentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */; };
-		D8A6FE5F29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5E29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift */; };
 		D8E5C346296DAB84007E76A7 /* DataSourceFacade+Status+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */; };
 		D8E5C349296DB8A3007E76A7 /* StatusEditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
@@ -784,8 +782,6 @@
 		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
 		D8916DBF29211BE500124085 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
 		D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewController.swift; sourceTree = "<group>"; };
-		D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentPage.swift; sourceTree = "<group>"; };
-		D8A6FE5E29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8A6FE6129325F5900666A47 /* Intents.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Intents.stringsdict; sourceTree = "<group>"; };
 		D8A6FE6229325F5900666A47 /* app.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = app.json; sourceTree = "<group>"; };
 		D8A6FE6329325F5900666A47 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1808,15 +1804,6 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		D8A6FE5929323DC200666A47 /* Pages */ = {
-			isa = PBXGroup;
-			children = (
-				D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */,
-				D8A6FE5E29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift */,
-			);
-			path = Pages;
-			sourceTree = "<group>";
-		};
 		D8A6FE6029325F5900666A47 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
@@ -2760,7 +2747,6 @@
 		DBABE3F125ECAC4E00879EE5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D8A6FE5929323DC200666A47 /* Pages */,
 				DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */,
 				DB0617EA277EF3820030EE79 /* GradientBorderView.swift */,
 			);
@@ -3647,7 +3633,6 @@
 				DB603113279EBEBA00A935FE /* DataSourceFacade+Block.swift in Sources */,
 				DB63F777279A9A2A00455B82 /* NotificationView+Configuration.swift in Sources */,
 				DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */,
-				D8A6FE5F29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift in Sources */,
 				5B90C461262599800002E742 /* SettingsLinkTableViewCell.swift in Sources */,
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
@@ -3937,7 +3922,6 @@
 				2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */,
 				DB0617FD27855BFE0030EE79 /* ServerRuleItem.swift in Sources */,
 				5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */,
-				D8A6FE5B293244B500666A47 /* WelcomeContentPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

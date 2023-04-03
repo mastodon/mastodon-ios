@@ -29,8 +29,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
     
     let buttonContainer = UIStackView()
-    let educationPages: [WelcomeContentPage] = [.whatIsMastodon, .mastodonIsLikeThat, .howDoIPickAServer]
-    
+
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
@@ -57,30 +56,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         button.setTitleColor(titleColor, for: .normal)
         button.setTitleColor(titleColor.withAlphaComponent(0.3), for: .highlighted)
         return button
-    }()
-    
-    private(set) lazy var pageCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 400)
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.isPagingEnabled = true
-        collectionView.backgroundColor = nil
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.bounces = false
-        collectionView.register(WelcomeContentCollectionViewCell.self, forCellWithReuseIdentifier: WelcomeContentCollectionViewCell.identifier)
-
-        return collectionView
-    }()
-
-    private(set) var pageControl: UIPageControl = {
-        let pageControl = UIPageControl(frame: .zero)
-        pageControl.backgroundStyle = .prominent
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        return pageControl
     }()
 }
 
@@ -140,29 +115,6 @@ extension WelcomeViewController {
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
         
-        pageCollectionView.delegate = self
-        pageCollectionView.dataSource = self
-        view.addSubview(pageCollectionView)
-
-        pageControl.numberOfPages = self.educationPages.count
-        pageControl.addTarget(self, action: #selector(WelcomeViewController.pageControlDidChange(_:)), for: .valueChanged)
-        view.addSubview(pageControl)
-
-        let scrollView = pageCollectionView as UIScrollView
-        scrollView.delegate = self
-        
-        NSLayoutConstraint.activate([
-            pageCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            pageCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: pageCollectionView.trailingAnchor),
-            pageControl.topAnchor.constraint(equalTo: pageCollectionView.bottomAnchor, constant: 16),
-
-            pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: pageControl.trailingAnchor),
-            buttonContainer.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 16),
-        ])
-
-        
         viewModel.$needsShowDismissEntry
             .receive(on: DispatchQueue.main)
             .sink { [weak self] needsShowDismissEntry in
@@ -195,13 +147,6 @@ extension WelcomeViewController {
         
         setupIllustrationLayout()
         setupButtonShadowView()
-
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 400)
-
-        pageCollectionView.setCollectionViewLayout(flowLayout, animated: true)
     }
     
     private var computedTopAnchorInset: CGFloat {
@@ -267,14 +212,6 @@ extension WelcomeViewController {
     private func dismissBarButtonItemDidPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-
-    @objc
-    private func pageControlDidChange(_ sender: UIPageControl) {
-        let item = sender.currentPage
-        let indexPath = IndexPath(item: item, section: 0)
-
-        pageCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-    }
 }
 
 // MARK: - OnboardingViewControllerAppearance
@@ -316,37 +253,5 @@ extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
     }
 }
 
-//MARK: - UIScrollViewDelegate
-extension WelcomeViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let contentOffset = scrollView.contentOffset.x
-        welcomeIllustrationView.update(contentOffset: contentOffset)
-    }
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-    }
-
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-    }
-}
-
 //MARK: - UICollectionViewDelegate
 extension WelcomeViewController: UICollectionViewDelegate { }
-
-//MARK: - UICollectionViewDataSource
-extension WelcomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        educationPages.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WelcomeContentCollectionViewCell.identifier, for: indexPath) as? WelcomeContentCollectionViewCell else { fatalError("WTF? Wrong cell?") }
-
-        let page = educationPages[indexPath.item]
-        cell.update(with: page)
-
-        return cell
-    }
-}
