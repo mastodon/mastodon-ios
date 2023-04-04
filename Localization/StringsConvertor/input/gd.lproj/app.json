@@ -80,7 +80,7 @@
                 "save_photo": "Sàbhail an dealbh",
                 "copy_photo": "Dèan lethbhreac dhen dealbh",
                 "sign_in": "Clàraich a-steach",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Seall a bharrachd",
                 "preview": "Ro-sheall",
                 "copy": "Dèan lethbhreac",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Sguab às"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "Tha solaraiche puist-d nach eil ceadaichte am broinn %s",
                     "unreachable": "Tha coltas nach eil %s ann",
-                    "taken": "Tha %s ’ga chleachdadh mu thràth",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "’S e facal glèidhte a th’ ann an %s",
                     "accepted": "Feumaidh tu aontachadh ri %s",
                     "blank": "Tha %s riatanach",
@@ -429,18 +429,18 @@
                 "resend": "Ath-chuir"
             },
             "dont_receive_email": {
-                "title": "Thoir sùil air a’ phost-d agad",
+                "title": "Check your Email",
                 "description": "Dearbh gu bheil an seòladh puist-d agad mar bu chòir agus nach eil dad ann am pasgan an truilleis.",
                 "resend_email": "Cuir am post-d a-rithist"
             },
             "open_email_app": {
-                "title": "Thoir sùil air a’ bhogsa a-steach agad.",
+                "title": "Check your Inbox.",
                 "description": "Tha sinn air post-d a chur thugad. Thoir sùil air pasgan an truilleis agad mura d’ fhuair thu e.",
                 "mail": "Post",
                 "open_email_client": "Fosgail cliant puist-d"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
