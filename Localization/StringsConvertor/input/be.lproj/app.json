@@ -213,7 +213,7 @@
                 "edited_at_timestamp_prefix": "Адрэдагавана %s",
                 "edit_history": {
                     "title": "Гісторыя рэдагавання",
-                    "original_post": "Original Post · %s"
+                    "original_post": "Арыгінальнае паведамленне · %s"
                 }
             },
             "friendship": {
@@ -265,7 +265,7 @@
             "log_in": "Увайсці",
             "education": {
                 "what_is_mastodon": {
-                    "title": "What is",
+                    "title": "Што гэта такое",
                     "description": "Уявіце, што ў вас ёсць адрас электроннай пошты, які заканчваецца на @example.com.\n\nВы па-ранейшаму можаце адпраўляць і атрымліваць электронныя лісты ад каго захочаце, нават калі іх электронная пошта заканчваецца на @gmail.com, @icloud.com або @example.com."
                 },
                 "mastodon_is_like_that": {
@@ -291,10 +291,10 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Абярыце сервер",
             "button": {
                 "language": "Мова",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "Хуткасць рэгістрацыі",
                 "category": {
                     "all": "Усе",
                     "all_accessiblity_description": "Катэгорыя: Усе",
@@ -329,14 +329,14 @@
             },
             "signup_speed": {
                 "all": "Усе",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "instant": "Імгненная рэгістрацыя",
+                "manually_reviewed": "Агляд кіраўніцтва"
             },
             "language": {
                 "all": "Усе"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Назва пошуку або URL-адрас"
             },
             "no_server_selected_hint": "Калі вы не выберыце сервер, то мы выберам яго на аснове вашай мовы."
         },
@@ -344,7 +344,7 @@
             "title": "Прыватнасць",
             "description": "Хоць праграма Mastodon не збірае ніякіх даных, сервер, праз які вы зарэгістраваліся, можа мець іншую палітыку. Знайдзіце хвілінку, каб азнаёміцца і пагадзіцца з палітыкай прыватнасці праграмы Mastodon і палітыкай прыватнасці вашага сервера.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
+                "ios": "Палітыка прыватнасці - Mastodon для iOS",
                 "server": "Палітыка прыватнасці - %s"
             },
             "button": {
@@ -360,7 +360,7 @@
                 "username": {
                     "placeholder": "імя карыстальніка",
                     "duplicate_prompt": "Гэта імя карыстальніка занята.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "надзвычайны_%@"
                 },
                 "display_name": {
                     "placeholder": "бачнае імя"
@@ -424,7 +424,7 @@
         },
         "confirm_email": {
             "title": "Праверце паштовую скрыню",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Націсніце на спасылку, якую мы адправілі вам для праверкі %@. Мы чакаем вас тут.",
             "button": {
                 "resend": "Адправіць паўторна"
             },
@@ -671,7 +671,7 @@
             "intro": "Допісы, што набіраюць папулярнасць у вашым кутку Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Абраны"
         },
         "notification": {
             "title": {
@@ -847,7 +847,7 @@
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "unsupported_widget_family": "Выбачайце, але гэта сямейства віджэтаў не падтрымліваецца.",
             "user_not_logged_in": "Калі ласка, адкрыйце Mastodon, каб увайсці ў уліковы запіс."
         },
         "followers_count": {
@@ -857,18 +857,18 @@
             "followers_today": "%s падпісчыкаў сёння"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Больш падпісчыкаў",
+            "configuration_description": "Паказаць колькасць падпісчыкаў для некалькіх акаўнтаў.",
             "mock_user": {
                 "display_name": "Another follower",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Апошнія падпісчыкі",
+            "configuration_description": "Паказаць апошніх падпісчыкаў.",
+            "title": "Апошнія падпісчыкі",
+            "last_update": "Апошняе абнаўленне: %s"
         }
     }
 }
