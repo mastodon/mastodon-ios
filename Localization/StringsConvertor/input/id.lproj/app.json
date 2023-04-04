@@ -80,7 +80,7 @@
                 "save_photo": "Simpan Foto",
                 "copy_photo": "Salin Foto",
                 "sign_in": "Masuk",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Lihat lebih banyak",
                 "preview": "Pratinjau",
                 "copy": "Salin",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Hapus"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s mengandung penyedia surel yang dilarang",
                     "unreachable": "%s sepertinya tidak ada",
-                    "taken": "%s sudah digunakan",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s adalah kata kunci yang dipesan",
                     "accepted": "%s harus diterima",
                     "blank": "%s diperlukan",
@@ -429,18 +429,18 @@
                 "resend": "Kirim ulang"
             },
             "dont_receive_email": {
-                "title": "Periksa surel Anda",
+                "title": "Check your Email",
                 "description": "Periksa apakah surel Anda benar dan juga folder junk Anda jika belum memeriksanya.",
                 "resend_email": "Kirim Ulang Surel"
             },
             "open_email_app": {
-                "title": "Periksa kotak masuk Anda.",
+                "title": "Check your Inbox.",
                 "description": "Kami baru saja mengirimkan Anda sebuah surel. Periksa folder junk Anda jika Anda belum memeriksanya.",
                 "mail": "Pesan",
                 "open_email_client": "Buka Email Klien"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
