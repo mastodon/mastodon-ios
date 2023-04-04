@@ -80,7 +80,7 @@
                 "save_photo": "Lưu ảnh",
                 "copy_photo": "Sao chép ảnh",
                 "sign_in": "Đăng nhập",
-                "sign_up": "Tạo tài khoản",
+                "sign_up": "Create Account",
                 "see_more": "Xem thêm",
                 "preview": "Xem trước",
                 "copy": "Chép",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Tạo tài khoản",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Xóa"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s dùng dịch vụ email bị cấm",
                     "unreachable": "%s không tồn tại",
-                    "taken": "%s đã tồn tại",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s là một từ khóa hạn chế",
                     "accepted": "%s phải được đồng ý",
                     "blank": "%s là bắt buộc",
@@ -429,18 +429,18 @@
                 "resend": "Gửi lại"
             },
             "dont_receive_email": {
-                "title": "Kiểm tra email",
+                "title": "Check your Email",
                 "description": "Kiểm tra địa chỉ email của bạn đúng chưa hoặc có bị chuyển vào thư rác.",
                 "resend_email": "Gửi lại email"
             },
             "open_email_app": {
-                "title": "Kiểm tra hộp thư của bạn.",
+                "title": "Check your Inbox.",
                 "description": "Chúng tôi vừa gửi email cho bạn. Kiểm tra thư rác nếu bạn không thấy.",
                 "mail": "Email",
                 "open_email_client": "Mở ứng dụng email"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
