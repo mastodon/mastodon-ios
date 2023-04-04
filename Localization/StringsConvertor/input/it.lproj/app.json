@@ -80,7 +80,7 @@
                 "save_photo": "Salva foto",
                 "copy_photo": "Copia foto",
                 "sign_in": "Accedi",
-                "sign_up": "Create Account",
+                "sign_up": "Crea un account",
                 "see_more": "Visualizza altro",
                 "preview": "Anteprima",
                 "copy": "Copia",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Crea un account",
             "input": {
                 "avatar": {
                     "delete": "Elimina"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s contiene un provider email non consentito",
                     "unreachable": "%s non sembra esistere",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s è già preso. Che ne pensi di:",
                     "reserved": "%s è una parola chiave riservata",
                     "accepted": "%s deve essere accettato",
                     "blank": "%s è richiesto",
@@ -429,18 +429,18 @@
                 "resend": "Invia di nuovo"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Controlla la tua e-mail",
                 "description": "Controlla se il tuo indirizzo email sia corretto, così come la tua cartella spazzatura se non ce l'hai.",
                 "resend_email": "Invia e-mail di nuovo"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Controlla la tua posta in arrivo.",
                 "description": "Ti abbiamo appena inviato un'email. Controlla la tua cartella spazzatura se non ce l'hai.",
                 "mail": "Posta",
                 "open_email_client": "Apri client Email"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
+                "prefix": "Non hai ricevuto un collegamento?",
                 "resend_in": "Invia di nuovo (%@)",
                 "resend_now": "Invia di nuovo ora."
             }
