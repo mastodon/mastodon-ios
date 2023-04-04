@@ -80,7 +80,7 @@
                 "save_photo": "ဓါတ်ပုံသိမ်းဆည်း",
                 "copy_photo": "ဓာတ်ပုံကူး",
                 "sign_in": "လော့ဂ်အင်ဝင်",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "ပိုမိုကြည့်ရှုရန်",
                 "preview": "အစမ်းကြည့်",
                 "copy": "Copy",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "ဖျက်"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s တွင် ခွင့်မပြုထားသော အီးမေးလ်ထောက်ပံ့သူပါဝင်နေသည်။",
                     "unreachable": "%s တည်ရှိပုံ မပေါ်ပါ",
-                    "taken": "%s ကို အသုံးပြုနေသူ ရှိနှင့်ပြီးဖြစ်သည်။",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s သည် သီးသန့်ဖယ်ထားသောစကားလုံး ဖြစ်သည်။",
                     "accepted": "%s ကို လက်ခံရမည်ဖြစ်သည်",
                     "blank": "%s ကို လိုအပ်သည်",
@@ -429,18 +429,18 @@
                 "resend": "ပြန်ပို့ပါ"
             },
             "dont_receive_email": {
-                "title": "သင့်အီးမေးလ်ကို စစ်ကြည့်ပါ",
+                "title": "Check your Email",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "အီးမေးလ်ကိုပြန်ပို့ပါ"
             },
             "open_email_app": {
-                "title": "သင်၏စာဝင်ပုံးကို စစ်ဆေးပါ",
+                "title": "Check your Inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "မေးလ်",
                 "open_email_client": "Open Email Client"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
