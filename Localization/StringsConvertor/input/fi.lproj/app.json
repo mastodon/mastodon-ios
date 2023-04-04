@@ -80,7 +80,7 @@
                 "save_photo": "Tallenna kuva",
                 "copy_photo": "Kopioi kuva",
                 "sign_in": "Kirjaudu sisään",
-                "sign_up": "Luo tili",
+                "sign_up": "Create Account",
                 "see_more": "Näytä lisää",
                 "preview": "Esikatselu",
                 "copy": "Kopioi",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Luo tili",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Poista"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s sisältää estetyn sähköpostipalveluntarjoajan",
                     "unreachable": "%s ei näytä olevan olemassa",
-                    "taken": "%s on jo käytössä",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s on varattu avainsana",
                     "accepted": "%s täytyy hyväksyä",
                     "blank": "%s vaaditaan",
@@ -429,18 +429,18 @@
                 "resend": "Lähetä uudelleen"
             },
             "dont_receive_email": {
-                "title": "Tarkista sähköpostisi",
+                "title": "Check your Email",
                 "description": "Tarkista, että sähköpostiosoitteesi on oikea, sekä roskapostikansiosi, jos et vielä ole.",
                 "resend_email": "Lähetä sähköposti uudelleen"
             },
             "open_email_app": {
-                "title": "Tarkasta postilaatikkosi.",
+                "title": "Check your Inbox.",
                 "description": "Lähetimme sinulle juuri sähköpostin. Tarkista myös roskapostikansiosi, jos et vielä ole.",
                 "mail": "Sähköposti",
                 "open_email_client": "Avaa sähköpostisovellus"
             },
             "didnt_get_link": {
-                "prefix": "Etkö saanut linkkiä?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Lähetä uudelleen (%@)",
                 "resend_now": "Lähetä uudelleen nyt."
             }
