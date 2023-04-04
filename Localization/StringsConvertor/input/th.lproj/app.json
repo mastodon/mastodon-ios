@@ -80,7 +80,7 @@
                 "save_photo": "บันทึกรูปภาพ",
                 "copy_photo": "คัดลอกรูปภาพ",
                 "sign_in": "เข้าสู่ระบบ",
-                "sign_up": "สร้างบัญชี",
+                "sign_up": "Create Account",
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
                 "copy": "คัดลอก",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "สร้างบัญชี",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "ลบ"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s มีผู้ให้บริการอีเมลที่ไม่ได้รับอนุญาต",
                     "unreachable": "ดูเหมือนว่าจะไม่มี %s อยู่",
-                    "taken": "มีการใช้ %s อยู่แล้ว",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s เป็นคำสำคัญที่สงวนไว้",
                     "accepted": "ต้องยอมรับ %s",
                     "blank": "ต้องการ %s",
@@ -429,18 +429,18 @@
                 "resend": "ส่งใหม่"
             },
             "dont_receive_email": {
-                "title": "ตรวจสอบอีเมลของคุณ",
+                "title": "Check your Email",
                 "description": "ตรวจสอบว่าที่อยู่อีเมลของคุณถูกต้องเช่นเดียวกับโฟลเดอร์อีเมลขยะหากคุณยังไม่ได้ทำ",
                 "resend_email": "ส่งอีเมลใหม่"
             },
             "open_email_app": {
-                "title": "ตรวจสอบกล่องขาเข้าของคุณ",
+                "title": "Check your Inbox.",
                 "description": "เราเพิ่งส่งอีเมลถึงคุณ ตรวจสอบโฟลเดอร์อีเมลขยะของคุณหากคุณยังไม่ได้ทำ",
                 "mail": "จดหมาย",
                 "open_email_client": "เปิดไคลเอ็นต์อีเมล"
             },
             "didnt_get_link": {
-                "prefix": "ไม่ได้รับลิงก์?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "ส่งใหม่ (%@)",
                 "resend_now": "ส่งใหม่ตอนนี้"
             }
