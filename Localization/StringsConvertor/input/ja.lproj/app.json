@@ -80,7 +80,7 @@
                 "save_photo": "写真を保存",
                 "copy_photo": "写真をコピー",
                 "sign_in": "ログイン",
-                "sign_up": "Create Account",
+                "sign_up": "アカウントを作成",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
                 "copy": "コピー",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "アカウントを作成",
             "input": {
                 "avatar": {
                     "delete": "削除"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s は許可されていないメールプロバイダを含んでいます",
                     "unreachable": "%sは存在しないようです",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s はすでに使われています。こちらはいかがですか:",
                     "reserved": "%sは予約語です",
                     "accepted": "%s に合意しなければなりません",
                     "blank": "%sが必要です",
@@ -429,18 +429,18 @@
                 "resend": "再送信"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "メールをチェックしてください",
                 "description": "メールアドレスが正しいかどうか、また、迷惑メールフォルダに入っていないかどうかも確認してください。",
                 "resend_email": "もう一度メールを送信"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "メールを確認",
                 "description": "先ほどメールをお送りしました。まだの方は、迷惑メールフォルダをご確認ください。",
                 "mail": "メール",
                 "open_email_client": "メールアプリを開く"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
+                "prefix": "メールが届かない場合",
                 "resend_in": "再送信(%@)",
                 "resend_now": "メールを再送信する"
             }
