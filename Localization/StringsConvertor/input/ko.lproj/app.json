@@ -80,7 +80,7 @@
                 "save_photo": "사진 저장",
                 "copy_photo": "사진 복사",
                 "sign_in": "로그인",
-                "sign_up": "Create Account",
+                "sign_up": "계정 생성",
                 "see_more": "더 보기",
                 "preview": "미리보기",
                 "copy": "복사",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "계정 생성",
             "input": {
                 "avatar": {
                     "delete": "삭제"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s는 허용되지 않은 이메일 제공자를 포함합니다",
                     "unreachable": "%s는 존재하지 않는 것 같습니다",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s 는 이미 누군가가 사용 중입니다. 이건 어떤가요:",
                     "reserved": "%s는 예약된 키워드입니다",
                     "accepted": "%s는 반드시 동의해야 합니다",
                     "blank": "%s 항목은 필수입니다",
@@ -429,18 +429,18 @@
                 "resend": "재전송"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "이메일을 확인하세요",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "이메일 재전송"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "받은 편지함을 확인하세요.",
                 "description": "이메일을 보냈습니다. 만약 받지 못했다면 스팸메일함을 확인하세요.",
                 "mail": "메일",
                 "open_email_client": "이메일 앱 열기"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
+                "prefix": "링크를 못 받으셨나요?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
