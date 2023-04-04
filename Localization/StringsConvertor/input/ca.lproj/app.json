@@ -80,7 +80,7 @@
                 "save_photo": "Desa la foto",
                 "copy_photo": "Copia la foto",
                 "sign_in": "Inicia sessió",
-                "sign_up": "Crea un compte",
+                "sign_up": "Create Account",
                 "see_more": "Mostra'n més",
                 "preview": "Vista prèvia",
                 "copy": "Copia",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Crea un compte",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Suprimeix"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s conté un proveïdor de correu electrònic no autoritzat",
                     "unreachable": "%s sembla que no existeix",
-                    "taken": "%s ja s’està fent servir",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s és una paraula clau reservada",
                     "accepted": "%s ha de ser acceptat",
                     "blank": "%s és requerit",
@@ -429,18 +429,18 @@
                 "resend": "Reenvia"
             },
             "dont_receive_email": {
-                "title": "Comprova el teu correu",
+                "title": "Check your Email",
                 "description": "Comprova que la teva adreça de correu electrònic és correcte i revisa la carpeta de correu brossa si encara no ho has fet.",
                 "resend_email": "Torna a enviar el correu"
             },
             "open_email_app": {
-                "title": "Comprova la teva safata d'entrada.",
+                "title": "Check your Inbox.",
                 "description": "Acabem d'enviar-te un correu electrònic. Revisa la carpeta de correu brossa si encara no ho has fet.",
                 "mail": "Correu electrònic",
                 "open_email_client": "Obre el Client de Correu electrònic"
             },
             "didnt_get_link": {
-                "prefix": "No has rebut l'enllaç?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Torna a enviar (%@)",
                 "resend_now": "Reenvia ara."
             }
