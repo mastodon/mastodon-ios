@@ -10,6 +10,7 @@ import Combine
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
+import MastodonSDK
 
 class WelcomeSeparatorView: UIView {
     let leftLine: UIView
@@ -79,13 +80,21 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
-    
+
+    private(set) lazy var authenticationViewModel = AuthenticationViewModel(
+        context: context,
+        coordinator: coordinator,
+        isAuthenticationExist: false
+    )
+
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     private(set) lazy var viewModel = WelcomeViewModel(context: context)
     
     let welcomeIllustrationView = WelcomeIllustrationView()
-    
+
+
+    //TODO: Extract all those UI-elements in a UIView-subclass
     private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
     
     let buttonContainer = UIStackView()
@@ -99,6 +108,9 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         buttonConfiguration.baseForegroundColor = .white
         buttonConfiguration.background.backgroundColor = Asset.Colors.Brand.blurple.color
         buttonConfiguration.background.cornerRadius = 14
+        buttonConfiguration.activityIndicatorColorTransformer = UIConfigurationColorTransformer({ _ in
+            return UIColor.white
+        })
 
         buttonConfiguration.contentInsets = .init(top: WelcomeViewController.actionButtonPadding.top,
                                                   leading: WelcomeViewController.actionButtonPadding.left,
@@ -302,9 +314,101 @@ extension WelcomeViewController {
     @objc
     private func joinDefaultServer(_ sender: UIButton) {
         sender.configuration?.title = nil
+        sender.isEnabled = false
         sender.configuration?.showsActivityIndicator = true
 
-        //TODO: do whatever MastodonPickServerViewController.next is doing but with default server
+        let server = Mastodon.Entity.Server.mastodonDotSocial
+
+        authenticationViewModel.isAuthenticating.send(true)
+
+        context.apiService.instance(domain: server.domain)
+            .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseFirst, Error>? in
+                guard let self = self else { return nil }
+                guard response.value.registrations != false else {
+                    return Fail(error: AuthenticationViewModel.AuthenticationError.registrationClosed).eraseToAnyPublisher()
+                }
+                return self.context.apiService.createApplication(domain: server.domain)
+                    .map { MastodonPickServerViewModel.SignUpResponseFirst(instance: response, application: $0) }
+                    .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .tryMap { response -> MastodonPickServerViewModel.SignUpResponseSecond in
+                let application = response.application.value
+                guard let authenticateInfo = AuthenticationViewModel.AuthenticateInfo(
+                        domain: server.domain,
+                        application: application
+                ) else {
+                    throw APIService.APIError.explicit(.badResponse)
+                }
+                return MastodonPickServerViewModel.SignUpResponseSecond(
+                    instance: response.instance,
+                    authenticateInfo: authenticateInfo
+                )
+            }
+            .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseThird, Error>? in
+                guard let self = self else { return nil }
+                let instance = response.instance
+                let authenticateInfo = response.authenticateInfo
+                return self.context.apiService.applicationAccessToken(
+                    domain: server.domain,
+                    clientID: authenticateInfo.clientID,
+                    clientSecret: authenticateInfo.clientSecret,
+                    redirectURI: authenticateInfo.redirectURI
+                )
+                .map {
+                    MastodonPickServerViewModel.SignUpResponseThird(
+                        instance: instance,
+                        authenticateInfo: authenticateInfo,
+                        applicationToken: $0
+                    )
+                }
+                .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.authenticationViewModel.isAuthenticating.send(false)
+
+                switch completion {
+                    case .failure(let error):
+                        //TODO: show an alert or something
+                        break
+                    case .finished:
+                        break
+                }
+
+                sender.isEnabled = true
+                sender.configuration?.showsActivityIndicator = false
+                sender.configuration?.attributedTitle = AttributedString(
+                    L10n.Scene.Welcome.joinDefaultServer,
+                    attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+                )
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                if let rules = response.instance.value.rules, !rules.isEmpty {
+                    // show server rules before register
+                    let mastodonServerRulesViewModel = MastodonServerRulesViewModel(
+                        domain: server.domain,
+                        authenticateInfo: response.authenticateInfo,
+                        rules: rules,
+                        instance: response.instance.value,
+                        applicationToken: response.applicationToken.value
+                    )
+                    _ = self.coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
+                } else {
+                    let mastodonRegisterViewModel = MastodonRegisterViewModel(
+                        context: self.context,
+                        domain: server.domain,
+                        authenticateInfo: response.authenticateInfo,
+                        instance: response.instance.value,
+                        applicationToken: response.applicationToken.value
+                    )
+                    _ = self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: nil, transition: .show)
+                }
+            }
+            .store(in: &disposeBag)
+
     }
 
     @objc

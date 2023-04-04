@@ -22,7 +22,7 @@ extension Mastodon.Entity {
         public let approvalRequired: Bool
         public let language: String
         public let category: String
-
+        
         enum CodingKeys: String, CodingKey {
             case domain
             case version
@@ -56,6 +56,9 @@ extension Mastodon.Entity {
         public static func == (lhs: Self, rhs: Self) -> Bool {
             return lhs.domain.caseInsensitiveCompare(rhs.domain) == .orderedSame
         }
+        
+        public static var mastodonDotSocial: Server {
+            return Server(domain: "mastodon.social", instance: Instance(domain: "mastodon.social"))
+        }
     }
-    
 }
