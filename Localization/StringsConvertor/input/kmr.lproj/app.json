@@ -80,7 +80,7 @@
                 "save_photo": "Wêneyê tomar bike",
                 "copy_photo": "Wêneyê jê bigire",
                 "sign_in": "Têkeve",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Bêtir bibîne",
                 "preview": "Pêşdîtin",
                 "copy": "Jê bigire",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Jê bibe"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s peydekerê e-peyamê yê qedexekirî dihewîne",
                     "unreachable": "%s xuya ye ku tune ye",
-                    "taken": "%s jixwe tê bikaranîn",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s peyveke parastî ye",
                     "accepted": "%s divê were pejirandin",
                     "blank": "%s pêwist e",
@@ -429,18 +429,18 @@
                 "resend": "Ji nû ve bişîne"
             },
             "dont_receive_email": {
-                "title": "E-nameyê xwe kontrol bike",
+                "title": "Check your Email",
                 "description": "Kontrol bike ka navnîşana e-nameya te rast e û her wiha peldanka xwe ya spam.",
                 "resend_email": "E-namyê yê dîsa bişîne"
             },
             "open_email_app": {
-                "title": "Nameyên xwe yên wergirtî kontrol bike.",
+                "title": "Check your Inbox.",
                 "description": "Me tenê ji te re e-nameyek şand. Heke nehatiye peldanka xwe ya spamê kontrol bike.",
                 "mail": "E-name",
                 "open_email_client": "Rajegirê e-nameyê veke"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
