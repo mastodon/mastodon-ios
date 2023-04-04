@@ -80,7 +80,7 @@
                 "save_photo": "บันทึกรูปภาพ",
                 "copy_photo": "คัดลอกรูปภาพ",
                 "sign_in": "เข้าสู่ระบบ",
-                "sign_up": "Create Account",
+                "sign_up": "สร้างบัญชี",
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
                 "copy": "คัดลอก",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "สร้างบัญชี",
             "input": {
                 "avatar": {
                     "delete": "ลบ"
@@ -429,18 +429,18 @@
                 "resend": "ส่งใหม่"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "ตรวจสอบอีเมลของคุณ",
                 "description": "ตรวจสอบว่าที่อยู่อีเมลของคุณถูกต้องเช่นเดียวกับโฟลเดอร์อีเมลขยะหากคุณยังไม่ได้ทำ",
                 "resend_email": "ส่งอีเมลใหม่"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "ตรวจสอบกล่องขาเข้าของคุณ",
                 "description": "เราเพิ่งส่งอีเมลถึงคุณ ตรวจสอบโฟลเดอร์อีเมลขยะของคุณหากคุณยังไม่ได้ทำ",
                 "mail": "จดหมาย",
                 "open_email_client": "เปิดไคลเอ็นต์อีเมล"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
+                "prefix": "ไม่ได้รับลิงก์?",
                 "resend_in": "ส่งใหม่ (%@)",
                 "resend_now": "ส่งใหม่ตอนนี้"
             }
