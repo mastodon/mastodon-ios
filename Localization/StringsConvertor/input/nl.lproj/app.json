@@ -80,7 +80,7 @@
                 "save_photo": "Bewaar foto",
                 "copy_photo": "Kopieer foto",
                 "sign_in": "Inloggen",
-                "sign_up": "Account aanmaken",
+                "sign_up": "Create Account",
                 "see_more": "Meer",
                 "preview": "Voorvertoning",
                 "copy": "Kopiëren",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Account aanmaken",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Verwijderen"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s gebruikt een niet-toegestane emailprovider",
                     "unreachable": "%s lijkt niet te bestaan",
-                    "taken": "%s is reeds in gebruik",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s is een gereserveerd woord",
                     "accepted": "%s moet geaccepteerd worden",
                     "blank": "%s is vereist",
@@ -429,18 +429,18 @@
                 "resend": "Verstuur opnieuw"
             },
             "dont_receive_email": {
-                "title": "Controleer uw emailadres",
+                "title": "Check your Email",
                 "description": "Controleer of uw emailadres correct is en of the email in de ongewenste email filter terecht is gekomen.",
                 "resend_email": "Email Opnieuw Versturen"
             },
             "open_email_app": {
-                "title": "Ga naar uw inbox.",
+                "title": "Check your Inbox.",
                 "description": "We hebben u een e-mail gestuurd. Controleer ook uw de ongewenste email filter.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Applicatie"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
