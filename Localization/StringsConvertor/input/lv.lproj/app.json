@@ -80,7 +80,7 @@
                 "save_photo": "Saglabāt Attēlu",
                 "copy_photo": "Kopēt bildi",
                 "sign_in": "Pieteikties",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Skatīt vairāk",
                 "preview": "Priekšskatījums",
                 "copy": "Kopēt",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Dzēst"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s satur neatļautu e-pasta pakalpojumu sniedzēju",
                     "unreachable": "%s šķiet, ka neeksistē",
-                    "taken": "%s jau tiek izmantots",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s ir rezervēts atslēgvārds",
                     "accepted": "%s jābūt apstiprinātām",
                     "blank": "%s ir obligāts",
@@ -429,18 +429,18 @@
                 "resend": "Nosūtīt atkārtoti"
             },
             "dont_receive_email": {
-                "title": "Pārbaudi savu e-pastu",
+                "title": "Check your Email",
                 "description": "Pārbaudi, vai tava e-pasta adrese ir pareiza, kā arī savu mēstuļu mapi, ja tā nav.",
                 "resend_email": "Atkārtoti nosūtīt e-pastu"
             },
             "open_email_app": {
-                "title": "Pārbaudi savu iesūtni.",
+                "title": "Check your Inbox.",
                 "description": "Mēs tikko nosūtījām tev e-pastu. Pārbaudi savu mēstuļu mapi, ja neesi to saņēmis.",
                 "mail": "Pasts",
                 "open_email_client": "Atvērt E-pasta Klientu"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
