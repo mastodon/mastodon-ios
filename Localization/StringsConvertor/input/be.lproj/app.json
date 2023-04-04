@@ -80,7 +80,7 @@
                 "save_photo": "Захаваць фота",
                 "copy_photo": "Капіраваць фота",
                 "sign_in": "Увайсці",
-                "sign_up": "Create Account",
+                "sign_up": "Стварыць уліковы запіс",
                 "see_more": "Паказаць больш",
                 "preview": "Перадпрагляд",
                 "copy": "Скапіраваць",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Стварыць уліковы запіс",
             "input": {
                 "avatar": {
                     "delete": "Выдаліць"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s змяшчае забароненага пастаўшчыка email",
                     "unreachable": "%s не існуе",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s ужо занята. Як наконт:",
                     "reserved": "%s з'яўляецца зарэзерваваным ключавым словам",
                     "accepted": "%s павінна быць прынята",
                     "blank": "%s абавязковы",
@@ -429,20 +429,20 @@
                 "resend": "Адправіць паўторна"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Праверце электронную пошту",
                 "description": "Праверце, ці правільны ваш адрас электроннай пошты, а таксама папку са спамам, калі вы гэтага яшчэ не зрабілі.",
                 "resend_email": "Адправіць email паўторна"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Праверыць свой паштовую скрыню.",
                 "description": "Мы толькі што даслалі вам электронны ліст. Праверце папку са спамам, калі не знайшлі яго.",
                 "mail": "Пошта",
                 "open_email_client": "Адкрыць паштовы кліент"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Не атрымалі спасылку?",
+                "resend_in": "Адправіць паўторна (%@)",
+                "resend_now": "Адпраўце зараз паўторна."
             }
         },
         "home_timeline": {
@@ -501,8 +501,8 @@
                 "option_number": "Варыянт %ld",
                 "the_poll_is_invalid": "Апытанне мае памылкі",
                 "the_poll_has_empty_option": "Апытанне мае пусты варыянт",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
+                "add_option": "Дадаць варыянт",
+                "remove_option": "Выдаліць варыянт",
                 "move_up": "Перамясціць уверх",
                 "move_down": "Перамясціць уніз"
             },
@@ -540,8 +540,8 @@
             "language": {
                 "title": "Мова допісу",
                 "suggested": "Прапанаваныя",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "recent": "Нядаўні",
+                "other": "Іншая мова…"
             }
         },
         "profile": {
@@ -555,7 +555,7 @@
                 "other_posts": "допісы",
                 "other_following": "падпісаны",
                 "other_followers": "падпісчыкі",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "узаемныя адносіны"
             },
             "fields": {
                 "joined": "Далучыўся",
@@ -860,7 +860,7 @@
             "configuration_display_name": "Больш падпісчыкаў",
             "configuration_description": "Паказаць колькасць падпісчыкаў для некалькіх акаўнтаў.",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "Яшчэ адзін паслядоўнік",
                 "account_name": "another@follower.social"
             }
         },
