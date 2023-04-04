@@ -361,7 +361,7 @@ uploaded to Mastodon.";
 "Scene.Register.Error.Reason.Inclusion" = "%@ is not a supported value";
 "Scene.Register.Error.Reason.Invalid" = "%@ is invalid";
 "Scene.Register.Error.Reason.Reserved" = "%@ is a reserved keyword";
-"Scene.Register.Error.Reason.Taken" = "%@ is already in use";
+"Scene.Register.Error.Reason.Taken" = "%@ is already taken. How about:";
 "Scene.Register.Error.Reason.TooLong" = "%@ is too long";
 "Scene.Register.Error.Reason.TooShort" = "%@ is too short";
 "Scene.Register.Error.Reason.Unreachable" = "%@ does not seem to exist";
