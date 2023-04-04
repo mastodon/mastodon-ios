@@ -80,7 +80,7 @@
                 "save_photo": "Сохранить изображение",
                 "copy_photo": "Скопировать изображение",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Ещё",
                 "preview": "Предпросмотр",
                 "copy": "Copy",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Удалить"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s содержит запрещённый e-mail сервис",
                     "unreachable": "%s не существует",
-                    "taken": "%s уже используется",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s является зарезервированным ключевым словом",
                     "accepted": "%s должно быть принято",
                     "blank": "Поле «%s» обязательно",
@@ -429,18 +429,18 @@
                 "resend": "Отправить заново"
             },
             "dont_receive_email": {
-                "title": "Проверьте свой e-mail адрес",
+                "title": "Check your Email",
                 "description": "Проверьте, правильно ли указан ваш e-mail адрес, а также папку «спам», если ещё не сделали этого.",
                 "resend_email": "Отправить ещё раз"
             },
             "open_email_app": {
-                "title": "Проверьте вашу почту.",
+                "title": "Check your Inbox.",
                 "description": "Мы только что отправили вам e-mail. Проверьте спам, если не нашли его.",
                 "mail": "Почта",
                 "open_email_client": "Открыть почтовый клиент"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
