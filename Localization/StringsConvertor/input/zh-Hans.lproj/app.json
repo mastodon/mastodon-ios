@@ -80,7 +80,7 @@
                 "save_photo": "保存照片",
                 "copy_photo": "拷贝照片",
                 "sign_in": "登录",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "查看更多",
                 "preview": "预览",
                 "copy": "复制",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "删除"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s 包含一个不允许的电子邮件提供商",
                     "unreachable": "%s 似乎不存在",
-                    "taken": "%s 已被使用",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s 是一个保留的关键字",
                     "accepted": "%s 必须被接受",
                     "blank": "%s 为必需项",
@@ -429,18 +429,18 @@
                 "resend": "重新发送"
             },
             "dont_receive_email": {
-                "title": "请检查你的邮箱。",
+                "title": "Check your Email",
                 "description": "检查您的电子邮件地址是否正确，同时请检查你的垃圾箱。",
                 "resend_email": "重新发送邮件"
             },
             "open_email_app": {
-                "title": "检查你的邮箱",
+                "title": "Check your Inbox.",
                 "description": "我们刚刚向你发送了一封电子邮件。如果未收到，请检查你的垃圾箱。",
                 "mail": "邮件",
                 "open_email_client": "打开邮件客户端"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
