@@ -80,7 +80,7 @@
                 "save_photo": "Gorde argazkia",
                 "copy_photo": "Kopiatu argazkia",
                 "sign_in": "Hasi saioa",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Ikusi gehiago",
                 "preview": "Aurrebista",
                 "copy": "Copy",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Ezabatu"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s(e)k onartu gabeko eposta hornitzaile bat erabiltzen du",
                     "unreachable": "dirudienez %s ez da existitzen",
-                    "taken": "%s dagoeneko erabiltzen da",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s gako-hitz erreserbatu bat da",
                     "accepted": "%s onartu behar da",
                     "blank": "%s beharrezkoa da",
@@ -429,18 +429,18 @@
                 "resend": "Berbidali"
             },
             "dont_receive_email": {
-                "title": "Begiratu zure eposta",
+                "title": "Check your Email",
                 "description": "Egiaztatu zure eposta helbidea zuzena den eta begiratu zaborraren karpeta.",
                 "resend_email": "Birbidali eposta"
             },
             "open_email_app": {
-                "title": "Egiaztatu zure sarrerako ontzia.",
+                "title": "Check your Inbox.",
                 "description": "Eposta bat bidali dizugu. Egiaztatu zure zaborraren karpeta.",
                 "mail": "Posta",
                 "open_email_client": "Ireki eposta bezeroa"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
