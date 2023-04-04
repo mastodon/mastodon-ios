@@ -80,7 +80,7 @@
                 "save_photo": "هەڵی بگرە",
                 "copy_photo": "لەبەری بگرەوە",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "زیاتر ببینە",
                 "preview": "پێشبینین",
                 "copy": "Copy",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "بیسڕەوە"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s خزمەتگوزارییەکی ئیمێڵی ڕێپێنەدراو بەکار دەهێنێت",
                     "unreachable": "%s بوونی نییە",
-                    "taken": "%s بەکار هێنراوە لەلایەن یەکێکی تر",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s وشەیەکی گیراوە",
                     "accepted": "%s دەبێت قبووڵ بکرێت",
                     "blank": "%s پێویستە",
@@ -429,18 +429,18 @@
                 "resend": "بینێرەوە"
             },
             "dont_receive_email": {
-                "title": "ئیمێڵەکەت ببینە",
+                "title": "Check your Email",
                 "description": "دڵنیا بە لەوەی ئیمێڵەکەت دروستە و هەموو بوخچەکانت بگەڕێ.",
                 "resend_email": "ئیمێڵەکە بنێرەوە"
             },
             "open_email_app": {
-                "title": "ئیمێڵەکانت ببینە.",
+                "title": "Check your Inbox.",
                 "description": "ئیمێڵێکمان بۆ ناردیت. هەموو بوخچەکانت ببینە.",
                 "mail": "Mail",
                 "open_email_client": "بەرنامەی ئیمێڵەکەت بکەوە"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
