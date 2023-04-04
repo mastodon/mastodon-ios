@@ -80,7 +80,7 @@
                 "save_photo": "儲存照片",
                 "copy_photo": "複製照片",
                 "sign_in": "登入",
-                "sign_up": "Create Account",
+                "sign_up": "新增帳號",
                 "see_more": "檢視更多",
                 "preview": "預覽",
                 "copy": "複製",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "新增帳號",
             "input": {
                 "avatar": {
                     "delete": "刪除"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s 包含不被允許的電子郵件供應商",
                     "unreachable": "%s 似乎並不存在",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s 已被註冊。這個帳號如何：",
                     "reserved": "%s 是一個保留的關鍵字",
                     "accepted": "請先閱讀並同意 %s",
                     "blank": "%s 為必填選項",
@@ -429,18 +429,18 @@
                 "resend": "重新發送"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "請檢查您的電子郵件",
                 "description": "請檢查您的電子郵件地址是否正確，以及您的垃圾信件夾。",
                 "resend_email": "重新發送電子郵件"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "請檢查您的收件夾.",
                 "description": "我們剛寄送您一封電子郵件。請檢查您的垃圾信件夾。",
                 "mail": "電子郵件",
                 "open_email_client": "請開啟電子郵件程式"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
+                "prefix": "無法取得連結嗎？",
                 "resend_in": "重新傳送 (%@)",
                 "resend_now": "立即重新傳送。"
             }
