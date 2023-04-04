@@ -80,7 +80,7 @@
                 "save_photo": "Uložit fotku",
                 "copy_photo": "Kopírovat fotografii",
                 "sign_in": "Přihlásit se",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Zobrazit více",
                 "preview": "Náhled",
                 "copy": "Kopírovat",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Smazat"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s používá zakázanou e-mailovou službu",
                     "unreachable": "%s pravděpodobně neexistuje",
-                    "taken": "%s se již používá",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s je rezervované klíčové slovo",
                     "accepted": "%s musí být přijato",
                     "blank": "%s je vyžadováno",
@@ -429,18 +429,18 @@
                 "resend": "Poslat znovu"
             },
             "dont_receive_email": {
-                "title": "Zkontrolujte svůj e-mail",
+                "title": "Check your Email",
                 "description": "Zkontrolujte, zda je vaše e-mailová adresa správná, stejně jako složka nevyžádané pošty, pokud ji máte.",
                 "resend_email": "Znovu odeslat e-mail"
             },
             "open_email_app": {
-                "title": "Zkontrolujte doručenou poštu.",
+                "title": "Check your Inbox.",
                 "description": "Právě jsme vám poslali e-mail. Zkontrolujte složku nevyžádané zprávy, pokud ji máte.",
                 "mail": "Pošta",
                 "open_email_client": "Otevřít e-mailového klienta"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
