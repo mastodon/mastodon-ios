@@ -80,7 +80,7 @@
                 "save_photo": "Enregistrer la photo",
                 "copy_photo": "Copier la photo",
                 "sign_in": "Se connecter",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Voir plus",
                 "preview": "Aperçu",
                 "copy": "Copier",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Supprimer"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s contient un fournisseur courriel proscrit",
                     "unreachable": "%s ne semble pas exister",
-                    "taken": "%s est déjà utilisé",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s est un mot clé réservé",
                     "accepted": "%s doit être accepté",
                     "blank": "%s est requis",
@@ -429,18 +429,18 @@
                 "resend": "Renvoyer"
             },
             "dont_receive_email": {
-                "title": "Vérifier vos courriels",
+                "title": "Check your Email",
                 "description": "Vérifiez que votre adresse courriel est valide ainsi que votre fichier spam si ce n’est pas déjà fait.",
                 "resend_email": "Renvoyer le courriel"
             },
             "open_email_app": {
-                "title": "Vérifier votre boîte aux lettres.",
+                "title": "Check your Inbox.",
                 "description": "Nous venons de vous envoyer un courriel. Vérifier votre fichier spam si vous ne l’avez pas déjà fait.",
                 "mail": "Courriel",
                 "open_email_client": "Ouvrir le client de messagerie"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
