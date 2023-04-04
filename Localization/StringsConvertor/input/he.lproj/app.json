@@ -80,7 +80,7 @@
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "See More",
                 "preview": "Preview",
                 "copy": "Copy",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Delete"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
                     "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",
@@ -429,18 +429,18 @@
                 "resend": "Resend"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "Check your Email",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "Resend Email"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
+                "title": "Check your Inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Client"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
