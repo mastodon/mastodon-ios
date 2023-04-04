@@ -93,6 +93,11 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     
     let welcomeIllustrationView = WelcomeIllustrationView()
 
+    private(set) lazy var mastodonLogo: UIImageView = {
+        let imageView = UIImageView(image: Asset.Scene.Welcome.mastodonLogo.image)
+        return imageView
+    }()
+
 
     //TODO: Extract all those UI-elements in a UIView-subclass
     private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
@@ -187,7 +192,7 @@ extension WelcomeViewController {
         view.overrideUserInterfaceStyle = .light
         
         setupOnboardingAppearance()
-        
+
         view.addSubview(welcomeIllustrationView)
         welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -196,6 +201,15 @@ extension WelcomeViewController {
             welcomeIllustrationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: welcomeIllustrationView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: welcomeIllustrationView.bottomAnchor)
+        ])
+        
+        mastodonLogo.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mastodonLogo)
+        
+        NSLayoutConstraint.activate([
+            mastodonLogo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            mastodonLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mastodonLogo.widthAnchor.constraint(equalToConstant: 300),
         ])
         
         buttonContainer.axis = .vertical
