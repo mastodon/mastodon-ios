@@ -701,8 +701,8 @@ public enum L10n {
         public static let resend = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.Resend", fallback: "Resend")
       }
       public enum DidntGetLink {
-        /// Didn't get a Link?
-        public static let `prefix` = L10n.tr("Localizable", "Scene.ConfirmEmail.DidntGetLink.Prefix", fallback: "Didn't get a Link?")
+        /// Didn’t get a link?
+        public static let `prefix` = L10n.tr("Localizable", "Scene.ConfirmEmail.DidntGetLink.Prefix", fallback: "Didn’t get a link?")
         /// Resend (%@)
         public static func resendIn(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.ConfirmEmail.DidntGetLink.ResendIn", String(describing: p1), fallback: "Resend (%@)")
@@ -715,8 +715,8 @@ public enum L10n {
         public static let description = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Description", fallback: "Check if your email address is correct as well as your junk folder if you haven’t.")
         /// Resend Email
         public static let resendEmail = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail", fallback: "Resend Email")
-        /// Check your email
-        public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Title", fallback: "Check your email")
+        /// Check your Email
+        public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Title", fallback: "Check your Email")
       }
       public enum OpenEmailApp {
         /// We just sent you an email. Check your junk folder if you haven’t.
@@ -725,8 +725,8 @@ public enum L10n {
         public static let mail = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Mail", fallback: "Mail")
         /// Open Email Client
         public static let openEmailClient = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient", fallback: "Open Email Client")
-        /// Check your inbox.
-        public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Title", fallback: "Check your inbox.")
+        /// Check your Inbox.
+        public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Title", fallback: "Check your Inbox.")
       }
     }
     public enum Discovery {
