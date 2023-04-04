@@ -80,7 +80,7 @@
                 "save_photo": "Vista mynd",
                 "copy_photo": "Afrita mynd",
                 "sign_in": "Skrá inn",
-                "sign_up": "Create Account",
+                "sign_up": "Búa til notandaaðgang",
                 "see_more": "Sjá fleira",
                 "preview": "Forskoða",
                 "copy": "Afrita",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Búa til notandaaðgang",
             "input": {
                 "avatar": {
                     "delete": "Eyða"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s notar óleyfilega tölvupóstþjónustu",
                     "unreachable": "%s virðist ekki vera til",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s er þegar í notkun. Hvernig væri:",
                     "reserved": "%s er frátekið stikkorð",
                     "accepted": "%s verður að samþykkja",
                     "blank": "%s er nauðsynlegt",
@@ -429,18 +429,18 @@
                 "resend": "Endursenda"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Athugaðu tölvupóstinn þinn",
                 "description": "Athugaðu hvort tölvupóstfangið þitt sé rétt auk þess að skoða í ruslpóstmöppuna þína ef þú hefur ekki gert það.",
                 "resend_email": "Endursenda tölvupóst"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Athugaðu pósthólfið þitt.",
                 "description": "Við vorum að senda þér tölvupóst. Skoðaðu í ruslpóstmöppuna þína ef þú hefur ekki gert það.",
                 "mail": "Tölvupóstur",
                 "open_email_client": "Opna tölvupóstforrit"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
+                "prefix": "Fékkstu ekki neinn tengil?",
                 "resend_in": "Senda aftur (%@)",
                 "resend_now": "Senda aftur núna."
             }
