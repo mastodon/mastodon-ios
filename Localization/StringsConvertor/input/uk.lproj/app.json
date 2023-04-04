@@ -80,7 +80,7 @@
                 "save_photo": "Зберегти фото",
                 "copy_photo": "Копіювати фото",
                 "sign_in": "Увійти",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Дивіться більше",
                 "preview": "Попередній перегляд",
                 "copy": "Copy",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Видалити"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s містить заборонених провайдерів email",
                     "unreachable": "%s здається, не існує",
-                    "taken": "%s вже використовується",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s є зарезервованим ключовим словом",
                     "accepted": "%s має бути прийнято",
                     "blank": "%s необхідно",
@@ -429,18 +429,18 @@
                 "resend": "Повторно надіслати"
             },
             "dont_receive_email": {
-                "title": "Перевірте свою електронну пошту",
+                "title": "Check your Email",
                 "description": "Перевірте правильність адреси електронної пошти, а також теку зі спамом, якщо ви ще не зробили цього.",
                 "resend_email": "Повторно надіслати лист"
             },
             "open_email_app": {
-                "title": "Перевірте вашу поштову скриньку.",
+                "title": "Check your Inbox.",
                 "description": "Ми щойно надіслали вам електронного листа. Перевірте вашу спам теку, якщо ви не зробили цього.",
                 "mail": "Пошта",
                 "open_email_client": "Відкрити поштового клієнта"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
