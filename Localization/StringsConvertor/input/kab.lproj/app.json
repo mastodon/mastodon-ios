@@ -80,7 +80,7 @@
                 "save_photo": "Sekles tawlaft",
                 "copy_photo": "Nɣel tawlaft",
                 "sign_in": "Qqen",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Wali ugar",
                 "preview": "Taskant",
                 "copy": "Copy",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Kkes"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s deg-s asaǧǧăw n yimayl ur nettusireg ara",
                     "unreachable": "%s ur yettban ara yella",
-                    "taken": "%s yettwaseqdec yakan",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s d awal uffir yettwaḥarren",
                     "accepted": "%s ilaq ad yettwaqbal",
                     "blank": "isra %s",
@@ -429,18 +429,18 @@
                 "resend": "Ales tuzna"
             },
             "dont_receive_email": {
-                "title": "Senqed imayl-ik·im",
+                "title": "Check your Email",
                 "description": "Senqed ma yella tansa-inek n imayl d tameɣut akked uspam ma yella ur t-tufiḍ ara.",
                 "resend_email": "Ales tuzna n yimayl"
             },
             "open_email_app": {
-                "title": "Sefqed Tanaka-inek.",
+                "title": "Check your Inbox.",
                 "description": "Akken kan i ak-n-nuzen imayl. Sefqed aspam ma yella ur t-tufiḍ ara.",
                 "mail": "Imayl",
                 "open_email_client": "Ldi amsaɣ n yimayl"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
