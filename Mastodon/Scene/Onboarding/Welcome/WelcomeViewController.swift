@@ -11,6 +11,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 
+
 final class WelcomeViewController: UIViewController, NeedsDependency {
     
     private enum Constants {
@@ -33,7 +34,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var joinDefaultServerButton: UIButton = {
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.attributedTitle = AttributedString(
-            L10n.Common.Controls.Actions.joinDefaultServer,
+            L10n.Scene.Welcome.joinDefaultServer,
             attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
         )
         buttonConfiguration.baseForegroundColor = .white
@@ -51,32 +52,52 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         return button
     }()
 
-    private(set) lazy var signUpButton: PrimaryActionButton = {
-        let button = PrimaryActionButton()
-        button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
-        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
+    private(set) lazy var signUpButton: UIButton = {
+
+        var buttonConfiguration = UIButton.Configuration.borderedTinted()
+        buttonConfiguration.attributedTitle = AttributedString(
+            L10n.Scene.Welcome.pickServer,
+            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+        )
+
+        buttonConfiguration.background.cornerRadius = 14
+        buttonConfiguration.background.strokeColor = UIColor.white.withAlphaComponent(0.6)
+        buttonConfiguration.background.strokeWidth = 1
+        buttonConfiguration.baseBackgroundColor = .clear
+        buttonConfiguration.baseForegroundColor = .white
+
+        buttonConfiguration.contentInsets = .init(top: WelcomeViewController.actionButtonPadding.top,
+                                                  leading: WelcomeViewController.actionButtonPadding.left,
+                                                  bottom: WelcomeViewController.actionButtonPadding.bottom,
+                                                  trailing: WelcomeViewController.actionButtonPadding.right)
+
+        let button = UIButton(configuration: buttonConfiguration)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
-        button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
-        let backgroundImageColor: UIColor = .white
-        let backgroundImageHighlightedColor: UIColor = UIColor(white: 0.8, alpha: 1.0)
-        button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
-        button.setBackgroundImage(.placeholder(color: backgroundImageHighlightedColor), for: .highlighted)
-        button.setTitleColor(.black, for: .normal)
+
         return button
     }()
 
-    let signUpButtonShadowView = UIView()
-    
     private(set) lazy var signInButton: UIButton = {
-        let button = UIButton()
-        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
-        button.setTitle(L10n.Scene.Welcome.logIn, for: .normal)
-        let titleColor: UIColor = UIColor.white.withAlphaComponent(0.9)
-        button.setTitleColor(titleColor, for: .normal)
-        button.setTitleColor(titleColor.withAlphaComponent(0.3), for: .highlighted)
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.baseForegroundColor = .white
+        buttonConfiguration.attributedTitle = AttributedString(
+            L10n.Scene.Welcome.logIn,
+            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+        )
+
+        let button = UIButton(configuration: buttonConfiguration)
+        return button
+    }()
+
+    private(set) lazy var learnMoreButton: UIButton = {
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.baseForegroundColor = .white
+        buttonConfiguration.attributedTitle = AttributedString(
+            L10n.Scene.Welcome.learnMore,
+            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+        )
+
+        let button = UIButton(configuration: buttonConfiguration)
         return button
     }()
 }
@@ -132,19 +153,27 @@ extension WelcomeViewController {
         ])
 
         signInButton.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.addArrangedSubview(signInButton)
         NSLayoutConstraint.activate([
             signInButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
         ])
-        
-        signUpButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.addSubview(signUpButtonShadowView)
-        buttonContainer.sendSubviewToBack(signUpButtonShadowView)
-        signUpButtonShadowView.pinTo(to: signUpButton)
-        
+
+        learnMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            learnMoreButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+        ])
+
+        let bottomButtonStackView = UIStackView(arrangedSubviews: [learnMoreButton, signInButton])
+        bottomButtonStackView.axis = .horizontal
+        bottomButtonStackView.distribution = .fill
+        bottomButtonStackView.alignment = .center
+        bottomButtonStackView.spacing = 16
+
+        buttonContainer.addArrangedSubview(bottomButtonStackView)
+
         joinDefaultServerButton.addTarget(self, action: #selector(joinDefaultServer(_:)), for: .touchUpInside)
-        signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
-        signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
+        signInButton.addTarget(self, action: #selector(signIn(_:)), for: .touchUpInside)
+        learnMoreButton.addTarget(self, action: #selector(learnMore(_:)), for: .touchUpInside)
         
         viewModel.$needsShowDismissEntry
             .receive(on: DispatchQueue.main)
@@ -155,12 +184,7 @@ extension WelcomeViewController {
             .store(in: &disposeBag)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        setupButtonShadowView()
-    }
-    
+
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         
@@ -177,7 +201,6 @@ extension WelcomeViewController {
         view.layoutIfNeeded()
         
         setupIllustrationLayout()
-        setupButtonShadowView()
     }
     
     private var computedTopAnchorInset: CGFloat {
@@ -186,21 +209,7 @@ extension WelcomeViewController {
 }
 
 extension WelcomeViewController {
-    
-    private func setupButtonShadowView() {
-        signUpButtonShadowView.layer.setupShadow(
-            color: .black,
-            alpha: 0.25,
-            x: 0,
-            y: 1,
-            blur: 2,
-            spread: 0,
-            roundedRect: signUpButtonShadowView.bounds,
-            byRoundingCorners: .allCorners,
-            cornerRadii: CGSize(width: 10, height: 10)
-        )
-    }
-    
+
     private func updateButtonContainerLayoutMargins(traitCollection: UITraitCollection) {
         switch traitCollection.userInterfaceIdiom {
         case .phone:
@@ -238,15 +247,20 @@ extension WelcomeViewController {
     }
 
     @objc
-    private func signUpButtonDidClicked(_ sender: UIButton) {
+    private func signUp(_ sender: UIButton) {
         _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context)), from: self, transition: .show)
     }
     
     @objc
-    private func signInButtonDidClicked(_ sender: UIButton) {
+    private func signIn(_ sender: UIButton) {
         _ = coordinator.present(scene: .mastodonLogin, from: self, transition: .show)
     }
-    
+
+    @objc
+    private func learnMore(_ sender: UIButton) {
+        //TODO: Show Education-part
+    }
+
     @objc
     private func dismissBarButtonItemDidPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)

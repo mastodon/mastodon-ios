@@ -80,7 +80,6 @@
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
                 "sign_in": "Log in",
-                "sign_up": "Create Account",
                 "see_more": "See More",
                 "preview": "Preview",
                 "copy": "Copy",
@@ -103,7 +102,6 @@
                     "unknown_language": "Unknown"
                 },
                 "edit_post": "Edit",
-                "join_default_server": "Join mastodon.social"
 
             },
             "tabs": {
@@ -263,9 +261,9 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
             "log_in": "Log In",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social"
             "education": {
               "what_is_mastodon": {
                 "title": "What is",

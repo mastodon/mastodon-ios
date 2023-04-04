@@ -180,8 +180,6 @@ public enum L10n {
         }
         /// Log in
         public static let signIn = L10n.tr("Localizable", "Common.Controls.Actions.SignIn", fallback: "Log in")
-        /// Create Account
-        public static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp", fallback: "Create Account")
         /// Skip
         public static let skip = L10n.tr("Localizable", "Common.Controls.Actions.Skip", fallback: "Skip")
         /// Take Photo
@@ -1496,8 +1494,14 @@ public enum L10n {
     public enum Welcome {
       /// Get Started
       public static let getStarted = L10n.tr("Localizable", "Scene.Welcome.GetStarted", fallback: "Get Started")
+      /// Join mastodon.social
+      public static let joinDefaultServer = L10n.tr("Localizable", "Scene.Welcome.JoinDefault_server", fallback: "Join mastodon.social")
+      /// Learn more
+      public static let learnMore = L10n.tr("Localizable", "Scene.Welcome.LearnMore", fallback: "Learn more")
       /// Log In
       public static let logIn = L10n.tr("Localizable", "Scene.Welcome.LogIn", fallback: "Log In")
+      /// Pick my own server
+      public static let pickServer = L10n.tr("Localizable", "Scene.Welcome.PickServer", fallback: "Pick my own server")
       /// Social networking
       /// back in your hands.
       public static let slogan = L10n.tr("Localizable", "Scene.Welcome.Slogan", fallback: "Social networking\nback in your hands.")

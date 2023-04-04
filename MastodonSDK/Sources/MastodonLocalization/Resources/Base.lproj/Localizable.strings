@@ -61,7 +61,6 @@ Please check your internet connection.";
 "Common.Controls.Actions.SharePost" = "Share Post";
 "Common.Controls.Actions.ShareUser" = "Share %@";
 "Common.Controls.Actions.SignIn" = "Log in";
-"Common.Controls.Actions.SignUp" = "Create Account";
 "Common.Controls.Actions.Skip" = "Skip";
 "Common.Controls.Actions.TakePhoto" = "Take Photo";
 "Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
@@ -536,6 +535,10 @@ You can still send and receive emails from anyone, even if their email ends in @
 "Scene.Welcome.LogIn" = "Log In";
 "Scene.Welcome.Slogan" = "Social networking
 back in your hands.";
+"Scene.Welcome.LogIn" = "Log In";
+"Scene.Welcome.LearnMore" = "Learn more";
+"Scene.Welcome.JoinDefault_server" = "Join mastodon.social";
+"Scene.Welcome.PickServer" = "Pick my own server";
 "Widget.Common.UnsupportedWidgetFamily" = "Sorry but this Widget family is unsupported.";
 "Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
 "Widget.FollowersCount.ConfigurationDescription" = "Show number of followers.";
