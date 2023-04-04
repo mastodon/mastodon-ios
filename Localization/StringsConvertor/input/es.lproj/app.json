@@ -80,7 +80,7 @@
                 "save_photo": "Guardar foto",
                 "copy_photo": "Copiar foto",
                 "sign_in": "Iniciar sesión",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Ver más",
                 "preview": "Vista previa",
                 "copy": "Copiar",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Borrar"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s contiene un proveedor de correo no permitido",
                     "unreachable": "%s parece no existir",
-                    "taken": "%s ya está en uso",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s es una palabra clave reservada",
                     "accepted": "%s debe ser aceptado",
                     "blank": "Se requiere %s",
@@ -429,18 +429,18 @@
                 "resend": "Reenviar"
             },
             "dont_receive_email": {
-                "title": "Revisa tu correo electrónico",
+                "title": "Check your Email",
                 "description": "Comprueba que tu dirección de correo electrónico sea correcta y revisa la carpeta de correo no deseado si no lo has hecho ya.",
                 "resend_email": "Volver a Enviar Correo Electrónico"
             },
             "open_email_app": {
-                "title": "Revisa tu bandeja de entrada.",
+                "title": "Check your Inbox.",
                 "description": "Te acabamos de enviar un correo electrónico. Revisa tu carpeta de correo no deseado si no lo has hecho ya.",
                 "mail": "Correo",
                 "open_email_client": "Abrir Cliente de Correo Electrónico"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
