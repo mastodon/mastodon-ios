@@ -80,7 +80,7 @@
                 "save_photo": "Cadw Llun",
                 "copy_photo": "Copïo Llun",
                 "sign_in": "Mewngofnodi",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "Gweld Mwy",
                 "preview": "Rhagolwg",
                 "copy": "Copïo",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Dileu"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "Mae %s yn defnyddio darparwr e-bost nad yw'n cael ei ganiatáu",
                     "unreachable": "Nid yw %s yn bodoli",
-                    "taken": "Defnyddir %s yn barod",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "Mae %s yn air allweddol a chadwyd",
                     "accepted": "Mae angen cytuno â %s",
                     "blank": "Mae angen cael %s",
@@ -429,18 +429,18 @@
                 "resend": "Ailanfon"
             },
             "dont_receive_email": {
-                "title": "Gwiriwch eich e-byst",
+                "title": "Check your Email",
                 "description": "Gwiriwch a yw eich cyfeiriad e-bost yn gywir a hefyd eich ffolder 'junk' os nad ydych wedi ei gwneud.",
                 "resend_email": "Ailanfon E-bost"
             },
             "open_email_app": {
-                "title": "Gwiriwch eich blwch derbyn.",
+                "title": "Check your Inbox.",
                 "description": "Rydym newydd anfon e-bost atoch chi. Gwiriwch eich ffolder 'junk' os nad ydych wedi ei gwneud.",
                 "mail": "Mail",
                 "open_email_client": "Agor Cleient E-byst"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
