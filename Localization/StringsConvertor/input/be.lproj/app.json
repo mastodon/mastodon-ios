@@ -80,7 +80,7 @@
                 "save_photo": "Захаваць фота",
                 "copy_photo": "Капіраваць фота",
                 "sign_in": "Увайсці",
-                "sign_up": "Стварыць уліковы запіс",
+                "sign_up": "Create Account",
                 "see_more": "Паказаць больш",
                 "preview": "Перадпрагляд",
                 "copy": "Скапіраваць",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Стварыць уліковы запіс",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Выдаліць"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s змяшчае забароненага пастаўшчыка email",
                     "unreachable": "%s не існуе",
-                    "taken": "%s ужо выкарыстоўваецца",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s з'яўляецца зарэзерваваным ключавым словам",
                     "accepted": "%s павінна быць прынята",
                     "blank": "%s абавязковы",
@@ -429,18 +429,18 @@
                 "resend": "Адправіць паўторна"
             },
             "dont_receive_email": {
-                "title": "Праверце сваю пошту",
+                "title": "Check your Email",
                 "description": "Праверце, ці правільны ваш адрас электроннай пошты, а таксама папку са спамам, калі вы гэтага яшчэ не зрабілі.",
                 "resend_email": "Адправіць email паўторна"
             },
             "open_email_app": {
-                "title": "Праверце вашу паштовую скрыню.",
+                "title": "Check your Inbox.",
                 "description": "Мы толькі што даслалі вам электронны ліст. Праверце папку са спамам, калі не знайшлі яго.",
                 "mail": "Пошта",
                 "open_email_client": "Адкрыць паштовы кліент"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
@@ -842,19 +842,19 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Здаецца, гэта несапраўдная спасылка на Mastodon."
         }
     },
     "widget": {
         "common": {
             "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "user_not_logged_in": "Калі ласка, адкрыйце Mastodon, каб увайсці ў уліковы запіс."
         },
         "followers_count": {
             "configuration_display_name": "Падпісчыкі",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_description": "Паказаць колькасць падпісчыкаў.",
+            "title": "ПАДПІСЧЫКІ",
+            "followers_today": "%s падпісчыкаў сёння"
         },
         "multiple_followers": {
             "configuration_display_name": "Multiple followers",
