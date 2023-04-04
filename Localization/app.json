@@ -264,6 +264,9 @@
             "log_in": "Log In",
             "learn_more": "Learn more",
             "join_default_server": "Join mastodon.social"
+            "separator": {
+                "or": "or"
+            },
             "education": {
               "what_is_mastodon": {
                 "title": "What is",

@@ -1535,6 +1535,10 @@ public enum L10n {
           public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.Title", fallback: "What is")
         }
       }
+      public enum Separator {
+        /// Or
+        public static let or = L10n.tr("Localizable", "Scene.Welcome.Separator.Or", fallback: "Or")
+      }
     }
   }
   public enum Widget {

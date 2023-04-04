@@ -539,6 +539,7 @@ back in your hands.";
 "Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.JoinDefault_server" = "Join mastodon.social";
 "Scene.Welcome.PickServer" = "Pick my own server";
+"Scene.Welcome.Separator.Or" = "Or";
 "Widget.Common.UnsupportedWidgetFamily" = "Sorry but this Widget family is unsupported.";
 "Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
 "Widget.FollowersCount.ConfigurationDescription" = "Show number of followers.";
