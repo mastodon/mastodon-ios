@@ -80,7 +80,7 @@
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
                 "sign_in": "تسجيلُ الدخول",
-                "sign_up": "Create account",
+                "sign_up": "Create Account",
                 "see_more": "عرض المزيد",
                 "preview": "مُعاينة",
                 "copy": "نَسخ",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "حذف"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "يحتوي %s على موفِّر خدمة بريد إلكتروني غير مسموح به",
                     "unreachable": "يبدوا أنَّ %s غير موجود",
-                    "taken": "إنَّ %s مُستخدَمٌ بالفعل",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "إنَّ %s عبارة عن كلمة مفتاحيَّة محجوزة",
                     "accepted": "يجب أن يُقبل %s",
                     "blank": "%s مَطلوب",
@@ -429,18 +429,18 @@
                 "resend": "إعادَةُ الإرسال"
             },
             "dont_receive_email": {
-                "title": "تحقق من بريدك الإلكتروني",
+                "title": "Check your Email",
                 "description": "تحقق ممَّ إذا كان عنوان بريدك الإلكتروني صحيحًا، وكذلك تأكد مِن مجلد البريد غير الهام إذا لم تكن قد فعلت ذلك.",
                 "resend_email": "إعادة إرسال البريد الإلكتروني"
             },
             "open_email_app": {
-                "title": "تحقَّق من بريدك الوارِد.",
+                "title": "Check your Inbox.",
                 "description": "لقد أرسلنا لك بريدًا إلكترونيًا للتو. تحقق من مجلد البريد غير الهام الخاص بك إذا لم تكن قد فعلت ذلك.",
                 "mail": "البريد",
                 "open_email_client": "فتح عميل البريد الإلكتروني"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
