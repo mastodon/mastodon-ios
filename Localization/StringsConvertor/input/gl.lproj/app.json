@@ -80,7 +80,7 @@
                 "save_photo": "Gardar foto",
                 "copy_photo": "Copiar foto",
                 "sign_in": "Acceder",
-                "sign_up": "Create Account",
+                "sign_up": "Crear conta",
                 "see_more": "Ver máis",
                 "preview": "Vista previa",
                 "copy": "Copiar",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Crear conta",
             "input": {
                 "avatar": {
                     "delete": "Eliminar"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s é un provedor de email non autorizado",
                     "unreachable": "%s semella que non existe",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s xa está pillado. Que tal:",
                     "reserved": "%s é unha palabra reservada",
                     "accepted": "%s debe ser aceptado",
                     "blank": "%s é requerido",
@@ -429,18 +429,18 @@
                 "resend": "Reenviar"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Revisa o teu correo",
                 "description": "Comproba que o enderezo de email é correcto e que non vaia directo ao cartafol de spam.",
                 "resend_email": "Volver enviar o correo"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Comproba a Caixa de correo.",
                 "description": "Enviámosche un email. Se non aparece, mira no cartafol do lixo.",
                 "mail": "Correo",
                 "open_email_client": "Abrir cliente de email"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
+                "prefix": "Non recibiches unha ligazón?",
                 "resend_in": "Reenviar (%@)",
                 "resend_now": "Reenviar agora."
             }
