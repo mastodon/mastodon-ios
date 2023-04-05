@@ -1512,27 +1512,17 @@ public enum L10n {
             public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title", fallback: "What is Mastodon?")
           }
         }
-        public enum HowDoIPickAServer {
-          /// Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.
-          /// 
-          /// You can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.
-          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.HowDoIPickAServer.Description", fallback: "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.")
-          /// How do I pick a server?
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.HowDoIPickAServer.Title", fallback: "How do I pick a server?")
+        public enum Mastodon {
+          /// Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.
+          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.Mastodon.Description", fallback: "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.")
+          /// Welcome to Mastodon
+          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.Mastodon.Title", fallback: "Welcome to Mastodon")
         }
-        public enum MastodonIsLikeThat {
-          /// Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.
-          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.MastodonIsLikeThat.Description", fallback: "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.")
-          /// Mastodon is like that
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.MastodonIsLikeThat.Title", fallback: "Mastodon is like that")
-        }
-        public enum WhatIsMastodon {
-          /// Imagine you have an email address that ends with @example.com.
-          /// 
-          /// You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.
-          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.Description", fallback: "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.")
-          /// What is
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.Title", fallback: "What is")
+        public enum Servers {
+          /// Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.
+          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.Servers.Description", fallback: "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.")
+          /// What are servers?
+          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.Servers.Title", fallback: "What are servers?")
         }
       }
       public enum Separator {

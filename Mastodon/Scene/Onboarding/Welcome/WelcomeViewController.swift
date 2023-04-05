@@ -437,7 +437,15 @@ extension WelcomeViewController {
 
     @objc
     private func learnMore(_ sender: UIButton) {
-        //TODO: Show Education-part
+        let educationViewController = EducationViewController()
+        educationViewController.modalPresentationStyle = .pageSheet
+
+        if let sheetPresentationController = educationViewController.sheetPresentationController {
+            sheetPresentationController.detents = [.medium()]
+            sheetPresentationController.prefersGrabberVisible = true
+        }
+
+        present(educationViewController, animated: true)
     }
 
     @objc
