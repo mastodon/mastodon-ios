@@ -539,9 +539,9 @@
             },
             "language": {
                 "title": "投稿の言語",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "suggested": "推奨される言語",
+                "recent": "最近使った言語",
+                "other": "その他の言語…"
             }
         },
         "profile": {
