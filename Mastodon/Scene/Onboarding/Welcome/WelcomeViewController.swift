@@ -135,7 +135,7 @@ extension WelcomeViewController {
         view.addSubview(mastodonLogo)
 
         NSLayoutConstraint.activate([
-            mastodonLogo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            mastodonLogo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             mastodonLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mastodonLogo.widthAnchor.constraint(equalToConstant: 300),
         ])
@@ -292,20 +292,9 @@ extension WelcomeViewController {
         welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
         NSLayoutConstraint.activate([
-            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.rightAnchor, constant: -104),  // add 12pt bleeding
-            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: welcomeIllustrationView.leftHillImageView.topAnchor),
-            // make a little bit large
+            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.rightAnchor, constant: -150),
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor, constant: 20),
             welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor, multiplier: 105.0/318.0),
-        ])
-        let bottomPaddingView = UIView()
-        bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bottomPaddingView)
-        NSLayoutConstraint.activate([
-            bottomPaddingView.topAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor),
-            bottomPaddingView.leadingAnchor.constraint(equalTo: mastodonLogo.leadingAnchor),
-            bottomPaddingView.trailingAnchor.constraint(equalTo: mastodonLogo.trailingAnchor),
-            bottomPaddingView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
-            bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 4),
         ])
 
         welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.addMotionEffect(
