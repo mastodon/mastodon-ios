@@ -206,9 +206,4 @@ extension WelcomeIllustrationView {
             }
         }
     }
-
-  func update(contentOffset: CGFloat) {
-    //TODO: @zeitschlag update frames
-    print(Int(contentOffset))
-  }
 }
