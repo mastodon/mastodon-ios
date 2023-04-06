@@ -80,7 +80,7 @@
                 "save_photo": "Shrani fotografijo",
                 "copy_photo": "Kopiraj fotografijo",
                 "sign_in": "Prijava",
-                "sign_up": "Create Account",
+                "sign_up": "Ustvari račun",
                 "see_more": "Pokaži več",
                 "preview": "Predogled",
                 "copy": "Kopiraj",
@@ -352,7 +352,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Ustvari račun",
             "input": {
                 "avatar": {
                     "delete": "Izbriši"
@@ -395,7 +395,7 @@
                 "reason": {
                     "blocked": "%s vsebuje nedovoljenega ponudnika e-poštnih storitev",
                     "unreachable": "%s kot kaže ne obstaja",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s je že zasedeno. Kaj pravite na:",
                     "reserved": "%s je rezervirana ključna beseda",
                     "accepted": "%s mora biti sprejet",
                     "blank": "%s je zahtevan",
@@ -429,18 +429,18 @@
                 "resend": "Ponovno pošlji"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Preverite svojo e-pošto",
                 "description": "Preverite, ali je vaš e-naslov pravilen, pa tudi vsebino mape neželene pošte, če tega še niste storili.",
                 "resend_email": "Ponovno pošlji e-pošto"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Preverite svojo dohodno e-pošto.",
                 "description": "Ravnokar smo vam poslali e-sporočilo. Preverite neželeno pošto, če sporočila ne najdete med dohodno pošto.",
                 "mail": "E-pošta",
                 "open_email_client": "Odpri odjemalca e-pošte"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
+                "prefix": "Niste prejeli povezave?",
                 "resend_in": "Znova pošlji (%@)",
                 "resend_now": "Ponovno pošlji zdaj."
             }
