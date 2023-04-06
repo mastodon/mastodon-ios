@@ -39,8 +39,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         return imageView
     }()
 
-
-    //TODO: Extract all those UI-elements in a UIView-subclass
     private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
     
     let buttonContainer = UIStackView()
