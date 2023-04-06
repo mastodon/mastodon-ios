@@ -32,7 +32,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var viewModel = WelcomeViewModel(context: context)
     
     let welcomeIllustrationView = WelcomeIllustrationView()
-    var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint?
 
     private(set) lazy var mastodonLogo: UIImageView = {
         let imageView = UIImageView(image: Asset.Scene.Welcome.mastodonLogo.image)
@@ -208,18 +207,6 @@ extension WelcomeViewController {
     }
     
 
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        
-        var overlap: CGFloat = 5
-        // shift illustration down for non-notch phone
-        if view.safeAreaInsets.bottom == 0 {
-            overlap += 56
-        }
-
-        welcomeIllustrationViewBottomAnchorLayoutConstraint?.constant = overlap
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
@@ -272,14 +259,13 @@ extension WelcomeViewController {
         welcomeIllustrationView.contentMode = .scaleAspectFit
 
         welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
-        welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: separator.centerYAnchor)
 
         view.addSubview(welcomeIllustrationView)
 
         NSLayoutConstraint.activate([
             view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 15),
             welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 15),
-            welcomeIllustrationViewBottomAnchorLayoutConstraint!.priority(.required - 1),
+            welcomeIllustrationView.bottomAnchor.constraint(equalTo: separator.centerYAnchor)
         ])
 
         welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
