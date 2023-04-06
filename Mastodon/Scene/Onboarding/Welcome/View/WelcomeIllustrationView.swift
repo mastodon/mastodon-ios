@@ -11,176 +11,204 @@ import MastodonCore
 import MastodonUI
 import MastodonLocalization
 
-fileprivate extension CGFloat {
-    static let cloudsStartPosition = -20.0
-    static let centerHillStartPosition = 20.0
-    static let airplaneStartPosition = -178.0
-    static let leftHillStartPosition = 30.0
-    static let rightHillStartPosition = -200.0
-    static let leftHillSpeed = 6.0
-    static let centerHillSpeed = 40.0
-    static let rightHillSpeed = 6.0
-}
-
 final class WelcomeIllustrationView: UIView {
-    
+
+    let cloudBaseImageView = UIImageView()
+    let rightHillImageView = UIImageView()
+    let leftHillImageView = UIImageView()
+    let centerHillImageView = UIImageView()
+
     private let cloudBaseImage = Asset.Scene.Welcome.Illustration.cloudBase.image
     private let cloudBaseExtendImage = Asset.Scene.Welcome.Illustration.cloudBaseExtend.image
     private let elephantThreeOnGrassWithTreeTwoImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeTwo.image
     private let elephantThreeOnGrassWithTreeThreeImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeThree.image
     private let elephantThreeOnGrassImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrass.image
     private let elephantThreeOnGrassExtendImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrassExtend.image
-    
-    var cloudsLeftAnchor: NSLayoutConstraint?
-    var elephantOnAirplaneLeftConstraint: NSLayoutConstraint?
-    var leftHillLeftConstraint: NSLayoutConstraint?
-    var centerHillLeftConstraint: NSLayoutConstraint?
-    var rightHillRightConstraint: NSLayoutConstraint?
-    
+
+    // layout outside
     let elephantOnAirplaneWithContrailImageView: UIImageView = {
         let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.elephantOnAirplaneWithContrail.image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
-    let rightHillImageView: UIImageView = {
-        let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeTwo.image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
-    let leftHillImageView: UIImageView = {
-        let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeThree.image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
-    let centerHillImageView: UIImageView = {
-        let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.elephantThreeOnGrass.image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
-    let cloudBaseImageView: UIImageView = {
-        let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.cloudBase.image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.alpha = 0.3
-        return imageView
-    }()
-    
+
+    var layout: Layout = .compact {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     var aspectLayoutConstraint: NSLayoutConstraint!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
     }
-    
-    // modifiers for animations
-    private lazy var cloudsDrag: CGFloat = -(bounds.width / 64)
-    private lazy var airplaneDrag: CGFloat = bounds.width / 64
+
 }
 
 extension WelcomeIllustrationView {
-    
+    enum Layout {
+        case compact
+        case regular
+
+        var artworkImageSize: CGSize {
+            switch self {
+            case .compact:      return CGSize(width: 375, height: 1500)
+            case .regular:      return CGSize(width: 547, height: 3000)
+            }
+        }
+    }
+}
+
+extension WelcomeIllustrationView {
+
     private func _init() {
         backgroundColor = Asset.Scene.Welcome.Illustration.backgroundCyan.color
-        
+
+        let topPaddingView = UIView()
+
+        topPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(topPaddingView)
+        NSLayoutConstraint.activate([
+            topPaddingView.topAnchor.constraint(equalTo: topAnchor),
+            topPaddingView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            topPaddingView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
+
+        cloudBaseImageView.alpha = 0.3
         cloudBaseImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(cloudBaseImageView)
-        
-        let cloudsLeftAnchor = cloudBaseImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: .cloudsStartPosition)
         NSLayoutConstraint.activate([
-            cloudsLeftAnchor,
-            cloudBaseImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.4),
+            cloudBaseImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
+            cloudBaseImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            cloudBaseImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             cloudBaseImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            cloudBaseImageView.topAnchor.constraint(equalTo: topAnchor)
         ])
-        self.cloudsLeftAnchor = cloudsLeftAnchor
 
-        let rightHillRightConstraint = rightAnchor.constraint(equalTo: rightHillImageView.rightAnchor, constant: .rightHillStartPosition)
-        addSubview(rightHillImageView)
-        NSLayoutConstraint.activate([
-            rightHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.64),
-            rightHillRightConstraint,
-            bottomAnchor.constraint(equalTo: rightHillImageView.bottomAnchor, constant: 149),
-        ])
-        self.rightHillRightConstraint = rightHillRightConstraint
-        
-        let leftHillLeftConstraint = leftAnchor.constraint(equalTo: leftHillImageView.leftAnchor, constant: .leftHillStartPosition)
-        addSubview(leftHillImageView)
-        NSLayoutConstraint.activate([
-            leftHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.72),
-            leftHillLeftConstraint,
-            bottomAnchor.constraint(equalTo: leftHillImageView.bottomAnchor, constant: 187),
-        ])
-        
-        self.leftHillLeftConstraint = leftHillLeftConstraint
-        
-        let centerHillLeftConstraint = leftAnchor.constraint(equalTo: centerHillImageView.leftAnchor, constant: .centerHillStartPosition)
-        
-        addSubview(centerHillImageView)
-        NSLayoutConstraint.activate([
-            centerHillLeftConstraint,
-            bottomAnchor.constraint(equalTo: centerHillImageView.bottomAnchor, constant: -18),
-            centerHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.2),
-        ])
-        
-        self.centerHillLeftConstraint = centerHillLeftConstraint
-        
-        addSubview(elephantOnAirplaneWithContrailImageView)
-        
-        let elephantOnAirplaneLeftConstraint = elephantOnAirplaneWithContrailImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: .airplaneStartPosition)  // add 12pt bleeding
-        NSLayoutConstraint.activate([
-            elephantOnAirplaneLeftConstraint,
-            elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: leftHillImageView.topAnchor),
-            // make a little bit large
-            elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.84),
-        ])
-        
-        self.elephantOnAirplaneLeftConstraint = elephantOnAirplaneLeftConstraint
-    }
-    
-    func setup() {
-        
-        // set illustration
-        guard superview == nil else {
-            return
+        [
+            rightHillImageView,
+            leftHillImageView,
+            centerHillImageView,
+        ].forEach { imageView in
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(imageView)
+            imageView.pinTo(to: cloudBaseImageView)
         }
-        contentMode = .scaleAspectFit
-        
-        cloudBaseImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -5, maxX: 5, minY: -5, maxY: 5)
-        )
-        rightHillImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -15, maxX: 25, minY: -10, maxY: 10)
-        )
-        leftHillImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -25, maxX: 15, minY: -15, maxY: 15)
-        )
-        centerHillImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -14, maxX: 14, minY: -5, maxY: 25)
-        )
-        
-        elephantOnAirplaneWithContrailImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
-        )
+
+        aspectLayoutConstraint = cloudBaseImageView.widthAnchor.constraint(equalTo: cloudBaseImageView.heightAnchor, multiplier: layout.artworkImageSize.width / layout.artworkImageSize.height)
+        aspectLayoutConstraint.isActive = true
     }
-    
-    func update(contentOffset: CGFloat) {
-        cloudsLeftAnchor?.constant = contentOffset / cloudsDrag + .cloudsStartPosition
-        elephantOnAirplaneLeftConstraint?.constant = contentOffset / airplaneDrag + .airplaneStartPosition
-        leftHillLeftConstraint?.constant = contentOffset / .leftHillSpeed + .leftHillStartPosition
-        centerHillLeftConstraint?.constant = contentOffset / .centerHillSpeed + .centerHillStartPosition
-        rightHillRightConstraint?.constant = contentOffset / .rightHillSpeed + .rightHillStartPosition
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        switch layout {
+        case .compact:
+            layoutCompact()
+        case .regular:
+            layoutRegular()
+        }
+
+        aspectLayoutConstraint.isActive = false
+        aspectLayoutConstraint = cloudBaseImageView.widthAnchor.constraint(equalTo: cloudBaseImageView.heightAnchor, multiplier: layout.artworkImageSize.width / layout.artworkImageSize.height)
+        aspectLayoutConstraint.isActive = true
     }
+
+    private func layoutCompact() {
+        let size = layout.artworkImageSize
+        let width = size.width
+        let height = size.height
+
+        cloudBaseImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+
+            // draw cloud
+            cloudBaseImage.draw(at: CGPoint(x: 0, y: height - cloudBaseImage.size.height))
+        }
+
+        rightHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+
+            // draw elephantThreeOnGrassWithTreeTwoImage
+            // elephantThreeOnGrassWithTreeTwo.bottomY - 25 align to elephantThreeOnGrassImage.centerY
+            elephantThreeOnGrassWithTreeTwoImage.draw(at: CGPoint(x: width - elephantThreeOnGrassWithTreeTwoImage.size.width, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeTwoImage.size.height + 25))
+        }
+
+        leftHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+
+            // draw elephantThreeOnGrassWithTreeThree
+            // elephantThreeOnGrassWithTreeThree.bottomY + 30 align to elephantThreeOnGrassImage.centerY
+            elephantThreeOnGrassWithTreeThreeImage.draw(at: CGPoint(x: 0, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeThreeImage.size.height - 30))
+        }
+
+        centerHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+
+            // draw elephantThreeOnGrass
+            elephantThreeOnGrassImage.draw(at: CGPoint(x: 0, y: height - elephantThreeOnGrassImage.size.height))
+        }
+    }
+
+    private func layoutRegular() {
+        let size = layout.artworkImageSize
+        let width = size.width
+        let height = size.height
+
+        cloudBaseImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+
+            // draw cloud
+            cloudBaseExtendImage.draw(at: CGPoint(x: 0, y: height - cloudBaseExtendImage.size.height))
+
+            rightHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+                // clear background
+                UIColor.clear.setFill()
+                context.fill(CGRect(origin: .zero, size: size))
+
+                // draw elephantThreeOnGrassWithTreeTwoImage
+                // elephantThreeOnGrassWithTreeTwo.bottomY - 25 align to elephantThreeOnGrassImage.centerY
+                elephantThreeOnGrassWithTreeTwoImage.draw(at: CGPoint(x: width - elephantThreeOnGrassWithTreeTwoImage.size.width, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeTwoImage.size.height - 20))
+            }
+
+            leftHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+                // clear background
+                UIColor.clear.setFill()
+                context.fill(CGRect(origin: .zero, size: size))
+
+                // draw elephantThreeOnGrassWithTreeThree
+                // elephantThreeOnGrassWithTreeThree.bottomY + 30 align to elephantThreeOnGrassImage.centerY
+                elephantThreeOnGrassWithTreeThreeImage.draw(at: CGPoint(x: -160, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeThreeImage.size.height - 80))
+            }
+
+            centerHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+                // clear background
+                UIColor.clear.setFill()
+                context.fill(CGRect(origin: .zero, size: size))
+
+                // draw elephantThreeOnGrass
+                elephantThreeOnGrassExtendImage.draw(at: CGPoint(x: 0, y: height - elephantThreeOnGrassExtendImage.size.height))
+            }
+        }
+    }
+
+  func update(contentOffset: CGFloat) {
+    //TODO: @zeitschlag update frames
+    print(Int(contentOffset))
+  }
 }

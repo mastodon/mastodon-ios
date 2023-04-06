@@ -92,6 +92,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var viewModel = WelcomeViewModel(context: context)
     
     let welcomeIllustrationView = WelcomeIllustrationView()
+    var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint?
 
     private(set) lazy var mastodonLogo: UIImageView = {
         let imageView = UIImageView(image: Asset.Scene.Welcome.mastodonLogo.image)
@@ -190,28 +191,19 @@ extension WelcomeViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         view.overrideUserInterfaceStyle = .light
-        
-        setupOnboardingAppearance()
 
-        view.addSubview(welcomeIllustrationView)
-        welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            welcomeIllustrationView.topAnchor.constraint(equalTo: view.topAnchor),
-            welcomeIllustrationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: welcomeIllustrationView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: welcomeIllustrationView.bottomAnchor)
-        ])
-        
         mastodonLogo.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mastodonLogo)
-        
+
         NSLayoutConstraint.activate([
             mastodonLogo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             mastodonLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mastodonLogo.widthAnchor.constraint(equalToConstant: 300),
         ])
-        
+
+        setupOnboardingAppearance()
+        setupIllustrationLayout()
+
         buttonContainer.axis = .vertical
         buttonContainer.spacing = 12
         buttonContainer.isLayoutMarginsRelativeArrangement = true
@@ -280,6 +272,8 @@ extension WelcomeViewController {
         if view.safeAreaInsets.bottom == 0 {
             overlap += 56
         }
+
+        welcomeIllustrationViewBottomAnchorLayoutConstraint?.constant = overlap
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -318,9 +312,78 @@ extension WelcomeViewController {
     }
     
     private func setupIllustrationLayout() {
-        welcomeIllustrationView.setup()
-    }
-}
+        welcomeIllustrationView.layout = {
+            switch traitCollection.userInterfaceIdiom {
+                case .phone:
+                    return .compact
+                default:
+                    return .regular
+            }
+        }()
+
+        // set illustration
+        guard welcomeIllustrationView.superview == nil else {
+            return
+        }
+        welcomeIllustrationView.contentMode = .scaleAspectFit
+
+        welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
+        welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 5)
+
+        view.addSubview(welcomeIllustrationView)
+
+        NSLayoutConstraint.activate([
+            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 15),
+            welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 15),
+            welcomeIllustrationViewBottomAnchorLayoutConstraint!.priority(.required - 1),
+        ])
+
+        welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -5, maxX: 5, minY: -5, maxY: 5)
+        )
+        welcomeIllustrationView.rightHillImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -15, maxX: 25, minY: -10, maxY: 10)
+        )
+        welcomeIllustrationView.leftHillImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -25, maxX: 15, minY: -15, maxY: 15)
+        )
+        welcomeIllustrationView.centerHillImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -14, maxX: 14, minY: -5, maxY: 25)
+        )
+
+        let topPaddingView = UIView()
+        topPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(topPaddingView)
+        NSLayoutConstraint.activate([
+            topPaddingView.topAnchor.constraint(equalTo: mastodonLogo.bottomAnchor),
+            topPaddingView.leadingAnchor.constraint(equalTo: mastodonLogo.leadingAnchor),
+            topPaddingView.trailingAnchor.constraint(equalTo: mastodonLogo.trailingAnchor),
+        ])
+        welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
+        NSLayoutConstraint.activate([
+            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 12),  // add 12pt bleeding
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
+            // make a little bit large
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.84),
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor, multiplier: 105.0/318.0),
+        ])
+        let bottomPaddingView = UIView()
+        bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bottomPaddingView)
+        NSLayoutConstraint.activate([
+            bottomPaddingView.topAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor),
+            bottomPaddingView.leadingAnchor.constraint(equalTo: mastodonLogo.leadingAnchor),
+            bottomPaddingView.trailingAnchor.constraint(equalTo: mastodonLogo.trailingAnchor),
+            bottomPaddingView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
+            bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 4),
+        ])
+
+        welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
+        )
+
+      }}
 
 extension WelcomeViewController {
 
