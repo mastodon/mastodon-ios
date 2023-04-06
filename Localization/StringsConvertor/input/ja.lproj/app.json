@@ -348,7 +348,7 @@
                 "server": "プライバシーポリシー - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "同意する"
             }
         },
         "register": {
@@ -419,7 +419,7 @@
             "terms_of_service": "利用規約",
             "privacy_policy": "プライバシーポリシー",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "同意する"
             }
         },
         "confirm_email": {
@@ -466,7 +466,7 @@
             "title": {
                 "new_post": "新しい投稿",
                 "new_reply": "新しい返信",
-                "edit_post": "Edit Post"
+                "edit_post": "投稿の編集"
             },
             "media_selection": {
                 "camera": "写真を撮る",
@@ -490,7 +490,7 @@
                 "server_processing_state": "サーバー処理中..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "投票",
                 "duration_time": "期間: %s",
                 "thirty_minutes": "30分",
                 "one_hour": "1時間",
@@ -501,10 +501,10 @@
                 "option_number": "オプション %ld",
                 "the_poll_is_invalid": "アンケートが無効です",
                 "the_poll_has_empty_option": "アンケートに空のオプションがあります",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "項目を追加",
+                "remove_option": "項目を削除",
+                "move_up": "項目を上に移動",
+                "move_down": "項目を下に移動"
             },
             "content_warning": {
                 "placeholder": "ここに警告を書いてください..."
@@ -538,7 +538,7 @@
                 "select_visibility_entry": "公開設定を選択 - %s"
             },
             "language": {
-                "title": "Post Language",
+                "title": "投稿の言語",
                 "suggested": "Suggested",
                 "recent": "Recent",
                 "other": "Other Language…"
