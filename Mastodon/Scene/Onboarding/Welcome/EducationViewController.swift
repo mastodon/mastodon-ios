@@ -10,8 +10,7 @@ class EducationViewController: UIViewController {
     let serversExplanation: UILabel
 
     private let contentStackView: UIStackView
-//    private let contentScrollView: UIScrollView
-    //TODO: Add ScrollView for dynamic type
+    private let contentScrollView: UIScrollView
 
     init() {
         mastodonLabel = UILabel()
@@ -51,9 +50,13 @@ class EducationViewController: UIViewController {
         contentStackView.setCustomSpacing(24, after: mastodonExplanation)
         contentStackView.setCustomSpacing(2, after: serversLabel)
 
+        contentScrollView = UIScrollView()
+        contentScrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentScrollView.addSubview(contentStackView)
+
         super.init(nibName: nil, bundle: nil)
 
-        view.addSubview(contentStackView)
+        view.addSubview(contentScrollView)
         view.backgroundColor = .systemBackground
 
         setupConstraints()
@@ -63,10 +66,17 @@ class EducationViewController: UIViewController {
 
     private func setupConstraints() {
         let constraints = [
-            contentStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
-            contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            view.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor, constant: 16),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: contentStackView.bottomAnchor, constant: 32),
+            contentStackView.topAnchor.constraint(equalTo: contentScrollView.topAnchor, constant: 32),
+            contentStackView.leadingAnchor.constraint(equalTo: contentScrollView.leadingAnchor, constant: 16),
+            contentScrollView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor, constant: 16),
+            contentScrollView.bottomAnchor.constraint(greaterThanOrEqualTo: contentStackView.bottomAnchor, constant: 32),
+
+            contentScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: contentScrollView.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: contentScrollView.bottomAnchor),
+
+            contentStackView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor, constant: -32),
 
         ]
 
