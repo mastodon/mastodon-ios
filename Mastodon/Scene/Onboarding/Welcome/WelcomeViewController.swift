@@ -177,6 +177,8 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         let button = UIButton(configuration: buttonConfiguration)
         return button
     }()
+
+    let separator = WelcomeSeparatorView(frame: .zero)
 }
 
 extension WelcomeViewController {
@@ -202,7 +204,6 @@ extension WelcomeViewController {
         ])
 
         setupOnboardingAppearance()
-        setupIllustrationLayout()
 
         buttonContainer.axis = .vertical
         buttonContainer.spacing = 12
@@ -229,7 +230,7 @@ extension WelcomeViewController {
             signUpButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
         ])
 
-        buttonContainer.addArrangedSubview(WelcomeSeparatorView(frame: .zero))
+        buttonContainer.addArrangedSubview(separator)
 
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -247,7 +248,11 @@ extension WelcomeViewController {
         bottomButtonStackView.alignment = .center
         bottomButtonStackView.spacing = 16
 
+        setupIllustrationLayout()
+
         buttonContainer.addArrangedSubview(bottomButtonStackView)
+        view.bringSubviewToFront(buttonContainer)
+        view.bringSubviewToFront(mastodonLogo)
 
         joinDefaultServerButton.addTarget(self, action: #selector(joinDefaultServer(_:)), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
@@ -261,6 +266,7 @@ extension WelcomeViewController {
                 self.navigationItem.leftBarButtonItem = needsShowDismissEntry ? self.dismissBarButtonItem : nil
             }
             .store(in: &disposeBag)
+        view.backgroundColor = Asset.Scene.Welcome.signInButtonBackground.color
     }
     
 
@@ -328,7 +334,7 @@ extension WelcomeViewController {
         welcomeIllustrationView.contentMode = .scaleAspectFit
 
         welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
-        welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 5)
+        welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: separator.centerYAnchor)
 
         view.addSubview(welcomeIllustrationView)
 
@@ -362,10 +368,9 @@ extension WelcomeViewController {
         welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
         NSLayoutConstraint.activate([
-            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 12),  // add 12pt bleeding
-            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
+            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.rightAnchor, constant: -104),  // add 12pt bleeding
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: welcomeIllustrationView.leftHillImageView.topAnchor),
             // make a little bit large
-            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.84),
             welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor, multiplier: 105.0/318.0),
         ])
         let bottomPaddingView = UIView()

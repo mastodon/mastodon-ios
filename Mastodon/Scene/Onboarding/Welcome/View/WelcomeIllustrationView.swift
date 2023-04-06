@@ -140,7 +140,7 @@ extension WelcomeIllustrationView {
 
             // draw elephantThreeOnGrassWithTreeTwoImage
             // elephantThreeOnGrassWithTreeTwo.bottomY - 25 align to elephantThreeOnGrassImage.centerY
-            elephantThreeOnGrassWithTreeTwoImage.draw(at: CGPoint(x: width - elephantThreeOnGrassWithTreeTwoImage.size.width, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeTwoImage.size.height + 25))
+            elephantThreeOnGrassWithTreeTwoImage.draw(at: CGPoint(x: width - elephantThreeOnGrassWithTreeTwoImage.size.width + 94, y: height - 0.4 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeTwoImage.size.height + 25))
         }
 
         leftHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
@@ -150,7 +150,7 @@ extension WelcomeIllustrationView {
 
             // draw elephantThreeOnGrassWithTreeThree
             // elephantThreeOnGrassWithTreeThree.bottomY + 30 align to elephantThreeOnGrassImage.centerY
-            elephantThreeOnGrassWithTreeThreeImage.draw(at: CGPoint(x: 0, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeThreeImage.size.height - 30))
+            elephantThreeOnGrassWithTreeThreeImage.draw(at: CGPoint(x: -36, y: height - 0.4 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeThreeImage.size.height - 5))
         }
 
         centerHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
@@ -193,7 +193,7 @@ extension WelcomeIllustrationView {
 
                 // draw elephantThreeOnGrassWithTreeThree
                 // elephantThreeOnGrassWithTreeThree.bottomY + 30 align to elephantThreeOnGrassImage.centerY
-                elephantThreeOnGrassWithTreeThreeImage.draw(at: CGPoint(x: -160, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeThreeImage.size.height - 80))
+                elephantThreeOnGrassWithTreeThreeImage.draw(at: CGPoint(x: -80, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeThreeImage.size.height - 80))
             }
 
             centerHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
