@@ -64,7 +64,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
                                                   trailing: WelcomeViewController.actionButtonPadding.right)
 
         let button = UIButton(configuration: buttonConfiguration)
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
 
         return button
     }()
@@ -89,7 +88,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
                                                   trailing: WelcomeViewController.actionButtonPadding.right)
 
         let button = UIButton(configuration: buttonConfiguration)
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
 
         return button
     }()
