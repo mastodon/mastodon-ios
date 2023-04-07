@@ -92,6 +92,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var viewModel = WelcomeViewModel(context: context)
     
     let welcomeIllustrationView = WelcomeIllustrationView()
+    let separatorView = WelcomeSeparatorView(frame: .zero)
 
     private(set) lazy var mastodonLogo: UIImageView = {
         let imageView = UIImageView(image: Asset.Scene.Welcome.mastodonLogo.image)
@@ -176,6 +177,17 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         let button = UIButton(configuration: buttonConfiguration)
         return button
     }()
+
+    private(set) lazy var bottomButtonStackView: UIStackView = {
+        let bottomButtonStackView = UIStackView(arrangedSubviews: [learnMoreButton, signInButton])
+        bottomButtonStackView.axis = .horizontal
+        bottomButtonStackView.distribution = .fill
+        bottomButtonStackView.alignment = .center
+        bottomButtonStackView.spacing = 16
+        bottomButtonStackView.setContentHuggingPriority(.required, for: .vertical)
+
+        return bottomButtonStackView
+    }()
 }
 
 extension WelcomeViewController {
@@ -195,14 +207,7 @@ extension WelcomeViewController {
 
         view.addSubview(welcomeIllustrationView)
         welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            welcomeIllustrationView.topAnchor.constraint(equalTo: view.topAnchor),
-            welcomeIllustrationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: welcomeIllustrationView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: welcomeIllustrationView.bottomAnchor)
-        ])
-        
+
         mastodonLogo.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mastodonLogo)
         
@@ -227,40 +232,43 @@ extension WelcomeViewController {
         joinDefaultServerButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(joinDefaultServerButton)
         NSLayoutConstraint.activate([
-            joinDefaultServerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+            joinDefaultServerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight)
         ])
-
         
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(signUpButton)
         NSLayoutConstraint.activate([
-            signUpButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+            signUpButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight)
         ])
 
-        buttonContainer.addArrangedSubview(WelcomeSeparatorView(frame: .zero))
+        buttonContainer.addArrangedSubview(separatorView)
 
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            signInButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+            signInButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight)
         ])
 
         learnMoreButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            learnMoreButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+            learnMoreButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight),
+            bottomButtonStackView.heightAnchor.constraint(equalTo: learnMoreButton.heightAnchor),
         ])
 
-        let bottomButtonStackView = UIStackView(arrangedSubviews: [learnMoreButton, signInButton])
-        bottomButtonStackView.axis = .horizontal
-        bottomButtonStackView.distribution = .fill
-        bottomButtonStackView.alignment = .center
-        bottomButtonStackView.spacing = 16
-
         buttonContainer.addArrangedSubview(bottomButtonStackView)
+
+        NSLayoutConstraint.activate([
+            welcomeIllustrationView.topAnchor.constraint(equalTo: view.topAnchor),
+            welcomeIllustrationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: welcomeIllustrationView.trailingAnchor),
+            separatorView.centerYAnchor.constraint(equalTo: welcomeIllustrationView.bottomAnchor)
+        ])
 
         joinDefaultServerButton.addTarget(self, action: #selector(joinDefaultServer(_:)), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signIn(_:)), for: .touchUpInside)
         learnMoreButton.addTarget(self, action: #selector(learnMore(_:)), for: .touchUpInside)
+
+        view.backgroundColor = Asset.Scene.Welcome.Illustration.backgroundGreen.color
         
         viewModel.$needsShowDismissEntry
             .receive(on: DispatchQueue.main)
@@ -303,7 +311,7 @@ extension WelcomeViewController {
             buttonContainer.layoutMargins = UIEdgeInsets(
                 top: 0,
                 left: WelcomeViewController.actionButtonMargin,
-                bottom: WelcomeViewController.viewBottomPaddingHeight,
+                bottom: 0,
                 right: WelcomeViewController.actionButtonMargin
             )
         default:
@@ -311,7 +319,7 @@ extension WelcomeViewController {
             buttonContainer.layoutMargins = UIEdgeInsets(
                 top: 0,
                 left: margin,
-                bottom: WelcomeViewController.viewBottomPaddingHeightExtend,
+                bottom: 0,
                 right: margin
             )
         }

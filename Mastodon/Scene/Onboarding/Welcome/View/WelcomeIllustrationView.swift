@@ -13,10 +13,9 @@ import MastodonLocalization
 
 fileprivate extension CGFloat {
     static let cloudsStartPosition = -20.0
-    static let centerHillStartPosition = 20.0
     static let airplaneStartPosition = -178.0
     static let leftHillStartPosition = 30.0
-    static let rightHillStartPosition = -200.0
+    static let rightHillStartPosition = -125.0
     static let leftHillSpeed = 6.0
     static let centerHillSpeed = 40.0
     static let rightHillSpeed = 6.0
@@ -25,17 +24,10 @@ fileprivate extension CGFloat {
 final class WelcomeIllustrationView: UIView {
     
     private let cloudBaseImage = Asset.Scene.Welcome.Illustration.cloudBase.image
-    private let cloudBaseExtendImage = Asset.Scene.Welcome.Illustration.cloudBaseExtend.image
     private let elephantThreeOnGrassWithTreeTwoImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeTwo.image
     private let elephantThreeOnGrassWithTreeThreeImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeThree.image
     private let elephantThreeOnGrassImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrass.image
     private let elephantThreeOnGrassExtendImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrassExtend.image
-    
-    var cloudsLeftAnchor: NSLayoutConstraint?
-    var elephantOnAirplaneLeftConstraint: NSLayoutConstraint?
-    var leftHillLeftConstraint: NSLayoutConstraint?
-    var centerHillLeftConstraint: NSLayoutConstraint?
-    var rightHillRightConstraint: NSLayoutConstraint?
     
     let elephantOnAirplaneWithContrailImageView: UIImageView = {
         let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.elephantOnAirplaneWithContrail.image)
@@ -69,7 +61,7 @@ final class WelcomeIllustrationView: UIView {
         let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.cloudBase.image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.alpha = 0.3
+//        imageView.alpha = 0.3
         return imageView
     }()
     
@@ -97,57 +89,44 @@ extension WelcomeIllustrationView {
         
         cloudBaseImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(cloudBaseImageView)
-        
-        let cloudsLeftAnchor = cloudBaseImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: .cloudsStartPosition)
+
         NSLayoutConstraint.activate([
-            cloudsLeftAnchor,
-            cloudBaseImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.4),
+            cloudBaseImageView.leftAnchor.constraint(equalTo: leftAnchor),
+            cloudBaseImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             cloudBaseImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             cloudBaseImageView.topAnchor.constraint(equalTo: topAnchor)
         ])
-        self.cloudsLeftAnchor = cloudsLeftAnchor
 
-        let rightHillRightConstraint = rightAnchor.constraint(equalTo: rightHillImageView.rightAnchor, constant: .rightHillStartPosition)
         addSubview(rightHillImageView)
         NSLayoutConstraint.activate([
             rightHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.64),
-            rightHillRightConstraint,
+            rightAnchor.constraint(equalTo: rightHillImageView.rightAnchor, constant: .rightHillStartPosition),
             bottomAnchor.constraint(equalTo: rightHillImageView.bottomAnchor, constant: 149),
         ])
-        self.rightHillRightConstraint = rightHillRightConstraint
-        
-        let leftHillLeftConstraint = leftAnchor.constraint(equalTo: leftHillImageView.leftAnchor, constant: .leftHillStartPosition)
+
         addSubview(leftHillImageView)
         NSLayoutConstraint.activate([
             leftHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.72),
-            leftHillLeftConstraint,
+            leftAnchor.constraint(equalTo: leftHillImageView.leftAnchor, constant: .leftHillStartPosition),
             bottomAnchor.constraint(equalTo: leftHillImageView.bottomAnchor, constant: 187),
         ])
-        
-        self.leftHillLeftConstraint = leftHillLeftConstraint
-        
-        let centerHillLeftConstraint = leftAnchor.constraint(equalTo: centerHillImageView.leftAnchor, constant: .centerHillStartPosition)
-        
+
+        addSubview(elephantOnAirplaneWithContrailImageView)
+
         addSubview(centerHillImageView)
         NSLayoutConstraint.activate([
-            centerHillLeftConstraint,
-            bottomAnchor.constraint(equalTo: centerHillImageView.bottomAnchor, constant: -18),
-            centerHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.2),
+            leftAnchor.constraint(equalTo: centerHillImageView.leftAnchor),
+            bottomAnchor.constraint(equalTo: centerHillImageView.bottomAnchor),
+            rightAnchor.constraint(equalTo: centerHillImageView.rightAnchor),
         ])
-        
-        self.centerHillLeftConstraint = centerHillLeftConstraint
-        
-        addSubview(elephantOnAirplaneWithContrailImageView)
-        
-        let elephantOnAirplaneLeftConstraint = elephantOnAirplaneWithContrailImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: .airplaneStartPosition)  // add 12pt bleeding
+
         NSLayoutConstraint.activate([
-            elephantOnAirplaneLeftConstraint,
+            elephantOnAirplaneWithContrailImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: .airplaneStartPosition),
             elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: leftHillImageView.topAnchor),
             // make a little bit large
             elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.84),
         ])
         
-        self.elephantOnAirplaneLeftConstraint = elephantOnAirplaneLeftConstraint
     }
     
     func setup() {
@@ -174,13 +153,5 @@ extension WelcomeIllustrationView {
         elephantOnAirplaneWithContrailImageView.addMotionEffect(
             UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
         )
-    }
-    
-    func update(contentOffset: CGFloat) {
-        cloudsLeftAnchor?.constant = contentOffset / cloudsDrag + .cloudsStartPosition
-        elephantOnAirplaneLeftConstraint?.constant = contentOffset / airplaneDrag + .airplaneStartPosition
-        leftHillLeftConstraint?.constant = contentOffset / .leftHillSpeed + .leftHillStartPosition
-        centerHillLeftConstraint?.constant = contentOffset / .centerHillSpeed + .centerHillStartPosition
-        rightHillRightConstraint?.constant = contentOffset / .rightHillSpeed + .rightHillStartPosition
     }
 }
