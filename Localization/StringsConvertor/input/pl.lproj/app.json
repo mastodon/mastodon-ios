@@ -80,7 +80,6 @@
                 "save_photo": "Zapisz zdjęcie",
                 "copy_photo": "Kopiuj zdjęcie",
                 "sign_in": "Zaloguj się",
-                "sign_up": "Create Account",
                 "see_more": "Zobacz więcej",
                 "preview": "Podgląd",
                 "copy": "Kopiuj",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Sieć społecznościowa, z powrotem w Twoich rękach.",
-            "get_started": "Rozpocznij",
             "log_in": "Zaloguj się",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "Czym jest",
-                    "description": "Wyobraź sobie, że masz adres e-mail, który kończy się @example.com.\n\nNadal możesz wysyłać i odbierać wiadomości od każdego, nawet jeśli ich e-mail kończy się na @gmail.com lub @icloud.com lub @przykład.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon jest podobny do",
-                    "description": "Twój nick może brzmieć @gothgirl654@example.social, ale nadal możesz obserwować, reblogować i rozmawiać z @fallout5ever@example.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "Jaki wybrać serwer?",
-                    "description": "Różne osoby wybierają różne serwery z różnych powodu. art.example to świetne miejsce dla artystów, podczas gdy glasgow.przykład może być dobrym wyborem dla Szkotów.\n\nNie zrobisz źle wybierając dowolny z naszych rekomendowanych serwerów, dlatego niezależnie od tego który wybierzesz (lub jeśli wpiszesz swój własny na pasku wyszukiwania serwera), nigdy nie przegapisz niczego."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
