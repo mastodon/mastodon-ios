@@ -875,8 +875,8 @@ public enum L10n {
       /// Privacy
       public static let title = L10n.tr("Localizable", "Scene.Privacy.Title", fallback: "Privacy")
       public enum Button {
-        /// I agree
-        public static let confirm = L10n.tr("Localizable", "Scene.Privacy.Button.Confirm", fallback: "I agree")
+        /// I Agree
+        public static let confirm = L10n.tr("Localizable", "Scene.Privacy.Button.Confirm", fallback: "I Agree")
       }
       public enum Policy {
         /// Privacy Policy - Mastodon for iOS
@@ -1381,8 +1381,8 @@ public enum L10n {
       /// Some ground rules.
       public static let title = L10n.tr("Localizable", "Scene.ServerRules.Title", fallback: "Some ground rules.")
       public enum Button {
-        /// I agree
-        public static let confirm = L10n.tr("Localizable", "Scene.ServerRules.Button.Confirm", fallback: "I agree")
+        /// I Agree
+        public static let confirm = L10n.tr("Localizable", "Scene.ServerRules.Button.Confirm", fallback: "I Agree")
       }
     }
     public enum Settings {
@@ -1502,9 +1502,6 @@ public enum L10n {
       public static let logIn = L10n.tr("Localizable", "Scene.Welcome.LogIn", fallback: "Log In")
       /// Pick my own server
       public static let pickServer = L10n.tr("Localizable", "Scene.Welcome.PickServer", fallback: "Pick my own server")
-      /// Social networking
-      /// back in your hands.
-      public static let slogan = L10n.tr("Localizable", "Scene.Welcome.Slogan", fallback: "Social networking\nback in your hands.")
       public enum Education {
         public enum A11Y {
           public enum WhatIsMastodon {

@@ -61,8 +61,6 @@ Please check your internet connection.";
 "Common.Controls.Actions.SharePost" = "Share Post";
 "Common.Controls.Actions.ShareUser" = "Share %@";
 "Common.Controls.Actions.SignIn" = "Log in";
-"Common.Controls.Actions.PickServer" = "Pick my own server";
-"Common.Controls.Actions.LearnMore" = "Learn More";
 "Common.Controls.Actions.Skip" = "Skip";
 "Common.Controls.Actions.TakePhoto" = "Take Photo";
 "Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
@@ -385,7 +383,7 @@ uploaded to Mastodon.";
 "Scene.Register.Input.Username.DuplicatePrompt" = "This username is taken.";
 "Scene.Register.Input.Username.Placeholder" = "username";
 "Scene.Register.Input.Username.Suggestion" = "amazing_%@";
-"Scene.Register.Title" = "Create account";
+"Scene.Register.Title" = "Create Account";
 "Scene.Report.Content1" = "Are there any other posts you’d like to add to the report?";
 "Scene.Report.Content2" = "Is there anything the moderators should know about this report?";
 "Scene.Report.ReportSentTitle" = "Thanks for reporting, we’ll look into this.";
@@ -524,7 +522,6 @@ uploaded to Mastodon.";
 "Scene.Thread.Title" = "Post from %@";
 
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
-
 "Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
 "Scene.Welcome.Education.Mastodon.Description" = "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.";
 "Scene.Welcome.Education.Servers.Title" = "What are servers?";
@@ -532,12 +529,10 @@ uploaded to Mastodon.";
 
 "Scene.Welcome.GetStarted" = "Get Started";
 "Scene.Welcome.LogIn" = "Log In";
-"Scene.Welcome.LogIn" = "Log In";
 "Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.JoinDefault_server" = "Join mastodon.social";
 "Scene.Welcome.PickServer" = "Pick my own server";
 "Scene.Welcome.Separator.Or" = "Or";
-
 "Widget.Common.UnsupportedWidgetFamily" = "Sorry but this Widget family is unsupported.";
 "Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
 "Widget.FollowersCount.ConfigurationDescription" = "Show number of followers.";

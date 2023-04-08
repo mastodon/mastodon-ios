@@ -308,7 +308,7 @@ uploaded to Mastodon.";
 "Scene.Preview.Keyboard.ClosePreview" = "Close Preview";
 "Scene.Preview.Keyboard.ShowNext" = "Show Next";
 "Scene.Preview.Keyboard.ShowPrevious" = "Show Previous";
-"Scene.Privacy.Button.Confirm" = "I agree";
+"Scene.Privacy.Button.Confirm" = "I Agree";
 "Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.";
 "Scene.Privacy.Policy.Ios" = "Privacy Policy - Mastodon for iOS";
 "Scene.Privacy.Policy.Server" = "Privacy Policy - %@";
@@ -476,7 +476,7 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.SignupSpeed.Instant" = "Instant Sign-up";
 "Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "Manual Review";
 "Scene.ServerPicker.Title" = "Pick Server";
-"Scene.ServerRules.Button.Confirm" = "I agree";
+"Scene.ServerRules.Button.Confirm" = "I Agree";
 "Scene.ServerRules.PrivacyPolicy" = "privacy policy";
 "Scene.ServerRules.Prompt" = "By continuing, you’re subject to the terms of service and privacy policy for %@.";
 "Scene.ServerRules.Subtitle" = "These are set and enforced by the %@ moderators.";
@@ -528,9 +528,6 @@ uploaded to Mastodon.";
 "Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
 
 "Scene.Welcome.GetStarted" = "Get Started";
-"Scene.Welcome.LogIn" = "Log In";
-"Scene.Welcome.Slogan" = "Social networking
-back in your hands.";
 "Scene.Welcome.LogIn" = "Log In";
 "Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.JoinDefault_server" = "Join mastodon.social";
