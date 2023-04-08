@@ -80,7 +80,6 @@
                 "save_photo": "Desa la foto",
                 "copy_photo": "Copia la foto",
                 "sign_in": "Inicia sessió",
-                "sign_up": "Crear un compte",
                 "see_more": "Mostra'n més",
                 "preview": "Vista prèvia",
                 "copy": "Copia",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Xarxa social\nde nou a les teves mans.",
-            "get_started": "Comença",
             "log_in": "Inicia sessió",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "Què és",
-                    "description": "Imagina't que tens un adreça de correu electrònic que acaba amb @exemple.com.\n\nEncara pots enviar i rebre correus de qualsevol, inclòs si el seu correu acaba amb @gmail.com o @icloud.com o @exemple.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon és així",
-                    "description": "El teu usuari podria ser @maria@exemple.cat però encara pots seguir, impulsar i xatejar amb @joan@exemple.social."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "Com trio un servidor?",
-                    "description": "Diferents persones trien diferents servidors per qualsevol número de motius. art.exemple és un bon lloc per els artistes mentres que glasgow.example podria seru una bona elecció per els escocesos.\n\nNo et pots equivocar amb cap dels nostres servidors recomanats així que independentment de quin hagis triat (o si tecleges el teu propi servidor en la barra de cerca) no et perderàs res d'enlloc."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
