@@ -260,19 +260,20 @@
     "scene": {
         "welcome": {
             "log_in": "Kirjaudu sisään",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "learn_more": "Lue lisää",
+            "join_default_server": "Liity mastodon.social-palvelimelle",
+            "pick_server": "Pick my own Server",
             "separator": {
-                "or": "or"
+                "or": "tai"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Tervetuloa Mastodoniin",
+                    "description": "Mastodon on hajautettu sosiaalinen verkosto, joka tarkoittaa sitä, ettei sitä hallitse mikään yksittäinen yritys. Se koostuu monista itsenäisesti ylläpidetyistä palvelimista, jotka on liitetty yhteen."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Mitä palvelimet ovat?",
+                    "description": "Jokainen Mastodon-tili sijaitsee jollakin palvelimella, joilla on kaikilla omat arvot, säännöt ja ylläpitäjät. Palvelinvalinnastasi riippumatta voit seurata kaikkien palvelinten käyttäjiä ja viestiä heidän kanssaan."
                 },
                 "a11y": {
                     "what_is_mastodon": {
