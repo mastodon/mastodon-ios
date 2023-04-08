@@ -80,7 +80,6 @@
                 "save_photo": "儲存照片",
                 "copy_photo": "複製照片",
                 "sign_in": "登入",
-                "sign_up": "新增帳號",
                 "see_more": "檢視更多",
                 "preview": "預覽",
                 "copy": "複製",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "社群網路\n還權於您。",
-            "get_started": "新手上路",
             "log_in": "登入",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "什麼是",
-                    "description": "想像您擁有以 @example.com 結尾的 email 信箱地址。\n\n您仍可發送及接收來自任何人的電子郵件，無論他們的信箱是來自 @gmail.com 或 @icloud.com 或 @example.com。"
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon 就像這樣",
-                    "description": "您的帳號可以是 @gothgirl654@example.social，但您仍可跟隨、轉嘟或是與 @fallout5ever@example.online 聊天互動。"
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "如何挑選伺服器？",
-                    "description": "不同人基於各式各樣的原因挑選不同的伺服器。art.example 也許對藝術家來說是個好地方，glasgow.example 也許對於蘇格蘭人來說是個好選擇。\n\n任何我們推薦的伺服器都是不錯的選擇（或著您也能從搜尋欄中輸入您自己的伺服器），您不會錯過任何來自聯邦宇宙角落的嘟嘟聲。"
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
