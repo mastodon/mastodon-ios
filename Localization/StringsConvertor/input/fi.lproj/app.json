@@ -80,7 +80,6 @@
                 "save_photo": "Tallenna kuva",
                 "copy_photo": "Kopioi kuva",
                 "sign_in": "Kirjaudu sisään",
-                "sign_up": "Luo tili",
                 "see_more": "Näytä lisää",
                 "preview": "Esikatselu",
                 "copy": "Kopioi",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Sosiaalinen verkostoituminen\ntakaisin käsissäsi.",
-            "get_started": "Aloita",
             "log_in": "Kirjaudu sisään",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "Mikä on",
-                    "description": "Kuvittele, että sinulla on sähköpostiosoite, joka päättyy @esimerkki.fi.\n\nVoit silti lähettää ja vastaanottaa viestejä kenelle/keneltä tahansa, vaikka heidän osoitteensa päättyvät @gmail.com, @icloud.com tai @esimerkki.fi."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon on sellainen",
-                    "description": "Tunnuksesi saattaa olla @gothgirl654@esimerkki.social, mutta voit silti seurata, edelleenjakaa ja keskustella tunnuksen @fallout5ever@esimerkki.online kanssa."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "Miten valitsen palvelimen?",
-                    "description": "Eri henkilöt valitsevat eri palvelimia vaihtelevista syistä. taide.esimerkki on loistava paikka taiteilijoille, kun taas maarianhamina.esimerkki voi olla hyvä valinta ahvenanmaalaisille.\n\nMikään suosittelemistamme palvelimista ei vie sinua metsään, joten valinnastasi riippumatta (tai vaikka syöttäisit oman vaihtoehdon palvelinhakuun) et jää koskaan paitsi mistään."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
