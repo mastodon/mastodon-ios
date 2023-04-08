@@ -262,14 +262,14 @@
             "log_in": "Accedi",
             "learn_more": "Scopri di più",
             "join_default_server": "Unisciti a mastodon.social",
-            "pick_server": "Pick my own Server",
+            "pick_server": "Scegli il mio server",
             "separator": {
                 "or": "o"
             },
             "education": {
                 "mastodon": {
                     "title": "Benvenuto/a su Mastodon",
-                    "description": "Mastodon è un social network decentralizzato, il che significa che nessuna singola azienda lo controlla. È composto da molti server gestiti in modo indipendente, tutti collegati tra loro."
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
                     "title": "Cosa sono i server?",
