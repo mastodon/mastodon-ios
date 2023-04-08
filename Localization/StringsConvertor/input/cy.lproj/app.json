@@ -80,7 +80,6 @@
                 "save_photo": "Cadw Llun",
                 "copy_photo": "Copïo Llun",
                 "sign_in": "Mewngofnodi",
-                "sign_up": "Create account",
                 "see_more": "Gweld Mwy",
                 "preview": "Rhagolwg",
                 "copy": "Copïo",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Rhwydweithio cymdeithasol, \nyn eich dwylo chi.",
-            "get_started": "Cychwyn Arni",
             "log_in": "Mewngofnodi",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Dileu"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "Mae %s yn defnyddio darparwr e-bost nad yw'n cael ei ganiatáu",
                     "unreachable": "Nid yw %s yn bodoli",
-                    "taken": "Defnyddir %s yn barod",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "Mae %s yn air allweddol a chadwyd",
                     "accepted": "Mae angen cytuno â %s",
                     "blank": "Mae angen cael %s",
@@ -429,18 +427,18 @@
                 "resend": "Ailanfon"
             },
             "dont_receive_email": {
-                "title": "Gwiriwch eich e-byst",
+                "title": "Check your Email",
                 "description": "Gwiriwch a yw eich cyfeiriad e-bost yn gywir a hefyd eich ffolder 'junk' os nad ydych wedi ei gwneud.",
                 "resend_email": "Ailanfon E-bost"
             },
             "open_email_app": {
-                "title": "Gwiriwch eich blwch derbyn.",
+                "title": "Check your Inbox.",
                 "description": "Rydym newydd anfon e-bost atoch chi. Gwiriwch eich ffolder 'junk' os nad ydych wedi ei gwneud.",
                 "mail": "Mail",
                 "open_email_client": "Agor Cleient E-byst"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
@@ -823,11 +821,6 @@
             "tab_bar_hint": "Proffil cyfredol: %s. Tapiwch dwywaith a gwasgu i ddefnyddio'r newidiwr cyfrifon",
             "dismiss_account_switcher": "Diddymu Newidiwr Cyfrifon",
             "add_account": "Ychwanegu Cyfrif"
-        },
-        "wizard": {
-            "new_in_mastodon": "Newydd i Mastodon",
-            "multiple_account_switch_intro_description": "Newid rhwng cyfrifon gwahanol wrth wasgu'r botwm proffil.",
-            "accessibility_hint": "Tapiwch dwywaith i ddiddymu'r dewin hwn"
         },
         "bookmark": {
             "title": "Tudalnodau"

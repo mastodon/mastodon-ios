@@ -80,7 +80,6 @@
                 "save_photo": "保存照片",
                 "copy_photo": "拷贝照片",
                 "sign_in": "登录",
-                "sign_up": "Create account",
                 "see_more": "查看更多",
                 "preview": "预览",
                 "copy": "复制",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "社交网络\n回到你的手中。",
-            "get_started": "开始使用",
             "log_in": "登录",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "删除"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s 包含一个不允许的电子邮件提供商",
                     "unreachable": "%s 似乎不存在",
-                    "taken": "%s 已被使用",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s 是一个保留的关键字",
                     "accepted": "%s 必须被接受",
                     "blank": "%s 为必需项",
@@ -419,7 +417,7 @@
             "terms_of_service": "服务条款",
             "privacy_policy": "隐私政策",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "我同意"
             }
         },
         "confirm_email": {
@@ -429,18 +427,18 @@
                 "resend": "重新发送"
             },
             "dont_receive_email": {
-                "title": "请检查你的邮箱。",
+                "title": "Check your Email",
                 "description": "检查您的电子邮件地址是否正确，同时请检查你的垃圾箱。",
                 "resend_email": "重新发送邮件"
             },
             "open_email_app": {
-                "title": "检查你的邮箱",
+                "title": "Check your Inbox.",
                 "description": "我们刚刚向你发送了一封电子邮件。如果未收到，请检查你的垃圾箱。",
                 "mail": "邮件",
                 "open_email_client": "打开邮件客户端"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
@@ -823,11 +821,6 @@
             "tab_bar_hint": "当前账户：%s。 双击并按住来打开账户切换页面",
             "dismiss_account_switcher": "关闭账户切换页面",
             "add_account": "添加账户"
-        },
-        "wizard": {
-            "new_in_mastodon": "新功能",
-            "multiple_account_switch_intro_description": "按住个人资料标签按钮，即可在多个账户之间进行切换。",
-            "accessibility_hint": "双击关闭此向导"
         },
         "bookmark": {
             "title": "书签"

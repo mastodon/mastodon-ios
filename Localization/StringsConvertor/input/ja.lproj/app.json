@@ -80,7 +80,6 @@
                 "save_photo": "写真を保存",
                 "copy_photo": "写真をコピー",
                 "sign_in": "ログイン",
-                "sign_up": "Create account",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
                 "copy": "コピー",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "ソーシャルネットワーキングを、あなたの手の中に.",
-            "get_started": "はじめる",
             "log_in": "ログイン",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "つながりあう",
-                    "description": "Mastodonのしくみは電子メールとよく似ています。\n\n電子メールは ○○@example.com のようなメールアドレスを持っていれば、 □□@gmail.com や △△@icloud.com はもちろん、同じプロバイダの ◇◇@example.com など、どんな相手にもメールを送れます。"
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "サーバーからサーバーへ",
-                    "description": "電子メールと同様に、@gothgirl654@example.social というMastodonアカウントがあれば、ほかのサーバーの @fallout5ever@example.online をフォローして投稿をブーストしたり、メンションを送ることができます。"
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "サーバーをさがしてみよう",
-                    "description": "サーバーの選びかたは十人十色です。アーティスト同士が集まるサーバーもあれば、とある鉄道の沿線住民が集うサーバーもあります。\n\nアカウント作成に進むと、検索バーとおすすめのサーバーが表示されます。参加したいサーバーが決まっていない場合は、おすすめから選んでみましょう。どのサーバーを選んでも、どこの誰とでもつながれます。"
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -284,7 +282,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "アカウントでログイン",
             "subtitle": "アカウントを作成したサーバーにログインします。",
             "server_search_field": {
                 "placeholder": "URLを入力またはサーバーを検索"
@@ -338,11 +336,11 @@
             "search": {
                 "placeholder": "サーバー名またはURL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "選択せずに次へ進むと、利用中の言語に基づいてサーバーを自動選択します。"
         },
         "privacy": {
             "title": "プライバシーポリシー",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Mastodonアプリはデータを収集しません。一方で、登録するサーバーはそれぞれが異なるポリシーを掲げていることがあります。両方のプライバシーポリシーをよく読み、同意のうえ次へ進んでください。",
             "policy": {
                 "ios": "プライバシーポリシー - Mastodon for iOS",
                 "server": "プライバシーポリシー - %s"
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "アカウントを作成",
             "input": {
                 "avatar": {
                     "delete": "削除"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s は許可されていないメールプロバイダを含んでいます",
                     "unreachable": "%sは存在しないようです",
-                    "taken": "%sは既に使われています",
+                    "taken": "%s はすでに使われています。こちらはいかがですか:",
                     "reserved": "%sは予約語です",
                     "accepted": "%s に合意しなければなりません",
                     "blank": "%sが必要です",
@@ -466,7 +464,7 @@
             "title": {
                 "new_post": "新しい投稿",
                 "new_reply": "新しい返信",
-                "edit_post": "Edit Post"
+                "edit_post": "投稿の編集"
             },
             "media_selection": {
                 "camera": "写真を撮る",
@@ -490,7 +488,7 @@
                 "server_processing_state": "サーバー処理中..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "投票",
                 "duration_time": "期間: %s",
                 "thirty_minutes": "30分",
                 "one_hour": "1時間",
@@ -501,10 +499,10 @@
                 "option_number": "オプション %ld",
                 "the_poll_is_invalid": "アンケートが無効です",
                 "the_poll_has_empty_option": "アンケートに空のオプションがあります",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "項目を追加",
+                "remove_option": "項目を削除",
+                "move_up": "項目を上に移動",
+                "move_down": "項目を下に移動"
             },
             "content_warning": {
                 "placeholder": "ここに警告を書いてください..."
@@ -538,10 +536,10 @@
                 "select_visibility_entry": "公開設定を選択 - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "投稿の言語",
+                "suggested": "推奨される言語",
+                "recent": "最近使った言語",
+                "other": "その他の言語…"
             }
         },
         "profile": {
@@ -823,11 +821,6 @@
             "tab_bar_hint": "現在のアカウント: %s. ダブルタップしてアカウント切替画面を表示します",
             "dismiss_account_switcher": "アカウント切替画面を閉じます",
             "add_account": "アカウントを追加"
-        },
-        "wizard": {
-            "new_in_mastodon": "Mastodon の新機能",
-            "multiple_account_switch_intro_description": "プロフィールボタンを押して複数のアカウントを切り替えます。",
-            "accessibility_hint": "チュートリアルを閉じるには、ダブルタップしてください"
         },
         "bookmark": {
             "title": "ブックマーク"

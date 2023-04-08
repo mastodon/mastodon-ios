@@ -80,7 +80,6 @@
                 "save_photo": "Salva foto",
                 "copy_photo": "Copia foto",
                 "sign_in": "Accedi",
-                "sign_up": "Create account",
                 "see_more": "Visualizza altro",
                 "preview": "Anteprima",
                 "copy": "Copia",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Il social network, di nuovo nelle tue mani.",
-            "get_started": "Inizia",
             "log_in": "Accedi",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "Cos'è",
-                    "description": "Immagina di avere un indirizzo email che termini con @esempio.com.\n\nPuoi comunque inviare e ricevere email da chiunque, anche se la loro email terminasse con @gmail.com o @icloud.com o @esempio.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon è così",
-                    "description": "Il tuo account potrebbe essere @gothgirl654@esempio.social, ma puoi comunque seguire, condividere e chattare con @fallout5ever@esempio.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "Come scelgo un server?",
-                    "description": "Persone diverse scelgono server diversi per una serie di motivi. art.example è un ottimo posto per gli artisti, mentre glasgow.example potrebbe essere una buona scelta per gli scozzesi.\n\nNon puoi sbagliare con nessuno dei nostri server consigliati, quindi indipendentemente da quale scegli (o se inserisci il tuo nella barra di ricerca dei server), non perderai mai un colpo da nessuna parte."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -284,7 +282,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Bentornato/a",
             "subtitle": "Accedi al server sul quale hai creato il tuo account.",
             "server_search_field": {
                 "placeholder": "Inserisci l'URL o cerca il tuo server"
@@ -338,11 +336,11 @@
             "search": {
                 "placeholder": "Cerca il nome o URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Sceglieremo un server in base alla tua lingua se continui senza effettuare una selezione."
         },
         "privacy": {
             "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Sebbene l'app Mastodon non raccolga alcun dato, il server tramite il quale ti registri potrebbe avere una politica diversa. Prenditi un minuto per rivedere e accettare l'informativa sulla privacy dell'app Mastodon e l'informativa sulla privacy del tuo server.",
             "policy": {
                 "ios": "Informativa sulla privacy - Mastodon per iOS",
                 "server": "Informativa sulla privacy - %s"
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Crea un account",
             "input": {
                 "avatar": {
                     "delete": "Elimina"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s contiene un provider email non consentito",
                     "unreachable": "%s non sembra esistere",
-                    "taken": "%s è già in uso",
+                    "taken": "%s è già preso. Che ne pensi di:",
                     "reserved": "%s è una parola chiave riservata",
                     "accepted": "%s deve essere accettato",
                     "blank": "%s è richiesto",
@@ -823,11 +821,6 @@
             "tab_bar_hint": "Profilo corrente selezionato: %s. Doppio tocco e tieni premuto per mostrare il cambio account",
             "dismiss_account_switcher": "Ignora il cambio account",
             "add_account": "Aggiungi account"
-        },
-        "wizard": {
-            "new_in_mastodon": "Nuovo su Mastodon",
-            "multiple_account_switch_intro_description": "Passa tra più account tenendo premuto il pulsante del profilo.",
-            "accessibility_hint": "Doppio tocco per eliminare questa procedura guidata"
         },
         "bookmark": {
             "title": "Segnalibri"

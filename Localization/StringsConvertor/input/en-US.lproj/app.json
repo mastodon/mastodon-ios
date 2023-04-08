@@ -80,7 +80,6 @@
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
                 "see_more": "See More",
                 "preview": "Preview",
                 "copy": "Copy",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
             "log_in": "Log In",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Delete"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
                     "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",
@@ -429,18 +427,18 @@
                 "resend": "Resend"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "Check your Email",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "Resend Email"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
+                "title": "Check your Inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Client"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
@@ -823,11 +821,6 @@
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Add Account"
-        },
-        "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
         },
         "bookmark": {
             "title": "Bookmarks"

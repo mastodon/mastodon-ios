@@ -80,7 +80,6 @@
                 "save_photo": "Gorde argazkia",
                 "copy_photo": "Kopiatu argazkia",
                 "sign_in": "Hasi saioa",
-                "sign_up": "Create account",
                 "see_more": "Ikusi gehiago",
                 "preview": "Aurrebista",
                 "copy": "Copy",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Sare sozialak\nberriz zure eskuetan.",
-            "get_started": "Nola hasi",
             "log_in": "Hasi saioa",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Ezabatu"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s(e)k onartu gabeko eposta hornitzaile bat erabiltzen du",
                     "unreachable": "dirudienez %s ez da existitzen",
-                    "taken": "%s dagoeneko erabiltzen da",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s gako-hitz erreserbatu bat da",
                     "accepted": "%s onartu behar da",
                     "blank": "%s beharrezkoa da",
@@ -429,18 +427,18 @@
                 "resend": "Berbidali"
             },
             "dont_receive_email": {
-                "title": "Begiratu zure eposta",
+                "title": "Check your Email",
                 "description": "Egiaztatu zure eposta helbidea zuzena den eta begiratu zaborraren karpeta.",
                 "resend_email": "Birbidali eposta"
             },
             "open_email_app": {
-                "title": "Egiaztatu zure sarrerako ontzia.",
+                "title": "Check your Inbox.",
                 "description": "Eposta bat bidali dizugu. Egiaztatu zure zaborraren karpeta.",
                 "mail": "Posta",
                 "open_email_client": "Ireki eposta bezeroa"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
@@ -823,11 +821,6 @@
             "tab_bar_hint": "Unean hautatutako profila: %s. Ukitu birritan, ondoren eduki sakatuta kontu-aldatzailea erakusteko",
             "dismiss_account_switcher": "Baztertu kontu-aldatzailea",
             "add_account": "Gehitu kontua"
-        },
-        "wizard": {
-            "new_in_mastodon": "Berria Mastodonen",
-            "multiple_account_switch_intro_description": "Aldatu hainbat konturen artean profilaren botoia sakatuta edukiz.",
-            "accessibility_hint": "Ukitu birritan morroi hau baztertzeko"
         },
         "bookmark": {
             "title": "Laster-markak"

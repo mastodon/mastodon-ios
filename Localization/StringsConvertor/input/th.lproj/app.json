@@ -80,7 +80,6 @@
                 "save_photo": "บันทึกรูปภาพ",
                 "copy_photo": "คัดลอกรูปภาพ",
                 "sign_in": "เข้าสู่ระบบ",
-                "sign_up": "สร้างบัญชี",
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
                 "copy": "คัดลอก",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "เครือข่ายสังคม\nกลับมาอยู่ในมือของคุณ",
-            "get_started": "เริ่มต้นใช้งาน",
             "log_in": "เข้าสู่ระบบ",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "คืออะไร",
-                    "description": "จินตนาการว่าคุณมีที่อยู่อีเมลที่ลงท้ายด้วย @example.com\n\nคุณยังคงสามารถส่งและรับอีเมลจากใครก็ตาม แม้ว่าอีเมลของเขาจะลงท้ายด้วย @gmail.com หรือ @icloud.com หรือ @example.com ก็ตาม"
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon เป็นเช่นนั้น",
-                    "description": "นามของคุณอาจเป็น @gothgirl654@example.social แต่คุณยังคงสามารถติดตาม ดัน และแชทกับ @fallout5ever@example.online"
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "ฉันจะเลือกเซิร์ฟเวอร์อย่างไร?",
-                    "description": "ต่างคนต่างเลือกเซิร์ฟเวอร์ด้วยเหตุผลต่าง ๆ art.example เป็นสถานที่ที่ยอดเยี่ยมสำหรับศิลปิน ขณะที่ glasgow.example อาจเป็นตัวเลือกที่ดีสำหรับชาวสกอต\n\nรับรองว่าคุณต้องชอบเซิร์ฟเวอร์ที่แนะนำของเราใดก็ตาม ดังนั้นไม่ว่าเซิร์ฟเวอร์ใดที่คุณเลือก (หรือหากคุณป้อนของคุณเองในแถบค้นหาเซิร์ฟเวอร์) คุณจะไม่พลาดความเคลื่อนไหวที่ใดก็ตาม"
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -338,11 +336,11 @@
             "search": {
                 "placeholder": "ค้นหาชื่อหรือ URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "เราจะเลือกเซิร์ฟเวอร์ตามภาษาของคุณหากคุณดำเนินการต่อโดยไม่ได้ทำการเลือก"
         },
         "privacy": {
             "title": "ความเป็นส่วนตัว",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "แม้ว่าแอป Mastodon ไม่เก็บรวบรวมข้อมูลใด ๆ เซิร์ฟเวอร์ที่คุณลงทะเบียนผ่านอาจมีนโยบายที่แตกต่างกัน ใช้เวลาสักครู่เพื่อตรวจทานและเห็นด้วยกับนโยบายความเป็นส่วนตัวของแอป Mastodon และนโยบายความเป็นส่วนตัวของเซิร์ฟเวอร์ของคุณ",
             "policy": {
                 "ios": "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS",
                 "server": "นโยบายความเป็นส่วนตัว - %s"
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "สร้างบัญชี",
             "input": {
                 "avatar": {
                     "delete": "ลบ"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s มีผู้ให้บริการอีเมลที่ไม่ได้รับอนุญาต",
                     "unreachable": "ดูเหมือนว่าจะไม่มี %s อยู่",
-                    "taken": "มีการใช้ %s อยู่แล้ว",
+                    "taken": "มีการใช้ %s ไปแล้ว แล้วถ้าเป็น:",
                     "reserved": "%s เป็นคำสำคัญที่สงวนไว้",
                     "accepted": "ต้องยอมรับ %s",
                     "blank": "ต้องการ %s",
@@ -565,7 +563,7 @@
                     "content": "เนื้อหา"
                 },
                 "verified": {
-                    "short": "ตรวจสอบเมื่อ %s",
+                    "short": "ยืนยันเมื่อ %s",
                     "long": "ตรวจสอบความเป็นเจ้าของของลิงก์นี้เมื่อ %s"
                 }
             },
@@ -823,11 +821,6 @@
             "tab_bar_hint": "โปรไฟล์ที่เลือกในปัจจุบัน: %s แตะสองครั้งแล้วกดค้างไว้เพื่อแสดงตัวสลับบัญชี",
             "dismiss_account_switcher": "ปิดตัวสลับบัญชี",
             "add_account": "เพิ่มบัญชี"
-        },
-        "wizard": {
-            "new_in_mastodon": "มาใหม่ใน Mastodon",
-            "multiple_account_switch_intro_description": "สลับระหว่างหลายบัญชีโดยกดปุ่มโปรไฟล์ค้างไว้",
-            "accessibility_hint": "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้"
         },
         "bookmark": {
             "title": "ที่คั่นหน้า"

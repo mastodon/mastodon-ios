@@ -80,7 +80,6 @@
                 "save_photo": "هەڵی بگرە",
                 "copy_photo": "لەبەری بگرەوە",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
                 "see_more": "زیاتر ببینە",
                 "preview": "پێشبینین",
                 "copy": "Copy",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "تۆڕی کۆمەڵایەتی\nلەژێر دەستەکانت.",
-            "get_started": "دەست پێ بکە",
             "log_in": "بچۆ ژوورەوە",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "بیسڕەوە"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s خزمەتگوزارییەکی ئیمێڵی ڕێپێنەدراو بەکار دەهێنێت",
                     "unreachable": "%s بوونی نییە",
-                    "taken": "%s بەکار هێنراوە لەلایەن یەکێکی تر",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s وشەیەکی گیراوە",
                     "accepted": "%s دەبێت قبووڵ بکرێت",
                     "blank": "%s پێویستە",
@@ -429,18 +427,18 @@
                 "resend": "بینێرەوە"
             },
             "dont_receive_email": {
-                "title": "ئیمێڵەکەت ببینە",
+                "title": "Check your Email",
                 "description": "دڵنیا بە لەوەی ئیمێڵەکەت دروستە و هەموو بوخچەکانت بگەڕێ.",
                 "resend_email": "ئیمێڵەکە بنێرەوە"
             },
             "open_email_app": {
-                "title": "ئیمێڵەکانت ببینە.",
+                "title": "Check your Inbox.",
                 "description": "ئیمێڵێکمان بۆ ناردیت. هەموو بوخچەکانت ببینە.",
                 "mail": "Mail",
                 "open_email_client": "بەرنامەی ئیمێڵەکەت بکەوە"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
@@ -823,11 +821,6 @@
             "tab_bar_hint": "هەژماری ئێستا: %s. دوو جا دەستی پیا بنێ بۆ کردنەوەی پێڕستی هەژمارەکان.",
             "dismiss_account_switcher": "پێڕستی هەژمارەکان دابخە",
             "add_account": "هەژمارێک زیاد بکە"
-        },
-        "wizard": {
-            "new_in_mastodon": "نوێ",
-            "multiple_account_switch_intro_description": "هەژمارەکەت بگۆڕە بە دەستڕاگرتن لەسەر دوگمەی پرۆفایلەکە.",
-            "accessibility_hint": "دوو جار دەستی پیا بنێ بۆ داخستنی"
         },
         "bookmark": {
             "title": "Bookmarks"

@@ -80,7 +80,6 @@
                 "save_photo": "Gardar foto",
                 "copy_photo": "Copiar foto",
                 "sign_in": "Acceder",
-                "sign_up": "Crear conta",
                 "see_more": "Ver máis",
                 "preview": "Vista previa",
                 "copy": "Copiar",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Comunicación social\nde volta ás túas mans.",
-            "get_started": "Crear conta",
             "log_in": "Acceder",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "Que é",
-                    "description": "Imaxina que tes un enderezo de email que remata con @exemplo.com.\n\nPodes intercambiar mensaxes con calquera persoa, incluso se o seu email remata en @gmail.com ou @icloud.com ou @exemplo.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon é o mesmo",
-                    "description": "O teu identificador pode ser @rula654@exemplo.social, pero podes seguir, promover e conversar con @gz4libre@exemplo.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "Como elexir un servidor?",
-                    "description": "Pode haber moitas razóns para elexir un servidor. art.exemplo é un bo lugar para artistas, mentras glasgow.exemplo podería ser axeitado para persoas escocesas.\n\nNon terás problemas con calquera dos servidores recomendados, así que independentemente do que elixas (ou se escribes o teu propio na caixa de busca) non botarás nada en falta."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s é un provedor de email non autorizado",
                     "unreachable": "%s semella que non existe",
-                    "taken": "%s xa está en uso",
+                    "taken": "%s xa está pillado. Que tal:",
                     "reserved": "%s é unha palabra reservada",
                     "accepted": "%s debe ser aceptado",
                     "blank": "%s é requerido",
@@ -434,13 +432,13 @@
                 "resend_email": "Volver enviar o correo"
             },
             "open_email_app": {
-                "title": "Mira na caixa de correo.",
+                "title": "Comproba a Caixa de correo.",
                 "description": "Enviámosche un email. Se non aparece, mira no cartafol do lixo.",
                 "mail": "Correo",
                 "open_email_client": "Abrir cliente de email"
             },
             "didnt_get_link": {
-                "prefix": "Non recibiches a Ligazón?",
+                "prefix": "Non recibiches unha ligazón?",
                 "resend_in": "Reenviar (%@)",
                 "resend_now": "Reenviar agora."
             }
@@ -823,11 +821,6 @@
             "tab_bar_hint": "Perfil seleccionado: %s. Dobre toque e manter para mostrar o intercambiador de contas",
             "dismiss_account_switcher": "Desbotar intercambiador de contas",
             "add_account": "Engadir conta"
-        },
-        "wizard": {
-            "new_in_mastodon": "Novidade en Mastodon",
-            "multiple_account_switch_intro_description": "Cambia dunha conta a outra mantendo preso o botón do perfil.",
-            "accessibility_hint": "Dobre toque para desbotar este asistente"
         },
         "bookmark": {
             "title": "Marcadores"

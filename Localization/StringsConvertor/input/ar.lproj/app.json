@@ -80,7 +80,6 @@
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
                 "sign_in": "تسجيلُ الدخول",
-                "sign_up": "Create account",
                 "see_more": "عرض المزيد",
                 "preview": "مُعاينة",
                 "copy": "نَسخ",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "شبكات التواصل الاجتماعي\nمرة أُخرى بين يديك.",
-            "get_started": "ابدأ الآن",
             "log_in": "تسجيلُ الدخول",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "حذف"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "يحتوي %s على موفِّر خدمة بريد إلكتروني غير مسموح به",
                     "unreachable": "يبدوا أنَّ %s غير موجود",
-                    "taken": "إنَّ %s مُستخدَمٌ بالفعل",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "إنَّ %s عبارة عن كلمة مفتاحيَّة محجوزة",
                     "accepted": "يجب أن يُقبل %s",
                     "blank": "%s مَطلوب",
@@ -429,18 +427,18 @@
                 "resend": "إعادَةُ الإرسال"
             },
             "dont_receive_email": {
-                "title": "تحقق من بريدك الإلكتروني",
+                "title": "Check your Email",
                 "description": "تحقق ممَّ إذا كان عنوان بريدك الإلكتروني صحيحًا، وكذلك تأكد مِن مجلد البريد غير الهام إذا لم تكن قد فعلت ذلك.",
                 "resend_email": "إعادة إرسال البريد الإلكتروني"
             },
             "open_email_app": {
-                "title": "تحقَّق من بريدك الوارِد.",
+                "title": "Check your Inbox.",
                 "description": "لقد أرسلنا لك بريدًا إلكترونيًا للتو. تحقق من مجلد البريد غير الهام الخاص بك إذا لم تكن قد فعلت ذلك.",
                 "mail": "البريد",
                 "open_email_client": "فتح عميل البريد الإلكتروني"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
@@ -823,11 +821,6 @@
             "tab_bar_hint": "المِلَفُّ المُحدَّدُ حالِيًّا: %s. اُنقُر نَقرًا مُزدَوَجًا مَعَ الاِستِمرارِ لِإظهارِ مُبدِّلِ الحِساب",
             "dismiss_account_switcher": "تجاهُل مبدِّل الحِساب",
             "add_account": "إضافَةُ حِساب"
-        },
-        "wizard": {
-            "new_in_mastodon": "جديد في ماستودون",
-            "multiple_account_switch_intro_description": "بدِّل بين حسابات متعددة عبر الاستمرار بالضغط على زر الملف الشخصي.",
-            "accessibility_hint": "انقر نقرًا مزدوجًا لتجاهُل النافذة المنبثقة"
         },
         "bookmark": {
             "title": "العَلاماتُ المَرجعيَّة"

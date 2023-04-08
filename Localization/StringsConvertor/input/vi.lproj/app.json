@@ -80,7 +80,6 @@
                 "save_photo": "Lưu ảnh",
                 "copy_photo": "Sao chép ảnh",
                 "sign_in": "Đăng nhập",
-                "sign_up": "Create account",
                 "see_more": "Xem thêm",
                 "preview": "Xem trước",
                 "copy": "Chép",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Mạng xã hội\ndo bạn kiểm soát.",
-            "get_started": "Bắt đầu",
             "log_in": "Đăng nhập",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "What is",
-                    "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon is like that",
-                    "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "How do I pick a server?",
-                    "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -284,7 +282,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Chào mừng trở lại!",
             "subtitle": "Đăng nhập vào máy chủ mà bạn đã tạo tài khoản.",
             "server_search_field": {
                 "placeholder": "Nhập URL hoặc tìm máy chủ"
@@ -338,11 +336,11 @@
             "search": {
                 "placeholder": "Search name or URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Chúng tôi sẽ chọn một máy chủ dựa trên ngôn ngữ của bạn nếu bạn tiếp tục mà không lựa chọn."
         },
         "privacy": {
             "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Mặc dù ứng dụng Mastodon không thu thập thông tin của bạn, máy chủ mà bạn dùng để đăng kí tài khoản có thể có một điều khoản sử dụng khác. Dành một chút thời gian để đọc và chấp nhận điều khoản riêng tư của ứng dụng Mastodon và máy chủ của bạn.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Create account",
+            "title": "Tạo tài khoản",
             "input": {
                 "avatar": {
                     "delete": "Xóa"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s dùng dịch vụ email bị cấm",
                     "unreachable": "%s không tồn tại",
-                    "taken": "%s đã tồn tại",
+                    "taken": "%s đã có người dùng. Gợi ý cho bạn:",
                     "reserved": "%s là một từ khóa hạn chế",
                     "accepted": "%s phải được đồng ý",
                     "blank": "%s là bắt buộc",
@@ -419,7 +417,7 @@
             "terms_of_service": "điều khoản dịch vụ",
             "privacy_policy": "chính sách bảo mật",
             "button": {
-                "confirm": "Tôi đồng ý"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
@@ -429,7 +427,7 @@
                 "resend": "Gửi lại"
             },
             "dont_receive_email": {
-                "title": "Kiểm tra email",
+                "title": "Kiểm tra email của bạn",
                 "description": "Kiểm tra địa chỉ email của bạn đúng chưa hoặc có bị chuyển vào thư rác.",
                 "resend_email": "Gửi lại email"
             },
@@ -440,7 +438,7 @@
                 "open_email_client": "Mở ứng dụng email"
             },
             "didnt_get_link": {
-                "prefix": "Didn't get a Link?",
+                "prefix": "Không nhận được mã?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
@@ -823,11 +821,6 @@
             "tab_bar_hint": "Đang dùng tài khoản: %s. Nhấn hai lần và giữ để đổi sang tài khoản khác",
             "dismiss_account_switcher": "Bỏ qua chuyển đổi tài khoản",
             "add_account": "Thêm tài khoản"
-        },
-        "wizard": {
-            "new_in_mastodon": "Mới trên Mastodon",
-            "multiple_account_switch_intro_description": "Chuyển đổi giữa nhiều tài khoản bằng cách đè giữ nút tài khoản.",
-            "accessibility_hint": "Nhấn hai lần để bỏ qua"
         },
         "bookmark": {
             "title": "Tút đã lưu"

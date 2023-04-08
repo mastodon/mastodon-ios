@@ -80,7 +80,6 @@
                 "save_photo": "Desa la foto",
                 "copy_photo": "Copia la foto",
                 "sign_in": "Inicia sessió",
-                "sign_up": "Crea un compte",
                 "see_more": "Mostra'n més",
                 "preview": "Vista prèvia",
                 "copy": "Copia",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Xarxa social\nde nou a les teves mans.",
-            "get_started": "Comença",
             "log_in": "Inicia sessió",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "Què és",
-                    "description": "Imagina't que tens un adreça de correu electrònic que acaba amb @exemple.com.\n\nEncara pots enviar i rebre correus de qualsevol, inclòs si el seu correu acaba amb @gmail.com o @icloud.com o @exemple.com."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon és així",
-                    "description": "El teu usuari podria ser @maria@exemple.cat però encara pots seguir, impulsar i xatejar amb @joan@exemple.social."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "Com trio un servidor?",
-                    "description": "Diferents persones trien diferents servidors per qualsevol número de motius. art.exemple és un bon lloc per els artistes mentres que glasgow.example podria seru una bona elecció per els escocesos.\n\nNo et pots equivocar amb cap dels nostres servidors recomanats així que independentment de quin hagis triat (o si tecleges el teu propi servidor en la barra de cerca) no et perderàs res d'enlloc."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -352,7 +350,7 @@
             }
         },
         "register": {
-            "title": "Crea un compte",
+            "title": "Crear un compte",
             "input": {
                 "avatar": {
                     "delete": "Suprimeix"
@@ -395,7 +393,7 @@
                 "reason": {
                     "blocked": "%s conté un proveïdor de correu electrònic no autoritzat",
                     "unreachable": "%s sembla que no existeix",
-                    "taken": "%s ja s’està fent servir",
+                    "taken": "%s ja està agafat. Què et sembla:",
                     "reserved": "%s és una paraula clau reservada",
                     "accepted": "%s ha de ser acceptat",
                     "blank": "%s és requerit",
@@ -429,7 +427,7 @@
                 "resend": "Reenvia"
             },
             "dont_receive_email": {
-                "title": "Comprova el teu correu",
+                "title": "Revisa el teu correu",
                 "description": "Comprova que la teva adreça de correu electrònic és correcte i revisa la carpeta de correu brossa si encara no ho has fet.",
                 "resend_email": "Torna a enviar el correu"
             },
@@ -823,11 +821,6 @@
             "tab_bar_hint": "Perfil actual seleccionat: %s. Toca dues vegades i manté el dit per a mostrar el commutador de comptes",
             "dismiss_account_switcher": "Descartar el commutador de comptes",
             "add_account": "Afegir compte"
-        },
-        "wizard": {
-            "new_in_mastodon": "Nou a Mastodon",
-            "multiple_account_switch_intro_description": "Commuta entre diversos comptes mantenint premut el botó del perfil.",
-            "accessibility_hint": "Toca dues vegades per descartar l'assistent"
         },
         "bookmark": {
             "title": "Marcadors"
