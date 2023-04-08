@@ -80,7 +80,6 @@
                 "save_photo": "写真を保存",
                 "copy_photo": "写真をコピー",
                 "sign_in": "ログイン",
-                "sign_up": "アカウントを作成",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
                 "copy": "コピー",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "ソーシャルネットワーキングを、あなたの手の中に.",
-            "get_started": "はじめる",
             "log_in": "ログイン",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "つながりあう",
-                    "description": "Mastodonのしくみは電子メールとよく似ています。\n\n電子メールは ○○@example.com のようなメールアドレスを持っていれば、 □□@gmail.com や △△@icloud.com はもちろん、同じプロバイダの ◇◇@example.com など、どんな相手にもメールを送れます。"
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "サーバーからサーバーへ",
-                    "description": "電子メールと同様に、@gothgirl654@example.social というMastodonアカウントがあれば、ほかのサーバーの @fallout5ever@example.online をフォローして投稿をブーストしたり、メンションを送ることができます。"
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "サーバーをさがしてみよう",
-                    "description": "サーバーの選びかたは十人十色です。アーティスト同士が集まるサーバーもあれば、とある鉄道の沿線住民が集うサーバーもあります。\n\nアカウント作成に進むと、検索バーとおすすめのサーバーが表示されます。参加したいサーバーが決まっていない場合は、おすすめから選んでみましょう。どのサーバーを選んでも、どこの誰とでもつながれます。"
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
