@@ -136,6 +136,8 @@ public enum L10n {
         public static let editPost = L10n.tr("Localizable", "Common.Controls.Actions.EditPost", fallback: "Edit")
         /// Find people to follow
         public static let findPeople = L10n.tr("Localizable", "Common.Controls.Actions.FindPeople", fallback: "Find people to follow")
+        /// Join mastodon.social
+        public static let joinDefaultServer = L10n.tr("Localizable", "Common.Controls.Actions.JoinDefaultServer", fallback: "Join mastodon.social")
         /// Manually search instead
         public static let manuallySearch = L10n.tr("Localizable", "Common.Controls.Actions.ManuallySearch", fallback: "Manually search instead")
         /// Next
@@ -178,8 +180,6 @@ public enum L10n {
         }
         /// Log in
         public static let signIn = L10n.tr("Localizable", "Common.Controls.Actions.SignIn", fallback: "Log in")
-        /// Create Account
-        public static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp", fallback: "Create Account")
         /// Skip
         public static let skip = L10n.tr("Localizable", "Common.Controls.Actions.Skip", fallback: "Skip")
         /// Take Photo
@@ -1494,8 +1494,14 @@ public enum L10n {
     public enum Welcome {
       /// Get Started
       public static let getStarted = L10n.tr("Localizable", "Scene.Welcome.GetStarted", fallback: "Get Started")
+      /// Join mastodon.social
+      public static let joinDefaultServer = L10n.tr("Localizable", "Scene.Welcome.JoinDefault_server", fallback: "Join mastodon.social")
+      /// Learn more
+      public static let learnMore = L10n.tr("Localizable", "Scene.Welcome.LearnMore", fallback: "Learn more")
       /// Log In
       public static let logIn = L10n.tr("Localizable", "Scene.Welcome.LogIn", fallback: "Log In")
+      /// Pick my own server
+      public static let pickServer = L10n.tr("Localizable", "Scene.Welcome.PickServer", fallback: "Pick my own server")
       /// Social networking
       /// back in your hands.
       public static let slogan = L10n.tr("Localizable", "Scene.Welcome.Slogan", fallback: "Social networking\nback in your hands.")
@@ -1506,28 +1512,22 @@ public enum L10n {
             public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title", fallback: "What is Mastodon?")
           }
         }
-        public enum HowDoIPickAServer {
-          /// Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.
-          /// 
-          /// You can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.
-          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.HowDoIPickAServer.Description", fallback: "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.")
-          /// How do I pick a server?
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.HowDoIPickAServer.Title", fallback: "How do I pick a server?")
+        public enum Mastodon {
+          /// Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.
+          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.Mastodon.Description", fallback: "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.")
+          /// Welcome to Mastodon
+          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.Mastodon.Title", fallback: "Welcome to Mastodon")
         }
-        public enum MastodonIsLikeThat {
-          /// Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.
-          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.MastodonIsLikeThat.Description", fallback: "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.")
-          /// Mastodon is like that
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.MastodonIsLikeThat.Title", fallback: "Mastodon is like that")
+        public enum Servers {
+          /// Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.
+          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.Servers.Description", fallback: "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.")
+          /// What are servers?
+          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.Servers.Title", fallback: "What are servers?")
         }
-        public enum WhatIsMastodon {
-          /// Imagine you have an email address that ends with @example.com.
-          /// 
-          /// You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.
-          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.Description", fallback: "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.")
-          /// What is
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.Title", fallback: "What is")
-        }
+      }
+      public enum Separator {
+        /// Or
+        public static let or = L10n.tr("Localizable", "Scene.Welcome.Separator.Or", fallback: "Or")
       }
     }
   }

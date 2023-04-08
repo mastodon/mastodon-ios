@@ -205,6 +205,7 @@ public enum Asset {
     public enum Welcome {
       public enum Illustration {
         public static let backgroundCyan = ColorAsset(name: "Scene/Welcome/illustration/background.cyan")
+        public static let backgroundGreen = ColorAsset(name: "Scene/Welcome/illustration/background.green")
         public static let cloudBaseExtend = ImageAsset(name: "Scene/Welcome/illustration/cloud.base.extend")
         public static let cloudBase = ImageAsset(name: "Scene/Welcome/illustration/cloud.base")
         public static let elephantOnAirplaneWithContrail = ImageAsset(name: "Scene/Welcome/illustration/elephant.on.airplane.with.contrail")
@@ -214,7 +215,6 @@ public enum Asset {
         public static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.two")
       }
       public static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
-      public static let signInButtonBackground = ColorAsset(name: "Scene/Welcome/sign.in.button.background")
     }
   }
   public enum Settings {

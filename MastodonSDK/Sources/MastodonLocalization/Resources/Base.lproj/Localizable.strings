@@ -61,13 +61,13 @@ Please check your internet connection.";
 "Common.Controls.Actions.SharePost" = "Share Post";
 "Common.Controls.Actions.ShareUser" = "Share %@";
 "Common.Controls.Actions.SignIn" = "Log in";
-"Common.Controls.Actions.SignUp" = "Create Account";
 "Common.Controls.Actions.Skip" = "Skip";
 "Common.Controls.Actions.TakePhoto" = "Take Photo";
 "Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "Try Again";
 "Common.Controls.Actions.UnblockDomain" = "Unblock %@";
+"Common.Controls.Actions.JoinDefaultServer" = "Join mastodon.social";
 "Common.Controls.Friendship.Block" = "Block";
 "Common.Controls.Friendship.BlockDomain" = "Block %@";
 "Common.Controls.Friendship.BlockUser" = "Block %@";
@@ -520,21 +520,22 @@ uploaded to Mastodon.";
 "Scene.SuggestionAccount.Title" = "Find People to Follow";
 "Scene.Thread.BackTitle" = "Post";
 "Scene.Thread.Title" = "Post from %@";
+
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
-"Scene.Welcome.Education.HowDoIPickAServer.Description" = "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.
+"Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
+"Scene.Welcome.Education.Mastodon.Description" = "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.";
+"Scene.Welcome.Education.Servers.Title" = "What are servers?";
+"Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
 
-You can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.";
-"Scene.Welcome.Education.HowDoIPickAServer.Title" = "How do I pick a server?";
-"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.";
-"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "Mastodon is like that";
-"Scene.Welcome.Education.WhatIsMastodon.Description" = "Imagine you have an email address that ends with @example.com.
-
-You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.";
-"Scene.Welcome.Education.WhatIsMastodon.Title" = "What is";
 "Scene.Welcome.GetStarted" = "Get Started";
 "Scene.Welcome.LogIn" = "Log In";
 "Scene.Welcome.Slogan" = "Social networking
 back in your hands.";
+"Scene.Welcome.LogIn" = "Log In";
+"Scene.Welcome.LearnMore" = "Learn more";
+"Scene.Welcome.JoinDefault_server" = "Join mastodon.social";
+"Scene.Welcome.PickServer" = "Pick my own server";
+"Scene.Welcome.Separator.Or" = "Or";
 "Widget.Common.UnsupportedWidgetFamily" = "Sorry but this Widget family is unsupported.";
 "Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
 "Widget.FollowersCount.ConfigurationDescription" = "Show number of followers.";
