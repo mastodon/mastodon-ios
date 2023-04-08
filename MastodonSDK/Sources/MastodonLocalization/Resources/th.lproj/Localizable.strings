@@ -61,7 +61,6 @@
 "Common.Controls.Actions.SharePost" = "แบ่งปันโพสต์";
 "Common.Controls.Actions.ShareUser" = "แบ่งปัน %@";
 "Common.Controls.Actions.SignIn" = "เข้าสู่ระบบ";
-"Common.Controls.Actions.SignUp" = "สร้างบัญชี";
 "Common.Controls.Actions.Skip" = "ข้าม";
 "Common.Controls.Actions.TakePhoto" = "ถ่ายรูป";
 "Common.Controls.Actions.TranslatePost.Title" = "แปลจาก %@";
@@ -309,7 +308,7 @@
 "Scene.Preview.Keyboard.ShowNext" = "แสดงถัดไป";
 "Scene.Preview.Keyboard.ShowPrevious" = "แสดงก่อนหน้า";
 "Scene.Privacy.Button.Confirm" = "ฉันเห็นด้วย";
-"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.";
+"Scene.Privacy.Description" = "แม้ว่าแอป Mastodon ไม่เก็บรวบรวมข้อมูลใด ๆ เซิร์ฟเวอร์ที่คุณลงทะเบียนผ่านอาจมีนโยบายที่แตกต่างกัน ใช้เวลาสักครู่เพื่อตรวจทานและเห็นด้วยกับนโยบายความเป็นส่วนตัวของแอป Mastodon และนโยบายความเป็นส่วนตัวของเซิร์ฟเวอร์ของคุณ";
 "Scene.Privacy.Policy.Ios" = "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS";
 "Scene.Privacy.Policy.Server" = "นโยบายความเป็นส่วนตัว - %@";
 "Scene.Privacy.Title" = "ความเป็นส่วนตัว";
@@ -329,7 +328,7 @@
 "Scene.Profile.Fields.Placeholder.Content" = "เนื้อหา";
 "Scene.Profile.Fields.Placeholder.Label" = "ป้ายชื่อ";
 "Scene.Profile.Fields.Verified.Long" = "ตรวจสอบความเป็นเจ้าของของลิงก์นี้เมื่อ %@";
-"Scene.Profile.Fields.Verified.Short" = "ตรวจสอบเมื่อ %@";
+"Scene.Profile.Fields.Verified.Short" = "ยืนยันเมื่อ %@";
 "Scene.Profile.Header.FollowsYou" = "ติดตามคุณ";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "ยืนยันเพื่อปิดกั้น %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ปิดกั้นบัญชี";
@@ -361,7 +360,7 @@
 "Scene.Register.Error.Reason.Inclusion" = "%@ ไม่ใช่ค่าที่รองรับ";
 "Scene.Register.Error.Reason.Invalid" = "%@ ไม่ถูกต้อง";
 "Scene.Register.Error.Reason.Reserved" = "%@ เป็นคำสำคัญที่สงวนไว้";
-"Scene.Register.Error.Reason.Taken" = "มีการใช้ %@ อยู่แล้ว";
+"Scene.Register.Error.Reason.Taken" = "มีการใช้ %@ ไปแล้ว แล้วถ้าเป็น:";
 "Scene.Register.Error.Reason.TooLong" = "%@ ยาวเกินไป";
 "Scene.Register.Error.Reason.TooShort" = "%@ สั้นเกินไป";
 "Scene.Register.Error.Reason.Unreachable" = "ดูเหมือนว่าจะไม่มี %@ อยู่";
@@ -383,7 +382,7 @@
 "Scene.Register.Input.Username.DuplicatePrompt" = "มีการใช้ชื่อผู้ใช้นี้แล้ว";
 "Scene.Register.Input.Username.Placeholder" = "ชื่อผู้ใช้";
 "Scene.Register.Input.Username.Suggestion" = "amazing_%@";
-"Scene.Register.Title" = "Create account";
+"Scene.Register.Title" = "สร้างบัญชี";
 "Scene.Report.Content1" = "มีโพสต์อื่นใดที่คุณต้องการเพิ่มไปยังรายงานหรือไม่?";
 "Scene.Report.Content2" = "มีสิ่งใดที่ผู้ควบคุมควรทราบเกี่ยวกับรายงานนี้หรือไม่?";
 "Scene.Report.ReportSentTitle" = "ขอบคุณสำหรับการรายงาน เราจะตรวจสอบสิ่งนี้";
@@ -470,7 +469,7 @@
 "Scene.ServerPicker.Label.Language" = "ภาษา";
 "Scene.ServerPicker.Label.Users" = "ผู้ใช้";
 "Scene.ServerPicker.Language.All" = "ทั้งหมด";
-"Scene.ServerPicker.NoServerSelectedHint" = "We’ll pick a server based on your language if you continue without making a selection.";
+"Scene.ServerPicker.NoServerSelectedHint" = "เราจะเลือกเซิร์ฟเวอร์ตามภาษาของคุณหากคุณดำเนินการต่อโดยไม่ได้ทำการเลือก";
 "Scene.ServerPicker.Search.Placeholder" = "ค้นหาชื่อหรือ URL";
 "Scene.ServerPicker.SignupSpeed.All" = "ทั้งหมด";
 "Scene.ServerPicker.SignupSpeed.Instant" = "การลงทะเบียนทันที";
@@ -521,23 +520,15 @@
 "Scene.Thread.BackTitle" = "โพสต์";
 "Scene.Thread.Title" = "โพสต์จาก %@";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "Mastodon คืออะไร?";
-"Scene.Welcome.Education.HowDoIPickAServer.Description" = "ต่างคนต่างเลือกเซิร์ฟเวอร์ด้วยเหตุผลต่าง ๆ art.example เป็นสถานที่ที่ยอดเยี่ยมสำหรับศิลปิน ขณะที่ glasgow.example อาจเป็นตัวเลือกที่ดีสำหรับชาวสกอต
-
-รับรองว่าคุณต้องชอบเซิร์ฟเวอร์ที่แนะนำของเราใดก็ตาม ดังนั้นไม่ว่าเซิร์ฟเวอร์ใดที่คุณเลือก (หรือหากคุณป้อนของคุณเองในแถบค้นหาเซิร์ฟเวอร์) คุณจะไม่พลาดความเคลื่อนไหวที่ใดก็ตาม";
-"Scene.Welcome.Education.HowDoIPickAServer.Title" = "ฉันจะเลือกเซิร์ฟเวอร์อย่างไร?";
-"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "นามของคุณอาจเป็น @gothgirl654@example.social แต่คุณยังคงสามารถติดตาม ดัน และแชทกับ @fallout5ever@example.online";
-"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "Mastodon เป็นเช่นนั้น";
-"Scene.Welcome.Education.WhatIsMastodon.Description" = "จินตนาการว่าคุณมีที่อยู่อีเมลที่ลงท้ายด้วย @example.com
-
-คุณยังคงสามารถส่งและรับอีเมลจากใครก็ตาม แม้ว่าอีเมลของเขาจะลงท้ายด้วย @gmail.com หรือ @icloud.com หรือ @example.com ก็ตาม";
-"Scene.Welcome.Education.WhatIsMastodon.Title" = "คืออะไร";
-"Scene.Welcome.GetStarted" = "เริ่มต้นใช้งาน";
+"Scene.Welcome.Education.Mastodon.Description" = "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.";
+"Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
+"Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
+"Scene.Welcome.Education.Servers.Title" = "What are servers?";
+"Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
+"Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "เข้าสู่ระบบ";
-"Scene.Welcome.Slogan" = "เครือข่ายสังคม
-กลับมาอยู่ในมือของคุณ";
-"Scene.Wizard.AccessibilityHint" = "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้";
-"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "สลับระหว่างหลายบัญชีโดยกดปุ่มโปรไฟล์ค้างไว้";
-"Scene.Wizard.NewInMastodon" = "มาใหม่ใน Mastodon";
+"Scene.Welcome.PickServer" = "Pick my own Server";
+"Scene.Welcome.Separator.Or" = "or";
 "Widget.Common.UnsupportedWidgetFamily" = "ขออภัยแต่ไม่รองรับตระกูลวิดเจ็ตนี้";
 "Widget.Common.UserNotLoggedIn" = "โปรดเปิด Mastodon เพื่อเข้าสู่ระบบบัญชี";
 "Widget.FollowersCount.ConfigurationDescription" = "แสดงจำนวนผู้ติดตาม";

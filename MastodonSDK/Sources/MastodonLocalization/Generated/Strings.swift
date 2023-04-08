@@ -136,8 +136,6 @@ public enum L10n {
         public static let editPost = L10n.tr("Localizable", "Common.Controls.Actions.EditPost", fallback: "Edit")
         /// Find people to follow
         public static let findPeople = L10n.tr("Localizable", "Common.Controls.Actions.FindPeople", fallback: "Find people to follow")
-        /// Join mastodon.social
-        public static let joinDefaultServer = L10n.tr("Localizable", "Common.Controls.Actions.JoinDefaultServer", fallback: "Join mastodon.social")
         /// Manually search instead
         public static let manuallySearch = L10n.tr("Localizable", "Common.Controls.Actions.ManuallySearch", fallback: "Manually search instead")
         /// Next
@@ -1492,16 +1490,14 @@ public enum L10n {
       }
     }
     public enum Welcome {
-      /// Get Started
-      public static let getStarted = L10n.tr("Localizable", "Scene.Welcome.GetStarted", fallback: "Get Started")
       /// Join mastodon.social
-      public static let joinDefaultServer = L10n.tr("Localizable", "Scene.Welcome.JoinDefault_server", fallback: "Join mastodon.social")
+      public static let joinDefaultServer = L10n.tr("Localizable", "Scene.Welcome.JoinDefaultServer", fallback: "Join mastodon.social")
       /// Learn more
       public static let learnMore = L10n.tr("Localizable", "Scene.Welcome.LearnMore", fallback: "Learn more")
       /// Log In
       public static let logIn = L10n.tr("Localizable", "Scene.Welcome.LogIn", fallback: "Log In")
-      /// Pick my own server
-      public static let pickServer = L10n.tr("Localizable", "Scene.Welcome.PickServer", fallback: "Pick my own server")
+      /// Pick my own Server
+      public static let pickServer = L10n.tr("Localizable", "Scene.Welcome.PickServer", fallback: "Pick my own Server")
       public enum Education {
         public enum A11Y {
           public enum WhatIsMastodon {
@@ -1523,8 +1519,8 @@ public enum L10n {
         }
       }
       public enum Separator {
-        /// Or
-        public static let or = L10n.tr("Localizable", "Scene.Welcome.Separator.Or", fallback: "Or")
+        /// or
+        public static let or = L10n.tr("Localizable", "Scene.Welcome.Separator.Or", fallback: "or")
       }
     }
   }

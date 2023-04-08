@@ -61,7 +61,6 @@
 "Common.Controls.Actions.SharePost" = "投稿を共有";
 "Common.Controls.Actions.ShareUser" = "%@を共有";
 "Common.Controls.Actions.SignIn" = "ログイン";
-"Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "スキップ";
 "Common.Controls.Actions.TakePhoto" = "写真を撮る";
 "Common.Controls.Actions.TranslatePost.Title" = "%@から翻訳";
@@ -213,30 +212,30 @@
 "Scene.Compose.Keyboard.SelectVisibilityEntry" = "公開設定を選択 - %@";
 "Scene.Compose.Keyboard.ToggleContentWarning" = "閲覧注意を切り替える";
 "Scene.Compose.Keyboard.TogglePoll" = "投票を切り替える";
-"Scene.Compose.Language.Other" = "Other Language…";
-"Scene.Compose.Language.Recent" = "Recent";
-"Scene.Compose.Language.Suggested" = "Suggested";
-"Scene.Compose.Language.Title" = "Post Language";
+"Scene.Compose.Language.Other" = "その他の言語…";
+"Scene.Compose.Language.Recent" = "最近使った言語";
+"Scene.Compose.Language.Suggested" = "推奨される言語";
+"Scene.Compose.Language.Title" = "投稿の言語";
 "Scene.Compose.MediaSelection.Browse" = "ブラウズ";
 "Scene.Compose.MediaSelection.Camera" = "写真を撮る";
 "Scene.Compose.MediaSelection.PhotoLibrary" = "フォトライブラリ";
-"Scene.Compose.Poll.AddOption" = "Add Option";
+"Scene.Compose.Poll.AddOption" = "項目を追加";
 "Scene.Compose.Poll.DurationTime" = "期間: %@";
-"Scene.Compose.Poll.MoveDown" = "Move Down";
-"Scene.Compose.Poll.MoveUp" = "Move Up";
+"Scene.Compose.Poll.MoveDown" = "項目を下に移動";
+"Scene.Compose.Poll.MoveUp" = "項目を上に移動";
 "Scene.Compose.Poll.OneDay" = "1日";
 "Scene.Compose.Poll.OneHour" = "1時間";
 "Scene.Compose.Poll.OptionNumber" = "オプション %ld";
-"Scene.Compose.Poll.RemoveOption" = "Remove Option";
+"Scene.Compose.Poll.RemoveOption" = "項目を削除";
 "Scene.Compose.Poll.SevenDays" = "7日";
 "Scene.Compose.Poll.SixHours" = "6時間";
 "Scene.Compose.Poll.ThePollHasEmptyOption" = "アンケートに空のオプションがあります";
 "Scene.Compose.Poll.ThePollIsInvalid" = "アンケートが無効です";
 "Scene.Compose.Poll.ThirtyMinutes" = "30分";
 "Scene.Compose.Poll.ThreeDays" = "3日";
-"Scene.Compose.Poll.Title" = "Poll";
+"Scene.Compose.Poll.Title" = "投票";
 "Scene.Compose.ReplyingToUser" = "%@に返信";
-"Scene.Compose.Title.EditPost" = "Edit Post";
+"Scene.Compose.Title.EditPost" = "投稿の編集";
 "Scene.Compose.Title.NewPost" = "新しい投稿";
 "Scene.Compose.Title.NewReply" = "新しい返信";
 "Scene.Compose.Visibility.Direct" = "ダイレクト";
@@ -285,7 +284,7 @@
 "Scene.HomeTimeline.Title" = "ホーム";
 "Scene.Login.ServerSearchField.Placeholder" = "URLを入力またはサーバーを検索";
 "Scene.Login.Subtitle" = "アカウントを作成したサーバーにログインします。";
-"Scene.Login.Title" = "Welcome back";
+"Scene.Login.Title" = "アカウントでログイン";
 "Scene.Notification.FollowRequest.Accept" = "承認";
 "Scene.Notification.FollowRequest.Accepted" = "承諾済み";
 "Scene.Notification.FollowRequest.Reject" = "拒否";
@@ -304,7 +303,7 @@
 "Scene.Preview.Keyboard.ShowNext" = "次を見る";
 "Scene.Preview.Keyboard.ShowPrevious" = "前を見る";
 "Scene.Privacy.Button.Confirm" = "同意する";
-"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.";
+"Scene.Privacy.Description" = "Mastodonアプリはデータを収集しません。一方で、登録するサーバーはそれぞれが異なるポリシーを掲げていることがあります。両方のプライバシーポリシーをよく読み、同意のうえ次へ進んでください。";
 "Scene.Privacy.Policy.Ios" = "プライバシーポリシー - Mastodon for iOS";
 "Scene.Privacy.Policy.Server" = "プライバシーポリシー - %@";
 "Scene.Privacy.Title" = "プライバシーポリシー";
@@ -356,7 +355,7 @@
 "Scene.Register.Error.Reason.Inclusion" = "%@ はサポートされていない値です";
 "Scene.Register.Error.Reason.Invalid" = "%@は無効です";
 "Scene.Register.Error.Reason.Reserved" = "%@は予約語です";
-"Scene.Register.Error.Reason.Taken" = "%@は既に使われています";
+"Scene.Register.Error.Reason.Taken" = "%@ はすでに使われています。こちらはいかがですか:";
 "Scene.Register.Error.Reason.TooLong" = "%@は長すぎます";
 "Scene.Register.Error.Reason.TooShort" = "%@は短すぎます";
 "Scene.Register.Error.Reason.Unreachable" = "%@は存在しないようです";
@@ -378,7 +377,7 @@
 "Scene.Register.Input.Username.DuplicatePrompt" = "このユーザー名は使用されています";
 "Scene.Register.Input.Username.Placeholder" = "ユーザー名";
 "Scene.Register.Input.Username.Suggestion" = "%@_don";
-"Scene.Register.Title" = "Create account";
+"Scene.Register.Title" = "アカウントを作成";
 "Scene.Report.Content1" = "他に通報したい投稿はありますか？";
 "Scene.Report.Content2" = "この通報についてモデレーターに伝達しておきたい事項はありますか？";
 "Scene.Report.ReportSentTitle" = "ご報告ありがとうございます、追って確認します。";
@@ -465,7 +464,7 @@
 "Scene.ServerPicker.Label.Language" = "言語";
 "Scene.ServerPicker.Label.Users" = "ユーザー";
 "Scene.ServerPicker.Language.All" = "すべての言語";
-"Scene.ServerPicker.NoServerSelectedHint" = "We’ll pick a server based on your language if you continue without making a selection.";
+"Scene.ServerPicker.NoServerSelectedHint" = "選択せずに次へ進むと、利用中の言語に基づいてサーバーを自動選択します。";
 "Scene.ServerPicker.Search.Placeholder" = "サーバー名またはURL";
 "Scene.ServerPicker.SignupSpeed.All" = "指定しない";
 "Scene.ServerPicker.SignupSpeed.Instant" = "開放";
@@ -516,22 +515,15 @@
 "Scene.Thread.BackTitle" = "投稿";
 "Scene.Thread.Title" = "%@の投稿";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "つながりあうMastodon？";
-"Scene.Welcome.Education.HowDoIPickAServer.Description" = "サーバーの選びかたは十人十色です。アーティスト同士が集まるサーバーもあれば、とある鉄道の沿線住民が集うサーバーもあります。
-
-アカウント作成に進むと、検索バーとおすすめのサーバーが表示されます。参加したいサーバーが決まっていない場合は、おすすめから選んでみましょう。どのサーバーを選んでも、どこの誰とでもつながれます。";
-"Scene.Welcome.Education.HowDoIPickAServer.Title" = "サーバーをさがしてみよう";
-"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "電子メールと同様に、@gothgirl654@example.social というMastodonアカウントがあれば、ほかのサーバーの @fallout5ever@example.online をフォローして投稿をブーストしたり、メンションを送ることができます。";
-"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "サーバーからサーバーへ";
-"Scene.Welcome.Education.WhatIsMastodon.Description" = "Mastodonのしくみは電子メールとよく似ています。
-
-電子メールは ○○@example.com のようなメールアドレスを持っていれば、 □□@gmail.com や △△@icloud.com はもちろん、同じプロバイダの ◇◇@example.com など、どんな相手にもメールを送れます。";
-"Scene.Welcome.Education.WhatIsMastodon.Title" = "つながりあう";
-"Scene.Welcome.GetStarted" = "はじめる";
+"Scene.Welcome.Education.Mastodon.Description" = "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.";
+"Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
+"Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
+"Scene.Welcome.Education.Servers.Title" = "What are servers?";
+"Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
+"Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "ログイン";
-"Scene.Welcome.Slogan" = "ソーシャルネットワーキングを、あなたの手の中に.";
-"Scene.Wizard.AccessibilityHint" = "チュートリアルを閉じるには、ダブルタップしてください";
-"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "プロフィールボタンを押して複数のアカウントを切り替えます。";
-"Scene.Wizard.NewInMastodon" = "Mastodon の新機能";
+"Scene.Welcome.PickServer" = "Pick my own Server";
+"Scene.Welcome.Separator.Or" = "or";
 "Widget.Common.UnsupportedWidgetFamily" = "Sorry but this Widget family is unsupported.";
 "Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
 "Widget.FollowersCount.ConfigurationDescription" = "Show number of followers.";

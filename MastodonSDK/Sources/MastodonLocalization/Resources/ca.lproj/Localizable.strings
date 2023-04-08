@@ -61,7 +61,6 @@ Comprova la connexió a Internet.";
 "Common.Controls.Actions.SharePost" = "Comparteix la publicació";
 "Common.Controls.Actions.ShareUser" = "Comparteix %@";
 "Common.Controls.Actions.SignIn" = "Inicia sessió";
-"Common.Controls.Actions.SignUp" = "Crea un compte";
 "Common.Controls.Actions.Skip" = "Omet";
 "Common.Controls.Actions.TakePhoto" = "Fes una foto";
 "Common.Controls.Actions.TranslatePost.Title" = "Traduït del %@";
@@ -254,7 +253,7 @@ carregat a Mastodon.";
 "Scene.ConfirmEmail.DidntGetLink.ResendNow" = "Reenvia ara.";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Comprova que la teva adreça de correu electrònic és correcte i revisa la carpeta de correu brossa si encara no ho has fet.";
 "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Torna a enviar el correu";
-"Scene.ConfirmEmail.DontReceiveEmail.Title" = "Comprova el teu correu";
+"Scene.ConfirmEmail.DontReceiveEmail.Title" = "Revisa el teu correu";
 "Scene.ConfirmEmail.OpenEmailApp.Description" = "Acabem d'enviar-te un correu electrònic. Revisa la carpeta de correu brossa si encara no ho has fet.";
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "Correu electrònic";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "Obre el Client de Correu electrònic";
@@ -361,7 +360,7 @@ carregat a Mastodon.";
 "Scene.Register.Error.Reason.Inclusion" = "%@ no és un valor suportat";
 "Scene.Register.Error.Reason.Invalid" = "%@ no és vàlid";
 "Scene.Register.Error.Reason.Reserved" = "%@ és una paraula clau reservada";
-"Scene.Register.Error.Reason.Taken" = "%@ ja s’està fent servir";
+"Scene.Register.Error.Reason.Taken" = "%@ ja està agafat. Què et sembla:";
 "Scene.Register.Error.Reason.TooLong" = "%@ és massa llarg";
 "Scene.Register.Error.Reason.TooShort" = "%@ és massa curt";
 "Scene.Register.Error.Reason.Unreachable" = "%@ sembla que no existeix";
@@ -383,7 +382,7 @@ carregat a Mastodon.";
 "Scene.Register.Input.Username.DuplicatePrompt" = "Aquest nom d'usuari ja està en ús.";
 "Scene.Register.Input.Username.Placeholder" = "nom d'usuari";
 "Scene.Register.Input.Username.Suggestion" = "increible_%@";
-"Scene.Register.Title" = "Crea un compte";
+"Scene.Register.Title" = "Crear un compte";
 "Scene.Report.Content1" = "Hi ha algun altre tut que vulguis afegir a l'informe?";
 "Scene.Report.Content2" = "Hi ha alguna cosa que els moderadors hagin de saber sobre aquest informe?";
 "Scene.Report.ReportSentTitle" = "Gràcies per informar, ho investigarem.";
@@ -522,23 +521,15 @@ Elegiremos un servidor basado en su idioma si continúa sin hacer una selección
 "Scene.Thread.BackTitle" = "Tut";
 "Scene.Thread.Title" = "Tut de %@";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "Què és Mastodon?";
-"Scene.Welcome.Education.HowDoIPickAServer.Description" = "Diferents persones trien diferents servidors per qualsevol número de motius. art.exemple és un bon lloc per els artistes mentres que glasgow.example podria seru una bona elecció per els escocesos.
-
-No et pots equivocar amb cap dels nostres servidors recomanats així que independentment de quin hagis triat (o si tecleges el teu propi servidor en la barra de cerca) no et perderàs res d'enlloc.";
-"Scene.Welcome.Education.HowDoIPickAServer.Title" = "Com trio un servidor?";
-"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "El teu usuari podria ser @maria@exemple.cat però encara pots seguir, impulsar i xatejar amb @joan@exemple.social.";
-"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "Mastodon és així";
-"Scene.Welcome.Education.WhatIsMastodon.Description" = "Imagina't que tens un adreça de correu electrònic que acaba amb @exemple.com.
-
-Encara pots enviar i rebre correus de qualsevol, inclòs si el seu correu acaba amb @gmail.com o @icloud.com o @exemple.com.";
-"Scene.Welcome.Education.WhatIsMastodon.Title" = "Què és";
-"Scene.Welcome.GetStarted" = "Comença";
+"Scene.Welcome.Education.Mastodon.Description" = "Mastodon és un xarxa social descentralitzada, el que significa que cap empresa la controla. Es composa de molts servidors administrats independentment, tots interconnectats.";
+"Scene.Welcome.Education.Mastodon.Title" = "Benvingut a Mastodon";
+"Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
+"Scene.Welcome.Education.Servers.Title" = "Què son els servidors?";
+"Scene.Welcome.JoinDefaultServer" = "Uneix-te a mastodon.social";
+"Scene.Welcome.LearnMore" = "Més informació";
 "Scene.Welcome.LogIn" = "Inicia sessió";
-"Scene.Welcome.Slogan" = "Xarxa social
-de nou a les teves mans.";
-"Scene.Wizard.AccessibilityHint" = "Toca dues vegades per descartar l'assistent";
-"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Commuta entre diversos comptes mantenint premut el botó del perfil.";
-"Scene.Wizard.NewInMastodon" = "Nou a Mastodon";
+"Scene.Welcome.PickServer" = "Pick my own Server";
+"Scene.Welcome.Separator.Or" = "o";
 "Widget.Common.UnsupportedWidgetFamily" = "Ho sentim però aquesta familia de ginys no està suportada.";
 "Widget.Common.UserNotLoggedIn" = "Si us plau obre Mastodon per a iniciar sessió en un Compte.";
 "Widget.FollowersCount.ConfigurationDescription" = "Mostra el número de seguidors.";

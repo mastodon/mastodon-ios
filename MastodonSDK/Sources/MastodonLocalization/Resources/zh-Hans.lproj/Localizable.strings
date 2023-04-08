@@ -61,7 +61,6 @@
 "Common.Controls.Actions.SharePost" = "分享帖子";
 "Common.Controls.Actions.ShareUser" = "分享 %@";
 "Common.Controls.Actions.SignIn" = "登录";
-"Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "跳过";
 "Common.Controls.Actions.TakePhoto" = "拍照";
 "Common.Controls.Actions.TranslatePost.Title" = "翻译自 %@";
@@ -249,16 +248,16 @@
 "Scene.Compose.Visibility.Public" = "公开";
 "Scene.Compose.Visibility.Unlisted" = "不公开";
 "Scene.ConfirmEmail.Button.Resend" = "重新发送";
-"Scene.ConfirmEmail.DidntGetLink.Prefix" = "Didn't get a Link?";
+"Scene.ConfirmEmail.DidntGetLink.Prefix" = "Didn’t get a link?";
 "Scene.ConfirmEmail.DidntGetLink.ResendIn" = "Resend (%@)";
 "Scene.ConfirmEmail.DidntGetLink.ResendNow" = "Resend now.";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "检查您的电子邮件地址是否正确，同时请检查你的垃圾箱。";
 "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "重新发送邮件";
-"Scene.ConfirmEmail.DontReceiveEmail.Title" = "请检查你的邮箱。";
+"Scene.ConfirmEmail.DontReceiveEmail.Title" = "Check your Email";
 "Scene.ConfirmEmail.OpenEmailApp.Description" = "我们刚刚向你发送了一封电子邮件。如果未收到，请检查你的垃圾箱。";
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "邮件";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "打开邮件客户端";
-"Scene.ConfirmEmail.OpenEmailApp.Title" = "检查你的邮箱";
+"Scene.ConfirmEmail.OpenEmailApp.Title" = "Check your Inbox.";
 "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we sent you to verify %@. We’ll wait right here.";
 "Scene.ConfirmEmail.Title" = "Check Your Inbox";
 "Scene.Discovery.Intro" = "这些嘟文在你的长毛象小宇宙中备受关注。";
@@ -361,7 +360,7 @@
 "Scene.Register.Error.Reason.Inclusion" = "%@ 是不支持的值";
 "Scene.Register.Error.Reason.Invalid" = "%@ 无效";
 "Scene.Register.Error.Reason.Reserved" = "%@ 是一个保留的关键字";
-"Scene.Register.Error.Reason.Taken" = "%@ 已被使用";
+"Scene.Register.Error.Reason.Taken" = "%@ is already taken. How about:";
 "Scene.Register.Error.Reason.TooLong" = "%@ 长度过长";
 "Scene.Register.Error.Reason.TooShort" = "%@ 长度太短";
 "Scene.Register.Error.Reason.Unreachable" = "%@ 似乎不存在";
@@ -383,7 +382,7 @@
 "Scene.Register.Input.Username.DuplicatePrompt" = "此用户名已被使用";
 "Scene.Register.Input.Username.Placeholder" = "用户名";
 "Scene.Register.Input.Username.Suggestion" = "amazing_%@";
-"Scene.Register.Title" = "Create account";
+"Scene.Register.Title" = "Create Account";
 "Scene.Report.Content1" = "是否有帖子需要举报？";
 "Scene.Report.Content2" = "是否有关于此举报的详细描述信息？";
 "Scene.Report.ReportSentTitle" = "感谢提交举报，我们将会进行处理。";
@@ -476,7 +475,7 @@
 "Scene.ServerPicker.SignupSpeed.Instant" = "Instant Sign-up";
 "Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "Manual Review";
 "Scene.ServerPicker.Title" = "Pick Server";
-"Scene.ServerRules.Button.Confirm" = "I Agree";
+"Scene.ServerRules.Button.Confirm" = "我同意";
 "Scene.ServerRules.PrivacyPolicy" = "隐私政策";
 "Scene.ServerRules.Prompt" = "如果继续，你必须遵守 %@ 的服务条款和隐私政策。";
 "Scene.ServerRules.Subtitle" = "这些规则由 %@ 的管理员设置。";
@@ -521,23 +520,15 @@
 "Scene.Thread.BackTitle" = "帖子";
 "Scene.Thread.Title" = "来自 %@ 的帖子";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
-"Scene.Welcome.Education.HowDoIPickAServer.Description" = "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.
-
-You can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.";
-"Scene.Welcome.Education.HowDoIPickAServer.Title" = "How do I pick a server?";
-"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.";
-"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "Mastodon is like that";
-"Scene.Welcome.Education.WhatIsMastodon.Description" = "Imagine you have an email address that ends with @example.com.
-
-You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.";
-"Scene.Welcome.Education.WhatIsMastodon.Title" = "What is";
-"Scene.Welcome.GetStarted" = "开始使用";
+"Scene.Welcome.Education.Mastodon.Description" = "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.";
+"Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
+"Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
+"Scene.Welcome.Education.Servers.Title" = "What are servers?";
+"Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
+"Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "登录";
-"Scene.Welcome.Slogan" = "社交网络
-回到你的手中。";
-"Scene.Wizard.AccessibilityHint" = "双击关闭此向导";
-"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "按住个人资料标签按钮，即可在多个账户之间进行切换。";
-"Scene.Wizard.NewInMastodon" = "新功能";
+"Scene.Welcome.PickServer" = "Pick my own Server";
+"Scene.Welcome.Separator.Or" = "or";
 "Widget.Common.UnsupportedWidgetFamily" = "Sorry but this Widget family is unsupported.";
 "Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
 "Widget.FollowersCount.ConfigurationDescription" = "Show number of followers.";

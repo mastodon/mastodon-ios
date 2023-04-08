@@ -61,7 +61,6 @@
 "Common.Controls.Actions.SharePost" = "Поделиться постом";
 "Common.Controls.Actions.ShareUser" = "Поделиться %@";
 "Common.Controls.Actions.SignIn" = "Log in";
-"Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "Пропустить";
 "Common.Controls.Actions.TakePhoto" = "Сделать фото";
 "Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
@@ -257,16 +256,16 @@
 "Scene.Compose.Visibility.Public" = "Публичный";
 "Scene.Compose.Visibility.Unlisted" = "Скрытый";
 "Scene.ConfirmEmail.Button.Resend" = "Отправить заново";
-"Scene.ConfirmEmail.DidntGetLink.Prefix" = "Didn't get a Link?";
+"Scene.ConfirmEmail.DidntGetLink.Prefix" = "Didn’t get a link?";
 "Scene.ConfirmEmail.DidntGetLink.ResendIn" = "Resend (%@)";
 "Scene.ConfirmEmail.DidntGetLink.ResendNow" = "Resend now.";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Проверьте, правильно ли указан ваш e-mail адрес, а также папку «спам», если ещё не сделали этого.";
 "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Отправить ещё раз";
-"Scene.ConfirmEmail.DontReceiveEmail.Title" = "Проверьте свой e-mail адрес";
+"Scene.ConfirmEmail.DontReceiveEmail.Title" = "Check your Email";
 "Scene.ConfirmEmail.OpenEmailApp.Description" = "Мы только что отправили вам e-mail. Проверьте спам, если не нашли его.";
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "Почта";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "Открыть почтовый клиент";
-"Scene.ConfirmEmail.OpenEmailApp.Title" = "Проверьте вашу почту.";
+"Scene.ConfirmEmail.OpenEmailApp.Title" = "Check your Inbox.";
 "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we sent you to verify %@. We’ll wait right here.";
 "Scene.ConfirmEmail.Title" = "Check Your Inbox";
 "Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
@@ -369,7 +368,7 @@
 "Scene.Register.Error.Reason.Inclusion" = "Неподдерживаемое значение «%@»";
 "Scene.Register.Error.Reason.Invalid" = "Недопустимое значение поля «%@»";
 "Scene.Register.Error.Reason.Reserved" = "%@ является зарезервированным ключевым словом";
-"Scene.Register.Error.Reason.Taken" = "%@ уже используется";
+"Scene.Register.Error.Reason.Taken" = "%@ is already taken. How about:";
 "Scene.Register.Error.Reason.TooLong" = "%@ слишком длинный";
 "Scene.Register.Error.Reason.TooShort" = "%@ слишком короткий";
 "Scene.Register.Error.Reason.Unreachable" = "%@ не существует";
@@ -391,7 +390,7 @@
 "Scene.Register.Input.Username.DuplicatePrompt" = "Это имя пользователя занято.";
 "Scene.Register.Input.Username.Placeholder" = "имя пользователя";
 "Scene.Register.Input.Username.Suggestion" = "amazing_%@";
-"Scene.Register.Title" = "Create account";
+"Scene.Register.Title" = "Create Account";
 "Scene.Report.Content1" = "Есть ли другие сообщения, которые вы хотите добавить в отчёт?";
 "Scene.Report.Content2" = "Есть ли что-то, что модераторы должны знать об этом сообщении?";
 "Scene.Report.ReportSentTitle" = "Thanks for reporting, we’ll look into this.";
@@ -529,23 +528,15 @@
 "Scene.Thread.BackTitle" = "Пост";
 "Scene.Thread.Title" = "Пост %@";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
-"Scene.Welcome.Education.HowDoIPickAServer.Description" = "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.
-
-You can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.";
-"Scene.Welcome.Education.HowDoIPickAServer.Title" = "How do I pick a server?";
-"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.";
-"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "Mastodon is like that";
-"Scene.Welcome.Education.WhatIsMastodon.Description" = "Imagine you have an email address that ends with @example.com.
-
-You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.";
-"Scene.Welcome.Education.WhatIsMastodon.Title" = "What is";
-"Scene.Welcome.GetStarted" = "Присоединиться";
+"Scene.Welcome.Education.Mastodon.Description" = "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.";
+"Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
+"Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
+"Scene.Welcome.Education.Servers.Title" = "What are servers?";
+"Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
+"Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "Вход";
-"Scene.Welcome.Slogan" = "Социальная сеть
-под вашим контролем.";
-"Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
-"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
-"Scene.Wizard.NewInMastodon" = "Новое в Мастодоне";
+"Scene.Welcome.PickServer" = "Pick my own Server";
+"Scene.Welcome.Separator.Or" = "or";
 "Widget.Common.UnsupportedWidgetFamily" = "Sorry but this Widget family is unsupported.";
 "Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
 "Widget.FollowersCount.ConfigurationDescription" = "Show number of followers.";

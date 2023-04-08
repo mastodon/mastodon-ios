@@ -61,7 +61,6 @@
 "Common.Controls.Actions.SharePost" = "分享嘟文";
 "Common.Controls.Actions.ShareUser" = "分享 %@";
 "Common.Controls.Actions.SignIn" = "登入";
-"Common.Controls.Actions.SignUp" = "新增帳號";
 "Common.Controls.Actions.Skip" = "跳過";
 "Common.Controls.Actions.TakePhoto" = "拍攝照片";
 "Common.Controls.Actions.TranslatePost.Title" = "翻譯自 %@";
@@ -253,7 +252,7 @@
 "Scene.ConfirmEmail.OpenEmailApp.Description" = "我們剛寄送您一封電子郵件。請檢查您的垃圾信件夾。";
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "電子郵件";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "請開啟電子郵件程式";
-"Scene.ConfirmEmail.OpenEmailApp.Title" = "請檢查您的收件夾。";
+"Scene.ConfirmEmail.OpenEmailApp.Title" = "請檢查您的收件夾.";
 "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "請點擊我們寄給您連結以驗證 %@。我們將於此稍候。";
 "Scene.ConfirmEmail.Title" = "請檢查您的收件夾";
 "Scene.Discovery.Intro" = "這些嘟文正在您 Mastodon 的角落受到注目。";
@@ -356,7 +355,7 @@
 "Scene.Register.Error.Reason.Inclusion" = "%@ 是不被支援的值";
 "Scene.Register.Error.Reason.Invalid" = "%@ 是無效的";
 "Scene.Register.Error.Reason.Reserved" = "%@ 是一個保留的關鍵字";
-"Scene.Register.Error.Reason.Taken" = "%@ 已被使用";
+"Scene.Register.Error.Reason.Taken" = "%@ 已被註冊。這個帳號如何：";
 "Scene.Register.Error.Reason.TooLong" = "%@ 太長了";
 "Scene.Register.Error.Reason.TooShort" = "%@ 太短了";
 "Scene.Register.Error.Reason.Unreachable" = "%@ 似乎並不存在";
@@ -477,7 +476,7 @@
 "Scene.ServerRules.Subtitle" = "這些被 %@ 的管管們制定以及實施。";
 "Scene.ServerRules.TermsOfService" = "服務條款";
 "Scene.ServerRules.Title" = "一些基本守則。";
-"Scene.Settings.Footer.MastodonDescription" = "Mastodon 是開源軟體。您可以在 GitHub %@ (%@) 上回報問題。";
+"Scene.Settings.Footer.MastodonDescription" = "Mastodon 是開源軟體。您可以於 GitHub %@ (%@) 回報問題。";
 "Scene.Settings.Keyboard.CloseSettingsWindow" = "關閉設定視窗";
 "Scene.Settings.Section.Appearance.Automatic" = "自動";
 "Scene.Settings.Section.Appearance.Dark" = "深色佈景主題";
@@ -504,7 +503,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Title" = "以下狀況請通知我";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "停用動畫大頭貼";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "停用動畫 emoji";
-"Scene.Settings.Section.Preference.OpenLinksInMastodon" = "在 Mastodon 中開啟連結";
+"Scene.Settings.Section.Preference.OpenLinksInMastodon" = "於 Mastodon 中開啟連結";
 "Scene.Settings.Section.Preference.Title" = "偏好設定";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "使用預設瀏覽器開啟連結";
 "Scene.Settings.Section.SpicyZone.Clear" = "清除媒體快取";
@@ -516,23 +515,15 @@
 "Scene.Thread.BackTitle" = "嘟文";
 "Scene.Thread.Title" = "來自 %@ 的嘟文";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "什麼是 Mastodon？";
-"Scene.Welcome.Education.HowDoIPickAServer.Description" = "不同人基於各式各樣的原因挑選不同的伺服器。art.example 也許對藝術家來說是個好地方，glasgow.example 也許對於蘇格蘭人來說是個好選擇。
-
-任何我們推薦的伺服器都是不錯的選擇（或著您也能從搜尋欄中輸入您自己的伺服器），您不會錯過任何來自聯邦宇宙角落的嘟嘟聲。";
-"Scene.Welcome.Education.HowDoIPickAServer.Title" = "如何挑選伺服器？";
-"Scene.Welcome.Education.MastodonIsLikeThat.Description" = "您的帳號可以是 @gothgirl654@example.social，但您仍可跟隨、轉嘟或是與 @fallout5ever@example.online 聊天互動。";
-"Scene.Welcome.Education.MastodonIsLikeThat.Title" = "Mastodon 就像這樣";
-"Scene.Welcome.Education.WhatIsMastodon.Description" = "想像您擁有以 @example.com 結尾的 email 信箱地址。
-
-您仍可發送及接收來自任何人的電子郵件，無論他們的信箱是來自 @gmail.com 或 @icloud.com 或 @example.com。";
-"Scene.Welcome.Education.WhatIsMastodon.Title" = "什麼是";
-"Scene.Welcome.GetStarted" = "新手上路";
+"Scene.Welcome.Education.Mastodon.Description" = "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together.";
+"Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
+"Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
+"Scene.Welcome.Education.Servers.Title" = "What are servers?";
+"Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
+"Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "登入";
-"Scene.Welcome.Slogan" = "社群網路
-還權於您。";
-"Scene.Wizard.AccessibilityHint" = "點兩下以關閉此設定精靈";
-"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "按住個人檔案按鈕以於多個帳號間切換。";
-"Scene.Wizard.NewInMastodon" = "Mastodon 新功能";
+"Scene.Welcome.PickServer" = "Pick my own Server";
+"Scene.Welcome.Separator.Or" = "or";
 "Widget.Common.UnsupportedWidgetFamily" = "很抱歉，不支援此小工具尺寸";
 "Widget.Common.UserNotLoggedIn" = "請開啟 Mastodon 以登入帳號。";
 "Widget.FollowersCount.ConfigurationDescription" = "顯示跟隨者數量。";
