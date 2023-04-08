@@ -80,7 +80,6 @@
                 "save_photo": "Vista mynd",
                 "copy_photo": "Afrita mynd",
                 "sign_in": "Skrá inn",
-                "sign_up": "Búa til notandaaðgang",
                 "see_more": "Sjá fleira",
                 "preview": "Forskoða",
                 "copy": "Afrita",
@@ -260,21 +259,20 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Samfélagsmiðlar\naftur í þínar hendur.",
-            "get_started": "Komast í gang",
             "log_in": "Skrá inn",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "separator": {
+                "or": "or"
+            },
             "education": {
-                "what_is_mastodon": {
-                    "title": "Hvað er",
-                    "description": "Ímyndaðu þér að þú sért með tölvupóstfang sem endar á @lén.is.\n\nÞú getur alltaf tekið við og sent tölvupóst til allra, jafnvel þótt tölvupóstfangið þeirra endi á @gmail.com, @icloud.com eða @lén.is."
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
-                "mastodon_is_like_that": {
-                    "title": "Mastodon er svona",
-                    "description": "Auðkennið þitt gæti verið @gothgirl654@example.social, en þú getur samt fylgst með, endurbirt og spjallað við @fallout5ever@example.online."
-                },
-                "how_do_i_pick_a_server": {
-                    "title": "Hvernig vel ég netþjón?",
-                    "description": "Mismunandi fólk velur sér mismunandi netþjóna af ýmsum ólíkum ástæðum. Netþjónninn art.example er frábær staður fyrir listafólk, á meðan glasgow.example gæti verið góður kostur fyrir suma skota.\n\nÞú getur eiginlega ekki lent á röngum stað á neinum að þeim netþjónum sem við mælum með, þannig að hvern þeirra sem þú velur (eða ef þú setur inn þinn eigin netþjón í leitarreitinn), þá ættirðu ekki að missa af neinu neinsstaðar."
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
