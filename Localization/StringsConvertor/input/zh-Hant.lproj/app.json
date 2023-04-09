@@ -260,20 +260,20 @@
     "scene": {
         "welcome": {
             "log_in": "登入",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick my own Server",
+            "learn_more": "了解更多",
+            "join_default_server": "加入 mastodon.social",
+            "pick_server": "選擇我的伺服器",
             "separator": {
-                "or": "or"
+                "or": "或"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "歡迎來到 Mastodon",
+                    "description": "Mastodon 是去中心化的社交網路，意思是沒有單一公司掌控它。它由許多獨立運行而互相連接的伺服器組成。"
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "伺服器是什麼？",
+                    "description": "所有的 Mastodon 帳號皆託管於一個伺服器上 — 其擁有各自之價值觀、規則、與管理者。無論您選擇何者，您皆能跟隨並與其他任何伺服器上的人們互動。"
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -433,7 +433,7 @@
                 "resend_email": "重新發送電子郵件"
             },
             "open_email_app": {
-                "title": "請檢查您的收件夾.",
+                "title": "請檢查您的收件夾。",
                 "description": "我們剛寄送您一封電子郵件。請檢查您的垃圾信件夾。",
                 "mail": "電子郵件",
                 "open_email_client": "請開啟電子郵件程式"
