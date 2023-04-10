@@ -215,6 +215,8 @@ extension WelcomeViewController {
                 self.navigationItem.leftBarButtonItem = needsShowDismissEntry ? self.dismissBarButtonItem : nil
             }
             .store(in: &disposeBag)
+
+        setupIllustrationLayout()
     }
     
 

@@ -130,11 +130,6 @@ extension WelcomeIllustrationView {
     }
     
     func setup() {
-        
-        // set illustration
-        guard superview == nil else {
-            return
-        }
         contentMode = .scaleAspectFit
         
         cloudBaseImageView.addMotionEffect(
