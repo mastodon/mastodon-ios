@@ -260,20 +260,20 @@
     "scene": {
         "welcome": {
             "log_in": "ログイン",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick my own Server",
+            "learn_more": "詳しく学ぶ",
+            "join_default_server": "mastodon.social に登録",
+            "pick_server": "ほかのサーバーをさがす",
             "separator": {
-                "or": "or"
+                "or": "または"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Mastodon とは",
+                    "description": "Mastodon は、いち企業の統制に依存しない非中央集権型のソーシャルネットワークです。たくさんの独立したサーバーが相互につながり合い、ひとつのネットワークを形成しています。"
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "サーバーとは",
+                    "description": "Mastodon のアカウントはいずれかのサーバーに所属します。それぞれのサーバーは異なる価値観やルールをもち、それらを管理する管理者がいます。どのサーバーにいても、ほかのあらゆるサーバーのユーザーをフォローして、かかわりをもつことができるでしょう。"
                 },
                 "a11y": {
                     "what_is_mastodon": {
