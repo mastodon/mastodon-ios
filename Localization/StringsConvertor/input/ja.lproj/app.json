@@ -554,7 +554,7 @@
                 "other_posts": "投稿",
                 "other_following": "フォロー中",
                 "other_followers": "フォロワー",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "共通のフォロワー"
             },
             "fields": {
                 "joined": "登録日",
@@ -670,7 +670,7 @@
             "intro": "あなたのMastodonサーバーで注目を集めている投稿がここに表示されます。"
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "お気に入り"
         },
         "notification": {
             "title": {
@@ -841,7 +841,7 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "有効な Mastodon のリンクではないようです。"
         }
     },
     "widget": {
