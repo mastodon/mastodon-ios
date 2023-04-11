@@ -219,23 +219,10 @@ extension WelcomeViewController {
         setupIllustrationLayout()
     }
     
-
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        
-        var overlap: CGFloat = 5
-        // shift illustration down for non-notch phone
-        if view.safeAreaInsets.bottom == 0 {
-            overlap += 56
-        }
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         view.layoutIfNeeded()
-        
-        setupIllustrationLayout()
     }
     
     private var computedTopAnchorInset: CGFloat {
