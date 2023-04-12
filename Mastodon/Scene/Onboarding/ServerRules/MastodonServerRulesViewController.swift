@@ -9,7 +9,6 @@ import os.log
 import UIKit
 import Combine
 import MastodonSDK
-import SafariServices
 import MetaTextKit
 import MastodonAsset
 import MastodonCore

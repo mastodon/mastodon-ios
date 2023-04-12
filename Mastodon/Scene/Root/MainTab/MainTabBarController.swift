@@ -9,7 +9,6 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
-import SafariServices
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
@@ -364,7 +363,7 @@ extension MainTabBarController {
             composeContext: .composeStatus,
             destination: .topLevel
         )
-        _ = coordinator.present(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     private func touchedTab(by sender: UIGestureRecognizer) -> Tab? {

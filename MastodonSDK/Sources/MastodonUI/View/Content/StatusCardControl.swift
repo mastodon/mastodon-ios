@@ -17,6 +17,8 @@ import WebKit
 public protocol StatusCardControlDelegate: AnyObject {
     func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)
     func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]?
+    func statusCardControl(_ statusCardControl: StatusCardControl, commitPreview viewController: UIViewController, for url: URL)
+    func statusCardControl(_ statusCardControl: StatusCardControl, previewViewControllerFor url: URL) -> UIViewController?
 }
 
 public final class StatusCardControl: UIControl {
@@ -45,6 +47,7 @@ public final class StatusCardControl: UIControl {
             self?.showWebView()
         })
     }()
+    private var url: URL?
     private var html = ""
 
     private static let cardContentPool = WKProcessPool()
@@ -53,6 +56,8 @@ public final class StatusCardControl: UIControl {
     private var layout: Layout?
     private var layoutConstraints: [NSLayoutConstraint] = []
     private var dividerConstraint: NSLayoutConstraint?
+    
+    private var contextMenuDelegate: ContextMenuDelegate?
 
     public override var isHighlighted: Bool {
         didSet {
@@ -128,7 +133,10 @@ public final class StatusCardControl: UIControl {
             showEmbedButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
         ])
 
-        addInteraction(UIContextMenuInteraction(delegate: self))
+        let contextMenuDelegate = ContextMenuDelegate(parent: self)
+        self.contextMenuDelegate = contextMenuDelegate
+        addInteraction(UIContextMenuInteraction(delegate: contextMenuDelegate))
+        addInteraction(UIDragInteraction(delegate: self))
         isAccessibilityElement = true
         accessibilityTraits.insert(.link)
     }
@@ -138,6 +146,7 @@ public final class StatusCardControl: UIControl {
     }
 
     public func configure(card: Card) {
+        self.url = card.url
         if let host = card.url?.host {
             accessibilityLabel = "\(card.title) \(host)"
         } else {
@@ -303,17 +312,56 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
 
 // MARK: UIContextMenuInteractionDelegate
 extension StatusCardControl {
-    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            if let elements = self.delegate?.statusCardControlMenu(self)?.map(\.menuElement) {
-                return UIMenu(children: elements)
+    /// This class is needed because `UIControl` marks `contextMenuInteraction(_:willPerformPreviewActionForMenuWith:animator:)`
+    /// as unavailable for some reason, so we can’t use the `StatusCardControl` itself as the delegate.
+    fileprivate class ContextMenuDelegate: NSObject, UIContextMenuInteractionDelegate {
+        unowned let parent: StatusCardControl
+        
+        init(parent: StatusCardControl) {
+            self.parent = parent
+        }
+
+        public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+            return UIContextMenuConfiguration(identifier: nil) {
+                self.parent.url.flatMap { self.parent.delegate?.statusCardControl(self.parent, previewViewControllerFor: $0) }
+            } actionProvider: { elements in
+                if let elements = self.parent.delegate?.statusCardControlMenu(self.parent)?.map(\.menuElement) {
+                    return UIMenu(children: elements)
+                }
+                return nil
             }
-            return nil
+        }
+        
+        public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+            UITargetedPreview(view: parent)
+        }
+        
+        public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+            if let vc = animator.previewViewController, let url = parent.url {
+                animator.preferredCommitStyle = .pop
+                animator.addAnimations {
+                    self.parent.delegate?.statusCardControl(self.parent, commitPreview: vc, for: url)
+                }
+            } else {
+                animator.preferredCommitStyle = .dismiss
+            }
         }
     }
+}
 
-    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        UITargetedPreview(view: self)
+// MARK: UIDragInteractionDelegate
+extension StatusCardControl: UIDragInteractionDelegate {
+    public func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        dragInteraction(interaction, itemsForAddingTo: session, withTouchAt: session.location(in: self))
+    }
+
+    public func dragInteraction(_ interaction: UIDragInteraction, itemsForAddingTo session: UIDragSession, withTouchAt point: CGPoint) -> [UIDragItem] {
+        guard let url else { return [] }
+        let item = UIDragItem(itemProvider: NSItemProvider(object: url as NSURL))
+        item.previewProvider = {
+            UIDragPreview(for: url, title: self.titleLabel.text)
+        }
+        return [item]
     }
 }
 

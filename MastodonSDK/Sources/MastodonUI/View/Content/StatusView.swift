@@ -18,12 +18,16 @@ public extension CGSize {
     static let authorAvatarButtonSize = CGSize(width: 46, height: 46)
 }
 
+public enum MetaPreview {
+    case url(URL, UIViewController)
+    // todo: others
+}
+
 public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerDidPressed header: UIView)
     func statusView(_ statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func statusView(_ statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
-    func statusView(_ statusView: StatusView, didTapCardWithURL url: URL)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
@@ -35,7 +39,9 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
-    func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]?
+    func statusView(_ statusView: StatusView, previewForURL url: URL) -> UIViewController?
+    func statusView(_ statusView: StatusView, menuForURL url: URL) -> [LabeledAction]?
+    func statusView(_ statusView: StatusView, commitPreview preview: MetaPreview)
     
     // a11y
     func statusView(_ statusView: StatusView, accessibilityActivate: Void)
@@ -342,6 +348,9 @@ public final class StatusView: UIView {
 
 extension StatusView {
     private func _init() {
+        addInteraction(UIDragInteraction(delegate: self))
+        addInteraction(UIContextMenuInteraction(delegate: self))
+
         // container
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
@@ -412,7 +421,7 @@ extension StatusView {
     @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let url = viewModel.card?.url else { return }
-        delegate?.statusView(self, didTapCardWithURL: url)
+        delegate?.statusView(self, cardControl: sender, didTapURL: url)
     }
     
 }
@@ -734,6 +743,108 @@ extension StatusView: MetaTextViewDelegate {
     }
 }
 
+// MARK: - UIDragInteractionDelegate
+extension StatusView: UIDragInteractionDelegate {
+    public func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        dragInteraction(interaction, itemsForAddingTo: session, withTouchAt: session.location(in: interaction.view!))
+    }
+
+    public func dragInteraction(_ interaction: UIDragInteraction, itemsForAddingTo session: UIDragSession, withTouchAt point: CGPoint) -> [UIDragItem] {
+        guard
+            let (meta, effectiveRange) = contentMetaText.textView.meta(at: contentMetaText.textView.convert(point, from: interaction.view!)),
+            case let .url(_, trimmed, url, _) = meta,
+            let url = URL(string: url)
+        else { return [] }
+        let item = UIDragItem(itemProvider: NSItemProvider(object: url as NSURL))
+        item.localObject = effectiveRange
+        item.previewProvider = { UIDragPreview(for: url, title: trimmed) }
+        return [item]
+    }
+
+    public func dragInteraction(_ interaction: UIDragInteraction, previewForLifting item: UIDragItem, session: UIDragSession) -> UITargetedDragPreview? {
+        guard let effectiveRange = item.localObject as? NSRange else {
+            assertionFailure()
+            return nil
+        }
+
+        if let (snapshot, textLineRects, center) = contentMetaText.textView.snapshot(of: effectiveRange, backgroundColor: ThemeService.shared.currentTheme.value.systemBackgroundColor) {
+            return UITargetedDragPreview(
+                view: snapshot,
+                parameters: UIPreviewParameters(textLineRects: textLineRects),
+                target: UIPreviewTarget(container: contentMetaText.textView, center: center)
+            )
+        }
+        return nil
+    }
+}
+
+// MARK: - UIContextMenuInteractionDelegate
+private class MetaContextMenuConfiguration: UIContextMenuConfiguration {
+    var meta: Meta!
+    var range: NSRange!
+    var preview: UITargetedPreview?
+}
+extension StatusView: UIContextMenuInteractionDelegate {
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        let location = contentMetaText.textView.convert(location, from: interaction.view!)
+        guard
+            let (meta, effectiveRange) = contentMetaText.textView.meta(at: location),
+            case .url(_, _, let url, _) = meta,
+            let url = URL(string: url)
+        else { return nil }
+        let config = MetaContextMenuConfiguration(
+            previewProvider: {
+                self.delegate?.statusView(self, previewForURL: url)
+            },
+            actionProvider: { _ in
+                if let elements = self.delegate?.statusView(self, menuForURL: url)?.map(\.menuElement) {
+                    return UIMenu(children: elements)
+                }
+                return nil
+            }
+        )
+        config.meta = meta
+        config.range = effectiveRange
+        if let (snapshot, textLineRects, center) = contentMetaText.textView.snapshot(of: effectiveRange, backgroundColor: ThemeService.shared.currentTheme.value.systemBackgroundColor) {
+            config.preview = UITargetedPreview(
+                view: snapshot,
+                parameters: UIPreviewParameters(textLineRects: textLineRects),
+                target: UIPreviewTarget(container: contentMetaText.textView, center: center)
+            )
+        }
+        return config
+    }
+
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        (configuration as? MetaContextMenuConfiguration)?.preview
+    }
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        (configuration as? MetaContextMenuConfiguration)?.preview
+    }
+    
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        guard let configuration = configuration as? MetaContextMenuConfiguration else { return }
+        switch configuration.meta {
+        case .url(_, _, let url, _):
+            guard let url = URL(string: url), let vc = animator.previewViewController else {
+                assertionFailure()
+                animator.preferredCommitStyle = .dismiss
+                break
+            }
+            animator.preferredCommitStyle = .pop
+            animator.addAnimations {
+                self.delegate?.statusView(self, commitPreview: .url(url, vc))
+            }
+        default:
+            // shouldn’t be possible since the `configurationForMenuAtLocation`
+            // method above won’t vend an unsupported configuration
+            assertionFailure("Invalid meta type \(String(describing: configuration.meta))")
+            animator.preferredCommitStyle = .dismiss
+            break
+        }
+    }
+}
+
 // MARK: - MediaGridContainerViewDelegate
 extension StatusView: MediaGridContainerViewDelegate {
     public func mediaGridContainerView(_ container: MediaGridContainerView, didTapMediaView mediaView: MediaView, at index: Int) {
@@ -804,7 +915,19 @@ extension StatusView: StatusCardControlDelegate {
     }
 
     public func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]? {
-        delegate?.statusView(self, cardControlMenu: statusCardControl)
+        if let url = viewModel.card?.url {
+            return delegate?.statusView(self, menuForURL: url)
+        } else {
+            return nil
+        }
+    }
+    
+    public func statusCardControl(_ statusCardControl: StatusCardControl, commitPreview viewController: UIViewController, for url: URL) {
+        delegate?.statusView(self, commitPreview: .url(url, viewController))
+    }
+    
+    public func statusCardControl(_ statusCardControl: StatusCardControl, previewViewControllerFor url: URL) -> UIViewController? {
+        delegate?.statusView(self, previewForURL: url)
     }
 }
 

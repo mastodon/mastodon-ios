@@ -27,7 +27,6 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
-    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, didTapCardWithURL url: URL)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
@@ -39,7 +38,9 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
-    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]?
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, previewForURL url: URL) -> UIViewController?
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, menuForURL url: URL) -> [LabeledAction]?
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, commitPreview preview: MetaPreview)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, accessibilityActivate: Void)
     // sourcery:end
 }
@@ -63,10 +64,6 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
 
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
         delegate?.tableViewCell(self, statusView: statusView, metaText: metaText, didSelectMeta: meta)
-    }
-
-    func statusView(_ statusView: StatusView, didTapCardWithURL url: URL) {
-        delegate?.tableViewCell(self, statusView: statusView, didTapCardWithURL: url)
     }
 
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int) {
@@ -113,8 +110,16 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
         delegate?.tableViewCell(self, statusView: statusView, cardControl: cardControl, didTapURL: url)
     }
 
-    func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]? {
-        return delegate?.tableViewCell(self, statusView: statusView, cardControlMenu: cardControlMenu)
+    func statusView(_ statusView: StatusView, previewForURL url: URL) -> UIViewController? {
+        return delegate?.tableViewCell(self, statusView: statusView, previewForURL: url)
+    }
+
+    func statusView(_ statusView: StatusView, menuForURL url: URL) -> [LabeledAction]? {
+        return delegate?.tableViewCell(self, statusView: statusView, menuForURL: url)
+    }
+
+    func statusView(_ statusView: StatusView, commitPreview preview: MetaPreview) {
+        delegate?.tableViewCell(self, statusView: statusView, commitPreview: preview)
     }
 
     func statusView(_ statusView: StatusView, accessibilityActivate: Void) {

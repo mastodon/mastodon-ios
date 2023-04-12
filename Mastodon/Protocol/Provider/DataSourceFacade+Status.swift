@@ -383,7 +383,7 @@ extension DataSourceFacade {
                 authContext: dependency.authContext,
                 composeContext: .editStatus(status: status, statusSource: statusSource),
                 destination: .topLevel)
-            _ = dependency.coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))
+            _ = dependency.coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), from: dependency, transition: .modal(animated: true))
         }
     }   // end func
 }
