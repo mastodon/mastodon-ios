@@ -54,7 +54,7 @@
             },
             "translation_failed": {
                 "title": "Hinweis",
-                "message": "Übersetzung fehlgeschlagen. Möglicherweise hat der/die Administrator*in die Übersetzungen auf diesem Server nicht aktiviert oder dieser Server läuft mit einer älteren Version von Mastodon, in der Übersetzungen noch nicht unterstützt wurden.",
+                "message": "Übersetzung fehlgeschlagen. Möglicherweise haben die Administrator*innen die Übersetzungen auf diesem Server nicht aktiviert oder dieser Server läuft mit einer älteren Version von Mastodon, in der Übersetzungen noch nicht unterstützt wurden.",
                 "button": "OK"
             }
         },
@@ -88,7 +88,7 @@
                 "share_post": "Beitrag teilen",
                 "open_in_safari": "In Safari öffnen",
                 "open_in_browser": "Im Browser anzeigen",
-                "find_people": "Personen zum Folgen finden",
+                "find_people": "Finde Personen zum Folgen",
                 "manually_search": "Stattdessen manuell suchen",
                 "skip": "Überspringen",
                 "reply": "Antworten",
@@ -205,13 +205,13 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Geteilte Beiträge",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "favorites_title": "Gefällt",
+                    "edit_history_title": "Verlauf",
+                    "edit_history_detail": "Letzte Änderung %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Bearbeitet %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "Verlauf",
                     "original_post": "Originalstatus · %s"
                 }
             },
@@ -269,11 +269,11 @@
             "education": {
                 "mastodon": {
                     "title": "Willkommen bei Mastodon!",
-                    "description": "Mastodon ist ein dezentrales, soziales Netzwerk. Das bedeutet, dass es nicht von einer einzigen Firma kontrolliert wird. Das Netzwerk besteht aus unabhängig voneinander betriebenen Servern, die miteinander verbunden sind. "
+                    "description": "Mastodon ist ein dezentrales, soziales Netzwerk. Das bedeutet, dass es nicht von einem einzigen Unternehmen kontrolliert wird. Das Netzwerk besteht aus unabhängig voneinander betriebenen Servern, die miteinander verbunden sind."
                 },
                 "servers": {
                     "title": "Was sind Server?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "description": "Jedes Mastodon-Konto wird auf einem Server gehostet. Jeder Server hat dabei seine eigenen Werte, Regeln und Administrator*innen. Aber egal, für welchen Server Du Dich entscheidest: Du kannst mit Leuten von anderen Servern interagieren und ihnen folgen."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -293,7 +293,7 @@
             "title": "Server auswählen",
             "button": {
                 "language": "Sprache",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "Registrierungsprozess",
                 "category": {
                     "all": "Alle",
                     "all_accessiblity_description": "Kategorie: Alle",
@@ -327,27 +327,27 @@
                 "no_results": "Keine Ergebnisse"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Alle",
+                "instant": "Sofort",
+                "manually_reviewed": "Manuelle Überprüfung"
             },
             "language": {
-                "all": "All"
+                "all": "Alle Sprachen"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Server oder URL eingeben"
             },
             "no_server_selected_hint": "Wenn Sie fortfahren, ohne eine Auswahl zu treffen, wird ein Server auf der Grundlage Ihrer Sprache ausgewählt."
         },
         "privacy": {
             "title": "Datenschutz",
-            "description": "//Obwohl die Mastodon-App keine Daten sammelt, kann der Server, über den Sie sich anmelden, eine andere Richtlinie haben. Nehmen Sie sich eine Minute Zeit, um die Datenschutzrichtlinie der Mastodon-App und die Datenschutzrichtlinie Ihres Servers zu lesen und zu akzeptieren.",
+            "description": "Obwohl die Mastodon-App keine Daten sammelt, kann der Server, über den Sie sich anmelden, eine andere Richtlinie haben. Nehmen Sie sich eine Minute Zeit, um die Datenschutzrichtlinie der Mastodon-App und die Datenschutzrichtlinie Ihres Servers zu lesen und zu akzeptieren.",
             "policy": {
                 "ios": "Datenschutzerklärung - Mastodon für iOS",
                 "server": "Datenschutzerklärung - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ich stimme zu"
             }
         },
         "register": {
@@ -394,7 +394,7 @@
                 "reason": {
                     "blocked": "%s verwendet einen nicht erlaubten E-Mail-Anbieter",
                     "unreachable": "%s scheint nicht zu existieren",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s ist leider schon vergeben. Wie wäre es mit:",
                     "reserved": "%s ist ein reserviertes Schlüsselwort",
                     "accepted": "%s muss akzeptiert werden",
                     "blank": "%s ist erforderlich",
@@ -423,25 +423,25 @@
         },
         "confirm_email": {
             "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Bitte klicke auf den Link, den wir an %@ geschickt haben, um dich zu verifizieren. Wir warten bis dahin einfach hier.",
             "button": {
                 "resend": "Erneut senden"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Check deine Emails",
                 "description": "Überprüfe, ob deine E-Mail-Adresse korrekt ist und sieh im Spam-Ordner nach, falls du es noch nicht getan hast.",
                 "resend_email": "E-Mail erneut versenden"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Check dein Emailpostfach.",
                 "description": "Wir haben dir gerade eine E-Mail geschickt. Überprüfe deinen Spam-Ordner, falls du es noch nicht getan hast.",
                 "mail": "E-Mail",
                 "open_email_client": "E-Mail-Client öffnen"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Kein Link angekommen?",
+                "resend_in": "Erneut senden (%@)",
+                "resend_now": "Erneut senden."
             }
         },
         "home_timeline": {
@@ -465,7 +465,7 @@
             "title": {
                 "new_post": "Neuer Beitrag",
                 "new_reply": "Neue Antwort",
-                "edit_post": "Edit Post"
+                "edit_post": "Beitrag bearbeiten"
             },
             "media_selection": {
                 "camera": "Foto aufnehmen",
@@ -540,7 +540,7 @@
                 "title": "Post Language",
                 "suggested": "Suggested",
                 "recent": "Recent",
-                "other": "Other Language…"
+                "other": "Andere Sprache…"
             }
         },
         "profile": {
@@ -670,7 +670,7 @@
             "intro": "Dies sind die Beiträge, die in deiner Umgebung auf Mastodon beliebter werden."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Gefällt"
         },
         "notification": {
             "title": {
@@ -841,13 +841,13 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Dies scheint kein gültiger Mastodon-Link zu sein."
         }
     },
     "widget": {
         "common": {
             "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "user_not_logged_in": "Bitte öffne Mastodon und melde dich mit einem Konto an."
         },
         "followers_count": {
             "configuration_display_name": "Followers",
