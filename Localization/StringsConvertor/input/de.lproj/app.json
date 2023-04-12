@@ -110,7 +110,7 @@
                 "profile": "Profil",
                 "a11y": {
                     "search": "Suchen",
-                    "explore": "Explore"
+                    "explore": "Entdecken"
                 }
             },
             "keyboard": {
@@ -194,7 +194,7 @@
                     "translated_from": "Übersetzt von %s mit %s",
                     "unknown_language": "Unbekannt",
                     "unknown_provider": "Unbekannt",
-                    "show_original": "Show Original"
+                    "show_original": "Original anzeigen"
                 },
                 "media": {
                     "accessibility_label": "%s, Anhang %d von %d",
@@ -212,7 +212,7 @@
                 "edited_at_timestamp_prefix": "Edited %s",
                 "edit_history": {
                     "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "original_post": "Originalstatus · %s"
                 }
             },
             "friendship": {
@@ -260,24 +260,24 @@
     "scene": {
         "welcome": {
             "log_in": "Anmelden",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick my own Server",
+            "learn_more": "Mehr erfahren",
+            "join_default_server": "mastodon.social beitreten",
+            "pick_server": "Anderer Server",
             "separator": {
-                "or": "or"
+                "or": "oder"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Willkommen bei Mastodon!",
+                    "description": "Mastodon ist ein dezentrales, soziales Netzwerk. Das bedeutet, dass es nicht von einer einzigen Firma kontrolliert wird. Das Netzwerk besteht aus unabhängig voneinander betriebenen Servern, die miteinander verbunden sind. "
                 },
                 "servers": {
-                    "title": "What are servers?",
+                    "title": "Was sind Server?",
                     "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Was ist Mastodon?"
                     }
                 }
             }
@@ -290,9 +290,9 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Server auswählen",
             "button": {
-                "language": "Language",
+                "language": "Sprache",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Alle",
@@ -340,18 +340,18 @@
             "no_server_selected_hint": "Wenn Sie fortfahren, ohne eine Auswahl zu treffen, wird ein Server auf der Grundlage Ihrer Sprache ausgewählt."
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "Datenschutz",
             "description": "//Obwohl die Mastodon-App keine Daten sammelt, kann der Server, über den Sie sich anmelden, eine andere Richtlinie haben. Nehmen Sie sich eine Minute Zeit, um die Datenschutzrichtlinie der Mastodon-App und die Datenschutzrichtlinie Ihres Servers zu lesen und zu akzeptieren.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Datenschutzerklärung - Mastodon für iOS",
+                "server": "Datenschutzerklärung - %s"
             },
             "button": {
                 "confirm": "I Agree"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Konto erstellen",
             "input": {
                 "avatar": {
                     "delete": "Löschen"
@@ -369,7 +369,7 @@
                 },
                 "password": {
                     "placeholder": "Passwort",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Passwort wiederholen",
                     "require": "Anforderungen an dein Passwort:",
                     "character_limit": "8 Zeichen",
                     "accessibility": {
@@ -418,7 +418,7 @@
             "terms_of_service": "Nutzungsbedingungen",
             "privacy_policy": "Datenschutzerklärung",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ich stimme zu"
             }
         },
         "confirm_email": {
