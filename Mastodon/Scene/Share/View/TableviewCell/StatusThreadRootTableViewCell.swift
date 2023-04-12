@@ -108,11 +108,13 @@ extension StatusThreadRootTableViewCell {
                 statusView.viewModel.isContentReveal
                 ? statusView.contentMetaText.textView
                 : statusView.spoilerOverlayView,
+                statusView.translatedInfoView,
                 statusView.mediaGridContainerView,
                 statusView.pollTableView,
                 statusView.pollStatusStackView,
-                statusView.actionToolbarContainer
-                // statusMetricView is intentionally excluded
+                statusView.statusCardControl,
+                statusView.actionToolbarContainer,
+                statusView.statusMetricView,
             ]
             
             if statusView.viewModel.isContentReveal {

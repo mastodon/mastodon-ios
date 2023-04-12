@@ -18,7 +18,7 @@ protocol PickServerServerSectionTableHeaderViewDelegate: AnyObject {
 
 final class PickServerServerSectionTableHeaderView: UIView {
     
-    static let collectionViewHeight: CGFloat = 30
+    static let collectionViewHeight: CGFloat = 36
     static let spacing: CGFloat = 16
     
     static let height: CGFloat = collectionViewHeight + spacing

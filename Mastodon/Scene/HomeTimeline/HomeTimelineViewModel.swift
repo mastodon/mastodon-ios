@@ -35,6 +35,7 @@ final class HomeTimelineViewModel: NSObject {
     @Published var lastAutomaticFetchTimestamp: Date? = nil
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil
     @Published var displaySettingBarButtonItem = true
+    @Published var hasPendingStatusEditReload = false
     
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
@@ -52,6 +53,7 @@ final class HomeTimelineViewModel: NSObject {
         let stateMachine = GKStateMachine(states: [
             LoadLatestState.Initial(viewModel: self),
             LoadLatestState.Loading(viewModel: self),
+            LoadLatestState.LoadingManually(viewModel: self),
             LoadLatestState.Fail(viewModel: self),
             LoadLatestState.Idle(viewModel: self),
         ])
@@ -116,6 +118,12 @@ extension HomeTimelineViewModel {
         let item: StatusItem
         let offset: CGFloat
         let timestamp: Date
+    }
+}
+
+extension HomeTimelineViewModel {
+    func timelineDidReachEnd() {
+        fetchedResultsController.fetchNextBatch()
     }
 }
 

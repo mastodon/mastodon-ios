@@ -16,11 +16,19 @@ import MastodonSDK
 
 final public class FeedFetchedResultsController: NSObject {
     
+    private enum Constants {
+        static let defaultFetchLimit = 100
+    }
+    
     public let logger = Logger(subsystem: "FeedFetchedResultsController", category: "DB")
     
     var disposeBag = Set<AnyCancellable>()
     
-    public let fetchedResultsController: NSFetchedResultsController<Feed>
+    private let fetchedResultsController: NSFetchedResultsController<Feed>
+    
+    public var managedObjectContext: NSManagedObjectContext {
+        fetchedResultsController.managedObjectContext
+    }
     
     // input
     @Published public var predicate = Feed.predicate(kind: .none, acct: .none)
@@ -28,6 +36,11 @@ final public class FeedFetchedResultsController: NSObject {
     // output
     private let _objectIDs = PassthroughSubject<[NSManagedObjectID], Never>()
     @Published public var records: [ManagedObjectRecord<Feed>] = []
+
+    public func fetchNextBatch() {
+        fetchedResultsController.fetchRequest.fetchLimit += Constants.defaultFetchLimit
+        try? fetchedResultsController.performFetch()
+    }
     
     public init(managedObjectContext: NSManagedObjectContext) {
         self.fetchedResultsController = {
@@ -36,6 +49,7 @@ final public class FeedFetchedResultsController: NSObject {
             fetchRequest.returnsObjectsAsFaults = false
             fetchRequest.shouldRefreshRefetchedObjects = true
             fetchRequest.fetchBatchSize = 15
+            fetchRequest.fetchLimit = Constants.defaultFetchLimit
             let controller = NSFetchedResultsController(
                 fetchRequest: fetchRequest,
                 managedObjectContext: managedObjectContext,

@@ -83,11 +83,6 @@ public final class ComposeContentViewController: UIViewController {
         )
         return view
     }()
-
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
 }
 
 extension ComposeContentViewController {
@@ -339,6 +334,7 @@ extension ComposeContentViewController {
         viewModel.$isEmojiActive.assign(to: &composeContentToolbarViewModel.$isEmojiActive)
         viewModel.$isContentWarningActive.assign(to: &composeContentToolbarViewModel.$isContentWarningActive)
         viewModel.$visibility.assign(to: &composeContentToolbarViewModel.$visibility)
+        viewModel.$isVisibilityButtonEnabled.assign(to: &composeContentToolbarViewModel.$isVisibilityButtonEnabled)
         viewModel.$maxTextInputLimit.assign(to: &composeContentToolbarViewModel.$maxTextInputLimit)
         viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
         viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)

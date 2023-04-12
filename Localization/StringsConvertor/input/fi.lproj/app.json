@@ -79,18 +79,17 @@
                 "take_photo": "Ota kuva",
                 "save_photo": "Tallenna kuva",
                 "copy_photo": "Kopioi kuva",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Kirjaudu sisään",
                 "see_more": "Näytä lisää",
                 "preview": "Esikatselu",
-                "copy": "Copy",
+                "copy": "Kopioi",
                 "share": "Jaa",
                 "share_user": "Jaa %s",
                 "share_post": "Jaa julkaisu",
                 "open_in_safari": "Avaa Safarissa",
-                "open_in_browser": "Open in Browser",
+                "open_in_browser": "Avaa selaimessa",
                 "find_people": "Löydä tilejä seurattavaksi",
-                "manually_search": "Manually search instead",
+                "manually_search": "Etsi sen sijaan manuaalisesti",
                 "skip": "Ohita",
                 "reply": "Vastaa",
                 "report_user": "Ilmianna %s",
@@ -99,15 +98,20 @@
                 "settings": "Asetukset",
                 "delete": "Poista",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
-                }
+                    "title": "Käännetty kielestä %s",
+                    "unknown_language": "Tuntematon"
+                },
+                "edit_post": "Muokkaa"
             },
             "tabs": {
                 "home": "Koti",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
-                "profile": "Profiili"
+                "search_and_explore": "Etsi ja korvaa",
+                "notifications": "Ilmoitukset",
+                "profile": "Profiili",
+                "a11y": {
+                    "search": "Haku",
+                    "explore": "Selaa"
+                }
             },
             "keyboard": {
                 "common": {
@@ -126,10 +130,10 @@
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Vaihda sisältövaroitus",
-                    "preview_image": "Preview Image"
+                    "preview_image": "Esikatsele kuvaa"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
+                    "previous_section": "Edellinen osio",
                     "next_section": "Seuraava lohko"
                 }
             },
@@ -139,38 +143,42 @@
                 "show_post": "Näytä julkaisu",
                 "show_user_profile": "Näytä tili",
                 "content_warning": "Sisältövaroitus",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Arkaluonteista sisältöä",
                 "media_content_warning": "Napauta mistä tahansa paljastaaksesi",
-                "tap_to_reveal": "Tap to reveal",
-                "load_embed": "Load Embed",
+                "tap_to_reveal": "Paljasta napauttamalla",
+                "load_embed": "Lataa upotus",
                 "link_via_user": "%s via %s",
                 "poll": {
-                    "vote": "Vote",
+                    "vote": "Äänestä",
                     "closed": "Suljettu"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Linkki: %s",
+                    "hashtag": "Aihetunniste: %s",
+                    "mention": "Näytä profiili: %s",
+                    "email": "Sähköpostiosoite: %s"
                 },
                 "actions": {
                     "reply": "Vastaa",
                     "reblog": "Jaa edelleen",
                     "unreblog": "Peru edelleen jako",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "favorite": "Merkitse suosikiksi",
+                    "unfavorite": "Poista suosikkimerkintä",
                     "menu": "Valikko",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "hide": "Piilota",
+                    "show_image": "Näytä kuva",
+                    "show_gif": "Näytä GIF",
+                    "show_video_player": "Näytä videosoitin",
+                    "share_link_in_post": "Jaa linkki julkaisussa",
+                    "tap_then_hold_to_show_menu": "Näytä valikko pitkällä painalluksella",
+                    "a11y_labels": {
+                        "reblog": "Edelleenjaa",
+                        "unreblog": "Peru edelleenjako"
+                    }
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
+                    "url": "URL-osoite",
+                    "mention": "Mainitse",
                     "link": "Linkki",
                     "hashtag": "Hashtagi",
                     "email": "Sähköposti",
@@ -184,9 +192,27 @@
                 },
                 "translation": {
                     "translated_from": "Käännetty kielestä %s palvelulla %s",
-                    "unknown_language": "Unknown",
+                    "unknown_language": "Tuntematon",
                     "unknown_provider": "Tuntematon",
-                    "show_original": "Shown Original"
+                    "show_original": "Näytä alkuperäinen"
+                },
+                "media": {
+                    "accessibility_label": "%s, liite %d/%d",
+                    "expand_image_hint": "Laajentaa kuvan. Näytä toiminnot kaksoisnapautuksella ja painamalla",
+                    "expand_gif_hint": "Laajentaa GIF-kuvan. Näytä toiminnot kaksoisnapautuksella ja painamalla",
+                    "expand_video_hint": "Näyttää videosoittimen. Näytä toiminnot kaksoisnapautuksella ja painamalla"
+                },
+                "posted_via_application": "%s sovelluksella %s",
+                "buttons": {
+                    "reblogs_title": "Edelleenjaot",
+                    "favorites_title": "Suosikit",
+                    "edit_history_title": "Muokkaushistoria",
+                    "edit_history_detail": "Muokattiin viimeksi %s"
+                },
+                "edited_at_timestamp_prefix": "Muokattiin %s",
+                "edit_history": {
+                    "title": "Muokkaushistoria",
+                    "original_post": "Alkuperäinen julkaisu · %s"
                 }
             },
             "friendship": {
@@ -198,7 +224,7 @@
                 "block_user": "Estä %s",
                 "block_domain": "Estä %s",
                 "unblock": "Poista esto",
-                "unblock_user": "Unblock %s",
+                "unblock_user": "Poista käyttäjän %s esto",
                 "blocked": "Estetty",
                 "mute": "Mykistä",
                 "mute_user": "Mykistä %s",
@@ -233,21 +259,41 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Sosiaalinen verkostoituminen\ntakaisin käsissäsi.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "log_in": "Kirjaudu sisään",
+            "learn_more": "Lue lisää",
+            "join_default_server": "Liity mastodon.social-palvelimelle",
+            "pick_server": "Pick my own Server",
+            "separator": {
+                "or": "tai"
+            },
+            "education": {
+                "mastodon": {
+                    "title": "Tervetuloa Mastodoniin",
+                    "description": "Mastodon on hajautettu sosiaalinen verkosto, joka tarkoittaa sitä, ettei sitä hallitse mikään yksittäinen yritys. Se koostuu monista itsenäisesti ylläpidetyistä palvelimista, jotka on liitetty yhteen."
+                },
+                "servers": {
+                    "title": "Mitä palvelimet ovat?",
+                    "description": "Jokainen Mastodon-tili sijaitsee jollakin palvelimella, joilla on kaikilla omat arvot, säännöt ja ylläpitäjät. Palvelinvalinnastasi riippumatta voit seurata kaikkien palvelinten käyttäjiä ja viestiä heidän kanssaan."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "Mikä Mastodon on?"
+                    }
+                }
+            }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Tervetuloa takaisin",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
             }
         },
         "server_picker": {
-            "title": "Valitse palvelin,\nmikä tahansa palvelin.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "title": "Valitse palvelin",
             "button": {
+                "language": "Kieli",
+                "signup_speed": "Rekisteröintinopeus",
                 "category": {
                     "all": "Kaikki",
                     "all_accessiblity_description": "Kategoria: Kaikki",
@@ -279,18 +325,41 @@
                 "finding_servers": "Etsistään saatavilla olevia palvelimia...",
                 "bad_network": "Jokin meni pieleen dataa ladatessa. Tarkista internet-yhteytesi.",
                 "no_results": "Ei hakutuloksia"
+            },
+            "signup_speed": {
+                "all": "Kaikki",
+                "instant": "Välitön rekisteröityminen",
+                "manually_reviewed": "Manuaalinen hyväksyntä"
+            },
+            "language": {
+                "all": "Kaikki"
+            },
+            "search": {
+                "placeholder": "Etsi nimeä tai URL-osoitetta"
+            },
+            "no_server_selected_hint": "Palvelin valitaan kielesi perusteella, jos jatkat ilman valintaa."
+        },
+        "privacy": {
+            "title": "Yksityisyys",
+            "description": "Vaikka Mastodon-sovellus ei kerää mitään tietoja, voi rekisteröitymiseen käyttämälläsi palvelimella olla eri käytäntö. Käytä hetki Mastodon-sovelluksen ja palvelimen tietosuojakäytäntöjen tarkasteluun ja hyväksyntään.",
+            "policy": {
+                "ios": "Tietosuojakäytäntö - Mastodon iOS:lle",
+                "server": "Tietosuojakäytäntö - %s"
+            },
+            "button": {
+                "confirm": "Hyväksyn"
             }
         },
         "register": {
-            "title": "Kerro meille sinusta.",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "Luo tili",
             "input": {
                 "avatar": {
                     "delete": "Poista"
                 },
                 "username": {
                     "placeholder": "käyttäjänimi",
-                    "duplicate_prompt": "Tämä käyttäjänimi on varattu."
+                    "duplicate_prompt": "Tämä käyttäjänimi on varattu.",
+                    "suggestion": "häkellyttävä_%@"
                 },
                 "display_name": {
                     "placeholder": "näyttönimi"
@@ -300,11 +369,12 @@
                 },
                 "password": {
                     "placeholder": "salasana",
+                    "confirmation_placeholder": "Vahvista salasana",
                     "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "character_limit": "8 merkkiä",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "tarkastettu",
+                        "unchecked": "tarkastamaton"
                     },
                     "hint": "Salasanassasi on oltava vähintään kahdeksan merkkiä"
                 },
@@ -318,14 +388,14 @@
                     "email": "Sähköposti",
                     "password": "Salasana",
                     "agreement": "Hyväksy",
-                    "locale": "Locale",
+                    "locale": "Alue",
                     "reason": "Syy"
                 },
                 "reason": {
                     "blocked": "%s sisältää estetyn sähköpostipalveluntarjoajan",
                     "unreachable": "%s ei näytä olevan olemassa",
-                    "taken": "%s on jo käytössä",
-                    "reserved": "%s is a reserved keyword",
+                    "taken": "%s on jo varattu. Entäpä:",
+                    "reserved": "%s on varattu avainsana",
                     "accepted": "%s täytyy hyväksyä",
                     "blank": "%s vaaditaan",
                     "invalid": "%s on virheellinen",
@@ -352,15 +422,13 @@
             }
         },
         "confirm_email": {
-            "title": "Viimeinen asia.",
-            "subtitle": "Lähetimme juuri sähköpostin osoitteeseen %s, napauta siinä olevaa linkkiä vahvistaaksesi tilisi.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "title": "Tarkasta postilaatikkosi",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Napauta lähettämäämme linkkiä vahvistaaksesi tunnuksen %@. Odotamme täällä.",
             "button": {
-                "open_email_app": "Avaa sähköpostisovellus",
-                "resend": "Resend"
+                "resend": "Lähetä uudelleen"
             },
             "dont_receive_email": {
-                "title": "Tarkista sähköpostisi",
+                "title": "Tarkasta sähköpostisi",
                 "description": "Tarkista, että sähköpostiosoitteesi on oikea, sekä roskapostikansiosi, jos et vielä ole.",
                 "resend_email": "Lähetä sähköposti uudelleen"
             },
@@ -369,6 +437,11 @@
                 "description": "Lähetimme sinulle juuri sähköpostin. Tarkista myös roskapostikansiosi, jos et vielä ole.",
                 "mail": "Sähköposti",
                 "open_email_client": "Avaa sähköpostisovellus"
+            },
+            "didnt_get_link": {
+                "prefix": "Etkö saanut linkkiä?",
+                "resend_in": "Lähetä uudelleen (%@)",
+                "resend_now": "Lähetä uudelleen nyt."
             }
         },
         "home_timeline": {
@@ -379,7 +452,7 @@
                 "published": "Julkaistu!",
                 "Publishing": "Julkaistaan julkaisua...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -391,7 +464,8 @@
         "compose": {
             "title": {
                 "new_post": "Uusi julkaisu",
-                "new_reply": "Uusi vastaus"
+                "new_reply": "Uusi vastaus",
+                "edit_post": "Muokkaa julkaisua"
             },
             "media_selection": {
                 "camera": "Ota kuva",
@@ -411,10 +485,11 @@
                 "upload_failed": "Upload Failed",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
+                "compressing_state": "Pakataan...",
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
+                "title": "Kysely",
                 "duration_time": "Kesto: %s",
                 "thirty_minutes": "30 minuuttia",
                 "one_hour": "1 tunti",
@@ -424,7 +499,11 @@
                 "seven_days": "7 päivää",
                 "option_number": "Vaihtoehto %ld",
                 "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_has_empty_option": "The poll has empty option",
+                "add_option": "Lisää vaihtoehto",
+                "remove_option": "Poista vaihtoehto",
+                "move_up": "Siirrä ylemmäs",
+                "move_down": "Siirrä alemmas"
             },
             "content_warning": {
                 "placeholder": "Kirjoita tarkka varoitus tähän..."
@@ -456,6 +535,12 @@
                 "toggle_content_warning": "Vaihda sisältövaroitus",
                 "append_attachment_entry": "Lisää liite - %s",
                 "select_visibility_entry": "Valitse näkyvyys - %s"
+            },
+            "language": {
+                "title": "Julkaisun kieli",
+                "suggested": "Ehdotettu",
+                "recent": "Uusimmat",
+                "other": "Muu kieli…"
             }
         },
         "profile": {
@@ -468,7 +553,8 @@
                 "my_followers": "seuraajat",
                 "other_posts": "julkaisut",
                 "other_following": "seurattavat",
-                "other_followers": "seuraajat"
+                "other_followers": "seuraajat",
+                "familiar_followers": "yhteiset"
             },
             "fields": {
                 "joined": "Joined",
@@ -487,19 +573,19 @@
                 "replies": "Vastaukset",
                 "posts_and_replies": "Posts and Replies",
                 "media": "Media",
-                "about": "About"
+                "about": "Tietoja"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Mykistä tili",
+                    "message": "Vahvista käyttäjän %s mykistys"
                 },
                 "confirm_unmute_user": {
                     "title": "Poista tilin mykistys",
                     "message": "Vahvista, että haluat poistaa mykistyksen tililtä %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
+                    "title": "Estä tili",
                     "message": "Confirm to block %s"
                 },
                 "confirm_unblock_user": {
@@ -519,7 +605,7 @@
                 "show_avatar_image": "Show avatar image",
                 "edit_avatar_image": "Edit avatar image",
                 "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "double_tap_to_open_the_list": "Avaa lista napauttamalla kahdesti"
             }
         },
         "follower": {
@@ -584,7 +670,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Omat suosikit"
+            "title": "Suosikit"
         },
         "notification": {
             "title": {
@@ -646,7 +732,6 @@
                 },
                 "preference": {
                     "title": "Lisäasetukset",
-                    "true_black_dark_mode": "Todellinen mustan tumma tila",
                     "disable_avatar_animation": "Poista käytöstä animoidut avatarit",
                     "disable_emoji_animation": "Poista käytöstä animoidut emojit",
                     "using_default_browser": "Käytä oletusselainta linkkien avaamiseen",
@@ -738,11 +823,6 @@
             "dismiss_account_switcher": "Sulje tilin vaihtaja",
             "add_account": "Lisää tili"
         },
-        "wizard": {
-            "new_in_mastodon": "Uutta Mastodonissa",
-            "multiple_account_switch_intro_description": "Vaihda useiden tilien välillä pitämällä profiilipainiketta painettuna.",
-            "accessibility_hint": "Hylkää tämä ohjattu toiminto kaksoisnapauttamalla"
-        },
         "bookmark": {
             "title": "Bookmarks"
         },
@@ -757,6 +837,37 @@
                 "follow": "Follow",
                 "unfollow": "Unfollow"
             }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "Tämä ei näytä olevan kelvollinen Mastodon-linkki."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Valitettavasti tätä widgettiperhettä ei tueta.",
+            "user_not_logged_in": "Avaa Mastodon kirjautuaksesi tilille."
+        },
+        "followers_count": {
+            "configuration_display_name": "Seuraajat",
+            "configuration_description": "Näytä seuraajien määrä.",
+            "title": "SEURAAJAT",
+            "followers_today": "%s seuraajaa tänään"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Useita seuraajia",
+            "configuration_description": "Näytä seuraajien määrä useille tileille.",
+            "mock_user": {
+                "display_name": "Toinen seuraaja",
+                "account_name": "toinen@seuraaja.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Uusimmat seuraajat",
+            "configuration_description": "Näyyä uusimmat seuraajat.",
+            "title": "Uusimmat seuraajat",
+            "last_update": "Päivitettiin viimeksi %s"
         }
     }
 }

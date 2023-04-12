@@ -8,10 +8,10 @@
 import Foundation
 
 // https://gist.github.com/DougGregor/92a2e4f6e11f6d733fb5065e9d1c880f
-extension Collection {
-    public func parallelMap<T>(
+extension Collection where Self: Sendable, Index: Sendable {
+    public func parallelMap<T: Sendable>(
         parallelism requestedParallelism: Int? = nil,
-        _ transform: @escaping (Element) async throws -> T
+        _ transform: @escaping @Sendable (Element) async throws -> T
     ) async rethrows -> [T] {
         let defaultParallelism = 2
         let parallelism = requestedParallelism ?? defaultParallelism
@@ -57,7 +57,7 @@ extension Collection {
 
     func parallelEach(
         parallelism requestedParallelism: Int? = nil,
-        _ work: @escaping (Element) async throws -> Void
+        _ work: @escaping @Sendable (Element) async throws -> Void
     ) async rethrows {
         _ = try await parallelMap {
             try await work($0)

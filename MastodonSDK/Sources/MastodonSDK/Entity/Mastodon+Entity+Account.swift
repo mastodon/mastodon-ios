@@ -17,7 +17,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/account/)
-    public class Account: Codable {
+    public final class Account: Codable, Sendable {
         
         public typealias ID = String
 
@@ -82,6 +82,13 @@ extension Mastodon.Entity {
             case muteExpiresAt = "mute_expires_at"
         }
     }
+}
 
-    
+extension Mastodon.Entity.Account {
+    public func acctWithDomainIfMissing(_ localDomain: String) -> String {
+        guard acct.contains("@") else {
+            return "\(acct)@\(localDomain)"
+        }
+        return acct
+    }
 }

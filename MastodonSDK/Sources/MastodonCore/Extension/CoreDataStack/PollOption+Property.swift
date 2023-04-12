@@ -11,6 +11,7 @@ import CoreDataStack
 
 extension PollOption.Property {
     public init(
+        poll: Poll,
         index: Int,
         entity: Mastodon.Entity.Poll.Option,
         networkDate: Date
@@ -20,7 +21,8 @@ extension PollOption.Property {
             title: entity.title,
             votesCount: Int64(entity.votesCount ?? 0),
             createdAt: networkDate,
-            updatedAt: networkDate
+            updatedAt: networkDate,
+            poll: poll
         )
     }
 }

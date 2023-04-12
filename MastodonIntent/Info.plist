@@ -30,6 +30,8 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
+				<string>FollowersCountIntent</string>
+				<string>MultiFollowersCountIntent</string>
 				<string>SendPostIntent</string>
 			</array>
 		</dict>

@@ -131,3 +131,7 @@ env/**/**
 ## Ruby ###
 vendor/
 .bundle/
+
+# IDEs
+.idea
+.vscode

@@ -23,11 +23,7 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
     
     weak var delegate: SettingsAppearanceTableViewCellDelegate?
     
-    public private(set) lazy var viewModel: ViewModel = {
-        let viewModel = ViewModel()
-        viewModel.bind(cell: self)
-        return viewModel
-    }()
+    public private(set) var viewModel = ViewModel()
     
     lazy var stackView: UIStackView = {
         let view = UIStackView()
@@ -70,6 +66,7 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        viewModel.bind(cell: self)
     }
     
     required init?(coder: NSCoder) {

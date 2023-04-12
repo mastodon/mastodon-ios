@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/announcementreaction/)
-    public struct AnnouncementReaction: Codable {
+    public struct AnnouncementReaction: Codable, Sendable {
         // Base
         public let name: String
         public let count: Int

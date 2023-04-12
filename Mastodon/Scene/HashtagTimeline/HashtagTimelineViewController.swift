@@ -42,7 +42,7 @@ final class HashtagTimelineViewController: UIViewController, NeedsDependency, Me
         
     let composeBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.image = Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
+        barButtonItem.image = UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()
     
@@ -211,6 +211,7 @@ extension HashtagTimelineViewController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: viewModel.authContext,
+            composeContext: .composeStatus,
             destination: .topLevel,
             initialContent: hashtag
         )

@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "wordmark-white-text.01e9f493 1.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "wordmark-white-text.01e9f493 1@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "wordmark-white-text.01e9f493 1@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "mastodon_logo.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -34,6 +34,7 @@ public protocol Theme {
 
     var separator: UIColor { get }
 
+    var tableViewBackgroundColor: UIColor { get }
     var tableViewCellBackgroundColor: UIColor { get }
     var tableViewCellSelectionBackgroundColor: UIColor { get }
 

@@ -200,6 +200,12 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
         
+        context.publisherService.statusPublishResult.sink { result in
+            if case .success(.edit) = result {
+                self.viewModel.hasPendingStatusEditReload = true
+            }
+        }.store(in: &disposeBag)
+        
         context.publisherService.$currentPublishProgress
             .receive(on: DispatchQueue.main)
             .sink { [weak self] progress in
@@ -394,7 +400,7 @@ extension HomeTimelineViewController {
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
-        guard viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self) else {
+        guard viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self) else {
             sender.endRefreshing()
             return
         }
@@ -518,6 +524,12 @@ extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableView
     }
 
     // sourcery:end
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            viewModel.timelineDidReachEnd()
+        }
+    }
 }
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate

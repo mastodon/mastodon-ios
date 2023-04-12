@@ -27,16 +27,19 @@ struct MastodonRegisterView: View {
                     .modifier(FormTextFieldModifier(validateState: viewModel.displayNameValidateState))
                 HStack {
                     Text("@")
+                        .accessibilityHidden(true)
                     TextField(L10n.Scene.Register.Input.Username.placeholder.localizedCapitalized, text: $viewModel.username)
                         .textContentType(.username)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .keyboardType(.asciiCapable)
+                        .accessibilityLabel(viewModel.accessibilityLabelUsernameField)
                     Text("@\(viewModel.domain)")
                         .lineLimit(1)
                         .truncationMode(.middle)
                         .measureWidth { usernameRightViewWidth = $0 }
                         .frame(width: min(300.0, usernameRightViewWidth), alignment: .trailing)
+                        .accessibilityHidden(true)
                 }
                 .modifier(FormTextFieldModifier(validateState: viewModel.usernameValidateState))
                 .environment(\.layoutDirection, .leftToRight)   // force LTR
