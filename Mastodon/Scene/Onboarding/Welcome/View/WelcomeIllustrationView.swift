@@ -13,12 +13,10 @@ import MastodonLocalization
 
 fileprivate extension CGFloat {
     static let cloudsStartPosition = -20.0
+    static let centerHillStartPosition = 20.0
     static let airplaneStartPosition = -178.0
     static let leftHillStartPosition = 30.0
     static let rightHillStartPosition = -125.0
-    static let leftHillSpeed = 6.0
-    static let centerHillSpeed = 40.0
-    static let rightHillSpeed = 6.0
 }
 
 final class WelcomeIllustrationView: UIView {
@@ -61,7 +59,6 @@ final class WelcomeIllustrationView: UIView {
         let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.cloudBase.image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-//        imageView.alpha = 0.3
         return imageView
     }()
     
@@ -115,9 +112,9 @@ extension WelcomeIllustrationView {
 
         addSubview(centerHillImageView)
         NSLayoutConstraint.activate([
-            leftAnchor.constraint(equalTo: centerHillImageView.leftAnchor),
+            leftAnchor.constraint(equalTo: centerHillImageView.leftAnchor, constant: .centerHillStartPosition),
             bottomAnchor.constraint(equalTo: centerHillImageView.bottomAnchor),
-            rightAnchor.constraint(equalTo: centerHillImageView.rightAnchor),
+            centerHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.1),
         ])
 
         NSLayoutConstraint.activate([
@@ -130,11 +127,6 @@ extension WelcomeIllustrationView {
     }
     
     func setup() {
-        
-        // set illustration
-        guard superview == nil else {
-            return
-        }
         contentMode = .scaleAspectFit
         
         cloudBaseImageView.addMotionEffect(
