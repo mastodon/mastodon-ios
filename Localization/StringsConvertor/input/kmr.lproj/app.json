@@ -706,28 +706,28 @@
                 "appearance": {
                     "title": "Xuyang",
                     "automatic": "Xweber",
-                    "light": "Her dem ronahî",
+                    "light": "Her dem ron",
                     "dark": "Her dem tarî"
                 },
                 "look_and_feel": {
                     "title": "Xuyang",
                     "use_system": "Pergalê bi kar bîne",
-                    "really_dark": "Tarî",
+                    "really_dark": "Pir tarî",
                     "sorta_dark": "Hinekî tarî",
-                    "light": "Ronahî"
+                    "light": "Ron"
                 },
                 "notifications": {
                     "title": "Agahdarî",
-                    "favorites": "Şandiyên min hez kir",
+                    "favorites": "Şandiya min hez kir",
                     "follows": "Min şopand",
                     "boosts": "Şandiya min bilind dike",
                     "mentions": "Qale min dike",
                     "trigger": {
                         "anyone": "her kes",
                         "follower": "şopînerek",
-                        "follow": "her kesê ku dişopînim",
+                        "follow": "her kesê ku ez dişopînim",
                         "noone": "ne yek",
-                        "title": "Min agahdar bike gava"
+                        "title": "Min agahdar bike dema"
                     }
                 },
                 "preference": {
