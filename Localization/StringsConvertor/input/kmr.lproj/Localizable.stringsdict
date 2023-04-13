@@ -168,9 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 ji nû ve nivîsandin</string>
+        <string>1 bilindkirin</string>
         <key>other</key>
-        <string>%ld ji nû ve nivîsandin</string>
+        <string>%ld bilindkirin</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -184,9 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>1 bilindkirin</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld bilindkirin</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
