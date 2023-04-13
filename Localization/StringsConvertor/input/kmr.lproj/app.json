@@ -117,7 +117,7 @@
                 "common": {
                     "switch_to_tab": "Biguherîne bo %s",
                     "compose_new_post": "Şandiyeke nû binivsîne",
-                    "show_favorites": "Bijarteyan nîşan bide",
+                    "show_favorites": "Hezkiriyan nîşan bide",
                     "open_settings": "Sazkariyan Veke"
                 },
                 "timeline": {
@@ -128,7 +128,7 @@
                     "open_reblogger_profile": "Profîla nivîskaran veke",
                     "reply_status": "Bersivê bide şandiyê",
                     "toggle_reblog": "Bilindkirinê di şandiyê de biguherîne",
-                    "toggle_favorite": "Li ser şandiyê bijarte biguherîne",
+                    "toggle_favorite": "Li ser şandiyê hezkirî biguherîne",
                     "toggle_content_warning": "Hişyariya naverokê biguherîne",
                     "preview_image": "Pêşdîtina wêneyê"
                 },
@@ -162,8 +162,8 @@
                     "reply": "Bersivê bide",
                     "reblog": "Bilind bike",
                     "unreblog": "Bilindkirinê rake",
-                    "favorite": "Bijarte",
-                    "unfavorite": "Nebijarte",
+                    "favorite": "Hez bike",
+                    "unfavorite": "Hez neke",
                     "menu": "Kulîn",
                     "hide": "Veşêre",
                     "show_image": "Wêneyê nîşan bide",
@@ -205,7 +205,7 @@
                 "posted_via_application": "%s bi riya %s",
                 "buttons": {
                     "reblogs_title": "Bilindkirin",
-                    "favorites_title": "Bijarte",
+                    "favorites_title": "Hezkirî",
                     "edit_history_title": "Dîroka serrastkirinê",
                     "edit_history_detail": "Serrastkirina dawî %s"
                 },
@@ -670,7 +670,7 @@
             "intro": "Ev şandiyên ku di quncika Mastodon balê dikişîne."
         },
         "favorite": {
-            "title": "Bijarte"
+            "title": "Hezkirî"
         },
         "notification": {
             "title": {
