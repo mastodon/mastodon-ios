@@ -857,7 +857,7 @@
         },
         "multiple_followers": {
             "configuration_display_name": "Şopînerên pirjimar",
-            "configuration_description": "Ji bo gelek ajimêran jimara şopîneran nîşan bide.",
+            "configuration_description": "Ji bo ajimêran pir jimara şopîneran nîşan bide.",
             "mock_user": {
                 "display_name": "Şopînerekî din",
                 "account_name": "another@follower.social"
