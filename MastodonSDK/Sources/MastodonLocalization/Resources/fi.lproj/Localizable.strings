@@ -527,7 +527,7 @@ uploaded to Mastodon.";
 "Scene.Welcome.JoinDefaultServer" = "Liity mastodon.social-palvelimelle";
 "Scene.Welcome.LearnMore" = "Lue lisää";
 "Scene.Welcome.LogIn" = "Kirjaudu sisään";
-"Scene.Welcome.PickServer" = "Pick my own Server";
+"Scene.Welcome.PickServer" = "Valitse palvelimesi";
 "Scene.Welcome.Separator.Or" = "tai";
 "Widget.Common.UnsupportedWidgetFamily" = "Valitettavasti tätä widgettiperhettä ei tueta.";
 "Widget.Common.UserNotLoggedIn" = "Avaa Mastodon kirjautuaksesi tilille.";

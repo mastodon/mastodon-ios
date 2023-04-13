@@ -523,12 +523,12 @@ Elegiremos un servidor basado en su idioma si continúa sin hacer una selección
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "Què és Mastodon?";
 "Scene.Welcome.Education.Mastodon.Description" = "Mastodon és un xarxa social descentralitzada, el que significa que cap empresa la controla. Es composa de molts servidors administrats independentment, tots interconnectats.";
 "Scene.Welcome.Education.Mastodon.Title" = "Benvingut a Mastodon";
-"Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
+"Scene.Welcome.Education.Servers.Description" = "Cada compte a Mastodon esta allotjat en un servidor, cadascún d'ells amb els seus propis valors, normes i administradors. Tant és quin trïis, podràs seguir i interactuar amb gent de qualsevol servidor.";
 "Scene.Welcome.Education.Servers.Title" = "Què son els servidors?";
 "Scene.Welcome.JoinDefaultServer" = "Uneix-te a mastodon.social";
 "Scene.Welcome.LearnMore" = "Més informació";
 "Scene.Welcome.LogIn" = "Inicia sessió";
-"Scene.Welcome.PickServer" = "Pick my own Server";
+"Scene.Welcome.PickServer" = "Tria el meu propi Servidor";
 "Scene.Welcome.Separator.Or" = "o";
 "Widget.Common.UnsupportedWidgetFamily" = "Ho sentim però aquesta familia de ginys no està suportada.";
 "Widget.Common.UserNotLoggedIn" = "Si us plau obre Mastodon per a iniciar sessió en un Compte.";
