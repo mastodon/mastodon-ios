@@ -146,7 +146,7 @@
                 "sensitive_content": "Naveroka hestiyarî",
                 "media_content_warning": "Ji bo eşkerekirinê li derekî bitikîne",
                 "tap_to_reveal": "Ji bo dîtinê bitikîne",
-                "load_embed": "Load Embed",
+                "load_embed": "Naverokê bar bike",
                 "link_via_user": "%s bi riya %s",
                 "poll": {
                     "vote": "Deng bide",
@@ -718,7 +718,7 @@
                 },
                 "notifications": {
                     "title": "Agahdarî",
-                    "favorites": "Şandiya min hez kir",
+                    "favorites": "Şandiya min hez dike",
                     "follows": "Min şopand",
                     "boosts": "Şandiya min bilind dike",
                     "mentions": "Qale min dike",
