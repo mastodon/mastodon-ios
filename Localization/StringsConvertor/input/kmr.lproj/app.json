@@ -351,7 +351,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Ajimêr biafirîne",
             "input": {
                 "avatar": {
                     "delete": "Jê bibe"
@@ -394,7 +394,7 @@
                 "reason": {
                     "blocked": "%s peydekerê e-peyamê yê qedexekirî dihewîne",
                     "unreachable": "%s xuya ye ku tune ye",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s jixwe hatiye birin. Tu çi dibêjî ser:",
                     "reserved": "%s peyveke parastî ye",
                     "accepted": "%s divê were pejirandin",
                     "blank": "%s pêwist e",
@@ -428,7 +428,7 @@
                 "resend": "Ji nû ve bişîne"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "E-nameyê xwe kontrol bike",
                 "description": "Kontrol bike ka navnîşana e-nameya te rast e û her wiha peldanka xwe ya spam.",
                 "resend_email": "E-namyê yê dîsa bişîne"
             },
