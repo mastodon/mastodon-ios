@@ -21,6 +21,7 @@ struct ComposeContentToolbarView: View {
     static var toolbarHeight: CGFloat { 48 }
     
     @ObservedObject var viewModel: ViewModel
+    let isZoomed = (UIScreen.main.scale != UIScreen.main.nativeScale)
     
     @State private var showingLanguagePicker = false
     @State private var didChangeLanguage = false
@@ -30,7 +31,7 @@ struct ComposeContentToolbarView: View {
     
     var body: some View {
         HStack(spacing: .zero) {
-            ScrollView(.horizontal) {
+            ScrollView(isZoomed ? .horizontal : []) {
                 HStack(spacing: .zero) {
                     ForEach(ComposeContentToolbarView.ViewModel.Action.allCases, id: \.self) { action in
                         switch action {
@@ -171,20 +172,21 @@ struct ComposeContentToolbarView: View {
                     }
                 }
             }
-                Spacer()
-                let count: Int = {
-                    if viewModel.isContentWarningActive {
-                        return viewModel.contentWeightedLength + viewModel.contentWarningWeightedLength
-                    } else {
-                        return viewModel.contentWeightedLength
-                    }
-                }()
-                let remains = viewModel.maxTextInputLimit - count
-                let isOverflow = remains < 0
-                Text("\(remains)")
-                    .foregroundColor(Color(isOverflow ? UIColor.systemRed : UIColor.secondaryLabel))
-                    .font(.system(size: isOverflow ? 18 : 16, weight: isOverflow ? .medium : .regular))
-                    .accessibilityLabel(L10n.A11y.Plural.Count.charactersLeft(remains))
+
+            Spacer()
+            let count: Int = {
+                if viewModel.isContentWarningActive {
+                    return viewModel.contentWeightedLength + viewModel.contentWarningWeightedLength
+                } else {
+                    return viewModel.contentWeightedLength
+                }
+            }()
+            let remains = viewModel.maxTextInputLimit - count
+            let isOverflow = remains < 0
+            Text("\(remains)")
+                .foregroundColor(Color(isOverflow ? UIColor.systemRed : UIColor.secondaryLabel))
+                .font(.system(size: isOverflow ? 18 : 16, weight: isOverflow ? .medium : .regular))
+                .accessibilityLabel(L10n.A11y.Plural.Count.charactersLeft(remains))
 
         }
         .padding(.leading, 4)       // 4 + 12 = 16
