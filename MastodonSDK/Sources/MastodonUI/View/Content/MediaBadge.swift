@@ -3,8 +3,14 @@
 import SwiftUI
 
 struct MediaBadge<Content: View>: View {
-    let content: Content
-    init(@ViewBuilder content: () -> Content) {
+    private var _isExpanded: Binding<Bool>?
+    private let content: Content
+    private var isExpanded: Bool {
+        _isExpanded?.wrappedValue ?? false
+    }
+
+    init(isExpanded: Binding<Bool>? = nil, @ViewBuilder content: () -> Content) {
+        self._isExpanded = isExpanded
         self.content = content()
     }
 
@@ -12,12 +18,15 @@ struct MediaBadge<Content: View>: View {
         // need the VStack (or some other kind of containing view) to
         // ensure the transition animations work properly
         // Is this a bug? Is it intended behavior? I have no clue
-        VStack {
+        HStack {
             content
+            if isExpanded {
+                Spacer(minLength: 0)
+            }
         }
         .font(.subheadline.bold())
         .padding(.horizontal, 8)
-        .padding(.vertical, 2)
+        .padding(.vertical, isExpanded ? 8 : 2)
         .foregroundColor(.white)
         .tint(.white)
         .background(Color.black.opacity(0.7))
@@ -28,6 +37,11 @@ struct MediaBadge<Content: View>: View {
                 .inset(by: -0.5)
                 .stroke(lineWidth: 0.5)
         )
+        // this is not accessible, but the badge UI is not shown to accessibility tools at the moment
+        .onTapGesture {
+            _isExpanded?.wrappedValue.toggle()
+        }
+        .accessibilityHidden(true)
     }
 
 }
