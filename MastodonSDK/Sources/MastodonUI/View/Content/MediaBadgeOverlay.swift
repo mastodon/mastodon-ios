@@ -9,9 +9,20 @@ import SwiftUI
 struct MediaBadgeOverlay: View {
     var altDescription: String?
     var isGIF = false
+    var videoDuration: TimeInterval?
     
     @State private var showingAlt = false
     @State private var space = AnyHashable(UUID())
+
+    // Date.ComponentsFormatStyle does not allow force-enabling minutes unit
+    static let formatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = []
+        formatter.formattingContext = .standalone
+        return formatter
+    }()
 
     var body: some View {
         GeometryReader { geom in
@@ -24,6 +35,9 @@ struct MediaBadgeOverlay: View {
                 }
                 if isGIF {
                     MediaBadge("GIF")
+                }
+                if let videoDuration, let format = Self.formatter.string(from: videoDuration) {
+                    MediaBadge(format)
                 }
             }
             .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)

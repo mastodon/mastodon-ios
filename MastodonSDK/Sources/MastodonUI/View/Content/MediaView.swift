@@ -194,6 +194,8 @@ extension MediaView {
     }
     
     private func bindVideo(configuration: Configuration, info: Configuration.VideoInfo) {
+        badgeViewController.rootView.videoDuration = info.durationMS.map { Double($0) / 1000 }
+
         let imageInfo = Configuration.ImageInfo(
             aspectRadio: info.aspectRadio,
             assetURL: info.previewURL,
@@ -284,6 +286,7 @@ extension MediaView {
         
         badgeViewController.rootView.altDescription = nil
         badgeViewController.rootView.isGIF = false
+        badgeViewController.rootView.videoDuration = nil
 
         // reset configuration
         configuration = nil
