@@ -269,11 +269,11 @@
             "education": {
                 "mastodon": {
                     "title": "Velkomin í Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "description": "Mastodon er dreyfhýst samfélagsnet, sem þýðir að ekkert eitt fyrirtæki ræður yfir því. Netið samanstendur af mörgum sjálfstætt reknum netþjónum sem tengjast innbyrðis."
                 },
                 "servers": {
                     "title": "Hvað eru netþjónar?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "description": "Hver einasti Mastodon-aðgangur er hýstur á sínum netþjóni — hver slíkur er með sín eigin gildi, reglur og stjórnendur. Það skiftir ekki máli hvern þeirra þú velur, þú getur fylgst fylgst með og átt í samskiptum við fólk á hvaða netþjóni sem er."
                 },
                 "a11y": {
                     "what_is_mastodon": {
