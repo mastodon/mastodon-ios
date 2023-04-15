@@ -66,8 +66,8 @@ public final class MediaView: UIView {
         return wrapper
     }()
     
-    let badgeViewController: UIHostingController<MediaBadgeOverlay> = {
-        let vc = UIHostingController(rootView: MediaBadgeOverlay())
+    let badgeViewController: UIHostingController<MediaBadgesContainer> = {
+        let vc = UIHostingController(rootView: MediaBadgesContainer())
         vc.view.backgroundColor = .clear
         return vc
     }()

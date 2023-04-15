@@ -1,12 +1,12 @@
 //
-//  MediaBadgeOverlay.swift
+//  MediaBadgesContainer.swift
 //
 //  Created by Jed Fox on 2022-12-20.
 //
 
 import SwiftUI
 
-struct MediaBadgeOverlay: View {
+struct MediaBadgesContainer: View {
     var altDescription: String?
     var isGIF = false
     var videoDuration: TimeInterval?
@@ -53,7 +53,7 @@ struct MediaBadgeOverlay: View {
 
 struct MediaAltTextOverlay_Previews: PreviewProvider {
     static var previews: some View {
-        MediaBadgeOverlay(altDescription: "Hello, world!")
+        MediaBadgesContainer(altDescription: "Hello, world!")
             .frame(height: 300)
             .background(Color.gray)
             .previewLayout(.sizeThatFits)
