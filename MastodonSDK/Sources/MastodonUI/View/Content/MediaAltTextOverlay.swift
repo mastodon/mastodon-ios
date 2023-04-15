@@ -15,30 +15,18 @@ struct MediaAltTextOverlay: View {
 
     var body: some View {
         GeometryReader { geom in
-            ZStack {
-                if let altDescription {
+            if let altDescription {
+                MediaBadge(isExpanded: $showingAlt) {
                     if showingAlt {
-                        HStack(alignment: .top) {
-                            Text(altDescription)
-                            Spacer()
-                            Button(action: { showingAlt = false }) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 20, height: 20)
-                            }
-                        }
-                        .padding(8)
-                        .matchedGeometryEffect(id: "background", in: namespace, properties: .position)
-                        .transition(
-                            .scale(scale: 0.2, anchor: .bottomLeading)
-                            .combined(with: .opacity)
-                        )
+                        Text(altDescription)
+                            .font(.caption)
+                            .matchedGeometryEffect(id: "background", in: namespace, properties: .position)
+                            .transition(
+                                .scale(scale: 0.2, anchor: .bottomLeading)
+                                .combined(with: .opacity)
+                            )
                     } else {
-                        Button("ALT") { showingAlt = true }
-                            .font(.caption.weight(.semibold))
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 3)
+                        Text("ALT")
                             .matchedGeometryEffect(id: "background", in: namespace, properties: .position)
                             .transition(
                                 .scale(scale: 3, anchor: .trailing)
@@ -46,19 +34,9 @@ struct MediaAltTextOverlay: View {
                             )
                     }
                 }
+                .animation(.spring(response: 0.3), value: showingAlt)
+                .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
             }
-            .foregroundColor(.white)
-            .tint(.white)
-            .background(Color.black.opacity(0.85))
-            .cornerRadius(4)
-            .overlay(
-                .white.opacity(0.5),
-                in: RoundedRectangle(cornerRadius: 4)
-                    .inset(by: -0.5)
-                    .stroke(lineWidth: 0.5)
-            )
-            .animation(.spring(response: 0.3), value: showingAlt)
-            .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
