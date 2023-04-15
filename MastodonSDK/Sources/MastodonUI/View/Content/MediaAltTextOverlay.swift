@@ -11,30 +11,13 @@ struct MediaAltTextOverlay: View {
     var altDescription: String?
     
     @State private var showingAlt = false
-    @Namespace private var namespace
 
     var body: some View {
         GeometryReader { geom in
             if let altDescription {
-                MediaBadge(isExpanded: $showingAlt) {
-                    if showingAlt {
-                        Text(altDescription)
-                            .font(.caption)
-                            .matchedGeometryEffect(id: "background", in: namespace, properties: .position)
-                            .transition(
-                                .scale(scale: 0.2, anchor: .bottomLeading)
-                                .combined(with: .opacity)
-                            )
-                    } else {
-                        Text("ALT")
-                            .matchedGeometryEffect(id: "background", in: namespace, properties: .position)
-                            .transition(
-                                .scale(scale: 3, anchor: .trailing)
-                                .combined(with: .opacity)
-                            )
-                    }
+                ExpandableMediaBadge("ALT", isExpanded: $showingAlt) {
+                    Text(altDescription)
                 }
-                .animation(.spring(response: 0.3), value: showingAlt)
                 .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
             }
         }
