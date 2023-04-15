@@ -1,13 +1,12 @@
 //
-//  MediaAltTextOverlay.swift
-//  
+//  MediaBadgeOverlay.swift
 //
 //  Created by Jed Fox on 2022-12-20.
 //
 
 import SwiftUI
 
-struct MediaAltTextOverlay: View {
+struct MediaBadgeOverlay: View {
     var altDescription: String?
     
     @State private var showingAlt = false
@@ -31,7 +30,7 @@ struct MediaAltTextOverlay: View {
 
 struct MediaAltTextOverlay_Previews: PreviewProvider {
     static var previews: some View {
-        MediaAltTextOverlay(altDescription: "Hello, world!")
+        MediaBadgeOverlay(altDescription: "Hello, world!")
             .frame(height: 300)
             .background(Color.gray)
             .previewLayout(.sizeThatFits)

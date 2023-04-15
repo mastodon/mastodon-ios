@@ -83,8 +83,8 @@ public final class MediaView: UIView {
         return label
     }()
     
-    let altViewController: UIHostingController<MediaAltTextOverlay> = {
-        let vc = UIHostingController(rootView: MediaAltTextOverlay())
+    let badgeViewController: UIHostingController<MediaBadgeOverlay> = {
+        let vc = UIHostingController(rootView: MediaBadgeOverlay())
         vc.view.backgroundColor = .clear
         return vc
     }()
@@ -231,7 +231,7 @@ extension MediaView {
             accessibilityLabel = altDescription
         }
 
-        altViewController.rootView.altDescription = altDescription
+        badgeViewController.rootView.altDescription = altDescription
     }
 
     private func layoutBlurhash() {
@@ -263,9 +263,9 @@ extension MediaView {
     }
     
     private func layoutAlt() {
-        altViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        container.addSubview(altViewController.view)
-        altViewController.view.pinToParent()
+        badgeViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(badgeViewController.view)
+        badgeViewController.view.pinToParent()
     }
     
     public func prepareForReuse() {
@@ -303,7 +303,7 @@ extension MediaView {
         container.removeFromSuperview()
         container.removeConstraints(container.constraints)
         
-        altViewController.rootView.altDescription = nil
+        badgeViewController.rootView.altDescription = nil
 
         // reset configuration
         configuration = nil
