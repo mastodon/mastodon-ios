@@ -39,6 +39,7 @@ struct ExpandableMediaBadge<Label: View, Content: View>: View {
                                 .scale(scale: 0.2, anchor: .bottomLeading)
                                 .combined(with: .opacity)
                             )
+                            .layoutPriority(1)
                         Spacer(minLength: 0)
                     } else {
                         label

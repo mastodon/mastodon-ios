@@ -66,23 +66,6 @@ public final class MediaView: UIView {
         return wrapper
     }()
     
-    private(set) lazy var indicatorBlurEffectView: UIVisualEffectView = {
-        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
-        effectView.layer.masksToBounds = true
-        effectView.layer.cornerCurve = .continuous
-        effectView.layer.cornerRadius = 4
-        return effectView
-    }()
-    private(set) lazy var indicatorVibrancyEffectView = UIVisualEffectView(
-        effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemUltraThinMaterial))
-    )
-    private(set) lazy var playerIndicatorLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .caption1)
-        label.textColor = .secondaryLabel
-        return label
-    }()
-    
     let badgeViewController: UIHostingController<MediaBadgeOverlay> = {
         let vc = UIHostingController(rootView: MediaBadgeOverlay())
         vc.view.backgroundColor = .clear
@@ -179,10 +162,7 @@ extension MediaView {
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(playerViewController.view)
         playerViewController.view.pinToParent()
-        
-        setupIndicatorViewHierarchy()
-        playerIndicatorLabel.attributedText = NSAttributedString(string: "GIF")
-        
+
         layoutAlt()
     }
     
@@ -194,6 +174,8 @@ extension MediaView {
         
         // auto play for GIF
         player.play()
+
+        badgeViewController.rootView.isGIF = true
 
         bindAlt(configuration: configuration, altDescription: info.altDescription)
     }
@@ -295,15 +277,13 @@ extension MediaView {
         blurhashImageView.removeFromSuperview()
         blurhashImageView.removeConstraints(blurhashImageView.constraints)
         blurhashImageView.image = nil
-        
-        // reset indicator
-        indicatorBlurEffectView.removeFromSuperview()
-        
+
         // reset container
         container.removeFromSuperview()
         container.removeConstraints(container.constraints)
         
         badgeViewController.rootView.altDescription = nil
+        badgeViewController.rootView.isGIF = false
 
         // reset configuration
         configuration = nil
@@ -332,37 +312,5 @@ extension MediaView {
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
         container.pinToParent()
-    }
-
-    private func setupIndicatorViewHierarchy() {
-        let blurEffectView = indicatorBlurEffectView
-        let vibrancyEffectView = indicatorVibrancyEffectView
-        
-        assert(playerViewController.contentOverlayView != nil)
-        if let contentOverlayView = playerViewController.contentOverlayView {
-            blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-            contentOverlayView.addSubview(indicatorBlurEffectView)
-            NSLayoutConstraint.activate([
-                contentOverlayView.trailingAnchor.constraint(equalTo: blurEffectView.trailingAnchor, constant: 16),
-                contentOverlayView.bottomAnchor.constraint(equalTo: blurEffectView.bottomAnchor, constant: 8),
-            ])
-        }
-
-        if vibrancyEffectView.superview == nil {
-            vibrancyEffectView.translatesAutoresizingMaskIntoConstraints = false
-            blurEffectView.contentView.addSubview(vibrancyEffectView)
-            vibrancyEffectView.pinToParent()
-        }
-        
-        if playerIndicatorLabel.superview == nil {
-            playerIndicatorLabel.translatesAutoresizingMaskIntoConstraints = false
-            vibrancyEffectView.contentView.addSubview(playerIndicatorLabel)
-            NSLayoutConstraint.activate([
-                playerIndicatorLabel.topAnchor.constraint(equalTo: vibrancyEffectView.contentView.topAnchor),
-                playerIndicatorLabel.leadingAnchor.constraint(equalTo: vibrancyEffectView.contentView.leadingAnchor, constant: 3),
-                vibrancyEffectView.contentView.trailingAnchor.constraint(equalTo: playerIndicatorLabel.trailingAnchor, constant: 3),
-                playerIndicatorLabel.bottomAnchor.constraint(equalTo: vibrancyEffectView.contentView.bottomAnchor),
-            ])
-        }
     }
 }

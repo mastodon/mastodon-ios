@@ -8,6 +8,7 @@ import SwiftUI
 
 struct MediaBadgeOverlay: View {
     var altDescription: String?
+    var isGIF = false
     
     @State private var showingAlt = false
     @State private var space = AnyHashable(UUID())
@@ -18,7 +19,11 @@ struct MediaBadgeOverlay: View {
                 if let altDescription {
                     ExpandableMediaBadge("ALT", isExpanded: $showingAlt, in: (geom.size, space)) {
                         Text(altDescription)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
+                }
+                if isGIF {
+                    MediaBadge("GIF")
                 }
             }
             .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
