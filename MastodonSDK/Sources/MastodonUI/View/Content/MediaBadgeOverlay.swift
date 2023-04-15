@@ -10,15 +10,19 @@ struct MediaBadgeOverlay: View {
     var altDescription: String?
     
     @State private var showingAlt = false
+    @State private var space = AnyHashable(UUID())
 
     var body: some View {
         GeometryReader { geom in
-            if let altDescription {
-                ExpandableMediaBadge("ALT", isExpanded: $showingAlt) {
-                    Text(altDescription)
+            HStack(alignment: .bottom) {
+                if let altDescription {
+                    ExpandableMediaBadge("ALT", isExpanded: $showingAlt, in: (geom.size, space)) {
+                        Text(altDescription)
+                    }
                 }
-                .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
             }
+            .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
+            .coordinateSpace(name: space)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
