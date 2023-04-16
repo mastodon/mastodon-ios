@@ -30,6 +30,7 @@ struct MediaBadgesContainer: View {
                 if let altDescription {
                     ExpandableMediaBadge("ALT", isExpanded: $showingAlt, in: (geom.size, space)) {
                         Text(altDescription)
+                            .frame(maxHeight: geom.size.height - 16)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
