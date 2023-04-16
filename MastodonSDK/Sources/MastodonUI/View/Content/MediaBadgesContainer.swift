@@ -26,7 +26,7 @@ struct MediaBadgesContainer: View {
 
     var body: some View {
         GeometryReader { geom in
-            HStack(alignment: .bottom) {
+            HStack(alignment: .bottom, spacing: 2) {
                 if let altDescription {
                     ExpandableMediaBadge("ALT", isExpanded: $showingAlt, in: (geom.size, space)) {
                         Text(altDescription)
@@ -44,8 +44,7 @@ struct MediaBadgesContainer: View {
             .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
             .coordinateSpace(name: space)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(8)
         .onChange(of: altDescription) { _ in
             showingAlt = false
         }
