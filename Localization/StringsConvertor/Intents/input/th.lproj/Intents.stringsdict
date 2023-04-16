@@ -19,7 +19,7 @@
     <key>There are ${count} options matching ‘${visibility}’.</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>มี %#@count_option@ ที่ตรงกันกับ ‘${visibility}’</string>
+      <string>มี %#@count_option@ ที่ตรงกับ ‘${visibility}’</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
