@@ -138,13 +138,14 @@ public final class StatusCardControl: UIControl {
     }
 
     public func configure(card: Card) {
+        let title = card.title.trimmingCharacters(in: .whitespacesAndNewlines)
         if let host = card.url?.host {
-            accessibilityLabel = "\(card.title) \(host)"
+            accessibilityLabel = "\(title) \(host)"
         } else {
-            accessibilityLabel = card.title
+            accessibilityLabel = title
         }
 
-        titleLabel.text = card.title
+        titleLabel.text = title
         linkLabel.text = card.url?.host
         imageView.contentMode = .center
 

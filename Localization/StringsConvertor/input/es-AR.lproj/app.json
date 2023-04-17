@@ -260,20 +260,20 @@
     "scene": {
         "welcome": {
             "log_in": "Iniciar sesión",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick my own Server",
+            "learn_more": "Aprendé más",
+            "join_default_server": "Unite a mastodon.social",
+            "pick_server": "Elegir mi propio servidor",
             "separator": {
-                "or": "or"
+                "or": "o"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Te damos la bienvenida a Mastodon",
+                    "description": "Mastodon es una red social descentralizada, lo que significa que no la controla una sola compañía. Está conformada por varios servidores administrados independientemente, conectados entre sí."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "¿Qué son los servidores?",
+                    "description": "Cada cuenta de Mastodon está alojada en un servidor, y cada servidor tiene con sus propios valores, reglas y administradores. No importa cuál servidor elijas, podés seguir e interactuar con cuentas alojadas en cualquier servidor."
                 },
                 "a11y": {
                     "what_is_mastodon": {

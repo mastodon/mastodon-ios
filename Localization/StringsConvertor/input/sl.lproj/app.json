@@ -260,20 +260,20 @@
     "scene": {
         "welcome": {
             "log_in": "Prijava",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick my own Server",
+            "learn_more": "Več o tem",
+            "join_default_server": "Pridruži se mastodon.social",
+            "pick_server": "Izberi moj lasten strežnik",
             "separator": {
-                "or": "or"
+                "or": "ali"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Dobrodošli na Mastodon",
+                    "description": "Mastodon je decentralizirano družbeno omrežje, kar pomeni, da ga ne upravlja nobeno posamezno podjetje. Sestavljajo ga številni neodvisni strežniki, ki so medsebojno povezani."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Kaj so strežniki?",
+                    "description": "Vsak račun Mastodon gostuje na strežniku — vsak strežnik ima svoje vrednote, pravila in skbrnike. Vseeno je, katerega izberete - sledite in komunicirate lahko z osebbami na poljubnem strežniku."
                 },
                 "a11y": {
                     "what_is_mastodon": {

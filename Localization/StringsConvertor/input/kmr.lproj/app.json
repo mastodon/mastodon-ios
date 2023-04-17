@@ -101,7 +101,7 @@
                     "title": "Ji %s wergerîne",
                     "unknown_language": "Nenas"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Serrast bike"
             },
             "tabs": {
                 "home": "Serrûpel",
@@ -109,15 +109,15 @@
                 "notifications": "Agahdarî",
                 "profile": "Profîl",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Bigere",
+                    "explore": "Vekole"
                 }
             },
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Biguherîne bo %s",
                     "compose_new_post": "Şandiyeke nû binivsîne",
-                    "show_favorites": "Bijarteyan nîşan bide",
+                    "show_favorites": "Hezkiriyan nîşan bide",
                     "open_settings": "Sazkariyan Veke"
                 },
                 "timeline": {
@@ -127,8 +127,8 @@
                     "open_author_profile": "Profîla nivîskaran veke",
                     "open_reblogger_profile": "Profîla nivîskaran veke",
                     "reply_status": "Bersivê bide şandiyê",
-                    "toggle_reblog": "Ji nû ve nivîsandin di şandiyê de biguherîne",
-                    "toggle_favorite": "Li ser şandiyê bijarte biguherîne",
+                    "toggle_reblog": "Bilindkirinê di şandiyê de biguherîne",
+                    "toggle_favorite": "Li ser şandiyê hezkirî biguherîne",
                     "toggle_content_warning": "Hişyariya naverokê biguherîne",
                     "preview_image": "Pêşdîtina wêneyê"
                 },
@@ -138,7 +138,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s ji nû ve nivîsand",
+                "user_reblogged": "%s bilind kir",
                 "user_replied_to": "Bersiv da %s",
                 "show_post": "Şandiyê nîşan bide",
                 "show_user_profile": "Profîla bikarhêner nîşan bide",
@@ -146,7 +146,7 @@
                 "sensitive_content": "Naveroka hestiyarî",
                 "media_content_warning": "Ji bo eşkerekirinê li derekî bitikîne",
                 "tap_to_reveal": "Ji bo dîtinê bitikîne",
-                "load_embed": "Load Embed",
+                "load_embed": "Naverokê bar bike",
                 "link_via_user": "%s bi riya %s",
                 "poll": {
                     "vote": "Deng bide",
@@ -160,10 +160,10 @@
                 },
                 "actions": {
                     "reply": "Bersivê bide",
-                    "reblog": "Ji nû ve nivîsandin",
-                    "unreblog": "Ji nû ve nivîsandinê vegere",
-                    "favorite": "Bijarte",
-                    "unfavorite": "Nebijarte",
+                    "reblog": "Bilind bike",
+                    "unreblog": "Bilindkirinê rake",
+                    "favorite": "Hez bike",
+                    "unfavorite": "Hez neke",
                     "menu": "Kulîn",
                     "hide": "Veşêre",
                     "show_image": "Wêneyê nîşan bide",
@@ -172,8 +172,8 @@
                     "share_link_in_post": "Girêdanê di şandiyê de parve bike",
                     "tap_then_hold_to_show_menu": "Ji bo nîşandana menuyê dirêj bitikîne",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Bilindkirin",
+                        "unreblog": "Bilindkirinê rake"
                     }
                 },
                 "tag": {
@@ -194,25 +194,25 @@
                     "translated_from": "Hate wergerandin ji %s bi riya %s",
                     "unknown_language": "Nenas",
                     "unknown_provider": "Nenas",
-                    "show_original": "Show Original"
+                    "show_original": "A resen nîşan bide"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, pêvek %d ji %d",
+                    "expand_image_hint": "Wêneyê berfireh dike. Du caran bitikîne û bendê bimîne ku çalakiyan nîşan bide",
+                    "expand_gif_hint": "GIF berfireh dike. Du caran bitikîne û bendê bimîne ku çalakiyan nîşan bide",
+                    "expand_video_hint": "Lêdera vîdyoyê nîşan dike. Du caran bitikîne û bendê bimîne ku çalakiyan nîşan bide"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s bi riya %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Bilindkirin",
+                    "favorites_title": "Hezkirî",
+                    "edit_history_title": "Dîroka serrastkirinê",
+                    "edit_history_detail": "Serrastkirina dawî %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Di %s de hate serrastkirin",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Dîroka serrastkirinê",
+                    "original_post": "Şandiye resen · %s"
                 }
             },
             "friendship": {
@@ -260,40 +260,40 @@
     "scene": {
         "welcome": {
             "log_in": "Têkeve",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick my own Server",
+            "learn_more": "Bêtir fêr bibe",
+            "join_default_server": "Tevlî mastodon.social bibe",
+            "pick_server": "Rajekara min hilbijêre",
             "separator": {
-                "or": "or"
+                "or": "an jî"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Tu bi xêr hatî Mastodon",
+                    "description": "Mastodon tora civakî ya nenavendî ye, tê vê wateyê ku wê ti şîrket wê kontrol nake. Ew ji gelek rajekarên serbixwe-têne birêvebirin pêk tê, hemû bi hev ve girêdayî ne."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Rajekar çi ne?",
+                    "description": "Her ajimêrê Mastodon li ser rajekarekê tê pêşkêşkirin - her yek bi nirx, rêbaz û rêvebirên xwe ye. Ne girîng e ku tu kîjanê hilbijêrî tu dikarî li ser her rajekar mirovan bişopînî û bi wan re têkilî daynî."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Mastodon çi ye?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Dîsa bi xêr hatî",
             "subtitle": "Têketinê bike ser rajekarê ku te ajimêrê xwe tê de çê kiriye.",
             "server_search_field": {
                 "placeholder": "Girêdanê têxe an jî li rajekarê xwe bigere"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Rajekar hilbijêre",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Ziman",
+                "signup_speed": "Leza tomarkirinê",
                 "category": {
                     "all": "Hemû",
                     "all_accessiblity_description": "Beş: Hemû",
@@ -327,31 +327,31 @@
                 "no_results": "Encam tune"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Hemû",
+                "instant": "Tomarkirina lezdar",
+                "manually_reviewed": "Nirxandinê bi destan"
             },
             "language": {
-                "all": "All"
+                "all": "Hemû"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Li nav an jî girêdanê bigere"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Ku tu yê bêyî hilbijartinê bidomînî em ê rajekarekî gorî zimanê te hilbijêrin."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Taybetî",
+            "description": "Her çend sepana Mastodon tu daneyan berhev nake jî, rajekara ku tu tê de tomar dikî dibe ku xwedî politîkeke cuda be. Xulekekê bide alî ku tu politîkaya taybetiyê ya sepana Mastodon û politîkaya taybetiyê ya rajekara xwe binirxînî û bipejirînî.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Politîka taybetiyê - Mastodon ji bo iOS",
+                "server": "Politîka taybetiyê - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ez dipejirînim"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Ajimêr biafirîne",
             "input": {
                 "avatar": {
                     "delete": "Jê bibe"
@@ -359,7 +359,7 @@
                 "username": {
                     "placeholder": "navê bikarhêner",
                     "duplicate_prompt": "Navê vê bikarhêner tê girtin.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "xweş_%@"
                 },
                 "display_name": {
                     "placeholder": "navê nîşanê"
@@ -369,7 +369,7 @@
                 },
                 "password": {
                     "placeholder": "borînpeyv",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Borînpeyvê bipejirîne",
                     "require": "Pêdiviya pêborîna te ya herî kêm:",
                     "character_limit": "8 tîp",
                     "accessibility": {
@@ -394,7 +394,7 @@
                 "reason": {
                     "blocked": "%s peydekerê e-peyamê yê qedexekirî dihewîne",
                     "unreachable": "%s xuya ye ku tune ye",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s jixwe hatiye birin. Tu çi dibêjî ser:",
                     "reserved": "%s peyveke parastî ye",
                     "accepted": "%s divê were pejirandin",
                     "blank": "%s pêwist e",
@@ -418,30 +418,30 @@
             "terms_of_service": "mercên bikaranînê",
             "privacy_policy": "polîtikaya nihêniyê",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ez dipejirînim"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Pedyamdanka xwe kontrol bike",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Girêdana ku me ji te re şandiye bitikîne da ku %@ piştrast bikî. Em ê li vir li bendê bin.",
             "button": {
                 "resend": "Ji nû ve bişîne"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "E-nameyê xwe kontrol bike",
                 "description": "Kontrol bike ka navnîşana e-nameya te rast e û her wiha peldanka xwe ya spam.",
                 "resend_email": "E-namyê yê dîsa bişîne"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Pedyamdanka xwe kontrol bike.",
                 "description": "Me tenê ji te re e-nameyek şand. Heke nehatiye peldanka xwe ya spamê kontrol bike.",
                 "mail": "E-name",
                 "open_email_client": "Rajegirê e-nameyê veke"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Te girêdanek nesitand?",
+                "resend_in": "Ji nû ve bişîne (%@)",
+                "resend_now": "Niha ji nû ve bişîne."
             }
         },
         "home_timeline": {
@@ -465,7 +465,7 @@
             "title": {
                 "new_post": "Şandiya nû",
                 "new_reply": "Bersiva nû",
-                "edit_post": "Edit Post"
+                "edit_post": "Şandiyê serrast bike"
             },
             "media_selection": {
                 "camera": "Wêne bikişîne",
@@ -489,7 +489,7 @@
                 "server_processing_state": "Pêvajoya rajekar pêş de diçe..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Rapirsî",
                 "duration_time": "Dirêjî: %s",
                 "thirty_minutes": "30 xulek",
                 "one_hour": "1 Demjimêr",
@@ -500,10 +500,10 @@
                 "option_number": "Vebijêrk %ld",
                 "the_poll_is_invalid": "Ev dengdayîn ne derbasdar e",
                 "the_poll_has_empty_option": "Vebijêrkên vê dengdayînê vala ne",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Vebijêrk tevlî bike",
+                "remove_option": "Vebijêrk rake",
+                "move_up": "Bilivîne jor",
+                "move_down": "Bilivîne jêr"
             },
             "content_warning": {
                 "placeholder": "Li vir hişyariyek hûrgilî binivîsine..."
@@ -537,10 +537,10 @@
                 "select_visibility_entry": "Xuyabûnê hilbijêre - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "Zimanê şandiyê",
+                "suggested": "Pêşnîyarkirî",
+                "recent": "Dawî",
+                "other": "Zimanên din…"
             }
         },
         "profile": {
@@ -554,7 +554,7 @@
                 "other_posts": "şandî",
                 "other_following": "dişopîne",
                 "other_followers": "şopîner",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "hevpar"
             },
             "fields": {
                 "joined": "Dîroka tevlîbûnê",
@@ -624,7 +624,7 @@
             "title": "Hatiye hezkirin ji aliyê"
         },
         "reblogged_by": {
-            "title": "Ji nû ve hatiye nivîsandin ji aliyê"
+            "title": "Hatiye bilindkirin ji aliyê"
         },
         "search": {
             "title": "Bigere",
@@ -670,7 +670,7 @@
             "intro": "Ev şandiyên ku di quncika Mastodon balê dikişîne."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Hezkirî"
         },
         "notification": {
             "title": {
@@ -680,7 +680,7 @@
             "notification_description": {
                 "followed_you": "te şopand",
                 "favorited_your_post": "şandiya te hez kir",
-                "reblogged_your_post": "şandiya te ji nû ve nivisand",
+                "reblogged_your_post": "şandiya te bilind kir",
                 "mentioned_you": "qale te kir",
                 "request_to_follow_you": "dixwazê te bişopîne",
                 "poll_has_ended": "rapirsî qediya"
@@ -706,28 +706,28 @@
                 "appearance": {
                     "title": "Xuyang",
                     "automatic": "Xweber",
-                    "light": "Her dem ronahî",
+                    "light": "Her dem ron",
                     "dark": "Her dem tarî"
                 },
                 "look_and_feel": {
                     "title": "Xuyang",
                     "use_system": "Pergalê bi kar bîne",
-                    "really_dark": "Tarî",
+                    "really_dark": "Pir tarî",
                     "sorta_dark": "Hinekî tarî",
-                    "light": "Ronahî"
+                    "light": "Ron"
                 },
                 "notifications": {
                     "title": "Agahdarî",
-                    "favorites": "Şandiyên min hez kir",
-                    "follows": "Min dişopîne",
-                    "boosts": "Şandiya min ji nû ve nivîsand",
-                    "mentions": "Qale min kir",
+                    "favorites": "Şandiya min hez dike",
+                    "follows": "Min şopand",
+                    "boosts": "Şandiya min bilind dike",
+                    "mentions": "Qale min dike",
                     "trigger": {
                         "anyone": "her kes",
                         "follower": "şopînerek",
-                        "follow": "her kesê ku dişopînim",
+                        "follow": "her kesê ku ez dişopînim",
                         "noone": "ne yek",
-                        "title": "Min agahdar bike gava"
+                        "title": "Min agahdar bike dema"
                     }
                 },
                 "preference": {
@@ -805,7 +805,7 @@
                 "unfollowed": "Ji şopê hate derketin",
                 "unfollow_user": "%s neşopîne",
                 "mute_user": "%s bêdeng bike",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Tu yê şandî an jî bilindkirinên wan di rojeva xwe de nebînî. Ew ê nizanibin ku hatine bêdengkirin.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Tu yê şandî yan jî bilindkirinên wan di rojeva xwe de nebînî. Ew ê nizanibin ku hatine bêdengkirin.",
                 "block_user": "%s asteng bike",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Êdî nikarin şandiyên te bişopînin an jî bibînin, lê ew dikarin bibînin ka hatine astengkirin an na.",
                 "while_we_review_this_you_can_take_action_against_user": "Dema ku em vê yekê dinirxînin, tu dikarî li dijî %s tedbîran bigirî"
@@ -841,33 +841,33 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Ev xuya nake ku girêdaneke Mastodon derbasdar e."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Bibore, lê ev malbata alavan nayê piştgirîkirin.",
+            "user_not_logged_in": "Ji kerema xwe Mastodon veke da ku têkevî ajimêrekê."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Şopîner",
+            "configuration_description": "Jimara şopîneran nîşan bide.",
+            "title": "ŞOPÎNER",
+            "followers_today": "%s şopîner îro"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Şopînerên pirjimar",
+            "configuration_description": "Ji bo ajimêran pir jimara şopîneran nîşan bide.",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "Şopînerekî din",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Dawîtirîn şopîner",
+            "configuration_description": "Dawîtirîn şopîner nîşan bide.",
+            "title": "Dawîtirîn şopîner",
+            "last_update": "Rojanekirina dawî: %s"
         }
     }
 }

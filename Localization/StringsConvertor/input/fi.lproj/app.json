@@ -262,7 +262,7 @@
             "log_in": "Kirjaudu sisään",
             "learn_more": "Lue lisää",
             "join_default_server": "Liity mastodon.social-palvelimelle",
-            "pick_server": "Pick my own Server",
+            "pick_server": "Valitse palvelimesi",
             "separator": {
                 "or": "tai"
             },

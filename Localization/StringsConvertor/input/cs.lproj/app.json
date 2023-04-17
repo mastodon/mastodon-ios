@@ -101,7 +101,7 @@
                     "title": "Přeložit z %s",
                     "unknown_language": "Neznámý"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Upravit"
             },
             "tabs": {
                 "home": "Domů",
@@ -109,8 +109,8 @@
                 "notifications": "Oznámení",
                 "profile": "Profil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Hledat",
+                    "explore": "Prozkoumat"
                 }
             },
             "keyboard": {
@@ -194,7 +194,7 @@
                     "translated_from": "Přeloženo z %s pomocí %s",
                     "unknown_language": "Neznámý",
                     "unknown_provider": "Neznámý",
-                    "show_original": "Show Original"
+                    "show_original": "Zobrazit originál"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -205,13 +205,13 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
+                    "favorites_title": "Oblíbení",
+                    "edit_history_title": "Historie úprav",
                     "edit_history_detail": "Last edit %s"
                 },
                 "edited_at_timestamp_prefix": "Edited %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "Historie úprav",
                     "original_post": "Original Post · %s"
                 }
             },
@@ -260,7 +260,7 @@
     "scene": {
         "welcome": {
             "log_in": "Přihlásit se",
-            "learn_more": "Learn more",
+            "learn_more": "Zjistit více",
             "join_default_server": "Join mastodon.social",
             "pick_server": "Pick my own Server",
             "separator": {
