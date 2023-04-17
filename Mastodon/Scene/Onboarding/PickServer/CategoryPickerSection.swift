@@ -114,7 +114,8 @@ extension CategoryPickerSection {
             
             cell.isAccessibilityElement = true
             cell.accessibilityLabel = item.accessibilityDescription
-            
+            cell.accessibilityTraits = .button
+
             return cell
         }
     }
