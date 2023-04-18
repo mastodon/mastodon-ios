@@ -23,12 +23,6 @@ struct MediaBadge<Content: View>: View {
         .tint(.white)
         .background(Color.black.opacity(0.7))
         .cornerRadius(3)
-        .overlay(
-            .white.opacity(0.5),
-            in: RoundedRectangle(cornerRadius: 3)
-                .inset(by: -0.5)
-                .stroke(lineWidth: 0.5)
-        )
         .accessibilityHidden(true)
     }
 }
