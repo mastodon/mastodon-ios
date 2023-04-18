@@ -9,7 +9,8 @@ import SwiftUI
 struct MediaBadgesContainer: View {
     var altDescription: String?
     var isGIF = false
-    var videoDuration: TimeInterval?
+    var showDuration = false
+    var mediaDuration: TimeInterval?
     
     @State private var showingAlt = false
     @State private var space = AnyHashable(UUID())
@@ -37,9 +38,13 @@ struct MediaBadgesContainer: View {
                 if isGIF {
                     MediaBadge("GIF")
                 }
-                if let videoDuration, let format = Self.formatter.string(from: videoDuration) {
-                    MediaBadge(format)
-                        .monospacedDigit()
+                if showDuration {
+                    if let mediaDuration, let format = Self.formatter.string(from: mediaDuration) {
+                        MediaBadge(format)
+                            .monospacedDigit()
+                    } else {
+                        MediaBadge("--:--")
+                    }
                 }
             }
             .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)

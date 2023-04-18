@@ -167,6 +167,9 @@ extension MediaView {
     }
     
     private func bindGIF(configuration: Configuration, info: Configuration.VideoInfo) {
+        badgeViewController.rootView.mediaDuration = info.durationMS.map { Double($0) / 1000 }
+        badgeViewController.rootView.showDuration = false
+
         guard let player = setupGIFPlayer(info: info) else { return }
         setupPlayerLooper(player: player)
         playerViewController.player = player
@@ -194,7 +197,8 @@ extension MediaView {
     }
     
     private func bindVideo(configuration: Configuration, info: Configuration.VideoInfo) {
-        badgeViewController.rootView.videoDuration = info.durationMS.map { Double($0) / 1000 }
+        badgeViewController.rootView.mediaDuration = info.durationMS.map { Double($0) / 1000 }
+        badgeViewController.rootView.showDuration = true
 
         let imageInfo = Configuration.ImageInfo(
             aspectRadio: info.aspectRadio,
@@ -286,7 +290,8 @@ extension MediaView {
         
         badgeViewController.rootView.altDescription = nil
         badgeViewController.rootView.isGIF = false
-        badgeViewController.rootView.videoDuration = nil
+        badgeViewController.rootView.showDuration = false
+        badgeViewController.rootView.mediaDuration = nil
 
         // reset configuration
         configuration = nil
