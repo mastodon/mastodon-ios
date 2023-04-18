@@ -66,8 +66,6 @@ extension SearchResultViewModel {
                         is State.Idle:
                         let attribute = SearchResultItem.BottomLoaderAttribute(isEmptyResult: false)
                         snapshot.appendItems([.bottomLoader(attribute: attribute)], toSection: .main)
-                    case is State.Fail:
-                        break
                     case is State.NoMore:
                         if snapshot.itemIdentifiers.isEmpty {
                             let attribute = SearchResultItem.BottomLoaderAttribute(isEmptyResult: true)
