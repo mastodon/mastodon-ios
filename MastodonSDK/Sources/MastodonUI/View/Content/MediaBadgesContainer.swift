@@ -39,6 +39,7 @@ struct MediaBadgesContainer: View {
                 }
                 if let videoDuration, let format = Self.formatter.string(from: videoDuration) {
                     MediaBadge(format)
+                        .monospacedDigit()
                 }
             }
             .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
