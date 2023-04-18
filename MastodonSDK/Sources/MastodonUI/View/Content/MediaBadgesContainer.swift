@@ -44,7 +44,8 @@ struct MediaBadgesContainer: View {
             .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
             .coordinateSpace(name: space)
         }
-        .padding(8)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
         .onChange(of: altDescription) { _ in
             showingAlt = false
         }
