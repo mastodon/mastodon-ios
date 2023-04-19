@@ -1,5 +1,5 @@
 //
-//  AltViewController.swift
+//  AltTextViewController.swift
 //  Mastodon
 //
 //  Created by Jed Fox on 2022-11-26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class AltViewController: UIViewController {
+class AltTextViewController: UIViewController {
     let textView = {
         let textView: UITextView
 
@@ -85,7 +85,7 @@ class AltViewController: UIViewController {
 }
 
 // MARK: UIPopoverPresentationControllerDelegate
-extension AltViewController: UIPopoverPresentationControllerDelegate {
+extension AltTextViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         .none
     }
