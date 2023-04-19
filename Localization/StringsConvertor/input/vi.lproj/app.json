@@ -172,8 +172,8 @@
                     "share_link_in_post": "Chia sẻ liên kết trong Tút",
                     "tap_then_hold_to_show_menu": "Nhấn giữ để hiện menu",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Đăng lại",
+                        "unreblog": "Hủy đăng lại"
                     }
                 },
                 "tag": {
@@ -212,7 +212,7 @@
                 "edited_at_timestamp_prefix": "Sửa %s",
                 "edit_history": {
                     "title": "Lịch sử chỉnh sửa",
-                    "original_post": "Original Post · %s"
+                    "original_post": "Tút gốc · %s"
                 }
             },
             "friendship": {
@@ -260,24 +260,24 @@
     "scene": {
         "welcome": {
             "log_in": "Đăng nhập",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick my own Server",
+            "learn_more": "Tìm hiểu thêm",
+            "join_default_server": "Tham gia mastodon.social",
+            "pick_server": "Tự chọn máy chủ",
             "separator": {
-                "or": "or"
+                "or": "hoặc"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Chào mừng đến với Mastodon",
+                    "description": "Mastodon là một mạng xã hội phi tập trung, không có công ty nào kiểm soát. Nó bao gồm nhiều máy chủ độc lập được kết nối với nhau."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Máy chủ là gì?",
+                    "description": "Mỗi tài khoản Mastodon được lưu trữ trên một máy chủ — với nội quy và quản trị viên riêng. Bất kể bạn chọn máy chủ nào, bạn có thể theo dõi và tương tác với mọi người trên máy chủ khác."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Mastodon là gì?"
                     }
                 }
             }
@@ -290,10 +290,10 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Chọn máy chủ",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Ngôn ngữ",
+                "signup_speed": "Thời gian duyệt",
                 "category": {
                     "all": "Toàn bộ",
                     "all_accessiblity_description": "Phân loại: Toàn bộ",
@@ -327,27 +327,27 @@
                 "no_results": "Không có kết quả"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Tất cả",
+                "instant": "Đăng ký nhanh",
+                "manually_reviewed": "Duyệt thủ công"
             },
             "language": {
-                "all": "All"
+                "all": "Tất cả"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Tên máy chủ hoặc URL"
             },
             "no_server_selected_hint": "Chúng tôi sẽ chọn một máy chủ dựa trên ngôn ngữ của bạn nếu bạn tiếp tục mà không lựa chọn."
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "Bảo mật",
             "description": "Mặc dù ứng dụng Mastodon không thu thập thông tin của bạn, máy chủ mà bạn dùng để đăng kí tài khoản có thể có một điều khoản sử dụng khác. Dành một chút thời gian để đọc và chấp nhận điều khoản riêng tư của ứng dụng Mastodon và máy chủ của bạn.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Bảo mật - Mastodon for iOS",
+                "server": "Bảo mật - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Tôi đồng ý"
             }
         },
         "register": {
@@ -418,12 +418,12 @@
             "terms_of_service": "điều khoản dịch vụ",
             "privacy_policy": "chính sách bảo mật",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Tôi đồng ý"
             }
         },
         "confirm_email": {
             "title": "Kiểm tra hộp thư của bạn",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Nhấn vào liên kết chúng tôi vừa gửi để xác minh %@. Nhanh nhé bạn.",
             "button": {
                 "resend": "Gửi lại"
             },
@@ -440,8 +440,8 @@
             },
             "didnt_get_link": {
                 "prefix": "Không nhận được mã?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "resend_in": "Gửi lại (%@)",
+                "resend_now": "Đã gửi lại."
             }
         },
         "home_timeline": {
@@ -465,7 +465,7 @@
             "title": {
                 "new_post": "Viết tút",
                 "new_reply": "Viết trả lời",
-                "edit_post": "Edit Post"
+                "edit_post": "Sửa tút"
             },
             "media_selection": {
                 "camera": "Chụp ảnh",
@@ -500,10 +500,10 @@
                 "option_number": "Lựa chọn %ld",
                 "the_poll_is_invalid": "Bình chọn không hợp lệ",
                 "the_poll_has_empty_option": "Thiếu lựa chọn",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Thêm tùy chọn",
+                "remove_option": "Xóa tùy chọn",
+                "move_up": "Chuyển lên",
+                "move_down": "Chuyển xuống"
             },
             "content_warning": {
                 "placeholder": "Viết nội dung ẩn của bạn ở đây..."
@@ -537,10 +537,10 @@
                 "select_visibility_entry": "Thay đổi quyền riêng tư - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "Ngôn ngữ đăng",
+                "suggested": "Ðược đề xuất",
+                "recent": "Gần đây",
+                "other": "Ngôn ngữ khác…"
             }
         },
         "profile": {
@@ -554,7 +554,7 @@
                 "other_posts": "tút",
                 "other_following": "theo dõi",
                 "other_followers": "người theo dõi",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "chung"
             },
             "fields": {
                 "joined": "Đã tham gia",
@@ -571,7 +571,7 @@
             "segmented_control": {
                 "posts": "Tút",
                 "replies": "Trả lời",
-                "posts_and_replies": "Tút và trả lời",
+                "posts_and_replies": "Lượt trả lời",
                 "media": "Media",
                 "about": "Giới thiệu"
             },
@@ -670,7 +670,7 @@
             "intro": "Đây là những tút thu hút được sự chú ý trong góc Mastodon của bạn."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Lượt thích"
         },
         "notification": {
             "title": {
@@ -841,25 +841,25 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Có vẻ không phải là đường link xác thực Mastdon."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Không hỗ trợ Widget family.",
+            "user_not_logged_in": "Xin mở Mastodon để đăng nhập."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Người theo dõi",
+            "configuration_description": "Số lượng người theo dõi tôi.",
+            "title": "NGƯỜI THEO DÕI",
+            "followers_today": "%s người theo dõi hôm nay"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Nhiều người theo dõi",
+            "configuration_description": "Hiện số người theo dõi của nhiều tài khoản.",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "Người theo dõi khác",
                 "account_name": "another@follower.social"
             }
         },
