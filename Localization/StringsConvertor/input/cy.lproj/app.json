@@ -101,7 +101,7 @@
                     "title": "Cyfieithu o %s",
                     "unknown_language": "Anhysbys"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Golygu"
             },
             "tabs": {
                 "home": "Hafan",
@@ -109,7 +109,7 @@
                 "notifications": "Hysbysiadau",
                 "profile": "Proffil",
                 "a11y": {
-                    "search": "Search",
+                    "search": "Chwilio",
                     "explore": "Explore"
                 }
             },
@@ -194,7 +194,7 @@
                     "translated_from": "Cyfieithwyd o %s gan ddefnyddio %s",
                     "unknown_language": "Anhysbys",
                     "unknown_provider": "Anhysbys",
-                    "show_original": "Show Original"
+                    "show_original": "Dangos y Gwreiddiol"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -205,7 +205,7 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
+                    "favorites_title": "Ffefryn",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
@@ -260,7 +260,7 @@
     "scene": {
         "welcome": {
             "log_in": "Mewngofnodi",
-            "learn_more": "Learn more",
+            "learn_more": "Dysgu mwy",
             "join_default_server": "Join mastodon.social",
             "pick_server": "Pick my own Server",
             "separator": {
@@ -268,7 +268,7 @@
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Croeso i Mastodon",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
@@ -292,7 +292,7 @@
         "server_picker": {
             "title": "Pick Server",
             "button": {
-                "language": "Language",
+                "language": "Iaith",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Popeth",
@@ -347,11 +347,11 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Rwy'n Cytuno"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Creu Cyfrif",
             "input": {
                 "avatar": {
                     "delete": "Dileu"
@@ -369,7 +369,7 @@
                 },
                 "password": {
                     "placeholder": "cyfrinair",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Cadarnhau Cyfrinair",
                     "require": "Mae angen i'ch cyfrinair gael o leiaf:",
                     "character_limit": "8 nod",
                     "accessibility": {
@@ -418,17 +418,17 @@
             "terms_of_service": "telerau gwasanaeth",
             "privacy_policy": "polisi preifatrwydd",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Rwy'n Cytuno"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "Gwiriwch Eich Bblwch Derbyn",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
                 "resend": "Ailanfon"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Gwiriwch eich e-byst",
                 "description": "Gwiriwch a yw eich cyfeiriad e-bost yn gywir a hefyd eich ffolder 'junk' os nad ydych wedi ei gwneud.",
                 "resend_email": "Ailanfon E-bost"
             },
