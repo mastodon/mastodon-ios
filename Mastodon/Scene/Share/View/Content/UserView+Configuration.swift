@@ -46,5 +46,18 @@ extension UserView {
             .map { $0 as String? }
             .assign(to: \.authorUsername, on: viewModel)
             .store(in: &disposeBag)
+        
+        user.publisher(for: \.followersCount)
+            .map { Int($0) }
+            .assign(to: \.authorFollowers, on: viewModel)
+            .store(in: &disposeBag)
+        
+        user.publisher(for: \.fields)
+            .map { fields in
+                let firstVerified = fields.first(where: { $0.verifiedAt != nil })
+                return firstVerified?.value
+            }
+            .assign(to: \.authorVerifiedLink, on: viewModel)
+            .store(in: &disposeBag)
     }
 }
