@@ -71,12 +71,32 @@ public final class UserView: UIView {
         return imageView
     }()
     
-    public let verifiedStackView: UIStackView = {
+    private let verifiedStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
         return stackView
     }()
+    
+    private let verifiedStackCenterSpacerView: UILabel = {
+        let label = UILabel()
+        label.text = " · "
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    public func setFollowButtonEnabled(_ enabled: Bool) {
+        switch enabled {
+        case true:
+            verifiedStackView.axis = .vertical
+            verifiedStackView.alignment = .leading
+            verifiedStackCenterSpacerView.isHidden = true
+        case false:
+            verifiedStackView.axis = .horizontal
+            verifiedStackView.alignment = .leading
+            verifiedStackCenterSpacerView.isHidden = false
+        }
+    }
         
     public func prepareForReuse() {
         disposeBag.removeAll()
@@ -139,18 +159,29 @@ extension UserView {
         authorUsernameLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         
         labelStackView.addArrangedSubview(nameStackView)
-        labelStackView.addArrangedSubview(authorFollowersLabel)
                 
         let verifiedSpacerView = UIView()
+        let verifiedStackTrailingSpacerView = UIView()
+        
+        verifiedStackTrailingSpacerView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        
+        let verifiedContainerStack = UIStackView()
+        verifiedContainerStack.axis = .horizontal
+        verifiedContainerStack.alignment = .center
 
         NSLayoutConstraint.activate([
             authorVerifiedImageView.widthAnchor.constraint(equalToConstant: 15),
             verifiedSpacerView.widthAnchor.constraint(equalToConstant: 2)
         ])
         
-        verifiedStackView.addArrangedSubview(authorVerifiedImageView)
-        verifiedStackView.addArrangedSubview(verifiedSpacerView)
-        verifiedStackView.addArrangedSubview(authorVerifiedLabel)
+        verifiedContainerStack.addArrangedSubview(authorVerifiedImageView)
+        verifiedContainerStack.addArrangedSubview(verifiedSpacerView)
+        verifiedContainerStack.addArrangedSubview(authorVerifiedLabel)
+        
+        verifiedStackView.addArrangedSubview(authorFollowersLabel)
+        verifiedStackView.addArrangedSubview(verifiedStackCenterSpacerView)
+        verifiedStackView.addArrangedSubview(verifiedContainerStack)
+        verifiedStackView.addArrangedSubview(verifiedStackTrailingSpacerView)
     
         labelStackView.addArrangedSubview(verifiedStackView)
 
