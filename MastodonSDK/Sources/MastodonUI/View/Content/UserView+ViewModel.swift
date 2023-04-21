@@ -30,6 +30,10 @@ extension UserView {
 }
 
 extension UserView.ViewModel {
+    private static var metricFormatter: MastodonMetricFormatter = {
+        return MastodonMetricFormatter()
+    }()
+    
     func bind(userView: UserView) {
         // avatar
         Publishers.CombineLatest(
@@ -87,7 +91,7 @@ extension UserView.ViewModel {
                 }
                 userView.authorFollowersLabel.attributedText = NSAttributedString(
                     format: NSAttributedString(string: "%@ followers", attributes: [.font: Font.systemFont(ofSize: 15, weight: .regular)]),
-                    args: NSAttributedString(string: count.formatted(), attributes: [.font: Font.systemFont(ofSize: 15, weight: .bold)])
+                    args: NSAttributedString(string: Self.metricFormatter.string(from: count) ?? count.formatted(), attributes: [.font: Font.systemFont(ofSize: 15, weight: .bold)])
                 )
             }
             .store(in: &disposeBag)
