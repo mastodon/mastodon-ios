@@ -311,14 +311,15 @@ extension StatusView.ViewModel {
                 // statusView.spoilerBannerView.label.reset()
             }
             
-            if statusView.style == .editHistory, let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
+            if statusView.style == .editHistory {
+                statusView.setContentSensitiveeToggleButtonDisplay(isDisplay: false)
+            }
+            if let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
                 statusView.historyContentWarningLabel.configure(content: spoilerContent)
                 statusView.historyContentWarningAdaptiveMarginContainerView.isHidden = statusView.style != .editHistory
-                statusView.setContentSensitiveeToggleButtonDisplay(isDisplay: false)
             } else {
                 statusView.historyContentWarningLabel.reset()
                 statusView.historyContentWarningAdaptiveMarginContainerView.isHidden = true
-                statusView.setContentSensitiveeToggleButtonDisplay(isDisplay: false)
             }
             
             let paragraphStyle = statusView.contentMetaText.paragraphStyle
