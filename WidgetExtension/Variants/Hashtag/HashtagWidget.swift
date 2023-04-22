@@ -49,10 +49,17 @@ extension HashtagWidgetProvider {
             do {
                 let mostRecentStatuses = try await WidgetExtension.appContext
                     .apiService
-                    .hashtagTimeline(domain: authBox.domain, limit: 1, hashtag: desiredHashtag, authenticationBox: authBox)
+                    .hashtagTimeline(domain: authBox.domain, limit: 40, hashtag: desiredHashtag, authenticationBox: authBox)
                     .value
 
-                if let mostRecentStatus = mostRecentStatuses.first {
+                let filteredStatuses: [Mastodon.Entity.Status]
+                if configuration.ignoreContentWarnings?.boolValue == true {
+                    filteredStatuses = mostRecentStatuses
+                } else {
+                    filteredStatuses = mostRecentStatuses.filter { $0.sensitive == false }
+                }
+
+                if let mostRecentStatus = filteredStatuses.first {
 
                     let hashtagEntry = HashtagEntry(
                         accountName: mostRecentStatus.account.displayNameWithFallback,
@@ -70,6 +77,10 @@ extension HashtagWidgetProvider {
                     )
 
                     completion(hashtagTimelineEntry)
+                } else {
+                    let noStatusFound = HashtagWidgetTimelineEntry.notFound
+
+                    completion(noStatusFound)
                 }
             } catch {
                 completion(.notFound)
