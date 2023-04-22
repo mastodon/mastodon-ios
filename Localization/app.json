@@ -875,6 +875,16 @@
             "configuration": {
                 "display_name": "Hashtag",
                 "description": "Shows a recent status with the selected hashtag."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Sorry, we didn't find a status with <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the Widget-settings."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "This is how a status with a <a>#hashtag</a> would look like. Of course you can decide about the <a>#hashtag</a>"
             }
         }
     }

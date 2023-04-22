@@ -545,3 +545,11 @@ uploaded to Mastodon.";
 "Widget.MultipleFollowers.MockUser.DisplayName" = "Another follower";
 "Widget.Hashtag.Configuration.Description" = "Shows a recent status with the selected hashtag";
 "Widget.Hashtag.Configuration.DisplayName" = "Hashtag";
+
+"Widget.Hashtag.NotFound.AccountName" = "John Mastodon";
+"Widget.Hashtag.NotFound.Account" = "@johnMastodon@no-such.account";
+"Widget.Hashtag.NotFound.Content" = "Sorry, we didn't find a status with <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the Widget-settings.";
+
+"Widget.Hashtag.Placeholder.AccountName" = "John Mastodon";
+"Widget.Hashtag.Placeholder.Account" = "@johnMastodon@no-such.account";
+"Widget.Hashtag.Placeholder.Content" = "This is how a status with a <a>#hashtag</a> would look like. Of course you can decide about the <a>#hashtag</a>";

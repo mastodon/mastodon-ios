@@ -37,14 +37,15 @@ extension HashtagWidgetProvider {
             }
         }
 
-        Task {
-            let desiredHashtag: String
+        let desiredHashtag: String
 
-            if let hashtag = configuration.hashtag {
-                desiredHashtag = hashtag
-            } else {
-                return completion(.notFound)
-            }
+        if let hashtag = configuration.hashtag {
+            desiredHashtag = hashtag
+        } else {
+            return completion(.notFound("hashtag"))
+        }
+
+        Task {
 
             do {
                 let mostRecentStatuses = try await WidgetExtension.appContext
@@ -78,12 +79,12 @@ extension HashtagWidgetProvider {
 
                     completion(hashtagTimelineEntry)
                 } else {
-                    let noStatusFound = HashtagWidgetTimelineEntry.notFound
+                    let noStatusFound = HashtagWidgetTimelineEntry.notFound(desiredHashtag)
 
                     completion(noStatusFound)
                 }
             } catch {
-                completion(.notFound)
+                completion(.notFound(desiredHashtag))
             }
         }
 
@@ -97,31 +98,30 @@ struct HashtagWidgetTimelineEntry: TimelineEntry {
     var hashtag: HashtagEntry
 
     static var placeholder: Self {
-        //TODO: @zeitschlag Add Localization
         HashtagWidgetTimelineEntry(
             date: .now,
             hashtag: HashtagEntry(
-                accountName: "John Mastodon",
-                account: "@johnmastodon@mastodon.social",
-                content: "Caturday is the best day of the week #CatsOfMastodon",
+                accountName: L10n.Widget.Hashtag.Placeholder.accountName,
+                account: L10n.Widget.Hashtag.Placeholder.account,
+                content: L10n.Widget.Hashtag.Placeholder.content,
                 reblogCount: 13,
                 favoriteCount: 12,
-                hashtag: "#CatsOfMastodon",
-                timestamp: .now.addingTimeInterval(-3600 * 18)
+                hashtag: "#hashtag",
+                timestamp: .now.addingTimeInterval(-3600 * 12)
             )
         )
     }
 
-    static var notFound: Self {
+    static func notFound(_ hashtag: String? = nil) -> Self {
         HashtagWidgetTimelineEntry(
             date: .now,
             hashtag: HashtagEntry(
-                accountName: "Not Found",
-                account: "404",
-                content: "Couldn't find a status, sorryyyyyyy",
+                accountName: L10n.Widget.Hashtag.NotFound.accountName,
+                account: L10n.Widget.Hashtag.NotFound.account,
+                content: L10n.Widget.Hashtag.NotFound.content(hashtag ?? "hashtag"),
                 reblogCount: 0,
                 favoriteCount: 0,
-                hashtag: "",
+                hashtag: hashtag ?? "",
                 timestamp: .now
             )
         )
