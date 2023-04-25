@@ -122,6 +122,7 @@ extension SearchResultSection {
         configuration: Configuration
     ) {        
         cell.configure(
+            meUserID: context.authenticationService.mastodonAuthenticationBoxes.first?.userID,
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

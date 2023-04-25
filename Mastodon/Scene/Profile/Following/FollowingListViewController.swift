@@ -12,6 +12,7 @@ import Combine
 import MastodonLocalization
 import MastodonCore
 import MastodonUI
+import CoreDataStack
 
 final class FollowingListViewController: UIViewController, NeedsDependency {
 
@@ -116,4 +117,15 @@ extension FollowingListViewController: UITableViewDelegate, AutoGenerateTableVie
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FollowingListViewController: UserTableViewCellDelegate { }
+extension FollowingListViewController: UserTableViewCellDelegate {
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
+        Task {
+            try await DataSourceFacade.responseToUserViewButtonAction(
+                dependency: self,
+                user: user.asRecord,
+                buttonState: state
+            )
+            tableView.reloadData()
+        }
+    }
+}

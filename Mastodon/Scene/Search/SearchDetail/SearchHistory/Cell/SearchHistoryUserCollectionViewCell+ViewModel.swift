@@ -22,6 +22,6 @@ extension SearchHistoryUserCollectionViewCell {
     func configure(
         viewModel: ViewModel
     ) {
-        userView.configure(user: viewModel.value)
+        userView.configure(user: viewModel.value, delegate: nil)
     }
 }

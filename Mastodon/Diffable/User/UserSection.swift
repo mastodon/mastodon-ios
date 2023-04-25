@@ -42,6 +42,7 @@ extension UserSection {
                 context.managedObjectContext.performAndWait {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
                     configure(
+                        context: context,
                         tableView: tableView,
                         cell: cell,
                         viewModel: .init(value: .user(user)),
@@ -66,6 +67,7 @@ extension UserSection {
 extension UserSection {
 
     static func configure(
+        context: AppContext,
         tableView: UITableView,
         cell: UserTableViewCell,
         viewModel: UserTableViewCell.ViewModel,
@@ -73,6 +75,7 @@ extension UserSection {
     ) {
         
         cell.configure(
+            meUserID: context.authenticationService.mastodonAuthenticationBoxes.first?.userID,
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

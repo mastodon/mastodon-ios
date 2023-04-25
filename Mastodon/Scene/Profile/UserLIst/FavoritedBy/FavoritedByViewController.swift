@@ -11,6 +11,8 @@ import GameplayKit
 import Combine
 import MastodonCore
 import MastodonLocalization
+import MastodonUI
+import CoreDataStack
 
 final class FavoritedByViewController: UIViewController, NeedsDependency {
 
@@ -107,4 +109,15 @@ extension FavoritedByViewController: UITableViewDelegate, AutoGenerateTableViewD
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FavoritedByViewController: UserTableViewCellDelegate { }
+extension FavoritedByViewController: UserTableViewCellDelegate {
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
+        Task {
+            try await DataSourceFacade.responseToUserViewButtonAction(
+                dependency: self,
+                user: user.asRecord,
+                buttonState: state
+            )
+            tableView.reloadData()
+        }
+    }
+}

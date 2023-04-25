@@ -9,13 +9,23 @@ import UIKit
 import Combine
 import MetaTextKit
 import MastodonAsset
+import MastodonLocalization
 import os
+import CoreDataStack
+
+public protocol UserViewDelegate: AnyObject {
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser)
+}
 
 public final class UserView: UIView {
     
     public enum ButtonState {
         case none, follow, unfollow, blocked
     }
+    
+    private var currentButtonState: ButtonState = .none
+    
+    public weak var delegate: UserViewDelegate?
     
     public var disposeBag = Set<AnyCancellable>()
     
@@ -92,7 +102,6 @@ public final class UserView: UIView {
     private let followButton: UIButton = {
         let button = FollowButton()
         button.cornerRadius = 10
-        button.setTitle("Follow", for: .normal)
         button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -105,22 +114,7 @@ public final class UserView: UIView {
         
         return button
     }()
-    
-    public func setButtonState(_ state: ButtonState) {
-        switch state {
-        case .follow, .unfollow, .blocked:
-            verifiedStackView.axis = .vertical
-            verifiedStackView.alignment = .leading
-            verifiedStackCenterSpacerView.isHidden = true
-            followButton.isHidden = false
-        case .none:
-            verifiedStackView.axis = .horizontal
-            verifiedStackView.alignment = .leading
-            verifiedStackCenterSpacerView.isHidden = false
-            followButton.isHidden = true
-        }
-    }
-        
+            
     public func prepareForReuse() {
         disposeBag.removeAll()
         
@@ -128,6 +122,7 @@ public final class UserView: UIView {
         viewModel.authorAvatarImageURL = nil
         
         avatarButton.avatarImageView.cancelTask()
+        setButtonState(.none)
     }
     
     public override init(frame: CGRect) {
@@ -244,5 +239,53 @@ private final class FollowButton: RoundedEdgesButton {
             setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .highlighted)
             setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .disabled)
         }
+    }
+}
+
+public extension UserView {
+    private func prepareButtonStateLayout(for state: ButtonState) {
+        switch state {
+        case .none:
+            verifiedStackView.axis = .horizontal
+            verifiedStackView.alignment = .leading
+            verifiedStackCenterSpacerView.isHidden = false
+            followButton.isHidden = true
+        default:
+            verifiedStackView.axis = .vertical
+            verifiedStackView.alignment = .leading
+            verifiedStackCenterSpacerView.isHidden = true
+            followButton.isHidden = false
+        }
+    }
+    
+    @objc private func didTapButton() {
+        guard let user = viewModel.user else { return }
+        delegate?.userView(self, didTapButtonWith: currentButtonState, for: user)
+    }
+    
+    func setButtonState(_ state: ButtonState) {
+        currentButtonState = state
+        prepareButtonStateLayout(for: state)
+        
+        switch state {
+        case .follow:
+            followButton.setTitle(L10n.Common.Controls.Friendship.follow, for: .normal)
+            followButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
+            followButton.setTitleColor(.white, for: .normal)
+        case .unfollow:
+            followButton.setTitle(L10n.Common.Controls.Friendship.following, for: .normal)
+            followButton.setBackgroundColor(Asset.Colors.Button.userFollowing.color, for: .normal)
+            followButton.setTitleColor(Asset.Colors.Button.userFollow.color, for: .normal)
+        case .blocked:
+            followButton.setTitle(L10n.Common.Controls.Friendship.blocked, for: .normal)
+            followButton.setBackgroundColor(Asset.Colors.Button.userBlocked.color, for: .normal)
+            followButton.setTitleColor(.systemRed, for: .normal)
+
+        case .none:
+            break
+        }
+        
+        followButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        followButton.titleLabel?.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .boldSystemFont(ofSize: 15))
     }
 }

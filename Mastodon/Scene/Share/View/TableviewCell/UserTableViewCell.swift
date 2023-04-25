@@ -13,7 +13,7 @@ import MastodonLocalization
 import MastodonUI
 import MastodonSDK
 
-protocol UserTableViewCellDelegate: AnyObject { }
+protocol UserTableViewCellDelegate: UserViewDelegate, AnyObject { }
 
 final class UserTableViewCell: UITableViewCell {
     
@@ -21,7 +21,9 @@ final class UserTableViewCell: UITableViewCell {
     
     let userView: UserView = {
         let view = UserView()
-//        view.setButtonState(.follow)
+        [UserView.ButtonState.follow, UserView.ButtonState.unfollow, UserView.ButtonState.blocked].randomElement().map {
+            view.setButtonState($0)
+        }
         return view
     }()
     

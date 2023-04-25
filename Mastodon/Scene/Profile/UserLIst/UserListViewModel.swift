@@ -53,7 +53,6 @@ final class UserListViewModel {
         )
         // end init
     }
-    
 }
 
 extension UserListViewModel {
