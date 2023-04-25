@@ -512,7 +512,7 @@
                 "public": "公開",
                 "unlisted": "不公開",
                 "private": "僅限跟隨者",
-                "direct": "僅限於我提及的人"
+                "direct": "僅限提及者"
             },
             "auto_complete": {
                 "space_to_add": "添加的空白"
