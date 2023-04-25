@@ -19,7 +19,11 @@ final class UserTableViewCell: UITableViewCell {
     
     weak var delegate: UserTableViewCellDelegate?
     
-    let userView = UserView()
+    let userView: UserView = {
+        let view = UserView()
+//        view.setButtonState(.follow)
+        return view
+    }()
     
     let separatorLine = UIView.separatorLine
     

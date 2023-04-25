@@ -13,6 +13,10 @@ import os
 
 public final class UserView: UIView {
     
+    public enum ButtonState {
+        case none, follow, unfollow, blocked
+    }
+    
     public var disposeBag = Set<AnyCancellable>()
     
     public private(set) lazy var viewModel: ViewModel = {
@@ -85,16 +89,35 @@ public final class UserView: UIView {
         return label
     }()
     
-    public func setFollowButtonEnabled(_ enabled: Bool) {
-        switch enabled {
-        case true:
+    private let followButton: UIButton = {
+        let button = FollowButton()
+        button.cornerRadius = 10
+        button.setTitle("Follow", for: .normal)
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setContentHuggingPriority(.required, for: .horizontal)
+        
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 96),
+            button.heightAnchor.constraint(equalToConstant: 36)
+        ])
+        
+        return button
+    }()
+    
+    public func setButtonState(_ state: ButtonState) {
+        switch state {
+        case .follow, .unfollow, .blocked:
             verifiedStackView.axis = .vertical
             verifiedStackView.alignment = .leading
             verifiedStackCenterSpacerView.isHidden = true
-        case false:
+            followButton.isHidden = false
+        case .none:
             verifiedStackView.axis = .horizontal
             verifiedStackView.alignment = .leading
             verifiedStackCenterSpacerView.isHidden = false
+            followButton.isHidden = true
         }
     }
         
@@ -141,6 +164,9 @@ extension UserView {
         let labelStackView = UIStackView()
         labelStackView.axis = .vertical
         containerStackView.addArrangedSubview(labelStackView)
+        
+        // follow button
+        containerStackView.addArrangedSubview(followButton)
         
         let nameStackView = UIStackView()
         nameStackView.axis = .horizontal
@@ -192,4 +218,31 @@ extension UserView {
         isAccessibilityElement = true
     }
     
+}
+
+private final class FollowButton: RoundedEdgesButton {
+    
+    init() {
+        super.init(frame: .zero)
+        configureAppearance()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureAppearance() {
+        setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
+        setTitleColor(Asset.Colors.Label.primaryReverse.color.withAlphaComponent(0.5), for: .highlighted)
+        switch traitCollection.userInterfaceStyle {
+        case .dark:
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundDark.color), for: .normal)
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedDark.color), for: .highlighted)
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedDark.color), for: .disabled)
+        default:
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundLight.color), for: .normal)
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .highlighted)
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .disabled)
+        }
+    }
 }
