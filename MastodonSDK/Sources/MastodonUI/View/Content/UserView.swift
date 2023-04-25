@@ -156,7 +156,7 @@ extension UserView {
         authorNameLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         
         authorUsernameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        authorUsernameLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        authorUsernameLabel.setContentCompressionResistancePriority(.defaultHigh - 1, for: .horizontal)
         
         labelStackView.addArrangedSubview(nameStackView)
                 
