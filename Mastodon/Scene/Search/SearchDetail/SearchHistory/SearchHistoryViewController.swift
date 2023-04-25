@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonCore
+import MastodonUI
 
 final class SearchHistoryViewController: UIViewController, NeedsDependency {
     
@@ -121,6 +122,17 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
             try await DataSourceFacade.responseToDeleteSearchHistory(
                 provider: self
             )
+        }
+    }
+    
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
+        Task {
+            try await DataSourceFacade.responseToUserViewButtonAction(
+                dependency: self,
+                user: user.asRecord,
+                buttonState: state
+            )
+            collectionView.reloadData()
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreDataStack
+import MastodonUI
 
 extension SearchHistoryUserCollectionViewCell {
     final class ViewModel {
@@ -20,8 +21,9 @@ extension SearchHistoryUserCollectionViewCell {
 
 extension SearchHistoryUserCollectionViewCell {
     func configure(
-        viewModel: ViewModel
+        viewModel: ViewModel,
+        delegate: UserViewDelegate?
     ) {
-        userView.configure(user: viewModel.value, delegate: nil)
+        userView.configure(user: viewModel.value, delegate: delegate)
     }
 }

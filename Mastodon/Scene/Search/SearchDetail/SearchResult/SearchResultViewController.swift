@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 import MastodonCore
 import MastodonUI
 
@@ -55,7 +56,8 @@ extension SearchResultViewController {
 //        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
-            statusTableViewCellDelegate: self
+            statusTableViewCellDelegate: self,
+            userTableViewCellDelegate: self
         )
         
         // setup batch fetch
@@ -255,3 +257,17 @@ extension SearchResultViewController: UITableViewDelegate, AutoGenerateTableView
 
 // MARK: - StatusTableViewCellDelegate
 extension SearchResultViewController: StatusTableViewCellDelegate { }
+
+// MARK: - UserTableViewCellDelegate
+extension SearchResultViewController: UserTableViewCellDelegate {
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
+        Task {
+            try await DataSourceFacade.responseToUserViewButtonAction(
+                dependency: self,
+                user: user.asRecord,
+                buttonState: state
+            )
+            tableView.reloadData()
+        }
+    }
+}

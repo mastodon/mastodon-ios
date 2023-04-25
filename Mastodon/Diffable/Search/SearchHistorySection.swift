@@ -28,7 +28,7 @@ extension SearchHistorySection {
         let userCellRegister = UICollectionView.CellRegistration<SearchHistoryUserCollectionViewCell, ManagedObjectRecord<MastodonUser>> { cell, indexPath, item in
             context.managedObjectContext.performAndWait {
                 guard let user = item.object(in: context.managedObjectContext) else { return }
-                cell.configure(viewModel: .init(value: user))
+                cell.configure(viewModel: .init(value: user), delegate: configuration.searchHistorySectionHeaderCollectionReusableViewDelegate)
             }
         }
         

@@ -19,13 +19,7 @@ final class UserTableViewCell: UITableViewCell {
     
     weak var delegate: UserTableViewCellDelegate?
     
-    let userView: UserView = {
-        let view = UserView()
-        [UserView.ButtonState.follow, UserView.ButtonState.unfollow, UserView.ButtonState.blocked].randomElement().map {
-            view.setButtonState($0)
-        }
-        return view
-    }()
+    let userView = UserView()
     
     let separatorLine = UIView.separatorLine
     
