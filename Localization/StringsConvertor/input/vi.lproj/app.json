@@ -864,10 +864,10 @@
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Người theo dõi gần đây",
+            "configuration_description": "Xem người theo dõi gần đây.",
+            "title": "Người theo dõi gần đây",
+            "last_update": "Cập nhật vào: %s"
         }
     }
 }
