@@ -72,13 +72,14 @@ struct HashtagWidgetView: View {
                 Text("|")
                     .foregroundColor(.secondary)
                     .font(.system(size: UIFontMetrics.default.scaledValue(for: 9)))
-                Text(statusHTML: entry.hashtag.content)
+                Text(statusHTML: entry.hashtag.hashtag)
                     .foregroundColor(.secondary)
                     .font(.system(size: UIFontMetrics.default.scaledValue(for: 13)))
                     .fontWeight(.heavy)
-
             }
-            Text(statusHTML: entry.hashtag.content)
+            Text(statusHTML: entry.hashtag.content, fontSize: 12)
+                .foregroundColor(.primary)
+                .lineLimit(3)
             Spacer()
         }
     }
@@ -86,7 +87,7 @@ struct HashtagWidgetView: View {
 
 /// Inspired by: https://swiftuirecipes.com/blog/swiftui-text-with-html-via-nsattributedstring
 extension Text {
-    init(statusHTML htmlString: String) {
+    init(statusHTML htmlString: String, fontSize: Int = 16) {
       let fullHTML = """
 <!doctype html>
 <html>
@@ -94,7 +95,7 @@ extension Text {
         <style>
             body {
                 font-family: -apple-system;
-                font-size: 16px;
+                font-size: \(fontSize)px;
             }
 
             a {
