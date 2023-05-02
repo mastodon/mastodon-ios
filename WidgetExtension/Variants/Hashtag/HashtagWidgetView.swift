@@ -66,28 +66,30 @@ struct HashtagWidgetView: View {
 
     private func viewForRectangularAccessory() -> some View {
         VStack(alignment: .leading, spacing: 1) {
-            HStack(spacing: 3) {
+            HStack(alignment: .center, spacing: 3) {
                 Image("BrandIcon")
+                    .renderingMode(.template)
+                    .resizable()
+                    .frame(width: 10, height: 10)
                     .foregroundColor(.secondary)
                 Text("|")
+                    .font(.system(size: UIFontMetrics.default.scaledValue(for: 12)))
                     .foregroundColor(.secondary)
-                    .font(.system(size: UIFontMetrics.default.scaledValue(for: 9)))
-                Text(statusHTML: entry.hashtag.hashtag)
-                    .foregroundColor(.secondary)
+                Text(entry.hashtag.hashtag)
                     .font(.system(size: UIFontMetrics.default.scaledValue(for: 13)))
                     .fontWeight(.heavy)
+                    .foregroundColor(.secondary)
             }
-            Text(statusHTML: entry.hashtag.content, fontSize: 12)
+            Text(statusHTML: entry.hashtag.content, fontSize: 11, fontWeight: 510)
                 .foregroundColor(.primary)
                 .lineLimit(3)
-            Spacer()
         }
     }
 }
 
 /// Inspired by: https://swiftuirecipes.com/blog/swiftui-text-with-html-via-nsattributedstring
 extension Text {
-    init(statusHTML htmlString: String, fontSize: Int = 16) {
+    init(statusHTML htmlString: String, fontSize: Int = 16, fontWeight: Int = 400) {
       let fullHTML = """
 <!doctype html>
 <html>
@@ -96,6 +98,8 @@ extension Text {
             body {
                 font-family: -apple-system;
                 font-size: \(fontSize)px;
+                font-weight: \(fontWeight);
+                line-height: 133%;
             }
 
             a {
