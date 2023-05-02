@@ -262,7 +262,7 @@
             "log_in": "เข้าสู่ระบบ",
             "learn_more": "เรียนรู้เพิ่มเติม",
             "join_default_server": "เข้าร่วม mastodon.social",
-            "pick_server": "Pick another server",
+            "pick_server": "เลือกเซิร์ฟเวอร์อื่น",
             "separator": {
                 "or": "หรือ"
             },
