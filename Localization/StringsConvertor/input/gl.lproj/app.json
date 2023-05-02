@@ -262,7 +262,7 @@
             "log_in": "Acceder",
             "learn_more": "Saber máis",
             "join_default_server": "Únete a mastodon.social",
-            "pick_server": "Usar o meu propio Servidor",
+            "pick_server": "Pick another server",
             "separator": {
                 "or": "ou"
             },
