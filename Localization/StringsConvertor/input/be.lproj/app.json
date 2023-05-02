@@ -262,7 +262,7 @@
             "log_in": "Увайсці",
             "learn_more": "Даведацца больш",
             "join_default_server": "Далучайцеся да mastodon.social",
-            "pick_server": "Выбраць свой уласны сервер",
+            "pick_server": "Pick another server",
             "separator": {
                 "or": "або"
             },
