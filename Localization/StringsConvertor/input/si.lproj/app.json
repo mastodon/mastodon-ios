@@ -262,7 +262,7 @@
             "log_in": "පිවිසෙන්න",
             "learn_more": "Learn more",
             "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick my own Server",
+            "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
             },
