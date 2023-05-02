@@ -262,7 +262,7 @@
             "log_in": "登入",
             "learn_more": "了解更多",
             "join_default_server": "加入 mastodon.social",
-            "pick_server": "選擇我的伺服器",
+            "pick_server": "Pick another server",
             "separator": {
                 "or": "或"
             },
