@@ -1496,8 +1496,8 @@ public enum L10n {
       public static let learnMore = L10n.tr("Localizable", "Scene.Welcome.LearnMore", fallback: "Learn more")
       /// Log In
       public static let logIn = L10n.tr("Localizable", "Scene.Welcome.LogIn", fallback: "Log In")
-      /// Pick my own Server
-      public static let pickServer = L10n.tr("Localizable", "Scene.Welcome.PickServer", fallback: "Pick my own Server")
+      /// Pick another server
+      public static let pickServer = L10n.tr("Localizable", "Scene.Welcome.PickServer", fallback: "Pick another server")
       public enum Education {
         public enum A11Y {
           public enum WhatIsMastodon {
