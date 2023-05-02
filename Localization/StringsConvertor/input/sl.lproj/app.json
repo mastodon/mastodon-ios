@@ -262,7 +262,7 @@
             "log_in": "Prijava",
             "learn_more": "Več o tem",
             "join_default_server": "Pridruži se mastodon.social",
-            "pick_server": "Izberi moj lasten strežnik",
+            "pick_server": "Pick another server",
             "separator": {
                 "or": "ali"
             },
