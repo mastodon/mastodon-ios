@@ -527,7 +527,7 @@ uploaded to Mastodon.";
 "Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
 "Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "Log In";
-"Scene.Welcome.PickServer" = "Pick my own Server";
+"Scene.Welcome.PickServer" = "Pick another server";
 "Scene.Welcome.Separator.Or" = "or";
 "Widget.Common.UnsupportedWidgetFamily" = "Sorry but this Widget family is unsupported.";
 "Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
