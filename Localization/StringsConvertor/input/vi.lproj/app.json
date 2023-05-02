@@ -262,7 +262,7 @@
             "log_in": "Đăng nhập",
             "learn_more": "Tìm hiểu thêm",
             "join_default_server": "Tham gia mastodon.social",
-            "pick_server": "Tự chọn máy chủ",
+            "pick_server": "Pick another server",
             "separator": {
                 "or": "hoặc"
             },
