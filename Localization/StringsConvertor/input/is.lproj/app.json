@@ -262,7 +262,7 @@
             "log_in": "Skrá inn",
             "learn_more": "Kanna nánar",
             "join_default_server": "Taka þátt á mastodon.social",
-            "pick_server": "Velja minn eigin netþjón",
+            "pick_server": "Pick another server",
             "separator": {
                 "or": "eða"
             },
