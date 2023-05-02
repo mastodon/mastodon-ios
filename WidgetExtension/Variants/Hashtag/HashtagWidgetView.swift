@@ -8,11 +8,12 @@ struct HashtagWidgetView: View {
     var entry: HashtagWidgetProvider.Entry
 
     @Environment(\.widgetFamily) var family
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         switch family {
         case .systemMedium, .systemLarge:
-            viewForMediumWidget()
+            viewForMediumWidget(colorScheme: colorScheme)
         case .accessoryRectangular:
             viewForRectangularAccessory()
         default:
@@ -20,7 +21,7 @@ struct HashtagWidgetView: View {
         }
     }
 
-    private func viewForMediumWidget() -> some View {
+    private func viewForMediumWidget(colorScheme: ColorScheme) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(entry.hashtag.accountName)
@@ -37,7 +38,7 @@ struct HashtagWidgetView: View {
                     .foregroundColor(.secondary)
             }
 
-            Text(statusHTML: entry.hashtag.content)
+            Text(statusHTML: entry.hashtag.content, colorScheme: colorScheme)
 
             Spacer()
             HStack(alignment: .center, spacing: 16) {
@@ -81,7 +82,6 @@ struct HashtagWidgetView: View {
                     .foregroundColor(.secondary)
             }
             Text(statusHTML: entry.hashtag.content, fontSize: 11, fontWeight: 510)
-                .foregroundColor(.primary)
                 .lineLimit(3)
         }
     }
@@ -89,26 +89,26 @@ struct HashtagWidgetView: View {
 
 /// Inspired by: https://swiftuirecipes.com/blog/swiftui-text-with-html-via-nsattributedstring
 extension Text {
-    init(statusHTML htmlString: String, fontSize: Int = 16, fontWeight: Int = 400) {
-      let fullHTML = """
+    init(statusHTML htmlString: String, fontSize: Int = 16, fontWeight: Int = 400, colorScheme: ColorScheme = .light) {
+
+        let textColor = (colorScheme == .light) ? "#000000" : "#FFFFFF"
+        let accentColor = (colorScheme == .light) ? "#563ACC" : "#858AFA"
+
+        let fullHTML = """
 <!doctype html>
 <html>
     <head>
         <style>
-            body {
-                font-family: -apple-system;
-                font-size: \(fontSize)px;
-                font-weight: \(fontWeight);
-                line-height: 133%;
-            }
+                body {
+                    font-family: -apple-system;
+                    font-size: \(fontSize)px;
+                    font-weight: \(fontWeight);
+                    line-height: 133%;
+                    color: \(textColor);
+                }
 
-            a {
-                color: #563ACC;
-            }
-
-            @media (prefers-color-scheme: dark) {
                 a {
-                    color: ##858AFA
+                    color: \(accentColor);
                 }
             }
         </style>
@@ -119,16 +119,16 @@ extension Text {
   </html>
 """
 
-      let attributedString: NSAttributedString
-      if let data = fullHTML.data(using: .unicode),
-         let attrString = try? NSAttributedString(data: data,
-                                                  options: [.documentType: NSAttributedString.DocumentType.html],
-                                                  documentAttributes: nil) {
-          attributedString = attrString
-      } else {
-          attributedString = NSAttributedString()
-      }
+        let attributedString: NSAttributedString
+        if let data = fullHTML.data(using: .unicode),
+           let attrString = try? NSAttributedString(data: data,
+                                                    options: [.documentType: NSAttributedString.DocumentType.html],
+                                                    documentAttributes: nil) {
+            attributedString = attrString
+        } else {
+            attributedString = NSAttributedString()
+        }
 
-      self.init(AttributedString(attributedString)) // uses the NSAttributedString initializer
-  }
+        self.init(AttributedString(attributedString)) // uses the NSAttributedString initializer
+    }
 }
