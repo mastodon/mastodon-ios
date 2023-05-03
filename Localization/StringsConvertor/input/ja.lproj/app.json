@@ -262,7 +262,7 @@
             "log_in": "ログイン",
             "learn_more": "詳しく学ぶ",
             "join_default_server": "mastodon.social に登録",
-            "pick_server": "Pick another server",
+            "pick_server": "ほかのサーバーをさがす",
             "separator": {
                 "or": "または"
             },
