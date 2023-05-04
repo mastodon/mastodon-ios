@@ -60,6 +60,7 @@ public enum Asset {
       public static let userBlocked = ColorAsset(name: "Colors/Button/userBlocked")
       public static let userFollow = ColorAsset(name: "Colors/Button/userFollow")
       public static let userFollowing = ColorAsset(name: "Colors/Button/userFollowing")
+      public static let userFollowingTitle = ColorAsset(name: "Colors/Button/userFollowingTitle")
     }
     public enum Icon {
       public static let plus = ColorAsset(name: "Colors/Icon/plus")

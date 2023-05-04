@@ -275,7 +275,7 @@ public extension UserView {
         case .unfollow:
             followButton.setTitle(L10n.Common.Controls.Friendship.following, for: .normal)
             followButton.setBackgroundColor(Asset.Colors.Button.userFollowing.color, for: .normal)
-            followButton.setTitleColor(Asset.Colors.Button.userFollow.color, for: .normal)
+            followButton.setTitleColor(Asset.Colors.Button.userFollowingTitle.color, for: .normal)
         case .blocked:
             followButton.setTitle(L10n.Common.Controls.Friendship.blocked, for: .normal)
             followButton.setBackgroundColor(Asset.Colors.Button.userBlocked.color, for: .normal)
