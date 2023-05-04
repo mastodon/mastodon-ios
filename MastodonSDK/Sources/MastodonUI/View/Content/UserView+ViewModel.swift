@@ -13,6 +13,7 @@ import MetaTextKit
 import MastodonCore
 import MastodonMeta
 import MastodonAsset
+import MastodonLocalization
 
 extension UserView {
     public final class ViewModel: ObservableObject {
@@ -92,8 +93,8 @@ extension UserView.ViewModel {
                     return
                 }
                 userView.authorFollowersLabel.attributedText = NSAttributedString(
-                    format: NSAttributedString(string: "%@ followers", attributes: [.font: Font.systemFont(ofSize: 15, weight: .regular)]),
-                    args: NSAttributedString(string: Self.metricFormatter.string(from: count) ?? count.formatted(), attributes: [.font: Font.systemFont(ofSize: 15, weight: .bold)])
+                    format: NSAttributedString(string: "%@ followers", attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .regular)]),
+                    args: NSAttributedString(string: Self.metricFormatter.string(from: count) ?? count.formatted(), attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .bold)])
                 )
             }
             .store(in: &disposeBag)
@@ -116,7 +117,7 @@ extension UserView.ViewModel {
                     }
                 case .none:
                     userView.authorVerifiedImageView.tintColor = .secondaryLabel
-                    userView.authorVerifiedLabel.configure(content: PlaintextMetaContent(string: "No verified link"))
+                    userView.authorVerifiedLabel.configure(content: PlaintextMetaContent(string: L10n.Common.UserList.noVerifiedLink))
                     userView.authorVerifiedLabel.textColor = .secondaryLabel
                 }
 

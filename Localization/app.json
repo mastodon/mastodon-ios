@@ -257,6 +257,9 @@
                     "user_suspended_warning": "%s’s account has been suspended."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link"
         }
     },
     "scene": {

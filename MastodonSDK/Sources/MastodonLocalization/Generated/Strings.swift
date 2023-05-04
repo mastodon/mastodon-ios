@@ -508,6 +508,10 @@ public enum L10n {
         }
       }
     }
+    public enum UserList {
+      /// No verified link
+      public static let noVerifiedLink = L10n.tr("Localizable", "Common.UserList.NoVerifiedLink", fallback: "No verified link")
+    }
   }
   public enum Extension {
     public enum OpenIn {
