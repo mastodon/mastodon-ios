@@ -99,7 +99,7 @@ public final class UserView: UIView {
         return label
     }()
     
-    private let followButton: UIButton = {
+    private let followButton: FollowButton = {
         let button = FollowButton()
         button.cornerRadius = 10
         button.isHidden = true
