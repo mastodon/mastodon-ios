@@ -93,7 +93,7 @@ extension UserView.ViewModel {
                     return
                 }
                 userView.authorFollowersLabel.attributedText = NSAttributedString(
-                    format: NSAttributedString(string: "%@ followers", attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .regular)]),
+                    format: NSAttributedString(string: L10n.Common.UserList.followersCount("%@"), attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .regular)]),
                     args: NSAttributedString(string: Self.metricFormatter.string(from: count) ?? count.formatted(), attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .bold)])
                 )
             }

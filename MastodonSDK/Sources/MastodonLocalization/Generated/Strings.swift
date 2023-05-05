@@ -509,6 +509,10 @@ public enum L10n {
       }
     }
     public enum UserList {
+      /// %@ followers
+      public static func followersCount(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Common.UserList.FollowersCount", String(describing: p1), fallback: "%@ followers")
+      }
       /// No verified link
       public static let noVerifiedLink = L10n.tr("Localizable", "Common.UserList.NoVerifiedLink", fallback: "No verified link")
     }
