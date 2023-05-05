@@ -63,6 +63,7 @@ public final class UserView: UIView {
     
     public let authorVerifiedLabel: MetaLabel = {
         let label = MetaLabel(style: .profileFieldValue)
+        label.setContentCompressionResistancePriority(.defaultHigh - 2, for: .horizontal)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular)),
