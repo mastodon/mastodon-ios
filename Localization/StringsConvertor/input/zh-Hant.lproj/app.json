@@ -872,17 +872,17 @@
         "hashtag": {
             "configuration": {
                 "display_name": "主題標籤",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "顯示最近一則帶有所選主題標籤之嘟文"
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "很抱歉，無法找到任何帶有 <a>#%@</a> 主題標籤之嘟文。請嘗試 <a>#另一個主題標籤</a> 或檢查小工具設定。"
             },
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "這是帶有 <a>#hashtag</a> 主題標籤之嘟文的樣子。請於小工具設定中挑選任何 <a>#hashtag</a> 主題標籤。"
             }
         }
     }
