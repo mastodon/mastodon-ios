@@ -1545,8 +1545,8 @@ public enum L10n {
     }
     public enum Hashtag {
       public enum Configuration {
-        /// Shows a recent status with the selected hashtag
-        public static let description = L10n.tr("Localizable", "Widget.Hashtag.Configuration.Description", fallback: "Shows a recent status with the selected hashtag")
+        /// Shows a recent post with the selected hashtag
+        public static let description = L10n.tr("Localizable", "Widget.Hashtag.Configuration.Description", fallback: "Shows a recent post with the selected hashtag")
         /// Hashtag
         public static let displayName = L10n.tr("Localizable", "Widget.Hashtag.Configuration.DisplayName", fallback: "Hashtag")
       }
@@ -1555,9 +1555,9 @@ public enum L10n {
         public static let account = L10n.tr("Localizable", "Widget.Hashtag.NotFound.Account", fallback: "@johnMastodon@no-such.account")
         /// John Mastodon
         public static let accountName = L10n.tr("Localizable", "Widget.Hashtag.NotFound.AccountName", fallback: "John Mastodon")
-        /// Sorry, we didn't find a status with <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the Widget-settings.
+        /// Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings
         public static func content(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Widget.Hashtag.NotFound.Content", String(describing: p1), fallback: "Sorry, we didn't find a status with <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the Widget-settings.")
+          return L10n.tr("Localizable", "Widget.Hashtag.NotFound.Content", String(describing: p1), fallback: "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings")
         }
       }
       public enum Placeholder {
@@ -1565,8 +1565,8 @@ public enum L10n {
         public static let account = L10n.tr("Localizable", "Widget.Hashtag.Placeholder.Account", fallback: "@johnMastodon@no-such.account")
         /// John Mastodon
         public static let accountName = L10n.tr("Localizable", "Widget.Hashtag.Placeholder.AccountName", fallback: "John Mastodon")
-        /// This is how a status with a <a>#hashtag</a> would look like. Of course you can decide about the <a>#hashtag</a>
-        public static let content = L10n.tr("Localizable", "Widget.Hashtag.Placeholder.Content", fallback: "This is how a status with a <a>#hashtag</a> would look like. Of course you can decide about the <a>#hashtag</a>")
+        /// This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings
+        public static let content = L10n.tr("Localizable", "Widget.Hashtag.Placeholder.Content", fallback: "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings")
       }
     }
     public enum LatestFollowers {
