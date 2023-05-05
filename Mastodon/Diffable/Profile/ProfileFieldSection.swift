@@ -48,6 +48,7 @@ extension ProfileFieldSection {
                 let formatter = DateFormatter()
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .none
+                formatter.timeZone = TimeZone(identifier: "UTC")
                 value = formatter.string(from: date)
                 emojiMeta = [:]
                 verified = false
