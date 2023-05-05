@@ -16,7 +16,7 @@ struct HashtagWidgetProvider: IntentTimelineProvider {
 
     func getTimeline(for configuration: HashtagIntent, in context: Context, completion: @escaping (Timeline<HashtagWidgetTimelineEntry>) -> Void) {
         loadMostRecentHashtag(for: configuration, in: context) { entry in
-            completion(Timeline(entries: [entry], policy: .after(.now)))
+            completion(Timeline(entries: [entry], policy: .after(.now.addingTimeInterval(60 * 15))))
         }
     }
 }
