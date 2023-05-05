@@ -126,7 +126,7 @@ extension Text {
                                                     documentAttributes: nil) {
             attributedString = attrString
         } else {
-            attributedString = NSAttributedString()
+            attributedString = NSAttributedString(string: htmlString)
         }
 
         self.init(AttributedString(attributedString)) // uses the NSAttributedString initializer
