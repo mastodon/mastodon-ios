@@ -91,8 +91,8 @@ struct HashtagWidgetView: View {
 extension Text {
     init(statusHTML htmlString: String, fontSize: Int = 16, fontWeight: Int = 400, colorScheme: ColorScheme = .light) {
 
-        let textColor = (colorScheme == .light) ? "#000000" : "#FFFFFF"
-        let accentColor = (colorScheme == .light) ? "#563ACC" : "#858AFA"
+        let textColor = (UIColor(named: "Colors/TextColor") ?? UIColor.gray).hexValue
+        let accentColor = (UIColor(named: "Colors/Blurple") ?? UIColor.purple).hexValue
 
         let fullHTML = """
 <!doctype html>
