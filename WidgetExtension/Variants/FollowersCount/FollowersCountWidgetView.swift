@@ -127,7 +127,7 @@ struct FollowersCountWidgetView: View {
         .padding(.top, 16)
     }
     
-    private func viewForAccessoryRectangular(_ account :FollowersEntryAccountable) -> some View {
+    private func viewForAccessoryRectangular(_ account: FollowersEntryAccountable) -> some View {
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center) {

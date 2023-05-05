@@ -62,8 +62,9 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>FollowersCountIntent</string>
-		<string>MultiFollowersCountIntent</string>
+		<string>HashtagIntent</string>
 		<string>LatestFollowersIntent</string>
+		<string>MultiFollowersCountIntent</string>
 		<string>SendPostIntent</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
