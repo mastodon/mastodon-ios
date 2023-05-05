@@ -33,9 +33,7 @@ extension UserView {
 }
 
 extension UserView.ViewModel {
-    private static var metricFormatter: MastodonMetricFormatter = {
-        return MastodonMetricFormatter()
-    }()
+    private static var metricFormatter = MastodonMetricFormatter()
     
     func bind(userView: UserView) {
         // avatar
