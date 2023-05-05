@@ -872,12 +872,12 @@
         "hashtag": {
             "configuration": {
                 "display_name": "ハッシュタグ",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "指定したハッシュタグの最新の投稿を表示します。"
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "<a>#%@</a> の投稿が見つかりませんでした。 <a>#ほかのハッシュタグ</a> を指定するか、ウィジェットの設定を変更してみてください。"
             },
             "placeholder": {
                 "account_name": "John Mastodon",
