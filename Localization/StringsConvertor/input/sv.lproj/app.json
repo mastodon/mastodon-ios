@@ -101,7 +101,7 @@
                     "title": "Översätt från %s",
                     "unknown_language": "Okänt"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Redigera"
             },
             "tabs": {
                 "home": "Hem",
@@ -205,7 +205,7 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
+                    "favorites_title": "Favoriter",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
@@ -260,7 +260,7 @@
     "scene": {
         "welcome": {
             "log_in": "Logga in",
-            "learn_more": "Learn more",
+            "learn_more": "Läs mer",
             "join_default_server": "Join mastodon.social",
             "pick_server": "Pick another server",
             "separator": {
@@ -292,7 +292,7 @@
         "server_picker": {
             "title": "Pick Server",
             "button": {
-                "language": "Language",
+                "language": "Språk",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Alla",
@@ -344,14 +344,14 @@
             "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "server": "Integritetspolicy - %s"
             },
             "button": {
                 "confirm": "I Agree"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Skapa konto",
             "input": {
                 "avatar": {
                     "delete": "Radera"
@@ -670,7 +670,7 @@
             "intro": "Detta är de inlägg som engagerar i ditt hörn av Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Favoriter"
         },
         "notification": {
             "title": {
