@@ -872,17 +872,17 @@
         "hashtag": {
             "configuration": {
                 "display_name": "Cancelo",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Mostra unha publicación recente co cancelo seleccionado."
             },
             "not_found": {
                 "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "account": "@johnMastodon@nonhai.talconta",
+                "content": "Lamentámolo, pero non atopamos nada co cancelo <a>#%@</a>. Inténtado cun <a>#CanceloDistinto</a> ou comproba os axustes."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "account": "@johnMastodon@nonhai.talconta",
+                "content": "Este é o aspecto dunha publicación cun <a>#cancelo</a>. Elixe o <a>#cancelo</a> que queres nos axustes do widget. "
             }
         }
     }
