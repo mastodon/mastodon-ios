@@ -871,7 +871,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Cancelo",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
