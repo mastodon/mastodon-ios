@@ -872,17 +872,17 @@
         "hashtag": {
             "configuration": {
                 "display_name": "แฮชแท็ก",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "แสดงโพสต์ล่าสุดที่มีแฮชแท็กที่เลือก"
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "ขออภัย เราไม่พบโพสต์ใด ๆ ที่มีแฮชแท็ก <a>#%@</a> โปรดลอง <a>#แฮชแท็กอื่น</a> หรือตรวจสอบการตั้งค่าวิดเจ็ต"
             },
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "นี่คือลักษณะของโพสต์ที่มี <a>#แฮชแท็ก</a> เลือก <a>#แฮชแท็ก</a> ใดก็ตามที่คุณต้องการในการตั้งค่าวิดเจ็ต"
+                "content": "นี่คือลักษณะของโพสต์ที่มี <a>#แฮชแท็ก</a> ที่จะปรากฏ เลือก <a>#แฮชแท็ก</a> ใดก็ตามที่คุณต้องการในการตั้งค่าวิดเจ็ต"
             }
         }
     }
