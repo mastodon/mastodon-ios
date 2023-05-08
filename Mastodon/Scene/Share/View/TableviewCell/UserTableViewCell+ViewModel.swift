@@ -59,7 +59,6 @@ extension UserTableViewCell {
             .debounce(for: 0.1, scheduler: DispatchQueue.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] followed, blocked in
-                print(">>> followed.count", followed.count)
                 if blocked.contains(user.id) {
                     self?.userView.setButtonState(.blocked)
                 } else if followed.contains(user.id) {

@@ -136,14 +136,9 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
             try await DataSourceFacade.responseToUserViewButtonAction(
                 dependency: self,
                 user: user.asRecord,
-                buttonState: state
+                buttonState: state,
+                viewModel: viewModel
             )
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // hack: otherwise fetching the blocked users will not return the user followed
-                Task { @MainActor in
-                    try await self.viewModel.fetchFollowedBlockedUserIds()
-                    self.collectionView.reloadData()
-                }
-            }
         }
     }
 }

@@ -270,23 +270,28 @@ public extension UserView {
         
         switch state {
         case .loading:
-            followButton.setTitle(nil, for: .normal)
-            followButton.setBackgroundColor(Asset.Colors.disabled.color, for: .normal)
+            followButton.isHidden = true
+            
         case .follow:
+            followButton.isHidden = false
             followButton.setTitle(L10n.Common.Controls.Friendship.follow, for: .normal)
             followButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
             followButton.setTitleColor(.white, for: .normal)
+            
         case .unfollow:
+            followButton.isHidden = false
             followButton.setTitle(L10n.Common.Controls.Friendship.following, for: .normal)
             followButton.setBackgroundColor(Asset.Colors.Button.userFollowing.color, for: .normal)
             followButton.setTitleColor(Asset.Colors.Button.userFollowingTitle.color, for: .normal)
+            
         case .blocked:
+            followButton.isHidden = false
             followButton.setTitle(L10n.Common.Controls.Friendship.blocked, for: .normal)
             followButton.setBackgroundColor(Asset.Colors.Button.userBlocked.color, for: .normal)
             followButton.setTitleColor(.systemRed, for: .normal)
 
         case .none:
-            break
+            followButton.isHidden = true
         }
         
         followButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)

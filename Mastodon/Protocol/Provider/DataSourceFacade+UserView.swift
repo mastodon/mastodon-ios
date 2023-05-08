@@ -10,7 +10,8 @@ extension DataSourceFacade {
     static func responseToUserViewButtonAction(
         dependency: NeedsDependency & AuthContextProvider,
         user: ManagedObjectRecord<MastodonUser>,
-        buttonState: UserView.ButtonState
+        buttonState: UserView.ButtonState,
+        viewModel: FollowedBlockedUserIdProviding
     ) async throws {
         switch buttonState {
         case .follow, .unfollow:
@@ -18,13 +19,23 @@ extension DataSourceFacade {
                 dependency: dependency,
                 user: user
             )
+            fetchFollowedBlockedUserIds(in: viewModel)
         case .blocked:
             try await DataSourceFacade.responseToUserBlockAction(
                 dependency: dependency,
                 user: user
             )
+            fetchFollowedBlockedUserIds(in: viewModel)
         case .none, .loading:
             break //no-op
+        }
+    }
+    
+    private static func fetchFollowedBlockedUserIds(in viewModel: FollowedBlockedUserIdProviding) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // hack: otherwise fetching the blocked users will not return the user followed
+            Task { @MainActor in
+                try await viewModel.fetchFollowedBlockedUserIds()
+            }
         }
     }
 }
