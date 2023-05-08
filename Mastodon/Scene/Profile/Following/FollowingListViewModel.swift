@@ -13,7 +13,7 @@ import GameplayKit
 import MastodonCore
 import MastodonSDK
 
-final class FollowingListViewModel {
+final class FollowingListViewModel: FollowedBlockedUserIdProviding {
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -40,6 +40,9 @@ final class FollowingListViewModel {
         stateMachine.enter(State.Initial.self)
         return stateMachine
     }()
+    
+    var followedUserIds = CurrentValueSubject<[String], Never>([])
+    var blockedUserIds = CurrentValueSubject<[String], Never>([])
     
     init(
         context: AppContext,

@@ -23,9 +23,13 @@ final class UserTableViewCell: UITableViewCell {
     
     let separatorLine = UIView.separatorLine
     
+    var disposeBag = Set<AnyCancellable>()
+
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        delegate = nil
+        disposeBag = Set<AnyCancellable>()
         userView.prepareForReuse()
     }
     

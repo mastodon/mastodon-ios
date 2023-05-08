@@ -13,6 +13,7 @@ import MastodonCore
 import MastodonUI
 import MastodonMeta
 import MetaTextKit
+import Combine
 
 enum UserSection: Hashable {
     case main
@@ -26,10 +27,13 @@ extension UserSection {
         weak var userTableViewCellDelegate: UserTableViewCellDelegate?
     }
 
-    static func diffableDataSource(
+    static  func diffableDataSource(
         tableView: UITableView,
         context: AppContext,
-        configuration: Configuration
+        authContext: AuthContext,
+        configuration: Configuration,
+        followedUsers: AnyPublisher<[String], Never>,
+        blockedUsers: AnyPublisher<[String], Never>
     ) -> UITableViewDiffableDataSource<UserSection, UserItem> {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
@@ -43,12 +47,14 @@ extension UserSection {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
                     configure(
                         context: context,
+                        authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: .init(value: .user(user)),
+                        viewModel: .init(value: .user(user), followedUsers: followedUsers, blockedUsers: blockedUsers),
                         configuration: configuration
                     )
                 }
+ 
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
@@ -68,14 +74,14 @@ extension UserSection {
 
     static func configure(
         context: AppContext,
+        authContext: AuthContext,
         tableView: UITableView,
         cell: UserTableViewCell,
         viewModel: UserTableViewCell.ViewModel,
         configuration: Configuration
     ) {
-        
         cell.configure(
-            meUserID: context.authenticationService.mastodonAuthenticationBoxes.first?.userID,
+            me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

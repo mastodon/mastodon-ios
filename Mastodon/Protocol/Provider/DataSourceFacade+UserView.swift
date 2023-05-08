@@ -23,7 +23,7 @@ extension DataSourceFacade {
                 dependency: dependency,
                 user: user
             )
-        case .none:
+        case .none, .loading:
             break //no-op
         }
     }

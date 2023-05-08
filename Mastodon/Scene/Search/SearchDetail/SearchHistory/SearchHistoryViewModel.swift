@@ -11,8 +11,7 @@ import CoreDataStack
 import CommonOSLog
 import MastodonCore
 
-final class SearchHistoryViewModel {
-
+final class SearchHistoryViewModel: FollowedBlockedUserIdProviding {
     var disposeBag = Set<AnyCancellable>()
 
     // input
@@ -22,7 +21,9 @@ final class SearchHistoryViewModel {
 
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<SearchHistorySection, SearchHistoryItem>?
-
+    var followedUserIds = CurrentValueSubject<[String], Never>([])
+    var blockedUserIds = CurrentValueSubject<[String], Never>([])
+    
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext

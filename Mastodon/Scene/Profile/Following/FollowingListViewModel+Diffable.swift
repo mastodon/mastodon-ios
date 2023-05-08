@@ -18,9 +18,12 @@ extension FollowingListViewModel {
         diffableDataSource = UserSection.diffableDataSource(
             tableView: tableView,
             context: context,
+            authContext: authContext,
             configuration: UserSection.Configuration(
                 userTableViewCellDelegate: userTableViewCellDelegate
-            )
+            ),
+            followedUsers: followedUserIds.eraseToAnyPublisher(),
+            blockedUsers: blockedUserIds.eraseToAnyPublisher()
         )
         
         // workaround to append loader wrong animation issue

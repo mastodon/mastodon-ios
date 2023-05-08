@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 extension FamiliarFollowersViewModel {
     func setupDiffableDataSource(
@@ -15,9 +16,12 @@ extension FamiliarFollowersViewModel {
         diffableDataSource = UserSection.diffableDataSource(
             tableView: tableView,
             context: context,
+            authContext: authContext,
             configuration: UserSection.Configuration(
                 userTableViewCellDelegate: userTableViewCellDelegate
-            )
+            ),
+            followedUsers: followedUserIds.eraseToAnyPublisher(),
+            blockedUsers: blockedUserIds.eraseToAnyPublisher()
         )
         
         userFetchedResultsController.$records

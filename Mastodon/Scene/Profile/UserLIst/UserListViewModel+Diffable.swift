@@ -8,19 +8,25 @@
 import UIKit
 import MastodonAsset
 import MastodonLocalization
+import Combine
 
 extension UserListViewModel {
     @MainActor
     func setupDiffableDataSource(
         tableView: UITableView,
-        userTableViewCellDelegate: UserTableViewCellDelegate?
+        userTableViewCellDelegate: UserTableViewCellDelegate?,
+        followedUsers: AnyPublisher<[String], Never>,
+        blockedUsers: AnyPublisher<[String], Never>
     ) {
         diffableDataSource = UserSection.diffableDataSource(
             tableView: tableView,
             context: context,
+            authContext: authContext,
             configuration: UserSection.Configuration(
                 userTableViewCellDelegate: userTableViewCellDelegate
-            )
+            ),
+            followedUsers: followedUsers,
+            blockedUsers: blockedUsers
         )
         
         // workaround to append loader wrong animation issue

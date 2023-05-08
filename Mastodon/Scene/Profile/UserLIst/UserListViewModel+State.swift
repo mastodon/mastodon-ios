@@ -166,6 +166,8 @@ extension UserListViewModel.State {
                         hasNewAppend = true
                     }
                     
+                    try await viewModel.fetchFollowedBlockedUserIds()
+                    
                     let maxID = response.link?.maxID
                     
                     if hasNewAppend, maxID != nil {

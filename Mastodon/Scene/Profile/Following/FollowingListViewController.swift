@@ -125,7 +125,12 @@ extension FollowingListViewController: UserTableViewCellDelegate {
                 user: user.asRecord,
                 buttonState: state
             )
-            tableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // hack: otherwise fetchinbg the blocked users will not return the user followed
+                Task { @MainActor in
+                    try await self.viewModel.fetchFollowedBlockedUserIds()
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
+import Combine
 
 enum SearchResultSection: Hashable {
     case main
@@ -33,7 +34,10 @@ extension SearchResultSection {
     static func tableViewDiffableDataSource(
         tableView: UITableView,
         context: AppContext,
-        configuration: Configuration
+        authContext: AuthContext,
+        configuration: Configuration,
+        followedUsers: AnyPublisher<[String], Never>,
+        blockedUsers: AnyPublisher<[String], Never>
     ) -> UITableViewDiffableDataSource<SearchResultSection, SearchResultItem> {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
         tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
@@ -48,9 +52,10 @@ extension SearchResultSection {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
                     configure(
                         context: context,
+                        authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: .init(value: .user(user)),
+                        viewModel: .init(value: .user(user), followedUsers: followedUsers, blockedUsers: blockedUsers),
                         configuration: configuration
                     )
                 }
@@ -116,13 +121,14 @@ extension SearchResultSection {
     
     static func configure(
         context: AppContext,
+        authContext: AuthContext,
         tableView: UITableView,
         cell: UserTableViewCell,
         viewModel: UserTableViewCell.ViewModel,
         configuration: Configuration
-    ) {        
+    ) {
         cell.configure(
-            meUserID: context.authenticationService.mastodonAuthenticationBoxes.first?.userID,
+            me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

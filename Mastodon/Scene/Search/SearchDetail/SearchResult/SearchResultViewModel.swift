@@ -14,8 +14,7 @@ import CommonOSLog
 import MastodonSDK
 import MastodonCore
 
-final class SearchResultViewModel {
-
+final class SearchResultViewModel: FollowedBlockedUserIdProviding {
     var disposeBag = Set<AnyCancellable>()
 
     // input
@@ -49,6 +48,9 @@ final class SearchResultViewModel {
     }()
     let didDataSourceUpdate = PassthroughSubject<Void, Never>()
 
+    var followedUserIds = CurrentValueSubject<[String], Never>([])
+    var blockedUserIds = CurrentValueSubject<[String], Never>([])
+    
     init(context: AppContext, authContext: AuthContext, searchScope: SearchDetailViewModel.SearchScope) {
         self.context = context
         self.authContext = authContext

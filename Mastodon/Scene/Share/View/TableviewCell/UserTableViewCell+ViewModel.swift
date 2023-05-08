@@ -7,13 +7,20 @@
 
 import UIKit
 import CoreDataStack
+import MastodonUI
+import Combine
 
 extension UserTableViewCell {
     final class ViewModel {
         let value: Value
-
-        init(value: Value) {
+        
+        let followedUsers: AnyPublisher<[String], Never>
+        let blockedUsers: AnyPublisher<[String], Never>
+        
+        init(value: Value, followedUsers: AnyPublisher<[String], Never>, blockedUsers: AnyPublisher<[String], Never>) {
             self.value = value
+            self.followedUsers = followedUsers
+            self.blockedUsers =  blockedUsers
         }
         
         enum Value {
@@ -26,7 +33,7 @@ extension UserTableViewCell {
 extension UserTableViewCell {
 
     func configure(
-        meUserID: MastodonUser.ID?,
+        me: MastodonUser?,
         tableView: UITableView,
         viewModel: ViewModel,
         delegate: UserTableViewCellDelegate?
@@ -35,15 +42,34 @@ extension UserTableViewCell {
         case .user(let user):
             userView.configure(user: user, delegate: delegate)
             
-            if user.id == meUserID {
-                userView.setButtonState(.none)
-            } else if user.blockingBy.contains(where: { $0.id == meUserID }) {
-                userView.setButtonState(.blocked)
-            } else if user.followingBy.contains(where: { $0.id == meUserID }) {
-                userView.setButtonState(.unfollow)
-            } else {
-                userView.setButtonState(.follow)
+            guard let me = me else {
+                return userView.setButtonState(.none)
             }
+            
+            if user == me {
+                userView.setButtonState(.none)
+            } else {
+                userView.setButtonState(.loading)
+            }
+            
+            Publishers.CombineLatest(
+                viewModel.followedUsers,
+                viewModel.blockedUsers
+            )
+            .debounce(for: 0.1, scheduler: DispatchQueue.main)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] followed, blocked in
+                print(">>> followed.count", followed.count)
+                if blocked.contains(user.id) {
+                    self?.userView.setButtonState(.blocked)
+                } else if followed.contains(user.id) {
+                    self?.userView.setButtonState(.unfollow)
+                } else {
+                    self?.userView.setButtonState(.follow)
+                }
+
+            }
+            .store(in: &disposeBag)
             
         }
         

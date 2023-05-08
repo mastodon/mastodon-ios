@@ -13,8 +13,7 @@ import GameplayKit
 import MastodonSDK
 import MastodonCore
 
-final class FollowerListViewModel {
-    
+final class FollowerListViewModel: FollowedBlockedUserIdProviding {
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -26,6 +25,9 @@ final class FollowerListViewModel {
     @Published var domain: String?
     @Published var userID: String?
     
+    var followedUserIds = CurrentValueSubject<[String], Never>([])
+    var blockedUserIds = CurrentValueSubject<[String], Never>([])
+
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
     private(set) lazy var stateMachine: GKStateMachine = {

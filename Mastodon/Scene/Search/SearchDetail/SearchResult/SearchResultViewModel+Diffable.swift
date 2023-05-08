@@ -18,11 +18,14 @@ extension SearchResultViewModel {
         diffableDataSource = SearchResultSection.tableViewDiffableDataSource(
             tableView: tableView,
             context: context,
+            authContext: authContext,
             configuration: .init(
                 authContext: authContext,
                 statusViewTableViewCellDelegate: statusTableViewCellDelegate,
                 userTableViewCellDelegate: userTableViewCellDelegate
-            )
+            ),
+            followedUsers: followedUserIds.eraseToAnyPublisher(),
+            blockedUsers: blockedUserIds.eraseToAnyPublisher()
         )
         
         var snapshot = NSDiffableDataSourceSnapshot<SearchResultSection, SearchResultItem>()

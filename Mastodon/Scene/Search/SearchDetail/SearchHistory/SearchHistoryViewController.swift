@@ -55,6 +55,12 @@ extension SearchHistoryViewController {
             collectionView: collectionView,
             searchHistorySectionHeaderCollectionReusableViewDelegate: self
         )
+        
+        Task {
+            do {
+                try await viewModel.fetchFollowedBlockedUserIds()
+            } catch {}
+        }
     }
 }
 
@@ -132,7 +138,12 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
                 user: user.asRecord,
                 buttonState: state
             )
-            collectionView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // hack: otherwise fetchinbg the blocked users will not return the user followed
+                Task { @MainActor in
+                    try await self.viewModel.fetchFollowedBlockedUserIds()
+                    self.collectionView.reloadData()
+                }
+            }
         }
     }
 }
