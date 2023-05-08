@@ -8,12 +8,11 @@ struct HashtagWidgetView: View {
     var entry: HashtagWidgetProvider.Entry
 
     @Environment(\.widgetFamily) var family
-    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         switch family {
         case .systemMedium, .systemLarge:
-            viewForMediumWidget(colorScheme: colorScheme)
+            viewForMediumWidget()
         case .accessoryRectangular:
             viewForRectangularAccessory()
         default:
@@ -21,7 +20,7 @@ struct HashtagWidgetView: View {
         }
     }
 
-    private func viewForMediumWidget(colorScheme: ColorScheme) -> some View {
+    private func viewForMediumWidget() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(entry.hashtag.accountName)
@@ -38,9 +37,10 @@ struct HashtagWidgetView: View {
                     .foregroundColor(.secondary)
             }
 
-            Text(statusHTML: entry.hashtag.content, colorScheme: colorScheme)
+            Text(statusWithColorHashtags: entry.hashtag.content)
 
             Spacer()
+
             HStack(alignment: .center, spacing: 16) {
                 HStack(spacing: 0) {
                     Image(systemName: "arrow.2.squarepath")
@@ -81,7 +81,7 @@ struct HashtagWidgetView: View {
                     .fontWeight(.heavy)
                     .foregroundColor(.secondary)
             }
-            Text(statusHTML: entry.hashtag.content, fontSize: 11, fontWeight: 510)
+            Text(statusWithColorHashtags: entry.hashtag.content, fontSize: 11, fontWeight: .medium)
                 .lineLimit(3)
         }
     }
@@ -89,46 +89,55 @@ struct HashtagWidgetView: View {
 
 /// Inspired by: https://swiftuirecipes.com/blog/swiftui-text-with-html-via-nsattributedstring
 extension Text {
-    init(statusHTML htmlString: String, fontSize: Int = 16, fontWeight: Int = 400, colorScheme: ColorScheme = .light) {
+    init(statusWithColorHashtags htmlString: String, fontSize: CGFloat = 16, fontWeight: UIFont.Weight = .regular) {
 
-        let textColor = (UIColor(named: "Colors/TextColor") ?? UIColor.gray).hexValue
-        let accentColor = (UIColor(named: "Colors/Blurple") ?? UIColor.purple).hexValue
+        let textColor = UIColor(named: "Colors/TextColor")
+        let accentColor = UIColor(named: "Colors/AccentColor")
+        let font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: fontSize, weight: fontWeight))
 
-        let fullHTML = """
-<!doctype html>
-<html>
-    <head>
-        <style>
-                body {
-                    font-family: -apple-system;
-                    font-size: \(fontSize)px;
-                    font-weight: \(fontWeight);
-                    line-height: 133%;
-                    color: \(textColor);
-                }
+        let attributedString: AttributedString
 
-                a {
-                    color: \(accentColor);
-                }
+        // 1. Render status-content as HTML ...
+        if let data = htmlString.data(using: .utf8),
+           let renderedString = try? NSAttributedString(data: data,
+                                                        options: [
+                                                            .documentType: NSAttributedString.DocumentType.html,
+                                                            .characterEncoding: NSUTF8StringEncoding
+                                                        ],
+                                                        documentAttributes: nil) {
+
+
+            // 2. get the raw string ...
+            let rawString = renderedString.string
+
+            // 3. ... and use regex to get the hashtags
+            let hashtagRegex = try? NSRegularExpression(pattern: "(#\\w*)")
+            let hashtagRanges = hashtagRegex?.matches(
+                in: rawString,
+                range: NSMakeRange(0, rawString.count)
+            ).compactMap { NSMakeRange($0.range.location, $0.range.length) } ?? []
+
+            let mutableAttributedString = NSMutableAttributedString(
+                string: rawString,
+                attributes: [
+                    .foregroundColor: textColor ?? UIColor.label,
+                    .font: font
+                ]
+            )
+
+            // 4. color the hashtags
+            hashtagRanges.forEach {
+                mutableAttributedString.setAttributes([
+                    .foregroundColor: accentColor ?? UIColor.red
+                ], range: $0)
             }
-        </style>
-    </head>
-    <body>
-        \(htmlString)
-    </body>
-  </html>
-"""
 
-        let attributedString: NSAttributedString
-        if let data = fullHTML.data(using: .unicode),
-           let attrString = try? NSAttributedString(data: data,
-                                                    options: [.documentType: NSAttributedString.DocumentType.html],
-                                                    documentAttributes: nil) {
-            attributedString = attrString
+            attributedString = AttributedString(mutableAttributedString)
         } else {
-            attributedString = NSAttributedString(string: htmlString)
+            // this is a fallback
+            attributedString = AttributedString(NSAttributedString(string: htmlString))
         }
 
-        self.init(AttributedString(attributedString)) // uses the NSAttributedString initializer
+        self.init(attributedString)
     }
 }
