@@ -1,6 +1,8 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import MetaTextKit
+import MastodonMeta
 import MastodonLocalization
 
 struct HashtagWidgetView: View {
@@ -89,16 +91,15 @@ struct HashtagWidgetView: View {
 
 /// Inspired by: https://swiftuirecipes.com/blog/swiftui-text-with-html-via-nsattributedstring
 extension Text {
-    init(statusWithColorHashtags htmlString: String, fontSize: CGFloat = 16, fontWeight: UIFont.Weight = .regular) {
+    init(statusWithColorHashtags statusContent: String, fontSize: CGFloat = 16, fontWeight: UIFont.Weight = .regular) {
 
-        let textColor = UIColor(named: "Colors/TextColor")
-        let accentColor = UIColor(named: "Colors/AccentColor")
-        let font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: fontSize, weight: fontWeight))
+        let textColor = UIColor(named: "Colors/TextColor") ?? .label
+        let accentColor = UIColor(named: "Colors/AccentColor") ?? .red
+        let font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: fontSize, weight: fontWeight))
 
         let attributedString: AttributedString
-
         // 1. Render status-content as HTML ...
-        if let data = htmlString.data(using: .utf8),
+        if let data = statusContent.data(using: .utf8),
            let renderedString = try? NSAttributedString(data: data,
                                                         options: [
                                                             .documentType: NSAttributedString.DocumentType.html,
@@ -106,38 +107,41 @@ extension Text {
                                                         ],
                                                         documentAttributes: nil) {
 
-
-            // 2. get the raw string ...
-            let rawString = renderedString.string
-
-            // 3. ... and use regex to get the hashtags
-            let hashtagRegex = try? NSRegularExpression(pattern: "(#\\w*)")
-            let hashtagRanges = hashtagRegex?.matches(
-                in: rawString,
-                range: NSMakeRange(0, rawString.count)
-            ).compactMap { NSMakeRange($0.range.location, $0.range.length) } ?? []
-
-            let mutableAttributedString = NSMutableAttributedString(
-                string: rawString,
-                attributes: [
-                    .foregroundColor: textColor ?? UIColor.label,
-                    .font: font
-                ]
-            )
-
-            // 4. color the hashtags
-            hashtagRanges.forEach {
-                mutableAttributedString.setAttributes([
-                    .foregroundColor: accentColor ?? UIColor.red
-                ], range: $0)
-            }
-
-            attributedString = AttributedString(mutableAttributedString)
+            // 2. let MetaTextKit do the rest
+            let content = MastodonContent(content: renderedString.string, emojis: [:])
+            attributedString = MastodonMetaContent.convert(text: content)
+                .attributedString(textColor: textColor, accentColor: accentColor, font: font)
         } else {
             // this is a fallback
-            attributedString = AttributedString(NSAttributedString(string: htmlString))
+            attributedString = AttributedString(NSAttributedString(string: statusContent))
         }
 
         self.init(attributedString)
+    }
+}
+
+#warning("Replace this once we update MetaTextKit to `4.5.2`. We should do that.")
+extension MetaContent {
+    public func attributedString(textColor: UIColor, accentColor: UIColor, font: UIFont) -> AttributedString {
+        let attributedString = NSMutableAttributedString(string: string, attributes: [
+            .foregroundColor: textColor,
+            .font: font
+        ])
+
+        // meta
+        let stringRange = NSRange(location: 0, length: attributedString.length)
+        for entity in entities {
+            let range = NSIntersectionRange(stringRange, entity.range)
+            attributedString.addAttribute(.link, value: entity.encodedPrimaryText, range: range)
+            attributedString.addAttribute(.foregroundColor, value: accentColor, range: range)
+        }
+
+        return AttributedString(attributedString)
+    }
+}
+
+extension Meta.Entity {
+    public var encodedPrimaryText: String {
+        return primaryText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? primaryText
     }
 }
