@@ -56,14 +56,13 @@ extension UserTableViewCell {
                 viewModel.followedUsers,
                 viewModel.blockedUsers
             )
-            .debounce(for: 0.1, scheduler: DispatchQueue.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] followed, blocked in
                 if blocked.contains(user.id) {
                     self?.userView.setButtonState(.blocked)
                 } else if followed.contains(user.id) {
                     self?.userView.setButtonState(.unfollow)
-                } else {
+                } else if user != me {
                     self?.userView.setButtonState(.follow)
                 }
 

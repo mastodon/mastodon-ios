@@ -270,7 +270,9 @@ public extension UserView {
         
         switch state {
         case .loading:
-            followButton.isHidden = true
+            followButton.isHidden = false
+            followButton.setTitle(nil, for: .normal)
+            followButton.setBackgroundColor(Asset.Colors.Button.disabled.color, for: .normal)
             
         case .follow:
             followButton.isHidden = false
@@ -292,6 +294,8 @@ public extension UserView {
 
         case .none:
             followButton.isHidden = true
+            followButton.setTitle(nil, for: .normal)
+            followButton.setBackgroundColor(.clear, for: .normal)
         }
         
         followButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
