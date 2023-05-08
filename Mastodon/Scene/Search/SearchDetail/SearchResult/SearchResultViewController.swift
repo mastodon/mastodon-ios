@@ -267,7 +267,7 @@ extension SearchResultViewController: UserTableViewCellDelegate {
                 user: user.asRecord,
                 buttonState: state
             )
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // hack: otherwise fetchinbg the blocked users will not return the user followed
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // hack: otherwise fetching the blocked users will not return the user followed
                 Task { @MainActor in
                     try await self.viewModel.fetchFollowedBlockedUserIds()
                     self.tableView.reloadData()
