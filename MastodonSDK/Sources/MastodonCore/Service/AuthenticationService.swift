@@ -12,6 +12,8 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 
+private typealias IterativeResponse = (ids: [String], maxID: String?)
+
 public final class AuthenticationService: NSObject {
 
     var disposeBag = Set<AnyCancellable>()
@@ -25,6 +27,46 @@ public final class AuthenticationService: NSObject {
     // output
     @Published public var mastodonAuthentications: [ManagedObjectRecord<MastodonAuthentication>] = []
     @Published public var mastodonAuthenticationBoxes: [MastodonAuthenticationBox] = []
+    
+    private func fetchFollowedBlockedUserIds(
+        _ authBox: MastodonAuthenticationBox,
+        _ previousFollowingIDs: [String]? = nil,
+        _ maxID: String? = nil
+    ) async throws {
+        guard let apiService = apiService else { return }
+        
+        let followingResponse = try await fetchFollowing(maxID, apiService, authBox)
+        let followingIds = (previousFollowingIDs ?? []) + followingResponse.ids
+
+        if let nextMaxID = followingResponse.maxID {
+            return try await fetchFollowedBlockedUserIds(authBox, followingIds, nextMaxID)
+        }
+        
+        let blockedIds = try await apiService.getBlocked(
+            authenticationBox: authBox
+        ).value.map { $0.id }
+        
+        authBox.inMemoryCache.followingUserIds = followingIds
+        authBox.inMemoryCache.blockedUserIds = blockedIds
+    }
+
+    private func fetchFollowing(
+        _ maxID: String?,
+        _ apiService: APIService,
+        _ mastodonAuthenticationBox: MastodonAuthenticationBox
+    ) async throws -> IterativeResponse {
+        let response = try await apiService.following(
+            userID: mastodonAuthenticationBox.userID,
+            maxID: maxID,
+            authenticationBox: mastodonAuthenticationBox
+        )
+        
+        let ids: [String] = response.value.map { $0.id }
+        let maxID: String? = response.link?.maxID
+        
+        return (ids, maxID)
+    }
+    
     public let updateActiveUserAccountPublisher = PassthroughSubject<Void, Never>()
 
     init(
@@ -50,6 +92,18 @@ public final class AuthenticationService: NSObject {
         super.init()
 
         mastodonAuthenticationFetchedResultsController.delegate = self
+        
+        $mastodonAuthenticationBoxes
+            .sink { [weak self] boxes in
+                Task { [weak self] in
+                    for authBox in boxes {
+                        do { try await self?.fetchFollowedBlockedUserIds(authBox) }
+                        catch {}
+                    }
+                }
+            }
+            .store(in: &disposeBag)
+        
 
         // TODO: verify credentials for active authentication
         

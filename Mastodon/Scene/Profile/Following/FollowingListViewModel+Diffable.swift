@@ -22,8 +22,8 @@ extension FollowingListViewModel {
             configuration: UserSection.Configuration(
                 userTableViewCellDelegate: userTableViewCellDelegate
             ),
-            followedUsers: followedUserIds.eraseToAnyPublisher(),
-            blockedUsers: blockedUserIds.eraseToAnyPublisher()
+            followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
+            blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher()
         )
         
         // workaround to append loader wrong animation issue
