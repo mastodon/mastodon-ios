@@ -259,14 +259,4 @@ extension SearchResultViewController: UITableViewDelegate, AutoGenerateTableView
 extension SearchResultViewController: StatusTableViewCellDelegate { }
 
 // MARK: - UserTableViewCellDelegate
-extension SearchResultViewController: UserTableViewCellDelegate {
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
-        Task {
-            try await DataSourceFacade.responseToUserViewButtonAction(
-                dependency: self,
-                user: user.asRecord,
-                buttonState: state
-            )
-        }
-    }
-}
+extension SearchResultViewController: UserTableViewCellDelegate {}

@@ -117,14 +117,4 @@ extension FollowingListViewController: UITableViewDelegate, AutoGenerateTableVie
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FollowingListViewController: UserTableViewCellDelegate {
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
-        Task {
-            try await DataSourceFacade.responseToUserViewButtonAction(
-                dependency: self,
-                user: user.asRecord,
-                buttonState: state
-            )
-        }
-    }
-}
+extension FollowingListViewController: UserTableViewCellDelegate {}

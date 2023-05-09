@@ -109,14 +109,4 @@ extension FavoritedByViewController: UITableViewDelegate, AutoGenerateTableViewD
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FavoritedByViewController: UserTableViewCellDelegate {
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
-        Task {
-            try await DataSourceFacade.responseToUserViewButtonAction(
-                dependency: self,
-                user: user.asRecord,
-                buttonState: state
-            )
-        }
-    }
-}
+extension FavoritedByViewController: UserTableViewCellDelegate {}

@@ -93,14 +93,4 @@ extension FamiliarFollowersViewController: UITableViewDelegate, AutoGenerateTabl
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FamiliarFollowersViewController: UserTableViewCellDelegate {
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
-        Task {
-            try await DataSourceFacade.responseToUserViewButtonAction(
-                dependency: self,
-                user: user.asRecord,
-                buttonState: state
-            )
-        }
-    }
-}
+extension FamiliarFollowersViewController: UserTableViewCellDelegate {}
