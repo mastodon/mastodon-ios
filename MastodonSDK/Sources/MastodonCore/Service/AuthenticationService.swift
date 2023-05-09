@@ -67,6 +67,16 @@ public final class AuthenticationService: NSObject {
         return (ids, maxID)
     }
     
+    public func fetchFollowingAndBlockedAsync() {
+        /// we're dispatching this as a separate async call to not block the callee
+        Task {
+            for authBox in mastodonAuthenticationBoxes {
+                do { try await fetchFollowedBlockedUserIds(authBox) }
+                catch {}
+            }
+        }
+    }
+    
     public let updateActiveUserAccountPublisher = PassthroughSubject<Void, Never>()
 
     init(
