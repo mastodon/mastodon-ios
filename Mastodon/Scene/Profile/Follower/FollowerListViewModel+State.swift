@@ -155,8 +155,6 @@ extension FollowerListViewModel.State {
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch \(response.value.count) followers")
-
-                    try await viewModel.fetchFollowedBlockedUserIds()
                     
                     var hasNewAppend = false
                     var userIDs = viewModel.userFetchedResultsController.userIDs

@@ -12,7 +12,7 @@ import CoreDataStack
 import GameplayKit
 import MastodonCore
 
-final class UserListViewModel: FollowedBlockedUserIdProviding {
+final class UserListViewModel {
     let logger = Logger(subsystem: "UserListViewModel", category: "ViewModel")
     var disposeBag = Set<AnyCancellable>()
     
@@ -36,10 +36,7 @@ final class UserListViewModel: FollowedBlockedUserIdProviding {
         stateMachine.enter(State.Initial.self)
         return stateMachine
     }()
-    
-    var followedUserIds = CurrentValueSubject<[String], Never>([])
-    var blockedUserIds = CurrentValueSubject<[String], Never>([])
-    
+
     public init(
         context: AppContext,
         authContext: AuthContext,

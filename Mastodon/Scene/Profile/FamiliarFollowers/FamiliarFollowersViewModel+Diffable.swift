@@ -19,9 +19,7 @@ extension FamiliarFollowersViewModel {
             authContext: authContext,
             configuration: UserSection.Configuration(
                 userTableViewCellDelegate: userTableViewCellDelegate
-            ),
-            followedUsers: followedUserIds.eraseToAnyPublisher(),
-            blockedUsers: blockedUserIds.eraseToAnyPublisher()
+            )
         )
         
         userFetchedResultsController.$records

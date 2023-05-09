@@ -32,7 +32,7 @@ extension SearchHistorySection {
                 guard let user = item.object(in: context.managedObjectContext) else { return }
                 cell.configure(
                     me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
-                    viewModel: .init(value: user, followedUsers: viewModel.followedUserIds.eraseToAnyPublisher(), blockedUsers: viewModel.blockedUserIds.eraseToAnyPublisher()),
+                    viewModel: .init(value: user, followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(), blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher()),
                     delegate: configuration.searchHistorySectionHeaderCollectionReusableViewDelegate
                 )
             }

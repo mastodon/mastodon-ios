@@ -11,7 +11,7 @@ import MastodonCore
 import MastodonSDK
 import CoreDataStack
 
-final class FamiliarFollowersViewModel: FollowedBlockedUserIdProviding {
+final class FamiliarFollowersViewModel {
     var disposeBag = Set<AnyCancellable>()
 
     // input
@@ -23,10 +23,7 @@ final class FamiliarFollowersViewModel: FollowedBlockedUserIdProviding {
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
-    
-    var followedUserIds = CurrentValueSubject<[String], Never>([])
-    var blockedUserIds = CurrentValueSubject<[String], Never>([])
-    
+
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext

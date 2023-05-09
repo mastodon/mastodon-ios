@@ -20,9 +20,7 @@ extension FollowerListViewModel {
             authContext: authContext,
             configuration: UserSection.Configuration(
                 userTableViewCellDelegate: userTableViewCellDelegate
-            ),
-            followedUsers: followedUserIds.eraseToAnyPublisher(),
-            blockedUsers: blockedUserIds.eraseToAnyPublisher()
+            )
         )
         
         // workaround to append loader wrong animation issue

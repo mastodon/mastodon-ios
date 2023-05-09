@@ -31,9 +31,7 @@ extension UserSection {
         tableView: UITableView,
         context: AppContext,
         authContext: AuthContext,
-        configuration: Configuration,
-        followedUsers: AnyPublisher<[String], Never>,
-        blockedUsers: AnyPublisher<[String], Never>
+        configuration: Configuration
     ) -> UITableViewDiffableDataSource<UserSection, UserItem> {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
@@ -50,7 +48,7 @@ extension UserSection {
                         authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: .init(value: .user(user), followedUsers: followedUsers, blockedUsers: blockedUsers),
+                        viewModel: .init(value: .user(user), followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(), blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher()),
                         configuration: configuration
                     )
                 }

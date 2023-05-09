@@ -55,12 +55,6 @@ extension SearchHistoryViewController {
             collectionView: collectionView,
             searchHistorySectionHeaderCollectionReusableViewDelegate: self
         )
-        
-        Task {
-            do {
-                try await viewModel.fetchFollowedBlockedUserIds()
-            } catch {}
-        }
     }
 }
 
@@ -136,8 +130,7 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
             try await DataSourceFacade.responseToUserViewButtonAction(
                 dependency: self,
                 user: user.asRecord,
-                buttonState: state,
-                viewModel: viewModel
+                buttonState: state
             )
         }
     }

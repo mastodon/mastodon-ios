@@ -23,9 +23,7 @@ extension SearchResultViewModel {
                 authContext: authContext,
                 statusViewTableViewCellDelegate: statusTableViewCellDelegate,
                 userTableViewCellDelegate: userTableViewCellDelegate
-            ),
-            followedUsers: followedUserIds.eraseToAnyPublisher(),
-            blockedUsers: blockedUserIds.eraseToAnyPublisher()
+            )
         )
         
         var snapshot = NSDiffableDataSourceSnapshot<SearchResultSection, SearchResultItem>()

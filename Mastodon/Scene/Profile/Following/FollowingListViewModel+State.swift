@@ -158,8 +158,6 @@ extension FollowingListViewModel.State {
                         userIDs.append(user.id)
                         hasNewAppend = true
                     }
-
-                    try await viewModel.fetchFollowedBlockedUserIds()
                     
                     let maxID = response.link?.maxID
                     

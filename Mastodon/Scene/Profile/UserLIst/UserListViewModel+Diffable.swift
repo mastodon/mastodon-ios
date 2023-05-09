@@ -14,9 +14,7 @@ extension UserListViewModel {
     @MainActor
     func setupDiffableDataSource(
         tableView: UITableView,
-        userTableViewCellDelegate: UserTableViewCellDelegate?,
-        followedUsers: AnyPublisher<[String], Never>,
-        blockedUsers: AnyPublisher<[String], Never>
+        userTableViewCellDelegate: UserTableViewCellDelegate?
     ) {
         diffableDataSource = UserSection.diffableDataSource(
             tableView: tableView,
@@ -24,9 +22,7 @@ extension UserListViewModel {
             authContext: authContext,
             configuration: UserSection.Configuration(
                 userTableViewCellDelegate: userTableViewCellDelegate
-            ),
-            followedUsers: followedUsers,
-            blockedUsers: blockedUsers
+            )
         )
         
         // workaround to append loader wrong animation issue

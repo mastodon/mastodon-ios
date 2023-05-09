@@ -68,9 +68,7 @@ extension RebloggedByViewController {
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
-            userTableViewCellDelegate: self,
-            followedUsers: viewModel.followedUserIds.eraseToAnyPublisher(),
-            blockedUsers: viewModel.blockedUserIds.eraseToAnyPublisher()
+            userTableViewCellDelegate: self
         )
         
         // setup batch fetch
@@ -117,8 +115,7 @@ extension RebloggedByViewController: UserTableViewCellDelegate {
             try await DataSourceFacade.responseToUserViewButtonAction(
                 dependency: self,
                 user: user.asRecord,
-                buttonState: state,
-                viewModel: viewModel
+                buttonState: state
             )
         }
     }

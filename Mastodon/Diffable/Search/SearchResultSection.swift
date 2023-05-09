@@ -35,9 +35,7 @@ extension SearchResultSection {
         tableView: UITableView,
         context: AppContext,
         authContext: AuthContext,
-        configuration: Configuration,
-        followedUsers: AnyPublisher<[String], Never>,
-        blockedUsers: AnyPublisher<[String], Never>
+        configuration: Configuration
     ) -> UITableViewDiffableDataSource<SearchResultSection, SearchResultItem> {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
         tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
@@ -55,7 +53,7 @@ extension SearchResultSection {
                         authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: .init(value: .user(user), followedUsers: followedUsers, blockedUsers: blockedUsers),
+                        viewModel: .init(value: .user(user), followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(), blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher()),
                         configuration: configuration
                     )
                 }

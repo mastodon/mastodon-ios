@@ -125,8 +125,7 @@ extension FollowerListViewController: UserTableViewCellDelegate {
             try await DataSourceFacade.responseToUserViewButtonAction(
                 dependency: self,
                 user: user.asRecord,
-                buttonState: state,
-                viewModel: viewModel
+                buttonState: state
             )
         }
     }
