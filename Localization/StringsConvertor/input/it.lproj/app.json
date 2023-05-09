@@ -257,8 +257,8 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Nessun collegamento verificato",
+            "followers_count": "%@ seguaci"
         }
     },
     "scene": {
