@@ -27,7 +27,7 @@ extension UserSection {
         weak var userTableViewCellDelegate: UserTableViewCellDelegate?
     }
 
-    static  func diffableDataSource(
+    static func diffableDataSource(
         tableView: UITableView,
         context: AppContext,
         authContext: AuthContext,
