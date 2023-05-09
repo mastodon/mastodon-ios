@@ -68,11 +68,11 @@ public final class AuthenticationService: NSObject {
     }
     
     public func fetchFollowingAndBlockedAsync() {
-        /// we're dispatching this as a separate async call to not block the caller
+        /// We're dispatching this as a separate async call to not block the caller
+        /// Also we'll only be updating the current active user as the state will be reflesh upon user-change anyways
         Task {
-            for authBox in mastodonAuthenticationBoxes {
-                do { try await fetchFollowedBlockedUserIds(authBox) }
-                catch {}
+            if let authBox = mastodonAuthenticationBoxes.first {
+                try await fetchFollowedBlockedUserIds(authBox) }
             }
         }
     }
