@@ -255,6 +255,10 @@
                     "user_suspended_warning": "%s의 계정은 정지된 상태입니다."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
