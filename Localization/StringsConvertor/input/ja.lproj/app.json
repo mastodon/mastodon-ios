@@ -257,8 +257,8 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "確認済URLなし",
+            "followers_count": "%@フォロワー"
         }
     },
     "scene": {
