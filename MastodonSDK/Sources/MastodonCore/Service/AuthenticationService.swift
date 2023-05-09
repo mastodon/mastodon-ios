@@ -68,7 +68,7 @@ public final class AuthenticationService: NSObject {
     }
     
     public func fetchFollowingAndBlockedAsync() {
-        /// we're dispatching this as a separate async call to not block the callee
+        /// we're dispatching this as a separate async call to not block the caller
         Task {
             for authBox in mastodonAuthenticationBoxes {
                 do { try await fetchFollowedBlockedUserIds(authBox) }
