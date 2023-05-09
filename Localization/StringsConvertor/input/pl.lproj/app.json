@@ -255,6 +255,10 @@
                     "user_suspended_warning": "Konto %s zostało zawieszone."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
