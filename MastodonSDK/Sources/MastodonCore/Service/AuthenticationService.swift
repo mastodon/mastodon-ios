@@ -72,7 +72,8 @@ public final class AuthenticationService: NSObject {
         /// Also we'll only be updating the current active user as the state will be reflesh upon user-change anyways
         Task {
             if let authBox = mastodonAuthenticationBoxes.first {
-                try await fetchFollowedBlockedUserIds(authBox) }
+                do { try await fetchFollowedBlockedUserIds(authBox) }
+                catch {}
             }
         }
     }
