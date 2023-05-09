@@ -18,7 +18,7 @@ extension DataSourceFacade {
                 dependency: dependency,
                 user: user
             )
-//            fetchFollowedBlockedUserIds(in: viewModel)
+
             if let userObject = user.object(in: dependency.context.managedObjectContext) {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds.append(userObject.id)
             }
@@ -35,7 +35,7 @@ extension DataSourceFacade {
                 dependency: dependency,
                 user: user
             )
-//            fetchFollowedBlockedUserIds(in: viewModel)
+
             if let userObject = user.object(in: dependency.context.managedObjectContext) {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.blockedUserIds.append(userObject.id)
             }
@@ -43,12 +43,4 @@ extension DataSourceFacade {
             break //no-op
         }
     }
-    
-//    private static func fetchFollowedBlockedUserIds(in viewModel: FollowedBlockedUserIdProviding) {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // hack: otherwise fetching the blocked users will not return the user followed
-//            Task { @MainActor in
-//                try await viewModel.fetchFollowedBlockedUserIds()
-//            }
-//        }
-//    }
 }
