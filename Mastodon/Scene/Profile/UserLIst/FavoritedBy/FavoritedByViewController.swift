@@ -11,6 +11,8 @@ import GameplayKit
 import Combine
 import MastodonCore
 import MastodonLocalization
+import MastodonUI
+import CoreDataStack
 
 final class FavoritedByViewController: UIViewController, NeedsDependency {
 
@@ -107,4 +109,4 @@ extension FavoritedByViewController: UITableViewDelegate, AutoGenerateTableViewD
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FavoritedByViewController: UserTableViewCellDelegate { }
+extension FavoritedByViewController: UserTableViewCellDelegate {}

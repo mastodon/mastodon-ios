@@ -12,14 +12,17 @@ extension SearchResultViewModel {
     
     func setupDiffableDataSource(
         tableView: UITableView,
-        statusTableViewCellDelegate: StatusTableViewCellDelegate
+        statusTableViewCellDelegate: StatusTableViewCellDelegate,
+        userTableViewCellDelegate: UserTableViewCellDelegate
     ) {
         diffableDataSource = SearchResultSection.tableViewDiffableDataSource(
             tableView: tableView,
             context: context,
+            authContext: authContext,
             configuration: .init(
                 authContext: authContext,
-                statusViewTableViewCellDelegate: statusTableViewCellDelegate
+                statusViewTableViewCellDelegate: statusTableViewCellDelegate,
+                userTableViewCellDelegate: userTableViewCellDelegate
             )
         )
         

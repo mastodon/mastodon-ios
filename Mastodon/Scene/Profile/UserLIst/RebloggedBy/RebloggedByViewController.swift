@@ -11,6 +11,8 @@ import GameplayKit
 import Combine
 import MastodonCore
 import MastodonLocalization
+import MastodonUI
+import CoreDataStack
 
 final class RebloggedByViewController: UIViewController, NeedsDependency {
 
@@ -107,4 +109,4 @@ extension RebloggedByViewController: UITableViewDelegate, AutoGenerateTableViewD
 }
 
 // MARK: - UserTableViewCellDelegate
-extension RebloggedByViewController: UserTableViewCellDelegate { }
+extension RebloggedByViewController: UserTableViewCellDelegate {}

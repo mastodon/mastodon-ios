@@ -15,6 +15,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
+import Combine
 
 enum SearchResultSection: Hashable {
     case main
@@ -33,6 +34,7 @@ extension SearchResultSection {
     static func tableViewDiffableDataSource(
         tableView: UITableView,
         context: AppContext,
+        authContext: AuthContext,
         configuration: Configuration
     ) -> UITableViewDiffableDataSource<SearchResultSection, SearchResultItem> {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
@@ -48,9 +50,10 @@ extension SearchResultSection {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
                     configure(
                         context: context,
+                        authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: .init(value: .user(user)),
+                        viewModel: .init(value: .user(user), followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(), blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher()),
                         configuration: configuration
                     )
                 }
@@ -116,12 +119,14 @@ extension SearchResultSection {
     
     static func configure(
         context: AppContext,
+        authContext: AuthContext,
         tableView: UITableView,
         cell: UserTableViewCell,
         viewModel: UserTableViewCell.ViewModel,
         configuration: Configuration
-    ) {        
+    ) {
         cell.configure(
+            me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

@@ -40,7 +40,7 @@ final class FollowingListViewModel {
         stateMachine.enter(State.Initial.self)
         return stateMachine
     }()
-    
+
     init(
         context: AppContext,
         authContext: AuthContext,

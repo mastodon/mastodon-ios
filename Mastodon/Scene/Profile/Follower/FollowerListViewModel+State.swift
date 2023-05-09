@@ -10,6 +10,7 @@ import Foundation
 import GameplayKit
 import MastodonSDK
 import MastodonCore
+import CoreDataStack
 
 extension FollowerListViewModel {
     class State: GKState {

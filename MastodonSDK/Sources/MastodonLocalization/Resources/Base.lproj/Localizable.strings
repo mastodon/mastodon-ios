@@ -181,6 +181,8 @@ Your profile looks like this to them.";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Loading missing posts...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "Show more replies";
 "Common.Controls.Timeline.Timestamp.Now" = "Now";
+"Common.UserList.NoVerifiedLink" = "No verified link";
+"Common.UserList.FollowersCount" = "%@ followers";
 "Extension.OpenIn.InvalidLinkError" = "This doesn't seem to be a valid Mastodon link.";
 "Scene.AccountList.AddAccount" = "Add Account";
 "Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";

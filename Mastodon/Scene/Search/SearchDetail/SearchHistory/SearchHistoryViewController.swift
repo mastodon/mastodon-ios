@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonCore
+import MastodonUI
 
 final class SearchHistoryViewController: UIViewController, NeedsDependency {
     
@@ -124,3 +125,5 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
         }
     }
 }
+
+extension SearchHistoryViewController: UserTableViewCellDelegate {}
