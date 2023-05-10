@@ -255,6 +255,10 @@
                     "user_suspended_warning": "La cuenta de %s está suspendida."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "Enlace no verificado",
+            "followers_count": "%@ seguidores"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "Iniciar sesión",
             "learn_more": "Aprendé más",
             "join_default_server": "Unite a mastodon.social",
-            "pick_server": "Elegir mi propio servidor",
+            "pick_server": "Elegí otro servidor",
             "separator": {
                 "or": "o"
             },
@@ -868,6 +872,22 @@
             "configuration_description": "Mostrar los últimos seguidores.",
             "title": "Últimos seguidores",
             "last_update": "Última actualización: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Etiqueta",
+                "description": "Muestra un mensaje reciente con la etiqueta seleccionada."
+            },
+            "not_found": {
+                "account_name": "Eugenio Mastodon",
+                "account": "@eugeniomastodon@no-existe-la.cuenta",
+                "content": "Lo sentimos, pero no pudimos encontrar ningún mensaje con la etiqueta <a>#%@</a>. Por favor, probá una <a>#EtiquetaDiferente</a> o revisá la configuración del widget."
+            },
+            "placeholder": {
+                "account_name": "Eugenio Mastodon",
+                "account": "@eugeniomastodon@no-existe-la.cuenta",
+                "content": "Así es cómo se vería un mensaje con una <a>#etiqueta</a>. Elegí una <a>#etiqueta</a> que quieras en la configuración del widget."
+            }
         }
     }
 }

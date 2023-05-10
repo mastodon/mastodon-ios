@@ -255,6 +255,10 @@
                     "user_suspended_warning": "Tili %s on lakkautettu."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "Kirjaudu sisään",
             "learn_more": "Lue lisää",
             "join_default_server": "Liity mastodon.social-palvelimelle",
-            "pick_server": "Valitse palvelimesi",
+            "pick_server": "Pick another server",
             "separator": {
                 "or": "tai"
             },
@@ -868,6 +872,22 @@
             "configuration_description": "Näyyä uusimmat seuraajat.",
             "title": "Uusimmat seuraajat",
             "last_update": "Päivitettiin viimeksi %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Shows a recent post with the selected hashtag."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+            }
         }
     }
 }

@@ -255,6 +255,10 @@
                     "user_suspended_warning": "%s đã bị vô hiệu hóa."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "Không có xác minh",
+            "followers_count": "%@ người theo dõi"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "Đăng nhập",
             "learn_more": "Tìm hiểu thêm",
             "join_default_server": "Tham gia mastodon.social",
-            "pick_server": "Tự chọn máy chủ",
+            "pick_server": "Tìm máy chủ khác",
             "separator": {
                 "or": "hoặc"
             },
@@ -864,10 +868,26 @@
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Người theo dõi gần đây",
+            "configuration_description": "Xem người theo dõi gần đây.",
+            "title": "Người theo dõi gần đây",
+            "last_update": "Cập nhật vào: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Hiện một tút gần đây với hashtag đã chọn."
+            },
+            "not_found": {
+                "account_name": "Tham gia Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Rất tiếc, không thể tìm bất cứ tút nào với hashtag <a>#%@</a>. Hãy thử một <a>#HashtagKhác</a> hoặc kiểm tra thiết lập widget."
+            },
+            "placeholder": {
+                "account_name": "Tham gia Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Đây là một tút với <a>#hashtag</a> mẫu. Chọn bất kỳr <a>#hashtag</a> nào bạn muốn trong thiết lập widget."
+            }
         }
     }
 }

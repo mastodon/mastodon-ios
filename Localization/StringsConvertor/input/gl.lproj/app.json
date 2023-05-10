@@ -255,6 +255,10 @@
                     "user_suspended_warning": "A conta de %s foi suspendida."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "Ligazón non verificada",
+            "followers_count": "%@ seguidoras"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "Acceder",
             "learn_more": "Saber máis",
             "join_default_server": "Únete a mastodon.social",
-            "pick_server": "Usar o meu propio Servidor",
+            "pick_server": "Elixe outro servidor",
             "separator": {
                 "or": "ou"
             },
@@ -868,6 +872,22 @@
             "configuration_description": "Mostra seguidoras recentes.",
             "title": "Últimas seguidoras",
             "last_update": "Última actualización: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Cancelo",
+                "description": "Mostra unha publicación recente co cancelo seleccionado."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@nonhai.talconta",
+                "content": "Lamentámolo, pero non atopamos nada co cancelo <a>#%@</a>. Inténtado cun <a>#CanceloDistinto</a> ou comproba os axustes."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@nonhai.talconta",
+                "content": "Este é o aspecto dunha publicación cun <a>#cancelo</a>. Elixe o <a>#cancelo</a> que queres nos axustes do widget. "
+            }
         }
     }
 }

@@ -255,6 +255,10 @@
                     "user_suspended_warning": "%sのアカウントは停止されました。"
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "確認済URLなし",
+            "followers_count": "%@フォロワー"
         }
     },
     "scene": {
@@ -868,6 +872,22 @@
             "configuration_description": "最新のフォロワーを表示します。",
             "title": "最新のフォロワー",
             "last_update": "最終更新: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "ハッシュタグ",
+                "description": "指定したハッシュタグの最新の投稿を表示します。"
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "<a>#%@</a> の投稿が見つかりませんでした。 <a>#ほかのハッシュタグ</a> を指定するか、ウィジェットの設定を変更してみてください。"
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+            }
         }
     }
 }

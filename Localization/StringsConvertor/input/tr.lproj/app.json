@@ -255,6 +255,10 @@
                     "user_suspended_warning": "%s kişisinin hesabı askıya alındı."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "Oturum Aç",
             "learn_more": "Learn more",
             "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick my own Server",
+            "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
             },
@@ -868,6 +872,22 @@
             "configuration_description": "Show latest followers.",
             "title": "Latest followers",
             "last_update": "Last update: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Shows a recent post with the selected hashtag."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+            }
         }
     }
 }

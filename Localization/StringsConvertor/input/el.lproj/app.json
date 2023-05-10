@@ -2,26 +2,26 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Παρακαλώ προσπάθησε ξανά.",
+                "please_try_again_later": "Παρακαλώ δοκίμασε ξανά αργότερα."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Αποτυχία Εγγραφής"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Σφάλμα Διακομιστή"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Αποτυχία Ψήφου",
+                "poll_ended": "Η δημοσκόπηση έληξε"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Απόρριψη Προχείρου",
+                "message": "Επιβεβαίωση για απόρριψη του περιεχομένου της ανάρτησης."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Αποτυχία Ανάρτησης",
+                "message": "Αποτυχία δημοσίευσης της ανάρτησης.\nΠαρακαλούμε έλεγξε τη σύνδεσή σου στο διαδίκτυο.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
                     "more_than_one_video": "Cannot attach more than one video."
@@ -61,8 +61,8 @@
         "controls": {
             "actions": {
                 "back": "Back",
-                "next": "הבא",
-                "previous": "הקודם",
+                "next": "Next",
+                "previous": "Previous",
                 "open": "Open",
                 "add": "Add",
                 "remove": "Remove",
@@ -93,9 +93,9 @@
                 "skip": "Skip",
                 "reply": "Reply",
                 "report_user": "Report %s",
-                "block_domain": "חסימת %s",
-                "unblock_domain": "הסרת חסימה מ־%s",
-                "settings": "הגדרות",
+                "block_domain": "Block %s",
+                "unblock_domain": "Unblock %s",
+                "settings": "Settings",
                 "delete": "Delete",
                 "translate_post": {
                     "title": "Translate from %s",
@@ -107,7 +107,7 @@
                 "home": "Home",
                 "search_and_explore": "Search and Explore",
                 "notifications": "Notifications",
-                "profile": "פרופיל",
+                "profile": "Profile",
                 "a11y": {
                     "search": "Search",
                     "explore": "Explore"
@@ -143,7 +143,7 @@
                 "show_post": "Show Post",
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
-                "sensitive_content": "תוכן רגיש",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "load_embed": "Load Embed",
@@ -159,7 +159,7 @@
                     "email": "Email address: %s"
                 },
                 "actions": {
-                    "reply": "תגובה",
+                    "reply": "Reply",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
@@ -302,16 +302,16 @@
                     "all": "All",
                     "all_accessiblity_description": "Category: All",
                     "academia": "academia",
-                    "activism": "אקטיביזם",
-                    "food": "אוכל",
+                    "activism": "activism",
+                    "food": "food",
                     "furry": "furry",
-                    "games": "משחקים",
-                    "general": "כללי",
+                    "games": "games",
+                    "general": "general",
                     "journalism": "journalism",
-                    "lgbt": "להט\"ב",
+                    "lgbt": "lgbt",
                     "regional": "regional",
-                    "art": "אומנות",
-                    "music": "מוזיקה",
+                    "art": "art",
+                    "music": "music",
                     "tech": "tech"
                 },
                 "see_less": "See Less",
@@ -361,18 +361,18 @@
                     "delete": "Delete"
                 },
                 "username": {
-                    "placeholder": "שם משתמש/ת",
+                    "placeholder": "username",
                     "duplicate_prompt": "This username is taken.",
                     "suggestion": "amazing_%@"
                 },
                 "display_name": {
-                    "placeholder": "שם תצוגה"
+                    "placeholder": "display name"
                 },
                 "email": {
-                    "placeholder": "דוא״ל"
+                    "placeholder": "email"
                 },
                 "password": {
-                    "placeholder": "סיסמה",
+                    "placeholder": "password",
                     "confirmation_placeholder": "Confirm Password",
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
@@ -388,9 +388,9 @@
             },
             "error": {
                 "item": {
-                    "username": "שם משתמש/ת",
-                    "email": "דוא״ל",
-                    "password": "סיסמה",
+                    "username": "Username",
+                    "email": "Email",
+                    "password": "Password",
                     "agreement": "Agreement",
                     "locale": "Locale",
                     "reason": "Reason"
@@ -495,12 +495,12 @@
             "poll": {
                 "title": "Poll",
                 "duration_time": "Duration: %s",
-                "thirty_minutes": "חצי שעה",
-                "one_hour": "שעה",
-                "six_hours": "6 שעות",
-                "one_day": "יום אחד",
-                "three_days": "3 ימים",
-                "seven_days": "7 ימים",
+                "thirty_minutes": "30 minutes",
+                "one_hour": "1 Hour",
+                "six_hours": "6 Hours",
+                "one_day": "1 Day",
+                "three_days": "3 Days",
+                "seven_days": "7 Days",
                 "option_number": "Option %ld",
                 "the_poll_is_invalid": "The poll is invalid",
                 "the_poll_has_empty_option": "The poll has empty option",
@@ -515,7 +515,7 @@
             "visibility": {
                 "public": "Public",
                 "unlisted": "Unlisted",
-                "private": "לעוקבים בלבד",
+                "private": "Followers only",
                 "direct": "Only people I mention"
             },
             "auto_complete": {

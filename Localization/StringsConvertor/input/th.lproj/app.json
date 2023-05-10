@@ -255,6 +255,10 @@
                     "user_suspended_warning": "มีการระงับบัญชีของ %s"
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "เข้าสู่ระบบ",
             "learn_more": "เรียนรู้เพิ่มเติม",
             "join_default_server": "เข้าร่วม mastodon.social",
-            "pick_server": "เลือกเซิร์ฟเวอร์ของฉันเอง",
+            "pick_server": "เลือกเซิร์ฟเวอร์อื่น",
             "separator": {
                 "or": "หรือ"
             },
@@ -868,6 +872,22 @@
             "configuration_description": "แสดงผู้ติดตามล่าสุด",
             "title": "ผู้ติดตามล่าสุด",
             "last_update": "การอัปเดตล่าสุด: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "แฮชแท็ก",
+                "description": "แสดงโพสต์ล่าสุดที่มีแฮชแท็กที่เลือก"
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "ขออภัย เราไม่พบโพสต์ใด ๆ ที่มีแฮชแท็ก <a>#%@</a> โปรดลอง <a>#แฮชแท็กอื่น</a> หรือตรวจสอบการตั้งค่าวิดเจ็ต"
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "นี่คือลักษณะของโพสต์ที่มี <a>#แฮชแท็ก</a> ที่จะปรากฏ เลือก <a>#แฮชแท็ก</a> ใดก็ตามที่คุณต้องการในการตั้งค่าวิดเจ็ต"
+            }
         }
     }
 }

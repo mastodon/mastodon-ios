@@ -255,6 +255,10 @@
                     "user_suspended_warning": "Račun osebe %s je suspendiran."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "Prijava",
             "learn_more": "Več o tem",
             "join_default_server": "Pridruži se mastodon.social",
-            "pick_server": "Izberi moj lasten strežnik",
+            "pick_server": "Izberi drug strežnik",
             "separator": {
                 "or": "ali"
             },
@@ -868,6 +872,22 @@
             "configuration_description": "Pokaži najnovejše sledilce.",
             "title": "Najnovejši sledilci",
             "last_update": "Zadnja posodobitev: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Ključnik",
+                "description": "Pokaže nedavno objavo z izbranim ključnikom."
+            },
+            "not_found": {
+                "account_name": "Janez Mastodon",
+                "account": "@janezMastodon@ni-takega.racuna",
+                "content": "Žal ne najdemo objav s ključnikom <a>#%@</a>. Poskusite z <a>#drugimKljučnikom</a> ali preverite nastavitve gradnika."
+            },
+            "placeholder": {
+                "account_name": "Janez Mastodon",
+                "account": "@janezMastodon@ni-takega.racuna",
+                "content": "Tako je videti objava s <a>#ključnikom</a>. Izberite želeni <a>#ključnik</a> v nastavitvah gradnika."
+            }
         }
     }
 }

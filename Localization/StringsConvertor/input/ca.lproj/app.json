@@ -255,6 +255,10 @@
                     "user_suspended_warning": "El compte de %s ha estat suspès."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "Enllaç no verificat",
+            "followers_count": "%@ seguidors"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "Inicia sessió",
             "learn_more": "Més informació",
             "join_default_server": "Uneix-te a mastodon.social",
-            "pick_server": "Tria el meu propi Servidor",
+            "pick_server": "Tria un altre servidor",
             "separator": {
                 "or": "o"
             },
@@ -868,6 +872,22 @@
             "configuration_description": "Mostra els darrers seguidors.",
             "title": "Els darrers seguidors",
             "last_update": "Darrera actualització: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Etiqueta",
+                "description": "Mostra un tut recent amb l'etiqueta seleccionada."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-existeix-el.compte",
+                "content": "Ho sentim, no hem pogut trobar cap tut amb l'etiqueta <a>#%@</a>. Si us plau, prova una <a>#EtiquetaDiferent</a> o revisa la configuració del giny."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-existeix-el.compte",
+                "content": "Així és com es veuría un tut amb <a>#etiqueta</a>. Tria la <a>#etiqueta</a> que vulguis en la configuració del giny."
+            }
         }
     }
 }

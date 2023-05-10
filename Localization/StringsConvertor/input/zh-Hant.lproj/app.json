@@ -255,6 +255,10 @@
                     "user_suspended_warning": "%s 的帳號已經被停權。"
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "無已驗證連結",
+            "followers_count": "%@ 個跟隨者"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "登入",
             "learn_more": "了解更多",
             "join_default_server": "加入 mastodon.social",
-            "pick_server": "選擇我的伺服器",
+            "pick_server": "挑選另一個伺服器",
             "separator": {
                 "or": "或"
             },
@@ -512,7 +516,7 @@
                 "public": "公開",
                 "unlisted": "不公開",
                 "private": "僅限跟隨者",
-                "direct": "僅限於我提及的人"
+                "direct": "僅限提及者"
             },
             "auto_complete": {
                 "space_to_add": "添加的空白"
@@ -868,6 +872,22 @@
             "configuration_description": "顯示最新的跟隨者。",
             "title": "最新的跟隨者",
             "last_update": "最後更新於：%s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "主題標籤",
+                "description": "顯示最近一則帶有所選主題標籤之嘟文"
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "很抱歉，無法找到任何帶有 <a>#%@</a> 主題標籤之嘟文。請嘗試 <a>#另一個主題標籤</a> 或檢查小工具設定。"
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "這是帶有 <a>#hashtag</a> 主題標籤之嘟文的樣子。請於小工具設定中挑選任何 <a>#hashtag</a> 主題標籤。"
+            }
         }
     }
 }

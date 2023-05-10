@@ -255,6 +255,10 @@
                     "user_suspended_warning": "L'account di %s è stato sospeso."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "Nessun collegamento verificato",
+            "followers_count": "%@ seguaci"
         }
     },
     "scene": {
@@ -262,7 +266,7 @@
             "log_in": "Accedi",
             "learn_more": "Scopri di più",
             "join_default_server": "Unisciti a mastodon.social",
-            "pick_server": "Scegli il mio server",
+            "pick_server": "Scegli un altro server",
             "separator": {
                 "or": "o"
             },
@@ -868,6 +872,22 @@
             "configuration_description": "Mostra gli ultimi seguaci.",
             "title": "Ultimi seguaci",
             "last_update": "Ultimo aggiornamento: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Mostra un post recente con l'hashtag selezionato."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@nessun.account",
+                "content": "Spiacenti, non siamo riusciti a trovare nessun post con l'hashtag <a>#%@</a>. Prova un <a>#HashtagDifferente</a> o controlla le impostazioni del widget."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@nessun.account",
+                "content": "Ecco come apparirebbe un post con un <a>#hashtag</a>. Scegli qualsiasi <a>#hashtag</a> tu voglia nelle impostazioni del widget."
+            }
         }
     }
 }
