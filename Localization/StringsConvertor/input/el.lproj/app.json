@@ -2,26 +2,26 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Παρακαλώ προσπάθησε ξανά.",
+                "please_try_again_later": "Παρακαλώ δοκίμασε ξανά αργότερα."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Αποτυχία Εγγραφής"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Σφάλμα Διακομιστή"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Αποτυχία Ψήφου",
+                "poll_ended": "Η δημοσκόπηση έληξε"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Απόρριψη Προχείρου",
+                "message": "Επιβεβαίωση για απόρριψη του περιεχομένου της ανάρτησης."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Αποτυχία Ανάρτησης",
+                "message": "Αποτυχία δημοσίευσης της ανάρτησης.\nΠαρακαλούμε έλεγξε τη σύνδεσή σου στο διαδίκτυο.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
                     "more_than_one_video": "Cannot attach more than one video."
