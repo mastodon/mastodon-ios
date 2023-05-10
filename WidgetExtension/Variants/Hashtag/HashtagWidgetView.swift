@@ -1,6 +1,8 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import SwiftUI
+import MetaTextKit
+import MastodonMeta
 import MastodonLocalization
 
 struct HashtagWidgetView: View {
@@ -8,12 +10,11 @@ struct HashtagWidgetView: View {
     var entry: HashtagWidgetProvider.Entry
 
     @Environment(\.widgetFamily) var family
-    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         switch family {
         case .systemMedium, .systemLarge:
-            viewForMediumWidget(colorScheme: colorScheme)
+            viewForMediumWidget()
         case .accessoryRectangular:
             viewForRectangularAccessory()
         default:
@@ -21,7 +22,7 @@ struct HashtagWidgetView: View {
         }
     }
 
-    private func viewForMediumWidget(colorScheme: ColorScheme) -> some View {
+    private func viewForMediumWidget() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(entry.hashtag.accountName)
@@ -38,9 +39,10 @@ struct HashtagWidgetView: View {
                     .foregroundColor(.secondary)
             }
 
-            Text(statusHTML: entry.hashtag.content, colorScheme: colorScheme)
+            Text(statusWithColorHashtags: entry.hashtag.content)
 
             Spacer()
+
             HStack(alignment: .center, spacing: 16) {
                 HStack(spacing: 0) {
                     Image(systemName: "arrow.2.squarepath")
@@ -81,7 +83,7 @@ struct HashtagWidgetView: View {
                     .fontWeight(.heavy)
                     .foregroundColor(.secondary)
             }
-            Text(statusHTML: entry.hashtag.content, fontSize: 11, fontWeight: 510)
+            Text(statusWithColorHashtags: entry.hashtag.content, fontSize: 11, fontWeight: .medium)
                 .lineLimit(3)
         }
     }
@@ -89,46 +91,57 @@ struct HashtagWidgetView: View {
 
 /// Inspired by: https://swiftuirecipes.com/blog/swiftui-text-with-html-via-nsattributedstring
 extension Text {
-    init(statusHTML htmlString: String, fontSize: Int = 16, fontWeight: Int = 400, colorScheme: ColorScheme = .light) {
+    init(statusWithColorHashtags statusContent: String, fontSize: CGFloat = 16, fontWeight: UIFont.Weight = .regular) {
 
-        let textColor = (UIColor(named: "Colors/TextColor") ?? UIColor.gray).hexValue
-        let accentColor = (UIColor(named: "Colors/Blurple") ?? UIColor.purple).hexValue
+        let textColor = UIColor(named: "Colors/TextColor") ?? .label
+        let accentColor = UIColor(named: "Colors/AccentColor") ?? .red
+        let font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: fontSize, weight: fontWeight))
 
-        let fullHTML = """
-<!doctype html>
-<html>
-    <head>
-        <style>
-                body {
-                    font-family: -apple-system;
-                    font-size: \(fontSize)px;
-                    font-weight: \(fontWeight);
-                    line-height: 133%;
-                    color: \(textColor);
-                }
+        let attributedString: AttributedString
+        // 1. Render status-content as HTML ...
+        if let data = statusContent.data(using: .utf8),
+           let renderedString = try? NSAttributedString(data: data,
+                                                        options: [
+                                                            .documentType: NSAttributedString.DocumentType.html,
+                                                            .characterEncoding: NSUTF8StringEncoding
+                                                        ],
+                                                        documentAttributes: nil) {
 
-                a {
-                    color: \(accentColor);
-                }
-            }
-        </style>
-    </head>
-    <body>
-        \(htmlString)
-    </body>
-  </html>
-"""
-
-        let attributedString: NSAttributedString
-        if let data = fullHTML.data(using: .unicode),
-           let attrString = try? NSAttributedString(data: data,
-                                                    options: [.documentType: NSAttributedString.DocumentType.html],
-                                                    documentAttributes: nil) {
-            attributedString = attrString
+            // 2. let MetaTextKit do the rest
+            let content = MastodonContent(content: renderedString.string, emojis: [:])
+            attributedString = MastodonMetaContent.convert(text: content)
+                .attributedString(textColor: textColor, accentColor: accentColor, font: font)
         } else {
-            attributedString = NSAttributedString(string: htmlString)
+            // this is a fallback
+            attributedString = AttributedString(NSAttributedString(string: statusContent))
         }
 
-        self.init(AttributedString(attributedString)) // uses the NSAttributedString initializer
+        self.init(attributedString)
+    }
+}
+
+#warning("Replace this once we update MetaTextKit to `4.5.2`. We should do that.")
+extension MetaContent {
+    public func attributedString(textColor: UIColor, accentColor: UIColor, font: UIFont) -> AttributedString {
+        let attributedString = NSMutableAttributedString(string: string, attributes: [
+            .foregroundColor: textColor,
+            .font: font
+        ])
+
+        // meta
+        let stringRange = NSRange(location: 0, length: attributedString.length)
+        for entity in entities {
+            let range = NSIntersectionRange(stringRange, entity.range)
+            attributedString.addAttribute(.link, value: entity.encodedPrimaryText, range: range)
+            attributedString.addAttribute(.foregroundColor, value: accentColor, range: range)
+        }
+
+        return AttributedString(attributedString)
+    }
+}
+
+extension Meta.Entity {
+    public var encodedPrimaryText: String {
+        return primaryText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? primaryText
     }
 }
