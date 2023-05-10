@@ -181,6 +181,8 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "กำลังโหลดโพสต์ที่ขาดหายไป...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "แสดงการตอบกลับเพิ่มเติม";
 "Common.Controls.Timeline.Timestamp.Now" = "ตอนนี้";
+"Common.UserList.FollowersCount" = "%@ followers";
+"Common.UserList.NoVerifiedLink" = "No verified link";
 "Extension.OpenIn.InvalidLinkError" = "ดูเหมือนว่าสิ่งนี้จะไม่ใช่ลิงก์ Mastodon ที่ถูกต้อง";
 "Scene.AccountList.AddAccount" = "เพิ่มบัญชี";
 "Scene.AccountList.DismissAccountSwitcher" = "ปิดตัวสลับบัญชี";
@@ -527,7 +529,7 @@
 "Scene.Welcome.JoinDefaultServer" = "เข้าร่วม mastodon.social";
 "Scene.Welcome.LearnMore" = "เรียนรู้เพิ่มเติม";
 "Scene.Welcome.LogIn" = "เข้าสู่ระบบ";
-"Scene.Welcome.PickServer" = "เลือกเซิร์ฟเวอร์ของฉันเอง";
+"Scene.Welcome.PickServer" = "เลือกเซิร์ฟเวอร์อื่น";
 "Scene.Welcome.Separator.Or" = "หรือ";
 "Widget.Common.UnsupportedWidgetFamily" = "ขออภัยแต่ไม่รองรับตระกูลวิดเจ็ตนี้";
 "Widget.Common.UserNotLoggedIn" = "โปรดเปิด Mastodon เพื่อเข้าสู่ระบบบัญชี";
@@ -535,6 +537,14 @@
 "Widget.FollowersCount.ConfigurationDisplayName" = "ผู้ติดตาม";
 "Widget.FollowersCount.FollowersToday" = "%@ ผู้ติดตามวันนี้";
 "Widget.FollowersCount.Title" = "ผู้ติดตาม";
+"Widget.Hashtag.Configuration.Description" = "แสดงโพสต์ล่าสุดที่มีแฮชแท็กที่เลือก";
+"Widget.Hashtag.Configuration.DisplayName" = "แฮชแท็ก";
+"Widget.Hashtag.NotFound.Account" = "@johnMastodon@no-such.account";
+"Widget.Hashtag.NotFound.AccountName" = "John Mastodon";
+"Widget.Hashtag.NotFound.Content" = "ขออภัย เราไม่พบโพสต์ใด ๆ ที่มีแฮชแท็ก <a>#%@</a> โปรดลอง <a>#แฮชแท็กอื่น</a> หรือตรวจสอบการตั้งค่าวิดเจ็ต";
+"Widget.Hashtag.Placeholder.Account" = "@johnMastodon@no-such.account";
+"Widget.Hashtag.Placeholder.AccountName" = "John Mastodon";
+"Widget.Hashtag.Placeholder.Content" = "นี่คือลักษณะของโพสต์ที่มี <a>#แฮชแท็ก</a> ที่จะปรากฏ เลือก <a>#แฮชแท็ก</a> ใดก็ตามที่คุณต้องการในการตั้งค่าวิดเจ็ต";
 "Widget.LatestFollowers.ConfigurationDescription" = "แสดงผู้ติดตามล่าสุด";
 "Widget.LatestFollowers.ConfigurationDisplayName" = "ผู้ติดตามล่าสุด";
 "Widget.LatestFollowers.LastUpdate" = "การอัปเดตล่าสุด: %@";

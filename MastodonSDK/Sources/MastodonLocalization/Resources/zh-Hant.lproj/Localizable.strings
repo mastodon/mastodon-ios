@@ -177,6 +177,8 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "正在讀取錯過的嘟文...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "顯示更多回覆";
 "Common.Controls.Timeline.Timestamp.Now" = "剛剛";
+"Common.UserList.FollowersCount" = "%@ 個跟隨者";
+"Common.UserList.NoVerifiedLink" = "無已驗證連結";
 "Extension.OpenIn.InvalidLinkError" = "這似乎並不是有效的 Mastodon 連結。";
 "Scene.AccountList.AddAccount" = "新增帳號";
 "Scene.AccountList.DismissAccountSwitcher" = "關閉帳號切換器";
@@ -238,7 +240,7 @@
 "Scene.Compose.Title.EditPost" = "編輯嘟文";
 "Scene.Compose.Title.NewPost" = "新增嘟文";
 "Scene.Compose.Title.NewReply" = "新增回覆";
-"Scene.Compose.Visibility.Direct" = "僅限於我提及的人";
+"Scene.Compose.Visibility.Direct" = "僅限提及者";
 "Scene.Compose.Visibility.Private" = "僅限跟隨者";
 "Scene.Compose.Visibility.Public" = "公開";
 "Scene.Compose.Visibility.Unlisted" = "不公開";
@@ -522,7 +524,7 @@
 "Scene.Welcome.JoinDefaultServer" = "加入 mastodon.social";
 "Scene.Welcome.LearnMore" = "了解更多";
 "Scene.Welcome.LogIn" = "登入";
-"Scene.Welcome.PickServer" = "選擇我的伺服器";
+"Scene.Welcome.PickServer" = "挑選另一個伺服器";
 "Scene.Welcome.Separator.Or" = "或";
 "Widget.Common.UnsupportedWidgetFamily" = "很抱歉，不支援此小工具尺寸";
 "Widget.Common.UserNotLoggedIn" = "請開啟 Mastodon 以登入帳號。";
@@ -530,6 +532,14 @@
 "Widget.FollowersCount.ConfigurationDisplayName" = "跟隨者";
 "Widget.FollowersCount.FollowersToday" = "本日有 %@ 個跟隨者";
 "Widget.FollowersCount.Title" = "跟隨者";
+"Widget.Hashtag.Configuration.Description" = "顯示最近一則帶有所選主題標籤之嘟文";
+"Widget.Hashtag.Configuration.DisplayName" = "主題標籤";
+"Widget.Hashtag.NotFound.Account" = "@johnMastodon@no-such.account";
+"Widget.Hashtag.NotFound.AccountName" = "John Mastodon";
+"Widget.Hashtag.NotFound.Content" = "很抱歉，無法找到任何帶有 <a>#%@</a> 主題標籤之嘟文。請嘗試 <a>#另一個主題標籤</a> 或檢查小工具設定。";
+"Widget.Hashtag.Placeholder.Account" = "@johnMastodon@no-such.account";
+"Widget.Hashtag.Placeholder.AccountName" = "John Mastodon";
+"Widget.Hashtag.Placeholder.Content" = "這是帶有 <a>#hashtag</a> 主題標籤之嘟文的樣子。請於小工具設定中挑選任何 <a>#hashtag</a> 主題標籤。";
 "Widget.LatestFollowers.ConfigurationDescription" = "顯示最新的跟隨者。";
 "Widget.LatestFollowers.ConfigurationDisplayName" = "最新的跟隨者";
 "Widget.LatestFollowers.LastUpdate" = "最後更新於：%@";

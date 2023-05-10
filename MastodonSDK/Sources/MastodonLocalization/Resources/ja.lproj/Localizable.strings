@@ -177,6 +177,8 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "読込中...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "返信をさらに表示";
 "Common.Controls.Timeline.Timestamp.Now" = "今";
+"Common.UserList.FollowersCount" = "%@フォロワー";
+"Common.UserList.NoVerifiedLink" = "確認済URLなし";
 "Extension.OpenIn.InvalidLinkError" = "有効な Mastodon のリンクではないようです。";
 "Scene.AccountList.AddAccount" = "アカウントを追加";
 "Scene.AccountList.DismissAccountSwitcher" = "アカウント切替画面を閉じます";
@@ -530,6 +532,14 @@
 "Widget.FollowersCount.ConfigurationDisplayName" = "フォロワー";
 "Widget.FollowersCount.FollowersToday" = "%@ 人の今日のフォロワー";
 "Widget.FollowersCount.Title" = "フォロワー";
+"Widget.Hashtag.Configuration.Description" = "指定したハッシュタグの最新の投稿を表示します。";
+"Widget.Hashtag.Configuration.DisplayName" = "ハッシュタグ";
+"Widget.Hashtag.NotFound.Account" = "@johnMastodon@no-such.account";
+"Widget.Hashtag.NotFound.AccountName" = "John Mastodon";
+"Widget.Hashtag.NotFound.Content" = "<a>#%@</a> の投稿が見つかりませんでした。 <a>#ほかのハッシュタグ</a> を指定するか、ウィジェットの設定を変更してみてください。";
+"Widget.Hashtag.Placeholder.Account" = "@johnMastodon@no-such.account";
+"Widget.Hashtag.Placeholder.AccountName" = "John Mastodon";
+"Widget.Hashtag.Placeholder.Content" = "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings.";
 "Widget.LatestFollowers.ConfigurationDescription" = "最新のフォロワーを表示します。";
 "Widget.LatestFollowers.ConfigurationDisplayName" = "最新のフォロワー";
 "Widget.LatestFollowers.LastUpdate" = "最終更新: %@";
