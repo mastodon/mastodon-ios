@@ -23,25 +23,25 @@
                 "title": "Αποτυχία Ανάρτησης",
                 "message": "Αποτυχία δημοσίευσης της ανάρτησης.\nΠαρακαλούμε έλεγξε τη σύνδεσή σου στο διαδίκτυο.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Δε γίνεται να προσθέσεις βίντεο σε ανάρτηση που ήδη περιέχει εικόνες.",
+                    "more_than_one_video": "Δεν γίνεται να επισυνάψεις περισσότερα από 1 βίντεο."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Σφάλμα Επεξεργασίας Προφίλ",
+                "message": "Αδυναμία επεξεργασίας προφίλ. Παρακαλώ δοκίμασε ξανά."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Αποσύνδεση",
+                "message": "Είσαι βέβαιος ότι θες να αποσυνδεθείς;",
+                "confirm": "Αποσύνδεση"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Σίγουρα θες να αποκλείσεις ολόκληρο τον %s; Συνήθως μερικοί συγκεκριμένοι αποκλεισμοί ή σιγάσεις επαρκούν και προτιμούνται. Δε θα βλέπεις περιεχόμενο από αυτό τον τομέα. Όσους ακόλουθους έχεις σε αυτόν τον τομέα θα αφαιρεθούν.",
+                "block_entire_domain": "Αποκλεισμός Τομέα"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "Αποτυχία Αποθήκευσης Φωτογραφίας",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
