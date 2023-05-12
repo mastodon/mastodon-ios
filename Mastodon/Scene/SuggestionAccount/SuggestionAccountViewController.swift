@@ -17,9 +17,7 @@ import MastodonUI
 import MastodonLocalization
 
 class SuggestionAccountViewController: UIViewController, NeedsDependency {
-    
-    static let collectionViewHeight: CGFloat = 24 + 64 + 24
-    
+
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
@@ -41,19 +39,6 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    let collectionView: UICollectionView = {
-        let collectionViewLayout = SuggestionAccountViewController.createCollectionViewLayout()
-        let view = ControlContainableCollectionView(
-            frame: .zero,
-            collectionViewLayout: collectionViewLayout
-        )
-        view.register(SuggestionAccountCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: SuggestionAccountCollectionViewCell.self))
-        view.backgroundColor = .clear
-        view.showsHorizontalScrollIndicator = false
-        view.showsVerticalScrollIndicator = false
-        view.layer.masksToBounds = false
-        return view
-    }()
 
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
@@ -89,30 +74,15 @@ extension SuggestionAccountViewController {
             target: self,
             action: #selector(SuggestionAccountViewController.doneButtonDidClick(_:))
         )
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: SuggestionAccountViewController.collectionViewHeight),
-        ])
-        defer { view.bringSubviewToFront(collectionView) }
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        collectionView.delegate = self
-        viewModel.setupDiffableDataSource(
-            collectionView: collectionView
-        )
         
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -129,26 +99,6 @@ extension SuggestionAccountViewController {
 
     private func setupBackgroundColor(theme: Theme) {
         view.backgroundColor = theme.systemBackgroundColor
-        collectionView.backgroundColor = theme.systemGroupedBackgroundColor
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension SuggestionAccountViewController: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let diffableDataSource = viewModel.collectionDiffableDataSource else { return }
-//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-//        switch item {
-//        case .accountObjectID(let accountObjectID):
-//            let mastodonUser = context.managedObjectContext.object(with: accountObjectID) as! MastodonUser
-//            let viewModel = ProfileViewModel(context: context, optionalMastodonUser: mastodonUser)
-//            DispatchQueue.main.async {
-//                self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
-//            }
-//        default:
-//            break
-//        }
     }
 }
 

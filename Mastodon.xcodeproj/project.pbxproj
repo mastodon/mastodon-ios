@@ -76,8 +76,6 @@
 		2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F20725CD491300561493 /* DisposeBagCollectable.swift */; };
 		2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */; };
 		2D4AD89C263165B500613EFC /* SuggestionAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AD89B263165B500613EFC /* SuggestionAccountCollectionViewCell.swift */; };
-		2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */; };
-		2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */; };
 		2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */; };
 		2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */; };
 		2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */; };
@@ -695,8 +693,6 @@
 		2D38F20725CD491300561493 /* DisposeBagCollectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposeBagCollectable.swift; sourceTree = "<group>"; };
 		2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecognizer.swift; sourceTree = "<group>"; };
 		2D4AD89B263165B500613EFC /* SuggestionAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountCollectionViewCell.swift; sourceTree = "<group>"; };
-		2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedAccountSection.swift; sourceTree = "<group>"; };
-		2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedAccountItem.swift; sourceTree = "<group>"; };
 		2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProgressView.swift; sourceTree = "<group>"; };
 		2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewController.swift; sourceTree = "<group>"; };
 		2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewModel.swift; sourceTree = "<group>"; };
@@ -1625,7 +1621,6 @@
 			isa = PBXGroup;
 			children = (
 				DB4F097826A039B400D62E92 /* Onboarding */,
-				DB0617FB27855B740030EE79 /* Account */,
 				DB0617F827855B170030EE79 /* User */,
 				DB0617F927855B460030EE79 /* Profile */,
 				DB0FCB892796BE1E006C02E2 /* RecommandAccount */,
@@ -1905,15 +1900,6 @@
 				DB6D9F8326358EEC008423CD /* SettingsItem.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		DB0617FB27855B740030EE79 /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */,
-				2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */,
-			);
-			path = Account;
 			sourceTree = "<group>";
 		};
 		DB0618082785B2790030EE79 /* Cell */ = {
@@ -3689,7 +3675,6 @@
 				DB63F7542799491600455B82 /* DataSourceFacade+SearchHistory.swift in Sources */,
 				DB7A9F912818EAF10016AF98 /* MastodonRegisterView.swift in Sources */,
 				DBF1572F27046F1A00EC00B7 /* SecondaryPlaceholderViewController.swift in Sources */,
-				2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */,
 				DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */,
 				2AB12E4629362F27006BC925 /* DataSourceFacade+Translate.swift in Sources */,
 				DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */,
@@ -3927,7 +3912,6 @@
 				DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */,
 				DBDFF19A28055A1400557A48 /* DiscoveryViewController.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
-				2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */,
 				DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */,
 				85BC11B32932414900E191CD /* AltTextViewController.swift in Sources */,
 				DB63F775279A997D00455B82 /* NotificationTableViewCell+ViewModel.swift in Sources */,

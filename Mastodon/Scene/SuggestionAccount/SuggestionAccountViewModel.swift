@@ -27,12 +27,10 @@ final class SuggestionAccountViewModel: NSObject {
     let context: AppContext
     let authContext: AuthContext
     let userFetchedResultsController: UserFetchedResultsController
-    let selectedUserFetchedResultsController: UserFetchedResultsController
-    
+
     var viewWillAppear = PassthroughSubject<Void, Never>()
 
     // output
-    var collectionViewDiffableDataSource: UICollectionViewDiffableDataSource<SelectedAccountSection, SelectedAccountItem>?
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<RecommendAccountSection, RecommendAccountItem>?
     
     init(
@@ -46,20 +44,10 @@ final class SuggestionAccountViewModel: NSObject {
             domain: nil,
             additionalPredicate: nil
         )
-        self.selectedUserFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: nil,
-            additionalPredicate: nil
-        )
         super.init()
                 
         userFetchedResultsController.domain = authContext.mastodonAuthenticationBox.domain
-        selectedUserFetchedResultsController.domain = authContext.mastodonAuthenticationBox.domain
-        selectedUserFetchedResultsController.additionalPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
-            MastodonUser.predicate(followingBy: authContext.mastodonAuthenticationBox.userID),
-            MastodonUser.predicate(followRequestedBy: authContext.mastodonAuthenticationBox.userID)
-        ])
-    
+
         // fetch recomment users
         Task {
             var userIDs: [MastodonUser.ID] = []
@@ -81,7 +69,6 @@ final class SuggestionAccountViewModel: NSObject {
             
             guard !userIDs.isEmpty else { return }
             userFetchedResultsController.userIDs = userIDs
-            selectedUserFetchedResultsController.userIDs = userIDs
         }
         
         // fetch relationship

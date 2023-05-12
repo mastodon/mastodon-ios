@@ -38,37 +38,4 @@ extension SuggestionAccountViewModel {
             }
             .store(in: &disposeBag)
     }
-    
-    func setupDiffableDataSource(
-        collectionView: UICollectionView
-    ) {
-        collectionViewDiffableDataSource = SelectedAccountSection.collectionViewDiffableDataSource(
-            collectionView: collectionView,
-            context: context
-        )
-        
-        selectedUserFetchedResultsController.$records
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] records in
-                guard let self = self else { return }
-                guard let collectionViewDiffableDataSource = self.collectionViewDiffableDataSource else { return }
-                
-                var snapshot = NSDiffableDataSourceSnapshot<SelectedAccountSection, SelectedAccountItem>()
-                snapshot.appendSections([.main])
-                var items: [SelectedAccountItem] = records.map { SelectedAccountItem.account($0) }
-                
-                if items.count < 10 {
-                    let count = 10 - items.count
-                    let placeholderItems: [SelectedAccountItem] = (0..<count).map { _ in
-                        SelectedAccountItem.placeHolder(uuid: UUID())
-                    }
-                    items.append(contentsOf: placeholderItems)
-                }
-                
-                snapshot.appendItems(items, toSection: .main)
-                collectionViewDiffableDataSource.applySnapshotUsingReloadData(snapshot, completion: nil)
-            }
-            .store(in: &disposeBag)
-    }
-    
 }
