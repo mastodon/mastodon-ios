@@ -194,7 +194,7 @@
                     "translated_from": "Vertaald uit het %s door %s",
                     "unknown_language": "Onbekend",
                     "unknown_provider": "Onbekend",
-                    "show_original": "Show Original"
+                    "show_original": "Origineel bekijken"
                 },
                 "media": {
                     "accessibility_label": "%s, bijlage %d van %d",
@@ -204,15 +204,15 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Boosts",
+                    "favorites_title": "Favorieten",
+                    "edit_history_title": "Bewerkingsgeschiedenis",
+                    "edit_history_detail": "Laatste bewerking op %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Bewerkt op %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Bewerkingsgeschiedenis",
+                    "original_post": "Oorspronkelijk bericht · %s"
                 }
             },
             "friendship": {
@@ -257,8 +257,8 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Geen geverifieerde link",
+            "followers_count": "%@ volgers"
         }
     },
     "scene": {
@@ -266,7 +266,7 @@
             "log_in": "Log in",
             "learn_more": "Ontdek meer",
             "join_default_server": "Doe mee met mastodon.social",
-            "pick_server": "Pick another server",
+            "pick_server": "Kies een andere server",
             "separator": {
                 "or": "of"
             },
@@ -281,7 +281,7 @@
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Wat is Mastodon?"
                     }
                 }
             }
@@ -294,10 +294,10 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Kies een server",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Taal",
+                "signup_speed": "Registratiesnelheid",
                 "category": {
                     "all": "Alles",
                     "all_accessiblity_description": "Categorie: Alles",
@@ -331,12 +331,12 @@
                 "no_results": "Geen resultaten"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Alles",
+                "instant": "Meteen registreren",
+                "manually_reviewed": "Handmatige beoordeling nodig"
             },
             "language": {
-                "all": "All"
+                "all": "Alles"
             },
             "search": {
                 "placeholder": "Search name or URL"
