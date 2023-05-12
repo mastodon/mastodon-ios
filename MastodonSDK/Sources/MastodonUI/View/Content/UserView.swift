@@ -99,7 +99,13 @@ public final class UserView: UIView {
         label.textColor = .secondaryLabel
         return label
     }()
-    
+
+    private let followButtonWrapper = {
+        let wrapper = UIView()
+
+        return wrapper
+    }()
+
     private let followButton: FollowButton = {
         let button = FollowButton()
         button.cornerRadius = 10
@@ -149,10 +155,7 @@ extension UserView {
         
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(avatarButton)
-        NSLayoutConstraint.activate([
-            avatarButton.widthAnchor.constraint(equalToConstant: 28).priority(.required - 1),
-            avatarButton.heightAnchor.constraint(equalToConstant: 28).priority(.required - 1),
-        ])
+
         avatarButton.setContentHuggingPriority(.defaultLow, for: .vertical)
         avatarButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
@@ -162,7 +165,19 @@ extension UserView {
         containerStackView.addArrangedSubview(labelStackView)
         
         // follow button
-        containerStackView.addArrangedSubview(followButton)
+        followButtonWrapper.translatesAutoresizingMaskIntoConstraints = false
+        followButtonWrapper.addSubview(followButton)
+
+        containerStackView.addArrangedSubview(followButtonWrapper)
+
+        NSLayoutConstraint.activate([
+            followButton.topAnchor.constraint(lessThanOrEqualTo: avatarButton.topAnchor),
+            followButton.leadingAnchor.constraint(equalTo: followButtonWrapper.leadingAnchor),
+            followButtonWrapper.trailingAnchor.constraint(equalTo: followButton.trailingAnchor),
+            followButtonWrapper.bottomAnchor.constraint(greaterThanOrEqualTo: followButton.bottomAnchor),
+
+            followButtonWrapper.heightAnchor.constraint(equalTo: containerStackView.heightAnchor),
+        ])
         
         let nameStackView = UIStackView()
         nameStackView.axis = .horizontal
@@ -181,7 +196,14 @@ extension UserView {
         authorUsernameLabel.setContentCompressionResistancePriority(.defaultHigh - 1, for: .horizontal)
         
         labelStackView.addArrangedSubview(nameStackView)
-                
+
+        NSLayoutConstraint.activate([
+            avatarButton.heightAnchor.constraint(lessThanOrEqualToConstant: 56),
+            avatarButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 28),
+            avatarButton.heightAnchor.constraint(equalTo: avatarButton.widthAnchor),
+            avatarButton.heightAnchor.constraint(equalTo: labelStackView.heightAnchor),
+        ])
+        
         let verifiedSpacerView = UIView()
         let verifiedStackTrailingSpacerView = UIView()
         
