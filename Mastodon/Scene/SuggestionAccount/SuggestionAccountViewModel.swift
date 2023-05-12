@@ -11,7 +11,6 @@ import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import MastodonCore
-import os.log
 import UIKit
     
 protocol SuggestionAccountViewModelDelegate: AnyObject {
@@ -53,7 +52,7 @@ final class SuggestionAccountViewModel: NSObject {
             var userIDs: [MastodonUser.ID] = []
             do {
                 let response = try await context.apiService.suggestionAccountV2(
-                    query: nil,
+                    query: .init(limit: 5),
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
                 userIDs = response.value.map { $0.account.id }
@@ -64,7 +63,7 @@ final class SuggestionAccountViewModel: NSObject {
                 )
                 userIDs = response.value.map { $0.id }
             } catch {
-                os_log("%{public}s[%{public}ld], %{public}s: fetch recommendAccountV2 failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                
             }
             
             guard !userIDs.isEmpty else { return }
