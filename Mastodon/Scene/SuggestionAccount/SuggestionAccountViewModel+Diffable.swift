@@ -21,7 +21,7 @@ extension SuggestionAccountViewModel {
                 suggestionAccountTableViewCellDelegate: suggestionAccountTableViewCellDelegate
             )
         )
-
+        
         userFetchedResultsController.$records
             .removeDuplicates()
             .receive(on: DispatchQueue.main)

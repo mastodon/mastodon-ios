@@ -16,70 +16,6 @@ import Meta
 
 extension SuggestionAccountTableViewCell {
 
-    class ViewModel {
-        var disposeBag = Set<AnyCancellable>()
-        
-        @Published public var userIdentifier: UserIdentifier?       // me
-        
-        @Published var avatarImageURL: URL?
-        @Published public var authorName: MetaContent?
-        @Published public var authorUsername: String?
-        
-        @Published var isFollowing = false
-        @Published var isPending = false
-        
-        func prepareForReuse() {
-            isFollowing = false
-            isPending = false
-        }
-    }
-
-}
-
-extension SuggestionAccountTableViewCell.ViewModel {
-    func bind(cell: SuggestionAccountTableViewCell) {
-        // avatar
-        $avatarImageURL.removeDuplicates()
-            .sink { url in
-                let configuration = AvatarImageView.Configuration(url: url)
-                cell.avatarButton.avatarImageView.configure(configuration: configuration)
-                cell.avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 12)))
-            }
-            .store(in: &disposeBag)
-        // name
-        $authorName
-            .sink { metaContent in
-                let metaContent = metaContent ?? PlaintextMetaContent(string: " ")
-                cell.titleLabel.configure(content: metaContent)
-            }
-            .store(in: &disposeBag)
-        // username
-        $authorUsername
-            .map { text -> String in
-                guard let text = text else { return "" }
-                return "@\(text)"
-            }
-            .sink { username in
-                cell.subTitleLabel.text = username
-            }
-            .store(in: &disposeBag)
-        // button
-        Publishers.CombineLatest(
-            $isFollowing,
-            $isPending
-        )
-        .sink { isFollowing, isPending in
-            let isFollowState = isFollowing || isPending
-            let imageName = isFollowState ? "minus.circle.fill" : "plus.circle"
-            let image = UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))
-            cell.button.setImage(image, for: .normal)
-            cell.button.tintColor = isFollowState ? Asset.Colors.danger.color : Asset.Colors.Label.secondary.color
-        }
-        .store(in: &disposeBag)
-    }
-}
-
-extension SuggestionAccountTableViewCell {
     func configure(user: MastodonUser) {
         // author avatar
         Publishers.CombineLatest(
@@ -137,5 +73,63 @@ extension SuggestionAccountTableViewCell {
         }
         .assign(to: \.isPending, on: viewModel)
         .store(in: &disposeBag)
+    }
+
+    class ViewModel {
+        var disposeBag = Set<AnyCancellable>()
+        
+        @Published public var userIdentifier: UserIdentifier?       // me
+        
+        @Published var avatarImageURL: URL?
+        @Published public var authorName: MetaContent?
+        @Published public var authorUsername: String?
+        
+        @Published var isFollowing = false
+        @Published var isPending = false
+        
+        func prepareForReuse() {
+            isFollowing = false
+            isPending = false
+        }
+        func bind(cell: SuggestionAccountTableViewCell) {
+            // avatar
+            $avatarImageURL.removeDuplicates()
+                .sink { url in
+                    let configuration = AvatarImageView.Configuration(url: url)
+                    cell.avatarButton.avatarImageView.configure(configuration: configuration)
+                    cell.avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 12)))
+                }
+                .store(in: &disposeBag)
+            // name
+            $authorName
+                .sink { metaContent in
+                    let metaContent = metaContent ?? PlaintextMetaContent(string: " ")
+                    cell.titleLabel.configure(content: metaContent)
+                }
+                .store(in: &disposeBag)
+            // username
+            $authorUsername
+                .map { text -> String in
+                    guard let text = text else { return "" }
+                    return "@\(text)"
+                }
+                .sink { username in
+                    cell.subTitleLabel.text = username
+                }
+                .store(in: &disposeBag)
+            // button
+            Publishers.CombineLatest(
+                $isFollowing,
+                $isPending
+            )
+            .sink { isFollowing, isPending in
+                let isFollowState = isFollowing || isPending
+                let imageName = isFollowState ? "minus.circle.fill" : "plus.circle"
+                let image = UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))
+                cell.button.setImage(image, for: .normal)
+                cell.button.tintColor = isFollowState ? Asset.Colors.danger.color : Asset.Colors.Label.secondary.color
+            }
+            .store(in: &disposeBag)
+        }
     }
 }

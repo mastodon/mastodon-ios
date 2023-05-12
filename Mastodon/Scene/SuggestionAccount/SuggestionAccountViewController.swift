@@ -9,7 +9,6 @@ import Combine
 import CoreData
 import CoreDataStack
 import Foundation
-import OSLog
 import UIKit
 import MastodonAsset
 import MastodonCore
@@ -23,50 +22,18 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
 
     var disposeBag = Set<AnyCancellable>()
     var viewModel: SuggestionAccountViewModel!
-    
-    private static func createCollectionViewLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(64), heightDimension: .absolute(64))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 24, leading: 0, bottom: 24, trailing: 0)
-        section.orthogonalScrollingBehavior = .continuous
-        section.contentInsetsReference = .readableContent
-        section.interGroupSpacing = 16
-
-        return UICollectionViewCompositionalLayout(section: section)
-    }
-    
 
     let tableView: UITableView = {
-        let tableView = ControlContainableTableView()
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(SuggestionAccountTableViewCell.self, forCellReuseIdentifier: String(describing: SuggestionAccountTableViewCell.self))
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.tableFooterView = UIView()
-        tableView.separatorStyle = .singleLine
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.separatorStyle = .none
         return tableView
     }()
 
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", (#file as NSString).lastPathComponent, #line, #function)
-    }
-}
+    //TODO: Add "follow all"-footer-cell
 
-extension SuggestionAccountViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
-            }
-            .store(in: &disposeBag)
 
         title = L10n.Scene.SuggestionAccount.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -78,7 +45,7 @@ extension SuggestionAccountViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -89,16 +56,17 @@ extension SuggestionAccountViewController {
             tableView: tableView,
             suggestionAccountTableViewCellDelegate: self
         )
+
+        view.backgroundColor = .secondarySystemBackground
+        tableView.backgroundColor = .secondarySystemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
-    }
-
-    private func setupBackgroundColor(theme: Theme) {
-        view.backgroundColor = theme.systemBackgroundColor
     }
 }
 
@@ -156,8 +124,5 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
 extension SuggestionAccountViewController {
     @objc func doneButtonDidClick(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
-//        if viewModel.selectedAccounts.value.count > 0 {
-//            viewModel.delegate?.homeTimelineNeedRefresh.send()
-//        }
     }
 }

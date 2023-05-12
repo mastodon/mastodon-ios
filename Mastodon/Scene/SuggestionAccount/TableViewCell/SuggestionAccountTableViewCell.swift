@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/4/21.
 //
 
-import os.log
 import Combine
 import CoreData
 import CoreDataStack
@@ -23,9 +22,7 @@ protocol SuggestionAccountTableViewCellDelegate: AnyObject {
 }
 
 final class SuggestionAccountTableViewCell: UITableViewCell {
-    
-    let logger = Logger(subsystem: "SuggestionAccountTableViewCell", category: "View")
-    
+
     var disposeBag = Set<AnyCancellable>()
     
     weak var delegate: SuggestionAccountTableViewCellDelegate?
@@ -35,7 +32,8 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         viewModel.bind(cell: self)
         return viewModel
     }()
-    
+
+    //TODO: Replace this with user view
     let avatarButton = AvatarButton()
     
     let titleLabel = MetaLabel(style: .statusName)
@@ -49,7 +47,6 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
     
     let buttonContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .clear
         return view
     }()
     
@@ -89,6 +86,8 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
 extension SuggestionAccountTableViewCell {
     
     private func configure() {
+
+        backgroundColor = .systemBackground
         let containerStackView = UIStackView()
         containerStackView.axis = .horizontal
         containerStackView.distribution = .fill
@@ -147,7 +146,6 @@ extension SuggestionAccountTableViewCell {
 
 extension SuggestionAccountTableViewCell {
     @objc private func buttonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.suggestionAccountTableViewCell(self, friendshipDidPressed: sender)
     }
 }
