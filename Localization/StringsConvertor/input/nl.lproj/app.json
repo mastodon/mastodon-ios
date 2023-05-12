@@ -17,7 +17,7 @@
             },
             "discard_post_content": {
                 "title": "Verwijder concept",
-                "message": "Bevestig het verwijderen van het concept bericht."
+                "message": "Bevestig het verwijderen van het conceptbericht."
             },
             "publish_post_failure": {
                 "title": "Publicatiefout",
@@ -75,26 +75,26 @@
                 "compose": "Schrijf bericht",
                 "cancel": "Annuleer",
                 "discard": "Weggooien",
-                "try_again": "Probeer Opnieuw",
+                "try_again": "Opnieuw proberen",
                 "take_photo": "Maak foto",
                 "save_photo": "Bewaar foto",
                 "copy_photo": "Kopieer foto",
                 "sign_in": "Inloggen",
-                "see_more": "Meer",
+                "see_more": "Meer tonen",
                 "preview": "Voorvertoning",
                 "copy": "Kopiëren",
                 "share": "Deel",
-                "share_user": "Delen %s",
+                "share_user": "%s delen",
                 "share_post": "Deel bericht",
-                "open_in_safari": "Open in Safari",
+                "open_in_safari": "In Safari openen",
                 "open_in_browser": "Open in browser",
                 "find_people": "Zoek mensen om te volgen",
                 "manually_search": "Handmatig zoeken",
                 "skip": "Overslaan",
                 "reply": "Reageer",
-                "report_user": "Rapporteer %s",
-                "block_domain": "Blokkeer %s",
-                "unblock_domain": "Deblokkeer %s",
+                "report_user": "%s rapporteren",
+                "block_domain": "%s blokkeren",
+                "unblock_domain": "%s deblokkeren",
                 "settings": "Instellingen",
                 "delete": "Verwijder",
                 "translate_post": {
@@ -116,35 +116,35 @@
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Overschakelen naar %s",
-                    "compose_new_post": "Nieuw Bericht Opstellen",
-                    "show_favorites": "Favorieten Weergeven",
-                    "open_settings": "Open Instellingen"
+                    "compose_new_post": "Nieuw bericht schrijven",
+                    "show_favorites": "Favorieten tonen",
+                    "open_settings": "Instellingen openen"
                 },
                 "timeline": {
-                    "previous_status": "Vorig Bericht",
-                    "next_status": "Volgend Bericht",
-                    "open_status": "Open Bericht",
-                    "open_author_profile": "Open Auteursprofiel",
+                    "previous_status": "Vorig bericht",
+                    "next_status": "Volgend bericht",
+                    "open_status": "Bericht openen",
+                    "open_author_profile": "Gebruikersprofiel openen",
                     "open_reblogger_profile": "Open Delersprofiel",
                     "reply_status": "Reageer",
                     "toggle_reblog": "Delen bij berichten omschakelen",
                     "toggle_favorite": "Favoriet in-/uitschakelen bij Post",
                     "toggle_content_warning": "Inhoudswaarschuwing",
-                    "preview_image": "Voorvertoning Afbeelding"
+                    "preview_image": "Voorvertoning afbeelding"
                 },
                 "segmented_control": {
-                    "previous_section": "Vorige Sectie",
-                    "next_section": "Volgende Sectie"
+                    "previous_section": "Vorige sectie",
+                    "next_section": "Volgende sectie"
                 }
             },
             "status": {
                 "user_reblogged": "%s heeft gedeeld",
                 "user_replied_to": "Reactie op %s",
-                "show_post": "Toon Bericht",
-                "show_user_profile": "Toon Gebruikersprofiel",
+                "show_post": "Bericht tonen",
+                "show_user_profile": "Gebruikersprofiel tonen",
                 "content_warning": "Inhoudswaarschuwing",
                 "sensitive_content": "Gevoelige inhoud",
-                "media_content_warning": "Tap hier om te tonen",
+                "media_content_warning": "Tik overal om te tonen",
                 "tap_to_reveal": "Tik om te onthullen",
                 "load_embed": "Embed laden",
                 "link_via_user": "%s via %s",
@@ -162,8 +162,8 @@
                     "reply": "Reageren",
                     "reblog": "Delen",
                     "unreblog": "Delen ongedaan maken",
-                    "favorite": "Toevoegen aan Favorieten",
-                    "unfavorite": "Verwijderen uit Favorieten",
+                    "favorite": "Als favoriet markeren",
+                    "unfavorite": "Verwijderen uit favorieten",
                     "menu": "Menu",
                     "hide": "Verberg",
                     "show_image": "Toon afbeelding",
@@ -217,12 +217,12 @@
             },
             "friendship": {
                 "follow": "Volgen",
-                "following": "Gevolgd",
-                "request": "Verzoeken",
+                "following": "Volgend",
+                "request": "Volgverzoek",
                 "pending": "In afwachting",
                 "block": "Blokkeren",
-                "block_user": "Blokkeer %s",
-                "block_domain": "Blokkeer %s",
+                "block_user": "%s blokkeren",
+                "block_domain": "%s blokkeren",
                 "unblock": "Deblokkeer",
                 "unblock_user": "Deblokkeer %s",
                 "blocked": "Geblokkeerd",
@@ -405,12 +405,12 @@
                     "invalid": "%s is ongeldig",
                     "too_long": "%s is te lang",
                     "too_short": "%s is te kort",
-                    "inclusion": "%s is een niet-ondersteunde waarde"
+                    "inclusion": "%s is geen ondersteunde waarde"
                 },
                 "special": {
-                    "username_invalid": "Een gebruikersnaam mag alleen alfanumerieke karakters en lage streepjes bevatten",
+                    "username_invalid": "Een gebruikersnaam mag alleen alfanumerieke karakters en underscores bevatten",
                     "username_too_long": "De gebruikersnaam is te lang (het kan maximaal 30 karakters bevatten)",
-                    "email_invalid": "Dit is geen geldig emailadres",
+                    "email_invalid": "Dit is geen geldig e-mailadres",
                     "password_too_short": "Het wachtwoord is te kort (het moet ten minste 8 tekens bevatten)"
                 }
             }
@@ -418,8 +418,8 @@
         "server_rules": {
             "title": "Enkele basisregels.",
             "subtitle": "Deze regels zijn ingesteld door de beheerders van %s.",
-            "prompt": "Als u verder gaat dan gaat u akkoord met de servicevoorwaarden en privacybeleid van %s.",
-            "terms_of_service": "servicevoorwaarden",
+            "prompt": "Als u verder gaat dan ga je akkoord met de gebruiksvoorwaarden en privacybeleid van %s.",
+            "terms_of_service": "gebruiksvoorwaarden",
             "privacy_policy": "privacybeleid",
             "button": {
                 "confirm": "Ik ga akkoord"
@@ -433,12 +433,12 @@
             },
             "dont_receive_email": {
                 "title": "Controleer je e-mail",
-                "description": "Controleer of uw emailadres correct is en of the email in de ongewenste email filter terecht is gekomen.",
-                "resend_email": "Email Opnieuw Versturen"
+                "description": "Controleer of jouw e-mailadres correct is en of de e-mail niet in jouw spamfolder terecht is gekomen.",
+                "resend_email": "E-mail opnieuw versturen"
             },
             "open_email_app": {
                 "title": "Controleer je Postvak In.",
-                "description": "We hebben u een e-mail gestuurd. Controleer ook uw de ongewenste email filter.",
+                "description": "We hebben je een e-mail gestuurd. Controleer ook jouw spamfolder.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Applicatie"
             },
@@ -558,13 +558,13 @@
                 "other_posts": "berichten",
                 "other_following": "volgend",
                 "other_followers": "volgers",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "wederzijdse volgers"
             },
             "fields": {
                 "joined": "Geregistreerd",
-                "add_row": "Rij Toevoegen",
+                "add_row": "Rij toevoegen",
                 "placeholder": {
-                    "label": "Etiket",
+                    "label": "Label",
                     "content": "Inhoud"
                 },
                 "verified": {
@@ -585,8 +585,8 @@
                     "message": "Bevestig om %s te negeren"
                 },
                 "confirm_unmute_user": {
-                    "title": "Account Negeren",
-                    "message": "Bevestig om %s te negeren"
+                    "title": "Account niet meer negeren",
+                    "message": "Bevestig om %s niet meer te negeren"
                 },
                 "confirm_block_user": {
                     "title": "Blokkeer account",
@@ -674,7 +674,7 @@
             "intro": "Dit zijn de berichten die populair zijn in jouw Mastodon-kringen."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Favorieten"
         },
         "notification": {
             "title": {
@@ -845,48 +845,48 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Dit lijkt geen goede Mastodonlink te zijn."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Sorry, maar deze widgetgrootte wordt niet ondersteund.",
+            "user_not_logged_in": "Open Mastodon om op een account in te loggen."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Volgers",
+            "configuration_description": "Aantal volgers tonen.",
+            "title": "VOLGERS",
+            "followers_today": "%s volgers vandaag"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Meerdere volgers",
+            "configuration_description": "Aantal volgers voor meerdere accounts tonen.",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "Nog een volger",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Nieuwste volgers",
+            "configuration_description": "Nieuwste volgers tonen.",
+            "title": "Nieuwste volgers",
+            "last_update": "Laatst bijgewerkt op %s"
         },
         "hashtag": {
             "configuration": {
                 "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Toont een recentelijk bericht met de gekozen hashtag."
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "Sorry, maar we konden geen berichten met de hashtag <a>#%@</a> vinden. Probeer een <a>#AndereHashtag</a> of controleer de widgetinstellingen."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Zo ziet een bericht met een <a>#hashtag</a> eruit. Kies de door jou gewenste <a>#hashtag</a> in de widgetinstellingen."
             }
         }
     }
