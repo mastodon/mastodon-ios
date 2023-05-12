@@ -101,7 +101,7 @@
                     "title": "Vertaald uit het %s",
                     "unknown_language": "Onbekend"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Bewerken"
             },
             "tabs": {
                 "home": "Start",
@@ -109,8 +109,8 @@
                 "notifications": "Meldingen",
                 "profile": "Profiel",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Zoeken",
+                    "explore": "Verkennen"
                 }
             },
             "keyboard": {
@@ -172,8 +172,8 @@
                     "share_link_in_post": "Deel link in bericht",
                     "tap_then_hold_to_show_menu": "Tik en houd vast om menu te tonen",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Boosten",
+                        "unreblog": "Boost ongedaan maken"
                     }
                 },
                 "tag": {
