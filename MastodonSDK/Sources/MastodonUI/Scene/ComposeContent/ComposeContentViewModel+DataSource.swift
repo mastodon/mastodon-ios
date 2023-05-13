@@ -102,11 +102,11 @@ extension ComposeContentViewModel {
     ) {
         let diffableDataSource = CustomEmojiPickerSection.collectionViewDiffableDataSource(
             collectionView: collectionView,
+            authContext: authContext,
             context: context
         )
         self.customEmojiPickerDiffableDataSource = diffableDataSource
 
-        let domain = authContext.mastodonAuthenticationBox.domain.uppercased()
         customEmojiViewModel?.emojis
             // Don't block the main queue
             .receive(on: DispatchQueue.global(qos: .userInteractive))
@@ -144,7 +144,7 @@ extension ComposeContentViewModel {
             .map({ (emojiMap) -> NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem> in
 
                 var snapshot = NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem>()
-                let customEmojiSection = CustomEmojiPickerSection.emoji(name: domain)
+                let customEmojiSection = CustomEmojiPickerSection.uncategorized
                 snapshot.appendSections([customEmojiSection])
                 snapshot.appendItems(emojiMap.noCategory.map({ emoji in
                     CustomEmojiPickerItem.emoji(attribute: CustomEmojiPickerItem.CustomEmojiAttribute(emoji: emoji))
