@@ -45,7 +45,7 @@
                 "message": "Geef toestemming om de foto op te slaan."
             },
             "delete_post": {
-                "title": "Verwijder Bericht",
+                "title": "Bericht verwijderen",
                 "message": "Weet je zeker dat je dit bericht wilt verwijderen?"
             },
             "clean_cache": {
@@ -163,7 +163,7 @@
                     "reblog": "Boosten",
                     "unreblog": "Boosten ongedaan maken",
                     "favorite": "Als favoriet markeren",
-                    "unfavorite": "Verwijderen uit favorieten",
+                    "unfavorite": "Uit favorieten verwijderen",
                     "menu": "Menu",
                     "hide": "Verberg",
                     "show_image": "Toon afbeelding",
@@ -247,9 +247,9 @@
                 },
                 "header": {
                     "no_status_found": "Geen Berichten Gevonden",
-                    "blocking_warning": "U kunt het profiel van deze geblokkeerde gebruiker niet bekijken.\nUw profiel ziet er zo uit voor hen.",
-                    "user_blocking_warning": "U kunt het profiel van %s niet bekijken zolang deze gebruiker geblokkeerd is.\nUw profiel ziet er zo uit voor hen.",
-                    "blocked_warning": "U kunt het profiel van deze gebruiker niet bekijken zolang u geblokkeerd bent.",
+                    "blocking_warning": "Je kunt het profiel van deze geblokkeerde gebruiker niet bekijken.\nJouw profiel ziet er zo uit voor hen.",
+                    "user_blocking_warning": "Je kunt het profiel van %s niet bekijken zolang deze gebruiker geblokkeerd is.\nJouw profiel ziet er zo uit voor hen.",
+                    "blocked_warning": "Je kunt het profiel van deze gebruiker niet bekijken zolang je geblokkeerd bent.",
                     "user_blocked_warning": "Je kunt het profiel van %s niet bekijken zolang je geblokkeerd bent.",
                     "suspended_warning": "Deze gebruiker is opgeschort.",
                     "user_suspended_warning": "Account van %s is opgeschort."
@@ -290,7 +290,7 @@
             "title": "Welkom terug",
             "subtitle": "Log je in op de server waarop je je account hebt aangemaakt.",
             "server_search_field": {
-                "placeholder": "Voer URL in of zoek naar uw server"
+                "placeholder": "Voer een URL in of zoek naar je server"
             }
         },
         "server_picker": {
@@ -327,7 +327,7 @@
             },
             "empty_state": {
                 "finding_servers": "Beschikbare servers zoeken...",
-                "bad_network": "Er is een fout opgetreden bij het laden van de gegevens. Controleer uw internetverbinding.",
+                "bad_network": "Er is een fout opgetreden bij het laden van de gegevens. Controleer je internetverbinding.",
                 "no_results": "Geen resultaten"
             },
             "signup_speed": {
@@ -380,10 +380,10 @@
                         "checked": "ingeschakeld",
                         "unchecked": "uitgeschakeld"
                     },
-                    "hint": "Uw wachtwoord moet ten minste acht tekens bevatten"
+                    "hint": "Jouw wachtwoord moet ten minste acht tekens bevatten"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Waarom wil u zich hier registreren?"
+                    "registration_user_invite_request": "Waarom wil je je hier registreren?"
                 }
             },
             "error": {
@@ -418,7 +418,7 @@
         "server_rules": {
             "title": "Enkele basisregels.",
             "subtitle": "Deze regels zijn ingesteld door de beheerders van %s.",
-            "prompt": "Als u verder gaat dan ga je akkoord met de gebruiksvoorwaarden en privacybeleid van %s.",
+            "prompt": "Als je verder gaat ga je akkoord met de gebruiksvoorwaarden en privacybeleid van %s.",
             "terms_of_service": "gebruiksvoorwaarden",
             "privacy_policy": "privacybeleid",
             "button": {
@@ -433,12 +433,12 @@
             },
             "dont_receive_email": {
                 "title": "Controleer je e-mail",
-                "description": "Controleer of jouw e-mailadres correct is en of de e-mail niet in jouw spamfolder terecht is gekomen.",
+                "description": "Controleer of jouw e-mailadres correct is en of de e-mail niet in je spamfolder terecht is gekomen.",
                 "resend_email": "E-mail opnieuw versturen"
             },
             "open_email_app": {
                 "title": "Controleer je Postvak In.",
-                "description": "We hebben je een e-mail gestuurd. Controleer ook jouw spamfolder.",
+                "description": "We hebben je een e-mail gestuurd. Controleer ook je spamfolder.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Applicatie"
             },
@@ -463,7 +463,7 @@
         },
         "suggestion_account": {
             "title": "Zoek Mensen om te Volgen",
-            "follow_explain": "Wanneer u iemand volgt, ziet u hun berichten op de startpagina."
+            "follow_explain": "Wanneer je iemand volgt, zie je hun berichten op jouw starttijdlijn."
         },
         "compose": {
             "title": {
@@ -684,7 +684,7 @@
             "notification_description": {
                 "followed_you": "volgt je",
                 "favorited_your_post": "heeft je bericht als favoriet gemrkeerd",
-                "reblogged_your_post": "deelde je bericht",
+                "reblogged_your_post": "boostte je bericht",
                 "mentioned_you": "noemde je",
                 "request_to_follow_you": "verzoek je te volgen",
                 "poll_has_ended": "de peiling is beëindigd"
@@ -765,7 +765,7 @@
             "title": "Rapporteer %s",
             "step1": "Stap 1 van 2",
             "step2": "Stap 2 van 2",
-            "content1": "Zijn er nog meer berichten die u aan het rapport wilt toevoegen?",
+            "content1": "Zijn er nog meer berichten die je aan het rapport wilt toevoegen?",
             "content2": "Is er iets anders over dit rapport dat de moderators zouden moeten weten?",
             "report_sent_title": "Bedankt voor het rapporteren, we zullen hiernaar kijken.",
             "send": "Stuur rapport",
@@ -809,7 +809,7 @@
                 "unfollowed": "Ontvolgd",
                 "unfollow_user": "Ontvolg %s",
                 "mute_user": "Negeer %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Je zult niet langer berichten of boosts van deze persoon zien in je tijdlijn. Ze weten niet dat je hun negeert.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Je ziet hun berichten en boosts niet op je starttijdlijn. Ze zullen niet weten dat ze worden genegeerd.",
                 "block_user": "Blokkeer %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Het is niet meer mogelijk om je te volgen of om je berichten te zien, maar ze kunnen wel zien dat ze geblokkeerd zijn.",
                 "while_we_review_this_you_can_take_action_against_user": "Terwijl we dit onderzoeken kun je deze acties tegen %s nemen"
