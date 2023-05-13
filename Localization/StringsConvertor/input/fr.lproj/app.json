@@ -101,7 +101,7 @@
                     "title": "Traduit depuis %s",
                     "unknown_language": "Inconnu"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Éditer"
             },
             "tabs": {
                 "home": "Accueil",
@@ -109,8 +109,8 @@
                 "notifications": "Notifications",
                 "profile": "Profil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Rechercher",
+                    "explore": "Explorer"
                 }
             },
             "keyboard": {
@@ -173,7 +173,7 @@
                     "tap_then_hold_to_show_menu": "Appuyez et maintenez pour afficher le menu",
                     "a11y_labels": {
                         "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "unreblog": "Annuler le re6blog"
                     }
                 },
                 "tag": {
@@ -194,7 +194,7 @@
                     "translated_from": "Traduit de %s en utilisant %s",
                     "unknown_language": "Inconnu",
                     "unknown_provider": "Inconnu",
-                    "show_original": "Show Original"
+                    "show_original": "Afficher l'original"
                 },
                 "media": {
                     "accessibility_label": "%s, pièce jointe %d sur %d",
@@ -205,14 +205,14 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "favorites_title": "Favoris",
+                    "edit_history_title": "Modifier l'historique",
+                    "edit_history_detail": "Dernière modification %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Édité %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Modifier l'historique",
+                    "original_post": "Message original · %s"
                 }
             },
             "friendship": {
@@ -257,47 +257,47 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Lien non vérifié",
+            "followers_count": "%@ abonnés"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Se connecter",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick another server",
+            "learn_more": "En savoir plus",
+            "join_default_server": "Rejoindre mastodon.social",
+            "pick_server": "Trouver un autre serveur",
             "separator": {
-                "or": "or"
+                "or": "ou"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Bienvenue sur Mastodon",
+                    "description": "Mastodon est un réseau social décentralisé, ce qui signifie qu’aucune entreprise ne le contrôle. Il est composé de plusieurs serveurs indépendants, tous connectés ensembles."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Que sont les serveurs ?",
+                    "description": "Chaque compte Mastodon est hébergé sur un serveur — chacun avec ses propres valeurs, règles, et administrateurs. Peu importe celui que vous choisissez, vous pouvez suivre et interagir avec des personnes sur n'importe quel serveur."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Qu’est-ce que Mastodon ?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Content de vous revoir",
             "subtitle": "Connectez-vous sur le serveur sur lequel vous avez créé votre compte.",
             "server_search_field": {
                 "placeholder": "Entrez l'URL ou recherchez votre serveur"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Choisissez un serveur",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Langue",
+                "signup_speed": "Inscription rapide",
                 "category": {
                     "all": "Tout",
                     "all_accessiblity_description": "Catégorie: Toutes",
@@ -331,31 +331,31 @@
                 "no_results": "Aucun résultat"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Tous",
+                "instant": "Inscription instantanée",
+                "manually_reviewed": "Approbation manuelle"
             },
             "language": {
-                "all": "All"
+                "all": "Tous"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Rechercher le nom ou l'URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Nous choisirons un serveur basé sur votre langue si vous continuez sans en choisir un."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Confidentialité",
+            "description": "Bien que l’application Mastodon ne collecte aucune donnée, le serveur auquel vous vous inscrivez peut avoir une politique différente. Prenez une minute pour examiner et accepter la politique de confidentialité de l’application Mastodon ainsi que celle de votre serveur.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Politique de confidentialité - Mastodon pour iOS",
+                "server": "Politique de Confidentialité - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "J’accepte"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Créer un compte",
             "input": {
                 "avatar": {
                     "delete": "Supprimer"
@@ -363,7 +363,7 @@
                 "username": {
                     "placeholder": "nom d'utilisateur",
                     "duplicate_prompt": "Ce nom d'utilisateur est déjà pris.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "incroyable_%@"
                 },
                 "display_name": {
                     "placeholder": "nom affiché"
@@ -373,7 +373,7 @@
                 },
                 "password": {
                     "placeholder": "mot de passe",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Confirmez le mot de passe",
                     "require": "Votre mot de passe doit être composé d’au moins :",
                     "character_limit": "8 caractères",
                     "accessibility": {
@@ -398,7 +398,7 @@
                 "reason": {
                     "blocked": "%s contient un fournisseur courriel proscrit",
                     "unreachable": "%s ne semble pas exister",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s est déjà pris. Pourquoi pas:",
                     "reserved": "%s est un mot clé réservé",
                     "accepted": "%s doit être accepté",
                     "blank": "%s est requis",
@@ -422,30 +422,30 @@
             "terms_of_service": "entente de service",
             "privacy_policy": "politique de confidentialité",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "J’accepte"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Consultez votre boîte mail",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Cliquez sur le lien que nous vous avons envoyé pour vérifier %@. Nous vous attendons ici.",
             "button": {
                 "resend": "Renvoyer"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Vérifiez vos emails",
                 "description": "Vérifiez que votre adresse courriel est valide ainsi que votre fichier spam si ce n’est pas déjà fait.",
                 "resend_email": "Renvoyer le courriel"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Consultez votre boîte mail.",
                 "description": "Nous venons de vous envoyer un courriel. Vérifier votre fichier spam si vous ne l’avez pas déjà fait.",
                 "mail": "Courriel",
                 "open_email_client": "Ouvrir le client de messagerie"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Vous n'avez pas reçu de lien ?",
+                "resend_in": "Renvoyer (%@)",
+                "resend_now": "Renvoyer maintenant."
             }
         },
         "home_timeline": {
@@ -469,7 +469,7 @@
             "title": {
                 "new_post": "Nouvelle Publication",
                 "new_reply": "Nouvelle réponse",
-                "edit_post": "Edit Post"
+                "edit_post": "Modifier le post"
             },
             "media_selection": {
                 "camera": "Prendre une photo",
@@ -493,7 +493,7 @@
                 "server_processing_state": "Traitement du serveur..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Sondage",
                 "duration_time": "Durée: %s",
                 "thirty_minutes": "30 minutes",
                 "one_hour": "1 Heure",
@@ -504,10 +504,10 @@
                 "option_number": "Option %ld",
                 "the_poll_is_invalid": "Le sondage est invalide",
                 "the_poll_has_empty_option": "Le sondage n'a pas d'options",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Ajouter une option",
+                "remove_option": "Supprimer l'option",
+                "move_up": "Déplacer en haut",
+                "move_down": "Déplacer en bas"
             },
             "content_warning": {
                 "placeholder": "Écrivez un avertissement précis ici..."
@@ -541,10 +541,10 @@
                 "select_visibility_entry": "Sélectionnez la Visibilité - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "Langue de la publication",
+                "suggested": "Recommandé",
+                "recent": "Récent",
+                "other": "Autres langues …"
             }
         },
         "profile": {
@@ -558,7 +558,7 @@
                 "other_posts": "publications",
                 "other_following": "abonnement",
                 "other_followers": "abonnés",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "mutuel"
             },
             "fields": {
                 "joined": "Ici depuis",
@@ -674,7 +674,7 @@
             "intro": "Ce sont les messages qui gagnent en popularité sur votre serveur Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Favoris"
         },
         "notification": {
             "title": {
@@ -845,16 +845,16 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Cela ne semble pas être un lien Mastodon valide."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Désolé, mais cette famille de Widget n'est pas prise en charge.",
+            "user_not_logged_in": "Veuillez ouvrir Mastodon pour vous connecter à un compte."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
+            "configuration_display_name": "Abonné·e·s",
             "configuration_description": "Show number of followers.",
             "title": "FOLLOWERS",
             "followers_today": "%s followers today"
