@@ -332,7 +332,7 @@
             },
             "signup_speed": {
                 "all": "Tất cả",
-                "instant": "Đăng ký nhanh",
+                "instant": "Duyệt tự động",
                 "manually_reviewed": "Duyệt thủ công"
             },
             "language": {
@@ -478,7 +478,7 @@
             },
             "content_input_placeholder": "Cho thế giới biết bạn đang nghĩ gì",
             "compose_action": "Đăng",
-            "replying_to_user": "%s viết tiếp",
+            "replying_to_user": "trả lời %s",
             "attachment": {
                 "photo": "ảnh",
                 "video": "video",
@@ -805,9 +805,9 @@
             "step_final": {
                 "dont_want_to_see_this": "Không muốn xem thứ này?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Khi bạn thấy có gì đó mà bạn không thích trên Mastodon, bạn có thể tự loại bỏ chúng.",
-                "unfollow": "Ngưng theo dõi",
-                "unfollowed": "Ngưng theo dõi",
-                "unfollow_user": "Ngưng theo dõi %s",
+                "unfollow": "Bỏ theo dõi",
+                "unfollowed": "Bỏ theo dõi",
+                "unfollow_user": "Bỏ theo dõi %s",
                 "mute_user": "Ẩn %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Bạn sẽ không thấy tút hoặc lượt đăng lại của họ trên bảng tin. Họ không biết rằng bạn ẩn họ.",
                 "block_user": "Chặn %s",
@@ -828,7 +828,7 @@
             "add_account": "Thêm tài khoản"
         },
         "bookmark": {
-            "title": "Tút đã lưu"
+            "title": "Những tút đã lưu"
         },
         "followed_tags": {
             "title": "Hashtag Theo Dõi",
@@ -839,7 +839,7 @@
             },
             "actions": {
                 "follow": "Theo dõi",
-                "unfollow": "Ngưng theo dõi"
+                "unfollow": "Bỏ theo dõi"
             }
         }
     },
