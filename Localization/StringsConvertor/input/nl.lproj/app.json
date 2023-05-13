@@ -198,9 +198,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, bijlage %d van %d",
-                    "expand_image_hint": "Vergroot de afbeelding. Tik twee keer en houd vast om acties te zien",
-                    "expand_gif_hint": "Vergroot de GIF. Tik twee keer en houd vast om acties te zien",
-                    "expand_video_hint": "Toont de videospeler. Tik twee keer en houd vast om acties te zien"
+                    "expand_image_hint": "De afbeelding vergroten. Twee keer tikken en vasthouden om acties te zien",
+                    "expand_gif_hint": "De GIF-afbeelding vergroten. Twee keer tikken en vasthouden om acties te zien",
+                    "expand_video_hint": "De videospeler tonen. Twee keer tikken en vasthouden om acties te zien"
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
@@ -264,20 +264,20 @@
     "scene": {
         "welcome": {
             "log_in": "Inloggen",
-            "learn_more": "Ontdek meer",
-            "join_default_server": "Doe mee met mastodon.social",
+            "learn_more": "Meer leren",
+            "join_default_server": "Registreren op mastodon.social",
             "pick_server": "Kies een andere server",
             "separator": {
                 "or": "of"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welkom bij Mastodon",
+                    "title": "Welkom op Mastodon",
                     "description": "Mastodon is een gedecentraliseerd sociaal netwerk, wat betekent dat geen enkel bedrijf het controleert. Het bestaat uit veel onafhankelijk opererende servers, allemaal verbonden met elkaar."
                 },
                 "servers": {
                     "title": "Wat zijn servers?",
-                    "description": "Elk Mastodon account wordt gehost op een server - elk met zijn eigen waarden, regels & admins. Het maakt niet uit welke server je kiest, je kunt mensen op elke server volgen en ermee communiceren."
+                    "description": "Elk Mastodon account wordt gehost op een server - elk met diens eigen waarden, regels en beheerders. Het maakt niet uit welke server je kiest, je kunt mensen op elke server volgen en ermee communiceren."
                 },
                 "a11y": {
                     "what_is_mastodon": {
