@@ -21,7 +21,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Invoer limiet overschrijdt %#@character_count@</string>
+      <string>Invoerlimiet overschrijdt %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -168,9 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 gedeeld bericht</string>
+        <string>1 boost</string>
         <key>other</key>
-        <string>%ld gedeelde berichten</string>
+        <string>%ld boosts</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -232,9 +232,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 kiezer</string>
+        <string>1 stem</string>
         <key>other</key>
-        <string>%ld kiezers</string>
+        <string>%ld stemmen</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -248,9 +248,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 gebruiker die praat</string>
+        <string>1 persoon praat hierover</string>
         <key>other</key>
-        <string>%ld gebruikers die praten</string>
+        <string>%ld mensen praten hierover</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
