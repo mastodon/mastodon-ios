@@ -90,7 +90,7 @@
         <key>one</key>
         <string>Gevolgd door %1$@, en nog een ander account die jij volgt</string>
         <key>other</key>
-        <string>Gevolgd door %1$@ en %ld mutuals</string>
+        <string>Gevolgd door %1$@ en nog %ld andere accounts die jij volgt</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
