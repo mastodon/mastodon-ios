@@ -48,7 +48,6 @@ class AltTextViewController: UIViewController {
     }
     
     override func loadView() {
-        super.loadView()
         view.translatesAutoresizingMaskIntoConstraints = false
     }
 
