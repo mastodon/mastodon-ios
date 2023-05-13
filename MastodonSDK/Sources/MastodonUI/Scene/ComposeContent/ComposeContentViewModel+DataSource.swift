@@ -144,11 +144,13 @@ extension ComposeContentViewModel {
             .map({ (emojiMap) -> NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem> in
 
                 var snapshot = NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem>()
-                let customEmojiSection = CustomEmojiPickerSection.uncategorized
-                snapshot.appendSections([customEmojiSection])
-                snapshot.appendItems(emojiMap.noCategory.map({ emoji in
-                    CustomEmojiPickerItem.emoji(attribute: CustomEmojiPickerItem.CustomEmojiAttribute(emoji: emoji))
-                }), toSection: customEmojiSection)
+                if !emojiMap.noCategory.isEmpty {
+                    let customEmojiSection = CustomEmojiPickerSection.uncategorized
+                    snapshot.appendSections([customEmojiSection])
+                    snapshot.appendItems(emojiMap.noCategory.map({ emoji in
+                        CustomEmojiPickerItem.emoji(attribute: CustomEmojiPickerItem.CustomEmojiAttribute(emoji: emoji))
+                    }), toSection: customEmojiSection)
+                }
                 emojiMap.categorised.keys.sorted().forEach { category in
                     let section = CustomEmojiPickerSection.emoji(name: category)
                     snapshot.appendSections([section])
