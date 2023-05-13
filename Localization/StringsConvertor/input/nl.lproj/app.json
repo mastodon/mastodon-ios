@@ -87,7 +87,7 @@
                 "share_user": "%s delen",
                 "share_post": "Deel bericht",
                 "open_in_safari": "In Safari openen",
-                "open_in_browser": "Open in browser",
+                "open_in_browser": "In browser openen",
                 "find_people": "Zoek mensen om te volgen",
                 "manually_search": "Handmatig zoeken",
                 "skip": "Overslaan",
@@ -165,12 +165,12 @@
                     "favorite": "Als favoriet markeren",
                     "unfavorite": "Uit favorieten verwijderen",
                     "menu": "Menu",
-                    "hide": "Verberg",
-                    "show_image": "Toon afbeelding",
+                    "hide": "Verbergen",
+                    "show_image": "Afbeelding tonen",
                     "show_gif": "GIF weergeven",
-                    "show_video_player": "Toon videospeler",
+                    "show_video_player": "Videospeler tonen",
                     "share_link_in_post": "Deel link in bericht",
-                    "tap_then_hold_to_show_menu": "Tik en houd vast om menu te tonen",
+                    "tap_then_hold_to_show_menu": "Tik en vasthouden om menu te tonen",
                     "a11y_labels": {
                         "reblog": "Boosten",
                         "unreblog": "Boosten ongedaan maken"
@@ -185,8 +185,8 @@
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Iedereen kan dit bericht zien maar het wordt niet in de publieke tijdlijn getoond.",
-                    "private": "Alleen hun volgers kunnen dit bericht zien.",
+                    "unlisted": "Iedereen kan dit bericht zien maar het wordt niet op de openbare tijdlijn getoond.",
+                    "private": "Alleen diens volgers kunnen dit bericht zien.",
                     "private_from_me": "Alleen mijn volgers kunnen dit bericht zien.",
                     "direct": "Alleen de vermelde persoon kan dit bericht zien."
                 },
@@ -223,8 +223,8 @@
                 "block": "Blokkeren",
                 "block_user": "%s blokkeren",
                 "block_domain": "%s blokkeren",
-                "unblock": "Deblokkeer",
-                "unblock_user": "Deblokkeer %s",
+                "unblock": "Deblokkeren",
+                "unblock_user": "%s deblokkeren",
                 "blocked": "Geblokkeerd",
                 "mute": "Negeren",
                 "mute_user": "Negeer %s",
@@ -263,7 +263,7 @@
     },
     "scene": {
         "welcome": {
-            "log_in": "Log in",
+            "log_in": "Inloggen",
             "learn_more": "Ontdek meer",
             "join_default_server": "Doe mee met mastodon.social",
             "pick_server": "Kies een andere server",
@@ -429,7 +429,7 @@
             "title": "Controleer je Postvak In",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Klik op de link die we je hebben gestuurd om %@ te verifiëren. We wachten op je.",
             "button": {
-                "resend": "Verstuur opnieuw"
+                "resend": "Opnieuw versturen"
             },
             "dont_receive_email": {
                 "title": "Controleer je e-mail",
@@ -440,7 +440,7 @@
                 "title": "Controleer je Postvak In.",
                 "description": "We hebben je een e-mail gestuurd. Controleer ook je spamfolder.",
                 "mail": "Mail",
-                "open_email_client": "Open Email Applicatie"
+                "open_email_client": "E-mailapp openen"
             },
             "didnt_get_link": {
                 "prefix": "Geen verificatielink ontvangen?",
@@ -452,9 +452,9 @@
             "title": "Start",
             "navigation_bar_state": {
                 "offline": "Offline",
-                "new_posts": "Bekijk nieuwe berichten",
+                "new_posts": "Nieuwe berichten",
                 "published": "Gepubliceerd!",
-                "Publishing": "Bericht publiceren...",
+                "Publishing": "Bericht plaatsen...",
                 "accessibility": {
                     "logo_label": "Mastodon",
                     "logo_hint": "Tik om naar boven te scrollen en tik nogmaals om terug te keren naar de vorige locatie"
@@ -462,23 +462,23 @@
             }
         },
         "suggestion_account": {
-            "title": "Zoek Mensen om te Volgen",
+            "title": "Zoek mensen om te volgen",
             "follow_explain": "Wanneer je iemand volgt, zie je hun berichten op jouw starttijdlijn."
         },
         "compose": {
             "title": {
-                "new_post": "Nieuw Bericht",
-                "new_reply": "Nieuwe Reactie",
+                "new_post": "Nieuw bericht",
+                "new_reply": "Nieuwe reactie",
                 "edit_post": "Bericht bewerken"
             },
             "media_selection": {
-                "camera": "Foto Maken",
+                "camera": "Foto maken",
                 "photo_library": "Fotobibliotheek",
                 "browse": "Bladeren"
             },
             "content_input_placeholder": "Wat wil je kwijt?",
             "compose_action": "Toot",
-            "replying_to_user": "reageren op %s",
+            "replying_to_user": "op %s reageren",
             "attachment": {
                 "photo": "foto",
                 "video": "video",
@@ -577,24 +577,24 @@
                 "replies": "Reacties",
                 "posts_and_replies": "Berichten en reacties",
                 "media": "Media",
-                "about": "Informatie"
+                "about": "Over"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Negeer account",
+                    "title": "Account negeren",
                     "message": "Bevestig om %s te negeren"
                 },
                 "confirm_unmute_user": {
                     "title": "Account niet meer negeren",
-                    "message": "Bevestig om %s niet meer te negeren"
+                    "message": "Het niet langer negeren van %s bevestigen"
                 },
                 "confirm_block_user": {
-                    "title": "Blokkeer account",
-                    "message": "Bevestig om %s te blokkeren"
+                    "title": "Het negeren van %s bevestigen",
+                    "message": "Het blokkeren van %s bevestigen"
                 },
                 "confirm_unblock_user": {
-                    "title": "Deblokkeer Account",
-                    "message": "Bevestig om %s te deblokkeren"
+                    "title": "Account deblokkeren",
+                    "message": "Het deblokkeren van %s bevestigen"
                 },
                 "confirm_show_reblogs": {
                     "title": "Boosts tonen",
@@ -606,9 +606,9 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Toon avatar-afbeelding",
-                "edit_avatar_image": "Bewerk avatar-afbeelding",
-                "show_banner_image": "Toon banner-afbeelding",
+                "show_avatar_image": "Profielfoto tonen",
+                "edit_avatar_image": "Profielfoto bewerken",
+                "show_banner_image": "Omslagfoto tonen",
                 "double_tap_to_open_the_list": "Dubbel tikken om de lijst te openen"
             }
         },
@@ -618,7 +618,7 @@
         },
         "following": {
             "title": "volgend",
-            "footer": "Volgers van andere servers worden niet weergegeven."
+            "footer": "Gevolgde accounts van andere servers worden niet weergegeven."
         },
         "familiarFollowers": {
             "title": "Volgers die je kent",
@@ -671,7 +671,7 @@
                 "community": "Gemeenschap",
                 "for_you": "Voor jou"
             },
-            "intro": "Dit zijn de berichten die populair zijn in jouw Mastodon-kringen."
+            "intro": "Dit zijn berichten die populair zijn op jouw Mastodon-server."
         },
         "favorite": {
             "title": "Favorieten"
@@ -683,9 +683,9 @@
             },
             "notification_description": {
                 "followed_you": "volgt je",
-                "favorited_your_post": "heeft je bericht als favoriet gemrkeerd",
+                "favorited_your_post": "markeerde bericht als favoriet",
                 "reblogged_your_post": "boostte je bericht",
-                "mentioned_you": "noemde je",
+                "mentioned_you": "vermeldde jou",
                 "request_to_follow_you": "verzoek je te volgen",
                 "poll_has_ended": "de peiling is beëindigd"
             },
@@ -762,14 +762,14 @@
         },
         "report": {
             "title_report": "Rapporteer",
-            "title": "Rapporteer %s",
+            "title": "%s rapporteren",
             "step1": "Stap 1 van 2",
             "step2": "Stap 2 van 2",
             "content1": "Zijn er nog meer berichten die je aan het rapport wilt toevoegen?",
-            "content2": "Is er iets anders over dit rapport dat de moderators zouden moeten weten?",
+            "content2": "Is er iets anders over deze rapportage dat de moderatoren zouden moeten weten?",
             "report_sent_title": "Bedankt voor het rapporteren, we zullen hiernaar kijken.",
-            "send": "Stuur rapport",
-            "skip_to_send": "Verstuur zonder opmerkingen",
+            "send": "Rapportage versturen",
+            "skip_to_send": "Zonder opmerkingen versturen",
             "text_placeholder": "Schrijf of plak aanvullende opmerkingen",
             "reported": "Gerapporteerd",
             "step_one": {
@@ -817,7 +817,7 @@
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Voorbeeldweergave Sluiten",
+                "close_preview": "Voorbeeldweergave sluiten",
                 "show_next": "Volgende",
                 "show_previous": "Vorige"
             }
