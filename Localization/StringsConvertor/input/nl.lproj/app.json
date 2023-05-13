@@ -181,7 +181,7 @@
                     "mention": "Vermelden",
                     "link": "Link",
                     "hashtag": "Hashtag",
-                    "email": "Email",
+                    "email": "E-mail",
                     "emoji": "Emoji"
                 },
                 "visibility": {
@@ -315,7 +315,7 @@
                     "tech": "tech"
                 },
                 "see_less": "Minder tonen",
-                "see_more": "Meer Weergeven"
+                "see_more": "Meer tonen"
             },
             "label": {
                 "language": "TAAL",
@@ -369,7 +369,7 @@
                     "placeholder": "weergavenaam"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-mail"
                 },
                 "password": {
                     "placeholder": "wachtwoord",
@@ -389,14 +389,14 @@
             "error": {
                 "item": {
                     "username": "Gebruikersnaam",
-                    "email": "Email",
+                    "email": "E-mail",
                     "password": "Wachtwoord",
                     "agreement": "Overeenkomst",
                     "locale": "Taal",
                     "reason": "Reden"
                 },
                 "reason": {
-                    "blocked": "%s gebruikt een niet-toegestane emailprovider",
+                    "blocked": "%s gebruikt een niet-toegestane e-mailprovider",
                     "unreachable": "%s lijkt niet te bestaan",
                     "taken": "%s wordt al gebruikt. Wat dacht je van:",
                     "reserved": "%s is een gereserveerd woord",
