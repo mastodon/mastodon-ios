@@ -72,12 +72,12 @@
                 "done": "Klaar",
                 "confirm": "Bevestigen",
                 "continue": "Ga verder",
-                "compose": "Schrijf bericht",
-                "cancel": "Annuleer",
+                "compose": "Bericht schrijven",
+                "cancel": "Annuleren",
                 "discard": "Weggooien",
                 "try_again": "Opnieuw proberen",
-                "take_photo": "Maak foto",
-                "save_photo": "Bewaar foto",
+                "take_photo": "Foto maken",
+                "save_photo": "Foto bewaren",
                 "copy_photo": "Kopieer foto",
                 "sign_in": "Inloggen",
                 "see_more": "Meer tonen",
@@ -155,7 +155,7 @@
                 "meta_entity": {
                     "url": "Link: %s",
                     "hashtag": "Hashtag: %s",
-                    "mention": "Profiel weergeven: %s",
+                    "mention": "Profiel tonen: %s",
                     "email": "E-mailadres: %s"
                 },
                 "actions": {
@@ -288,7 +288,7 @@
         },
         "login": {
             "title": "Welkom terug",
-            "subtitle": "Log je in op de server waarop je je account hebt aangemaakt.",
+            "subtitle": "Op de server waarop je je account hebt aangemaakt inloggen.",
             "server_search_field": {
                 "placeholder": "Voer een URL in of zoek naar je server"
             }
@@ -502,8 +502,8 @@
                 "three_days": "3 dagen",
                 "seven_days": "7 dagen",
                 "option_number": "Optie %ld",
-                "the_poll_is_invalid": "De peiling is ongeldig",
-                "the_poll_has_empty_option": "De peiling heeft een lege optie",
+                "the_poll_is_invalid": "De poll is ongeldig",
+                "the_poll_has_empty_option": "De poll heeft een lege optie",
                 "add_option": "Optie toevoegen",
                 "remove_option": "Optie verwijderen",
                 "move_up": "Omhoog verplaatsen",
@@ -529,7 +529,7 @@
                 "enable_content_warning": "Inhoudswaarschuwing inschakelen",
                 "disable_content_warning": "Inhoudswaarschuwing uitschakelen",
                 "post_visibility_menu": "Menu voor zichtbaarheid van bericht",
-                "post_options": "Plaats Bericht Opties",
+                "post_options": "Berichtopties",
                 "posting_as": "Plaats bericht als %s"
             },
             "keyboard": {
@@ -621,7 +621,7 @@
             "footer": "Gevolgde accounts van andere servers worden niet weergegeven."
         },
         "familiarFollowers": {
-            "title": "Volgers die je kent",
+            "title": "Volgers die jij volgt",
             "followed_by_names": "Gevolgd door %s"
         },
         "favorited_by": {
@@ -668,7 +668,7 @@
                 "posts": "Berichten",
                 "hashtags": "Hashtags",
                 "news": "Nieuws",
-                "community": "Gemeenschap",
+                "community": "Community",
                 "for_you": "Voor jou"
             },
             "intro": "Dit zijn berichten die populair zijn op jouw Mastodon-server."
@@ -686,7 +686,7 @@
                 "favorited_your_post": "markeerde bericht als favoriet",
                 "reblogged_your_post": "boostte je bericht",
                 "mentioned_you": "vermeldde jou",
-                "request_to_follow_you": "verzoek je te volgen",
+                "request_to_follow_you": "wil jou graag volgen",
                 "poll_has_ended": "de peiling is beëindigd"
             },
             "keyobard": {
@@ -714,8 +714,8 @@
                     "dark": "Altijd Donker"
                 },
                 "look_and_feel": {
-                    "title": "Opmaak",
-                    "use_system": "Gebruik systeem",
+                    "title": "Uiterlijk",
+                    "use_system": "Systeem gebruiken",
                     "really_dark": "Echt donker",
                     "sorta_dark": "Donker",
                     "light": "Licht"
@@ -775,7 +775,7 @@
             "step_one": {
                 "step_1_of_4": "Stap 1 van 4",
                 "whats_wrong_with_this_post": "Wat is er mis met dit bericht?",
-                "whats_wrong_with_this_account": "Wat is er mis met dit bericht?",
+                "whats_wrong_with_this_account": "Wat is er mis met dit account?",
                 "whats_wrong_with_this_username": "Wat is er mis met %s?",
                 "select_the_best_match": "Selecteer de beste overeenkomst",
                 "i_dont_like_it": "Ik vind het niet leuk",
