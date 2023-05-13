@@ -855,38 +855,38 @@
         },
         "followers_count": {
             "configuration_display_name": "Abonné·e·s",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_description": "Afficher le nombre d'abonnés.",
+            "title": "ABONNES",
+            "followers_today": "%s abonnés aujourd'hui"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Abonnés multiples",
+            "configuration_description": "Afficher le nombre d'abonnés pour plusieurs comptes.",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "Autres abonnés",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Derniers abonnés",
+            "configuration_description": "Afficher les derniers abonnés.",
+            "title": "Derniers abonnés",
+            "last_update": "Dernière mise à jour: %s"
         },
         "hashtag": {
             "configuration": {
                 "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Affiche un post récent avec le hashtag sélectionné."
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "Désolé, nous n'avons trouvé aucun message avec le hashtag <a>#%@</a>. Veuillez essayer un <a>#DifferentHashtag</a> ou vérifier les paramètres du widget."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Voici à quoi ressemblerait un message avec un <a>#hashtag</a>. Choisissez le <a>#hashtag</a> que vous voulez dans les paramètres du widget."
             }
         }
     }
