@@ -258,7 +258,7 @@
         },
         "user_list": {
             "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "followers_count": "%@ följare"
         }
     },
     "scene": {
@@ -347,7 +347,7 @@
             "title": "Privacy",
             "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
+                "ios": "Integritetspolicy - Mastodon för iOS",
                 "server": "Integritetspolicy - %s"
             },
             "button": {
