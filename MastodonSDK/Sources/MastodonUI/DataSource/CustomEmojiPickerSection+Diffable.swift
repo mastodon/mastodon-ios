@@ -11,6 +11,7 @@ import MastodonCore
 extension CustomEmojiPickerSection {
     static func collectionViewDiffableDataSource(
         collectionView: UICollectionView,
+        authContext: AuthContext,
         context: AppContext
     ) -> UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem> {
         let dataSource = UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>(collectionView: collectionView) { [weak context] collectionView, indexPath, item -> UICollectionViewCell? in
@@ -44,6 +45,8 @@ extension CustomEmojiPickerSection {
             case String(describing: CustomEmojiPickerHeaderCollectionReusableView.self):
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: CustomEmojiPickerHeaderCollectionReusableView.self), for: indexPath) as! CustomEmojiPickerHeaderCollectionReusableView
                 switch section {
+                case .uncategorized:
+                    header.titleLabel.text = authContext.mastodonAuthenticationBox.domain.uppercased()
                 case .emoji(let name):
                     header.titleLabel.text = name
                 }

@@ -8,5 +8,6 @@
 import Foundation
 
 public enum CustomEmojiPickerSection: Equatable, Hashable {
+    case uncategorized
     case emoji(name: String)
 }
