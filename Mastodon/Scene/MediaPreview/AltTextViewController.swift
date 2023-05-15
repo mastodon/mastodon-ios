@@ -47,15 +47,11 @@ class AltTextViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        super.loadView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         textView.translatesAutoresizingMaskIntoConstraints = false
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground
         view.addSubview(textView)
 
