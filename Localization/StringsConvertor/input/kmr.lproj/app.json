@@ -266,7 +266,7 @@
             "log_in": "Têkeve",
             "learn_more": "Bêtir fêr bibe",
             "join_default_server": "Tevlî mastodon.social bibe",
-            "pick_server": "Pick another server",
+            "pick_server": "Rajekarek din hilbijêre",
             "separator": {
                 "or": "an jî"
             },
@@ -881,12 +881,12 @@
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "Bibore, me ti şandiyan bi hashtaga <a>#%@</a> re nedît. Jkx <a>#Hashtagek cuda</a> biceribîne an jî sazkariyan kontrol bike."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Ev e çawa şandiyek bi <a>#hashtag</a> re tê xuyakirin. Her çi <a>#hashtag</a> hilbijêre di sazkariyan de."
             }
         }
     }
