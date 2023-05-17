@@ -40,7 +40,6 @@ extension RecommendAccountSection {
                     cell.configure(user: user)
                 }
                 
-                cell.viewModel.userIdentifier = configuration.authContext.mastodonAuthenticationBox
                 cell.delegate = configuration.suggestionAccountTableViewCellDelegate
             }
             return cell

@@ -31,7 +31,6 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
     }()
 
     //TODO: Add "follow all"-footer-cell
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -106,7 +105,6 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
         switch item {
         case .account(let user):
             Task { @MainActor in
-                cell.startAnimating()
                 do {
                     try await DataSourceFacade.responseToUserFollowAction(
                         dependency: self,
@@ -115,8 +113,7 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
                 } catch {
                     // do noting
                 }
-                cell.stopAnimating()
-            }   // end Task
+            }
         }
     }
 }
