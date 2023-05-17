@@ -14,6 +14,11 @@ import MastodonUI
 
 extension PollOptionView {
     public func configure(pollOption option: PollOption) {
+        guard let poll = option.poll, let status = poll.status else {
+            assertionFailure("PollOption to be configured is expected to be part of Poll with Status")
+            return
+        }
+
         viewModel.objects.insert(option)
         
         // background
@@ -33,7 +38,7 @@ extension PollOptionView {
             .store(in: &disposeBag)
         // percentage
         Publishers.CombineLatest(
-            option.poll.publisher(for: \.votersCount),
+            poll.publisher(for: \.votersCount),
             option.publisher(for: \.votesCount)
         )
         .map { pollVotersCount, optionVotesCount -> Double? in
@@ -43,15 +48,15 @@ extension PollOptionView {
         .assign(to: \.percentage, on: viewModel)
         .store(in: &disposeBag)
         // $isExpire
-        option.poll.publisher(for: \.expired)
+        poll.publisher(for: \.expired)
             .assign(to: \.isExpire, on: viewModel)
             .store(in: &disposeBag)
         // isMultiple
-        viewModel.isMultiple = option.poll.multiple
+        viewModel.isMultiple = poll.multiple
         
         let optionIndex = option.index
-        let authorDomain = option.poll.status.author.domain
-        let authorID = option.poll.status.author.id
+        let authorDomain = status.author.domain
+        let authorID = status.author.id
         // isSelect, isPollVoted, isMyPoll
         Publishers.CombineLatest4(
             option.publisher(for: \.poll),
@@ -60,7 +65,7 @@ extension PollOptionView {
             viewModel.$authContext
         )
         .sink { [weak self] poll, optionVotedBy, isSelected, authContext in
-            guard let self = self else { return }
+            guard let self = self, let poll = poll else { return }
 
             let domain = authContext?.mastodonAuthenticationBox.domain ?? ""
             let userID = authContext?.mastodonAuthenticationBox.userID ?? ""
@@ -97,6 +102,33 @@ extension PollOptionView {
             self.viewModel.isMyPoll = isMyPoll
         }
         .store(in: &disposeBag)
+        // appearance
+        ThemeService.shared.currentTheme
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
+                    return trailtCollection.userInterfaceStyle == .light ? .white : theme.tableViewCellSelectionBackgroundColor
+                })
+            }
+            .store(in: &disposeBag)
+    }
+}
+
+extension PollOptionView {
+    public func configure(historyPollOption option: StatusEdit.Poll.Option) {
+        // background
+        ThemeService.shared.currentTheme
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.viewModel.roundedBackgroundViewColor = theme.systemElevatedBackgroundColor
+            }
+            .store(in: &disposeBag)
+        // metaContent
+        viewModel.metaContent = PlaintextMetaContent(string: option.title)
+        // show left-hand-side dots, otherwise view looks "incomplete"
+        viewModel.selectState = .off
         // appearance
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)

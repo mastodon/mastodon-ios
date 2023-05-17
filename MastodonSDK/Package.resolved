@@ -73,15 +73,6 @@
       }
     },
     {
-      "identity" : "kingfisher",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/onevcat/Kingfisher.git",
-      "state" : {
-        "revision" : "44e891bdb61426a95e31492a67c7c0dfad1f87c5",
-        "version" : "7.4.1"
-      }
-    },
-    {
       "identity" : "metatextkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TwidereProject/MetaTextKit.git",
@@ -214,15 +205,6 @@
       "state" : {
         "revision" : "4a4f7c755b875ffd4f9ef10d67a67883669d2465",
         "version" : "2.13.0"
-      }
-    },
-    {
-      "identity" : "thirdpartymailer",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vtourraine/ThirdPartyMailer.git",
-      "state" : {
-        "revision" : "44c1cfaa6969963f22691aa67f88a69e3b6d651f",
-        "version" : "2.1.0"
       }
     },
     {

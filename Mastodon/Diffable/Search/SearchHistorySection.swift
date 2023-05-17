@@ -20,7 +20,9 @@ extension SearchHistorySection {
     }
     
     static func diffableDataSource(
+        viewModel: SearchHistoryViewModel,
         collectionView: UICollectionView,
+        authContext: AuthContext,
         context: AppContext,
         configuration: Configuration
     ) -> UICollectionViewDiffableDataSource<SearchHistorySection, SearchHistoryItem> {
@@ -28,7 +30,11 @@ extension SearchHistorySection {
         let userCellRegister = UICollectionView.CellRegistration<SearchHistoryUserCollectionViewCell, ManagedObjectRecord<MastodonUser>> { cell, indexPath, item in
             context.managedObjectContext.performAndWait {
                 guard let user = item.object(in: context.managedObjectContext) else { return }
-                cell.configure(viewModel: .init(value: user))
+                cell.configure(
+                    me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
+                    viewModel: .init(value: user, followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(), blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher()),
+                    delegate: configuration.searchHistorySectionHeaderCollectionReusableViewDelegate
+                )
             }
         }
         

@@ -20,7 +20,7 @@ public final class ThemeService {
     public let currentTheme: CurrentValueSubject<Theme, Never>
 
     private init() {
-        let theme = ThemeName(rawValue: UserDefaults.shared.currentThemeNameRawValue)?.theme ?? ThemeName.mastodon.theme
+        let theme = ThemeName.system.theme
         currentTheme = CurrentValueSubject(theme)
     }
 
@@ -29,8 +29,8 @@ public final class ThemeService {
 extension ThemeName {
     public var theme: Theme {
         switch self {
-        case .system:       return SystemTheme()
-        case .mastodon:     return MastodonTheme()
+        case .system:
+            return SystemTheme()
         }
     }
 }
@@ -72,12 +72,12 @@ extension ThemeService {
         tabBarAppearance.compactInlineLayoutAppearance = tabBarItemAppearance
 
         tabBarAppearance.backgroundColor = theme.tabBarBackgroundColor
-        tabBarAppearance.selectionIndicatorTintColor = ThemeService.tintColor
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().barTintColor = theme.tabBarBackgroundColor
 
         // set table view cell appearance
+        UITableView.appearance().backgroundColor = theme.tableViewBackgroundColor
         UITableViewCell.appearance().backgroundColor = theme.tableViewCellBackgroundColor
         // FIXME: refactor
         // UITableViewCell.appearance(whenContainedInInstancesOf: [SettingsViewController.self]).backgroundColor = theme.secondarySystemGroupedBackgroundColor

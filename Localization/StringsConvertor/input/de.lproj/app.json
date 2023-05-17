@@ -54,7 +54,7 @@
             },
             "translation_failed": {
                 "title": "Hinweis",
-                "message": "Übersetzung fehlgeschlagen. Möglicherweise hat der/die Administrator*in die Übersetzungen auf diesem Server nicht aktiviert oder dieser Server läuft mit einer älteren Version von Mastodon, in der Übersetzungen noch nicht unterstützt wurden.",
+                "message": "Übersetzung fehlgeschlagen. Möglicherweise haben die Administrator*innen die Übersetzungen auf diesem Server nicht aktiviert oder dieser Server läuft mit einer älteren Version von Mastodon, in der Übersetzungen noch nicht unterstützt wurden.",
                 "button": "OK"
             }
         },
@@ -80,7 +80,6 @@
                 "save_photo": "Foto speichern",
                 "copy_photo": "Foto kopieren",
                 "sign_in": "Anmelden",
-                "sign_up": "Konto erstellen",
                 "see_more": "Mehr anzeigen",
                 "preview": "Vorschau",
                 "copy": "Kopieren",
@@ -89,7 +88,7 @@
                 "share_post": "Beitrag teilen",
                 "open_in_safari": "In Safari öffnen",
                 "open_in_browser": "Im Browser anzeigen",
-                "find_people": "Personen zum Folgen finden",
+                "find_people": "Finde Personen zum Folgen",
                 "manually_search": "Stattdessen manuell suchen",
                 "skip": "Überspringen",
                 "reply": "Antworten",
@@ -101,13 +100,18 @@
                 "translate_post": {
                     "title": "Von %s übersetzen",
                     "unknown_language": "Unbekannt"
-                }
+                },
+                "edit_post": "Bearbeiten"
             },
             "tabs": {
                 "home": "Startseite",
                 "search_and_explore": "Suchen und Entdecken",
                 "notifications": "Mitteilungen",
-                "profile": "Profil"
+                "profile": "Profil",
+                "a11y": {
+                    "search": "Suchen",
+                    "explore": "Entdecken"
+                }
             },
             "keyboard": {
                 "common": {
@@ -164,9 +168,13 @@
                     "hide": "Verstecken",
                     "show_image": "Bild anzeigen",
                     "show_gif": "GIF anzeigen",
-                    "show_video_player": "Zeige Video-Player",
+                    "show_video_player": "Filmwiedergabe anzeigen",
                     "share_link_in_post": "Link im Beitrag teilen",
-                    "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen"
+                    "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen",
+                    "a11y_labels": {
+                        "reblog": "Teilen",
+                        "unreblog": "Nicht mehr teilen"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -187,6 +195,24 @@
                     "unknown_language": "Unbekannt",
                     "unknown_provider": "Unbekannt",
                     "show_original": "Original anzeigen"
+                },
+                "media": {
+                    "accessibility_label": "%s, Anhang %d von %d",
+                    "expand_image_hint": "Erweitert das Bild. Doppeltippen und halten um Aktionen anzuzeigen.",
+                    "expand_gif_hint": "Erweitert das GIF. Doppeltippen und halten um Aktionen anzuzeigen.",
+                    "expand_video_hint": "Zeigt die Filmwiedergabe. Doppeltippen und halten um Aktionen anzuzeigen."
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Geteilte Beiträge",
+                    "favorites_title": "Gefällt",
+                    "edit_history_title": "Verlauf",
+                    "edit_history_detail": "Letzte Änderung %s"
+                },
+                "edited_at_timestamp_prefix": "Bearbeitet %s",
+                "edit_history": {
+                    "title": "Verlauf",
+                    "original_post": "Originalstatus · %s"
                 }
             },
             "friendship": {
@@ -229,13 +255,36 @@
                     "user_suspended_warning": "Das Konto von %s wurde gesperrt."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Soziale Netzwerke wieder in deinen Händen.",
-            "get_started": "Registrieren",
-            "log_in": "Anmelden"
+            "log_in": "Anmelden",
+            "learn_more": "Mehr erfahren",
+            "join_default_server": "mastodon.social beitreten",
+            "pick_server": "Einen anderen Server auswählen",
+            "separator": {
+                "or": "oder"
+            },
+            "education": {
+                "mastodon": {
+                    "title": "Willkommen bei Mastodon!",
+                    "description": "Mastodon ist ein dezentrales, soziales Netzwerk. Das bedeutet, dass es nicht von einem einzigen Unternehmen kontrolliert wird. Das Netzwerk besteht aus unabhängig voneinander betriebenen Servern, die miteinander verbunden sind."
+                },
+                "servers": {
+                    "title": "Was sind Server?",
+                    "description": "Jedes Mastodon-Konto wird auf einem Server gehostet. Jeder Server hat dabei seine eigenen Werte, Regeln und Administrator*innen. Aber egal, für welchen Server Du Dich entscheidest: Du kannst mit Leuten von anderen Servern interagieren und ihnen folgen."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "Was ist Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "Willkommen zurück",
@@ -245,9 +294,10 @@
             }
         },
         "server_picker": {
-            "title": "Wähle einen Server,\nbeliebigen Server.",
-            "subtitle": "Wähle einen Server basierend auf deinen Interessen oder deiner Region – oder einfach einen allgemeinen. Du kannst trotzdem mit jedem interagieren, egal auf welchem Server.",
+            "title": "Server auswählen",
             "button": {
+                "language": "Sprache",
+                "signup_speed": "Registrierungsprozess",
                 "category": {
                     "all": "Alle",
                     "all_accessiblity_description": "Kategorie: Alle",
@@ -279,18 +329,41 @@
                 "finding_servers": "Verfügbare Server werden gesucht …",
                 "bad_network": "Beim Laden der Daten ist etwas schief gelaufen. Überprüfe deine Internetverbindung.",
                 "no_results": "Keine Ergebnisse"
+            },
+            "signup_speed": {
+                "all": "Alle",
+                "instant": "Sofort",
+                "manually_reviewed": "Manuelle Überprüfung"
+            },
+            "language": {
+                "all": "Alle Sprachen"
+            },
+            "search": {
+                "placeholder": "Server oder URL eingeben"
+            },
+            "no_server_selected_hint": "Wenn Sie fortfahren, ohne eine Auswahl zu treffen, wird ein Server auf der Grundlage Ihrer Sprache ausgewählt."
+        },
+        "privacy": {
+            "title": "Datenschutz",
+            "description": "Obwohl die Mastodon-App keine Daten sammelt, kann der Server, über den Sie sich anmelden, eine andere Richtlinie haben. Nehmen Sie sich eine Minute Zeit, um die Datenschutzrichtlinie der Mastodon-App und die Datenschutzrichtlinie Ihres Servers zu lesen und zu akzeptieren.",
+            "policy": {
+                "ios": "Datenschutzerklärung - Mastodon für iOS",
+                "server": "Datenschutzerklärung - %s"
+            },
+            "button": {
+                "confirm": "Ich stimme zu"
             }
         },
         "register": {
-            "title": "Erzähle uns von dir.",
-            "lets_get_you_set_up_on_domain": "Okay, lass uns mit %s anfangen",
+            "title": "Konto erstellen",
             "input": {
                 "avatar": {
                     "delete": "Löschen"
                 },
                 "username": {
                     "placeholder": "Benutzername",
-                    "duplicate_prompt": "Dieser Benutzername ist vergeben."
+                    "duplicate_prompt": "Dieser Benutzername ist vergeben.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "Anzeigename"
@@ -300,6 +373,7 @@
                 },
                 "password": {
                     "placeholder": "Passwort",
+                    "confirmation_placeholder": "Passwort wiederholen",
                     "require": "Anforderungen an dein Passwort:",
                     "character_limit": "8 Zeichen",
                     "accessibility": {
@@ -324,7 +398,7 @@
                 "reason": {
                     "blocked": "%s verwendet einen nicht erlaubten E-Mail-Anbieter",
                     "unreachable": "%s scheint nicht zu existieren",
-                    "taken": "%s wird bereits verwendet",
+                    "taken": "%s ist leider schon vergeben. Wie wäre es mit:",
                     "reserved": "%s ist ein reserviertes Schlüsselwort",
                     "accepted": "%s muss akzeptiert werden",
                     "blank": "%s ist erforderlich",
@@ -352,23 +426,26 @@
             }
         },
         "confirm_email": {
-            "title": "Noch eine letzte Sache.",
-            "subtitle": "Schaue kurz in dein E-Mail-Postfach und tippe den Link an, den wir dir gesendet haben.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Schaue kurz in dein E-Mail-Postfach und tippe den Link an, den wir dir gesendet haben",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Bitte klicke auf den Link, den wir an %@ geschickt haben, um dich zu verifizieren. Wir warten bis dahin einfach hier.",
             "button": {
-                "open_email_app": "E-Mail-App öffnen",
                 "resend": "Erneut senden"
             },
             "dont_receive_email": {
-                "title": "Bitte überprüfe deine E-Mails",
+                "title": "Check deine Emails",
                 "description": "Überprüfe, ob deine E-Mail-Adresse korrekt ist und sieh im Spam-Ordner nach, falls du es noch nicht getan hast.",
                 "resend_email": "E-Mail erneut versenden"
             },
             "open_email_app": {
-                "title": "Überprüfe deinen Posteingang.",
+                "title": "Check dein Emailpostfach.",
                 "description": "Wir haben dir gerade eine E-Mail geschickt. Überprüfe deinen Spam-Ordner, falls du es noch nicht getan hast.",
                 "mail": "E-Mail",
                 "open_email_client": "E-Mail-Client öffnen"
+            },
+            "didnt_get_link": {
+                "prefix": "Kein Link angekommen?",
+                "resend_in": "Erneut senden (%@)",
+                "resend_now": "Erneut senden."
             }
         },
         "home_timeline": {
@@ -379,7 +456,7 @@
                 "published": "Veröffentlicht!",
                 "Publishing": "Beitrag wird veröffentlicht …",
                 "accessibility": {
-                    "logo_label": "Logo-Button",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Zum Scrollen nach oben tippen und zum vorherigen Ort erneut tippen"
                 }
             }
@@ -391,7 +468,8 @@
         "compose": {
             "title": {
                 "new_post": "Neuer Beitrag",
-                "new_reply": "Neue Antwort"
+                "new_reply": "Neue Antwort",
+                "edit_post": "Beitrag bearbeiten"
             },
             "media_selection": {
                 "camera": "Foto aufnehmen",
@@ -415,6 +493,7 @@
                 "server_processing_state": "Serververarbeitung …"
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Dauer: %s",
                 "thirty_minutes": "30 Minuten",
                 "one_hour": "1 Stunde",
@@ -424,7 +503,11 @@
                 "seven_days": "7 Tage",
                 "option_number": "Auswahlmöglichkeit %ld",
                 "the_poll_is_invalid": "Die Umfrage ist ungültig",
-                "the_poll_has_empty_option": "Die Umfrage hat eine leere Option"
+                "the_poll_has_empty_option": "Die Umfrage hat eine leere Option",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Hier eine Inhaltswarnung schreiben …"
@@ -456,6 +539,12 @@
                 "toggle_content_warning": "Inhaltswarnung umschalten",
                 "append_attachment_entry": "Anhang hinzufügen - %s",
                 "select_visibility_entry": "Sichtbarkeit auswählen - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Andere Sprache…"
             }
         },
         "profile": {
@@ -465,10 +554,11 @@
             "dashboard": {
                 "my_posts": "Beiträge",
                 "my_following": "folge ich",
-                "my_followers": "followers",
+                "my_followers": "Follower",
                 "other_posts": "Beiträge",
                 "other_following": "folge ich",
-                "other_followers": "followers"
+                "other_followers": "Followers",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Beigetreten",
@@ -584,7 +674,7 @@
             "intro": "Dies sind die Beiträge, die in deiner Umgebung auf Mastodon beliebter werden."
         },
         "favorite": {
-            "title": "Deine Favoriten"
+            "title": "Gefällt"
         },
         "notification": {
             "title": {
@@ -646,7 +736,6 @@
                 },
                 "preference": {
                     "title": "Präferenzen",
-                    "true_black_dark_mode": "Vollständig dunkler Dunkelmodus",
                     "disable_avatar_animation": "Animierte Profilbilder deaktivieren",
                     "disable_emoji_animation": "Animierte Emojis deaktivieren",
                     "using_default_browser": "Standardbrowser zum Öffnen von Links verwenden",
@@ -738,11 +827,6 @@
             "dismiss_account_switcher": "Dialog zum Wechseln des Kontos schließen",
             "add_account": "Konto hinzufügen"
         },
-        "wizard": {
-            "new_in_mastodon": "Neu in Mastodon",
-            "multiple_account_switch_intro_description": "Wechsel zwischen mehreren Konten durch Drücken der Profil-Schaltfläche.",
-            "accessibility_hint": "Doppeltippen, um diesen Assistenten zu schließen"
-        },
         "bookmark": {
             "title": "Lesezeichen"
         },
@@ -756,6 +840,53 @@
             "actions": {
                 "follow": "Folgen",
                 "unfollow": "Entfolgen"
+            }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "Dies scheint kein gültiger Mastodon-Link zu sein."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Bitte öffne Mastodon und melde dich mit einem Konto an."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Shows a recent post with the selected hashtag."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
             }
         }
     }

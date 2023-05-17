@@ -12,7 +12,6 @@ import MastodonSDK
 import CoreDataStack
 
 final class FamiliarFollowersViewModel {
-    
     var disposeBag = Set<AnyCancellable>()
 
     // input
@@ -24,7 +23,7 @@ final class FamiliarFollowersViewModel {
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
-    
+
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext

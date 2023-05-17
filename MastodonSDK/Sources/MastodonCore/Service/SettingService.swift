@@ -194,7 +194,7 @@ extension SettingService {
 
     static func updatePreference(setting: Setting) {
         // set theme
-        let themeName: ThemeName = setting.preferredTrueBlackDarkMode ? .system : .mastodon
+        let themeName: ThemeName = .system
         if UserDefaults.shared.currentThemeNameRawValue != themeName.rawValue {
             ThemeService.shared.set(themeName: themeName)
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update theme style", ((#file as NSString).lastPathComponent), #line, #function)

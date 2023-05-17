@@ -20,7 +20,7 @@
                 "message": "确认要丢弃正在编辑的内容"
             },
             "publish_post_failure": {
-                "title": "发送失败",
+                "title": "发布失败",
                 "message": "帖子发送失败。\n请检查你的网络连接。",
                 "attachments_message": {
                     "video_attach_with_photo": "无法在帖子中同时插入视频和图片。",
@@ -32,12 +32,12 @@
                 "message": "无法编辑个人资料，请重试。"
             },
             "sign_out": {
-                "title": "退出",
-                "message": "您确定要退出吗？",
-                "confirm": "退出"
+                "title": "退出账户",
+                "message": "确定要退出账户吗？",
+                "confirm": "退出账户"
             },
             "block_domain": {
-                "title": "你真的确定要屏蔽所有来自 %s 的内容吗？多数情况下，屏蔽或隐藏几个特定的用户就已经足够了。来自该网站的内容将不再出现在你的任何公共时间轴或通知列表里。来自该网站的关注者将会被移除。",
+                "title": "你真的确定要屏蔽所有来自 %s 的内容吗？多数情况下，屏蔽或隐藏几个特定的用户就已经足够了。屏蔽 %s 后，来自该域名的内容将不再出现在你的任何公共时间轴或通知列表里；来自该域名的关注者也将被移除。",
                 "block_entire_domain": "屏蔽域名"
             },
             "save_photo_failure": {
@@ -45,7 +45,7 @@
                 "message": "请启用照片库访问权限以保存照片。"
             },
             "delete_post": {
-                "title": "确定要删除这条消息吗？",
+                "title": "删除帖子",
                 "message": "确定要删除这个帖子吗？"
             },
             "clean_cache": {
@@ -53,9 +53,9 @@
                 "message": "成功清除 %s 缓存。"
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "备注",
+                "message": "翻译失败。此服务器运行的 Mastodon 版本不支持翻译功能，或管理员未将翻译功能开启。",
+                "button": "确定"
             }
         },
         "controls": {
@@ -76,14 +76,13 @@
                 "cancel": "取消",
                 "discard": "放弃",
                 "try_again": "再试一次",
-                "take_photo": "拍照",
+                "take_photo": "拍摄照片",
                 "save_photo": "保存照片",
-                "copy_photo": "拷贝照片",
+                "copy_photo": "复制照片",
                 "sign_in": "登录",
-                "sign_up": "创建账户",
                 "see_more": "查看更多",
                 "preview": "预览",
-                "copy": "Copy",
+                "copy": "复制",
                 "share": "分享",
                 "share_user": "分享 %s",
                 "share_post": "分享帖子",
@@ -99,15 +98,20 @@
                 "settings": "设置",
                 "delete": "删除",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
-                }
+                    "title": "翻译自 %s",
+                    "unknown_language": "未知的"
+                },
+                "edit_post": "编辑"
             },
             "tabs": {
                 "home": "主页",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "搜索和探寻",
                 "notifications": "通知",
-                "profile": "个人资料"
+                "profile": "个人资料",
+                "a11y": {
+                    "search": "搜索",
+                    "explore": "探索"
+                }
             },
             "keyboard": {
                 "common": {
@@ -142,8 +146,8 @@
                 "sensitive_content": "敏感内容",
                 "media_content_warning": "点击任意位置显示",
                 "tap_to_reveal": "点击以显示",
-                "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "load_embed": "加载嵌入内容",
+                "link_via_user": "%s 通过 %s",
                 "poll": {
                     "vote": "投票",
                     "closed": "已关闭"
@@ -165,8 +169,12 @@
                     "show_image": "显示图片",
                     "show_gif": "显示 GIF",
                     "show_video_player": "显示视频播放器",
-                    "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "长按以显示菜单"
+                    "share_link_in_post": "分享链接到嘟文中",
+                    "tap_then_hold_to_show_menu": "长按以显示菜单",
+                    "a11y_labels": {
+                        "reblog": "转发",
+                        "unreblog": "撤销转发"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -183,10 +191,28 @@
                     "direct": "只有提到的用户才能看到此帖子。"
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "从 %s 翻译成 %s",
+                    "unknown_language": "未知的",
+                    "unknown_provider": "未知的",
+                    "show_original": "显示原文"
+                },
+                "media": {
+                    "accessibility_label": "%s，附件 %d / %d",
+                    "expand_image_hint": "展开图像 双击并按住以显示可执行操作",
+                    "expand_gif_hint": "展开GIF 双击并按住以显示可执行操作",
+                    "expand_video_hint": "展开视频 双击并按住以显示可执行操作"
+                },
+                "posted_via_application": "%s 通过 %s 发布",
+                "buttons": {
+                    "reblogs_title": "转发",
+                    "favorites_title": "收藏",
+                    "edit_history_title": "编辑历史",
+                    "edit_history_detail": "编辑于：%s"
+                },
+                "edited_at_timestamp_prefix": "已编辑 %s",
+                "edit_history": {
+                    "title": "编辑历史",
+                    "original_post": "原始帖文 · %s"
                 }
             },
             "friendship": {
@@ -229,13 +255,36 @@
                     "user_suspended_warning": "%s 已被封禁。"
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "社交网络\n回到你的手中。",
-            "get_started": "开始使用",
-            "log_in": "登录"
+            "log_in": "登录",
+            "learn_more": "了解详情",
+            "join_default_server": "加入 mastodon.social",
+            "pick_server": "选择另一个服务器",
+            "separator": {
+                "or": "或"
+            },
+            "education": {
+                "mastodon": {
+                    "title": "欢迎来到 Mastodon",
+                    "description": "Mastodon是去中心化的社交网络，这意味着它不由任何企业独控，而是由众多独立运行的服务器联结而成。"
+                },
+                "servers": {
+                    "title": "服务器是什么？",
+                    "description": "所有的 Mastodon 帐号皆托管于各自的服务器上，每个服务器有各自的价值取向、规则与管理员。无论你选择哪个服务器，你都能关注并与其他任何服务器上的用户互动。"
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "Mastodon 是什么？"
+                    }
+                }
+            }
         },
         "login": {
             "title": "欢迎回来",
@@ -245,9 +294,10 @@
             }
         },
         "server_picker": {
-            "title": "挑选一个服务器，\n任意服务器。",
-            "subtitle": "根据你的地区、兴趣挑选一个服务器。无论你选择哪个服务器，你都可以跟其他服务器的任何人一起聊天。",
+            "title": "选择服务器",
             "button": {
+                "language": "语言",
+                "signup_speed": "注册速度",
                 "category": {
                     "all": "全部",
                     "all_accessiblity_description": "类别：全部",
@@ -279,18 +329,41 @@
                 "finding_servers": "正在查找可用的服务器...",
                 "bad_network": "出了些问题。请检查你的互联网连接",
                 "no_results": "无结果"
+            },
+            "signup_speed": {
+                "all": "全部",
+                "instant": "立即注册",
+                "manually_reviewed": "人工审核"
+            },
+            "language": {
+                "all": "全部"
+            },
+            "search": {
+                "placeholder": "搜索用户名或 URL"
+            },
+            "no_server_selected_hint": "如果你不做任何选择，我们会根据你的语言来挑选一个服务器。"
+        },
+        "privacy": {
+            "title": "隐私",
+            "description": "尽管 Mastodon 应用程序本身不收集任何数据，您所注册使用的服务器可能会采取不同的隐私政策。花一点时间来阅读 Mastodon 应用程序的隐私政策和您选择的服务器的隐私政策。",
+            "policy": {
+                "ios": "隐私政策 - Mastodon 苹果应用程序",
+                "server": "隐私政策 - %s"
+            },
+            "button": {
+                "confirm": "同意"
             }
         },
         "register": {
-            "title": "让我们在 %s 上开始",
-            "lets_get_you_set_up_on_domain": "让我们在 %s 上开始",
+            "title": "创建帐号",
             "input": {
                 "avatar": {
                     "delete": "删除"
                 },
                 "username": {
                     "placeholder": "用户名",
-                    "duplicate_prompt": "此用户名已被使用"
+                    "duplicate_prompt": "此用户名已被使用",
+                    "suggestion": "赞_%@"
                 },
                 "display_name": {
                     "placeholder": "昵称"
@@ -300,6 +373,7 @@
                 },
                 "password": {
                     "placeholder": "密码",
+                    "confirmation_placeholder": "确认密码",
                     "require": "您的密码至少需要：",
                     "character_limit": "8 个字符",
                     "accessibility": {
@@ -324,7 +398,7 @@
                 "reason": {
                     "blocked": "%s 包含一个不允许的电子邮件提供商",
                     "unreachable": "%s 似乎不存在",
-                    "taken": "%s 已被使用",
+                    "taken": "%s 已被使用。这个用户名如何：",
                     "reserved": "%s 是一个保留的关键字",
                     "accepted": "%s 必须被接受",
                     "blank": "%s 为必需项",
@@ -352,23 +426,26 @@
             }
         },
         "confirm_email": {
-            "title": "最后一件事。",
-            "subtitle": "点击我们发送给您的链接来验证您的账户。",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "点击我们发送给您的链接来验证您的账户。",
+            "title": "查看您的收件箱",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "请点击我们发送给您的链接以确认 %@。我们在这里等你。",
             "button": {
-                "open_email_app": "打开电子邮件应用",
                 "resend": "重新发送"
             },
             "dont_receive_email": {
-                "title": "请检查你的邮箱。",
+                "title": "查看您的电子邮件",
                 "description": "检查您的电子邮件地址是否正确，同时请检查你的垃圾箱。",
                 "resend_email": "重新发送邮件"
             },
             "open_email_app": {
-                "title": "检查你的邮箱",
+                "title": "查看您的收件箱。",
                 "description": "我们刚刚向你发送了一封电子邮件。如果未收到，请检查你的垃圾箱。",
                 "mail": "邮件",
                 "open_email_client": "打开邮件客户端"
+            },
+            "didnt_get_link": {
+                "prefix": "没有收到链接？",
+                "resend_in": "重新发送 (%@)",
+                "resend_now": "重新发送。"
             }
         },
         "home_timeline": {
@@ -379,7 +456,7 @@
                 "published": "已发送",
                 "Publishing": "正在发送...",
                 "accessibility": {
-                    "logo_label": "Logo 按钮",
+                    "logo_label": "Mastodon",
                     "logo_hint": "轻点滚到顶部，再次轻点回到原处"
                 }
             }
@@ -391,7 +468,8 @@
         "compose": {
             "title": {
                 "new_post": "新帖子",
-                "new_reply": "新回复"
+                "new_reply": "新回复",
+                "edit_post": "编辑帖子"
             },
             "media_selection": {
                 "camera": "拍照",
@@ -415,6 +493,7 @@
                 "server_processing_state": "服务器正在处理..."
             },
             "poll": {
+                "title": "投票",
                 "duration_time": "时长：%s",
                 "thirty_minutes": "30 分钟",
                 "one_hour": "1 小时",
@@ -424,7 +503,11 @@
                 "seven_days": "7 天",
                 "option_number": "选项 %ld",
                 "the_poll_is_invalid": "投票无效",
-                "the_poll_has_empty_option": "投票含有空选项"
+                "the_poll_has_empty_option": "投票含有空选项",
+                "add_option": "添加选项",
+                "remove_option": "删除选项",
+                "move_up": "上移",
+                "move_down": "下移"
             },
             "content_warning": {
                 "placeholder": "在这里写下内容的警告消息..."
@@ -456,6 +539,12 @@
                 "toggle_content_warning": "启用或关闭内容警告",
                 "append_attachment_entry": "添加附件 - %s",
                 "select_visibility_entry": "选择可见性 - %s"
+            },
+            "language": {
+                "title": "帖子语言",
+                "suggested": "为您推荐",
+                "recent": "最近",
+                "other": "其它语言…"
             }
         },
         "profile": {
@@ -463,15 +552,16 @@
                 "follows_you": "关注了你"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "嘟文",
+                "my_following": "正在关注",
+                "my_followers": "跟随者",
+                "other_posts": "嘟文",
+                "other_following": "已关注",
+                "other_followers": "关注者",
+                "familiar_followers": "互相关注"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "已加入",
                 "add_row": "添加",
                 "placeholder": {
                     "label": "标签",
@@ -584,7 +674,7 @@
             "intro": "这些嘟文在你的长毛象小宇宙中备受关注。"
         },
         "favorite": {
-            "title": "你的喜欢"
+            "title": "收藏"
         },
         "notification": {
             "title": {
@@ -646,7 +736,6 @@
                 },
                 "preference": {
                     "title": "偏好",
-                    "true_black_dark_mode": "纯黑模式",
                     "disable_avatar_animation": "禁用动画头像",
                     "disable_emoji_animation": "禁用动画表情",
                     "using_default_browser": "使用默认浏览器打开链接",
@@ -738,24 +827,66 @@
             "dismiss_account_switcher": "关闭账户切换页面",
             "add_account": "添加账户"
         },
-        "wizard": {
-            "new_in_mastodon": "新功能",
-            "multiple_account_switch_intro_description": "按住个人资料标签按钮，即可在多个账户之间进行切换。",
-            "accessibility_hint": "双击关闭此向导"
-        },
         "bookmark": {
             "title": "书签"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "关注的标签",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "个帖子",
+                "participants": "参与者",
+                "posts_today": "今日帖子"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "关注",
+                "unfollow": "取消关注"
+            }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "这似乎不是一个有效的 Mastodon 链接。"
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "抱歉，不支持此类小组件。",
+            "user_not_logged_in": "请打开 Mastodon 来登录账户。"
+        },
+        "followers_count": {
+            "configuration_display_name": "关注者",
+            "configuration_description": "显示关注数。",
+            "title": "关注者",
+            "followers_today": "今天有%s 个关注者"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "多个关注者",
+            "configuration_description": "显示多个账户的关注者数量。",
+            "mock_user": {
+                "display_name": "另一个关注者",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "最新的关注者",
+            "configuration_description": "显示最新关注者。",
+            "title": "最新的关注者",
+            "last_update": "最近更新：%s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "标签",
+                "description": "显示最近一篇带有此标签的帖子。"
+            },
+            "not_found": {
+                "account_name": "加入 Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "抱歉，我们找不到任何带有 <a>#%@</a>标签的帖子。请尝试一个 <a>#不同的标签</a> 或检查组件设置。"
+            },
+            "placeholder": {
+                "account_name": "加入 Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "带有 <a>#标签</a> 的帖子会显示为此样式。您可以在组件设置中选择任意 <a>#标签</a>。"
             }
         }
     }

@@ -182,24 +182,24 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         _ cell: UITableViewCell,
         statusView: StatusView,
         cardControlMenu statusCardControl: StatusCardControl
-    ) -> UIMenu? {
+    ) -> [LabeledAction]? {
         guard let card = statusView.viewModel.card,
               let url = card.url else {
             return nil
         }
 
-        return UIMenu(children: [
-            UIAction(
+        return [
+            LabeledAction(
                 title: L10n.Common.Controls.Actions.copy,
                 image: UIImage(systemName: "doc.on.doc")
-            ) { _ in
+            ) {
                 UIPasteboard.general.url = url
             },
 
-            UIAction(
+            LabeledAction(
                 title: L10n.Common.Controls.Actions.share,
-                image: Asset.Arrow.squareAndArrowUp.image.withRenderingMode(.alwaysTemplate)
-            ) { _ in
+                asset: Asset.Arrow.squareAndArrowUp
+            ) {
                 DispatchQueue.main.async {
                     let activityViewController = UIActivityViewController(
                         activityItems: [
@@ -224,15 +224,16 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 }
             },
 
-            UIAction(
+            LabeledAction(
                 title: L10n.Common.Controls.Status.Actions.shareLinkInPost,
-                image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
-            ) { _ in
+                image: UIImage(systemName: "square.and.pencil")
+            ) {
                 DispatchQueue.main.async {
                     self.coordinator.present(
                         scene: .compose(viewModel: ComposeViewModel(
                             context: self.context,
                             authContext: self.authContext,
+                            composeContext: .composeStatus,
                             destination: .topLevel,
                             initialContent: L10n.Common.Controls.Status.linkViaUser(url.absoluteString, "@" + (statusView.viewModel.authorUsername ?? ""))
                         )),
@@ -241,7 +242,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     )
                 }
             }
-        ])
+        ]
     }
 
 }
@@ -318,7 +319,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             
             try await managedObjectContext.performChanges {
                 guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
-                let poll = pollOption.poll
+                guard let poll = pollOption.poll else { return }
                 _poll = .init(objectID: poll.objectID)
 
                 _isMultiple = poll.multiple
@@ -357,8 +358,10 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 
                 // restore voting state
                 try await managedObjectContext.performChanges {
-                    guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
-                    let poll = pollOption.poll
+                    guard
+                        let pollOption = pollOption.object(in: managedObjectContext),
+                        let poll = pollOption.poll
+                    else { return }
                     poll.update(isVoting: false)
                 }
             }
@@ -483,9 +486,14 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 return
             }
             
-            if let cell = cell as? StatusTableViewCell {
+            if case .translateStatus = action {
                 DispatchQueue.main.async {
-                    cell.statusView.viewModel.isCurrentlyTranslating = true
+                    if let cell = cell as? StatusTableViewCell {
+                        cell.statusView.viewModel.isCurrentlyTranslating = true
+                    } else if let cell = cell as? StatusThreadRootTableViewCell {
+                        cell.statusView.viewModel.isCurrentlyTranslating = true
+                    }
+                    cell.invalidateIntrinsicContentSize()
                 }
             }
                         
@@ -647,6 +655,24 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             )
         }   // end Task
     }
+
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton) {
+        Task {
+
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await self.item(from: source),
+                  case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+
+            guard let status = status.object(in: context.managedObjectContext),
+                  let edits = status.editHistory?.sorted(by: { $0.createdAt > $1.createdAt }) else { return }
+
+            let viewModel = StatusEditHistoryViewModel(status: status, edits: edits, appContext: context, authContext: authContext)
+            _ = await coordinator.present(scene: .editHistory(viewModel: viewModel), from: self, transition: .show)
+        }
+    }
 }
 
 // MARK: a11y
@@ -655,6 +681,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
             guard let item = await item(from: source) else {
+                assertionFailure()
                 return
             }
             switch item {

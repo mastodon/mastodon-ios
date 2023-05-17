@@ -18,11 +18,10 @@ protocol ComposeContentToolbarViewDelegate: AnyObject {
 
 struct ComposeContentToolbarView: View {
     
-    let logger = Logger(subsystem: "ComposeContentToolbarView", category: "View")
-    
     static var toolbarHeight: CGFloat { 48 }
     
     @ObservedObject var viewModel: ViewModel
+    let isZoomed = (UIScreen.main.scale != UIScreen.main.nativeScale)
     
     @State private var showingLanguagePicker = false
     @State private var didChangeLanguage = false
@@ -32,144 +31,148 @@ struct ComposeContentToolbarView: View {
     
     var body: some View {
         HStack(spacing: .zero) {
-            ForEach(ComposeContentToolbarView.ViewModel.Action.allCases, id: \.self) { action in
-                switch action {
-                case .attachment:
-                    Menu {
-                        ForEach(ComposeContentToolbarView.ViewModel.AttachmentAction.allCases, id: \.self) { attachmentAction in
-                            Button {
-                                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public), \(attachmentAction.title)")
-                                viewModel.delegate?.composeContentToolbarView(viewModel, attachmentMenuDidPressed: attachmentAction)
-                            } label: {
-                                Label {
-                                    Text(attachmentAction.title)
-                                } icon: {
-                                    Image(uiImage: attachmentAction.image)
+            ScrollView(isZoomed ? .horizontal : []) {
+                HStack(spacing: .zero) {
+                    ForEach(ComposeContentToolbarView.ViewModel.Action.allCases, id: \.self) { action in
+                        switch action {
+                            case .attachment:
+                                Menu {
+                                    ForEach(ComposeContentToolbarView.ViewModel.AttachmentAction.allCases, id: \.self) { attachmentAction in
+                                        Button {
+                                            viewModel.delegate?.composeContentToolbarView(viewModel, attachmentMenuDidPressed: attachmentAction)
+                                        } label: {
+                                            Label {
+                                                Text(attachmentAction.title)
+                                            } icon: {
+                                                Image(uiImage: attachmentAction.image)
+                                            }
+                                        }
+                                    }
+                                } label: {
+                                    label(for: action)
+                                        .opacity(viewModel.isAttachmentButtonEnabled ? 1.0 : 0.5)
                                 }
-                            }
-                        }
-                    } label: {
-                        label(for: action)
-                            .opacity(viewModel.isAttachmentButtonEnabled ? 1.0 : 0.5)
-                    }
-                    .disabled(!viewModel.isAttachmentButtonEnabled)
-                    .frame(width: 48, height: 48)
-                case .visibility:
-                    Menu {
-                        Picker(selection: $viewModel.visibility) {
-                            ForEach(viewModel.allVisibilities, id: \.self) { visibility in
-                                Label {
-                                    Text(visibility.title)
-                                } icon: {
-                                    Image(uiImage: visibility.image)
+                                .disabled(!viewModel.isAttachmentButtonEnabled)
+                                .frame(width: 48, height: 48)
+                            case .visibility:
+                                Menu {
+                                    Picker(selection: $viewModel.visibility) {
+                                        ForEach(viewModel.allVisibilities, id: \.self) { visibility in
+                                            Label {
+                                                Text(visibility.title)
+                                            } icon: {
+                                                Image(uiImage: visibility.image)
+                                            }
+                                        }
+                                    } label: {
+                                        Text(viewModel.visibility.title)
+                                    }
+                                } label: {
+                                    label(for: viewModel.visibility.image)
+                                        .accessibilityLabel(L10n.Scene.Compose.Keyboard.selectVisibilityEntry(viewModel.visibility.title))
+                                        .opacity(viewModel.isVisibilityButtonEnabled ? 1.0 : 0.5)
                                 }
-                            }
-                        } label: {
-                            Text(viewModel.visibility.title)
-                        }
-                    } label: {
-                        label(for: viewModel.visibility.image)
-                            .accessibilityLabel(L10n.Scene.Compose.Keyboard.selectVisibilityEntry(viewModel.visibility.title))
-                    }
-                    .frame(width: 48, height: 48)
-                case .poll:
-                    Button {
-                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(String(describing: action))")
-                        viewModel.delegate?.composeContentToolbarView(viewModel, toolbarItemDidPressed: action)
-                    } label: {
-                        label(for: action)
-                            .opacity(viewModel.isPollButtonEnabled ? 1.0 : 0.5)
-                    }
-                    .disabled(!viewModel.isPollButtonEnabled)
-                    .frame(width: 48, height: 48)
-                case .language:
-                    Menu {
-                        Section {} // workaround a bug where the “Suggested” section doesn’t appear
-                        if !viewModel.suggestedLanguages.isEmpty {
-                            Section(L10n.Scene.Compose.Language.suggested) {
-                                ForEach(viewModel.suggestedLanguages.compactMap(Language.init(id:))) { lang in
-                                    Toggle(isOn: languageBinding(for: lang.id)) {
-                                        Text(lang.label)
+                                .disabled(!viewModel.isVisibilityButtonEnabled)
+                                .frame(width: 48, height: 48)
+                            case .poll:
+                                Button {
+                                    viewModel.delegate?.composeContentToolbarView(viewModel, toolbarItemDidPressed: action)
+                                } label: {
+                                    label(for: action)
+                                        .opacity(viewModel.isPollButtonEnabled ? 1.0 : 0.5)
+                                }
+                                .disabled(!viewModel.isPollButtonEnabled)
+                                .frame(width: 48, height: 48)
+                            case .language:
+                                Menu {
+                                    Section {} // workaround a bug where the “Suggested” section doesn’t appear
+                                    if !viewModel.suggestedLanguages.isEmpty {
+                                        Section(L10n.Scene.Compose.Language.suggested) {
+                                            ForEach(viewModel.suggestedLanguages.compactMap(Language.init(id:))) { lang in
+                                                Toggle(isOn: languageBinding(for: lang.id)) {
+                                                    Text(lang.label)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    let recent = viewModel.recentLanguages.filter { !viewModel.suggestedLanguages.contains($0) }
+                                    if !recent.isEmpty {
+                                        Section(L10n.Scene.Compose.Language.recent) {
+                                            ForEach(recent.compactMap(Language.init(id:))) { lang in
+                                                Toggle(isOn: languageBinding(for: lang.id)) {
+                                                    Text(lang.label)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if !(recent + viewModel.suggestedLanguages).contains(viewModel.language) {
+                                        Toggle(isOn: languageBinding(for: viewModel.language)) {
+                                            Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)"))
+                                        }
+                                    }
+                                    Button(L10n.Scene.Compose.Language.other) {
+                                        showingLanguagePicker = true
+                                    }
+                                } label: {
+                                    let font: SwiftUI.Font = {
+                                        if #available(iOS 16, *) {
+                                            return .system(size: 11, weight: .semibold).width(viewModel.language.count == 3 ? .compressed : .standard)
+                                        } else {
+                                            return .system(size: 11, weight: .semibold)
+                                        }
+                                    }()
+                                    
+                                    Text(viewModel.language)
+                                        .font(font)
+                                        .textCase(.uppercase)
+                                        .padding(.horizontal, 4)
+                                        .minimumScaleFactor(0.5)
+                                        .frame(width: 24, height: 24, alignment: .center)
+                                        .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
+                                        .accessibilityLabel(L10n.Scene.Compose.Language.title)
+                                        .accessibilityValue(Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)")))
+                                        .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
+                                        .overlay(alignment: .topTrailing) {
+                                            Group {
+                                                if let suggested = viewModel.highConfidenceSuggestedLanguage,
+                                                   suggested != viewModel.language,
+                                                   !didChangeLanguage {
+                                                    Circle().fill(.blue)
+                                                        .frame(width: 8, height: 8)
+                                                }
+                                            }
+                                            .transition(.opacity)
+                                            .animation(.default, value: [viewModel.highConfidenceSuggestedLanguage, viewModel.language])
+                                        }
+                                    // fixes weird appearance when drawing at low opacity (eg when pressed)
+                                        .drawingGroup()
+                                }
+                                .frame(width: 48, height: 48)
+                                .popover(isPresented: $showingLanguagePicker) {
+                                    let picker = LanguagePicker { newLanguage in
+                                        viewModel.language = newLanguage
+                                        didChangeLanguage = true
+                                        showingLanguagePicker = false
+                                    }
+                                    if verticalSizeClass == .regular && horizontalSizeClass == .regular {
+                                        // explicitly size picker when it’s a popover
+                                        picker.frame(width: 400, height: 500)
+                                    } else {
+                                        picker
                                     }
                                 }
-                            }
-                        }
-                        let recent = viewModel.recentLanguages.filter { !viewModel.suggestedLanguages.contains($0) }
-                        if !recent.isEmpty {
-                            Section(L10n.Scene.Compose.Language.recent) {
-                                ForEach(recent.compactMap(Language.init(id:))) { lang in
-                                    Toggle(isOn: languageBinding(for: lang.id)) {
-                                        Text(lang.label)
-                                    }
+                            default:
+                                Button {
+                                    viewModel.delegate?.composeContentToolbarView(viewModel, toolbarItemDidPressed: action)
+                                } label: {
+                                    label(for: action)
                                 }
-                            }
-                        }
-                        if !(recent + viewModel.suggestedLanguages).contains(viewModel.language) {
-                            Toggle(isOn: languageBinding(for: viewModel.language)) {
-                                Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)"))
-                            }
-                        }
-                        Button(L10n.Scene.Compose.Language.other) {
-                            showingLanguagePicker = true
-                        }
-                    } label: {
-                        let font: SwiftUI.Font = {
-                            if #available(iOS 16, *) {
-                                return .system(size: 11, weight: .semibold).width(viewModel.language.count == 3 ? .compressed : .standard)
-                            } else {
-                                return .system(size: 11, weight: .semibold)
-                            }
-                        }()
-
-                        Text(viewModel.language)
-                            .font(font)
-                            .textCase(.uppercase)
-                            .padding(.horizontal, 4)
-                            .minimumScaleFactor(0.5)
-                            .frame(width: 24, height: 24, alignment: .center)
-                            .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
-                            .accessibilityLabel(L10n.Scene.Compose.Language.title)
-                            .accessibilityValue(Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)")))
-                            .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
-                            .overlay(alignment: .topTrailing) {
-                                Group {
-                                    if let suggested = viewModel.highConfidenceSuggestedLanguage,
-                                       suggested != viewModel.language,
-                                       !didChangeLanguage {
-                                        Circle().fill(.blue)
-                                            .frame(width: 8, height: 8)
-                                    }
-                                }
-                                .transition(.opacity)
-                                .animation(.default, value: [viewModel.highConfidenceSuggestedLanguage, viewModel.language])
-                            }
-                            // fixes weird appearance when drawing at low opacity (eg when pressed)
-                            .drawingGroup()
-                    }
-                    .frame(width: 48, height: 48)
-                    .popover(isPresented: $showingLanguagePicker) {
-                        let picker = LanguagePicker { newLanguage in
-                            viewModel.language = newLanguage
-                            didChangeLanguage = true
-                            showingLanguagePicker = false
-                        }
-                        if verticalSizeClass == .regular && horizontalSizeClass == .regular {
-                            // explicitly size picker when it’s a popover
-                            picker.frame(width: 400, height: 500)
-                        } else {
-                            picker
+                                .frame(width: 48, height: 48)
                         }
                     }
-                default:
-                    Button {
-                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(String(describing: action))")
-                        viewModel.delegate?.composeContentToolbarView(viewModel, toolbarItemDidPressed: action)
-                    } label: {
-                        label(for: action)
-                    }
-                    .frame(width: 48, height: 48)
                 }
             }
+
             Spacer()
             let count: Int = {
                 if viewModel.isContentWarningActive {
@@ -184,6 +187,7 @@ struct ComposeContentToolbarView: View {
                 .foregroundColor(Color(isOverflow ? UIColor.systemRed : UIColor.secondaryLabel))
                 .font(.system(size: isOverflow ? 18 : 16, weight: isOverflow ? .medium : .regular))
                 .accessibilityLabel(L10n.A11y.Plural.Count.charactersLeft(remains))
+
         }
         .padding(.leading, 4)       // 4 + 12 = 16
         .padding(.trailing, 16)

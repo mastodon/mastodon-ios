@@ -14,7 +14,6 @@ import MastodonSDK
 import MastodonCore
 
 final class FollowerListViewModel {
-    
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -25,7 +24,7 @@ final class FollowerListViewModel {
     
     @Published var domain: String?
     @Published var userID: String?
-    
+
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
     private(set) lazy var stateMachine: GKStateMachine = {

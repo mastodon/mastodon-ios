@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import PhotosUI
+import MastodonSDK
 import MastodonCore
 import MastodonLocalization
 import func QuartzCore.CACurrentMediaTime
@@ -49,7 +50,8 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     public let input: Input
     public let sizeLimit: SizeLimit
     @Published var caption = ""
-    
+    @Published public private(set) var isCaptionEditable = true
+
     // output
     @Published public private(set) var output: Output?
     @Published public private(set) var thumbnail: UIImage?      // original size image thumbnail
@@ -136,6 +138,17 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
             do {
                 var output = try await load(input: input)
                 
+                switch input {
+                case .mastodonAssetUrl:
+                    self.isCaptionEditable = false
+                    self.uploadState = .finish
+                    self.output = output
+                    self.uploadResult = .exists
+                    return
+                default:
+                    break
+                }
+                
                 switch output {
                 case .image(let data, _):
                     self.output = output
@@ -145,7 +158,10 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                 case .video(let fileURL, let mimeType):
                     self.output = output
                     self.update(uploadState: .compressing)
-                    let compressedFileURL = try await compressVideo(url: fileURL)
+                    guard let compressedFileURL = try await compressVideo(url: fileURL) else {
+                        assertionFailure("Unable to compress video")
+                        return
+                    }
                     output = .video(compressedFileURL, mimeType: mimeType)
                     try? FileManager.default.removeItem(at: fileURL)    // remove old file
                 }
@@ -249,6 +265,7 @@ extension AttachmentViewModel {
     public enum Input: Hashable {
         case image(UIImage)
         case url(URL)
+        case mastodonAssetUrl(URL, String)
         case pickerResult(PHPickerResult)
         case itemProvider(NSItemProvider)
     }

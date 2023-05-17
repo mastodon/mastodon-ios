@@ -83,11 +83,6 @@ public final class ComposeContentViewController: UIViewController {
         )
         return view
     }()
-
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
 }
 
 extension ComposeContentViewController {
@@ -211,7 +206,16 @@ extension ComposeContentViewController {
             self.tableView.contentInset.bottom = padding - self.view.safeAreaInsets.bottom
             self.tableView.verticalScrollIndicatorInsets.bottom = padding - self.view.safeAreaInsets.bottom
             UIView.animate(withDuration: 0.3) {
-                self.composeContentToolbarViewBottomLayoutConstraint.constant = endFrame.height
+                guard let window = self.view.window else { return }
+                // ref: https://developer.apple.com/documentation/uikit/uiresponder/1621578-keyboardframeenduserinfokey
+                let localKeyboardFrame = self.view.convert(endFrame, from: window.screen.coordinateSpace)
+                let intersection = self.view.bounds.intersection(localKeyboardFrame)
+                if intersection.isEmpty {
+                    self.composeContentToolbarViewBottomLayoutConstraint.constant = 0
+                } else {
+                    self.composeContentToolbarViewBottomLayoutConstraint.constant = self.view.bounds.maxY - intersection.minY
+                }
+                
                 self.view.layoutIfNeeded()
             }
         })
@@ -330,6 +334,7 @@ extension ComposeContentViewController {
         viewModel.$isEmojiActive.assign(to: &composeContentToolbarViewModel.$isEmojiActive)
         viewModel.$isContentWarningActive.assign(to: &composeContentToolbarViewModel.$isContentWarningActive)
         viewModel.$visibility.assign(to: &composeContentToolbarViewModel.$visibility)
+        viewModel.$isVisibilityButtonEnabled.assign(to: &composeContentToolbarViewModel.$isVisibilityButtonEnabled)
         viewModel.$maxTextInputLimit.assign(to: &composeContentToolbarViewModel.$maxTextInputLimit)
         viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
         viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)

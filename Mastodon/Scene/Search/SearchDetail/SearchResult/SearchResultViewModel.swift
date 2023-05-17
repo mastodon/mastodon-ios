@@ -15,7 +15,6 @@ import MastodonSDK
 import MastodonCore
 
 final class SearchResultViewModel {
-
     var disposeBag = Set<AnyCancellable>()
 
     // input

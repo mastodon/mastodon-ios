@@ -17,7 +17,7 @@ extension Mastodon.Entity {
     ///   2021/2/23
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/status/)
-    public class Status: Codable {
+    public final class Status: Codable, Sendable {
         
         public typealias ID = String
 
@@ -25,6 +25,7 @@ extension Mastodon.Entity {
         public let id: ID
         public let uri: String
         public let createdAt: Date
+        public let editedAt: Date?
         public let account: Account
         public let content: String? // will be optional when delete status
         
@@ -65,6 +66,7 @@ extension Mastodon.Entity {
             case id
             case uri
             case createdAt = "created_at"
+            case editedAt = "edited_at"
             case account
             case content
             
@@ -102,7 +104,7 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Status {
-    public enum Visibility: RawRepresentable, Codable, Hashable {
+    public enum Visibility: RawRepresentable, Codable, Hashable, Sendable {
         case `public`
         case unlisted
         case `private`

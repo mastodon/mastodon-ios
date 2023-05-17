@@ -47,7 +47,7 @@
     <key>a11y.plural.count.characters_left</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>เหลืออีก %#@character_count@</string>
+      <string>%#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld ตัวอักษร</string>
+        <string>เหลืออีก %ld ตัวอักษร</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -78,7 +78,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>ติดตามโดย %1$@ และ %ld ที่ร่วมกัน</string>
+        <string>ติดตามโดย %1$@ และ %ld คนที่มีร่วมกัน</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -138,6 +138,20 @@
       </dict>
     </dict>
     <key>plural.count.reblog</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reblog_count@</string>
+      <key>reblog_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld การดัน</string>
+      </dict>
+    </dict>
+    <key>plural.count.reblog_a11y</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
       <string>%#@reblog_count@</string>

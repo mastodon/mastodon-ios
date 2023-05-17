@@ -36,7 +36,7 @@ extension Mastodon.API.Statuses {
     public static func favoriteBy(
         session: URLSession,
         domain: String,
-        statusID: Mastodon.Entity.Poll.ID,
+        statusID: Mastodon.Entity.Status.ID,
         query: FavoriteByQuery,
         authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error>  {

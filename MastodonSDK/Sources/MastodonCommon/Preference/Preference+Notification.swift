@@ -20,7 +20,8 @@ extension UserDefaults {
     }
     
     private static let notificationCountKeyPrefix = "notification_count"
-    
+    private static let notificationsLastTabIndexKeyPrefix = "last_notification_tab_index"
+
     public func getNotificationCountWithAccessToken(accessToken: String) -> Int {
         let prefix = UserDefaults.notificationCountKeyPrefix
         let key = UserDefaults.deriveKey(from: accessToken, prefix: prefix)
@@ -38,6 +39,17 @@ extension UserDefaults {
         setNotificationCountWithAccessToken(accessToken: accessToken, value: count + 1)
     }
     
+    @objc public func getLastSelectedNotificationsTab(accessToken: String) -> Int {
+        let prefix = UserDefaults.notificationsLastTabIndexKeyPrefix
+        let key = UserDefaults.deriveKey(from: accessToken, prefix: prefix)
+        return integer(forKey: key)
+    }
+    
+    @objc public func setLastSelectedNotificationsTab(accessToken: String, value: Int) {
+        let prefix = UserDefaults.notificationsLastTabIndexKeyPrefix
+        let key = UserDefaults.deriveKey(from: accessToken, prefix: prefix)
+        setValue(value, forKey: key)
+    }
 }
 
 extension UserDefaults {

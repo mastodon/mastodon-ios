@@ -28,6 +28,7 @@ final class OnboardingNextView: UIView {
         button.layer.cornerRadius = 14
         button.backgroundColor = Asset.Colors.Brand.blurple.color
         button.setTitle(L10n.Common.Controls.Actions.next, for: .normal)
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
         return button
     }()
 

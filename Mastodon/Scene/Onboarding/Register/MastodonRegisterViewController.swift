@@ -60,6 +60,7 @@ extension MastodonRegisterViewController {
         hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hostingViewController.view)
         hostingViewController.view.pinToParent()
+        hostingViewController.view.backgroundColor = view.backgroundColor
 
       navigationItem.rightBarButtonItem = nextBarButtonItem()
 

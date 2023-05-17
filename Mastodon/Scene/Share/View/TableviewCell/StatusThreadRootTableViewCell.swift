@@ -112,8 +112,9 @@ extension StatusThreadRootTableViewCell {
                 statusView.mediaGridContainerView,
                 statusView.pollTableView,
                 statusView.pollStatusStackView,
-                statusView.actionToolbarContainer
-                // statusMetricView is intentionally excluded
+                statusView.statusCardControl,
+                statusView.actionToolbarContainer,
+                statusView.statusMetricView,
             ]
             
             if statusView.viewModel.isContentReveal {

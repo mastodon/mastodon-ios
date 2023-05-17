@@ -53,9 +53,9 @@
                 "message": "Berhasil menghapus %s cache."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Catatan",
+                "message": "Terjemahan gagal. Administrator mungkin belum mengaktifkan terjemahan di server ini atau server ini menjalankan Mastodon versi lama yang belum mendukung terjemahan.",
+                "button": "OKE"
             }
         },
         "controls": {
@@ -80,10 +80,9 @@
                 "save_photo": "Simpan Foto",
                 "copy_photo": "Salin Foto",
                 "sign_in": "Masuk",
-                "sign_up": "Buat akun",
                 "see_more": "Lihat lebih banyak",
                 "preview": "Pratinjau",
-                "copy": "Copy",
+                "copy": "Salin",
                 "share": "Bagikan",
                 "share_user": "Bagikan %s",
                 "share_post": "Bagikan Postingan",
@@ -99,15 +98,20 @@
                 "settings": "Pengaturan",
                 "delete": "Hapus",
                 "translate_post": {
-                    "title": "Translate from %s",
+                    "title": "Terjemahkan dari %s",
                     "unknown_language": "Unknown"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "Beranda",
                 "search_and_explore": "Search and Explore",
                 "notifications": "Notifikasi",
-                "profile": "Profil"
+                "profile": "Profil",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +170,11 @@
                     "show_gif": "Tampilkan GIF",
                     "show_video_player": "Tampilkan pemutar video",
                     "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Ketuk lalu tahan untuk menampilkan menu"
+                    "tap_then_hold_to_show_menu": "Ketuk lalu tahan untuk menampilkan menu",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -186,7 +194,25 @@
                     "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
                     "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, lampiran %d dari %d",
+                    "expand_image_hint": "Memperbesar gambar. Ketuk dua kali dan tahan untuk menampilkan tindakan",
+                    "expand_gif_hint": "Memperbesar GIF. Ketuk dua kali dan tahan untuk menampilkan tindakan",
+                    "expand_video_hint": "Menampilkan pemutar video. Ketuk dua kali dan tahan untuk menampilkan tindakan"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -229,25 +255,49 @@
                     "user_suspended_warning": "Akun %s telah ditangguhkan."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Jejaring sosial dalam genggaman Anda.",
-            "get_started": "Mulai",
-            "log_in": "Login"
+            "log_in": "Login",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "pick_server": "Pick another server",
+            "separator": {
+                "or": "or"
+            },
+            "education": {
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                },
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
-            "title": "Selamat datang kembali",
+            "title": "Welcome back",
             "subtitle": "Masuklah pada server yang Anda buat di mana akun Anda berada.",
             "server_search_field": {
                 "placeholder": "Masukkan URL atau pencarian di server Anda"
             }
         },
         "server_picker": {
-            "title": "Pilih sebuah server,\nserver manapun.",
-            "subtitle": "Pilih server berdasarkan agamamu, minat, atau subjek umum lainnya. Kamu masih bisa berkomunikasi dengan semua orang di Mastodon, tanpa memperdulikan server Anda.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Semua",
                     "all_accessiblity_description": "Kategori: Semua",
@@ -279,18 +329,41 @@
                 "finding_servers": "Mencari server yang tersedia...",
                 "bad_network": "Sesuatu yang salah terjadi ketika memuat data. Periksa koneksi internet Anda.",
                 "no_results": "Tak ada hasil"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+        },
+        "privacy": {
+            "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I Agree"
             }
         },
         "register": {
-            "title": "Beritahu kami tentang diri Anda.",
-            "lets_get_you_set_up_on_domain": "Mari kita siapkan Anda di %s",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Hapus"
                 },
                 "username": {
                     "placeholder": "nama pengguna",
-                    "duplicate_prompt": "Nama pengguna ini sudah diambil."
+                    "duplicate_prompt": "Nama pengguna ini sudah diambil.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "nama yang ditampilkan"
@@ -300,6 +373,7 @@
                 },
                 "password": {
                     "placeholder": "kata sandi",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "Kata sandi Anda harus memiliki setidaknya:",
                     "character_limit": "8 karakter",
                     "accessibility": {
@@ -324,7 +398,7 @@
                 "reason": {
                     "blocked": "%s mengandung penyedia surel yang dilarang",
                     "unreachable": "%s sepertinya tidak ada",
-                    "taken": "%s sudah digunakan",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s adalah kata kunci yang dipesan",
                     "accepted": "%s harus diterima",
                     "blank": "%s diperlukan",
@@ -348,27 +422,30 @@
             "terms_of_service": "kebijakan layanan",
             "privacy_policy": "kebijakan privasi",
             "button": {
-                "confirm": "Saya Setuju"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
-            "title": "Satu hal lagi.",
-            "subtitle": "Kami baru saja mengirim sebuah surel ke %s,\nketuk tautannya untuk mengkonfirmasi akun Anda.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Ketuk tautan yang kami kirimkan kepada Anda via email untuk memverifikasi akun Anda",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Buka Aplikasi Surel",
                 "resend": "Kirim ulang"
             },
             "dont_receive_email": {
-                "title": "Periksa surel Anda",
+                "title": "Check your Email",
                 "description": "Periksa apakah surel Anda benar dan juga folder junk Anda jika belum memeriksanya.",
                 "resend_email": "Kirim Ulang Surel"
             },
             "open_email_app": {
-                "title": "Periksa kotak masuk Anda.",
+                "title": "Check your Inbox.",
                 "description": "Kami baru saja mengirimkan Anda sebuah surel. Periksa folder junk Anda jika Anda belum memeriksanya.",
                 "mail": "Pesan",
                 "open_email_client": "Buka Email Klien"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn’t get a link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +456,7 @@
                 "published": "Dipublikasikan!",
                 "Publishing": "Mempublikasikan postingan...",
                 "accessibility": {
-                    "logo_label": "Tombol Logo",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Ketuk untuk menggulir ke atas dan ketuk lagi ke lokasi sebelumnya"
                 }
             }
@@ -391,7 +468,8 @@
         "compose": {
             "title": {
                 "new_post": "Postingan Baru",
-                "new_reply": "Pesan Baru"
+                "new_reply": "Pesan Baru",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Ambil Foto",
@@ -415,6 +493,7 @@
                 "server_processing_state": "Server Memproses..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Durasi: %s",
                 "thirty_minutes": "30 menit",
                 "one_hour": "1 Jam",
@@ -424,7 +503,11 @@
                 "seven_days": "7 Hari",
                 "option_number": "Opsi %ld",
                 "the_poll_is_invalid": "Japat tidak valid",
-                "the_poll_has_empty_option": "Japat memiliki opsi kosong"
+                "the_poll_has_empty_option": "Japat memiliki opsi kosong",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Tulis peringatan yang akurat di sini..."
@@ -456,6 +539,12 @@
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Tambahkan Lampiran - %s",
                 "select_visibility_entry": "Pilih Visibilitas - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +557,8 @@
                 "my_followers": "followers",
                 "other_posts": "posts",
                 "other_following": "following",
-                "other_followers": "followers"
+                "other_followers": "followers",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Bergabung",
@@ -584,7 +674,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Favorit Anda"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +736,6 @@
                 },
                 "preference": {
                     "title": "Preferensi",
-                    "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Nonaktifkan animasi avatar",
                     "disable_emoji_animation": "Nonaktifkan animasi emoji",
                     "using_default_browser": "Use default browser to open links",
@@ -738,11 +827,6 @@
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Tambah Akun"
         },
-        "wizard": {
-            "new_in_mastodon": "Baru di Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
-        },
         "bookmark": {
             "title": "Tandai"
         },
@@ -756,6 +840,53 @@
             "actions": {
                 "follow": "Follow",
                 "unfollow": "Unfollow"
+            }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Shows a recent post with the selected hashtag."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
             }
         }
     }

@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/2/3
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/source/)
-    public struct Source: Codable {
+    public struct Source: Codable, Sendable {
         
         // Base
         public let note: String
@@ -40,7 +40,7 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Source {
-    public enum Privacy: RawRepresentable, Codable {
+    public enum Privacy: RawRepresentable, Codable, Sendable {
         case `public`
         case unlisted
         case `private`

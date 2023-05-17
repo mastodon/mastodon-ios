@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import MastodonCore
 import MastodonLocalization
+import MastodonUI
+import CoreDataStack
 
 final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
 
@@ -91,4 +93,4 @@ extension FamiliarFollowersViewController: UITableViewDelegate, AutoGenerateTabl
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FamiliarFollowersViewController: UserTableViewCellDelegate { }
+extension FamiliarFollowersViewController: UserTableViewCellDelegate {}

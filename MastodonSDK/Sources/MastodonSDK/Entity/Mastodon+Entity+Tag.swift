@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2022/11/22
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/tag/)
-    public struct Tag: Hashable, Codable {
+    public struct Tag: Hashable, Codable, Sendable {
         
         // Base
         public let name: String

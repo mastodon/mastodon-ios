@@ -77,7 +77,7 @@
     <key>a11y.plural.count.characters_left</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@character_count@ ar ôl</string>
+      <string>%#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -85,17 +85,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld nod</string>
+        <string>%ld characters left</string>
         <key>one</key>
-        <string>%ld nod</string>
+        <string>1 character left</string>
         <key>two</key>
-        <string>%ld nod</string>
+        <string>%ld characters left</string>
         <key>few</key>
-        <string>%ld nod</string>
+        <string>%ld characters left</string>
         <key>many</key>
-        <string>%ld nod</string>
+        <string>%ld characters left</string>
         <key>other</key>
-        <string>%ld nod</string>
+        <string>%ld characters left</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -259,6 +259,30 @@
         <string>%ld ailflog</string>
         <key>other</key>
         <string>%ld o ailflogiau</string>
+      </dict>
+    </dict>
+    <key>plural.count.reblog_a11y</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reblog_count@</string>
+      <key>reblog_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>zero</key>
+        <string>%ld re-blogs</string>
+        <key>one</key>
+        <string>1 re-blog</string>
+        <key>two</key>
+        <string>%ld re-blogs</string>
+        <key>few</key>
+        <string>%ld re-blogs</string>
+        <key>many</key>
+        <string>%ld re-blogs</string>
+        <key>other</key>
+        <string>%ld re-blogs</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>

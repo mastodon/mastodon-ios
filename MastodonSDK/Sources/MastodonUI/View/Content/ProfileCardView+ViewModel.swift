@@ -60,8 +60,6 @@ extension ProfileCardView {
                 switch userInterfaceStyle {
                 case .dark:
                     switch theme.themeName {
-                    case .mastodon:
-                        self.backgroundColor = theme.systemBackgroundColor
                     case .system:
                         self.backgroundColor = theme.secondarySystemBackgroundColor
                     }
@@ -248,5 +246,47 @@ extension ProfileCardView.ViewModel {
                 view.accessibilityLabel = accessibilityLabel
             }
             .store(in: &disposeBag)
+
+        let statusesContent = $statusesCount
+            .removeDuplicates()
+            .map {
+                AXCustomContent(
+                    label: L10n.Scene.Profile.Dashboard.otherPosts,
+                    value: $0
+                )
+            }
+        let followingContent = $followingCount
+            .removeDuplicates()
+            .map {
+                AXCustomContent(
+                    label: L10n.Scene.Profile.Dashboard.otherFollowing,
+                    value: $0
+                )
+            }
+        let followersContent = $followersCount
+            .removeDuplicates()
+            .map {
+                AXCustomContent(
+                    label: L10n.Scene.Profile.Dashboard.otherFollowers,
+                    value: $0
+                )
+            }
+        let familiarContent = view.familiarFollowersDashboardView.viewModel.$label
+            .map { $0?.accessibilityLabel }
+            .removeDuplicates()
+            .map {
+                AXCustomContent(
+                    label: L10n.Scene.Profile.Dashboard.familiarFollowers,
+                    value: $0
+                )
+            }
+        Publishers.CombineLatest4(
+            statusesContent,
+            followingContent,
+            followersContent,
+            familiarContent
+        ).sink { statuses, following, followers, familiar in
+            view.accessibilityCustomContent = [statuses, following, followers, familiar].compactMap { $0 }
+        }.store(in: &disposeBag)
     }
 }

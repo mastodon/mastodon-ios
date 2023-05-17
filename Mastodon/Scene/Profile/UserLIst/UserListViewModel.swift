@@ -13,7 +13,6 @@ import GameplayKit
 import MastodonCore
 
 final class UserListViewModel {
-    
     let logger = Logger(subsystem: "UserListViewModel", category: "ViewModel")
     var disposeBag = Set<AnyCancellable>()
     
@@ -37,7 +36,7 @@ final class UserListViewModel {
         stateMachine.enter(State.Initial.self)
         return stateMachine
     }()
-    
+
     public init(
         context: AppContext,
         authContext: AuthContext,
@@ -53,7 +52,6 @@ final class UserListViewModel {
         )
         // end init
     }
-    
 }
 
 extension UserListViewModel {
