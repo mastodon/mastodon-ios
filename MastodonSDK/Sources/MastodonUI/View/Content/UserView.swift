@@ -20,7 +20,7 @@ public protocol UserViewDelegate: AnyObject {
 public final class UserView: UIView {
     
     public enum ButtonState {
-        case none, loading, follow, unfollow, blocked
+        case none, loading, follow, request, pending, unfollow, blocked
     }
     
     private var currentButtonState: ButtonState = .none
@@ -291,6 +291,7 @@ public extension UserView {
         prepareButtonStateLayout(for: state)
         
         switch state {
+
         case .loading:
             followButton.isHidden = false
             followButton.setTitle(nil, for: .normal)
@@ -301,7 +302,19 @@ public extension UserView {
             followButton.setTitle(L10n.Common.Controls.Friendship.follow, for: .normal)
             followButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
             followButton.setTitleColor(.white, for: .normal)
-            
+
+        case .request:
+            followButton.isHidden = false
+            followButton.setTitle(L10n.Common.Controls.Friendship.request, for: .normal)
+            followButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
+            followButton.setTitleColor(.white, for: .normal)
+
+        case .pending:
+            followButton.isHidden = false
+            followButton.setTitle(L10n.Common.Controls.Friendship.pending, for: .normal)
+            followButton.setTitleColor(Asset.Colors.Button.userFollowingTitle.color, for: .normal)
+            followButton.setBackgroundColor(Asset.Colors.Button.userFollowing.color, for: .normal)
+
         case .unfollow:
             followButton.isHidden = false
             followButton.setTitle(L10n.Common.Controls.Friendship.following, for: .normal)
