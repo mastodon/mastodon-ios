@@ -42,6 +42,8 @@ extension NotificationView {
         
         @Published public var timestamp: Date?
         
+        @Published public var visibility: MastodonVisibility = .public
+
         @Published public var followRequestState = MastodonFollowRequestState(state: .none)
         @Published public var transientFollowRequestState = MastodonFollowRequestState(state: .none)
         
@@ -118,6 +120,12 @@ extension NotificationView.ViewModel {
         formattedTimestamp
             .sink { timestamp in
                 notificationView.dateLabel.configure(content: PlaintextMetaContent(string: timestamp))
+            }
+            .store(in: &disposeBag)
+
+        $visibility
+            .sink { visibility in
+                notificationView.visibilityIconImageView.image = visibility.image
             }
             .store(in: &disposeBag)
 
