@@ -315,8 +315,6 @@ extension SettingsViewController: UITableViewDelegate {
         
         let header: SettingsSectionHeader
         switch sectionIdentifier {
-        case .appearancePreference:
-            return UIView()
         case .preference:
             return UIView()
         case .notifications:
@@ -349,9 +347,6 @@ extension SettingsViewController: UITableViewDelegate {
 
         switch item {
         case .appearance:
-            // do nothing
-            break
-        case .appearancePreference:
             // do nothing
             break
         case .notification:
@@ -489,18 +484,6 @@ extension SettingsViewController: SettingsToggleCellDelegate {
                 // do nothing
             }
             .store(in: &disposeBag)
-        case .appearancePreference(let record, let appearanceType):
-            switch appearanceType {
-            case .preferredTrueDarkMode:
-                Task {
-                    let managedObjectContext = context.managedObjectContext
-                    try await managedObjectContext.performChanges {
-                        guard let setting = record.object(in: managedObjectContext) else { return }
-                        setting.update(preferredTrueBlackDarkMode: isOn)
-                    }
-                    ThemeService.shared.set(themeName: isOn ? .system : .mastodon)
-                }   // end Task
-            }
         case .preference(let record, let preferenceType):
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {

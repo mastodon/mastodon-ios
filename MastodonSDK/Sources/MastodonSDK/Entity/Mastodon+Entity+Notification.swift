@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/29
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/notification/)
-    public struct Notification: Codable {
+    public struct Notification: Codable, Sendable {
         public typealias ID = String
         
         public let id: ID
@@ -38,7 +38,7 @@ extension Mastodon.Entity {
 
 extension Mastodon.Entity.Notification {
     public typealias NotificationType = Type
-    public enum `Type`: RawRepresentable, Codable {
+    public enum `Type`: RawRepresentable, Codable, Sendable {
         case follow
         case followRequest
         case mention

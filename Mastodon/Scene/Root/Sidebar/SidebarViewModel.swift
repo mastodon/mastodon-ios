@@ -29,6 +29,10 @@ final class SidebarViewModel {
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     @Published private(set) var isReadyForWizardAvatarButton = false
+    
+    private let chevronImage = UIImage.chevronUpChevronDown?.withConfiguration(
+        UIImage.SymbolConfiguration(weight: .bold)
+    )
 
     init(context: AppContext, authContext: AuthContext?) {
         self.context = context
@@ -79,10 +83,10 @@ extension SidebarViewModel {
             }()
             cell.item = SidebarListContentView.Item(
                 isActive: false,
-                accessoryImage: item == .me ? .chevronUpChevronDown : nil,
+                accessoryImage: item == .me ? self.chevronImage : nil,
                 title: item.title,
                 image: item.image,
-                activeImage: item.selectedImage,
+                activeImage: item.selectedImage.withTintColor(Asset.Colors.brand.color, renderingMode: .alwaysOriginal),
                 imageURL: imageURL
             )
             cell.setNeedsUpdateConfiguration()
@@ -116,14 +120,14 @@ extension SidebarViewModel {
                     }()
                     
                     let image: UIImage = {
-                        if currentTab == .notifications {
-                            return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadgeFill.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
+                        if hasUnreadPushNotification {
+                            return UIImage(systemName: "bell.badge")!
                         } else {
-                            return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadge.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+                            return MainTabBarController.Tab.notifications.image
                         }
                     }()
                     cell.item?.image = image
-                    cell.item?.activeImage = image
+                    cell.item?.activeImage = image.withTintColor(Asset.Colors.brand.color, renderingMode: .alwaysOriginal)
                     cell.setNeedsUpdateConfiguration()
                 }
                 .store(in: &cell.disposeBag)
@@ -166,10 +170,10 @@ extension SidebarViewModel {
             case .compose:
                 let item = SidebarListContentView.Item(
                     isActive: false,
-                    accessoryImage: self.currentTab == .me ? .chevronUpChevronDown : nil,
+                    accessoryImage: self.currentTab == .me ? self.chevronImage : nil,
                     title: L10n.Common.Controls.Actions.compose,
-                    image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
-                    activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
+                    image: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
+                    activeImage: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
                     imageURL: nil
                 )
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
@@ -215,8 +219,8 @@ extension SidebarViewModel {
             let item = SidebarListContentView.Item(
                 isActive: false,
                 title: L10n.Common.Controls.Actions.compose,
-                image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
-                activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
+                image: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
+                activeImage: UIImage(systemName: "square.and.pencil")!.withRenderingMode(.alwaysTemplate),
                 imageURL: nil
             )
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)

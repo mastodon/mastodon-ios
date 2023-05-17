@@ -57,6 +57,10 @@ public enum Asset {
       public static let inactive = ColorAsset(name: "Colors/Button/inactive")
       public static let tagFollow = ColorAsset(name: "Colors/Button/tagFollow")
       public static let tagUnfollow = ColorAsset(name: "Colors/Button/tagUnfollow")
+      public static let userBlocked = ColorAsset(name: "Colors/Button/userBlocked")
+      public static let userFollow = ColorAsset(name: "Colors/Button/userFollow")
+      public static let userFollowing = ColorAsset(name: "Colors/Button/userFollowing")
+      public static let userFollowingTitle = ColorAsset(name: "Colors/Button/userFollowingTitle")
     }
     public enum Icon {
       public static let plus = ColorAsset(name: "Colors/Icon/plus")
@@ -103,6 +107,7 @@ public enum Asset {
     public static let disabled = ColorAsset(name: "Colors/disabled")
     public static let inactive = ColorAsset(name: "Colors/inactive")
     public static let mediaTypeIndicotor = ColorAsset(name: "Colors/media.type.indicotor")
+    public static let selectionHighlight = ColorAsset(name: "Colors/selection.highlight")
     public static let successGreen = ColorAsset(name: "Colors/success.green")
     public static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
@@ -124,18 +129,9 @@ public enum Asset {
     public static let faceSmilingAdaptive = ImageAsset(name: "Human/face.smiling.adaptive")
   }
   public enum ObjectsAndTools {
-    public static let bellBadgeFill = ImageAsset(name: "ObjectsAndTools/bell.badge.fill")
-    public static let bellBadge = ImageAsset(name: "ObjectsAndTools/bell.badge")
-    public static let bellFill = ImageAsset(name: "ObjectsAndTools/bell.fill")
-    public static let bell = ImageAsset(name: "ObjectsAndTools/bell")
     public static let bookmarkFill = ImageAsset(name: "ObjectsAndTools/bookmark.fill")
     public static let bookmark = ImageAsset(name: "ObjectsAndTools/bookmark")
     public static let gear = ImageAsset(name: "ObjectsAndTools/gear")
-    public static let houseFill = ImageAsset(name: "ObjectsAndTools/house.fill")
-    public static let house = ImageAsset(name: "ObjectsAndTools/house")
-    public static let magnifyingglassFill = ImageAsset(name: "ObjectsAndTools/magnifyingglass.fill")
-    public static let magnifyingglass = ImageAsset(name: "ObjectsAndTools/magnifyingglass")
-    public static let squareAndPencil = ImageAsset(name: "ObjectsAndTools/square.and.pencil")
     public static let starFill = ImageAsset(name: "ObjectsAndTools/star.fill")
     public static let star = ImageAsset(name: "ObjectsAndTools/star")
   }
@@ -159,10 +155,16 @@ public enum Asset {
       public static let peopleAdd = ImageAsset(name: "Scene/Compose/people.add")
       public static let pollFill = ImageAsset(name: "Scene/Compose/poll.fill")
       public static let poll = ImageAsset(name: "Scene/Compose/poll")
+      public static let questionmarkCircle = ImageAsset(name: "Scene/Compose/questionmark.circle")
       public static let reorderDot = ImageAsset(name: "Scene/Compose/reorder.dot")
     }
     public enum Discovery {
       public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
+    }
+    public enum EditHistory {
+      public static let edit = ImageAsset(name: "Scene/Edit History/Edit")
+      public static let statusBackground = ColorAsset(name: "Scene/Edit History/StatusBackground")
+      public static let statusBackgroundBorder = ColorAsset(name: "Scene/Edit History/StatusBackgroundBorder")
     }
     public enum Notification {
       public static let confirmFollowRequestButtonBackground = ColorAsset(name: "Scene/Notification/confirm.follow.request.button.background")
@@ -208,6 +210,7 @@ public enum Asset {
     public enum Welcome {
       public enum Illustration {
         public static let backgroundCyan = ColorAsset(name: "Scene/Welcome/illustration/background.cyan")
+        public static let backgroundGreen = ColorAsset(name: "Scene/Welcome/illustration/background.green")
         public static let cloudBaseExtend = ImageAsset(name: "Scene/Welcome/illustration/cloud.base.extend")
         public static let cloudBase = ImageAsset(name: "Scene/Welcome/illustration/cloud.base")
         public static let elephantOnAirplaneWithContrail = ImageAsset(name: "Scene/Welcome/illustration/elephant.on.airplane.with.contrail")
@@ -217,7 +220,6 @@ public enum Asset {
         public static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.two")
       }
       public static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
-      public static let signInButtonBackground = ColorAsset(name: "Scene/Welcome/sign.in.button.background")
     }
   }
   public enum Settings {

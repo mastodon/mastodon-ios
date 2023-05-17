@@ -15,7 +15,10 @@ import MastodonCore
 import Meta
 
 extension UserView {
-    public func configure(user: MastodonUser) {
+    public func configure(user: MastodonUser, delegate: UserViewDelegate?) {
+        self.delegate = delegate
+        viewModel.user = user
+
         Publishers.CombineLatest(
             user.publisher(for: \.avatar),
             UserDefaults.shared.publisher(for: \.preferredStaticAvatar)
@@ -45,6 +48,19 @@ extension UserView {
         user.publisher(for: \.acct)
             .map { $0 as String? }
             .assign(to: \.authorUsername, on: viewModel)
+            .store(in: &disposeBag)
+        
+        user.publisher(for: \.followersCount)
+            .map { Int($0) }
+            .assign(to: \.authorFollowers, on: viewModel)
+            .store(in: &disposeBag)
+        
+        user.publisher(for: \.fields)
+            .map { fields in
+                let firstVerified = fields.first(where: { $0.verifiedAt != nil })
+                return firstVerified?.value
+            }
+            .assign(to: \.authorVerifiedLink, on: viewModel)
             .store(in: &disposeBag)
     }
 }

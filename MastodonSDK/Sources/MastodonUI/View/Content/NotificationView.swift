@@ -91,8 +91,10 @@ public final class NotificationView: UIView {
     
     public let menuButton: UIButton = {
         let button = HitTestExpandedButton(type: .system)
+        button.tintColor = Asset.Colors.Label.secondary.color
         let image = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
         button.setImage(image, for: .normal)
+        button.accessibilityLabel = L10n.Common.Controls.Status.Actions.menu
         return button
     }()
     
@@ -595,6 +597,10 @@ extension NotificationView: StatusViewDelegate {
     public func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton) {
         assertionFailure()
     }
+
+    public func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton) {
+        assertionFailure()
+    }
     
     public func statusView(_ statusView: StatusView, accessibilityActivate: Void) {
         assertionFailure()
@@ -604,7 +610,7 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
 
-    public func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu? {
+    public func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]? {
         assertionFailure()
         return nil
     }

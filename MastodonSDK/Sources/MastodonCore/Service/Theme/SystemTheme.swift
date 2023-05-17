@@ -28,13 +28,14 @@ struct SystemTheme: Theme {
     let sidebarBackgroundColor = Asset.Theme.System.sidebarBackground.color
     
     let tabBarBackgroundColor = Asset.Theme.System.tabBarBackground.color
-    let tabBarItemSelectedIconColor = ThemeService.tintColor
+    let tabBarItemSelectedIconColor = Asset.Colors.brand.color
     let tabBarItemFocusedIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
     let tabBarItemNormalIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
     let tabBarItemDisabledIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
 
     let separator = Asset.Theme.System.separator.color
 
+    let tableViewBackgroundColor: UIColor = .clear
     let tableViewCellBackgroundColor = Asset.Theme.System.tableViewCellBackground.color
     let tableViewCellSelectionBackgroundColor = Asset.Theme.System.tableViewCellSelectionBackground.color
 

@@ -17,7 +17,7 @@
             },
             "discard_post_content": {
                 "title": "ละทิ้งแบบร่าง",
-                "message": "ยืนยันที่จะละทิ้งเนื้อหาโพสต์ที่เขียน"
+                "message": "ยืนยันเพื่อละทิ้งเนื้อหาโพสต์ที่เขียน"
             },
             "publish_post_failure": {
                 "title": "การเผยแพร่ล้มเหลว",
@@ -80,7 +80,6 @@
                 "save_photo": "บันทึกรูปภาพ",
                 "copy_photo": "คัดลอกรูปภาพ",
                 "sign_in": "เข้าสู่ระบบ",
-                "sign_up": "สร้างบัญชี",
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
                 "copy": "คัดลอก",
@@ -101,13 +100,18 @@
                 "translate_post": {
                     "title": "แปลจาก %s",
                     "unknown_language": "ไม่รู้จัก"
-                }
+                },
+                "edit_post": "แก้ไข"
             },
             "tabs": {
                 "home": "หน้าแรก",
                 "search_and_explore": "ค้นหาและสำรวจ",
                 "notifications": "การแจ้งเตือน",
-                "profile": "โปรไฟล์"
+                "profile": "โปรไฟล์",
+                "a11y": {
+                    "search": "ค้นหา",
+                    "explore": "สำรวจ"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +170,11 @@
                     "show_gif": "แสดง GIF",
                     "show_video_player": "แสดงตัวเล่นวิดีโอ",
                     "share_link_in_post": "แบ่งปันลิงก์ในโพสต์",
-                    "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู"
+                    "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู",
+                    "a11y_labels": {
+                        "reblog": "ดัน",
+                        "unreblog": "เลิกทำการดัน"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -186,7 +194,25 @@
                     "translated_from": "แปลจาก %s โดยใช้ %s",
                     "unknown_language": "ไม่รู้จัก",
                     "unknown_provider": "ไม่รู้จัก",
-                    "show_original": "แสดงดั้งเดิมอยู่"
+                    "show_original": "แสดงดั้งเดิม"
+                },
+                "media": {
+                    "accessibility_label": "%s ไฟล์แนบ %d จาก %d",
+                    "expand_image_hint": "ขยายภาพ แตะสองครั้งค้างไว้เพื่อแสดงการกระทำ",
+                    "expand_gif_hint": "ขยาย GIF แตะสองครั้งค้างไว้เพื่อแสดงการกระทำ",
+                    "expand_video_hint": "แสดงตัวเล่นวิดีโอ แตะสองครั้งค้างไว้เพื่อแสดงการกระทำ"
+                },
+                "posted_via_application": "%s ผ่าน %s",
+                "buttons": {
+                    "reblogs_title": "การดัน",
+                    "favorites_title": "รายการโปรด",
+                    "edit_history_title": "ประวัติการแก้ไข",
+                    "edit_history_detail": "การแก้ไขล่าสุดเมื่อ %s"
+                },
+                "edited_at_timestamp_prefix": "แก้ไขเมื่อ %s",
+                "edit_history": {
+                    "title": "ประวัติการแก้ไข",
+                    "original_post": "โพสต์ดั้งเดิม · %s"
                 }
             },
             "friendship": {
@@ -225,17 +251,40 @@
                     "user_blocking_warning": "คุณไม่สามารถดูโปรไฟล์ของ %s\nจนกว่าคุณจะเลิกปิดกั้นเขา\nโปรไฟล์ของคุณมีลักษณะเช่นนี้สำหรับเขา",
                     "blocked_warning": "คุณไม่สามารถดูโปรไฟล์ของผู้ใช้นี้\nจนกว่าเขาจะเลิกปิดกั้นคุณ",
                     "user_blocked_warning": "คุณไม่สามารถดูโปรไฟล์ของ %s\nจนกว่าเขาจะเลิกปิดกั้นคุณ",
-                    "suspended_warning": "ผู้ใช้นี้ถูกระงับการใช้งาน",
-                    "user_suspended_warning": "บัญชีของ %s ถูกระงับการใช้งาน"
+                    "suspended_warning": "มีการระงับผู้ใช้นี้",
+                    "user_suspended_warning": "มีการระงับบัญชีของ %s"
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "ให้เครือข่ายสังคม\nกลับมาอยู่ในมือของคุณ",
-            "get_started": "เริ่มต้นใช้งาน",
-            "log_in": "เข้าสู่ระบบ"
+            "log_in": "เข้าสู่ระบบ",
+            "learn_more": "เรียนรู้เพิ่มเติม",
+            "join_default_server": "เข้าร่วม mastodon.social",
+            "pick_server": "เลือกเซิร์ฟเวอร์อื่น",
+            "separator": {
+                "or": "หรือ"
+            },
+            "education": {
+                "mastodon": {
+                    "title": "ยินดีต้อนรับสู่ Mastodon",
+                    "description": "Mastodon เป็นเครือข่ายสังคมแบบกระจายศูนย์ หมายความว่าไม่มีบริษัทใดควบคุมเครือข่ายสังคม เครือข่ายสังคมประกอบด้วยเซิร์ฟเวอร์ที่ทำงานอย่างอิสระจำนวนมาก ทั้งหมดเชื่อมต่อเข้าด้วยกัน"
+                },
+                "servers": {
+                    "title": "เซิร์ฟเวอร์คืออะไร?",
+                    "description": "ทุกบัญชี Mastodon ได้รับการโฮสต์ในเซิร์ฟเวอร์ — แต่ละแห่งมีค่า, กฎ และผู้ดูแลของเซิร์ฟเวอร์เอง ไม่ว่าคุณจะเลือกเซิร์ฟเวอร์ใด คุณสามารถติดตามและโต้ตอบกับผู้คนในเซิร์ฟเวอร์ใด ๆ"
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "Mastodon คืออะไร?"
+                    }
+                }
+            }
         },
         "login": {
             "title": "ยินดีต้อนรับกลับมา",
@@ -245,9 +294,10 @@
             }
         },
         "server_picker": {
-            "title": "Mastodon ประกอบด้วยผู้ใช้ในเซิร์ฟเวอร์ต่าง ๆ",
-            "subtitle": "เลือกเซิร์ฟเวอร์ตามภูมิภาค, ความสนใจ หรือวัตถุประสงค์ทั่วไปของคุณ คุณยังคงสามารถแชทกับใครก็ตามใน Mastodon โดยไม่คำนึงถึงเซิร์ฟเวอร์ของคุณ",
+            "title": "เลือกเซิร์ฟเวอร์",
             "button": {
+                "language": "ภาษา",
+                "signup_speed": "ความเร็วการลงทะเบียน",
                 "category": {
                     "all": "ทั้งหมด",
                     "all_accessiblity_description": "หมวดหมู่: ทั้งหมด",
@@ -279,18 +329,41 @@
                 "finding_servers": "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...",
                 "bad_network": "มีบางอย่างผิดพลาดขณะโหลดข้อมูล ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ",
                 "no_results": "ไม่มีผลลัพธ์"
+            },
+            "signup_speed": {
+                "all": "ทั้งหมด",
+                "instant": "การลงทะเบียนทันที",
+                "manually_reviewed": "การตรวจทานด้วยตนเอง"
+            },
+            "language": {
+                "all": "ทั้งหมด"
+            },
+            "search": {
+                "placeholder": "ค้นหาชื่อหรือ URL"
+            },
+            "no_server_selected_hint": "เราจะเลือกเซิร์ฟเวอร์ตามภาษาของคุณหากคุณดำเนินการต่อโดยไม่ได้ทำการเลือก"
+        },
+        "privacy": {
+            "title": "ความเป็นส่วนตัว",
+            "description": "แม้ว่าแอป Mastodon ไม่เก็บรวบรวมข้อมูลใด ๆ เซิร์ฟเวอร์ที่คุณลงทะเบียนผ่านอาจมีนโยบายที่แตกต่างกัน ใช้เวลาสักครู่เพื่อตรวจทานและเห็นด้วยกับนโยบายความเป็นส่วนตัวของแอป Mastodon และนโยบายความเป็นส่วนตัวของเซิร์ฟเวอร์ของคุณ",
+            "policy": {
+                "ios": "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS",
+                "server": "นโยบายความเป็นส่วนตัว - %s"
+            },
+            "button": {
+                "confirm": "ฉันเห็นด้วย"
             }
         },
         "register": {
-            "title": "มาตั้งค่าของคุณใน %s กันเลย",
-            "lets_get_you_set_up_on_domain": "มาตั้งค่าของคุณใน %s กันเลย",
+            "title": "สร้างบัญชี",
             "input": {
                 "avatar": {
                     "delete": "ลบ"
                 },
                 "username": {
                     "placeholder": "ชื่อผู้ใช้",
-                    "duplicate_prompt": "ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว"
+                    "duplicate_prompt": "มีการใช้ชื่อผู้ใช้นี้แล้ว",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "ชื่อที่แสดง"
@@ -300,6 +373,7 @@
                 },
                 "password": {
                     "placeholder": "รหัสผ่าน",
+                    "confirmation_placeholder": "ยืนยันรหัสผ่าน",
                     "require": "รหัสผ่านของคุณจำเป็นต้องมีอย่างน้อย:",
                     "character_limit": "8 ตัวอักษร",
                     "accessibility": {
@@ -324,8 +398,8 @@
                 "reason": {
                     "blocked": "%s มีผู้ให้บริการอีเมลที่ไม่ได้รับอนุญาต",
                     "unreachable": "ดูเหมือนว่าจะไม่มี %s อยู่",
-                    "taken": "%s ถูกใช้งานแล้ว",
-                    "reserved": "%s เป็นคำสงวน",
+                    "taken": "มีการใช้ %s ไปแล้ว แล้วถ้าเป็น:",
+                    "reserved": "%s เป็นคำสำคัญที่สงวนไว้",
                     "accepted": "ต้องยอมรับ %s",
                     "blank": "ต้องการ %s",
                     "invalid": "%s ไม่ถูกต้อง",
@@ -344,7 +418,7 @@
         "server_rules": {
             "title": "กฎพื้นฐานบางประการ",
             "subtitle": "มีการตั้งและบังคับใช้กฎเหล่านี้โดยผู้ควบคุมของ %s",
-            "prompt": "เมื่อคุณดำเนินการต่อ คุณอยู่ภายใต้เงื่อนไขการให้บริการและนโยบายความเป็นส่วนตัวสำหรับ %s",
+            "prompt": "การดำเนินการต่อแสดงว่าคุณอยู่ภายใต้เงื่อนไขการให้บริการและนโยบายความเป็นส่วนตัวสำหรับ %s",
             "terms_of_service": "เงื่อนไขการให้บริการ",
             "privacy_policy": "นโยบายความเป็นส่วนตัว",
             "button": {
@@ -352,11 +426,9 @@
             }
         },
         "confirm_email": {
-            "title": "หนึ่งสิ่งสุดท้าย",
-            "subtitle": "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ",
+            "title": "ตรวจสอบกล่องขาเข้าของคุณ",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "แตะลิงก์ที่เราส่งถึงคุณเพื่อยืนยัน %@ เราจะรออยู่ตรงนี้",
             "button": {
-                "open_email_app": "เปิดแอปอีเมล",
                 "resend": "ส่งใหม่"
             },
             "dont_receive_email": {
@@ -369,6 +441,11 @@
                 "description": "เราเพิ่งส่งอีเมลถึงคุณ ตรวจสอบโฟลเดอร์อีเมลขยะของคุณหากคุณยังไม่ได้ทำ",
                 "mail": "จดหมาย",
                 "open_email_client": "เปิดไคลเอ็นต์อีเมล"
+            },
+            "didnt_get_link": {
+                "prefix": "ไม่ได้รับลิงก์?",
+                "resend_in": "ส่งใหม่ (%@)",
+                "resend_now": "ส่งใหม่ตอนนี้"
             }
         },
         "home_timeline": {
@@ -379,7 +456,7 @@
                 "published": "เผยแพร่แล้ว!",
                 "Publishing": "กำลังเผยแพร่โพสต์...",
                 "accessibility": {
-                    "logo_label": "ปุ่มโลโก้",
+                    "logo_label": "Mastodon",
                     "logo_hint": "แตะเพื่อเลื่อนไปยังด้านบนสุดและแตะอีกครั้งไปยังตำแหน่งที่ตั้งก่อนหน้า"
                 }
             }
@@ -391,7 +468,8 @@
         "compose": {
             "title": {
                 "new_post": "โพสต์ใหม่",
-                "new_reply": "การตอบกลับใหม่"
+                "new_reply": "การตอบกลับใหม่",
+                "edit_post": "แก้ไขโพสต์"
             },
             "media_selection": {
                 "camera": "ถ่ายรูป",
@@ -415,6 +493,7 @@
                 "server_processing_state": "เซิร์ฟเวอร์กำลังประมวลผล..."
             },
             "poll": {
+                "title": "การสำรวจความคิดเห็น",
                 "duration_time": "ระยะเวลา: %s",
                 "thirty_minutes": "30 นาที",
                 "one_hour": "1 ชั่วโมง",
@@ -424,7 +503,11 @@
                 "seven_days": "7 วัน",
                 "option_number": "ตัวเลือก %ld",
                 "the_poll_is_invalid": "การสำรวจความคิดเห็นไม่ถูกต้อง",
-                "the_poll_has_empty_option": "การสำรวจความคิดเห็นมีตัวเลือกที่ว่างเปล่า"
+                "the_poll_has_empty_option": "การสำรวจความคิดเห็นมีตัวเลือกที่ว่างเปล่า",
+                "add_option": "เพิ่มตัวเลือก",
+                "remove_option": "เอาตัวเลือกออก",
+                "move_up": "ย้ายขึ้น",
+                "move_down": "ย้ายลง"
             },
             "content_warning": {
                 "placeholder": "เขียนคำเตือนที่ถูกต้องที่นี่..."
@@ -456,6 +539,12 @@
                 "toggle_content_warning": "เปิด/ปิดคำเตือนเนื้อหา",
                 "append_attachment_entry": "เพิ่มไฟล์แนบ - %s",
                 "select_visibility_entry": "เลือกการมองเห็น - %s"
+            },
+            "language": {
+                "title": "ภาษาของโพสต์",
+                "suggested": "แนะนำ",
+                "recent": "ล่าสุด",
+                "other": "ภาษาอื่น…"
             }
         },
         "profile": {
@@ -468,7 +557,8 @@
                 "my_followers": "ผู้ติดตาม",
                 "other_posts": "โพสต์",
                 "other_following": "กำลังติดตาม",
-                "other_followers": "ผู้ติดตาม"
+                "other_followers": "ผู้ติดตาม",
+                "familiar_followers": "คนที่มีร่วมกัน"
             },
             "fields": {
                 "joined": "เข้าร่วมเมื่อ",
@@ -478,7 +568,7 @@
                     "content": "เนื้อหา"
                 },
                 "verified": {
-                    "short": "ตรวจสอบเมื่อ %s",
+                    "short": "ยืนยันเมื่อ %s",
                     "long": "ตรวจสอบความเป็นเจ้าของของลิงก์นี้เมื่อ %s"
                 }
             },
@@ -584,7 +674,7 @@
             "intro": "นี่คือโพสต์ที่กำลังได้รับความสนใจในมุมของ Mastodon ของคุณ"
         },
         "favorite": {
-            "title": "รายการโปรดของคุณ"
+            "title": "รายการโปรด"
         },
         "notification": {
             "title": {
@@ -646,7 +736,6 @@
                 },
                 "preference": {
                     "title": "การกำหนดลักษณะ",
-                    "true_black_dark_mode": "โหมดมืดดำสนิท",
                     "disable_avatar_animation": "ปิดใช้งานภาพประจำตัวแบบเคลื่อนไหว",
                     "disable_emoji_animation": "ปิดใช้งานอีโมจิแบบเคลื่อนไหว",
                     "using_default_browser": "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์",
@@ -738,11 +827,6 @@
             "dismiss_account_switcher": "ปิดตัวสลับบัญชี",
             "add_account": "เพิ่มบัญชี"
         },
-        "wizard": {
-            "new_in_mastodon": "มาใหม่ใน Mastodon",
-            "multiple_account_switch_intro_description": "สลับระหว่างหลายบัญชีโดยกดปุ่มโปรไฟล์ค้างไว้",
-            "accessibility_hint": "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้"
-        },
         "bookmark": {
             "title": "ที่คั่นหน้า"
         },
@@ -756,6 +840,53 @@
             "actions": {
                 "follow": "ติดตาม",
                 "unfollow": "เลิกติดตาม"
+            }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "ดูเหมือนว่าสิ่งนี้จะไม่ใช่ลิงก์ Mastodon ที่ถูกต้อง"
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "ขออภัยแต่ไม่รองรับตระกูลวิดเจ็ตนี้",
+            "user_not_logged_in": "โปรดเปิด Mastodon เพื่อเข้าสู่ระบบบัญชี"
+        },
+        "followers_count": {
+            "configuration_display_name": "ผู้ติดตาม",
+            "configuration_description": "แสดงจำนวนผู้ติดตาม",
+            "title": "ผู้ติดตาม",
+            "followers_today": "%s ผู้ติดตามวันนี้"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "หลายผู้ติดตาม",
+            "configuration_description": "แสดงจำนวนผู้ติดตามสำหรับหลายบัญชี",
+            "mock_user": {
+                "display_name": "ผู้ติดตามอื่น",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "ผู้ติดตามล่าสุด",
+            "configuration_description": "แสดงผู้ติดตามล่าสุด",
+            "title": "ผู้ติดตามล่าสุด",
+            "last_update": "การอัปเดตล่าสุด: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "แฮชแท็ก",
+                "description": "แสดงโพสต์ล่าสุดที่มีแฮชแท็กที่เลือก"
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "ขออภัย เราไม่พบโพสต์ใด ๆ ที่มีแฮชแท็ก <a>#%@</a> โปรดลอง <a>#แฮชแท็กอื่น</a> หรือตรวจสอบการตั้งค่าวิดเจ็ต"
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "นี่คือลักษณะของโพสต์ที่มี <a>#แฮชแท็ก</a> ที่จะปรากฏ เลือก <a>#แฮชแท็ก</a> ใดก็ตามที่คุณต้องการในการตั้งค่าวิดเจ็ต"
             }
         }
     }

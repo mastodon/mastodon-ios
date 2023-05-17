@@ -12,6 +12,7 @@ import Combine
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
+import CoreDataStack
 
 final class FollowerListViewController: UIViewController, NeedsDependency {
     
@@ -118,4 +119,4 @@ extension FollowerListViewController: UITableViewDelegate, AutoGenerateTableView
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FollowerListViewController: UserTableViewCellDelegate { }
+extension FollowerListViewController: UserTableViewCellDelegate {}

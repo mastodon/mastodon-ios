@@ -28,7 +28,6 @@ final public class SceneCoordinator {
     
     private(set) weak var tabBarController: MainTabBarController!
     private(set) weak var splitViewController: RootSplitViewController?
-    private(set) var wizardViewController: WizardViewController?
     
     private(set) var secondaryStackHashValues = Set<Int>()
     
@@ -157,9 +156,11 @@ extension SceneCoordinator {
 
         // compose
         case compose(viewModel: ComposeViewModel)
+        case editStatus(viewModel: ComposeViewModel)
         
         // thread
         case thread(viewModel: ThreadViewModel)
+        case editHistory(viewModel: StatusEditHistoryViewModel)
         
         // Hashtag Timeline
         case hashtagTimeline(viewModel: HashtagTimelineViewModel)
@@ -247,19 +248,6 @@ extension SceneCoordinator {
                         transition: .modal(animated: true, completion: nil)
                     )
                 }
-            } else {
-                let wizardViewController = WizardViewController()
-                if !wizardViewController.items.isEmpty,
-                   let delegate = rootViewController as? WizardViewControllerDelegate
-                {
-                    // do not add as child view controller.
-                    // otherwise, the tab bar controller will add as a new tab
-                    wizardViewController.delegate = delegate
-                    wizardViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                    wizardViewController.view.frame = rootViewController.view.bounds
-                    rootViewController.view.addSubview(wizardViewController.view)
-                    self.wizardViewController = wizardViewController
-                }
             }
             
         } catch {
@@ -273,7 +261,7 @@ extension SceneCoordinator {
 
     @MainActor
     @discardableResult
-    func present(scene: Scene, from sender: UIViewController?, transition: Transition) -> UIViewController? {
+    func present(scene: Scene, from sender: UIViewController? = nil, transition: Transition) -> UIViewController? {
         guard let viewController = get(scene: scene) else {
             return nil
         }
@@ -430,13 +418,15 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .compose(let viewModel):
-            let _viewController = ComposeViewController()
-            _viewController.viewModel = viewModel
+            let _viewController = ComposeViewController(viewModel: viewModel)
             viewController = _viewController
         case .thread(let viewModel):
             let _viewController = ThreadViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .editHistory(let viewModel):
+            let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
+            viewController = editHistoryViewController
         case .hashtagTimeline(let viewModel):
             let _viewController = HashtagTimelineViewController()
             _viewController.viewModel = viewModel
@@ -536,6 +526,9 @@ private extension SceneCoordinator {
             let _viewController = SettingsViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .editStatus(let viewModel):
+            let composeViewController = ComposeViewController(viewModel: viewModel)
+            viewController = composeViewController
         }
         
         setupDependency(for: viewController as? NeedsDependency)

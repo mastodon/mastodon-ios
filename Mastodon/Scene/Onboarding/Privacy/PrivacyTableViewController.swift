@@ -81,7 +81,7 @@ class PrivacyTableViewController: UIViewController, NeedsDependency {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.largeTitleDisplayMode = .always
         setupOnboardingAppearance()
     }
 
@@ -115,6 +115,7 @@ extension PrivacyTableViewController: UITableViewDataSource {
         var contentConfiguration = cell.defaultContentConfiguration()
         contentConfiguration.textProperties.color = Asset.Colors.Brand.blurple.color
         contentConfiguration.text = row.title
+        cell.accessibilityTraits = [.button, .link]
 
         cell.contentConfiguration = contentConfiguration
 

@@ -25,9 +25,26 @@ final class NotificationViewModel {
     // output
     let scopes = NotificationTimelineViewModel.Scope.allCases
     @Published var viewControllers: [UIViewController] = []
-    @Published var currentPageIndex = 0
-
+    @Published var currentPageIndex = 0 {
+        didSet {
+            lastPageIndex = currentPageIndex
+        }
+    }
     
+    private var lastPageIndex: Int {
+        get {
+            UserDefaults.shared.getLastSelectedNotificationsTab(
+                accessToken: authContext.mastodonAuthenticationBox.userAuthorization.accessToken
+            )
+        }
+        set {
+            UserDefaults.shared.setLastSelectedNotificationsTab(
+                accessToken: authContext.mastodonAuthenticationBox.userAuthorization.accessToken,
+                value: newValue
+            )
+        }
+    }
+
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
@@ -58,7 +75,14 @@ extension NotificationViewModel: PageboyViewControllerDataSource {
     }
     
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return .first
+        guard
+            let pageCount = pageboyViewController.pageCount,
+            pageCount > 1,
+            (0...(pageCount - 1)).contains(lastPageIndex)
+        else {
+            return .first /// this should never happen, but in case we somehow manage to acquire invalid data in `lastPageIndex` let's make sure not to crash the app.
+        }
+        return .at(index: lastPageIndex)
     }
     
 }

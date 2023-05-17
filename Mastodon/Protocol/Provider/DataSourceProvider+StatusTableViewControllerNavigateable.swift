@@ -100,6 +100,7 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
         let composeViewModel = ComposeViewModel(
             context: self.context,
             authContext: authContext,
+            composeContext: .composeStatus,
             destination: .reply(parent: status)
         )
         _ = self.coordinator.present(

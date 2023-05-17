@@ -115,7 +115,7 @@ extension ThreadViewModel {
                 }
                 
                 let hasChanges = newSnapshot.itemIdentifiers != oldSnapshot.itemIdentifiers
-                if !hasChanges {
+                if !hasChanges && !self.hasPendingStatusEditReload {
                     self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot not changes")
                     return
                 } else {
@@ -141,6 +141,7 @@ extension ThreadViewModel {
                     difference: difference
                 )
                 
+                self.hasPendingStatusEditReload = false
                 self.didLoadLatest.send()
             }   // end Task
         }

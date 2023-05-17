@@ -12,7 +12,6 @@ import CommonOSLog
 import MastodonCore
 
 final class SearchHistoryViewModel {
-
     var disposeBag = Set<AnyCancellable>()
 
     // input

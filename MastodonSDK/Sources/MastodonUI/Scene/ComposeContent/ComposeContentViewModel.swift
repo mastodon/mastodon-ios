@@ -21,6 +21,11 @@ public protocol ComposeContentViewModelDelegate: AnyObject {
 }
 
 public final class ComposeContentViewModel: NSObject, ObservableObject {
+
+    public enum ComposeContext {
+        case composeStatus
+        case editStatus(status: Status, statusSource: Mastodon.Entity.StatusSource)
+    }
     
     let logger = Logger(subsystem: "ComposeContentViewModel", category: "ViewModel")
     
@@ -32,6 +37,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     
     // input
     let context: AppContext
+    let composeContext: ComposeContext
     let destination: Destination
     weak var delegate: ComposeContentViewModelDelegate?
     
@@ -111,7 +117,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     
     // visibility
     @Published public var visibility: Mastodon.Entity.Status.Visibility
-    
+    @Published public var isVisibilityButtonEnabled = false
+
     // language
     @Published public var language: String
     @Published public private(set) var recentLanguages: [String]
@@ -141,12 +148,14 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     public init(
         context: AppContext,
         authContext: AuthContext,
+        composeContext: ComposeContext,
         destination: Destination,
         initialContent: String
     ) {
         self.context = context
         self.authContext = authContext
         self.destination = destination
+        self.composeContext = composeContext
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
@@ -179,9 +188,29 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             }
             return visibility
         }()
+        
         self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(
             for: authContext.mastodonAuthenticationBox.domain
         )
+        
+        if case let ComposeContext.editStatus(status, _) = composeContext {
+            if status.isContentSensitive {
+                isContentWarningActive = true
+                contentWarning = status.spoilerText ?? ""
+            }
+            if let poll = status.poll {
+                isPollActive = !poll.expired
+                pollMultipleConfigurationOption = poll.multiple
+                if let pollExpiresAt = poll.expiresAt {
+                    pollExpireConfigurationOption = .init(closestDateToExpiry: pollExpiresAt)
+                }
+                pollOptions = poll.options.sortedByIndex().map {
+                    let option = PollComposeItem.Option()
+                    option.text = $0.title
+                    return option
+                }
+            }
+        }
         
         let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
         self.recentLanguages = recentLanguages
@@ -257,6 +286,28 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 maxImageMediaSizeLimitInByte = imageSizeLimit
             }
             // TODO: more limit
+        }
+        
+        switch composeContext {
+        case .composeStatus:
+            self.isVisibilityButtonEnabled = true
+        case let .editStatus(status, _):
+            if let visibility = Mastodon.Entity.Status.Visibility(rawValue: status.visibility.rawValue) {
+                self.visibility = visibility
+            }
+            self.isVisibilityButtonEnabled = false
+            self.attachmentViewModels = status.attachments.compactMap {
+                guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
+                let attachmentViewModel = AttachmentViewModel(
+                    api: context.apiService,
+                    authContext: authContext,
+                    input: .mastodonAssetUrl(url, $0.id),
+                    sizeLimit: sizeLimit,
+                    delegate: self
+                )
+                attachmentViewModel.caption = $0.altDescription ?? ""
+                return attachmentViewModel
+            }
         }
         
         bind()
@@ -532,13 +583,11 @@ extension ComposeContentViewModel {
         
         // save language to recent languages
         if let settings = context.settingService.currentSetting.value {
-            Task.detached(priority: .background) { [language] in
-                try await settings.managedObjectContext?.performChanges {
-                    settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
-                }
+            settings.managedObjectContext?.performAndWait {
+                settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
             }
         }
-        
+
         return MastodonStatusPublisher(
             author: author,
             replyTo: {
@@ -559,7 +608,57 @@ extension ComposeContentViewModel {
             visibility: visibility,
             language: language
         )
-    }   // end func publisher()
+    }
+
+
+    // MastodonEditStatusPublisher
+    public func statusEditPublisher() throws -> StatusPublisher? {
+        let authContext = self.authContext
+        guard case let .editStatus(status, _) = composeContext else { return nil }
+
+        // author
+        let managedObjectContext = self.context.managedObjectContext
+        var _author: ManagedObjectRecord<MastodonUser>?
+        managedObjectContext.performAndWait {
+            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecord
+        }
+        guard let author = _author else {
+            throw AppError.badAuthentication
+        }
+
+        // poll
+        _ = try {
+            guard isPollActive else { return }
+            let isAllNonEmpty = pollOptions
+                .map { $0.text }
+                .allSatisfy { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+            guard isAllNonEmpty else {
+                throw ComposeError.pollHasEmptyOption
+            }
+        }()
+
+        // save language to recent languages
+        if let settings = context.settingService.currentSetting.value {
+            settings.managedObjectContext?.performAndWait {
+                settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
+            }
+        }
+
+        return MastodonEditStatusPublisher(statusID: status.id,
+                                           author: author,
+                                           isContentWarningComposing: isContentWarningActive,
+                                           contentWarning: contentWarning,
+                                           content: content,
+                                           isMediaSensitive: isContentWarningActive,
+                                           attachmentViewModels: attachmentViewModels,
+                                           isPollComposing: isPollActive,
+                                           pollOptions: pollOptions,
+                                           pollExpireConfigurationOption: pollExpireConfigurationOption,
+                                           pollMultipleConfigurationOption: pollMultipleConfigurationOption,
+                                           visibility: visibility,
+                                           language: language)
+    }
+
 }
 
 extension ComposeContentViewModel {

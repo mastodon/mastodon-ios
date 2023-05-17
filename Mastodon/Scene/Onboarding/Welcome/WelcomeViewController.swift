@@ -10,6 +10,7 @@ import Combine
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
+import MastodonSDK
 
 final class WelcomeViewController: UIViewController, NeedsDependency {
     
@@ -19,67 +20,111 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
-    
+
+    private(set) lazy var authenticationViewModel = AuthenticationViewModel(
+        context: context,
+        coordinator: coordinator,
+        isAuthenticationExist: false
+    )
+
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     private(set) lazy var viewModel = WelcomeViewModel(context: context)
     
     let welcomeIllustrationView = WelcomeIllustrationView()
-    
+    let separatorView = WelcomeSeparatorView(frame: .zero)
+
+    private(set) lazy var mastodonLogo: UIImageView = {
+        let imageView = UIImageView(image: Asset.Scene.Welcome.mastodonLogo.image)
+        return imageView
+    }()
+
+
+    //TODO: Extract all those UI-elements in a UIView-subclass
     private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
     
     let buttonContainer = UIStackView()
-    let educationPages: [WelcomeContentPage] = [.whatIsMastodon, .mastodonIsLikeThat, .howDoIPickAServer]
-    
-    private(set) lazy var signUpButton: PrimaryActionButton = {
-        let button = PrimaryActionButton()
-        button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
-        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
-        button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
-        let backgroundImageColor: UIColor = .white
-        let backgroundImageHighlightedColor: UIColor = UIColor(white: 0.8, alpha: 1.0)
-        button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
-        button.setBackgroundImage(.placeholder(color: backgroundImageHighlightedColor), for: .highlighted)
-        button.setTitleColor(.black, for: .normal)
+
+    private(set) lazy var joinDefaultServerButton: UIButton = {
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.attributedTitle = AttributedString(
+            L10n.Scene.Welcome.joinDefaultServer,
+            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+        )
+        buttonConfiguration.baseForegroundColor = .white
+        buttonConfiguration.background.backgroundColor = Asset.Colors.Brand.blurple.color
+        buttonConfiguration.background.cornerRadius = 14
+        buttonConfiguration.activityIndicatorColorTransformer = UIConfigurationColorTransformer({ _ in
+            return UIColor.white
+        })
+
+        buttonConfiguration.contentInsets = .init(top: WelcomeViewController.actionButtonPadding.top,
+                                                  leading: WelcomeViewController.actionButtonPadding.left,
+                                                  bottom: WelcomeViewController.actionButtonPadding.bottom,
+                                                  trailing: WelcomeViewController.actionButtonPadding.right)
+
+        let button = UIButton(configuration: buttonConfiguration)
+
         return button
     }()
-    let signUpButtonShadowView = UIView()
-    
+
+    private(set) lazy var signUpButton: UIButton = {
+
+        var buttonConfiguration = UIButton.Configuration.borderedTinted()
+        buttonConfiguration.attributedTitle = AttributedString(
+            L10n.Scene.Welcome.pickServer,
+            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+        )
+
+        buttonConfiguration.background.cornerRadius = 14
+        buttonConfiguration.background.strokeColor = UIColor.white.withAlphaComponent(0.6)
+        buttonConfiguration.background.strokeWidth = 1
+        buttonConfiguration.baseBackgroundColor = .clear
+        buttonConfiguration.baseForegroundColor = .white
+
+        buttonConfiguration.contentInsets = .init(top: WelcomeViewController.actionButtonPadding.top,
+                                                  leading: WelcomeViewController.actionButtonPadding.left,
+                                                  bottom: WelcomeViewController.actionButtonPadding.bottom,
+                                                  trailing: WelcomeViewController.actionButtonPadding.right)
+
+        let button = UIButton(configuration: buttonConfiguration)
+
+        return button
+    }()
+
     private(set) lazy var signInButton: UIButton = {
-        let button = UIButton()
-        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
-        button.setTitle(L10n.Scene.Welcome.logIn, for: .normal)
-        let titleColor: UIColor = UIColor.white.withAlphaComponent(0.9)
-        button.setTitleColor(titleColor, for: .normal)
-        button.setTitleColor(titleColor.withAlphaComponent(0.3), for: .highlighted)
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.baseForegroundColor = .white
+        buttonConfiguration.attributedTitle = AttributedString(
+            L10n.Scene.Welcome.logIn,
+            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+        )
+
+        let button = UIButton(configuration: buttonConfiguration)
         return button
     }()
-    
-    private(set) lazy var pageCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 400)
 
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.isPagingEnabled = true
-        collectionView.backgroundColor = nil
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.bounces = false
-        collectionView.register(WelcomeContentCollectionViewCell.self, forCellWithReuseIdentifier: WelcomeContentCollectionViewCell.identifier)
+    private(set) lazy var learnMoreButton: UIButton = {
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.baseForegroundColor = .white
+        buttonConfiguration.attributedTitle = AttributedString(
+            L10n.Scene.Welcome.learnMore,
+            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+        )
 
-        return collectionView
+        let button = UIButton(configuration: buttonConfiguration)
+        return button
     }()
 
-    private(set) var pageControl: UIPageControl = {
-        let pageControl = UIPageControl(frame: .zero)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        return pageControl
+    private(set) lazy var bottomButtonStackView: UIStackView = {
+        let bottomButtonStackView = UIStackView(arrangedSubviews: [learnMoreButton, signInButton])
+        bottomButtonStackView.axis = .horizontal
+        bottomButtonStackView.distribution = .fill
+        bottomButtonStackView.alignment = .center
+        bottomButtonStackView.spacing = 16
+        bottomButtonStackView.setContentHuggingPriority(.required, for: .vertical)
+
+        return bottomButtonStackView
     }()
 }
 
@@ -91,19 +136,23 @@ extension WelcomeViewController {
         definesPresentationContext = true
         preferredContentSize = CGSize(width: 547, height: 678)
         
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true /// enable large title support for this and all subsequent VCs
+        navigationItem.largeTitleDisplayMode = .never
+        
         view.overrideUserInterfaceStyle = .light
         
         setupOnboardingAppearance()
-        
+
         view.addSubview(welcomeIllustrationView)
         welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
+
+        mastodonLogo.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mastodonLogo)
         
         NSLayoutConstraint.activate([
-            welcomeIllustrationView.topAnchor.constraint(equalTo: view.topAnchor),
-            welcomeIllustrationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: welcomeIllustrationView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: welcomeIllustrationView.bottomAnchor)
+            mastodonLogo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            mastodonLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mastodonLogo.widthAnchor.constraint(equalToConstant: 300),
         ])
         
         buttonContainer.axis = .vertical
@@ -117,48 +166,47 @@ extension WelcomeViewController {
             buttonContainer.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
             view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: buttonContainer.bottomAnchor),
         ])
+
+        joinDefaultServerButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addArrangedSubview(joinDefaultServerButton)
+        NSLayoutConstraint.activate([
+            joinDefaultServerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight)
+        ])
         
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(signUpButton)
         NSLayoutConstraint.activate([
-            signUpButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+            signUpButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight)
         ])
+
+        buttonContainer.addArrangedSubview(separatorView)
+
         signInButton.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.addArrangedSubview(signInButton)
         NSLayoutConstraint.activate([
-            signInButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
-        ])
-        
-        signUpButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.addSubview(signUpButtonShadowView)
-        buttonContainer.sendSubviewToBack(signUpButtonShadowView)
-        signUpButtonShadowView.pinTo(to: signUpButton)
-        
-        signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
-        signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
-        
-        pageCollectionView.delegate = self
-        pageCollectionView.dataSource = self
-        view.addSubview(pageCollectionView)
-
-        pageControl.numberOfPages = self.educationPages.count
-        pageControl.addTarget(self, action: #selector(WelcomeViewController.pageControlDidChange(_:)), for: .valueChanged)
-        view.addSubview(pageControl)
-
-        let scrollView = pageCollectionView as UIScrollView
-        scrollView.delegate = self
-        
-        NSLayoutConstraint.activate([
-            pageCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: computedTopAnchorInset),
-            pageCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: pageCollectionView.trailingAnchor),
-            pageControl.topAnchor.constraint(equalTo: pageCollectionView.bottomAnchor, constant: 16),
-
-            pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: pageControl.trailingAnchor),
-            buttonContainer.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 16),
+            signInButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight)
         ])
 
+        learnMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            learnMoreButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight),
+            bottomButtonStackView.heightAnchor.constraint(equalTo: learnMoreButton.heightAnchor),
+        ])
+
+        buttonContainer.addArrangedSubview(bottomButtonStackView)
+
+        NSLayoutConstraint.activate([
+            welcomeIllustrationView.topAnchor.constraint(equalTo: view.topAnchor),
+            welcomeIllustrationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: welcomeIllustrationView.trailingAnchor),
+            separatorView.centerYAnchor.constraint(equalTo: welcomeIllustrationView.bottomAnchor)
+        ])
+
+        joinDefaultServerButton.addTarget(self, action: #selector(joinDefaultServer(_:)), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
+        signInButton.addTarget(self, action: #selector(signIn(_:)), for: .touchUpInside)
+        learnMoreButton.addTarget(self, action: #selector(learnMore(_:)), for: .touchUpInside)
+
+        view.backgroundColor = Asset.Scene.Welcome.Illustration.backgroundGreen.color
         
         viewModel.$needsShowDismissEntry
             .receive(on: DispatchQueue.main)
@@ -167,38 +215,14 @@ extension WelcomeViewController {
                 self.navigationItem.leftBarButtonItem = needsShowDismissEntry ? self.dismissBarButtonItem : nil
             }
             .store(in: &disposeBag)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        setupButtonShadowView()
-    }
-    
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        
-        var overlap: CGFloat = 5
-        // shift illustration down for non-notch phone
-        if view.safeAreaInsets.bottom == 0 {
-            overlap += 56
-        }
+
+        setupIllustrationLayout()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         view.layoutIfNeeded()
-        
-        setupIllustrationLayout()
-        setupButtonShadowView()
-
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 400)
-
-        pageCollectionView.setCollectionViewLayout(flowLayout, animated: true)
     }
     
     private var computedTopAnchorInset: CGFloat {
@@ -207,28 +231,14 @@ extension WelcomeViewController {
 }
 
 extension WelcomeViewController {
-    
-    private func setupButtonShadowView() {
-        signUpButtonShadowView.layer.setupShadow(
-            color: .black,
-            alpha: 0.25,
-            x: 0,
-            y: 1,
-            blur: 2,
-            spread: 0,
-            roundedRect: signUpButtonShadowView.bounds,
-            byRoundingCorners: .allCorners,
-            cornerRadii: CGSize(width: 10, height: 10)
-        )
-    }
-    
+
     private func updateButtonContainerLayoutMargins(traitCollection: UITraitCollection) {
         switch traitCollection.userInterfaceIdiom {
         case .phone:
             buttonContainer.layoutMargins = UIEdgeInsets(
                 top: 0,
                 left: WelcomeViewController.actionButtonMargin,
-                bottom: WelcomeViewController.viewBottomPaddingHeight,
+                bottom: 0,
                 right: WelcomeViewController.actionButtonMargin
             )
         default:
@@ -236,7 +246,7 @@ extension WelcomeViewController {
             buttonContainer.layoutMargins = UIEdgeInsets(
                 top: 0,
                 left: margin,
-                bottom: WelcomeViewController.viewBottomPaddingHeightExtend,
+                bottom: 0,
                 right: margin
             )
         }
@@ -251,26 +261,131 @@ extension WelcomeViewController {
 
     //MARK: - Actions
     @objc
-    private func signUpButtonDidClicked(_ sender: UIButton) {
+    private func joinDefaultServer(_ sender: UIButton) {
+        sender.configuration?.title = nil
+        sender.isEnabled = false
+        sender.configuration?.showsActivityIndicator = true
+
+        let server = Mastodon.Entity.Server.mastodonDotSocial
+
+        authenticationViewModel.isAuthenticating.send(true)
+
+        context.apiService.instance(domain: server.domain)
+            .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseFirst, Error>? in
+                guard let self = self else { return nil }
+                guard response.value.registrations != false else {
+                    return Fail(error: AuthenticationViewModel.AuthenticationError.registrationClosed).eraseToAnyPublisher()
+                }
+                return self.context.apiService.createApplication(domain: server.domain)
+                    .map { MastodonPickServerViewModel.SignUpResponseFirst(instance: response, application: $0) }
+                    .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .tryMap { response -> MastodonPickServerViewModel.SignUpResponseSecond in
+                let application = response.application.value
+                guard let authenticateInfo = AuthenticationViewModel.AuthenticateInfo(
+                        domain: server.domain,
+                        application: application
+                ) else {
+                    throw APIService.APIError.explicit(.badResponse)
+                }
+                return MastodonPickServerViewModel.SignUpResponseSecond(
+                    instance: response.instance,
+                    authenticateInfo: authenticateInfo
+                )
+            }
+            .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseThird, Error>? in
+                guard let self = self else { return nil }
+                let instance = response.instance
+                let authenticateInfo = response.authenticateInfo
+                return self.context.apiService.applicationAccessToken(
+                    domain: server.domain,
+                    clientID: authenticateInfo.clientID,
+                    clientSecret: authenticateInfo.clientSecret,
+                    redirectURI: authenticateInfo.redirectURI
+                )
+                .map {
+                    MastodonPickServerViewModel.SignUpResponseThird(
+                        instance: instance,
+                        authenticateInfo: authenticateInfo,
+                        applicationToken: $0
+                    )
+                }
+                .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.authenticationViewModel.isAuthenticating.send(false)
+
+                switch completion {
+                    case .failure(let error):
+                        //TODO: show an alert or something
+                        break
+                    case .finished:
+                        break
+                }
+
+                sender.isEnabled = true
+                sender.configuration?.showsActivityIndicator = false
+                sender.configuration?.attributedTitle = AttributedString(
+                    L10n.Scene.Welcome.joinDefaultServer,
+                    attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+                )
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                if let rules = response.instance.value.rules, !rules.isEmpty {
+                    // show server rules before register
+                    let mastodonServerRulesViewModel = MastodonServerRulesViewModel(
+                        domain: server.domain,
+                        authenticateInfo: response.authenticateInfo,
+                        rules: rules,
+                        instance: response.instance.value,
+                        applicationToken: response.applicationToken.value
+                    )
+                    _ = self.coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
+                } else {
+                    let mastodonRegisterViewModel = MastodonRegisterViewModel(
+                        context: self.context,
+                        domain: server.domain,
+                        authenticateInfo: response.authenticateInfo,
+                        instance: response.instance.value,
+                        applicationToken: response.applicationToken.value
+                    )
+                    _ = self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: nil, transition: .show)
+                }
+            }
+            .store(in: &disposeBag)
+
+    }
+
+    @objc
+    private func signUp(_ sender: UIButton) {
         _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context)), from: self, transition: .show)
     }
     
     @objc
-    private func signInButtonDidClicked(_ sender: UIButton) {
+    private func signIn(_ sender: UIButton) {
         _ = coordinator.present(scene: .mastodonLogin, from: self, transition: .show)
     }
-    
+
+    @objc
+    private func learnMore(_ sender: UIButton) {
+        let educationViewController = EducationViewController()
+        educationViewController.modalPresentationStyle = .pageSheet
+
+        if let sheetPresentationController = educationViewController.sheetPresentationController {
+            sheetPresentationController.detents = [.medium()]
+            sheetPresentationController.prefersGrabberVisible = true
+        }
+
+        present(educationViewController, animated: true)
+    }
+
     @objc
     private func dismissBarButtonItemDidPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
-    }
-
-    @objc
-    private func pageControlDidChange(_ sender: UIPageControl) {
-        let item = sender.currentPage
-        let indexPath = IndexPath(item: item, section: 0)
-
-        pageCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
 }
 
@@ -313,37 +428,5 @@ extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
     }
 }
 
-//MARK: - UIScrollViewDelegate
-extension WelcomeViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let contentOffset = scrollView.contentOffset.x
-        welcomeIllustrationView.update(contentOffset: contentOffset)
-    }
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-    }
-
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-    }
-}
-
 //MARK: - UICollectionViewDelegate
 extension WelcomeViewController: UICollectionViewDelegate { }
-
-//MARK: - UICollectionViewDataSource
-extension WelcomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        educationPages.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WelcomeContentCollectionViewCell.identifier, for: indexPath) as? WelcomeContentCollectionViewCell else { fatalError("WTF? Wrong cell?") }
-
-        let page = educationPages[indexPath.item]
-        cell.update(with: page)
-
-        return cell
-    }
-}

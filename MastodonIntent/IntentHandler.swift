@@ -19,6 +19,8 @@ class IntentHandler: INExtension {
             return FollowersCountIntentHandler()
         case is MultiFollowersCountIntent:
             return MultiFollowersCountIntentHandler()
+        case is HashtagIntent:
+            return HashtagIntentHandler()
         default:
             return self
         }

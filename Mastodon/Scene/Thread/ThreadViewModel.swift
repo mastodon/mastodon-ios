@@ -35,6 +35,7 @@ class ThreadViewModel {
 
     @Published var root: StatusItem.Thread?
     @Published var threadContext: ThreadContext?
+    @Published var hasPendingStatusEditReload = false
     
     private(set) lazy var loadThreadStateMachine: GKStateMachine = {
         let stateMachine = GKStateMachine(states: [
@@ -95,6 +96,15 @@ class ThreadViewModel {
                     let content = MastodonContent(content: title, emojis: status.author.emojis.asDictionary)
                     return try? MastodonMetaContent.convert(document: content)
                 }()
+            }
+            .store(in: &disposeBag)
+        
+        context.publisherService
+            .statusPublishResult
+            .sink { [weak self] value in
+                if case let Result.success(result) = value, case StatusPublishResult.edit = result {
+                    self?.hasPendingStatusEditReload = true
+                }
             }
             .store(in: &disposeBag)
     }

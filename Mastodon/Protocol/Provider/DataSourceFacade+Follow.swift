@@ -24,6 +24,7 @@ extension DataSourceFacade {
             user: user,
             authenticationBox: dependency.authContext.mastodonAuthenticationBox
         )
+        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
     }   // end func
 }
 

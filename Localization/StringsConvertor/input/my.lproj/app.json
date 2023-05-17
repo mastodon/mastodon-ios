@@ -80,7 +80,6 @@
                 "save_photo": "ဓါတ်ပုံသိမ်းဆည်း",
                 "copy_photo": "ဓာတ်ပုံကူး",
                 "sign_in": "လော့ဂ်အင်ဝင်",
-                "sign_up": "အကောင့်ဖန်တီး",
                 "see_more": "ပိုမိုကြည့်ရှုရန်",
                 "preview": "အစမ်းကြည့်",
                 "copy": "Copy",
@@ -101,13 +100,18 @@
                 "translate_post": {
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "အိမ်",
                 "search_and_explore": "Search and Explore",
                 "notifications": "အသိပေးချက်များ",
-                "profile": "ကိုယ်ရေးမှတ်တမ်း"
+                "profile": "ကိုယ်ရေးမှတ်တမ်း",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +170,11 @@
                     "show_gif": "GIF ပြရန်",
                     "show_video_player": "ဗီဒီယိုဖွင့်စက် ပြရန်",
                     "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "မီနူးပြရန် ဖိထားပါ"
+                    "tap_then_hold_to_show_menu": "မီနူးပြရန် ဖိထားပါ",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -186,7 +194,25 @@
                     "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
                     "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, attachment %d of %d",
+                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -229,25 +255,49 @@
                     "user_suspended_warning": "%s ၏အကောင့်သည် ဆိုင်းငံ့ခံထားရသည်။"
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "လူမှုကွန်ယက်ကို သင်၏လက်ထဲသို့ ပြန်လည်ထည့်ပေးလိုက်ပြီ။",
-            "get_started": "စတင်ရန်",
-            "log_in": "လော့ခ်အင်ဝင်ရန်"
+            "log_in": "လော့ခ်အင်ဝင်ရန်",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "pick_server": "Pick another server",
+            "separator": {
+                "or": "or"
+            },
+            "education": {
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                },
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
-            "title": "ပြန်လည်ကြိုဆိုပါသည်",
+            "title": "Welcome back",
             "subtitle": "သင်၏အကောင့်ဖွင့်ခဲ့သော ဆာဗာပေါ်တွင် လော့ခ်အင်ဝင်ရောက်ပါ",
             "server_search_field": {
                 "placeholder": "URL ကို ထည့်သွင်းပါ (သို့) သင်၏ ဆာဗာကို ရှာပါ"
             }
         },
         "server_picker": {
-            "title": "Mastodon ကို အသိုင်းအဝန်းပေါင်းစုံမှ အသုံးပြုသူများဖြင့် ဖွဲ့စည်းထားသည်။",
-            "subtitle": "သင်၏ ဒေသ၊ စိတ်ဝင်စားမှု အပေါ်အခြေခံသော ဆာဗာတစ်ခု ရွေးချယ်ပါ၊ မည်သည့်ဆာဗာကို ရွေးချယ်ထားစေကာမူ အခြားအသုံးပြုသူများနှင့် ပုံမှန်အတိုင်း ဆက်သွယ်နိုင်သည်။",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "အားလုံး",
                     "all_accessiblity_description": "အမျိုးအစား - အားလုံး",
@@ -279,18 +329,41 @@
                 "finding_servers": "အဆင်သင့်သုံးရသော ဆာဗာများကို ရှာနေသည်...",
                 "bad_network": "ဒေတာဖွင့်နေစဉ် တစ်ခုခုမှားယွင်းသွားသည်၊ အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ။",
                 "no_results": "ရလဒ်မရှိပါ"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+        },
+        "privacy": {
+            "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I Agree"
             }
         },
         "register": {
-            "title": "သင့်ကို %s တွင် စတင်လိုက်ရအောင်",
-            "lets_get_you_set_up_on_domain": "သင့်ကို %s တွင် စတင်လိုက်ရအောင်",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "ဖျက်"
                 },
                 "username": {
                     "placeholder": "အသုံးပြုသူအမည်",
-                    "duplicate_prompt": "ဤအသုံးပြုသူအမည်သည် ရှိနှင့်ပြီးဖြစ်သည်။"
+                    "duplicate_prompt": "ဤအသုံးပြုသူအမည်သည် ရှိနှင့်ပြီးဖြစ်သည်။",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "ပြသမည့် အမည်"
@@ -300,6 +373,7 @@
                 },
                 "password": {
                     "placeholder": "စကားဝှက်",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "သင်၏စကားဝှက်သည် အနည်းဆုံးလိုအပ်သည်:",
                     "character_limit": "အက္ခရာ ၈ လုံး",
                     "accessibility": {
@@ -324,7 +398,7 @@
                 "reason": {
                     "blocked": "%s တွင် ခွင့်မပြုထားသော အီးမေးလ်ထောက်ပံ့သူပါဝင်နေသည်။",
                     "unreachable": "%s တည်ရှိပုံ မပေါ်ပါ",
-                    "taken": "%s ကို အသုံးပြုနေသူ ရှိနှင့်ပြီးဖြစ်သည်။",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s သည် သီးသန့်ဖယ်ထားသောစကားလုံး ဖြစ်သည်။",
                     "accepted": "%s ကို လက်ခံရမည်ဖြစ်သည်",
                     "blank": "%s ကို လိုအပ်သည်",
@@ -348,27 +422,30 @@
             "terms_of_service": "ဝန်ဆောင်မှုစည်းကမ်းချက်များ",
             "privacy_policy": "ကိုယ်ရေးကိုယ်တာမူဝါဒ",
             "button": {
-                "confirm": "သဘောတူညီသည်"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
-            "title": "နောက််ဆုံးတစ်ခု",
-            "subtitle": "သင့်ကို ပို့လိုက်သောအီးမေးလ်တွင် ပါဝင်သည့်လင့်ခ်ကို နှိပ်ပါ။",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "သင့်ကို ပို့လိုက်သောအီးမေးလ်တွင် ပါဝင်သည့်လင့်ခ်ကို နှိပ်ပါ။",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "အီးမေးလ်ကို ဖွင့်ပါ",
                 "resend": "ပြန်ပို့ပါ"
             },
             "dont_receive_email": {
-                "title": "သင့်အီးမေးလ်ကို စစ်ကြည့်ပါ",
+                "title": "Check your Email",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "အီးမေးလ်ကိုပြန်ပို့ပါ"
             },
             "open_email_app": {
-                "title": "သင်၏စာဝင်ပုံးကို စစ်ဆေးပါ",
+                "title": "Check your Inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "မေးလ်",
                 "open_email_client": "Open Email Client"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn’t get a link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +456,7 @@
                 "published": "တင်လိုက်ပါပြီ!",
                 "Publishing": "ပို့စ်ကို တင်နေသည်...",
                 "accessibility": {
-                    "logo_label": "လိုဂိုခလုတ်",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -391,7 +468,8 @@
         "compose": {
             "title": {
                 "new_post": "ပို့စ်အသစ်",
-                "new_reply": "စာပြန်အသစ်"
+                "new_reply": "စာပြန်အသစ်",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "ဓါတ်ပုံရိုက်",
@@ -415,6 +493,7 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Duration: %s",
                 "thirty_minutes": "30 minutes",
                 "one_hour": "1 Hour",
@@ -424,7 +503,11 @@
                 "seven_days": "7 Days",
                 "option_number": "Option %ld",
                 "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_has_empty_option": "The poll has empty option",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
@@ -456,6 +539,12 @@
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "မြင်နိုင်စွမ်း ရွေးချယ်ရန် - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +557,8 @@
                 "my_followers": "followers",
                 "other_posts": "posts",
                 "other_following": "following",
-                "other_followers": "followers"
+                "other_followers": "followers",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Joined",
@@ -646,7 +736,6 @@
                 },
                 "preference": {
                     "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
                     "using_default_browser": "Use default browser to open links",
@@ -738,11 +827,6 @@
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Add Account"
         },
-        "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
-        },
         "bookmark": {
             "title": "Bookmarks"
         },
@@ -756,6 +840,53 @@
             "actions": {
                 "follow": "Follow",
                 "unfollow": "Unfollow"
+            }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Shows a recent post with the selected hashtag."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
             }
         }
     }

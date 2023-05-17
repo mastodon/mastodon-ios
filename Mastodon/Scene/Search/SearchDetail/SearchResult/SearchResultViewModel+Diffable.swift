@@ -12,14 +12,17 @@ extension SearchResultViewModel {
     
     func setupDiffableDataSource(
         tableView: UITableView,
-        statusTableViewCellDelegate: StatusTableViewCellDelegate
+        statusTableViewCellDelegate: StatusTableViewCellDelegate,
+        userTableViewCellDelegate: UserTableViewCellDelegate
     ) {
         diffableDataSource = SearchResultSection.tableViewDiffableDataSource(
             tableView: tableView,
             context: context,
+            authContext: authContext,
             configuration: .init(
                 authContext: authContext,
-                statusViewTableViewCellDelegate: statusTableViewCellDelegate
+                statusViewTableViewCellDelegate: statusTableViewCellDelegate,
+                userTableViewCellDelegate: userTableViewCellDelegate
             )
         )
         
@@ -66,8 +69,6 @@ extension SearchResultViewModel {
                         is State.Idle:
                         let attribute = SearchResultItem.BottomLoaderAttribute(isEmptyResult: false)
                         snapshot.appendItems([.bottomLoader(attribute: attribute)], toSection: .main)
-                    case is State.Fail:
-                        break
                     case is State.NoMore:
                         if snapshot.itemIdentifiers.isEmpty {
                             let attribute = SearchResultItem.BottomLoaderAttribute(isEmptyResult: true)

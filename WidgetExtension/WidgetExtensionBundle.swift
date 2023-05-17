@@ -9,5 +9,6 @@ struct WidgetExtensionBundle: WidgetBundle {
         FollowersCountWidget()
         MultiFollowersCountWidget()
         LatestFollowersWidget()
+        HashtagWidget()
     }
 }

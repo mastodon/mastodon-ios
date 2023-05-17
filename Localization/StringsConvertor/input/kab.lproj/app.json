@@ -80,7 +80,6 @@
                 "save_photo": "Sekles tawlaft",
                 "copy_photo": "Nɣel tawlaft",
                 "sign_in": "Qqen",
-                "sign_up": "Snulfu-d amiḍan",
                 "see_more": "Wali ugar",
                 "preview": "Taskant",
                 "copy": "Copy",
@@ -101,13 +100,18 @@
                 "translate_post": {
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "Agejdan",
                 "search_and_explore": "Search and Explore",
                 "notifications": "Notifications",
-                "profile": "Amaɣnu"
+                "profile": "Amaɣnu",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +170,11 @@
                     "show_gif": "Sken GIF",
                     "show_video_player": "Sken ameɣri n tvidyut",
                     "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Sit teǧǧeḍ aḍad-ik•im i wakken ad d-iffeɣ wumuɣ"
+                    "tap_then_hold_to_show_menu": "Sit teǧǧeḍ aḍad-ik•im i wakken ad d-iffeɣ wumuɣ",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -186,7 +194,25 @@
                     "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
                     "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "show_original": "Show Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, attachment %d of %d",
+                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -229,25 +255,49 @@
                     "user_suspended_warning": "Yettwaseḥbes umiḍan n %s."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Izeḍwa inmettiyen\nuɣalen-d ɣer ufus-ik.",
-            "get_started": "Aha bdu tura",
-            "log_in": "Qqen"
+            "log_in": "Qqen",
+            "learn_more": "Learn more",
+            "join_default_server": "Join mastodon.social",
+            "pick_server": "Pick another server",
+            "separator": {
+                "or": "or"
+            },
+            "education": {
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                },
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
-            "title": "Ansuf yess·ek·em",
+            "title": "Welcome back",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Sekcem URL neɣ nadi ɣef uqeddac-ik·im"
             }
         },
         "server_picker": {
-            "title": "Mastodon yettwaxdem i yiseqdacen deg waṭas n temɣiwnin.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Akk",
                     "all_accessiblity_description": "Taggayt: Akk",
@@ -279,18 +329,41 @@
                 "finding_servers": "Tifin n yiqeddacen yellan...",
                 "bad_network": "Tella-d tuccḍa lawan n usali n yisefka. Senqed tuqqna-ink internet.",
                 "no_results": "Ulac igemmaḍ"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+        },
+        "privacy": {
+            "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I Agree"
             }
         },
         "register": {
-            "title": "Aha ad nebdu asbadu ɣef %s",
-            "lets_get_you_set_up_on_domain": "Aha ad nebdu asbadu ɣef %s",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Kkes"
                 },
                 "username": {
                     "placeholder": "isem n useqdac",
-                    "duplicate_prompt": "Isem-ayi n umseqdac yettwaṭṭef yakan."
+                    "duplicate_prompt": "Isem-ayi n umseqdac yettwaṭṭef yakan.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "isem ara d-yettwaskanen"
@@ -300,6 +373,7 @@
                 },
                 "password": {
                     "placeholder": "awal uffir",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "Awal-ik uffir yesra ma drus:",
                     "character_limit": "8 n yisekkilen",
                     "accessibility": {
@@ -324,7 +398,7 @@
                 "reason": {
                     "blocked": "%s deg-s asaǧǧăw n yimayl ur nettusireg ara",
                     "unreachable": "%s ur yettban ara yella",
-                    "taken": "%s yettwaseqdec yakan",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s d awal uffir yettwaḥarren",
                     "accepted": "%s ilaq ad yettwaqbal",
                     "blank": "isra %s",
@@ -348,27 +422,30 @@
             "terms_of_service": "tiwetlin n useqdec",
             "privacy_policy": "tasertit tabaḍnit",
             "button": {
-                "confirm": "Qebleɣ"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
-            "title": "Taɣawsa taneggarut.",
-            "subtitle": "Sit ɣef useɣwen i ak-n-uznen i wakken ad tesneqdeḍ amiḍan-ik.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Sit ɣef useɣwen i ak-n-uznen i wakken ad tesneqdeḍ amiḍan-ik",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Ldi asnas n yimayl",
                 "resend": "Ales tuzna"
             },
             "dont_receive_email": {
-                "title": "Senqed imayl-ik·im",
+                "title": "Check your Email",
                 "description": "Senqed ma yella tansa-inek n imayl d tameɣut akked uspam ma yella ur t-tufiḍ ara.",
                 "resend_email": "Ales tuzna n yimayl"
             },
             "open_email_app": {
-                "title": "Sefqed Tanaka-inek.",
+                "title": "Check your Inbox.",
                 "description": "Akken kan i ak-n-nuzen imayl. Sefqed aspam ma yella ur t-tufiḍ ara.",
                 "mail": "Imayl",
                 "open_email_client": "Ldi amsaɣ n yimayl"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn’t get a link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +456,7 @@
                 "published": "Tettwasuffeɣ!",
                 "Publishing": "Asuffeɣ n tasuffeɣt...",
                 "accessibility": {
-                    "logo_label": "Taqeffalt n ulugu",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Sit i wakken ad tɛeddiḍ i usawen, sit tikkelt-nniḍen i wakken ad tɛeddiḍ ɣer wadig yezrin"
                 }
             }
@@ -391,7 +468,8 @@
         "compose": {
             "title": {
                 "new_post": "Tasuffeɣt tamaynut",
-                "new_reply": "Tiririt tamaynut"
+                "new_reply": "Tiririt tamaynut",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Ṭṭef tawlaft",
@@ -415,6 +493,7 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Tangazt: %s",
                 "thirty_minutes": "30 n tesdatin",
                 "one_hour": "1 n wesrag",
@@ -424,7 +503,11 @@
                 "seven_days": "7 n wussan",
                 "option_number": "Taxtiṛt %ld",
                 "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_has_empty_option": "The poll has empty option",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Aru alɣu-inek s telqeyt da..."
@@ -456,6 +539,12 @@
                 "toggle_content_warning": "Beddel alɣu n ugbur",
                 "append_attachment_entry": "Rnu taceqquft yeddan - %s",
                 "select_visibility_entry": "Fren timeẓriwt - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +557,8 @@
                 "my_followers": "followers",
                 "other_posts": "posts",
                 "other_following": "following",
-                "other_followers": "followers"
+                "other_followers": "followers",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Joined",
@@ -584,7 +674,7 @@
             "intro": "Tigi d tisuffaɣ i d-ijebbden s waṭas deg tama-inek•inem n Mastodon."
         },
         "favorite": {
-            "title": "Ismenyifen-ik·im"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +736,6 @@
                 },
                 "preference": {
                     "title": "Imenyafen",
-                    "true_black_dark_mode": "Askar aberkan n tidet",
                     "disable_avatar_animation": "Sens ivaṭaren yettembiwilen",
                     "disable_emoji_animation": "Sens imujiten yettembiwilen",
                     "using_default_browser": "Seqdec iminig amezwer i twaledyawt n yiseɣwan",
@@ -738,11 +827,6 @@
             "dismiss_account_switcher": "Sefsex abeddel n umiḍan",
             "add_account": "Rnu amiḍan"
         },
-        "wizard": {
-            "new_in_mastodon": "Amaynut deg Maṣṭudun",
-            "multiple_account_switch_intro_description": "Beddel gar waṭas n yimiḍanen s tussda ɣezzifen ɣef tqeffalt n umaɣnu.",
-            "accessibility_hint": "Sin isitiyen i usefsex n umarag-a"
-        },
         "bookmark": {
             "title": "Bookmarks"
         },
@@ -756,6 +840,53 @@
             "actions": {
                 "follow": "Follow",
                 "unfollow": "Unfollow"
+            }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Shows a recent post with the selected hashtag."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
             }
         }
     }

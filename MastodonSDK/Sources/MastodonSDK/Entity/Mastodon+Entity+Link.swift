@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2022/4/13
     /// # Reference
     ///  [Document](TBD)
-    public struct Link: Codable {
+    public struct Link: Codable, Sendable {
         public let url: String
         public let title: String
         public let description: String

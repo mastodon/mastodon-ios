@@ -17,7 +17,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/account/)
-    public class Account: Codable {
+    public final class Account: Codable, Sendable {
         
         public typealias ID = String
 

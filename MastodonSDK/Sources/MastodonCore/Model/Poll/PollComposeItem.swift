@@ -86,6 +86,26 @@ extension PollComposeItem {
                 case .sevenDays: return 60 * 60 * 24 * 7
                 }
             }
+            
+            public init(closestDateToExpiry date: Date) {
+                let expiresInSeconds = Int(date.timeIntervalSince(.now))
+                switch expiresInSeconds {
+                case _ where expiresInSeconds <= Self.thirtyMinutes.seconds:
+                    self = .thirtyMinutes
+                case _ where expiresInSeconds > Self.thirtyMinutes.seconds && expiresInSeconds <= Self.oneHour.seconds:
+                    self = .oneHour
+                case _ where expiresInSeconds > Self.oneHour.seconds && expiresInSeconds <= Self.sixHours.seconds:
+                    self = .sixHours
+                case _ where expiresInSeconds > Self.sixHours.seconds && expiresInSeconds <= Self.oneDay.seconds:
+                    self = .oneDay
+                case _ where expiresInSeconds > Self.oneDay.seconds && expiresInSeconds <= Self.threeDays.seconds:
+                    self = .threeDays
+                case _ where expiresInSeconds > Self.threeDays.seconds && expiresInSeconds <= Self.sevenDays.seconds:
+                    self = .sevenDays
+                default:
+                    self = .oneDay
+                }
+            }
         }
     }
 }

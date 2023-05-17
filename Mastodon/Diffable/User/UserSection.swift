@@ -13,6 +13,7 @@ import MastodonCore
 import MastodonUI
 import MastodonMeta
 import MetaTextKit
+import Combine
 
 enum UserSection: Hashable {
     case main
@@ -29,6 +30,7 @@ extension UserSection {
     static func diffableDataSource(
         tableView: UITableView,
         context: AppContext,
+        authContext: AuthContext,
         configuration: Configuration
     ) -> UITableViewDiffableDataSource<UserSection, UserItem> {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
@@ -42,12 +44,15 @@ extension UserSection {
                 context.managedObjectContext.performAndWait {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
                     configure(
+                        context: context,
+                        authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: .init(value: .user(user)),
+                        viewModel: .init(value: .user(user), followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(), blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher()),
                         configuration: configuration
                     )
                 }
+ 
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
@@ -66,13 +71,15 @@ extension UserSection {
 extension UserSection {
 
     static func configure(
+        context: AppContext,
+        authContext: AuthContext,
         tableView: UITableView,
         cell: UserTableViewCell,
         viewModel: UserTableViewCell.ViewModel,
         configuration: Configuration
     ) {
-        
         cell.configure(
+            me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/application/)
-    public struct Application: Codable {
+    public struct Application: Codable, Sendable {
 
         public let name: String
 

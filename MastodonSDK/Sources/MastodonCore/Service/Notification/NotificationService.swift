@@ -267,7 +267,8 @@ extension NotificationService {
                 domain: authentication.domain,
                 userID: authentication.userID,
                 appAuthorization: .init(accessToken: authentication.appAccessToken),
-                userAuthorization: .init(accessToken: authentication.userAccessToken)
+                userAuthorization: .init(accessToken: authentication.userAccessToken),
+                inMemoryCache: .sharedCache(for: authentication.objectID.description)
             )
         }
     }

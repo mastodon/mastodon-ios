@@ -110,11 +110,7 @@ extension SettingsViewModel {
         ]
         snapshot.appendSections([.appearance])
         snapshot.appendItems(appearanceItems, toSection: .appearance)
-        
-        // appearancePreference
-        snapshot.appendSections([.appearancePreference])
-        snapshot.appendItems([SettingsItem.appearancePreference(record: .init(objectID: setting.objectID), appearanceType: .preferredTrueDarkMode)], toSection: .appearancePreference)
-        
+
         // preference
         snapshot.appendSections([.preference])
         let preferenceItems: [SettingsItem] = SettingsItem.PreferenceType.allCases.map { preferenceType in

@@ -28,5 +28,6 @@ extension DataSourceFacade {
         try await dependency.context.apiService.getBlocked(
             authenticationBox: authBox
         )
+        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
     }   // end func
 }

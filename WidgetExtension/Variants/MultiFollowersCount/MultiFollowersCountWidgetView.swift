@@ -32,12 +32,10 @@ struct MultiFollowersCountWidgetView: View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(accounts, id: \.acct) { account in
                 HStack {
-                    if let avatarImage = account.avatarImage {
-                        Image(uiImage: avatarImage)
-                            .resizable()
-                            .frame(width: 32, height: 32)
-                            .cornerRadius(5)
-                    }
+                    Image(uiImage: account.avatarImage)
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                        .cornerRadius(5)
                     VStack(alignment: .leading) {
                         Text(account.followersCount.asAbbreviatedCountString())
                             .font(.title2)
@@ -67,12 +65,10 @@ struct MultiFollowersCountWidgetView: View {
             ]) {
                 ForEach(accounts, id: \.acct) { account in
                     HStack {
-                        if let avatarImage = account.avatarImage {
-                            Image(uiImage: avatarImage)
-                                .resizable()
-                                .frame(width: 32, height: 32)
-                                .cornerRadius(5)
-                        }
+                        Image(uiImage: account.avatarImage)
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .cornerRadius(5)
                         VStack(alignment: .leading) {
                             Text(account.followersCount.asAbbreviatedCountString())
                                 .font(.title2)

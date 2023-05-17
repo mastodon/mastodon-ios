@@ -12,6 +12,7 @@ import Combine
 import MastodonLocalization
 import MastodonCore
 import MastodonUI
+import CoreDataStack
 
 final class FollowingListViewController: UIViewController, NeedsDependency {
 
@@ -116,4 +117,4 @@ extension FollowingListViewController: UITableViewDelegate, AutoGenerateTableVie
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FollowingListViewController: UserTableViewCellDelegate { }
+extension FollowingListViewController: UserTableViewCellDelegate {}

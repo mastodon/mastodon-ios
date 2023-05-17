@@ -86,7 +86,16 @@ extension StatusTableViewCell {
                 self.accessibilityLabel = accessibilityLabel
             }
             .store(in: &_disposeBag)
-        
+
+        statusView.viewModel.$contentAccessibilityLabel
+            .combineLatest(statusView.viewModel.$groupedAccessibilityLabel)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] contentLabel, accessibilityLabel in
+                guard let self = self else { return }
+                self.accessibilityUserInputLabels = [contentLabel, accessibilityLabel]
+            }
+            .store(in: &_disposeBag)
+
         statusView.viewModel
             .$translatedFromLanguage
             .receive(on: DispatchQueue.main)

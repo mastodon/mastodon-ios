@@ -20,6 +20,7 @@ class SettingsToggleTableViewCell: UITableViewCell {
     
     private(set) lazy var switchButton: UISwitch = {
         let view = UISwitch(frame:.zero)
+        view.onTintColor = Asset.Colors.brand.color
         return view
     }()
     
@@ -48,14 +49,7 @@ class SettingsToggleTableViewCell: UITableViewCell {
         accessoryView = switchButton
         textLabel?.numberOfLines = 0
         
-        updateAppearance()
         switchButton.addTarget(self, action: #selector(switchValueDidChange(sender:)), for: .valueChanged)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        updateAppearance()
     }
 
 }
@@ -71,23 +65,11 @@ extension SettingsToggleTableViewCell {
 }
 
 extension SettingsToggleTableViewCell {
-    
+
     func update(enabled: Bool?) {
         switchButton.isEnabled = enabled != nil
         textLabel?.textColor = enabled != nil ? Asset.Colors.Label.primary.color : Asset.Colors.Label.secondary.color
         switchButton.isOn = enabled ?? false
     }
-    
-    private func updateAppearance() {
-        switchButton.onTintColor = {
-            switch traitCollection.userInterfaceStyle {
-            case .dark:
-                // set default green for Dark Mode
-                return nil
-            default:
-                // set tint black for Light Mode
-                return self.contentView.window?.tintColor
-            }
-        }()
-    }
+
 }

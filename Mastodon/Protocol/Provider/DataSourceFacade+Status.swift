@@ -117,6 +117,7 @@ extension DataSourceFacade {
             let composeViewModel = ComposeViewModel(
                 context: provider.context,
                 authContext: provider.authContext,
+                composeContext: .composeStatus,
                 destination: .reply(parent: status)
             )
             _ = provider.coordinator.present(
@@ -131,11 +132,6 @@ extension DataSourceFacade {
             )
         case .like:
             try await DataSourceFacade.responseToStatusFavoriteAction(
-                provider: provider,
-                status: status
-            )
-        case .bookmark:
-            try await DataSourceFacade.responseToStatusBookmarkAction(
                 provider: provider,
                 status: status
             )
@@ -373,6 +369,21 @@ extension DataSourceFacade {
                 alertController.addAction(UIAlertAction(title: L10n.Common.Alerts.TranslationFailed.button, style: .default))
                 dependency.present(alertController, animated: true)
             }
+        case .editStatus:
+
+            guard let status = menuContext.status?.object(in: dependency.context.managedObjectContext) else { return }
+
+            let statusSource = try await dependency.context.apiService.getStatusSource(
+                forStatusID: status.id,
+                authenticationBox: dependency.authContext.mastodonAuthenticationBox
+            ).value
+
+            let editStatusViewModel = ComposeViewModel(
+                context: dependency.coordinator.appContext,
+                authContext: dependency.authContext,
+                composeContext: .editStatus(status: status, statusSource: statusSource),
+                destination: .topLevel)
+            _ = dependency.coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))
         }
     }   // end func
 }

@@ -30,7 +30,7 @@ extension StatusView {
         public var context: AppContext?
         public var authContext: AuthContext?
         public var originalStatus: Status?
-    
+
         // Header
         @Published public var header: Header = .none
         
@@ -52,8 +52,9 @@ extension StatusView {
         @Published public var translatedUsingProvider: String?
 
         @Published public var timestamp: Date?
-        public var timestampFormatter: ((_ date: Date) -> String)?
+        public var timestampFormatter: ((_ date: Date, _ isEdited: Bool) -> String)?
         @Published public var timestampText = ""
+        @Published public var applicationName: String? = nil
         
         // Spoiler
         @Published public var spoilerContent: MetaContent?
@@ -101,6 +102,9 @@ extension StatusView {
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
         @Published public var favoriteCount: Int = 0
+
+        @Published public var statusEdits: [StatusEdit] = []
+        @Published public var editedAt: Date? = nil
         
         // Filter
         @Published public var activeFilters: [Mastodon.Entity.Filter] = []
@@ -108,6 +112,7 @@ extension StatusView {
         @Published public var isFiltered = false
 
         @Published public var groupedAccessibilityLabel = ""
+        @Published public var contentAccessibilityLabel = ""
 
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -263,16 +268,19 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
         // timestamp
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             $timestamp,
+            $editedAt,
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
-        .compactMap { [weak self] timestamp, _ -> String? in
+        .compactMap { [weak self] timestamp, editedAt, _ -> String? in
             guard let self = self else { return nil }
-            guard let timestamp = timestamp,
-                  let text = self.timestampFormatter?(timestamp)
-            else { return "" }
-            return text
+            if let timestamp = editedAt, let text = self.timestampFormatter?(timestamp, true) {
+                return text
+            } else if let timestamp = timestamp, let text = self.timestampFormatter?(timestamp, false) {
+                return text
+            }
+            return ""
         }
         .removeDuplicates()
         .assign(to: &$timestampText)
@@ -301,6 +309,17 @@ extension StatusView.ViewModel {
             } else {
                 statusView.spoilerOverlayView.spoilerMetaLabel.reset()
                 // statusView.spoilerBannerView.label.reset()
+            }
+            
+            if statusView.style == .editHistory {
+                statusView.setContentSensitiveeToggleButtonDisplay(isDisplay: false)
+            }
+            if let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
+                statusView.historyContentWarningLabel.configure(content: spoilerContent)
+                statusView.historyContentWarningAdaptiveMarginContainerView.isHidden = statusView.style != .editHistory
+            } else {
+                statusView.historyContentWarningLabel.reset()
+                statusView.historyContentWarningAdaptiveMarginContainerView.isHidden = true
             }
             
             let paragraphStyle = statusView.contentMetaText.paragraphStyle
@@ -569,12 +588,13 @@ extension StatusView.ViewModel {
             favoriteButtonTitle
         ).map { $0.count + $1.count }
         
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             $timestamp,
+            $applicationName,
             metricButtonTitleLength
         )
-        .sink { timestamp, metricButtonTitleLength in
-            let text: String = {
+        .sink { timestamp, applicationName, metricButtonTitleLength in
+            let dateString: String = {
                 guard let timestamp = timestamp else { return " " }
                 
                 let formatter = DateFormatter()
@@ -589,20 +609,42 @@ extension StatusView.ViewModel {
                 }
                 return formatter.string(from: timestamp)
             }()
-            
+
+            let text: String
+            if let applicationName {
+                text = L10n.Common.Controls.Status.postedViaApplication(dateString, applicationName)
+            } else {
+                text = dateString
+            }
+
             statusView.statusMetricView.dateLabel.text = text
         }
         .store(in: &disposeBag)
         
-        reblogButtonTitle
-            .sink { title in
-                statusView.statusMetricView.reblogButton.setTitle(title, for: .normal)
+        $reblogCount
+            .sink { count in
+                statusView.statusMetricView.reblogButton.isHidden = count == 0
+                statusView.statusMetricView.reblogButton.detailLabel.text = count.formatted()
             }
             .store(in: &disposeBag)
         
-        favoriteButtonTitle
-            .sink { title in
-                statusView.statusMetricView.favoriteButton.setTitle(title, for: .normal)
+        $favoriteCount
+            .sink { count in
+                statusView.statusMetricView.favoriteButton.isHidden = count == 0
+                statusView.statusMetricView.favoriteButton.detailLabel.text = count.formatted()
+            }
+            .store(in: &disposeBag)
+
+        $editedAt
+            .sink { editedAt in
+                if let editedAt {
+                    let relativeDateFormatter = RelativeDateTimeFormatter()
+                    let relativeDate = relativeDateFormatter.localizedString(for: editedAt, relativeTo: Date())
+                    statusView.statusMetricView.editHistoryButton.detailLabel.text = L10n.Common.Controls.Status.Buttons.editHistoryDetail(relativeDate)
+                    statusView.statusMetricView.editHistoryButton.isHidden = false
+                } else {
+                    statusView.statusMetricView.editHistoryButton.isHidden = true
+                }
             }
             .store(in: &disposeBag)
     }
@@ -685,26 +727,32 @@ extension StatusView.ViewModel {
     }
     
     private func bindAccessibility(statusView: StatusView) {
-        let shortAuthorAccessibilityLabel = Publishers.CombineLatest3(
+        let shortAuthorAccessibilityLabel = Publishers.CombineLatest4(
             $header,
             $authorName,
+            $authorUsername,
             $timestampText
         )
-        .map { header, authorName, timestamp -> String? in
+        .map { header, authorName, authorUsername, timestamp -> String? in
             var strings: [String?] = []
             
             switch header {
             case .none:
                 strings.append(authorName?.string)
+                strings.append(authorUsername)
             case .reply(let info):
                 strings.append(authorName?.string)
+                strings.append(authorUsername)
                 strings.append(info.header.string)
             case .repost(let info):
                 strings.append(info.header.string)
                 strings.append(authorName?.string)
+                strings.append(authorUsername)
             }
-            
-            strings.append(timestamp)
+
+            if statusView.style != .editHistory {
+                strings.append(timestamp)
+            }
             
             return strings.compactMap { $0 }.joined(separator: ", ")
         }
@@ -745,12 +793,12 @@ extension StatusView.ViewModel {
         .assign(to: \.accessibilityLabel, on: statusView.authorView)
         .store(in: &disposeBag)
 
-        let contentAccessibilityLabel = Publishers.CombineLatest3(
+        Publishers.CombineLatest3(
             $isContentReveal,
             $spoilerContent,
             $content
         )
-        .map { isContentReveal, spoilerContent, content -> String? in
+        .map { isContentReveal, spoilerContent, content in
             var strings: [String?] = []
             
             if let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
@@ -767,6 +815,7 @@ extension StatusView.ViewModel {
             
             return strings.compactMap { $0 }.joined(separator: ", ")
         }
+        .assign(to: &$contentAccessibilityLabel)
         
         $isContentReveal
             .map { isContentReveal in
@@ -777,7 +826,7 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
         
-        contentAccessibilityLabel
+        $contentAccessibilityLabel
             .sink { contentAccessibilityLabel in
                 statusView.spoilerOverlayView.accessibilityLabel = contentAccessibilityLabel
             }
@@ -858,7 +907,7 @@ extension StatusView.ViewModel {
 
         Publishers.CombineLatest4(
             shortAuthorAccessibilityLabel,
-            contentAccessibilityLabel,
+            $contentAccessibilityLabel,
             translatedFromLabel,
             mediaAccessibilityLabel
         )

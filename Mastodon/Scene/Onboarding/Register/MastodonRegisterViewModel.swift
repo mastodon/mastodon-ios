@@ -80,6 +80,7 @@ final class MastodonRegisterViewModel: ObservableObject {
             .store(in: &disposeBag)
         
         $username
+            .removeDuplicates()
             .map { username in
                 guard !username.isEmpty else { return .empty }
                 var isValid = true
@@ -152,7 +153,7 @@ final class MastodonRegisterViewModel: ObservableObject {
         
         Publishers.CombineLatest($password, $passwordConfirmation)
             .map { password, confirmation in
-                guard !password.isEmpty else { return .empty }
+                guard !password.isEmpty && !confirmation.isEmpty else { return .empty }
 
                 if password.count >= 8 && password == confirmation {
                     return .valid
@@ -283,5 +284,12 @@ extension MastodonRegisterViewModel {
         attributeString.append(promptAttributedString)
         
         return attributeString
+    }
+}
+
+extension MastodonRegisterViewModel {
+    var accessibilityLabelUsernameField: String {
+        let username = username.isEmpty ? L10n.Scene.Register.Input.Username.placeholder : username
+        return "@\(username)@\(domain)"
     }
 }

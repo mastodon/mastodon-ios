@@ -80,7 +80,6 @@
                 "save_photo": "Uložit fotku",
                 "copy_photo": "Kopírovat fotografii",
                 "sign_in": "Přihlásit se",
-                "sign_up": "Vytvořit účet",
                 "see_more": "Zobrazit více",
                 "preview": "Náhled",
                 "copy": "Kopírovat",
@@ -101,13 +100,18 @@
                 "translate_post": {
                     "title": "Přeložit z %s",
                     "unknown_language": "Neznámý"
-                }
+                },
+                "edit_post": "Upravit"
             },
             "tabs": {
                 "home": "Domů",
                 "search_and_explore": "Hledat a zkoumat",
                 "notifications": "Oznámení",
-                "profile": "Profil"
+                "profile": "Profil",
+                "a11y": {
+                    "search": "Hledat",
+                    "explore": "Prozkoumat"
+                }
             },
             "keyboard": {
                 "common": {
@@ -166,7 +170,11 @@
                     "show_gif": "Zobrazit GIF",
                     "show_video_player": "Zobrazit video přehrávač",
                     "share_link_in_post": "Sdílet odkaz v příspěvku",
-                    "tap_then_hold_to_show_menu": "Klepnutím podržte pro zobrazení nabídky"
+                    "tap_then_hold_to_show_menu": "Klepnutím podržte pro zobrazení nabídky",
+                    "a11y_labels": {
+                        "reblog": "Re-blog",
+                        "unreblog": "Undo re-blog"
+                    }
                 },
                 "tag": {
                     "url": "URL",
@@ -187,6 +195,24 @@
                     "unknown_language": "Neznámý",
                     "unknown_provider": "Neznámý",
                     "show_original": "Zobrazit originál"
+                },
+                "media": {
+                    "accessibility_label": "%s, attachment %d of %d",
+                    "expand_image_hint": "Rozšíří obrázek. Dvojitým klepnutím a podržením zobrazíte akce",
+                    "expand_gif_hint": "Rozšíří GIF. Dvojitým klepnutím a podržením zobrazíte akce",
+                    "expand_video_hint": "Zobrazí přehrávač videa. Dvojitým klepnutím a podržením zobrazíte akce"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Oblíbení",
+                    "edit_history_title": "Historie úprav",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Historie úprav",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
@@ -229,25 +255,49 @@
                     "user_suspended_warning": "Účet %s byl pozastaven."
                 }
             }
+        },
+        "user_list": {
+            "no_verified_link": "No verified link",
+            "followers_count": "%@ followers"
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Sociální sítě opět ve vašich rukou.",
-            "get_started": "Začínáme",
-            "log_in": "Přihlásit se"
+            "log_in": "Přihlásit se",
+            "learn_more": "Zjistit více",
+            "join_default_server": "Join mastodon.social",
+            "pick_server": "Pick another server",
+            "separator": {
+                "or": "or"
+            },
+            "education": {
+                "mastodon": {
+                    "title": "Welcome to Mastodon",
+                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                },
+                "servers": {
+                    "title": "What are servers?",
+                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                },
+                "a11y": {
+                    "what_is_mastodon": {
+                        "title": "What is Mastodon?"
+                    }
+                }
+            }
         },
         "login": {
-            "title": "Vítejte zpět",
+            "title": "Welcome back",
             "subtitle": "Přihlaste se na serveru, na kterém jste si vytvořili účet.",
             "server_search_field": {
                 "placeholder": "Zadejte URL nebo vyhledávejte váš server"
             }
         },
         "server_picker": {
-            "title": "Mastodon tvoří uživatelé z různých serverů.",
-            "subtitle": "Vyberte server založený ve vašem regionu, podle zájmů nebo podle obecného účelu. Stále můžete chatovat s kýmkoli na Mastodonu bez ohledu na vaše servery.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Vše",
                     "all_accessiblity_description": "Kategorie: Vše",
@@ -279,18 +329,41 @@
                 "finding_servers": "Hledání dostupných serverů...",
                 "bad_network": "Při načítání dat nastala chyba. Zkontrolujte připojení k internetu.",
                 "no_results": "Žádné výsledky"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            },
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+        },
+        "privacy": {
+            "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I Agree"
             }
         },
         "register": {
-            "title": "Pojďme si nastavit %s",
-            "lets_get_you_set_up_on_domain": "Pojďme si nastavit %s",
+            "title": "Create Account",
             "input": {
                 "avatar": {
                     "delete": "Smazat"
                 },
                 "username": {
                     "placeholder": "uživatelské jméno",
-                    "duplicate_prompt": "Toto uživatelské jméno je použito."
+                    "duplicate_prompt": "Toto uživatelské jméno je použito.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "zobrazované jméno"
@@ -300,6 +373,7 @@
                 },
                 "password": {
                     "placeholder": "heslo",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "Heslo musí být alespoň:",
                     "character_limit": "8 znaků",
                     "accessibility": {
@@ -324,7 +398,7 @@
                 "reason": {
                     "blocked": "%s používá zakázanou e-mailovou službu",
                     "unreachable": "%s pravděpodobně neexistuje",
-                    "taken": "%s se již používá",
+                    "taken": "%s is already taken. How about:",
                     "reserved": "%s je rezervované klíčové slovo",
                     "accepted": "%s musí být přijato",
                     "blank": "%s je vyžadováno",
@@ -348,27 +422,30 @@
             "terms_of_service": "podmínky služby",
             "privacy_policy": "zásady ochrany osobních údajů",
             "button": {
-                "confirm": "Souhlasím"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {
-            "title": "Ještě jedna věc.",
-            "subtitle": "Klepněte na odkaz, který jsme vám poslali e-mailem, abyste ověřili Váš účet.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Klepněte na odkaz, který jsme vám poslali e-mailem, abyste ověřili Váš účet",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Otevřít e-mailovou aplikaci",
                 "resend": "Poslat znovu"
             },
             "dont_receive_email": {
-                "title": "Zkontrolujte svůj e-mail",
+                "title": "Check your Email",
                 "description": "Zkontrolujte, zda je vaše e-mailová adresa správná, stejně jako složka nevyžádané pošty, pokud ji máte.",
                 "resend_email": "Znovu odeslat e-mail"
             },
             "open_email_app": {
-                "title": "Zkontrolujte doručenou poštu.",
+                "title": "Check your Inbox.",
                 "description": "Právě jsme vám poslali e-mail. Zkontrolujte složku nevyžádané zprávy, pokud ji máte.",
                 "mail": "Pošta",
                 "open_email_client": "Otevřít e-mailového klienta"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn’t get a link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -379,7 +456,7 @@
                 "published": "Publikováno!",
                 "Publishing": "Publikování příspěvku...",
                 "accessibility": {
-                    "logo_label": "Tlačítko s logem",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Klepnutím přejdete nahoru a znovu klepněte na předchozí místo"
                 }
             }
@@ -391,7 +468,8 @@
         "compose": {
             "title": {
                 "new_post": "Nový příspěvek",
-                "new_reply": "Nová odpověď"
+                "new_reply": "Nová odpověď",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Vyfotit",
@@ -415,6 +493,7 @@
                 "server_processing_state": "Zpracování serveru..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Doba trvání: %s",
                 "thirty_minutes": "30 minut",
                 "one_hour": "1 hodina",
@@ -424,7 +503,11 @@
                 "seven_days": "7 dní",
                 "option_number": "Možnost %ld",
                 "the_poll_is_invalid": "Anketa je neplatná",
-                "the_poll_has_empty_option": "Anketa má prázdnou možnost"
+                "the_poll_has_empty_option": "Anketa má prázdnou možnost",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Zde napište přesné varování..."
@@ -456,6 +539,12 @@
                 "toggle_content_warning": "Přepnout varování obsahu",
                 "append_attachment_entry": "Přidat přílohu - %s",
                 "select_visibility_entry": "Vyberte viditelnost - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {
@@ -468,7 +557,8 @@
                 "my_followers": "sledující",
                 "other_posts": "příspěvky",
                 "other_following": "sledování",
-                "other_followers": "sledující"
+                "other_followers": "sledující",
+                "familiar_followers": "mutuals"
             },
             "fields": {
                 "joined": "Připojen/a",
@@ -584,7 +674,7 @@
             "intro": "Toto jsou příspěvky, které získávají pozornost ve vašem koutu Mastodonu."
         },
         "favorite": {
-            "title": "Vaše oblíbené"
+            "title": "Favorites"
         },
         "notification": {
             "title": {
@@ -646,7 +736,6 @@
                 },
                 "preference": {
                     "title": "Předvolby",
-                    "true_black_dark_mode": "Skutečný černý tmavý režim",
                     "disable_avatar_animation": "Zakázat animované avatary",
                     "disable_emoji_animation": "Zakázat animované emoji",
                     "using_default_browser": "Použít výchozí prohlížeč pro otevírání odkazů",
@@ -738,11 +827,6 @@
             "dismiss_account_switcher": "Zrušit přepínač účtů",
             "add_account": "Přidat účet"
         },
-        "wizard": {
-            "new_in_mastodon": "Nový v Mastodonu",
-            "multiple_account_switch_intro_description": "Přepínání mezi více účty podržením tlačítka profilu.",
-            "accessibility_hint": "Dvojitým poklepáním tohoto průvodce odmítnete"
-        },
         "bookmark": {
             "title": "Záložky"
         },
@@ -756,6 +840,53 @@
             "actions": {
                 "follow": "Sledovat",
                 "unfollow": "Přestat sledovat"
+            }
+        }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
+        },
+        "hashtag": {
+            "configuration": {
+                "display_name": "Hashtag",
+                "description": "Shows a recent post with the selected hashtag."
+            },
+            "not_found": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+            },
+            "placeholder": {
+                "account_name": "John Mastodon",
+                "account": "@johnMastodon@no-such.account",
+                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
             }
         }
     }

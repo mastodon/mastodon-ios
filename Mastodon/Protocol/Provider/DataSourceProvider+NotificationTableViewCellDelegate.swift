@@ -522,6 +522,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
             guard let item = await item(from: source) else {
+                assertionFailure()
                 return
             }
             switch item {

@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/attachment/)
-    public struct Attachment: Codable {
+    public struct Attachment: Codable, Sendable {
         
         public typealias ID = String
         
@@ -48,7 +48,7 @@ extension Mastodon.Entity {
 
 extension Mastodon.Entity.Attachment {
     public typealias AttachmentType = Type
-    public enum `Type`: RawRepresentable, Codable {
+    public enum `Type`: RawRepresentable, Codable, Sendable {
         case unknown
         case image
         case gifv
@@ -85,7 +85,7 @@ extension Mastodon.Entity.Attachment {
 extension Mastodon.Entity.Attachment {
     /// # Reference
     ///   https://github.com/tootsuite/mastodon/blob/v3.3.0/app/models/media_attachment.rb
-    public struct Meta: Codable {
+    public struct Meta: Codable, Sendable {
         public let original: Format?
         public let small: Format?
         public let focus: Focus?
@@ -122,7 +122,7 @@ extension Mastodon.Entity.Attachment {
 }
 
 extension Mastodon.Entity.Attachment.Meta {
-    public struct Format: Codable {
+    public struct Format: Codable, Sendable {
         public let width: Int?
         public let height: Int?
         public let size: String?
@@ -142,7 +142,7 @@ extension Mastodon.Entity.Attachment.Meta {
         }
     }
     
-    public struct Focus: Codable {
+    public struct Focus: Codable, Sendable {
         public let x: Double
         public let y: Double
     }
