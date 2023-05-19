@@ -788,6 +788,10 @@
 		D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginView.swift; sourceTree = "<group>"; };
 		D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewModel.swift; sourceTree = "<group>"; };
 		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
+		D87DC50B2A17C32E00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Intents.strings; sourceTree = "<group>"; };
+		D87DC50C2A17C32F00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		D87DC50D2A17C32F00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D87DC50E2A17C32F00219C5F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = el; path = el.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		D886FBD229DF710F00272017 /* WelcomeSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSeparatorView.swift; sourceTree = "<group>"; };
 		D8916DBF29211BE500124085 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
 		D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewController.swift; sourceTree = "<group>"; };
@@ -3262,6 +3266,7 @@
 				fi,
 				cs,
 				sl,
+				el,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -4084,6 +4089,7 @@
 				2AB501502992443C00346092 /* ca */,
 				2AB501522992443C00346092 /* eu */,
 				2AB501542992443D00346092 /* ar */,
+				D87DC50C2A17C32F00219C5F /* el */,
 			);
 			name = WidgetExtension.intentdefinition;
 			sourceTree = "<group>";
@@ -4118,6 +4124,7 @@
 				DB8F40042835EE5E006E7513 /* fi */,
 				DB96C25D292505FE00F3B85D /* cs */,
 				DB96C260292506D600F3B85D /* sl */,
+				D87DC50B2A17C32E00219C5F /* el */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -4151,6 +4158,7 @@
 				DB8F40052835EE5E006E7513 /* fi */,
 				DB96C25E292505FF00F3B85D /* cs */,
 				DB96C261292506D700F3B85D /* sl */,
+				D87DC50D2A17C32F00219C5F /* el */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4200,6 +4208,7 @@
 				DB8F40062835EE5E006E7513 /* fi */,
 				DB96C25F292505FF00F3B85D /* cs */,
 				DB96C262292506D700F3B85D /* sl */,
+				D87DC50E2A17C32F00219C5F /* el */,
 			);
 			name = Intents.stringsdict;
 			sourceTree = "<group>";
