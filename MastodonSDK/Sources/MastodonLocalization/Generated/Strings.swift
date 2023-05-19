@@ -1484,10 +1484,8 @@ public enum L10n {
       }
     }
     public enum SuggestionAccount {
-      /// When you follow someone, you’ll see their posts in your home feed.
-      public static let followExplain = L10n.tr("Localizable", "Scene.SuggestionAccount.FollowExplain", fallback: "When you follow someone, you’ll see their posts in your home feed.")
-      /// Find People to Follow
-      public static let title = L10n.tr("Localizable", "Scene.SuggestionAccount.Title", fallback: "Find People to Follow")
+      /// Popular on Mastodon
+      public static let title = L10n.tr("Localizable", "Scene.SuggestionAccount.Title", fallback: "Popular on Mastodon")
     }
     public enum Thread {
       /// Post

@@ -464,8 +464,7 @@
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Popular on Mastodon"
         },
         "compose": {
             "title": {
