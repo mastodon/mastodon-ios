@@ -39,7 +39,7 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         bioMetaLabel.numberOfLines = 0
         bioMetaLabel.textAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular)),
-            .foregroundColor: UIColor.secondaryLabel
+            .foregroundColor: UIColor.label
         ]
         bioMetaLabel.linkAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold)),

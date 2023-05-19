@@ -28,11 +28,15 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         tableView.register(SuggestionAccountTableViewCell.self, forCellReuseIdentifier: SuggestionAccountTableViewCell.reuseIdentifier)
         // we're lazy, that's why we don't put the Footer in tableViewFooter
         tableView.register(SuggestionAccountTableViewFooter.self, forHeaderFooterViewReuseIdentifier: SuggestionAccountTableViewFooter.reuseIdentifier)
+        tableView.contentInset.top = 16
         return tableView
     }()
 
-    //TODO: Add "follow all"-footer-cell
     override func viewDidLoad() {
+
+        setupNavigationBarAppearance()
+        defer { setupNavigationBarBackgroundView() }
+
         super.viewDidLoad()
 
         title = L10n.Scene.SuggestionAccount.title
@@ -140,3 +144,5 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewFooterDeleg
         // follow all of them
     }
 }
+
+extension SuggestionAccountViewController: OnboardingViewControllerAppearance { }
