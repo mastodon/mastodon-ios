@@ -23,6 +23,8 @@ protocol SuggestionAccountTableViewCellDelegate: AnyObject {
 
 final class SuggestionAccountTableViewCell: UITableViewCell {
 
+    static let reuseIdentifier = "SuggestionAccountTableViewCell"
+
     var disposeBag = Set<AnyCancellable>()
     weak var delegate: SuggestionAccountTableViewCellDelegate?
     

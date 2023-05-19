@@ -25,8 +25,9 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
 
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
-        tableView.register(SuggestionAccountTableViewCell.self, forCellReuseIdentifier: String(describing: SuggestionAccountTableViewCell.self))
-        tableView.separatorStyle = .none
+        tableView.register(SuggestionAccountTableViewCell.self, forCellReuseIdentifier: SuggestionAccountTableViewCell.reuseIdentifier)
+        // we're lazy, that's why we don't put the Footer in tableViewFooter
+        tableView.register(SuggestionAccountTableViewFooter.self, forHeaderFooterViewReuseIdentifier: SuggestionAccountTableViewFooter.reuseIdentifier)
         return tableView
     }()
 
@@ -85,6 +86,15 @@ extension SuggestionAccountViewController: UITableViewDelegate {
             )
         }
     }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: SuggestionAccountTableViewFooter.reuseIdentifier) as? SuggestionAccountTableViewFooter else {
+            return nil
+        }
+
+        footerView.delegate = self
+        return footerView
+    }
 }
 
 // MARK: - AuthContextProvider
@@ -121,5 +131,12 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
 extension SuggestionAccountViewController {
     @objc func doneButtonDidClick(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension SuggestionAccountViewController: SuggestionAccountTableViewFooterDelegate {
+    func followAll(_ footerView: SuggestionAccountTableViewFooter) {
+        // get all five suggested accounts aka user
+        // follow all of them
     }
 }
