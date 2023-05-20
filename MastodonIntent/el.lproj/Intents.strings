@@ -1,16 +1,8 @@
 "16wxgf" = "Post on Mastodon";
 
-"3sNRTG" = "Username";
-
-"4kVQfr" = "Just to confirm, you wanted ‘${accounts}’?";
-
 "751xkl" = "Text Content";
 
 "CsR7G2" = "Post on Mastodon";
-
-"D2h76g" = "Post on Mastodon";
-
-"Gcmnot" = "Account";
 
 "HZSGTr" = "What content to post?";
 
@@ -24,17 +16,11 @@
 
 "WCIR3D" = "Post ${content} on Mastodon";
 
-"YMuITB-dYQ5NN" = "${content}. Post via ${accounts}. (Public)";
-
-"YMuITB-ehFLjY" = "${content}. Post via ${accounts}. (Followers Only)";
-
-"ZKJSNu" = "Posts";
+"ZKJSNu" = "Post";
 
 "ZS1XaK" = "${content}";
 
 "ZbSjzC" = "Visibility";
-
-"Zim0Js" = "Name";
 
 "Zo4jgJ" = "Post Visibility";
 
@@ -42,11 +28,9 @@
 
 "apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
 
-"ayoYEb-dYQ5NN" = "${content}. (Public)";
+"ayoYEb-dYQ5NN" = "${content}, Public";
 
-"ayoYEb-ehFLjY" = "${content}. (Followers Only)";
-
-"ciITyC" = "There are ${count} options matching ‘${accounts}’.";
+"ayoYEb-ehFLjY" = "${content}, Followers Only";
 
 "dUyuGg" = "Post on Mastodon";
 
@@ -58,13 +42,10 @@
 
 "k7dbKQ" = "Post was sent successfully.";
 
-"nQtHsT" = "Accounts";
-
 "oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
 
 "oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully.";
-
+"ryJLwG" = "Post was sent successfully. ";
