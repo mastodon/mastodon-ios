@@ -153,7 +153,7 @@ extension HomeTimelineViewModel {
         oldSnapshot: NSDiffableDataSourceSnapshot<S, T>,
         newSnapshot: NSDiffableDataSourceSnapshot<S, T>
     ) -> Difference<T>? {
-        guard let sourceIndexPath = (tableView.indexPathsForVisibleRows ?? []).sorted().first else { return nil }
+        guard let sourceIndexPath = (tableView.indexPathsForVisibleRows ?? []).min() else { return nil }
         let rectForSourceItemCell = tableView.rectForRow(at: sourceIndexPath)
         let sourceDistanceToTableViewTopEdge: CGFloat = {
             if tableView.window != nil {

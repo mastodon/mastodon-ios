@@ -17,8 +17,7 @@ extension Setting {
     
     public var activeSubscription: Subscription? {
         return (subscriptions ?? Set())
-            .sorted(by: { $0.activedAt > $1.activedAt })
-            .first
+            .min { $0.activedAt > $1.activedAt }
     }
     
 }

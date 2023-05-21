@@ -52,7 +52,7 @@ extension SendPostIntentHandler: SendPostIntentHandling {
             if accounts.isEmpty {
                 let request = MastodonAuthentication.sortedFetchRequest
                 let authentications = try managedObjectContext.fetch(request)
-                let _authentication = authentications.sorted(by: { $0.activedAt > $1.activedAt }).first
+                let _authentication = authentications.min { $0.activedAt > $1.activedAt }
     
                 guard let authentication = _authentication else {
                     let failureReason = APIService.APIError.implicit(.authenticationMissing).errorDescription ?? "Fail to Send Post"
