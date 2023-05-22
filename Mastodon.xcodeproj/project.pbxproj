@@ -439,7 +439,6 @@
 		DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B2F261440A50045B23D /* UITabBarController.swift */; };
 		DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */; };
 		DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376B1269302A4007FEC24 /* UITableViewCell.swift */; };
-		DBD5B1F627BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F527BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift */; };
 		DBD5B1F827BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */; };
 		DBD5B1FA27BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F927BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift */; };
 		DBDFF1902805543100557A48 /* DiscoveryPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDFF18F2805543100557A48 /* DiscoveryPostsViewController.swift */; };
@@ -1164,7 +1163,6 @@
 		DBCC3B2F261440A50045B23D /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
 		DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedProfileViewModel.swift; sourceTree = "<group>"; };
 		DBD376B1269302A4007FEC24 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
-		DBD5B1F527BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuggestionAccountTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+TableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
 		DBD5B1F927BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+StatusTableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
 		DBDFF18F2805543100557A48 /* DiscoveryPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPostsViewController.swift; sourceTree = "<group>"; };
@@ -1615,7 +1613,6 @@
 				DB4F097826A039B400D62E92 /* Onboarding */,
 				DB0617F827855B170030EE79 /* User */,
 				DB0617F927855B460030EE79 /* Profile */,
-				DB0FCB892796BE1E006C02E2 /* RecommandAccount */,
 				DB4F097926A039C400D62E92 /* Status */,
 				DB65C63527A2AF52008BAC2E /* Report */,
 				DB0617F727855B010030EE79 /* Notification */,
@@ -1670,6 +1667,8 @@
 		2DAC9E36262FC20B0062E1A6 /* SuggestionAccount */ = {
 			isa = PBXGroup;
 			children = (
+				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
+				DBB45B5F27B50A4F002DC5A7 /* RecommendAccountItem.swift */,
 				2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */,
 				2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */,
 				DBB45B6127B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift */,
@@ -1682,7 +1681,6 @@
 			isa = PBXGroup;
 			children = (
 				2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */,
-				DBD5B1F527BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift */,
 				D8BE30B22A179E26006B8270 /* SuggestionAccountTableViewFooter.swift */,
 			);
 			path = "TableView-Components";
@@ -1919,15 +1917,6 @@
 				DB03A792272A7E5700EE37C5 /* SidebarListHeaderView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		DB0FCB892796BE1E006C02E2 /* RecommandAccount */ = {
-			isa = PBXGroup;
-			children = (
-				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
-				DBB45B5F27B50A4F002DC5A7 /* RecommendAccountItem.swift */,
-			);
-			path = RecommandAccount;
 			sourceTree = "<group>";
 		};
 		DB1D187125EF5BBD003F1F23 /* TableView */ = {
@@ -3597,7 +3586,6 @@
 				DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */,
 				DB6180F226391CF40018D199 /* MediaPreviewImageViewModel.swift in Sources */,
 				62FD27D12893707600B205C5 /* BookmarkViewController.swift in Sources */,
-				DBD5B1F627BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift in Sources */,
 				DB63F767279A5EB300455B82 /* NotificationTimelineViewModel.swift in Sources */,
 				2D607AD826242FC500B70763 /* NotificationViewModel.swift in Sources */,
 				DB5B54AB2833C12A00DEF8B2 /* RebloggedByViewController.swift in Sources */,

@@ -16,10 +16,9 @@ import MastodonMeta
 import MastodonAsset
 import MastodonLocalization
 import MastodonUI
+import MastodonCore
 
-protocol SuggestionAccountTableViewCellDelegate: AnyObject {
-    func suggestionAccountTableViewCell(_ cell: SuggestionAccountTableViewCell, friendshipDidPressed button: UIButton)
-}
+protocol SuggestionAccountTableViewCellDelegate: AnyObject, UserViewDelegate {}
 
 final class SuggestionAccountTableViewCell: UITableViewCell {
 
@@ -80,9 +79,21 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         disposeBag.removeAll()
     }
 
-    //MARK: - Action
+    func configure(user: MastodonUser) {
+        userView.configure(user: user, delegate: delegate)
+        //TODO: Fix Button State
+        userView.setButtonState(.follow)
 
-    @objc private func buttonDidPressed(_ sender: UIButton) {
-        delegate?.suggestionAccountTableViewCell(self, friendshipDidPressed: sender)
+        let metaContent: MetaContent = {
+            do {
+                let mastodonContent = MastodonContent(content: user.note ?? "", emojis: [:])
+                return try MastodonMetaContent.convert(document: mastodonContent)
+            } catch {
+                assertionFailure()
+                return PlaintextMetaContent(string: user.note ?? "")
+            }
+        } ()
+
+        bioMetaLabel.configure(content: metaContent)
     }
 }

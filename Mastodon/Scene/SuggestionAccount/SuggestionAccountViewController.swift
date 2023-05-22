@@ -72,6 +72,12 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
+
+    //MARK: - Actions
+
+    @objc func doneButtonDidClick(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -106,42 +112,16 @@ extension SuggestionAccountViewController: AuthContextProvider {
     var authContext: AuthContext { viewModel.authContext }
 }
 
-// MARK: - SuggestionAccountTableViewCellDelegate
-extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegate {
-    func suggestionAccountTableViewCell(
-        _ cell: SuggestionAccountTableViewCell,
-        friendshipDidPressed button: UIButton
-    ) {
-        guard let tableViewDiffableDataSource = viewModel.tableViewDiffableDataSource else { return }
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
-        
-        switch item {
-        case .account(let user):
-            Task { @MainActor in
-                do {
-                    try await DataSourceFacade.responseToUserFollowAction(
-                        dependency: self,
-                        user: user
-                    )
-                } catch {
-                    // do noting
-                }
-            }
-        }
-    }
-}
+// MARK: - UserTableViewCellDelegate
+extension SuggestionAccountViewController: UserTableViewCellDelegate {}
 
-extension SuggestionAccountViewController {
-    @objc func doneButtonDidClick(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-}
+// MARK: - SuggestionAccountTableViewCellDelegate
+extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegate { }
+
 
 extension SuggestionAccountViewController: SuggestionAccountTableViewFooterDelegate {
     func followAll(_ footerView: SuggestionAccountTableViewFooter) {
-        // get all five suggested accounts aka user
-        // follow all of them
+        viewModel.followAllSuggestedAccounts(self)
     }
 }
 
