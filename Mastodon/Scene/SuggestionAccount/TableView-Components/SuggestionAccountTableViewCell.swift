@@ -108,8 +108,7 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         
         let metaContent: MetaContent = {
             do {
-                //TODO: Add emojis
-                let mastodonContent = MastodonContent(content: viewModel.user.note ?? "", emojis: [:])
+                let mastodonContent = MastodonContent(content: viewModel.user.note ?? "", emojis: viewModel.user.emojis.asDictionary)
                 return try MastodonMetaContent.convert(document: mastodonContent)
             } catch {
                 assertionFailure()
