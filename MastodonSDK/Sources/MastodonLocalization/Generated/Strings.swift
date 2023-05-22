@@ -1484,6 +1484,8 @@ public enum L10n {
       }
     }
     public enum SuggestionAccount {
+      /// Follow All
+      public static let followAll = L10n.tr("Localizable", "Scene.SuggestionAccount.FollowAll", fallback: "Follow All")
       /// Popular on Mastodon
       public static let title = L10n.tr("Localizable", "Scene.SuggestionAccount.Title", fallback: "Popular on Mastodon")
     }

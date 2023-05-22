@@ -3,6 +3,7 @@
 import UIKit
 import MastodonUI
 import MastodonAsset
+import MastodonLocalization
 
 protocol SuggestionAccountTableViewFooterDelegate: AnyObject {
     func followAll(_ footerView: SuggestionAccountTableViewFooter)
@@ -20,7 +21,7 @@ class SuggestionAccountTableViewFooter: UITableViewHeaderFooterView {
         //TODO: Check if we can use UIButton.configuration here instead?
         followAllButton = FollowButton()
         followAllButton.translatesAutoresizingMaskIntoConstraints = false
-        followAllButton.setTitle("Follow All", for: .normal)
+        followAllButton.setTitle(L10n.Scene.SuggestionAccount.followAll, for: .normal)
         followAllButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
         followAllButton.setTitleColor(.white, for: .normal)
         followAllButton.contentEdgeInsets = .init(horizontal: 20, vertical: 12)

@@ -464,7 +464,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon"
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

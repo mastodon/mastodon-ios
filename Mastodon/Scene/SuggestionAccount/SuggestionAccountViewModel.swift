@@ -47,7 +47,7 @@ final class SuggestionAccountViewModel: NSObject {
                 
         userFetchedResultsController.domain = authContext.mastodonAuthenticationBox.domain
 
-        // fetch recomment users
+        // fetch recommended users
         Task {
             var userIDs: [MastodonUser.ID] = []
             do {

@@ -518,6 +518,7 @@ uploaded to Mastodon.";
 "Scene.Settings.Section.SpicyZone.Title" = "The Spicy Zone";
 "Scene.Settings.Title" = "Settings";
 "Scene.SuggestionAccount.Title" = "Popular on Mastodon";
+"Scene.SuggestionAccount.FollowAll" = "Follow All";
 "Scene.Thread.BackTitle" = "Post";
 "Scene.Thread.Title" = "Post from %@";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
