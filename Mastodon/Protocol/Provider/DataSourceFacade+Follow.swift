@@ -32,7 +32,7 @@ extension DataSourceFacade {
     static func responseToUserFollowRequestAction(
         dependency: NeedsDependency & AuthContextProvider,
         notification: ManagedObjectRecord<Notification>,
-        query: Mastodon.API.Account.FollowReqeustQuery
+        query: Mastodon.API.Account.FollowRequestQuery
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
