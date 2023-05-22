@@ -79,20 +79,43 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         disposeBag.removeAll()
     }
 
-    func configure(user: MastodonUser) {
-        userView.configure(user: user, delegate: delegate)
-        //TODO: Fix Button State
-        userView.setButtonState(.follow)
+    func configure(viewModel: SuggestionAccountTableViewCell.ViewModel) {
+        userView.configure(user: viewModel.user, delegate: delegate)
 
+        Publishers.CombineLatest3(
+            viewModel.followedUsers,
+            viewModel.followRequestedUsers,
+            viewModel.blockedUsers
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] followed, requested, blocked in
+            
+            guard let self else { return }
+            
+            if blocked.contains(viewModel.user.id) {
+                self.userView.setButtonState(.blocked)
+            } else if followed.contains(viewModel.user.id) {
+                self.userView.setButtonState(.unfollow)
+            } else if requested.contains(viewModel.user.id) {
+                self.userView.setButtonState(.pending)
+            } else if viewModel.user.locked {
+                self.userView.setButtonState(.request)
+            } else {
+                self.userView.setButtonState(.follow)
+            }
+        }
+        .store(in: &disposeBag)
+        
         let metaContent: MetaContent = {
             do {
-                let mastodonContent = MastodonContent(content: user.note ?? "", emojis: [:])
+                //TODO: Add emojis
+                let mastodonContent = MastodonContent(content: viewModel.user.note ?? "", emojis: [:])
                 return try MastodonMetaContent.convert(document: mastodonContent)
             } catch {
                 assertionFailure()
-                return PlaintextMetaContent(string: user.note ?? "")
+                return PlaintextMetaContent(string: viewModel.user.note ?? "")
             }
-        } ()
+        }()
 
         bioMetaLabel.configure(content: metaContent)
     }
