@@ -35,12 +35,13 @@ extension RecommendAccountSection {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SuggestionAccountTableViewCell.self)) as! SuggestionAccountTableViewCell
             switch item {
             case .account(let record):
+                cell.delegate = configuration.suggestionAccountTableViewCellDelegate
                 context.managedObjectContext.performAndWait {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
                     cell.configure(user: user)
                 }
                 
-                cell.delegate = configuration.suggestionAccountTableViewCellDelegate
+
             }
             return cell
         }
