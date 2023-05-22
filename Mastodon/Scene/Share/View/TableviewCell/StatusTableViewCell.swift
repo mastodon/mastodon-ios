@@ -15,8 +15,6 @@ import MastodonUI
 final class StatusTableViewCell: UITableViewCell {
     
     static let marginForRegularHorizontalSizeClass: CGFloat = 64
-    
-    let logger = Logger(subsystem: "StatusTableViewCell", category: "View")
         
     weak var delegate: StatusTableViewCellDelegate?
     var disposeBag = Set<AnyCancellable>()
@@ -44,11 +42,6 @@ final class StatusTableViewCell: UITableViewCell {
         super.init(coder: coder)
         _init()
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension StatusTableViewCell {
