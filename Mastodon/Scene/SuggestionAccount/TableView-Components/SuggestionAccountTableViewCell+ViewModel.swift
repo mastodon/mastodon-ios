@@ -8,11 +8,11 @@ extension SuggestionAccountTableViewCell {
     final class ViewModel {
         let user: MastodonUser
 
-        let followedUsers: AnyPublisher<[String], Never>
-        let blockedUsers: AnyPublisher<[String], Never>
-        let followRequestedUsers: AnyPublisher<[String], Never>
+        let followedUsers: [String]
+        let blockedUsers: [String]
+        let followRequestedUsers: [String]
 
-        init(user: MastodonUser, followedUsers: AnyPublisher<[String], Never>, blockedUsers: AnyPublisher<[String], Never>, followRequestedUsers: AnyPublisher<[String], Never>) {
+        init(user: MastodonUser, followedUsers: [String], blockedUsers: [String], followRequestedUsers: [String]) {
             self.user = user
             self.followedUsers = followedUsers
             self.followRequestedUsers = followRequestedUsers

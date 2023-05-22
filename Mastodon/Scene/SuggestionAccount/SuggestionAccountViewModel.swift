@@ -85,7 +85,36 @@ final class SuggestionAccountViewModel: NSObject {
             .store(in: &disposeBag)
     }
 
-    func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider ) {
+    func setupDiffableDataSource(
+        tableView: UITableView,
+        suggestionAccountTableViewCellDelegate: SuggestionAccountTableViewCellDelegate
+    ) {
+        tableViewDiffableDataSource = RecommendAccountSection.tableViewDiffableDataSource(
+            tableView: tableView,
+            context: context,
+            configuration: RecommendAccountSection.Configuration(
+                authContext: authContext,
+                suggestionAccountTableViewCellDelegate: suggestionAccountTableViewCellDelegate
+            )
+        )
+
+        userFetchedResultsController.$records
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] records in
+                guard let self = self else { return }
+                guard let tableViewDiffableDataSource = self.tableViewDiffableDataSource else { return }
+
+                var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, RecommendAccountItem>()
+                snapshot.appendSections([.main])
+                let items: [RecommendAccountItem] = records.map { RecommendAccountItem.account($0) }
+                snapshot.appendItems(items, toSection: .main)
+
+                tableViewDiffableDataSource.applySnapshotUsingReloadData(snapshot)
+            }
+            .store(in: &disposeBag)
+    }
+
+    func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider) {
 
         let userRecords = userFetchedResultsController.records.compactMap {
             $0.object(in: dependency.context.managedObjectContext)?.asRecord

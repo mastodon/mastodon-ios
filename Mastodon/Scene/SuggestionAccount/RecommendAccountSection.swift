@@ -39,14 +39,13 @@ extension RecommendAccountSection {
                 context.managedObjectContext.performAndWait {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
                     cell.configure(viewModel:
-                                    SuggestionAccountTableViewCell.ViewModel(user: user,
-                                                                             followedUsers: configuration.authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
-                                                                             blockedUsers: configuration.authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
-                                                                             followRequestedUsers: configuration.authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher())
+                                    SuggestionAccountTableViewCell.ViewModel(
+                                        user: user,
+                                        followedUsers: configuration.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds,
+                                        blockedUsers: configuration.authContext.mastodonAuthenticationBox.inMemoryCache.blockedUserIds,
+                                        followRequestedUsers: configuration.authContext.mastodonAuthenticationBox.inMemoryCache.followRequestedUserIDs)
                     )
                 }
-                
-
             }
             return cell
         }
