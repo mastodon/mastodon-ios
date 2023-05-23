@@ -14,7 +14,7 @@ import MastodonSDK
 extension APIService {
     
     #if DEBUG
-    private static let clientName = "Skimming"
+    private static let clientName = "Mastodon for iOS (Development)"
     #else
     private static let clientName = "Mastodon for iOS"
     #endif
