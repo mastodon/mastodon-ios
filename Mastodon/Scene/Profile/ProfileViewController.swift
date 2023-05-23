@@ -289,6 +289,12 @@ extension ProfileViewController {
         bindPager()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -374,7 +380,7 @@ extension ProfileViewController {
         profileHeaderViewController.profileHeaderView.viewModel.$name
             .receive(on: DispatchQueue.main)
             .sink { [weak self] name in
-                guard let self = self else { return }
+                guard let self = self, isModal == false else { return }
                 self.navigationItem.title = name
             }
             .store(in: &disposeBag)

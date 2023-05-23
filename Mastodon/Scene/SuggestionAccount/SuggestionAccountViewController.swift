@@ -33,10 +33,6 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
     }()
 
     override func viewDidLoad() {
-
-        setupNavigationBarAppearance()
-        defer { setupNavigationBarBackgroundView() }
-
         super.viewDidLoad()
 
         title = L10n.Scene.SuggestionAccount.title
@@ -63,13 +59,14 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
 
         view.backgroundColor = .secondarySystemBackground
         tableView.backgroundColor = .secondarySystemBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .automatic
+
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
 
@@ -124,5 +121,3 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewFooterDeleg
         viewModel.followAllSuggestedAccounts(self)
     }
 }
-
-extension SuggestionAccountViewController: OnboardingViewControllerAppearance { }
