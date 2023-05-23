@@ -133,6 +133,7 @@ final class SuggestionAccountViewModel: NSObject {
                 }
             })
 
+            delegate?.homeTimelineNeedRefresh.send()
             completion?()
         }
     }

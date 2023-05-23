@@ -77,6 +77,7 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
     //MARK: - Actions
 
     @objc func doneButtonDidClick(_ sender: UIButton) {
+        viewModel.delegate?.homeTimelineNeedRefresh.send()
         dismiss(animated: true, completion: nil)
     }
 }
