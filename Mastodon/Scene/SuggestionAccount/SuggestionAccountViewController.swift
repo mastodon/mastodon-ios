@@ -35,6 +35,10 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupNavigationBarAppearance()
+        defer { setupNavigationBarBackgroundView() }
+
+
         title = L10n.Scene.SuggestionAccount.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: UIBarButtonItem.SystemItem.done,
@@ -121,3 +125,5 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewFooterDeleg
         viewModel.followAllSuggestedAccounts(self)
     }
 }
+
+extension SuggestionAccountViewController: OnboardingViewControllerAppearance { }
