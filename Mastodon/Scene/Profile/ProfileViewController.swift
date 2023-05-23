@@ -380,7 +380,7 @@ extension ProfileViewController {
         profileHeaderViewController.profileHeaderView.viewModel.$name
             .receive(on: DispatchQueue.main)
             .sink { [weak self] name in
-                guard let self = self, isModal == false else { return }
+                guard let self = self, self.isModal == false else { return }
                 self.navigationItem.title = name
             }
             .store(in: &disposeBag)
