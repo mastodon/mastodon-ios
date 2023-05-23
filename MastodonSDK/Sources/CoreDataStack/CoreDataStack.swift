@@ -25,6 +25,7 @@ public final class CoreDataStack {
     public convenience init(databaseName: String = "shared") {
         let storeURL = URL.storeURL(for: AppName.groupID, databaseName: databaseName)
         let storeDescription = NSPersistentStoreDescription(url: storeURL)
+        storeDescription.url = URL(fileURLWithPath: "/dev/null")  /// in-memory store with all features in favor of NSInMemoryStoreType
         self.init(persistentStoreDescriptions: [storeDescription])
     }
     
