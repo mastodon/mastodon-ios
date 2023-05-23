@@ -34,7 +34,10 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         userView = UserView()
+        userView.translatesAutoresizingMaskIntoConstraints = false
+
         bioMetaLabel = MetaLabel()
+        bioMetaLabel.translatesAutoresizingMaskIntoConstraints = false
         bioMetaLabel.numberOfLines = 0
         bioMetaLabel.textAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular)),
@@ -68,6 +71,9 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
             contentStackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: 16),
+
+            userView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
+            bioMetaLabel.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
         ]
 
         NSLayoutConstraint.activate(constraints)
