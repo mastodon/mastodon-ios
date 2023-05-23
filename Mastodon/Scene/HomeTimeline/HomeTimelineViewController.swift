@@ -240,6 +240,19 @@ extension HomeTimelineViewController {
             .sink { [weak self] isEmpty in
                 if isEmpty {
                     self?.showEmptyView()
+
+                    let userDoesntFollowPeople: Bool
+                    if let managedObjectContext = self?.context.managedObjectContext,
+                       let me = self?.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user {
+                        userDoesntFollowPeople = me.followersCount == 0
+                    } else {
+                        userDoesntFollowPeople = true
+                    }
+
+                    if (self?.viewModel.presentedSuggestions == false) && userDoesntFollowPeople {
+                        self?.findPeopleButtonPressed(self)
+                        self?.viewModel.presentedSuggestions = true
+                    }
                 } else {
                     self?.emptyView.removeFromSuperview()
                 }
@@ -285,8 +298,6 @@ extension HomeTimelineViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.viewDidAppear.send()
-
         if let timestamp = viewModel.lastAutomaticFetchTimestamp {
             let now = Date()
             if now.timeIntervalSince(timestamp) > 60 {
@@ -376,7 +387,7 @@ extension HomeTimelineViewController {
 
 extension HomeTimelineViewController {
     
-    @objc private func findPeopleButtonPressed(_ sender: PrimaryActionButton) {
+    @objc private func findPeopleButtonPressed(_ sender: Any?) {
         let suggestionAccountViewModel = SuggestionAccountViewModel(context: context, authContext: viewModel.authContext)
         suggestionAccountViewModel.delegate = viewModel
         _ = coordinator.present(
