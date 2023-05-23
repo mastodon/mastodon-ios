@@ -257,7 +257,7 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
+            "no_verified_link": "Enginn sannreyndur tengill",
             "followers_count": "%@ fylgjendur"
         }
     },
@@ -876,12 +876,12 @@
         "hashtag": {
             "configuration": {
                 "display_name": "Myllumerki",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Birtir nýlega færslu með valda myllumerkinu."
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "Því miður, engar færslur fundust með myllumerkinu <a>#%@</a>. Prófaðu <a>#AnnaðMyllumerki</a> eða skoðaðu stillingar viðmótshlutans."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
