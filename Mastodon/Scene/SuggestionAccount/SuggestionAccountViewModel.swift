@@ -114,20 +114,26 @@ final class SuggestionAccountViewModel: NSObject {
             .store(in: &disposeBag)
     }
 
-    func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider) {
+    func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider, completion: (() -> Void)? = nil) {
 
         let userRecords = userFetchedResultsController.records.compactMap {
             $0.object(in: dependency.context.managedObjectContext)?.asRecord
         }
 
-        userRecords.forEach { user in
-            Task {
-                try? await DataSourceFacade.responseToUserViewButtonAction(
-                    dependency: dependency,
-                    user: user,
-                    buttonState: .follow
-                )
-            }
+        Task {
+            await withTaskGroup(of: Void.self, body: { taskGroup in
+                for user in userRecords {
+                    taskGroup.addTask {
+                        try? await DataSourceFacade.responseToUserViewButtonAction(
+                            dependency: dependency,
+                            user: user,
+                            buttonState: .follow
+                        )
+                    }
+                }
+            })
+
+            completion?()
         }
     }
 }
