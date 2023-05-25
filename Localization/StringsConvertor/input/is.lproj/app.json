@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Vinsælt á Mastodon",
+            "follow_all": "Fylgjast með öllum"
         },
         "compose": {
             "title": {
