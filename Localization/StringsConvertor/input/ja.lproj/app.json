@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "フォローする人を探す",
-            "follow_explain": "誰かをフォローすると、その人の投稿がタイムラインに表示されるようになります。"
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
