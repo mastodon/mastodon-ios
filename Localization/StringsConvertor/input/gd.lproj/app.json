@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Lorg daoine a leanas tu",
-            "follow_explain": "Nuair a leanas tu cuideigin, chì thu na puist aca air inbhir na dachaigh agad."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
