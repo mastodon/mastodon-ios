@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Af imdanen ara tḍefreḍ",
-            "follow_explain": "Mi ara teṭṭafareḍ albaɛḍ, ad twaliḍ tisuffaɣ-is deg usuddem-inek agejdan."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
