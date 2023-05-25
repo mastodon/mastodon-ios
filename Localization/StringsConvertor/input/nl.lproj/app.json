@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Zoek mensen om te volgen",
-            "follow_explain": "Wanneer je iemand volgt, zie je hun berichten op jouw starttijdlijn."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
