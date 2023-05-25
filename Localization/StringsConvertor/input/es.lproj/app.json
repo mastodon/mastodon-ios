@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Encuentra Gente a la que Seguir",
-            "follow_explain": "Cuando sigas a alguien verás sus publicaciones en tu página de inicio."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
