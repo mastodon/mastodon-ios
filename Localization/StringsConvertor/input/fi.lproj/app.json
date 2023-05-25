@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Löydä tilejä seurattavaksi",
-            "follow_explain": "Kun seuraat jotakuta, näet hänen julkaisunsa kotisyötteessäsi."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
