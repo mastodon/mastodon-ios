@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Najít lidi pro sledování",
-            "follow_explain": "Když někoho sledujete, uvidíte jejich příspěvky ve vašem domovském kanálu."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
