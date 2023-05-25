@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Takip Edecek İnsanlar Bul",
-            "follow_explain": "Birisini takip ettiğinizde, ana sayfanızda o kişinin gönderilerini görürsünüz."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
