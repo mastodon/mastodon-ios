@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Hitta personer att följa",
-            "follow_explain": "När du följer någon, kommer du att se deras inlägg i ditt hemflöde."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
