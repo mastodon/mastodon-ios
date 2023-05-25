@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "خەڵک بدۆزەوە",
-            "follow_explain": "کاتێک شوێنی یەکێک دەکەویت، پۆستەکانی دێتە بەردەمت."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
