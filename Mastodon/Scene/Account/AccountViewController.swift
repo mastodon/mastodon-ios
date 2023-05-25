@@ -69,8 +69,7 @@ extension AccountListViewController: PanModalPresentable {
             return .contentHeight(CGFloat(height))
         }
         
-        let request = MastodonAuthentication.sortedFetchRequest
-        let authenticationCount = (try? context.managedObjectContext.count(for: request)) ?? 0
+        let authenticationCount = AuthenticationServiceProvider.shared.authentications.count
         
         let count = authenticationCount + 1
         let height = calculateHeight(of: count)
@@ -177,9 +176,8 @@ extension AccountListViewController: UITableViewDelegate {
         switch item {
         case .authentication(let record):
             assert(Thread.isMainThread)
-            guard let authentication = record.object(in: context.managedObjectContext) else { return }
             Task { @MainActor in
-                let isActive = try await context.authenticationService.activeMastodonUser(domain: authentication.domain, userID: authentication.userID)
+                let isActive = try await context.authenticationService.activeMastodonUser(domain: record.domain, userID: record.userID)
                 guard isActive else { return }
                 self.coordinator.setup()
             }   // end Task

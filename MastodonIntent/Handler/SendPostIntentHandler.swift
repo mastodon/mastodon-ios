@@ -50,9 +50,8 @@ extension SendPostIntentHandler: SendPostIntentHandling {
             let mastodonAuthentications: [MastodonAuthentication]
             let accounts = intent.accounts ?? []
             if accounts.isEmpty {
-                let request = MastodonAuthentication.sortedFetchRequest
-                let authentications = try managedObjectContext.fetch(request)
-                let _authentication = authentications.sorted(by: { $0.activedAt > $1.activedAt }).first
+                // fixme: refactor this and implemented method on AuthenticationServiceProvider
+                let _authentication = AuthenticationServiceProvider.shared.authentications.sorted(by: { $0.activedAt > $1.activedAt }).first
     
                 guard let authentication = _authentication else {
                     let failureReason = APIService.APIError.implicit(.authenticationMissing).errorDescription ?? "Fail to Send Post"
@@ -65,12 +64,12 @@ extension SendPostIntentHandler: SendPostIntentHandling {
 
             let authenticationBoxes = mastodonAuthentications.map { authentication in
                 MastodonAuthenticationBox(
-                    authenticationRecord: .init(objectID: authentication.objectID),
+                    authentication: authentication,
                     domain: authentication.domain,
                     userID: authentication.userID,
                     appAuthorization: .init(accessToken: authentication.appAccessToken),
                     userAuthorization: .init(accessToken: authentication.userAccessToken),
-                    inMemoryCache: .sharedCache(for: authentication.objectID.description)
+                    inMemoryCache: .sharedCache(for: authentication.userAccessToken)
                 )
             }
             

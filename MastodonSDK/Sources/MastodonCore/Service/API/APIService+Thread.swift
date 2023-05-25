@@ -30,7 +30,7 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
+            let me = authenticationBox.authentication.user(in: managedObjectContext)
             let value = response.value.ancestors + response.value.descendants
             
             for entity in value {

@@ -31,12 +31,15 @@ extension APIService {
         
         // update like state and retrieve like context
         let favoriteContext: MastodonFavoriteContext = try await managedObjectContext.performChanges {
-            guard let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext),
-                  let _status = record.object(in: managedObjectContext)
+            let authentication = authenticationBox.authentication
+            
+            guard
+                let _status = record.object(in: managedObjectContext),
+                let me = authentication.user(in: managedObjectContext)
             else {
                 throw APIError.implicit(.badRequest)
             }
-            let me = authentication.user
+
             let status = _status.reblog ?? _status
             let isFavorited = status.favouritedBy.contains(me)
             let favoritedCount = status.favouritesCount
@@ -70,10 +73,13 @@ extension APIService {
         
         // update like state
         try await managedObjectContext.performChanges {
-            guard let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext),
-                  let _status = record.object(in: managedObjectContext)
+            let authentication = authenticationBox.authentication
+            
+            guard
+                let _status = record.object(in: managedObjectContext),
+                let me = authentication.user(in: managedObjectContext)
             else { return }
-            let me = authentication.user
+
             let status = _status.reblog ?? _status
             
             switch result {
@@ -124,7 +130,7 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else {
+            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else {
                 assertionFailure()
                 return
             }

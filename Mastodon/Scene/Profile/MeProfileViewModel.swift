@@ -16,7 +16,7 @@ import MastodonSDK
 final class MeProfileViewModel: ProfileViewModel {
     
     init(context: AppContext, authContext: AuthContext) {
-        let user = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
+        let user = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
         super.init(
             context: context,
             authContext: authContext,

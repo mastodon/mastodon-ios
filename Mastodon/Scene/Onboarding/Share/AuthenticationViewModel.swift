@@ -199,41 +199,26 @@ extension AuthenticationViewModel {
             domain: info.domain,
             authorization: authorization
         )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
+        .tryMap { response -> Mastodon.Response.Content<Mastodon.Entity.Account> in
             let account = response.value
             let mastodonUserRequest = MastodonUser.sortedFetchRequest
             mastodonUserRequest.predicate = MastodonUser.predicate(domain: info.domain, id: account.id)
             mastodonUserRequest.fetchLimit = 1
             guard let mastodonUser = try? managedObjectContext.fetch(mastodonUserRequest).first else {
-                return Fail(error: AuthenticationError.badCredentials).eraseToAnyPublisher()
+                throw AuthenticationError.badCredentials
             }
+                        
+            AuthenticationServiceProvider.shared
+                .authentications
+                .insert(MastodonAuthentication.createFrom(domain: info.domain,
+                                                          userID: mastodonUser.id,
+                                                          username: mastodonUser.username,
+                                                          appAccessToken: userToken.accessToken,  // TODO: swap app token
+                                                          userAccessToken: userToken.accessToken,
+                                                          clientID: info.clientID,
+                                                          clientSecret: info.clientSecret), at: 0)
             
-            let property = MastodonAuthentication.Property(
-                domain: info.domain,
-                userID: mastodonUser.id,
-                username: mastodonUser.username,
-                appAccessToken: userToken.accessToken,  // TODO: swap app token
-                userAccessToken: userToken.accessToken,
-                clientID: info.clientID,
-                clientSecret: info.clientSecret
-            )
-            return managedObjectContext.performChanges {
-                _ = APIService.CoreData.createOrMergeMastodonAuthentication(
-                    into: managedObjectContext,
-                    for: mastodonUser,
-                    in: info.domain,
-                    property: property,
-                    networkDate: response.networkDate
-                )
-            }
-            .setFailureType(to: Error.self)
-            .tryMap { result in
-                switch result {
-                case .failure(let error):   throw error
-                case .success:              return response
-                }
-            }
-            .eraseToAnyPublisher()
+            return response
         }
         .eraseToAnyPublisher()
     }

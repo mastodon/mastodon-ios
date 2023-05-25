@@ -29,11 +29,13 @@ extension APIService {
         
         // update repost state and retrieve repost context
         let _reblogContext: MastodonReblogContext? = try await managedObjectContext.performChanges {
-            guard let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext),
-                  let _status = record.object(in: managedObjectContext)
+            let authentication = authenticationBox.authentication
+            
+            guard
+                let me = authentication.user(in: managedObjectContext),
+                let _status = record.object(in: managedObjectContext)
             else { return nil }
             
-            let me = authentication.user
             let status = _status.reblog ?? _status
             let isReblogged = status.rebloggedBy.contains(me)
             let rebloggedCount = status.reblogsCount
@@ -70,10 +72,13 @@ extension APIService {
         
         // update repost state
         try await managedObjectContext.performChanges {
-            guard let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext),
-                  let _status = record.object(in: managedObjectContext)
+            let authentication = authenticationBox.authentication
+            
+            guard
+                let me = authentication.user(in: managedObjectContext),
+                let _status = record.object(in: managedObjectContext)
             else { return }
-            let me = authentication.user
+            
             let status = _status.reblog ?? _status
             
             switch result {

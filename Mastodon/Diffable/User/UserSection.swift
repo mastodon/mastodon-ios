@@ -83,7 +83,7 @@ extension UserSection {
         configuration: Configuration
     ) {
         cell.configure(
-            me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
+            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

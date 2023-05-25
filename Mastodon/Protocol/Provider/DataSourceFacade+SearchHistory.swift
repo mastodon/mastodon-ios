@@ -23,7 +23,7 @@ extension DataSourceFacade {
             let managedObjectContext = provider.context.backgroundManagedObjectContext
             
             try? await managedObjectContext.performChanges {
-                guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+                guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
                 guard let user = record.object(in: managedObjectContext) else { return }
                 _ = Persistence.SearchHistory.createOrMerge(
                     in: managedObjectContext,
@@ -41,7 +41,7 @@ extension DataSourceFacade {
             switch tag {
             case .entity(let entity):
                 try? await managedObjectContext.performChanges {
-                    guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+                    guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
                     
                     let now = Date()
                     
@@ -67,7 +67,7 @@ extension DataSourceFacade {
             case .record(let record):
                 try? await managedObjectContext.performChanges {
                     let authenticationBox = provider.authContext.mastodonAuthenticationBox
-                    guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+                    guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
                     guard let tag = record.object(in: managedObjectContext) else { return }
                     
                     let now = Date()
@@ -98,7 +98,7 @@ extension DataSourceFacade {
         let managedObjectContext = provider.context.backgroundManagedObjectContext
         
         try await managedObjectContext.performChanges {
-            guard let _ = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+            guard let _ = authenticationBox.authentication.user(in: managedObjectContext) else { return }
             let request = SearchHistory.sortedFetchRequest
             request.predicate = SearchHistory.predicate(
                 domain: authenticationBox.domain,

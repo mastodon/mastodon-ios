@@ -309,7 +309,6 @@
 		DB63F777279A9A2A00455B82 /* NotificationView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F776279A9A2A00455B82 /* NotificationView+Configuration.swift */; };
 		DB63F779279ABF9C00455B82 /* DataSourceFacade+Reblog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F778279ABF9C00455B82 /* DataSourceFacade+Reblog.swift */; };
 		DB63F77B279ACAE500455B82 /* DataSourceFacade+Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F77A279ACAE500455B82 /* DataSourceFacade+Favorite.swift */; };
-		DB64BA452851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */; };
 		DB64BA482851F29300ADF1B7 /* Account+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */; };
 		DB65C63727A2AF6C008BAC2E /* ReportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65C63627A2AF6C008BAC2E /* ReportItem.swift */; };
 		DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EA278ED8B0008A6B94 /* PollOptionView+Configuration.swift */; };
@@ -997,7 +996,6 @@
 		DB63F776279A9A2A00455B82 /* NotificationView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationView+Configuration.swift"; sourceTree = "<group>"; };
 		DB63F778279ABF9C00455B82 /* DataSourceFacade+Reblog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Reblog.swift"; sourceTree = "<group>"; };
 		DB63F77A279ACAE500455B82 /* DataSourceFacade+Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Favorite.swift"; sourceTree = "<group>"; };
-		DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonAuthentication+Fetch.swift"; sourceTree = "<group>"; };
 		DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+Fetch.swift"; sourceTree = "<group>"; };
 		DB65C63627A2AF6C008BAC2E /* ReportItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportItem.swift; sourceTree = "<group>"; };
 		DB6746EA278ED8B0008A6B94 /* PollOptionView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PollOptionView+Configuration.swift"; sourceTree = "<group>"; };
@@ -2302,7 +2300,6 @@
 		DB64BA462851F23300ADF1B7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */,
 				DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */,
 			);
 			path = Model;
@@ -3949,7 +3946,6 @@
 				DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */,
 				2AB5011D299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
 				2AE202AC297FE19100F66E55 /* FollowersCountIntentHandler.swift in Sources */,
-				DB64BA452851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift in Sources */,
 				DB64BA482851F29300ADF1B7 /* Account+Fetch.swift in Sources */,
 				D8F0372C29D232730027DE2E /* HashtagIntentHandler.swift in Sources */,
 				2A86A14629892944007F1062 /* MultiFollowersCountIntentHandler.swift in Sources */,

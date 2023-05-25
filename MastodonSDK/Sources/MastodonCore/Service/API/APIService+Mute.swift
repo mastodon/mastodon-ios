@@ -68,13 +68,15 @@ extension APIService {
         
         let managedObjectContext = backgroundManagedObjectContext
         let muteContext: MastodonMuteContext = try await managedObjectContext.performChanges {
-            guard let user = user.object(in: managedObjectContext),
-                  let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext)
+            let authentication = authenticationBox.authentication
+
+            guard
+                let user = user.object(in: managedObjectContext),
+                let me = authentication.user(in: managedObjectContext)
             else {
                 throw APIError.implicit(.badRequest)
             }
             
-            let me = authentication.user
             let isMuting = user.mutingBy.contains(me)
             
             // toggle mute state
@@ -116,9 +118,8 @@ extension APIService {
         
         try await managedObjectContext.performChanges {
             guard let user = user.object(in: managedObjectContext),
-                  let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext)
+                  let me = authenticationBox.authentication.user(in: managedObjectContext)
             else { return }
-            let me = authentication.user
             
             switch result {
             case .success(let response):

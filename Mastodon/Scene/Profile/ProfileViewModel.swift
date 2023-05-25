@@ -85,7 +85,7 @@ class ProfileViewModel: NSObject {
         super.init()
         
         // bind me
-        self.me = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
+        self.me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
         $me
             .assign(to: \.me, on: relationshipViewModel)
             .store(in: &disposeBag)

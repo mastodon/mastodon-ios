@@ -38,7 +38,7 @@ extension APIService {
         
         let managedObjectContext = backgroundManagedObjectContext
         let _followContext: MastodonFollowContext? = try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return nil }
+            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return nil }
             guard let user = user.object(in: managedObjectContext) else { return nil }
             
             let isFollowing = user.followingBy.contains(me)
@@ -94,7 +94,7 @@ extension APIService {
         
         // update friendship state
         try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user,
+            guard let me = authenticationBox.authentication.user(in: managedObjectContext),
                   let user = user.object(in: managedObjectContext)
             else { return }
             
@@ -129,10 +129,9 @@ extension APIService {
 
         let managedObjectContext = backgroundManagedObjectContext
         guard let user = user.object(in: managedObjectContext),
-              let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext)
+              let me = authenticationBox.authentication.user(in: managedObjectContext)
         else { throw APIError.implicit(.badRequest) }
 
-        let me = authentication.user
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
 
         let oldShowReblogs = me.showingReblogsBy.contains(user)
@@ -153,7 +152,7 @@ extension APIService {
         }
 
         try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
 
             switch result {
                 case .success(let response):

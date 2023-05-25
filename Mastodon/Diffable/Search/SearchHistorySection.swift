@@ -31,7 +31,7 @@ extension SearchHistorySection {
             context.managedObjectContext.performAndWait {
                 guard let user = item.object(in: context.managedObjectContext) else { return }
                 cell.configure(
-                    me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
+                    me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
                     viewModel: SearchHistoryUserCollectionViewCell.ViewModel(
                         value: user,
                         followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),

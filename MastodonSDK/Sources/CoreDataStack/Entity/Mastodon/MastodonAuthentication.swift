@@ -8,7 +8,8 @@
 import Foundation
 import CoreData
 
-final public class MastodonAuthentication: NSManagedObject {
+@objc(MastodonAuthentication)
+final public class MastodonAuthenticationLegacy: NSManagedObject {
     
     public typealias ID = UUID
     
@@ -35,16 +36,16 @@ final public class MastodonAuthentication: NSManagedObject {
     
 }
 
-extension MastodonAuthentication {
+extension MastodonAuthenticationLegacy {
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         
-        setPrimitiveValue(UUID(), forKey: #keyPath(MastodonAuthentication.identifier))
+        setPrimitiveValue(UUID(), forKey: #keyPath(MastodonAuthenticationLegacy.identifier))
         let now = Date()
-        setPrimitiveValue(now, forKey: #keyPath(MastodonAuthentication.createdAt))
-        setPrimitiveValue(now, forKey: #keyPath(MastodonAuthentication.updatedAt))
-        setPrimitiveValue(now, forKey: #keyPath(MastodonAuthentication.activedAt))
+        setPrimitiveValue(now, forKey: #keyPath(MastodonAuthenticationLegacy.createdAt))
+        setPrimitiveValue(now, forKey: #keyPath(MastodonAuthenticationLegacy.updatedAt))
+        setPrimitiveValue(now, forKey: #keyPath(MastodonAuthenticationLegacy.activedAt))
     }
     
     @discardableResult
@@ -52,8 +53,8 @@ extension MastodonAuthentication {
         into context: NSManagedObjectContext,
         property: Property,
         user: MastodonUser
-    ) -> MastodonAuthentication {
-        let authentication: MastodonAuthentication = context.insertObject()
+    ) -> MastodonAuthenticationLegacy {
+        let authentication: MastodonAuthenticationLegacy = context.insertObject()
         
         authentication.domain = property.domain
         authentication.userID = property.userID
@@ -112,7 +113,7 @@ extension MastodonAuthentication {
     
 }
 
-extension MastodonAuthentication {
+extension MastodonAuthenticationLegacy {
     public struct Property {
         
         public let domain: String
@@ -144,51 +145,51 @@ extension MastodonAuthentication {
     }
 }
 
-extension MastodonAuthentication: Managed {
+extension MastodonAuthenticationLegacy: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \MastodonAuthentication.createdAt, ascending: false)]
+        return [NSSortDescriptor(keyPath: \MastodonAuthenticationLegacy.createdAt, ascending: false)]
     }
     
     public static var activeSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \MastodonAuthentication.activedAt, ascending: false)]
+        return [NSSortDescriptor(keyPath: \MastodonAuthenticationLegacy.activedAt, ascending: false)]
     }
 }
 
-extension MastodonAuthentication {
-    public static var activeSortedFetchRequest: NSFetchRequest<MastodonAuthentication> {
-        let request = NSFetchRequest<MastodonAuthentication>(entityName: entityName)
+extension MastodonAuthenticationLegacy {
+    public static var activeSortedFetchRequest: NSFetchRequest<MastodonAuthenticationLegacy> {
+        let request = NSFetchRequest<MastodonAuthenticationLegacy>(entityName: entityName)
         request.sortDescriptors = activeSortDescriptors
         return request
     }
 }
 
-extension MastodonAuthentication {
+extension MastodonAuthenticationLegacy {
     
     public static func predicate(domain: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.domain), domain)
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthenticationLegacy.domain), domain)
     }
     
     static func predicate(userID: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.userID), userID)
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthenticationLegacy.userID), userID)
     }
     
     public static func predicate(domain: String, userID: String) -> NSPredicate {
         return NSCompoundPredicate(andPredicateWithSubpredicates: [
-            MastodonAuthentication.predicate(domain: domain),
-            MastodonAuthentication.predicate(userID: userID)
+            MastodonAuthenticationLegacy.predicate(domain: domain),
+            MastodonAuthenticationLegacy.predicate(userID: userID)
         ])
     }
     
     public static func predicate(userAccessToken: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.userAccessToken), userAccessToken)
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthenticationLegacy.userAccessToken), userAccessToken)
     }
     
     public static func predicate(identifier: UUID) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.identifier), identifier as NSUUID)
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthenticationLegacy.identifier), identifier as NSUUID)
     }
     
     public static func predicate(identifiers: [UUID]) -> NSPredicate {
-        return NSPredicate(format: "%K IN %@", #keyPath(MastodonAuthentication.identifier), identifiers as [NSUUID])
+        return NSPredicate(format: "%K IN %@", #keyPath(MastodonAuthenticationLegacy.identifier), identifiers as [NSUUID])
     }
     
 }

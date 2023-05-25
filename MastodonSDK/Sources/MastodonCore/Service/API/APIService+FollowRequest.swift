@@ -36,7 +36,7 @@ extension APIService {
             )
             request.fetchLimit = 1
             guard let user = managedObjectContext.safeFetch(request).first else { return }
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
             
             Persistence.MastodonUser.update(
                 mastodonUser: user,

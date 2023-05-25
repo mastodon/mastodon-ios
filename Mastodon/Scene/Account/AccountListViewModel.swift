@@ -22,10 +22,8 @@ final class AccountListViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let mastodonAuthenticationFetchedResultsController: NSFetchedResultsController<MastodonAuthentication>
 
     // output
-    @Published var authentications: [ManagedObjectRecord<MastodonAuthentication>] = []
     @Published var items: [Item] = []
     
     let dataSourceDidUpdate = PassthroughSubject<Void, Never>()
@@ -34,30 +32,11 @@ final class AccountListViewModel: NSObject {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.mastodonAuthenticationFetchedResultsController = {
-            let fetchRequest = MastodonAuthentication.sortedFetchRequest
-            fetchRequest.returnsObjectsAsFaults = false
-            fetchRequest.fetchBatchSize = 20
-            let controller = NSFetchedResultsController(
-                fetchRequest: fetchRequest,
-                managedObjectContext: context.managedObjectContext,
-                sectionNameKeyPath: nil,
-                cacheName: nil
-            )
-            return controller
-        }()
+
         super.init()
         // end init
-        
-        mastodonAuthenticationFetchedResultsController.delegate = self
-        do {
-            try mastodonAuthenticationFetchedResultsController.performFetch()
-            authentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?.compactMap { $0.asRecord } ?? []
-        } catch {
-            assertionFailure(error.localizedDescription)
-        }
 
-        $authentications
+        AuthenticationServiceProvider.shared.$authentications
             .receive(on: DispatchQueue.main)
             .sink { [weak self] authentications in
                 guard let self = self else { return }
@@ -86,7 +65,7 @@ extension AccountListViewModel {
     }
 
     enum Item: Hashable {
-        case authentication(record: ManagedObjectRecord<MastodonAuthentication>)
+        case authentication(record: MastodonAuthentication)
         case addAccount
     }
 
@@ -98,12 +77,12 @@ extension AccountListViewModel {
             switch item {
             case .authentication(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountListTableViewCell.self), for: indexPath) as! AccountListTableViewCell
-                if let authentication = record.object(in: managedObjectContext),
-                   let activeAuthentication = self.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)
+                if let activeAuthentication = AuthenticationServiceProvider.shared.authentications.first
                 {
                     AccountListViewModel.configure(
+                        in: managedObjectContext,
                         cell: cell,
-                        authentication: authentication,
+                        authentication: record,
                         activeAuthentication: activeAuthentication
                     )
                 }
@@ -120,11 +99,12 @@ extension AccountListViewModel {
     }
 
     static func configure(
+        in context: NSManagedObjectContext,
         cell: AccountListTableViewCell,
         authentication: MastodonAuthentication,
         activeAuthentication: MastodonAuthentication
     ) {
-        let user = authentication.user
+        guard let user = authentication.user(in: context) else { return }
         
         // avatar
         cell.avatarButton.avatarImageView.configure(
@@ -168,22 +148,4 @@ extension AccountListViewModel {
         .compactMap { $0 }
         .joined(separator: ", ")
     }
-}
-
-// MARK: - NSFetchedResultsControllerDelegate
-extension AccountListViewModel: NSFetchedResultsControllerDelegate {
-    
-    public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
-    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        guard controller === mastodonAuthenticationFetchedResultsController else {
-            assertionFailure()
-            return
-        }
-        
-        authentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?.compactMap { $0.asRecord } ?? []
-    }
-    
 }

@@ -69,12 +69,15 @@ extension APIService {
         
         let managedObjectContext = backgroundManagedObjectContext
         let blockContext: MastodonBlockContext = try await managedObjectContext.performChanges {
-            guard let user = user.object(in: managedObjectContext),
-                  let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext)
+            let authentication = authenticationBox.authentication
+            
+            guard
+                let user = user.object(in: managedObjectContext),
+                let me = authentication.user(in: managedObjectContext)
             else {
                 throw APIError.implicit(.badRequest)
             }
-            let me = authentication.user
+
             let isBlocking = user.blockingBy.contains(me)
             let isFollowing = user.followingBy.contains(me)
             // toggle block state
@@ -119,10 +122,13 @@ extension APIService {
         }
         
         try await managedObjectContext.performChanges {
-            guard let user = user.object(in: managedObjectContext),
-                  let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext)
+            let authentication = authenticationBox.authentication
+            
+            guard
+                let user = user.object(in: managedObjectContext),
+                let me = authentication.user(in: managedObjectContext)
             else { return }
-            let me = authentication.user
+            
             
             switch result {
             case .success(let response):

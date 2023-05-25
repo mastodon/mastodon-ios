@@ -29,12 +29,15 @@ extension APIService {
         
         // update bookmark state and retrieve bookmark context
         let bookmarkContext: MastodonBookmarkContext = try await managedObjectContext.performChanges {
-            guard let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext),
-                  let _status = record.object(in: managedObjectContext)
+            let authentication = authenticationBox.authentication
+            
+            guard
+                let _status = record.object(in: managedObjectContext),
+                let me = authentication.user(in: managedObjectContext)
             else {
                 throw APIError.implicit(.badRequest)
             }
-            let me = authentication.user
+
             let status = _status.reblog ?? _status
             let isBookmarked = status.bookmarkedBy.contains(me)
             status.update(bookmarked: !isBookmarked, by: me)
@@ -64,10 +67,13 @@ extension APIService {
         
         // update bookmark state
         try await managedObjectContext.performChanges {
-            guard let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext),
-                  let _status = record.object(in: managedObjectContext)
+            let authentication = authenticationBox.authentication
+            
+            guard
+                let _status = record.object(in: managedObjectContext),
+                let me = authentication.user(in: managedObjectContext)
             else { return }
-            let me = authentication.user
+            
             let status = _status.reblog ?? _status
             
             switch result {
@@ -114,7 +120,10 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else {
+            
+            guard
+                let me = authenticationBox.authentication.user(in: managedObjectContext)
+            else {
                 assertionFailure()
                 return
             }

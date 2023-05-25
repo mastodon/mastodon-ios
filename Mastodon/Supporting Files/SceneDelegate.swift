@@ -214,11 +214,8 @@ extension SceneDelegate {
                 assertionFailure()
                 return false
             }
-            let request = MastodonAuthentication.sortedFetchRequest
-            request.predicate = MastodonAuthentication.predicate(userAccessToken: accessToken)
-            request.fetchLimit = 1
-
-            guard let authentication = try? coordinator.appContext.managedObjectContext.fetch(request).first else {
+            
+            guard let authentication = AuthenticationServiceProvider.shared.getAuthentication(matching: accessToken) else {
                 assertionFailure()
                 return false
             }

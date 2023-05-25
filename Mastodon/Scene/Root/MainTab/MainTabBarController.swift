@@ -292,7 +292,7 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
         
-        if let user = authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user {
+        if let user = authContext?.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) {
             self.avatarURLObserver = user.publisher(for: \.avatar)
                 .sink { [weak self, weak user] _ in
                     guard let self = self else { return }
@@ -486,9 +486,9 @@ extension MainTabBarController {
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
             
-            if let user = authContext.mastodonAuthenticationBox.authenticationRecord.object(
+            if let user = authContext.mastodonAuthenticationBox.authentication.user(
                 in: context.managedObjectContext
-            )?.user {
+            ) {
                 user.update(
                     property: .init(
                         entity: profileResponse.value,

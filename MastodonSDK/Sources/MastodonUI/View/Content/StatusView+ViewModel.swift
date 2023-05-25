@@ -691,9 +691,8 @@ extension StatusView.ViewModel {
                 
                 var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
                 context.managedObjectContext.performAndWait {
-                    guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
-                    else { return }
-                    configuration = authentication.instance?.configurationV2
+                    let authentication = authContext.mastodonAuthenticationBox.authentication
+                    configuration = authentication.instance(in: context.managedObjectContext)?.configurationV2
                 }
                 return configuration
             }()

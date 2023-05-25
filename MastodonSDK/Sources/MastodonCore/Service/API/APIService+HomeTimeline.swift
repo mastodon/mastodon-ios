@@ -40,7 +40,7 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else {
+            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else {
                 assertionFailure()  
                 return
             }
