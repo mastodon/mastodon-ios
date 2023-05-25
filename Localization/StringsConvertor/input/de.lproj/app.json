@@ -257,7 +257,7 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
+            "no_verified_link": "Kein bestätigter Link",
             "followers_count": "%@ followers"
         }
     },
@@ -363,7 +363,7 @@
                 "username": {
                     "placeholder": "Benutzername",
                     "duplicate_prompt": "Dieser Benutzername ist vergeben.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "%@_ist_super"
                 },
                 "display_name": {
                     "placeholder": "Anzeigename"
@@ -426,7 +426,7 @@
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "Überprüfe deinen Posteingang",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Bitte klicke auf den Link, den wir an %@ geschickt haben, um dich zu verifizieren. Wir warten bis dahin einfach hier.",
             "button": {
                 "resend": "Erneut senden"
@@ -493,7 +493,7 @@
                 "server_processing_state": "Serververarbeitung …"
             },
             "poll": {
-                "title": "Poll",
+                "title": "Umfrage",
                 "duration_time": "Dauer: %s",
                 "thirty_minutes": "30 Minuten",
                 "one_hour": "1 Stunde",
@@ -506,8 +506,8 @@
                 "the_poll_has_empty_option": "Die Umfrage hat eine leere Option",
                 "add_option": "Add Option",
                 "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "move_up": "Nach oben",
+                "move_down": "Nach unten"
             },
             "content_warning": {
                 "placeholder": "Hier eine Inhaltswarnung schreiben …"
@@ -541,9 +541,9 @@
                 "select_visibility_entry": "Sichtbarkeit auswählen - %s"
             },
             "language": {
-                "title": "Post Language",
+                "title": "Beitragssprache",
                 "suggested": "Suggested",
-                "recent": "Recent",
+                "recent": "Kürzlich",
                 "other": "Andere Sprache…"
             }
         },
@@ -850,7 +850,7 @@
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "unsupported_widget_family": "Entschuldigung, aber diese Widget-Größe wird nicht unterstützt.",
             "user_not_logged_in": "Bitte öffne Mastodon und melde dich mit einem Konto an."
         },
         "followers_count": {

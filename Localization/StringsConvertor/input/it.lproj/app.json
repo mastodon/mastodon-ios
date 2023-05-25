@@ -273,11 +273,11 @@
             "education": {
                 "mastodon": {
                     "title": "Benvenuto/a su Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "description": "Mastodon è un social network decentralizzato, il che significa che nessuna singola azienda lo controlla. È composto da molti server indipendenti che comunicano tra loro."
                 },
                 "servers": {
                     "title": "Cosa sono i server?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "description": "Ogni account Mastodon è ospitato su un server — ognuno con i propri valori, regole, e amministratori. Non importa quale scegliere, è possibile seguire e interagire con persone su altri server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
