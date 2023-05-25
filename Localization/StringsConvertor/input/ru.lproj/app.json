@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Подпишитесь на людей",
-            "follow_explain": "Посты людей, на которых вы подписались, будут видны на главной странице."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
