@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Poiščite osebe, ki jim želite slediti",
-            "follow_explain": "Ko nekomu sledite, vidite njihove objave v svojem domačem viru."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
