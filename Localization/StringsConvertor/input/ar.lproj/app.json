@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "ابحث عن أشخاص لمتابعتهم",
-            "follow_explain": "عِندَ مُتابَعَتِكَ لأحدِهِم، سَوف تَرى مَنشوراته في تغذيَتِكَ الرئيسة."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
