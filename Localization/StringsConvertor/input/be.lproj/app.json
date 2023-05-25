@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Знайсці людзей, каб падпісацца",
-            "follow_explain": "Калі вы падпішацеся на кагосьці, вы ўбачыце яго допісы ў сваёй хатняй стужцы."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
