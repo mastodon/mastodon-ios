@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Trova alcune persone da seguire",
-            "follow_explain": "Quando segui qualcuno, vedrai i loro post nella tua home feed."
+            "title": "Popolare su Mastodon",
+            "follow_all": "Segui tutti"
         },
         "compose": {
             "title": {
