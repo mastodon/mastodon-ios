@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Temukan Orang untuk Diikuti",
-            "follow_explain": "Ketika Anda mengikuti seseorang, Anda akan melihat postingan mereka di beranda Anda."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
