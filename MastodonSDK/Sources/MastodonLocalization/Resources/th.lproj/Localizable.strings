@@ -181,8 +181,8 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "กำลังโหลดโพสต์ที่ขาดหายไป...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "แสดงการตอบกลับเพิ่มเติม";
 "Common.Controls.Timeline.Timestamp.Now" = "ตอนนี้";
-"Common.UserList.FollowersCount" = "%@ followers";
-"Common.UserList.NoVerifiedLink" = "No verified link";
+"Common.UserList.FollowersCount" = "%@ ผู้ติดตาม";
+"Common.UserList.NoVerifiedLink" = "ไม่มีลิงก์ที่ยืนยันแล้ว";
 "Extension.OpenIn.InvalidLinkError" = "ดูเหมือนว่าสิ่งนี้จะไม่ใช่ลิงก์ Mastodon ที่ถูกต้อง";
 "Scene.AccountList.AddAccount" = "เพิ่มบัญชี";
 "Scene.AccountList.DismissAccountSwitcher" = "ปิดตัวสลับบัญชี";
