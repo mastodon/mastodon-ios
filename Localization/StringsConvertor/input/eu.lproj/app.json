@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Bilatu jarraitzeko jendea",
-            "follow_explain": "Norbait jarraitzen duzunean, bere bidalketak zure hasierako denbora-lerroan agertuko zaizkizu."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
