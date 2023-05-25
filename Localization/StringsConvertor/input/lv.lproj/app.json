@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Atrodi Cilvēkus kam Sekot",
-            "follow_explain": "Kad seko kādam, tu redzēsi viņu ziņas savā mājas plūsmā."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
