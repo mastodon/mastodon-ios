@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Encontrá cuentas para seguir",
-            "follow_explain": "Cuando sigás una cuenta, verás sus mensajes en tu línea temporal principal."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
