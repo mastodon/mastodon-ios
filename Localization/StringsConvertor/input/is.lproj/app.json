@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Finndu fólk til að fylgjast með",
-            "follow_explain": "Þegar þú fylgist með einhverjum, muntu sjá færslur frá viðkomandi á streyminu þínu."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
