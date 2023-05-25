@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Cerca Persones a Seguir",
-            "follow_explain": "Quan segueixes algú, veuràs els seus tuts a Inici."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
