@@ -280,8 +280,6 @@ extension ProfileHeaderViewController {
     }
     
     func updateHeaderScrollProgress(_ progress: CGFloat, throttle: CGFloat) {
-         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
-        
         // set title view offset
         let nameTextFieldInWindow = profileHeaderView.nameTextField.superview!.convert(profileHeaderView.nameTextField.frame, to: nil)
         let nameTextFieldTopToNavigationBarBottomOffset = containerSafeAreaInset.top - nameTextFieldInWindow.origin.y

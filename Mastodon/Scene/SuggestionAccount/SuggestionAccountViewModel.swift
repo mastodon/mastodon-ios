@@ -11,7 +11,6 @@ import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import MastodonCore
-import os.log
 import UIKit
     
 protocol SuggestionAccountViewModelDelegate: AnyObject {
@@ -27,12 +26,10 @@ final class SuggestionAccountViewModel: NSObject {
     let context: AppContext
     let authContext: AuthContext
     let userFetchedResultsController: UserFetchedResultsController
-    let selectedUserFetchedResultsController: UserFetchedResultsController
-    
+
     var viewWillAppear = PassthroughSubject<Void, Never>()
 
     // output
-    var collectionViewDiffableDataSource: UICollectionViewDiffableDataSource<SelectedAccountSection, SelectedAccountItem>?
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<RecommendAccountSection, RecommendAccountItem>?
     
     init(
@@ -46,26 +43,16 @@ final class SuggestionAccountViewModel: NSObject {
             domain: nil,
             additionalPredicate: nil
         )
-        self.selectedUserFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: nil,
-            additionalPredicate: nil
-        )
         super.init()
                 
         userFetchedResultsController.domain = authContext.mastodonAuthenticationBox.domain
-        selectedUserFetchedResultsController.domain = authContext.mastodonAuthenticationBox.domain
-        selectedUserFetchedResultsController.additionalPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
-            MastodonUser.predicate(followingBy: authContext.mastodonAuthenticationBox.userID),
-            MastodonUser.predicate(followRequestedBy: authContext.mastodonAuthenticationBox.userID)
-        ])
-    
-        // fetch recomment users
+
+        // fetch recommended users
         Task {
             var userIDs: [MastodonUser.ID] = []
             do {
                 let response = try await context.apiService.suggestionAccountV2(
-                    query: nil,
+                    query: .init(limit: 5),
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
                 userIDs = response.value.map { $0.account.id }
@@ -76,12 +63,11 @@ final class SuggestionAccountViewModel: NSObject {
                 )
                 userIDs = response.value.map { $0.id }
             } catch {
-                os_log("%{public}s[%{public}ld], %{public}s: fetch recommendAccountV2 failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                
             }
             
             guard !userIDs.isEmpty else { return }
             userFetchedResultsController.userIDs = userIDs
-            selectedUserFetchedResultsController.userIDs = userIDs
         }
         
         // fetch relationship
@@ -99,4 +85,56 @@ final class SuggestionAccountViewModel: NSObject {
             .store(in: &disposeBag)
     }
 
+    func setupDiffableDataSource(
+        tableView: UITableView,
+        suggestionAccountTableViewCellDelegate: SuggestionAccountTableViewCellDelegate
+    ) {
+        tableViewDiffableDataSource = RecommendAccountSection.tableViewDiffableDataSource(
+            tableView: tableView,
+            context: context,
+            configuration: RecommendAccountSection.Configuration(
+                authContext: authContext,
+                suggestionAccountTableViewCellDelegate: suggestionAccountTableViewCellDelegate
+            )
+        )
+
+        userFetchedResultsController.$records
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] records in
+                guard let self = self else { return }
+                guard let tableViewDiffableDataSource = self.tableViewDiffableDataSource else { return }
+
+                var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, RecommendAccountItem>()
+                snapshot.appendSections([.main])
+                let items: [RecommendAccountItem] = records.map { RecommendAccountItem.account($0) }
+                snapshot.appendItems(items, toSection: .main)
+
+                tableViewDiffableDataSource.applySnapshotUsingReloadData(snapshot)
+            }
+            .store(in: &disposeBag)
+    }
+
+    func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider, completion: (() -> Void)? = nil) {
+
+        let userRecords = userFetchedResultsController.records.compactMap {
+            $0.object(in: dependency.context.managedObjectContext)?.asRecord
+        }
+
+        Task {
+            await withTaskGroup(of: Void.self, body: { taskGroup in
+                for user in userRecords {
+                    taskGroup.addTask {
+                        try? await DataSourceFacade.responseToUserViewButtonAction(
+                            dependency: dependency,
+                            user: user,
+                            buttonState: .follow
+                        )
+                    }
+                }
+            })
+
+            delegate?.homeTimelineNeedRefresh.send()
+            completion?()
+        }
+    }
 }

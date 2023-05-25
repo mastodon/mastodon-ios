@@ -52,6 +52,7 @@ extension MastodonAuthenticationBox {
 public class MastodonAccountInMemoryCache {
     @Published public var followingUserIds: [String] = []
     @Published public var blockedUserIds: [String] = []
+    @Published public var followRequestedUserIDs: [String] = []
     
     static var sharedCaches = [String: MastodonAccountInMemoryCache]()
     

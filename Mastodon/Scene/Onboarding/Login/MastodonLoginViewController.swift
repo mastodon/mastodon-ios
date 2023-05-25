@@ -301,7 +301,7 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
         
         dataSource?.apply(snapshot, animatingDifferences: false)
         
-        OperationQueue.main.addOperation {
+        DispatchQueue.main.async {
             let numberOfResults = viewModel.filteredServers.count
             self.contentView.updateCorners(numberOfResults: numberOfResults)
         }
