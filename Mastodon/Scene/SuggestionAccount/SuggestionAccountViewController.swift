@@ -124,7 +124,7 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
 extension SuggestionAccountViewController: SuggestionAccountTableViewFooterDelegate {
     func followAll(_ footerView: SuggestionAccountTableViewFooter) {
         viewModel.followAllSuggestedAccounts(self) {
-            OperationQueue.main.addOperation {
+            DispatchQueue.main.async {
                 self.dismiss(animated: true)
             }
         }

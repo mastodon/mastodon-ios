@@ -428,7 +428,7 @@ extension ProfileViewController {
             }
         } receiveValue: { [weak self] menu in
             guard let self = self else { return }
-            OperationQueue.main.addOperation {
+            DispatchQueue.main.async {
               self.moreMenuBarButtonItem.menu = menu
             }
         }
