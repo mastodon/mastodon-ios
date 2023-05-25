@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Troba Chent a la quala Seguir",
-            "follow_explain": "Quan sigas a belún veyerás las suyas publicacions en a tuya pachina d'inicio."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
