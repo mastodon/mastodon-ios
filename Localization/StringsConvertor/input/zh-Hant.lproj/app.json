@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "尋找一些人來跟隨",
-            "follow_explain": "當您跟隨這些人時，將會看到他們的嘟文出現在您的首頁時間軸上。"
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
