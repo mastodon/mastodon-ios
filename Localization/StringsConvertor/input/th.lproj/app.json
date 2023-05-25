@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "ค้นหาผู้คนที่จะติดตาม",
-            "follow_explain": "เมื่อคุณติดตามใครสักคน คุณจะเห็นโพสต์ของเขาในฟีดหน้าแรกของคุณ"
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
