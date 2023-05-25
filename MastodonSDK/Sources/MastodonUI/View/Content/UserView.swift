@@ -100,12 +100,7 @@ public final class UserView: UIView {
         return label
     }()
 
-    private let followButtonWrapper = {
-        let wrapper = UIView()
-
-        return wrapper
-    }()
-
+    private let followButtonWrapper = UIView()
     private let followButton: FollowButton = {
         let button = FollowButton()
         button.cornerRadius = 10
