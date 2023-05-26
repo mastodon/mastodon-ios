@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Popular en Mastodon",
+            "follow_all": "Seguir a todas"
         },
         "compose": {
             "title": {
