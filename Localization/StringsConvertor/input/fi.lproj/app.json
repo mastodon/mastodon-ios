@@ -257,8 +257,8 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Ei todennettua linkkiä",
+            "followers_count": "%@ seuraajaa"
         }
     },
     "scene": {
@@ -875,18 +875,18 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "display_name": "Aihetunniste",
+                "description": "Näyttää hiljattaisen julkaisun valitusta aihetunnisteesta."
             },
             "not_found": {
-                "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "account_name": "Mikko Mastodon",
+                "account": "@mikkoMastodon@ei-sellaista.tiliä",
+                "content": "Valitettavasti emme löytäneet yhtään julkaisua aihetunnisteella <a>#%@</a>. Kokeile <a>#DifferentHashtag</a> tai tarkista widgetin asetukset."
             },
             "placeholder": {
-                "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "account_name": "Mikko Mastodon",
+                "account": "@mikkoMastodon@ei-sellaista.tiliä",
+                "content": "Tältä aihetunnisteen <a>#aihetunniste</a> julkaisu näyttäisi. Valitse mikä tahansa <a>#aihetunniste</a> widgetin asetuksista."
             }
         }
     }
