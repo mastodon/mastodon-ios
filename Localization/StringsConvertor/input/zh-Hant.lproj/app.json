@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Mastodon 上之流行內容",
+            "follow_all": "跟隨所有"
         },
         "compose": {
             "title": {
