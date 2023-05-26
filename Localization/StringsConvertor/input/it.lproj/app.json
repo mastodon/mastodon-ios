@@ -613,7 +613,7 @@
             }
         },
         "follower": {
-            "title": "seguace",
+            "title": "seguaci",
             "footer": "I seguaci da altri server non vengono visualizzati."
         },
         "following": {
@@ -625,7 +625,7 @@
             "followed_by_names": "Seguito da %s"
         },
         "favorited_by": {
-            "title": "Preferito Da"
+            "title": "Preferito da"
         },
         "reblogged_by": {
             "title": "Condiviso Da"
@@ -831,7 +831,7 @@
             "title": "Segnalibri"
         },
         "followed_tags": {
-            "title": "Etichette seguite",
+            "title": "Hashtag seguiti",
             "header": {
                 "posts": "post",
                 "participants": "partecipanti",
