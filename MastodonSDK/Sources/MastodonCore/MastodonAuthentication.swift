@@ -23,6 +23,10 @@ public struct MastodonAuthentication: Codable, Hashable {
     public private(set) var userID: String
     public private(set) var instanceObjectIdURI: URL?
     
+    internal var persistenceIdentifier: String {
+        "\(username)@\(domain)"
+    }
+    
     public static func createFrom(
         domain: String,
         userID: String,
@@ -34,7 +38,7 @@ public struct MastodonAuthentication: Codable, Hashable {
     ) -> Self {
         let now = Date()
         return MastodonAuthentication(
-            identifier: .init(), // fixme
+            identifier: .init(),
             domain: domain,
             username: username,
             appAccessToken: appAccessToken,
