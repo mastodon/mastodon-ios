@@ -162,7 +162,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld 次转发</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
