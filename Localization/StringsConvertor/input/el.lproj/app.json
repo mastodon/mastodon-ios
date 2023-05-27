@@ -130,18 +130,18 @@
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "preview_image": "Προεπισκόπηση Εικόνας"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Προηγούμενη Ενότητα",
+                    "next_section": "Επόμενη Ενότητα"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
+                "user_reblogged": "%s αναδημοσίευσε",
+                "user_replied_to": "Απάντησε στον χρήστη %s",
+                "show_post": "Εμφάνιση Ανάρτησης",
+                "show_user_profile": "Εμφάνιση προφίλ χρήστη",
                 "content_warning": "Content Warning",
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
