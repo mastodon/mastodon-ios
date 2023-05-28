@@ -146,7 +146,7 @@
                 "sensitive_content": "Contenuto sensibile",
                 "media_content_warning": "Tocca ovunque per rivelare",
                 "tap_to_reveal": "Tocca per rivelare",
-                "load_embed": "Carica Incorpora",
+                "load_embed": "Load Embed",
                 "link_via_user": "%s tramite %s",
                 "poll": {
                     "vote": "Vota",
