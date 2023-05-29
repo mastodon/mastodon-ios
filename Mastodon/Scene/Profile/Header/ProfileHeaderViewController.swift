@@ -183,32 +183,6 @@ extension ProfileHeaderViewController {
         
         // set display after view appear
         profileHeaderView.setupImageOverlayViews()
-        
-        guard let userID = viewModel.user?.id else { return }
-        Task {
-            do {
-                let response = try await viewModel.context.apiService.followers(
-                    userID: userID,
-                    maxID: nil,
-                    authenticationBox: viewModel.authContext.mastodonAuthenticationBox
-                )
-                
-                profileHeaderView.viewModel.followersCount = response.value.count
-            } catch {
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch follower fail: \(error.localizedDescription)")
-            }
-            do {
-                let response = try await viewModel.context.apiService.following(
-                    userID: userID,
-                    maxID: nil,
-                    authenticationBox: viewModel.authContext.mastodonAuthenticationBox
-                )
-                
-                profileHeaderView.viewModel.followingCount = response.value.count
-            } catch {
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch following fail: \(error.localizedDescription)")
-            }
-        }   // end Task
     }
     
     override func viewDidLayoutSubviews() {
