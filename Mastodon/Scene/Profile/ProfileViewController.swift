@@ -384,6 +384,21 @@ extension ProfileViewController {
                 self.navigationItem.title = name
             }
             .store(in: &disposeBag)
+        Publishers.CombineLatest(
+            profileHeaderViewController.viewModel.$user,
+            profileHeaderViewController.profileHeaderView.viewModel.viewDidAppear
+        )
+        .sink { [weak self] (user, _) in
+            guard let self = self, let user = user else { return }
+            Task {
+                _ = try await self.context.apiService.accountInfo(
+                    domain: user.domain,
+                    userID: user.id,
+                    authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
+                )
+            }
+        }
+        .store(in: &disposeBag)
     }
 
     private func bindMoreBarButtonItem() {
