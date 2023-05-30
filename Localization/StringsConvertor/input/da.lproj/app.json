@@ -2,14 +2,14 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Prøv venligst igen.",
+                "please_try_again_later": "Prøv venligst igen senere."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Tilmeldingsfejl"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Serverfejl"
             },
             "vote_failure": {
                 "title": "Vote Failure",
