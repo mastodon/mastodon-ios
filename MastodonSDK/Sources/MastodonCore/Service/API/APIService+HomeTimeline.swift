@@ -39,6 +39,12 @@ extension APIService {
         ).singleOutput()
         
         let managedObjectContext = self.backgroundManagedObjectContext
+
+        // FIXME: This is a dirty hack to make the performance-stuff work.
+        // Problem is, that we don't persist the user on disk anymore. So we have to fetch
+        // it when we need it to display on the home timeline.
+        _ = try await authenticatedUserInfo(authenticationBox: authenticationBox).value
+
         try await managedObjectContext.performChanges {
             guard let me = authenticationBox.authentication.user(in: managedObjectContext) else {
                 assertionFailure()  
