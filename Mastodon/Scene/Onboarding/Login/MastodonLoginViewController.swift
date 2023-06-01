@@ -298,10 +298,9 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
         
         snapshot.appendSections([MastodonLoginViewSection.servers])
         snapshot.appendItems(viewModel.filteredServers)
-        
-        dataSource?.apply(snapshot, animatingDifferences: false)
-        
+
         DispatchQueue.main.async {
+            self.dataSource?.apply(snapshot, animatingDifferences: false)
             let numberOfResults = viewModel.filteredServers.count
             self.contentView.updateCorners(numberOfResults: numberOfResults)
         }
