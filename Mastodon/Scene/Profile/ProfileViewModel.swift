@@ -176,9 +176,10 @@ class ProfileViewModel: NSObject {
         .assign(to: &$isPagingEnabled)
     }
     
-}
 
-extension ProfileViewModel {
+    func viewDidLoad() {
+        
+    }
 
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {

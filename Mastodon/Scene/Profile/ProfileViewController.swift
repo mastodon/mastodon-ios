@@ -287,6 +287,8 @@ extension ProfileViewController {
         bindTitleView()
         bindMoreBarButtonItem()
         bindPager()
+
+        viewModel.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {

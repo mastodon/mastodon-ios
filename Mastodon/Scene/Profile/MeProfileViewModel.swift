@@ -32,5 +32,27 @@ final class MeProfileViewModel: ProfileViewModel {
             }
             .store(in: &disposeBag)
     }
-    
+
+    override func viewDidLoad() {
+
+        super.viewDidLoad()
+
+        Task {
+            do {
+
+                _ = try await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value
+
+                try await context.managedObjectContext.performChanges {
+                    guard let me = self.authContext.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else {
+                        assertionFailure()
+                        return
+                    }
+
+                    self.me = me
+                }
+            } catch {
+                // do nothing?
+            }
+        }
+    }
 }
