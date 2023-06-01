@@ -355,7 +355,7 @@ extension HomeTimelineViewController {
             let button = HighlightDimmableButton()
             button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
             button.setTitle(L10n.Common.Controls.Actions.manuallySearch, for: .normal)
-            button.setTitleColor(Asset.Colors.brand.color, for: .normal)
+            button.setTitleColor(Asset.Colors.Brand.blurple.color, for: .normal)
             button.addTarget(self, action: #selector(HomeTimelineViewController.manuallySearchButtonPressed(_:)), for: .touchUpInside)
             return button
         }()

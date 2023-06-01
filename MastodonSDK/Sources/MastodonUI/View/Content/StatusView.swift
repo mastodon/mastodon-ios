@@ -156,7 +156,7 @@ public final class StatusView: UIView {
         ]
         metaText.linkAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
-            .foregroundColor: Asset.Colors.brand.color,
+            .foregroundColor: Asset.Colors.Brand.blurple.color,
         ]
         return metaText
     }()
@@ -213,8 +213,8 @@ public final class StatusView: UIView {
         let button = HitTestExpandedButton()
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 14, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Status.Poll.vote, for: .normal)
-        button.setTitleColor(Asset.Colors.brand.color, for: .normal)
-        button.setTitleColor(Asset.Colors.brand.color.withAlphaComponent(0.8), for: .highlighted)
+        button.setTitleColor(Asset.Colors.Brand.blurple.color, for: .normal)
+        button.setTitleColor(Asset.Colors.Brand.blurple.color.withAlphaComponent(0.8), for: .highlighted)
         button.setTitleColor(Asset.Colors.Button.disabled.color, for: .disabled)
         button.isEnabled = false
         return button
@@ -253,7 +253,7 @@ public final class StatusView: UIView {
         let revertButton = UIButton()
         revertButton.titleLabel?.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .bold))
         revertButton.setTitle(L10n.Common.Controls.Status.Translation.showOriginal, for: .normal)
-        revertButton.setTitleColor(Asset.Colors.brand.color, for: .normal)
+        revertButton.setTitleColor(Asset.Colors.Brand.blurple.color, for: .normal)
         revertButton.addAction(UIAction { [weak self] _ in
             self?.revertTranslation()
         }, for: .touchUpInside)

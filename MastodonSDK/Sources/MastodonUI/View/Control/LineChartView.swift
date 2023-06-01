@@ -103,7 +103,7 @@ extension LineChartView {
         maskPath.close()
         let maskLayer = CAShapeLayer()
         maskLayer.path = maskPath.cgPath
-        maskLayer.fillColor = Asset.Colors.brand.color.cgColor
+        maskLayer.fillColor = Asset.Colors.Brand.blurple.color.cgColor
         maskLayer.strokeColor = UIColor.clear.cgColor
         maskLayer.lineWidth = 0.0
         gradientLayer.mask = maskLayer

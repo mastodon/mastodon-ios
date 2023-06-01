@@ -69,7 +69,7 @@ extension ProfileFieldSection {
             }
             
             // set value
-            let linkColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedText.color : Asset.Colors.brand.color
+            let linkColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedText.color : Asset.Colors.Brand.blurple.color
             do {
                 let mastodonContent = MastodonContent(content: value, emojis: emojiMeta)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
