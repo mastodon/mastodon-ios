@@ -119,7 +119,7 @@ public final class AuthenticationService: NSObject {
             }
             .assign(to: &$mastodonAuthenticationBoxes)
     
-        AuthenticationServiceProvider.shared.sortByActivation()
+        AuthenticationServiceProvider.shared.authentications = AuthenticationServiceProvider.shared.authenticationSortedByActivation()
     }
 
 }

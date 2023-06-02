@@ -217,7 +217,7 @@ extension SceneCoordinator {
         let rootViewController: UIViewController
         
         do {
-            let _authentication = AuthenticationServiceProvider.shared.authentications.first
+            let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
             let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
             self.authContext = _authContext
             

@@ -179,8 +179,7 @@ extension ShareViewController {
 
 extension ShareViewController {
     private func setupAuthContext() throws -> AuthContext? {
-        AuthenticationServiceProvider.shared.sortByActivation()
-        let _authentication = AuthenticationServiceProvider.shared.authentications.first
+        let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
         let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
         return _authContext
     }

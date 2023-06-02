@@ -50,8 +50,8 @@ public extension AuthenticationServiceProvider {
         authentications.first(where: { $0.userAccessToken == userAccessToken })
     }
     
-    func sortByActivation() { // fixme: why do we need this?
-        authentications = authentications.sorted(by: { $0.activedAt > $1.activedAt })
+    func authenticationSortedByActivation() -> [MastodonAuthentication] { // fixme: why do we need this?
+        return authentications.sorted(by: { $0.activedAt > $1.activedAt })
     }
         
     func restore() {
