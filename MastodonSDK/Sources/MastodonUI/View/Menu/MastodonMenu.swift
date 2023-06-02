@@ -48,6 +48,7 @@ public enum MastodonMenu {
 extension MastodonMenu {
     public enum Action {
         case translateStatus(TranslateStatusActionContext)
+        case showOriginal
         case muteUser(MuteUserActionContext)
         case blockUser(BlockUserActionContext)
         case reportUser(ReportUserActionContext)
@@ -161,6 +162,16 @@ extension MastodonMenu {
                     delegate.menuAction(self)
                 }
                 return translateAction
+            case .showOriginal:
+                let action = LabeledAction(
+                    title: L10n.Common.Controls.Status.Translation.showOriginal,
+                    image: UIImage(systemName: "character.book.closed")
+                ) { [weak delegate] in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+
+                return action
             case .editStatus:
                 let editStatusAction = LabeledAction(
                     title: L10n.Common.Controls.Actions.editPost,

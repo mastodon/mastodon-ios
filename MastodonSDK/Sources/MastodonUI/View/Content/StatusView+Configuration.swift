@@ -290,7 +290,7 @@ extension StatusView {
         viewModel.applicationName = applicationName
     }
     
-    func revertTranslation() {
+    public func revertTranslation() {
         guard let originalStatus = viewModel.originalStatus else { return }
         
         viewModel.translatedFromLanguage = nil

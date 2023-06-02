@@ -166,10 +166,12 @@ extension StatusAuthorView {
             postActions.append(.editStatus)
         }
 
-        if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled, !menuContext.isTranslated {
-            postActions.append(
-                .translateStatus(.init(language: statusLanguage))
-            )
+        if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled {
+            if menuContext.isTranslated == false {
+                postActions.append(.translateStatus(.init(language: statusLanguage)))
+            } else {
+                postActions.append(.showOriginal)
+            }
         }
 
         postActions.append(.bookmarkStatus(.init(isBookmarking: menuContext.isBookmarking)))
