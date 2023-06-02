@@ -97,7 +97,6 @@ public enum Asset {
     public static let alertYellow = ColorAsset(name: "Colors/alert.yellow")
     public static let badgeBackground = ColorAsset(name: "Colors/badge.background")
     public static let battleshipGrey = ColorAsset(name: "Colors/battleshipGrey")
-    public static let brand = ColorAsset(name: "Colors/brand")
     public static let dangerBorder = ColorAsset(name: "Colors/danger.border")
     public static let danger = ColorAsset(name: "Colors/danger")
     public enum Deprecated {

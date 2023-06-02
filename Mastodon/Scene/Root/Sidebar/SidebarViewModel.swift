@@ -86,7 +86,7 @@ extension SidebarViewModel {
                 accessoryImage: item == .me ? self.chevronImage : nil,
                 title: item.title,
                 image: item.image,
-                activeImage: item.selectedImage.withTintColor(Asset.Colors.brand.color, renderingMode: .alwaysOriginal),
+                activeImage: item.selectedImage.withTintColor(Asset.Colors.Brand.blurple.color, renderingMode: .alwaysOriginal),
                 imageURL: imageURL
             )
             cell.setNeedsUpdateConfiguration()
@@ -127,7 +127,7 @@ extension SidebarViewModel {
                         }
                     }()
                     cell.item?.image = image
-                    cell.item?.activeImage = image.withTintColor(Asset.Colors.brand.color, renderingMode: .alwaysOriginal)
+                    cell.item?.activeImage = image.withTintColor(Asset.Colors.Brand.blurple.color, renderingMode: .alwaysOriginal)
                     cell.setNeedsUpdateConfiguration()
                 }
                 .store(in: &cell.disposeBag)

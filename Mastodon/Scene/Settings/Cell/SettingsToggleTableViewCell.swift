@@ -20,7 +20,7 @@ class SettingsToggleTableViewCell: UITableViewCell {
     
     private(set) lazy var switchButton: UISwitch = {
         let view = UISwitch(frame:.zero)
-        view.onTintColor = Asset.Colors.brand.color
+        view.onTintColor = Asset.Colors.Brand.blurple.color
         return view
     }()
     

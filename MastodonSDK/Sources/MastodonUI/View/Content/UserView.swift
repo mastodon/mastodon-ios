@@ -71,7 +71,7 @@ public final class UserView: UIView {
         ]
         label.linkAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold)),
-            .foregroundColor: Asset.Colors.brand.color
+            .foregroundColor: Asset.Colors.Brand.blurple.color
         ]
         label.isUserInteractionEnabled = false
         return label
