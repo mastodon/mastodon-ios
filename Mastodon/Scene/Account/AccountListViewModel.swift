@@ -77,7 +77,7 @@ extension AccountListViewModel {
             switch item {
             case .authentication(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountListTableViewCell.self), for: indexPath) as! AccountListTableViewCell
-                if let activeAuthentication = AuthenticationServiceProvider.shared.authentications.first
+                if let activeAuthentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
                 {
                     AccountListViewModel.configure(
                         in: managedObjectContext,
