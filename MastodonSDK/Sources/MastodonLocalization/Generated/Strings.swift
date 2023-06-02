@@ -112,6 +112,8 @@ public enum L10n {
         public static func blockDomain(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.BlockDomain", String(describing: p1), fallback: "Block %@")
         }
+        /// Bookmark
+        public static let bookmark = L10n.tr("Localizable", "Common.Controls.Actions.Bookmark", fallback: "Bookmark")
         /// Cancel
         public static let cancel = L10n.tr("Localizable", "Common.Controls.Actions.Cancel", fallback: "Cancel")
         /// Compose
@@ -154,6 +156,8 @@ public enum L10n {
         public static let previous = L10n.tr("Localizable", "Common.Controls.Actions.Previous", fallback: "Previous")
         /// Remove
         public static let remove = L10n.tr("Localizable", "Common.Controls.Actions.Remove", fallback: "Remove")
+        /// Remove Bookmark
+        public static let removeBookmark = L10n.tr("Localizable", "Common.Controls.Actions.RemoveBookmark", fallback: "Remove Bookmark")
         /// Reply
         public static let reply = L10n.tr("Localizable", "Common.Controls.Actions.Reply", fallback: "Reply")
         /// Report %@

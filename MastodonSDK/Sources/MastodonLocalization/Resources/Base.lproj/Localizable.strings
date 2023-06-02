@@ -40,6 +40,8 @@ Please check your internet connection.";
 "Common.Controls.Actions.Discard" = "Discard";
 "Common.Controls.Actions.Done" = "Done";
 "Common.Controls.Actions.Edit" = "Edit";
+"Common.Controls.Actions.Bookmark" = "Bookmark";
+"Common.Controls.Actions.RemoveBookmark" = "Remove Bookmark";
 "Common.Controls.Actions.EditPost" = "Edit";
 "Common.Controls.Actions.FindPeople" = "Find people to follow";
 "Common.Controls.Actions.ManuallySearch" = "Manually search instead";

@@ -120,10 +120,10 @@ extension MastodonMenu {
                 let title: String
                 let image: UIImage?
                 if context.isBookmarking {
-                    title = "Remove Bookmark" // TODO: i18n
+                    title = L10n.Common.Controls.Actions.removeBookmark
                     image = UIImage(systemName: "bookmark.slash.fill")
                 } else {
-                    title = "Bookmark" // TODO: i18n
+                    title = L10n.Common.Controls.Actions.bookmark
                     image = UIImage(systemName: "bookmark")
                 }
                 let action = LabeledAction(title: title, image: image) { [weak delegate] in
@@ -133,7 +133,7 @@ extension MastodonMenu {
                 return action
             case .shareStatus:
                 let action = LabeledAction(
-                    title: "Share",      // TODO: i18n
+                    title: L10n.Common.Controls.Actions.sharePost,
                     image: UIImage(systemName: "square.and.arrow.up")
                 ) { [weak delegate] in
                     guard let delegate = delegate else { return }

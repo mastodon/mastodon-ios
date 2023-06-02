@@ -214,14 +214,14 @@ extension StatusAuthorView {
 
 extension StatusAuthorView {
     @objc private func authorAvatarButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let statusView = statusView else { return }
+
         statusView.delegate?.statusView(statusView, authorAvatarButtonDidPressed: avatarButton)
     }
 
     @objc private func contentSensitiveeToggleButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let statusView = statusView else { return }
+
         statusView.delegate?.statusView(statusView, contentSensitiveeToggleButtonDidPressed: sender)
     }
 }
