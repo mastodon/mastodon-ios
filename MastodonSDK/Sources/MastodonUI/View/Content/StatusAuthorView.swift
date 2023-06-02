@@ -158,47 +158,44 @@ extension StatusAuthorView {
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
         var actions: [[MastodonMenu.Action]] = []
-        var upperActions: [MastodonMenu.Action] = []
+        var postActions: [MastodonMenu.Action] = []
+        var userActions: [MastodonMenu.Action] = []
 
         if menuContext.isMyself {
-            upperActions.append(.editStatus)
+            postActions.append(.editStatus)
         }
 
-        if !menuContext.isMyself {
-            if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled, !menuContext.isTranslated {
-                upperActions.append(
-                    .translateStatus(.init(language: statusLanguage))
-                )
-            }
-            
-            upperActions.append(contentsOf: [
-                .muteUser(.init(
-                    name: menuContext.name,
-                    isMuting: menuContext.isMuting
-                )),
-                .blockUser(.init(
-                    name: menuContext.name,
-                    isBlocking: menuContext.isBlocking
-                )),
-                .reportUser(
-                    .init(name: menuContext.name)
-                )
-            ])
+        if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled, !menuContext.isTranslated {
+            postActions.append(
+                .translateStatus(.init(language: statusLanguage))
+            )
         }
-        
-        upperActions.append(contentsOf: [
-            .bookmarkStatus(
-                .init(isBookmarking: menuContext.isBookmarking)
-            ),
-            .shareStatus
-        ])
 
-        actions.append(upperActions)
+        postActions.append(.bookmarkStatus(.init(isBookmarking: menuContext.isBookmarking)))
+        postActions.append(.shareStatus)
+
+        if menuContext.isMyself == false {
+            userActions.append(.muteUser(.init(
+                name: menuContext.name,
+                isMuting: menuContext.isMuting
+            )))
+
+            userActions.append(.blockUser(.init(
+                name: menuContext.name,
+                isBlocking: menuContext.isBlocking
+            )))
+
+            userActions.append(.reportUser(
+                .init(name: menuContext.name)
+            ))
+        }
+
+        actions.append(postActions)
+        actions.append(userActions)
 
         if menuContext.isMyself {
             actions.append([.deleteStatus])
         }
-
 
         let menu = MastodonMenu.setupMenu(
             actions: actions,
