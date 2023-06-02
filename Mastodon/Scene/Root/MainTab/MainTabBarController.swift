@@ -292,28 +292,34 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
         
-        if let user = authContext?.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) {
-            self.avatarURLObserver = user.publisher(for: \.avatar)
-                .sink { [weak self, weak user] _ in
-                    guard let self = self else { return }
-                    guard let user = user else { return }
-                    guard user.managedObjectContext != nil else { return }
-                    self.avatarURL = user.avatarImageURL()
-                }
+        NotificationCenter.default.publisher(for: .userFetched)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                if let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) {
+                    self.avatarURLObserver = user.publisher(for: \.avatar)
+                        .sink { [weak self, weak user] _ in
+                            guard let self = self else { return }
+                            guard let user = user else { return }
+                            guard user.managedObjectContext != nil else { return }
+                            self.avatarURL = user.avatarImageURL()
+                        }
 
-            // a11y
-            let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
-            guard let profileTabItem = _profileTabItem else { return }
-            profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(user.displayNameWithFallback)
+                    // a11y
+                    let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
+                    guard let profileTabItem = _profileTabItem else { return }
+                    profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(user.displayNameWithFallback)
 
-            context.authenticationService.updateActiveUserAccountPublisher
-                .sink { [weak self] in
-                    self?.updateUserAccount()
+                    self.context.authenticationService.updateActiveUserAccountPublisher
+                        .sink { [weak self] in
+                            self?.updateUserAccount()
+                        }
+                        .store(in: &self.disposeBag)
+                } else {
+                    self.avatarURLObserver = nil
                 }
-                .store(in: &disposeBag)
-        } else {
-            self.avatarURLObserver = nil
-        }
+            }
+            .store(in: &disposeBag)
 
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
