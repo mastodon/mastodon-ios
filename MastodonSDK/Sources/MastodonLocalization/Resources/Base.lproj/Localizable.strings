@@ -69,6 +69,8 @@ Please check your internet connection.";
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "Try Again";
 "Common.Controls.Actions.UnblockDomain" = "Unblock %@";
+"Common.Controls.Actions.Follow" = "Follow %@";
+"Common.Controls.Actions.Unfollow" = "Unfollow %@";
 "Common.Controls.Friendship.Block" = "Block";
 "Common.Controls.Friendship.BlockDomain" = "Block %@";
 "Common.Controls.Friendship.BlockUser" = "Block %@";

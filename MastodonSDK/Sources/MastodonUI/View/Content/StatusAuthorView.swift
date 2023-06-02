@@ -150,6 +150,7 @@ extension StatusAuthorView {
         public let isBlocking: Bool
         public let isMyself: Bool
         public let isBookmarking: Bool
+        public let isFollowed: Bool
         
         public let isTranslationEnabled: Bool
         public let isTranslated: Bool
@@ -175,6 +176,12 @@ extension StatusAuthorView {
         postActions.append(.shareStatus)
 
         if menuContext.isMyself == false {
+
+            userActions.append(.followUser(.init(
+                name: menuContext.name,
+                isFollowing: menuContext.isFollowed
+            )))
+
             userActions.append(.muteUser(.init(
                 name: menuContext.name,
                 isMuting: menuContext.isMuting

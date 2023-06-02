@@ -57,6 +57,7 @@ extension MastodonMenu {
         case shareStatus
         case deleteStatus
         case editStatus
+        case followUser(FollowUserActionContext)
         
         func build(delegate: MastodonMenuDelegate) -> LabeledAction {
             switch self {
@@ -171,6 +172,22 @@ extension MastodonMenu {
                 }
 
                 return editStatusAction
+            case .followUser(let context):
+                let title: String
+                let image: UIImage?
+                if context.isFollowing {
+                    title = L10n.Common.Controls.Actions.unfollow(context.name)
+                    image = UIImage(systemName: "person.fill.badge.minus")
+                } else {
+                    title = L10n.Common.Controls.Actions.follow(context.name)
+                    image = UIImage(systemName: "person.fill.badge.plus")
+                }
+                let action = LabeledAction(title: title, image: image) { [weak delegate] in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+                return action
+
             }   // end switch
         }   // end func build
     }   // end enum Action
@@ -234,6 +251,17 @@ extension MastodonMenu {
         
         public init(language: String) {
             self.language = language
+        }
+    }
+
+    public struct FollowUserActionContext {
+
+        public let name: String
+        public let isFollowing: Bool
+
+        init(name: String, isFollowing: Bool) {
+            self.name = name
+            self.isFollowing = isFollowing
         }
     }
 }

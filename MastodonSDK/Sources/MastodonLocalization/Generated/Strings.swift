@@ -138,6 +138,10 @@ public enum L10n {
         public static let editPost = L10n.tr("Localizable", "Common.Controls.Actions.EditPost", fallback: "Edit")
         /// Find people to follow
         public static let findPeople = L10n.tr("Localizable", "Common.Controls.Actions.FindPeople", fallback: "Find people to follow")
+        /// Follow %@
+        public static func follow(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Actions.Follow", String(describing: p1), fallback: "Follow %@")
+        }
         /// Manually search instead
         public static let manuallySearch = L10n.tr("Localizable", "Common.Controls.Actions.ManuallySearch", fallback: "Manually search instead")
         /// Next
@@ -191,6 +195,10 @@ public enum L10n {
         /// Unblock %@
         public static func unblockDomain(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.UnblockDomain", String(describing: p1), fallback: "Unblock %@")
+        }
+        /// Unfollow %@
+        public static func unfollow(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Actions.Unfollow", String(describing: p1), fallback: "Unfollow %@")
         }
         public enum TranslatePost {
           /// Translate from %@

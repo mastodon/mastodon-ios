@@ -187,6 +187,7 @@ extension NotificationView {
             }
             .assign(to: \.isBlocking, on: viewModel)
             .store(in: &disposeBag)
+
         // isMyself
         Publishers.CombineLatest(
             author.publisher(for: \.domain),
@@ -199,12 +200,27 @@ extension NotificationView {
         }
         .assign(to: \.isMyself, on: viewModel)
         .store(in: &disposeBag)
+
         // follow request state
         notification.publisher(for: \.followRequestState)
             .assign(to: \.followRequestState, on: viewModel)
             .store(in: &disposeBag)
+
         notification.publisher(for: \.transientFollowRequestState)
             .assign(to: \.transientFollowRequestState, on: viewModel)
             .store(in: &disposeBag)
+
+        // Following
+        author.publisher(for: \.followingBy)
+            .map { [weak viewModel] followingBy in
+                guard let viewModel = viewModel else { return false }
+                guard let authContext = viewModel.authContext else { return false }
+                return followingBy.contains(where: {
+                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
+                })
+            }
+            .assign(to: \.isFollowed, on: viewModel)
+            .store(in: &disposeBag)
+
     }
 }

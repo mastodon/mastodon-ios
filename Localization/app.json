@@ -102,8 +102,10 @@
                     "unknown_language": "Unknown"
                 },
                 "edit_post": "Edit",
-                "bookmark": "Bookmark"
+                "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
+                "follow" = "Follow %s",
+                "unfollow" = "Unfollow %s"
             },
             "tabs": {
                 "home": "Home",
