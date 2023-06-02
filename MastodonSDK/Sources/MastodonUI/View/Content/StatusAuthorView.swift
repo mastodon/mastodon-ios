@@ -157,20 +157,21 @@ extension StatusAuthorView {
     }
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
-        var actions = [MastodonMenu.Action]()
+        var actions: [[MastodonMenu.Action]] = []
+        var upperActions: [MastodonMenu.Action] = []
 
         if menuContext.isMyself {
-            actions.append(.editStatus)
+            upperActions.append(.editStatus)
         }
 
         if !menuContext.isMyself {
             if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled, !menuContext.isTranslated {
-                actions.append(
+                upperActions.append(
                     .translateStatus(.init(language: statusLanguage))
                 )
             }
             
-            actions.append(contentsOf: [
+            upperActions.append(contentsOf: [
                 .muteUser(.init(
                     name: menuContext.name,
                     isMuting: menuContext.isMuting
@@ -185,15 +186,17 @@ extension StatusAuthorView {
             ])
         }
         
-        actions.append(contentsOf: [
+        upperActions.append(contentsOf: [
             .bookmarkStatus(
                 .init(isBookmarking: menuContext.isBookmarking)
             ),
             .shareStatus
         ])
 
+        actions.append(upperActions)
+
         if menuContext.isMyself {
-            actions.append(.deleteStatus)
+            actions.append([.deleteStatus])
         }
 
 

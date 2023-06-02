@@ -14,31 +14,30 @@ public protocol MastodonMenuDelegate: AnyObject {
 
 public enum MastodonMenu {
     public static func setupMenu(
-        actions: [Action],
+        actions: [[Action]],
         delegate: MastodonMenuDelegate
     ) -> UIMenu {
         var children: [UIMenuElement] = []
-        for action in actions {
 
-            let element: UIMenuElement
-            
-            if case let .deleteStatus = action {
-                let deleteAction = action.build(delegate: delegate).menuElement
-                element = UIMenu(options: .displayInline, children: [deleteAction])
-            } else {
-                element = action.build(delegate: delegate).menuElement
+        for actionGroup in actions {
+            var submenuChildren: [UIMenuElement] = []
+            for action in actionGroup {
+                let element = action.build(delegate: delegate).menuElement
+                submenuChildren.append(element)
             }
-            children.append(element)
+            let submenu = UIMenu(options: .displayInline, children: submenuChildren)
+            children.append(submenu)
         }
+        
         return UIMenu(children: children)
     }
 
     public static func setupAccessibilityActions(
-        actions: [Action],
+        actions: [[Action]],
         delegate: MastodonMenuDelegate
     ) -> [UIAccessibilityCustomAction] {
         var accessibilityActions: [UIAccessibilityCustomAction] = []
-        for action in actions {
+        for action in actions.flatMap({ $0 }) {
             let element = action.build(delegate: delegate)
             accessibilityActions.append(element.accessibilityCustomAction)
         }

@@ -460,9 +460,10 @@ extension NotificationView {
     public typealias AuthorMenuContext = StatusAuthorView.AuthorMenuContext
     
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
-        var actions: [MastodonMenu.Action] = []
-        
-        actions = [
+        var actions: [[MastodonMenu.Action]] = []
+        var upperActions: [MastodonMenu.Action] = []
+
+        upperActions = [
             .muteUser(.init(
                 name: menuContext.name,
                 isMuting: menuContext.isMuting
@@ -473,11 +474,13 @@ extension NotificationView {
             )),
             .reportUser(
                 .init(name: menuContext.name)
-            ),
+            )
         ]
+
+        actions.append(upperActions)
         
         if menuContext.isMyself {
-            actions.append(.deleteStatus)
+            actions.append([.deleteStatus])
         }
         
         
