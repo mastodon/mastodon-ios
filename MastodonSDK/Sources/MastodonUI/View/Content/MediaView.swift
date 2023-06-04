@@ -51,21 +51,6 @@ public final class MediaView: UIView {
     }()
     private var playerLooper: AVPlayerLooper?
 
-    private(set) lazy var playbackImageView: UIView = {
-        let wrapper = UIView()
-
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "play.circle.fill")
-        imageView.tintColor = Asset.Colors.Label.primary.color
-        wrapper.addSubview(imageView)
-        imageView.pinToParent(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
-        wrapper.backgroundColor = Asset.Theme.Mastodon.systemBackground.color.withAlphaComponent(0.8)
-        wrapper.applyCornerRadius(radius: 8)
-
-        return wrapper
-    }()
-    
     let overlayViewController: UIHostingController<InlineMediaOverlayContainer> = {
         let vc = UIHostingController(rootView: InlineMediaOverlayContainer())
         vc.view.backgroundColor = .clear
@@ -186,15 +171,6 @@ extension MediaView {
     
     private func layoutVideo() {
         layoutImage()
-        
-        playbackImageView.translatesAutoresizingMaskIntoConstraints = false
-        container.addSubview(playbackImageView)
-        NSLayoutConstraint.activate([
-            playbackImageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            playbackImageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-            playbackImageView.widthAnchor.constraint(equalToConstant: 88).priority(.required - 1),
-            playbackImageView.heightAnchor.constraint(equalToConstant: 88).priority(.required - 1),
-        ])
     }
     
     private func bindVideo(configuration: Configuration, info: Configuration.VideoInfo) {
@@ -277,8 +253,6 @@ extension MediaView {
         playerViewController.player?.pause()
         playerViewController.player = nil
         playerLooper = nil
-        
-        playbackImageView.removeFromSuperview()
         
         // blurhash
         blurhashImageView.removeFromSuperview()

@@ -58,6 +58,14 @@ struct InlineMediaOverlayContainer: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
+        .overlay {
+            if mediaType == .video {
+                  Image(systemName: "play.circle.fill")
+                     .font(.system(size: 54))
+                     .foregroundColor(.white)
+                     .shadow(color: .black.opacity(0.5), radius: 32, x: 0, y: 0)
+            }
+        }
         .onChange(of: altDescription) { _ in
             showingAlt = false
         }
