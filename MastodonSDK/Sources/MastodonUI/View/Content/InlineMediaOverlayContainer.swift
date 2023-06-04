@@ -64,6 +64,12 @@ struct InlineMediaOverlayContainer: View {
                      .font(.system(size: 54))
                      .foregroundColor(.white)
                      .shadow(color: .black.opacity(0.5), radius: 32, x: 0, y: 0)
+                     .background(alignment: .center) {
+                         Circle()
+                             .fill(.ultraThinMaterial)
+                             .frame(width: 40, height: 40)
+                             .colorScheme(.light)
+                     }
             }
         }
         .onChange(of: altDescription) { _ in
