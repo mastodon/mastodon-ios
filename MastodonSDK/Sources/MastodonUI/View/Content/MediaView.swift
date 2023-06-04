@@ -112,14 +112,17 @@ extension MediaView {
         switch configuration.info {
         case .image(let info):
             layoutImage()
+            overlayViewController.rootView.mediaType = .image
             bindImage(configuration: configuration, info: info)
             accessibilityHint = L10n.Common.Controls.Status.Media.expandImageHint
         case .gif(let info):
             layoutGIF()
+            overlayViewController.rootView.mediaType = .gif
             bindGIF(configuration: configuration, info: info)
             accessibilityHint = L10n.Common.Controls.Status.Media.expandGifHint
         case .video(let info):
             layoutVideo()
+            overlayViewController.rootView.mediaType = .video
             bindVideo(configuration: configuration, info: info)
             accessibilityHint = L10n.Common.Controls.Status.Media.expandVideoHint
         }
@@ -177,8 +180,6 @@ extension MediaView {
         
         // auto play for GIF
         player.play()
-
-        overlayViewController.rootView.isGIF = true
 
         bindAlt(configuration: configuration, altDescription: info.altDescription)
     }
@@ -289,7 +290,6 @@ extension MediaView {
         container.removeConstraints(container.constraints)
         
         overlayViewController.rootView.altDescription = nil
-        overlayViewController.rootView.isGIF = false
         overlayViewController.rootView.showDuration = false
         overlayViewController.rootView.mediaDuration = nil
 

@@ -8,10 +8,16 @@ import SwiftUI
 
 struct InlineMediaOverlayContainer: View {
     var altDescription: String?
-    var isGIF = false
+    var mediaType: MediaType = .image
     var showDuration = false
     var mediaDuration: TimeInterval?
-    
+
+    enum MediaType {
+        case image
+        case gif
+        case video
+    }
+
     @State private var showingAlt = false
     @State private var space = AnyHashable(UUID())
 
@@ -35,7 +41,7 @@ struct InlineMediaOverlayContainer: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
-                if isGIF {
+                if mediaType == .gif {
                     MediaBadge("GIF")
                 }
                 if showDuration {
