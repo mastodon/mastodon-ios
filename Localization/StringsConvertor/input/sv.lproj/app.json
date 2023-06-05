@@ -272,22 +272,22 @@
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Välkommen till Mastodon",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
-                    "title": "What are servers?",
+                    "title": "Vad är servrar?",
                     "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Vad är Mastodon?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Välkommen tillbaka",
             "subtitle": "Logga in på servern där du skapade ditt konto.",
             "server_search_field": {
                 "placeholder": "Ange URL eller sök efter din server"
@@ -373,7 +373,7 @@
                 },
                 "password": {
                     "placeholder": "lösenord",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Bekräfta lösenord",
                     "require": "Ditt lösenord behöver minst:",
                     "character_limit": "8 tecken",
                     "accessibility": {
@@ -398,7 +398,7 @@
                 "reason": {
                     "blocked": "%s innehåller en icke tillåten e-postleverantör",
                     "unreachable": "%s verkar inte existera",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s är redan tagen. Vad sägs om:",
                     "reserved": "%s är ett reserverat nyckelord",
                     "accepted": "%s måste godkännas",
                     "blank": "%s krävs",
