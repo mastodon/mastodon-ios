@@ -6,10 +6,14 @@ import CoreDataStack
 import MastodonSDK
 import KeychainAccess
 import MastodonCommon
+import os.log
 
 public class AuthenticationServiceProvider: ObservableObject {
+    private let logger = Logger(subsystem: "AuthenticationServiceProvider", category: "Authentication")
+
     public static let shared = AuthenticationServiceProvider()
     private static let keychain = Keychain(service: "org.joinmastodon.app.authentications", accessGroup: AppName.groupID)
+    private let userDefaults: UserDefaults = .shared
 
     private init() {}
     
@@ -63,6 +67,35 @@ public extension AuthenticationServiceProvider {
             return try? JSONDecoder().decode(MastodonAuthentication.self, from: data)
         }
     }
+    
+    func migrateLegacyAuthenticationsIfRequired(in context: NSManagedObjectContext) {
+        guard !userDefaults.didMigrateAuthentications else { return }
+        
+        defer { userDefaults.didMigrateAuthentications = true }
+        
+        do {
+            let request = NSFetchRequest<MastodonAuthenticationLegacy>(entityName: "MastodonAuthentication")
+            let legacyAuthentications = try context.fetch(request)
+            
+            self.authentications = legacyAuthentications.map { auth in
+                MastodonAuthentication(
+                    identifier: auth.identifier,
+                    domain: auth.domain,
+                    username: auth.username,
+                    appAccessToken: auth.appAccessToken,
+                    userAccessToken: auth.userAccessToken,
+                    clientID: auth.clientID,
+                    clientSecret: auth.clientSecret,
+                    createdAt: auth.createdAt,
+                    updatedAt: auth.updatedAt,
+                    activedAt: auth.activedAt,
+                    userID: auth.userID
+                )
+            }
+        } catch {
+            logger.log(level: .error, "Could not migrate legacy authentications")
+        }
+    }
 }
 
 // MARK: - Private
@@ -71,5 +104,15 @@ private extension AuthenticationServiceProvider {
         for authentication in authentications {
             Self.keychain[authentication.persistenceIdentifier] = try? JSONEncoder().encode(authentication).base64EncodedString()
         }
+    }
+}
+
+private extension UserDefaults {
+    @objc dynamic var didMigrateAuthentications: Bool {
+        get {
+            register(defaults: [#function: false])
+            return bool(forKey: #function)
+        }
+        set { self[#function] = newValue }
     }
 }
