@@ -29,7 +29,6 @@ public final class CoreDataStack {
             storeDescription = NSPersistentStoreDescription(url: URL(string: "file:///dev/null")!)  /// in-memory store with all features in favor of NSInMemoryStoreType
         } else {
             storeDescription = NSPersistentStoreDescription(url: storeURL)
-            storeDescription.isReadOnly = true
         }
         self.init(persistentStoreDescriptions: [storeDescription])
     }

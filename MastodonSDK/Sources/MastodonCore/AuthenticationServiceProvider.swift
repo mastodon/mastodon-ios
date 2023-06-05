@@ -68,9 +68,7 @@ public extension AuthenticationServiceProvider {
         }
     }
     
-    func migrateLegacyAuthenticationsIfRequired(in context: NSManagedObjectContext) {
-//        guard !userDefaults.didMigrateAuthentications else { return }
-        
+    func migrateLegacyAuthentications(in context: NSManagedObjectContext) {        
         defer { userDefaults.didMigrateAuthentications = true }
         
         do {
@@ -111,6 +109,10 @@ public extension AuthenticationServiceProvider {
         } catch {
             logger.log(level: .error, "Could not migrate legacy authentications")
         }
+    }
+    
+    var authenticationMigrationRequired: Bool {
+        !userDefaults.didMigrateAuthentications
     }
 }
 
