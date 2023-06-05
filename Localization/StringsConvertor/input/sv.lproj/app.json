@@ -257,7 +257,7 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
+            "no_verified_link": "Ingen verifierad länk",
             "followers_count": "%@ följare"
         }
     },
@@ -294,7 +294,7 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Välj server",
             "button": {
                 "language": "Språk",
                 "signup_speed": "Sign-up Speed",
@@ -463,13 +463,13 @@
         },
         "suggestion_account": {
             "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "follow_all": "Följ alla"
         },
         "compose": {
             "title": {
                 "new_post": "Nytt inlägg",
                 "new_reply": "Nytt svar",
-                "edit_post": "Edit Post"
+                "edit_post": "Redigera inlägg"
             },
             "media_selection": {
                 "camera": "Ta foto",
@@ -543,7 +543,7 @@
             "language": {
                 "title": "Post Language",
                 "suggested": "Suggested",
-                "recent": "Recent",
+                "recent": "Senaste",
                 "other": "Other Language…"
             }
         },
