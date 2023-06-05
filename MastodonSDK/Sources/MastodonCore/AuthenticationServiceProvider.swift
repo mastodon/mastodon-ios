@@ -69,27 +69,43 @@ public extension AuthenticationServiceProvider {
     }
     
     func migrateLegacyAuthenticationsIfRequired(in context: NSManagedObjectContext) {
-        guard !userDefaults.didMigrateAuthentications else { return }
+//        guard !userDefaults.didMigrateAuthentications else { return }
         
         defer { userDefaults.didMigrateAuthentications = true }
         
         do {
-            let request = NSFetchRequest<MastodonAuthenticationLegacy>(entityName: "MastodonAuthentication")
+            let request = NSFetchRequest<NSManagedObject>(entityName: "MastodonAuthentication")
             let legacyAuthentications = try context.fetch(request)
             
-            self.authentications = legacyAuthentications.map { auth in
-                MastodonAuthentication(
-                    identifier: auth.identifier,
-                    domain: auth.domain,
-                    username: auth.username,
-                    appAccessToken: auth.appAccessToken,
-                    userAccessToken: auth.userAccessToken,
-                    clientID: auth.clientID,
-                    clientSecret: auth.clientSecret,
-                    createdAt: auth.createdAt,
-                    updatedAt: auth.updatedAt,
-                    activedAt: auth.activedAt,
-                    userID: auth.userID
+            self.authentications = legacyAuthentications.compactMap { auth -> MastodonAuthentication? in
+                guard
+                    let identifier = auth.value(forKey: "identifier") as? UUID,
+                    let domain = auth.value(forKey: "domain") as? String,
+                    let username = auth.value(forKey: "username") as? String,
+                    let appAccessToken = auth.value(forKey: "appAccessToken") as? String,
+                    let userAccessToken = auth.value(forKey: "userAccessToken") as? String,
+                    let clientID = auth.value(forKey: "clientID") as? String,
+                    let clientSecret = auth.value(forKey: "clientSecret") as? String,
+                    let createdAt = auth.value(forKey: "createdAt") as? Date,
+                    let updatedAt = auth.value(forKey: "updatedAt") as? Date,
+                    let activedAt = auth.value(forKey: "activedAt") as? Date,
+                    let userID = auth.value(forKey: "userID") as? String
+
+                else {
+                    return nil
+                }
+                return MastodonAuthentication(
+                    identifier: identifier,
+                    domain: domain,
+                    username: username,
+                    appAccessToken: appAccessToken,
+                    userAccessToken: userAccessToken,
+                    clientID: clientID,
+                    clientSecret: clientSecret,
+                    createdAt: createdAt,
+                    updatedAt: updatedAt,
+                    activedAt: activedAt,
+                    userID: userID
                 )
             }
         } catch {

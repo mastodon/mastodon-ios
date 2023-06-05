@@ -47,7 +47,14 @@ public class AppContext: ObservableObject {
         .eraseToAnyPublisher()
     
     public init() {
-        let _coreDataStack = CoreDataStack()
+        
+        /// Migrate existing Authentications to new Keychain-Based format
+//        var _legacyCoreDataStack: CoreDataStack? = CoreDataStack(isInMemory: false)
+//        AuthenticationServiceProvider.shared.migrateLegacyAuthenticationsIfRequired(in: _legacyCoreDataStack!.persistentContainer.viewContext)
+//        _legacyCoreDataStack!.tearDown()
+//        _legacyCoreDataStack = nil
+        
+        let _coreDataStack = CoreDataStack(isInMemory: true)
         let _managedObjectContext = _coreDataStack.persistentContainer.viewContext
         let _backgroundManagedObjectContext = _coreDataStack.persistentContainer.newBackgroundContext()
         coreDataStack = _coreDataStack

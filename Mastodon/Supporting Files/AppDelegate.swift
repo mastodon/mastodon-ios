@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let appContext = AppContext()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        AuthenticationServiceProvider.shared.migrateLegacyAuthenticationsIfRequired(in: appContext.managedObjectContext)
         AuthenticationServiceProvider.shared.restore()
         
         AppSecret.default.register()
