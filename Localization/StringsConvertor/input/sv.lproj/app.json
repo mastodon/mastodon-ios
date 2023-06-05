@@ -109,8 +109,8 @@
                 "notifications": "Notiser",
                 "profile": "Profil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Sök",
+                    "explore": "Utforska"
                 }
             },
             "keyboard": {
@@ -268,7 +268,7 @@
             "join_default_server": "Join mastodon.social",
             "pick_server": "Pick another server",
             "separator": {
-                "or": "or"
+                "or": "eller"
             },
             "education": {
                 "mastodon": {
