@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Logga in",
             "learn_more": "Läs mer",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Gå med i mastodon.social",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "eller"
@@ -506,8 +506,8 @@
                 "the_poll_has_empty_option": "Undersökningen har ett tomt alternativ",
                 "add_option": "Add Option",
                 "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "move_up": "Flytta upp",
+                "move_down": "Flytta ned"
             },
             "content_warning": {
                 "placeholder": "Skriv en noggrann varning här..."
