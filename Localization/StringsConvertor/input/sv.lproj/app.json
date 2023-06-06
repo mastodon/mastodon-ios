@@ -339,7 +339,7 @@
                 "all": "All"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Sök namn eller URL"
             },
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
