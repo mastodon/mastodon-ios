@@ -333,7 +333,7 @@
             "signup_speed": {
                 "all": "All",
                 "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "manually_reviewed": "Manuell granskning"
             },
             "language": {
                 "all": "All"
@@ -341,7 +341,7 @@
             "search": {
                 "placeholder": "Sök namn eller URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Vi kommer att välja en server baserat på ditt språk om du fortsätter utan att göra ett val."
         },
         "privacy": {
             "title": "Privacy",
@@ -426,8 +426,8 @@
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Kolla din inkorg",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Klicka på länken som vi har skickat till dig för att bekräfta %@. Vi väntar här.",
             "button": {
                 "resend": "Skicka igen"
             },
@@ -443,8 +443,8 @@
                 "open_email_client": "Öppna e-postklient"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
+                "prefix": "Fick du ingen länk?",
+                "resend_in": "Skicka igen (%@)",
                 "resend_now": "Resend now."
             }
         },
@@ -462,7 +462,7 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
+            "title": "Populärt på Mastodon",
             "follow_all": "Följ alla"
         },
         "compose": {
@@ -544,7 +544,7 @@
                 "title": "Post Language",
                 "suggested": "Suggested",
                 "recent": "Senaste",
-                "other": "Other Language…"
+                "other": "Andra språk…"
             }
         },
         "profile": {
@@ -845,7 +845,7 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Detta verkar inte vara en giltig Mastodon-länk."
         }
     },
     "widget": {
