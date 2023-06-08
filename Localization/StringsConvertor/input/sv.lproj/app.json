@@ -345,13 +345,13 @@
         },
         "privacy": {
             "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Även om Mastodon-appen inte samlar in någon data kan servern du registrerar dig genom ha en annan policy. Ta en stund till att granska och godkänna Mastodon-appens sekretesspolicy och din servers sekretesspolicy.",
             "policy": {
                 "ios": "Integritetspolicy - Mastodon för iOS",
                 "server": "Integritetspolicy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Jag godkänner"
             }
         },
         "register": {
@@ -422,7 +422,7 @@
             "terms_of_service": "användarvillkor",
             "privacy_policy": "integritetspolicy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Jag godkänner"
             }
         },
         "confirm_email": {
