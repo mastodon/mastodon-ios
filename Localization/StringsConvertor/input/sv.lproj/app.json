@@ -854,10 +854,10 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
+            "configuration_display_name": "Följare",
             "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "title": "FÖLJARE",
+            "followers_today": "%s följare idag"
         },
         "multiple_followers": {
             "configuration_display_name": "Multiple followers",
