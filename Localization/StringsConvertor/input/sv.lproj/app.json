@@ -273,7 +273,7 @@
             "education": {
                 "mastodon": {
                     "title": "Välkommen till Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "description": "Mastodon är ett decentraliserat socialt nätverk, vilket innebär att inget enskilt företag kontrollerar det. Det består av många oberoende servrar, alla sammankopplade."
                 },
                 "servers": {
                     "title": "Vad är servrar?",
