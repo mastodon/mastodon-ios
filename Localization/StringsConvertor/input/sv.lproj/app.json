@@ -266,7 +266,7 @@
             "log_in": "Logga in",
             "learn_more": "Läs mer",
             "join_default_server": "Gå med i mastodon.social",
-            "pick_server": "Pick another server",
+            "pick_server": "Hitta en annan server",
             "separator": {
                 "or": "eller"
             },
@@ -277,7 +277,7 @@
                 },
                 "servers": {
                     "title": "Vad är servrar?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "description": "Varje Mastodon-konto finns på en server — var och en med sina värderingar, regler och administratörer. Oavsett vilken du väljer kan du följa och interagera med människor på vilken server som helst."
                 },
                 "a11y": {
                     "what_is_mastodon": {
