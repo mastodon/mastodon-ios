@@ -124,13 +124,3 @@ private extension AuthenticationServiceProvider {
         }
     }
 }
-
-private extension UserDefaults {
-    @objc dynamic var didMigrateAuthentications: Bool {
-        get {
-            register(defaults: [#function: false])
-            return bool(forKey: #function)
-        }
-        set { self[#function] = newValue }
-    }
-}
