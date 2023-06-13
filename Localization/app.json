@@ -104,8 +104,8 @@
                 "edit_post": "Edit",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
-                "follow" = "Follow %s",
-                "unfollow" = "Unfollow %s"
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Home",
