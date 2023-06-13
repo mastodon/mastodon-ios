@@ -88,7 +88,7 @@ public extension AuthenticationServiceProvider {
             }
 
             if migratedAuthentications.count != legacyAuthentications.count {
-                logger.log(level: .default, "Not all mitgrations could be migrated.")
+                logger.log(level: .default, "Not all account authentications could be migrated.")
             }
 
             self.authentications = migratedAuthentications
