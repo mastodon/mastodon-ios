@@ -1,17 +1,23 @@
 //
-//  MediaBadgesContainer.swift
+//  InlineMediaOverlayContainer.swift
 //
 //  Created by Jed Fox on 2022-12-20.
 //
 
 import SwiftUI
 
-struct MediaBadgesContainer: View {
+struct InlineMediaOverlayContainer: View {
     var altDescription: String?
-    var isGIF = false
+    var mediaType: MediaType = .image
     var showDuration = false
     var mediaDuration: TimeInterval?
-    
+
+    enum MediaType {
+        case image
+        case gif
+        case video
+    }
+
     @State private var showingAlt = false
     @State private var space = AnyHashable(UUID())
 
@@ -35,7 +41,7 @@ struct MediaBadgesContainer: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
-                if isGIF {
+                if mediaType == .gif {
                     MediaBadge("GIF")
                 }
                 if showDuration {
@@ -52,6 +58,20 @@ struct MediaBadgesContainer: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
+        .overlay {
+            if mediaType == .video {
+                  Image(systemName: "play.circle.fill")
+                     .font(.system(size: 54))
+                     .foregroundColor(.white)
+                     .shadow(color: .black.opacity(0.5), radius: 32, x: 0, y: 0)
+                     .background(alignment: .center) {
+                         Circle()
+                             .fill(.ultraThinMaterial)
+                             .frame(width: 40, height: 40)
+                             .colorScheme(.light)
+                     }
+            }
+        }
         .onChange(of: altDescription) { _ in
             showingAlt = false
         }
@@ -60,7 +80,7 @@ struct MediaBadgesContainer: View {
 
 struct MediaAltTextOverlay_Previews: PreviewProvider {
     static var previews: some View {
-        MediaBadgesContainer(altDescription: "Hello, world!")
+        InlineMediaOverlayContainer(altDescription: "Hello, world!")
             .frame(height: 300)
             .background(Color.gray)
             .previewLayout(.sizeThatFits)
