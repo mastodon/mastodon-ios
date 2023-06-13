@@ -65,7 +65,7 @@
         <attribute name="version" optional="YES" attributeType="String"/>
         <relationship name="authentications" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonAuthentication" inverseName="instance" inverseEntity="MastodonAuthentication"/>
     </entity>
-    <entity name="MastodonAuthentication" representedClassName="CoreDataStack.MastodonAuthentication" syncable="YES">
+    <entity name="MastodonAuthentication" representedClassName="CoreDataStack.MastodonAuthenticationLegacy" syncable="YES">
         <attribute name="activedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="appAccessToken" attributeType="String"/>
         <attribute name="clientID" attributeType="String"/>
