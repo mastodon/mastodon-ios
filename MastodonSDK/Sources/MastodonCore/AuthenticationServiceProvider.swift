@@ -68,14 +68,12 @@ public extension AuthenticationServiceProvider {
         }
     }
     
-    func migrateLegacyAuthentications(in context: NSManagedObjectContext) {        
-        defer { userDefaults.didMigrateAuthentications = true }
-        
+    func migrateLegacyAuthentications(in context: NSManagedObjectContext) {
         do {
             let request = NSFetchRequest<NSManagedObject>(entityName: "MastodonAuthentication")
             let legacyAuthentications = try context.fetch(request)
             
-            self.authentications = legacyAuthentications.compactMap { auth -> MastodonAuthentication? in
+             let migratedAuthentications = legacyAuthentications.compactMap { auth -> MastodonAuthentication? in
                 guard
                     let identifier = auth.value(forKey: "identifier") as? UUID,
                     let domain = auth.value(forKey: "domain") as? String,
@@ -106,13 +104,21 @@ public extension AuthenticationServiceProvider {
                     userID: userID
                 )
             }
+
+            if migratedAuthentications.count != legacyAuthentications.count {
+                logger.log(level: .default, "Not all mitgrations could be migrated.")
+            }
+
+            self.authentications = migratedAuthentications
+            userDefaults.didMigrateAuthentications = true
         } catch {
+            userDefaults.didMigrateAuthentications = false
             logger.log(level: .error, "Could not migrate legacy authentications")
         }
     }
     
     var authenticationMigrationRequired: Bool {
-        !userDefaults.didMigrateAuthentications
+        userDefaults.didMigrateAuthentications == false
     }
 }
 
