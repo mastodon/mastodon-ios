@@ -42,6 +42,7 @@ Please check your internet connection.";
 "Common.Controls.Actions.Edit" = "Edit";
 "Common.Controls.Actions.EditPost" = "Edit";
 "Common.Controls.Actions.FindPeople" = "Find people to follow";
+"Common.Controls.Actions.ManageAuthor" = "Manage Author…";
 "Common.Controls.Actions.ManuallySearch" = "Manually search instead";
 "Common.Controls.Actions.Next" = "Next";
 "Common.Controls.Actions.Ok" = "OK";

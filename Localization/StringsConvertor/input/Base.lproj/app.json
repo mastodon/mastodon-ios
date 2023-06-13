@@ -97,6 +97,7 @@
                 "unblock_domain": "Unblock %s",
                 "settings": "Settings",
                 "delete": "Delete",
+                "manage_author": "Manage Author…",
                 "translate_post": {
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"

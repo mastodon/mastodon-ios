@@ -43,12 +43,18 @@ public struct LabeledAction {
             return true
         }
     }
+
+    public var alertAction: UIAlertAction {
+        UIAlertAction(title: title, style: attributes.contains(.destructive) ? .destructive : .default) { _ in
+            handler()
+        }
+    }
 }
 
 extension LabeledAction {
     public init(
         title: String,
-        asset: ImageAsset? = nil,
+        asset: ImageAsset?,
         attributes: UIMenuElement.Attributes = [],
         state: UIMenuElement.State = .off,
         handler: @escaping () -> Void

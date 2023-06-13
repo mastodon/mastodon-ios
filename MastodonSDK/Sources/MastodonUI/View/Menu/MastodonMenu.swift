@@ -30,7 +30,7 @@ public enum MastodonMenu {
             }
             children.append(element)
         }
-        return UIMenu(children: children)
+        return UIMenu(options: .displayInline, children: children)
     }
 
     public static func setupAccessibilityActions(
@@ -43,6 +43,19 @@ public enum MastodonMenu {
             accessibilityActions.append(element.accessibilityCustomAction)
         }
         return accessibilityActions
+    }
+
+    public static func setupAlertActions(
+        actions: [Action],
+        delegate: MastodonMenuDelegate
+    ) -> [UIAlertAction] {
+        var alertActions: [UIAlertAction] = []
+        for action in actions {
+            let element = action.build(delegate: delegate)
+            alertActions.append(element.alertAction)
+        }
+        return alertActions
+
     }
 }
 
@@ -58,7 +71,8 @@ extension MastodonMenu {
         case shareStatus
         case deleteStatus
         case editStatus
-        
+        case showActionSheet(title: String, actions: [UIAlertAction])
+
         func build(delegate: MastodonMenuDelegate) -> LabeledAction {
             switch self {
             case .hideReblogs(let context):
@@ -172,6 +186,12 @@ extension MastodonMenu {
                 }
 
                 return editStatusAction
+            case let .showActionSheet(title, _):
+                let showMoreAction = LabeledAction(title: title) { [weak delegate] in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+                return showMoreAction
             }   // end switch
         }   // end func build
     }   // end enum Action
