@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "人気のアカウント",
+            "follow_all": "すべてフォロー"
         },
         "compose": {
             "title": {
@@ -886,7 +886,7 @@
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "<a>#ハッシュタグ</a> 投稿のサンプルです。検索する <a>#ハッシュタグ</a> はウィジェットの設定で指定できます。"
             }
         }
     }
