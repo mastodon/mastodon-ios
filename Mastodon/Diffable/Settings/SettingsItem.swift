@@ -12,9 +12,9 @@ import MastodonAsset
 import MastodonLocalization
 
 enum SettingsItem {
-    case appearance(record: ManagedObjectRecord<Setting>)
-    case preference(settingRecord: ManagedObjectRecord<Setting>, preferenceType: PreferenceType)
-    case notification(settingRecord: ManagedObjectRecord<Setting>, switchMode: NotificationSwitchMode)
+    case appearance(record: ManagedObjectRecord<LegacySetting>)
+    case preference(settingRecord: ManagedObjectRecord<LegacySetting>, preferenceType: PreferenceType)
+    case notification(settingRecord: ManagedObjectRecord<LegacySetting>, switchMode: NotificationSwitchMode)
     case boringZone(item: Link)
     case spicyZone(item: Link)
 }

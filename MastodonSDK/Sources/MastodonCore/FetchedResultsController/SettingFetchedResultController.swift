@@ -16,16 +16,16 @@ public final class SettingFetchedResultController: NSObject {
 
     var disposeBag = Set<AnyCancellable>()
 
-    let fetchedResultsController: NSFetchedResultsController<Setting>
+    let fetchedResultsController: NSFetchedResultsController<LegacySetting>
 
     // input
     
     // output
-    public let settings = CurrentValueSubject<[Setting], Never>([])
+    public let settings = CurrentValueSubject<[LegacySetting], Never>([])
     
     public init(managedObjectContext: NSManagedObjectContext, additionalPredicate: NSPredicate?) {
         self.fetchedResultsController = {
-            let fetchRequest = Setting.sortedFetchRequest
+            let fetchRequest = LegacySetting.sortedFetchRequest
             fetchRequest.returnsObjectsAsFaults = false
             if let additionalPredicate = additionalPredicate {
                 fetchRequest.predicate = additionalPredicate

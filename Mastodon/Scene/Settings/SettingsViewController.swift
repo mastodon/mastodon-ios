@@ -198,7 +198,7 @@ extension SettingsViewController {
                     } receiveValue: { [weak self] change in
                         guard let self = self else { return }
                         guard case let .update(object) = change.changeType,
-                              let setting = object as? Setting else { return }
+                              let setting = object as? LegacySetting else { return }
                         if let activeSubscription = setting.activeSubscription {
                             self.whoButton.setTitle(activeSubscription.policy.title, for: .normal)
                         } else {
@@ -409,7 +409,7 @@ extension SettingsViewController {
         let managedObjectContext = context.backgroundManagedObjectContext
         
         managedObjectContext.performChanges {
-            let setting = managedObjectContext.object(with: objectID) as! Setting
+            let setting = managedObjectContext.object(with: objectID) as! LegacySetting
             let (subscription, _) = APIService.CoreData.createOrFetchSubscription(
                 into: managedObjectContext,
                 setting: setting,

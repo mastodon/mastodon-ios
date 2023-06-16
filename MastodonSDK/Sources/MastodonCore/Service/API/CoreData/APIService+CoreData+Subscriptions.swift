@@ -15,7 +15,7 @@ extension APIService.CoreData {
     
     public static func createOrFetchSubscription(
         into managedObjectContext: NSManagedObjectContext,
-        setting: Setting,
+        setting: LegacySetting,
         policy: Mastodon.API.Subscriptions.Policy
     ) -> (subscription: Subscription, isCreated: Bool) {
         let oldSubscription = setting.subscriptions?.first(where: { subscription in

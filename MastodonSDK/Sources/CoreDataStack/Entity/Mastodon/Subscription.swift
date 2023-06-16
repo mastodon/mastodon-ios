@@ -25,7 +25,7 @@ public final class Subscription: NSManagedObject {
     @NSManaged public var alert: SubscriptionAlerts
     
     // MARK: many-to-one relationships
-    @NSManaged public var setting: Setting?
+    @NSManaged public var setting: LegacySetting?
 }
 
 public extension Subscription {
@@ -49,7 +49,7 @@ public extension Subscription {
     static func insert(
         into context: NSManagedObjectContext,
         property: Property,
-        setting: Setting
+        setting: LegacySetting
     ) -> Subscription {
         let subscription: Subscription = context.insertObject()
         subscription.policyRaw = property.policyRaw

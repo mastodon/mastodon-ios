@@ -24,7 +24,7 @@ class SettingsViewModel {
     let authContext: AuthContext
     var mastodonAuthenticationController: MastodonAuthenticationController?
 
-    let setting: CurrentValueSubject<Setting, Never>
+    let setting: CurrentValueSubject<LegacySetting, Never>
     var updateDisposeBag = Set<AnyCancellable>()
     var createDisposeBag = Set<AnyCancellable>()
     
@@ -47,7 +47,7 @@ class SettingsViewModel {
         return Mastodon.API.privacyURL(domain: domain)
     }()
     
-    init(context: AppContext, authContext: AuthContext, setting: Setting) {
+    init(context: AppContext, authContext: AuthContext, setting: LegacySetting) {
         self.context = context
         self.authContext = authContext
         self.setting = CurrentValueSubject(setting)
@@ -100,7 +100,7 @@ extension SettingsViewModel {
     }
     
     // MARK: - Private methods
-    private func processDataSource(_ setting: Setting) {
+    private func processDataSource(_ setting: LegacySetting) {
         guard let dataSource = self.dataSource else { return }
         var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, SettingsItem>()
 

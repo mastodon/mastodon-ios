@@ -186,7 +186,7 @@
         <relationship name="hashtag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="searchHistories" inverseEntity="Tag"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="searchHistories" inverseEntity="Status"/>
     </entity>
-    <entity name="Setting" representedClassName="CoreDataStack.Setting" syncable="YES">
+    <entity name="Setting" representedClassName="CoreDataStack.LegacySetting" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="preferredStaticAvatar" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>

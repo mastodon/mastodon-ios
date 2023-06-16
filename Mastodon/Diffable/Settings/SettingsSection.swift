@@ -60,7 +60,7 @@ extension SettingsSection {
                         }, receiveValue: { [weak cell] change in
                             guard let cell = cell else { return }
                             guard case .update(let object) = change.changeType,
-                                  let setting = object as? Setting else { return }
+                                  let setting = object as? LegacySetting else { return }
                             SettingsSection.configureSettingToggle(cell: cell, item: item, setting: setting)
                         })
                         .store(in: &cell.disposeBag)
@@ -79,7 +79,7 @@ extension SettingsSection {
                         }, receiveValue: { [weak cell] change in
                             guard let cell = cell else { return }
                             guard case .update(let object) = change.changeType,
-                                  let setting = object as? Setting else { return }
+                                  let setting = object as? LegacySetting else { return }
                             guard let subscription = setting.activeSubscription else { return }
                             SettingsSection.configureSettingToggle(cell: cell, switchMode: switchMode, subscription: subscription)
                         })
@@ -102,7 +102,7 @@ extension SettingsSection {
     public static func configureSettingToggle(
         cell: SettingsToggleTableViewCell,
         item: SettingsItem,
-        setting: Setting
+        setting: LegacySetting
     ) {
         switch item {
         case .preference(_, let preferenceType):

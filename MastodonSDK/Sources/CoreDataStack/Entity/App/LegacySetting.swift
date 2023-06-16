@@ -8,7 +8,8 @@
 import CoreData
 import Foundation
 
-public final class Setting: NSManagedObject {
+@objc(Setting)
+public final class LegacySetting: NSManagedObject {
     
     @NSManaged public var domain: String
     @NSManaged public var userID: String
@@ -37,35 +38,25 @@ public final class Setting: NSManagedObject {
     
     // one-to-many relationships
     @NSManaged public var subscriptions: Set<Subscription>?
-}
 
-extension Setting {
-    
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         let now = Date()
-        setPrimitiveValue(now, forKey: #keyPath(Setting.createdAt))
-        setPrimitiveValue(now, forKey: #keyPath(Setting.updatedAt))
+        setPrimitiveValue(now, forKey: #keyPath(LegacySetting.createdAt))
+        setPrimitiveValue(now, forKey: #keyPath(LegacySetting.updatedAt))
     }
     
     @discardableResult
     public static func insert(
         into context: NSManagedObjectContext,
         property: Property
-    ) -> Setting {
-        let setting: Setting = context.insertObject()
-//        setting.appearanceRaw = property.appearanceRaw
+    ) -> LegacySetting {
+        let setting: LegacySetting = context.insertObject()
         setting.domain = property.domain
         setting.userID = property.userID
         return setting
     }
     
-//    public func update(appearanceRaw: String) {
-//        guard appearanceRaw != self.appearanceRaw else { return }
-//        self.appearanceRaw = appearanceRaw
-//        didUpdate(at: Date())
-//    }
-
     public func update(preferredTrueBlackDarkMode: Bool) {
         guard preferredTrueBlackDarkMode != self.preferredTrueBlackDarkMode else { return }
         self.preferredTrueBlackDarkMode = preferredTrueBlackDarkMode
@@ -94,9 +85,6 @@ extension Setting {
         self.updatedAt = networkDate
     }
     
-}
-
-extension Setting {
     public struct Property {
         public let domain: String
         public let userID: String
@@ -112,20 +100,18 @@ extension Setting {
 //            self.appearanceRaw = appearanceRaw
         }
     }
-}
 
-extension Setting: Managed {
-    public static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \Setting.createdAt, ascending: false)]
-    }
-}
-
-extension Setting {
     public static func predicate(domain: String, userID: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@ AND %K == %@",
-                           #keyPath(Setting.domain), domain,
-                           #keyPath(Setting.userID), userID
+                           #keyPath(LegacySetting.domain), domain,
+                           #keyPath(LegacySetting.userID), userID
         )
     }
-    
+
+}
+
+extension LegacySetting: Managed {
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(keyPath: \LegacySetting.createdAt, ascending: false)]
+    }
 }

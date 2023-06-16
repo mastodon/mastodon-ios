@@ -9,7 +9,7 @@ import Foundation
 import CoreDataStack
 import MastodonSDK
 
-extension Setting {
+extension LegacySetting {
     
 //    var appearance: SettingsItem.AppearanceMode {
 //        return SettingsItem.AppearanceMode(rawValue: appearanceRaw) ?? .automatic

@@ -16,11 +16,11 @@ extension APIService.CoreData {
     
     static func createOrMergeSetting(
         into managedObjectContext: NSManagedObjectContext,
-        property: Setting.Property
-    ) -> (Subscription: Setting, isCreated: Bool) {
-        let oldSetting: Setting? = {
-            let request = Setting.sortedFetchRequest
-            request.predicate = Setting.predicate(domain: property.domain, userID: property.userID)
+        property: LegacySetting.Property
+    ) -> (Subscription: LegacySetting, isCreated: Bool) {
+        let oldSetting: LegacySetting? = {
+            let request = LegacySetting.sortedFetchRequest
+            request.predicate = LegacySetting.predicate(domain: property.domain, userID: property.userID)
             request.fetchLimit = 1
             request.returnsObjectsAsFaults = false
             return managedObjectContext.safeFetch(request).first
@@ -30,7 +30,7 @@ extension APIService.CoreData {
             setupSettingSubscriptions(managedObjectContext: managedObjectContext, setting: oldSetting)
             return (oldSetting, false)
         } else {
-            let setting = Setting.insert(
+            let setting = LegacySetting.insert(
                 into: managedObjectContext,
                 property: property
             )
@@ -45,7 +45,7 @@ extension APIService.CoreData {
 
     static func setupSettingSubscriptions(
         managedObjectContext: NSManagedObjectContext,
-        setting: Setting
+        setting: LegacySetting
     ) {
         guard (setting.subscriptions ?? Set()).isEmpty else { return }
         

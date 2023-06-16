@@ -27,7 +27,7 @@ public final class SettingService {
     
     // output
     let settingFetchedResultController: SettingFetchedResultController
-    public let currentSetting = CurrentValueSubject<Setting?, Never>(nil)
+    public let currentSetting = CurrentValueSubject<LegacySetting?, Never>(nil)
     
     init(
         apiService: APIService,
@@ -55,7 +55,7 @@ public final class SettingService {
                         let userID = authenticationBox.userID
                         _ = APIService.CoreData.createOrMergeSetting(
                             into: managedObjectContext,
-                            property: Setting.Property(
+                            property: LegacySetting.Property(
                                 domain: domain,
                                 userID: userID
                             )
@@ -102,7 +102,7 @@ public final class SettingService {
                         // do nothing
                     }, receiveValue: { change in
                         guard case .update(let object) = change.changeType,
-                              let setting = object as? Setting else { return }
+                              let setting = object as? LegacySetting else { return }
 
                         SettingService.updatePreference(setting: setting)
                     })
@@ -192,7 +192,7 @@ extension SettingService {
 
 extension SettingService {
 
-    static func updatePreference(setting: Setting) {
+    static func updatePreference(setting: LegacySetting) {
         // set theme
         let themeName: ThemeName = .system
         if UserDefaults.shared.currentThemeNameRawValue != themeName.rawValue {
