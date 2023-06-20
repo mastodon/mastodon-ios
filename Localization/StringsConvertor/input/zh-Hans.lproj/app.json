@@ -101,7 +101,11 @@
                     "title": "翻译自 %s",
                     "unknown_language": "未知的"
                 },
-                "edit_post": "编辑"
+                "edit_post": "编辑",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "主页",
