@@ -101,7 +101,11 @@
                     "title": "%sから翻訳",
                     "unknown_language": "不明"
                 },
-                "edit_post": "編集"
+                "edit_post": "編集",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "ホーム",
