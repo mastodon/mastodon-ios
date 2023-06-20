@@ -101,7 +101,11 @@
                     "title": "Traduït del %s",
                     "unknown_language": "Desconegut"
                 },
-                "edit_post": "Edita"
+                "edit_post": "Edita",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Inici",
