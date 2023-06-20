@@ -102,10 +102,10 @@
                     "unknown_language": "未知"
                 },
                 "edit_post": "編輯",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "書籤",
+                "remove_bookmark": "移除書籤",
+                "follow": "跟隨 %s",
+                "unfollow": "取消跟隨 %s"
             },
             "tabs": {
                 "home": "首頁",
