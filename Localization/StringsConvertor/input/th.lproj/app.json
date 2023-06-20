@@ -101,7 +101,11 @@
                     "title": "แปลจาก %s",
                     "unknown_language": "ไม่รู้จัก"
                 },
-                "edit_post": "แก้ไข"
+                "edit_post": "แก้ไข",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "หน้าแรก",
