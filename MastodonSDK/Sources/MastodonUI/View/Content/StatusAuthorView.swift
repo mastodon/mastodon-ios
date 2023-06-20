@@ -150,6 +150,7 @@ extension StatusAuthorView {
         public let isBlocking: Bool
         public let isMyself: Bool
         public let isBookmarking: Bool
+        public let isFollowed: Bool
         
         public let isTranslationEnabled: Bool
         public let isTranslated: Bool
@@ -157,45 +158,53 @@ extension StatusAuthorView {
     }
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
-        var actions = [MastodonMenu.Action]()
+        var actions: [[MastodonMenu.Action]] = []
+        var postActions: [MastodonMenu.Action] = []
+        var userActions: [MastodonMenu.Action] = []
 
         if menuContext.isMyself {
-            actions.append(.editStatus)
+            postActions.append(.editStatus)
         }
 
-        if !menuContext.isMyself {
-            if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled, !menuContext.isTranslated {
-                actions.append(
-                    .translateStatus(.init(language: statusLanguage))
-                )
+        if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled {
+            if menuContext.isTranslated == false {
+                postActions.append(.translateStatus(.init(language: statusLanguage)))
+            } else {
+                postActions.append(.showOriginal)
             }
-            
-            actions.append(contentsOf: [
-                .muteUser(.init(
-                    name: menuContext.name,
-                    isMuting: menuContext.isMuting
-                )),
-                .blockUser(.init(
-                    name: menuContext.name,
-                    isBlocking: menuContext.isBlocking
-                )),
-                .reportUser(
-                    .init(name: menuContext.name)
-                )
-            ])
         }
-        
-        actions.append(contentsOf: [
-            .bookmarkStatus(
-                .init(isBookmarking: menuContext.isBookmarking)
-            ),
-            .shareStatus
-        ])
+
+        postActions.append(.bookmarkStatus(.init(isBookmarking: menuContext.isBookmarking)))
+        postActions.append(.shareStatus)
+
+        if menuContext.isMyself == false {
+
+            userActions.append(.followUser(.init(
+                name: menuContext.name,
+                isFollowing: menuContext.isFollowed
+            )))
+
+            userActions.append(.muteUser(.init(
+                name: menuContext.name,
+                isMuting: menuContext.isMuting
+            )))
+
+            userActions.append(.blockUser(.init(
+                name: menuContext.name,
+                isBlocking: menuContext.isBlocking
+            )))
+
+            userActions.append(.reportUser(
+                .init(name: menuContext.name)
+            ))
+        }
+
+        actions.append(postActions)
+        actions.append(userActions)
 
         if menuContext.isMyself {
-            actions.append(.deleteStatus)
+            actions.append([.deleteStatus])
         }
-
 
         let menu = MastodonMenu.setupMenu(
             actions: actions,
@@ -214,14 +223,14 @@ extension StatusAuthorView {
 
 extension StatusAuthorView {
     @objc private func authorAvatarButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let statusView = statusView else { return }
+
         statusView.delegate?.statusView(statusView, authorAvatarButtonDidPressed: avatarButton)
     }
 
     @objc private func contentSensitiveeToggleButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let statusView = statusView else { return }
+
         statusView.delegate?.statusView(statusView, contentSensitiveeToggleButtonDidPressed: sender)
     }
 }

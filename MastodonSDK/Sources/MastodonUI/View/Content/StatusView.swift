@@ -792,7 +792,6 @@ extension StatusView: StatusMetricViewDelegate {
 // MARK: - MastodonMenuDelegate
 extension StatusView: MastodonMenuDelegate {
     public func menuAction(_ action: MastodonMenu.Action) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, menuButton: authorView.menuButton, didSelectAction: action)
     }
 }

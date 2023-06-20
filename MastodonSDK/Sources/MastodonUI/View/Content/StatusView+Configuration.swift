@@ -258,6 +258,18 @@ extension StatusView {
         }
         .assign(to: \.isMyself, on: viewModel)
         .store(in: &disposeBag)
+
+        // Following
+        author.publisher(for: \.followingBy)
+            .map { [weak viewModel] followingBy in
+                guard let viewModel = viewModel else { return false }
+                guard let authContext = viewModel.authContext else { return false }
+                return followingBy.contains(where: {
+                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
+                })
+            }
+            .assign(to: \.isFollowed, on: viewModel)
+            .store(in: &disposeBag)
     }
     
     private func configureTimestamp(timestamp: AnyPublisher<Date, Never>) {
@@ -278,8 +290,9 @@ extension StatusView {
         viewModel.applicationName = applicationName
     }
     
-    func revertTranslation() {
+    public func revertTranslation() {
         guard let originalStatus = viewModel.originalStatus else { return }
+        
         viewModel.translatedFromLanguage = nil
         viewModel.translatedUsingProvider = nil
         originalStatus.reblog?.update(translatedContent: nil)
