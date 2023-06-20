@@ -101,7 +101,11 @@
                     "title": "Traducido desde el %s",
                     "unknown_language": "Desconocido"
                 },
-                "edit_post": "Editar"
+                "edit_post": "Editar",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Principal",
