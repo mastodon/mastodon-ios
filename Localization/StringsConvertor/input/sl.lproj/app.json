@@ -102,10 +102,10 @@
                     "unknown_language": "Neznano"
                 },
                 "edit_post": "Uredi",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Zaznamek",
+                "remove_bookmark": "Odstrani zaznamek",
+                "follow": "Sledi %s",
+                "unfollow": "Prenehaj slediti %s"
             },
             "tabs": {
                 "home": "Domov",
@@ -466,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Priljubljeno na Mastodonu",
+            "follow_all": "Sledi vsem"
         },
         "compose": {
             "title": {
