@@ -101,7 +101,11 @@
                     "title": "Przetłumacz z %s",
                     "unknown_language": "Nieznany"
                 },
-                "edit_post": "Edytuj"
+                "edit_post": "Edytuj",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Strona główna",
