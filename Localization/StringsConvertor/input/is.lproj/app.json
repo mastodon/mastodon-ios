@@ -102,10 +102,10 @@
                     "unknown_language": "Óþekkt"
                 },
                 "edit_post": "Breyta",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Bókamerki",
+                "remove_bookmark": "Fjarlægja bókamerki",
+                "follow": "Fylgjast með %s",
+                "unfollow": "Hætta að fylgjast með %s"
             },
             "tabs": {
                 "home": "Heim",
