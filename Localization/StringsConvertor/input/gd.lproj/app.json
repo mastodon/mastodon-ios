@@ -101,7 +101,11 @@
                     "title": "Eadar-theangaich o: %s",
                     "unknown_language": "Chan eil fhios"
                 },
-                "edit_post": "Deasaich"
+                "edit_post": "Deasaich",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Dachaigh",
