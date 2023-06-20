@@ -46,8 +46,8 @@ extension SearchResultSection {
             switch item {
             case .user(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let user = record.object(in: context.cacheManagedObjectContext) else { return }
                     configure(
                         context: context,
                         authContext: authContext,
@@ -63,8 +63,8 @@ extension SearchResultSection {
                 return cell
             case .status(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let status = record.object(in: context.cacheManagedObjectContext) else { return }
                     configure(
                         context: context,
                         tableView: tableView,
@@ -129,7 +129,7 @@ extension SearchResultSection {
         configuration: Configuration
     ) {
         cell.configure(
-            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
+            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.cacheManagedObjectContext),
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

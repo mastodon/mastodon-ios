@@ -21,7 +21,7 @@ extension HomeTimelineViewController: DataSourceProvider {
         
         switch item {
         case .feed(let record):
-            let managedObjectContext = context.managedObjectContext
+            let managedObjectContext = context.cacheManagedObjectContext
             let item: DataSourceItem? = try? await managedObjectContext.perform {
                 guard let feed = record.object(in: managedObjectContext) else { return nil }
                 guard feed.kind == .home else { return nil }

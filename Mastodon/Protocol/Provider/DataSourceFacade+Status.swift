@@ -58,8 +58,8 @@ extension DataSourceFacade {
         dependency: NeedsDependency,
         status: ManagedObjectRecord<Status>
     ) async throws -> UIActivityViewController {
-        var activityItems: [Any] = try await dependency.context.managedObjectContext.perform {
-            guard let status = status.object(in: dependency.context.managedObjectContext),
+        var activityItems: [Any] = try await dependency.context.cacheManagedObjectContext.perform {
+            guard let status = status.object(in: dependency.context.cacheManagedObjectContext),
                   let url = URL(string: status.url ?? status.uri)
             else { return [] }
             return [
@@ -98,7 +98,7 @@ extension DataSourceFacade {
         action: ActionToolbarContainer.Action,
         sender: UIButton
     ) async throws {
-        let managedObjectContext = provider.context.managedObjectContext
+        let managedObjectContext = provider.context.cacheManagedObjectContext
         let _status: ManagedObjectRecord<Status>? = try? await managedObjectContext.perform {
             guard let object = status.object(in: managedObjectContext) else { return nil }
             let objectID = (object.reblog ?? object).objectID
@@ -181,7 +181,7 @@ extension DataSourceFacade {
                     guard let dependency else { return }
 
                     Task {
-                        let managedObjectContext = dependency.context.managedObjectContext
+                        let managedObjectContext = dependency.context.cacheManagedObjectContext
                         let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
                             guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
                             return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
@@ -214,7 +214,7 @@ extension DataSourceFacade {
             ) { [weak dependency] _ in
                 guard let dependency = dependency else { return }
                 Task {
-                    let managedObjectContext = dependency.context.managedObjectContext
+                    let managedObjectContext = dependency.context.cacheManagedObjectContext
                     let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
                         guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
                         return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
@@ -242,7 +242,7 @@ extension DataSourceFacade {
             ) { [weak dependency] _ in
                 guard let dependency = dependency else { return }
                 Task {
-                    let managedObjectContext = dependency.context.managedObjectContext
+                    let managedObjectContext = dependency.context.cacheManagedObjectContext
                     let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
                         guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
                         return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
@@ -308,7 +308,7 @@ extension DataSourceFacade {
             }   // end Task
         case .shareStatus:
             Task {
-                let managedObjectContext = dependency.context.managedObjectContext
+                let managedObjectContext = dependency.context.cacheManagedObjectContext
                 guard let status: ManagedObjectRecord<Status> = try? await managedObjectContext.perform(block: {
                     guard let object = menuContext.status?.object(in: managedObjectContext) else { return nil }
                     let objectID = (object.reblog ?? object).objectID
@@ -371,7 +371,7 @@ extension DataSourceFacade {
             }
         case .editStatus:
 
-            guard let status = menuContext.status?.object(in: dependency.context.managedObjectContext) else { return }
+            guard let status = menuContext.status?.object(in: dependency.context.cacheManagedObjectContext) else { return }
 
             let statusSource = try await dependency.context.apiService.getStatusSource(
                 forStatusID: status.id,
@@ -394,8 +394,8 @@ extension DataSourceFacade {
         dependency: NeedsDependency,
         status: ManagedObjectRecord<Status>
     ) async throws {
-        try await dependency.context.managedObjectContext.perform {
-            guard let _status = status.object(in: dependency.context.managedObjectContext) else { return }
+        try await dependency.context.cacheManagedObjectContext.perform {
+            guard let _status = status.object(in: dependency.context.cacheManagedObjectContext) else { return }
             let status = _status.reblog ?? _status
             status.update(isSensitiveToggled: !status.isSensitiveToggled)
         }

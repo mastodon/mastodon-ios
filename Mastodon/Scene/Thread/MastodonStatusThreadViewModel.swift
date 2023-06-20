@@ -89,7 +89,7 @@ extension MastodonStatusThreadViewModel {
         do {
             let request = Status.sortedFetchRequest
             request.predicate = Status.predicate(domain: domain, ids: ids)
-            let statuses = try self.context.managedObjectContext.fetch(request)
+            let statuses = try self.context.cacheManagedObjectContext.fetch(request)
             for status in statuses {
                 dictionary[status.id] = status
             }
@@ -128,7 +128,7 @@ extension MastodonStatusThreadViewModel {
         do {
             let request = Status.sortedFetchRequest
             request.predicate = Status.predicate(domain: domain, ids: childrenIDs)
-            let statuses = try self.context.managedObjectContext.fetch(request)
+            let statuses = try self.context.cacheManagedObjectContext.fetch(request)
             for status in statuses {
                 dictionary[status.id] = status
             }

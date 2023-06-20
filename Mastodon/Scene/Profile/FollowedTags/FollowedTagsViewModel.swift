@@ -32,9 +32,9 @@ final class FollowedTagsViewModel: NSObject {
         self.context = context
         self.authContext = authContext
         self.fetchedResultsController = FollowedTagsFetchedResultController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
-            user: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)! // fixme:
+            user: authContext.mastodonAuthenticationBox.authentication.user(in: context.cacheManagedObjectContext)! // fixme:
         )
 
         super.init()

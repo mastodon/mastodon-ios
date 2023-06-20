@@ -75,7 +75,7 @@ extension SidebarViewModel {
             let imageURL: URL? = {
                 switch item {
                 case .me:
-                    let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext)
+                    let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.cacheManagedObjectContext)
                     return user?.avatarImageURL()
                 default:
                     return nil
@@ -132,7 +132,7 @@ extension SidebarViewModel {
                 }
                 .store(in: &cell.disposeBag)
             case .me:
-                guard let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else { return }
+                guard let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.cacheManagedObjectContext) else { return }
                 let currentUserDisplayName = user.displayNameWithFallback
                 cell.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
             default:

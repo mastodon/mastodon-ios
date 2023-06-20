@@ -38,7 +38,7 @@ extension ThreadViewModel {
         snapshot.appendSections([.main])
         if let root = self.root {
             if case let .root(threadContext) = root,
-               let status = threadContext.status.object(in: context.managedObjectContext),
+               let status = threadContext.status.object(in: context.cacheManagedObjectContext),
                status.inReplyToID != nil
             {
                 snapshot.appendItems([.topLoader], toSection: .main)
@@ -79,9 +79,9 @@ extension ThreadViewModel {
                 newSnapshot.appendSections([.main])
 
                 // top loader
-                let _hasReplyTo: Bool? = try? await self.context.managedObjectContext.perform {
+                let _hasReplyTo: Bool? = try? await self.context.cacheManagedObjectContext.perform {
                     guard case let .root(threadContext) = root else { return nil }
-                    guard let status = threadContext.status.object(in: self.context.managedObjectContext) else { return nil }
+                    guard let status = threadContext.status.object(in: self.context.cacheManagedObjectContext) else { return nil }
                     return status.inReplyToID != nil
                 }
                 if let hasReplyTo = _hasReplyTo, hasReplyTo {

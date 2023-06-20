@@ -35,7 +35,7 @@ final class DiscoveryForYouViewModel {
         self.context = context
         self.authContext = authContext
         self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
             additionalPredicate: nil
         )

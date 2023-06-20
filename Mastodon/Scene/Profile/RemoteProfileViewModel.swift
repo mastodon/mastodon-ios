@@ -39,7 +39,7 @@ final class RemoteProfileViewModel: ProfileViewModel {
                 }
             } receiveValue: { [weak self] response in
                 guard let self = self else { return }
-                let managedObjectContext = context.managedObjectContext
+                let managedObjectContext = context.cacheManagedObjectContext
                 let request = MastodonUser.sortedFetchRequest
                 request.fetchLimit = 1
                 request.predicate = MastodonUser.predicate(domain: domain, id: response.value.id)
@@ -62,11 +62,11 @@ final class RemoteProfileViewModel: ProfileViewModel {
             )
             let userID = response.value.account.id
             
-            let _user: MastodonUser? = try await context.managedObjectContext.perform {
+            let _user: MastodonUser? = try await context.cacheManagedObjectContext.perform {
                 let request = MastodonUser.sortedFetchRequest
                 request.predicate = MastodonUser.predicate(domain: authContext.mastodonAuthenticationBox.domain, id: userID)
                 request.fetchLimit = 1
-                return context.managedObjectContext.safeFetch(request).first
+                return context.cacheManagedObjectContext.safeFetch(request).first
             }
             
             if let user = _user {
@@ -78,11 +78,11 @@ final class RemoteProfileViewModel: ProfileViewModel {
                     authorization: authContext.mastodonAuthenticationBox.userAuthorization
                 )
                 
-                let _user: MastodonUser? = try await context.managedObjectContext.perform {
+                let _user: MastodonUser? = try await context.cacheManagedObjectContext.perform {
                     let request = MastodonUser.sortedFetchRequest
                     request.predicate = MastodonUser.predicate(domain: authContext.mastodonAuthenticationBox.domain, id: userID)
                     request.fetchLimit = 1
-                    return context.managedObjectContext.safeFetch(request).first
+                    return context.cacheManagedObjectContext.safeFetch(request).first
                 }
                 
                 self.user = _user
@@ -115,7 +115,7 @@ final class RemoteProfileViewModel: ProfileViewModel {
                 }
             } receiveValue: { [weak self] response in
                 guard let self = self, let value = response.value else { return }
-                let managedObjectContext = context.managedObjectContext
+                let managedObjectContext = context.cacheManagedObjectContext
                 let request = MastodonUser.sortedFetchRequest
                 request.fetchLimit = 1
                 request.predicate = MastodonUser.predicate(domain: domain, id: value.id)

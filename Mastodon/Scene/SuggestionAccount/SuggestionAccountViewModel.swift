@@ -39,7 +39,7 @@ final class SuggestionAccountViewModel: NSObject {
         self.context = context
         self.authContext = authContext
         self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: nil,
             additionalPredicate: nil
         )
@@ -117,7 +117,7 @@ final class SuggestionAccountViewModel: NSObject {
     func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider, completion: (() -> Void)? = nil) {
 
         let userRecords = userFetchedResultsController.records.compactMap {
-            $0.object(in: dependency.context.managedObjectContext)?.asRecord
+            $0.object(in: dependency.context.cacheManagedObjectContext)?.asRecord
         }
 
         Task {

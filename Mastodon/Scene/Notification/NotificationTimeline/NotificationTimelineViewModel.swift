@@ -54,7 +54,7 @@ final class NotificationTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.scope = scope
-        self.feedFetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
+        self.feedFetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.cacheManagedObjectContext)
         // end init
         
         feedFetchedResultsController.predicate = NotificationTimelineViewModel.feedPredicate(
@@ -133,7 +133,7 @@ extension NotificationTimelineViewModel {
     func loadMore(item: NotificationItem) async {
         guard case let .feedLoader(record) = item else { return }
         
-        let managedObjectContext = context.managedObjectContext
+        let managedObjectContext = context.cacheManagedObjectContext
         let key = "LoadMore@\(record.objectID)"
         
         // return when already loading state

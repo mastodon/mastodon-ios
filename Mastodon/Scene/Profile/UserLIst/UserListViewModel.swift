@@ -46,7 +46,7 @@ final class UserListViewModel {
         self.authContext = authContext
         self.kind = kind
         self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
             additionalPredicate: nil
         )

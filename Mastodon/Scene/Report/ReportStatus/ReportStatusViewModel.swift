@@ -60,7 +60,7 @@ class ReportStatusViewModel {
         self.user = user
         self.status = status
         self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )

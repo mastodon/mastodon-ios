@@ -58,7 +58,7 @@ final class HashtagTimelineViewModel {
         self.authContext = authContext
         self.hashtag = hashtag
         self.fetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
@@ -77,7 +77,7 @@ final class HashtagTimelineViewModel {
         )
 
         guard
-            let object = Tag.findOrFetch(in: context.managedObjectContext, matching: predicate)
+            let object = Tag.findOrFetch(in: context.cacheManagedObjectContext, matching: predicate)
         else {
             return hashtagDetails.send(hashtagDetails.value?.copy(following: false))
         }

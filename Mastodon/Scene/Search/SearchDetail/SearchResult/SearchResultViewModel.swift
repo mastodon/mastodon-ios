@@ -53,12 +53,12 @@ final class SearchResultViewModel {
         self.authContext = authContext
         self.searchScope = searchScope
         self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
             additionalPredicate: nil
         )
         self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )

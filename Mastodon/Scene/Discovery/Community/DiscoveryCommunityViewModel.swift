@@ -48,7 +48,7 @@ final class DiscoveryCommunityViewModel {
         self.context = context
         self.authContext = authContext
         self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )

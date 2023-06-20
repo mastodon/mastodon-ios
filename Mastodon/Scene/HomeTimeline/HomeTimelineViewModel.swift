@@ -83,7 +83,7 @@ final class HomeTimelineViewModel: NSObject {
     init(context: AppContext, authContext: AuthContext) {
         self.context  = context
         self.authContext = authContext
-        self.fetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
+        self.fetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.cacheManagedObjectContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         
@@ -136,7 +136,7 @@ extension HomeTimelineViewModel {
         guard let diffableDataSource = diffableDataSource else { return }
         var snapshot = diffableDataSource.snapshot()
 
-        let managedObjectContext = context.managedObjectContext
+        let managedObjectContext = context.cacheManagedObjectContext
         let key = "LoadMore@\(record.objectID)"
         
         guard let feed = record.object(in: managedObjectContext) else { return }

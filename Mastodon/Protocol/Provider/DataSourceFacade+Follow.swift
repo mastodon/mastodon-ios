@@ -37,7 +37,7 @@ extension DataSourceFacade {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
     
-        let managedObjectContext = dependency.context.managedObjectContext
+        let managedObjectContext = dependency.context.cacheManagedObjectContext
         let _userID: MastodonUser.ID? = try await managedObjectContext.perform {
             guard let notification = notification.object(in: managedObjectContext) else { return nil }
             return notification.account.id

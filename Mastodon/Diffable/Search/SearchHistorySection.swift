@@ -28,10 +28,10 @@ extension SearchHistorySection {
     ) -> UICollectionViewDiffableDataSource<SearchHistorySection, SearchHistoryItem> {
         
         let userCellRegister = UICollectionView.CellRegistration<SearchHistoryUserCollectionViewCell, ManagedObjectRecord<MastodonUser>> { cell, indexPath, item in
-            context.managedObjectContext.performAndWait {
-                guard let user = item.object(in: context.managedObjectContext) else { return }
+            context.cacheManagedObjectContext.performAndWait {
+                guard let user = item.object(in: context.cacheManagedObjectContext) else { return }
                 cell.configure(
-                    me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
+                    me: authContext.mastodonAuthenticationBox.authentication.user(in: context.cacheManagedObjectContext),
                     viewModel: SearchHistoryUserCollectionViewCell.ViewModel(
                         value: user,
                         followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
@@ -44,8 +44,8 @@ extension SearchHistorySection {
         }
         
         let hashtagCellRegister = UICollectionView.CellRegistration<UICollectionViewListCell, ManagedObjectRecord<Tag>> { cell, indexPath, item in
-            context.managedObjectContext.performAndWait {
-                guard let hashtag = item.object(in: context.managedObjectContext) else { return }
+            context.cacheManagedObjectContext.performAndWait {
+                guard let hashtag = item.object(in: context.cacheManagedObjectContext) else { return }
                 var contentConfiguration = cell.defaultContentConfiguration()
                 contentConfiguration.text = "#" + hashtag.name
                 cell.contentConfiguration = contentConfiguration

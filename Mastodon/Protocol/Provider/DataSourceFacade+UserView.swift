@@ -19,7 +19,7 @@ extension DataSourceFacade {
                 user: user
             )
 
-            if let userObject = user.object(in: dependency.context.managedObjectContext) {
+            if let userObject = user.object(in: dependency.context.cacheManagedObjectContext) {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds.append(userObject.id)
             }
 
@@ -29,7 +29,7 @@ extension DataSourceFacade {
                 user: user
             )
 
-            if let userObject = user.object(in: dependency.context.managedObjectContext) {
+            if let userObject = user.object(in: dependency.context.cacheManagedObjectContext) {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followRequestedUserIDs.append(userObject.id)
             }
 
@@ -38,7 +38,7 @@ extension DataSourceFacade {
                 dependency: dependency,
                 user: user
             )
-            if let userObject = user.object(in: dependency.context.managedObjectContext) {
+            if let userObject = user.object(in: dependency.context.cacheManagedObjectContext) {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds.removeAll(where: { $0 == userObject.id })
             }
         case .blocked:
@@ -47,7 +47,7 @@ extension DataSourceFacade {
                 user: user
             )
 
-            if let userObject = user.object(in: dependency.context.managedObjectContext) {
+            if let userObject = user.object(in: dependency.context.cacheManagedObjectContext) {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.blockedUserIds.append(userObject.id)
             }
             
@@ -57,7 +57,7 @@ extension DataSourceFacade {
                 user: user
             )
 
-            if let userObject = user.object(in: dependency.context.managedObjectContext) {
+            if let userObject = user.object(in: dependency.context.cacheManagedObjectContext) {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followRequestedUserIDs.removeAll(where: { $0 == userObject.id })
             }
         case .none, .loading:

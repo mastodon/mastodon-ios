@@ -66,8 +66,8 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
         case .status(let record):
             return record
         case .notification(let record):
-            let _statusRecord: ManagedObjectRecord<Status>? = try? await context.managedObjectContext.perform {
-                guard let notification = record.object(in: self.context.managedObjectContext) else { return nil }
+            let _statusRecord: ManagedObjectRecord<Status>? = try? await context.cacheManagedObjectContext.perform {
+                guard let notification = record.object(in: self.context.cacheManagedObjectContext) else { return nil }
                 guard let status = notification.status else { return nil }
                 return .init(objectID: status.objectID)
             }

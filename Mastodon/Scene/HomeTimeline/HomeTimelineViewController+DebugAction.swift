@@ -190,7 +190,7 @@ extension HomeTimelineViewController {
         func match(item: StatusItem, context: AppContext) -> Bool {
             switch item {
             case .feed(let record):
-                guard let feed = record.object(in: context.managedObjectContext) else { return false }
+                guard let feed = record.object(in: context.cacheManagedObjectContext) else { return false }
                 if let status = feed.status {
                     switch self {
                     case .gap:

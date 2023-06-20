@@ -229,9 +229,9 @@ extension NotificationView.ViewModel {
                 else { return nil }
                 
                 var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
-                context.managedObjectContext.performAndWait {
+                context.cacheManagedObjectContext.performAndWait {
                     let authentication = authContext.mastodonAuthenticationBox.authentication
-                    configuration = authentication.instance(in: context.managedObjectContext)?.configurationV2
+                    configuration = authentication.instance(in: context.cacheManagedObjectContext)?.configurationV2
                 }
                 return configuration
             }()

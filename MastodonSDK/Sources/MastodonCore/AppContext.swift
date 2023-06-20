@@ -18,7 +18,9 @@ public class AppContext: ObservableObject {
     public var disposeBag = Set<AnyCancellable>()
     
     public let coreDataStack: CoreDataStack
-    public let managedObjectContext: NSManagedObjectContext
+
+    //TODO: Explain why we have multiple contexts
+    public let cacheManagedObjectContext: NSManagedObjectContext
     public let backgroundManagedObjectContext: NSManagedObjectContext
     
     public let apiService: APIService
@@ -49,30 +51,30 @@ public class AppContext: ObservableObject {
     public init() {
 
         let authProvider = AuthenticationServiceProvider.shared
-        let _coreDataStack: CoreDataStack
+        let coreDataStack: CoreDataStack
         if authProvider.authenticationMigrationRequired {
-            _coreDataStack = CoreDataStack(isInMemory: false)
+            coreDataStack = CoreDataStack(isInMemory: false)
             authProvider.migrateLegacyAuthentications(
-                in: _coreDataStack.persistentContainer.viewContext
+                in: coreDataStack.persistentContainer.viewContext
             )
         } else {
-            _coreDataStack = CoreDataStack(isInMemory: true)
+            coreDataStack = CoreDataStack(isInMemory: true)
         }
         
-        let _managedObjectContext = _coreDataStack.persistentContainer.viewContext
-        _coreDataStack.persistentContainer.persistentStoreDescriptions.forEach {
+        let managedObjectContext = coreDataStack.persistentContainer.viewContext
+        coreDataStack.persistentContainer.persistentStoreDescriptions.forEach {
             $0.url = URL(fileURLWithPath: "/dev/null")
         }
-        let _backgroundManagedObjectContext = _coreDataStack.persistentContainer.newBackgroundContext()
-        coreDataStack = _coreDataStack
-        managedObjectContext = _managedObjectContext
+        let _backgroundManagedObjectContext = coreDataStack.persistentContainer.newBackgroundContext()
+        self.coreDataStack = coreDataStack
+        self.cacheManagedObjectContext = managedObjectContext
         backgroundManagedObjectContext = _backgroundManagedObjectContext
         
         let _apiService = APIService(backgroundManagedObjectContext: _backgroundManagedObjectContext)
         apiService = _apiService
         
         let _authenticationService = AuthenticationService(
-            managedObjectContext: _managedObjectContext,
+            managedObjectContext: managedObjectContext,
             backgroundManagedObjectContext: _backgroundManagedObjectContext,
             apiService: _apiService
         )
@@ -122,8 +124,10 @@ public class AppContext: ObservableObject {
         NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave, object: backgroundManagedObjectContext)
             .sink { [weak self] notification in
                 guard let self = self else { return }
-                self.managedObjectContext.perform {
-                    self.managedObjectContext.mergeChanges(fromContextDidSave: notification)
+
+                //TODO: What about persistence store? Should we also merge changes there? Probably a good idea?
+                self.cacheManagedObjectContext.perform {
+                    self.cacheManagedObjectContext.mergeChanges(fromContextDidSave: notification)
                 }
             }
             .store(in: &disposeBag)

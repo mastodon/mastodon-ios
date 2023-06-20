@@ -48,8 +48,8 @@ extension ReportSection {
                 return cell
             case .status(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportStatusTableViewCell.self), for: indexPath) as! ReportStatusTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let status = record.object(in: context.cacheManagedObjectContext) else { return }
                     configure(
                         context: context,
                         tableView: tableView,
@@ -78,8 +78,8 @@ extension ReportSection {
                 return cell
             case .result(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportResultActionTableViewCell.self), for: indexPath) as! ReportResultActionTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let user = record.object(in: context.cacheManagedObjectContext) else { return }
                     cell.avatarImageView.configure(configuration: .init(url: user.avatarImageURL()))
                 }
                 return cell

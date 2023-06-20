@@ -25,7 +25,7 @@ final class SearchHistoryViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.searchHistoryFetchedResultController = SearchHistoryFetchedResultController(managedObjectContext: context.managedObjectContext)
+        self.searchHistoryFetchedResultController = SearchHistoryFetchedResultController(managedObjectContext: context.cacheManagedObjectContext)
 
         searchHistoryFetchedResultController.domain.value = authContext.mastodonAuthenticationBox.domain
         searchHistoryFetchedResultController.userID.value = authContext.mastodonAuthenticationBox.userID

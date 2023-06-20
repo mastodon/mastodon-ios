@@ -41,8 +41,8 @@ extension UserSection {
             switch item {
             case .user(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let user = record.object(in: context.cacheManagedObjectContext) else { return }
                     configure(
                         context: context,
                         authContext: authContext,
@@ -83,7 +83,7 @@ extension UserSection {
         configuration: Configuration
     ) {
         cell.configure(
-            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
+            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.cacheManagedObjectContext),
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

@@ -60,8 +60,8 @@ extension ComposeContentViewModel {
             cell.statusView.frame.size.width = tableView.frame.width
 
             // configure status
-            context.managedObjectContext.performAndWait {
-                guard let replyTo = status.object(in: context.managedObjectContext) else { return }
+            context.cacheManagedObjectContext.performAndWait {
+                guard let replyTo = status.object(in: context.cacheManagedObjectContext) else { return }
                 cell.statusView.configure(status: replyTo)
             }
         }

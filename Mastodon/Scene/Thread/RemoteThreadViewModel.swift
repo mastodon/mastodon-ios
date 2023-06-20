@@ -31,7 +31,7 @@ final class RemoteThreadViewModel: ThreadViewModel {
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
             
-            let managedObjectContext = context.managedObjectContext
+            let managedObjectContext = context.cacheManagedObjectContext
             let request = Status.sortedFetchRequest
             request.fetchLimit = 1
             request.predicate = Status.predicate(domain: domain, id: response.value.id)
@@ -65,7 +65,7 @@ final class RemoteThreadViewModel: ThreadViewModel {
             
             guard let statusID = response.value.status?.id else { return }
             
-            let managedObjectContext = context.managedObjectContext
+            let managedObjectContext = context.cacheManagedObjectContext
             let request = Status.sortedFetchRequest
             request.fetchLimit = 1
             request.predicate = Status.predicate(domain: domain, id: statusID)

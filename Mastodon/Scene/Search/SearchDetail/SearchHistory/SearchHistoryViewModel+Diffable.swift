@@ -35,7 +35,7 @@ extension SearchHistoryViewModel {
                 
                 Task {
                     do {
-                        let managedObjectContext = self.context.managedObjectContext
+                        let managedObjectContext = self.context.cacheManagedObjectContext
                         let items: [SearchHistoryItem] = try await managedObjectContext.perform {
                             var users: [SearchHistoryItem] = []
                             var hashtags: [SearchHistoryItem] = []

@@ -89,7 +89,7 @@ extension SuggestionAccountViewController: UITableViewDelegate {
         guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
         case .account(let record):
-            guard let account = record.object(in: context.managedObjectContext) else { return }
+            guard let account = record.object(in: context.cacheManagedObjectContext) else { return }
             let cachedProfileViewModel = CachedProfileViewModel(context: context, authContext: viewModel.authContext, mastodonUser: account)
             _ = coordinator.present(
                 scene: .profile(viewModel: cachedProfileViewModel),

@@ -49,8 +49,8 @@ extension StatusSection {
             switch item {
             case .feed(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let feed = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let feed = record.object(in: context.cacheManagedObjectContext) else { return }
                     configure(
                         context: context,
                         tableView: tableView,
@@ -62,8 +62,8 @@ extension StatusSection {
                 return cell
             case .feedLoader(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let feed = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let feed = record.object(in: context.cacheManagedObjectContext) else { return }
                     configure(
                         cell: cell,
                         feed: feed,
@@ -73,8 +73,8 @@ extension StatusSection {
                 return cell
             case .status(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let status = record.object(in: context.cacheManagedObjectContext) else { return }
                     configure(
                         context: context,
                         tableView: tableView,
@@ -122,7 +122,7 @@ extension StatusSection {
         indexPath: IndexPath,
         configuration: ThreadCellRegistrationConfiguration
     ) -> UITableViewCell {
-        let managedObjectContext = context.managedObjectContext
+        let managedObjectContext = context.cacheManagedObjectContext
         
         switch configuration.thread {
         case .root(let threadContext):
@@ -164,7 +164,7 @@ extension StatusSection {
         authContext: AuthContext,
         statusView: StatusView
     ) {
-        let managedObjectContext = context.managedObjectContext
+        let managedObjectContext = context.cacheManagedObjectContext
         statusView.pollTableViewDiffableDataSource = UITableViewDiffableDataSource<PollSection, PollItem>(tableView: statusView.pollTableView) { tableView, indexPath, item in
             switch item {
             case .history:

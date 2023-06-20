@@ -87,7 +87,7 @@ private extension MultiFollowersCountWidgetProvider {
             if let configuredAccounts = configuration.accounts?.compactMap({ $0 }) {
                 desiredAccounts = configuredAccounts
             } else if let currentlyLoggedInAccount = authBox.authentication.user(
-                in: WidgetExtension.appContext.managedObjectContext
+                in: WidgetExtension.appContext.cacheManagedObjectContext
             )?.acctWithDomain {
                 desiredAccounts = [currentlyLoggedInAccount]
             } else {

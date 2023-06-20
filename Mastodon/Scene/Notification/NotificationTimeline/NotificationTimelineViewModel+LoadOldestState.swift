@@ -69,7 +69,7 @@ extension NotificationTimelineViewModel.LoadOldestState {
             let scope = viewModel.scope
             
             Task {
-                let managedObjectContext = viewModel.context.managedObjectContext
+                let managedObjectContext = viewModel.context.cacheManagedObjectContext
                 let _maxID: Mastodon.Entity.Notification.ID? = try await managedObjectContext.perform {
                     guard let feed = lastFeedRecord.object(in: managedObjectContext),
                           let notification = feed.notification

@@ -296,7 +296,7 @@ extension MainTabBarController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                if let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) {
+                if let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.cacheManagedObjectContext) {
                     self.avatarURLObserver = user.publisher(for: \.avatar)
                         .sink { [weak self, weak user] _ in
                             guard let self = self else { return }
@@ -493,7 +493,7 @@ extension MainTabBarController {
             )
             
             if let user = authContext.mastodonAuthenticationBox.authentication.user(
-                in: context.managedObjectContext
+                in: context.cacheManagedObjectContext
             ) {
                 user.update(
                     property: .init(

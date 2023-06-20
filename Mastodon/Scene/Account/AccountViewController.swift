@@ -116,7 +116,7 @@ extension AccountListViewController {
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
-            managedObjectContext: context.managedObjectContext
+            managedObjectContext: context.cacheManagedObjectContext
         )
         
         viewModel.dataSourceDidUpdate

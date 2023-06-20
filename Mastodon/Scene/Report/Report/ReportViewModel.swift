@@ -57,7 +57,7 @@ class ReportViewModel {
             reportReasonViewModel.headline = L10n.Scene.Report.StepOne.whatsWrongWithThisPost
         } else {
             Task { @MainActor in
-                let managedObjectContext = context.managedObjectContext
+                let managedObjectContext = context.cacheManagedObjectContext
                 let _username: String? = try? await managedObjectContext.perform {
                     let user = user.object(in: managedObjectContext)
                     return user?.acctWithDomain
@@ -96,7 +96,7 @@ extension ReportViewModel {
     func report() async throws {
         guard !isReporting else { return }
 
-        let managedObjectContext = context.managedObjectContext
+        let managedObjectContext = context.cacheManagedObjectContext
         let _query: Mastodon.API.Reports.FileReportQuery? = try await managedObjectContext.perform {
             guard let user = self.user.object(in: managedObjectContext) else { return nil }
             

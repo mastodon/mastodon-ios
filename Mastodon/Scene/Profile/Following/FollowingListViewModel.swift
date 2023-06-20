@@ -50,7 +50,7 @@ final class FollowingListViewModel {
         self.context = context
         self.authContext = authContext
         self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             domain: domain,
             additionalPredicate: nil
         )

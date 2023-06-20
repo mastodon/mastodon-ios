@@ -39,7 +39,7 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                     tag: tag
                 )
             case .notification(let notification):
-                let managedObjectContext = context.managedObjectContext
+                let managedObjectContext = context.cacheManagedObjectContext
                 
                 let _status: ManagedObjectRecord<Status>? = try await managedObjectContext.perform {
                     guard let notification = notification.object(in: managedObjectContext) else { return nil }

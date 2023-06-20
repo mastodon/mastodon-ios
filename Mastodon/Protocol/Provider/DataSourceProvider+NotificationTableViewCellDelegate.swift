@@ -30,8 +30,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
             
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.cacheManagedObjectContext.perform {
+                guard let notification = notification.object(in: self.context.cacheManagedObjectContext) else { return nil }
                 return .init(objectID: notification.account.objectID)
             }
             guard let author = _author else {
@@ -70,8 +70,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.cacheManagedObjectContext.perform {
+                guard let notification = notification.object(in: self.context.cacheManagedObjectContext) else { return nil }
                 return .init(objectID: notification.account.objectID)
             }
             guard let author = _author else {
@@ -180,7 +180,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
                 return
             }
             
-            let managedObjectContext = self.context.managedObjectContext
+            let managedObjectContext = self.context.cacheManagedObjectContext
             let _mediaTransitionContext: NotificationMediaTransitionContext? = try await managedObjectContext.perform {
                 guard let notification = record.object(in: managedObjectContext) else { return nil }
                 guard let _status = notification.status else { return nil }
@@ -232,7 +232,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
                 return
             }
             
-            let managedObjectContext = self.context.managedObjectContext
+            let managedObjectContext = self.context.cacheManagedObjectContext
             let _mediaTransitionContext: NotificationMediaTransitionContext? = try await managedObjectContext.perform {
                 guard let notification = record.object(in: managedObjectContext) else { return nil }
                 guard let _status = notification.status else { return nil }
@@ -286,8 +286,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+            let _status: ManagedObjectRecord<Status>? = try await self.context.cacheManagedObjectContext.perform {
+                guard let notification = notification.object(in: self.context.cacheManagedObjectContext) else { return nil }
                 guard let status = notification.status else { return nil }
                 return .init(objectID: status.objectID)
             }
@@ -323,8 +323,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.cacheManagedObjectContext.perform {
+                guard let notification = notification.object(in: self.context.cacheManagedObjectContext) else { return nil }
                 guard let status = notification.status else { return nil }
                 return .init(objectID: status.author.objectID)
             }
@@ -367,8 +367,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
             assertionFailure("only works for notification item")
             return
         }
-        let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-            guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+        let _status: ManagedObjectRecord<Status>? = try await self.context.cacheManagedObjectContext.perform {
+            guard let notification = notification.object(in: self.context.cacheManagedObjectContext) else { return nil }
             guard let status = notification.status else { return nil }
             return .init(objectID: status.objectID)
         }
@@ -400,8 +400,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for notification item")
                 return
             }
-            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+            let _status: ManagedObjectRecord<Status>? = try await self.context.cacheManagedObjectContext.perform {
+                guard let notification = notification.object(in: self.context.cacheManagedObjectContext) else { return nil }
                 guard let status = notification.status else { return nil }
                 return .init(objectID: status.objectID)
             }
@@ -432,8 +432,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
 //                assertionFailure("only works for notification item")
 //                return
 //            }
-//            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-//                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+//            let _status: ManagedObjectRecord<Status>? = try await self.context.cacheManagedObjectContext.perform {
+//                guard let notification = notification.object(in: self.context.cacheManagedObjectContext) else { return nil }
 //                guard let status = notification.status else { return nil }
 //                return .init(objectID: status.objectID)
 //            }
@@ -465,8 +465,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for notification item")
                 return
             }
-            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+            let _status: ManagedObjectRecord<Status>? = try await self.context.cacheManagedObjectContext.perform {
+                guard let notification = notification.object(in: self.context.cacheManagedObjectContext) else { return nil }
                 guard let status = notification.status else { return nil }
                 return .init(objectID: status.objectID)
             }
@@ -497,8 +497,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for notification item")
                 return
             }
-            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+            let _status: ManagedObjectRecord<Status>? = try await self.context.cacheManagedObjectContext.perform {
+                guard let notification = notification.object(in: self.context.cacheManagedObjectContext) else { return nil }
                 guard let status = notification.status else { return nil }
                 return .init(objectID: status.objectID)
             }

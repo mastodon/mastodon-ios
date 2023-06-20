@@ -163,7 +163,7 @@ extension SettingsViewModel {
     ) {
         dataSource = SettingsSection.tableViewDiffableDataSource(
             for: tableView,
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: context.cacheManagedObjectContext,
             settingsAppearanceTableViewCellDelegate: settingsAppearanceTableViewCellDelegate,
             settingsToggleCellDelegate: settingsToggleCellDelegate
         )

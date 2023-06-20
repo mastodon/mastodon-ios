@@ -291,7 +291,7 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
         Task { @MainActor in
             switch item {
             case .feed(let record):
-                guard let feed = record.object(in: self.context.managedObjectContext) else { return }
+                guard let feed = record.object(in: self.context.cacheManagedObjectContext) else { return }
                 guard let notification = feed.notification else { return }
                 
                 if let stauts = notification.status {

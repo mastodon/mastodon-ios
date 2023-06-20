@@ -17,7 +17,7 @@ extension DataSourceFacade {
         status: ManagedObjectRecord<Status>
     ) async {
         let _redirectRecord = await DataSourceFacade.author(
-            managedObjectContext: provider.context.managedObjectContext,
+            managedObjectContext: provider.context.cacheManagedObjectContext,
             status: status,
             target: target
         )
@@ -36,7 +36,7 @@ extension DataSourceFacade {
         provider: DataSourceProvider & AuthContextProvider,
         user: ManagedObjectRecord<MastodonUser>
     ) async {
-        guard let user = user.object(in: provider.context.managedObjectContext) else {
+        guard let user = user.object(in: provider.context.cacheManagedObjectContext) else {
             assertionFailure()
             return
         }
@@ -73,7 +73,7 @@ extension DataSourceFacade {
             return
         }
     
-        let managedObjectContext = provider.context.managedObjectContext
+        let managedObjectContext = provider.context.cacheManagedObjectContext
         let mentions = try? await managedObjectContext.perform {
             return status.object(in: managedObjectContext)?.mentions ?? []
         }
@@ -97,7 +97,7 @@ extension DataSourceFacade {
             let request = MastodonUser.sortedFetchRequest
             request.fetchLimit = 1
             request.predicate = MastodonUser.predicate(domain: domain, id: userID)
-            let _user = provider.context.managedObjectContext.safeFetch(request).first
+            let _user = provider.context.cacheManagedObjectContext.safeFetch(request).first
 
             if let user = _user {
                 return CachedProfileViewModel(context: provider.context, authContext: provider.authContext, mastodonUser: user)
@@ -352,7 +352,7 @@ extension DataSourceFacade {
         dependency: NeedsDependency,
         user: ManagedObjectRecord<MastodonUser>
     ) async throws -> UIActivityViewController? {
-        let managedObjectContext = dependency.context.managedObjectContext
+        let managedObjectContext = dependency.context.cacheManagedObjectContext
         let activityItems: [Any] = try await managedObjectContext.perform {
             guard let user = user.object(in: managedObjectContext) else { return [] }
             return user.activityItems

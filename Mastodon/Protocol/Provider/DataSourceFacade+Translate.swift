@@ -25,7 +25,7 @@ extension DataSourceFacade {
         await selectionFeedbackGenerator.selectionChanged()
 
         guard
-            let status = status.object(in: provider.context.managedObjectContext)
+            let status = status.object(in: provider.context.cacheManagedObjectContext)
         else {
             return
         }

@@ -60,8 +60,8 @@ extension DiscoverySection {
                 return cell
             case .user(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileCardTableViewCell.self), for: indexPath) as! ProfileCardTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let user = record.object(in: context.cacheManagedObjectContext) else { return }
                     cell.configure(
                         tableView: tableView,
                         user: user,
@@ -77,7 +77,7 @@ extension DiscoverySection {
                         cell.profileCardView.viewModel.familiarFollowers = nil
                     }
                     // bind me
-                    cell.profileCardView.viewModel.relationshipViewModel.me = configuration.authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
+                    cell.profileCardView.viewModel.relationshipViewModel.me = configuration.authContext.mastodonAuthenticationBox.authentication.user(in: context.cacheManagedObjectContext)
                 }
                 return cell
             case .bottomLoader:

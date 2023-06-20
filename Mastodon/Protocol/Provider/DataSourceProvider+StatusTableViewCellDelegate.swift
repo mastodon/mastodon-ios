@@ -37,13 +37,13 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             case .none:
                 break
             case .reply:
-                let _replyToAuthor: ManagedObjectRecord<MastodonUser>? = try? await context.managedObjectContext.perform {
-                    guard let status = status.object(in: self.context.managedObjectContext) else { return nil }
+                let _replyToAuthor: ManagedObjectRecord<MastodonUser>? = try? await context.cacheManagedObjectContext.perform {
+                    guard let status = status.object(in: self.context.cacheManagedObjectContext) else { return nil }
                     guard let inReplyToAccountID = status.inReplyToAccountID else { return nil }
                     let request = MastodonUser.sortedFetchRequest
                     request.predicate = MastodonUser.predicate(domain: status.author.domain, id: inReplyToAccountID)
                     request.fetchLimit = 1
-                    guard let author = self.context.managedObjectContext.safeFetch(request).first else { return nil }
+                    guard let author = self.context.cacheManagedObjectContext.safeFetch(request).first else { return nil }
                     return .init(objectID: author.objectID)
                 }
                 guard let replyToAuthor = _replyToAuthor else {
@@ -305,7 +305,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
         guard let pollItem = pollTableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
                 
-        let managedObjectContext = context.managedObjectContext
+        let managedObjectContext = context.cacheManagedObjectContext
         
         Task {
             guard case let .option(pollOption) = pollItem else {
@@ -378,7 +378,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         guard let firstPollItem = pollTableViewDiffableDataSource.snapshot().itemIdentifiers.first else { return }
         guard case let .option(firstPollOption) = firstPollItem else { return }
         
-        let managedObjectContext = context.managedObjectContext
+        let managedObjectContext = context.cacheManagedObjectContext
         
         Task {
             var _poll: ManagedObjectRecord<Poll>?
@@ -476,8 +476,8 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                guard let _status = status.object(in: self.context.managedObjectContext) else { return nil }
+            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.cacheManagedObjectContext.perform {
+                guard let _status = status.object(in: self.context.cacheManagedObjectContext) else { return nil }
                 let author = (_status.reblog ?? _status).author
                 return .init(objectID: author.objectID)
             }
@@ -666,7 +666,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 return
             }
 
-            guard let status = status.object(in: context.managedObjectContext),
+            guard let status = status.object(in: context.cacheManagedObjectContext),
                   let edits = status.editHistory?.sorted(by: { $0.createdAt > $1.createdAt }) else { return }
 
             let viewModel = StatusEditHistoryViewModel(status: status, edits: edits, appContext: context, authContext: authContext)

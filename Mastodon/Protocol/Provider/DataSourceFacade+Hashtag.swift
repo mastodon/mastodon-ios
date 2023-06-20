@@ -47,7 +47,7 @@ extension DataSourceFacade {
         provider: DataSourceProvider & AuthContextProvider,
         tag: ManagedObjectRecord<Tag>
     ) async {
-        let managedObjectContext = provider.context.managedObjectContext
+        let managedObjectContext = provider.context.cacheManagedObjectContext
         let _name: String? = try? await managedObjectContext.perform {
             guard let tag = tag.object(in: managedObjectContext) else { return nil }
             return tag.name

@@ -65,7 +65,7 @@ extension DataSourceFacade {
         status: ManagedObjectRecord<Status>,
         previewContext: AttachmentPreviewContext
     ) async throws {
-        let managedObjectContext = dependency.context.managedObjectContext
+        let managedObjectContext = dependency.context.cacheManagedObjectContext
         let attachments: [MastodonAttachment] = try await managedObjectContext.perform {
             guard let _status = status.object(in: managedObjectContext) else { return [] }
             let status = _status.reblog ?? _status
@@ -156,7 +156,7 @@ extension DataSourceFacade {
     ) async throws {
         let logger = Logger(subsystem: "DataSourceFacade", category: "Media")
         
-        let managedObjectContext = dependency.context.managedObjectContext
+        let managedObjectContext = dependency.context.cacheManagedObjectContext
         
         var _avatarAssetURL: String?
         var _headerAssetURL: String?

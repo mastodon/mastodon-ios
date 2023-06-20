@@ -80,7 +80,7 @@ extension ReportStatusViewModel.State {
             let maxID = viewModel.statusFetchedResultsController.statusIDs.last
             
             Task {
-                let managedObjectContext = viewModel.context.managedObjectContext
+                let managedObjectContext = viewModel.context.cacheManagedObjectContext
                 let _userID: MastodonUser.ID? = try await managedObjectContext.perform {
                     guard let user = viewModel.user.object(in: managedObjectContext) else { return nil }
                     return user.id

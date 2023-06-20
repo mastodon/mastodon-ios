@@ -59,7 +59,7 @@ class ThreadViewModel {
         self.mastodonStatusThreadViewModel = MastodonStatusThreadViewModel(context: context)
         // end init
         
-        ManagedObjectObserver.observe(context: context.managedObjectContext)
+        ManagedObjectObserver.observe(context: context.cacheManagedObjectContext)
             .sink(receiveCompletion: { completion in
                 // do nohting
             }, receiveValue: { [weak self] changes in
@@ -79,7 +79,7 @@ class ThreadViewModel {
             .sink { [weak self] root in
                 guard let self = self else { return }
                 guard case let .root(threadContext) = root else { return }
-                guard let status = threadContext.status.object(in: self.context.managedObjectContext) else { return }
+                guard let status = threadContext.status.object(in: self.context.cacheManagedObjectContext) else { return }
                 
                 // bind threadContext
                 self.threadContext = .init(

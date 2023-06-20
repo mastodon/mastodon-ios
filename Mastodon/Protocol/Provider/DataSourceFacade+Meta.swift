@@ -19,7 +19,7 @@ extension DataSourceFacade {
         meta: Meta
     ) async throws {
         let _redirectRecord = await DataSourceFacade.status(
-            managedObjectContext: provider.context.managedObjectContext,
+            managedObjectContext: provider.context.cacheManagedObjectContext,
             status: status,
             target: target
         )

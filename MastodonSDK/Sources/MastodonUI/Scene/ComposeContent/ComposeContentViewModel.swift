@@ -159,15 +159,15 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
-                guard let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else {
+                guard let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.cacheManagedObjectContext) else {
                     return .public
                 }
                 return author.locked ? .private : .public
             }()
             // set visibility for reply post
             if case .reply(let record) = destination {
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else {
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let status = record.object(in: context.cacheManagedObjectContext) else {
                         assertionFailure()
                         return
                     }
@@ -222,12 +222,12 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         let initialContentWithSpace = initialContent.isEmpty ? "" : initialContent + " "
         switch destination {
         case .reply(let record):
-            context.managedObjectContext.performAndWait {
-                guard let status = record.object(in: context.managedObjectContext) else {
+            context.cacheManagedObjectContext.performAndWait {
+                guard let status = record.object(in: context.cacheManagedObjectContext) else {
                     assertionFailure()
                     return
                 }
-                let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
+                let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.cacheManagedObjectContext)
 
                 var mentionAccts: [String] = []
                 if author?.id != status.author.id {
@@ -261,9 +261,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         // set limit
         let _configuration: Mastodon.Entity.Instance.Configuration? = {
             var configuration: Mastodon.Entity.Instance.Configuration? = nil
-            context.managedObjectContext.performAndWait {
+            context.cacheManagedObjectContext.performAndWait {
                 let authentication = authContext.mastodonAuthenticationBox.authentication
-                configuration = authentication.instance(in: context.managedObjectContext)?.configuration
+                configuration = authentication.instance(in: context.cacheManagedObjectContext)?.configuration
             }
             return configuration
         }()
@@ -324,7 +324,7 @@ extension ComposeContentViewModel {
         $authContext
             .sink { [weak self] authContext in
                 guard let self = self else { return }
-                guard let user = authContext.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else { return }
+                guard let user = authContext.mastodonAuthenticationBox.authentication.user(in: self.context.cacheManagedObjectContext) else { return }
                 self.avatarURL = user.avatarImageURL()
                 self.name = user.nameMetaContent ?? PlaintextMetaContent(string: user.displayNameWithFallback)
                 self.username = user.acctWithDomain
@@ -560,7 +560,7 @@ extension ComposeContentViewModel {
         let authContext = self.authContext
         
         // author
-        let managedObjectContext = self.context.managedObjectContext
+        let managedObjectContext = self.context.cacheManagedObjectContext
         var _author: ManagedObjectRecord<MastodonUser>?
         managedObjectContext.performAndWait {
             _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
@@ -616,7 +616,7 @@ extension ComposeContentViewModel {
         guard case let .editStatus(status, _) = composeContext else { return nil }
 
         // author
-        let managedObjectContext = self.context.managedObjectContext
+        let managedObjectContext = self.context.cacheManagedObjectContext
         var _author: ManagedObjectRecord<MastodonUser>?
         managedObjectContext.performAndWait {
             _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord

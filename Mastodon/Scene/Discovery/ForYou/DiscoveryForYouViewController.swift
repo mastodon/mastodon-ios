@@ -113,7 +113,7 @@ extension DiscoveryForYouViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        guard let user = record.object(in: context.managedObjectContext) else { return }
+        guard let user = record.object(in: context.cacheManagedObjectContext) else { return }
         let profileViewModel = CachedProfileViewModel(
             context: context,
             authContext: viewModel.authContext,
@@ -153,7 +153,7 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
     ) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        guard let user = record.object(in: context.managedObjectContext) else { return }
+        guard let user = record.object(in: context.cacheManagedObjectContext) else { return }
         
         let userID = user.id
         let _familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })

@@ -242,7 +242,7 @@ extension HomeTimelineViewController {
                     self?.showEmptyView()
 
                     let userDoesntFollowPeople: Bool
-                    if let managedObjectContext = self?.context.managedObjectContext,
+                    if let managedObjectContext = self?.context.cacheManagedObjectContext,
                        let authContext = self?.authContext,
                        let me = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext){
                         userDoesntFollowPeople = me.followersCount == 0

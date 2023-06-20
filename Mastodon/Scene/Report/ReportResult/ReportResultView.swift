@@ -188,7 +188,7 @@ struct ReportActionButton: View {
 //            emojis: [],
 //            fields: []
 //        )
-//        let user = try! context.managedObjectContext.fetch(request).first ?? MastodonUser.insert(into: context.managedObjectContext, property: property)
+//        let user = try! context.cacheManagedObjectContext.fetch(request).first ?? MastodonUser.insert(into: context.cacheManagedObjectContext, property: property)
 //
 //        return ReportResultViewModel(
 //            context: context,

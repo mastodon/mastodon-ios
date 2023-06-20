@@ -59,7 +59,7 @@ extension HomeTimelineViewModel {
                         return snapshot
                     }()
 
-                    let parentManagedObjectContext = self.context.managedObjectContext
+                    let parentManagedObjectContext = self.context.cacheManagedObjectContext
                     let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
                     managedObjectContext.parent = parentManagedObjectContext
                     try? await managedObjectContext.perform {

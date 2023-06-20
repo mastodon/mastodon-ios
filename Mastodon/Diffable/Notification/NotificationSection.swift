@@ -43,8 +43,8 @@ extension NotificationSection {
             switch item {
             case .feed(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let feed = record.object(in: context.managedObjectContext) else { return }
+                context.cacheManagedObjectContext.performAndWait {
+                    guard let feed = record.object(in: context.cacheManagedObjectContext) else { return }
                     configure(
                         context: context,
                         tableView: tableView,
