@@ -101,7 +101,11 @@
                     "title": "Ji %s wergerîne",
                     "unknown_language": "Nenas"
                 },
-                "edit_post": "Serrast bike"
+                "edit_post": "Serrast bike",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Serrûpel",
