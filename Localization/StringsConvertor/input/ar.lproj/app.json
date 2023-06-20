@@ -101,7 +101,11 @@
                     "title": "الترجَمَة مِن %s",
                     "unknown_language": "غير مَعرُوفة"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "الرَّئِيسَة",
