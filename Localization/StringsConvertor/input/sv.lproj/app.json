@@ -101,7 +101,11 @@
                     "title": "Översätt från %s",
                     "unknown_language": "Okänt"
                 },
-                "edit_post": "Redigera"
+                "edit_post": "Redigera",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Hem",
