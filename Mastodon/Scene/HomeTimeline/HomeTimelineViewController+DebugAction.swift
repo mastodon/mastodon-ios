@@ -182,22 +182,15 @@ extension HomeTimelineViewController {
         case reply
         case mention
         case poll
-//        case quote
-//        case gif
-//        case video
-//        case location
-//        case followsYouAuthor
-//        case blockingAuthor
-        
+
         var title: String {
             return rawValue.capitalized
         }
         
-        func match(item: StatusItem) -> Bool {
-            // let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value
+        func match(item: StatusItem, context: AppContext) -> Bool {
             switch item {
             case .feed(let record):
-                guard let feed = record.object(in: AppContext.shared.managedObjectContext) else { return false }
+                guard let feed = record.object(in: context.managedObjectContext) else { return false }
                 if let status = feed.status {
                     switch self {
                     case .gap:
@@ -208,25 +201,7 @@ extension HomeTimelineViewController {
                         return !(status.reblog ?? status).mentions.isEmpty
                     case .poll:
                         return (status.reblog ?? status).poll != nil
-//                    case .quote:
-//                        return status.quote != nil
-//                    case .gif:
-//                        return status.attachments.contains(where: { attachment in attachment.kind == .animatedGIF })
-//                    case .video:
-//                        return status.attachments.contains(where: { attachment in attachment.kind == .video })
-//                    case .location:
-//                        return status.location != nil
-//                    case .followsYouAuthor:
-//                        guard case let .twitter(authenticationContext) = authenticationContext else { return false }
-//                        guard let me = authenticationContext.authenticationRecord.object(in: AppContext.shared.managedObjectContext)?.user else { return false }
-//                        return (status.repost ?? status).author.following.contains(me)
-//                    case .blockingAuthor:
-//                        guard case let .twitter(authenticationContext) = authenticationContext else { return false }
-//                        guard let me = authenticationContext.authenticationRecord.object(in: AppContext.shared.managedObjectContext)?.user else { return false }
-//                        return (status.repost ?? status).author.blockingBy.contains(me)
-//                    default:
-//                        return false
-                    }   // end switch
+                    }
                 } else {
                     return false
                 }
@@ -237,8 +212,8 @@ extension HomeTimelineViewController {
             }
         }
         
-        func firstMatch(in items: [StatusItem]) -> StatusItem? {
-            return items.first { item in self.match(item: item) }
+        func firstMatch(in items: [StatusItem], context: AppContext) -> StatusItem? {
+            return items.first { item in self.match(item: item, context: context) }
         }
     }
     
@@ -262,7 +237,7 @@ extension HomeTimelineViewController {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         let snapshot = diffableDataSource.snapshot()
         let items = snapshot.itemIdentifiers
-        guard let targetItem = moveAction.firstMatch(in: items),
+        guard let targetItem = moveAction.firstMatch(in: items, context: context),
               let index = snapshot.indexOfItem(targetItem)
         else { return }
         let indexPath = IndexPath(row: index, section: 0)
