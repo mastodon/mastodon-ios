@@ -101,7 +101,11 @@
                     "title": "Von %s übersetzen",
                     "unknown_language": "Unbekannt"
                 },
-                "edit_post": "Bearbeiten"
+                "edit_post": "Bearbeiten",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Startseite",
