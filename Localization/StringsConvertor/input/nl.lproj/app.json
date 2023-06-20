@@ -101,7 +101,11 @@
                     "title": "Vertaald uit het %s",
                     "unknown_language": "Onbekend"
                 },
-                "edit_post": "Bewerken"
+                "edit_post": "Bewerken",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Start",
