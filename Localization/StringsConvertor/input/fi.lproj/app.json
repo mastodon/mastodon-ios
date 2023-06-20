@@ -101,7 +101,11 @@
                     "title": "Käännetty kielestä %s",
                     "unknown_language": "Tuntematon"
                 },
-                "edit_post": "Muokkaa"
+                "edit_post": "Muokkaa",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Koti",
