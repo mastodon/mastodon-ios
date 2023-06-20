@@ -101,7 +101,11 @@
                     "title": "Dịch từ %s",
                     "unknown_language": "Chưa xác định"
                 },
-                "edit_post": "Sửa"
+                "edit_post": "Sửa",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Bảng tin",
