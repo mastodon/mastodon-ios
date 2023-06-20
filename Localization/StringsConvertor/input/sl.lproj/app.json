@@ -101,7 +101,11 @@
                     "title": "Prevedi iz: %s",
                     "unknown_language": "Neznano"
                 },
-                "edit_post": "Uredi"
+                "edit_post": "Uredi",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Domov",
