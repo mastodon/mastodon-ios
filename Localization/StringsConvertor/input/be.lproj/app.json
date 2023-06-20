@@ -101,7 +101,11 @@
                     "title": "Перакласці з %s",
                     "unknown_language": "Невядомая"
                 },
-                "edit_post": "Рэдагаваць"
+                "edit_post": "Рэдагаваць",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Галоўная",
