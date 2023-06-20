@@ -102,10 +102,10 @@
                     "unknown_language": "Neznámý"
                 },
                 "edit_post": "Upravit",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Záložka",
+                "remove_bookmark": "Odstranit záložku",
+                "follow": "Sledovat %s",
+                "unfollow": "Přestat sledovat %s"
             },
             "tabs": {
                 "home": "Domů",
