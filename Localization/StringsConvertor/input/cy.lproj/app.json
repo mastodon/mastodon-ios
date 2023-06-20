@@ -101,7 +101,11 @@
                     "title": "Cyfieithu o %s",
                     "unknown_language": "Anhysbys"
                 },
-                "edit_post": "Golygu"
+                "edit_post": "Golygu",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Hafan",
