@@ -101,7 +101,11 @@
                     "title": "%s에서 번역됨",
                     "unknown_language": "알 수 없음"
                 },
-                "edit_post": "수정"
+                "edit_post": "수정",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "홈",
