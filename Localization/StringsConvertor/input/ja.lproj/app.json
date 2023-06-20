@@ -102,10 +102,10 @@
                     "unknown_language": "不明"
                 },
                 "edit_post": "編集",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "ブックマーク",
+                "remove_bookmark": "ブックマークから削除",
+                "follow": "%sをフォロー",
+                "unfollow": "%sをフォロー解除"
             },
             "tabs": {
                 "home": "ホーム",
