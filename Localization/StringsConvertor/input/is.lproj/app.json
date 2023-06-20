@@ -101,7 +101,11 @@
                     "title": "Þýða úr %s",
                     "unknown_language": "Óþekkt"
                 },
-                "edit_post": "Breyta"
+                "edit_post": "Breyta",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Heim",
