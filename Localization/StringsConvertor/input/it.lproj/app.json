@@ -102,10 +102,10 @@
                     "unknown_language": "Sconosciuto"
                 },
                 "edit_post": "Modifica",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Segnalibro",
+                "remove_bookmark": "Rimuovi il segnalibro",
+                "follow": "Segui %s",
+                "unfollow": "Smetti di seguire %s"
             },
             "tabs": {
                 "home": "Inizio",
