@@ -17,10 +17,7 @@ enum SettingsItem {
     case notification(settingRecord: ManagedObjectRecord<Setting>, switchMode: NotificationSwitchMode)
     case boringZone(item: Link)
     case spicyZone(item: Link)
-}
 
-extension SettingsItem {
-    
     enum AppearanceMode: String {
         case system
         case dark

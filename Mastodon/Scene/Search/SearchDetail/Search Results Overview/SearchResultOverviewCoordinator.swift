@@ -5,10 +5,6 @@ import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
-protocol Coordinator {
-    func start()
-}
-
 class SearchResultOverviewCoordinator: Coordinator {
 
     let overviewViewController: SearchResultsOverviewTableViewController

@@ -193,8 +193,8 @@ extension SidebarViewController: UICollectionViewDelegate {
             case .setting:
                 guard let authContext = viewModel.authContext else { return }
                 guard let setting = context.settingService.currentSetting.value else { return }
-                let settingsViewModel = SettingsViewModel(context: context, authContext: authContext, setting: setting)
-                _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+
+                _ = coordinator.present(scene: .settings, from: self, transition: .none)
             case .compose:
                 assertionFailure()
             }

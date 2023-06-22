@@ -28,9 +28,7 @@ enum SettingsSection: Hashable {
         case .spicyZone:            return L10n.Scene.Settings.Section.SpicyZone.title
         }
     }
-}
 
-extension SettingsSection {
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
         managedObjectContext: NSManagedObjectContext,
@@ -95,9 +93,6 @@ extension SettingsSection {
             }   // end switch
         }
     }
-}
-
-extension SettingsSection {
 
     public static func configureSettingToggle(
         cell: SettingsToggleTableViewCell,
