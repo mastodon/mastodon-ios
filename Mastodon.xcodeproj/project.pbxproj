@@ -1610,7 +1610,6 @@
 				DB0617F727855B010030EE79 /* Notification */,
 				DB4F097726A039A200D62E92 /* Search */,
 				DB3E6FE52806A5BA00B035AE /* Discovery */,
-				DB0617FA27855B660030EE79 /* Settings */,
 			);
 			path = Diffable;
 			sourceTree = "<group>";
@@ -1732,6 +1731,8 @@
 				5B90C457262599800002E742 /* View */,
 				DB6D9F9626367249008423CD /* SettingsViewController.swift */,
 				5B90C456262599800002E742 /* SettingsViewModel.swift */,
+				DB6D9F7C26358ED4008423CD /* SettingsSection.swift */,
+				DB6D9F8326358EEC008423CD /* SettingsItem.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1893,15 +1894,6 @@
 				DBA94435265CBB7400C537E1 /* ProfileFieldItem.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		DB0617FA27855B660030EE79 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				DB6D9F7C26358ED4008423CD /* SettingsSection.swift */,
-				DB6D9F8326358EEC008423CD /* SettingsItem.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		DB0618082785B2790030EE79 /* Cell */ = {
