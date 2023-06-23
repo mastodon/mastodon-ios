@@ -23,7 +23,7 @@ class GeneralSettingsViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
 
-        title = "Settings"
+        
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

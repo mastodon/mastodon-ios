@@ -7,23 +7,46 @@ class SettingsCoordinator: Coordinator {
     let navigationController: UINavigationController
     let presentedOn: UIViewController
 
-    private let generalSettingsViewController: GeneralSettingsViewController
+    private let settingsViewController: SettingsViewController
 
     init(presentedOn: UIViewController) {
         self.presentedOn = presentedOn
         navigationController = UINavigationController()
 
-        generalSettingsViewController = GeneralSettingsViewController()
+        settingsViewController = SettingsViewController(accountName: "born2jort")
     }
 
     func start() {
-        generalSettingsViewController.delegate = self
+        settingsViewController.delegate = self
 
-        navigationController.pushViewController(generalSettingsViewController, animated: false)
+        navigationController.pushViewController(settingsViewController, animated: false)
         presentedOn.present(navigationController, animated: true)
     }
 }
 
-extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
+extension SettingsCoordinator: SettingsViewControllerDelegate {
+    func done(_ viewController: UIViewController) {
+        viewController.dismiss(animated: true)
+    }
+
+    func didSelect(_ viewController: UIViewController, entry: SettingsEntry) {
+        switch entry {
+        case .general:
+            break
+            // show general
+        case .notifications:
+            break
+            // show notifications
+        case .aboutMastodon:
+            break
+            // show about
+        case .supportMastodon:
+            break
+            // present support-screen
+        case .logout(let accountName):
+            break
+            // show logout-sheet
+        }
+    }
 
 }

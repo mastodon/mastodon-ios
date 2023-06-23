@@ -138,7 +138,7 @@
 		D82BD7522ABC42D6009A374A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82BD7512ABC42D6009A374A /* Coordinator.swift */; };
 		D8318A802A4466D300C0FB73 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */; };
 		D8318A842A4468A800C0FB73 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */; };
-		D8318A862A4468C700C0FB73 /* SettingsOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A852A4468C700C0FB73 /* SettingsOverviewViewController.swift */; };
+		D8318A862A4468C700C0FB73 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A852A4468C700C0FB73 /* SettingsViewController.swift */; };
 		D8318A882A4468D300C0FB73 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */; };
 		D8318A8A2A4468DC00C0FB73 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A892A4468DC00C0FB73 /* AboutViewController.swift */; };
 		D8318A8C2A4468E600C0FB73 /* SupportMastodonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A8B2A4468E600C0FB73 /* SupportMastodonViewController.swift */; };
@@ -779,7 +779,7 @@
 		D82BD7512ABC42D6009A374A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
-		D8318A852A4468C700C0FB73 /* SettingsOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOverviewViewController.swift; sourceTree = "<group>"; };
+		D8318A852A4468C700C0FB73 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		D8318A892A4468DC00C0FB73 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		D8318A8B2A4468E600C0FB73 /* SupportMastodonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMastodonViewController.swift; sourceTree = "<group>"; };
@@ -1735,7 +1735,7 @@
 				D8318A7E2A4466C900C0FB73 /* Legacy */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
 				D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */,
-				D8318A852A4468C700C0FB73 /* SettingsOverviewViewController.swift */,
+				D8318A852A4468C700C0FB73 /* SettingsViewController.swift */,
 				D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */,
 				D8318A892A4468DC00C0FB73 /* AboutViewController.swift */,
 				D8318A8B2A4468E600C0FB73 /* SupportMastodonViewController.swift */,
@@ -3828,7 +3828,7 @@
 				DB4F097D26A03A5B00D62E92 /* SearchHistoryItem.swift in Sources */,
 				DBD5B1FA27BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift in Sources */,
 				D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */,
-				D8318A862A4468C700C0FB73 /* SettingsOverviewViewController.swift in Sources */,
+				D8318A862A4468C700C0FB73 /* SettingsViewController.swift in Sources */,
 				DB5B549A2833A60400DEF8B2 /* FamiliarFollowersViewController.swift in Sources */,
 				DB3E6FE22806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
