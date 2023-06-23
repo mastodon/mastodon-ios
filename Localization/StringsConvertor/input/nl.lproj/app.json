@@ -102,10 +102,10 @@
                     "unknown_language": "Onbekend"
                 },
                 "edit_post": "Bewerken",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Bladwijzer toevoegen",
+                "remove_bookmark": "Bladwijzer verwijderen",
+                "follow": "Volg %s",
+                "unfollow": "Ontvolg %s"
             },
             "tabs": {
                 "home": "Start",
