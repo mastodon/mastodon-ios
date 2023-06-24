@@ -118,7 +118,7 @@ extension MediaPreviewViewController {
                         let attachment = previewContext.attachments[index]
                         return attachment.kind == .video    // not hide buttno for audio
                     }()
-                    self.closeButton.isHidden = needsHideCloseButton
+                    self.topToolbar.isHidden = needsHideCloseButton
                 default:
                     break
                 }
