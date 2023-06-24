@@ -30,6 +30,8 @@ public final class MediaView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = false
         imageView.layer.masksToBounds = true    // clip overflow
+        imageView.backgroundColor = .gray
+        imageView.isOpaque = true
         return imageView
     }()
     
