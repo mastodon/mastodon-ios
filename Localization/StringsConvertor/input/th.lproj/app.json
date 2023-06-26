@@ -102,8 +102,8 @@
                     "unknown_language": "ไม่รู้จัก"
                 },
                 "edit_post": "แก้ไข",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
+                "bookmark": "เพิ่มที่คั่นหน้า",
+                "remove_bookmark": "เอาที่คั่นหน้าออก",
                 "follow": "Follow %s",
                 "unfollow": "Unfollow %s"
             },
