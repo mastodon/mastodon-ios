@@ -104,8 +104,8 @@
                 "edit_post": "แก้ไข",
                 "bookmark": "เพิ่มที่คั่นหน้า",
                 "remove_bookmark": "เอาที่คั่นหน้าออก",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "follow": "ติดตาม %s",
+                "unfollow": "เลิกติดตาม %s"
             },
             "tabs": {
                 "home": "หน้าแรก",
