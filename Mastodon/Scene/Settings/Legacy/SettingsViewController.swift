@@ -248,38 +248,6 @@ extension SettingsViewController {
         tableView.tableFooterView = tableFooterView
     }
     
-    func alertToSignOut() {
-        let alertController = UIAlertController(
-            title: L10n.Common.Alerts.SignOut.title,
-            message: L10n.Common.Alerts.SignOut.message,
-            preferredStyle: .alert
-        )
-        
-        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
-        let signOutAction = UIAlertAction(title: L10n.Common.Alerts.SignOut.confirm, style: .destructive) { [weak self] _ in
-            guard let self = self else { return }
-            self.signOut()
-        }
-        alertController.addAction(cancelAction)
-        alertController.addAction(signOutAction)
-        _ = self.coordinator.present(
-            scene: .alertController(alertController: alertController),
-            from: self,
-            transition: .alertController(animated: true, completion: nil)
-        )
-    }
-    
-    func signOut() {
-        // clear badge before sign-out
-        context.notificationService.clearNotificationCountForActiveUser()
-        
-        Task { @MainActor in
-            try await context.authenticationService.signOutMastodonUser(
-                authenticationBox: viewModel.authContext.mastodonAuthenticationBox
-            )
-            self.coordinator.setup()
-        }
-    }
     
 }
 
