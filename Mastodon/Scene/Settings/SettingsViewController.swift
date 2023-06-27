@@ -23,7 +23,7 @@ enum SettingsEntry: Hashable {
         case .aboutMastodon:
             return "About Mastodon"
         case .supportMastodon:
-            return "Suppoprt Mastodon"
+            return "Support Mastodon"
         case .logout(let accountName):
             return "Logout @\(accountName)"
         }
@@ -80,10 +80,6 @@ enum SettingsEntry: Hashable {
     }
 }
 
-class SettingsTableViewCell: UITableViewCell {
-    static let reuseIdentifier = "SettingsTableViewCell"
-}
-
 protocol SettingsViewControllerDelegate: AnyObject {
     func done(_ viewController: UIViewController)
     func didSelect(_ viewController: UIViewController, entry: SettingsEntry)
@@ -117,19 +113,7 @@ class SettingsViewController: UIViewController {
             else { fatalError("Wrong cell WTF??") }
 
             let entry = self.sections[indexPath.section].entries[indexPath.row]
-
-            var content = cell.defaultContentConfiguration()
-            content.attributedText = NSAttributedString(string: entry.title, attributes: [
-                .foregroundColor: entry.textColor
-            ])
-            content.image = entry.icon
-            content.imageProperties.cornerRadius = 5
-//            content.imageProperties.back
-                // imageproperties
-//            content.ima
-
-            cell.contentConfiguration = content
-            cell.accessoryType = entry.accessoryType
+            cell.update(with: entry)
 
             return cell
         }

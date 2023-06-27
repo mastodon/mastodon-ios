@@ -158,6 +158,7 @@
 		D8F0372C29D232730027DE2E /* HashtagIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0372B29D232730027DE2E /* HashtagIntentHandler.swift */; };
 		D8F8A03A29CA5C15000195DD /* HashtagWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */; };
 		D8F8A03C29CA5CB6000195DD /* HashtagWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */; };
+		D8F917012A4AD8A5008A5370 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */; };
@@ -809,6 +810,7 @@
 		D8F0372B29D232730027DE2E /* HashtagIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagIntentHandler.swift; sourceTree = "<group>"; };
 		D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidgetView.swift; sourceTree = "<group>"; };
 		D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidget.swift; sourceTree = "<group>"; };
+		D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivityProvider.swift; sourceTree = "<group>"; };
@@ -1732,6 +1734,7 @@
 		5B90C455262599800002E742 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D8F916FF2A4AD898008A5370 /* Settings Overview */,
 				D8318A7E2A4466C900C0FB73 /* Legacy */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
 				D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */,
@@ -1870,6 +1873,14 @@
 				D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */,
 			);
 			path = Hashtag;
+			sourceTree = "<group>";
+		};
+		D8F916FF2A4AD898008A5370 /* Settings Overview */ = {
+			isa = PBXGroup;
+			children = (
+				D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */,
+			);
+			path = "Settings Overview";
 			sourceTree = "<group>";
 		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
@@ -3755,6 +3766,7 @@
 				DB023D2827A0FABD005AC798 /* NotificationTableViewCellDelegate.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB023D2C27A10464005AC798 /* NotificationTimelineViewController+DataSourceProvider.swift in Sources */,
+				D8F917012A4AD8A5008A5370 /* SettingsTableViewCell.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				D8318A842A4468A800C0FB73 /* GeneralSettingsViewController.swift in Sources */,
 				DBF1D257269DBAC600C1C08A /* SearchDetailViewModel.swift in Sources */,
