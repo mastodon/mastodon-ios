@@ -159,6 +159,8 @@
 		D8F8A03A29CA5C15000195DD /* HashtagWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */; };
 		D8F8A03C29CA5CB6000195DD /* HashtagWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */; };
 		D8F917012A4AD8A5008A5370 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */; };
+		D8F917032A4B063D008A5370 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917022A4B063D008A5370 /* Settings.swift */; };
+		D8F9170F2A4B47EF008A5370 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */; };
@@ -811,6 +813,7 @@
 		D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidgetView.swift; sourceTree = "<group>"; };
 		D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidget.swift; sourceTree = "<group>"; };
 		D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		D8F917022A4B063D008A5370 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D8F9170E2A4B47EF008A5370 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -1739,7 +1742,6 @@
 				D8318A7E2A4466C900C0FB73 /* Legacy */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
 				D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */,
-				D8318A852A4468C700C0FB73 /* SettingsViewController.swift */,
 				D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */,
 				D8318A892A4468DC00C0FB73 /* AboutViewController.swift */,
 				D8318A8B2A4468E600C0FB73 /* SupportMastodonViewController.swift */,
@@ -1880,6 +1882,8 @@
 			isa = PBXGroup;
 			children = (
 				D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */,
+				D8318A852A4468C700C0FB73 /* SettingsViewController.swift */,
+				D8F917022A4B063D008A5370 /* Settings.swift */,
 			);
 			path = "Settings Overview";
 			sourceTree = "<group>";
@@ -3739,6 +3743,7 @@
 				DB6B74F2272FB67600C70B6E /* FollowerListViewModel.swift in Sources */,
 				0F20222D261457EE000C64BF /* HashtagTimelineViewModel+State.swift in Sources */,
 				DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
+				D8F917032A4B063D008A5370 /* Settings.swift in Sources */,
 				5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */,
 				DB3E6FEF2806D82600B035AE /* DiscoveryNewsViewModel.swift in Sources */,
 				DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */,
