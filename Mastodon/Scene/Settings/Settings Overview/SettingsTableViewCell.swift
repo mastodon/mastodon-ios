@@ -48,7 +48,6 @@ class SettingsTableViewCell: UITableViewCell {
 
             iconImageView.centerYAnchor.constraint(equalTo: iconImageBackgroundView.centerYAnchor),
             iconImageView.centerXAnchor.constraint(equalTo: iconImageBackgroundView.centerXAnchor),
-            iconImageView.heightAnchor.constraint(equalToConstant: 22),
             iconImageView.widthAnchor.constraint(equalToConstant: 20),
 
             titleLabel.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 12),
