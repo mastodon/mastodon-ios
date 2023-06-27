@@ -2,6 +2,7 @@
 
 import Foundation
 import MastodonCore
+import MastodonLocalization
 
 struct AboutSettingsSection: Hashable {
     let entries: [AboutSettingsEntry]
@@ -17,13 +18,13 @@ enum AboutSettingsEntry: Hashable {
         switch self {
             //TODO: @zeitschlag Add Localization
         case .evenMoreSettings:
-            return "Even More Settings"
+            return L10n.Scene.Settings.AboutMastodon.moreSettings
         case .contributeToMastodon:
-            return "Contribute to Mastodon"
+            return L10n.Scene.Settings.AboutMastodon.contributeToMastodon
         case .privacyPolicy:
-            return "Privacy Policy"
+            return L10n.Scene.Settings.AboutMastodon.privacyPolicy
         case .clearMediaCache(_):
-            return "Clear Media Storage"
+            return L10n.Scene.Settings.AboutMastodon.cleaerMediaStorage
         }
     }
 

@@ -530,6 +530,19 @@ uploaded to Mastodon.";
 "Scene.Settings.AboutMastodon" = "About Mastodon";
 "Scene.Settings.Logout" = "Logout %@";
 
+"Scene.Settings.Overview.Title" = "Settings";
+"Scene.Settings.Overview.General" = "General";
+"Scene.Settings.Overview.Notifications" = "Notifications";
+"Scene.Settings.Overview.SupportMastodon" = "Support Mastodon";
+"Scene.Settings.Overview.AboutMastodon" = "About Mastodon";
+"Scene.Settings.Overview.Logout" = "Logout %@";
+
+"Scene.Settings.AboutMastodon.Title" = "About Mastodon";
+"Scene.Settings.AboutMastodon.MoreSettings" = "Even More Settings";
+"Scene.Settings.AboutMastodon.ContributeToMastodon" = "Contribute to Mastodon";
+"Scene.Settings.AboutMastodon.PrivacyPolicy" = "PrivacyPolicy";
+"Scene.Settings.AboutMastodon.CleaerMediaStorage" = "Clear Media Storage";
+
 "Scene.SuggestionAccount.FollowAll" = "Follow all";
 "Scene.SuggestionAccount.Title" = "Popular on Mastodon";
 "Scene.Thread.BackTitle" = "Post";

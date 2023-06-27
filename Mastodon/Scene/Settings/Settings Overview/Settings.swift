@@ -17,15 +17,15 @@ enum SettingsEntry: Hashable {
     var title: String {
         switch self {
         case .general:
-            return L10n.Scene.Settings.general
+            return L10n.Scene.Settings.Overview.general
         case .notifications:
-            return L10n.Scene.Settings.notifications
+            return L10n.Scene.Settings.Overview.notifications
         case .aboutMastodon:
-            return L10n.Scene.Settings.aboutMastodon
+            return L10n.Scene.Settings.Overview.aboutMastodon
         case .supportMastodon:
-            return L10n.Scene.Settings.supportMastodon
+            return L10n.Scene.Settings.Overview.supportMastodon
         case .logout(let accountName):
-            return L10n.Scene.Settings.logout(accountName)
+            return L10n.Scene.Settings.Overview.logout(accountName)
         }
     }
 

@@ -709,12 +709,22 @@
             "title": "Post from %s"
         },
         "settings": {
-            "title": "Settings",
-            "general": "General",
-            "notifications" = "Notifications",
-            "supportMastodon" = "Support Mastodon",
-            "aboutMastodon" = "About Mastodon",
-            "logout" = "Logout %@"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications" = "Notifications",
+                "support_mastodon" = "Support Mastodon",
+                "about_mastodon" = "About Mastodon",
+                "logout" = "Logout %@"
+            }
+
+            "about_mastodon": {
+                "title": "About Mastodon",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            }
         },
         "report": {
             "title_report": "Report",

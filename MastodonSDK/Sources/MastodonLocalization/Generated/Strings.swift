@@ -1416,20 +1416,18 @@ public enum L10n {
       }
     }
     public enum Settings {
-      /// About Mastodon
-      public static let aboutMastodon = L10n.tr("Localizable", "Scene.Settings.AboutMastodon", fallback: "About Mastodon")
-      /// General
-      public static let general = L10n.tr("Localizable", "Scene.Settings.General", fallback: "General")
-      /// Logout %@
-      public static func logout(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Settings.Logout", String(describing: p1), fallback: "Logout %@")
+      public enum AboutMastodon {
+        /// Clear Media Storage
+        public static let cleaerMediaStorage = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.CleaerMediaStorage", fallback: "Clear Media Storage")
+        /// Contribute to Mastodon
+        public static let contributeToMastodon = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.ContributeToMastodon", fallback: "Contribute to Mastodon")
+        /// Even More Settings
+        public static let moreSettings = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.MoreSettings", fallback: "Even More Settings")
+        /// PrivacyPolicy
+        public static let privacyPolicy = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.PrivacyPolicy", fallback: "PrivacyPolicy")
+        /// About Mastodon
+        public static let title = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.Title", fallback: "About Mastodon")
       }
-      /// Notifications
-      public static let notifications = L10n.tr("Localizable", "Scene.Settings.Notifications", fallback: "Notifications")
-      /// Support Mastodon
-      public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.SupportMastodon", fallback: "Support Mastodon")
-      /// Settings
-      public static let title = L10n.tr("Localizable", "Scene.Settings.Title", fallback: "Settings")
       public enum Footer {
         /// Mastodon is open source software. You can report issues on GitHub at %@ (%@)
         public static func mastodonDescription(_ p1: Any, _ p2: Any) -> String {
@@ -1439,6 +1437,22 @@ public enum L10n {
       public enum Keyboard {
         /// Close Settings Window
         public static let closeSettingsWindow = L10n.tr("Localizable", "Scene.Settings.Keyboard.CloseSettingsWindow", fallback: "Close Settings Window")
+      }
+      public enum Overview {
+        /// About Mastodon
+        public static let aboutMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.AboutMastodon", fallback: "About Mastodon")
+        /// General
+        public static let general = L10n.tr("Localizable", "Scene.Settings.Overview.General", fallback: "General")
+        /// Logout %@
+        public static func logout(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Settings.Overview.Logout", String(describing: p1), fallback: "Logout %@")
+        }
+        /// Notifications
+        public static let notifications = L10n.tr("Localizable", "Scene.Settings.Overview.Notifications", fallback: "Notifications")
+        /// Support Mastodon
+        public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.SupportMastodon", fallback: "Support Mastodon")
+        /// Settings
+        public static let title = L10n.tr("Localizable", "Scene.Settings.Overview.Title", fallback: "Settings")
       }
       public enum Section {
         public enum Appearance {
