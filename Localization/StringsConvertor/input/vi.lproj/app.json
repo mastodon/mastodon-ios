@@ -102,10 +102,10 @@
                     "unknown_language": "Chưa xác định"
                 },
                 "edit_post": "Sửa",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Lưu",
+                "remove_bookmark": "Bỏ lưu",
+                "follow": "Theo dõi %s",
+                "unfollow": "Bỏ theo dõi %s"
             },
             "tabs": {
                 "home": "Bảng tin",
