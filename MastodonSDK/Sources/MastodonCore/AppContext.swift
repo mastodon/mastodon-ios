@@ -136,6 +136,12 @@ extension AppContext {
         .reduce(0, +)
         .eraseToAnyPublisher()
     }
+
+    public func currentDiskUsage() -> Int {
+        let alamoFireDiskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
+        //TODO: Add temp directory files
+        return alamoFireDiskBytes
+    }
     
     private static func purgeAlamofireImageCache() -> AnyPublisher<ByteCount, Never> {
         Future<ByteCount, Never> { promise in

@@ -41,11 +41,6 @@ class SettingsViewModel {
     /// - change switch for specified alerts
     let updateSubscriptionSubject = PassthroughSubject<(triggerBy: String, values: [Bool?]), Never>()
     
-    lazy var privacyURL: URL? = {
-        let domain = authContext.mastodonAuthenticationBox.domain
-        return Mastodon.API.privacyURL(domain: domain)
-    }()
-    
     init(context: AppContext, authContext: AuthContext, setting: Setting) {
         self.context = context
         self.authContext = authContext

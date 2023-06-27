@@ -160,6 +160,8 @@
 		D8F8A03C29CA5CB6000195DD /* HashtagWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */; };
 		D8F917012A4AD8A5008A5370 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */; };
 		D8F917032A4B063D008A5370 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917022A4B063D008A5370 /* Settings.swift */; };
+		D8F9170B2A4B2C80008A5370 /* AboutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170A2A4B2C80008A5370 /* AboutSettings.swift */; };
+		D8F9170D2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170C2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift */; };
 		D8F9170F2A4B47EF008A5370 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
@@ -814,6 +816,8 @@
 		D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidget.swift; sourceTree = "<group>"; };
 		D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		D8F917022A4B063D008A5370 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		D8F9170A2A4B2C80008A5370 /* AboutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettings.swift; sourceTree = "<group>"; };
+		D8F9170C2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMastodonTableViewCell.swift; sourceTree = "<group>"; };
 		D8F9170E2A4B47EF008A5370 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -1738,12 +1742,12 @@
 		5B90C455262599800002E742 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D8F917092A4B2AFF008A5370 /* About Mastodon */,
 				D8F916FF2A4AD898008A5370 /* Settings Overview */,
 				D8318A7E2A4466C900C0FB73 /* Legacy */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
 				D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */,
 				D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */,
-				D8318A892A4468DC00C0FB73 /* AboutViewController.swift */,
 				D8318A8B2A4468E600C0FB73 /* SupportMastodonViewController.swift */,
 			);
 			path = Settings;
@@ -1886,6 +1890,16 @@
 				D8F917022A4B063D008A5370 /* Settings.swift */,
 			);
 			path = "Settings Overview";
+			sourceTree = "<group>";
+		};
+		D8F917092A4B2AFF008A5370 /* About Mastodon */ = {
+			isa = PBXGroup;
+			children = (
+				D8318A892A4468DC00C0FB73 /* AboutViewController.swift */,
+				D8F9170A2A4B2C80008A5370 /* AboutSettings.swift */,
+				D8F9170C2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift */,
+			);
+			path = "About Mastodon";
 			sourceTree = "<group>";
 		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
@@ -3790,6 +3804,7 @@
 				DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */,
 				DB63F752279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift in Sources */,
 				DB3E6FDD2806A40F00B035AE /* DiscoveryHashtagsViewController.swift in Sources */,
+				D8F9170B2A4B2C80008A5370 /* AboutSettings.swift in Sources */,
 				DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */,
 				DB6988DE2848D11C002398EF /* PagerTabStripNavigateable.swift in Sources */,
 				2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */,
@@ -3825,6 +3840,7 @@
 				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
 				DBF156E22702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
+				D8F9170D2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift in Sources */,
 				DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */,
 				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,

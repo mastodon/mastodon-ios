@@ -31,6 +31,8 @@ final public class SceneCoordinator {
     
     private(set) var secondaryStackHashValues = Set<Int>()
     var childCoordinator: Coordinator?
+
+    private var mastodonAuthenticationController: MastodonAuthenticationController?
     
     init(
         scene: UIScene,
@@ -542,7 +544,6 @@ private extension SceneCoordinator {
                 settingsCoordinator.start()
                 viewController = settingsCoordinator.navigationController
                 childCoordinator = settingsCoordinator
-
             case .editStatus(let viewModel):
                 let composeViewController = ComposeViewController(viewModel: viewModel)
                 viewController = composeViewController
@@ -595,10 +596,50 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
             }
 
         }
+
         alertController.addAction(cancelAction)
         alertController.addAction(signOutAction)
 
         settingsCoordinator.navigationController.present(alertController, animated: true)
+    }
+
+    @MainActor
+    func openGithubURL(_ settingsCoordinator: SettingsCoordinator) {
+        guard let githubURL = URL(string: "https://github.com/mastodon/mastodon-ios") else { return }
+
+        _ = present(
+            scene: .safari(url: githubURL),
+            from: settingsCoordinator.navigationController,
+            transition: .safariPresent(animated: true)
+        )
+    }
+
+    @MainActor
+    func openPrivacyURL(_ settingsCoordinator: SettingsCoordinator) {
+        guard let authContext else { return }
+
+        let domain = authContext.mastodonAuthenticationBox.domain
+        let privacyURL = Mastodon.API.privacyURL(domain: domain)
+
+        _ = present(scene: .safari(url: privacyURL),
+                    from: settingsCoordinator.navigationController,
+                    transition: .safariPresent(animated: true))
+
+    }
+
+    func openProfileSettingsURL(_ settingsCoordinator: SettingsCoordinator) {
+        guard let authContext else { return }
+
+        let domain = authContext.mastodonAuthenticationBox.domain
+        let profileSettingsURL = Mastodon.API.profileSettingsURL(domain: domain)
+
+        let authenticationController = MastodonAuthenticationController(context: appContext, authenticateURL: profileSettingsURL)
+
+        authenticationController.authenticationSession?.presentationContextProvider = settingsCoordinator
+        authenticationController.authenticationSession?.start()
+
+        self.mastodonAuthenticationController = authenticationController
+
 
     }
 }

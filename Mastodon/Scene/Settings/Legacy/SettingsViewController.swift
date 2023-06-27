@@ -314,24 +314,9 @@ extension SettingsViewController: UITableViewDelegate {
             feedbackGenerator.impactOccurred()
             switch link {
             case .accountSettings:
-                let domain = viewModel.authContext.mastodonAuthenticationBox.domain
-                guard let url = URL(string: "https://\(domain)/auth/edit") else { return }
-                viewModel.openAuthenticationPage(authenticateURL: url, presentationContextProvider: self)
             case .github:
-                guard let url = URL(string: "https://github.com/mastodon/mastodon-ios") else { break }
-                _ = coordinator.present(
-                    scene: .safari(url: url),
-                    from: self,
-                    transition: .safariPresent(animated: true, completion: nil)
-                )
             case .termsOfService, .privacyPolicy:
                 // same URL
-                guard let url = viewModel.privacyURL else { break }
-                _ = coordinator.present(
-                    scene: .safari(url: url),
-                    from: self,
-                    transition: .safariPresent(animated: true, completion: nil)
-                )
             case .clearMediaCache:
                 context.purgeCache()
                     .receive(on: RunLoop.main)

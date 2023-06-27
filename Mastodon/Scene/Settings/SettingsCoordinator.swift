@@ -1,12 +1,16 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import AuthenticationServices
 
 protocol SettingsCoordinatorDelegate: AnyObject {
     func logout(_ settingsCoordinator: SettingsCoordinator)
+    func openGithubURL(_ settingsCoordinator: SettingsCoordinator)
+    func openPrivacyURL(_ settingsCoordinator: SettingsCoordinator)
+    func openProfileSettingsURL(_ settingsCoordinator: SettingsCoordinator)
 }
 
-class SettingsCoordinator: Coordinator {
+class SettingsCoordinator: NSObject, Coordinator {
 
     let navigationController: UINavigationController
     let presentedOn: UIViewController
@@ -15,11 +19,11 @@ class SettingsCoordinator: Coordinator {
 
     private let settingsViewController: SettingsViewController
 
-    init(presentedOn: UIViewController) {
+    init(presentedOn: UIViewController, accountName: String) {
         self.presentedOn = presentedOn
         navigationController = UINavigationController()
 
-        settingsViewController = SettingsViewController(accountName: "born2jort")
+        settingsViewController = SettingsViewController(accountName: accountName)
     }
 
     func start() {
@@ -44,8 +48,10 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
             break
             // show notifications
         case .aboutMastodon:
-            break
-            // show about
+            let aboutViewController = AboutViewController()
+            aboutViewController.delegate = self
+
+            navigationController.pushViewController(aboutViewController, animated: true)
         case .supportMastodon:
             break
             // present support-screen
@@ -53,5 +59,27 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
             delegate?.logout(self)
         }
     }
+}
 
+extension SettingsCoordinator: AboutViewControllerDelegate {
+    func didSelect(_ viewController: AboutViewController, entry: AboutSettingsEntry) {
+        switch entry {
+        case .evenMoreSettings:
+            delegate?.openProfileSettingsURL(self)
+        case .contributeToMastodon:
+            delegate?.openGithubURL(self)
+        case .privacyPolicy:
+            delegate?.openPrivacyURL(self)
+        case .clearMediaCache(_):
+            //TODO: appContext.purgeCache()
+            //FIXME: maybe we should inject an AppContext/AuthContext here instead of delegating everything to SceneCoordinator?
+            break
+        }
+    }
+}
+
+extension SettingsCoordinator: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return navigationController.view.window!
+    }
 }
