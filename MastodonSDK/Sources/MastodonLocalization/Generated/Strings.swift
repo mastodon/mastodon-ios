@@ -1416,6 +1416,18 @@ public enum L10n {
       }
     }
     public enum Settings {
+      /// About Mastodon
+      public static let aboutMastodon = L10n.tr("Localizable", "Scene.Settings.AboutMastodon", fallback: "About Mastodon")
+      /// General
+      public static let general = L10n.tr("Localizable", "Scene.Settings.General", fallback: "General")
+      /// Logout %@
+      public static func logout(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Settings.Logout", String(describing: p1), fallback: "Logout %@")
+      }
+      /// Notifications
+      public static let notifications = L10n.tr("Localizable", "Scene.Settings.Notifications", fallback: "Notifications")
+      /// Support Mastodon
+      public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.SupportMastodon", fallback: "Support Mastodon")
       /// Settings
       public static let title = L10n.tr("Localizable", "Scene.Settings.Title", fallback: "Settings")
       public enum Footer {

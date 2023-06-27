@@ -522,7 +522,14 @@ uploaded to Mastodon.";
 "Scene.Settings.Section.SpicyZone.Clear" = "Clear Media Cache";
 "Scene.Settings.Section.SpicyZone.Signout" = "Sign Out";
 "Scene.Settings.Section.SpicyZone.Title" = "The Spicy Zone";
+
 "Scene.Settings.Title" = "Settings";
+"Scene.Settings.General" = "General";
+"Scene.Settings.Notifications" = "Notifications";
+"Scene.Settings.SupportMastodon" = "Support Mastodon";
+"Scene.Settings.AboutMastodon" = "About Mastodon";
+"Scene.Settings.Logout" = "Logout %@";
+
 "Scene.SuggestionAccount.FollowAll" = "Follow all";
 "Scene.SuggestionAccount.Title" = "Popular on Mastodon";
 "Scene.Thread.BackTitle" = "Post";

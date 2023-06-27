@@ -1,6 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonLocalization
 
 struct SettingsSection: Hashable {
     let entries: [SettingsEntry]
@@ -17,15 +18,15 @@ enum SettingsEntry: Hashable {
     var title: String {
         switch self {
         case .general:
-            return "General"
+            return L10n.Scene.Settings.general
         case .notifications:
-            return "Notifications"
+            return L10n.Scene.Settings.notifications
         case .aboutMastodon:
-            return "About Mastodon"
+            return L10n.Scene.Settings.aboutMastodon
         case .supportMastodon:
-            return "Support Mastodon"
+            return L10n.Scene.Settings.supportMastodon
         case .logout(let accountName):
-            return "Logout @\(accountName)"
+            return L10n.Scene.Settings.logout(accountName)
         }
     }
 
