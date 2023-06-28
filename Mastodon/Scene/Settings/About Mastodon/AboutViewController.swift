@@ -24,16 +24,16 @@ class AboutViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
 
         let tableViewDataSource = UITableViewDiffableDataSource<AboutSettingsSection, AboutSettingsEntry>(tableView: tableView) { [weak self] tableView, indexPath, itemIdentifier in
-
+            
             guard let self,
-                    let cell = tableView.dequeueReusableCell(withIdentifier: AboutMastodonTableViewCell.reuseIdentifier, for: indexPath) as? AboutMastodonTableViewCell else { fatalError("WTF?? Wrong Cell dude!") }
-
-            let entry = sections[indexPath.section].entries[indexPath.row]
+                  let cell = tableView.dequeueReusableCell(withIdentifier: AboutMastodonTableViewCell.reuseIdentifier, for: indexPath) as? AboutMastodonTableViewCell else { fatalError("WTF?? Wrong Cell dude!") }
+            
+            let entry = self.sections[indexPath.section].entries[indexPath.row]
             cell.configure(with: entry)
-
+            
             return cell
         }
-
+        
         tableView.delegate = self
         tableView.dataSource = tableViewDataSource
         self.tableViewDataSource = tableViewDataSource
