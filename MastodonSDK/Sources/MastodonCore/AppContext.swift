@@ -126,76 +126,51 @@ extension AppContext {
         return formatter
     }()
     
-    private static let purgeCacheWorkingQueue = DispatchQueue(label: "org.joinmastodon.app.AppContext.purgeCacheWorkingQueue")
-    
-    public func purgeCache() -> AnyPublisher<ByteCount, Never> {
-        Publishers.MergeMany([
-            AppContext.purgeAlamofireImageCache(),
-            AppContext.purgeTemporaryDirectory(),
-        ])
-        .reduce(0, +)
-        .eraseToAnyPublisher()
+    public func purgeCache() {
+        ImageDownloader.defaultURLCache().removeAllCachedResponses()
+
+        let fileManager = FileManager.default
+        let temporaryDirectoryURL = fileManager.temporaryDirectory
+        let fileKeys: [URLResourceKey] = [.fileSizeKey, .isDirectoryKey]
+
+        if let directoryEnumerator = fileManager.enumerator(
+            at: temporaryDirectoryURL,
+            includingPropertiesForKeys: fileKeys,
+            options: .skipsHiddenFiles) {
+            for case let fileURL as URL in directoryEnumerator {
+                guard let resourceValues = try? fileURL.resourceValues(forKeys: Set(fileKeys)),
+                      resourceValues.isDirectory == false else {
+                    continue
+                }
+
+                try? fileManager.removeItem(at: fileURL)
+            }
+        }
     }
 
+    // In Bytes
     public func currentDiskUsage() -> Int {
         let alamoFireDiskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
-        //TODO: Add temp directory files
-        return alamoFireDiskBytes
-    }
-    
-    private static func purgeAlamofireImageCache() -> AnyPublisher<ByteCount, Never> {
-        Future<ByteCount, Never> { promise in
-            AppContext.purgeCacheWorkingQueue.async {
-                // clean image cache for AlamofireImage
-                let diskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
-                ImageDownloader.defaultURLCache().removeAllCachedResponses()
-                let currentDiskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
-                let purgedDiskBytes = max(0, diskBytes - currentDiskBytes)
-                promise(.success(purgedDiskBytes))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    private static func purgeTemporaryDirectory() -> AnyPublisher<ByteCount, Never> {
-        Future<ByteCount, Never> { promise in
-            AppContext.purgeCacheWorkingQueue.async {
-                let fileManager = FileManager.default
-                let temporaryDirectoryURL = fileManager.temporaryDirectory
-                
-                let resourceKeys = Set<URLResourceKey>([.fileSizeKey, .isDirectoryKey])
-                guard let directoryEnumerator = fileManager.enumerator(
-                    at: temporaryDirectoryURL,
-                    includingPropertiesForKeys: Array(resourceKeys),
-                    options: .skipsHiddenFiles
-                ) else {
-                    promise(.success(0))
-                    return
-                }
-                 
-                var fileURLs: [URL] = []
-                var totalFileSizeInBytes = 0
-                for case let fileURL as URL in directoryEnumerator {
-                    guard let resourceValues = try? fileURL.resourceValues(forKeys: resourceKeys),
-                          let isDirectory = resourceValues.isDirectory else {
-                        continue
-                    }
-                    
-                    guard !isDirectory else {
-                        continue
-                    }
-                    fileURLs.append(fileURL)
-                    totalFileSizeInBytes += resourceValues.fileSize ?? 0
-                }
-                
-                for fileURL in fileURLs {
-                    try? fileManager.removeItem(at: fileURL)
-                }
-                
-                promise(.success(totalFileSizeInBytes))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
 
+        var tempFilesDiskBytes = 0
+        let fileManager = FileManager.default
+        let temporaryDirectoryURL = fileManager.temporaryDirectory
+        let fileKeys: [URLResourceKey] = [.fileSizeKey, .isDirectoryKey]
+
+        if let directoryEnumerator = fileManager.enumerator(
+            at: temporaryDirectoryURL,
+            includingPropertiesForKeys: fileKeys,
+            options: .skipsHiddenFiles) {
+            for case let fileURL as URL in directoryEnumerator {
+                guard let resourceValues = try? fileURL.resourceValues(forKeys: Set(fileKeys)),
+                      resourceValues.isDirectory == false else {
+                    continue
+                }
+
+                tempFilesDiskBytes += resourceValues.fileSize ?? 0
+            }
+        }
+
+        return alamoFireDiskBytes + tempFilesDiskBytes
+    }
 }

@@ -2,6 +2,7 @@
 
 import UIKit
 import AuthenticationServices
+import MastodonCore
 
 protocol SettingsCoordinatorDelegate: AnyObject {
     func logout(_ settingsCoordinator: SettingsCoordinator)
@@ -71,9 +72,18 @@ extension SettingsCoordinator: AboutViewControllerDelegate {
         case .privacyPolicy:
             delegate?.openPrivacyURL(self)
         case .clearMediaCache(_):
-            //TODO: appContext.purgeCache()
             //FIXME: maybe we should inject an AppContext/AuthContext here instead of delegating everything to SceneCoordinator?
-            break
+            AppContext.shared.purgeCache()
+            viewController.update(with:
+                                    [AboutSettingsSection(entries: [
+                                        .evenMoreSettings,
+                                        .contributeToMastodon,
+                                        .privacyPolicy
+                                    ]),
+                                     AboutSettingsSection(entries: [
+                                        .clearMediaCache(AppContext.shared.currentDiskUsage())
+                                     ])]
+            )
         }
     }
 }

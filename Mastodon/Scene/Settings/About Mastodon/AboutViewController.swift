@@ -10,7 +10,7 @@ protocol AboutViewControllerDelegate: AnyObject {
 class AboutViewController: UIViewController {
 
     let tableView: UITableView
-    let sections: [AboutSettingsSection]
+    private(set) var sections: [AboutSettingsSection] = []
     var tableViewDataSource: UITableViewDiffableDataSource<AboutSettingsSection, AboutSettingsEntry>?
     weak var delegate: AboutViewControllerDelegate?
 
@@ -19,17 +19,6 @@ class AboutViewController: UIViewController {
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(AboutMastodonTableViewCell.self, forCellReuseIdentifier: AboutMastodonTableViewCell.reuseIdentifier)
-
-        sections = [
-            AboutSettingsSection(entries: [
-                .evenMoreSettings,
-                .contributeToMastodon,
-                .privacyPolicy
-            ]),
-            AboutSettingsSection(entries: [
-                .clearMediaCache(AppContext.shared.currentDiskUsage())
-            ])
-        ]
 
         super.init(nibName: nil, bundle: nil)
 
@@ -58,6 +47,20 @@ class AboutViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        update(with:
+                [AboutSettingsSection(entries: [
+                    .evenMoreSettings,
+                    .contributeToMastodon,
+                    .privacyPolicy
+                ]),
+                 AboutSettingsSection(entries: [
+                    .clearMediaCache(AppContext.shared.currentDiskUsage())
+                 ])]
+        )
+    }
+
+    func update(with sections: [AboutSettingsSection]) {
+        self.sections = sections
 
         var snapshot = NSDiffableDataSourceSnapshot<AboutSettingsSection, AboutSettingsEntry>()
 
@@ -66,7 +69,7 @@ class AboutViewController: UIViewController {
             snapshot.appendItems(section.entries)
         }
 
-        tableViewDataSource?.apply(snapshot)
+        tableViewDataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
 
