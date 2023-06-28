@@ -30,6 +30,7 @@
 "Common.Controls.Actions.Add" = "เพิ่ม";
 "Common.Controls.Actions.Back" = "ย้อนกลับ";
 "Common.Controls.Actions.BlockDomain" = "ปิดกั้น %@";
+"Common.Controls.Actions.Bookmark" = "เพิ่มที่คั่นหน้า";
 "Common.Controls.Actions.Cancel" = "ยกเลิก";
 "Common.Controls.Actions.Compose" = "เขียน";
 "Common.Controls.Actions.Confirm" = "ยืนยัน";
@@ -42,6 +43,7 @@
 "Common.Controls.Actions.Edit" = "แก้ไข";
 "Common.Controls.Actions.EditPost" = "แก้ไข";
 "Common.Controls.Actions.FindPeople" = "ค้นหาผู้คนที่จะติดตาม";
+"Common.Controls.Actions.Follow" = "ติดตาม %@";
 "Common.Controls.Actions.ManuallySearch" = "ค้นหาด้วยตนเองแทน";
 "Common.Controls.Actions.Next" = "ถัดไป";
 "Common.Controls.Actions.Ok" = "ตกลง";
@@ -51,6 +53,7 @@
 "Common.Controls.Actions.Preview" = "แสดงตัวอย่าง";
 "Common.Controls.Actions.Previous" = "ก่อนหน้า";
 "Common.Controls.Actions.Remove" = "เอาออก";
+"Common.Controls.Actions.RemoveBookmark" = "เอาที่คั่นหน้าออก";
 "Common.Controls.Actions.Reply" = "ตอบกลับ";
 "Common.Controls.Actions.ReportUser" = "รายงาน %@";
 "Common.Controls.Actions.Save" = "บันทึก";
@@ -67,6 +70,7 @@
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "ไม่รู้จัก";
 "Common.Controls.Actions.TryAgain" = "ลองอีกครั้ง";
 "Common.Controls.Actions.UnblockDomain" = "เลิกปิดกั้น %@";
+"Common.Controls.Actions.Unfollow" = "เลิกติดตาม %@";
 "Common.Controls.Friendship.Block" = "ปิดกั้น";
 "Common.Controls.Friendship.BlockDomain" = "ปิดกั้น %@";
 "Common.Controls.Friendship.BlockUser" = "ปิดกั้น %@";
@@ -262,7 +266,7 @@
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "ตรวจสอบกล่องขาเข้าของคุณ";
 "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "แตะลิงก์ที่เราส่งถึงคุณเพื่อยืนยัน %@ เราจะรออยู่ตรงนี้";
 "Scene.ConfirmEmail.Title" = "ตรวจสอบกล่องขาเข้าของคุณ";
-"Scene.Discovery.Intro" = "นี่คือโพสต์ที่กำลังได้รับความสนใจในมุมของ Mastodon ของคุณ";
+"Scene.Discovery.Intro" = "นี่คือโพสต์ที่ได้รับความสนใจในมุมของ Mastodon ของคุณ";
 "Scene.Discovery.Tabs.Community" = "ชุมชน";
 "Scene.Discovery.Tabs.ForYou" = "สำหรับคุณ";
 "Scene.Discovery.Tabs.Hashtags" = "แฮชแท็ก";
@@ -471,7 +475,7 @@
 "Scene.ServerPicker.Label.Language" = "ภาษา";
 "Scene.ServerPicker.Label.Users" = "ผู้ใช้";
 "Scene.ServerPicker.Language.All" = "ทั้งหมด";
-"Scene.ServerPicker.NoServerSelectedHint" = "เราจะเลือกเซิร์ฟเวอร์ตามภาษาของคุณหากคุณดำเนินการต่อโดยไม่ได้ทำการเลือก";
+"Scene.ServerPicker.NoServerSelectedHint" = "เราจะเลือกเซิร์ฟเวอร์โดยอิงตามภาษาของคุณหากคุณดำเนินการต่อโดยไม่ได้ทำการเลือก";
 "Scene.ServerPicker.Search.Placeholder" = "ค้นหาชื่อหรือ URL";
 "Scene.ServerPicker.SignupSpeed.All" = "ทั้งหมด";
 "Scene.ServerPicker.SignupSpeed.Instant" = "การลงทะเบียนทันที";
@@ -517,8 +521,8 @@
 "Scene.Settings.Section.SpicyZone.Signout" = "ลงชื่อออก";
 "Scene.Settings.Section.SpicyZone.Title" = "โซนเผ็ดร้อน";
 "Scene.Settings.Title" = "การตั้งค่า";
-"Scene.SuggestionAccount.FollowExplain" = "เมื่อคุณติดตามใครสักคน คุณจะเห็นโพสต์ของเขาในฟีดหน้าแรกของคุณ";
-"Scene.SuggestionAccount.Title" = "ค้นหาผู้คนที่จะติดตาม";
+"Scene.SuggestionAccount.FollowAll" = "ติดตามทั้งหมด";
+"Scene.SuggestionAccount.Title" = "เป็นที่นิยมใน Mastodon";
 "Scene.Thread.BackTitle" = "โพสต์";
 "Scene.Thread.Title" = "โพสต์จาก %@";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "Mastodon คืออะไร?";

@@ -29,6 +29,7 @@
 "Common.Controls.Actions.Add" = "Ekle";
 "Common.Controls.Actions.Back" = "Geri";
 "Common.Controls.Actions.BlockDomain" = "%@ kişisini engelle";
+"Common.Controls.Actions.Bookmark" = "Bookmark";
 "Common.Controls.Actions.Cancel" = "İptal et";
 "Common.Controls.Actions.Compose" = "Yaz";
 "Common.Controls.Actions.Confirm" = "Onayla";
@@ -41,6 +42,7 @@
 "Common.Controls.Actions.Edit" = "Düzenle";
 "Common.Controls.Actions.EditPost" = "Edit";
 "Common.Controls.Actions.FindPeople" = "Takip etmek için birkaç kişi bul";
+"Common.Controls.Actions.Follow" = "Follow %@";
 "Common.Controls.Actions.ManuallySearch" = "Onun yerine manuel olarak ara";
 "Common.Controls.Actions.Next" = "İleri";
 "Common.Controls.Actions.Ok" = "Tamam";
@@ -50,6 +52,7 @@
 "Common.Controls.Actions.Preview" = "Önizleme";
 "Common.Controls.Actions.Previous" = "Önceki";
 "Common.Controls.Actions.Remove" = "Kaldır";
+"Common.Controls.Actions.RemoveBookmark" = "Remove Bookmark";
 "Common.Controls.Actions.Reply" = "Yanıtla";
 "Common.Controls.Actions.ReportUser" = "%@ kişisini bildir";
 "Common.Controls.Actions.Save" = "Kaydet";
@@ -66,6 +69,7 @@
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "Tekrar Deneyin";
 "Common.Controls.Actions.UnblockDomain" = "%@ kişisinin engelini kaldır";
+"Common.Controls.Actions.Unfollow" = "Unfollow %@";
 "Common.Controls.Friendship.Block" = "Engelle";
 "Common.Controls.Friendship.BlockDomain" = "%@ kişisini engelle";
 "Common.Controls.Friendship.BlockUser" = "%@ kişisini engelle";
@@ -516,8 +520,8 @@ yüklenemiyor.";
 "Scene.Settings.Section.SpicyZone.Signout" = "Oturumu Kapat";
 "Scene.Settings.Section.SpicyZone.Title" = "Tehlikeli bölge";
 "Scene.Settings.Title" = "Ayarlar";
-"Scene.SuggestionAccount.FollowExplain" = "Birisini takip ettiğinizde, ana sayfanızda o kişinin gönderilerini görürsünüz.";
-"Scene.SuggestionAccount.Title" = "Takip Edecek İnsanlar Bul";
+"Scene.SuggestionAccount.FollowAll" = "Follow all";
+"Scene.SuggestionAccount.Title" = "Popular on Mastodon";
 "Scene.Thread.BackTitle" = "Gönderi";
 "Scene.Thread.Title" = "%@ kullanıcının gönderisi";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";

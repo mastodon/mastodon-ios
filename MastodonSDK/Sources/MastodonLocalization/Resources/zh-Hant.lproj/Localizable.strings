@@ -30,6 +30,7 @@
 "Common.Controls.Actions.Add" = "新增";
 "Common.Controls.Actions.Back" = "上一頁";
 "Common.Controls.Actions.BlockDomain" = "封鎖 %@";
+"Common.Controls.Actions.Bookmark" = "書籤";
 "Common.Controls.Actions.Cancel" = "取消";
 "Common.Controls.Actions.Compose" = "撰寫";
 "Common.Controls.Actions.Confirm" = "確認";
@@ -42,6 +43,7 @@
 "Common.Controls.Actions.Edit" = "編輯";
 "Common.Controls.Actions.EditPost" = "編輯";
 "Common.Controls.Actions.FindPeople" = "尋找一些人來跟隨";
+"Common.Controls.Actions.Follow" = "跟隨 %@";
 "Common.Controls.Actions.ManuallySearch" = "手動搜尋";
 "Common.Controls.Actions.Next" = "下一頁";
 "Common.Controls.Actions.Ok" = "OK";
@@ -51,6 +53,7 @@
 "Common.Controls.Actions.Preview" = "預覽";
 "Common.Controls.Actions.Previous" = "上一步";
 "Common.Controls.Actions.Remove" = "刪除";
+"Common.Controls.Actions.RemoveBookmark" = "移除書籤";
 "Common.Controls.Actions.Reply" = "回覆";
 "Common.Controls.Actions.ReportUser" = "檢舉 %@";
 "Common.Controls.Actions.Save" = "儲存";
@@ -67,6 +70,7 @@
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "未知";
 "Common.Controls.Actions.TryAgain" = "再試一次";
 "Common.Controls.Actions.UnblockDomain" = "解除封鎖 %@";
+"Common.Controls.Actions.Unfollow" = "取消跟隨 %@";
 "Common.Controls.Friendship.Block" = "封鎖";
 "Common.Controls.Friendship.BlockDomain" = "封鎖 %@";
 "Common.Controls.Friendship.BlockUser" = "封鎖 %@";
@@ -195,7 +199,7 @@
 "Scene.Compose.Accessibility.RemovePoll" = "移除投票";
 "Scene.Compose.Attachment.AttachmentBroken" = "此 %@ 已損毀，並無法被上傳至 Mastodon。";
 "Scene.Compose.Attachment.AttachmentTooLarge" = "附加檔案大小過大";
-"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "無法識別此媒體附加檔案";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "無法識別此多媒體附加檔案";
 "Scene.Compose.Attachment.CompressingState" = "正在壓縮...";
 "Scene.Compose.Attachment.DescriptionPhoto" = "為視障人士提供圖片說明...";
 "Scene.Compose.Attachment.DescriptionVideo" = "為視障人士提供影片說明...";
@@ -512,8 +516,8 @@
 "Scene.Settings.Section.SpicyZone.Signout" = "登出";
 "Scene.Settings.Section.SpicyZone.Title" = "危險地帶";
 "Scene.Settings.Title" = "設定";
-"Scene.SuggestionAccount.FollowExplain" = "當您跟隨這些人時，將會看到他們的嘟文出現在您的首頁時間軸上。";
-"Scene.SuggestionAccount.Title" = "尋找一些人來跟隨";
+"Scene.SuggestionAccount.FollowAll" = "跟隨所有";
+"Scene.SuggestionAccount.Title" = "Mastodon 上之流行內容";
 "Scene.Thread.BackTitle" = "嘟文";
 "Scene.Thread.Title" = "來自 %@ 的嘟文";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "什麼是 Mastodon？";

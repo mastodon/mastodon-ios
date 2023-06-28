@@ -30,6 +30,7 @@
 "Common.Controls.Actions.Add" = "Добавить";
 "Common.Controls.Actions.Back" = "Назад";
 "Common.Controls.Actions.BlockDomain" = "Заблокировать %@";
+"Common.Controls.Actions.Bookmark" = "Bookmark";
 "Common.Controls.Actions.Cancel" = "Отмена";
 "Common.Controls.Actions.Compose" = "Написать";
 "Common.Controls.Actions.Confirm" = "Подтвердить";
@@ -42,6 +43,7 @@
 "Common.Controls.Actions.Edit" = "Изменить";
 "Common.Controls.Actions.EditPost" = "Edit";
 "Common.Controls.Actions.FindPeople" = "Подпишитесь на людей";
+"Common.Controls.Actions.Follow" = "Follow %@";
 "Common.Controls.Actions.ManuallySearch" = "Найти вручную";
 "Common.Controls.Actions.Next" = "Далее";
 "Common.Controls.Actions.Ok" = "ОК";
@@ -51,6 +53,7 @@
 "Common.Controls.Actions.Preview" = "Предпросмотр";
 "Common.Controls.Actions.Previous" = "Прошлые";
 "Common.Controls.Actions.Remove" = "Убрать";
+"Common.Controls.Actions.RemoveBookmark" = "Remove Bookmark";
 "Common.Controls.Actions.Reply" = "Ответить";
 "Common.Controls.Actions.ReportUser" = "Пожаловаться на %@";
 "Common.Controls.Actions.Save" = "Сохранить";
@@ -67,6 +70,7 @@
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "Попробовать снова";
 "Common.Controls.Actions.UnblockDomain" = "Разблокировать %@";
+"Common.Controls.Actions.Unfollow" = "Unfollow %@";
 "Common.Controls.Friendship.Block" = "Заблокировать";
 "Common.Controls.Friendship.BlockDomain" = "Заблокировать %@";
 "Common.Controls.Friendship.BlockUser" = "Заблокировать %@";
@@ -525,8 +529,8 @@
 "Scene.Settings.Section.SpicyZone.Signout" = "Выйти из учётной записи";
 "Scene.Settings.Section.SpicyZone.Title" = "Пикантная зона";
 "Scene.Settings.Title" = "Настройки";
-"Scene.SuggestionAccount.FollowExplain" = "Посты людей, на которых вы подписались, будут видны на главной странице.";
-"Scene.SuggestionAccount.Title" = "Подпишитесь на людей";
+"Scene.SuggestionAccount.FollowAll" = "Follow all";
+"Scene.SuggestionAccount.Title" = "Popular on Mastodon";
 "Scene.Thread.BackTitle" = "Пост";
 "Scene.Thread.Title" = "Пост %@";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
