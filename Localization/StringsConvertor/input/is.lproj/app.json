@@ -101,7 +101,11 @@
                     "title": "Þýða úr %s",
                     "unknown_language": "Óþekkt"
                 },
-                "edit_post": "Breyta"
+                "edit_post": "Breyta",
+                "bookmark": "Bókamerki",
+                "remove_bookmark": "Fjarlægja bókamerki",
+                "follow": "Fylgjast með %s",
+                "unfollow": "Hætta að fylgjast með %s"
             },
             "tabs": {
                 "home": "Heim",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Finndu fólk til að fylgjast með",
-            "follow_explain": "Þegar þú fylgist með einhverjum, muntu sjá færslur frá viðkomandi á streyminu þínu."
+            "title": "Vinsælt á Mastodon",
+            "follow_all": "Fylgjast með öllum"
         },
         "compose": {
             "title": {

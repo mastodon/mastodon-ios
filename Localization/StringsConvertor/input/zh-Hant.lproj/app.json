@@ -101,7 +101,11 @@
                     "title": "翻譯自 %s",
                     "unknown_language": "未知"
                 },
-                "edit_post": "編輯"
+                "edit_post": "編輯",
+                "bookmark": "書籤",
+                "remove_bookmark": "移除書籤",
+                "follow": "跟隨 %s",
+                "unfollow": "取消跟隨 %s"
             },
             "tabs": {
                 "home": "首頁",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "尋找一些人來跟隨",
-            "follow_explain": "當您跟隨這些人時，將會看到他們的嘟文出現在您的首頁時間軸上。"
+            "title": "Mastodon 上之流行內容",
+            "follow_all": "跟隨所有"
         },
         "compose": {
             "title": {
@@ -487,7 +491,7 @@
                 "description_video": "為視障人士提供影片說明...",
                 "load_failed": "讀取失敗",
                 "upload_failed": "上傳失敗",
-                "can_not_recognize_this_media_attachment": "無法識別此媒體附加檔案",
+                "can_not_recognize_this_media_attachment": "無法識別此多媒體附加檔案",
                 "attachment_too_large": "附加檔案大小過大",
                 "compressing_state": "正在壓縮...",
                 "server_processing_state": "伺服器處理中..."

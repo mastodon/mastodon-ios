@@ -101,7 +101,11 @@
                     "title": "Traduit depuis %s",
                     "unknown_language": "Inconnu"
                 },
-                "edit_post": "Éditer"
+                "edit_post": "Éditer",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Accueil",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Trouver des personnes à suivre",
-            "follow_explain": "Quand vous suivez quelqu'un, vous verrez leurs messages dans votre flux d’accueil."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

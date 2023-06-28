@@ -101,7 +101,11 @@
                     "title": "Tulkot no %s",
                     "unknown_language": "Nezināms"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Sākums",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Atrodi Cilvēkus kam Sekot",
-            "follow_explain": "Kad seko kādam, tu redzēsi viņu ziņas savā mājas plūsmā."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

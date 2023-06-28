@@ -101,7 +101,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Головна",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Знайти людей, аби підписатися",
-            "follow_explain": "Коли ви підпишетесь на когось, ви побачите його дописи у своїй домашній стрічці."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

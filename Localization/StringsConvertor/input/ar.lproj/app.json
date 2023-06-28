@@ -101,7 +101,11 @@
                     "title": "الترجَمَة مِن %s",
                     "unknown_language": "غير مَعرُوفة"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "الرَّئِيسَة",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "ابحث عن أشخاص لمتابعتهم",
-            "follow_explain": "عِندَ مُتابَعَتِكَ لأحدِهِم، سَوف تَرى مَنشوراته في تغذيَتِكَ الرئيسة."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

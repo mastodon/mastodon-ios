@@ -101,7 +101,11 @@
                     "title": "Ji %s wergerîne",
                     "unknown_language": "Nenas"
                 },
-                "edit_post": "Serrast bike"
+                "edit_post": "Serrast bike",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Serrûpel",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Kesên bo ku bişopînî bibîne",
-            "follow_explain": "Gava tu kesekî dişopînî, tu yê şandiyê wan di serrûpelê de bibîne."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

@@ -101,7 +101,11 @@
                     "title": "Vertaald uit het %s",
                     "unknown_language": "Onbekend"
                 },
-                "edit_post": "Bewerken"
+                "edit_post": "Bewerken",
+                "bookmark": "Bladwijzer toevoegen",
+                "remove_bookmark": "Bladwijzer verwijderen",
+                "follow": "Volg %s",
+                "unfollow": "Ontvolg %s"
             },
             "tabs": {
                 "home": "Start",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Zoek mensen om te volgen",
-            "follow_explain": "Wanneer je iemand volgt, zie je hun berichten op jouw starttijdlijn."
+            "title": "Populair op Mastodon",
+            "follow_all": "Iedereen volgen"
         },
         "compose": {
             "title": {

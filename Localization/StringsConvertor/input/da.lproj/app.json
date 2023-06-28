@@ -2,14 +2,14 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Prøv venligst igen.",
+                "please_try_again_later": "Prøv venligst igen senere."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Tilmeldingsfejl"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Serverfejl"
             },
             "vote_failure": {
                 "title": "Vote Failure",
@@ -101,7 +101,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Home",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

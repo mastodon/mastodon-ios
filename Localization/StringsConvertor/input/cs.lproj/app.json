@@ -101,7 +101,11 @@
                     "title": "Přeložit z %s",
                     "unknown_language": "Neznámý"
                 },
-                "edit_post": "Upravit"
+                "edit_post": "Upravit",
+                "bookmark": "Záložka",
+                "remove_bookmark": "Odstranit záložku",
+                "follow": "Sledovat %s",
+                "unfollow": "Přestat sledovat %s"
             },
             "tabs": {
                 "home": "Domů",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Najít lidi pro sledování",
-            "follow_explain": "Když někoho sledujete, uvidíte jejich příspěvky ve vašem domovském kanálu."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

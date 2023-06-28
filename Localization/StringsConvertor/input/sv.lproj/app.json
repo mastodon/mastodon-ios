@@ -101,7 +101,11 @@
                     "title": "Översätt från %s",
                     "unknown_language": "Okänt"
                 },
-                "edit_post": "Redigera"
+                "edit_post": "Redigera",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Hem",
@@ -109,8 +113,8 @@
                 "notifications": "Notiser",
                 "profile": "Profil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Sök",
+                    "explore": "Utforska"
                 }
             },
             "keyboard": {
@@ -209,7 +213,7 @@
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Ändrad %s",
                 "edit_history": {
                     "title": "Edit History",
                     "original_post": "Original Post · %s"
@@ -257,7 +261,7 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
+            "no_verified_link": "Ingen verifierad länk",
             "followers_count": "%@ följare"
         }
     },
@@ -265,36 +269,36 @@
         "welcome": {
             "log_in": "Logga in",
             "learn_more": "Läs mer",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick another server",
+            "join_default_server": "Gå med i mastodon.social",
+            "pick_server": "Hitta en annan server",
             "separator": {
-                "or": "or"
+                "or": "eller"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Välkommen till Mastodon",
+                    "description": "Mastodon är ett decentraliserat socialt nätverk, vilket innebär att inget enskilt företag kontrollerar det. Det består av många oberoende servrar, alla sammankopplade."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Vad är servrar?",
+                    "description": "Varje Mastodon-konto finns på en server — var och en med sina värderingar, regler och administratörer. Oavsett vilken du väljer kan du följa och interagera med människor på vilken server som helst."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Vad är Mastodon?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Välkommen tillbaka",
             "subtitle": "Logga in på servern där du skapade ditt konto.",
             "server_search_field": {
                 "placeholder": "Ange URL eller sök efter din server"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Välj server",
             "button": {
                 "language": "Språk",
                 "signup_speed": "Sign-up Speed",
@@ -333,25 +337,25 @@
             "signup_speed": {
                 "all": "All",
                 "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "manually_reviewed": "Manuell granskning"
             },
             "language": {
                 "all": "All"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Sök namn eller URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Vi kommer att välja en server baserat på ditt språk om du fortsätter utan att göra ett val."
         },
         "privacy": {
             "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Även om Mastodon-appen inte samlar in någon data kan servern du registrerar dig genom ha en annan policy. Ta en stund till att granska och godkänna Mastodon-appens sekretesspolicy och din servers sekretesspolicy.",
             "policy": {
                 "ios": "Integritetspolicy - Mastodon för iOS",
                 "server": "Integritetspolicy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Jag godkänner"
             }
         },
         "register": {
@@ -373,7 +377,7 @@
                 },
                 "password": {
                     "placeholder": "lösenord",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Bekräfta lösenord",
                     "require": "Ditt lösenord behöver minst:",
                     "character_limit": "8 tecken",
                     "accessibility": {
@@ -398,7 +402,7 @@
                 "reason": {
                     "blocked": "%s innehåller en icke tillåten e-postleverantör",
                     "unreachable": "%s verkar inte existera",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s är redan tagen. Vad sägs om:",
                     "reserved": "%s är ett reserverat nyckelord",
                     "accepted": "%s måste godkännas",
                     "blank": "%s krävs",
@@ -422,12 +426,12 @@
             "terms_of_service": "användarvillkor",
             "privacy_policy": "integritetspolicy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Jag godkänner"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Kolla din inkorg",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Klicka på länken som vi har skickat till dig för att bekräfta %@. Vi väntar här.",
             "button": {
                 "resend": "Skicka igen"
             },
@@ -443,8 +447,8 @@
                 "open_email_client": "Öppna e-postklient"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
+                "prefix": "Fick du ingen länk?",
+                "resend_in": "Skicka igen (%@)",
                 "resend_now": "Resend now."
             }
         },
@@ -462,14 +466,14 @@
             }
         },
         "suggestion_account": {
-            "title": "Hitta personer att följa",
-            "follow_explain": "När du följer någon, kommer du att se deras inlägg i ditt hemflöde."
+            "title": "Populärt på Mastodon",
+            "follow_all": "Följ alla"
         },
         "compose": {
             "title": {
                 "new_post": "Nytt inlägg",
                 "new_reply": "Nytt svar",
-                "edit_post": "Edit Post"
+                "edit_post": "Redigera inlägg"
             },
             "media_selection": {
                 "camera": "Ta foto",
@@ -506,8 +510,8 @@
                 "the_poll_has_empty_option": "Undersökningen har ett tomt alternativ",
                 "add_option": "Add Option",
                 "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "move_up": "Flytta upp",
+                "move_down": "Flytta ned"
             },
             "content_warning": {
                 "placeholder": "Skriv en noggrann varning här..."
@@ -543,8 +547,8 @@
             "language": {
                 "title": "Post Language",
                 "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "recent": "Senaste",
+                "other": "Andra språk…"
             }
         },
         "profile": {
@@ -845,7 +849,7 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Detta verkar inte vara en giltig Mastodon-länk."
         }
     },
     "widget": {
@@ -854,10 +858,10 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
+            "configuration_display_name": "Följare",
             "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "title": "FÖLJARE",
+            "followers_today": "%s följare idag"
         },
         "multiple_followers": {
             "configuration_display_name": "Multiple followers",

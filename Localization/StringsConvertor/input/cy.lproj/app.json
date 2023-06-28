@@ -101,7 +101,11 @@
                     "title": "Cyfieithu o %s",
                     "unknown_language": "Anhysbys"
                 },
-                "edit_post": "Golygu"
+                "edit_post": "Golygu",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Hafan",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Chwilio a Dilyn Pobl",
-            "follow_explain": "Ar ôl ichi ddilyn rhywun, byddwch yn gweld eu postiadau yn eich ffrwd hafan."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

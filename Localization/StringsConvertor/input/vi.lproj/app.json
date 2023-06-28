@@ -101,7 +101,11 @@
                     "title": "Dịch từ %s",
                     "unknown_language": "Chưa xác định"
                 },
-                "edit_post": "Sửa"
+                "edit_post": "Sửa",
+                "bookmark": "Lưu",
+                "remove_bookmark": "Bỏ lưu",
+                "follow": "Theo dõi %s",
+                "unfollow": "Bỏ theo dõi %s"
             },
             "tabs": {
                 "home": "Bảng tin",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Đề xuất theo dõi",
-            "follow_explain": "Khi theo dõi ai đó, bạn sẽ thấy tút của họ trong bảng tin."
+            "title": "Thịnh hành trên Mastodon",
+            "follow_all": "Theo dõi tất cả"
         },
         "compose": {
             "title": {

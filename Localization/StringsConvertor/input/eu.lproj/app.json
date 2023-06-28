@@ -101,7 +101,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Hasiera",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Bilatu jarraitzeko jendea",
-            "follow_explain": "Norbait jarraitzen duzunean, bere bidalketak zure hasierako denbora-lerroan agertuko zaizkizu."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

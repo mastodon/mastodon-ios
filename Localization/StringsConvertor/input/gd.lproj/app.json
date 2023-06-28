@@ -101,7 +101,11 @@
                     "title": "Eadar-theangaich o: %s",
                     "unknown_language": "Chan eil fhios"
                 },
-                "edit_post": "Deasaich"
+                "edit_post": "Deasaich",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Dachaigh",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Lorg daoine a leanas tu",
-            "follow_explain": "Nuair a leanas tu cuideigin, chì thu na puist aca air inbhir na dachaigh agad."
+            "title": "Fèillmhor air Mastodon",
+            "follow_all": "Lean na h-uile"
         },
         "compose": {
             "title": {

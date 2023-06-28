@@ -101,7 +101,11 @@
                     "title": "Traduït del %s",
                     "unknown_language": "Desconegut"
                 },
-                "edit_post": "Edita"
+                "edit_post": "Edita",
+                "bookmark": "Marcador",
+                "remove_bookmark": "Suprimeix el marcador",
+                "follow": "Segueix a %s",
+                "unfollow": "Deixa de seguir %s"
             },
             "tabs": {
                 "home": "Inici",
@@ -462,8 +466,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Cerca Persones a Seguir",
-            "follow_explain": "Quan segueixes algú, veuràs els seus tuts a Inici."
+            "title": "Popular a Mastodon",
+            "follow_all": "Seguir a tothom"
         },
         "compose": {
             "title": {
