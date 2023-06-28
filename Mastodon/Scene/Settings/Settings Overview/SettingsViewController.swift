@@ -46,12 +46,12 @@ class SettingsViewController: UIViewController {
 
         self.tableViewDataSource = tableViewDataSource
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(SettingsViewController.done(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(SettingsViewController.done(_:)))
 
         view.backgroundColor = .systemGroupedBackground
         view.addSubview(tableView)
 
-        title = "Settings"
+        title = L10n.Scene.Settings.Overview.title
 
         tableView.pinToParent()
     }

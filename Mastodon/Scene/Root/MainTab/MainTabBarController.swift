@@ -654,7 +654,7 @@ extension MainTabBarController {
     @objc private func openSettingsKeyCommandHandler(_ sender: UIKeyCommand) {
 
         guard let authContext,
-                let setting = context.settingService.currentSetting.value else { return }
+              let setting = context.settingService.currentSetting.value else { return }
 
         _ = coordinator.present(scene: .settings, from: nil, transition: .none)
     }

@@ -537,13 +537,17 @@ private extension SceneCoordinator {
                 activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
                 viewController = activityViewController
             case .settings:
-                guard let presentedOn = sender else { return nil }
+                guard let presentedOn = sender,
+                      let accountName = authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: appContext.managedObjectContext)?.username
+                else { return nil }
 
-                let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn)
+                let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn, accountName: accountName)
                 settingsCoordinator.delegate = self
                 settingsCoordinator.start()
+
                 viewController = settingsCoordinator.navigationController
                 childCoordinator = settingsCoordinator
+
             case .editStatus(let viewModel):
                 let composeViewController = ComposeViewController(viewModel: viewModel)
                 viewController = composeViewController

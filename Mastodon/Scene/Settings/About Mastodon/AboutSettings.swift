@@ -16,7 +16,6 @@ enum AboutSettingsEntry: Hashable {
 
     var text: String {
         switch self {
-            //TODO: @zeitschlag Add Localization
         case .evenMoreSettings:
             return L10n.Scene.Settings.AboutMastodon.moreSettings
         case .contributeToMastodon:
