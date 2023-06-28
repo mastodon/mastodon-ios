@@ -63,6 +63,7 @@ class SettingsTableViewCell: UITableViewCell {
 
         if let icon = entry.icon {
             iconImageView.image = icon
+            iconImageView.tintColor = .white
             iconImageBackgroundView.isHidden = false
         } else {
             iconImageBackgroundView.isHidden = true
