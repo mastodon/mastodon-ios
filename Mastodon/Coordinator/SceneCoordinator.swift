@@ -583,7 +583,7 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
 
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
         let signOutAction = UIAlertAction(title: L10n.Common.Alerts.SignOut.confirm, style: .destructive) { [weak self] _ in
-            guard let self = self, let authContext else { return }
+            guard let self, let authContext = self.authContext else { return }
 
             self.appContext.notificationService.clearNotificationCountForActiveUser()
 
