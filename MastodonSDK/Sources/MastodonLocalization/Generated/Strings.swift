@@ -1423,8 +1423,8 @@ public enum L10n {
         public static let contributeToMastodon = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.ContributeToMastodon", fallback: "Contribute to Mastodon")
         /// Even More Settings
         public static let moreSettings = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.MoreSettings", fallback: "Even More Settings")
-        /// PrivacyPolicy
-        public static let privacyPolicy = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.PrivacyPolicy", fallback: "PrivacyPolicy")
+        /// Privacy Policy
+        public static let privacyPolicy = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.PrivacyPolicy", fallback: "Privacy Policy")
         /// About Mastodon
         public static let title = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.Title", fallback: "About Mastodon")
       }

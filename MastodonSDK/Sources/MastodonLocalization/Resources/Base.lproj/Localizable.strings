@@ -540,7 +540,7 @@ uploaded to Mastodon.";
 "Scene.Settings.AboutMastodon.Title" = "About Mastodon";
 "Scene.Settings.AboutMastodon.MoreSettings" = "Even More Settings";
 "Scene.Settings.AboutMastodon.ContributeToMastodon" = "Contribute to Mastodon";
-"Scene.Settings.AboutMastodon.PrivacyPolicy" = "PrivacyPolicy";
+"Scene.Settings.AboutMastodon.PrivacyPolicy" = "Privacy Policy";
 "Scene.Settings.AboutMastodon.CleaerMediaStorage" = "Clear Media Storage";
 
 "Scene.SuggestionAccount.FollowAll" = "Follow all";
