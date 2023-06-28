@@ -25,7 +25,6 @@ extension MetaLabel {
         case profileCardFamiliarFollowerFooter
         case recommendAccountName
         case titleView
-        case settingTableFooter
         case autoCompletion
         case accountListName
         case accountListUsername
@@ -110,13 +109,6 @@ extension MetaLabel {
         case .recommendAccountName:
             font = .systemFont(ofSize: 18, weight: .semibold)
             textColor = .white
-            
-        case .settingTableFooter:
-            font = .preferredFont(forTextStyle: .footnote)
-            textColor = Asset.Colors.Label.secondary.color
-            numberOfLines = 0
-            textContainer.maximumNumberOfLines = 0
-            paragraphStyle.alignment = .center
             
         case .autoCompletion:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)

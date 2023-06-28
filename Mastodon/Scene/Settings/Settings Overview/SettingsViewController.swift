@@ -43,6 +43,7 @@ class SettingsViewController: UIViewController {
 
         tableView.dataSource = tableViewDataSource
         tableView.delegate = self
+
         self.tableViewDataSource = tableViewDataSource
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(SettingsViewController.done(_:)))
@@ -52,7 +53,7 @@ class SettingsViewController: UIViewController {
 
         title = "Settings"
 
-        setupConstraints()
+        tableView.pinToParent()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -68,17 +69,6 @@ class SettingsViewController: UIViewController {
         }
 
         tableViewDataSource?.apply(snapshot)
-    }
-
-    private func setupConstraints() {
-        let constraints = [
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor),
-        ]
-
-        NSLayoutConstraint.activate(constraints)
     }
 
     //MARK: Actions
