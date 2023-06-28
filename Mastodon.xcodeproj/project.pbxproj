@@ -137,7 +137,6 @@
 		D81A227B2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */; };
 		D82BD7532ABC44C2009A374A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
 		D8318A802A4466D300C0FB73 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */; };
-		D8318A842A4468A800C0FB73 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */; };
 		D8318A862A4468C700C0FB73 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A852A4468C700C0FB73 /* SettingsViewController.swift */; };
 		D8318A882A4468D300C0FB73 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */; };
 		D8318A8A2A4468DC00C0FB73 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A892A4468DC00C0FB73 /* AboutViewController.swift */; };
@@ -160,9 +159,13 @@
 		D8F8A03C29CA5CB6000195DD /* HashtagWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */; };
 		D8F917012A4AD8A5008A5370 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */; };
 		D8F917032A4B063D008A5370 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917022A4B063D008A5370 /* Settings.swift */; };
+		D8F917062A4B0791008A5370 /* GeneralSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917052A4B0791008A5370 /* GeneralSettings.swift */; };
+		D8F917082A4B0B16008A5370 /* GeneralSettingSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917072A4B0B16008A5370 /* GeneralSettingSelectionCell.swift */; };
 		D8F9170B2A4B2C80008A5370 /* AboutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170A2A4B2C80008A5370 /* AboutSettings.swift */; };
 		D8F9170D2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170C2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift */; };
 		D8F9170F2A4B47EF008A5370 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
+		D8F917112A4C6B40008A5370 /* GeneralSettingToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917102A4C6B40008A5370 /* GeneralSettingToggleCell.swift */; };
+		D8F917122A4C6B67008A5370 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */; };
@@ -816,9 +819,12 @@
 		D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidget.swift; sourceTree = "<group>"; };
 		D8F917002A4AD8A4008A5370 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		D8F917022A4B063D008A5370 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		D8F917052A4B0791008A5370 /* GeneralSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettings.swift; sourceTree = "<group>"; };
+		D8F917072A4B0B16008A5370 /* GeneralSettingSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingSelectionCell.swift; sourceTree = "<group>"; };
 		D8F9170A2A4B2C80008A5370 /* AboutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettings.swift; sourceTree = "<group>"; };
 		D8F9170C2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMastodonTableViewCell.swift; sourceTree = "<group>"; };
 		D8F9170E2A4B47EF008A5370 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		D8F917102A4C6B40008A5370 /* GeneralSettingToggleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingToggleCell.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivityProvider.swift; sourceTree = "<group>"; };
@@ -1744,9 +1750,9 @@
 			children = (
 				D8F917092A4B2AFF008A5370 /* About Mastodon */,
 				D8F916FF2A4AD898008A5370 /* Settings Overview */,
+				D8F917042A4B0657008A5370 /* General Settings */,
 				D8318A7E2A4466C900C0FB73 /* Legacy */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
-				D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */,
 				D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */,
 				D8318A8B2A4468E600C0FB73 /* SupportMastodonViewController.swift */,
 			);
@@ -1890,6 +1896,17 @@
 				D8F917022A4B063D008A5370 /* Settings.swift */,
 			);
 			path = "Settings Overview";
+			sourceTree = "<group>";
+		};
+		D8F917042A4B0657008A5370 /* General Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */,
+				D8F917052A4B0791008A5370 /* GeneralSettings.swift */,
+				D8F917102A4C6B40008A5370 /* GeneralSettingToggleCell.swift */,
+				D8F917072A4B0B16008A5370 /* GeneralSettingSelectionCell.swift */,
+			);
+			path = "General Settings";
 			sourceTree = "<group>";
 		};
 		D8F917092A4B2AFF008A5370 /* About Mastodon */ = {
@@ -3681,6 +3698,7 @@
 				DB5B54B02833C24200DEF8B2 /* FavoritedByViewController+DataSourceProvider.swift in Sources */,
 				DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */,
 				DB159C2B27A17BAC0068DC77 /* DataSourceFacade+Media.swift in Sources */,
+				D8F917082A4B0B16008A5370 /* GeneralSettingSelectionCell.swift in Sources */,
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
 				2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */,
 				DB6180E926391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift in Sources */,
@@ -3788,9 +3806,9 @@
 				DB023D2827A0FABD005AC798 /* NotificationTableViewCellDelegate.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB023D2C27A10464005AC798 /* NotificationTimelineViewController+DataSourceProvider.swift in Sources */,
+				D8F917062A4B0791008A5370 /* GeneralSettings.swift in Sources */,
 				D8F917012A4AD8A5008A5370 /* SettingsTableViewCell.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
-				D8318A842A4468A800C0FB73 /* GeneralSettingsViewController.swift in Sources */,
 				DBF1D257269DBAC600C1C08A /* SearchDetailViewModel.swift in Sources */,
 				DBB45B5927B39FE4002DC5A7 /* MediaPreviewVideoViewModel.swift in Sources */,
 				DB0FCB76279571C5006C02E2 /* ThreadViewController+DataSourceProvider.swift in Sources */,
@@ -3925,6 +3943,7 @@
 				DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */,
 				DBDFF19A28055A1400557A48 /* DiscoveryViewController.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
+				D8F917112A4C6B40008A5370 /* GeneralSettingToggleCell.swift in Sources */,
 				DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */,
 				D8318A8A2A4468DC00C0FB73 /* AboutViewController.swift in Sources */,
 				85BC11B32932414900E191CD /* AltTextViewController.swift in Sources */,
@@ -3935,6 +3954,7 @@
 				DB63F74B279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift in Sources */,
 				DBEFCD7D282A2A3B00C0ABEA /* ReportServerRulesViewController.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
+				D8F917122A4C6B67008A5370 /* GeneralSettingsViewController.swift in Sources */,
 				DB98EB4927B0F0CD0082E365 /* ReportStatusTableViewCell.swift in Sources */,
 				855149CA29606D6400943D96 /* PortraitAlertController.swift in Sources */,
 				DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */,
