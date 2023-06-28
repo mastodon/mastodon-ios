@@ -113,12 +113,11 @@ extension MediaPreviewViewController {
                 guard let self = self else { return }
                 switch self.viewModel.item {
                 case .attachment(let previewContext):
-                    let needsHideCloseButton: Bool = {
+                    self.topToolbar.isHidden = {
                         guard index < previewContext.attachments.count else { return false }
                         let attachment = previewContext.attachments[index]
                         return attachment.kind == .video    // not hide buttno for audio
                     }()
-                    self.topToolbar.isHidden = needsHideCloseButton
                 default:
                     break
                 }
