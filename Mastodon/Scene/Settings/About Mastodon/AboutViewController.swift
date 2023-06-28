@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonCore
+import MastodonLocalization
 
 protocol AboutViewControllerDelegate: AnyObject {
     func didSelect(_ viewController: AboutViewController, entry: AboutSettingsEntry)
@@ -39,6 +40,7 @@ class AboutViewController: UIViewController {
 
         view.addSubview(tableView)
         view.backgroundColor = .systemGroupedBackground
+        title = L10n.Scene.Settings.AboutMastodon.title
 
         tableView.pinToParent()
     }

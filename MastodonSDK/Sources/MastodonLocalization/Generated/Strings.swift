@@ -1425,8 +1425,8 @@ public enum L10n {
         public static let moreSettings = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.MoreSettings", fallback: "Even More Settings")
         /// Privacy Policy
         public static let privacyPolicy = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.PrivacyPolicy", fallback: "Privacy Policy")
-        /// About Mastodon
-        public static let title = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.Title", fallback: "About Mastodon")
+        /// About
+        public static let title = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.Title", fallback: "About")
       }
       public enum Footer {
         /// Mastodon is open source software. You can report issues on GitHub at %@ (%@)

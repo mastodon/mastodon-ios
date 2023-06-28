@@ -537,7 +537,7 @@ uploaded to Mastodon.";
 "Scene.Settings.Overview.AboutMastodon" = "About Mastodon";
 "Scene.Settings.Overview.Logout" = "Logout %@";
 
-"Scene.Settings.AboutMastodon.Title" = "About Mastodon";
+"Scene.Settings.AboutMastodon.Title" = "About";
 "Scene.Settings.AboutMastodon.MoreSettings" = "Even More Settings";
 "Scene.Settings.AboutMastodon.ContributeToMastodon" = "Contribute to Mastodon";
 "Scene.Settings.AboutMastodon.PrivacyPolicy" = "Privacy Policy";
