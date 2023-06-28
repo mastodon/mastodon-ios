@@ -35,6 +35,7 @@ class SettingsCoordinator: NSObject, Coordinator {
     }
 }
 
+//MARK: - SettingsViewControllerDelegate
 extension SettingsCoordinator: SettingsViewControllerDelegate {
     func done(_ viewController: UIViewController) {
         viewController.dismiss(animated: true)
@@ -43,8 +44,10 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     func didSelect(_ viewController: UIViewController, entry: SettingsEntry) {
         switch entry {
         case .general:
-            break
-            // show general
+            let generalSettingsViewController = GeneralSettingsViewController()
+            generalSettingsViewController.delegate = self
+
+            navigationController.pushViewController(generalSettingsViewController, animated: true)
         case .notifications:
             break
             // show notifications
@@ -62,6 +65,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
 }
 
+//MARK: - AboutViewControllerDelegate
 extension SettingsCoordinator: AboutViewControllerDelegate {
     func didSelect(_ viewController: AboutViewController, entry: AboutSettingsEntry) {
         switch entry {
@@ -88,8 +92,14 @@ extension SettingsCoordinator: AboutViewControllerDelegate {
     }
 }
 
+//MARK: - ASWebAuthenticationPresentationContextProviding
 extension SettingsCoordinator: ASWebAuthenticationPresentationContextProviding {
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return navigationController.view.window!
     }
+}
+
+//MARK: - GeneralSettingsViewControllerDelegate
+extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
+
 }
