@@ -116,7 +116,7 @@ extension MediaPreviewViewController {
                     self.topToolbar.isHidden = {
                         guard index < previewContext.attachments.count else { return false }
                         let attachment = previewContext.attachments[index]
-                        return attachment.kind == .video    // not hide buttno for audio
+                        return attachment.kind == .video || attachment.kind == .audio
                     }()
                 default:
                     break
