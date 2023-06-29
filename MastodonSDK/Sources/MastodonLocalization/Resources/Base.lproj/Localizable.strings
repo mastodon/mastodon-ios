@@ -523,13 +523,6 @@ uploaded to Mastodon.";
 "Scene.Settings.Section.SpicyZone.Signout" = "Sign Out";
 "Scene.Settings.Section.SpicyZone.Title" = "The Spicy Zone";
 
-"Scene.Settings.Title" = "Settings";
-"Scene.Settings.General" = "General";
-"Scene.Settings.Notifications" = "Notifications";
-"Scene.Settings.SupportMastodon" = "Support Mastodon";
-"Scene.Settings.AboutMastodon" = "About Mastodon";
-"Scene.Settings.Logout" = "Logout %@";
-
 "Scene.Settings.Overview.Title" = "Settings";
 "Scene.Settings.Overview.General" = "General";
 "Scene.Settings.Overview.Notifications" = "Notifications";
