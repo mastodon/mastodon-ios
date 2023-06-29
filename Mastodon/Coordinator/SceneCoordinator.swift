@@ -183,7 +183,7 @@ extension SceneCoordinator {
         case followedTags(viewModel: FollowedTagsViewModel)
 
         // setting
-        case settings
+        case settings(setting: Setting)
         
         // report
         case report(viewModel: ReportViewModel)
@@ -522,7 +522,7 @@ private extension SceneCoordinator {
                 _viewController.preferredBarTintColor = SystemTheme.navigationBarBackgroundColor
                 _viewController.preferredControlTintColor = Asset.Colors.Brand.blurple.color
                 viewController = _viewController
-
+                
             case .alertController(let alertController):
                 if let popoverPresentationController = alertController.popoverPresentationController {
                     assert(
@@ -536,18 +536,20 @@ private extension SceneCoordinator {
                 activityViewController.popoverPresentationController?.sourceView = sourceView
                 activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
                 viewController = activityViewController
-            case .settings:
+            case .settings(let setting):
                 guard let presentedOn = sender,
                       let accountName = authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: appContext.managedObjectContext)?.username
                 else { return nil }
-
-                let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn, accountName: accountName)
+                
+                let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn,
+                                                              accountName: accountName,
+                                                              setting: setting)
                 settingsCoordinator.delegate = self
                 settingsCoordinator.start()
-
+                
                 viewController = settingsCoordinator.navigationController
                 childCoordinator = settingsCoordinator
-
+                
             case .editStatus(let viewModel):
                 let composeViewController = ComposeViewController(viewModel: viewModel)
                 viewController = composeViewController

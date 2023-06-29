@@ -3,6 +3,7 @@
 import UIKit
 import AuthenticationServices
 import MastodonCore
+import CoreDataStack
 
 protocol SettingsCoordinatorDelegate: AnyObject {
     func logout(_ settingsCoordinator: SettingsCoordinator)
@@ -17,12 +18,14 @@ class SettingsCoordinator: NSObject, Coordinator {
     let presentedOn: UIViewController
 
     weak var delegate: SettingsCoordinatorDelegate?
-
     private let settingsViewController: SettingsViewController
 
-    init(presentedOn: UIViewController, accountName: String) {
+    let setting: Setting
+
+    init(presentedOn: UIViewController, accountName: String, setting: Setting) {
         self.presentedOn = presentedOn
         navigationController = UINavigationController()
+        self.setting = setting
 
         settingsViewController = SettingsViewController(accountName: accountName)
     }
@@ -44,7 +47,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     func didSelect(_ viewController: UIViewController, entry: SettingsEntry) {
         switch entry {
         case .general:
-            let generalSettingsViewController = GeneralSettingsViewController()
+            let generalSettingsViewController = GeneralSettingsViewController(setting: setting)
             generalSettingsViewController.delegate = self
 
             navigationController.pushViewController(generalSettingsViewController, animated: true)
@@ -101,5 +104,10 @@ extension SettingsCoordinator: ASWebAuthenticationPresentationContextProviding {
 
 //MARK: - GeneralSettingsViewControllerDelegate
 extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
-
+    func save(_ viewController: UIViewController, setting: Setting, viewModel: GeneralSettingsViewModel) {
+        UserDefaults.shared.customUserInterfaceStyle = viewModel.selectedAppearence.interfaceStyle
+        setting.update(preferredStaticEmoji: viewModel.playAnimations == false)
+        setting.update(preferredStaticAvatar: viewModel.playAnimations == false)
+        setting.update(preferredUsingDefaultBrowser: viewModel.selectedOpenLinks == .browser)
+    }
 }

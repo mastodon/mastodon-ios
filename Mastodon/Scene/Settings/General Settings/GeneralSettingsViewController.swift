@@ -1,6 +1,8 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonSDK
+import CoreDataStack
 
 struct GeneralSettingsViewModel {
     var selectedAppearence: GeneralSetting.Appearance
@@ -9,7 +11,7 @@ struct GeneralSettingsViewModel {
 }
 
 protocol GeneralSettingsViewControllerDelegate: AnyObject {
-
+    func save(_ viewController: UIViewController, setting: Setting, viewModel: GeneralSettingsViewModel)
 }
 
 class GeneralSettingsViewController: UIViewController {
@@ -18,11 +20,13 @@ class GeneralSettingsViewController: UIViewController {
     let tableView: UITableView
 
     var tableViewDataSource: GeneralSettingsDiffableTableViewDataSource?
+
     private(set) var viewModel: GeneralSettingsViewModel
+    let setting: Setting
 
     let sections: [GeneralSettingsSection]
 
-    init() {
+    init(setting: Setting) {
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(GeneralSettingSelectionCell.self, forCellReuseIdentifier: GeneralSettingSelectionCell.reuseIdentifier)
@@ -43,8 +47,20 @@ class GeneralSettingsViewController: UIViewController {
             ])
         ]
 
-        //FIXME: Get Values from Setting
-        viewModel = GeneralSettingsViewModel(selectedAppearence: .dark, playAnimations: true, selectedOpenLinks: .browser)
+        let openLinksIn: GeneralSetting.OpenLinksIn
+        if setting.preferredUsingDefaultBrowser {
+            openLinksIn = .browser
+        } else {
+            openLinksIn = .mastodon
+        }
+        let playAnimations = (setting.preferredStaticAvatar == false && setting.preferredStaticEmoji == false)
+        viewModel = GeneralSettingsViewModel(
+            selectedAppearence: GeneralSetting.Appearance(rawValue: UserDefaults.shared.customUserInterfaceStyle.rawValue) ?? .system,
+            playAnimations: playAnimations,
+            selectedOpenLinks: openLinksIn
+        )
+
+        self.setting = setting
 
         super.init(nibName: nil, bundle: nil)
 
@@ -111,7 +127,6 @@ extension GeneralSettingsViewController: UITableViewDelegate {
         switch section {
         case .appearance(let appearanceOption):
             viewModel.selectedAppearence = appearanceOption
-            UserDefaults.shared.customUserInterfaceStyle = appearanceOption.interfaceStyle
         case .design(_):
 
             break
@@ -119,13 +134,12 @@ extension GeneralSettingsViewController: UITableViewDelegate {
             viewModel.selectedOpenLinks = openLinksInOption
         }
 
-        //TODO: @zeitschlag Store in Settings????
-
         if let snapshot = tableViewDataSource?.snapshot() {
             tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.save(self, setting: setting, viewModel: viewModel)
     }
 }
 
@@ -141,11 +155,9 @@ extension GeneralSettingsViewController: GeneralSettingToggleCellDelegate {
             }
         }
 
-        //TODO: @zeitschlag Store in Settings????
-
         if let snapshot = tableViewDataSource?.snapshot() {
             tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
         }
-
+        delegate?.save(self, setting: self.setting, viewModel: viewModel)
     }
 }

@@ -14,6 +14,7 @@ public final class Setting: NSManagedObject {
     @NSManaged public var userID: String
 
 //    @NSManaged public var appearanceRaw: String
+    @available(*, deprecated, message: "We need a new core data version, so we postpone this.")
     @NSManaged public var preferredTrueBlackDarkMode: Bool
     @NSManaged public var preferredStaticAvatar: Bool
     @NSManaged public var preferredStaticEmoji: Bool
@@ -65,12 +66,6 @@ extension Setting {
 //        self.appearanceRaw = appearanceRaw
 //        didUpdate(at: Date())
 //    }
-
-    public func update(preferredTrueBlackDarkMode: Bool) {
-        guard preferredTrueBlackDarkMode != self.preferredTrueBlackDarkMode else { return }
-        self.preferredTrueBlackDarkMode = preferredTrueBlackDarkMode
-        didUpdate(at: Date())
-    }
 
     public func update(preferredStaticAvatar: Bool) {
         guard preferredStaticAvatar != self.preferredStaticAvatar else { return }
