@@ -1,6 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonAsset
 
 class GeneralSettingSelectionCell: UITableViewCell {
     static let reuseIdentifier = "GeneralSettingSelectionCell"
@@ -18,21 +19,31 @@ class GeneralSettingSelectionCell: UITableViewCell {
     }
     
     private func configureAppearanceSetting(appearanceSetting: GeneralSetting.Appearance, viewModel: GeneralSettingsViewModel) {
-        textLabel?.text = appearanceSetting.title
+        var content = defaultContentConfiguration()
+        content.text = appearanceSetting.title
+        tintColor = Asset.Colors.Brand.blurple.color
+
         if viewModel.selectedAppearence == appearanceSetting {
             accessoryType = .checkmark
         } else {
             accessoryType = .none
         }
+
+        contentConfiguration = content
     }
     
     private func configureOpenLinkSetting(openLinkSetting: GeneralSetting.OpenLinksIn, viewModel: GeneralSettingsViewModel) {
-        textLabel?.text = openLinkSetting.title
+        var content = defaultContentConfiguration()
+        content.text = openLinkSetting.title
+        tintColor = Asset.Colors.Brand.blurple.color
+
         if viewModel.selectedOpenLinks == openLinkSetting {
             accessoryType = .checkmark
         } else {
             accessoryType = .none
         }
+
+        contentConfiguration = content
     }
 
 }

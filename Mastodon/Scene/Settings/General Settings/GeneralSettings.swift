@@ -14,6 +14,7 @@ enum GeneralSettingsSectionType: Hashable {
 
     var sectionTitle: String {
         switch self {
+            //TODO: @zeitschlag Localization
         case .appearance:
             return "Appearance"
         case .design:
@@ -35,6 +36,7 @@ enum GeneralSetting: Hashable {
         case dark = 2
         case system = 0
 
+        //TODO: @zeitschlag Localization
         var title: String {
             switch self {
             case .light:
@@ -54,6 +56,7 @@ enum GeneralSetting: Hashable {
     enum Design: Hashable {
         case showAnimations
 
+        //TODO: @zeitschlag Localization
         var title: String {
             switch self {
             case .showAnimations:
@@ -66,6 +69,7 @@ enum GeneralSetting: Hashable {
         case mastodon
         case browser
 
+        //TODO: @zeitschlag Localization
         var title: String {
             switch self {
             case .mastodon:

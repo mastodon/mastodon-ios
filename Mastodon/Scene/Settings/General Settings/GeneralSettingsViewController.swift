@@ -17,7 +17,7 @@ class GeneralSettingsViewController: UIViewController {
     weak var delegate: GeneralSettingsViewControllerDelegate?
     let tableView: UITableView
 
-    var tableViewDataSource: GeneralSettingsDiffableTablaViewDataSource?
+    var tableViewDataSource: GeneralSettingsDiffableTableViewDataSource?
     private(set) var viewModel: GeneralSettingsViewModel
 
     let sections: [GeneralSettingsSection]
@@ -50,7 +50,7 @@ class GeneralSettingsViewController: UIViewController {
 
         tableView.delegate = self
 
-        let tableViewDataSource = GeneralSettingsDiffableTablaViewDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
+        let tableViewDataSource = GeneralSettingsDiffableTableViewDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell: UITableViewCell
             switch itemIdentifier {
             case .appearance(let setting):
@@ -61,8 +61,8 @@ class GeneralSettingsViewController: UIViewController {
             case .design(let setting):
                 guard let toggleCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingToggleCell.reuseIdentifier, for: indexPath) as? GeneralSettingToggleCell else { fatalError("WTF? Wrong Cell!") }
 
-                //TODO: Set Delegate
                 toggleCell.configure(with: .design(setting), viewModel: self.viewModel)
+                toggleCell.delegate = self
 
                 cell = toggleCell
             case .openLinksIn(let setting):
@@ -113,13 +113,13 @@ extension GeneralSettingsViewController: UITableViewDelegate {
             viewModel.selectedAppearence = appearanceOption
             UserDefaults.shared.customUserInterfaceStyle = appearanceOption.interfaceStyle
         case .design(_):
-            // do nothing?
+
             break
         case .openLinksIn(let openLinksInOption):
             viewModel.selectedOpenLinks = openLinksInOption
         }
 
-        //FIXME: @zeitschlag Store in Settings????
+        //TODO: @zeitschlag Store in Settings????
 
         if let snapshot = tableViewDataSource?.snapshot() {
             tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
@@ -127,14 +127,25 @@ extension GeneralSettingsViewController: UITableViewDelegate {
 
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
-
 }
 
-class GeneralSettingsDiffableTablaViewDataSource: UITableViewDiffableDataSource<GeneralSettingsSection, GeneralSetting> {
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let settingsSection = sectionIdentifier(for: section) else { return nil }
+extension GeneralSettingsViewController: GeneralSettingToggleCellDelegate {
+    func toggle(_ cell: GeneralSettingToggleCell, setting: GeneralSetting, isOn: Bool) {
+        switch setting {
+        case .appearance(_), .openLinksIn(_):
+            assertionFailure("No toggle")
+        case .design(let designSetting):
+            switch designSetting {
+            case .showAnimations:
+                viewModel.playAnimations = isOn
+            }
+        }
 
-        return settingsSection.type.sectionTitle.uppercased()
+        //TODO: @zeitschlag Store in Settings????
+
+        if let snapshot = tableViewDataSource?.snapshot() {
+            tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
+        }
+
     }
 }
