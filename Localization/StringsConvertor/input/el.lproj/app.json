@@ -102,10 +102,10 @@
                     "unknown_language": "Άγνωστο"
                 },
                 "edit_post": "Επεξεργασία",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Σελιδοδείκτης",
+                "remove_bookmark": "Αφαίρεση σελιδοδείκτη",
+                "follow": "Ακολούθησε %s",
+                "unfollow": "Κατάργηση ακολούθησης του %s"
             },
             "tabs": {
                 "home": "Αρχική",
