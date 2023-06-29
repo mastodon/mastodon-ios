@@ -3,6 +3,7 @@
 import UIKit
 import MastodonSDK
 import CoreDataStack
+import MastodonLocalization
 
 struct GeneralSettingsViewModel {
     var selectedAppearence: GeneralSetting.Appearance
@@ -98,7 +99,7 @@ class GeneralSettingsViewController: UIViewController {
         view.addSubview(tableView)
         tableView.pinTo(to: view)
 
-        title = "General"
+        title = L10n.Scene.Settings.General.title
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

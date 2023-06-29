@@ -1,6 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonLocalization
 
 struct GeneralSettingsSection: Hashable {
     let type: GeneralSettingsSectionType
@@ -16,11 +17,11 @@ enum GeneralSettingsSectionType: Hashable {
         switch self {
             //TODO: @zeitschlag Localization
         case .appearance:
-            return "Appearance"
+            return L10n.Scene.Settings.General.Appearance.sectionTitle
         case .design:
-            return "Design"
+            return L10n.Scene.Settings.General.Design.sectionTitle
         case .links:
-            return "Links"
+            return L10n.Scene.Settings.General.Links.sectionTitle
         }
     }
 }
@@ -36,15 +37,14 @@ enum GeneralSetting: Hashable {
         case dark = 2
         case system = 0
 
-        //TODO: @zeitschlag Localization
         var title: String {
             switch self {
             case .light:
-                return "Light"
+                return L10n.Scene.Settings.General.Appearance.light
             case .dark:
-                return "Dark"
+                return L10n.Scene.Settings.General.Appearance.dark
             case .system:
-                return "Use Device Appearance"
+                return L10n.Scene.Settings.General.Appearance.system
             }
         }
 
@@ -56,11 +56,10 @@ enum GeneralSetting: Hashable {
     enum Design: Hashable {
         case showAnimations
 
-        //TODO: @zeitschlag Localization
         var title: String {
             switch self {
             case .showAnimations:
-                return "Play Animated Avatars and Emoji"
+                return L10n.Scene.Settings.General.Design.showAnimations
             }
         }
     }
@@ -69,13 +68,12 @@ enum GeneralSetting: Hashable {
         case mastodon
         case browser
 
-        //TODO: @zeitschlag Localization
         var title: String {
             switch self {
             case .mastodon:
-                return "Open in Mastodon"
+                return L10n.Scene.Settings.General.Links.openInMastodon
             case .browser:
-                return "Open in Browser"
+                return L10n.Scene.Settings.General.Links.openInBrowser
             }
         }
     }

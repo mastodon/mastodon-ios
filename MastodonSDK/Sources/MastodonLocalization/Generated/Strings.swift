@@ -1434,6 +1434,34 @@ public enum L10n {
           return L10n.tr("Localizable", "Scene.Settings.Footer.MastodonDescription", String(describing: p1), String(describing: p2), fallback: "Mastodon is open source software. You can report issues on GitHub at %@ (%@)")
         }
       }
+      public enum General {
+        /// General
+        public static let title = L10n.tr("Localizable", "Scene.Settings.General.Title", fallback: "General")
+        public enum Appearance {
+          /// Dark
+          public static let dark = L10n.tr("Localizable", "Scene.Settings.General.Appearance.Dark", fallback: "Dark")
+          /// Light
+          public static let light = L10n.tr("Localizable", "Scene.Settings.General.Appearance.Light", fallback: "Light")
+          /// Appearance
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Appearance.SectionTitle", fallback: "Appearance")
+          /// Use Device Appearance
+          public static let system = L10n.tr("Localizable", "Scene.Settings.General.Appearance.System", fallback: "Use Device Appearance")
+        }
+        public enum Design {
+          /// Design
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Design.SectionTitle", fallback: "Design")
+          /// Play Animated Avatars and Emoji
+          public static let showAnimations = L10n.tr("Localizable", "Scene.Settings.General.Design.ShowAnimations", fallback: "Play Animated Avatars and Emoji")
+        }
+        public enum Links {
+          /// Open in Browser
+          public static let openInBrowser = L10n.tr("Localizable", "Scene.Settings.General.Links.OpenInBrowser", fallback: "Open in Browser")
+          /// Open in Mastodon
+          public static let openInMastodon = L10n.tr("Localizable", "Scene.Settings.General.Links.OpenInMastodon", fallback: "Open in Mastodon")
+          /// Links
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Links.SectionTitle", fallback: "Links")
+        }
+      }
       public enum Keyboard {
         /// Close Settings Window
         public static let closeSettingsWindow = L10n.tr("Localizable", "Scene.Settings.Keyboard.CloseSettingsWindow", fallback: "Close Settings Window")

@@ -536,6 +536,17 @@ uploaded to Mastodon.";
 "Scene.Settings.AboutMastodon.PrivacyPolicy" = "Privacy Policy";
 "Scene.Settings.AboutMastodon.CleaerMediaStorage" = "Clear Media Storage";
 
+"Scene.Settings.General.Title" = "General";
+"Scene.Settings.General.Appearance.SectionTitle" = "Appearance";
+"Scene.Settings.General.Appearance.Dark" = "Dark";
+"Scene.Settings.General.Appearance.Light" = "Light";
+"Scene.Settings.General.Appearance.System" = "Use Device Appearance";
+"Scene.Settings.General.Design.SectionTitle" = "Design";
+"Scene.Settings.General.Design.ShowAnimations" = "Play Animated Avatars and Emoji";
+"Scene.Settings.General.Links.SectionTitle" = "Links";
+"Scene.Settings.General.Links.OpenInMastodon" = "Open in Mastodon";
+"Scene.Settings.General.Links.OpenInBrowser" = "Open in Browser";
+
 "Scene.SuggestionAccount.FollowAll" = "Follow all";
 "Scene.SuggestionAccount.Title" = "Popular on Mastodon";
 "Scene.Thread.BackTitle" = "Post";
