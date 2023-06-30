@@ -547,6 +547,17 @@ uploaded to Mastodon.";
 "Scene.Settings.General.Links.OpenInMastodon" = "Open in Mastodon";
 "Scene.Settings.General.Links.OpenInBrowser" = "Open in Browser";
 
+"Scene.Settings.Notifications.Title" = "Notifications";
+"Scene.Settings.Notifications.Policy.Title" = "Get Notifications from";
+"Scene.Settings.Notifications.Policy.Anyone" = "Anyone";
+"Scene.Settings.Notifications.Policy.Followers" = "People who follow you";
+"Scene.Settings.Notifications.Policy.Follow" = "People you follow";
+"Scene.Settings.Notifications.Policy.Noone" = "No one";
+"Scene.Settings.Notifications.Alert.MentionsAndReplies" = "Mentions & Replies";
+"Scene.Settings.Notifications.Alert.Boosts" = "Boosts";
+"Scene.Settings.Notifications.Alert.Favorites" = "Favorites";
+"Scene.Settings.Notifications.Alert.NewFollowers" = "New Followers";
+
 "Scene.SuggestionAccount.FollowAll" = "Follow all";
 "Scene.SuggestionAccount.Title" = "Popular on Mastodon";
 "Scene.Thread.BackTitle" = "Post";

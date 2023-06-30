@@ -1466,6 +1466,32 @@ public enum L10n {
         /// Close Settings Window
         public static let closeSettingsWindow = L10n.tr("Localizable", "Scene.Settings.Keyboard.CloseSettingsWindow", fallback: "Close Settings Window")
       }
+      public enum Notifications {
+        /// Notifications
+        public static let title = L10n.tr("Localizable", "Scene.Settings.Notifications.Title", fallback: "Notifications")
+        public enum Alert {
+          /// Boosts
+          public static let boosts = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.Boosts", fallback: "Boosts")
+          /// Favorites
+          public static let favorites = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.Favorites", fallback: "Favorites")
+          /// Mentions & Replies
+          public static let mentionsAndReplies = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.MentionsAndReplies", fallback: "Mentions & Replies")
+          /// New Followers
+          public static let newFollowers = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.NewFollowers", fallback: "New Followers")
+        }
+        public enum Policy {
+          /// Anyone
+          public static let anyone = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Anyone", fallback: "Anyone")
+          /// People you follow
+          public static let follow = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Follow", fallback: "People you follow")
+          /// People who follow you
+          public static let followers = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Followers", fallback: "People who follow you")
+          /// No one
+          public static let noone = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Noone", fallback: "No one")
+          /// Get Notifications from
+          public static let title = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Title", fallback: "Get Notifications from")
+        }
+      }
       public enum Overview {
         /// About Mastodon
         public static let aboutMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.AboutMastodon", fallback: "About Mastodon")

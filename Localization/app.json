@@ -742,6 +742,22 @@
                     "open_in_mastodon": "Open in Mastodon",
                     "open_in_browser": "Open in Browser"
                 }
+            },
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                }
             }
         },
         "report": {

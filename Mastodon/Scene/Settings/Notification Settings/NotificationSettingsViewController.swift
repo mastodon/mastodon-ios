@@ -1,6 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonLocalization
 
 protocol NotificationSettingsViewControllerDelegate: AnyObject {
     func showPolicyList(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel)
@@ -66,7 +67,7 @@ class NotificationSettingsViewController: UIViewController {
         view.addSubview(tableView)
         tableView.pinToParent()
 
-        title = "Notifications"
+        title = L10n.Scene.Settings.Notifications.title
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -90,7 +91,10 @@ extension NotificationSettingsViewController: UITableViewDelegate {
 
         let entry = sections[indexPath.section].entries[indexPath.row]
 
-        if case let .policy = entry {
+        switch entry {
+        case .alert(_):
+            break
+        case .policy:
             delegate?.showPolicyList(self, viewModel: viewModel)
         }
 

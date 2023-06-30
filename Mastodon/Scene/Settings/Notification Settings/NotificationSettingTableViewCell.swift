@@ -1,6 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonLocalization
 
 class NotificationSettingTableViewCell: UITableViewCell {
     static let reuseIdentifier = "NotificationSettingTableViewCell"
@@ -13,8 +14,7 @@ class NotificationSettingTableViewCell: UITableViewCell {
             break
         case .policy:
             var content = UIListContentConfiguration.valueCell()
-            //TODO: @zeitschlag Localization
-            content.text = "Get Notifications from"
+            content.text = L10n.Scene.Settings.Notifications.Policy.title
             content.secondaryText = viewModel.selectedPolicy.title
 
             contentConfiguration = content

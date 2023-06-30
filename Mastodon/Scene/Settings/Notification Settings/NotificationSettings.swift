@@ -1,6 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
+import MastodonLocalization
 
 struct NotificationSettingsSection: Hashable {
     let entries: [NotificationSettingEntry]
@@ -20,13 +21,13 @@ enum NotificationPolicy: Hashable {
     var title: String {
         switch self {
         case .anyone:
-            return "Anyone"
+            return L10n.Scene.Settings.Notifications.Policy.anyone
         case .followers:
-            return "People who follow you"
+            return L10n.Scene.Settings.Notifications.Policy.followers
         case .follow:
-            return "People you follow"
+            return L10n.Scene.Settings.Notifications.Policy.follow
         case .noone:
-            return "No one"
+            return L10n.Scene.Settings.Notifications.Policy.noone
         }
     }
 }
@@ -41,13 +42,13 @@ enum NotificationAlert: Hashable, CaseIterable {
         switch self {
 
         case .mentionsAndReplies:
-            return "Mentions & Replies"
+            return L10n.Scene.Settings.Notifications.Alert.mentionsAndReplies
         case .boosts:
-            return "Boosts"
+            return L10n.Scene.Settings.Notifications.Alert.boosts
         case .favorites:
-            return "Favorites"
+            return L10n.Scene.Settings.Notifications.Alert.favorites
         case .newFollowers:
-            return "New Followers"
+            return L10n.Scene.Settings.Notifications.Alert.newFollowers
         }
     }
 }
