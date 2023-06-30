@@ -1302,6 +1302,10 @@ public enum L10n {
       }
     }
     public enum ServerPicker {
+      /// No servers found in the “%@” category. Here are results from other categories:
+      public static func categoryIgnoredMessage(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.ServerPicker.CategoryIgnoredMessage", String(describing: p1), fallback: "No servers found in the “%@” category. Here are results from other categories:")
+      }
       /// We’ll pick a server based on your language if you continue without making a selection.
       public static let noServerSelectedHint = L10n.tr("Localizable", "Scene.ServerPicker.NoServerSelectedHint", fallback: "We’ll pick a server based on your language if you continue without making a selection.")
       /// Pick Server

@@ -346,6 +346,7 @@
             "search": {
                 "placeholder": "Search name or URL"
             },
+            "category_ignored_message": "No servers found in the “%s” category. Here are results from other categories:",
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {

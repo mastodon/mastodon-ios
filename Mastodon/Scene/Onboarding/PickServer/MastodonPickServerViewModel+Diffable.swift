@@ -69,14 +69,21 @@ extension MastodonPickServerViewModel {
 
             // TODO: handle filter
             var serverItems: [PickServerItem] = []
-            for server in indexedServers {
-                let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isLast: false, isExpand: false)
-                attribute.isLast.value = false
-                let item = PickServerItem.server(server: server, attribute: attribute)
-                guard !serverItems.contains(item) else { continue }
-                serverItems.append(item)
+            if let indexedServers {
+                if indexedServers.didIgnoreCategory,
+                   indexedServers.servers.isNotEmpty,
+                   case .category(let category) = selectCategoryItem.value {
+                    serverItems.append(.message(attribute: .categoryIgnored(category: category.category)))
+                }
+                for server in indexedServers.servers {
+                    let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isLast: false, isExpand: false)
+                    attribute.isLast.value = false
+                    let item = PickServerItem.server(server: server, attribute: attribute)
+                    guard !serverItems.contains(item) else { continue }
+                    serverItems.append(item)
+                }
             }
-            
+
             if let unindexedServers = unindexedServers {
                 if !unindexedServers.isEmpty {
                     for server in unindexedServers {
@@ -87,7 +94,8 @@ extension MastodonPickServerViewModel {
                         serverItems.append(item)
                     }
                 } else {
-                    if indexedServers.isEmpty && !self.isLoadingIndexedServers.value {
+                    if (indexedServers?.servers.isEmpty ?? true),
+                       !self.isLoadingIndexedServers.value {
                         serverItems.append(.loader(attribute: PickServerItem.LoaderItemAttribute(isLast: false, isEmptyResult: true)))
                     }
                 }

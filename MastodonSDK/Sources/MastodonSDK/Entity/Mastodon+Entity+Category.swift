@@ -25,7 +25,7 @@ extension Mastodon.Entity {
         
         /// # Reference
         ///   https://joinmastodon.org/communities
-        public enum Kind: RawRepresentable, Codable, Sendable {
+        public enum Kind: RawRepresentable, Hashable, Codable, Sendable {
             
             case general
             case regional

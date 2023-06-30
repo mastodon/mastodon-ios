@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonSDK
+import MastodonLocalization
 import Kanna
 import AlamofireImage
 
@@ -22,7 +23,8 @@ extension PickServerSection {
     ) -> UITableViewDiffableDataSource<PickServerSection, PickServerItem> {
         tableView.register(PickServerCell.self, forCellReuseIdentifier: String(describing: PickServerCell.self))
         tableView.register(PickServerLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: PickServerLoaderTableViewCell.self))
-        
+        tableView.register(PickServerMessageTableViewCell.self, forCellReuseIdentifier: String(describing: PickServerMessageTableViewCell.self))
+
         return UITableViewDiffableDataSource(tableView: tableView) { [
             weak dependency
         ] tableView, indexPath, item -> UITableViewCell? in
@@ -35,6 +37,10 @@ extension PickServerSection {
             case .loader(let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerLoaderTableViewCell.self), for: indexPath) as! PickServerLoaderTableViewCell
                 PickServerSection.configure(cell: cell, attribute: attribute)
+                return cell
+            case .message(let message):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerMessageTableViewCell.self), for: indexPath) as! PickServerMessageTableViewCell
+                PickServerSection.configure(cell: cell, attribute: message)
                 return cell
             }
         }
@@ -111,4 +117,15 @@ extension PickServerSection {
         cell.emptyStatusLabel.isHidden = !attribute.isNoResult
     }
     
+}
+
+extension PickServerSection {
+
+    static func configure(cell: PickServerMessageTableViewCell, attribute: PickServerItem.MessageItemAttribute) {
+        switch attribute {
+        case .categoryIgnored(let category):
+            cell.messageLabel.text = L10n.Scene.ServerPicker.categoryIgnoredMessage(category.label)
+        }
+    }
+
 }

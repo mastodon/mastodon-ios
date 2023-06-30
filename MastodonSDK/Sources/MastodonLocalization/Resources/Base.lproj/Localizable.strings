@@ -467,6 +467,7 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.Button.SeeLess" = "See Less";
 "Scene.ServerPicker.Button.SeeMore" = "See More";
 "Scene.ServerPicker.Button.SignupSpeed" = "Sign-up Speed";
+"Scene.ServerPicker.CategoryIgnoredMessage" = "No servers found in the “%@” category. Here are results from other categories:";
 "Scene.ServerPicker.EmptyState.BadNetwork" = "Something went wrong while loading the data. Check your internet connection.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Finding available servers...";
 "Scene.ServerPicker.EmptyState.NoResults" = "No results";

@@ -63,7 +63,7 @@ class MastodonPickServerViewModel: NSObject {
         stateMachine.enter(LoadIndexedServerState.Initial.self)
         return stateMachine
     }()
-    let filteredIndexedServers = CurrentValueSubject<[Mastodon.Entity.Server], Never>([])
+    let filteredIndexedServers = CurrentValueSubject<FilteredServers?, Never>(nil)
     let servers = CurrentValueSubject<[Mastodon.Entity.Server], Error>([])
     let selectedServer = CurrentValueSubject<Mastodon.Entity.Server?, Never>(nil)
     let error = CurrentValueSubject<Error?, Never>(nil)
@@ -126,7 +126,7 @@ extension MastodonPickServerViewModel {
                 (selectedLanguage, manualApprovalRequired)
             }
         )
-        .map { [weak self] indexedServers, selectCategoryItem, searchText, filters -> [Mastodon.Entity.Server] in
+        .map { [weak self] indexedServers, selectCategoryItem, searchText, filters in
             var indexedServers = indexedServers
 
             var _indexedServers: [Mastodon.Entity.Server] = []
@@ -249,7 +249,11 @@ extension MastodonPickServerViewModel {
 }
 
 extension MastodonPickServerViewModel {
-    private static func filterServers(servers: [Mastodon.Entity.Server], language: String? = nil, manualApprovalRequired: Bool? = nil, category: String?, searchText: String) -> [Mastodon.Entity.Server] {
+    struct FilteredServers {
+        let servers: [Mastodon.Entity.Server]
+        let didIgnoreCategory: Bool
+    }
+    private static func filterServers(servers: [Mastodon.Entity.Server], language: String? = nil, manualApprovalRequired: Bool? = nil, category: String?, searchText: String) -> FilteredServers {
         let filteredServers = servers
         // 1. Filter the category
             .filter {
@@ -275,7 +279,14 @@ extension MastodonPickServerViewModel {
                 print("\($0.domain) \($0.approvalRequired) < \(manualApprovalRequired)")
                 return $0.approvalRequired == manualApprovalRequired
             }
-        return filteredServers
+
+        // if there are no results when filtering by category, drop the category filter
+        if category != nil, filteredServers.isEmpty {
+            let result = filterServers(servers: servers, language: language, manualApprovalRequired: manualApprovalRequired, category: nil, searchText: searchText)
+            return FilteredServers(servers: result.servers, didIgnoreCategory: true)
+        }
+
+        return FilteredServers(servers: filteredServers, didIgnoreCategory: false)
     }
 }
 
