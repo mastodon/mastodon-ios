@@ -136,6 +136,7 @@
 		D81A22782AB4782400905D71 /* SearchResultOverviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */; };
 		D81A227B2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */; };
 		D82BD7532ABC44C2009A374A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
+		D81D12462A4E1861005009D4 /* PolicySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */; };
 		D81D124B2A4E1914005009D4 /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */; };
 		D8318A802A4466D300C0FB73 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */; };
 		D8318A862A4468C700C0FB73 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A852A4468C700C0FB73 /* SettingsViewController.swift */; };
@@ -149,6 +150,10 @@
 		D886FBD329DF710F00272017 /* WelcomeSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D886FBD229DF710F00272017 /* WelcomeSeparatorView.swift */; };
 		D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8916DBF29211BE500124085 /* ContentSizedTableView.swift */; };
 		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
+		D8B5E4EE2A4EB8930008970C /* NotificationSettingTableViewToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B5E4ED2A4EB8920008970C /* NotificationSettingTableViewToggleCell.swift */; };
+		D8B5E4F02A4EB8A00008970C /* NotificationSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B5E4EF2A4EB8A00008970C /* NotificationSettingTableViewCell.swift */; };
+		D8B5E4F22A4EBCF90008970C /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B5E4F12A4EBCF90008970C /* NotificationSettings.swift */; };
+		D8B5E4F42A4ED0240008970C /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B5E4F32A4ED0240008970C /* NotificationSettingsViewModel.swift */; };
 		D8BE30B32A179E26006B8270 /* SuggestionAccountTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BE30B22A179E26006B8270 /* SuggestionAccountTableViewFooter.swift */; };
 		D8BEBCB62A1B7FFD0004F475 /* SuggestionAccountTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BEBCB52A1B7FFD0004F475 /* SuggestionAccountTableViewCell+ViewModel.swift */; };
 		D8D688F62AB869CB000F651A /* SearchResultsProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D688F52AB869CB000F651A /* SearchResultsProfileTableViewCell.swift */; };
@@ -787,6 +792,7 @@
 		D82463542A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D82463552A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = be; path = be.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		D82BD7512ABC42D6009A374A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicySelectionViewController.swift; sourceTree = "<group>"; };
 		D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
 		D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
@@ -811,6 +817,10 @@
 		D8A6FE6429325F5900666A47 /* StringsConvertor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = StringsConvertor; sourceTree = "<group>"; };
 		D8A6FE6529325F5900666A47 /* ios-infoPlist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ios-infoPlist.json"; sourceTree = "<group>"; };
 		D8A6FE6629325F5900666A47 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		D8B5E4ED2A4EB8920008970C /* NotificationSettingTableViewToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingTableViewToggleCell.swift; sourceTree = "<group>"; };
+		D8B5E4EF2A4EB8A00008970C /* NotificationSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingTableViewCell.swift; sourceTree = "<group>"; };
+		D8B5E4F12A4EBCF90008970C /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
+		D8B5E4F32A4ED0240008970C /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
 		D8BE30B22A179E26006B8270 /* SuggestionAccountTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountTableViewFooter.swift; sourceTree = "<group>"; };
 		D8BEBCB52A1B7FFD0004F475 /* SuggestionAccountTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuggestionAccountTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		D8D688F52AB869CB000F651A /* SearchResultsProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -1755,10 +1765,10 @@
 				D81D12492A4E190A005009D4 /* Shared */,
 				D8F916FF2A4AD898008A5370 /* Settings Overview */,
 				D8F917042A4B0657008A5370 /* General Settings */,
+				D81D12432A4E181C005009D4 /* Notification Settings */,
 				D8F917092A4B2AFF008A5370 /* About Mastodon */,
 				D8318A7E2A4466C900C0FB73 /* Legacy */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
-				D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */,
 				D8318A8B2A4468E600C0FB73 /* SupportMastodonViewController.swift */,
 			);
 			path = Settings;
@@ -1833,6 +1843,19 @@
 				D8D688F52AB869CB000F651A /* SearchResultsProfileTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		D81D12432A4E181C005009D4 /* Notification Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */,
+				D8B5E4ED2A4EB8920008970C /* NotificationSettingTableViewToggleCell.swift */,
+				D8B5E4EF2A4EB8A00008970C /* NotificationSettingTableViewCell.swift */,
+				D8B5E4F12A4EBCF90008970C /* NotificationSettings.swift */,
+				D8B5E4F32A4ED0240008970C /* NotificationSettingsViewModel.swift */,
+				D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */,
+			);
+			path = "Notification Settings";
 			sourceTree = "<group>";
 		};
 		D81D12492A4E190A005009D4 /* Shared */ = {
@@ -3658,6 +3681,7 @@
 				DB63F767279A5EB300455B82 /* NotificationTimelineViewModel.swift in Sources */,
 				2D607AD826242FC500B70763 /* NotificationViewModel.swift in Sources */,
 				DB5B54AB2833C12A00DEF8B2 /* RebloggedByViewController.swift in Sources */,
+				D81D12462A4E1861005009D4 /* PolicySelectionViewController.swift in Sources */,
 				DB848E33282B62A800A302CC /* ReportResultView.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
 				DB0FCB9C27980AB6006C02E2 /* HashtagTimelineViewController+DataSourceProvider.swift in Sources */,
@@ -3708,6 +3732,7 @@
 				DB6180F426391D110018D199 /* MediaPreviewImageView.swift in Sources */,
 				DBF9814A265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
+				D8B5E4F22A4EBCF90008970C /* NotificationSettings.swift in Sources */,
 				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
 				DB5B54B02833C24200DEF8B2 /* FavoritedByViewController+DataSourceProvider.swift in Sources */,
 				DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */,
@@ -3739,6 +3764,7 @@
 				DB5B549D2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift in Sources */,
 				DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */,
 				DB5B729E273113F300081888 /* FollowingListViewModel+State.swift in Sources */,
+				D8B5E4F02A4EB8A00008970C /* NotificationSettingTableViewCell.swift in Sources */,
 				DBF9814C265E339500E4BA07 /* ProfileFieldAddEntryCollectionViewCell.swift in Sources */,
 				DB63F76227996B6600455B82 /* SearchHistoryViewController+DataSourceProvider.swift in Sources */,
 				DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */,
@@ -3921,6 +3947,7 @@
 				DB0FCB862796BDA1006C02E2 /* SearchSection.swift in Sources */,
 				DB1D61CF26F1B33600DA8662 /* WelcomeViewModel.swift in Sources */,
 				D8BEBCB62A1B7FFD0004F475 /* SuggestionAccountTableViewCell+ViewModel.swift in Sources */,
+				D8B5E4F42A4ED0240008970C /* NotificationSettingsViewModel.swift in Sources */,
 				DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */,
 				DB4F0966269ED52200D62E92 /* SearchResultViewModel.swift in Sources */,
 				D8F917142A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift in Sources */,
@@ -3960,6 +3987,7 @@
 				DBDFF19A28055A1400557A48 /* DiscoveryViewController.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				D8F917112A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift in Sources */,
+				D8B5E4EE2A4EB8930008970C /* NotificationSettingTableViewToggleCell.swift in Sources */,
 				DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */,
 				D8318A8A2A4468DC00C0FB73 /* AboutViewController.swift in Sources */,
 				85BC11B32932414900E191CD /* AltTextViewController.swift in Sources */,

@@ -52,8 +52,10 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
 
             navigationController.pushViewController(generalSettingsViewController, animated: true)
         case .notifications:
-            break
-            // show notifications
+            let notificationViewController = NotificationSettingsViewController()
+            notificationViewController.delegate = self
+
+            navigationController.pushViewController(notificationViewController, animated: true)
         case .aboutMastodon:
             let aboutViewController = AboutViewController()
             aboutViewController.delegate = self
@@ -110,4 +112,19 @@ extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
         setting.update(preferredStaticAvatar: viewModel.playAnimations == false)
         setting.update(preferredUsingDefaultBrowser: viewModel.selectedOpenLinks == .browser)
     }
+}
+
+//MARK: - NotificationSettingsViewControllerDelegate
+extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
+    func showPolicyList(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel) {
+        let policyListViewController = PolicySelectionViewController(viewModel: viewModel)
+        policyListViewController.delegate = self
+
+        navigationController.pushViewController(policyListViewController, animated: true)
+    }
+}
+
+//MARK: - PolicySelectionViewControllerDelegate
+extension SettingsCoordinator: PolicySelectionViewControllerDelegate {
+    
 }
