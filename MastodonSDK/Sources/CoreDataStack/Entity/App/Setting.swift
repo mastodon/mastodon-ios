@@ -55,17 +55,10 @@ extension Setting {
         property: Property
     ) -> Setting {
         let setting: Setting = context.insertObject()
-//        setting.appearanceRaw = property.appearanceRaw
         setting.domain = property.domain
         setting.userID = property.userID
         return setting
     }
-    
-//    public func update(appearanceRaw: String) {
-//        guard appearanceRaw != self.appearanceRaw else { return }
-//        self.appearanceRaw = appearanceRaw
-//        didUpdate(at: Date())
-//    }
 
     public func update(preferredStaticAvatar: Bool) {
         guard preferredStaticAvatar != self.preferredStaticAvatar else { return }
@@ -95,16 +88,13 @@ extension Setting {
     public struct Property {
         public let domain: String
         public let userID: String
-//        public let appearanceRaw: String
 
         public init(
             domain: String,
             userID: String
-//            appearanceRaw: String
         ) {
             self.domain = domain
             self.userID = userID
-//            self.appearanceRaw = appearanceRaw
         }
     }
 }
@@ -122,5 +112,13 @@ extension Setting {
                            #keyPath(Setting.userID), userID
         )
     }
-    
+
+}
+
+extension Setting {
+    public var activeSubscription: Subscription? {
+        return (subscriptions ?? Set())
+            .sorted(by: { $0.activedAt > $1.activedAt })
+            .first
+    }
 }

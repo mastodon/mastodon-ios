@@ -3,7 +3,7 @@
 import UIKit
 import MastodonAsset
 
-protocol GeneralSettingToggleCellDelegate: AnyObject {
+protocol GeneralSettingToggleTableViewCellDelegate: AnyObject {
     func toggle(_ cell: GeneralSettingToggleTableViewCell, setting: GeneralSetting, isOn: Bool)
 }
 
@@ -12,7 +12,7 @@ class GeneralSettingToggleTableViewCell: ToggleTableViewCell {
         return "GeneralSettingToggleCell"
     }
 
-    weak var delegate: GeneralSettingToggleCellDelegate?
+    weak var delegate: GeneralSettingToggleTableViewCellDelegate?
     var setting: GeneralSetting?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

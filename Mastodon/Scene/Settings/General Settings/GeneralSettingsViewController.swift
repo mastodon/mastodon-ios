@@ -144,7 +144,7 @@ extension GeneralSettingsViewController: UITableViewDelegate {
     }
 }
 
-extension GeneralSettingsViewController: GeneralSettingToggleCellDelegate {
+extension GeneralSettingsViewController: GeneralSettingToggleTableViewCellDelegate {
     func toggle(_ cell: GeneralSettingToggleTableViewCell, setting: GeneralSetting, isOn: Bool) {
         switch setting {
         case .appearance(_), .openLinksIn(_):

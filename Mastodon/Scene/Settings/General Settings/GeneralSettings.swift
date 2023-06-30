@@ -15,7 +15,6 @@ enum GeneralSettingsSectionType: Hashable {
 
     var sectionTitle: String {
         switch self {
-            //TODO: @zeitschlag Localization
         case .appearance:
             return L10n.Scene.Settings.General.Appearance.sectionTitle
         case .design:
