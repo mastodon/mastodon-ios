@@ -136,6 +136,7 @@
 		D81A22782AB4782400905D71 /* SearchResultOverviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */; };
 		D81A227B2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */; };
 		D82BD7532ABC44C2009A374A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
+		D81D124B2A4E1914005009D4 /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */; };
 		D8318A802A4466D300C0FB73 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */; };
 		D8318A862A4468C700C0FB73 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A852A4468C700C0FB73 /* SettingsViewController.swift */; };
 		D8318A882A4468D300C0FB73 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */; };
@@ -164,7 +165,7 @@
 		D8F9170B2A4B2C80008A5370 /* AboutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170A2A4B2C80008A5370 /* AboutSettings.swift */; };
 		D8F9170D2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170C2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift */; };
 		D8F9170F2A4B47EF008A5370 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
-		D8F917112A4C6B40008A5370 /* GeneralSettingToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917102A4C6B40008A5370 /* GeneralSettingToggleCell.swift */; };
+		D8F917112A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917102A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift */; };
 		D8F917122A4C6B67008A5370 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */; };
 		D8F917142A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917132A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
@@ -786,6 +787,7 @@
 		D82463542A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D82463552A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = be; path = be.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		D82BD7512ABC42D6009A374A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
 		D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
 		D8318A852A4468C700C0FB73 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -825,7 +827,7 @@
 		D8F9170A2A4B2C80008A5370 /* AboutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettings.swift; sourceTree = "<group>"; };
 		D8F9170C2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMastodonTableViewCell.swift; sourceTree = "<group>"; };
 		D8F9170E2A4B47EF008A5370 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		D8F917102A4C6B40008A5370 /* GeneralSettingToggleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingToggleCell.swift; sourceTree = "<group>"; };
+		D8F917102A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingToggleTableViewCell.swift; sourceTree = "<group>"; };
 		D8F917132A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsDiffableTableViewDataSource.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -1750,9 +1752,10 @@
 		5B90C455262599800002E742 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				D8F917092A4B2AFF008A5370 /* About Mastodon */,
+				D81D12492A4E190A005009D4 /* Shared */,
 				D8F916FF2A4AD898008A5370 /* Settings Overview */,
 				D8F917042A4B0657008A5370 /* General Settings */,
+				D8F917092A4B2AFF008A5370 /* About Mastodon */,
 				D8318A7E2A4466C900C0FB73 /* Legacy */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
 				D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */,
@@ -1832,6 +1835,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		D81D12492A4E190A005009D4 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		D8318A7E2A4466C900C0FB73 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
@@ -1905,7 +1916,7 @@
 			children = (
 				D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */,
 				D8F917052A4B0791008A5370 /* GeneralSettings.swift */,
-				D8F917102A4C6B40008A5370 /* GeneralSettingToggleCell.swift */,
+				D8F917102A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift */,
 				D8F917072A4B0B16008A5370 /* GeneralSettingSelectionCell.swift */,
 				D8F917132A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift */,
 			);
@@ -3747,6 +3758,7 @@
 				DB697DD4278F4927004EF2F7 /* StatusTableViewCellDelegate.swift in Sources */,
 				2A506CF6292D040100059C37 /* HashtagTimelineHeaderView.swift in Sources */,
 				DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */,
+				D81D124B2A4E1914005009D4 /* ToggleTableViewCell.swift in Sources */,
 				DB3E6FF52807C40300B035AE /* DiscoveryForYouViewController.swift in Sources */,
 				D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
@@ -3947,7 +3959,7 @@
 				DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */,
 				DBDFF19A28055A1400557A48 /* DiscoveryViewController.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
-				D8F917112A4C6B40008A5370 /* GeneralSettingToggleCell.swift in Sources */,
+				D8F917112A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift in Sources */,
 				DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */,
 				D8318A8A2A4468DC00C0FB73 /* AboutViewController.swift in Sources */,
 				85BC11B32932414900E191CD /* AltTextViewController.swift in Sources */,

@@ -31,7 +31,7 @@ class GeneralSettingsViewController: UIViewController {
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(GeneralSettingSelectionCell.self, forCellReuseIdentifier: GeneralSettingSelectionCell.reuseIdentifier)
-        tableView.register(GeneralSettingToggleCell.self, forCellReuseIdentifier: GeneralSettingToggleCell.reuseIdentifier)
+        tableView.register(GeneralSettingToggleTableViewCell.self, forCellReuseIdentifier: GeneralSettingToggleTableViewCell.reuseIdentifier)
 
         sections = [
             GeneralSettingsSection(type: .appearance, entries: [
@@ -76,7 +76,7 @@ class GeneralSettingsViewController: UIViewController {
                 selectionCell.configure(with: .appearance(setting), viewModel: self.viewModel)
                 cell = selectionCell
             case .design(let setting):
-                guard let toggleCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingToggleCell.reuseIdentifier, for: indexPath) as? GeneralSettingToggleCell else { fatalError("WTF? Wrong Cell!") }
+                guard let toggleCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingToggleTableViewCell.reuseIdentifier, for: indexPath) as? GeneralSettingToggleTableViewCell else { fatalError("WTF? Wrong Cell!") }
 
                 toggleCell.configure(with: .design(setting), viewModel: self.viewModel)
                 toggleCell.delegate = self
@@ -145,7 +145,7 @@ extension GeneralSettingsViewController: UITableViewDelegate {
 }
 
 extension GeneralSettingsViewController: GeneralSettingToggleCellDelegate {
-    func toggle(_ cell: GeneralSettingToggleCell, setting: GeneralSetting, isOn: Bool) {
+    func toggle(_ cell: GeneralSettingToggleTableViewCell, setting: GeneralSetting, isOn: Bool) {
         switch setting {
         case .appearance(_), .openLinksIn(_):
             assertionFailure("No toggle")
