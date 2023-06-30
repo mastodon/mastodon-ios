@@ -132,8 +132,8 @@
                     "open_reblogger_profile": "Άνοιγμα Προφίλ Του Reblogger",
                     "reply_status": "Απάντηση στην Ανάρτηση",
                     "toggle_reblog": "Εναλλαγή Αναδημοσίευσης στην Ανάρτηση",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_favorite": "Εναλλαγή Αγαπημένου στην Ανάρτηση",
+                    "toggle_content_warning": "Εναλλαγή Προειδοποίησης Περιεχομένου",
                     "preview_image": "Προεπισκόπηση Εικόνας"
                 },
                 "segmented_control": {
@@ -201,9 +201,9 @@
                     "show_original": "Εμφάνιση Αρχικού"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "accessibility_label": "%s, συνημμένο %d από %d",
+                    "expand_image_hint": "Επεκτείνει την εικόνα. Πάτα δύο φορές και κράτα πατημένο για εμφάνιση ενεργειών",
+                    "expand_gif_hint": "Επεκτείνει το GIF. Πάτα δύο φορές και κράτα πατημένο για να εμφανίσεις τις ενέργειες",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
                 },
                 "posted_via_application": "%s via %s",
