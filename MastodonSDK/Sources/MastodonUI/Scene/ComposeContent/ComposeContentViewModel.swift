@@ -479,7 +479,9 @@ extension ComposeContentViewModel {
                     return true
                 }
                 // if the trimmed content equal to initial content
-                return content.trimmingCharacters(in: .whitespacesAndNewlines) == self.initialContent
+                let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
+                let initialContent = self.initialContent.trimmingCharacters(in: .whitespacesAndNewlines)
+                return trimmedContent == initialContent
             }
             .assign(to: &$shouldDismiss)
         
