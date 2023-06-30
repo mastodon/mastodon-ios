@@ -40,12 +40,6 @@ public enum L10n {
         /// Delete Post
         public static let title = L10n.tr("Localizable", "Common.Alerts.DeletePost.Title", fallback: "Delete Post")
       }
-      public enum DiscardPostContent {
-        /// Confirm to discard composed post content.
-        public static let message = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Message", fallback: "Confirm to discard composed post content.")
-        /// Discard Draft
-        public static let title = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Title", fallback: "Discard Draft")
-      }
       public enum EditProfileFailure {
         /// Cannot edit profile. Please try again.
         public static let message = L10n.tr("Localizable", "Common.Alerts.EditProfileFailure.Message", fallback: "Cannot edit profile. Please try again.")
