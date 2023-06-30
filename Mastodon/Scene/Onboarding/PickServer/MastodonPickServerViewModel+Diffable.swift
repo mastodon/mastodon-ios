@@ -48,12 +48,13 @@ extension MastodonPickServerViewModel {
         
         loadIndexedServerStateMachine.enter(LoadIndexedServerState.Loading.self)
         
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             filteredIndexedServers,
+            selectCategoryItem,
             unindexedServers
         )
         .receive(on: DispatchQueue.main)
-        .sink(receiveValue: { [weak self] indexedServers, unindexedServers in
+        .sink(receiveValue: { [weak self] indexedServers, selectCategoryItem, unindexedServers in
             guard let self = self else { return }
             guard let diffableDataSource = self.diffableDataSource else { return }
             
@@ -72,7 +73,7 @@ extension MastodonPickServerViewModel {
             if let indexedServers {
                 if indexedServers.didIgnoreCategory,
                    indexedServers.servers.isNotEmpty,
-                   case .category(let category) = selectCategoryItem.value {
+                   case .category(let category) = selectCategoryItem {
                     serverItems.append(.message(attribute: .categoryIgnored(category: category.category)))
                 }
                 for server in indexedServers.servers {
