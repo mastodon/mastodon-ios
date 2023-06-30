@@ -472,18 +472,27 @@ extension ComposeContentViewModel {
         .assign(to: &$isPublishBarButtonItemEnabled)
         
         // bind modal dismiss state
-        $content
-            .receive(on: DispatchQueue.main)
-            .map { content in
-                if content.isEmpty {
-                    return true
-                }
-                // if the trimmed content equal to initial content
-                let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
-                let initialContent = self.initialContent.trimmingCharacters(in: .whitespacesAndNewlines)
-                return trimmedContent == initialContent
-            }
-            .assign(to: &$shouldDismiss)
+        Publishers.CombineLatest4(
+            $contentWarning,
+            $content,
+            $isPollActive,
+            $attachmentViewModels
+        )
+        .receive(on: DispatchQueue.main)
+        .map { contentWarning, content, hasPoll, attachments in
+            let canDiscardContentWarning = contentWarning.isEmpty
+
+            let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
+            let initialContent = self.initialContent.trimmingCharacters(in: .whitespacesAndNewlines)
+            let canDiscardContent = trimmedContent.isEmpty || trimmedContent == initialContent
+
+            let canDiscardPoll = !hasPoll
+
+            let canDiscardAttachments = attachments.isEmpty
+
+            return canDiscardContent && canDiscardPoll && canDiscardAttachments
+        }
+        .assign(to: &$shouldDismiss)
         
         // languages
         context.settingService.currentSetting
