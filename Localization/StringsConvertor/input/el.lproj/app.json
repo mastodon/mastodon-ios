@@ -204,26 +204,26 @@
                     "accessibility_label": "%s, συνημμένο %d από %d",
                     "expand_image_hint": "Επεκτείνει την εικόνα. Πάτα δύο φορές και κράτα πατημένο για εμφάνιση ενεργειών",
                     "expand_gif_hint": "Επεκτείνει το GIF. Πάτα δύο φορές και κράτα πατημένο για να εμφανίσεις τις ενέργειες",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_video_hint": "Εμφανίζει το πρόγραμμα αναπαραγωγής βίντεο. Πάτα δύο φορές και κράτα πατημένο για να δείς τις ενέργειες"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s μέσω %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Αναδημοσιεύσεις",
+                    "favorites_title": "Αγαπημένα",
+                    "edit_history_title": "Επεξεργασία Ιστορικού",
+                    "edit_history_detail": "Τελευταία επεξεργασία %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Επεξεργάστηκε στις %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Επεξεργασία Ιστορικού",
+                    "original_post": "Αρχική Ανάρτηση · %s"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
+                "follow": "Ακολούθησε",
+                "following": "Ακολουθείς",
+                "request": "Αίτημα",
+                "pending": "Εκκρεμεί",
                 "block": "Block",
                 "block_user": "Block %s",
                 "block_domain": "Block %s",
