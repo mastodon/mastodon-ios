@@ -43,7 +43,7 @@ class NotificationSettingsViewController: UIViewController {
                 guard let self,
                       let notificationCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewCell else { fatalError("WTF Wrong cell!?") }
 
-                notificationCell.configure(with: .policy, viewModel: viewModel)
+                notificationCell.configure(with: .policy, viewModel: self.viewModel)
                 cell = notificationCell
 
             case .alert(let alert):
