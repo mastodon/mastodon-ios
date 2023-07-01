@@ -235,23 +235,23 @@
                 "unmute": "Κατάργηση σίγασης",
                 "unmute_user": "Κατάργηση σίγασης %s",
                 "muted": "Σε Σίγαση",
-                "edit_info": "Edit Info",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "edit_info": "Επεξεργασία Πληροφοριών",
+                "show_reblogs": "Εμφάνιση Αναδημοσιεύσεων",
+                "hide_reblogs": "Απόκρυψη Αναδημοσιεύσεων"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Φιλτραρισμένα",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Τώρα"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Φόρτωση αναρτήσεων που λείπουν",
+                    "loading_missing_posts": "Φόρτωση αναρτήσεων που λείπουν...",
+                    "show_more_replies": "Εμφάνιση περισσότερων απαντήσεων"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "no_status_found": "Δεν Βρέθηκε Ανάρτηση",
+                    "blocking_warning": "Δεν μπορείς να δεις το προφίλ αυτού του χρήστη\nμέχρι να τον ξεμπλοκάρεις.\nΤο προφίλ σου μοιάζει έτσι και σε αυτόν.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
