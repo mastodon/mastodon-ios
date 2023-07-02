@@ -15,10 +15,6 @@
                 "title": "Oy Verme Başarısız",
                 "poll_ended": "Anket bitti"
             },
-            "discard_post_content": {
-                "title": "Taslağı Sil",
-                "message": "Yazdığın gönderiyi paylaşmadan silmek istiyor musun?"
-            },
             "publish_post_failure": {
                 "title": "Paylaşılamadı",
                 "message": "Gönderi paylaşılamadı. Lütfen internet bağlantını kontrol et.",
