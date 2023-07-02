@@ -269,7 +269,7 @@
         "welcome": {
             "log_in": "Inloggen",
             "learn_more": "Meer leren",
-            "join_default_server": "Registreren op mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Kies een andere server",
             "separator": {
                 "or": "of"
