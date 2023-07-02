@@ -15,10 +15,6 @@
                 "title": "Bình chọn không thành công",
                 "poll_ended": "Cuộc bình chọn đã kết thúc"
             },
-            "discard_post_content": {
-                "title": "Bỏ bản nháp",
-                "message": "Xác nhận bỏ qua nội dung tút đã viết."
-            },
             "publish_post_failure": {
                 "title": "Đăng tút không thành công",
                 "message": "Không thể đăng tút.\nVui lòng kiểm tra kết nối mạng.",
