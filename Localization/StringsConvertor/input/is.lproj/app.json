@@ -15,10 +15,6 @@
                 "title": "Greiðsla atkvæðis mistókst",
                 "poll_ended": "Könnuninni er lokið"
             },
-            "discard_post_content": {
-                "title": "Henda drögum",
-                "message": "Staðfestu til að henda efni úr saminni færslu."
-            },
             "publish_post_failure": {
                 "title": "Mistókst að birta",
                 "message": "Mistókst að birta færsluna.\nAthugaðu nettenginguna þína.",
