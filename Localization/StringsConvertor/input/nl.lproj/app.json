@@ -15,10 +15,6 @@
                 "title": "Stemmen Mislukt",
                 "poll_ended": "De peiling is beëindigd"
             },
-            "discard_post_content": {
-                "title": "Verwijder concept",
-                "message": "Bevestig het verwijderen van het conceptbericht."
-            },
             "publish_post_failure": {
                 "title": "Publicatiefout",
                 "message": "Het publiceren van het bericht is mislukt. Controleer je internetverbinding.",
