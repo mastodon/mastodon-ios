@@ -15,10 +15,6 @@
                 "title": "Échec du vote",
                 "poll_ended": "Le sondage est terminé"
             },
-            "discard_post_content": {
-                "title": "Abandonner le brouillon",
-                "message": "Confirmez pour abandonner le contenu de votre message."
-            },
             "publish_post_failure": {
                 "title": "La publication a échoué",
                 "message": "La publication a échoué.\nVeuillez vérifier votre accès à Internet.",
