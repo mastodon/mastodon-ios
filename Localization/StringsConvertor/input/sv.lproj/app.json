@@ -15,10 +15,6 @@
                 "title": "Röstning misslyckades",
                 "poll_ended": "Omröstningen har avslutats"
             },
-            "discard_post_content": {
-                "title": "Släng utkast",
-                "message": "Bekräfta för att slänga inläggsutkast."
-            },
             "publish_post_failure": {
                 "title": "Publicering misslyckades",
                 "message": "Det gick inte att publicera inlägget.\nKontrollera din internetanslutning.",
