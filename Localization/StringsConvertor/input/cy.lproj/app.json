@@ -269,7 +269,7 @@
         "welcome": {
             "log_in": "Mewngofnodi",
             "learn_more": "Dysgu mwy",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"

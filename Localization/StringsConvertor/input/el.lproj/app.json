@@ -102,10 +102,10 @@
                     "unknown_language": "Άγνωστο"
                 },
                 "edit_post": "Επεξεργασία",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Σελιδοδείκτης",
+                "remove_bookmark": "Αφαίρεση σελιδοδείκτη",
+                "follow": "Ακολούθησε %s",
+                "unfollow": "Κατάργηση ακολούθησης του %s"
             },
             "tabs": {
                 "home": "Αρχική",
@@ -132,8 +132,8 @@
                     "open_reblogger_profile": "Άνοιγμα Προφίλ Του Reblogger",
                     "reply_status": "Απάντηση στην Ανάρτηση",
                     "toggle_reblog": "Εναλλαγή Αναδημοσίευσης στην Ανάρτηση",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_favorite": "Εναλλαγή Αγαπημένου στην Ανάρτηση",
+                    "toggle_content_warning": "Εναλλαγή Προειδοποίησης Περιεχομένου",
                     "preview_image": "Προεπισκόπηση Εικόνας"
                 },
                 "segmented_control": {
@@ -201,57 +201,57 @@
                     "show_original": "Εμφάνιση Αρχικού"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, συνημμένο %d από %d",
+                    "expand_image_hint": "Επεκτείνει την εικόνα. Πάτα δύο φορές και κράτα πατημένο για εμφάνιση ενεργειών",
+                    "expand_gif_hint": "Επεκτείνει το GIF. Πάτα δύο φορές και κράτα πατημένο για να εμφανίσεις τις ενέργειες",
+                    "expand_video_hint": "Εμφανίζει το πρόγραμμα αναπαραγωγής βίντεο. Πάτα δύο φορές και κράτα πατημένο για να δείς τις ενέργειες"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s μέσω %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Αναδημοσιεύσεις",
+                    "favorites_title": "Αγαπημένα",
+                    "edit_history_title": "Επεξεργασία Ιστορικού",
+                    "edit_history_detail": "Τελευταία επεξεργασία %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Επεξεργάστηκε στις %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Επεξεργασία Ιστορικού",
+                    "original_post": "Αρχική Ανάρτηση · %s"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "follow": "Ακολούθησε",
+                "following": "Ακολουθείς",
+                "request": "Αίτημα",
+                "pending": "Εκκρεμεί",
+                "block": "Αποκλεισμός",
+                "block_user": "Αποκλεισμός %s",
+                "block_domain": "Αποκλεισμός %s",
+                "unblock": "Άρση αποκλεισμού",
+                "unblock_user": "Άρση αποκλεισμού %s",
+                "blocked": "Αποκλείστηκε",
+                "mute": "Σίγαση",
+                "mute_user": "Σίγαση %s",
+                "unmute": "Κατάργηση σίγασης",
+                "unmute_user": "Κατάργηση σίγασης %s",
+                "muted": "Σε Σίγαση",
+                "edit_info": "Επεξεργασία Πληροφοριών",
+                "show_reblogs": "Εμφάνιση Αναδημοσιεύσεων",
+                "hide_reblogs": "Απόκρυψη Αναδημοσιεύσεων"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Φιλτραρισμένα",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Τώρα"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Φόρτωση αναρτήσεων που λείπουν",
+                    "loading_missing_posts": "Φόρτωση αναρτήσεων που λείπουν...",
+                    "show_more_replies": "Εμφάνιση περισσότερων απαντήσεων"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "no_status_found": "Δεν Βρέθηκε Ανάρτηση",
+                    "blocking_warning": "Δεν μπορείς να δεις το προφίλ αυτού του χρήστη\nμέχρι να τον ξεμπλοκάρεις.\nΤο προφίλ σου μοιάζει έτσι και σε αυτόν.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
@@ -269,7 +269,7 @@
         "welcome": {
             "log_in": "Log In",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"

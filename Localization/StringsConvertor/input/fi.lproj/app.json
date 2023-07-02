@@ -269,7 +269,7 @@
         "welcome": {
             "log_in": "Kirjaudu sisään",
             "learn_more": "Lue lisää",
-            "join_default_server": "Liity mastodon.social-palvelimelle",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "tai"

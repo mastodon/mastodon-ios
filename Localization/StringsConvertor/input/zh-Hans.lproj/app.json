@@ -269,7 +269,7 @@
         "welcome": {
             "log_in": "登录",
             "learn_more": "了解详情",
-            "join_default_server": "加入 mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "选择另一个服务器",
             "separator": {
                 "or": "或"
