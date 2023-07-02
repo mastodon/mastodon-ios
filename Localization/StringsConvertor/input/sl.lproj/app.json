@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Prijava",
             "learn_more": "Več o tem",
-            "join_default_server": "Join %@",
+            "join_default_server": "Pridruži se %@",
             "pick_server": "Izberi drug strežnik",
             "separator": {
                 "or": "ali"
