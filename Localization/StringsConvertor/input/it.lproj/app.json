@@ -15,10 +15,6 @@
                 "title": "Voto fallito",
                 "poll_ended": "Il sondaggio è terminato"
             },
-            "discard_post_content": {
-                "title": "Elimina bozza",
-                "message": "Confermare di scartare il contenuto del post composto."
-            },
             "publish_post_failure": {
                 "title": "Pubblicazione fallita",
                 "message": "Pubblicazione del post fallita.\nPer favore verifica la tua connessione internet.",
