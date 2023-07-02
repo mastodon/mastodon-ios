@@ -15,10 +15,6 @@
                 "title": "Napaka glasovanja",
                 "poll_ended": "Anketa je zaključena"
             },
-            "discard_post_content": {
-                "title": "Zavrzi osnutek",
-                "message": "Potrdite za opustitev sestavljene vsebine objave."
-            },
             "publish_post_failure": {
                 "title": "Spodletela objava",
                 "message": "Objava je spodletela.\nPreverite svojo internetno povezavo.",
