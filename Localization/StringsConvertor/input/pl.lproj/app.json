@@ -15,10 +15,6 @@
                 "title": "Niepowodzenie głosowania",
                 "poll_ended": "Ankieta zakończyła się"
             },
-            "discard_post_content": {
-                "title": "Anuluj wersje roboczą",
-                "message": "Potwierdź odrzucenie treści posta."
-            },
             "publish_post_failure": {
                 "title": "Błąd publikowania",
                 "message": "Nie udało się opublikować posta.\nSprawdź swoje połączenie internetowe.",
