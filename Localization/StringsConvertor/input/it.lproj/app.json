@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Accedi",
             "learn_more": "Scopri di più",
-            "join_default_server": "Join %@",
+            "join_default_server": "Unisciti a %@",
             "pick_server": "Scegli un altro server",
             "separator": {
                 "or": "o"
