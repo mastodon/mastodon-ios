@@ -15,10 +15,6 @@
                 "title": "Gwall Pleidleisio",
                 "poll_ended": "Mae'r pôl wedi dod i ben"
             },
-            "discard_post_content": {
-                "title": "Dileu Drafft",
-                "message": "Cadarnhau i ddileu post drafft."
-            },
             "publish_post_failure": {
                 "title": "Gwall Cyhoeddi",
                 "message": "Gwall wrth gyhoeddi'r tŵt.\nGwiriwch eich cysylltiad i'r rhyngrhwyd.",
