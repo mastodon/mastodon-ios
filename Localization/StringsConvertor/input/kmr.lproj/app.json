@@ -269,7 +269,7 @@
         "welcome": {
             "log_in": "Têkeve",
             "learn_more": "Bêtir fêr bibe",
-            "join_default_server": "Tevlî mastodon.social bibe",
+            "join_default_server": "Join %@",
             "pick_server": "Rajekarek din hilbijêre",
             "separator": {
                 "or": "an jî"
