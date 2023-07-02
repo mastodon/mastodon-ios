@@ -15,10 +15,6 @@
                 "title": "Gagal Voting",
                 "poll_ended": "Japat telah berakhir"
             },
-            "discard_post_content": {
-                "title": "Hapus Draf",
-                "message": "Konfirmasi untuk mengabaikan postingan yang dibuat."
-            },
             "publish_post_failure": {
                 "title": "Gagal Mempublikasikan",
                 "message": "Gagal mempublikasikan postingan.\nMohon periksa koneksi Internet Anda.",
