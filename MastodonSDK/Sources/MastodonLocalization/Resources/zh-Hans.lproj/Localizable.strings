@@ -530,7 +530,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "欢迎来到 Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "所有的 Mastodon 帐号皆托管于各自的服务器上，每个服务器有各自的价值取向、规则与管理员。无论你选择哪个服务器，你都能关注并与其他任何服务器上的用户互动。";
 "Scene.Welcome.Education.Servers.Title" = "服务器是什么？";
-"Scene.Welcome.JoinDefaultServer" = "加入 mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "了解详情";
 "Scene.Welcome.LogIn" = "登录";
 "Scene.Welcome.PickServer" = "选择另一个服务器";

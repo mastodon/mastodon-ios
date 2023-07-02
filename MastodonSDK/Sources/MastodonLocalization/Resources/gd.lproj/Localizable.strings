@@ -530,7 +530,7 @@ a luchdadh suas gu Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Fàilte gu Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Tha gach cunntas Mastodon ’ga òstadh air frithealaiche – tha luachan, riaghailtean ⁊ rianairean sònraichte aig gach fear. Ge b’ e dè am frithealaiche a thaghas tu, ’s urrainn dhut daoine air frithealaiche sam bith a leantainn is bruidhinn riutha.";
 "Scene.Welcome.Education.Servers.Title" = "Dè th’ anns na frithealaichean?";
-"Scene.Welcome.JoinDefaultServer" = "Faigh ballrachd air mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Barrachd fiosrachaidh";
 "Scene.Welcome.LogIn" = "Clàraich a-steach";
 "Scene.Welcome.PickServer" = "Tagh frithealaiche eile";

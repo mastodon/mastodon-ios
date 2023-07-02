@@ -525,7 +525,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "Mastodon とは";
 "Scene.Welcome.Education.Servers.Description" = "Mastodon のアカウントはいずれかのサーバーに所属します。それぞれのサーバーは異なる価値観やルールをもち、それらを管理する管理者がいます。どのサーバーにいても、ほかのあらゆるサーバーのユーザーをフォローして、かかわりをもつことができるでしょう。";
 "Scene.Welcome.Education.Servers.Title" = "サーバーとは";
-"Scene.Welcome.JoinDefaultServer" = "mastodon.social に登録";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "詳しく学ぶ";
 "Scene.Welcome.LogIn" = "ログイン";
 "Scene.Welcome.PickServer" = "ほかのサーバーをさがす";

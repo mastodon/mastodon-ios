@@ -530,7 +530,7 @@ laddas upp till Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Välkommen till Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Varje Mastodon-konto finns på en server — var och en med sina värderingar, regler och administratörer. Oavsett vilken du väljer kan du följa och interagera med människor på vilken server som helst.";
 "Scene.Welcome.Education.Servers.Title" = "Vad är servrar?";
-"Scene.Welcome.JoinDefaultServer" = "Gå med i mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Läs mer";
 "Scene.Welcome.LogIn" = "Logga in";
 "Scene.Welcome.PickServer" = "Hitta en annan server";

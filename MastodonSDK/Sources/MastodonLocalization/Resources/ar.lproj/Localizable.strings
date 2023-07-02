@@ -530,7 +530,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
 "Scene.Welcome.Education.Servers.Title" = "What are servers?";
-"Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "تسجيلُ الدخول";
 "Scene.Welcome.PickServer" = "Pick another server";

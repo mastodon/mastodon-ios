@@ -530,7 +530,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "ยินดีต้อนรับสู่ Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "ทุกบัญชี Mastodon ได้รับการโฮสต์ในเซิร์ฟเวอร์ — แต่ละแห่งมีค่า, กฎ และผู้ดูแลของเซิร์ฟเวอร์เอง ไม่ว่าคุณจะเลือกเซิร์ฟเวอร์ใด คุณสามารถติดตามและโต้ตอบกับผู้คนในเซิร์ฟเวอร์ใด ๆ";
 "Scene.Welcome.Education.Servers.Title" = "เซิร์ฟเวอร์คืออะไร?";
-"Scene.Welcome.JoinDefaultServer" = "เข้าร่วม mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "เรียนรู้เพิ่มเติม";
 "Scene.Welcome.LogIn" = "เข้าสู่ระบบ";
 "Scene.Welcome.PickServer" = "เลือกเซิร์ฟเวอร์อื่น";

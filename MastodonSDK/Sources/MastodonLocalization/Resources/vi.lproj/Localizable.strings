@@ -530,7 +530,7 @@ tải lên Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Chào mừng đến với Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Mỗi tài khoản Mastodon được lưu trữ trên một máy chủ — với nội quy và quản trị viên riêng. Bất kể bạn chọn máy chủ nào, bạn có thể theo dõi và tương tác với mọi người trên máy chủ khác.";
 "Scene.Welcome.Education.Servers.Title" = "Máy chủ là gì?";
-"Scene.Welcome.JoinDefaultServer" = "Tham gia mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Tìm hiểu thêm";
 "Scene.Welcome.LogIn" = "Đăng nhập";
 "Scene.Welcome.PickServer" = "Tìm máy chủ khác";

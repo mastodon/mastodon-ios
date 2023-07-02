@@ -530,7 +530,7 @@ možno naložiti v Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Dobrodošli na Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Vsak račun Mastodon gostuje na strežniku — vsak strežnik ima svoje vrednote, pravila in skbrnike. Vseeno je, katerega izberete - sledite in komunicirate lahko z osebbami na poljubnem strežniku.";
 "Scene.Welcome.Education.Servers.Title" = "Kaj so strežniki?";
-"Scene.Welcome.JoinDefaultServer" = "Pridruži se mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Več o tem";
 "Scene.Welcome.LogIn" = "Prijava";
 "Scene.Welcome.PickServer" = "Izberi drug strežnik";

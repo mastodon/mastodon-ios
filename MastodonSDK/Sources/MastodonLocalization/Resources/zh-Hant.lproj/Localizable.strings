@@ -525,7 +525,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "歡迎來到 Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "所有的 Mastodon 帳號皆託管於一個伺服器上 — 其擁有各自之價值觀、規則、與管理者。無論您選擇何者，您皆能跟隨並與其他任何伺服器上的人們互動。";
 "Scene.Welcome.Education.Servers.Title" = "伺服器是什麼？";
-"Scene.Welcome.JoinDefaultServer" = "加入 mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "了解更多";
 "Scene.Welcome.LogIn" = "登入";
 "Scene.Welcome.PickServer" = "挑選另一個伺服器";

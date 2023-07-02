@@ -530,7 +530,7 @@ Profîla te ji wan ra wiha xuya dike.";
 "Scene.Welcome.Education.Mastodon.Title" = "Tu bi xêr hatî Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Her ajimêrê Mastodon li ser rajekarekê tê pêşkêşkirin - her yek bi nirx, rêbaz û rêvebirên xwe ye. Ne girîng e ku tu kîjanê hilbijêrî tu dikarî li ser her rajekar mirovan bişopînî û bi wan re têkilî daynî.";
 "Scene.Welcome.Education.Servers.Title" = "Rajekar çi ne?";
-"Scene.Welcome.JoinDefaultServer" = "Tevlî mastodon.social bibe";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Bêtir fêr bibe";
 "Scene.Welcome.LogIn" = "Têkeve";
 "Scene.Welcome.PickServer" = "Rajekarek din hilbijêre";

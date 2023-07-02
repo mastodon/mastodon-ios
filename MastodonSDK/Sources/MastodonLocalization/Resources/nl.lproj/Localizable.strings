@@ -524,7 +524,7 @@ Jouw profiel ziet er zo uit voor hen.";
 "Scene.Welcome.Education.Mastodon.Title" = "Welkom op Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Elk Mastodon account wordt gehost op een server - elk met diens eigen waarden, regels en beheerders. Het maakt niet uit welke server je kiest, je kunt mensen op elke server volgen en ermee communiceren.";
 "Scene.Welcome.Education.Servers.Title" = "Wat zijn servers?";
-"Scene.Welcome.JoinDefaultServer" = "Registreren op mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Meer leren";
 "Scene.Welcome.LogIn" = "Inloggen";
 "Scene.Welcome.PickServer" = "Kies een andere server";

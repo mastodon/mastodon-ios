@@ -530,7 +530,7 @@ uploaded to Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Tervetuloa Mastodoniin";
 "Scene.Welcome.Education.Servers.Description" = "Jokainen Mastodon-tili sijaitsee jollakin palvelimella, joilla on kaikilla omat arvot, säännöt ja ylläpitäjät. Palvelinvalinnastasi riippumatta voit seurata kaikkien palvelinten käyttäjiä ja viestiä heidän kanssaan.";
 "Scene.Welcome.Education.Servers.Title" = "Mitä palvelimet ovat?";
-"Scene.Welcome.JoinDefaultServer" = "Liity mastodon.social-palvelimelle";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Lue lisää";
 "Scene.Welcome.LogIn" = "Kirjaudu sisään";
 "Scene.Welcome.PickServer" = "Pick another server";

@@ -530,7 +530,7 @@ kann nicht auf Mastodon hochgeladen werden.";
 "Scene.Welcome.Education.Mastodon.Title" = "Willkommen bei Mastodon!";
 "Scene.Welcome.Education.Servers.Description" = "Jedes Mastodon-Konto wird auf einem Server gehostet. Jeder Server hat dabei seine eigenen Werte, Regeln und Administrator*innen. Aber egal, für welchen Server Du Dich entscheidest: Du kannst mit Leuten von anderen Servern interagieren und ihnen folgen.";
 "Scene.Welcome.Education.Servers.Title" = "Was sind Server?";
-"Scene.Welcome.JoinDefaultServer" = "mastodon.social beitreten";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Mehr erfahren";
 "Scene.Welcome.LogIn" = "Anmelden";
 "Scene.Welcome.PickServer" = "Einen anderen Server auswählen";

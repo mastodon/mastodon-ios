@@ -530,7 +530,7 @@ ser subido a Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Benvida a Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Cada conta Mastodon está hospedada nun servidor — cada unha coas súas regras, valores e admins. Non importa cal elixas, podes seguir e interactuar con persoas de outros servidores.";
 "Scene.Welcome.Education.Servers.Title" = "Que son os servidores?";
-"Scene.Welcome.JoinDefaultServer" = "Únete a mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Saber máis";
 "Scene.Welcome.LogIn" = "Acceder";
 "Scene.Welcome.PickServer" = "Elixe outro servidor";

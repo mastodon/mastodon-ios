@@ -530,7 +530,7 @@ téléversé sur Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Bienvenue sur Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Chaque compte Mastodon est hébergé sur un serveur — chacun avec ses propres valeurs, règles, et administrateurs. Peu importe celui que vous choisissez, vous pouvez suivre et interagir avec des personnes sur n'importe quel serveur.";
 "Scene.Welcome.Education.Servers.Title" = "Que sont les serveurs ?";
-"Scene.Welcome.JoinDefaultServer" = "Rejoindre mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "En savoir plus";
 "Scene.Welcome.LogIn" = "Se connecter";
 "Scene.Welcome.PickServer" = "Trouver un autre serveur";
