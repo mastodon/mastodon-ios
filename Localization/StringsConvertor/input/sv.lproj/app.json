@@ -269,7 +269,7 @@
         "welcome": {
             "log_in": "Logga in",
             "learn_more": "Läs mer",
-            "join_default_server": "Gå med i mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Hitta en annan server",
             "separator": {
                 "or": "eller"
