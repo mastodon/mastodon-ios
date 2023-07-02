@@ -15,10 +15,6 @@
                 "title": "Selhání hlasování",
                 "poll_ended": "Anketa skončila"
             },
-            "discard_post_content": {
-                "title": "Zahodit koncept",
-                "message": "Potvrďte odstranění obsahu složeného příspěvku."
-            },
             "publish_post_failure": {
                 "title": "Publikování selhalo",
                 "message": "Nepodařilo se publikovat příspěvek.\nZkontrolujte prosím připojení k internetu.",
