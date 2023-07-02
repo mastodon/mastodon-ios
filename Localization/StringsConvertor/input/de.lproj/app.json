@@ -15,10 +15,6 @@
                 "title": "Fehler bei Abstimmung",
                 "poll_ended": "Die Umfrage ist beendet"
             },
-            "discard_post_content": {
-                "title": "Entwurf verwerfen",
-                "message": "Bestätige, um den Beitrag zu verwerfen."
-            },
             "publish_post_failure": {
                 "title": "Fehler bei Veröffentlichung",
                 "message": "Fehler beim Veröffentlichen des Beitrags.\nBitte überprüfe deine Internetverbindung.",
