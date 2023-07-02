@@ -15,10 +15,6 @@
                 "title": "Error en votar",
                 "poll_ended": "L'enquesta ha finalitzat"
             },
-            "discard_post_content": {
-                "title": "Descarta l'esborrany",
-                "message": "Confirma per a descartar el contingut del tut."
-            },
             "publish_post_failure": {
                 "title": "Error en publicar",
                 "message": "No s'ha pogut enviar la publicació.\nComprova la connexió a Internet.",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "Inicia sessió",
             "learn_more": "Més informació",
-            "join_default_server": "Join %@",
+            "join_default_server": "Uneix-te a %@",
             "pick_server": "Tria un altre servidor",
             "separator": {
                 "or": "o"
