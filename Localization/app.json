@@ -15,10 +15,6 @@
                 "title": "Vote Failure",
                 "poll_ended": "The poll has ended"
             },
-            "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
-            },
             "publish_post_failure": {
                 "title": "Publish Failure",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
