@@ -15,10 +15,6 @@
                 "title": "투표 실패",
                 "poll_ended": "투표가 끝났습니다"
             },
-            "discard_post_content": {
-                "title": "초안 버리기",
-                "message": "Confirm to discard composed post content."
-            },
             "publish_post_failure": {
                 "title": "게시 실패",
                 "message": "글을 게시하는데 실패했습니다.\n인터넷 연결을 확인해 주세요.",
