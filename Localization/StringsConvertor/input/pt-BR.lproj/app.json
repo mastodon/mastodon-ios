@@ -15,10 +15,6 @@
                 "title": "Falha ao votar",
                 "poll_ended": "Essa enquete terminou"
             },
-            "discard_post_content": {
-                "title": "Deletar Rascunho",
-                "message": "Confirme para descartar o conteúdo da publicação composta."
-            },
             "publish_post_failure": {
                 "title": "Falha ao publicar",
                 "message": "Falha ao publicar o post.\nPor favor verifique a sua conexão de internet.",
