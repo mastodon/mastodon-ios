@@ -15,10 +15,6 @@
                 "title": "Balsošanas Neveiksme",
                 "poll_ended": "Aptauja ir noslēgusies"
             },
-            "discard_post_content": {
-                "title": "Atmest malnrakstu",
-                "message": "Apstiprini, lai atmestu izveidotās ziņas saturu."
-            },
             "publish_post_failure": {
                 "title": "Publicēšanas Neveiksme",
                 "message": "Neizdevās publicēt ziņu.\nLūdzu, pārbaudi savu interneta savienojumu.",
