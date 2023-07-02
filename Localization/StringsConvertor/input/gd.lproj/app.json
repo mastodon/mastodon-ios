@@ -15,10 +15,6 @@
                 "title": "Dh’fhàillig leis a’ bhòt",
                 "poll_ended": "Thàinig an cunntas-bheachd gu crìoch"
             },
-            "discard_post_content": {
-                "title": "Tilg air falbh an dreachd",
-                "message": "Dearbh tilgeil air falbh susbaint a’ phuist a sgrìobh thu."
-            },
             "publish_post_failure": {
                 "title": "Dh’fhàillig leis an fhoillseachadh",
                 "message": "Cha deach leinn am post fhoillseachadh.\nThoir sùil air a’ cheangal agad ris an eadar-lìon.",
