@@ -1510,8 +1510,10 @@ public enum L10n {
       }
     }
     public enum Welcome {
-      /// Join mastodon.social
-      public static let joinDefaultServer = L10n.tr("Localizable", "Scene.Welcome.JoinDefaultServer", fallback: "Join mastodon.social")
+      /// Join %@
+      public static func joinDefaultServer(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Welcome.JoinDefaultServer", String(describing: p1), fallback: "Join %@")
+      }
       /// Learn more
       public static let learnMore = L10n.tr("Localizable", "Scene.Welcome.LearnMore", fallback: "Learn more")
       /// Log In

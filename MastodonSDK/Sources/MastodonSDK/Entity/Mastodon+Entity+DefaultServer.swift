@@ -4,7 +4,12 @@ import Foundation
 
 extension Mastodon.Entity {
     public struct DefaultServer: Codable {
-        let domain: String
-        let weight: Int
+        public let domain: String
+        public let weight: Int
+
+        public init(domain: String, weight: Int) {
+            self.domain = domain
+            self.weight = weight
+        }
     }
 }
