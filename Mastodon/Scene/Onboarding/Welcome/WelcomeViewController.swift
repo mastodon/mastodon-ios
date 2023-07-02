@@ -336,7 +336,7 @@ extension WelcomeViewController {
                 case .failure(let error ):
                     guard let randomServer = self.viewModel.pickRandomDefaultServer() else { return }
 
-                    viewModel.randomDefaultServer = randomServer
+                    self.viewModel.randomDefaultServer = randomServer
 
                     sender.isEnabled = true
                     sender.configuration?.showsActivityIndicator = false
