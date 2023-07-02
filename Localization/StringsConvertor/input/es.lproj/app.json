@@ -15,10 +15,6 @@
                 "title": "Voto fallido",
                 "poll_ended": "La encuesta ha terminado"
             },
-            "discard_post_content": {
-                "title": "Descartar borrador",
-                "message": "Confirma para descartar el contenido de la publicación."
-            },
             "publish_post_failure": {
                 "title": "Error de publicación",
                 "message": "No se pudo publicar la publicación.\nPor favor, revise su conexión a internet.",
