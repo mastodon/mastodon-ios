@@ -98,10 +98,10 @@
                     "unknown_language": "Okänt"
                 },
                 "edit_post": "Redigera",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Bokmärk",
+                "remove_bookmark": "Ta bort bokmärke",
+                "follow": "Följ %s",
+                "unfollow": "Avfölj %s"
             },
             "tabs": {
                 "home": "Hem",
