@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Kirjaudu sisään",
             "learn_more": "Lue lisää",
-            "join_default_server": "Join %@",
+            "join_default_server": "Liity palvelimelle %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "tai"
