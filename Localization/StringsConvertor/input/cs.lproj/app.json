@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Přihlásit se",
             "learn_more": "Zjistit více",
-            "join_default_server": "Join %@",
+            "join_default_server": "Připojit se k %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
