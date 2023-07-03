@@ -98,10 +98,10 @@
                     "unknown_language": "Chan eil fhios"
                 },
                 "edit_post": "Deasaich",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Comharra-lìn",
+                "remove_bookmark": "Thoir air falbh an comharra-lìn",
+                "follow": "Lean %s",
+                "unfollow": "Na lean %s tuilleadh"
             },
             "tabs": {
                 "home": "Dachaigh",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Clàraich a-steach",
             "learn_more": "Barrachd fiosrachaidh",
-            "join_default_server": "Join %@",
+            "join_default_server": "Faigh ballrachd aig %@",
             "pick_server": "Tagh frithealaiche eile",
             "separator": {
                 "or": "no"
@@ -784,7 +784,7 @@
                 "malicious_links_fake_engagement_or_repetetive_replies": "Ceanglaichean droch-rùnach, conaltradh fuadain no an dearbh fhreagairt a-rithist ’s a-rithist",
                 "it_violates_server_rules": "Tha e a’ briseadh riaghailtean an fhrithealaiche",
                 "you_are_aware_that_it_breaks_specific_rules": "Mhothaich thu gu bheil e a’ briseadh riaghailtean sònraichte",
-                "its_something_else": "’S rud eile a tha ann",
+                "its_something_else": "’S e rud eile a tha ann",
                 "the_issue_does_not_fit_into_other_categories": "Chan eil na roinnean-seòrsa eile iomchaidh dhan chùis"
             },
             "step_two": {
