@@ -73,7 +73,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>%ld символів залишилось</string>
         <key>few</key>
         <string>%ld characters left</string>
         <key>many</key>
@@ -228,7 +228,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>%ld репостів</string>
         <key>few</key>
         <string>%ld re-blogs</string>
         <key>many</key>
