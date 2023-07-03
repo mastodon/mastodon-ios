@@ -319,81 +319,81 @@
             },
             "label": {
                 "language": "ΓΛΩΣΣΑ",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "users": "ΧΡΗΣΤΕΣ",
+                "category": "ΚΑΤΗΓΟΡΙΑ"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Αναζήτησε κοινότητες ή εισήγαγε URL"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Εύρεση διαθέσιμων διακομιστών...",
+                "bad_network": "Κάτι πήγε στραβά κατά τη φόρτωση των δεδομένων. Έλεγξε τη σύνδεσή σου στο διαδίκτυο.",
+                "no_results": "Κανένα αποτέλεσμα"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Όλες",
+                "instant": "Άμεση Εγγραφή",
+                "manually_reviewed": "Χειροκίνητη Αξιολόγηση"
             },
             "language": {
-                "all": "All"
+                "all": "Όλες"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Αναζήτηση ονόματος ή URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Θα επιλέξουμε έναν διακομιστή με βάση τη γλώσσα σου αν συνεχίσεις χωρίς να κάνεις κάποια επιλογή."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Απόρρητο",
+            "description": "Αν και η εφαρμογή Mastodon δε συλλέγει δεδομένα, ο διακομιστής που εγγράφεσαι μπορεί να έχει διαφορετική πολιτική. Πάρε ένα λεπτό για να ελέγξεις και να συμφωνήσεις με την πολιτική απορρήτου της εφαρμογής Mastodon και την πολιτική απορρήτου του διακομιστή σου.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Πολιτική Απορρήτου - Mastodon για iOS",
+                "server": "Πολιτική Απορρήτου - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Συμφωνώ"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Δημιουργία Λογαριασμού",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Διαγραφή"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken.",
-                    "suggestion": "amazing_%@"
+                    "placeholder": "όνομα χρήστη",
+                    "duplicate_prompt": "Αυτό το όνομα χρήστη χρησιμοποιείται.",
+                    "suggestion": "εκπληκτικό_%@"
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "εμφανιζόμενο όνομα"
                 },
                 "email": {
                     "placeholder": "email"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "confirmation_placeholder": "Confirm Password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "κωδικός πρόσβασης",
+                    "confirmation_placeholder": "Επιβεβαίωση Κωδικού Πρόσβασης",
+                    "require": "Ο κωδικός σου χρειάζεται τουλάχιστον:",
+                    "character_limit": "8 χαρακτήρες",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "επιλεγμένο",
+                        "unchecked": "μη επιλεγμένο"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Ο κωδικός πρόσβασής σου χρειάζεται τουλάχιστον οκτώ χαρακτήρες"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Γιατί θέλεις να συμμετάσχεις;"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
+                    "username": "Όνομα χρήστη",
                     "email": "Email",
-                    "password": "Password",
+                    "password": "Κωδικός πρόσβασης",
                     "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "locale": "Γλώσσα",
+                    "reason": "Αιτιολογία"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
@@ -477,53 +477,53 @@
                 "browse": "Browse"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "compose_action": "Δημοσίευση",
+            "replying_to_user": "απάντηση σε %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "photo": "φωτογραφία",
+                "video": "βίντεο",
+                "attachment_broken": "Το %s έχει χαλάσει και δεν μπορεί να\nφορτωθεί στο Mastodon.",
+                "description_photo": "Περιέγραψε τη φωτογραφία για τα άτομα με προβλήματα όρασης...",
+                "description_video": "Περιέγραψε το βίντεο για τα άτομα με προβλήματα όρασης...",
+                "load_failed": "Αποτυχία Φόρτωσης",
+                "upload_failed": "Η Μεταφόρτωση Απέτυχε",
+                "can_not_recognize_this_media_attachment": "Αυτό το συνημμένο πολυμέσων δεν μπορεί να αναγνωριστεί",
+                "attachment_too_large": "Υπερβολικά μεγάλο συνημμένο",
+                "compressing_state": "Συμπίεση...",
+                "server_processing_state": "Επεξεργασία Διακομιστή..."
             },
             "poll": {
-                "title": "Poll",
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "title": "Δημοσκόπηση",
+                "duration_time": "Διάρκεια: %s",
+                "thirty_minutes": "30 λεπτά",
+                "one_hour": "1 Ώρα",
+                "six_hours": "6 Ώρες",
+                "one_day": "1 Ημέρα",
+                "three_days": "3 Ημέρες",
+                "seven_days": "7 Ημέρες",
+                "option_number": "Επιλογή %ld",
+                "the_poll_is_invalid": "Η δημοσκόπηση δεν είναι έγκυρη",
+                "the_poll_has_empty_option": "Η δημοσκόπηση έχει κενή επιλογή",
+                "add_option": "Προσθήκη Επιλογής",
+                "remove_option": "Αφαίρεση Επιλογής",
+                "move_up": "Μετακίνηση Πάνω",
+                "move_down": "Μετακίνηση Κάτω"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Γράψε εδώ μια ακριβή προειδοποίηση..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Δημόσιο",
+                "unlisted": "Μη καταχωρημένο",
+                "private": "Μόνο ακόλουθοι",
+                "direct": "Μόνο άτομα που επισημαίνω"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "\"Διάστημα\" για προσθήκη"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
+                "append_attachment": "Προσθήκη Συνημμένου",
+                "append_poll": "Προσθήκη Δημοσκ.",
                 "remove_poll": "Remove Poll",
                 "custom_emoji_picker": "Custom Emoji Picker",
                 "enable_content_warning": "Enable Content Warning",
