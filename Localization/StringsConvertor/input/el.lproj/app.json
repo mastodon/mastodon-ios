@@ -248,62 +248,62 @@
                 "header": {
                     "no_status_found": "Δεν Βρέθηκε Ανάρτηση",
                     "blocking_warning": "Δεν μπορείς να δεις το προφίλ αυτού του χρήστη\nμέχρι να τον ξεμπλοκάρεις.\nΤο προφίλ σου μοιάζει έτσι και σε αυτόν.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "user_blocking_warning": "Δεν μπορείς να δεις το προφίλ του %s\nμέχρι να τον ξεμπλοκάρεις.\nΤο προφίλ σου μοιάζει έτσι κι σ' αυτούς.",
+                    "blocked_warning": "Δεν μπορείς να δεις το προφίλ αυτού του χρήστη\nμέχρι να σε ξεμπλοκάρει.",
+                    "user_blocked_warning": "Δεν μπορείς να δεις το προφίλ %s\nμέχρι να σε ξεμπλοκάρουν.",
+                    "suspended_warning": "Αυτός ο χρήστης έχει ανασταλεί.",
+                    "user_suspended_warning": "Ο λογαριασμός του %s έχει ανασταλεί."
                 }
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Χωρίς επαληθευμένο σύνδεσμο",
+            "followers_count": "%@ ακόλουθοι"
         }
     },
     "scene": {
         "welcome": {
-            "log_in": "Log In",
-            "learn_more": "Learn more",
-            "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "log_in": "Σύνδεση",
+            "learn_more": "Μάθε περισσότερα",
+            "join_default_server": "Γίνε μέλος %@",
+            "pick_server": "Διάλεξε άλλο διακομιστή",
             "separator": {
-                "or": "or"
+                "or": "ή"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Καλώς ήρθες στο Mastodon",
+                    "description": "Το Mastodon είναι ένα αποκεντρωμένο κοινωνικό δίκτυο που σημαίνει ότι καμία εταιρεία δεν το ελέγχει. Αποτελείται από πολλούς ανεξάρτητους διακομιστές, όλοι συνδεδεμένοι μαζί."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Τι είναι οι διακομιστές;",
+                    "description": "Κάθε λογαριασμός Mastodon φιλοξενείται σε ένα διακομιστή - ο καθένας με τις δικές του αξίες, κανόνες και διαχειριστές. Ανεξάρτητα από το ποιον μπορεί να επιλέξεις, μπορείς να ακολουθήσεις και να αλληλεπιδράσεις με άτομα από οποιονδήποτε διακομιστή."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Τι είναι το Mastodon;"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Καλωσόρισες και πάλι",
+            "subtitle": "Συνδέσου στο διακομιστή στον οποίο δημιούργησες τον λογαριασμό σου.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Εισαγωγή URL ή αναζήτησε τον διακομιστή σου"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Επιλογή Διακομιστή",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Γλώσσα",
+                "signup_speed": "Ταχύτητα Εγγραφής",
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "all": "Όλοι",
+                    "all_accessiblity_description": "Κατηγορία: Όλα",
+                    "academia": "ακαδημαϊκά",
+                    "activism": "ακτιβισμός",
+                    "food": "φαγητό",
                     "furry": "furry",
                     "games": "games",
                     "general": "general",
