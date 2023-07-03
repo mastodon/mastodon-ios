@@ -304,21 +304,21 @@
                     "academia": "ακαδημαϊκά",
                     "activism": "ακτιβισμός",
                     "food": "φαγητό",
-                    "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
-                    "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "furry": "γούνινο",
+                    "games": "παιχνίδια",
+                    "general": "γενικά",
+                    "journalism": "δημοσιογραφία",
+                    "lgbt": "λοατκι",
+                    "regional": "τοπικό",
+                    "art": "τέχνη",
+                    "music": "μουσική",
+                    "tech": "τεχνολογία"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Δες Λιγότερα",
+                "see_more": "Δες Περισσότερα"
             },
             "label": {
-                "language": "LANGUAGE",
+                "language": "ΓΛΩΣΣΑ",
                 "users": "USERS",
                 "category": "CATEGORY"
             },
