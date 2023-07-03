@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Skrá inn",
             "learn_more": "Kanna nánar",
-            "join_default_server": "Join %@",
+            "join_default_server": "Taka þátt í %@",
             "pick_server": "Veldu annan netþjón",
             "separator": {
                 "or": "eða"
