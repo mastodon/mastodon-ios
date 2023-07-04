@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld символів залишилось</string>
+        <string>%ld символ залишився</string>
         <key>few</key>
-        <string>%ld characters left</string>
+        <string>%ld символів залишилось</string>
         <key>many</key>
-        <string>%ld characters left</string>
+        <string>%ld символів залишилось</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld символів залишилось</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -228,13 +228,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld репостів</string>
+        <string>1 репост</string>
         <key>few</key>
-        <string>%ld re-blogs</string>
+        <string>%ld репости</string>
         <key>many</key>
-        <string>%ld re-blogs</string>
+        <string>%ld репостів</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld репостів</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
