@@ -15,7 +15,7 @@
         <key>one</key>
         <string>1 не прочитане сповіщення</string>
         <key>few</key>
-        <string>%ld не прочитаних сповіщень</string>
+        <string>%ld не прочитані сповіщення</string>
         <key>many</key>
         <string>%ld не прочитаних сповіщень</string>
         <key>other</key>
@@ -25,7 +25,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Перевищено ліміт вводу на %#@character_count@</string>
+      <string>Перевищено ліміт вводу символів на %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,7 +45,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Залишається вхідний ліміт %#@character_count@</string>
+      <string>Залишається ліміт вводу символів %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -73,9 +73,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld символ залишився</string>
+        <string>1 символ залишився</string>
         <key>few</key>
-        <string>%ld символів залишилось</string>
+        <string>%ld символи залишилось</string>
         <key>many</key>
         <string>%ld символів залишилось</string>
         <key>other</key>
@@ -108,7 +108,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Читають %1$@ та інші</string>
+        <string>Читає %1$@ та ще один</string>
         <key>few</key>
         <string>Читають %1$@, та %ld взаємних</string>
         <key>many</key>
