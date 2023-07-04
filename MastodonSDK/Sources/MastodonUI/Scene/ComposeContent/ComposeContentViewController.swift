@@ -272,10 +272,10 @@ extension ComposeContentViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] emojis in
                 guard let self = self else { return }
-                if emojis.isEmpty {
-                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
-                } else {
+                if emojis != nil {
                     self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
+                } else {
+                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
                 }
             })
             .store(in: &disposeBag)
