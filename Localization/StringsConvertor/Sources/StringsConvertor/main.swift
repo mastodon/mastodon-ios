@@ -75,6 +75,7 @@ private func map(language: String) -> String? {
     case "tr.lproj":        return "tr"         // Turkish
     case "vi.lproj":        return "vi"         // Vietnamese
     case "el.lproj":        return "el"         // Greek
+    case "be.lproj":        return "be"         // Belarussian
     default:                return nil
     }
 }
