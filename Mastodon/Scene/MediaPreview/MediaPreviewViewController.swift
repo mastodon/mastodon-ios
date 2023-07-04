@@ -273,10 +273,6 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
         }
     }
     
-    func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        // do nothing
-    }
-    
     func mediaPreviewImageViewController(
         _ viewController: MediaPreviewImageViewController,
         contextMenuActionPerform action: MediaPreviewImageViewController.ContextMenuAction

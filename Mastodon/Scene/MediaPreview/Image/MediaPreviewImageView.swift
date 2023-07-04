@@ -70,6 +70,8 @@ extension MediaPreviewImageView {
         addSubview(imageView)
 
         doubleTapGestureRecognizer.addTarget(self, action: #selector(MediaPreviewImageView.doubleTapGestureRecognizerHandler(_:)))
+        doubleTapGestureRecognizer.delegate = self
+
         imageView.addGestureRecognizer(doubleTapGestureRecognizer)
         if #available(iOS 16.0, *) {
             imageView.addInteraction(liveTextInteraction)
@@ -111,6 +113,21 @@ extension MediaPreviewImageView {
         }
     }
     
+}
+
+extension MediaPreviewImageView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer == doubleTapGestureRecognizer else { return false }
+        // block double-tap to select text gesture
+        // but only if the Live Text button is toggled off
+        if let gr = otherGestureRecognizer as? UITapGestureRecognizer,
+           gr.numberOfTapsRequired == 2,
+           #available(iOS 16, *),
+           !liveTextInteraction.selectableItemsHighlighted {
+            return true
+        }
+        return false
+    }
 }
 
 extension MediaPreviewImageView {
