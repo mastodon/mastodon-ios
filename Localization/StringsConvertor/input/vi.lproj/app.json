@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Đăng nhập",
             "learn_more": "Tìm hiểu thêm",
-            "join_default_server": "Join %@",
+            "join_default_server": "Tham gia %@",
             "pick_server": "Tìm máy chủ khác",
             "separator": {
                 "or": "hoặc"
