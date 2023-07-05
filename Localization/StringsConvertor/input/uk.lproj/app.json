@@ -172,8 +172,8 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Натисніть та утримуйте, щоб показати меню",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Репост",
+                        "unreblog": "Скасувати репост"
                     }
                 },
                 "tag": {
@@ -197,7 +197,7 @@
                     "show_original": "Показати оригінал"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
+                    "accessibility_label": "%s, вкладення %d із %d",
                     "expand_image_hint": "Розгортає зображення. Двічі торкніться та утримуйте, щоб показати дії",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Показує відеоплеєр. Натисніть двічі і утримуйте, щоб показати дії"
@@ -333,13 +333,13 @@
             "signup_speed": {
                 "all": "Всі",
                 "instant": "Миттєва реєстрація",
-                "manually_reviewed": "Manual Review"
+                "manually_reviewed": "Ручна перевірка"
             },
             "language": {
                 "all": "Всі"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Пошук по імені або URL"
             },
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
@@ -886,7 +886,7 @@
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Таким чином буде виглядати пост з позначкою <a>#hashtag</a>. Виберіть будь-який <a>#hashtag</a> у налаштуваннях віджету."
             }
         }
     }
