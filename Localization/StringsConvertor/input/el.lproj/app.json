@@ -529,21 +529,21 @@
                 "enable_content_warning": "Ενεργοποίηση Προειδοποίησης Περιεχομένου",
                 "disable_content_warning": "Απενεργοποίηση Προειδοποίησης Περιεχομένου",
                 "post_visibility_menu": "Μενού Ορατότητας Ανάρτησης",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Επιλογές Ανάρτησης",
+                "posting_as": "Ανάρτηση ως %s"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "discard_post": "Απόρριψη Ανάρτησης",
+                "publish_post": "Δημοσίευση Ανάρτησης",
+                "toggle_poll": "Εναλλαγή Δημοσκόπησης",
+                "toggle_content_warning": "Εναλλαγή Προειδοποίησης Περιεχομένου",
+                "append_attachment_entry": "Προσθήκη Συνημμένου - %s",
+                "select_visibility_entry": "Επιλογή ορατότητας - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
+                "title": "Γλώσσα Ανάρτησης",
+                "suggested": "Προτεινόμενες",
+                "recent": "Πρόσφατα",
                 "other": "Other Language…"
             }
         },
