@@ -544,49 +544,49 @@
                 "title": "Γλώσσα Ανάρτησης",
                 "suggested": "Προτεινόμενες",
                 "recent": "Πρόσφατα",
-                "other": "Other Language…"
+                "other": "Άλλη γλώσσα…"
             }
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Σε Ακολουθεί"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers",
-                "familiar_followers": "mutuals"
+                "my_posts": "αναρτήσεις",
+                "my_following": "ακολουθείς",
+                "my_followers": "ακόλουθοι",
+                "other_posts": "αναρτήσεις",
+                "other_following": "ακολουθεί",
+                "other_followers": "ακόλουθοι",
+                "familiar_followers": "κοινοί"
             },
             "fields": {
-                "joined": "Joined",
-                "add_row": "Add Row",
+                "joined": "Έγινε μέλος",
+                "add_row": "Προσθήκη Γραμμής",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Ετικέτα",
+                    "content": "Περιεχόμενο"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Επαληθεύτηκε στις %s",
+                    "long": "Η ιδιοκτησία αυτού του συνδέσμου ελέχθηκε στις %s"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
-                "media": "Media",
-                "about": "About"
+                "posts": "Αναρτήσεις",
+                "replies": "Απαντήσεις",
+                "posts_and_replies": "Αναρτήσεις και Απαντήσεις",
+                "media": "Πολυμέσα",
+                "about": "Σχετικά"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Σίγαση Λογαριασμού",
+                    "message": "Επιβεβαίωσε για σίγαση %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Άρση Σίγασης Λογαριασμού",
+                    "message": "Επιβεβαίωσε για άρση σίγασης %s"
                 },
                 "confirm_block_user": {
                     "title": "Block Account",
