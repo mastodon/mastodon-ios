@@ -51,7 +51,7 @@
             "translation_failed": {
                 "title": "Note",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "Tamam"
             }
         },
         "controls": {
@@ -78,7 +78,7 @@
                 "sign_in": "Giriş Yap",
                 "see_more": "Daha Fazla Gör",
                 "preview": "Önizleme",
-                "copy": "Copy",
+                "copy": "Kopyala",
                 "share": "Paylaş",
                 "share_user": "%s ile paylaş",
                 "share_post": "Gönderiyi Paylaş",
@@ -97,8 +97,8 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
-                "bookmark": "Bookmark",
+                "edit_post": "Düzenle",
+                "bookmark": "Yer işareti",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
                 "unfollow": "Unfollow %s"
@@ -109,7 +109,7 @@
                 "notifications": "Bildirimler",
                 "profile": "Profil",
                 "a11y": {
-                    "search": "Search",
+                    "search": "Ara",
                     "explore": "Explore"
                 }
             },
@@ -205,13 +205,13 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
+                    "favorites_title": "Favoriler",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
                 "edited_at_timestamp_prefix": "Edited %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "Düzenleme Geçmişi",
                     "original_post": "Original Post · %s"
                 }
             },
@@ -264,15 +264,15 @@
     "scene": {
         "welcome": {
             "log_in": "Oturum Aç",
-            "learn_more": "Learn more",
+            "learn_more": "Daha fazla bilgi edin",
             "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
-                "or": "or"
+                "or": "veya"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Mastodon'a Hoş Geldin",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
@@ -294,9 +294,9 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Sunucu Seç",
             "button": {
-                "language": "Language",
+                "language": "Dil",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Tümü",
@@ -331,12 +331,12 @@
                 "no_results": "Sonuç yok"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Hepsi",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "Hepsi"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -351,7 +351,7 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Kabul Ediyorum"
             }
         },
         "register": {
@@ -870,7 +870,7 @@
         "latest_followers": {
             "configuration_display_name": "Latest followers",
             "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
+            "title": "Son takipçiler",
             "last_update": "Last update: %s"
         },
         "hashtag": {
