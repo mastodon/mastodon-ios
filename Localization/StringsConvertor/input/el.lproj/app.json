@@ -690,13 +690,13 @@
                 "poll_has_ended": "η δημοσκόπηση έληξε"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Εμφάνιση Όλων",
+                "show_mentions": "Εμφάνιση Επισημάνσεων"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
+                "accept": "Αποδοχή",
+                "accepted": "Αποδέχθηκε",
+                "reject": "απόρριψη",
                 "rejected": "Rejected"
             }
         },
