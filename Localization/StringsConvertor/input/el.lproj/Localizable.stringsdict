@@ -344,9 +344,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>απομένει 1 ώρα</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>απομένουν %ld ώρες</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -360,9 +360,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>απομένει 1 λεπτό</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>Απομένουν %ld λεπτά</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -376,9 +376,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>απομένει 1 δευτερόλεπτο</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>Απομένουν %ld δευτερόλεπτα</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -392,9 +392,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1χρ πριν</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ldχρ πριν</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -408,9 +408,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1μην πριν</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ldμην πριν</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -424,9 +424,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>%1ημ πριν</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ldημ πριν</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -440,9 +440,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1ώ πριν</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ldώ πριν</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -456,9 +456,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1λ πριν</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ldλ πριν</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -472,9 +472,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1δλ πριν</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ldδλ πριν</string>
       </dict>
     </dict>
   </dict>
