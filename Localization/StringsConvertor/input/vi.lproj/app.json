@@ -644,7 +644,7 @@
                     "people_talking": "%s người đang thảo luận"
                 },
                 "accounts": {
-                    "title": "Những người bạn có thể thích",
+                    "title": "Những người bạn có thể quen",
                     "description": "Bạn có thể muốn theo dõi những người này",
                     "follow": "Theo dõi"
                 }
@@ -727,7 +727,7 @@
                     "boosts": "Đăng lại tút của tôi",
                     "mentions": "Nhắc đến tôi",
                     "trigger": {
-                        "anyone": "ai đó",
+                        "anyone": "bất cứ ai",
                         "follower": "người theo dõi tôi",
                         "follow": "người tôi theo dõi",
                         "noone": "không một ai",
