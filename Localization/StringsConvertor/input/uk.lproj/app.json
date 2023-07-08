@@ -257,7 +257,7 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
+            "no_verified_link": "Нема підтвердженого посилання",
             "followers_count": "%@ підписників"
         }
     },
@@ -341,14 +341,14 @@
             "search": {
                 "placeholder": "Пошук по імені або URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Ми підберемо сервер на основі вашої мови, якщо ви продовжите без вибору."
         },
         "privacy": {
             "title": "Приватність",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Хоча додаток Mastodon не збирає жодних даних, сервер, на якому ви зареєструвались, може мати іншу політику. Витратьте хвилину, щоб переглянути та погодитися з політикою конфіденційності Mastodon і політикою конфіденційності Вашого сервера.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Політика конфіденційності - Mastodon для iOS",
+                "server": "Політика конфіденційності - %s"
             },
             "button": {
                 "confirm": "Я погоджуюся"
@@ -398,7 +398,7 @@
                 "reason": {
                     "blocked": "%s містить заборонених провайдерів email",
                     "unreachable": "%s здається, не існує",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s вже зайняте. Як щодо:",
                     "reserved": "%s є зарезервованим ключовим словом",
                     "accepted": "%s має бути прийнято",
                     "blank": "%s необхідно",
@@ -427,7 +427,7 @@
         },
         "confirm_email": {
             "title": "Перевірте вхідні",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Натисніть на посилання, яке ми надіслали вам, щоб підтвердити %@. Ми чекатимемо прямо тут.",
             "button": {
                 "resend": "Повторно надіслати"
             },
@@ -445,7 +445,7 @@
             "didnt_get_link": {
                 "prefix": "Не отримали посилання?",
                 "resend_in": "Надіслати повторно (%@)",
-                "resend_now": "Resend now."
+                "resend_now": "Надіслати ще раз."
             }
         },
         "home_timeline": {
