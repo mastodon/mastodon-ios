@@ -589,25 +589,25 @@
                     "message": "Επιβεβαίωσε για άρση σίγασης %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Αποκλεισμός Λογαριασμού",
+                    "message": "Επιβεβαίωση αποκλεισμού %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Άρση Αποκλεισμού Λογαριασμού",
+                    "message": "Επιβεβαίωση άρσης αποκλεισμού %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Εμφάνιση Αναδημοσιεύσεων",
+                    "message": "Επιβεβαίωση εμφάνισης αναδημοσιεύσεων"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Απόκρυψη Αναδημοσιεύσεων",
+                    "message": "Επιβεβαίωση απόκρυψης αναδημοσιεύσεων"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
+                "show_avatar_image": "Εμφάνιση εικόνας avatar",
+                "edit_avatar_image": "Επεξεργασία εικόνας avatar",
                 "show_banner_image": "Show banner image",
                 "double_tap_to_open_the_list": "Double tap to open the list"
             }
