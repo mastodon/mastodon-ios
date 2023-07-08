@@ -202,7 +202,7 @@
                     "expand_gif_hint": "Rozszerza GIF. Podwójne dotknięcie i przytrzymaj, aby pokazać akcje",
                     "expand_video_hint": "Pokazuje odtwarzacz wideo. Dwukrotnie stuknij i przytrzymaj aby pokazać akcje"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s przez %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
                     "favorites_title": "Ulubione",
@@ -250,34 +250,34 @@
                     "blocking_warning": "Nie możesz wyświetlić profilu tego użytkownika\ndopóki nie odblokujesz go.\nTwój profil wygląda tak dla nich.",
                     "user_blocking_warning": "Nie możesz wyświetlić profilu %s\ndopóki nie odblokujesz go.\nTwój profil wygląda tak dla nich.",
                     "blocked_warning": "Nie możesz zobaczyć profilu tego użytkownika\n dopóki nie odblokują Cię.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "user_blocked_warning": "Nie możesz zobaczyć profilu %s dopóki Cię nie odblokuje.",
                     "suspended_warning": "Ten użytkownik został zawieszony.",
                     "user_suspended_warning": "Konto %s zostało zawieszone."
                 }
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Niezweryfikowany link",
+            "followers_count": "%@ obserwujących"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Zaloguj się",
-            "learn_more": "Learn more",
-            "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "learn_more": "Dowiedz się więcej",
+            "join_default_server": "Dołącz do %@",
+            "pick_server": "Wybierz inną instancję",
             "separator": {
-                "or": "or"
+                "or": "lub"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Witaj na Mastodonie",
+                    "description": "Mastodon to zdecentralizowana sieć społecznościowa, co oznacza że żadna firma nie może nią kontrolować w całości. Składa się z wielu niezależnych od siebie serwerów, które się ze sobą komunikują."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Czym są serwery?",
+                    "description": "Każde konto na Mastodonie jest hostowane na instancjach, które wyróżniają się wartościami, zasadami i administracją. Nieważne, jaką wybierzesz - i tak będziesz mógł/mogła kontaktować się nawet z tymi spoza Twojej instancji."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -287,7 +287,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Witaj ponownie",
             "subtitle": "Zaloguj się na serwerze, na którym utworzyłeś swoje konto.",
             "server_search_field": {
                 "placeholder": "Wprowadź adres URL lub wyszukaj swój serwer"
@@ -300,55 +300,55 @@
                 "signup_speed": "Szybkość rejestracji",
                 "category": {
                     "all": "Wszystkie",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
-                    "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
-                    "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "all_accessiblity_description": "Kategoria: Wszystkie",
+                    "academia": "środowiska akademickie",
+                    "activism": "aktywizm",
+                    "food": "jedzenie",
+                    "furry": "„futrzaki”",
+                    "games": "gry",
+                    "general": "ogólne",
+                    "journalism": "dziennikarstwo",
+                    "lgbt": "LGBT",
+                    "regional": "regionalne",
+                    "art": "sztuka",
+                    "music": "muzyka",
+                    "tech": "technologia"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Zobacz mniej",
+                "see_more": "Zobacz więcej"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "JĘZYK",
+                "users": "UŻYTKOWNICY",
+                "category": "KATEGORIA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Szukaj społeczności lub wprowadź adres URL"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Szukanie dostępnych instancji...",
+                "bad_network": "Coś poszło nie tak podczas ładowania danych. Sprawdź swoje połączenie internetowe.",
+                "no_results": "Brak wyników"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Wszystko",
+                "instant": "Natychmiastowa rejestracja",
+                "manually_reviewed": "Ręczne sprawdzenie"
             },
             "language": {
-                "all": "All"
+                "all": "Wszystko"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Nazwa serwera lub jego adres URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Wybierzemy Tobie instancję opartą na Twoim języku, jeżeli kontynuujesz bez żadnego wyboru."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Prywatność",
+            "description": "Choć aplikacja Mastodona nie zbiera żadnych danych na Twój temat, serwer na którym się rejestrujesz może działać zgodnie z inną polityką. Poświęć chwilę na przejrzenie i akceptację polityki prywatności aplikacji Mastodona oraz Twojego serwera.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Polityka prywatności - Mastodon dla iOS",
+                "server": "Polityka Prywatności - %s"
             },
             "button": {
                 "confirm": "I Agree"
@@ -478,27 +478,27 @@
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "replying_to_user": "odpowiadanie %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
+                "photo": "zdjęcie",
+                "video": "film",
+                "attachment_broken": "Ten %s jest uszkodzony i nie może zostać\nprzesłany do Mastodona.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "load_failed": "Załadowanie nie powiodło się",
+                "upload_failed": "Nie udało się przesłać",
+                "can_not_recognize_this_media_attachment": "Nie można rozpoznać tego załącznika",
+                "attachment_too_large": "Załącznik jest zbyt duży",
+                "compressing_state": "Kompresja...",
+                "server_processing_state": "Przetwarzanie..."
             },
             "poll": {
-                "title": "Poll",
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
+                "title": "Ankieta",
+                "duration_time": "Czas trwania: %s",
+                "thirty_minutes": "30 minutach",
+                "one_hour": "Godzinie",
+                "six_hours": "6 Godzinach",
+                "one_day": "Dobie",
                 "three_days": "3 Days",
                 "seven_days": "7 Days",
                 "option_number": "Option %ld",
