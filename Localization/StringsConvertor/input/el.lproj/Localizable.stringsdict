@@ -152,9 +152,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 αγαπημένο</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld αγαπημένα</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -168,9 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 αναδημοσίευση</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld αναδημοσιεύσεις</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
