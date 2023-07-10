@@ -104,9 +104,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>ανάρτηση</string>
         <key>other</key>
-        <string>posts</string>
+        <string>αναρτήσεις</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -120,9 +120,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 πολυμέσο</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld πολυμέσα</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -136,9 +136,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 ανάρτηση</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld αναρτήσεις</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
