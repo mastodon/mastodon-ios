@@ -37,7 +37,7 @@ final class HomeTimelineNavigationBarTitleViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.networkErrorCount.value += self.networkErrorCount.value + 1
+                self.networkErrorCount.value = self.networkErrorCount.value + 1
             }
             .store(in: &disposeBag)
         
