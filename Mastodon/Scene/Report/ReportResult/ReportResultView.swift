@@ -75,9 +75,15 @@ struct ReportResultView: View {
                         action: {
                             viewModel.followActionPublisher.send()
                         },
-                        title: viewModel.relationshipViewModel.isFollowing ? L10n.Scene.Report.StepFinal.unfollow : L10n.Scene.Report.StepFinal.unfollowed,
+                        title: viewModel.relationshipViewModel.isFollowing
+                        ? L10n.Scene.Report.StepFinal.unfollow
+                        : (viewModel.wasFollowing
+                           ? L10n.Scene.Report.StepFinal.unfollowed
+                           : L10n.Scene.Report.StepFinal.notFollowing),
                         isBusy: viewModel.isRequestFollow
                     )
+                    .disabled(!viewModel.wasFollowing)
+                    .opacity(viewModel.wasFollowing ? 1 : 0.5)
                 }
                 
                 // Mute

@@ -150,15 +150,7 @@ extension ReportViewController: ReportStatusViewControllerDelegate {
 
 // MARK: - ReportSupplementaryViewControllerDelegate
 extension ReportViewController: ReportSupplementaryViewControllerDelegate {
-    func reportSupplementaryViewController(_ viewController: ReportSupplementaryViewController, skipButtonDidPressed button: UIButton) {
-        report()
-    }
-    
-    func reportSupplementaryViewController(_ viewController: ReportSupplementaryViewController, nextButtonDidPressed button: UIButton) {
-        report()
-    }
-    
-    private func report() {
+    func reportSupplementaryViewController(_ viewController: ReportSupplementaryViewController, submitButtonDidPressed button: UIButton) {
         Task { @MainActor in
             do {
                 let _ = try await viewModel.report()

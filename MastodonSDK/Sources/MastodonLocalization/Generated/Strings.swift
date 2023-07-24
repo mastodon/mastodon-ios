@@ -182,6 +182,8 @@ public enum L10n {
         public static let signIn = L10n.tr("Localizable", "Common.Controls.Actions.SignIn", fallback: "Log in")
         /// Skip
         public static let skip = L10n.tr("Localizable", "Common.Controls.Actions.Skip", fallback: "Skip")
+        /// Submit
+        public static let submit = L10n.tr("Localizable", "Common.Controls.Actions.Submit", fallback: "Submit")
         /// Take Photo
         public static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto", fallback: "Take Photo")
         /// Try Again
@@ -1150,8 +1152,8 @@ public enum L10n {
       public static let step1 = L10n.tr("Localizable", "Scene.Report.Step1", fallback: "Step 1 of 2")
       /// Step 2 of 2
       public static let step2 = L10n.tr("Localizable", "Scene.Report.Step2", fallback: "Step 2 of 2")
-      /// Type or paste additional comments
-      public static let textPlaceholder = L10n.tr("Localizable", "Scene.Report.TextPlaceholder", fallback: "Type or paste additional comments")
+      /// Type or paste additional comments (optional)
+      public static let textPlaceholder = L10n.tr("Localizable", "Scene.Report.TextPlaceholder", fallback: "Type or paste additional comments (optional)")
       /// Report %@
       public static func title(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Report.Title", String(describing: p1), fallback: "Report %@")
@@ -1169,6 +1171,8 @@ public enum L10n {
         public static func muteUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Report.StepFinal.MuteUser", String(describing: p1), fallback: "Mute %@")
         }
+        /// Not Following
+        public static let notFollowing = L10n.tr("Localizable", "Scene.Report.StepFinal.NotFollowing", fallback: "Not Following")
         /// They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.
         public static let theyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked = L10n.tr("Localizable", "Scene.Report.StepFinal.TheyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked", fallback: "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.")
         /// Unfollow

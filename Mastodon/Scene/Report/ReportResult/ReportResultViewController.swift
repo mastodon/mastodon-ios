@@ -82,7 +82,7 @@ extension ReportResultViewController {
             .store(in: &observations)
         
         
-        navigationActionView.nextButton.addTarget(self, action: #selector(ReportSupplementaryViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
+        navigationActionView.nextButton.addTarget(self, action: #selector(ReportSupplementaryViewController.submitButtonDidPressed(_:)), for: .touchUpInside)
         
         viewModel.followActionPublisher
             .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: false)

@@ -120,8 +120,8 @@ extension ReportViewModel {
             // the user comment is essential step in report flow
             // only check isSkip or not
             let comment: String? = {
-                let _comment = self.reportSupplementaryViewModel.isSkip ? nil : self.reportSupplementaryViewModel.commentContext.comment
-                if let comment = _comment, !comment.isEmpty {
+                let comment = self.reportSupplementaryViewModel.commentContext.comment
+                if !comment.isEmpty {
                     return comment
                 } else {
                     return nil

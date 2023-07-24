@@ -37,6 +37,8 @@ class ReportResultViewModel: ObservableObject {
     @Published var isRequestMute = false
     @Published var isRequestBlock = false
     
+    @Published var wasFollowing = false
+
     // output
     @Published var avatarURL: URL?
     @Published var username: String = ""
@@ -63,6 +65,7 @@ class ReportResultViewModel: ObservableObject {
             guard let me = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user else { return }
             self.relationshipViewModel.user = user
             self.relationshipViewModel.me = me
+            self.wasFollowing = self.relationshipViewModel.isFollowing
             
             self.avatarURL = user.avatarImageURL()
             self.username = user.acctWithDomain

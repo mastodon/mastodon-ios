@@ -21,7 +21,6 @@ class ReportSupplementaryViewModel {
     let user: ManagedObjectRecord<MastodonUser>
     let commentContext = ReportItem.CommentContext()
     
-    @Published var isSkip = false
     @Published var isBusy = false
     
     // output
