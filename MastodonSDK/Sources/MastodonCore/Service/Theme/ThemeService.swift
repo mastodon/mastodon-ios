@@ -47,8 +47,9 @@ extension ThemeService {
     public func apply(theme: Theme) {
         // set navigation bar appearance
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = theme.navigationBarBackgroundColor
+        let translucentColor = theme.navigationBarBackgroundColor.withAlphaComponent(0.99)
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = translucentColor
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
@@ -71,7 +72,8 @@ extension ThemeService {
         tabBarAppearance.inlineLayoutAppearance = tabBarItemAppearance
         tabBarAppearance.compactInlineLayoutAppearance = tabBarItemAppearance
 
-        tabBarAppearance.backgroundColor = theme.tabBarBackgroundColor
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = translucentColor
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().barTintColor = theme.tabBarBackgroundColor
