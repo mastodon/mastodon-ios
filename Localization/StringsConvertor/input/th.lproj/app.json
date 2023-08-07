@@ -834,7 +834,7 @@
             "title": "แท็กที่ติดตาม",
             "header": {
                 "posts": "โพสต์",
-                "participants": "ผู้เข้าร่วม",
+                "participants": "ผู้มีส่วนร่วม",
                 "posts_today": "โพสต์วันนี้"
             },
             "actions": {
