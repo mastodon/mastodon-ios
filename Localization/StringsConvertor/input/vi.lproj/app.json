@@ -104,7 +104,7 @@
                 "unfollow": "Bỏ theo dõi %s"
             },
             "tabs": {
-                "home": "Bảng tin",
+                "home": "Trang chính",
                 "search_and_explore": "Tìm và Khám Phá",
                 "notifications": "Thông báo",
                 "profile": "Trang hồ sơ",
@@ -150,7 +150,7 @@
                 "link_via_user": "%s bởi %s",
                 "poll": {
                     "vote": "Bình chọn",
-                    "closed": "Kết thúc"
+                    "closed": "Đóng"
                 },
                 "meta_entity": {
                     "url": "Link: %s",
@@ -449,7 +449,7 @@
             }
         },
         "home_timeline": {
-            "title": "Bảng tin",
+            "title": "Trang chính",
             "navigation_bar_state": {
                 "offline": "Ngoại tuyến",
                 "new_posts": "Đọc những tút mới",
