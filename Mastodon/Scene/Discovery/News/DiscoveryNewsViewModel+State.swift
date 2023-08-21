@@ -170,9 +170,13 @@ extension DiscoveryNewsViewModel.State {
                     viewModel.links = links
                     viewModel.didLoadLatest.send()
                 } catch {
-                    if let error = error as? Mastodon.API.Error, error.httpResponseStatus.code == 404 {
-                        viewModel.isServerSupportEndpoint = false
-                        await enter(state: NoMore.self)
+                    if let error = error as? Mastodon.API.Error {
+                        if error.httpResponseStatus == .notFound {
+                            viewModel.isServerSupportEndpoint = false
+                            await enter(state: NoMore.self)
+                        } else if error.httpResponseStatus == .unauthorized {
+                            await enter(state: NoMore.self)
+                        }
                     } else {
                         await enter(state: Fail.self)
                     }

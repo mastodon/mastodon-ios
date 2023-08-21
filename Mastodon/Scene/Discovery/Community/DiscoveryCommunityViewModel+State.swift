@@ -8,6 +8,7 @@
 import Foundation
 import GameplayKit
 import MastodonSDK
+import enum NIOHTTP1.HTTPResponseStatus
 
 extension DiscoveryCommunityViewModel {
     class State: GKState {
@@ -161,7 +162,12 @@ extension DiscoveryCommunityViewModel.State {
                     viewModel.didLoadLatest.send()
                     
                 } catch {
-                    await enter(state: Fail.self)
+                    if let error = error as? Mastodon.API.Error,
+                       [HTTPResponseStatus.unauthorized, .notFound].contains(error.httpResponseStatus) {
+                        await enter(state: NoMore.self)
+                    } else {
+                        await enter(state: Fail.self)
+                    }
                 }
             }   // end Task
         }   // end func
