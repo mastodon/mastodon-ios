@@ -51,11 +51,6 @@ final class DiscoveryNewsViewModel {
             await checkServerEndpoint()
         }   // end Task
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 
@@ -64,7 +59,8 @@ extension DiscoveryNewsViewModel {
         do {
             _ = try await context.apiService.trendLinks(
                 domain: authContext.mastodonAuthenticationBox.domain,
-                query: .init(offset: nil, limit: nil)
+                query: .init(offset: nil, limit: nil),
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
         } catch let error as Mastodon.API.Error where error.httpResponseStatus.code == 404 {
             isServerSupportEndpoint = false

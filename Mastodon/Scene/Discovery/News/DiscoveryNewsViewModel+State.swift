@@ -35,10 +35,6 @@ extension DiscoveryNewsViewModel {
         func enter(state: State.Type) {
             stateMachine?.enter(state)
         }
-        
-        deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
-        }
     }
 }
 
@@ -86,10 +82,9 @@ extension DiscoveryNewsViewModel.State {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let _ = viewModel, let stateMachine = stateMachine else { return }
-            
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: retry loading 3s later…", ((#file as NSString).lastPathComponent), #line, #function)
+
+            // try reloading three seconds later
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: retry loading", ((#file as NSString).lastPathComponent), #line, #function)
                 stateMachine.enter(Loading.self)
             }
         }
@@ -144,7 +139,8 @@ extension DiscoveryNewsViewModel.State {
                         query: Mastodon.API.Trends.StatusQuery(
                             offset: offset,
                             limit: nil
-                        )
+                        ),
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     let newOffset: Int? = {
                         guard let offset = response.link?.offset else { return nil }
@@ -174,7 +170,6 @@ extension DiscoveryNewsViewModel.State {
                     viewModel.links = links
                     viewModel.didLoadLatest.send()
                 } catch {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch news fail: \(error.localizedDescription)")
                     if let error = error as? Mastodon.API.Error, error.httpResponseStatus.code == 404 {
                         viewModel.isServerSupportEndpoint = false
                         await enter(state: NoMore.self)

@@ -145,7 +145,8 @@ extension DiscoveryPostsViewModel.State {
                         query: Mastodon.API.Trends.StatusQuery(
                             offset: offset,
                             limit: nil
-                        )
+                        ),
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     let newOffset: Int? = {
                         guard let offset = response.link?.offset else { return nil }

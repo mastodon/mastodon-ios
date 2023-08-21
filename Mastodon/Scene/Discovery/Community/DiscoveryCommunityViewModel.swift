@@ -16,8 +16,6 @@ import MastodonCore
 
 final class DiscoveryCommunityViewModel {
     
-    let logger = Logger(subsystem: "DiscoveryCommunityViewModel", category: "ViewModel")
-    
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -54,9 +52,4 @@ final class DiscoveryCommunityViewModel {
         )
         // end init
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
