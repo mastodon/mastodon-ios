@@ -480,8 +480,6 @@ extension ComposeContentViewModel {
         )
         .receive(on: DispatchQueue.main)
         .map { contentWarning, content, hasPoll, attachments in
-            let canDiscardContentWarning = contentWarning.isEmpty
-
             let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
             let initialContent = self.initialContent.trimmingCharacters(in: .whitespacesAndNewlines)
             let canDiscardContent = trimmedContent.isEmpty || trimmedContent == initialContent

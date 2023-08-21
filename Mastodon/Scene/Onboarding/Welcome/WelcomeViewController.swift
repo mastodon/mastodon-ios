@@ -333,7 +333,7 @@ extension WelcomeViewController {
                 self.authenticationViewModel.isAuthenticating.send(false)
 
                 switch completion {
-                case .failure(let error ):
+                case .failure(_):
                     guard let randomServer = self.viewModel.pickRandomDefaultServer() else { return }
 
                     self.viewModel.randomDefaultServer = randomServer
