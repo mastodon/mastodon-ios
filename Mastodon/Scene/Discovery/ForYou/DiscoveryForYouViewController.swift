@@ -5,16 +5,13 @@
 //  Created by MainasuK on 2022-4-14.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonUI
 import MastodonCore
 
 final class DiscoveryForYouViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
-    let logger = Logger(subsystem: "DiscoveryForYouViewController", category: "ViewController")
-    
+
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -33,11 +30,6 @@ final class DiscoveryForYouViewController: UIViewController, NeedsDependency, Me
     }()
     
     let refreshControl = RefreshControl()
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension DiscoveryForYouViewController {
@@ -111,7 +103,6 @@ extension DiscoveryForYouViewController: AuthContextProvider {
 extension DiscoveryForYouViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
         guard let user = record.object(in: context.managedObjectContext) else { return }
         let profileViewModel = CachedProfileViewModel(

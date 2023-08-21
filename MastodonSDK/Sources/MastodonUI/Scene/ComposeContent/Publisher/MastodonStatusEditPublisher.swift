@@ -5,6 +5,7 @@ import CoreData
 import CoreDataStack
 import MastodonCore
 import MastodonSDK
+import Combine
 
 public final class MastodonEditStatusPublisher: NSObject, ProgressReporting {
 
@@ -77,8 +78,6 @@ extension MastodonEditStatusPublisher: StatusPublisher {
         api: APIService,
         authContext: AuthContext
     ) async throws -> StatusPublishResult {
-        let idempotencyKey = UUID().uuidString
-
         let publishStatusTaskStartDelayWeight: Int64 = 20
         let publishStatusTaskStartDelayCount: Int64 = publishStatusTaskStartDelayWeight
 

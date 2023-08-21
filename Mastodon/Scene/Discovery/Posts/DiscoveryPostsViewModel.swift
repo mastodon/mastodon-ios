@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-12.
 //
 
-import os.log
 import UIKit
 import Combine
 import GameplayKit
@@ -56,11 +55,6 @@ final class DiscoveryPostsViewModel {
             await checkServerEndpoint()
         }   // end Task
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension DiscoveryPostsViewModel {
@@ -68,7 +62,8 @@ extension DiscoveryPostsViewModel {
         do {
             _ = try await context.apiService.trendStatuses(
                 domain: authContext.mastodonAuthenticationBox.domain,
-                query: .init(offset: nil, limit: nil)
+                query: .init(offset: nil, limit: nil),
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
         } catch let error as Mastodon.API.Error where error.httpResponseStatus.code == 404 {
             isServerSupportEndpoint = false
