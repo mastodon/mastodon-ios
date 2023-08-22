@@ -188,12 +188,13 @@ extension SearchDetailViewController {
             .removeDuplicates()
             .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: true)
             .sink { [weak self] searchText in
-                guard let self = self else { return }
-                guard let searchResultViewController = self.currentViewController as? SearchResultViewController else {
+                guard let self = self,
+                      let searchResultViewController = self.currentViewController as? SearchResultViewController
+                      /* searchText.length >= 3 */ else {
                     return
                 }
-                self.logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): trigger search \(searchText)")
-                searchResultViewController.viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
+
+              searchResultViewController.viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
 
@@ -310,12 +311,10 @@ extension SearchDetailViewController: UISearchBarDelegate {
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): searchTest \(searchText)")
         viewModel.searchText.value = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
 
         // dismiss or pop
         if isModal {
@@ -325,6 +324,14 @@ extension SearchDetailViewController: UISearchBarDelegate {
         }
     }
 
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchResultViewController = self.currentViewController as? SearchResultViewController else {
+            return
+        }
+
+        searchResultViewController.viewModel.forceSearch = true
+        searchResultViewController.viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
+    }
 }
 
 // MARK: - PageboyViewControllerDataSource

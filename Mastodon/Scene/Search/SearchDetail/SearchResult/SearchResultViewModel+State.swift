@@ -24,21 +24,10 @@ extension SearchResultViewModel {
             self.viewModel = viewModel
         }
 
-        override func didEnter(from previousState: GKState?) {
-            super.didEnter(from: previousState)
-            
-            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
-            let to = String(describing: self)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
-        }
         
         @MainActor
         func enter(state: State.Type) {
             stateMachine?.enter(state)
-        }
-        
-        deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }
@@ -47,7 +36,7 @@ extension SearchResultViewModel.State {
     class Initial: SearchResultViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
-            return stateClass == Loading.self && !viewModel.searchText.value.isEmpty
+            return stateClass == Loading.self && (viewModel.searchText.value.isEmpty == false)
         }
     }
 
@@ -71,7 +60,7 @@ extension SearchResultViewModel.State {
 
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel, let stateMachine = stateMachine else { return }
 
             let searchText = viewModel.searchText.value
             let searchType = viewModel.searchScope.searchType
@@ -90,6 +79,13 @@ extension SearchResultViewModel.State {
                 stateMachine.enter(Fail.self)
                 return
             }
+
+            guard (viewModel.forceSearch || searchText.length > 3) else {
+              stateMachine.enter(NoMore.self)
+              return
+            }
+
+            viewModel.forceSearch = false
 
             if searchText != previousSearchText {
                 previousSearchText = searchText
@@ -110,14 +106,8 @@ extension SearchResultViewModel.State {
             let query = Mastodon.API.V2.Search.Query(
                 q: searchText,
                 type: searchType,
-                accountID: nil,
-                maxID: nil,
-                minID: nil,
-                excludeUnreviewed: nil,
                 resolve: true,
-                limit: nil,
-                offset: _offset,
-                following: nil
+                offset: _offset
             )
 
             let id = UUID()
