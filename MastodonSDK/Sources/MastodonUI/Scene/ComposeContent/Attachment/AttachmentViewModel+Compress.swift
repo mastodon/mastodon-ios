@@ -11,9 +11,10 @@ import AVKit
 import MastodonCore
 import SessionExporter
 import Nuke
+import MastodonSDK
 
 extension AttachmentViewModel {
-    func compressVideo(url: URL) async throws -> URL? {
+    func compressVideo(url: URL, mediaAttachmentSettings: Mastodon.Entity.Instance.Configuration.MediaAttachments? = nil) async throws -> URL? {
         let urlAsset = AVURLAsset(url: url)
         
         guard let track = urlAsset.tracks(withMediaType: .video).first else {

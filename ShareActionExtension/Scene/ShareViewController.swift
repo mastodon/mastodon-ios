@@ -279,22 +279,30 @@ extension ShareViewController {
         }
 
         if let movieProvider = _movieProvider {
+
+            let mediaAttachmentSettings = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.instance?.configurationV2?.mediaAttachments
+
             let attachmentViewModel = AttachmentViewModel(
                 api: context.apiService,
                 authContext: authContext,
                 input: .itemProvider(movieProvider),
                 sizeLimit: .init(image: nil, video: nil),
-                delegate: composeContentViewModel
+                delegate: composeContentViewModel,
+                mediaAttachmentSettings: mediaAttachmentSettings
             )
             composeContentViewModel.attachmentViewModels.append(attachmentViewModel)
         } else if !imageProviders.isEmpty {
+
+            let mediaAttachmentSettings = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.instance?.configurationV2?.mediaAttachments
+
             let attachmentViewModels = imageProviders.map { provider in
                 AttachmentViewModel(
                     api: context.apiService,
                     authContext: authContext,
                     input: .itemProvider(provider),
                     sizeLimit: .init(image: nil, video: nil),
-                    delegate: composeContentViewModel
+                    delegate: composeContentViewModel,
+                    mediaAttachmentSettings: mediaAttachmentSettings
                 )
             }
             composeContentViewModel.attachmentViewModels.append(contentsOf: attachmentViewModels)

@@ -12,6 +12,7 @@ import Combine
 import PhotosUI
 import MastodonCore
 import NaturalLanguage
+import MastodonSDK
 
 public final class ComposeContentViewController: UIViewController {
     
@@ -480,6 +481,7 @@ extension ComposeContentViewController: UITableViewDelegate { }
 extension ComposeContentViewController: PHPickerViewControllerDelegate {
     public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true, completion: nil)
+        let mediaAttachmentSettings = viewModel.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: viewModel.context.managedObjectContext)?.instance?.configurationV2?.mediaAttachments
 
         let attachmentViewModels: [AttachmentViewModel] = results.map { result in
             AttachmentViewModel(
@@ -487,7 +489,8 @@ extension ComposeContentViewController: PHPickerViewControllerDelegate {
                 authContext: viewModel.authContext,
                 input: .pickerResult(result),
                 sizeLimit: viewModel.sizeLimit,
-                delegate: viewModel
+                delegate: viewModel,
+                mediaAttachmentSettings: mediaAttachmentSettings
             )
         }
         viewModel.attachmentViewModels += attachmentViewModels
@@ -501,12 +504,15 @@ extension ComposeContentViewController: UIImagePickerControllerDelegate & UINavi
 
         guard let image = info[.originalImage] as? UIImage else { return }
 
+        let mediaAttachmentSettings = viewModel.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: viewModel.context.managedObjectContext)?.instance?.configurationV2?.mediaAttachments
+
         let attachmentViewModel = AttachmentViewModel(
             api: viewModel.context.apiService,
             authContext: viewModel.authContext,
             input: .image(image),
             sizeLimit: viewModel.sizeLimit,
-            delegate: viewModel
+            delegate: viewModel,
+            mediaAttachmentSettings: mediaAttachmentSettings
         )
         viewModel.attachmentViewModels += [attachmentViewModel]
     }
@@ -522,12 +528,15 @@ extension ComposeContentViewController: UIDocumentPickerDelegate {
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
 
+        let mediaAttachmentSettings = viewModel.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: viewModel.context.managedObjectContext)?.instance?.configurationV2?.mediaAttachments
+
         let attachmentViewModel = AttachmentViewModel(
             api: viewModel.context.apiService,
             authContext: viewModel.authContext,
             input: .url(url),
             sizeLimit: viewModel.sizeLimit,
-            delegate: viewModel
+            delegate: viewModel,
+            mediaAttachmentSettings: mediaAttachmentSettings
         )
         viewModel.attachmentViewModels += [attachmentViewModel]
     }

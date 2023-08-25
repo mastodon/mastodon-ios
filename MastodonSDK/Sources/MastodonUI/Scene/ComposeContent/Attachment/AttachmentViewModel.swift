@@ -49,6 +49,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     public let authContext: AuthContext
     public let input: Input
     public let sizeLimit: SizeLimit
+    private let mediaAttachmentSettings: Mastodon.Entity.Instance.Configuration.MediaAttachments?
     @Published var caption = ""
     @Published public private(set) var isCaptionEditable = true
 
@@ -79,12 +80,14 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         authContext: AuthContext,
         input: Input,
         sizeLimit: SizeLimit,
-        delegate: AttachmentViewModelDelegate
+        delegate: AttachmentViewModelDelegate,
+        mediaAttachmentSettings: Mastodon.Entity.Instance.Configuration.MediaAttachments?
     ) {
         self.api = api
         self.authContext = authContext
         self.input = input
         self.sizeLimit = sizeLimit
+        self.mediaAttachmentSettings = mediaAttachmentSettings
         self.delegate = delegate
         super.init()
         // end init
@@ -158,7 +161,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                 case .video(let fileURL, let mimeType):
                     self.output = output
                     self.update(uploadState: .compressing)
-                    guard let compressedFileURL = try await compressVideo(url: fileURL) else {
+                    guard let compressedFileURL = try await compressVideo(url: fileURL, mediaAttachmentSettings: mediaAttachmentSettings) else {
                         assertionFailure("Unable to compress video")
                         return
                     }
