@@ -68,7 +68,7 @@
                 "done": "Xong",
                 "confirm": "Xác nhận",
                 "continue": "Tiếp tục",
-                "compose": "Viết tút",
+                "compose": "Soạn tút",
                 "cancel": "Hủy bỏ",
                 "discard": "Bỏ qua",
                 "try_again": "Thử lại",
@@ -116,7 +116,7 @@
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Chuyển thành %s",
-                    "compose_new_post": "Viết tút mới",
+                    "compose_new_post": "Soạn tút mới",
                     "show_favorites": "Hiện lượt thích",
                     "open_settings": "Mở cài đặt"
                 },
@@ -124,7 +124,7 @@
                     "previous_status": "Tút trước",
                     "next_status": "Tút sau",
                     "open_status": "Mở tút",
-                    "open_author_profile": "Mở trang người viết tút",
+                    "open_author_profile": "Mở trang người đăng tút",
                     "open_reblogger_profile": "Mở trang người đăng lại tút",
                     "reply_status": "Trả lời tút",
                     "toggle_reblog": "Chọn đăng lại tút",
@@ -467,7 +467,7 @@
         },
         "compose": {
             "title": {
-                "new_post": "Viết tút",
+                "new_post": "Soạn tút",
                 "new_reply": "Viết trả lời",
                 "edit_post": "Sửa tút"
             },
