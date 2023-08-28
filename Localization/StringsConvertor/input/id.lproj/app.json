@@ -15,10 +15,6 @@
                 "title": "Gagal Voting",
                 "poll_ended": "Japat telah berakhir"
             },
-            "discard_post_content": {
-                "title": "Hapus Draf",
-                "message": "Konfirmasi untuk mengabaikan postingan yang dibuat."
-            },
             "publish_post_failure": {
                 "title": "Gagal Mempublikasikan",
                 "message": "Gagal mempublikasikan postingan.\nMohon periksa koneksi Internet Anda.",
@@ -101,7 +97,11 @@
                     "title": "Terjemahkan dari %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Beranda",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Login",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Temukan Orang untuk Diikuti",
-            "follow_explain": "Ketika Anda mengikuti seseorang, Anda akan melihat postingan mereka di beranda Anda."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

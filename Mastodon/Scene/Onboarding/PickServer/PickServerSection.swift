@@ -65,7 +65,7 @@ extension PickServerSection {
         }()
         if let proxiedThumbnail = server.proxiedThumbnail, let thumbnailUrl = URL(string: proxiedThumbnail) {
             cell.thumbnailImageView.af.setImage(withURL: thumbnailUrl, completion: { _ in
-                OperationQueue.main.addOperation {
+                DispatchQueue.main.async {
                     cell.thumbnailImageView.isHidden = false
                 }
             })

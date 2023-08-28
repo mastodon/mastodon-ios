@@ -120,7 +120,7 @@ extension MetaLabel {
             
         case .autoCompletion:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
-            textColor = Asset.Colors.brand.color
+            textColor = Asset.Colors.Brand.blurple.color
             
         case .accountListName:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
@@ -148,7 +148,7 @@ extension MetaLabel {
         ]
         linkAttributes = [
             .font: font,
-            .foregroundColor: Asset.Colors.brand.color
+            .foregroundColor: Asset.Colors.Brand.blurple.color
         ]
     }
 

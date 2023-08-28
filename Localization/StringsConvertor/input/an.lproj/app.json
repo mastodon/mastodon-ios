@@ -15,10 +15,6 @@
                 "title": "Voto fallido",
                 "poll_ended": "La enquesta ha rematau"
             },
-            "discard_post_content": {
-                "title": "Descartar borrador",
-                "message": "Confirma pa descartar lo conteniu d'a publicación."
-            },
             "publish_post_failure": {
                 "title": "Error de publicación",
                 "message": "No s'ha puesto publicar la publicación. Per favor, revise la suya connexión a internet.",
@@ -101,7 +97,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Inicio",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Iniciar sesión",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Troba Chent a la quala Seguir",
-            "follow_explain": "Quan sigas a belún veyerás las suyas publicacions en a tuya pachina d'inicio."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

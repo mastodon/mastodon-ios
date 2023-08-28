@@ -21,7 +21,7 @@ final class SidebarListContentView: UIView, UIContentView {
     let avatarButton: CircleAvatarButton = {
         let button = CircleAvatarButton()
         button.borderWidth = 2
-        button.borderColor = Asset.Colors.brand.color
+        button.borderColor = Asset.Colors.Brand.blurple.color
         return button
     }()
     private let accessoryImageView = UIImageView(image: nil)
@@ -107,7 +107,7 @@ extension SidebarListContentView {
         imageView.image = item.isActive ? item.activeImage : item.image.withRenderingMode(.alwaysTemplate)
         accessoryImageView.image = item.accessoryImage
         accessoryImageView.isHidden = item.accessoryImage == nil
-        accessoryImageView.tintColor = item.isActive ? Asset.Colors.brand.color : .secondaryLabel
+        accessoryImageView.tintColor = item.isActive ? Asset.Colors.Brand.blurple.color : .secondaryLabel
         avatarButton.avatarImageView.setImage(
             url: item.imageURL,
             placeholder: avatarButton.avatarImageView.image ?? .placeholder(color: .systemFill),  // reuse to avoid blink

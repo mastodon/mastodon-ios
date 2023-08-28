@@ -22,6 +22,17 @@ extension DataSourceFacade {
             if let userObject = user.object(in: dependency.context.managedObjectContext) {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds.append(userObject.id)
             }
+
+        case .request:
+            try await DataSourceFacade.responseToUserFollowAction(
+                dependency: dependency,
+                user: user
+            )
+
+            if let userObject = user.object(in: dependency.context.managedObjectContext) {
+                dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followRequestedUserIDs.append(userObject.id)
+            }
+
         case .unfollow:
             try await DataSourceFacade.responseToUserFollowAction(
                 dependency: dependency,
@@ -38,6 +49,16 @@ extension DataSourceFacade {
 
             if let userObject = user.object(in: dependency.context.managedObjectContext) {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.blockedUserIds.append(userObject.id)
+            }
+            
+        case .pending:
+            try await DataSourceFacade.responseToUserFollowAction(
+                dependency: dependency,
+                user: user
+            )
+
+            if let userObject = user.object(in: dependency.context.managedObjectContext) {
+                dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followRequestedUserIDs.removeAll(where: { $0 == userObject.id })
             }
         case .none, .loading:
             break //no-op

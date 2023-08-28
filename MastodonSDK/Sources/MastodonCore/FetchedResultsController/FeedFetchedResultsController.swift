@@ -83,11 +83,6 @@ final public class FeedFetchedResultsController: NSObject {
             }
             .store(in: &disposeBag)
     }
-    
-    deinit {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-    }
-    
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
@@ -96,7 +91,6 @@ extension FeedFetchedResultsController: NSFetchedResultsControllerDelegate {
         _ controller: NSFetchedResultsController<NSFetchRequestResult>,
         didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference
     ) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<String, NSManagedObjectID>
         self._objectIDs.send(snapshot.itemIdentifiers)
     }

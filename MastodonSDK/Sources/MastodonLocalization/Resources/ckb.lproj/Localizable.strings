@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "تکایە دواتر هەوڵ بدەوە.";
 "Common.Alerts.DeletePost.Message" = "دڵنیایت دەتەوێت ئەم پۆستە بسڕیتەوە؟";
 "Common.Alerts.DeletePost.Title" = "بیسڕەوە";
-"Common.Alerts.DiscardPostContent.Message" = "دڵنیا ببەوە بۆ وازهێنان لە ناوەڕۆکەت.";
-"Common.Alerts.DiscardPostContent.Title" = "ڕەشنووس هەڵمەگرە";
 "Common.Alerts.EditProfileFailure.Message" = "ناتوانرێت دەستکاریی پرۆفایل بکرێت. تکایە دووبارە هەوڵ بدەوە.";
 "Common.Alerts.EditProfileFailure.Title" = "نەتوانرا دەستکاریی پرۆفایل بکرێت";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "ناتوانیت زیاتر لە یەک ڤیدیۆی پێوە بلکێنیت.";
@@ -30,6 +28,7 @@
 "Common.Controls.Actions.Add" = "زیادی بکە";
 "Common.Controls.Actions.Back" = "بگەڕێوە";
 "Common.Controls.Actions.BlockDomain" = "%@ ئاستەنگ بکە";
+"Common.Controls.Actions.Bookmark" = "Bookmark";
 "Common.Controls.Actions.Cancel" = "هەڵوەشاندنەوه";
 "Common.Controls.Actions.Compose" = "پۆست بکە";
 "Common.Controls.Actions.Confirm" = "پشتڕاستی بکەوە";
@@ -42,6 +41,7 @@
 "Common.Controls.Actions.Edit" = "دەستکاری";
 "Common.Controls.Actions.EditPost" = "Edit";
 "Common.Controls.Actions.FindPeople" = "خەڵک بدۆزەوە";
+"Common.Controls.Actions.Follow" = "Follow %@";
 "Common.Controls.Actions.ManuallySearch" = "خۆت بگەڕێ";
 "Common.Controls.Actions.Next" = "دواتر";
 "Common.Controls.Actions.Ok" = "باشە";
@@ -51,6 +51,7 @@
 "Common.Controls.Actions.Preview" = "پێشبینین";
 "Common.Controls.Actions.Previous" = "پێشتر";
 "Common.Controls.Actions.Remove" = "لایبە";
+"Common.Controls.Actions.RemoveBookmark" = "Remove Bookmark";
 "Common.Controls.Actions.Reply" = "وەڵامی بدەوە";
 "Common.Controls.Actions.ReportUser" = "سکاڵا لە %@ بکە";
 "Common.Controls.Actions.Save" = "هەڵی بگرە";
@@ -67,6 +68,7 @@
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "هەوڵ بدەوە";
 "Common.Controls.Actions.UnblockDomain" = "%@ ئاستەنگ مەکە";
+"Common.Controls.Actions.Unfollow" = "Unfollow %@";
 "Common.Controls.Friendship.Block" = "ئاستەنگی بکە";
 "Common.Controls.Friendship.BlockDomain" = "%@ ئاستەنگ بکە";
 "Common.Controls.Friendship.BlockUser" = "%@ ئاستەنگ بکە";
@@ -516,8 +518,8 @@
 "Scene.Settings.Section.SpicyZone.Signout" = "دەربچۆ";
 "Scene.Settings.Section.SpicyZone.Title" = "ناوچەی گەرم";
 "Scene.Settings.Title" = "رێکخستنەکان";
-"Scene.SuggestionAccount.FollowExplain" = "کاتێک شوێنی یەکێک دەکەویت، پۆستەکانی دێتە بەردەمت.";
-"Scene.SuggestionAccount.Title" = "خەڵک بدۆزەوە";
+"Scene.SuggestionAccount.FollowAll" = "Follow all";
+"Scene.SuggestionAccount.Title" = "Popular on Mastodon";
 "Scene.Thread.BackTitle" = "پۆستەکە";
 "Scene.Thread.Title" = "پۆستی %@";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
@@ -525,7 +527,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
 "Scene.Welcome.Education.Servers.Title" = "What are servers?";
-"Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "بچۆ ژوورەوە";
 "Scene.Welcome.PickServer" = "Pick another server";

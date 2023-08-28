@@ -496,6 +496,14 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     cell.invalidateIntrinsicContentSize()
                 }
             }
+
+            if case .showOriginal = action {
+                DispatchQueue.main.async {
+                    if let cell = cell as? StatusTableViewCell {
+                        cell.statusView.revertTranslation()
+                    }
+                }
+            }
                         
             try await DataSourceFacade.responseToMenuAction(
                 dependency: self,

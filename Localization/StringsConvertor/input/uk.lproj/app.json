@@ -15,10 +15,6 @@
                 "title": "Помилка голосування",
                 "poll_ended": "Опитування завершено"
             },
-            "discard_post_content": {
-                "title": "Видалити чернетку",
-                "message": "Підтвердьте, щоб відхилити створений вміст публікації."
-            },
             "publish_post_failure": {
                 "title": "Помилка публікації",
                 "message": "Не вдалося опублікувати допис.\nПеревірте підключення до Інтернету.",
@@ -53,8 +49,8 @@
                 "message": "%s успішно очищено."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "Нотатка",
+                "message": "Не вдалося виконати переклад. Можливо, адміністратор не активував переклади на цьому сервері або цей сервер використовує стару версію Mastodon, де переклади ще не підтримуються.",
                 "button": "OK"
             }
         },
@@ -82,7 +78,7 @@
                 "sign_in": "Увійти",
                 "see_more": "Дивіться більше",
                 "preview": "Попередній перегляд",
-                "copy": "Copy",
+                "copy": "Копіювати",
                 "share": "Поділитись",
                 "share_user": "Поділитися %s",
                 "share_post": "Поділитися записом",
@@ -98,18 +94,22 @@
                 "settings": "Налаштування",
                 "delete": "Видалити",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Перекладено з %s",
+                    "unknown_language": "Невідомо"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Редагувати",
+                "bookmark": "Закладка",
+                "remove_bookmark": "Видалити Закладку",
+                "follow": "Стежити за %s",
+                "unfollow": "Не стежити за %s"
             },
             "tabs": {
                 "home": "Головна",
                 "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "notifications": "Сповіщення",
                 "profile": "Профіль",
                 "a11y": {
-                    "search": "Search",
+                    "search": "Пошук",
                     "explore": "Explore"
                 }
             },
@@ -147,7 +147,7 @@
                 "media_content_warning": "Натисніть будь-де, щоб показати більше",
                 "tap_to_reveal": "Натисніть, щоб відобразити",
                 "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s через %s",
                 "poll": {
                     "vote": "Проголосувати",
                     "closed": "Зачинено"
@@ -172,8 +172,8 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Натисніть та утримуйте, щоб показати меню",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "Репост",
+                        "unreblog": "Скасувати репост"
                     }
                 },
                 "tag": {
@@ -191,28 +191,28 @@
                     "direct": "Тільки згаданий користувач може бачити цю публікацію."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Show Original"
+                    "translated_from": "Перекладено з %s за допомогою %s",
+                    "unknown_language": "Невідомо",
+                    "unknown_provider": "Невідомо",
+                    "show_original": "Показати оригінал"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "accessibility_label": "%s, вкладення %d із %d",
+                    "expand_image_hint": "Розгортає зображення. Двічі торкніться та утримуйте, щоб показати дії",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_video_hint": "Показує відеоплеєр. Натисніть двічі і утримуйте, щоб показати дії"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s через %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Репости",
+                    "favorites_title": "Улюблені",
+                    "edit_history_title": "Редагувати історію",
+                    "edit_history_detail": "Останнє редагування %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Відредаговано %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Редагувати історію",
+                    "original_post": "Оригінальна публікація · %s"
                 }
             },
             "friendship": {
@@ -257,47 +257,47 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Нема підтвердженого посилання",
+            "followers_count": "%@ підписників"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Увійти",
-            "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
-            "pick_server": "Pick another server",
+            "learn_more": "Докладніше",
+            "join_default_server": "Приєднатися до %@",
+            "pick_server": "Обрати інший сервер",
             "separator": {
-                "or": "or"
+                "or": "або"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Вітаємо у Mastodon",
+                    "description": "Mastodon - це децентралізована соціальна мережа, тобто жодна компанія не контролює її. У її склад входить велика кількість незалежних серверів пов'язаних між собою."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Що таке сервери?",
+                    "description": "Кожен обліковий запис Mastodon розміщений на сервері - кожен сервер має особисті цінності, правила, й адмінів. Немає різниці, який ви оберете, ви можете слідкувати та спілкуватися з користувачами з будь-яких серверів."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Що таке Mastodon?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "З поверненням",
             "subtitle": "Увійдіть на сервері, де ви створили свій обліковий запис.",
             "server_search_field": {
                 "placeholder": "Введіть URL-адресу або адресу сервера"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Оберіть сервер",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Мова",
+                "signup_speed": "Швидкість реєстрації",
                 "category": {
                     "all": "Всі",
                     "all_accessiblity_description": "Категорія: Усі",
@@ -331,31 +331,31 @@
                 "no_results": "Жодних результатів"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Всі",
+                "instant": "Миттєва реєстрація",
+                "manually_reviewed": "Ручна перевірка"
             },
             "language": {
-                "all": "All"
+                "all": "Всі"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Пошук по імені або URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Ми підберемо сервер на основі вашої мови, якщо ви продовжите без вибору."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Приватність",
+            "description": "Хоча додаток Mastodon не збирає жодних даних, сервер, на якому ви зареєструвались, може мати іншу політику. Витратьте хвилину, щоб переглянути та погодитися з політикою конфіденційності Mastodon і політикою конфіденційності Вашого сервера.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Політика конфіденційності - Mastodon для iOS",
+                "server": "Політика конфіденційності - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Я погоджуюся"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Створить аккаунт",
             "input": {
                 "avatar": {
                     "delete": "Видалити"
@@ -373,7 +373,7 @@
                 },
                 "password": {
                     "placeholder": "пароль",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Підтвердіть Пароль",
                     "require": "Ваш пароль повинен містити як мінімум:",
                     "character_limit": "8 символів",
                     "accessibility": {
@@ -398,7 +398,7 @@
                 "reason": {
                     "blocked": "%s містить заборонених провайдерів email",
                     "unreachable": "%s здається, не існує",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s вже зайняте. Як щодо:",
                     "reserved": "%s є зарезервованим ключовим словом",
                     "accepted": "%s має бути прийнято",
                     "blank": "%s необхідно",
@@ -422,30 +422,30 @@
             "terms_of_service": "умови використання",
             "privacy_policy": "політика конфіденційності",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Я погоджуюся"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Перевірте вхідні",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Натисніть на посилання, яке ми надіслали вам, щоб підтвердити %@. Ми чекатимемо прямо тут.",
             "button": {
                 "resend": "Повторно надіслати"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Перевірте свою пошту",
                 "description": "Перевірте правильність адреси електронної пошти, а також теку зі спамом, якщо ви ще не зробили цього.",
                 "resend_email": "Повторно надіслати лист"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Перевірте вашу поштову скриньку.",
                 "description": "Ми щойно надіслали вам електронного листа. Перевірте вашу спам теку, якщо ви не зробили цього.",
                 "mail": "Пошта",
                 "open_email_client": "Відкрити поштового клієнта"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Не отримали посилання?",
+                "resend_in": "Надіслати повторно (%@)",
+                "resend_now": "Надіслати ще раз."
             }
         },
         "home_timeline": {
@@ -462,14 +462,14 @@
             }
         },
         "suggestion_account": {
-            "title": "Знайти людей, аби підписатися",
-            "follow_explain": "Коли ви підпишетесь на когось, ви побачите його дописи у своїй домашній стрічці."
+            "title": "Популярне на Mastodon",
+            "follow_all": "Стежити за всіма"
         },
         "compose": {
             "title": {
                 "new_post": "Новий допис",
                 "new_reply": "Нова відповідь",
-                "edit_post": "Edit Post"
+                "edit_post": "Редагувати допис"
             },
             "media_selection": {
                 "camera": "Зробити фото",
@@ -493,7 +493,7 @@
                 "server_processing_state": "Обробка сервера..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Опитування",
                 "duration_time": "Тривалість: %s",
                 "thirty_minutes": "30 хвилин",
                 "one_hour": "1 Година",
@@ -504,10 +504,10 @@
                 "option_number": "Параметр %ld",
                 "the_poll_is_invalid": "Неприпустимий варіант опитування",
                 "the_poll_has_empty_option": "В опитуванні є порожній варіант",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Додати відповідь",
+                "remove_option": "Видалити відповідь",
+                "move_up": "Вище",
+                "move_down": "Нижче"
             },
             "content_warning": {
                 "placeholder": "Напишіть своє попередження тут..."
@@ -541,10 +541,10 @@
                 "select_visibility_entry": "Оберіть видимість - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "Мова допису",
+                "suggested": "Рекомендовані",
+                "recent": "Останні",
+                "other": "Інші мови…"
             }
         },
         "profile": {
@@ -552,16 +552,16 @@
                 "follows_you": "Підписаний(-на) на вас"
             },
             "dashboard": {
-                "my_posts": "posts",
+                "my_posts": "публікації",
                 "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers",
+                "my_followers": "підписники",
+                "other_posts": "публікації",
+                "other_following": "підписок",
+                "other_followers": "підписники",
                 "familiar_followers": "mutuals"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Приєднався",
                 "add_row": "Додати рядок",
                 "placeholder": {
                     "label": "Позначка",
@@ -674,7 +674,7 @@
             "intro": "Ось найбільш популярні дописи серед вашого серверу Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Вподобане"
         },
         "notification": {
             "title": {
@@ -831,15 +831,15 @@
             "title": "Закладки"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Відстежувані мітки",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "публікації",
+                "participants": "учасників",
+                "posts_today": "публікацій сьогодні"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Стежити",
+                "unfollow": "Не стежити"
             }
         }
     },
@@ -854,28 +854,28 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Підписники",
+            "configuration_description": "Показати кількість підписників.",
+            "title": "ПІДПИСНИКИ",
+            "followers_today": "%s підписників сьогодні"
         },
         "multiple_followers": {
             "configuration_display_name": "Multiple followers",
             "configuration_description": "Show number of followers for multiple accounts.",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "Інший підписник",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Останні підписники",
+            "configuration_description": "Показати останніх підписників.",
+            "title": "Останні підписники",
+            "last_update": "Останнє оновлення: %s"
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Хештеґ",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
@@ -886,7 +886,7 @@
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Таким чином буде виглядати пост з позначкою <a>#hashtag</a>. Виберіть будь-який <a>#hashtag</a> у налаштуваннях віджету."
             }
         }
     }

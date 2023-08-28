@@ -15,10 +15,6 @@
                 "title": "Vote Failure",
                 "poll_ended": "Kysely on päättynyt"
             },
-            "discard_post_content": {
-                "title": "Hylkää luonnos",
-                "message": "Confirm to discard composed post content."
-            },
             "publish_post_failure": {
                 "title": "Julkaiseminen epäonnistui",
                 "message": "Julkaisun julkaiseminen epäonnistui.\nTarkista internet-yhteytesi.",
@@ -101,7 +97,11 @@
                     "title": "Käännetty kielestä %s",
                     "unknown_language": "Tuntematon"
                 },
-                "edit_post": "Muokkaa"
+                "edit_post": "Muokkaa",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Koti",
@@ -257,15 +257,15 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Ei todennettua linkkiä",
+            "followers_count": "%@ seuraajaa"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Kirjaudu sisään",
             "learn_more": "Lue lisää",
-            "join_default_server": "Liity mastodon.social-palvelimelle",
+            "join_default_server": "Liity palvelimelle %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "tai"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Löydä tilejä seurattavaksi",
-            "follow_explain": "Kun seuraat jotakuta, näet hänen julkaisunsa kotisyötteessäsi."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -875,18 +875,18 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "display_name": "Aihetunniste",
+                "description": "Näyttää hiljattaisen julkaisun valitusta aihetunnisteesta."
             },
             "not_found": {
-                "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "account_name": "Mikko Mastodon",
+                "account": "@mikkoMastodon@ei-sellaista.tiliä",
+                "content": "Valitettavasti emme löytäneet yhtään julkaisua aihetunnisteella <a>#%@</a>. Kokeile <a>#DifferentHashtag</a> tai tarkista widgetin asetukset."
             },
             "placeholder": {
-                "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "account_name": "Mikko Mastodon",
+                "account": "@mikkoMastodon@ei-sellaista.tiliä",
+                "content": "Tältä aihetunnisteen <a>#aihetunniste</a> julkaisu näyttäisi. Valitse mikä tahansa <a>#aihetunniste</a> widgetin asetuksista."
             }
         }
     }

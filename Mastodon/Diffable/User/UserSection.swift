@@ -48,7 +48,11 @@ extension UserSection {
                         authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: .init(value: .user(user), followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(), blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher()),
+                        viewModel: UserTableViewCell.ViewModel(value: .user(user),
+                                         followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
+                                         blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
+                                         followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()
+                                        ),
                         configuration: configuration
                     )
                 }

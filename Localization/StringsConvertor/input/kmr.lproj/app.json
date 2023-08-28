@@ -15,10 +15,6 @@
                 "title": "Dengdayîn têkçû",
                 "poll_ended": "Rapirsîya qediya"
             },
-            "discard_post_content": {
-                "title": "Reşnivîsê paşguh bike",
-                "message": "Bipejrîne ku naveroka şandiyê ya hatiye nivîsandin paşguh bikî."
-            },
             "publish_post_failure": {
                 "title": "Weşandin têkçû",
                 "message": "Weşandina şandiyê têkçû.\nJkx girêdana înternetê xwe kontrol bike.",
@@ -101,7 +97,11 @@
                     "title": "Ji %s wergerîne",
                     "unknown_language": "Nenas"
                 },
-                "edit_post": "Serrast bike"
+                "edit_post": "Serrast bike",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Serrûpel",
@@ -257,16 +257,16 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Girêdanê pejirandî tine ye",
+            "followers_count": "%@ şopîner"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Têkeve",
             "learn_more": "Bêtir fêr bibe",
-            "join_default_server": "Tevlî mastodon.social bibe",
-            "pick_server": "Pick another server",
+            "join_default_server": "Join %@",
+            "pick_server": "Rajekarek din hilbijêre",
             "separator": {
                 "or": "an jî"
             },
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Kesên bo ku bişopînî bibîne",
-            "follow_explain": "Gava tu kesekî dişopînî, tu yê şandiyê wan di serrûpelê de bibîne."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -876,17 +876,17 @@
         "hashtag": {
             "configuration": {
                 "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Şandiyek nû nîşan dide bi hashtaga hilbijartî re."
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "Bibore, me ti şandiyan bi hashtaga <a>#%@</a> re nedît. Jkx <a>#Hashtagek cuda</a> biceribîne an jî sazkariyan kontrol bike."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Ev e çawa şandiyek bi <a>#hashtag</a> re tê xuyakirin. Her çi <a>#hashtag</a> hilbijêre di sazkariyan de."
             }
         }
     }

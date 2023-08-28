@@ -15,10 +15,6 @@
                 "title": "Balsošanas Neveiksme",
                 "poll_ended": "Aptauja ir noslēgusies"
             },
-            "discard_post_content": {
-                "title": "Atmest malnrakstu",
-                "message": "Apstiprini, lai atmestu izveidotās ziņas saturu."
-            },
             "publish_post_failure": {
                 "title": "Publicēšanas Neveiksme",
                 "message": "Neizdevās publicēt ziņu.\nLūdzu, pārbaudi savu interneta savienojumu.",
@@ -101,7 +97,11 @@
                     "title": "Tulkot no %s",
                     "unknown_language": "Nezināms"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Sākums",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Pieteikties",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Atrodi Cilvēkus kam Sekot",
-            "follow_explain": "Kad seko kādam, tu redzēsi viņu ziņas savā mājas plūsmā."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

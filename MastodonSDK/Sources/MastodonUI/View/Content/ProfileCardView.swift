@@ -80,7 +80,7 @@ public final class ProfileCardView: UIView, AXCustomContentProvider {
         ]
         metaText.linkAttributes = [
             .font: UIFont.preferredFont(forTextStyle: .body),
-            .foregroundColor: Asset.Colors.brand.color,
+            .foregroundColor: Asset.Colors.Brand.blurple.color,
         ]
         return metaText
     }()

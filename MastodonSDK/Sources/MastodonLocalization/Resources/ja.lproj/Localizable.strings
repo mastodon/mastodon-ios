@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "後でもう一度お試しください。";
 "Common.Alerts.DeletePost.Message" = "本当にこの投稿を削除しますか？";
 "Common.Alerts.DeletePost.Title" = "投稿を削除";
-"Common.Alerts.DiscardPostContent.Message" = "この操作は取り消しできません。下書きは失われます。";
-"Common.Alerts.DiscardPostContent.Title" = "投稿を破棄しますか？";
 "Common.Alerts.EditProfileFailure.Message" = "プロフィールを編集できません。もう一度お試しください。";
 "Common.Alerts.EditProfileFailure.Title" = "プロフィールを編集できませんでした";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "複数の動画を添付することはできません。";
@@ -30,6 +28,7 @@
 "Common.Controls.Actions.Add" = "追加";
 "Common.Controls.Actions.Back" = "戻る";
 "Common.Controls.Actions.BlockDomain" = "%@をブロック";
+"Common.Controls.Actions.Bookmark" = "ブックマーク";
 "Common.Controls.Actions.Cancel" = "キャンセル";
 "Common.Controls.Actions.Compose" = "新規作成";
 "Common.Controls.Actions.Confirm" = "確認";
@@ -42,6 +41,7 @@
 "Common.Controls.Actions.Edit" = "編集";
 "Common.Controls.Actions.EditPost" = "編集";
 "Common.Controls.Actions.FindPeople" = "フォローする人を見つける";
+"Common.Controls.Actions.Follow" = "%@をフォロー";
 "Common.Controls.Actions.ManuallySearch" = "手動で検索する";
 "Common.Controls.Actions.Next" = "次へ";
 "Common.Controls.Actions.Ok" = "OK";
@@ -51,6 +51,7 @@
 "Common.Controls.Actions.Preview" = "プレビュー";
 "Common.Controls.Actions.Previous" = "前";
 "Common.Controls.Actions.Remove" = "消去";
+"Common.Controls.Actions.RemoveBookmark" = "ブックマークから削除";
 "Common.Controls.Actions.Reply" = "返信";
 "Common.Controls.Actions.ReportUser" = "%@を通報";
 "Common.Controls.Actions.Save" = "保存";
@@ -67,6 +68,7 @@
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "不明";
 "Common.Controls.Actions.TryAgain" = "再実行";
 "Common.Controls.Actions.UnblockDomain" = "%@のブロックを解除";
+"Common.Controls.Actions.Unfollow" = "%@をフォロー解除";
 "Common.Controls.Friendship.Block" = "ブロック";
 "Common.Controls.Friendship.BlockDomain" = "%@をブロック";
 "Common.Controls.Friendship.BlockUser" = "%@をブロック";
@@ -512,8 +514,8 @@
 "Scene.Settings.Section.SpicyZone.Signout" = "サインアウト";
 "Scene.Settings.Section.SpicyZone.Title" = "取り扱い注意項目";
 "Scene.Settings.Title" = "設定";
-"Scene.SuggestionAccount.FollowExplain" = "誰かをフォローすると、その人の投稿がタイムラインに表示されるようになります。";
-"Scene.SuggestionAccount.Title" = "フォローする人を探す";
+"Scene.SuggestionAccount.FollowAll" = "すべてフォロー";
+"Scene.SuggestionAccount.Title" = "人気のアカウント";
 "Scene.Thread.BackTitle" = "投稿";
 "Scene.Thread.Title" = "%@の投稿";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "Mastodonとは？";
@@ -521,7 +523,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "Mastodon とは";
 "Scene.Welcome.Education.Servers.Description" = "Mastodon のアカウントはいずれかのサーバーに所属します。それぞれのサーバーは異なる価値観やルールをもち、それらを管理する管理者がいます。どのサーバーにいても、ほかのあらゆるサーバーのユーザーをフォローして、かかわりをもつことができるでしょう。";
 "Scene.Welcome.Education.Servers.Title" = "サーバーとは";
-"Scene.Welcome.JoinDefaultServer" = "mastodon.social に登録";
+"Scene.Welcome.JoinDefaultServer" = "%@ に登録";
 "Scene.Welcome.LearnMore" = "詳しく学ぶ";
 "Scene.Welcome.LogIn" = "ログイン";
 "Scene.Welcome.PickServer" = "ほかのサーバーをさがす";
@@ -539,7 +541,7 @@
 "Widget.Hashtag.NotFound.Content" = "<a>#%@</a> の投稿が見つかりませんでした。 <a>#ほかのハッシュタグ</a> を指定するか、ウィジェットの設定を変更してみてください。";
 "Widget.Hashtag.Placeholder.Account" = "@johnMastodon@no-such.account";
 "Widget.Hashtag.Placeholder.AccountName" = "John Mastodon";
-"Widget.Hashtag.Placeholder.Content" = "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings.";
+"Widget.Hashtag.Placeholder.Content" = "<a>#ハッシュタグ</a> 投稿のサンプルです。検索する <a>#ハッシュタグ</a> はウィジェットの設定で指定できます。";
 "Widget.LatestFollowers.ConfigurationDescription" = "最新のフォロワーを表示します。";
 "Widget.LatestFollowers.ConfigurationDisplayName" = "最新のフォロワー";
 "Widget.LatestFollowers.LastUpdate" = "最終更新: %@";

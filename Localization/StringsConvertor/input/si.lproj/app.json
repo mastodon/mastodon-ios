@@ -15,10 +15,6 @@
                 "title": "Vote Failure",
                 "poll_ended": "The poll has ended"
             },
-            "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
-            },
             "publish_post_failure": {
                 "title": "Publish Failure",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
@@ -101,7 +97,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Home",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "පිවිසෙන්න",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

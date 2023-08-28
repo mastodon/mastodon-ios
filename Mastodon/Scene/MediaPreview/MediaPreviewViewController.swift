@@ -113,12 +113,11 @@ extension MediaPreviewViewController {
                 guard let self = self else { return }
                 switch self.viewModel.item {
                 case .attachment(let previewContext):
-                    let needsHideCloseButton: Bool = {
+                    self.topToolbar.isHidden = {
                         guard index < previewContext.attachments.count else { return false }
                         let attachment = previewContext.attachments[index]
-                        return attachment.kind == .video    // not hide buttno for audio
+                        return attachment.kind == .video || attachment.kind == .audio
                     }()
-                    self.closeButton.isHidden = needsHideCloseButton
                 default:
                     break
                 }
@@ -265,17 +264,13 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, tapGestureRecognizerDidTrigger tapGestureRecognizer: UITapGestureRecognizer) {
         let location = tapGestureRecognizer.location(in: viewController.previewImageView.imageView)
-        let isContainsTap = viewController.previewImageView.imageView.frame.contains(location)
+        let isContainsTap = viewController.previewImageView.imageView.bounds.contains(location)
         
         if isContainsTap {
             self.viewModel.showingChrome.toggle()
         } else {
             dismiss(animated: true, completion: nil)
         }
-    }
-    
-    func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        // do nothing
     }
     
     func mediaPreviewImageViewController(

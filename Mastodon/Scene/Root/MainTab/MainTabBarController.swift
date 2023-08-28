@@ -83,7 +83,7 @@ class MainTabBarController: UITabBarController {
         }
         
         var selectedImage: UIImage {
-            return image.withTintColor(Asset.Colors.brand.color, renderingMode: .alwaysOriginal)
+            return image.withTintColor(Asset.Colors.Brand.blurple.color, renderingMode: .alwaysOriginal)
         }
 
         var largeImage: UIImage {
@@ -468,8 +468,8 @@ extension MainTabBarController {
     
     private func updateAvatarButtonAppearance() {
         if currentTab == .me {
-            accountSwitcherChevron.tintColor = Asset.Colors.brand.color
-            avatarButton.borderColor = Asset.Colors.brand.color
+            accountSwitcherChevron.tintColor = Asset.Colors.Brand.blurple.color
+            avatarButton.borderColor = Asset.Colors.Brand.blurple.color
         } else {
             accountSwitcherChevron.tintColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
             avatarButton.borderColor = Asset.Theme.System.tabBarItemInactiveIconColor.color

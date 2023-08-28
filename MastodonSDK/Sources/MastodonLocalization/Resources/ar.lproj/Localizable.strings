@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "يُرجى المُحاولة مرة أُخرى لاحقًا.";
 "Common.Alerts.DeletePost.Message" = "هَل أنتَ مُتأكِدٌ مِن رَغبتِكَ فِي حَذفِ هَذَا المَنشُور؟";
 "Common.Alerts.DeletePost.Title" = "هل أنت متأكد من رغبتك في حذف هذا المنشور؟";
-"Common.Alerts.DiscardPostContent.Message" = "أكِّد للتخلص مِن مُحتوى مَنشور مؤلَّف.";
-"Common.Alerts.DiscardPostContent.Title" = "التخلص من المسودة";
 "Common.Alerts.EditProfileFailure.Message" = "يتعذَّر تعديل الملف التعريفي. يُرجى المُحاولة مرة أُخرى.";
 "Common.Alerts.EditProfileFailure.Title" = "خطأ في تَحرير الملف التعريفي";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "لا يُمكِنُ إرفاق أكثر مِن مَقطع مرئي واحِد.";
@@ -30,6 +28,7 @@
 "Common.Controls.Actions.Add" = "إضافة";
 "Common.Controls.Actions.Back" = "العودة";
 "Common.Controls.Actions.BlockDomain" = "حظر %@";
+"Common.Controls.Actions.Bookmark" = "Bookmark";
 "Common.Controls.Actions.Cancel" = "إلغاء";
 "Common.Controls.Actions.Compose" = "تأليف";
 "Common.Controls.Actions.Confirm" = "تأكيد";
@@ -42,6 +41,7 @@
 "Common.Controls.Actions.Edit" = "تَحرير";
 "Common.Controls.Actions.EditPost" = "Edit";
 "Common.Controls.Actions.FindPeople" = "ابحث عن أشخاص لِمُتابعتهم";
+"Common.Controls.Actions.Follow" = "Follow %@";
 "Common.Controls.Actions.ManuallySearch" = "البحث يدويًا بدلًا من ذلك";
 "Common.Controls.Actions.Next" = "التالي";
 "Common.Controls.Actions.Ok" = "حسنًا";
@@ -51,6 +51,7 @@
 "Common.Controls.Actions.Preview" = "مُعاينة";
 "Common.Controls.Actions.Previous" = "السابق";
 "Common.Controls.Actions.Remove" = "حذف";
+"Common.Controls.Actions.RemoveBookmark" = "Remove Bookmark";
 "Common.Controls.Actions.Reply" = "الرَّد";
 "Common.Controls.Actions.ReportUser" = "الإبلاغُ عَن %@";
 "Common.Controls.Actions.Save" = "حفظ";
@@ -67,6 +68,7 @@
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "غير مَعرُوفة";
 "Common.Controls.Actions.TryAgain" = "المُحاولة مرة أُخرى";
 "Common.Controls.Actions.UnblockDomain" = "رفع الحظر عن %@";
+"Common.Controls.Actions.Unfollow" = "Unfollow %@";
 "Common.Controls.Friendship.Block" = "حظر";
 "Common.Controls.Friendship.BlockDomain" = "حظر %@";
 "Common.Controls.Friendship.BlockUser" = "حَظرُ %@";
@@ -517,8 +519,8 @@
 "Scene.Settings.Section.SpicyZone.Signout" = "تَسجيلُ الخُروج";
 "Scene.Settings.Section.SpicyZone.Title" = "المنطِقَةُ اللَّاذِعَة";
 "Scene.Settings.Title" = "الإعدادات";
-"Scene.SuggestionAccount.FollowExplain" = "عِندَ مُتابَعَتِكَ لأحدِهِم، سَوف تَرى مَنشوراته في تغذيَتِكَ الرئيسة.";
-"Scene.SuggestionAccount.Title" = "ابحث عن أشخاص لمتابعتهم";
+"Scene.SuggestionAccount.FollowAll" = "Follow all";
+"Scene.SuggestionAccount.Title" = "Popular on Mastodon";
 "Scene.Thread.BackTitle" = "منشور";
 "Scene.Thread.Title" = "مَنشور مِن %@";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
@@ -526,7 +528,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
 "Scene.Welcome.Education.Servers.Title" = "What are servers?";
-"Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "تسجيلُ الدخول";
 "Scene.Welcome.PickServer" = "Pick another server";

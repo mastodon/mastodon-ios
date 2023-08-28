@@ -15,10 +15,6 @@
                 "title": "Gwall Pleidleisio",
                 "poll_ended": "Mae'r pôl wedi dod i ben"
             },
-            "discard_post_content": {
-                "title": "Dileu Drafft",
-                "message": "Cadarnhau i ddileu post drafft."
-            },
             "publish_post_failure": {
                 "title": "Gwall Cyhoeddi",
                 "message": "Gwall wrth gyhoeddi'r tŵt.\nGwiriwch eich cysylltiad i'r rhyngrhwyd.",
@@ -101,7 +97,11 @@
                     "title": "Cyfieithu o %s",
                     "unknown_language": "Anhysbys"
                 },
-                "edit_post": "Golygu"
+                "edit_post": "Golygu",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Dileu Llyfrnod",
+                "follow": "Dilyn %s",
+                "unfollow": "Dad-ddilyn %s"
             },
             "tabs": {
                 "home": "Hafan",
@@ -209,7 +209,7 @@
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Wedi'i olygu %s",
                 "edit_history": {
                     "title": "Edit History",
                     "original_post": "Original Post · %s"
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Mewngofnodi",
             "learn_more": "Dysgu mwy",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -287,7 +287,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Croeso nôl",
             "subtitle": "Mewngofnodi ar y gweinydd y rydych chi wedi creu cyfrif arno.",
             "server_search_field": {
                 "placeholder": "Mewnosod URL neu chwilio am eich gweinydd"
@@ -336,7 +336,7 @@
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "Popeth"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Chwilio a Dilyn Pobl",
-            "follow_explain": "Ar ôl ichi ddilyn rhywun, byddwch yn gweld eu postiadau yn eich ffrwd hafan."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -543,7 +543,7 @@
             "language": {
                 "title": "Post Language",
                 "suggested": "Suggested",
-                "recent": "Recent",
+                "recent": "Diweddar",
                 "other": "Other Language…"
             }
         },
@@ -674,7 +674,7 @@
             "intro": "Dyma'r postiadau sy'n denu tipyn o sylw yn eich cŵr Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Ffefrynnau"
         },
         "notification": {
             "title": {
@@ -854,7 +854,7 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
+            "configuration_display_name": "Dilynwyr",
             "configuration_description": "Show number of followers.",
             "title": "FOLLOWERS",
             "followers_today": "%s followers today"
@@ -875,17 +875,17 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Hashnod",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
-                "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
+                "account_name": "Ieuan Mastodon",
+                "account": "@ieuanMastodon@dim-cyfrif-or.fath",
                 "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
             },
             "placeholder": {
-                "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
+                "account_name": "Ieuan Mastodon",
+                "account": "@ieuanMastodon@dim-cyfrif-or.fath",
                 "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
             }
         }

@@ -15,10 +15,6 @@
                 "title": "投票失败",
                 "poll_ended": "投票已结束"
             },
-            "discard_post_content": {
-                "title": "丢弃草案",
-                "message": "确认要丢弃正在编辑的内容"
-            },
             "publish_post_failure": {
                 "title": "发布失败",
                 "message": "帖子发送失败。\n请检查你的网络连接。",
@@ -101,7 +97,11 @@
                     "title": "翻译自 %s",
                     "unknown_language": "未知的"
                 },
-                "edit_post": "编辑"
+                "edit_post": "编辑",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "主页",
@@ -257,15 +257,15 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "未验证链接",
+            "followers_count": "%@ 名关注者"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "登录",
             "learn_more": "了解详情",
-            "join_default_server": "加入 mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "选择另一个服务器",
             "separator": {
                 "or": "或"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "查看推荐关注的用户",
-            "follow_explain": "当你关注某个人时，你将会在主页看到他们的帖子。"
+            "title": "Mastodon上流行的",
+            "follow_all": "一键关注"
         },
         "compose": {
             "title": {

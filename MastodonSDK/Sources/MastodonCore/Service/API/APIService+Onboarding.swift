@@ -33,4 +33,8 @@ extension APIService {
     public func languages() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Language]>, Error> {
         return Mastodon.API.Onboarding.languages(session: session)
     }
+
+    public func defaultServers() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.DefaultServer]>, Error> {
+        return Mastodon.API.Onboarding.defaultServers(session: session)
+    }
 }

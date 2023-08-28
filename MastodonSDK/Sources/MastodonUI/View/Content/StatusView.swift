@@ -157,7 +157,7 @@ public final class StatusView: UIView {
         ]
         metaText.linkAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
-            .foregroundColor: Asset.Colors.brand.color,
+            .foregroundColor: Asset.Colors.Brand.blurple.color,
         ]
         return metaText
     }()
@@ -216,8 +216,8 @@ public final class StatusView: UIView {
         let button = HitTestExpandedButton()
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 14, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Status.Poll.vote, for: .normal)
-        button.setTitleColor(Asset.Colors.brand.color, for: .normal)
-        button.setTitleColor(Asset.Colors.brand.color.withAlphaComponent(0.8), for: .highlighted)
+        button.setTitleColor(Asset.Colors.Brand.blurple.color, for: .normal)
+        button.setTitleColor(Asset.Colors.Brand.blurple.color.withAlphaComponent(0.8), for: .highlighted)
         button.setTitleColor(Asset.Colors.Button.disabled.color, for: .disabled)
         button.isEnabled = false
         return button
@@ -256,7 +256,7 @@ public final class StatusView: UIView {
         let revertButton = UIButton()
         revertButton.titleLabel?.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .bold))
         revertButton.setTitle(L10n.Common.Controls.Status.Translation.showOriginal, for: .normal)
-        revertButton.setTitleColor(Asset.Colors.brand.color, for: .normal)
+        revertButton.setTitleColor(Asset.Colors.Brand.blurple.color, for: .normal)
         revertButton.addAction(UIAction { [weak self] _ in
             self?.revertTranslation()
         }, for: .touchUpInside)
@@ -795,7 +795,6 @@ extension StatusView: StatusMetricViewDelegate {
 // MARK: - MastodonMenuDelegate
 extension StatusView: MastodonMenuDelegate {
     public func menuAction(_ action: MastodonMenu.Action) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, menuButton: authorView.menuButton, didSelectAction: action)
     }
 }

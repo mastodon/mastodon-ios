@@ -30,6 +30,8 @@ public final class MediaView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = false
         imageView.layer.masksToBounds = true    // clip overflow
+        imageView.backgroundColor = .gray
+        imageView.isOpaque = true
         return imageView
     }()
     
@@ -51,23 +53,8 @@ public final class MediaView: UIView {
     }()
     private var playerLooper: AVPlayerLooper?
 
-    private(set) lazy var playbackImageView: UIView = {
-        let wrapper = UIView()
-
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "play.circle.fill")
-        imageView.tintColor = Asset.Colors.Label.primary.color
-        wrapper.addSubview(imageView)
-        imageView.pinToParent(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
-        wrapper.backgroundColor = Asset.Theme.Mastodon.systemBackground.color.withAlphaComponent(0.8)
-        wrapper.applyCornerRadius(radius: 8)
-
-        return wrapper
-    }()
-    
-    let badgeViewController: UIHostingController<MediaBadgesContainer> = {
-        let vc = UIHostingController(rootView: MediaBadgesContainer())
+    let overlayViewController: UIHostingController<InlineMediaOverlayContainer> = {
+        let vc = UIHostingController(rootView: InlineMediaOverlayContainer())
         vc.view.backgroundColor = .clear
         return vc
     }()
@@ -112,14 +99,17 @@ extension MediaView {
         switch configuration.info {
         case .image(let info):
             layoutImage()
+            overlayViewController.rootView.mediaType = .image
             bindImage(configuration: configuration, info: info)
             accessibilityHint = L10n.Common.Controls.Status.Media.expandImageHint
         case .gif(let info):
             layoutGIF()
+            overlayViewController.rootView.mediaType = .gif
             bindGIF(configuration: configuration, info: info)
             accessibilityHint = L10n.Common.Controls.Status.Media.expandGifHint
         case .video(let info):
             layoutVideo()
+            overlayViewController.rootView.mediaType = .video
             bindVideo(configuration: configuration, info: info)
             accessibilityHint = L10n.Common.Controls.Status.Media.expandVideoHint
         }
@@ -167,8 +157,8 @@ extension MediaView {
     }
     
     private func bindGIF(configuration: Configuration, info: Configuration.VideoInfo) {
-        badgeViewController.rootView.mediaDuration = info.durationMS.map { Double($0) / 1000 }
-        badgeViewController.rootView.showDuration = false
+        overlayViewController.rootView.mediaDuration = info.durationMS.map { Double($0) / 1000 }
+        overlayViewController.rootView.showDuration = false
 
         guard let player = setupGIFPlayer(info: info) else { return }
         setupPlayerLooper(player: player)
@@ -178,27 +168,16 @@ extension MediaView {
         // auto play for GIF
         player.play()
 
-        badgeViewController.rootView.isGIF = true
-
         bindAlt(configuration: configuration, altDescription: info.altDescription)
     }
     
     private func layoutVideo() {
         layoutImage()
-        
-        playbackImageView.translatesAutoresizingMaskIntoConstraints = false
-        container.addSubview(playbackImageView)
-        NSLayoutConstraint.activate([
-            playbackImageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            playbackImageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-            playbackImageView.widthAnchor.constraint(equalToConstant: 88).priority(.required - 1),
-            playbackImageView.heightAnchor.constraint(equalToConstant: 88).priority(.required - 1),
-        ])
     }
     
     private func bindVideo(configuration: Configuration, info: Configuration.VideoInfo) {
-        badgeViewController.rootView.mediaDuration = info.durationMS.map { Double($0) / 1000 }
-        badgeViewController.rootView.showDuration = true
+        overlayViewController.rootView.mediaDuration = info.durationMS.map { Double($0) / 1000 }
+        overlayViewController.rootView.showDuration = true
 
         let imageInfo = Configuration.ImageInfo(
             aspectRadio: info.aspectRadio,
@@ -219,7 +198,7 @@ extension MediaView {
             accessibilityLabel = altDescription
         }
 
-        badgeViewController.rootView.altDescription = altDescription
+        overlayViewController.rootView.altDescription = altDescription
     }
 
     private func layoutBlurhash() {
@@ -251,9 +230,9 @@ extension MediaView {
     }
     
     private func layoutAlt() {
-        badgeViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        container.addSubview(badgeViewController.view)
-        badgeViewController.view.pinToParent()
+        overlayViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(overlayViewController.view)
+        overlayViewController.view.pinToParent()
     }
     
     public func prepareForReuse() {
@@ -277,8 +256,6 @@ extension MediaView {
         playerViewController.player = nil
         playerLooper = nil
         
-        playbackImageView.removeFromSuperview()
-        
         // blurhash
         blurhashImageView.removeFromSuperview()
         blurhashImageView.removeConstraints(blurhashImageView.constraints)
@@ -288,10 +265,9 @@ extension MediaView {
         container.removeFromSuperview()
         container.removeConstraints(container.constraints)
         
-        badgeViewController.rootView.altDescription = nil
-        badgeViewController.rootView.isGIF = false
-        badgeViewController.rootView.showDuration = false
-        badgeViewController.rootView.mediaDuration = nil
+        overlayViewController.rootView.altDescription = nil
+        overlayViewController.rootView.showDuration = false
+        overlayViewController.rootView.mediaDuration = nil
 
         // reset configuration
         configuration = nil

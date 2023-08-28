@@ -47,10 +47,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
 
     private(set) lazy var joinDefaultServerButton: UIButton = {
         var buttonConfiguration = UIButton.Configuration.filled()
-        buttonConfiguration.attributedTitle = AttributedString(
-            L10n.Scene.Welcome.joinDefaultServer,
-            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
-        )
         buttonConfiguration.baseForegroundColor = .white
         buttonConfiguration.background.backgroundColor = Asset.Colors.Brand.blurple.color
         buttonConfiguration.background.cornerRadius = 14
@@ -217,6 +213,23 @@ extension WelcomeViewController {
             .store(in: &disposeBag)
 
         setupIllustrationLayout()
+
+        joinDefaultServerButton.configuration?.showsActivityIndicator = true
+        joinDefaultServerButton.isEnabled = false
+        joinDefaultServerButton.configuration?.title = nil
+
+        viewModel.downloadDefaultServer { [weak self] in
+            guard let selectedDefaultServer = self?.viewModel.randomDefaultServer else { return }
+
+            DispatchQueue.main.async {
+                self?.joinDefaultServerButton.configuration?.showsActivityIndicator = false
+                self?.joinDefaultServerButton.isEnabled = true
+                self?.joinDefaultServerButton.configuration?.attributedTitle = AttributedString(
+                    L10n.Scene.Welcome.joinDefaultServer(selectedDefaultServer.domain),
+                    attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+                )
+            }
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -262,11 +275,11 @@ extension WelcomeViewController {
     //MARK: - Actions
     @objc
     private func joinDefaultServer(_ sender: UIButton) {
+
+        guard let server = viewModel.randomDefaultServer else { return }
         sender.configuration?.title = nil
         sender.isEnabled = false
         sender.configuration?.showsActivityIndicator = true
-
-        let server = Mastodon.Entity.Server.mastodonDotSocial
 
         authenticationViewModel.isAuthenticating.send(true)
 
@@ -320,19 +333,26 @@ extension WelcomeViewController {
                 self.authenticationViewModel.isAuthenticating.send(false)
 
                 switch completion {
-                    case .failure(let error):
-                        //TODO: show an alert or something
-                        break
-                    case .finished:
-                        break
+                case .failure(_):
+                    guard let randomServer = self.viewModel.pickRandomDefaultServer() else { return }
+
+                    self.viewModel.randomDefaultServer = randomServer
+
+                    sender.isEnabled = true
+                    sender.configuration?.showsActivityIndicator = false
+                    sender.configuration?.attributedTitle = AttributedString(
+                        L10n.Scene.Welcome.joinDefaultServer(randomServer.domain),
+                        attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+                    )
+                case .finished:
+                    sender.isEnabled = true
+                    sender.configuration?.showsActivityIndicator = false
+                    sender.configuration?.attributedTitle = AttributedString(
+                        L10n.Scene.Welcome.joinDefaultServer(server.domain),
+                        attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
+                    )
                 }
 
-                sender.isEnabled = true
-                sender.configuration?.showsActivityIndicator = false
-                sender.configuration?.attributedTitle = AttributedString(
-                    L10n.Scene.Welcome.joinDefaultServer,
-                    attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
-                )
             } receiveValue: { [weak self] response in
                 guard let self = self else { return }
                 if let rules = response.instance.value.rules, !rules.isEmpty {

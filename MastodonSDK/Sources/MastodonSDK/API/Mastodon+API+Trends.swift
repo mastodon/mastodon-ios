@@ -31,12 +31,13 @@ extension Mastodon.API.Trends {
     public static func hashtags(
         session: URLSession,
         domain: String,
-        query: Mastodon.API.Trends.HashtagQuery?
+        query: Mastodon.API.Trends.HashtagQuery?,
+        authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> {
         let request = Mastodon.API.get(
             url: trendsURL(domain: domain),
             query: query,
-            authorization: nil
+            authorization: authorization
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
@@ -88,12 +89,13 @@ extension Mastodon.API.Trends {
     public static func statuses(
         session: URLSession,
         domain: String,
-        query: Mastodon.API.Trends.StatusQuery?
+        query: Mastodon.API.Trends.StatusQuery?,
+        authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
         let request = Mastodon.API.get(
             url: trendStatusesURL(domain: domain),
             query: query,
-            authorization: nil
+            authorization: authorization
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
@@ -152,12 +154,13 @@ extension Mastodon.API.Trends {
     public static func links(
         session: URLSession,
         domain: String,
-        query: Mastodon.API.Trends.LinkQuery?
+        query: Mastodon.API.Trends.LinkQuery?,
+        authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Link]>, Error> {
         let request = Mastodon.API.get(
             url: trendLinksURL(domain: domain),
             query: query,
-            authorization: nil
+            authorization: authorization
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in

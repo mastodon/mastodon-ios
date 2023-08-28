@@ -15,10 +15,6 @@
                 "title": "Fehler bei Abstimmung",
                 "poll_ended": "Die Umfrage ist beendet"
             },
-            "discard_post_content": {
-                "title": "Entwurf verwerfen",
-                "message": "Bestätige, um den Beitrag zu verwerfen."
-            },
             "publish_post_failure": {
                 "title": "Fehler bei Veröffentlichung",
                 "message": "Fehler beim Veröffentlichen des Beitrags.\nBitte überprüfe deine Internetverbindung.",
@@ -101,7 +97,11 @@
                     "title": "Von %s übersetzen",
                     "unknown_language": "Unbekannt"
                 },
-                "edit_post": "Bearbeiten"
+                "edit_post": "Bearbeiten",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Startseite",
@@ -257,7 +257,7 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
+            "no_verified_link": "Kein bestätigter Link",
             "followers_count": "%@ followers"
         }
     },
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Anmelden",
             "learn_more": "Mehr erfahren",
-            "join_default_server": "mastodon.social beitreten",
+            "join_default_server": "Join %@",
             "pick_server": "Einen anderen Server auswählen",
             "separator": {
                 "or": "oder"
@@ -363,7 +363,7 @@
                 "username": {
                     "placeholder": "Benutzername",
                     "duplicate_prompt": "Dieser Benutzername ist vergeben.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "%@_ist_super"
                 },
                 "display_name": {
                     "placeholder": "Anzeigename"
@@ -426,7 +426,7 @@
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "Überprüfe deinen Posteingang",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Bitte klicke auf den Link, den wir an %@ geschickt haben, um dich zu verifizieren. Wir warten bis dahin einfach hier.",
             "button": {
                 "resend": "Erneut senden"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Finde Personen zum Folgen",
-            "follow_explain": "Sobald du anderen folgst, siehst du deren Beiträge in deinem Home-Feed."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -493,7 +493,7 @@
                 "server_processing_state": "Serververarbeitung …"
             },
             "poll": {
-                "title": "Poll",
+                "title": "Umfrage",
                 "duration_time": "Dauer: %s",
                 "thirty_minutes": "30 Minuten",
                 "one_hour": "1 Stunde",
@@ -506,8 +506,8 @@
                 "the_poll_has_empty_option": "Die Umfrage hat eine leere Option",
                 "add_option": "Add Option",
                 "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "move_up": "Nach oben",
+                "move_down": "Nach unten"
             },
             "content_warning": {
                 "placeholder": "Hier eine Inhaltswarnung schreiben …"
@@ -541,9 +541,9 @@
                 "select_visibility_entry": "Sichtbarkeit auswählen - %s"
             },
             "language": {
-                "title": "Post Language",
+                "title": "Beitragssprache",
                 "suggested": "Suggested",
-                "recent": "Recent",
+                "recent": "Kürzlich",
                 "other": "Andere Sprache…"
             }
         },
@@ -850,7 +850,7 @@
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "unsupported_widget_family": "Entschuldigung, aber diese Widget-Größe wird nicht unterstützt.",
             "user_not_logged_in": "Bitte öffne Mastodon und melde dich mit einem Konto an."
         },
         "followers_count": {

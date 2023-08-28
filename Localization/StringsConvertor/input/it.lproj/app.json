@@ -15,10 +15,6 @@
                 "title": "Voto fallito",
                 "poll_ended": "Il sondaggio è terminato"
             },
-            "discard_post_content": {
-                "title": "Elimina bozza",
-                "message": "Confermare di scartare il contenuto del post composto."
-            },
             "publish_post_failure": {
                 "title": "Pubblicazione fallita",
                 "message": "Pubblicazione del post fallita.\nPer favore verifica la tua connessione internet.",
@@ -101,7 +97,11 @@
                     "title": "Traduci da %s",
                     "unknown_language": "Sconosciuto"
                 },
-                "edit_post": "Modifica"
+                "edit_post": "Modifica",
+                "bookmark": "Segnalibro",
+                "remove_bookmark": "Rimuovi il segnalibro",
+                "follow": "Segui %s",
+                "unfollow": "Smetti di seguire %s"
             },
             "tabs": {
                 "home": "Inizio",
@@ -146,7 +146,7 @@
                 "sensitive_content": "Contenuto sensibile",
                 "media_content_warning": "Tocca ovunque per rivelare",
                 "tap_to_reveal": "Tocca per rivelare",
-                "load_embed": "Carica Incorpora",
+                "load_embed": "Carica l'incorporato",
                 "link_via_user": "%s tramite %s",
                 "poll": {
                     "vote": "Vota",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Accedi",
             "learn_more": "Scopri di più",
-            "join_default_server": "Unisciti a mastodon.social",
+            "join_default_server": "Unisciti a %@",
             "pick_server": "Scegli un altro server",
             "separator": {
                 "or": "o"
@@ -273,11 +273,11 @@
             "education": {
                 "mastodon": {
                     "title": "Benvenuto/a su Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "description": "Mastodon è un social network decentralizzato, il che significa che nessuna singola azienda lo controlla. È composto da molti server indipendenti che comunicano tra loro."
                 },
                 "servers": {
                     "title": "Cosa sono i server?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "description": "Ogni account Mastodon è ospitato su un server — ognuno con i propri valori, regole, e amministratori. Non importa quale scegliere, è possibile seguire e interagire con persone su altri server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Trova alcune persone da seguire",
-            "follow_explain": "Quando segui qualcuno, vedrai i loro post nella tua home feed."
+            "title": "Popolare su Mastodon",
+            "follow_all": "Segui tutti"
         },
         "compose": {
             "title": {
@@ -613,7 +613,7 @@
             }
         },
         "follower": {
-            "title": "seguace",
+            "title": "seguaci",
             "footer": "I seguaci da altri server non vengono visualizzati."
         },
         "following": {
@@ -625,7 +625,7 @@
             "followed_by_names": "Seguito da %s"
         },
         "favorited_by": {
-            "title": "Preferito Da"
+            "title": "Preferito da"
         },
         "reblogged_by": {
             "title": "Condiviso Da"
@@ -831,7 +831,7 @@
             "title": "Segnalibri"
         },
         "followed_tags": {
-            "title": "Etichette seguite",
+            "title": "Hashtag seguiti",
             "header": {
                 "posts": "post",
                 "participants": "partecipanti",

@@ -145,7 +145,8 @@ extension DiscoveryPostsViewModel.State {
                         query: Mastodon.API.Trends.StatusQuery(
                             offset: offset,
                             limit: nil
-                        )
+                        ),
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     let newOffset: Int? = {
                         guard let offset = response.link?.offset else { return nil }
@@ -176,10 +177,13 @@ extension DiscoveryPostsViewModel.State {
                     viewModel.didLoadLatest.send()
                     
                 } catch {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch posts fail: \(error.localizedDescription)")
-                    if let error = error as? Mastodon.API.Error, error.httpResponseStatus.code == 404 {
-                        viewModel.isServerSupportEndpoint = false
-                        await enter(state: NoMore.self)
+                    if let error = error as? Mastodon.API.Error {
+                        if error.httpResponseStatus == .notFound {
+                            viewModel.isServerSupportEndpoint = false
+                            await enter(state: NoMore.self)
+                        } else if error.httpResponseStatus == .unauthorized {
+                            await enter(state: NoMore.self)
+                        }
                     } else {
                         await enter(state: Fail.self)
                     }

@@ -14,31 +14,30 @@ public protocol MastodonMenuDelegate: AnyObject {
 
 public enum MastodonMenu {
     public static func setupMenu(
-        actions: [Action],
+        actions: [[Action]],
         delegate: MastodonMenuDelegate
     ) -> UIMenu {
         var children: [UIMenuElement] = []
-        for action in actions {
 
-            let element: UIMenuElement
-            
-            if case let .deleteStatus = action {
-                let deleteAction = action.build(delegate: delegate).menuElement
-                element = UIMenu(options: .displayInline, children: [deleteAction])
-            } else {
-                element = action.build(delegate: delegate).menuElement
+        for actionGroup in actions {
+            var submenuChildren: [UIMenuElement] = []
+            for action in actionGroup {
+                let element = action.build(delegate: delegate).menuElement
+                submenuChildren.append(element)
             }
-            children.append(element)
+            let submenu = UIMenu(options: .displayInline, children: submenuChildren)
+            children.append(submenu)
         }
+        
         return UIMenu(children: children)
     }
 
     public static func setupAccessibilityActions(
-        actions: [Action],
+        actions: [[Action]],
         delegate: MastodonMenuDelegate
     ) -> [UIAccessibilityCustomAction] {
         var accessibilityActions: [UIAccessibilityCustomAction] = []
-        for action in actions {
+        for action in actions.flatMap({ $0 }) {
             let element = action.build(delegate: delegate)
             accessibilityActions.append(element.accessibilityCustomAction)
         }
@@ -49,6 +48,7 @@ public enum MastodonMenu {
 extension MastodonMenu {
     public enum Action {
         case translateStatus(TranslateStatusActionContext)
+        case showOriginal
         case muteUser(MuteUserActionContext)
         case blockUser(BlockUserActionContext)
         case reportUser(ReportUserActionContext)
@@ -58,6 +58,7 @@ extension MastodonMenu {
         case shareStatus
         case deleteStatus
         case editStatus
+        case followUser(FollowUserActionContext)
         
         func build(delegate: MastodonMenuDelegate) -> LabeledAction {
             switch self {
@@ -121,10 +122,10 @@ extension MastodonMenu {
                 let title: String
                 let image: UIImage?
                 if context.isBookmarking {
-                    title = "Remove Bookmark" // TODO: i18n
+                    title = L10n.Common.Controls.Actions.removeBookmark
                     image = UIImage(systemName: "bookmark.slash.fill")
                 } else {
-                    title = "Bookmark" // TODO: i18n
+                    title = L10n.Common.Controls.Actions.bookmark
                     image = UIImage(systemName: "bookmark")
                 }
                 let action = LabeledAction(title: title, image: image) { [weak delegate] in
@@ -134,7 +135,7 @@ extension MastodonMenu {
                 return action
             case .shareStatus:
                 let action = LabeledAction(
-                    title: "Share",      // TODO: i18n
+                    title: L10n.Common.Controls.Actions.sharePost,
                     image: UIImage(systemName: "square.and.arrow.up")
                 ) { [weak delegate] in
                     guard let delegate = delegate else { return }
@@ -161,6 +162,16 @@ extension MastodonMenu {
                     delegate.menuAction(self)
                 }
                 return translateAction
+            case .showOriginal:
+                let action = LabeledAction(
+                    title: L10n.Common.Controls.Status.Translation.showOriginal,
+                    image: UIImage(systemName: "character.book.closed")
+                ) { [weak delegate] in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+
+                return action
             case .editStatus:
                 let editStatusAction = LabeledAction(
                     title: L10n.Common.Controls.Actions.editPost,
@@ -172,6 +183,22 @@ extension MastodonMenu {
                 }
 
                 return editStatusAction
+            case .followUser(let context):
+                let title: String
+                let image: UIImage?
+                if context.isFollowing {
+                    title = L10n.Common.Controls.Actions.unfollow(context.name)
+                    image = UIImage(systemName: "person.fill.badge.minus")
+                } else {
+                    title = L10n.Common.Controls.Actions.follow(context.name)
+                    image = UIImage(systemName: "person.fill.badge.plus")
+                }
+                let action = LabeledAction(title: title, image: image) { [weak delegate] in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+                return action
+
             }   // end switch
         }   // end func build
     }   // end enum Action
@@ -235,6 +262,17 @@ extension MastodonMenu {
         
         public init(language: String) {
             self.language = language
+        }
+    }
+
+    public struct FollowUserActionContext {
+
+        public let name: String
+        public let isFollowing: Bool
+
+        init(name: String, isFollowing: Bool) {
+            self.name = name
+            self.isFollowing = isFollowing
         }
     }
 }

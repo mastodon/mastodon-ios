@@ -45,6 +45,7 @@ extension StatusView {
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
+        @Published public var isFollowed = false
         
         // Translation
         @Published public var isCurrentlyTranslating = false
@@ -289,6 +290,12 @@ extension StatusView.ViewModel {
             .sink { [weak self] text in
                 guard let _ = self else { return }
                 authorView.dateLabel.configure(content: PlaintextMetaContent(string: text))
+            }
+            .store(in: &disposeBag)
+
+        $visibility
+            .sink { visibility in
+                authorView.visibilityIconImageView.image = visibility.image
             }
             .store(in: &disposeBag)
     }
@@ -655,10 +662,11 @@ extension StatusView.ViewModel {
             $authorName,
             $isMyself
         )
-        let publishersTwo = Publishers.CombineLatest3(
+        let publishersTwo = Publishers.CombineLatest4(
             $isMuting,
             $isBlocking,
-            $isBookmark
+            $isBookmark,
+            $isFollowed
         )
         let publishersThree = Publishers.CombineLatest(
             $translatedFromLanguage,
@@ -672,7 +680,7 @@ extension StatusView.ViewModel {
         ).eraseToAnyPublisher()
         .sink { tupleOne, tupleTwo, tupleThree in
             let (authorName, isMyself) = tupleOne
-            let (isMuting, isBlocking, isBookmark) = tupleTwo
+            let (isMuting, isBlocking, isBookmark, isFollowed) = tupleTwo
             let (translatedFromLanguage, language) = tupleThree
     
             guard let name = authorName?.string else {
@@ -703,6 +711,7 @@ extension StatusView.ViewModel {
                 isBlocking: isBlocking,
                 isMyself: isMyself,
                 isBookmarking: isBookmark,
+                isFollowed: isFollowed,
                 isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
                 isTranslated: translatedFromLanguage != nil,
                 statusLanguage: language

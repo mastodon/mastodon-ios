@@ -16,7 +16,7 @@ extension APIService {
     
     public func followRequest(
         userID: Mastodon.Entity.Account.ID,
-        query: Mastodon.API.Account.FollowReqeustQuery,
+        query: Mastodon.API.Account.FollowRequestQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
         let response = try await Mastodon.API.Account.followRequest(
@@ -51,4 +51,17 @@ extension APIService {
         return response
     }
 
+    public func pendingFollowRequest(
+        userID: Mastodon.Entity.Account.ID,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
+        let response = try await Mastodon.API.Account.pendingFollowRequest(
+            session: session,
+            domain: authenticationBox.domain,
+            userID: userID,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+
+        return response
+    }
 }

@@ -103,8 +103,8 @@ extension UserView.ViewModel {
 
                 switch link {
                 case let .some(link):
-                    userView.authorVerifiedImageView.tintColor = Asset.Colors.brand.color
-                    userView.authorVerifiedLabel.textColor = Asset.Colors.brand.color
+                    userView.authorVerifiedImageView.tintColor = Asset.Colors.Brand.blurple.color
+                    userView.authorVerifiedLabel.textColor = Asset.Colors.Brand.blurple.color
                     do {
                         let mastodonContent = MastodonContent(content: link, emojis: [:])
                         let content = try MastodonMetaContent.convert(document: mastodonContent)

@@ -15,10 +15,6 @@
                 "title": "إخفاقٌ فِي التَّصويت",
                 "poll_ended": "اِنتَهَى اِستِطلاعُ الرَّأي"
             },
-            "discard_post_content": {
-                "title": "التخلص من المسودة",
-                "message": "أكِّد للتخلص مِن مُحتوى مَنشور مؤلَّف."
-            },
             "publish_post_failure": {
                 "title": "إخفاق في عمليَّة النشر",
                 "message": "فَشَلَ نَشر المَنشور.\nيُرجى التحقق من اتصالك بالإنترنت.",
@@ -101,7 +97,11 @@
                     "title": "الترجَمَة مِن %s",
                     "unknown_language": "غير مَعرُوفة"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "الرَّئِيسَة",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "تسجيلُ الدخول",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "ابحث عن أشخاص لمتابعتهم",
-            "follow_explain": "عِندَ مُتابَعَتِكَ لأحدِهِم، سَوف تَرى مَنشوراته في تغذيَتِكَ الرئيسة."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

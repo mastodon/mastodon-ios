@@ -15,10 +15,6 @@
                 "title": "Fallou a votación",
                 "poll_ended": "A enquisa rematou"
             },
-            "discard_post_content": {
-                "title": "Descartar Borrador",
-                "message": "Confirma que queres descartar o contido do borrador."
-            },
             "publish_post_failure": {
                 "title": "Fallou a publicación",
                 "message": "Fallou a publicación.\nComproba a conexión a internet.",
@@ -101,7 +97,11 @@
                     "title": "Traducido do %s",
                     "unknown_language": "Descoñecido"
                 },
-                "edit_post": "Editar"
+                "edit_post": "Editar",
+                "bookmark": "Marcar",
+                "remove_bookmark": "Eliminar Marcador",
+                "follow": "Segue a %s",
+                "unfollow": "Deixa de seguir a %s"
             },
             "tabs": {
                 "home": "Inicio",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Acceder",
             "learn_more": "Saber máis",
-            "join_default_server": "Únete a mastodon.social",
+            "join_default_server": "Únete a %@",
             "pick_server": "Elixe outro servidor",
             "separator": {
                 "or": "ou"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Atopar persoas para seguir",
-            "follow_explain": "Cando sigas a alguén verás as súas publicacións na cronoloxía de inicio."
+            "title": "Popular en Mastodon",
+            "follow_all": "Seguir a todas"
         },
         "compose": {
             "title": {

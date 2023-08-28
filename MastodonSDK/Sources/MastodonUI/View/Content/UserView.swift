@@ -20,7 +20,7 @@ public protocol UserViewDelegate: AnyObject {
 public final class UserView: UIView {
     
     public enum ButtonState {
-        case none, loading, follow, unfollow, blocked
+        case none, loading, follow, request, pending, unfollow, blocked
     }
     
     private var currentButtonState: ButtonState = .none
@@ -71,7 +71,7 @@ public final class UserView: UIView {
         ]
         label.linkAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold)),
-            .foregroundColor: Asset.Colors.brand.color
+            .foregroundColor: Asset.Colors.Brand.blurple.color
         ]
         label.isUserInteractionEnabled = false
         return label
@@ -99,7 +99,8 @@ public final class UserView: UIView {
         label.textColor = .secondaryLabel
         return label
     }()
-    
+
+    private let followButtonWrapper = UIView()
     private let followButton: FollowButton = {
         let button = FollowButton()
         button.cornerRadius = 10
@@ -149,10 +150,7 @@ extension UserView {
         
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(avatarButton)
-        NSLayoutConstraint.activate([
-            avatarButton.widthAnchor.constraint(equalToConstant: 28).priority(.required - 1),
-            avatarButton.heightAnchor.constraint(equalToConstant: 28).priority(.required - 1),
-        ])
+
         avatarButton.setContentHuggingPriority(.defaultLow, for: .vertical)
         avatarButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
@@ -162,7 +160,19 @@ extension UserView {
         containerStackView.addArrangedSubview(labelStackView)
         
         // follow button
-        containerStackView.addArrangedSubview(followButton)
+        followButtonWrapper.translatesAutoresizingMaskIntoConstraints = false
+        followButtonWrapper.addSubview(followButton)
+
+        containerStackView.addArrangedSubview(followButtonWrapper)
+
+        NSLayoutConstraint.activate([
+            followButton.topAnchor.constraint(lessThanOrEqualTo: avatarButton.topAnchor),
+            followButton.leadingAnchor.constraint(equalTo: followButtonWrapper.leadingAnchor),
+            followButtonWrapper.trailingAnchor.constraint(equalTo: followButton.trailingAnchor),
+            followButtonWrapper.bottomAnchor.constraint(greaterThanOrEqualTo: followButton.bottomAnchor),
+
+            followButtonWrapper.heightAnchor.constraint(equalTo: containerStackView.heightAnchor),
+        ])
         
         let nameStackView = UIStackView()
         nameStackView.axis = .horizontal
@@ -181,7 +191,14 @@ extension UserView {
         authorUsernameLabel.setContentCompressionResistancePriority(.defaultHigh - 1, for: .horizontal)
         
         labelStackView.addArrangedSubview(nameStackView)
-                
+
+        NSLayoutConstraint.activate([
+            avatarButton.heightAnchor.constraint(lessThanOrEqualToConstant: 56),
+            avatarButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 28),
+            avatarButton.heightAnchor.constraint(equalTo: avatarButton.widthAnchor),
+            avatarButton.heightAnchor.constraint(equalTo: labelStackView.heightAnchor),
+        ])
+        
         let verifiedSpacerView = UIView()
         let verifiedStackTrailingSpacerView = UIView()
         
@@ -216,33 +233,6 @@ extension UserView {
     
 }
 
-private final class FollowButton: RoundedEdgesButton {
-    
-    init() {
-        super.init(frame: .zero)
-        configureAppearance()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureAppearance() {
-        setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
-        setTitleColor(Asset.Colors.Label.primaryReverse.color.withAlphaComponent(0.5), for: .highlighted)
-        switch traitCollection.userInterfaceStyle {
-        case .dark:
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundDark.color), for: .normal)
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedDark.color), for: .highlighted)
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedDark.color), for: .disabled)
-        default:
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundLight.color), for: .normal)
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .highlighted)
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .disabled)
-        }
-    }
-}
-
 public extension UserView {
     private func prepareButtonStateLayout(for state: ButtonState) {
         switch state {
@@ -269,6 +259,7 @@ public extension UserView {
         prepareButtonStateLayout(for: state)
         
         switch state {
+
         case .loading:
             followButton.isHidden = false
             followButton.setTitle(nil, for: .normal)
@@ -279,7 +270,19 @@ public extension UserView {
             followButton.setTitle(L10n.Common.Controls.Friendship.follow, for: .normal)
             followButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
             followButton.setTitleColor(.white, for: .normal)
-            
+
+        case .request:
+            followButton.isHidden = false
+            followButton.setTitle(L10n.Common.Controls.Friendship.request, for: .normal)
+            followButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
+            followButton.setTitleColor(.white, for: .normal)
+
+        case .pending:
+            followButton.isHidden = false
+            followButton.setTitle(L10n.Common.Controls.Friendship.pending, for: .normal)
+            followButton.setTitleColor(Asset.Colors.Button.userFollowingTitle.color, for: .normal)
+            followButton.setBackgroundColor(Asset.Colors.Button.userFollowing.color, for: .normal)
+
         case .unfollow:
             followButton.isHidden = false
             followButton.setTitle(L10n.Common.Controls.Friendship.following, for: .normal)

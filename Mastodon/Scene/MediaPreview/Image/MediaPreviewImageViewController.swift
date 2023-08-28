@@ -15,7 +15,6 @@ import VisionKit
 
 protocol MediaPreviewImageViewControllerDelegate: AnyObject {
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, tapGestureRecognizerDidTrigger tapGestureRecognizer: UITapGestureRecognizer)
-    func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer)
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, contextMenuActionPerform action: MediaPreviewImageViewController.ContextMenuAction)
 }
 
@@ -31,7 +30,6 @@ final class MediaPreviewImageViewController: UIViewController {
     let previewImageView = MediaPreviewImageView()
 
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-    let longPressGestureRecognizer = UILongPressGestureRecognizer()
 
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -58,13 +56,9 @@ extension MediaPreviewImageViewController {
 
         tapGestureRecognizer.addTarget(self, action: #selector(MediaPreviewImageViewController.tapGestureRecognizerHandler(_:)))
         tapGestureRecognizer.delegate = self
-        longPressGestureRecognizer.addTarget(self, action: #selector(MediaPreviewImageViewController.longPressGestureRecognizerHandler(_:)))
-        longPressGestureRecognizer.delegate = self
         tapGestureRecognizer.require(toFail: previewImageView.doubleTapGestureRecognizer)
-        tapGestureRecognizer.require(toFail: longPressGestureRecognizer)
         previewImageView.addGestureRecognizer(tapGestureRecognizer)
-        previewImageView.addGestureRecognizer(longPressGestureRecognizer)
-        
+
         let previewImageViewContextMenuInteraction = UIContextMenuInteraction(delegate: self)
         previewImageView.addInteraction(previewImageViewContextMenuInteraction)
 
@@ -93,11 +87,6 @@ extension MediaPreviewImageViewController {
     @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.mediaPreviewImageViewController(self, tapGestureRecognizerDidTrigger: sender)
-    }
-    
-    @objc private func longPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.mediaPreviewImageViewController(self, longPressGestureRecognizerDidTrigger: sender)
     }
     
 }

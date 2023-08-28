@@ -15,10 +15,6 @@
                 "title": "Error al votar",
                 "poll_ended": "La encuesta finalizó"
             },
-            "discard_post_content": {
-                "title": "Descartar borrador",
-                "message": "Confirmá para descartar el contenido del mensaje redactado."
-            },
             "publish_post_failure": {
                 "title": "Error al enviar el mensaje",
                 "message": "Error al enviar en mensaje.\nPor favor, revisá tu conexión a Internet.",
@@ -101,7 +97,11 @@
                     "title": "Traducido desde el %s",
                     "unknown_language": "Desconocido"
                 },
-                "edit_post": "Editar"
+                "edit_post": "Editar",
+                "bookmark": "Marcar",
+                "remove_bookmark": "Quitar marcador",
+                "follow": "Seguir a %s",
+                "unfollow": "Dejar de seguir a %s"
             },
             "tabs": {
                 "home": "Principal",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Iniciar sesión",
             "learn_more": "Aprendé más",
-            "join_default_server": "Unite a mastodon.social",
+            "join_default_server": "Unite a %@",
             "pick_server": "Elegí otro servidor",
             "separator": {
                 "or": "o"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Encontrá cuentas para seguir",
-            "follow_explain": "Cuando sigás una cuenta, verás sus mensajes en tu línea temporal principal."
+            "title": "Popular en Mastodon",
+            "follow_all": "Seguir a todos"
         },
         "compose": {
             "title": {

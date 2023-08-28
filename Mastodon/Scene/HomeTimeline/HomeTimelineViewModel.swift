@@ -30,7 +30,8 @@ final class HomeTimelineViewModel: NSObject {
     let fetchedResultsController: FeedFetchedResultsController
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let listBatchFetchViewModel = ListBatchFetchViewModel()
-    let viewDidAppear = PassthroughSubject<Void, Never>()
+
+    var presentedSuggestions = false
 
     @Published var lastAutomaticFetchTimestamp: Date? = nil
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil

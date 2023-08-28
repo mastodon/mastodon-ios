@@ -10,6 +10,11 @@ import Combine
 
 // MARK: - Account credentials
 extension Mastodon.API.Account {
+
+    static func pendingFollowRequestEndpointURL(domain: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain)
+            .appendingPathComponent("follow_requests")
+    }
     
     static func acceptFollowRequestEndpointURL(domain: String, userID: Mastodon.Entity.Account.ID) -> URL {
         return Mastodon.API.endpointURL(domain: domain)
@@ -25,13 +30,45 @@ extension Mastodon.API.Account {
             .appendingPathComponent("reject")
     }
 
-    /// Accept Follow
+    /// Pending Follow Requests
     ///
     ///
     /// - Since: 0.0.0
     /// - Version: 3.3.0
     /// # Reference
     ///   [Document](https://docs.joinmastodon.org/methods/accounts/follow_requests/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - userID: ID of the account in the database
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `[Account]` nested in the response
+    public static func pendingFollowRequest(
+        session: URLSession,
+        domain: String,
+        userID: Mastodon.Entity.Account.ID,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
+        let request = Mastodon.API.get(
+            url: pendingFollowRequestEndpointURL(domain: domain),
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+
+
+    /// Accept Follow
+    ///
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/follow_requests/#allow)
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
@@ -63,7 +100,7 @@ extension Mastodon.API.Account {
     /// - Since: 0.0.0
     /// - Version: 3.3.0
     /// # Reference
-    ///   [Document](https://docs.joinmastodon.org/methods/accounts/follow_requests/)
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/follow_requests/#reject)
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
@@ -92,7 +129,7 @@ extension Mastodon.API.Account {
 
 extension Mastodon.API.Account {
  
-    public enum FollowReqeustQuery {
+    public enum FollowRequestQuery {
         case accept
         case reject
     }
@@ -101,7 +138,7 @@ extension Mastodon.API.Account {
         session: URLSession,
         domain: String,
         userID: Mastodon.Entity.Account.ID,
-        query: FollowReqeustQuery,
+        query: FollowRequestQuery,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         switch query {

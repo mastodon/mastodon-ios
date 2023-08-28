@@ -15,10 +15,6 @@
                 "title": "Tuccḍa deg ufran",
                 "poll_ended": "Tafrant tfuk"
             },
-            "discard_post_content": {
-                "title": "Kkes arewway",
-                "message": "Sentem i wakken ad yettusefsax ugbur n tsuffeɣt."
-            },
             "publish_post_failure": {
                 "title": "Yecceḍ usuffeɣ",
                 "message": "Yecceḍ usuffeɣ n tsuffeɣt.\nMa ulac aɣilif, senqed tuqqna-inek internet.",
@@ -101,7 +97,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Agejdan",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Qqen",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Af imdanen ara tḍefreḍ",
-            "follow_explain": "Mi ara teṭṭafareḍ albaɛḍ, ad twaliḍ tisuffaɣ-is deg usuddem-inek agejdan."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {

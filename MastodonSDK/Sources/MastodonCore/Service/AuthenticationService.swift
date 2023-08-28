@@ -45,7 +45,12 @@ public final class AuthenticationService: NSObject {
         let blockedIds = try await apiService.getBlocked(
             authenticationBox: authBox
         ).value.map { $0.id }
-        
+
+        let followRequestIds = try await apiService.pendingFollowRequest(userID: authBox.userID,
+                                                                         authenticationBox: authBox)
+            .value.map { $0.id }
+
+        authBox.inMemoryCache.followRequestedUserIDs = followRequestIds
         authBox.inMemoryCache.followingUserIds = followingIds
         authBox.inMemoryCache.blockedUserIds = blockedIds
     }
