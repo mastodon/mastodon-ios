@@ -2434,8 +2434,6 @@
 			isa = PBXGroup;
 			children = (
 				DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */,
-				DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */,
-				DB87D4502609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -3401,7 +3399,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./MastodonSDK/Sources/CoreDataStack\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
+			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./MastodonSDK/Sources/CoreDataStack --disableCache\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
 		DB3D100425BAA71500EAA174 /* Run SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3439,7 +3437,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./Mastodon\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
+			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./Mastodon --disableCache\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
 		E139F888AA77A10B890BFED6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
