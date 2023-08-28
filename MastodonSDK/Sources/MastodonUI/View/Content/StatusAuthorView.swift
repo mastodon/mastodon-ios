@@ -41,9 +41,23 @@ public class StatusAuthorView: UIStackView {
     // timestamp
     public let dateLabel = MetaLabel(style: .statusUsername)
 
+    public let dateTrailingDotLabel: MetaLabel = {
+        let label = MetaLabel(style: .statusUsername)
+        label.configure(content: PlaintextMetaContent(string: "·"))
+        return label
+    }()
+
+    let visibilityIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = Asset.Colors.Label.secondary.color
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
+        return imageView
+    }()
+
     public let menuButton: UIButton = {
         let button = HitTestExpandedButton(type: .system)
-        button.expandEdgeInsets = UIEdgeInsets(top: -20, left: -10, bottom: -5, right: -10)
+        button.expandEdgeInsets = UIEdgeInsets(top: -20, left: -10, bottom: -10, right: -10)
         button.tintColor = Asset.Colors.Label.secondary.color
         let image = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
         button.setImage(image, for: .normal)
@@ -53,11 +67,10 @@ public class StatusAuthorView: UIStackView {
 
     public let contentSensitiveeToggleButton: UIButton = {
         let button = HitTestExpandedButton(type: .system)
-        button.expandEdgeInsets = UIEdgeInsets(top: -5, left: -10, bottom: -20, right: -10)
+        button.expandEdgeInsets = UIEdgeInsets(top: -20, left: -10, bottom: -10, right: -10)
         button.tintColor = Asset.Colors.Label.secondary.color
-        button.imageView?.contentMode = .scaleAspectFill
-        button.imageView?.clipsToBounds = false
-        let image = UIImage(systemName: "eye.slash.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
+        button.imageView?.contentMode = .scaleAspectFit
+        let image = UIImage(systemName: "eye.slash.fill")
         button.setImage(image, for: .normal)
         return button
     }()
@@ -138,6 +151,8 @@ extension StatusAuthorView {
 
         // dateLabel
         dateLabel.isUserInteractionEnabled = false
+
+        visibilityIconImageView.isUserInteractionEnabled = false
     }
 }
 
@@ -259,47 +274,59 @@ extension StatusAuthorView {
         // authorPrimaryMetaContainer: H - [ authorNameLabel | (padding) | menuButton ]
         let authorPrimaryMetaContainer = UIStackView()
         authorPrimaryMetaContainer.axis = .horizontal
-        authorPrimaryMetaContainer.spacing = 10
+        authorPrimaryMetaContainer.alignment = .center
+        authorPrimaryMetaContainer.spacing = 8
         authorMetaContainer.addArrangedSubview(authorPrimaryMetaContainer)
 
         // authorNameLabel
         authorPrimaryMetaContainer.addArrangedSubview(authorNameLabel)
-        authorNameLabel.setContentHuggingPriority(.required - 10, for: .horizontal)
-        authorNameLabel.setContentCompressionResistancePriority(.required - 10, for: .horizontal)
+        authorNameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        authorNameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
         authorPrimaryMetaContainer.addArrangedSubview(UIView())
+
+        authorPrimaryMetaContainer.addArrangedSubview(contentSensitiveeToggleButton)
+        NSLayoutConstraint.activate([
+            contentSensitiveeToggleButton.heightAnchor.constraint(equalToConstant: 18),
+        ])
+
+        authorPrimaryMetaContainer.setCustomSpacing(16, after: contentSensitiveeToggleButton)
+
         // menuButton
         authorPrimaryMetaContainer.addArrangedSubview(menuButton)
-        menuButton.setContentHuggingPriority(.required - 2, for: .horizontal)
-        menuButton.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
+        menuButton.setContentHuggingPriority(.required - 1, for: .horizontal)
+        menuButton.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
 
         // authorSecondaryMetaContainer: H - [ authorUsername | usernameTrialingDotLabel | dateLabel | (padding) | contentSensitiveeToggleButton ]
         let authorSecondaryMetaContainer = UIStackView()
         authorSecondaryMetaContainer.axis = .horizontal
+        authorSecondaryMetaContainer.alignment = .center
         authorSecondaryMetaContainer.spacing = 4
         authorMetaContainer.addArrangedSubview(authorSecondaryMetaContainer)
 
         authorSecondaryMetaContainer.addArrangedSubview(authorUsernameLabel)
-        authorUsernameLabel.setContentHuggingPriority(.required - 8, for: .horizontal)
-        authorUsernameLabel.setContentCompressionResistancePriority(.required - 8, for: .horizontal)
+        authorUsernameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        authorUsernameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
         authorSecondaryMetaContainer.addArrangedSubview(usernameTrialingDotLabel)
-        usernameTrialingDotLabel.setContentHuggingPriority(.required - 2, for: .horizontal)
-        usernameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
+        usernameTrialingDotLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
         authorSecondaryMetaContainer.addArrangedSubview(dateLabel)
         dateLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        authorSecondaryMetaContainer.addArrangedSubview(UIView())
-        contentSensitiveeToggleButton.translatesAutoresizingMaskIntoConstraints = false
-        authorSecondaryMetaContainer.addArrangedSubview(contentSensitiveeToggleButton)
+
+        authorSecondaryMetaContainer.addArrangedSubview(dateTrailingDotLabel)
+        dateTrailingDotLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        authorSecondaryMetaContainer.addArrangedSubview(visibilityIconImageView)
         NSLayoutConstraint.activate([
-            contentSensitiveeToggleButton.heightAnchor.constraint(equalTo: authorUsernameLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
-            contentSensitiveeToggleButton.widthAnchor.constraint(equalTo: contentSensitiveeToggleButton.heightAnchor, multiplier: 1.0).priority(.required - 1),
+            visibilityIconImageView.heightAnchor.constraint(equalTo: authorUsernameLabel.heightAnchor),
+            visibilityIconImageView.widthAnchor.constraint(equalTo: visibilityIconImageView.heightAnchor),
         ])
-        authorUsernameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
-        authorUsernameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        contentSensitiveeToggleButton.setContentHuggingPriority(.defaultLow, for: .vertical)
-        contentSensitiveeToggleButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        contentSensitiveeToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        contentSensitiveeToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+
+        authorSecondaryMetaContainer.setCustomSpacing(0, after: visibilityIconImageView)
+
+        authorSecondaryMetaContainer.addArrangedSubview(UIView())
     }
 
     func layoutReport() {

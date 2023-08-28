@@ -126,7 +126,6 @@ extension ComposeContentViewController {
             toolbarHostingView.view.heightAnchor.constraint(equalToConstant: ComposeContentToolbarView.toolbarHeight),
         ])
         toolbarHostingView.view.preservesSuperviewLayoutMargins = true
-        //composeToolbarView.delegate = self
         
         composeContentToolbarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(composeContentToolbarBackgroundView, belowSubview: toolbarHostingView.view)
