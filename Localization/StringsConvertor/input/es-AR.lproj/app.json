@@ -15,10 +15,6 @@
                 "title": "Error al votar",
                 "poll_ended": "La encuesta finalizó"
             },
-            "discard_post_content": {
-                "title": "Descartar borrador",
-                "message": "Confirmá para descartar el contenido del mensaje redactado."
-            },
             "publish_post_failure": {
                 "title": "Error al enviar el mensaje",
                 "message": "Error al enviar en mensaje.\nPor favor, revisá tu conexión a Internet.",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "Iniciar sesión",
             "learn_more": "Aprendé más",
-            "join_default_server": "Join %@",
+            "join_default_server": "Unite a %@",
             "pick_server": "Elegí otro servidor",
             "separator": {
                 "or": "o"

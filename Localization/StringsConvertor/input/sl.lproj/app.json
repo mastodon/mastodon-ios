@@ -15,10 +15,6 @@
                 "title": "Napaka glasovanja",
                 "poll_ended": "Anketa je zaključena"
             },
-            "discard_post_content": {
-                "title": "Zavrzi osnutek",
-                "message": "Potrdite za opustitev sestavljene vsebine objave."
-            },
             "publish_post_failure": {
                 "title": "Spodletela objava",
                 "message": "Objava je spodletela.\nPreverite svojo internetno povezavo.",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "Prijava",
             "learn_more": "Več o tem",
-            "join_default_server": "Join %@",
+            "join_default_server": "Pridruži se %@",
             "pick_server": "Izberi drug strežnik",
             "separator": {
                 "or": "ali"

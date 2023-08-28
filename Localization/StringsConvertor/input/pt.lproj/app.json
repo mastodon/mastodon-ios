@@ -15,10 +15,6 @@
                 "title": "Erro na votação",
                 "poll_ended": "Esta sondagem está fechada"
             },
-            "discard_post_content": {
-                "title": "Descartar rascunho",
-                "message": "Confirm to discard composed post content."
-            },
             "publish_post_failure": {
                 "title": "Falha ao publicar",
                 "message": "Falha na publicação.\nPor favor verifique a sua ligação à Internet.",

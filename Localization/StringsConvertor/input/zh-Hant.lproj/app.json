@@ -15,10 +15,6 @@
                 "title": "投票失敗",
                 "poll_ended": "投票已結束"
             },
-            "discard_post_content": {
-                "title": "捨棄草稿",
-                "message": "確認放棄編寫中的嘟文內容。"
-            },
             "publish_post_failure": {
                 "title": "發表嘟文失敗",
                 "message": "發表嘟文失敗。\n請檢查您的網路連線。",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "登入",
             "learn_more": "了解更多",
-            "join_default_server": "Join %@",
+            "join_default_server": "加入 %@",
             "pick_server": "挑選另一個伺服器",
             "separator": {
                 "or": "或"

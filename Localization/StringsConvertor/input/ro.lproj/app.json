@@ -15,10 +15,6 @@
                 "title": "Eșec la vot",
                 "poll_ended": "Sondajul tău s-a încheiat"
             },
-            "discard_post_content": {
-                "title": "Șterge Schită",
-                "message": "Confirmă renunțarea la conținutul postării."
-            },
             "publish_post_failure": {
                 "title": "Eșec la publicare",
                 "message": "Datele nu au putut fi încărcate. Te rugăm să-ți verifici conexiunea la internet.",

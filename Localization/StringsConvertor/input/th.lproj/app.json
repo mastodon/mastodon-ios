@@ -15,10 +15,6 @@
                 "title": "การลงคะแนนล้มเหลว",
                 "poll_ended": "การสำรวจความคิดเห็นได้สิ้นสุดแล้ว"
             },
-            "discard_post_content": {
-                "title": "ละทิ้งแบบร่าง",
-                "message": "ยืนยันเพื่อละทิ้งเนื้อหาโพสต์ที่เขียน"
-            },
             "publish_post_failure": {
                 "title": "การเผยแพร่ล้มเหลว",
                 "message": "ไม่สามารถเผยแพร่โพสต์\nโปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "เข้าสู่ระบบ",
             "learn_more": "เรียนรู้เพิ่มเติม",
-            "join_default_server": "Join %@",
+            "join_default_server": "เข้าร่วม %@",
             "pick_server": "เลือกเซิร์ฟเวอร์อื่น",
             "separator": {
                 "or": "หรือ"
@@ -838,7 +834,7 @@
             "title": "แท็กที่ติดตาม",
             "header": {
                 "posts": "โพสต์",
-                "participants": "ผู้เข้าร่วม",
+                "participants": "ผู้มีส่วนร่วม",
                 "posts_today": "โพสต์วันนี้"
             },
             "actions": {

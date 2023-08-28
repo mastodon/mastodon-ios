@@ -15,10 +15,6 @@
                 "title": "Hutsegitea botoa ematean",
                 "poll_ended": "Inkesta amaitu da"
             },
-            "discard_post_content": {
-                "title": "Baztertu zirriborroa",
-                "message": "Berretsi idatzitako bidalketaren edukia baztertzea."
-            },
             "publish_post_failure": {
                 "title": "Hutsegitea argitaratzean",
                 "message": "Huts egin du bidalketa argitaratzean.\nEgiaztatu Interneteko konexioa.",

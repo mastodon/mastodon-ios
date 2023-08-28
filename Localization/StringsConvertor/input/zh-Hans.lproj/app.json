@@ -15,10 +15,6 @@
                 "title": "投票失败",
                 "poll_ended": "投票已结束"
             },
-            "discard_post_content": {
-                "title": "丢弃草案",
-                "message": "确认要丢弃正在编辑的内容"
-            },
             "publish_post_failure": {
                 "title": "发布失败",
                 "message": "帖子发送失败。\n请检查你的网络连接。",

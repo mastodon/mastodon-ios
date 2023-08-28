@@ -15,10 +15,6 @@
                 "title": "Vote Failure",
                 "poll_ended": "Kysely on päättynyt"
             },
-            "discard_post_content": {
-                "title": "Hylkää luonnos",
-                "message": "Confirm to discard composed post content."
-            },
             "publish_post_failure": {
                 "title": "Julkaiseminen epäonnistui",
                 "message": "Julkaisun julkaiseminen epäonnistui.\nTarkista internet-yhteytesi.",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "Kirjaudu sisään",
             "learn_more": "Lue lisää",
-            "join_default_server": "Join %@",
+            "join_default_server": "Liity palvelimelle %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "tai"

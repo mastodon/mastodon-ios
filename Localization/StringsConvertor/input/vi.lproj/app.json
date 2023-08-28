@@ -15,10 +15,6 @@
                 "title": "Bình chọn không thành công",
                 "poll_ended": "Cuộc bình chọn đã kết thúc"
             },
-            "discard_post_content": {
-                "title": "Bỏ bản nháp",
-                "message": "Xác nhận bỏ qua nội dung tút đã viết."
-            },
             "publish_post_failure": {
                 "title": "Đăng tút không thành công",
                 "message": "Không thể đăng tút.\nVui lòng kiểm tra kết nối mạng.",
@@ -72,7 +68,7 @@
                 "done": "Xong",
                 "confirm": "Xác nhận",
                 "continue": "Tiếp tục",
-                "compose": "Viết tút",
+                "compose": "Soạn tút",
                 "cancel": "Hủy bỏ",
                 "discard": "Bỏ qua",
                 "try_again": "Thử lại",
@@ -108,7 +104,7 @@
                 "unfollow": "Bỏ theo dõi %s"
             },
             "tabs": {
-                "home": "Bảng tin",
+                "home": "Trang chính",
                 "search_and_explore": "Tìm và Khám Phá",
                 "notifications": "Thông báo",
                 "profile": "Trang hồ sơ",
@@ -120,7 +116,7 @@
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Chuyển thành %s",
-                    "compose_new_post": "Viết tút mới",
+                    "compose_new_post": "Soạn tút mới",
                     "show_favorites": "Hiện lượt thích",
                     "open_settings": "Mở cài đặt"
                 },
@@ -128,7 +124,7 @@
                     "previous_status": "Tút trước",
                     "next_status": "Tút sau",
                     "open_status": "Mở tút",
-                    "open_author_profile": "Mở trang người viết tút",
+                    "open_author_profile": "Mở trang người đăng tút",
                     "open_reblogger_profile": "Mở trang người đăng lại tút",
                     "reply_status": "Trả lời tút",
                     "toggle_reblog": "Chọn đăng lại tút",
@@ -154,7 +150,7 @@
                 "link_via_user": "%s bởi %s",
                 "poll": {
                     "vote": "Bình chọn",
-                    "closed": "Kết thúc"
+                    "closed": "Đóng"
                 },
                 "meta_entity": {
                     "url": "Link: %s",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "Đăng nhập",
             "learn_more": "Tìm hiểu thêm",
-            "join_default_server": "Join %@",
+            "join_default_server": "Tham gia %@",
             "pick_server": "Tìm máy chủ khác",
             "separator": {
                 "or": "hoặc"
@@ -453,7 +449,7 @@
             }
         },
         "home_timeline": {
-            "title": "Bảng tin",
+            "title": "Trang chính",
             "navigation_bar_state": {
                 "offline": "Ngoại tuyến",
                 "new_posts": "Đọc những tút mới",
@@ -471,7 +467,7 @@
         },
         "compose": {
             "title": {
-                "new_post": "Viết tút",
+                "new_post": "Soạn tút",
                 "new_reply": "Viết trả lời",
                 "edit_post": "Sửa tút"
             },
@@ -648,7 +644,7 @@
                     "people_talking": "%s người đang thảo luận"
                 },
                 "accounts": {
-                    "title": "Những người bạn có thể thích",
+                    "title": "Những người bạn có thể quen",
                     "description": "Bạn có thể muốn theo dõi những người này",
                     "follow": "Theo dõi"
                 }
@@ -731,7 +727,7 @@
                     "boosts": "Đăng lại tút của tôi",
                     "mentions": "Nhắc đến tôi",
                     "trigger": {
-                        "anyone": "ai đó",
+                        "anyone": "bất cứ ai",
                         "follower": "người theo dõi tôi",
                         "follow": "người tôi theo dõi",
                         "noone": "không một ai",

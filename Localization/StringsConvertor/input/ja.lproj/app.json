@@ -15,10 +15,6 @@
                 "title": "投票の失敗",
                 "poll_ended": "投票は終了しました"
             },
-            "discard_post_content": {
-                "title": "投稿を破棄しますか？",
-                "message": "この操作は取り消しできません。下書きは失われます。"
-            },
             "publish_post_failure": {
                 "title": "失敗",
                 "message": "投稿に失敗しました。\nインターネットに接続されているか確認してください。",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "ログイン",
             "learn_more": "詳しく学ぶ",
-            "join_default_server": "Join %@",
+            "join_default_server": "%@ に登録",
             "pick_server": "ほかのサーバーをさがす",
             "separator": {
                 "or": "または"

@@ -15,10 +15,6 @@
                 "title": "Voto fallito",
                 "poll_ended": "Il sondaggio è terminato"
             },
-            "discard_post_content": {
-                "title": "Elimina bozza",
-                "message": "Confermare di scartare il contenuto del post composto."
-            },
             "publish_post_failure": {
                 "title": "Pubblicazione fallita",
                 "message": "Pubblicazione del post fallita.\nPer favore verifica la tua connessione internet.",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "Accedi",
             "learn_more": "Scopri di più",
-            "join_default_server": "Join %@",
+            "join_default_server": "Unisciti a %@",
             "pick_server": "Scegli un altro server",
             "separator": {
                 "or": "o"

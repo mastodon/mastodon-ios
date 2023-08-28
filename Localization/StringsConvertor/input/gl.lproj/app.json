@@ -15,10 +15,6 @@
                 "title": "Fallou a votación",
                 "poll_ended": "A enquisa rematou"
             },
-            "discard_post_content": {
-                "title": "Descartar Borrador",
-                "message": "Confirma que queres descartar o contido do borrador."
-            },
             "publish_post_failure": {
                 "title": "Fallou a publicación",
                 "message": "Fallou a publicación.\nComproba a conexión a internet.",
@@ -269,7 +265,7 @@
         "welcome": {
             "log_in": "Acceder",
             "learn_more": "Saber máis",
-            "join_default_server": "Join %@",
+            "join_default_server": "Únete a %@",
             "pick_server": "Elixe outro servidor",
             "separator": {
                 "or": "ou"
