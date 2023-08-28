@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Yritä uudelleen myöhemmin.";
 "Common.Alerts.DeletePost.Message" = "Are you sure you want to delete this post?";
 "Common.Alerts.DeletePost.Title" = "Haluatko varmasti poistaa tämän julkaisun?";
-"Common.Alerts.DiscardPostContent.Message" = "Confirm to discard composed post content.";
-"Common.Alerts.DiscardPostContent.Title" = "Hylkää luonnos";
 "Common.Alerts.EditProfileFailure.Message" = "Profiilia ei voida muoka. Yritä uudelleen.";
 "Common.Alerts.EditProfileFailure.Title" = "Virhe profiilin muokkauksessa";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Ei voi liittä yhtä videota enempää.";
@@ -530,7 +528,7 @@ uploaded to Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Tervetuloa Mastodoniin";
 "Scene.Welcome.Education.Servers.Description" = "Jokainen Mastodon-tili sijaitsee jollakin palvelimella, joilla on kaikilla omat arvot, säännöt ja ylläpitäjät. Palvelinvalinnastasi riippumatta voit seurata kaikkien palvelinten käyttäjiä ja viestiä heidän kanssaan.";
 "Scene.Welcome.Education.Servers.Title" = "Mitä palvelimet ovat?";
-"Scene.Welcome.JoinDefaultServer" = "Join %@";
+"Scene.Welcome.JoinDefaultServer" = "Liity palvelimelle %@";
 "Scene.Welcome.LearnMore" = "Lue lisää";
 "Scene.Welcome.LogIn" = "Kirjaudu sisään";
 "Scene.Welcome.PickServer" = "Pick another server";

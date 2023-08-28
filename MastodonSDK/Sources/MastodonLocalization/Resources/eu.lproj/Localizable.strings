@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Mesedez beranduago saiatu.";
 "Common.Alerts.DeletePost.Message" = "Ziur bidalketa hau ezabatu nahi duzula?";
 "Common.Alerts.DeletePost.Title" = "Ziur zaude bidalketa hau ezabatu nahi duzula?";
-"Common.Alerts.DiscardPostContent.Message" = "Berretsi idatzitako bidalketaren edukia baztertzea.";
-"Common.Alerts.DiscardPostContent.Title" = "Baztertu zirriborroa";
 "Common.Alerts.EditProfileFailure.Message" = "Ezin da profila editatu. Mesedez saiatu berriro.";
 "Common.Alerts.EditProfileFailure.Title" = "Errorea profila editatzean";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Ezin da bideo bat baino gehiago erantsi.";

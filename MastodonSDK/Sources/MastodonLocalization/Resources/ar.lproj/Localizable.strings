@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "يُرجى المُحاولة مرة أُخرى لاحقًا.";
 "Common.Alerts.DeletePost.Message" = "هَل أنتَ مُتأكِدٌ مِن رَغبتِكَ فِي حَذفِ هَذَا المَنشُور؟";
 "Common.Alerts.DeletePost.Title" = "هل أنت متأكد من رغبتك في حذف هذا المنشور؟";
-"Common.Alerts.DiscardPostContent.Message" = "أكِّد للتخلص مِن مُحتوى مَنشور مؤلَّف.";
-"Common.Alerts.DiscardPostContent.Title" = "التخلص من المسودة";
 "Common.Alerts.EditProfileFailure.Message" = "يتعذَّر تعديل الملف التعريفي. يُرجى المُحاولة مرة أُخرى.";
 "Common.Alerts.EditProfileFailure.Title" = "خطأ في تَحرير الملف التعريفي";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "لا يُمكِنُ إرفاق أكثر مِن مَقطع مرئي واحِد.";

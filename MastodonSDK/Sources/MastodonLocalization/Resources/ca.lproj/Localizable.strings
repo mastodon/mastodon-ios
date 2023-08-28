@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Prova-ho més tard.";
 "Common.Alerts.DeletePost.Message" = "Segur que vols eliminar aquesta publicació?";
 "Common.Alerts.DeletePost.Title" = "Eliminar la publicació";
-"Common.Alerts.DiscardPostContent.Message" = "Confirma per a descartar el contingut del tut.";
-"Common.Alerts.DiscardPostContent.Title" = "Descarta l'esborrany";
 "Common.Alerts.EditProfileFailure.Message" = "No es pot editar el perfil. Torna-ho a provar.";
 "Common.Alerts.EditProfileFailure.Title" = "Error en editar el perfil";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "No es pot adjuntar més d'un vídeo.";
@@ -531,7 +529,7 @@ Elegiremos un servidor basado en su idioma si continúa sin hacer una selección
 "Scene.Welcome.Education.Mastodon.Title" = "Benvingut a Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Cada compte a Mastodon esta allotjat en un servidor, cadascún d'ells amb els seus propis valors, normes i administradors. Tant és quin trïis, podràs seguir i interactuar amb gent de qualsevol servidor.";
 "Scene.Welcome.Education.Servers.Title" = "Què son els servidors?";
-"Scene.Welcome.JoinDefaultServer" = "Join %@";
+"Scene.Welcome.JoinDefaultServer" = "Uneix-te a %@";
 "Scene.Welcome.LearnMore" = "Més informació";
 "Scene.Welcome.LogIn" = "Inicia sessió";
 "Scene.Welcome.PickServer" = "Tria un altre servidor";

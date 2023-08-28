@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Please try again later.";
 "Common.Alerts.DeletePost.Message" = "Are you sure you want to delete this post?";
 "Common.Alerts.DeletePost.Title" = "Delete Post";
-"Common.Alerts.DiscardPostContent.Message" = "Confirm to discard composed post content.";
-"Common.Alerts.DiscardPostContent.Title" = "Discard Draft";
 "Common.Alerts.EditProfileFailure.Message" = "Cannot edit profile. Please try again.";
 "Common.Alerts.EditProfileFailure.Title" = "Edit Profile Error";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Cannot attach more than one video.";

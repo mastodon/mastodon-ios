@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Probeer het later nog eens.";
 "Common.Alerts.DeletePost.Message" = "Weet je zeker dat je dit bericht wilt verwijderen?";
 "Common.Alerts.DeletePost.Title" = "Bericht verwijderen";
-"Common.Alerts.DiscardPostContent.Message" = "Bevestig het verwijderen van het conceptbericht.";
-"Common.Alerts.DiscardPostContent.Title" = "Verwijder concept";
 "Common.Alerts.EditProfileFailure.Message" = "Je profiel kan niet bewerkt worden. Probeer het opnieuw.";
 "Common.Alerts.EditProfileFailure.Title" = "Profiel bewerken mislukt";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Kan niet meer dan één video toevoegen.";

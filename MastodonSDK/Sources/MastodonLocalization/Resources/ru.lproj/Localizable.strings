@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Пожалуйста, попробуйте позже.";
 "Common.Alerts.DeletePost.Message" = "Вы уверены, что хотите удалить этот пост?";
 "Common.Alerts.DeletePost.Title" = "Вы уверены, что хотите удалить этот пост?";
-"Common.Alerts.DiscardPostContent.Message" = "Вы действительно хотите удалить набранное содержимое поста?";
-"Common.Alerts.DiscardPostContent.Title" = "Удалить черновик";
 "Common.Alerts.EditProfileFailure.Message" = "Не удаётся изменить профиль. Пожалуйста, попробуйте ещё раз.";
 "Common.Alerts.EditProfileFailure.Title" = "Ошибка изменения профиля";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Невозможно прикрепить более одного видео.";

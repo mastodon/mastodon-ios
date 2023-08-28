@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Por favor, vuelve a intentarlo más tarde.";
 "Common.Alerts.DeletePost.Message" = "¿Estás seguro de que quieres borrar esta publicación?";
 "Common.Alerts.DeletePost.Title" = "¿Estás seguro de que deseas eliminar esta publicación?";
-"Common.Alerts.DiscardPostContent.Message" = "Confirma para descartar el contenido de la publicación.";
-"Common.Alerts.DiscardPostContent.Title" = "Descartar borrador";
 "Common.Alerts.EditProfileFailure.Message" = "No se ha podido editar el perfil. Por favor, inténtalo de nuevo.";
 "Common.Alerts.EditProfileFailure.Title" = "Error en la Edición del Perfil";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "No puedes adjuntar más de un vídeo.";

@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Ttxil εreḍ tikelt-nniḍen ticki.";
 "Common.Alerts.DeletePost.Message" = "Tebɣiḍ s tidet ad tekkseḍ tasuffeɣt-agi?";
 "Common.Alerts.DeletePost.Title" = "Tebɣiḍ s tidet ad tekkseḍ tasuffeɣt-agi?";
-"Common.Alerts.DiscardPostContent.Message" = "Sentem i wakken ad yettusefsax ugbur n tsuffeɣt.";
-"Common.Alerts.DiscardPostContent.Title" = "Kkes arewway";
 "Common.Alerts.EditProfileFailure.Message" = "Yegguma ad yettwaẓreg umaɣnu. Ɛreḍ tikkelt-nniḍen.";
 "Common.Alerts.EditProfileFailure.Title" = "Ẓreg tuccḍa n umaɣnu";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Ur tezmireḍ ara ad ugar n tvidyut.";

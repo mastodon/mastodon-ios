@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "تکایە دواتر هەوڵ بدەوە.";
 "Common.Alerts.DeletePost.Message" = "دڵنیایت دەتەوێت ئەم پۆستە بسڕیتەوە؟";
 "Common.Alerts.DeletePost.Title" = "بیسڕەوە";
-"Common.Alerts.DiscardPostContent.Message" = "دڵنیا ببەوە بۆ وازهێنان لە ناوەڕۆکەت.";
-"Common.Alerts.DiscardPostContent.Title" = "ڕەشنووس هەڵمەگرە";
 "Common.Alerts.EditProfileFailure.Message" = "ناتوانرێت دەستکاریی پرۆفایل بکرێت. تکایە دووبارە هەوڵ بدەوە.";
 "Common.Alerts.EditProfileFailure.Title" = "نەتوانرا دەستکاریی پرۆفایل بکرێت";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "ناتوانیت زیاتر لە یەک ڤیدیۆی پێوە بلکێنیت.";

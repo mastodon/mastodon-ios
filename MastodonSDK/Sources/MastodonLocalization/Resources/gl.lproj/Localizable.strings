@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Inténtao de novo máis tarde.";
 "Common.Alerts.DeletePost.Message" = "Tes a certeza de querer eliminar esta publicación?";
 "Common.Alerts.DeletePost.Title" = "Eliminar publicación";
-"Common.Alerts.DiscardPostContent.Message" = "Confirma que queres descartar o contido do borrador.";
-"Common.Alerts.DiscardPostContent.Title" = "Descartar Borrador";
 "Common.Alerts.EditProfileFailure.Message" = "Non se editou o perfil. Inténtao máis tarde.";
 "Common.Alerts.EditProfileFailure.Title" = "Erro ao editar o perfil";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Non podes anexar máis de un vídeo.";
@@ -530,7 +528,7 @@ ser subido a Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Benvida a Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Cada conta Mastodon está hospedada nun servidor — cada unha coas súas regras, valores e admins. Non importa cal elixas, podes seguir e interactuar con persoas de outros servidores.";
 "Scene.Welcome.Education.Servers.Title" = "Que son os servidores?";
-"Scene.Welcome.JoinDefaultServer" = "Join %@";
+"Scene.Welcome.JoinDefaultServer" = "Únete a %@";
 "Scene.Welcome.LearnMore" = "Saber máis";
 "Scene.Welcome.LogIn" = "Acceder";
 "Scene.Welcome.PickServer" = "Elixe outro servidor";

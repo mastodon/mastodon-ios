@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Ji kerema xwe paşê dîsa biceribîne.";
 "Common.Alerts.DeletePost.Message" = "Ma tu dixwazî vê şandiyê jê bibî?";
 "Common.Alerts.DeletePost.Title" = "Şandiyê jê bibe";
-"Common.Alerts.DiscardPostContent.Message" = "Bipejrîne ku naveroka şandiyê ya hatiye nivîsandin paşguh bikî.";
-"Common.Alerts.DiscardPostContent.Title" = "Reşnivîsê paşguh bike";
 "Common.Alerts.EditProfileFailure.Message" = "Nikare profîlê serrast bike. Jkx dîsa biceribîne.";
 "Common.Alerts.EditProfileFailure.Title" = "Di serrastkirina profîlê çewtî";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Nikare ji bêtirî yek vîdyoyekê tevlî şandiyê bike.";

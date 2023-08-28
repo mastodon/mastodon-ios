@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Poskusite znova pozneje.";
 "Common.Alerts.DeletePost.Message" = "Ali ste prepričani, da želite izbrisati to objavo?";
 "Common.Alerts.DeletePost.Title" = "Izbriši objavo";
-"Common.Alerts.DiscardPostContent.Message" = "Potrdite za opustitev sestavljene vsebine objave.";
-"Common.Alerts.DiscardPostContent.Title" = "Zavrzi osnutek";
 "Common.Alerts.EditProfileFailure.Message" = "Profila ni mogoče urejati. Poskusite znova.";
 "Common.Alerts.EditProfileFailure.Title" = "Napaka urejanja profila";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Ni možno priložiti več kot enega videoposnetka.";
@@ -530,7 +528,7 @@ možno naložiti v Mastodon.";
 "Scene.Welcome.Education.Mastodon.Title" = "Dobrodošli na Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Vsak račun Mastodon gostuje na strežniku — vsak strežnik ima svoje vrednote, pravila in skbrnike. Vseeno je, katerega izberete - sledite in komunicirate lahko z osebbami na poljubnem strežniku.";
 "Scene.Welcome.Education.Servers.Title" = "Kaj so strežniki?";
-"Scene.Welcome.JoinDefaultServer" = "Join %@";
+"Scene.Welcome.JoinDefaultServer" = "Pridruži se %@";
 "Scene.Welcome.LearnMore" = "Več o tem";
 "Scene.Welcome.LogIn" = "Prijava";
 "Scene.Welcome.PickServer" = "Izberi drug strežnik";

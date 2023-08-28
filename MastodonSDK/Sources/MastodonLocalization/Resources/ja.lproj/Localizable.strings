@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "後でもう一度お試しください。";
 "Common.Alerts.DeletePost.Message" = "本当にこの投稿を削除しますか？";
 "Common.Alerts.DeletePost.Title" = "投稿を削除";
-"Common.Alerts.DiscardPostContent.Message" = "この操作は取り消しできません。下書きは失われます。";
-"Common.Alerts.DiscardPostContent.Title" = "投稿を破棄しますか？";
 "Common.Alerts.EditProfileFailure.Message" = "プロフィールを編集できません。もう一度お試しください。";
 "Common.Alerts.EditProfileFailure.Title" = "プロフィールを編集できませんでした";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "複数の動画を添付することはできません。";
@@ -525,7 +523,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "Mastodon とは";
 "Scene.Welcome.Education.Servers.Description" = "Mastodon のアカウントはいずれかのサーバーに所属します。それぞれのサーバーは異なる価値観やルールをもち、それらを管理する管理者がいます。どのサーバーにいても、ほかのあらゆるサーバーのユーザーをフォローして、かかわりをもつことができるでしょう。";
 "Scene.Welcome.Education.Servers.Title" = "サーバーとは";
-"Scene.Welcome.JoinDefaultServer" = "Join %@";
+"Scene.Welcome.JoinDefaultServer" = "%@ に登録";
 "Scene.Welcome.LearnMore" = "詳しく学ぶ";
 "Scene.Welcome.LogIn" = "ログイン";
 "Scene.Welcome.PickServer" = "ほかのサーバーをさがす";

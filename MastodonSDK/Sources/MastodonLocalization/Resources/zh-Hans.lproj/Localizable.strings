@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "请稍后重试。";
 "Common.Alerts.DeletePost.Message" = "确定要删除这个帖子吗？";
 "Common.Alerts.DeletePost.Title" = "删除帖子";
-"Common.Alerts.DiscardPostContent.Message" = "确认要丢弃正在编辑的内容";
-"Common.Alerts.DiscardPostContent.Title" = "丢弃草案";
 "Common.Alerts.EditProfileFailure.Message" = "无法编辑个人资料，请重试。";
 "Common.Alerts.EditProfileFailure.Title" = "编辑个人资料出现错误";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "最多添加一个视频。";
