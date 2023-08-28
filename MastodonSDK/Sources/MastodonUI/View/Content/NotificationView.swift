@@ -299,9 +299,6 @@ extension NotificationView {
         authorSecondaryMetaContainer.addArrangedSubview(dateTrailingDotLabel)
         dateTrailingDotLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        authorSecondaryMetaContainer.addArrangedSubview(dateTrailingDotLabel)
-        dateTrailingDotLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-
         authorSecondaryMetaContainer.addArrangedSubview(visibilityIconImageView)
         NSLayoutConstraint.activate([
             visibilityIconImageView.heightAnchor.constraint(equalTo: authorUsernameLabel.heightAnchor),

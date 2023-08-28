@@ -99,6 +99,9 @@ extension NotificationView {
             .store(in: &disposeBag)
         // timestamp
         viewModel.timestamp = notification.createAt
+
+        viewModel.visibility = notification.status?.visibility ?? ._other("")
+
         // notification type indicator
         Publishers.CombineLatest3(
             notification.publisher(for: \.typeRaw),
