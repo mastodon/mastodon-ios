@@ -206,12 +206,12 @@
                 "buttons": {
                     "reblogs_title": "المعاد تدوينها",
                     "favorites_title": "المفضلة",
-                    "edit_history_title": "Edit History",
+                    "edit_history_title": "سِجِلّ التعديلات",
                     "edit_history_detail": "آخر تعديل %s"
                 },
                 "edited_at_timestamp_prefix": "عُدّل في %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "سِجِلّ التعديلات",
                     "original_post": "المنشور الأصلي · %s"
                 }
             },
@@ -339,7 +339,7 @@
                 "all": "الكل"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "البحث عن اسم أو رابط تشعّبي URL"
             },
             "no_server_selected_hint": "سوف نختار خادماً بناءً على لغتك إذا قمت بالمتابعة دون إجراء إختيار."
         },
@@ -427,7 +427,7 @@
         },
         "confirm_email": {
             "title": "تحقَّق من بريدك الوارِد",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "اضغط على الرابط الذي أرسلناه إليك للتحقق من %@. سننتظر هنا.",
             "button": {
                 "resend": "إعادَةُ الإرسال"
             },
