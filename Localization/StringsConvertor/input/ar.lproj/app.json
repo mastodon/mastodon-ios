@@ -147,7 +147,7 @@
                 "media_content_warning": "اُنقُر لِلكَشف",
                 "tap_to_reveal": "اُنقُر لِلكَشف",
                 "load_embed": "تحميل المُضمَن",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s عبر %s",
                 "poll": {
                     "vote": "صَوِّت",
                     "closed": "انتهى"
@@ -172,8 +172,8 @@
                     "share_link_in_post": "مُشارَكَة الرابِط فِي مَنشور",
                     "tap_then_hold_to_show_menu": "اُنقُر مُطَوَّلًا لِإظْهَارِ القائِمَة",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "إعادة التدوين",
+                        "unreblog": "التراجع عن إعادة التدوين"
                     }
                 },
                 "tag": {
@@ -197,22 +197,22 @@
                     "show_original": "إظهار الأصل"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
+                    "accessibility_label": "%s، مرفق %d من %d",
                     "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s عبر %s",
                 "buttons": {
                     "reblogs_title": "المعاد تدوينها",
                     "favorites_title": "المفضلة",
                     "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "edit_history_detail": "آخر تعديل %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "عُدّل في %s",
                 "edit_history": {
                     "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "original_post": "المنشور الأصلي · %s"
                 }
             },
             "friendship": {
@@ -363,7 +363,7 @@
                 "username": {
                     "placeholder": "اِسمُ مُستَخدِم",
                     "duplicate_prompt": "اِسم المُستَخدِم هذا مأخوذٌ بالفعل.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "مذهل_%@"
                 },
                 "display_name": {
                     "placeholder": "اِسمُ عَرض"
@@ -443,9 +443,9 @@
                 "open_email_client": "فتح عميل البريد الإلكتروني"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "ألم تحصل على رابط؟",
+                "resend_in": "إعادة إرسال (%@)",
+                "resend_now": "أعد الإرسال الآن."
             }
         },
         "home_timeline": {
@@ -505,9 +505,9 @@
                 "the_poll_is_invalid": "الاِستِطلاعُ غيرُ صالِح",
                 "the_poll_has_empty_option": "يوجَدُ خِيارٌ فارِغٌ فِي الاِستِطلاع",
                 "add_option": "إضافة خيار",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "remove_option": "إزالة الخيار",
+                "move_up": "أنقله إلى أعلى",
+                "move_down": "أنقله إلى أسفل"
             },
             "content_warning": {
                 "placeholder": "اكتب تَحذيرًا دَقيقًا هُنا..."
@@ -861,9 +861,9 @@
         },
         "multiple_followers": {
             "configuration_display_name": "متابعين متعددين",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_description": "إظهار عدد المتابعين لحسابات متعددة.",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "متابع آخر",
                 "account_name": "another@follower.social"
             }
         },
