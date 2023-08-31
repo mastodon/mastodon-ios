@@ -50,7 +50,7 @@
             },
             "translation_failed": {
                 "title": "مُلاحظة",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "message": "فشلت الترجمة. ربما لم يتمكن مدير الخادم من تفعيل الترجمات على هذا الخادم أو هذا الخادم يقوم بتشغيل نسخة قديمة من ماستدون حيث الترجمات غير مدعومة بعد.",
                 "button": "حسنًا"
             }
         },
@@ -98,10 +98,10 @@
                     "unknown_language": "غير مَعرُوفة"
                 },
                 "edit_post": "تعديل",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "إضافة إلى الفواصل المرجعية",
+                "remove_bookmark": "إزالة الفاصلة المرجعية",
+                "follow": "متابعة %s",
+                "unfollow": "ألغِ متابعة %s"
             },
             "tabs": {
                 "home": "الرَّئِيسَة",
@@ -194,7 +194,7 @@
                     "translated_from": "الترجَمَة مِن %s بِاستِخدَام %s",
                     "unknown_language": "غير مَعرُوفة",
                     "unknown_provider": "غير مَعرُوف",
-                    "show_original": "Show Original"
+                    "show_original": "إظهار الأصل"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -204,7 +204,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "المعاد تدوينها",
                     "favorites_title": "المفضلة",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
@@ -257,16 +257,16 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "رابط غير متحقق منه",
+            "followers_count": "%@ متابعين"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "تسجيلُ الدخول",
             "learn_more": "تعلم المزيد",
-            "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "join_default_server": "انضم إلى %@",
+            "pick_server": "اختر خادمًا آخر",
             "separator": {
                 "or": "أو"
             },
@@ -277,7 +277,7 @@
                 },
                 "servers": {
                     "title": "ما هي الخوادم؟",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "description": "تتم استضافة كل حساب ماستدون على خادم - ولكل منها قيمه وقواعده ومسؤوليه الخاصين. بغض النظر عن الشخص الذي تختاره ، يمكنك متابعة الأشخاص والتفاعل معهم على أي خادم."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -297,7 +297,7 @@
             "title": "اختر خادمًا",
             "button": {
                 "language": "اللغة",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "سرعة التسجيل",
                 "category": {
                     "all": "الكُل",
                     "all_accessiblity_description": "الفِئَة: الكُل",
@@ -332,8 +332,8 @@
             },
             "signup_speed": {
                 "all": "الكل",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "instant": "تسجيل فوري",
+                "manually_reviewed": "مراجعة يدوية"
             },
             "language": {
                 "all": "الكل"
@@ -341,13 +341,13 @@
             "search": {
                 "placeholder": "Search name or URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "سوف نختار خادماً بناءً على لغتك إذا قمت بالمتابعة دون إجراء إختيار."
         },
         "privacy": {
             "title": "الخصوصية",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "على الرغم من أن تطبيق ماستدون لا يجمع أي بيانات، فإن الخادم الذي قمت بالتسجيل من خلاله قد تكون له سياسة مختلفة. خذ دقيقة للمراجعة والموافقة على سياسة خصوصية تطبيق ماستدون وسياسة الخصوصية الخاصة بخادمك.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
+                "ios": "سياسة الخصوصية - ماستدون لنظام التشغيل iOS",
                 "server": "سياسة الخصوصية - %s"
             },
             "button": {
@@ -355,7 +355,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "إنشاء حساب",
             "input": {
                 "avatar": {
                     "delete": "حذف"
@@ -373,7 +373,7 @@
                 },
                 "password": {
                     "placeholder": "رمز سري",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "أكّد كلمة السر",
                     "require": "رمز المرور الخاص بك يجب أن يحتوي على الأقل:",
                     "character_limit": "ثمانيةُ خانات",
                     "accessibility": {
@@ -398,7 +398,7 @@
                 "reason": {
                     "blocked": "يحتوي %s على موفِّر خدمة بريد إلكتروني غير مسموح به",
                     "unreachable": "يبدوا أنَّ %s غير موجود",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s مأخوذ بالفعل. ماذا عن:",
                     "reserved": "إنَّ %s عبارة عن كلمة مفتاحيَّة محجوزة",
                     "accepted": "يجب أن يُقبل %s",
                     "blank": "%s مَطلوب",
@@ -422,22 +422,22 @@
             "terms_of_service": "شُرُوط الخِدمَة",
             "privacy_policy": "سِياسَة الخُصُوصيَّة",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "أوافق"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "تحقَّق من بريدك الوارِد",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
                 "resend": "إعادَةُ الإرسال"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "تحقق من بريدك الإلكتروني",
                 "description": "تحقق ممَّ إذا كان عنوان بريدك الإلكتروني صحيحًا، وكذلك تأكد مِن مجلد البريد غير الهام إذا لم تكن قد فعلت ذلك.",
                 "resend_email": "إعادة إرسال البريد الإلكتروني"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "تحقَّق من بريدك الوارِد.",
                 "description": "لقد أرسلنا لك بريدًا إلكترونيًا للتو. تحقق من مجلد البريد غير الهام الخاص بك إذا لم تكن قد فعلت ذلك.",
                 "mail": "البريد",
                 "open_email_client": "فتح عميل البريد الإلكتروني"
@@ -456,20 +456,20 @@
                 "published": "تمَّ النَّشر!",
                 "Publishing": "يَجري نَشر المُشارَكَة...",
                 "accessibility": {
-                    "logo_label": "Mastodon",
+                    "logo_label": "ماستدون",
                     "logo_hint": "اُنقُر لِلتمريرِ لأعلى واُنقُر مَرّةً أُخرَى لِلذَّهابِ إلَى المَوقِعِ السَّابِق"
                 }
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "رائج على ماستدون",
+            "follow_all": "اتبع الكل"
         },
         "compose": {
             "title": {
                 "new_post": "مَنشُورٌ جَديد",
                 "new_reply": "رَدٌّ جديد",
-                "edit_post": "Edit Post"
+                "edit_post": "تعديل المنشور"
             },
             "media_selection": {
                 "camera": "اِلتِقاطُ صُورَة",
@@ -493,7 +493,7 @@
                 "server_processing_state": "مُعالجة الخادم جارِيَة..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "استطلاع رأي",
                 "duration_time": "المُدَّة: %s",
                 "thirty_minutes": "ثلاثون دقيقة",
                 "one_hour": "ساعةٌ واحدة",
@@ -504,7 +504,7 @@
                 "option_number": "الخيار %ld",
                 "the_poll_is_invalid": "الاِستِطلاعُ غيرُ صالِح",
                 "the_poll_has_empty_option": "يوجَدُ خِيارٌ فارِغٌ فِي الاِستِطلاع",
-                "add_option": "Add Option",
+                "add_option": "إضافة خيار",
                 "remove_option": "Remove Option",
                 "move_up": "Move Up",
                 "move_down": "Move Down"
@@ -541,10 +541,10 @@
                 "select_visibility_entry": "اختر مدى الظهور - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "لغة النشر",
+                "suggested": "المقترحَة",
+                "recent": "الأخيرة",
+                "other": "لغات أخرى…"
             }
         },
         "profile": {
@@ -558,10 +558,10 @@
                 "other_posts": "مَنشورات",
                 "other_following": "مُتابَعُون",
                 "other_followers": "مُتابِعُون",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "متابعة متبادلة"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "انضم في",
                 "add_row": "إضافة صف",
                 "placeholder": {
                     "label": "التسمية",
@@ -674,7 +674,7 @@
             "intro": "هَذِهِ هِيَ المَنشُوراتُ الَّتي تَكْتَسِبُ شَعبِيَّةً فِي الرُّكنِ الخاصِّ بِكَ مِن مَاستُودون."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "المفضلة"
         },
         "notification": {
             "title": {
@@ -739,7 +739,7 @@
                     "disable_avatar_animation": "تَعطيلُ الصوَرِ الرمزيَّةِ المُتحرِّكَة",
                     "disable_emoji_animation": "تَعطيلُ الرُموزِ التَّعبيريَّةِ المُتحرِّكَة",
                     "using_default_browser": "اِستِخدامُ المُتصفِّحِ الاِفتراضي لِفتحِ الرَّوابِط",
-                    "open_links_in_mastodon": "فَتحُ الرَّوابِطِ فِي مَاستودُون"
+                    "open_links_in_mastodon": "فَتحُ الرَّوابِطِ فِي مَاستدون"
                 },
                 "boring_zone": {
                     "title": "المنطِقَةُ المُملَّة",
@@ -845,22 +845,22 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "لا يبدو أن هذا رابط ماستدون صالح."
         }
     },
     "widget": {
         "common": {
             "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "user_not_logged_in": "الرجاء فتح ماستدون لتسجيل الدخول إلى حساب."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
+            "configuration_display_name": "المتابِعون",
+            "configuration_description": "إظهار عدد المتابعين.",
+            "title": "المتابِعون",
             "followers_today": "%s followers today"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
+            "configuration_display_name": "متابعين متعددين",
             "configuration_description": "Show number of followers for multiple accounts.",
             "mock_user": {
                 "display_name": "Another follower",
@@ -868,14 +868,14 @@
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "أحدث المتابعين",
+            "configuration_description": "إظهار أحدث المتابِعين.",
+            "title": "أحدث المتابعين",
+            "last_update": "آخر تحديث: %s"
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "وسم",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
