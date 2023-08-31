@@ -97,7 +97,7 @@
                     "title": "الترجَمَة مِن %s",
                     "unknown_language": "غير مَعرُوفة"
                 },
-                "edit_post": "Edit",
+                "edit_post": "تعديل",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
@@ -109,8 +109,8 @@
                 "notifications": "الإشعارات",
                 "profile": "المِلَفُّ التَّعريفِيّ",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "البحث",
+                    "explore": "استكشف"
                 }
             },
             "keyboard": {
@@ -205,7 +205,7 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
+                    "favorites_title": "المفضلة",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
@@ -264,39 +264,39 @@
     "scene": {
         "welcome": {
             "log_in": "تسجيلُ الدخول",
-            "learn_more": "Learn more",
+            "learn_more": "تعلم المزيد",
             "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
-                "or": "or"
+                "or": "أو"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "أهلًا بك على ماستدون",
+                    "description": "ماستدون شبكة اجتماعية لامركزية، بمعنى أنه ليس هناك شركة واحدة تتحكم فيها. وهي تتألف من العديد من الخوادم التي تدار بشكل مستقل، وجميعها متصلة معا."
                 },
                 "servers": {
-                    "title": "What are servers?",
+                    "title": "ما هي الخوادم؟",
                     "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "ما هو ماستدون؟"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "مرحباً بك مجددًا",
             "subtitle": "سَجِّل دُخولَكَ إلى الخادِم الَّذي أنشأتَ حِسابَكَ فيه.",
             "server_search_field": {
                 "placeholder": "أدخِل عُنوانَ URL أو اِبحَث عَنِ الخادِمِ الخاصّ بِك"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "اختر خادمًا",
             "button": {
-                "language": "Language",
+                "language": "اللغة",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "الكُل",
@@ -331,12 +331,12 @@
                 "no_results": "لا توجد نتائج"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "الكل",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "الكل"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -344,14 +344,14 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "الخصوصية",
             "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "server": "سياسة الخصوصية - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "أوافق"
             }
         },
         "register": {
