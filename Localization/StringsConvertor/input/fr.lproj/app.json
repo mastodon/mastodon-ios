@@ -211,7 +211,7 @@
                 },
                 "edited_at_timestamp_prefix": "Édité %s",
                 "edit_history": {
-                    "title": "Modifier l'historique",
+                    "title": "Historique des modifications",
                     "original_post": "Message original · %s"
                 }
             },
