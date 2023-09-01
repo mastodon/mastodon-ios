@@ -98,10 +98,10 @@
                     "unknown_language": "未知的"
                 },
                 "edit_post": "编辑",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "添加书签",
+                "remove_bookmark": "移除书签",
+                "follow": "关注 %s",
+                "unfollow": "不再关注 %s"
             },
             "tabs": {
                 "home": "主页",
@@ -205,7 +205,7 @@
                 "posted_via_application": "%s 通过 %s 发布",
                 "buttons": {
                     "reblogs_title": "转发",
-                    "favorites_title": "收藏",
+                    "favorites_title": "喜欢",
                     "edit_history_title": "编辑历史",
                     "edit_history_detail": "编辑于：%s"
                 },
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "登录",
             "learn_more": "了解详情",
-            "join_default_server": "Join %@",
+            "join_default_server": "加入 %@",
             "pick_server": "选择另一个服务器",
             "separator": {
                 "or": "或"
@@ -674,7 +674,7 @@
             "intro": "这些嘟文在你的长毛象小宇宙中备受关注。"
         },
         "favorite": {
-            "title": "收藏"
+            "title": "喜欢"
         },
         "notification": {
             "title": {
