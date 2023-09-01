@@ -625,7 +625,7 @@
             "followed_by_names": "%s 关注了这个账号"
         },
         "favorited_by": {
-            "title": "收藏者"
+            "title": "喜欢者"
         },
         "reblogged_by": {
             "title": "转发者"
