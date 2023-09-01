@@ -855,7 +855,7 @@
         },
         "followers_count": {
             "configuration_display_name": "Följare",
-            "configuration_description": "Show number of followers.",
+            "configuration_description": "Visa antal följare.",
             "title": "FÖLJARE",
             "followers_today": "%s följare idag"
         },
