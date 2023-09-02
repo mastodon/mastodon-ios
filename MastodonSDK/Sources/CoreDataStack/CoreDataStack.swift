@@ -96,15 +96,11 @@ public final class CoreDataStack {
             callback()
             
             #if DEBUG
-            do {
-                let storeURL = URL.storeURL(for: AppName.groupID, databaseName: "shared")
-                let data = try Data(contentsOf: storeURL)
-                let formatter = ByteCountFormatter()
-                formatter.allowedUnits = [.useMB]
-                formatter.countStyle = .file
-                let size = formatter.string(fromByteCount: Int64(data.count))
-                CoreDataStack.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): Database size: \(size)")
-            } catch {
+            let storeURL = URL.storeURL(for: AppName.groupID, databaseName: "shared")
+            if let size = try? storeURL.resourceValues(forKeys: [.fileSizeKey]).fileSize {
+                let formattedSize = size.formatted(.byteCount(style: .file, allowedUnits: .mb))
+                CoreDataStack.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): Database size: \(formattedSize, privacy: .public)")
+            } else {
                 CoreDataStack.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): Cannot get database size")
             }
             #endif
