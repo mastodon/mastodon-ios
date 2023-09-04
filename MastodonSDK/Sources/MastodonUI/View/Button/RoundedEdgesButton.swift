@@ -14,12 +14,25 @@ open class RoundedEdgesButton: UIButton {
             setNeedsDisplay()
         }
     }
+    
+    open override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+
+        isPointerInteractionEnabled = true
+    }
         
     open override func layoutSubviews() {
         super.layoutSubviews()
         
         layer.masksToBounds = true
-        layer.cornerRadius = cornerRadius > .zero ? cornerRadius : bounds.height * 0.5
+        let radius = cornerRadius > .zero ? cornerRadius : bounds.height * 0.5
+        layer.cornerRadius = radius
+        pointerStyleProvider = { _, _, _ in
+            UIPointerStyle(
+                effect: .lift(UITargetedPreview(view: self)),
+                shape: .roundedRect(self.frame, radius: radius)
+            )
+        }
     }
     
 }

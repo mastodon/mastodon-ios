@@ -52,6 +52,7 @@ public class HUDButton: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         vibrancyView.contentView.addSubview(button)
         button.pinToParent()
+        button.pointerStyleProvider = { _, _, _ in UIPointerStyle(effect: .lift(UITargetedPreview(view: self))) }
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: HUDButton.height).priority(.defaultHigh),
         ])

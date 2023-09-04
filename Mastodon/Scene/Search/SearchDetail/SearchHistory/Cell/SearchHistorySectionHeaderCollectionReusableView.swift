@@ -34,8 +34,9 @@ final class SearchHistorySectionHeaderCollectionReusableView: UICollectionReusab
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         button.tintColor = Asset.Colors.Label.secondary.color
+        button.isPointerInteractionEnabled = true
+        button.pointerStyleProvider = { _, effect, _ in UIPointerStyle(effect: .lift(effect.preview)) }
         button.accessibilityLabel = L10n.Scene.Search.Searching.clear
-
         return button
     }()
     

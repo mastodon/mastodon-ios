@@ -36,5 +36,6 @@ final public class HighlightDimmableButton: UIButton {
 extension HighlightDimmableButton {
     private func _init() {
         adjustsImageWhenHighlighted = false
+        isPointerInteractionEnabled = true
     }
 }

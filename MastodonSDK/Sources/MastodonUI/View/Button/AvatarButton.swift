@@ -33,6 +33,8 @@ open class AvatarButton: UIControl {
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarImageView)
         avatarImageView.pinToParent()
+
+        addInteraction(UIPointerInteraction(delegate: self))
         
         isAccessibilityElement = true
         accessibilityLabel = L10n.Common.Controls.Status.showUserProfile
@@ -55,6 +57,18 @@ open class AvatarButton: UIControl {
         avatarImageView.alpha = primaryActionState.contains(.highlighted)  ? 0.6 : 1.0
     }
     
+}
+
+extension AvatarButton: UIPointerInteractionDelegate {
+    public func pointerInteraction(_ interaction: UIPointerInteraction, regionFor request: UIPointerRegionRequest, defaultRegion: UIPointerRegion) -> UIPointerRegion? {
+        defaultRegion
+    }
+    public func pointerInteraction(_ interaction: UIPointerInteraction, styleFor region: UIPointerRegion) -> UIPointerStyle? {
+        UIPointerStyle(
+            effect: .automatic(UITargetedPreview(view: self)),
+            shape: UIPointerShape.roundedRect(avatarImageView.bounds, radius: avatarImageView.layer.cornerRadius)
+        )
+    }
 }
 
 extension AvatarButton {
