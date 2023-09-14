@@ -15,7 +15,6 @@ import MastodonLocalization
 extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvider {
 
     func aspectTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): indexPath: \(indexPath.debugDescription)")
         Task {
             let source = DataSourceItem.Source(tableViewCell: nil, indexPath: indexPath)
             guard let item = await item(from: source) else {
@@ -77,7 +76,6 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
         contextMenuConfigurationForRowAt
         indexPath: IndexPath, point: CGPoint
     ) -> UIContextMenuConfiguration? {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
 
         guard let cell = tableView.cellForRow(at: indexPath) as? StatusViewContainerTableViewCell else { return nil }
 
@@ -238,7 +236,6 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
         willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration,
         animator: UIContextMenuInteractionCommitAnimating
     ) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
 
         guard let configuration = configuration as? TimelineTableViewCellContextMenuConfiguration else { return }
         guard let indexPath = configuration.indexPath, let index = configuration.index else { return }
