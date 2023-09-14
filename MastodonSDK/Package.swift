@@ -57,6 +57,7 @@ let package = Package(
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.12.0"),
         .package(url: "https://github.com/eneko/Stripes.git", from: "0.2.0"),
         .package(url: "https://github.com/NextLevel/NextLevelSessionExporter.git", from: "0.4.6"),
+        .package(url: "https://github.com/nysander/twitter-text.git", from: "0.0.2"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -131,6 +132,7 @@ let package = Package(
                 .product(name: "PanModal", package: "PanModal"),
                 .product(name: "Stripes", package: "Stripes"),
                 .product(name: "NextLevelSessionExporter", package: "NextLevelSessionExporter"),
+                .product(name: "TwitterText", package: "twitter-text"),
             ]
         ),
         .testTarget(

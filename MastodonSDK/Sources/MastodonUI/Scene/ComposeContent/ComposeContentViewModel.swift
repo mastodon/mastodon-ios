@@ -15,6 +15,7 @@ import MastodonMeta
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization
+import TwitterText
 
 public protocol ComposeContentViewModelDelegate: AnyObject {
     func composeContentViewModel(_ viewModel: ComposeContentViewModel, handleAutoComplete info: ComposeContentViewModel.AutoCompleteInfo) -> Bool
@@ -334,7 +335,7 @@ extension ComposeContentViewModel {
         
         // bind text
         $content
-            .map { $0.count }
+            .map { Parser.defaultParser.parseTweet(text: $0).weightedLength }
             .assign(to: &$contentWeightedLength)
         
         Publishers.CombineLatest(
