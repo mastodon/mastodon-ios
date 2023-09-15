@@ -440,6 +440,7 @@ uploaded to Mastodon.";
 "Scene.Search.SearchBar.Cancel" = "Cancel";
 "Scene.Search.SearchBar.Placeholder" = "Search hashtags and users";
 "Scene.Search.Searching.Clear" = "Clear";
+"Scene.Search.Searching.ClearAll" = "Clear all";
 "Scene.Search.Searching.EmptyState.NoResults" = "No results";
 "Scene.Search.Searching.RecentSearch" = "Recent searches";
 "Scene.Search.Searching.Segment.All" = "All";

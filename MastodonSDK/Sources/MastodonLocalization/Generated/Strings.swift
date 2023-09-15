@@ -1277,6 +1277,8 @@ public enum L10n {
       public enum Searching {
         /// Clear
         public static let clear = L10n.tr("Localizable", "Scene.Search.Searching.Clear", fallback: "Clear")
+        /// Clear all
+        public static let clearAll = L10n.tr("Localizable", "Scene.Search.Searching.ClearAll", fallback: "Clear all")
         /// Recent searches
         public static let recentSearch = L10n.tr("Localizable", "Scene.Search.Searching.RecentSearch", fallback: "Recent searches")
         public enum EmptyState {

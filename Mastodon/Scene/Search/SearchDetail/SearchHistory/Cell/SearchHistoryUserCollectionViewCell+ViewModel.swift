@@ -31,7 +31,7 @@ extension SearchHistoryUserCollectionViewCell {
     func configure(
         me: MastodonUser?,
         viewModel: ViewModel,
-        delegate: UserViewDelegate?
+        delegate: SearchHistorySectionHeaderCollectionReusableViewDelegate?
     ) {
         let user = viewModel.value
         

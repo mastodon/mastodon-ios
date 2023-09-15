@@ -118,6 +118,10 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
             try await DataSourceFacade.responseToDeleteSearchHistory(
                 provider: self
             )
+
+            await MainActor.run {
+                button.isEnabled = false
+            }
         }
     }
 }

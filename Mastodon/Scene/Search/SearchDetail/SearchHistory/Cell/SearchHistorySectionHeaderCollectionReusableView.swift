@@ -30,8 +30,9 @@ final class SearchHistorySectionHeaderCollectionReusableView: UICollectionReusab
     
     let clearButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        button.tintColor = Asset.Colors.Label.secondary.color
+
+        button.setTitle(L10n.Scene.Search.Searching.clearAll, for: .normal)
+        button.tintColor = Asset.Colors.Brand.blurple.color
         button.accessibilityLabel = L10n.Scene.Search.Searching.clear
 
         return button
@@ -47,9 +48,6 @@ final class SearchHistorySectionHeaderCollectionReusableView: UICollectionReusab
         _init()
     }
     
-}
-
-extension SearchHistorySectionHeaderCollectionReusableView {
     private func _init() {
         primaryLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(primaryLabel)
@@ -72,9 +70,7 @@ extension SearchHistorySectionHeaderCollectionReusableView {
         
         clearButton.addTarget(self, action: #selector(SearchHistorySectionHeaderCollectionReusableView.clearButtonDidPressed(_:)), for: .touchUpInside)
     }
-}
 
-extension SearchHistorySectionHeaderCollectionReusableView {
     @objc private func clearButtonDidPressed(_ sender: UIButton) {
         delegate?.searchHistorySectionHeaderCollectionReusableView(self, clearButtonDidPressed: sender)
     }

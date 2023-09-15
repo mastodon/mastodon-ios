@@ -252,7 +252,6 @@
 		DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4AA6B227BA34B6009EC082 /* CellFrameCacheContainer.swift */; };
 		DB4F0963269ED06300D62E92 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0962269ED06300D62E92 /* SearchResultViewController.swift */; };
 		DB4F0966269ED52200D62E92 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0965269ED52200D62E92 /* SearchResultViewModel.swift */; };
-		DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */; };
 		DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */; };
 		DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */; };
 		DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */; };
@@ -927,7 +926,6 @@
 		DB4B779626CA50BA00B087B3 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = th; path = th.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB4F0962269ED06300D62E92 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		DB4F0965269ED52200D62E92 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
-		DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableHeaderView.swift; sourceTree = "<group>"; };
 		DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewModel+State.swift"; sourceTree = "<group>"; };
 		DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewModel.swift; sourceTree = "<group>"; };
 		DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistorySection.swift; sourceTree = "<group>"; };
@@ -2099,6 +2097,8 @@
 				DB4F0965269ED52200D62E92 /* SearchResultViewModel.swift */,
 				DB0FCB932797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift */,
 				DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */,
+				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
+				2D198642261BF09500F0B013 /* SearchResultItem.swift */,
 			);
 			path = SearchResult;
 			sourceTree = "<group>";
@@ -2108,10 +2108,6 @@
 			children = (
 				DB0FCB852796BDA1006C02E2 /* SearchSection.swift */,
 				DB0FCB872796BDA9006C02E2 /* SearchItem.swift */,
-				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
-				2D198642261BF09500F0B013 /* SearchResultItem.swift */,
-				DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */,
-				DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2137,7 +2133,6 @@
 		DB4F098026A0475500D62E92 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2920,6 +2915,8 @@
 				DB63F76127996B6600455B82 /* SearchHistoryViewController+DataSourceProvider.swift */,
 				DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */,
 				DB63F74E2799405600455B82 /* SearchHistoryViewModel+Diffable.swift */,
+				DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */,
+				DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */,
 			);
 			path = SearchHistory;
 			sourceTree = "<group>";
@@ -3694,7 +3691,6 @@
 				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,
 				6213AF5A28939C8400BCADB6 /* BookmarkViewModel.swift in Sources */,
 				5B24BBDB262DB14800A9381B /* ReportStatusViewModel+Diffable.swift in Sources */,
-				DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
 				2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */,
 				DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */,

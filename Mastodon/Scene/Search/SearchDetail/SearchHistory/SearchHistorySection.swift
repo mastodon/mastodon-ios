@@ -78,13 +78,8 @@ extension SearchHistorySection {
             }
         }
         
-        let trendHeaderRegister = UICollectionView.SupplementaryRegistration<SearchHistorySectionHeaderCollectionReusableView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak dataSource] supplementaryView, elementKind, indexPath in
+        let trendHeaderRegister = UICollectionView.SupplementaryRegistration<SearchHistorySectionHeaderCollectionReusableView>(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, elementKind, indexPath in
             supplementaryView.delegate = configuration.searchHistorySectionHeaderCollectionReusableViewDelegate
-
-            guard let _ = dataSource else { return }
-            // let sections = dataSource.snapshot().sectionIdentifiers
-            // guard indexPath.section < sections.count else { return }
-            // let section = sections[indexPath.section]
         }
         
         dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, elementKind: String, indexPath: IndexPath) in

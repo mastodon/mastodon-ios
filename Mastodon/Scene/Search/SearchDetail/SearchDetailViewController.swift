@@ -315,8 +315,6 @@ extension SearchDetailViewController: UISearchBarDelegate {
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
         // dismiss or pop
         if isModal {
             dismiss(animated: true, completion: nil)
