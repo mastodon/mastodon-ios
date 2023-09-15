@@ -287,13 +287,16 @@ extension ComposeViewController {
         // Look for images on the clipboard
         if UIPasteboard.general.hasImages, let images = UIPasteboard.general.images {
             logger.warning("Got image paste event, however attachments are not yet re-implemented.");
+
+            let mediaAttachmentSettings = viewModel.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: viewModel.context.managedObjectContext)?.instance?.configurationV2?.mediaAttachments
             let attachmentViewModels = images.map { image in
                 return AttachmentViewModel(
                     api: viewModel.context.apiService,
                     authContext: viewModel.authContext,
                     input: .image(image),
                     sizeLimit: composeContentViewModel.sizeLimit,
-                    delegate: composeContentViewModel
+                    delegate: composeContentViewModel,
+                    mediaAttachmentSettings: mediaAttachmentSettings
                 )
             }
             composeContentViewModel.attachmentViewModels += attachmentViewModels

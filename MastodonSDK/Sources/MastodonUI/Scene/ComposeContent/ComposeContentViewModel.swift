@@ -298,12 +298,15 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             self.isVisibilityButtonEnabled = false
             self.attachmentViewModels = status.attachments.compactMap {
                 guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
+                let mediaAttachmentSettings = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.instance?.configurationV2?.mediaAttachments
+
                 let attachmentViewModel = AttachmentViewModel(
                     api: context.apiService,
                     authContext: authContext,
                     input: .mastodonAssetUrl(url, $0.id),
                     sizeLimit: sizeLimit,
-                    delegate: self
+                    delegate: self,
+                    mediaAttachmentSettings: mediaAttachmentSettings
                 )
                 attachmentViewModel.caption = $0.altDescription ?? ""
                 return attachmentViewModel
@@ -312,11 +315,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         
         bind()
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
 }
 
 extension ComposeContentViewModel {
