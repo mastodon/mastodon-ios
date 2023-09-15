@@ -194,7 +194,6 @@
 		DB0FCB842796B2A2006C02E2 /* FavoriteViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB832796B2A2006C02E2 /* FavoriteViewController+DataSourceProvider.swift */; };
 		DB0FCB862796BDA1006C02E2 /* SearchSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB852796BDA1006C02E2 /* SearchSection.swift */; };
 		DB0FCB882796BDA9006C02E2 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB872796BDA9006C02E2 /* SearchItem.swift */; };
-		DB0FCB8C2796BF8D006C02E2 /* SearchViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB8B2796BF8D006C02E2 /* SearchViewModel+Diffable.swift */; };
 		DB0FCB8E2796C0B7006C02E2 /* TrendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB8D2796C0B7006C02E2 /* TrendCollectionViewCell.swift */; };
 		DB0FCB922796DE19006C02E2 /* TrendSectionHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB912796DE19006C02E2 /* TrendSectionHeaderCollectionReusableView.swift */; };
 		DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB932797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift */; };
@@ -847,7 +846,6 @@
 		DB0FCB832796B2A2006C02E2 /* FavoriteViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DB0FCB852796BDA1006C02E2 /* SearchSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSection.swift; sourceTree = "<group>"; };
 		DB0FCB872796BDA9006C02E2 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
-		DB0FCB8B2796BF8D006C02E2 /* SearchViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB0FCB8D2796C0B7006C02E2 /* TrendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB0FCB912796DE19006C02E2 /* TrendSectionHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendSectionHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		DB0FCB932797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewModel+Diffable.swift"; sourceTree = "<group>"; };
@@ -2933,7 +2931,6 @@
 				2DE0FAC62615F5D200CDF649 /* View */,
 				DB9D6BE825E4F5340051B173 /* SearchViewController.swift */,
 				2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */,
-				DB0FCB8B2796BF8D006C02E2 /* SearchViewModel+Diffable.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3593,7 +3590,6 @@
 				DB0FCB9C27980AB6006C02E2 /* HashtagTimelineViewController+DataSourceProvider.swift in Sources */,
 				DB63F76F279A7D1100455B82 /* NotificationTableViewCell.swift in Sources */,
 				2A1BF99529F7E68400FA1BA5 /* DataSourceFacade+UserView.swift in Sources */,
-				DB0FCB8C2796BF8D006C02E2 /* SearchViewModel+Diffable.swift in Sources */,
 				DBEFCD76282A143F00C0ABEA /* ReportStatusViewController.swift in Sources */,
 				DBDFF1952805561700557A48 /* DiscoveryPostsViewModel+Diffable.swift in Sources */,
 				DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */,

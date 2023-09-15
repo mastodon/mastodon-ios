@@ -16,9 +16,7 @@ protocol SearchHistorySectionHeaderCollectionReusableViewDelegate: AnyObject, Us
 }
 
 final class SearchHistorySectionHeaderCollectionReusableView: UICollectionReusableView {
-    
-    let logger = Logger(subsystem: "SearchHistorySectionHeaderCollectionReusableView", category: "View")
-    
+
     weak var delegate: SearchHistorySectionHeaderCollectionReusableViewDelegate?
     
     let primaryLabel: UILabel = {
@@ -78,7 +76,6 @@ extension SearchHistorySectionHeaderCollectionReusableView {
 
 extension SearchHistorySectionHeaderCollectionReusableView {
     @objc private func clearButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.searchHistorySectionHeaderCollectionReusableView(self, clearButtonDidPressed: sender)
     }
 }
