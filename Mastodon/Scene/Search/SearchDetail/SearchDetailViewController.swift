@@ -8,7 +8,6 @@
 import os.log
 import UIKit
 import Combine
-import Pageboy
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
@@ -23,10 +22,7 @@ final class CustomSearchController: UISearchController {
 
 // Fake search bar not works on iPad with UISplitViewController
 // check device and fallback to standard UISearchController
-final class SearchDetailViewController: PageboyViewController, NeedsDependency {
-
-    let logger = Logger(subsystem: "SearchDetail", category: "UI")
-
+final class SearchDetailViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
 
@@ -38,7 +34,6 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
     }()
 
     var viewModel: SearchDetailViewModel!
-    var viewControllers: [SearchResultViewController]!
 
     let navigationBarVisualEffectBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
     let navigationBarBackgroundView = UIView()
@@ -73,9 +68,7 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
             searchController.searchBar.setShowsScope(true, animated: false)
         }
         searchBar.placeholder = L10n.Scene.Search.SearchBar.placeholder
-        searchBar.scopeButtonTitles = SearchDetailViewModel.SearchScope.allCases.map { $0.segmentedControlTitle }
         searchBar.sizeToFit()
-        searchBar.scopeBarBackgroundImage = UIImage()
         return searchBar
     }()
 
@@ -86,9 +79,11 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
         searchHistoryViewController.viewModel = SearchHistoryViewModel(context: context, authContext: viewModel.authContext)
         return searchHistoryViewController
     }()
-}
 
-extension SearchDetailViewController {
+    private(set) lazy var searchResultsOverviewViewController: SearchResultsOverviewTableViewController = {
+        let searchResultsOverviewViewController = SearchResultsOverviewTableViewController(appContext: context, authContext: viewModel.authContext)
+        return searchResultsOverviewViewController
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,81 +114,43 @@ extension SearchDetailViewController {
             searchHistoryViewController.view.pinToParent()
         }
 
-        transition = Transition(style: .fade, duration: 0.1)
-        isScrollEnabled = false
+        searchResultsOverviewViewController.delegate = self
 
-        viewControllers = viewModel.searchScopes.map { scope in
-            let searchResultViewController = SearchResultViewController()
-            searchResultViewController.context = context
-            searchResultViewController.coordinator = coordinator
-            searchResultViewController.viewModel = SearchResultViewModel(context: context, authContext: viewModel.authContext, searchScope: scope)
-
-            // bind searchText
-            viewModel.searchText
-                .assign(to: \.value, on: searchResultViewController.viewModel.searchText)
-                .store(in: &searchResultViewController.disposeBag)
-
-            // bind navigationBarFrame
-            viewModel.navigationBarFrame
-                .receive(on: DispatchQueue.main)
-                .assign(to: \.value, on: searchResultViewController.viewModel.navigationBarFrame)
-                .store(in: &searchResultViewController.disposeBag)
-            return searchResultViewController
+        addChild(searchResultsOverviewViewController)
+        searchResultsOverviewViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(searchResultsOverviewViewController.view)
+        searchResultsOverviewViewController.didMove(toParent: self)
+        if isPhoneDevice {
+            NSLayoutConstraint.activate([
+                searchResultsOverviewViewController.view.topAnchor.constraint(equalTo: navigationBarBackgroundView.bottomAnchor),
+                searchResultsOverviewViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                searchResultsOverviewViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                searchResultsOverviewViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
+        } else {
+            searchResultsOverviewViewController.view.pinToParent()
         }
 
-        // set initial items from "all" search scope for non-appeared lists
-        if let allSearchScopeViewController = viewControllers.first(where: { $0.viewModel.searchScope == .all }) {
-            allSearchScopeViewController.viewModel.$items
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] items in
-                    guard let self = self else { return }
-                    guard self.currentViewController === allSearchScopeViewController else { return }
-                    for viewController in self.viewControllers where viewController != allSearchScopeViewController {
-                        // do not change appeared list
-                        guard !viewController.viewModel.viewDidAppear.value else { continue }
-                        // set initial items
-                        switch viewController.viewModel.searchScope {
-                        case .all:
-                            assertionFailure()
-                            break
-                        case .people:
-                            viewController.viewModel.userFetchedResultsController.userIDs = allSearchScopeViewController.viewModel.userFetchedResultsController.userIDs
-                        case .hashtags:
-                            viewController.viewModel.hashtags = allSearchScopeViewController.viewModel.hashtags
-                        case .posts:
-                            viewController.viewModel.statusFetchedResultsController.statusIDs = allSearchScopeViewController.viewModel.statusFetchedResultsController.statusIDs
-                        }
-                    }
-                }
-                .store(in: &allSearchScopeViewController.disposeBag)
-        }
-
-        dataSource = self
-        delegate = self
-
-        // bind search bar scope
-        viewModel.selectedSearchScope
+        // bind search trigger
+        // "local" search
+        viewModel.searchText
+            .removeDuplicates()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] searchScope in
-                guard let self = self else { return }
-                if let index = self.viewModel.searchScopes.firstIndex(of: searchScope) {
-                    self.searchBar.selectedScopeButtonIndex = index
-                    self.scrollToPage(.at(index: index), animated: true)
-                }
+            .sink { [weak self] searchText in
+                guard let self else { return }
+
+                self.searchResultsOverviewViewController.showStandardSearch(for: searchText)
             }
             .store(in: &disposeBag)
 
-        // bind search trigger
+        // delayed search on server
         viewModel.searchText
             .removeDuplicates()
             .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: true)
             .sink { [weak self] searchText in
-                guard let self = self else { return }
-                guard let searchResultViewController = self.currentViewController as? SearchResultViewController else {
-                    return
-                }
-                self.logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): trigger search \(searchText)")
-                searchResultViewController.viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
+                guard let self else { return }
+
+                self.searchResultsOverviewViewController.searchForSuggestions(for: searchText)
             }
             .store(in: &disposeBag)
 
@@ -203,7 +160,9 @@ extension SearchDetailViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] searchText in
                 guard let self = self else { return }
+
                 self.searchHistoryViewController.view.isHidden = !searchText.isEmpty
+                self.searchResultsOverviewViewController.view.isHidden = searchText.isEmpty
             }
             .store(in: &disposeBag)
     }
@@ -253,7 +212,6 @@ extension SearchDetailViewController {
             }
         }
     }
-
 }
 
 extension SearchDetailViewController {
@@ -292,7 +250,6 @@ extension SearchDetailViewController {
             searchController.searchBar.sizeToFit()
         }
 
-        searchBar.text = viewModel.searchText.value
         searchBar.delegate = self
     }
 
@@ -305,12 +262,7 @@ extension SearchDetailViewController {
 // MARK: - UISearchBarDelegate
 extension SearchDetailViewController: UISearchBarDelegate {
 
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        viewModel.selectedSearchScope.value = viewModel.searchScopes[selectedScope]
-    }
-
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): searchTest \(searchText)")
         viewModel.searchText.value = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
@@ -322,77 +274,23 @@ extension SearchDetailViewController: UISearchBarDelegate {
             navigationController?.popViewController(animated: false)
         }
     }
-
 }
 
-// MARK: - PageboyViewControllerDataSource
-extension SearchDetailViewController: PageboyViewControllerDataSource {
-
-    func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return viewControllers.count
+//MARK: SearchResultsOverviewViewControllerDelegate
+extension SearchDetailViewController: SearchResultsOverviewTableViewControllerDeleagte {
+    func showPosts(_ viewController: UIViewController) {
+        //TODO: Implement
     }
 
-    func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
-        guard index < viewControllers.count else { return nil }
-        return viewControllers[index]
+    func showPeople(_ viewController: UIViewController) {
+        //TODO: Implement
     }
 
-    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return .first
+    func showProfile(_ viewController: UIViewController) {
+        //TODO: Implement
     }
 
-}
-
-// MARK: - PageboyViewControllerDelegate
-extension SearchDetailViewController: PageboyViewControllerDelegate {
-
-    func pageboyViewController(
-        _ pageboyViewController: PageboyViewController,
-        willScrollToPageAt index: PageboyViewController.PageIndex,
-        direction: PageboyViewController.NavigationDirection,
-        animated: Bool
-    ) {
-        // do nothing
-    }
-
-    func pageboyViewController(
-        _ pageboyViewController: PageboyViewController,
-        didScrollTo position: CGPoint,
-        direction: PageboyViewController.NavigationDirection,
-        animated: Bool
-    ) {
-        // do nothing
-    }
-
-    func pageboyViewController(
-        _ pageboyViewController: PageboyViewController,
-        didCancelScrollToPageAt index: PageboyViewController.PageIndex,
-        returnToPageAt previousIndex: PageboyViewController.PageIndex
-    ) {
-        // do nothing
-    }
-
-    func pageboyViewController(
-        _ pageboyViewController: PageboyViewController,
-        didScrollToPageAt index: PageboyViewController.PageIndex,
-        direction: PageboyViewController.NavigationDirection,
-        animated: Bool
-    ) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): index \(index)")
-
-        let searchResultViewController = viewControllers[index]
-        viewModel.selectedSearchScope.value = searchResultViewController.viewModel.searchScope
-
-        // trigger fetch
-        searchResultViewController.viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
-    }
-
-
-    func pageboyViewController(
-        _ pageboyViewController: PageboyViewController,
-        didReloadWith currentViewController: UIViewController,
-        currentPageIndex: PageboyViewController.PageIndex
-    ) {
-        // do nothing
+    func openLink(_ viewController: UIViewController) {
+        //TODO: Implement
     }
 }

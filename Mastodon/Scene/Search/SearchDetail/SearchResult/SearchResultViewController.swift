@@ -14,8 +14,6 @@ import MastodonUI
 
 final class SearchResultViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
-    let logger = Logger(subsystem: "SearchResultViewController", category: "ViewController")
-
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 

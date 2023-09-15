@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-7-14.
 //
 
-import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK

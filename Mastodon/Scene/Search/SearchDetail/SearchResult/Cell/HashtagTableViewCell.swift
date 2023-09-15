@@ -9,6 +9,8 @@ import UIKit
 import MetaTextKit
 
 final class HashtagTableViewCell: UITableViewCell {
+
+    static let reuseIdentifier = "HashtagTableViewCell"
     
     let primaryLabel = MetaLabel(style: .statusName)
     

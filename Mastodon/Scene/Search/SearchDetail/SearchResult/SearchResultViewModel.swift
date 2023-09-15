@@ -20,7 +20,7 @@ final class SearchResultViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let searchScope: SearchDetailViewModel.SearchScope
+    let searchScope: SearchScope
     let searchText = CurrentValueSubject<String, Never>("")
     @Published var hashtags: [Mastodon.Entity.Tag] = []
     let userFetchedResultsController: UserFetchedResultsController
@@ -48,7 +48,7 @@ final class SearchResultViewModel {
     }()
     let didDataSourceUpdate = PassthroughSubject<Void, Never>()
 
-    init(context: AppContext, authContext: AuthContext, searchScope: SearchDetailViewModel.SearchScope) {
+    init(context: AppContext, authContext: AuthContext, searchScope: SearchScope = .all) {
         self.context = context
         self.authContext = authContext
         self.searchScope = searchScope
