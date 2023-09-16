@@ -23,6 +23,7 @@ class SearchResultsOverviewTableViewController: UIViewController {
     var dataSource: UITableViewDiffableDataSource<SearchResultOverviewSection, SearchResultOverviewItem>?
 
     weak var delegate: SearchResultsOverviewTableViewControllerDeleagte?
+    var activeTask: Task<Void, Never>?
 
     init(appContext: AppContext, authContext: AuthContext) {
 
@@ -48,22 +49,29 @@ class SearchResultsOverviewTableViewController: UIViewController {
                     return cell
 
                 case .suggestion(let suggestion):
-                    switch suggestion {
 
-                        case .hashtag(let hashtag):
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
 
-                            cell.configure(item: .hashtag(tag: hashtag))
-                            return cell
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
 
-                        case .profile(let profile):
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else { fatalError() }
+                    cell.configure(item: suggestion)
+                    return cell
 
-//                            cell.configure(me: <#T##MastodonUser?#>, tableView: <#T##UITableView#>, viewModel: <#T##UserTableViewCell.ViewModel#>, delegate: <#T##UserTableViewCellDelegate?#>)
-
-                            return cell
-                    }
-
+//                    switch suggestion {
+//
+//                        case .hashtag(let hashtag):
+//                            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
+//
+//                            cell.configure(item: .hashtag(tag: hashtag))
+//                            return cell
+//
+//                        case .profile(let profile):
+//                            //TODO: Use `UserFetchedResultsController` or `Persistence.MastodonUser.fetch` ???
+//                            guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else { fatalError() }
+//
+////                            cell.configure(me: <#T##MastodonUser?#>, tableView: <#T##UITableView#>, viewModel: <#T##UserTableViewCell.ViewModel#>, delegate: <#T##UserTableViewCellDelegate?#>)
+//
+//                            return cell
+//                    }
             }
         }
 
@@ -79,9 +87,20 @@ class SearchResultsOverviewTableViewController: UIViewController {
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    func showStandardSearch(for searchText: String) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         var snapshot = NSDiffableDataSourceSnapshot<SearchResultOverviewSection, SearchResultOverviewItem>()
         snapshot.appendSections([.default, .suggestions])
+        dataSource?.apply(snapshot, animatingDifferences: false)
+    }
+
+    func showStandardSearch(for searchText: String) {
+
+        guard let dataSource else { return }
+
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .default))
         snapshot.appendItems([.default(.posts(searchText)),
                               .default(.people(searchText)),
                               .default(.profile(searchText, authContext.mastodonAuthenticationBox.domain))], toSection: .default)
@@ -90,10 +109,21 @@ class SearchResultsOverviewTableViewController: UIViewController {
             //TODO: Check if Mastodon-URL
             snapshot.appendItems([.default(.openLink(searchText))], toSection: .default)
         }
-        dataSource?.apply(snapshot, animatingDifferences: false)
+
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 
     func searchForSuggestions(for searchText: String) {
+
+        activeTask?.cancel()
+
+        guard let dataSource else { return }
+
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .suggestions))
+        dataSource.apply(snapshot, animatingDifferences: false)
+
+        guard searchText.isNotEmpty else { return }
 
         let query = Mastodon.API.V2.Search.Query(
             q: searchText,
@@ -101,7 +131,7 @@ class SearchResultsOverviewTableViewController: UIViewController {
             resolve: true
         )
 
-        Task {
+        let searchTask = Task {
             do {
                 let searchResult = try await appContext.apiService.search(
                     query: query,
@@ -111,22 +141,29 @@ class SearchResultsOverviewTableViewController: UIViewController {
                 let firstThreeHashtags = searchResult.hashtags.prefix(3)
                 let firstThreeUsers = searchResult.accounts.prefix(3)
 
-                guard var snapshot = dataSource?.snapshot() else { return }
+                var snapshot = dataSource.snapshot()
 
-                snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .suggestions))
-                snapshot.appendItems(firstThreeHashtags.map { .suggestion(.hashtag(tag: $0)) }, toSection: .suggestions )
-//                snapshot.appendItems(firstThreeUsers.map { .suggestion(.profile($0.displayName)) }, toSection: .suggestions )
-
-                await MainActor.run {
-                    dataSource?.apply(snapshot, animatingDifferences: false)
+                if firstThreeHashtags.isNotEmpty {
+                    snapshot.appendItems(firstThreeHashtags.map { .suggestion(.hashtag(tag: $0)) }, toSection: .suggestions )
                 }
 
+                if firstThreeUsers.isNotEmpty {
+                    snapshot.appendItems(firstThreeUsers.map { .suggestion(.profile(user: $0)) }, toSection: .suggestions )
+                }
 
+                guard Task.isCancelled == false else { return }
+
+                await MainActor.run {
+                    dataSource.apply(snapshot, animatingDifferences: false)
+                }
                 
             } catch {
                 // do nothing
+                print(error.localizedDescription)
             }
         }
+
+        activeTask = searchTask
     }
 }
 

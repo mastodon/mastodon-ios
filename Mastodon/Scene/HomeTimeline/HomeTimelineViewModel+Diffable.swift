@@ -87,11 +87,8 @@ extension HomeTimelineViewModel {
 
                     let hasChanges = newSnapshot.itemIdentifiers != oldSnapshot.itemIdentifiers
                     if !hasChanges && !self.hasPendingStatusEditReload {
-                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot not changes")
                         self.didLoadLatest.send()
                         return
-                    } else {
-                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot has changes")
                     }
 
                     guard let difference = self.calculateReloadSnapshotDifference(
@@ -101,7 +98,6 @@ extension HomeTimelineViewModel {
                     ) else {
                         self.updateSnapshotUsingReloadData(snapshot: newSnapshot)
                         self.didLoadLatest.send()
-                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): applied new snapshot")
                         return
                     }
                     
@@ -111,7 +107,6 @@ extension HomeTimelineViewModel {
                     contentOffset.y = tableView.contentOffset.y - difference.sourceDistanceToTableViewTopEdge
                     tableView.setContentOffset(contentOffset, animated: false)
                     self.didLoadLatest.send()
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): applied new snapshot")
                     self.hasPendingStatusEditReload = false
                 }   // end Task
             }

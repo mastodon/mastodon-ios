@@ -131,29 +131,6 @@ final class SearchDetailViewController: UIViewController, NeedsDependency {
             searchResultsOverviewViewController.view.pinToParent()
         }
 
-        // bind search trigger
-        // "local" search
-        viewModel.searchText
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] searchText in
-                guard let self else { return }
-
-                self.searchResultsOverviewViewController.showStandardSearch(for: searchText)
-            }
-            .store(in: &disposeBag)
-
-        // delayed search on server
-        viewModel.searchText
-            .removeDuplicates()
-            .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: true)
-            .sink { [weak self] searchText in
-                guard let self else { return }
-
-                self.searchResultsOverviewViewController.searchForSuggestions(for: searchText)
-            }
-            .store(in: &disposeBag)
-
         // bind search history display
         viewModel.searchText
             .removeDuplicates()
@@ -263,7 +240,11 @@ extension SearchDetailViewController {
 extension SearchDetailViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.searchText.value = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        viewModel.searchText.value = trimmedSearchText
+
+        searchResultsOverviewViewController.showStandardSearch(for: trimmedSearchText)
+        searchResultsOverviewViewController.searchForSuggestions(for: trimmedSearchText)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
