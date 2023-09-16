@@ -26,7 +26,7 @@ extension DataSourceFacade {
     
     @MainActor
     static func coordinateToHashtagScene(
-        provider: DataSourceProvider & AuthContextProvider,
+        provider: NeedsDependency & UIViewController & AuthContextProvider,
         tag: Mastodon.Entity.Tag
     ) async {
         let hashtagTimelineViewModel = HashtagTimelineViewModel(

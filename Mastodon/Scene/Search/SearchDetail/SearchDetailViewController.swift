@@ -23,12 +23,13 @@ final class CustomSearchController: UISearchController {
 // Fake search bar not works on iPad with UISplitViewController
 // check device and fallback to standard UISearchController
 final class SearchDetailViewController: UIViewController, NeedsDependency {
+
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
-    
+
     let isPhoneDevice: Bool = {
         return UIDevice.current.userInterfaceIdiom == .phone
     }()
@@ -81,7 +82,7 @@ final class SearchDetailViewController: UIViewController, NeedsDependency {
     }()
 
     private(set) lazy var searchResultsOverviewViewController: SearchResultsOverviewTableViewController = {
-        let searchResultsOverviewViewController = SearchResultsOverviewTableViewController(appContext: context, authContext: viewModel.authContext)
+        let searchResultsOverviewViewController = SearchResultsOverviewTableViewController(appContext: context, authContext: viewModel.authContext, coordinator: coordinator)
         return searchResultsOverviewViewController
     }()
 
@@ -259,10 +260,6 @@ extension SearchDetailViewController: UISearchBarDelegate {
 
 //MARK: SearchResultsOverviewViewControllerDelegate
 extension SearchDetailViewController: SearchResultsOverviewTableViewControllerDeleagte {
-    func showPosts(_ viewController: UIViewController) {
-        //TODO: Implement
-    }
-
     func showPeople(_ viewController: UIViewController) {
         //TODO: Implement
     }

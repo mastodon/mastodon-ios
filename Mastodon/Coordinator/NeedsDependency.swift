@@ -9,6 +9,7 @@ import UIKit
 import MastodonCore
 
 protocol NeedsDependency: AnyObject {
+    //FIXME: Get rid of ! ~@zeitschlag
     var context: AppContext! { get set }
     var coordinator: SceneCoordinator! { get set }
 }

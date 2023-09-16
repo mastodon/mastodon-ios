@@ -5,19 +5,19 @@ import MastodonCore
 import MastodonSDK
 
 protocol SearchResultsOverviewTableViewControllerDeleagte: AnyObject {
-    func showPosts(_ viewController: UIViewController)
     func showPeople(_ viewController: UIViewController)
     func showProfile(_ viewController: UIViewController)
     func openLink(_ viewController: UIViewController)
 }
 
 // we could move lots of this stuff to a coordinator, it's too much for work a viewcontroller
-class SearchResultsOverviewTableViewController: UIViewController {
+class SearchResultsOverviewTableViewController: UIViewController, NeedsDependency, AuthContextProvider {
     // similar to the other search results view controller but without the whole statemachine bullshit
     // with scope all
 
-    let appContext: AppContext
+    var context: AppContext!
     let authContext: AuthContext
+    var coordinator: SceneCoordinator!
 
     private let tableView: UITableView
     var dataSource: UITableViewDiffableDataSource<SearchResultOverviewSection, SearchResultOverviewItem>?
@@ -25,10 +25,11 @@ class SearchResultsOverviewTableViewController: UIViewController {
     weak var delegate: SearchResultsOverviewTableViewControllerDeleagte?
     var activeTask: Task<Void, Never>?
 
-    init(appContext: AppContext, authContext: AuthContext) {
+    init(appContext: AppContext, authContext: AuthContext, coordinator: SceneCoordinator) {
 
-        self.appContext = appContext
+        self.context = appContext
         self.authContext = authContext
+        self.coordinator = coordinator
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +51,6 @@ class SearchResultsOverviewTableViewController: UIViewController {
 
                 case .suggestion(let suggestion):
 
-
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
 
                     cell.configure(item: suggestion)
@@ -59,17 +59,26 @@ class SearchResultsOverviewTableViewController: UIViewController {
 //                    switch suggestion {
 //
 //                        case .hashtag(let hashtag):
-//                            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
-//
-//                            cell.configure(item: .hashtag(tag: hashtag))
-//                            return cell
 //
 //                        case .profile(let profile):
 //                            //TODO: Use `UserFetchedResultsController` or `Persistence.MastodonUser.fetch` ???
+//
 //                            guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else { fatalError() }
+
+                            // how the fuck do I get a MastodonUser???
+//                            try await managedObjectContext.perform {
+//                                Persistence.MastodonUser.fetch(in: managedObjectContext,
+//                                                               context: Persistence.MastodonUser.PersistContext(
+//                                                                domain: domain,
+//                                                                entity: profile.value,
+//                                                                cache: nil,
+//                                                                networkDate: profile.netwo
+//                                                               ))
+//                            }
 //
-////                            cell.configure(me: <#T##MastodonUser?#>, tableView: <#T##UITableView#>, viewModel: <#T##UserTableViewCell.ViewModel#>, delegate: <#T##UserTableViewCellDelegate?#>)
-//
+
+                            //                            cell.configure(me: <#T##MastodonUser?#>, tableView: <#T##UITableView#>, viewModel: <#T##UserTableViewCell.ViewModel#>, delegate: <#T##UserTableViewCellDelegate?#>)
+
 //                            return cell
 //                    }
             }
@@ -87,8 +96,8 @@ class SearchResultsOverviewTableViewController: UIViewController {
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         var snapshot = NSDiffableDataSourceSnapshot<SearchResultOverviewSection, SearchResultOverviewItem>()
         snapshot.appendSections([.default, .suggestions])
@@ -133,7 +142,7 @@ class SearchResultsOverviewTableViewController: UIViewController {
 
         let searchTask = Task {
             do {
-                let searchResult = try await appContext.apiService.search(
+                let searchResult = try await context.apiService.search(
                     query: query,
                     authenticationBox: authContext.mastodonAuthenticationBox
                 ).value
@@ -165,6 +174,15 @@ class SearchResultsOverviewTableViewController: UIViewController {
 
         activeTask = searchTask
     }
+
+    func showPosts(tag: Mastodon.Entity.Tag) {
+        Task {
+            await DataSourceFacade.coordinateToHashtagScene(
+                provider: self,
+                tag: tag
+            )
+        }
+    }
 }
 
 //MARK: UITableViewDelegate
@@ -179,8 +197,8 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
         switch item {
             case .default(let defaultSectionEntry):
                 switch defaultSectionEntry {
-                    case .posts(let string):
-                        delegate?.showPosts(self)
+                    case .posts(let hashtag):
+                        showPosts(tag: Mastodon.Entity.Tag(name: hashtag, url: authContext.mastodonAuthenticationBox.domain))
                     case .people(let string):
                         delegate?.showPeople(self)
                     case .profile(let profile, let instanceName):
@@ -191,8 +209,8 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
             case .suggestion(let suggestionSectionEntry):
                 switch suggestionSectionEntry {
 
-                    case .hashtag(_):
-                        delegate?.showPosts(self)
+                    case .hashtag(let tag):
+                        showPosts(tag: tag)
                     case .profile(_):
                         delegate?.showProfile(self)
                 }
