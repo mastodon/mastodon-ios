@@ -248,6 +248,10 @@ extension SearchDetailViewController: UISearchBarDelegate {
         searchResultsOverviewViewController.searchForSuggestions(for: trimmedSearchText)
     }
 
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         // dismiss or pop
         if isModal {
