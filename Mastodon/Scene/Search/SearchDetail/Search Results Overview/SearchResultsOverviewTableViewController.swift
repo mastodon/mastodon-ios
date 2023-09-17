@@ -195,7 +195,7 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
             )
 
             await DataSourceFacade.responseToCreateSearchHistory(provider: self,
-                                                           item: .hashtag(tag: .entity(tag)))
+                                                                 item: .hashtag(tag: .entity(tag)))
         }
     }
 
@@ -219,7 +219,7 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
                                                                 user: user.asRecord)
 
                 await DataSourceFacade.responseToCreateSearchHistory(provider: self,
-                                                               item: .user(record: user.asRecord))
+                                                                     item: .user(record: user.asRecord))
             }
         }
     }
@@ -236,6 +236,33 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
         searchResultViewModel.searchText.value = searchText
 
         coordinator.present(scene: .searchResult(viewModel: searchResultViewModel), transition: .show)
+    }
+
+    func searchForPerson(username: String, domain: String) {
+        let acct = "\(username)@\(domain)"
+        let query = Mastodon.API.V2.Search.Query(
+            q: acct,
+            type: .default,
+            resolve: true
+        )
+
+        Task {
+            let searchResult = try await context.apiService.search(
+                query: query,
+                authenticationBox: authContext.mastodonAuthenticationBox
+            ).value
+
+            if let account = searchResult.accounts.first(where: { $0.acctWithDomainIfMissing(domain).lowercased() == acct.lowercased() }) {
+                showProfile(for: account)
+            } else {
+                await MainActor.run {
+                    let alertController = UIAlertController(title: "No User Account", message: "There's no Useraccount \"\(username)\" on \(domain)", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alertController.addAction(okAction)
+                    coordinator.present(scene: .alertController(alertController: alertController), transition: .alertController(animated: true))
+                }
+            }
+        }
     }
 }
 
@@ -255,8 +282,8 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
                         searchForPosts(withSearchText: searchText)
                     case .people(let searchText):
                         searchForPeople(withName: searchText)
-                    case .profile(let profile, let instanceName):
-                        delegate?.showProfile(self)
+                    case .profile(let username, let domain):
+                        searchForPerson(username: username, domain: domain)
                     case .openLink(let string):
                         delegate?.openLink(self)
                 }
