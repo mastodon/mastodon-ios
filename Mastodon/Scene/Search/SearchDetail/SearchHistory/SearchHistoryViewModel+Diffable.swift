@@ -53,10 +53,12 @@ extension SearchHistoryViewModel {
                             
                             return users + hashtags
                         }
+
+                        let mostRecentItems = Array(items.prefix(10))
                         var snapshot = NSDiffableDataSourceSnapshot<SearchHistorySection, SearchHistoryItem>()
                         snapshot.appendSections([.main])
-                        snapshot.appendItems(items, toSection: .main)
-                        await diffableDataSource.apply(snapshot, animatingDifferences: false)
+                        snapshot.appendItems(mostRecentItems, toSection: .main)
+                        await diffableDataSource.apply(snapshot, animatingDifferences: true)
                     } catch {
                         // do nothing
                     }
