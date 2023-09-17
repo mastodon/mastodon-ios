@@ -116,6 +116,8 @@ extension SearchResultViewController {
                 self.tableView.verticalScrollIndicatorInsets.top = frame.height
             }
             .store(in: &disposeBag)
+
+        title = viewModel.searchText.value
     }
 
     override func viewWillAppear(_ animated: Bool) {

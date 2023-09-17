@@ -1279,21 +1279,25 @@ public enum L10n {
         public static let clear = L10n.tr("Localizable", "Scene.Search.Searching.Clear", fallback: "Clear")
         /// Clear all
         public static let clearAll = L10n.tr("Localizable", "Scene.Search.Searching.ClearAll", fallback: "Clear all")
+        /// People with "%@"
+        public static func people(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Search.Searching.People", String(describing: p1), fallback: "People with \"%@\"")
+        }
+        /// Posts with "%@"
+        public static func posts(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Search.Searching.Posts", String(describing: p1), fallback: "Posts with \"%@\"")
+        }
+        /// Go to @%@@%@
+        public static func profile(_ p1: Any, _ p2: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Search.Searching.Profile", String(describing: p1), String(describing: p2), fallback: "Go to @%@@%@")
+        }
         /// Recent searches
         public static let recentSearch = L10n.tr("Localizable", "Scene.Search.Searching.RecentSearch", fallback: "Recent searches")
+        /// Open Link
+        public static let url = L10n.tr("Localizable", "Scene.Search.Searching.Url", fallback: "Open Link")
         public enum EmptyState {
           /// No results
           public static let noResults = L10n.tr("Localizable", "Scene.Search.Searching.EmptyState.NoResults", fallback: "No results")
-        }
-        public enum Segment {
-          /// All
-          public static let all = L10n.tr("Localizable", "Scene.Search.Searching.Segment.All", fallback: "All")
-          /// Hashtags
-          public static let hashtags = L10n.tr("Localizable", "Scene.Search.Searching.Segment.Hashtags", fallback: "Hashtags")
-          /// People
-          public static let people = L10n.tr("Localizable", "Scene.Search.Searching.Segment.People", fallback: "People")
-          /// Posts
-          public static let posts = L10n.tr("Localizable", "Scene.Search.Searching.Segment.Posts", fallback: "Posts")
         }
       }
     }

@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonSDK
+import MastodonLocalization
 import CoreDataStack
 
 enum SearchResultOverviewSection: Hashable {
@@ -21,15 +22,14 @@ enum SearchResultOverviewItem: Hashable {
 
         var title: String {
             switch self {
-                    //TODO: Add localization
                 case .posts(let text):
-                    return "Posts with \(text)"
+                    return L10n.Scene.Search.Searching.posts(text)
                 case .people(let username):
-                    return "People with \(username)"
+                    return L10n.Scene.Search.Searching.people(username)
                 case .profile(let username, let instanceName):
-                    return "Go to @\(username)@\(instanceName)"
+                    return L10n.Scene.Search.Searching.profile(username, instanceName)
                 case .openLink(_):
-                    return "Open Link"
+                    return L10n.Scene.Search.Searching.url
             }
         }
 
@@ -46,11 +46,11 @@ enum SearchResultOverviewItem: Hashable {
             }
         }
     }
-    
+
     enum SuggestionSectionEntry: Hashable {
         case hashtag(tag: Mastodon.Entity.Tag)
         case profile(user: Mastodon.Entity.Account)
-        
+
         var title: String? {
             if case let .hashtag(tag) = self {
                 return tag.name
@@ -58,7 +58,7 @@ enum SearchResultOverviewItem: Hashable {
                 return nil
             }
         }
-        
+
         var icon: UIImage? {
             if case .hashtag(_) = self {
                 return UIImage(systemName: "number")
