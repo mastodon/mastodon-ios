@@ -118,7 +118,6 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
     }
 
     func showStandardSearch(for searchText: String) {
-
         guard let dataSource else { return }
 
         var snapshot = dataSource.snapshot()
@@ -127,8 +126,7 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
                               .default(.people(searchText)),
                               .default(.profile(searchText, authContext.mastodonAuthenticationBox.domain))], toSection: .default)
 
-        if URL(string: searchText) != nil {
-            //TODO: Check if Mastodon-URL
+        if URL(string: searchText)?.isValidURL() ?? false {
             snapshot.appendItems([.default(.openLink(searchText))], toSection: .default)
         }
 
@@ -187,6 +185,8 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
 
         activeTask = searchTask
     }
+
+    //MARK: - Actions
 
     func showPosts(tag: Mastodon.Entity.Tag) {
         Task {
@@ -268,6 +268,50 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
             }
         }
     }
+
+    func goTo(link: String) {
+
+        let query = Mastodon.API.V2.Search.Query(
+            q: link,
+            type: .default,
+            resolve: true
+        )
+
+        let authContext = self.authContext
+        let managedObjectContext = context.managedObjectContext
+
+        Task {
+            let searchResult = try await context.apiService.search(
+                query: query,
+                authenticationBox: authContext.mastodonAuthenticationBox
+            ).value
+
+            if let account = searchResult.accounts.first {
+                showProfile(for: account)
+            } else if let status = searchResult.statuses.first {
+
+                let status = try await managedObjectContext.perform {
+                    return Persistence.Status.fetch(in: managedObjectContext, context: Persistence.Status.PersistContext(
+                        domain: authContext.mastodonAuthenticationBox.domain,
+                        entity: status,
+                        me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user,
+                        statusCache: nil,
+                        userCache: nil,
+                        networkDate: Date()))
+                }
+
+                guard let status else { return }
+
+                await DataSourceFacade.coordinateToStatusThreadScene(
+                    provider: self,
+                    target: .status,    // remove reblog wrapper
+                    status: status.asRecord
+                )
+            } else if let url = URL(string: link) {
+                coordinator.present(scene: .safari(url: url), transition: .safariPresent(animated: true))
+            }
+        }
+    }
 }
 
 //MARK: UITableViewDelegate
@@ -288,8 +332,8 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
                         searchForPeople(withName: searchText)
                     case .profile(let username, let domain):
                         searchForPerson(username: username, domain: domain)
-                    case .openLink(let string):
-                        delegate?.openLink(self)
+                    case .openLink(let urlString):
+                        goTo(link: urlString)
                 }
             case .suggestion(let suggestionSectionEntry):
                 switch suggestionSectionEntry {
