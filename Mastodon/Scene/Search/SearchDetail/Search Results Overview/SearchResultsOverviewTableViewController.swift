@@ -123,8 +123,20 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
         var snapshot = dataSource.snapshot()
         snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .default))
         snapshot.appendItems([.default(.posts(searchText)),
-                              .default(.people(searchText)),
-                              .default(.profile(searchText, authContext.mastodonAuthenticationBox.domain))], toSection: .default)
+                              .default(.people(searchText))], toSection: .default)
+        let components = searchText.split(separator: "@")
+        if components.count == 2 {
+            let username = String(components[0])
+
+            let domain = String(components[1])
+            if domain.split(separator: ".").count >= 2 {
+                snapshot.appendItems([.default(.profile(username: username, domain: domain))], toSection: .default)
+            } else {
+                snapshot.appendItems([.default(.profile(username: username, domain: authContext.mastodonAuthenticationBox.domain))], toSection: .default)
+            }
+        } else {
+            snapshot.appendItems([.default(.profile(username: searchText, domain: authContext.mastodonAuthenticationBox.domain))], toSection: .default)
+        }
 
         if URL(string: searchText)?.isValidURL() ?? false {
             snapshot.appendItems([.default(.openLink(searchText))], toSection: .default)

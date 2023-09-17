@@ -17,7 +17,7 @@ enum SearchResultOverviewItem: Hashable {
     enum DefaultSectionEntry: Hashable {
         case posts(String)
         case people(String)
-        case profile(String, String)
+        case profile(username: String, domain: String)
         case openLink(String)
 
         var title: String {
