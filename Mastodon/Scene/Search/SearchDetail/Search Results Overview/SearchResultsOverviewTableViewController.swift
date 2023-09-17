@@ -193,6 +193,9 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
                 provider: self,
                 tag: tag
             )
+
+            await DataSourceFacade.responseToCreateSearchHistory(provider: self,
+                                                           item: .hashtag(tag: .entity(tag)))
         }
     }
 
@@ -214,6 +217,9 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
             if let user {
                 await DataSourceFacade.coordinateToProfileScene(provider:self,
                                                                 user: user.asRecord)
+
+                await DataSourceFacade.responseToCreateSearchHistory(provider: self,
+                                                               item: .user(record: user.asRecord))
             }
         }
     }
