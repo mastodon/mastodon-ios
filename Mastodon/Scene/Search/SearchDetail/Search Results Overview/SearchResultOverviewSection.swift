@@ -46,39 +46,25 @@ enum SearchResultOverviewItem: Hashable {
             }
         }
     }
-
+    
     enum SuggestionSectionEntry: Hashable {
         case hashtag(tag: Mastodon.Entity.Tag)
         case profile(user: Mastodon.Entity.Account)
-
+        
         var title: String? {
-            switch self {
-
-                case .hashtag(tag: let tag):
-                    return tag.name
-                case .profile(user: let user):
-                    return "\(user.displayName) — \(user.acct)"
+            if case let .hashtag(tag) = self {
+                return tag.name
+            } else {
+                return nil
             }
-//            if case let .hashtag(tag) = self {
-//                return tag.name
-//            } else {
-//                return nil
-//            }
         }
-
+        
         var icon: UIImage? {
-            switch self {
-
-                case .hashtag(tag: _):
-                    return UIImage(systemName: "number")
-
-                case .profile(user: _):
-                    return UIImage(systemName: "person.circle")
-
+            if case .hashtag(_) = self {
+                return UIImage(systemName: "number")
+            } else {
+                return nil
             }
-//            if case let .hashtag(tag) = self {
-//            } else {
-//            }
         }
     }
 }

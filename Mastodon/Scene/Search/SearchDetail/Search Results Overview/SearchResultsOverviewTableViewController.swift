@@ -61,23 +61,21 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
                             cell.configure(item: .hashtag(tag: hashtag))
                             return cell
 
-                            //
                         case .profile(let profile):
                             guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else { fatalError() }
 
-                            // how the fuck do I get a MastodonUser???
                             let managedObjectContext = appContext.managedObjectContext
                             Task {
                                 do {
 
                                     try await managedObjectContext.perform {
                                         guard let user = Persistence.MastodonUser.fetch(in: managedObjectContext,
-                                                                                  context: Persistence.MastodonUser.PersistContext(
-                                                                                    domain: authContext.mastodonAuthenticationBox.domain,
-                                                                                    entity: profile,
-                                                                                    cache: nil,
-                                                                                    networkDate: Date()
-                                                                                  )) else { return }
+                                                                                        context: Persistence.MastodonUser.PersistContext(
+                                                                                            domain: authContext.mastodonAuthenticationBox.domain,
+                                                                                            entity: profile,
+                                                                                            cache: nil,
+                                                                                            networkDate: Date()
+                                                                                        )) else { return }
 
                                         cell.configure(
                                             me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user,
@@ -89,8 +87,7 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
                                                 followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()),
                                             delegate: nil)
                                     }
-                                }
-                                catch {
+                                } catch {
                                     // do nothing
                                 }
                             }
@@ -104,7 +101,6 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
         tableView.dataSource = dataSource
         tableView.delegate = self
         self.dataSource = dataSource
-
 
         view.addSubview(tableView)
         tableView.pinToParent()
@@ -221,6 +217,13 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
             }
         }
     }
+
+    func searchForPeople(withName searchText: String) {
+        let searchResultViewModel = SearchResultViewModel(context: context, authContext: authContext, searchScope: .people)
+        searchResultViewModel.searchText.value = searchText
+
+        coordinator.present(scene: .searchResult(viewModel: searchResultViewModel), transition: .show)
+    }
 }
 
 //MARK: UITableViewDelegate
@@ -238,9 +241,8 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
                     case .posts(let hashtag):
                         //FIXME: Show statuses instead of tag-content. Reuse SearchResultsViewController with statuses here?
                         showPosts(tag: Mastodon.Entity.Tag(name: hashtag, url: authContext.mastodonAuthenticationBox.domain))
-                    case .people(let string):
-                        //FIXME: Invoke SearchResultsViewController with people-scope here
-                        delegate?.showPeople(self)
+                    case .people(let searchText):
+                        searchForPeople(withName: searchText)
                     case .profile(let profile, let instanceName):
                         delegate?.showProfile(self)
                     case .openLink(let string):

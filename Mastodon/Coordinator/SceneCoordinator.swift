@@ -153,6 +153,7 @@ extension SceneCoordinator {
 
         // search
         case searchDetail(viewModel: SearchDetailViewModel)
+        case searchResult(viewModel: SearchResultViewModel)
 
         // compose
         case compose(viewModel: ComposeViewModel)
@@ -376,159 +377,169 @@ private extension SceneCoordinator {
         let viewController: UIViewController?
         
         switch scene {
-        case .welcome:
-            let _viewController = WelcomeViewController()
-            viewController = _viewController
-        case .mastodonPickServer(let viewModel):
-            let _viewController = MastodonPickServerViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .mastodonRegister(let viewModel):
-            let _viewController = MastodonRegisterViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .mastodonServerRules(let viewModel):
-            let _viewController = MastodonServerRulesViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .mastodonConfirmEmail(let viewModel):
-            let _viewController = MastodonConfirmEmailViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .mastodonLogin:
-            let loginViewController = MastodonLoginViewController(appContext: appContext,
-                                                                  authenticationViewModel: AuthenticationViewModel(context: appContext, coordinator: self, isAuthenticationExist: false),
-                                                                  sceneCoordinator: self)
-            loginViewController.delegate = self
+            case .welcome:
+                let _viewController = WelcomeViewController()
+                viewController = _viewController
+            case .mastodonPickServer(let viewModel):
+                let _viewController = MastodonPickServerViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .mastodonRegister(let viewModel):
+                let _viewController = MastodonRegisterViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .mastodonServerRules(let viewModel):
+                let _viewController = MastodonServerRulesViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .mastodonConfirmEmail(let viewModel):
+                let _viewController = MastodonConfirmEmailViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .mastodonLogin:
+                let loginViewController = MastodonLoginViewController(appContext: appContext,
+                                                                      authenticationViewModel: AuthenticationViewModel(context: appContext, coordinator: self, isAuthenticationExist: false),
+                                                                      sceneCoordinator: self)
+                loginViewController.delegate = self
 
-            viewController = loginViewController
-        case .mastodonPrivacyPolicies(let viewModel):
-            let privacyViewController = PrivacyTableViewController(context: appContext, coordinator: self, viewModel: viewModel)
-            viewController = privacyViewController
-        case .mastodonResendEmail(let viewModel):
-            let _viewController = MastodonResendEmailViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .mastodonWebView(let viewModel):
-            let _viewController = WebViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .searchDetail(let viewModel):
-            let _viewController = SearchDetailViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .compose(let viewModel):
-            let _viewController = ComposeViewController(viewModel: viewModel)
-            viewController = _viewController
-        case .thread(let viewModel):
-            let _viewController = ThreadViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .editHistory(let viewModel):
-            let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
-            viewController = editHistoryViewController
-        case .hashtagTimeline(let viewModel):
-            let _viewController = HashtagTimelineViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .accountList(let viewModel):
-            let _viewController = AccountListViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .profile(let viewModel):
-            let _viewController = ProfileViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .bookmark(let viewModel):
-            let _viewController = BookmarkViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .followedTags(let viewModel):
-            let _viewController = FollowedTagsViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .favorite(let viewModel):
-            let _viewController = FavoriteViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .follower(let viewModel):
-            let _viewController = FollowerListViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .following(let viewModel):
-            let _viewController = FollowingListViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .familiarFollowers(let viewModel):
-            let _viewController = FamiliarFollowersViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .rebloggedBy(let viewModel):
-            let _viewController = RebloggedByViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .favoritedBy(let viewModel):
-            let _viewController = FavoritedByViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .report(let viewModel):
-            let _viewController = ReportViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .reportServerRules(let viewModel):
-            let _viewController = ReportServerRulesViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .reportStatus(let viewModel):
-            let _viewController = ReportStatusViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .reportSupplementary(let viewModel):
-            let _viewController = ReportSupplementaryViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .reportResult(let viewModel):
-            let _viewController = ReportResultViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .suggestionAccount(let viewModel):
-            let _viewController = SuggestionAccountViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .mediaPreview(let viewModel):
-            let _viewController = MediaPreviewViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .safari(let url):
-            guard let scheme = url.scheme?.lowercased(),
-                  scheme == "http" || scheme == "https" else {
-                return nil
-            }
-            let _viewController = SFSafariViewController(url: url)
-            _viewController.preferredBarTintColor = ThemeService.shared.currentTheme.value.navigationBarBackgroundColor
-            _viewController.preferredControlTintColor = Asset.Colors.Brand.blurple.color
-            viewController = _viewController
+                viewController = loginViewController
+            case .mastodonPrivacyPolicies(let viewModel):
+                let privacyViewController = PrivacyTableViewController(context: appContext, coordinator: self, viewModel: viewModel)
+                viewController = privacyViewController
+            case .mastodonResendEmail(let viewModel):
+                let _viewController = MastodonResendEmailViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .mastodonWebView(let viewModel):
+                let _viewController = WebViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
 
-        case .alertController(let alertController):
-            if let popoverPresentationController = alertController.popoverPresentationController {
-                assert(
-                    popoverPresentationController.sourceView != nil ||
-                    popoverPresentationController.sourceRect != .zero ||
-                    popoverPresentationController.barButtonItem != nil
-                )
-            }
-            viewController = alertController
-        case .activityViewController(let activityViewController, let sourceView, let barButtonItem):
-            activityViewController.popoverPresentationController?.sourceView = sourceView
-            activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
-            viewController = activityViewController
-        case .settings(let viewModel):
-            let _viewController = SettingsViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .editStatus(let viewModel):
-            let composeViewController = ComposeViewController(viewModel: viewModel)
-            viewController = composeViewController
+
+            case .searchDetail(let viewModel):
+                let _viewController = SearchDetailViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .searchResult(let viewModel):
+                let searchResultViewController = SearchResultViewController()
+                searchResultViewController.context = appContext
+                searchResultViewController.coordinator = self
+                searchResultViewController.viewModel = viewModel
+                viewController = searchResultViewController
+
+
+            case .compose(let viewModel):
+                let _viewController = ComposeViewController(viewModel: viewModel)
+                viewController = _viewController
+            case .thread(let viewModel):
+                let _viewController = ThreadViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .editHistory(let viewModel):
+                let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
+                viewController = editHistoryViewController
+            case .hashtagTimeline(let viewModel):
+                let _viewController = HashtagTimelineViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .accountList(let viewModel):
+                let _viewController = AccountListViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .profile(let viewModel):
+                let _viewController = ProfileViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .bookmark(let viewModel):
+                let _viewController = BookmarkViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .followedTags(let viewModel):
+                let _viewController = FollowedTagsViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .favorite(let viewModel):
+                let _viewController = FavoriteViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .follower(let viewModel):
+                let _viewController = FollowerListViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .following(let viewModel):
+                let _viewController = FollowingListViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .familiarFollowers(let viewModel):
+                let _viewController = FamiliarFollowersViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .rebloggedBy(let viewModel):
+                let _viewController = RebloggedByViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .favoritedBy(let viewModel):
+                let _viewController = FavoritedByViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .report(let viewModel):
+                let _viewController = ReportViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .reportServerRules(let viewModel):
+                let _viewController = ReportServerRulesViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .reportStatus(let viewModel):
+                let _viewController = ReportStatusViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .reportSupplementary(let viewModel):
+                let _viewController = ReportSupplementaryViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .reportResult(let viewModel):
+                let _viewController = ReportResultViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .suggestionAccount(let viewModel):
+                let _viewController = SuggestionAccountViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .mediaPreview(let viewModel):
+                let _viewController = MediaPreviewViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .safari(let url):
+                guard let scheme = url.scheme?.lowercased(),
+                      scheme == "http" || scheme == "https" else {
+                    return nil
+                }
+                let _viewController = SFSafariViewController(url: url)
+                _viewController.preferredBarTintColor = ThemeService.shared.currentTheme.value.navigationBarBackgroundColor
+                _viewController.preferredControlTintColor = Asset.Colors.Brand.blurple.color
+                viewController = _viewController
+
+            case .alertController(let alertController):
+                if let popoverPresentationController = alertController.popoverPresentationController {
+                    assert(
+                        popoverPresentationController.sourceView != nil ||
+                        popoverPresentationController.sourceRect != .zero ||
+                        popoverPresentationController.barButtonItem != nil
+                    )
+                }
+                viewController = alertController
+            case .activityViewController(let activityViewController, let sourceView, let barButtonItem):
+                activityViewController.popoverPresentationController?.sourceView = sourceView
+                activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
+                viewController = activityViewController
+            case .settings(let viewModel):
+                let _viewController = SettingsViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            case .editStatus(let viewModel):
+                let composeViewController = ComposeViewController(viewModel: viewModel)
+                viewController = composeViewController
         }
         
         setupDependency(for: viewController as? NeedsDependency)
