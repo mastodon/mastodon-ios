@@ -3,6 +3,7 @@
 import UIKit
 import MastodonCore
 import MastodonSDK
+import MastodonLocalization
 
 protocol SearchResultsOverviewTableViewControllerDeleagte: AnyObject {
     func showPeople(_ viewController: UIViewController)
@@ -256,8 +257,11 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
                 showProfile(for: account)
             } else {
                 await MainActor.run {
-                    let alertController = UIAlertController(title: "No User Account", message: "There's no Useraccount \"\(username)\" on \(domain)", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    let alertTitle = L10n.Scene.Search.Searching.NoUser.title
+                    let alertMessage = L10n.Scene.Search.Searching.NoUser.message(username, domain)
+
+                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default)
                     alertController.addAction(okAction)
                     coordinator.present(scene: .alertController(alertController: alertController), transition: .alertController(animated: true))
                 }

@@ -447,6 +447,10 @@ uploaded to Mastodon.";
 "Scene.Search.Searching.People" = "People with \"%@\"";
 "Scene.Search.Searching.Profile" = "Go to @%@@%@";
 "Scene.Search.Searching.Url" = "Open Link";
+
+"Scene.Search.Searching.NoUser.Title" = "No User Account Found";
+"Scene.Search.Searching.NoUser.Message" = "There's no Useraccount \"%@\" on %@";
+
 "Scene.Search.Title" = "Search";
 "Scene.ServerPicker.Button.Category.Academia" = "academia";
 "Scene.ServerPicker.Button.Category.Activism" = "activism";
