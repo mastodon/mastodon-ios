@@ -224,6 +224,13 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
 
         coordinator.present(scene: .searchResult(viewModel: searchResultViewModel), transition: .show)
     }
+
+    func searchForPosts(withSearchText searchText: String) {
+        let searchResultViewModel = SearchResultViewModel(context: context, authContext: authContext, searchScope: .posts)
+        searchResultViewModel.searchText.value = searchText
+
+        coordinator.present(scene: .searchResult(viewModel: searchResultViewModel), transition: .show)
+    }
 }
 
 //MARK: UITableViewDelegate
@@ -238,9 +245,8 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
         switch item {
             case .default(let defaultSectionEntry):
                 switch defaultSectionEntry {
-                    case .posts(let hashtag):
-                        //FIXME: Show statuses instead of tag-content. Reuse SearchResultsViewController with statuses here?
-                        showPosts(tag: Mastodon.Entity.Tag(name: hashtag, url: authContext.mastodonAuthenticationBox.domain))
+                    case .posts(let searchText):
+                        searchForPosts(withSearchText: searchText)
                     case .people(let searchText):
                         searchForPeople(withName: searchText)
                     case .profile(let profile, let instanceName):
