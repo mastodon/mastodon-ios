@@ -8,6 +8,7 @@
 import UIKit
 import CoreDataStack
 import MastodonCore
+import MastodonAsset
 
 enum SearchHistorySection: Hashable {
     case main
@@ -47,6 +48,8 @@ extension SearchHistorySection {
             context.managedObjectContext.performAndWait {
                 guard let hashtag = item.object(in: context.managedObjectContext) else { return }
                 var contentConfiguration = cell.defaultContentConfiguration()
+                contentConfiguration.image = UIImage(systemName: "magnifyingglass")
+                contentConfiguration.imageProperties.tintColor = Asset.Colors.Brand.blurple.color
                 contentConfiguration.text = "#" + hashtag.name
                 cell.contentConfiguration = contentConfiguration
             }

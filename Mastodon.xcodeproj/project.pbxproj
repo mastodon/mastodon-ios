@@ -2154,13 +2154,6 @@
 			path = Status;
 			sourceTree = "<group>";
 		};
-		DB4F098026A0475500D62E92 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		DB4FFC2D269EC39C00D62E92 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -2935,7 +2928,6 @@
 			isa = PBXGroup;
 			children = (
 				DB63F7502799449300455B82 /* Cell */,
-				DB4F098026A0475500D62E92 /* View */,
 				DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */,
 				DB63F76127996B6600455B82 /* SearchHistoryViewController+DataSourceProvider.swift */,
 				DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */,

@@ -12,7 +12,7 @@ class SearchResultDefaultSectionTableViewCell: UITableViewCell {
         content.text = item.title
         content.imageProperties.tintColor = Asset.Colors.Brand.blurple.color
 
-        self.contentConfiguration = content
+        contentConfiguration = content
     }
 
     func configure(item: SearchResultOverviewItem.SuggestionSectionEntry) {
@@ -21,6 +21,6 @@ class SearchResultDefaultSectionTableViewCell: UITableViewCell {
         content.text = item.title
         content.imageProperties.tintColor = Asset.Colors.Brand.blurple.color
 
-        self.contentConfiguration = content
+        contentConfiguration = content
     }
 }
