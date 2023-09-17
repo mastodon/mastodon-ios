@@ -51,36 +51,52 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
 
                 case .suggestion(let suggestion):
 
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
+                    switch suggestion {
 
-                    cell.configure(item: suggestion)
-                    return cell
+                        case .hashtag(let hashtag):
 
-//                    switch suggestion {
-//
-//                        case .hashtag(let hashtag):
-//
-//                        case .profile(let profile):
-//                            //TODO: Use `UserFetchedResultsController` or `Persistence.MastodonUser.fetch` ???
-//
-//                            guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else { fatalError() }
+
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
+
+                            cell.configure(item: .hashtag(tag: hashtag))
+                            return cell
+
+                            //
+                        case .profile(let profile):
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else { fatalError() }
 
                             // how the fuck do I get a MastodonUser???
-//                            try await managedObjectContext.perform {
-//                                Persistence.MastodonUser.fetch(in: managedObjectContext,
-//                                                               context: Persistence.MastodonUser.PersistContext(
-//                                                                domain: domain,
-//                                                                entity: profile.value,
-//                                                                cache: nil,
-//                                                                networkDate: profile.netwo
-//                                                               ))
-//                            }
-//
+                            let managedObjectContext = appContext.managedObjectContext
+                            Task {
+                                do {
 
-                            //                            cell.configure(me: <#T##MastodonUser?#>, tableView: <#T##UITableView#>, viewModel: <#T##UserTableViewCell.ViewModel#>, delegate: <#T##UserTableViewCellDelegate?#>)
+                                    try await managedObjectContext.perform {
+                                        guard let user = Persistence.MastodonUser.fetch(in: managedObjectContext,
+                                                                                  context: Persistence.MastodonUser.PersistContext(
+                                                                                    domain: authContext.mastodonAuthenticationBox.domain,
+                                                                                    entity: profile,
+                                                                                    cache: nil,
+                                                                                    networkDate: Date()
+                                                                                  )) else { return }
 
-//                            return cell
-//                    }
+                                        cell.configure(
+                                            me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user,
+                                            tableView: tableView,
+                                            viewModel: UserTableViewCell.ViewModel(
+                                                user: user,
+                                                followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
+                                                blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
+                                                followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()),
+                                            delegate: nil)
+                                    }
+                                }
+                                catch {
+                                    // do nothing
+                                }
+                            }
+
+                            return cell
+                    }
             }
         }
 
@@ -183,6 +199,28 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
             )
         }
     }
+
+    func showProfile(for account: Mastodon.Entity.Account) {
+        let managedObjectContext = context.managedObjectContext
+        let domain = authContext.mastodonAuthenticationBox.domain
+
+        Task {
+            let user = try await managedObjectContext.perform {
+                return Persistence.MastodonUser.fetch(in: managedObjectContext,
+                                                      context: Persistence.MastodonUser.PersistContext(
+                                                        domain: domain,
+                                                        entity: account,
+                                                        cache: nil,
+                                                        networkDate: Date()
+                                                      ))
+            }
+
+            if let user {
+                await DataSourceFacade.coordinateToProfileScene(provider:self,
+                                                                user: user.asRecord)
+            }
+        }
+    }
 }
 
 //MARK: UITableViewDelegate
@@ -198,8 +236,10 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
             case .default(let defaultSectionEntry):
                 switch defaultSectionEntry {
                     case .posts(let hashtag):
+                        //FIXME: Show statuses instead of tag-content. Reuse SearchResultsViewController with statuses here?
                         showPosts(tag: Mastodon.Entity.Tag(name: hashtag, url: authContext.mastodonAuthenticationBox.domain))
                     case .people(let string):
+                        //FIXME: Invoke SearchResultsViewController with people-scope here
                         delegate?.showPeople(self)
                     case .profile(let profile, let instanceName):
                         delegate?.showProfile(self)
@@ -211,8 +251,8 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
 
                     case .hashtag(let tag):
                         showPosts(tag: tag)
-                    case .profile(_):
-                        delegate?.showProfile(self)
+                    case .profile(let account):
+                        showProfile(for: account)
                 }
         }
 

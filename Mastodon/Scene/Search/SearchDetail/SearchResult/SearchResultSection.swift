@@ -53,7 +53,7 @@ extension SearchResultSection {
                         authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: UserTableViewCell.ViewModel(value: .user(user),
+                        viewModel: UserTableViewCell.ViewModel(user: user,
                                                                followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
                                                                blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
                                                                followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()),

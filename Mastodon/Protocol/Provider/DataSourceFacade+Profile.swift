@@ -33,7 +33,7 @@ extension DataSourceFacade {
     
     @MainActor
     static func coordinateToProfileScene(
-        provider: DataSourceProvider & AuthContextProvider,
+        provider: NeedsDependency & UIViewController & AuthContextProvider,
         user: ManagedObjectRecord<MastodonUser>
     ) async {
         guard let user = user.object(in: provider.context.managedObjectContext) else {
