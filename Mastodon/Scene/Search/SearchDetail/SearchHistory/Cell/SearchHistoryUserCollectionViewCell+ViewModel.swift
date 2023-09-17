@@ -54,7 +54,9 @@ extension SearchHistoryUserCollectionViewCell {
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] followed, requested, blocked in
-            if blocked.contains(user.id) {
+            if user == me {
+                self?.userView.setButtonState(.none)
+            } else if blocked.contains(user.id) {
                 self?.userView.setButtonState(.blocked)
             } else if followed.contains(user.id) {
                 self?.userView.setButtonState(.unfollow)
@@ -67,6 +69,5 @@ extension SearchHistoryUserCollectionViewCell {
             }
         }
         .store(in: &_disposeBag)
-
     }
 }

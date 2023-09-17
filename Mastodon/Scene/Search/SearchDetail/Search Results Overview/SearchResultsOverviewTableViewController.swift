@@ -5,17 +5,8 @@ import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
-protocol SearchResultsOverviewTableViewControllerDeleagte: AnyObject {
-    func showPeople(_ viewController: UIViewController)
-    func showProfile(_ viewController: UIViewController)
-    func openLink(_ viewController: UIViewController)
-}
-
 // we could move lots of this stuff to a coordinator, it's too much for work a viewcontroller
 class SearchResultsOverviewTableViewController: UIViewController, NeedsDependency, AuthContextProvider {
-    // similar to the other search results view controller but without the whole statemachine bullshit
-    // with scope all
-
     var context: AppContext!
     let authContext: AuthContext
     var coordinator: SceneCoordinator!
@@ -23,7 +14,6 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
     private let tableView: UITableView
     var dataSource: UITableViewDiffableDataSource<SearchResultOverviewSection, SearchResultOverviewItem>?
 
-    weak var delegate: SearchResultsOverviewTableViewControllerDeleagte?
     var activeTask: Task<Void, Never>?
 
     init(appContext: AppContext, authContext: AuthContext, coordinator: SceneCoordinator) {
@@ -330,7 +320,6 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
 extension SearchResultsOverviewTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        //TODO: Implement properly!
         guard let snapshot = dataSource?.snapshot() else { return }
         let section = snapshot.sectionIdentifiers[indexPath.section]
         let item = snapshot.itemIdentifiers(inSection: section)[indexPath.row]

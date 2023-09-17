@@ -54,7 +54,9 @@ extension UserTableViewCell {
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] followed, requested, blocked in
-            if blocked.contains(viewModel.user.id) {
+            if viewModel.user == me {
+                self?.userView.setButtonState(.none)
+            } else if blocked.contains(viewModel.user.id) {
                 self?.userView.setButtonState(.blocked)
             } else if followed.contains(viewModel.user.id) {
                 self?.userView.setButtonState(.unfollow)

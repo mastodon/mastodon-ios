@@ -115,8 +115,6 @@ final class SearchDetailViewController: UIViewController, NeedsDependency {
             searchHistoryViewController.view.pinToParent()
         }
 
-        searchResultsOverviewViewController.delegate = self
-
         addChild(searchResultsOverviewViewController)
         searchResultsOverviewViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchResultsOverviewViewController.view)
@@ -259,20 +257,5 @@ extension SearchDetailViewController: UISearchBarDelegate {
         } else {
             navigationController?.popViewController(animated: false)
         }
-    }
-}
-
-//MARK: SearchResultsOverviewViewControllerDelegate
-extension SearchDetailViewController: SearchResultsOverviewTableViewControllerDeleagte {
-    func showPeople(_ viewController: UIViewController) {
-        //TODO: Implement
-    }
-
-    func showProfile(_ viewController: UIViewController) {
-        //TODO: Implement
-    }
-
-    func openLink(_ viewController: UIViewController) {
-        //TODO: Implement
     }
 }
