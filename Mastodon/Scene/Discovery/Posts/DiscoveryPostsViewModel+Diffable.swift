@@ -23,7 +23,8 @@ extension DiscoveryPostsViewModel {
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: nil,
                 filterContext: .none,
-                activeFilters: nil
+                activeFilters: nil,
+                preferences: context.preferencesService.currentPreferences
             )
         )
         

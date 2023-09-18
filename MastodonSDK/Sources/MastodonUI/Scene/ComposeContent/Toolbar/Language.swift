@@ -3,7 +3,7 @@
 import Foundation
 
 // Consider replacing this with Locale.Language when dropping iOS 15
-struct Language: Identifiable {
+struct Language: Hashable, Identifiable {
     let endonym: String
     let exonym: String
     let id: String

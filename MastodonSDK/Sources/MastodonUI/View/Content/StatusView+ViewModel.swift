@@ -31,6 +31,61 @@ extension StatusView {
         public var authContext: AuthContext?
         public var originalStatus: Status?
 
+        private var prefsDisposeBag = Set<AnyCancellable>()
+        public var currentPreferences: CurrentValueSubject<Mastodon.Entity.Preferences, Never>? {
+            didSet {
+                guard let currentPreferences else {
+                    prefsDisposeBag.removeAll()
+                    return
+                }
+
+                // isReveal
+                Publishers.CombineLatest4(
+                    $isContentSensitive,
+                    $isMediaSensitive,
+                    $isSensitiveToggled,
+                    currentPreferences
+                )
+                .sink { [weak self] isContentSensitive, isMediaSensitive, isSensitiveToggled, prefs in
+                    guard let self = self else { return }
+                    if prefs.readingExpandSpoilers {
+                        self.isContentReveal = true
+                    } else {
+                        self.isContentReveal = isContentSensitive ? isSensitiveToggled : true
+                    }
+                    switch prefs.readingExpandMedia {
+                    case .default, ._other:
+                        self.isMediaReveal = isMediaSensitive ? isSensitiveToggled : true
+                    case .showAll:
+                        self.isMediaReveal = true
+                    case .hideAll:
+                        self.isMediaReveal = isSensitiveToggled
+                    }
+                }
+                .store(in: &prefsDisposeBag)
+
+                currentPreferences
+                    .combineLatest($isMediaSensitive, $isContentSensitive, $mediaViewConfigurations)
+                    .map { prefs, isMediaSensitive, isContentSensitive, mediaViewConfigurations in
+                        if !prefs.readingExpandSpoilers && isContentSensitive {
+                            return true
+                        }
+                        switch prefs.readingExpandMedia {
+                        case .showAll:
+                            return false
+                        case .hideAll:
+                            return !mediaViewConfigurations.isEmpty
+                        case .default, ._other:
+                            return isMediaSensitive
+                        }
+                    }
+                    .sink { [weak self] show in
+                        self?.showSensitiveToggleButton = show
+                    }
+                    .store(in: &prefsDisposeBag)
+            }
+        }
+
         // Header
         @Published public var header: Header = .none
         
@@ -59,6 +114,7 @@ extension StatusView {
         
         // Spoiler
         @Published public var spoilerContent: MetaContent?
+        @Published private var showSensitiveToggleButton: Bool = false
         
         // Status
         @Published public var content: MetaContent?
@@ -180,18 +236,6 @@ extension StatusView {
             $spoilerContent
                 .map { $0 != nil }
                 .assign(to: &$isContentSensitive)
-            // isReveal
-            Publishers.CombineLatest3(
-                $isContentSensitive,
-                $isMediaSensitive,
-                $isSensitiveToggled
-            )
-            .sink { [weak self] isContentSensitive, isMediaSensitive, isSensitiveToggled in
-                guard let self = self else { return }
-                self.isContentReveal = isContentSensitive ? isSensitiveToggled : true
-                self.isMediaReveal = isMediaSensitive ? isSensitiveToggled : true
-            }
-            .store(in: &disposeBag)
         }
     }
 }
@@ -366,13 +410,10 @@ extension StatusView.ViewModel {
         }
         .store(in: &disposeBag)
 
-        $isMediaSensitive
-            .sink { isSensitive in
-                guard isSensitive else { return }
-                statusView.setContentSensitiveeToggleButtonDisplay()
-            }
+        $showSensitiveToggleButton
+            .sink { statusView.setContentSensitiveeToggleButtonDisplay(isDisplay: $0) }
             .store(in: &disposeBag)
-        
+
         $isSensitiveToggled
             .sink { isSensitiveToggled in
                 // The button indicator go-to state for button action direction

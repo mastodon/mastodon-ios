@@ -121,6 +121,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
     // language
     @Published public var language: String
+    @Published public var defaultLanguage: String?
     @Published public private(set) var recentLanguages: [String]
 
     // UI & UX
@@ -156,14 +157,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.authContext = authContext
         self.destination = destination
         self.composeContext = composeContext
+        let prefs = context.preferencesService.currentPreferences.value
         self.visibility = {
-            // default private when user locked
-            var visibility: Mastodon.Entity.Status.Visibility = {
-                guard let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user else {
-                    return .public
-                }
-                return author.locked ? .private : .public
-            }()
+            var visibility = prefs.postingDefaultVisibility
             // set visibility for reply post
             if case .reply(let record) = destination {
                 context.managedObjectContext.performAndWait {
@@ -214,7 +210,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         
         let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
         self.recentLanguages = recentLanguages
-        self.language = recentLanguages.first ?? Locale.current.languageCode ?? "en"
+        self.defaultLanguage = prefs.postingDefaultLanguage
+        self.language = prefs.postingDefaultLanguage ?? recentLanguages.first ?? Locale.current.languageCode ?? "en"
         super.init()
         // end init
         

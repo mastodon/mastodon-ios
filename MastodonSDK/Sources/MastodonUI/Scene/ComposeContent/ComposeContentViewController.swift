@@ -383,6 +383,7 @@ extension ComposeContentViewController {
             .store(in: &disposeBag)
 
         viewModel.$recentLanguages.assign(to: &composeContentToolbarViewModel.$recentLanguages)
+        viewModel.$defaultLanguage.assign(to: &composeContentToolbarViewModel.$defaultLanguage)
         
         // bind back to source due to visibility not update via delegate
         composeContentToolbarViewModel.$visibility

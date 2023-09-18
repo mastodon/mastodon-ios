@@ -33,6 +33,7 @@ extension StatusSection {
         weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
         let filterContext: Mastodon.Entity.Filter.Context?
         let activeFilters: Published<[Mastodon.Entity.Filter]>.Publisher?
+        let preferences: CurrentValueSubject<Mastodon.Entity.Preferences, Never>
     }
 
     static func diffableDataSource(
@@ -281,6 +282,7 @@ extension StatusSection {
         
         cell.statusView.viewModel.context = configuration.context
         cell.statusView.viewModel.authContext = configuration.authContext
+        cell.statusView.viewModel.currentPreferences = configuration.preferences
         
         cell.configure(
             tableView: tableView,
@@ -309,7 +311,8 @@ extension StatusSection {
         
         cell.statusView.viewModel.context = configuration.context
         cell.statusView.viewModel.authContext = configuration.authContext
-        
+        cell.statusView.viewModel.currentPreferences = configuration.preferences
+
         cell.configure(
             tableView: tableView,
             viewModel: viewModel,
