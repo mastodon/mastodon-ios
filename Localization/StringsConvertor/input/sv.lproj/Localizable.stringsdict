@@ -344,7 +344,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld timme kvar</string>
+        <string>1 timme kvar</string>
         <key>other</key>
         <string>%ld timmar kvar</string>
       </dict>
@@ -360,7 +360,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld minut kvar</string>
+        <string>1 minut kvar</string>
         <key>other</key>
         <string>%ld minuter kvar</string>
       </dict>
