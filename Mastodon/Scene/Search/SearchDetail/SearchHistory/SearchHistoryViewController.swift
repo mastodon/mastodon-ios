@@ -22,6 +22,8 @@ final class SearchHistoryViewController: UIViewController, NeedsDependency {
     
     let collectionView: UICollectionView = {
         var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        configuration.separatorConfiguration.bottomSeparatorInsets.leading = 62
+        configuration.separatorConfiguration.topSeparatorInsets.leading = 62
         configuration.backgroundColor = .clear
         configuration.headerMode = .supplementary
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
