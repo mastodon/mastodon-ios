@@ -11,7 +11,7 @@ import MastodonAsset
 import MastodonLocalization
 import MastodonUI
 
-protocol SearchHistorySectionHeaderCollectionReusableViewDelegate: AnyObject, UserViewDelegate {
+protocol SearchHistorySectionHeaderCollectionReusableViewDelegate: AnyObject {
     func searchHistorySectionHeaderCollectionReusableView(_ searchHistorySectionHeaderCollectionReusableView: SearchHistorySectionHeaderCollectionReusableView, clearButtonDidPressed button: UIButton)
 }
 

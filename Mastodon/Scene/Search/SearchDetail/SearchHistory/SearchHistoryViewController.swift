@@ -125,5 +125,3 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
         }
     }
 }
-
-extension SearchHistoryViewController: UserTableViewCellDelegate {}

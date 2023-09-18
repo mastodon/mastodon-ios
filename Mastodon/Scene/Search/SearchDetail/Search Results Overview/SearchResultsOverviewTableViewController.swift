@@ -5,22 +5,32 @@ import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
-// we could move lots of this stuff to a coordinator, it's too much for work a viewcontroller
+protocol SearchResultsOverviewTableViewControllerDelegate: AnyObject {
+    func goTo(_ viewController: SearchResultsOverviewTableViewController, urlString: String)
+    func showPosts(_ viewController: SearchResultsOverviewTableViewController, tag: Mastodon.Entity.Tag)
+    func searchForPosts(_ viewController: SearchResultsOverviewTableViewController, withSearchText searchText: String)
+    func searchForPeople(_ viewController: SearchResultsOverviewTableViewController, withName searchText: String)
+    func showProfile(_ viewController: SearchResultsOverviewTableViewController, for account: Mastodon.Entity.Account)
+    func searchForPerson(_ viewController: SearchResultsOverviewTableViewController, username: String, domain: String)
+}
+
 class SearchResultsOverviewTableViewController: UIViewController, NeedsDependency, AuthContextProvider {
-    var context: AppContext!
     let authContext: AuthContext
+    var context: AppContext!
     var coordinator: SceneCoordinator!
 
     private let tableView: UITableView
     var dataSource: UITableViewDiffableDataSource<SearchResultOverviewSection, SearchResultOverviewItem>?
 
+    weak var delegate: SearchResultsOverviewTableViewControllerDelegate?
+
     var activeTask: Task<Void, Never>?
 
-    init(appContext: AppContext, authContext: AuthContext, coordinator: SceneCoordinator) {
+    init(appContext: AppContext, authContext: AuthContext, sceneCoordinator: SceneCoordinator) {
 
-        self.context = appContext
         self.authContext = authContext
-        self.coordinator = coordinator
+        self.context = appContext
+        self.coordinator = sceneCoordinator
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -160,145 +170,6 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
 
         activeTask = searchTask
     }
-
-    //MARK: - Actions
-
-    func showPosts(tag: Mastodon.Entity.Tag) {
-        Task {
-            await DataSourceFacade.coordinateToHashtagScene(
-                provider: self,
-                tag: tag
-            )
-
-            await DataSourceFacade.responseToCreateSearchHistory(provider: self,
-                                                                 item: .hashtag(tag: .entity(tag)))
-        }
-    }
-
-    func showProfile(for account: Mastodon.Entity.Account) {
-        let managedObjectContext = context.managedObjectContext
-        let domain = authContext.mastodonAuthenticationBox.domain
-
-        Task {
-            let user = try await managedObjectContext.perform {
-                return Persistence.MastodonUser.fetch(in: managedObjectContext,
-                                                      context: Persistence.MastodonUser.PersistContext(
-                                                        domain: domain,
-                                                        entity: account,
-                                                        cache: nil,
-                                                        networkDate: Date()
-                                                      ))
-            }
-
-            if let user {
-                await DataSourceFacade.coordinateToProfileScene(provider:self,
-                                                                user: user.asRecord)
-
-                await DataSourceFacade.responseToCreateSearchHistory(provider: self,
-                                                                     item: .user(record: user.asRecord))
-            }
-        }
-    }
-
-    func searchForPeople(withName searchText: String) {
-        let searchResultViewModel = SearchResultViewModel(context: context, authContext: authContext, searchScope: .people)
-        searchResultViewModel.searchText.value = searchText
-
-        coordinator.present(scene: .searchResult(viewModel: searchResultViewModel), transition: .show)
-    }
-
-    func searchForPosts(withSearchText searchText: String) {
-        let searchResultViewModel = SearchResultViewModel(context: context, authContext: authContext, searchScope: .posts)
-        searchResultViewModel.searchText.value = searchText
-
-        coordinator.present(scene: .searchResult(viewModel: searchResultViewModel), transition: .show)
-    }
-
-    func searchForPerson(username: String, domain: String) {
-        let acct = "\(username)@\(domain)"
-        let query = Mastodon.API.V2.Search.Query(
-            q: acct,
-            type: .default,
-            resolve: true
-        )
-
-        Task {
-            let searchResult = try await context.apiService.search(
-                query: query,
-                authenticationBox: authContext.mastodonAuthenticationBox
-            ).value
-
-            if let account = searchResult.accounts.first(where: { $0.acctWithDomainIfMissing(domain).lowercased() == acct.lowercased() }) {
-                showProfile(for: account)
-            } else {
-                await MainActor.run {
-                    let alertTitle = L10n.Scene.Search.Searching.NoUser.title
-                    let alertMessage = L10n.Scene.Search.Searching.NoUser.message(username, domain)
-
-                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default)
-                    alertController.addAction(okAction)
-                    coordinator.present(scene: .alertController(alertController: alertController), transition: .alertController(animated: true))
-                }
-            }
-        }
-    }
-
-    func goTo(link: String) {
-
-        let query = Mastodon.API.V2.Search.Query(
-            q: link,
-            type: .default,
-            resolve: true
-        )
-
-        let authContext = self.authContext
-        let managedObjectContext = context.managedObjectContext
-
-        Task {
-            let searchResult = try await context.apiService.search(
-                query: query,
-                authenticationBox: authContext.mastodonAuthenticationBox
-            ).value
-
-            if let account = searchResult.accounts.first {
-                showProfile(for: account)
-            } else if let status = searchResult.statuses.first {
-
-                let status = try await managedObjectContext.perform {
-                    return Persistence.Status.fetch(in: managedObjectContext, context: Persistence.Status.PersistContext(
-                        domain: authContext.mastodonAuthenticationBox.domain,
-                        entity: status,
-                        me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: Date()))
-                }
-
-                guard let status else { return }
-
-                await DataSourceFacade.coordinateToStatusThreadScene(
-                    provider: self,
-                    target: .status,    // remove reblog wrapper
-                    status: status.asRecord
-                )
-            } else if var url = URL(string: link) {
-                let prefixedURL: URL?
-                if var components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-                    if components.scheme == nil {
-                        components.scheme = "https"
-                    }
-                    prefixedURL = components.url
-                } else {
-                    prefixedURL = url
-                }
-
-                guard let prefixedURL else { return }
-
-                coordinator.present(scene: .safari(url: prefixedURL), transition: .safariPresent(animated: true))
-            }
-        }
-    }
 }
 
 //MARK: UITableViewDelegate
@@ -313,21 +184,21 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
             case .default(let defaultSectionEntry):
                 switch defaultSectionEntry {
                     case .posts(let searchText):
-                        searchForPosts(withSearchText: searchText)
+                        delegate?.searchForPosts(self, withSearchText: searchText)
                     case .people(let searchText):
-                        searchForPeople(withName: searchText)
+                        delegate?.searchForPeople(self, withName: searchText)
                     case .profile(let username, let domain):
-                        searchForPerson(username: username, domain: domain)
+                        delegate?.searchForPerson(self, username: username, domain: domain)
                     case .openLink(let urlString):
-                        goTo(link: urlString)
+                        delegate?.goTo(self, urlString: urlString)
                 }
             case .suggestion(let suggestionSectionEntry):
                 switch suggestionSectionEntry {
 
                     case .hashtag(let tag):
-                        showPosts(tag: tag)
+                        delegate?.showPosts(self, tag: tag)
                     case .profile(let account):
-                        showProfile(for: account)
+                        delegate?.showProfile(self, for: account)
                 }
         }
 

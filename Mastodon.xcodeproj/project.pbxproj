@@ -152,6 +152,7 @@
 		D8BE30B32A179E26006B8270 /* SuggestionAccountTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BE30B22A179E26006B8270 /* SuggestionAccountTableViewFooter.swift */; };
 		D8BEBCB62A1B7FFD0004F475 /* SuggestionAccountTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BEBCB52A1B7FFD0004F475 /* SuggestionAccountTableViewCell+ViewModel.swift */; };
 		D8D688F62AB869CB000F651A /* SearchResultsProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D688F52AB869CB000F651A /* SearchResultsProfileTableViewCell.swift */; };
+		D8D688F92AB8B970000F651A /* SearchResultOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D688F82AB8B970000F651A /* SearchResultOverviewCoordinator.swift */; };
 		D8E5C346296DAB84007E76A7 /* DataSourceFacade+Status+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */; };
 		D8E5C349296DB8A3007E76A7 /* StatusEditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */; };
 		D8F0372C29D232730027DE2E /* HashtagIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0372B29D232730027DE2E /* HashtagIntentHandler.swift */; };
@@ -804,6 +805,7 @@
 		D8BE30B22A179E26006B8270 /* SuggestionAccountTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountTableViewFooter.swift; sourceTree = "<group>"; };
 		D8BEBCB52A1B7FFD0004F475 /* SuggestionAccountTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuggestionAccountTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		D8D688F52AB869CB000F651A /* SearchResultsProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsProfileTableViewCell.swift; sourceTree = "<group>"; };
+		D8D688F82AB8B970000F651A /* SearchResultOverviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultOverviewCoordinator.swift; sourceTree = "<group>"; };
 		D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Status+History.swift"; sourceTree = "<group>"; };
 		D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryViewController.swift; sourceTree = "<group>"; };
 		D8F0372B29D232730027DE2E /* HashtagIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagIntentHandler.swift; sourceTree = "<group>"; };
@@ -1803,6 +1805,7 @@
 				D81A22792AB47B8400905D71 /* Cells */,
 				D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */,
 				D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */,
+				D8D688F82AB8B970000F651A /* SearchResultOverviewCoordinator.swift */,
 			);
 			path = "Search Results Overview";
 			sourceTree = "<group>";
@@ -3806,6 +3809,7 @@
 				DB63F77B279ACAE500455B82 /* DataSourceFacade+Favorite.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
+				D8D688F92AB8B970000F651A /* SearchResultOverviewCoordinator.swift in Sources */,
 				DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */,
 				2A3D9B7E29A8F33A00F30313 /* StatusHistoryView.swift in Sources */,
 				D81A227B2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift in Sources */,

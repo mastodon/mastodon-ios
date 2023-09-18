@@ -417,7 +417,7 @@ private extension SceneCoordinator {
 
 
             case .searchDetail(let viewModel):
-                let _viewController = SearchDetailViewController()
+                let _viewController = SearchDetailViewController(appContext: appContext, sceneCoordinator: self, authContext: viewModel.authContext)
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .searchResult(let viewModel):

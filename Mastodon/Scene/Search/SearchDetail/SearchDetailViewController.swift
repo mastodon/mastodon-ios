@@ -26,6 +26,7 @@ final class SearchDetailViewController: UIViewController, NeedsDependency {
 
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
+    let searchResultOverviewCoordinator: SearchResultOverviewCoordinator
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -82,11 +83,28 @@ final class SearchDetailViewController: UIViewController, NeedsDependency {
     }()
 
     private(set) lazy var searchResultsOverviewViewController: SearchResultsOverviewTableViewController = {
-        let searchResultsOverviewViewController = SearchResultsOverviewTableViewController(appContext: context, authContext: viewModel.authContext, coordinator: coordinator)
-        return searchResultsOverviewViewController
+        return searchResultOverviewCoordinator.overviewViewController
     }()
 
+    //MARK: - init
+
+    init(appContext: AppContext, sceneCoordinator: SceneCoordinator, authContext: AuthContext) {
+        self.context = appContext
+        self.coordinator = sceneCoordinator
+
+        self.searchResultOverviewCoordinator = SearchResultOverviewCoordinator(appContext: appContext, authContext: authContext, sceneCoordinator: sceneCoordinator)
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+    //MARK: - UIViewController
+
     override func viewDidLoad() {
+
+        searchResultOverviewCoordinator.start()
+
         super.viewDidLoad()
 
         setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
