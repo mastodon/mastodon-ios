@@ -37,21 +37,18 @@ extension SearchHistoryViewModel {
                     do {
                         let managedObjectContext = self.context.managedObjectContext
                         let items: [SearchHistoryItem] = try await managedObjectContext.perform {
-                            var users: [SearchHistoryItem] = []
-                            var hashtags: [SearchHistoryItem] = []
-                            
+                            var items: [SearchHistoryItem] = []
+
                             for record in records {
                                 guard let searchHistory = record.object(in: managedObjectContext) else { continue }
                                 if let user = searchHistory.account {
-                                    users.append(.user(.init(objectID: user.objectID)))
+                                    items.append(.user(.init(objectID: user.objectID)))
                                 } else if let hashtag = searchHistory.hashtag {
-                                    hashtags.append(.hashtag(.init(objectID: hashtag.objectID)))
-                                } else {
-                                    continue
+                                    items.append(.hashtag(.init(objectID: hashtag.objectID)))
                                 }
                             }
                             
-                            return users + hashtags
+                            return items
                         }
 
                         let mostRecentItems = Array(items.prefix(10))
