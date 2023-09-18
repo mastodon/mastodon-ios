@@ -14,8 +14,6 @@ import MastodonUI
 
 final class SearchHistoryViewController: UIViewController, NeedsDependency {
     
-    let logger = Logger(subsystem: "SearchHistoryViewController", category: "ViewController")
-
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 

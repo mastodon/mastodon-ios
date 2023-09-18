@@ -300,7 +300,6 @@
 		DB63F74F2799405600455B82 /* SearchHistoryViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F74E2799405600455B82 /* SearchHistoryViewModel+Diffable.swift */; };
 		DB63F752279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F751279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift */; };
 		DB63F7542799491600455B82 /* DataSourceFacade+SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F7532799491600455B82 /* DataSourceFacade+SearchHistory.swift */; };
-		DB63F75A279953F200455B82 /* SearchHistoryUserCollectionViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F759279953F200455B82 /* SearchHistoryUserCollectionViewCell+ViewModel.swift */; };
 		DB63F76227996B6600455B82 /* SearchHistoryViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F76127996B6600455B82 /* SearchHistoryViewController+DataSourceProvider.swift */; };
 		DB63F764279A5E3C00455B82 /* NotificationTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F763279A5E3C00455B82 /* NotificationTimelineViewController.swift */; };
 		DB63F767279A5EB300455B82 /* NotificationTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F766279A5EB300455B82 /* NotificationTimelineViewModel.swift */; };
@@ -993,7 +992,6 @@
 		DB63F74E2799405600455B82 /* SearchHistoryViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistoryViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB63F751279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistorySectionHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		DB63F7532799491600455B82 /* DataSourceFacade+SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+SearchHistory.swift"; sourceTree = "<group>"; };
-		DB63F759279953F200455B82 /* SearchHistoryUserCollectionViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistoryUserCollectionViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DB63F76127996B6600455B82 /* SearchHistoryViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistoryViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DB63F763279A5E3C00455B82 /* NotificationTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimelineViewController.swift; sourceTree = "<group>"; };
 		DB63F766279A5EB300455B82 /* NotificationTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimelineViewModel.swift; sourceTree = "<group>"; };
@@ -2295,7 +2293,6 @@
 			isa = PBXGroup;
 			children = (
 				DB63F74C27993F5B00455B82 /* SearchHistoryUserCollectionViewCell.swift */,
-				DB63F759279953F200455B82 /* SearchHistoryUserCollectionViewCell+ViewModel.swift */,
 				DB63F751279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift */,
 			);
 			path = Cell;
@@ -3560,7 +3557,6 @@
 				DB0FCB7427956939006C02E2 /* DataSourceFacade+Status.swift in Sources */,
 				D81A22782AB4782400905D71 /* SearchResultOverviewSection.swift in Sources */,
 				DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */,
-				DB63F75A279953F200455B82 /* SearchHistoryUserCollectionViewCell+ViewModel.swift in Sources */,
 				DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */,
 				5D0393962612D266007FE196 /* WebViewModel.swift in Sources */,
 				5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */,

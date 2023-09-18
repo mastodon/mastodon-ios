@@ -31,16 +31,7 @@ extension SearchHistorySection {
         let userCellRegister = UICollectionView.CellRegistration<SearchHistoryUserCollectionViewCell, ManagedObjectRecord<MastodonUser>> { cell, indexPath, item in
             context.managedObjectContext.performAndWait {
                 guard let user = item.object(in: context.managedObjectContext) else { return }
-                cell.configure(
-                    me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
-                    viewModel: SearchHistoryUserCollectionViewCell.ViewModel(
-                        value: user,
-                        followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
-                        blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
-                        followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()
-                    ),
-                    delegate: configuration.searchHistorySectionHeaderCollectionReusableViewDelegate
-                )
+                cell.configure(with: user)
             }
         }
         
