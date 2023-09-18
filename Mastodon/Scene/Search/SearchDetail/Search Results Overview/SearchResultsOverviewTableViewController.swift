@@ -282,8 +282,20 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
                     target: .status,    // remove reblog wrapper
                     status: status.asRecord
                 )
-            } else if let url = URL(string: link) {
-                coordinator.present(scene: .safari(url: url), transition: .safariPresent(animated: true))
+            } else if var url = URL(string: link) {
+                let prefixedURL: URL?
+                if var components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+                    if components.scheme == nil {
+                        components.scheme = "https"
+                    }
+                    prefixedURL = components.url
+                } else {
+                    prefixedURL = url
+                }
+
+                guard let prefixedURL else { return }
+
+                coordinator.present(scene: .safari(url: prefixedURL), transition: .safariPresent(animated: true))
             }
         }
     }
