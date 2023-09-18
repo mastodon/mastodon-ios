@@ -55,7 +55,7 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
                         case .profile(let profile):
                             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultsProfileTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultsProfileTableViewCell else { fatalError() }
 
-                            cell.configure(with: profile)
+                            cell.condensedUserView.configure(with: profile)
 
                             return cell
                     }
