@@ -28,11 +28,15 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
         tableView.register(SearchResultDefaultSectionTableViewCell.self, forCellReuseIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier)
         tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: StatusTableViewCell.reuseIdentifier)
         tableView.register(HashtagTableViewCell.self, forCellReuseIdentifier: HashtagTableViewCell.reuseIdentifier)
-        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.reuseIdentifier)
+        tableView.register(SearchResultsProfileTableViewCell.self, forCellReuseIdentifier: SearchResultsProfileTableViewCell.reuseIdentifier)
 
-        let dataSource = UITableViewDiffableDataSource<SearchResultOverviewSection, SearchResultOverviewItem>(tableView: tableView) { tableView, indexPath, itemIdentifier in
+        super.init(nibName: nil, bundle: nil)
+
+        let dataSource = UITableViewDiffableDataSource<SearchResultOverviewSection, SearchResultOverviewItem>(tableView: tableView) { [weak self] tableView, indexPath, itemIdentifier in
+
+            guard let self else { fatalError("Ooops, no self!?") }
+
             switch itemIdentifier {
-
                 case .default(let item):
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
 
@@ -41,54 +45,23 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
                     return cell
 
                 case .suggestion(let suggestion):
-
                     switch suggestion {
-
                         case .hashtag(let hashtag):
-
-
                             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
 
                             cell.configure(item: .hashtag(tag: hashtag))
                             return cell
 
                         case .profile(let profile):
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else { fatalError() }
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultsProfileTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultsProfileTableViewCell else { fatalError() }
 
-                            let managedObjectContext = appContext.managedObjectContext
-                            Task {
-                                do {
-
-                                    try await managedObjectContext.perform {
-                                        guard let user = Persistence.MastodonUser.fetch(in: managedObjectContext,
-                                                                                        context: Persistence.MastodonUser.PersistContext(
-                                                                                            domain: authContext.mastodonAuthenticationBox.domain,
-                                                                                            entity: profile,
-                                                                                            cache: nil,
-                                                                                            networkDate: Date()
-                                                                                        )) else { return }
-
-                                        cell.configure(
-                                            me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user,
-                                            tableView: tableView,
-                                            viewModel: UserTableViewCell.ViewModel(
-                                                user: user,
-                                                followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
-                                                blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
-                                                followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()),
-                                            delegate: nil)
-                                    }
-                                } catch {
-                                    // do nothing
-                                }
-                            }
+                            cell.configure(with: profile)
 
                             return cell
                     }
             }
         }
 
-        super.init(nibName: nil, bundle: nil)
         tableView.dataSource = dataSource
         tableView.delegate = self
         self.dataSource = dataSource
@@ -349,3 +322,5 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+extension SearchResultsOverviewTableViewController: UserTableViewCellDelegate {}
