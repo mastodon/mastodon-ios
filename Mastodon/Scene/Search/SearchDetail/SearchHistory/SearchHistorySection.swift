@@ -48,13 +48,13 @@ extension SearchHistorySection {
             var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
             backgroundConfiguration.backgroundColorTransformer = .init { [weak cell] _ in
                 guard let state = cell?.configurationState else {
-                    return ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+                    return .secondarySystemGroupedBackground
                 }
                 
                 if state.isHighlighted || state.isSelected {
                     return ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor
                 }
-                return ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+                return .secondarySystemGroupedBackground
             }
             cell.backgroundConfiguration = backgroundConfiguration
         }

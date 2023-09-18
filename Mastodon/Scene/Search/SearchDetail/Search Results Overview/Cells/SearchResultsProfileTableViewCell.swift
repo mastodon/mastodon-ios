@@ -17,6 +17,7 @@ class SearchResultsProfileTableViewCell: UITableViewCell {
 
         contentView.addSubview(condensedUserView)
         condensedUserView.pinToParent()
+        backgroundColor = .secondarySystemGroupedBackground
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

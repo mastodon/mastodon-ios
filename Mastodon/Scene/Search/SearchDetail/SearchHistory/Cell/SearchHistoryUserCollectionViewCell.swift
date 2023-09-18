@@ -34,7 +34,7 @@ class SearchHistoryUserCollectionViewCell: UICollectionViewCell {
             if state.isHighlighted || state.isSelected {
                 return ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor
             } else {
-                return ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+                return .secondarySystemGroupedBackground
             }
         }
         
