@@ -25,16 +25,16 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGroupedBackground
+        tableView.separatorInset.left = 62
         tableView.register(SearchResultDefaultSectionTableViewCell.self, forCellReuseIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier)
         tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: StatusTableViewCell.reuseIdentifier)
         tableView.register(HashtagTableViewCell.self, forCellReuseIdentifier: HashtagTableViewCell.reuseIdentifier)
         tableView.register(SearchResultsProfileTableViewCell.self, forCellReuseIdentifier: SearchResultsProfileTableViewCell.reuseIdentifier)
 
+
         super.init(nibName: nil, bundle: nil)
 
-        let dataSource = UITableViewDiffableDataSource<SearchResultOverviewSection, SearchResultOverviewItem>(tableView: tableView) { [weak self] tableView, indexPath, itemIdentifier in
-
-            guard let self else { fatalError("Ooops, no self!?") }
+        let dataSource = UITableViewDiffableDataSource<SearchResultOverviewSection, SearchResultOverviewItem>(tableView: tableView) { tableView, indexPath, itemIdentifier in
 
             switch itemIdentifier {
                 case .default(let item):
