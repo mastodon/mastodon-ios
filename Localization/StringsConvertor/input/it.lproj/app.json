@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Tutto",
-                    "people": "Persone",
-                    "hashtags": "Hashtags",
-                    "posts": "Post"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "Nessun risultato"
                 },
                 "recent_search": "Ricerche recenti",
+                "clear_all": "Clear all",
                 "clear": "Cancella"
             }
         },
