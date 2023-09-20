@@ -22,4 +22,9 @@ public enum MastodonRegex {
     /// #…
     /// :…
     public static let autoCompletePattern = "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?|#([^\\s.]+))|(^\\B:|\\s:)([a-zA-Z0-9_]+)"
+
+    public enum Search {
+        public static let username = "^@?[a-z0-9_-]+(@[\\S]+)?$"
+    }
 }
+

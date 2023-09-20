@@ -1279,13 +1279,17 @@ public enum L10n {
         public static let clear = L10n.tr("Localizable", "Scene.Search.Searching.Clear", fallback: "Clear")
         /// Clear all
         public static let clearAll = L10n.tr("Localizable", "Scene.Search.Searching.ClearAll", fallback: "Clear all")
-        /// People with "%@"
-        public static func people(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Search.Searching.People", String(describing: p1), fallback: "People with \"%@\"")
+        /// Go to #%@
+        public static func hashtag(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Search.Searching.Hashtag", String(describing: p1), fallback: "Go to #%@")
         }
-        /// Posts with "%@"
+        /// People matching "%@"
+        public static func people(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Search.Searching.People", String(describing: p1), fallback: "People matching \"%@\"")
+        }
+        /// Posts matching "%@"
         public static func posts(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Search.Searching.Posts", String(describing: p1), fallback: "Posts with \"%@\"")
+          return L10n.tr("Localizable", "Scene.Search.Searching.Posts", String(describing: p1), fallback: "Posts matching \"%@\"")
         }
         /// Go to @%@@%@
         public static func profile(_ p1: Any, _ p2: Any) -> String {
@@ -1293,8 +1297,8 @@ public enum L10n {
         }
         /// Recent searches
         public static let recentSearch = L10n.tr("Localizable", "Scene.Search.Searching.RecentSearch", fallback: "Recent searches")
-        /// Open Link
-        public static let url = L10n.tr("Localizable", "Scene.Search.Searching.Url", fallback: "Open Link")
+        /// Open URL in Mastodon
+        public static let url = L10n.tr("Localizable", "Scene.Search.Searching.Url", fallback: "Open URL in Mastodon")
         public enum EmptyState {
           /// No results
           public static let noResults = L10n.tr("Localizable", "Scene.Search.Searching.EmptyState.NoResults", fallback: "No results")

@@ -651,8 +651,9 @@
                 }
             },
             "searching": {
-                "posts": "Posts with \"%@\"",
-                "people": "People with \"%@\"",
+                "posts": "Posts matching \"%@\"",
+                "people": "People matching \"%@\"",
+                "hashtag": "Go to #%@",
                 "profile": "Go to @%@@%@",
                 "url": "Open Link",
                 "empty_state": {

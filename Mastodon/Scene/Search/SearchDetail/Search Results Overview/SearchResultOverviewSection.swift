@@ -15,9 +15,10 @@ enum SearchResultOverviewItem: Hashable {
     case suggestion(SuggestionSectionEntry)
     
     enum DefaultSectionEntry: Hashable {
-        case posts(String)
-        case people(String)
-        case profile(username: String, domain: String)
+        case showHashtag(hashtag: String)
+        case posts(matching: String)
+        case people(matching: String)
+        case showProfile(username: String, domain: String)
         case openLink(String)
 
         var title: String {
@@ -26,23 +27,27 @@ enum SearchResultOverviewItem: Hashable {
                     return L10n.Scene.Search.Searching.posts(text)
                 case .people(let username):
                     return L10n.Scene.Search.Searching.people(username)
-                case .profile(let username, let instanceName):
+                case .showProfile(let username, let instanceName):
                     return L10n.Scene.Search.Searching.profile(username, instanceName)
                 case .openLink(_):
                     return L10n.Scene.Search.Searching.url
+                case .showHashtag(let hashtag):
+                    return L10n.Scene.Search.Searching.hashtag(hashtag)
             }
         }
 
         var icon: UIImage? {
             switch self {
                 case .posts(_):
-                    return UIImage(systemName: "number")
+                    return UIImage(systemName: "magnifyingglass")
                 case .people(_):
                     return UIImage(systemName: "person.2")
-                case .profile(_, _):
+                case .showProfile(_, _):
                     return UIImage(systemName: "person.crop.circle")
                 case .openLink(_):
                     return UIImage(systemName: "link")
+                case .showHashtag(_):
+                    return UIImage(systemName: "number")
             }
         }
     }

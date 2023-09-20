@@ -4,6 +4,7 @@ import UIKit
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization
+import MastodonUI
 
 protocol SearchResultsOverviewTableViewControllerDelegate: AnyObject {
     func goTo(_ viewController: SearchResultsOverviewTableViewController, urlString: String)
@@ -95,25 +96,39 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
 
         var snapshot = dataSource.snapshot()
         snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .default))
-        snapshot.appendItems([.default(.posts(searchText)),
-                              .default(.people(searchText))], toSection: .default)
-        let components = searchText.split(separator: "@")
-        if components.count == 2 {
-            let username = String(components[0])
 
-            let domain = String(components[1])
-            if domain.split(separator: ".").count >= 2 {
-                snapshot.appendItems([.default(.profile(username: username, domain: domain))], toSection: .default)
-            } else {
-                snapshot.appendItems([.default(.profile(username: username, domain: authContext.mastodonAuthenticationBox.domain))], toSection: .default)
+        if searchText.lowercased().starts(with: "https://") && (searchText.contains(" ") == false) {
+            if URL(string: searchText)?.isValidURL() ?? false {
+                snapshot.appendItems([.default(.openLink(searchText))], toSection: .default)
             }
-        } else {
-            snapshot.appendItems([.default(.profile(username: searchText, domain: authContext.mastodonAuthenticationBox.domain))], toSection: .default)
         }
 
-        if URL(string: searchText)?.isValidURL() ?? false {
-            snapshot.appendItems([.default(.openLink(searchText))], toSection: .default)
+        //TODO: Check for Hashtag-Regex!
+        if searchText.starts(with: "#") && searchText.length > 1 {
+            snapshot.appendItems([.default(.showHashtag(hashtag: searchText.replacingOccurrences(of: "#", with: "")))],
+                                 toSection: .default)
         }
+
+        if searchText.length > 1,
+            let usernameRegex = try? NSRegularExpression(pattern: MastodonRegex.Search.username, options: .caseInsensitive),
+           usernameRegex.firstMatch(in: searchText, range: NSRange(location: 0, length: searchText.length-1)) != nil {
+            let components = searchText.split(separator: "@")
+            if components.count == 2 {
+                let username = String(components[0]).replacingOccurrences(of: "@", with: "")
+
+                let domain = String(components[1])
+                if domain.split(separator: ".").count >= 2 {
+                    snapshot.appendItems([.default(.showProfile(username: username, domain: domain))], toSection: .default)
+                } else {
+                    snapshot.appendItems([.default(.showProfile(username: username, domain: authContext.mastodonAuthenticationBox.domain))], toSection: .default)
+                }
+            } else {
+                snapshot.appendItems([.default(.showProfile(username: searchText, domain: authContext.mastodonAuthenticationBox.domain))], toSection: .default)
+            }
+        }
+
+        snapshot.appendItems([.default(.posts(matching: searchText)),
+                              .default(.people(matching: searchText))], toSection: .default)
 
         dataSource.apply(snapshot, animatingDifferences: false)
     }
@@ -187,10 +202,13 @@ extension SearchResultsOverviewTableViewController: UITableViewDelegate {
                         delegate?.searchForPosts(self, withSearchText: searchText)
                     case .people(let searchText):
                         delegate?.searchForPeople(self, withName: searchText)
-                    case .profile(let username, let domain):
+                    case .showProfile(let username, let domain):
                         delegate?.searchForPerson(self, username: username, domain: domain)
                     case .openLink(let urlString):
                         delegate?.goTo(self, urlString: urlString)
+                    case .showHashtag(let hashtagText):
+                        let tag = Mastodon.Entity.Tag(name: hashtagText, url: "")
+                        delegate?.showPosts(self, tag: tag)
                 }
             case .suggestion(let suggestionSectionEntry):
                 switch suggestionSectionEntry {
