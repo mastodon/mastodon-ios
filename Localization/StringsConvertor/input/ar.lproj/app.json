@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "الكُل",
-                    "people": "أشخاص",
-                    "hashtags": "وُسُوم",
-                    "posts": "مَنشُورات"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "لا تُوجَدُ نتائِج"
                 },
                 "recent_search": "عَمَليَّاُت البَحثِ الأخيرَة",
+                "clear_all": "Clear all",
                 "clear": "مَحو"
             }
         },
