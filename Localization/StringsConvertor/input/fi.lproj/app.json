@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Kaikki",
-                    "people": "Tilit",
-                    "hashtags": "Hashtagit",
-                    "posts": "Julkaisut"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "Ei hakutuloksia"
                 },
                 "recent_search": "Viimeaikaiset",
+                "clear_all": "Clear all",
                 "clear": "Tyhjennä"
             }
         },
