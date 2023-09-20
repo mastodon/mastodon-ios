@@ -653,7 +653,8 @@
                 "posts": "Tuts amb \"%s\"",
                 "people": "Gent amb \"%s\"",
                 "profile": "Ves a @%s@%s",
-                "url": "Obre l'enllaç",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "No hi ha resultats"
                 },
