@@ -652,9 +652,9 @@
             "searching": {
                 "posts": "Posts matching \"%s\"",
                 "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "profile": "Gå till @%s@%s",
+                "url": "Öppna URL i Mastodon",
+                "hashtag": "Gå till #%s",
                 "empty_state": {
                     "no_results": "Inga resultat"
                 },

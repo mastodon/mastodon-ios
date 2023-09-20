@@ -650,8 +650,8 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Mensajes que coinciden con %s\"",
+                "people": "Personas que coinciden con \"%s\"",
                 "profile": "Ir a @%s@%s",
                 "url": "Abrir dirección web en Mastodon",
                 "hashtag": "Ir a %s",
