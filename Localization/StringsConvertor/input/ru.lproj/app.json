@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Всё",
-                    "people": "Люди",
-                    "hashtags": "Хэштеги",
-                    "posts": "Посты"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "Нет результатов"
                 },
                 "recent_search": "Последние запросы",
+                "clear_all": "Clear all",
                 "clear": "Очистить"
             }
         },
