@@ -265,7 +265,12 @@ extension SearchDetailViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text, searchText.isNotEmpty else { return }
+
         searchBar.resignFirstResponder()
+
+        let searchResultViewModel = SearchResultViewModel(context: context, authContext: viewModel.authContext, searchScope: .all, searchText: searchText)
+        coordinator.present(scene: .searchResult(viewModel: searchResultViewModel), transition: .show)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
