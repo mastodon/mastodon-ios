@@ -650,8 +650,8 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Tuts coincidents amb \"%s\"",
+                "people": "Perfils coincidents amb \"%s\"",
                 "profile": "Vés a @%s@%s",
                 "url": "Obre l'enllaç a Mastodon",
                 "hashtag": "Vés a #%s",
