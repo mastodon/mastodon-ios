@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-7-21.
 //
 
-import os.log
 import UIKit
 import MastodonLocalization
 
@@ -117,26 +116,3 @@ extension AvatarButton {
     }
 
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct AvatarButton_Previews: PreviewProvider {
-
-    static var previews: some View {
-        UIViewPreview(width: 42) {
-            let avatarButton = AvatarButton()
-            avatarButton.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                avatarButton.widthAnchor.constraint(equalToConstant: 42),
-                avatarButton.heightAnchor.constraint(equalToConstant: 42),
-            ])
-            return avatarButton
-        }
-        .previewLayout(.fixed(width: 42, height: 42))
-    }
-
-}
-
-#endif
-

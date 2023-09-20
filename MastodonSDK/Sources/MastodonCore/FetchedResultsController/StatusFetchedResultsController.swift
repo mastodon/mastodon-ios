@@ -90,8 +90,6 @@ extension StatusFetchedResultsController {
 // MARK: - NSFetchedResultsControllerDelegate
 extension StatusFetchedResultsController: NSFetchedResultsControllerDelegate {
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
         let indexes = statusIDs
         let objects = fetchedResultsController.fetchedObjects ?? []
         

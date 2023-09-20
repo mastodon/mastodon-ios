@@ -651,15 +651,18 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
-                },
+                "posts": "Posts matching \"%@\"",
+                "people": "People matching \"%@\"",
+                "hashtag": "Go to #%@",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "No results"
                 },
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%@\" on %@"
+                }
                 "recent_search": "Recent searches",
                 "clear": "Clear"
             }

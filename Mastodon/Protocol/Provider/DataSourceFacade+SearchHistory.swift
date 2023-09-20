@@ -8,11 +8,12 @@
 import Foundation
 import CoreDataStack
 import MastodonCore
+import UIKit
 
 extension DataSourceFacade {
     
     static func responseToCreateSearchHistory(
-        provider: DataSourceProvider & AuthContextProvider,
+        provider: ViewControllerWithDependencies & AuthContextProvider,
         item: DataSourceItem
     ) async {
         switch item {

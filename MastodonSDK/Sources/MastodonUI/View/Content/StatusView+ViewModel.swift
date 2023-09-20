@@ -361,8 +361,6 @@ extension StatusView.ViewModel {
             statusView.statusCardControl.alpha = isContentReveal ? 1 : 0
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
-            
-            self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): isContentReveal: \(isContentReveal)")
         }
         .store(in: &disposeBag)
 
@@ -400,7 +398,6 @@ extension StatusView.ViewModel {
         $mediaViewConfigurations
             .sink { [weak self] configurations in
                 guard let self = self else { return }
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): configure media")
                 
                 statusView.mediaGridContainerView.prepareForReuse()
                 

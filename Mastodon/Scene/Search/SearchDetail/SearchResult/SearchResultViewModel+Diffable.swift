@@ -65,8 +65,7 @@ extension SearchResultViewModel {
                 if let currentState = self.stateMachine.currentState {
                     switch currentState {
                     case is State.Loading,
-                        is State.Fail,
-                        is State.Idle:
+                        is State.Fail:
                         let attribute = SearchResultItem.BottomLoaderAttribute(isEmptyResult: false)
                         snapshot.appendItems([.bottomLoader(attribute: attribute)], toSection: .main)
                     case is State.NoMore:
@@ -74,6 +73,9 @@ extension SearchResultViewModel {
                             let attribute = SearchResultItem.BottomLoaderAttribute(isEmptyResult: true)
                             snapshot.appendItems([.bottomLoader(attribute: attribute)], toSection: .main)
                         }
+                    case is State.Idle:
+                        // do nothing
+                        break
                     default:
                         break
                     }

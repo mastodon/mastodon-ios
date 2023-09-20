@@ -651,16 +651,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "No results"
                 },
                 "recent_search": "Recent searches",
+                "clear_all": "Clear all",
                 "clear": "Clear"
             }
         },

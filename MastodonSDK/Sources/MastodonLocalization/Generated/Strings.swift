@@ -1277,21 +1277,39 @@ public enum L10n {
       public enum Searching {
         /// Clear
         public static let clear = L10n.tr("Localizable", "Scene.Search.Searching.Clear", fallback: "Clear")
+        /// Clear all
+        public static let clearAll = L10n.tr("Localizable", "Scene.Search.Searching.ClearAll", fallback: "Clear all")
+        /// Go to #%@
+        public static func hashtag(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Search.Searching.Hashtag", String(describing: p1), fallback: "Go to #%@")
+        }
+        /// People matching "%@"
+        public static func people(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Search.Searching.People", String(describing: p1), fallback: "People matching \"%@\"")
+        }
+        /// Posts matching "%@"
+        public static func posts(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Search.Searching.Posts", String(describing: p1), fallback: "Posts matching \"%@\"")
+        }
+        /// Go to @%@@%@
+        public static func profile(_ p1: Any, _ p2: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Search.Searching.Profile", String(describing: p1), String(describing: p2), fallback: "Go to @%@@%@")
+        }
         /// Recent searches
         public static let recentSearch = L10n.tr("Localizable", "Scene.Search.Searching.RecentSearch", fallback: "Recent searches")
+        /// Open URL in Mastodon
+        public static let url = L10n.tr("Localizable", "Scene.Search.Searching.Url", fallback: "Open URL in Mastodon")
         public enum EmptyState {
           /// No results
           public static let noResults = L10n.tr("Localizable", "Scene.Search.Searching.EmptyState.NoResults", fallback: "No results")
         }
-        public enum Segment {
-          /// All
-          public static let all = L10n.tr("Localizable", "Scene.Search.Searching.Segment.All", fallback: "All")
-          /// Hashtags
-          public static let hashtags = L10n.tr("Localizable", "Scene.Search.Searching.Segment.Hashtags", fallback: "Hashtags")
-          /// People
-          public static let people = L10n.tr("Localizable", "Scene.Search.Searching.Segment.People", fallback: "People")
-          /// Posts
-          public static let posts = L10n.tr("Localizable", "Scene.Search.Searching.Segment.Posts", fallback: "Posts")
+        public enum NoUser {
+          /// There's no Useraccount "%@" on %@
+          public static func message(_ p1: Any, _ p2: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Search.Searching.NoUser.Message", String(describing: p1), String(describing: p2), fallback: "There's no Useraccount \"%@\" on %@")
+          }
+          /// No User Account Found
+          public static let title = L10n.tr("Localizable", "Scene.Search.Searching.NoUser.Title", fallback: "No User Account Found")
         }
       }
     }
