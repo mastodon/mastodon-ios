@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Всё",
-                    "people": "Люди",
-                    "hashtags": "Хэштеги",
-                    "posts": "Посты"
-                },
+                "posts": "Posts with \"%s\"",
+                "people": "People with \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Нет результатов"
                 },
                 "recent_search": "Последние запросы",
+                "clear_all": "Clear all",
                 "clear": "Очистить"
             }
         },

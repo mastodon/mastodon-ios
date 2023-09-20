@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Allt",
-                    "people": "Fólk",
-                    "hashtags": "Myllumerki",
-                    "posts": "Færslur"
-                },
+                "posts": "Posts with \"%s\"",
+                "people": "People with \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Engar niðurstöður"
                 },
                 "recent_search": "Nýlegar leitir",
+                "clear_all": "Hreinsa allt",
                 "clear": "Hreinsa"
             }
         },

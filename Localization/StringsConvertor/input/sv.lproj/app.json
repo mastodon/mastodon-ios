@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Allt",
-                    "people": "Personer",
-                    "hashtags": "Hashtaggar",
-                    "posts": "Inlägg"
-                },
+                "posts": "Posts with \"%s\"",
+                "people": "People with \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Inga resultat"
                 },
                 "recent_search": "Senaste sökningarna",
+                "clear_all": "Rensa alla",
                 "clear": "Rensa"
             }
         },
@@ -851,11 +851,11 @@
     "widget": {
         "common": {
             "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "user_not_logged_in": "Öppna Mastodon för att logga in på ett konto."
         },
         "followers_count": {
             "configuration_display_name": "Följare",
-            "configuration_description": "Show number of followers.",
+            "configuration_description": "Visa antal följare.",
             "title": "FÖLJARE",
             "followers_today": "%s följare idag"
         },

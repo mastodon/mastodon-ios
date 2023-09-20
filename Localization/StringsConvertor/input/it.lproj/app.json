@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Tutto",
-                    "people": "Persone",
-                    "hashtags": "Hashtags",
-                    "posts": "Post"
-                },
+                "posts": "Post con \"%s\"",
+                "people": "Persone con \"%s\"",
+                "profile": "Vai a @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Nessun risultato"
                 },
                 "recent_search": "Ricerche recenti",
+                "clear_all": "Cancella tutto",
                 "clear": "Cancella"
             }
         },

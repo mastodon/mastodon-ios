@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Tất cả",
-                    "people": "Mọi người",
-                    "hashtags": "Hashtag",
-                    "posts": "Tút"
-                },
+                "posts": "Posts with \"%s\"",
+                "people": "People with \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Không có kết quả"
                 },
                 "recent_search": "Tìm kiếm gần đây",
+                "clear_all": "Clear all",
                 "clear": "Xóa"
             }
         },

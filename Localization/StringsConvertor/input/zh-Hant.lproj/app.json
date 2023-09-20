@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "全部",
-                    "people": "使用者",
-                    "hashtags": "主題標籤",
-                    "posts": "嘟文"
-                },
+                "posts": "包含「%s」之嘟文",
+                "people": "包含「%s」之帳號",
+                "profile": "前往 @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "沒有任何結果"
                 },
                 "recent_search": "最近的搜尋",
+                "clear_all": "清除全部",
                 "clear": "清除"
             }
         },

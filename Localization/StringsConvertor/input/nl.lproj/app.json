@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Alles",
-                    "people": "Gebruikers",
-                    "hashtags": "Hashtags",
-                    "posts": "Berichten"
-                },
+                "posts": "Posts with \"%s\"",
+                "people": "People with \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Geen resultaten"
                 },
                 "recent_search": "Recente zoekopdrachten",
+                "clear_all": "Clear all",
                 "clear": "Wissen"
             }
         },

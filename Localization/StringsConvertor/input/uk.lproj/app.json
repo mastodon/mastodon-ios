@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Всі",
-                    "people": "Громада",
-                    "hashtags": "Гештеги",
-                    "posts": "Дописи"
-                },
+                "posts": "Posts with \"%s\"",
+                "people": "People with \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Жодних результатів"
                 },
                 "recent_search": "Нещодавні запити",
+                "clear_all": "Clear all",
                 "clear": "Очистити"
             }
         },

@@ -506,8 +506,8 @@
                 "the_poll_has_empty_option": "The poll has empty option",
                 "add_option": "Seçenek Ekle",
                 "remove_option": "Seçeneği Kaldır",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "move_up": "Yukarı Taşı",
+                "move_down": "Aşağı Taşı"
             },
             "content_warning": {
                 "placeholder": "Buraya kesin bir uyarı yazın..."
@@ -543,7 +543,7 @@
             "language": {
                 "title": "Gönderi dili",
                 "suggested": "Önerilen",
-                "recent": "Recent",
+                "recent": "En Son",
                 "other": "Other Language…"
             }
         },
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Tümü",
-                    "people": "İnsanlar",
-                    "hashtags": "Etiketler",
-                    "posts": "Gönderiler"
-                },
+                "posts": "Posts with \"%s\"",
+                "people": "People with \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Sonuç yok"
                 },
                 "recent_search": "Son aramalar",
+                "clear_all": "Clear all",
                 "clear": "Temizle"
             }
         },
