@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/MainasuK/FPSIndicator.git",
         "state": {
           "branch": null,
-          "revision": "e4a5067ccd5293b024c767f09e51056afd4a4796",
-          "version": "1.1.0"
+          "revision": "6e15028644b486e258652ef8a53b60ad7af8663b",
+          "version": "1.2.0"
         }
       },
       {
@@ -191,12 +191,12 @@
         }
       },
       {
-        "package": "Introspect",
+        "package": "swiftui-introspect",
         "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
         "state": {
           "branch": null,
-          "revision": "f2616860a41f9d9932da412a8978fec79c06fe24",
-          "version": "0.1.4"
+          "revision": "121c146fe591b1320238d054ae35c81ffa45f45a",
+          "version": "0.12.0"
         }
       },
       {
