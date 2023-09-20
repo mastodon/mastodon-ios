@@ -650,11 +650,11 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Færslur sem samsvara \"%s\"",
+                "people": "Fólk sem samsvarar \"%s\"",
+                "profile": "Fara á @%s@%s",
+                "url": "Opna slóð í Mastodon",
+                "hashtag": "Fara á #%s",
                 "empty_state": {
                     "no_results": "Engar niðurstöður"
                 },
