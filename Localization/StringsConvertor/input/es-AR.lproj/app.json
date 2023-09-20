@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Todo",
-                    "people": "Cuentas",
-                    "hashtags": "Etiquetas",
-                    "posts": "Mensajes"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "No hay resultados"
                 },
                 "recent_search": "Búsquedas recientes",
+                "clear_all": "Clear all",
                 "clear": "Limpiar"
             }
         },
