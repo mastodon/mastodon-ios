@@ -79,7 +79,6 @@
 		2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */; };
 		2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D2725CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift */; };
 		2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D3725CF8D9F002347D6 /* ScrollViewContainer.swift */; };
-		2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D6125CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift */; };
 		2D607AD826242FC500B70763 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D607AD726242FC500B70763 /* NotificationViewModel.swift */; };
 		2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */; };
 		2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */; };
@@ -694,7 +693,6 @@
 		2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewModel.swift; sourceTree = "<group>"; };
 		2D5A3D2725CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		2D5A3D3725CF8D9F002347D6 /* ScrollViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewContainer.swift; sourceTree = "<group>"; };
-		2D5A3D6125CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewController+DebugAction.swift"; sourceTree = "<group>"; };
 		2D607AD726242FC500B70763 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWarningOverlayView.swift; sourceTree = "<group>"; };
 		2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -1554,7 +1552,6 @@
 				DB1F239626117C360057430E /* View */,
 				2D38F1D425CD465300561493 /* HomeTimelineViewController.swift */,
 				DB697DD8278F4CED004EF2F7 /* HomeTimelineViewController+DataSourceProvider.swift */,
-				2D5A3D6125CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift */,
 				2D38F1E425CD46C100561493 /* HomeTimelineViewModel.swift */,
 				2D5A3D2725CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift */,
 				2D38F1EA25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift */,
@@ -3893,7 +3890,6 @@
 				2A82294F29262EE000D2A1F7 /* AppContext+NextAccount.swift in Sources */,
 				DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */,
 				DB9F58EC26EF435000E7BBE9 /* AccountViewController.swift in Sources */,
-				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB3E6FF12806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift in Sources */,
 				DB3E6FF82807C45300B035AE /* DiscoveryForYouViewModel.swift in Sources */,
 				DB0F9D56283EB46200379AF8 /* ProfileHeaderView+Configuration.swift in Sources */,

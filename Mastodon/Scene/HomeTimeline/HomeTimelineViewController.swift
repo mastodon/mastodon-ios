@@ -100,31 +100,13 @@ extension HomeTimelineViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displaySettingBarButtonItem in
                 guard let self = self else { return }
-                #if DEBUG
-                // display debug menu
-                self.navigationItem.rightBarButtonItem = {
-                    let barButtonItem = UIBarButtonItem()
-                    barButtonItem.image = UIImage(systemName: "ellipsis.circle")
-                    barButtonItem.menu = self.debugMenu
-                    return barButtonItem
-                }()
-                #else
+
                 self.navigationItem.rightBarButtonItem = displaySettingBarButtonItem ? self.settingBarButtonItem : nil
-                #endif
             }
             .store(in: &disposeBag)
-        #if DEBUG
-        // long press to trigger debug menu
-        settingBarButtonItem.menu = debugMenu
-        #else
+
         settingBarButtonItem.target = self
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
-        #endif
-        
-        #if SNAPSHOT
-        titleView.logoButton.menu = self.debugMenu
-        titleView.button.menu = self.debugMenu
-        #endif
         
         navigationItem.titleView = titleView
         titleView.delegate = self
