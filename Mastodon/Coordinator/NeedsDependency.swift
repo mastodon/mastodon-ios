@@ -14,6 +14,8 @@ protocol NeedsDependency: AnyObject {
     var coordinator: SceneCoordinator! { get set }
 }
 
+typealias ViewControllerWithDependencies = NeedsDependency & UIViewController
+
 extension UISceneSession {
     private struct AssociatedKeys {
         static var sceneCoordinator = "SceneCoordinator"

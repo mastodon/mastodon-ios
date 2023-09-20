@@ -44,6 +44,6 @@ extension DataSourceItem {
     }
 }
 
-protocol DataSourceProvider: NeedsDependency & UIViewController {
+protocol DataSourceProvider: ViewControllerWithDependencies {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem?
 }
