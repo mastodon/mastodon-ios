@@ -651,9 +651,10 @@
             },
             "searching": {
                 "posts": "包含「%s」之嘟文",
-                "people": "People with \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "開啟連結",
+                "people": "包含「%s」之帳號",
+                "profile": "前往 @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "沒有任何結果"
                 },
