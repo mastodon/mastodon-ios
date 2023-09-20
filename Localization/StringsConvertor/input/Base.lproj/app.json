@@ -655,6 +655,10 @@
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                }
                 "empty_state": {
                     "no_results": "No results"
                 },
