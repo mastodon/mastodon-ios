@@ -653,7 +653,8 @@
                 "posts": "Mensajes con \"%s\"",
                 "people": "Personas con “%s\"",
                 "profile": "Ir a @%s@%s",
-                "url": "Abrir enlace",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "No hay resultados"
                 },
