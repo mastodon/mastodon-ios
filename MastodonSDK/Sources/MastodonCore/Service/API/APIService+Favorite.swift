@@ -11,7 +11,6 @@ import Combine
 import MastodonSDK
 import CoreData
 import CoreDataStack
-import CommonOSLog
 
 extension APIService {
     
@@ -25,8 +24,7 @@ extension APIService {
         record: ManagedObjectRecord<Status>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
-        let logger = Logger(subsystem: "APIService", category: "Favorite")
-        
+
         let managedObjectContext = backgroundManagedObjectContext
         
         // update like state and retrieve like context
@@ -48,7 +46,6 @@ extension APIService {
                 isFavorited: isFavorited,
                 favoritedCount: favoritedCount
             )
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update status favorite: \(!isFavorited), \(favoriteCount)")
             return context
         }
 
@@ -65,7 +62,6 @@ extension APIService {
             result = .success(response)
         } catch {
             result = .failure(error)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update favorite failure: \(error.localizedDescription)")
         }
         
         // update like state
@@ -92,12 +88,10 @@ extension APIService {
                 if favoriteContext.isFavorited {
                     status.update(favouritesCount: max(0, status.favouritesCount - 1))  // undo API return count has delay. Needs -1 local
                 }
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update status favorite: \(response.value.favourited.debugDescription)")
             case .failure:
                 // rollback
                 status.update(liked: favoriteContext.isFavorited, by: me)
                 status.update(favouritesCount: favoriteContext.favoritedCount)
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): rollback status favorite")
             }
         }
         

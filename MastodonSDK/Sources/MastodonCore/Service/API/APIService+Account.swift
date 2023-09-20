@@ -9,7 +9,6 @@ import os.log
 import CoreDataStack
 import Foundation
 import Combine
-import CommonOSLog
 import MastodonCommon
 import MastodonSDK
 
@@ -49,8 +48,6 @@ extension APIService {
             )
             
             let flag = result.isNewInsertion ? "+" : "-"
-            let logger = Logger(subsystem: "APIService", category: "AccountInfo")
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch mastodon user [\(flag)](\(response.value.id))\(response.value.username)")
         }
         
         return response
