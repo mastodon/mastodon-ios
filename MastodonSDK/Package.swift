@@ -46,6 +46,7 @@ let package = Package(
         .package(url: "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git", from: "8.0.0"),
         .package(url: "https://github.com/kean/Nuke.git", from: "10.3.1"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.2.2"),
+        .package(url: "https://github.com/MainasuK/CommonOSLog", from: "0.1.1"),
         .package(url: "https://github.com/MainasuK/FPSIndicator.git", from: "1.0.0"),
         .package(url: "https://github.com/slackhq/PanModal.git", from: "1.2.7"),
         .package(url: "https://github.com/TimOliver/TOCropViewController.git", from: "2.6.1"),
@@ -92,6 +93,7 @@ let package = Package(
                 "MastodonSDK",
                 .product(name: "Alamofire", package: "Alamofire"),
                 .product(name: "AlamofireImage", package: "AlamofireImage"),
+                .product(name: "CommonOSLog", package: "CommonOSLog"),
                 .product(name: "ArkanaKeys", package: "ArkanaKeys"),
                 .product(name: "KeychainAccess", package: "KeychainAccess"),
                 .product(name: "MetaTextKit", package: "MetaTextKit")
