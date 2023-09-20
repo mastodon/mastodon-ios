@@ -650,8 +650,8 @@
                 }
             },
             "searching": {
-                "posts": "Posts with \"%s\"",
-                "people": "People with \"%s\"",
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
