@@ -34,6 +34,7 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
         self.coordinator = sceneCoordinator
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.keyboardDismissMode = .onDrag
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGroupedBackground
         tableView.separatorInset.left = 62
