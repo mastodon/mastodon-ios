@@ -185,10 +185,10 @@
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Kaikki voivat nähdä julkaisun, mutta sitä ei näytetä julkisella aikajanalla.",
+                    "private": "Vain heidän seuraajansa voivat nähdä julkaisun.",
+                    "private_from_me": "Vain omat seuraajat voivat nähdä julkaisun.",
+                    "direct": "Vain mainittu käyttäjä voi nähdä julkaisun."
                 },
                 "translation": {
                     "translated_from": "Käännetty kielestä %s palvelulla %s",
@@ -266,7 +266,7 @@
             "log_in": "Kirjaudu sisään",
             "learn_more": "Lue lisää",
             "join_default_server": "Liity palvelimelle %@",
-            "pick_server": "Pick another server",
+            "pick_server": "Valitse eri palvelin",
             "separator": {
                 "or": "tai"
             },
@@ -288,9 +288,9 @@
         },
         "login": {
             "title": "Tervetuloa takaisin",
-            "subtitle": "Log you in on the server you created your account on.",
+            "subtitle": "Kirjaudu palvelimelle, jolla loit tilisi.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Syötä URL-osoite tai etsi palvelintasi"
             }
         },
         "server_picker": {
@@ -323,7 +323,7 @@
                 "category": "KATEGORIA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Etsi yhteisöjä tai syötä URL-osoite"
             },
             "empty_state": {
                 "finding_servers": "Etsistään saatavilla olevia palvelimia...",
@@ -374,7 +374,7 @@
                 "password": {
                     "placeholder": "salasana",
                     "confirmation_placeholder": "Vahvista salasana",
-                    "require": "Your password needs at least:",
+                    "require": "Salasanasi on oltava ainakin:",
                     "character_limit": "8 merkkiä",
                     "accessibility": {
                         "checked": "tarkastettu",
