@@ -78,7 +78,13 @@ extension SearchResultViewModel.State {
                 return
             }
 
-            offset = viewModel.items.count
+            offset = viewModel.items.filter({ item in
+                if case .bottomLoader(_) = item {
+                    return false
+                } else {
+                    return true
+                }
+            }).count
 
             // not set offset for all case
             // and assert other cases the items are all the same type elements
