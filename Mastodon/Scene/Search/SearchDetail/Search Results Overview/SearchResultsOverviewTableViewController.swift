@@ -103,8 +103,10 @@ class SearchResultsOverviewTableViewController: UIViewController, NeedsDependenc
             }
         }
 
-        //TODO: Check for Hashtag-Regex!
         if searchText.starts(with: "#") && searchText.length > 1 {
+            snapshot.appendItems([.default(.showHashtag(hashtag: searchText.replacingOccurrences(of: "#", with: "")))],
+                                 toSection: .default)
+        } else if searchText.length > 1, let hashtagRegex = try? NSRegularExpression(pattern: MastodonRegex.Search.hashtag, options: .caseInsensitive), hashtagRegex.firstMatch(in: searchText, range: NSRange(location: 0, length: searchText.length-1)) != nil {
             snapshot.appendItems([.default(.showHashtag(hashtag: searchText.replacingOccurrences(of: "#", with: "")))],
                                  toSection: .default)
         }
