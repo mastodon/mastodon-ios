@@ -145,7 +145,7 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
         let acct = "\(username)@\(domain)"
         let query = Mastodon.API.V2.Search.Query(
             q: acct,
-            type: .default,
+            type: .accounts,
             resolve: true
         )
 
