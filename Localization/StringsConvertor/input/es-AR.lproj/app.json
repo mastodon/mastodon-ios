@@ -650,15 +650,15 @@
                 }
             },
             "searching": {
-                "posts": "Posts with \"%s\"",
-                "people": "People with \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open Link",
+                "posts": "Mensajes con \"%s\"",
+                "people": "Personas con “%s\"",
+                "profile": "Ir a @%s@%s",
+                "url": "Abrir enlace",
                 "empty_state": {
                     "no_results": "No hay resultados"
                 },
                 "recent_search": "Búsquedas recientes",
-                "clear_all": "Clear all",
+                "clear_all": "Limpiar todo",
                 "clear": "Limpiar"
             }
         },
