@@ -650,11 +650,11 @@
                 }
             },
             "searching": {
-                "posts": "包含「%s」之嘟文",
-                "people": "包含「%s」之帳號",
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
                 "profile": "前往 @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "url": "於 Mastodon 中開啟連結",
+                "hashtag": "前往 #%s",
                 "empty_state": {
                     "no_results": "沒有任何結果"
                 },

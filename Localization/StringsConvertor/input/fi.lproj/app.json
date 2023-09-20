@@ -12,14 +12,14 @@
                 "title": "Palvelinvirhe"
             },
             "vote_failure": {
-                "title": "Vote Failure",
+                "title": "Äänestys epäonnistui",
                 "poll_ended": "Kysely on päättynyt"
             },
             "publish_post_failure": {
                 "title": "Julkaiseminen epäonnistui",
                 "message": "Julkaisun julkaiseminen epäonnistui.\nTarkista internet-yhteytesi.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
+                    "video_attach_with_photo": "Videota ei voi liittää tilapäivitykseen, joka sisältää jo kuvia.",
                     "more_than_one_video": "Ei voi liittä yhtä videota enempää."
                 }
             },
@@ -33,24 +33,24 @@
                 "confirm": "Kirjaudu ulos"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "Haluatko aivan varmasti estää palvelun %s täysin? Useimmiten muutama kohdistettu esto tai mykistys on riittävä ja suositeltava toimenpide. Et näe kyseisen palvelun sisältöä julkisilla aikajanoilla tai ilmoituksissa. Tälle palvelulle kuuluvat seuraajasi poistetaan.",
                 "block_entire_domain": "Estä verkkotunnus"
             },
             "save_photo_failure": {
                 "title": "Kuvan tallentaminen epäonnistui",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "Myönnä kuvakirjaston käyttöoikeus tallentaaksesi kuvan."
             },
             "delete_post": {
                 "title": "Haluatko varmasti poistaa tämän julkaisun?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "Haluatko varmasti poistaa julkaisun?"
             },
             "clean_cache": {
                 "title": "Puhdista välimuisti",
                 "message": "%s välimuisti tyhjennetty onnistuneesti."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "Huomautus",
+                "message": "Käännös epäonnistui. Ehkä palvelimen ylläpito ei ole ottanut käännösominaisuutta käyttöön tai se käyttää Mastodonin vanhempaa versiota, joka ei vielä tue käännöksiä.",
                 "button": "OK"
             }
         },
@@ -98,10 +98,10 @@
                     "unknown_language": "Tuntematon"
                 },
                 "edit_post": "Muokkaa",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Kirjanmerkki",
+                "remove_bookmark": "Poista kirjanmerkki",
+                "follow": "Seuraa käyttäjää %s",
+                "unfollow": "Lopeta käyttäjän %s seuraaminen"
             },
             "tabs": {
                 "home": "Koti",
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "posts": "Posts with \"%s\"",
-                "people": "People with \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Avaa profiilii @%s@%s",
+                "url": "Avaa URL Mastodonissa",
+                "hashtag": "Siirry #%s",
                 "empty_state": {
                     "no_results": "Ei hakutuloksia"
                 },
                 "recent_search": "Viimeaikaiset",
-                "clear_all": "Clear all",
+                "clear_all": "Tyhjennä kaikki",
                 "clear": "Tyhjennä"
             }
         },

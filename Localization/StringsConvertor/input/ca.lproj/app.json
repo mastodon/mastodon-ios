@@ -650,11 +650,11 @@
                 }
             },
             "searching": {
-                "posts": "Tuts amb \"%s\"",
-                "people": "Gent amb \"%s\"",
-                "profile": "Ves a @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Vés a @%s@%s",
+                "url": "Obre l'enllaç a Mastodon",
+                "hashtag": "Vés a #%s",
                 "empty_state": {
                     "no_results": "No hi ha resultats"
                 },

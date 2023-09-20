@@ -650,11 +650,11 @@
                 }
             },
             "searching": {
-                "posts": "Post con \"%s\"",
-                "people": "Persone con \"%s\"",
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
                 "profile": "Vai a @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "url": "Apri l'URL su Mastodon",
+                "hashtag": "Vai a #%s",
                 "empty_state": {
                     "no_results": "Nessun risultato"
                 },
