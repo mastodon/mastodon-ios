@@ -651,10 +651,11 @@
                 }
             },
             "searching": {
-                "posts": "Posts with \"%@\"",
-                "people": "People with \"%@\"",
-                "profile": "Go to @%@@%@",
-                "url": "Open Link",
+                "posts": "Posts with \"%s\"",
+                "people": "People with \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "No results"
                 },
