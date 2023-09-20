@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Guztiak",
-                    "people": "Jendea",
-                    "hashtags": "Traolak",
-                    "posts": "Bidalketak"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "Emaitzarik ez"
                 },
                 "recent_search": "Azken bilaketak",
+                "clear_all": "Clear all",
                 "clear": "Garbitu"
             }
         },
