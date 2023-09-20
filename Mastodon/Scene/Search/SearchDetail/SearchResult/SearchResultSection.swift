@@ -23,8 +23,6 @@ enum SearchResultSection: Hashable {
 
 extension SearchResultSection {
     
-    static let logger = Logger(subsystem: "SearchResultSection", category: "logic")
-    
     struct Configuration {
         let authContext: AuthContext
         weak var statusViewTableViewCellDelegate: StatusTableViewCellDelegate?

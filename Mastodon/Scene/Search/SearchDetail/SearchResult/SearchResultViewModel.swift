@@ -21,13 +21,12 @@ final class SearchResultViewModel {
     let context: AppContext
     let authContext: AuthContext
     let searchScope: SearchScope
-    let searchText = CurrentValueSubject<String, Never>("")
+    let searchText: String
     @Published var hashtags: [Mastodon.Entity.Tag] = []
     let userFetchedResultsController: UserFetchedResultsController
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
-    let viewDidAppear = CurrentValueSubject<Bool, Never>(false)
     var cellFrameCache = NSCache<NSNumber, NSValue>()
     var navigationBarFrame = CurrentValueSubject<CGRect, Never>(.zero)
 
@@ -43,15 +42,16 @@ final class SearchResultViewModel {
             State.Idle(viewModel: self),
             State.NoMore(viewModel: self),
         ])
-        stateMachine.enter(State.Initial.self)
         return stateMachine
     }()
     let didDataSourceUpdate = PassthroughSubject<Void, Never>()
 
-    init(context: AppContext, authContext: AuthContext, searchScope: SearchScope = .all) {
+    init(context: AppContext, authContext: AuthContext, searchScope: SearchScope = .all, searchText: String) {
         self.context = context
         self.authContext = authContext
         self.searchScope = searchScope
+        self.searchText = searchText
+
         self.userFetchedResultsController = UserFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
@@ -63,5 +63,4 @@ final class SearchResultViewModel {
             additionalTweetPredicate: nil
         )
     }
-
 }

@@ -71,6 +71,8 @@ extension SearchResultViewController {
             case .notification:
                 assertionFailure()
             }   // end switch
+
+            tableView.deselectRow(at: indexPath, animated: true)
         }   // end Task
     }   // end func
 }

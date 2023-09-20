@@ -11,6 +11,7 @@ import Combine
 import CoreDataStack
 import MastodonCore
 import MastodonUI
+import MastodonAsset
 
 final class SearchResultViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -37,14 +38,7 @@ extension SearchResultViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
-            }
-            .store(in: &disposeBag)
+        view.backgroundColor = Asset.Theme.System.systemGroupedBackground.color
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -68,85 +62,14 @@ extension SearchResultViewController {
             }
             .store(in: &disposeBag)
 
-        // listen keyboard events and set content inset
-        let keyboardEventPublishers = Publishers.CombineLatest3(
-            KeyboardResponderService.shared.isShow,
-            KeyboardResponderService.shared.state,
-            KeyboardResponderService.shared.endFrame
-        )
-        Publishers.CombineLatest3(
-            keyboardEventPublishers,
-            viewModel.viewDidAppear,
-            viewModel.didDataSourceUpdate
-        )
-        .sink(receiveValue: { [weak self] keyboardEvents, _, _ in
-            guard let self = self else { return }
-            let (isShow, state, endFrame) = keyboardEvents
-
-            // update keyboard background color
-            guard isShow, state == .dock else {
-                self.tableView.contentInset.bottom = 0
-                self.tableView.verticalScrollIndicatorInsets.bottom = 0
-                return
-            }
-            // isShow AND dock state
-
-            // adjust inset for tableView
-            let contentFrame = self.view.convert(self.tableView.frame, to: nil)
-            let padding = contentFrame.maxY - endFrame.minY
-            guard padding > 0 else {
-                self.tableView.contentInset.bottom = self.view.safeAreaInsets.bottom
-                self.tableView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom
-                return
-            }
-
-            self.tableView.contentInset.bottom = padding - self.view.safeAreaInsets.bottom
-            self.tableView.verticalScrollIndicatorInsets.bottom = padding - self.view.safeAreaInsets.bottom
-        })
-        .store(in: &disposeBag)
-//
-        // works for already onscreen page
-        viewModel.navigationBarFrame
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] frame in
-                guard let self = self else { return }
-                guard self.viewModel.viewDidAppear.value else { return }
-                self.tableView.contentInset.top = frame.height
-                self.tableView.verticalScrollIndicatorInsets.top = frame.height
-            }
-            .store(in: &disposeBag)
-
-        title = viewModel.searchText.value
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        // works for appearing page
-        if !viewModel.viewDidAppear.value {
-            tableView.contentInset.top = viewModel.navigationBarFrame.value.height
-            tableView.contentOffset.y = -viewModel.navigationBarFrame.value.height
-        }
-
-        tableView.deselectRow(with: transitionCoordinator, animated: animated)
+        title = viewModel.searchText
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        viewModel.viewDidAppear.value = true
+        viewModel.stateMachine.enter(SearchResultViewModel.State.Initial.self)
     }
-
-}
-
-extension SearchResultViewController {
-    private func setupBackgroundColor(theme: Theme) {
-        view.backgroundColor = theme.systemGroupedBackgroundColor
-//        tableView.backgroundColor = theme.systemBackgroundColor
-//        searchHeader.backgroundColor = theme.systemGroupedBackgroundColor
-    }
-
 }
 
 // MARK: - StatusTableViewCellDelegate

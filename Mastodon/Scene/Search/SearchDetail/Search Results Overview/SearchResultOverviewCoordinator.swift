@@ -34,8 +34,7 @@ class SearchResultOverviewCoordinator: Coordinator {
 extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControllerDelegate {
     @MainActor
     func searchForPosts(_ viewController: SearchResultsOverviewTableViewController, withSearchText searchText: String) {
-        let searchResultViewModel = SearchResultViewModel(context: context, authContext: authContext, searchScope: .posts)
-        searchResultViewModel.searchText.value = searchText
+        let searchResultViewModel = SearchResultViewModel(context: context, authContext: authContext, searchScope: .posts, searchText: searchText)
 
         sceneCoordinator.present(scene: .searchResult(viewModel: searchResultViewModel), transition: .show)
     }
@@ -54,8 +53,7 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
 
     @MainActor
     func searchForPeople(_ viewController: SearchResultsOverviewTableViewController, withName searchText: String) {
-        let searchResultViewModel = SearchResultViewModel(context: context, authContext: authContext, searchScope: .people)
-        searchResultViewModel.searchText.value = searchText
+        let searchResultViewModel = SearchResultViewModel(context: context, authContext: authContext, searchScope: .people, searchText: searchText)
 
         sceneCoordinator.present(scene: .searchResult(viewModel: searchResultViewModel), transition: .show)
     }
