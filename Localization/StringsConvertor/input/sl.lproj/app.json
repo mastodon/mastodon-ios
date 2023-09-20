@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Vse",
-                    "people": "Ljudje",
-                    "hashtags": "Ključniki",
-                    "posts": "Objave"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "Ni rezultatov"
                 },
                 "recent_search": "Nedavna iskanja",
+                "clear_all": "Clear all",
                 "clear": "Počisti"
             }
         },
