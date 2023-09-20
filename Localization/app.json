@@ -214,7 +214,6 @@
                     "title": "Edit History",
                     "original_post": "Original Post · %s"
                 }
-
             },
             "friendship": {
                 "follow": "Follow",
@@ -282,9 +281,9 @@
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                      "title": "What is Mastodon?"
-                  }
-              }
+                        "title": "What is Mastodon?"
+                    }
+                }
             }
         },
         "login": {
@@ -651,8 +650,8 @@
                 }
             },
             "searching": {
-                "posts": "Posts with \"%s\"",
-                "people": "People with \"%s\"",
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
