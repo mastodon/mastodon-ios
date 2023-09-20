@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "සියල්ල",
-                    "people": "මිනිසුන්",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "ප්‍රතිඵල නැත"
                 },
                 "recent_search": "Recent searches",
+                "clear_all": "Clear all",
                 "clear": "මකන්න"
             }
         },
