@@ -650,9 +650,9 @@
                 }
             },
             "searching": {
-                "posts": "Posts with \"%@\"",
-                "people": "People with \"%@\"",
-                "profile": "Go to @%@@%@",
+                "posts": "Posts with \"%s\"",
+                "people": "People with \"%s\"",
+                "profile": "Go to @%s@%s",
                 "url": "Open Link",
                 "empty_state": {
                     "no_results": "ไม่มีผลลัพธ์"
