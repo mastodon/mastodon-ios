@@ -650,15 +650,15 @@
                 }
             },
             "searching": {
-                "posts": "Posts with \"%s\"",
-                "people": "People with \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open Link",
+                "posts": "Tuts amb \"%s\"",
+                "people": "Gent amb \"%s\"",
+                "profile": "Ves a @%s@%s",
+                "url": "Obre l'enllaç",
                 "empty_state": {
                     "no_results": "No hi ha resultats"
                 },
                 "recent_search": "Cerques recents",
-                "clear_all": "Clear all",
+                "clear_all": "Esborra-ho tot",
                 "clear": "Neteja"
             }
         },
