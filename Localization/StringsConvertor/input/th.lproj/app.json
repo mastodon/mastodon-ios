@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "ทั้งหมด",
-                    "people": "ผู้คน",
-                    "hashtags": "แฮชแท็ก",
-                    "posts": "โพสต์"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "ไม่มีผลลัพธ์"
                 },
                 "recent_search": "การค้นหาล่าสุด",
+                "clear_all": "Clear all",
                 "clear": "ล้าง"
             }
         },
