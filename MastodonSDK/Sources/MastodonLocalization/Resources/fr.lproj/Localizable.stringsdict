@@ -186,7 +186,7 @@
         <key>one</key>
         <string>1 reblog</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld reblogs</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>

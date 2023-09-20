@@ -442,16 +442,12 @@ uploaded to Mastodon.";
 "Scene.Search.Searching.Clear" = "Clear";
 "Scene.Search.Searching.ClearAll" = "Clear all";
 "Scene.Search.Searching.EmptyState.NoResults" = "No results";
-"Scene.Search.Searching.RecentSearch" = "Recent searches";
-"Scene.Search.Searching.Posts" = "Posts matching \"%@\"";
-"Scene.Search.Searching.People" = "People matching \"%@\"";
-"Scene.Search.Searching.Profile" = "Go to @%@@%@";
 "Scene.Search.Searching.Hashtag" = "Go to #%@";
+"Scene.Search.Searching.People" = "People matching \"%@\"";
+"Scene.Search.Searching.Posts" = "Posts matching \"%@\"";
+"Scene.Search.Searching.Profile" = "Go to @%@@%@";
+"Scene.Search.Searching.RecentSearch" = "Recent searches";
 "Scene.Search.Searching.Url" = "Open URL in Mastodon";
-
-"Scene.Search.Searching.NoUser.Title" = "No User Account Found";
-"Scene.Search.Searching.NoUser.Message" = "There's no Useraccount \"%@\" on %@";
-
 "Scene.Search.Title" = "Search";
 "Scene.ServerPicker.Button.Category.Academia" = "academia";
 "Scene.ServerPicker.Button.Category.Activism" = "activism";

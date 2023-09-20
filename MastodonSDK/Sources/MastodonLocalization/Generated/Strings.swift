@@ -1303,14 +1303,6 @@ public enum L10n {
           /// No results
           public static let noResults = L10n.tr("Localizable", "Scene.Search.Searching.EmptyState.NoResults", fallback: "No results")
         }
-        public enum NoUser {
-          /// There's no Useraccount "%@" on %@
-          public static func message(_ p1: Any, _ p2: Any) -> String {
-            return L10n.tr("Localizable", "Scene.Search.Searching.NoUser.Message", String(describing: p1), String(describing: p2), fallback: "There's no Useraccount \"%@\" on %@")
-          }
-          /// No User Account Found
-          public static let title = L10n.tr("Localizable", "Scene.Search.Searching.NoUser.Title", fallback: "No User Account Found")
-        }
       }
     }
     public enum ServerPicker {
