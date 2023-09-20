@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Vše",
-                    "people": "Lidé",
-                    "hashtags": "Hashtagy",
-                    "posts": "Příspěvky"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "Žádné výsledky"
                 },
                 "recent_search": "Nedávná hledání",
+                "clear_all": "Clear all",
                 "clear": "Vymazat"
             }
         },
