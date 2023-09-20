@@ -650,8 +650,8 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "符合「%s」之嘟文",
+                "people": "符合「%s」之個人檔案",
                 "profile": "前往 @%s@%s",
                 "url": "於 Mastodon 中開啟連結",
                 "hashtag": "前往 #%s",
