@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "全部",
-                    "people": "用户",
-                    "hashtags": "标签",
-                    "posts": "帖子"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "无结果"
                 },
                 "recent_search": "最近搜索",
+                "clear_all": "Clear all",
                 "clear": "清除"
             }
         },
