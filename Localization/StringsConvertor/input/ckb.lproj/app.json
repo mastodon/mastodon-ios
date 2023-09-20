@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "هەمووی",
-                    "people": "خەڵک",
-                    "hashtags": "هاشتاگ",
-                    "posts": "پۆست"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "هیچ ئەنجامێک نەدۆزرایەوە"
                 },
                 "recent_search": "گەڕانەکانی پێشترت",
+                "clear_all": "Clear all",
                 "clear": "بیانسڕەوە"
             }
         },
