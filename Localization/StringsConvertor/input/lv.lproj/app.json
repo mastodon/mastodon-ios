@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Visi",
-                    "people": "Cilvēki",
-                    "hashtags": "Tēmturi",
-                    "posts": "Ziņas"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "Nav rezultātu"
                 },
                 "recent_search": "Nesen meklētais",
+                "clear_all": "Clear all",
                 "clear": "Notīrīt"
             }
         },
