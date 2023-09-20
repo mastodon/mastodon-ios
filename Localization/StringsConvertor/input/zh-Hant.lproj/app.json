@@ -650,16 +650,15 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "全部",
-                    "people": "使用者",
-                    "hashtags": "主題標籤",
-                    "posts": "嘟文"
-                },
+                "posts": "Posts with \"%@\"",
+                "people": "People with \"%@\"",
+                "profile": "Go to @%@@%@",
+                "url": "Open Link",
                 "empty_state": {
                     "no_results": "沒有任何結果"
                 },
                 "recent_search": "最近的搜尋",
+                "clear_all": "Clear all",
                 "clear": "清除"
             }
         },
