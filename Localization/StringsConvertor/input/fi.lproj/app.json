@@ -722,7 +722,7 @@
                 },
                 "notifications": {
                     "title": "Ilmoitukset",
-                    "favorites": "Favorites my post",
+                    "favorites": "Lisää julkaisuni suosikkeihinsa",
                     "follows": "Seuraa minua",
                     "boosts": "Omien julkaisujen edelleen jaot",
                     "mentions": "Mainitsee minut",
@@ -739,7 +739,7 @@
                     "disable_avatar_animation": "Poista käytöstä animoidut avatarit",
                     "disable_emoji_animation": "Poista käytöstä animoidut emojit",
                     "using_default_browser": "Käytä oletusselainta linkkien avaamiseen",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "Avaa linkit Mastodonissa"
                 },
                 "boring_zone": {
                     "title": "Tylsä alue",
@@ -761,17 +761,17 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "Raportoi",
             "title": "Ilmianna %s",
             "step1": "Vaihe 1/2",
             "step2": "Vaihe 2/2",
             "content1": "Onko julkaisuja, joita haluaisit lisätä ilmiantoon?",
             "content2": "Onko valvojien syytä tietää tästä ilmiannosta?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Kiitos ilmoituksesta, tutkimme asiaa.",
             "send": "Lähetä ilmianto",
             "skip_to_send": "Lähetä ilman kommentteja",
             "text_placeholder": "Kirjoita tai liitä lisäkommentteja",
-            "reported": "REPORTED",
+            "reported": "ILMOITETTU",
             "step_one": {
                 "step_1_of_4": "Vaihe 1/4",
                 "whats_wrong_with_this_post": "Mitä vikaa tässä julkaisussa on?",
