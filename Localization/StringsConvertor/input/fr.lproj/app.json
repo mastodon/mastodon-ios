@@ -653,7 +653,8 @@
                 "posts": "Publications ayant « %s »",
                 "people": "Personnes ayant « %s »",
                 "profile": "Aller à @%s@%s",
-                "url": "Ouvrir le lien",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Aucun résultat"
                 },
