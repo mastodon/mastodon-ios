@@ -650,11 +650,11 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Publications ayant « %s »",
+                "people": "Personnes ayant « %s »",
                 "profile": "Aller à @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "url": "Ouvrir l’URL dans Mastodon",
+                "hashtag": "Aller à #%s",
                 "empty_state": {
                     "no_results": "Aucun résultat"
                 },
