@@ -13,10 +13,6 @@ import MastodonExtension
 import MastodonUI
 import MastodonSDK
 
-#if PROFILE
-import FPSIndicator
-#endif
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var disposeBag = Set<AnyCancellable>()
@@ -24,10 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     var coordinator: SceneCoordinator?
-
-    #if PROFILE
-    var fpsIndicator: FPSIndicator?
-    #endif
 
     var savedShortCutItem: UIApplicationShortcutItem?
 
@@ -99,10 +91,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             #endif
         }
         .store(in: &observations)
-
-        #if PROFILE
-        fpsIndicator = FPSIndicator(windowScene: windowScene)
-        #endif
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
