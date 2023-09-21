@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/2/8.
 //
 
-
 import Foundation
 import Combine
 import MastodonSDK
