@@ -653,8 +653,8 @@
                 "posts": "Posts matching \"%s\"",
                 "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "url": "URL in Mastodon öffnen",
+                "hashtag": "Wechseln zu #%s",
                 "empty_state": {
                     "no_results": "Keine Ergebnisse"
                 },
