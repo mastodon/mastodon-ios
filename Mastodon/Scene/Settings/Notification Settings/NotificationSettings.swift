@@ -12,7 +12,11 @@ enum NotificationSettingEntry: Hashable {
     case alert(NotificationAlert)
 }
 
-enum NotificationPolicy: Hashable {
+struct NotificationPolicySection: Hashable {
+    let entries: [NotificationPolicy]
+}
+
+enum NotificationPolicy: Hashable, CaseIterable {
     case anyone
     case followers
     case follow

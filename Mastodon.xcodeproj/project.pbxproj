@@ -135,9 +135,10 @@
 		D81A22752AB4643200905D71 /* SearchResultsOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */; };
 		D81A22782AB4782400905D71 /* SearchResultOverviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */; };
 		D81A227B2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */; };
-		D82BD7532ABC44C2009A374A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
 		D81D12462A4E1861005009D4 /* PolicySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */; };
 		D81D124B2A4E1914005009D4 /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */; };
+		D82BD7532ABC44C2009A374A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
+		D82BD7552ABC73AF009A374A /* NotificationPolicyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82BD7542ABC73AF009A374A /* NotificationPolicyTableViewCell.swift */; };
 		D8318A802A4466D300C0FB73 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */; };
 		D8318A862A4468C700C0FB73 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A852A4468C700C0FB73 /* SettingsViewController.swift */; };
 		D8318A882A4468D300C0FB73 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */; };
@@ -169,7 +170,6 @@
 		D8F917082A4B0B16008A5370 /* GeneralSettingSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917072A4B0B16008A5370 /* GeneralSettingSelectionCell.swift */; };
 		D8F9170B2A4B2C80008A5370 /* AboutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170A2A4B2C80008A5370 /* AboutSettings.swift */; };
 		D8F9170D2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170C2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift */; };
-		D8F9170F2A4B47EF008A5370 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
 		D8F917112A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917102A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift */; };
 		D8F917122A4C6B67008A5370 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */; };
 		D8F917142A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917132A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift */; };
@@ -787,13 +787,14 @@
 		D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsOverviewTableViewController.swift; sourceTree = "<group>"; };
 		D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultOverviewSection.swift; sourceTree = "<group>"; };
 		D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDefaultSectionTableViewCell.swift; sourceTree = "<group>"; };
+		D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicySelectionViewController.swift; sourceTree = "<group>"; };
+		D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
 		D82463522A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/Intents.strings; sourceTree = "<group>"; };
 		D82463532A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
 		D82463542A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D82463552A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = be; path = be.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		D82BD7512ABC42D6009A374A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicySelectionViewController.swift; sourceTree = "<group>"; };
-		D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
+		D82BD7542ABC73AF009A374A /* NotificationPolicyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyTableViewCell.swift; sourceTree = "<group>"; };
 		D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
 		D8318A852A4468C700C0FB73 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -1854,6 +1855,7 @@
 				D8B5E4F12A4EBCF90008970C /* NotificationSettings.swift */,
 				D8B5E4F32A4ED0240008970C /* NotificationSettingsViewModel.swift */,
 				D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */,
+				D82BD7542ABC73AF009A374A /* NotificationPolicyTableViewCell.swift */,
 			);
 			path = "Notification Settings";
 			sourceTree = "<group>";
@@ -3756,6 +3758,7 @@
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */,
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
+				D82BD7552ABC73AF009A374A /* NotificationPolicyTableViewCell.swift in Sources */,
 				DB3EA8EB281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift in Sources */,
 				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
 				DB98EB5327B0F9890082E365 /* ReportHeadlineTableViewCell.swift in Sources */,

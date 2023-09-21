@@ -130,5 +130,7 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
 
 //MARK: - PolicySelectionViewControllerDelegate
 extension SettingsCoordinator: PolicySelectionViewControllerDelegate {
-    
+    func newPolicySelected(_ viewController: PolicySelectionViewController, newPolicy: NotificationPolicy) {
+        //TODO: Send to backend etc.
+    }
 }

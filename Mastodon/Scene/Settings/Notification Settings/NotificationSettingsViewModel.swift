@@ -2,6 +2,10 @@
 
 import Foundation
 
-struct NotificationSettingsViewModel {
+class NotificationSettingsViewModel {
     var selectedPolicy: NotificationPolicy
+
+    init(selectedPolicy: NotificationPolicy) {
+        self.selectedPolicy = selectedPolicy
+    }
 }

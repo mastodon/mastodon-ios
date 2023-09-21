@@ -22,9 +22,7 @@ class NotificationSettingsViewController: UIViewController {
         //TODO: @zeitschlag Read Settings
         viewModel = NotificationSettingsViewModel(selectedPolicy: .follow)
         sections = [
-            NotificationSettingsSection(entries: [
-                .policy
-            ]),
+            NotificationSettingsSection(entries: [.policy]),
             NotificationSettingsSection(entries: NotificationAlert.allCases.map { NotificationSettingEntry.alert($0) } )
         ]
 
