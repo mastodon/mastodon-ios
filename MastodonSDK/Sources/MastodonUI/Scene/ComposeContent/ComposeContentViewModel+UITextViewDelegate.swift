@@ -35,8 +35,6 @@ extension ComposeContentViewModel: UITextViewDelegate {
                 assertionFailure()
                 return
             }
-            let backedString = metaText.backedString
-            
             // configure auto completion
             setupAutoComplete(for: textView)
             

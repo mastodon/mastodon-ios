@@ -789,7 +789,6 @@ extension ComposeContentViewModel: AttachmentViewModelDelegate {
             case .compressing:
                 return
             case .ready:
-                let count = self.attachmentViewModels.count
                 try await attachmentViewModel.upload()
                 return
             case .uploading:

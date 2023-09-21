@@ -185,7 +185,7 @@ extension AttachmentViewModel {
                 ).singleOutput()
                 progress.completedUnitCount += checkUploadTaskCount
                 
-                if let url = attachmentStatusResponse.value.url {
+                if attachmentStatusResponse.value.url != nil {
                     // escape here
                     progress.completedUnitCount = progress.totalUnitCount
                     return .uploadedMastodonAttachment(attachmentStatusResponse.value)

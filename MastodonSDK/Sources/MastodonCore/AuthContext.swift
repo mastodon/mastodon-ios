@@ -34,14 +34,7 @@ extension AuthContext {
         
         ManagedObjectObserver.observe(object: authentication)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                switch completion {
-                case .failure(_):
-                        break
-                case .finished:
-                        break
-                }
+            .sink { _ in
             } receiveValue: { [weak self] change in
                 guard let self = self else { return }
                 switch change.changeType {

@@ -81,8 +81,6 @@ extension NSItemProvider {
                 CGImageDestinationAddImage(imageDestination, cgImage, destinationProperties)
                 CGImageDestinationFinalize(imageDestination)
                 
-                let dataSize = ByteCountFormatter.string(fromByteCount: Int64(data.length), countStyle: .memory)
-                
                 let result = ImageLoadResult(
                     data: data as Data,
                     type: cgImage.utType.flatMap { UTType($0 as String) }

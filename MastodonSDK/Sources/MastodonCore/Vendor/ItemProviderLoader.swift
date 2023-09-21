@@ -88,8 +88,6 @@ public enum ItemProviderLoader {
                 CGImageDestinationAddImage(imageDestination, cgImage, destinationProperties)
                 CGImageDestinationFinalize(imageDestination)
                 
-                let dataSize = ByteCountFormatter.string(fromByteCount: Int64(data.length), countStyle: .memory)
-
                 let file = Mastodon.Query.MediaAttachment.jpeg(data as Data)
                 promise(.success(file))
             }

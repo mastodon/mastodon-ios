@@ -51,9 +51,8 @@ extension NotificationTableViewCell {
         )
         .dropFirst()
         .receive(on: DispatchQueue.main)
-        .sink { [weak tableView, weak self] _, _ in
+        .sink { [weak tableView] _, _ in
             guard let tableView = tableView else { return }
-            guard let self = self else { return }
 
             UIView.performWithoutAnimation {
                 tableView.beginUpdates()

@@ -59,14 +59,7 @@ extension InstanceService {
 //            .flatMap { [unowned self] response -> AnyPublisher<Void, Error> in
 //                return
 //            }
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                switch completion {
-                case .failure(_):
-                        break
-                case .finished:
-                        break
-                }
+            .sink { _ in
             } receiveValue: { [weak self] response in
                 guard let _ = self else { return }
                 // do nothing

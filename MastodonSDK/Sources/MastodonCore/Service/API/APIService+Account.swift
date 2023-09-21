@@ -36,7 +36,7 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            let result = Persistence.MastodonUser.createOrMerge(
+            _ = Persistence.MastodonUser.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.MastodonUser.PersistContext(
                     domain: domain,
@@ -68,7 +68,7 @@ extension APIService {
             
             let managedObjectContext = self.backgroundManagedObjectContext
             return managedObjectContext.performChanges {
-                let result = Persistence.MastodonUser.createOrMerge(
+                _ = Persistence.MastodonUser.createOrMerge(
                     in: managedObjectContext,
                     context: Persistence.MastodonUser.PersistContext(
                         domain: domain,
@@ -106,7 +106,7 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            let result = Persistence.MastodonUser.createOrMerge(
+            _ = Persistence.MastodonUser.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.MastodonUser.PersistContext(
                     domain: domain,

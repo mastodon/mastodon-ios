@@ -26,11 +26,6 @@ extension ReportStatusViewModel {
             self.viewModel = viewModel
         }
         
-        override func didEnter(from previousState: GKState?) {
-            super.didEnter(from: previousState)
-            let previousState = previousState as? ReportStatusViewModel.State
-        }
-        
         @MainActor
         func enter(state: State.Type) {
             stateMachine?.enter(state)

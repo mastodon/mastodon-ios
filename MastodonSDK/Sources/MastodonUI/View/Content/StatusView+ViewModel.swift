@@ -393,9 +393,7 @@ extension StatusView.ViewModel {
     
     private func bindMedia(statusView: StatusView) {
         $mediaViewConfigurations
-            .sink { [weak self] configurations in
-                guard let self = self else { return }
-                
+            .sink { configurations in
                 statusView.mediaGridContainerView.prepareForReuse()
                 
                 let maxSize = CGSize(

@@ -102,7 +102,6 @@ extension APIService {
                         networkDate: response.networkDate
                     )
                 )
-                let following = response.value.following
             case .failure:
                 // rollback
                 user.update(isFollowing: followContext.isFollowing, by: me)
