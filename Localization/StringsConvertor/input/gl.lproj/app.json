@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Publicacións coincidentes con \"%s\"",
+                "people": "Perfís coincidentes con \"%s\"",
+                "profile": "Ir a @%s@%s",
+                "url": "Abrir URL en Mastodon",
+                "hashtag": "Ir a #%s",
                 "empty_state": {
                     "no_results": "Sen resultados"
                 },
                 "recent_search": "Buscas recentes",
-                "clear_all": "Clear all",
+                "clear_all": "Limpar todo",
                 "clear": "Limpar"
             }
         },
