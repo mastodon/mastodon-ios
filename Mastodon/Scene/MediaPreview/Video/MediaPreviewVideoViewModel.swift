@@ -56,9 +56,7 @@ final class MediaPreviewVideoViewModel {
         // setup player state observer
         $playbackState
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                guard let self = self else { return }
-                
+            .sink { status in
                 switch status {
                 case .unknown, .buffering, .readyToPlay:
                     break
