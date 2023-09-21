@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-2-9.
 //
 
-import os.log
 import UIKit
 import AVKit
 import Combine
@@ -13,8 +12,6 @@ import AlamofireImage
 import MastodonCore
 
 final class MediaPreviewVideoViewModel {
-    
-    let logger = Logger(subsystem: "MediaPreviewVideoViewModel", category: "ViewModel")
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -61,7 +58,6 @@ final class MediaPreviewVideoViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 guard let self = self else { return }
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): player state: \(status.description)")
                 
                 switch status {
                 case .unknown, .buffering, .readyToPlay:

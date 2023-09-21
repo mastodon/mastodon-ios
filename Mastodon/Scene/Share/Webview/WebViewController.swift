@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import os.log
 import UIKit
 import WebKit
 import MastodonCore
@@ -28,8 +27,6 @@ final class WebViewController: UIViewController, NeedsDependency {
     }()
     
     deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
-        
         // cleanup cookie
         let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
         httpCookieStore.getAllCookies { cookies in

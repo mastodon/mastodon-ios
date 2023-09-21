@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-18.
 //
 
-import os.log
 import Foundation
 import Combine
 import MobileCoreServices
@@ -15,11 +14,6 @@ import MastodonSDK
 // load image with low memory usage
 // Refs: https://christianselig.com/2020/09/phpickerviewcontroller-efficiently/
 public enum ItemProviderLoader {
-    static let logger = Logger(subsystem: "ItemProviderLoader", category: "logic")
-}
-
-extension ItemProviderLoader {
-
     public static func loadImageData(from result: PHPickerResult) -> Future<Mastodon.Query.MediaAttachment?, Error> {
         loadImageData(from: result.itemProvider)
     }
@@ -95,7 +89,6 @@ extension ItemProviderLoader {
                 CGImageDestinationFinalize(imageDestination)
                 
                 let dataSize = ByteCountFormatter.string(fromByteCount: Int64(data.length), countStyle: .memory)
-                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): load image \(dataSize)")
 
                 let file = Mastodon.Query.MediaAttachment.jpeg(data as Data)
                 promise(.success(file))

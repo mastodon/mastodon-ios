@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021/3/5.
 //
 
-import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
@@ -16,10 +15,6 @@ extension MastodonPickServerViewModel {
         
         init(viewModel: MastodonPickServerViewModel) {
             self.viewModel = viewModel
-        }
-        
-        override func didEnter(from previousState: GKState?) {
-            os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", ((#file as NSString).lastPathComponent), #line, #function, self.debugDescription, previousState.debugDescription)
         }
     }
 }

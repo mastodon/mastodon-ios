@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-28.
 //
 
-import os.log
 import UIKit
 
 protocol ViewControllerAnimatedTransitioningDelegate: AnyObject {
@@ -29,11 +28,6 @@ class ViewControllerAnimatedTransitioning: NSObject {
         self.transitionDuration = 0.3
         super.init()
     }
-
-    deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
 }
 
 // MARK: - UIViewControllerAnimatedTransitioning

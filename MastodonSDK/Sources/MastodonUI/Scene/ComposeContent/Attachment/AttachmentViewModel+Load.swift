@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022/11/8.
 //
 
-import os.log
 import UIKit
 import AVKit
 import UniformTypeIdentifiers
@@ -137,7 +136,6 @@ extension AttachmentViewModel {
             let image = UIImage(cgImage: cgImage)
             return image
         } catch {
-            AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): thumbnail generate fail: \(error.localizedDescription)")
             return nil
         }
     }

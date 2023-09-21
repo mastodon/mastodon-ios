@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/2/5.
 //
 
-import os.log
 import func AVFoundation.AVMakeRect
 import UIKit
 import AVKit
@@ -18,8 +17,6 @@ import MastodonCore
 import MastodonUI
 
 final class HomeTimelineViewModel: NSObject {
-    
-    let logger = Logger(subsystem: "HomeTimelineViewModel", category: "ViewModel")
     
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
@@ -107,11 +104,6 @@ final class HomeTimelineViewModel: NSObject {
             }
             .store(in: &disposeBag)
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension HomeTimelineViewModel {
@@ -176,7 +168,6 @@ extension HomeTimelineViewModel {
             } catch {
                 assertionFailure(error.localizedDescription)
             }
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch more failure: \(error.localizedDescription)")
         }
         
         // reconfigure item again

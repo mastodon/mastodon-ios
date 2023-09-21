@@ -182,15 +182,6 @@
         }
       },
       {
-        "package": "swiftui-introspect",
-        "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
-        "state": {
-          "branch": null,
-          "revision": "121c146fe591b1320238d054ae35c81ffa45f45a",
-          "version": "0.12.0"
-        }
-      },
-      {
         "package": "TabBarPager",
         "repositoryURL": "https://github.com/TwidereProject/TabBarPager.git",
         "state": {

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-21.
 //
 
-import os.log
 import UIKit
 import CoreData
 import CoreDataStack
@@ -36,14 +35,8 @@ extension NotificationTimelineViewModel {
             .sink { [weak self] records in
                 guard let self = self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): incoming \(records.count) objects")
 
                 Task {
-                    let start = CACurrentMediaTime()
-                    defer {
-                        let end = CACurrentMediaTime()
-                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): cost \(end - start, format: .fixed(precision: 4))s to process \(records.count) feeds")
-                    }
                     let oldSnapshot = diffableDataSource.snapshot()
                     var newSnapshot: NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem> = {
                         let newItems = records.map { record in
@@ -88,16 +81,12 @@ extension NotificationTimelineViewModel {
 
                     let hasChanges = newSnapshot.itemIdentifiers != oldSnapshot.itemIdentifiers
                     if !hasChanges {
-                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot not changes")
                         self.didLoadLatest.send()
                         return
-                    } else {
-                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot has changes")
                     }
 
                     await self.updateSnapshotUsingReloadData(snapshot: newSnapshot)
                     self.didLoadLatest.send()
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): applied new snapshot")
                 }   // end Task
             }
             .store(in: &disposeBag)

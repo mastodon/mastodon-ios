@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2021-11-26.
 //
 
-import os.log
 import UIKit
 import UniformTypeIdentifiers
 import MastodonCore
@@ -143,8 +142,6 @@ extension AttachmentViewModel {
         
         let attachmentUploadResponse: Mastodon.Response.Content<Mastodon.Entity.Attachment> = try await {
             do {
-                AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [V2] upload attachment...")
-                
                 progress.addChild(query.progress, withPendingUnitCount: uploadTaskCount)
                 return try await context.apiService.uploadMedia(
                     domain: context.authContext.mastodonAuthenticationBox.domain,
@@ -158,8 +155,6 @@ extension AttachmentViewModel {
                       apiError.httpResponseStatus == .notFound
                 else { throw error }
                 
-                AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [V1] upload attachment...")
-
                 progress.addChild(query.progress, withPendingUnitCount: uploadTaskCount)
                 return try await context.apiService.uploadMedia(
                     domain: context.authContext.mastodonAuthenticationBox.domain,
@@ -183,8 +178,6 @@ extension AttachmentViewModel {
                     // make sure always count + 1
                     waitProcessRetryCount += checkUploadTaskCount
                 }
-                
-                AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): check attachment process status")
 
                 let attachmentStatusResponse = try await context.apiService.getMedia(
                     attachmentID: attachmentUploadResponse.value.id,
@@ -193,23 +186,17 @@ extension AttachmentViewModel {
                 progress.completedUnitCount += checkUploadTaskCount
                 
                 if let url = attachmentStatusResponse.value.url {
-                    AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): attachment process finish: \(url)")
-                    
                     // escape here
                     progress.completedUnitCount = progress.totalUnitCount
                     return .uploadedMastodonAttachment(attachmentStatusResponse.value)
                     
                 } else {
-                    AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): attachment processing. Retry \(waitProcessRetryCount)/\(waitProcessRetryLimit)")
                     try await Task.sleep(nanoseconds: 1_000_000_000 * 3)     // 3s
                 }
             } while waitProcessRetryCount < waitProcessRetryLimit
          
-            AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): attachment processing result discard due to exceed retry limit")
             throw AppError.badRequest
         } else {
-            AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): upload attachment success: \(attachmentUploadResponse.value.url ?? "<nil>")")
-
             return .uploadedMastodonAttachment(attachmentUploadResponse.value)
         }
     }

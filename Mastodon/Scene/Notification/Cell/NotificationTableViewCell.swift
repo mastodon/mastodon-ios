@@ -5,16 +5,12 @@
 //  Created by MainasuK on 2022-1-21.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonCore
 import MastodonUI
 
 final class NotificationTableViewCell: UITableViewCell {
-    
-    let logger = Logger(subsystem: "NotificationTableViewCell", category: "View")
-    
     weak var delegate: NotificationTableViewCellDelegate?
     var disposeBag = Set<AnyCancellable>()
     private var _disposeBag = Set<AnyCancellable>()

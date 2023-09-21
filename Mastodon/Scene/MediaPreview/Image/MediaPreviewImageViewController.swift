@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-28.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonAsset
@@ -32,7 +31,6 @@ final class MediaPreviewImageViewController: UIViewController {
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
 
     deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         previewImageView.imageView.af.cancelImageRequest()
     }
 }
@@ -85,7 +83,6 @@ extension MediaPreviewImageViewController {
 extension MediaPreviewImageViewController {
     
     @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.mediaPreviewImageViewController(self, tapGestureRecognizerDidTrigger: sender)
     }
     
@@ -131,7 +128,6 @@ extension MediaPreviewImageViewController: UIGestureRecognizerDelegate {
 // MARK: - UIContextMenuInteractionDelegate
 extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
         if #available(iOS 16.0, *) {
             if previewImageView.liveTextInteraction.hasInteractiveItem(at: previewImageView.imageView.convert(location, from: previewImageView)) {
@@ -147,7 +143,6 @@ extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
         let saveAction = UIAction(
             title: L10n.Common.Controls.Actions.savePhoto, image: UIImage(systemName: "square.and.arrow.down")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off
         ) { [weak self] _ in
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: save photo", ((#file as NSString).lastPathComponent), #line, #function)
             guard let self = self else { return }
             self.delegate?.mediaPreviewImageViewController(self, contextMenuActionPerform: .savePhoto)
         }
@@ -155,7 +150,6 @@ extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
         let copyAction = UIAction(
             title: L10n.Common.Controls.Actions.copyPhoto, image: UIImage(systemName: "doc.on.doc")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off
         ) { [weak self] _ in
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo", ((#file as NSString).lastPathComponent), #line, #function)
             guard let self = self else { return }
             self.delegate?.mediaPreviewImageViewController(self, contextMenuActionPerform: .copyPhoto)
         }
@@ -163,7 +157,6 @@ extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
         let shareAction = UIAction(
             title: L10n.Common.Controls.Actions.share, image: UIImage(systemName: "square.and.arrow.up")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off
         ) { [weak self] _ in
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: share", ((#file as NSString).lastPathComponent), #line, #function)
             guard let self = self else { return }
             self.delegate?.mediaPreviewImageViewController(self, contextMenuActionPerform: .share)
         }

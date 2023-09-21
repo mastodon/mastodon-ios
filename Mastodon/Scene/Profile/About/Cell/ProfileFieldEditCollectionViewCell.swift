@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-22.
 //
 
-import os.log
 import UIKit
 import Combine
 import MetaTextKit
@@ -127,7 +126,6 @@ extension ProfileFieldEditCollectionViewCell {
 
 extension ProfileFieldEditCollectionViewCell {
     @objc private func editButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.profileFieldEditCollectionViewCell(self, editButtonDidPressed: sender)
     }
 }

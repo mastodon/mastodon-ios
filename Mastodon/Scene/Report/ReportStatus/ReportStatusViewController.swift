@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-5-10.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -20,9 +19,6 @@ protocol ReportStatusViewControllerDelegate: AnyObject {
 }
 
 class ReportStatusViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {
-    
-    let logger = Logger(subsystem: "ReportStatusViewController", category: "ViewController")
-    
     var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()
 
@@ -58,9 +54,6 @@ class ReportStatusViewController: UIViewController, NeedsDependency, ReportViewC
         return navigationActionView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -136,16 +129,12 @@ extension ReportStatusViewController {
     }
 
     @objc private func skipButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         assert(viewModel.delegate != nil)
         viewModel.isSkip = true
         viewModel.delegate?.reportStatusViewController(self, skipButtonDidPressed: sender)
     }
 
     @objc private func nextButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         assert(viewModel.delegate != nil)
         viewModel.isSkip = false
         viewModel.delegate?.reportStatusViewController(self, nextButtonDidPressed: sender)

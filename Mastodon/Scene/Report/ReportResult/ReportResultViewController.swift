@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-2-8.
 //
 
-import os.log
 import UIKit
 import SwiftUI
 import Combine
@@ -38,9 +37,6 @@ final class ReportResultViewController: UIViewController, NeedsDependency, Repor
         return navigationActionView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 

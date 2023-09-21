@@ -5,14 +5,11 @@
 //  Created by MainasuK on 2022-5-20.
 //
 
-import os.log
 import UIKit
 import SwiftUI
-import Introspect
 import AVKit
 import MastodonAsset
 import MastodonLocalization
-import Introspect
 
 public struct AttachmentView: View {
     

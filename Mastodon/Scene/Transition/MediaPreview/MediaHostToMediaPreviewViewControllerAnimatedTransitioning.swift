@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-28.
 //
 
-import os.log
 import UIKit
 import func AVFoundation.AVMakeRect
 
@@ -307,7 +306,6 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
 
         // finish or cancel current transitioning
         let targetPosition = completionPosition()
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: target position: %s", ((#file as NSString).lastPathComponent), #line, #function, targetPosition == .end ? "end" : "start")
         isTransitionContextFinish = true
         animate(targetPosition)
 
@@ -330,7 +328,6 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             updateTransitionItemPosition(of: translation)
         case .ended, .cancelled:
             let targetPosition = completionPosition()
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: target position: %s", ((#file as NSString).lastPathComponent), #line, #function, targetPosition == .end ? "end" : "start")
             isTransitionContextFinish = true
             animate(targetPosition)
 

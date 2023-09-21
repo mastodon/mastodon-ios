@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-9-24.
 //
 
-import os.log
 import UIKit
 import MetaTextKit
 import FLAnimatedImage
@@ -14,8 +13,6 @@ import MastodonUI
 import MastodonAsset
 
 final class SidebarListContentView: UIView, UIContentView {
-    
-    let logger = Logger(subsystem: "SidebarListContentView", category: "UI")
     
     let imageView = UIImageView()
     let avatarButton: CircleAvatarButton = {
@@ -89,8 +86,6 @@ extension SidebarListContentView {
     }
     
     private func apply(configuration: ContentConfiguration) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         guard currentConfiguration != configuration else { return }
         currentConfiguration = configuration
         
@@ -157,17 +152,13 @@ extension SidebarListContentView {
     }
     
     struct ContentConfiguration: UIContentConfiguration, Hashable {
-        let logger = Logger(subsystem: "SidebarListContentView.ContentConfiguration", category: "ContentConfiguration")
-        
         var item: Item?
         
         func makeContentView() -> UIView & UIContentView {
             SidebarListContentView(configuration: self)
         }
         
-        func updated(for state: UIConfigurationState) -> ContentConfiguration {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-            
+        func updated(for state: UIConfigurationState) -> ContentConfiguration {            
             var updatedConfiguration = self
             
             if let state = state as? UICellConfigurationState {

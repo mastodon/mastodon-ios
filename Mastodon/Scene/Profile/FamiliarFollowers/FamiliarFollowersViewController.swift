@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-5-17.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonCore
@@ -15,8 +14,6 @@ import CoreDataStack
 
 final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
 
-    let logger = Logger(subsystem: "FamiliarFollowersViewController", category: "ViewController")
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -31,9 +28,6 @@ final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
         return tableView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 

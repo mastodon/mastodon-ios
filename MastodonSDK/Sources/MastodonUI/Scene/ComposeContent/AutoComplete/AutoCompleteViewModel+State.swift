@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-5-17.
 //
 
-import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
@@ -13,8 +12,6 @@ import MastodonCore
 
 extension AutoCompleteViewModel {
     class State: GKState {
-        
-        let logger = Logger(subsystem: "AutoCompleteViewModel.State", category: "StateMachine")
         
         let id = UUID()
 
@@ -29,16 +26,11 @@ extension AutoCompleteViewModel {
             
             let from = previousState.flatMap { String(describing: $0) } ?? "nil"
             let to = String(describing: self)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor
         func enter(state: State.Type) {
             stateMachine?.enter(state)
-        }
-        
-        deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }
@@ -161,7 +153,6 @@ extension AutoCompleteViewModel.State {
                 viewModel.autoCompleteItems.value = items
                 
             } catch {
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): auto-complete fail: \(error.localizedDescription)")
                 await enter(state: Fail.self)
             }
         }
@@ -204,9 +195,7 @@ extension AutoCompleteViewModel.State {
             super.didEnter(from: previousState)
             guard let _ = viewModel, let stateMachine = stateMachine else { return }
             
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: retry loading 3s later…", ((#file as NSString).lastPathComponent), #line, #function)
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: retry loading", ((#file as NSString).lastPathComponent), #line, #function)
                 stateMachine.enter(Loading.self)
             }
         }

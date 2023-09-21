@@ -36,7 +36,6 @@ let package = Package(
     dependencies: [
         .package(name: "ArkanaKeys", path: "../dependencies/ArkanaKeys"),
         .package(url: "https://github.com/will-lumley/FaviconFinder.git", from: "3.2.2"),
-        .package(url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.3"),
         .package(url: "https://github.com/MainasuK/UITextView-Placeholder.git", from: "1.4.1"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.1.0"),
@@ -118,7 +117,6 @@ let package = Package(
                 .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
                 .product(name: "FaviconFinder", package: "FaviconFinder"),
                 .product(name: "Nuke", package: "Nuke"),
-                .product(name: "Introspect", package: "SwiftUI-Introspect"),
                 .product(name: "UITextView+Placeholder", package: "UITextView-Placeholder"),
                 .product(name: "UIHostingConfigurationBackport", package: "UIHostingConfigurationBackport"),
                 .product(name: "TabBarPager", package: "TabBarPager"),

@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-17.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonUI
@@ -17,8 +16,6 @@ protocol ComposeStatusAttachmentCollectionViewCellDelegate: AnyObject {
 }
 
 final class ComposeStatusAttachmentCollectionViewCell: UICollectionViewCell {
-
-    let logger = Logger(subsystem: "ComposeStatusAttachmentCollectionViewCell", category: "UI")
 
     var disposeBag = Set<AnyCancellable>()
 
@@ -45,62 +42,21 @@ final class ComposeStatusAttachmentCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-//        attachmentContainerView.activityIndicatorView.startAnimating()
-//        attachmentContainerView.previewImageView.af.cancelImageRequest()
-//        attachmentContainerView.previewImageView.image = .placeholder(color: .systemFill)
-//        delegate = nil
-//        disposeBag.removeAll()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _init()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        _init()
     }
     
-    deinit {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-    }
-    
-}
-
-extension ComposeStatusAttachmentCollectionViewCell {
-    
-    private func _init() {
-        // selectionStyle = .none
-        
-//        attachmentContainerView.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.addSubview(attachmentContainerView)
-//        NSLayoutConstraint.activate([
-//            attachmentContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: ComposeStatusAttachmentCollectionViewCell.verticalMarginHeight),
-//            attachmentContainerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-//            attachmentContainerView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-//            contentView.bottomAnchor.constraint(equalTo: attachmentContainerView.bottomAnchor, constant: ComposeStatusAttachmentCollectionViewCell.verticalMarginHeight),
-//            attachmentContainerView.heightAnchor.constraint(equalToConstant: 205).priority(.defaultHigh),
-//        ])
-//
-//        removeButton.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.addSubview(removeButton)
-//        NSLayoutConstraint.activate([
-//            removeButton.centerXAnchor.constraint(equalTo: attachmentContainerView.trailingAnchor),
-//            removeButton.centerYAnchor.constraint(equalTo: attachmentContainerView.topAnchor),
-//            removeButton.widthAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.width).priority(.defaultHigh),
-//            removeButton.heightAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.height).priority(.defaultHigh),
-//        ])
-//
-//        removeButton.addTarget(self, action: #selector(ComposeStatusAttachmentCollectionViewCell.removeButtonDidPressed(_:)), for: .touchUpInside)
-    }
-
 }
 
 extension ComposeStatusAttachmentCollectionViewCell {
 
     @objc private func removeButtonDidPressed(_ sender: UIButton) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.composeStatusAttachmentCollectionViewCell(self, removeButtonDidPressed: sender)
     }
 

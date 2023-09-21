@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021/2/3.
 //
 
-import os.log
 import Foundation
 import Combine
 import CoreData
@@ -207,10 +206,6 @@ extension AuthenticationService {
 // MARK: - NSFetchedResultsControllerDelegate
 extension AuthenticationService: NSFetchedResultsControllerDelegate {
     
-    public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
     public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         guard controller === mastodonAuthenticationFetchedResultsController else {
             assertionFailure()

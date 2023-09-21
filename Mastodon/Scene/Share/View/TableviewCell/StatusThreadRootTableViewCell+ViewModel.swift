@@ -32,7 +32,6 @@ extension StatusThreadRootTableViewCell {
         if statusView.frame == .zero {
             // set status view width
             statusView.frame.size.width = tableView.frame.width - containerViewHorizontalMargin
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): did layout for new cell")
         }
 
         switch viewModel.value {

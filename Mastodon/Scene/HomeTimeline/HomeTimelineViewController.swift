@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/2/5.
 //
 
-import os.log
 import UIKit
 import AVKit
 import Combine
@@ -21,9 +20,7 @@ import MastodonUI
 import MastodonLocalization
 
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
-    let logger = Logger(subsystem: "HomeTimelineViewController", category: "UI")
-    
+
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -75,11 +72,6 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     }()
     
     let refreshControl = RefreshControl()
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension HomeTimelineViewController {
@@ -255,9 +247,6 @@ extension HomeTimelineViewController {
                 
                 let viewFrameInWindow = self.view.convert(self.view.frame, to: nil)
                 guard xPosition >= viewFrameInWindow.minX && xPosition <= viewFrameInWindow.maxX else { return }
-                        
-                // works on iOS 14
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): receive notification \(xPosition)")
 
                 // check if scroll to top
                 guard self.shouldRestoreScrollPosition() else { return }
@@ -459,7 +448,6 @@ extension HomeTimelineViewController {
             let cellFrameInView = tableView.convert(anchorCell.frame, to: view)
             return cellFrameInView.origin.y
         }()
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): save position record for \(anchorIndexPath) with offset: \(offset)")
         viewModel.scrollPositionRecord = HomeTimelineViewModel.ScrollPositionRecord(
             item: anchorItem,
             offset: offset,

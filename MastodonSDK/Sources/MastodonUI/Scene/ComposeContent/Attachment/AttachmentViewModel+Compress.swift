@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022/11/11.
 //
 
-import os.log
 import UIKit
 import AVKit
 import MastodonCore
@@ -92,7 +91,6 @@ extension AttachmentViewModel {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.videoCompressProgress = Double(progress)
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: export progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
                 }
             }, completionHandler: { result in
                 switch result {
@@ -104,7 +102,6 @@ extension AttachmentViewModel {
                     default:
                         if Task.isCancelled {
                             exporter.cancelExport()
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: cancel export", ((#file as NSString).lastPathComponent), #line, #function)
                         }
                         print("NextLevelSessionExporter, did not complete")
                     }
@@ -138,10 +135,8 @@ extension AttachmentViewModel {
                     guard let compressedJpegData = image.jpegData(compressionQuality: 0.8) else {
                         throw AttachmentError.invalidAttachmentType
                     }
-                    os_log("%{public}s[%{public}ld], %{public}s: compress png %.2fMiB -> jpeg %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024, Double(compressedJpegData.count) / 1024 / 1024)
                     imageData = compressedJpegData
                 } else {
-                    os_log("%{public}s[%{public}ld], %{public}s: png %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024)
                     break
                 }
             } else {
@@ -152,10 +147,8 @@ extension AttachmentViewModel {
                     guard let compressedJpegData = scaledImage.jpegData(compressionQuality: 0.8) else {
                         throw AttachmentError.invalidAttachmentType
                     }
-                    os_log("%{public}s[%{public}ld], %{public}s: compress jpeg %.2fMiB -> jpeg %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024, Double(compressedJpegData.count) / 1024 / 1024)
                     imageData = compressedJpegData
                 } else {
-                    os_log("%{public}s[%{public}ld], %{public}s: jpeg %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024)
                     break
                 }
             }

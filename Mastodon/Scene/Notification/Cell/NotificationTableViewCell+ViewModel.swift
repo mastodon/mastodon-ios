@@ -33,8 +33,7 @@ extension NotificationTableViewCell {
         if notificationView.frame == .zero {
             // set status view width
             notificationView.frame.size.width = tableView.frame.width - containerViewHorizontalMargin
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): did layout for new cell")
-            
+
             notificationView.statusView.frame.size.width = tableView.frame.width - containerViewHorizontalMargin
             notificationView.quoteStatusView.frame.size.width = tableView.frame.width - containerViewHorizontalMargin   // the as same width as statusView
         }
@@ -55,7 +54,6 @@ extension NotificationTableViewCell {
         .sink { [weak tableView, weak self] _, _ in
             guard let tableView = tableView else { return }
             guard let self = self else { return }
-            self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): tableView updates")
 
             UIView.performWithoutAnimation {
                 tableView.beginUpdates()

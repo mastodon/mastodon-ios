@@ -7,7 +7,6 @@
 
 import Combine
 import Foundation
-import os.log
 import WebKit
 
 final class MastodonResendEmailViewModel {
@@ -22,11 +21,6 @@ final class MastodonResendEmailViewModel {
         self.resendEmailURL = resendEmailURL
         self.email = email
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
-    }
-    
 }
 extension MastodonResendEmailViewModel {
     

@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-25.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -109,8 +108,6 @@ public final class SettingService {
             }
             .store(in: &disposeBag)
 
-        let logger = Logger(subsystem: "Notification", category: "SettingService")
-
         Publishers.CombineLatest3(
             notificationService.deviceToken,
             currentSetting.eraseToAnyPublisher(),
@@ -154,20 +151,7 @@ public final class SettingService {
             )
         }
         .debounce(for: .seconds(3), scheduler: DispatchQueue.main)      // limit subscribe request emit time interval
-        .sink(receiveValue: { [weak self] publisher in
-            guard let self = self else { return }
-            publisher
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Push Notification] subscribe failure: \(error.localizedDescription)")
-                    case .finished:
-                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Push Notification] subscribe success")
-                    }
-                } receiveValue: { response in
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): subscribe response: \(response.value.endpoint)")
-                }
-                .store(in: &self.disposeBag)
+        .sink(receiveValue: { _ in
         })
         .store(in: &disposeBag)
     }
@@ -197,7 +181,6 @@ extension SettingService {
         let themeName: ThemeName = .system
         if UserDefaults.shared.currentThemeNameRawValue != themeName.rawValue {
             ThemeService.shared.set(themeName: themeName)
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update theme style", ((#file as NSString).lastPathComponent), #line, #function)
         }
 
         // set avatar mode

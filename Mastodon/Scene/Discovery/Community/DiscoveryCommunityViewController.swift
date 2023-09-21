@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-29.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonCore
@@ -13,9 +12,6 @@ import MastodonUI
 
 // Local Timeline
 final class DiscoveryCommunityViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
-    let logger = Logger(subsystem: "DiscoveryCommunityViewController", category: "ViewController")
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     

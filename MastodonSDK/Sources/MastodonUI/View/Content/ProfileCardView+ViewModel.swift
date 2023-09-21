@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-14.
 //
 
-import os.log
 import UIKit
 import Combine
 import Meta
@@ -18,7 +17,6 @@ import MastodonCore
 
 extension ProfileCardView {
     public class ViewModel: ObservableObject {
-        let logger = Logger(subsystem: "ProfileCardView", category: "ViewModel")
         var disposeBag = Set<AnyCancellable>()
         
         public let relationshipViewModel = RelationshipViewModel()

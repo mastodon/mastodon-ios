@@ -9,12 +9,9 @@ import CoreDataStack
 import Foundation
 import GameplayKit
 import MastodonSDK
-import os.log
 
 extension NotificationTimelineViewModel {
     class LoadOldestState: GKState {
-        
-        let logger = Logger(subsystem: "NotificationTimelineViewModel.LoadOldestState", category: "StateMachine")
         
         let id = UUID()
 
@@ -29,16 +26,11 @@ extension NotificationTimelineViewModel {
             
             let from = previousState.flatMap { String(describing: $0) } ?? "nil"
             let to = String(describing: self)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor
         func enter(state: LoadOldestState.Type) {
             stateMachine?.enter(state)
-        }
-        
-        deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }
@@ -98,7 +90,6 @@ extension NotificationTimelineViewModel.LoadOldestState {
                     }
                     
                 } catch {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch statues failed: \(error.localizedDescription)")
                     await self.enter(state: Fail.self)
                 }
             }   // end Task

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 22/9/30.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -26,8 +25,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case composeStatus
         case editStatus(status: Status, statusSource: Mastodon.Entity.StatusSource)
     }
-    
-    let logger = Logger(subsystem: "ComposeContentViewModel", category: "ViewModel")
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -313,9 +310,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         bind()
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
 
 }
 
@@ -538,8 +532,6 @@ extension ComposeContentViewModel {
 
 extension ComposeContentViewModel {
     func createNewPollOptionIfCould() {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         guard pollOptions.count < maxPollOptionLimit else { return }
         let option = PollComposeItem.Option()
         option.shouldBecomeFirstResponder = true
@@ -798,7 +790,6 @@ extension ComposeContentViewModel: AttachmentViewModelDelegate {
                 return
             case .ready:
                 let count = self.attachmentViewModels.count
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): upload \(i)/\(count) attachment")
                 try await attachmentViewModel.upload()
                 return
             case .uploading:

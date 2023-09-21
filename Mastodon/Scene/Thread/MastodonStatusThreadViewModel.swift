@@ -6,7 +6,6 @@
 //  Copyright © 2021 Twidere. All rights reserved.
 //
 
-import os.log
 import Foundation
 import Combine
 import CoreData
@@ -72,9 +71,6 @@ final class MastodonStatusThreadViewModel {
         .store(in: &disposeBag)
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -94,7 +90,6 @@ extension MastodonStatusThreadViewModel {
                 dictionary[status.id] = status
             }
         } catch {
-            os_log("%{public}s[%{public}ld], %{public}s: fetch conversation fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
             return
         }
         
@@ -133,7 +128,6 @@ extension MastodonStatusThreadViewModel {
                 dictionary[status.id] = status
             }
         } catch {
-            os_log("%{public}s[%{public}ld], %{public}s: fetch conversation fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
             return
         }
         

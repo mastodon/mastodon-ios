@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-11.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -24,8 +23,6 @@ final class ComposeViewModel {
         case composeStatus
         case editStatus(status: Status, statusSource: Mastodon.Entity.StatusSource)
     }
-
-    let logger = Logger(subsystem: "ComposeViewModel", category: "ViewModel")
     
     var disposeBag = Set<AnyCancellable>()
 

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022/11/13.
 //
 
-import os.log
 import UIKit
 
 // MARK: - UITextViewDelegate
@@ -120,7 +119,6 @@ extension ComposeContentViewModel {
             self.autoCompleteInfo = nil
             return
         }
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompletion.toHighlightEndString), String(autoCompletion.toCursorString))
         
         // get layout text bounding rect
         var glyphRange = NSRange()

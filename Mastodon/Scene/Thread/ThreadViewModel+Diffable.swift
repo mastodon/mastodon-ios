@@ -116,10 +116,7 @@ extension ThreadViewModel {
                 
                 let hasChanges = newSnapshot.itemIdentifiers != oldSnapshot.itemIdentifiers
                 if !hasChanges && !self.hasPendingStatusEditReload {
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot not changes")
                     return
-                } else {
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot has changes")
                 }
                 
                 guard let difference = self.calculateReloadSnapshotDifference(
@@ -128,12 +125,9 @@ extension ThreadViewModel {
                     newSnapshot: newSnapshot
                 ) else {
                     await self.updateDataSource(snapshot: newSnapshot, animatingDifferences: false)
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): applied new snapshot without tweak")
                     return
                 }
                 
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Snapshot] oldSnapshot: \(oldSnapshot.itemIdentifiers.debugDescription)")
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Snapshot] newSnapshot: \(newSnapshot.itemIdentifiers.debugDescription)")
                 await self.updateSnapshotUsingReloadData(
                     tableView: tableView,
                     oldSnapshot: oldSnapshot,
@@ -206,7 +200,6 @@ extension ThreadViewModel {
             let additionalInset = round(tableView.contentSize.height - cell.frame.maxY)
             
             tableView.contentInset.bottom = max(0, bottomSpacing - additionalInset)
-            self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): content inset bottom: \(tableView.contentInset.bottom)")
         }
 
         // set scroll position
@@ -219,7 +212,6 @@ extension ThreadViewModel {
             }
             return offset
         }()
-        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): applied new snapshot")
     }
 }
 

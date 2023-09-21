@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-5-14.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonCore
@@ -103,7 +102,6 @@ extension AutoCompleteViewController {
 extension AutoCompleteViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard let diffableDataSource = viewModel.diffableDataSource else { return }

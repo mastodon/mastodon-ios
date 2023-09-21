@@ -13,8 +13,6 @@ import MastodonCommon
 
 public final class CoreDataStack {
     
-    static let logger = Logger(subsystem: "CoreDataStack", category: "DB")
-    
     private(set) var storeDescriptions: [NSPersistentStoreDescription]
     public let didFinishLoad = CurrentValueSubject<Bool, Never>(false)
     
@@ -77,7 +75,6 @@ public final class CoreDataStack {
                    (reason == "Can't find mapping model for migration" || reason == "Persistent store migration failed, missing mapping model.")  {
                     if let storeDescription = container.persistentStoreDescriptions.first, let url = storeDescription.url {
                         try? container.persistentStoreCoordinator.destroyPersistentStore(at: url, ofType: NSSQLiteStoreType, options: nil)
-                        os_log("%{public}s[%{public}ld], %{public}s: cannot migrate model. rebuild database…", ((#file as NSString).lastPathComponent), #line, #function)
                     } else {
                         assertionFailure()
                     }
@@ -90,9 +87,7 @@ public final class CoreDataStack {
             
             // it's looks like the remote notification only trigger when app enter and leave background
             container.viewContext.automaticallyMergesChangesFromParent = true
-            
-            os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, storeDescription.debugDescription)
-            
+
             callback()
             
             #if DEBUG
@@ -103,9 +98,7 @@ public final class CoreDataStack {
                 formatter.allowedUnits = [.useMB]
                 formatter.countStyle = .file
                 let size = formatter.string(fromByteCount: Int64(data.count))
-                CoreDataStack.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): Database size: \(size)")
             } catch {
-                CoreDataStack.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): Cannot get database size")
             }
             #endif
         })

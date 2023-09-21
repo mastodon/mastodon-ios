@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-9-13.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -172,11 +171,6 @@ extension AccountListViewModel {
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension AccountListViewModel: NSFetchedResultsControllerDelegate {
-    
-    public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
     public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         guard controller === mastodonAuthenticationFetchedResultsController else {
             assertionFailure()

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-2-7.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonUI
@@ -18,8 +17,6 @@ final class ReportStatusTableViewCell: UITableViewCell {
     static let statusViewLeadingSpacing: CGFloat = 22
     
     var disposeBag = Set<AnyCancellable>()
-    
-    let logger = Logger(subsystem: "ReportStatusTableViewCell", category: "View")
     
     let checkbox: UIImageView = {
         let imageView = UIImageView()

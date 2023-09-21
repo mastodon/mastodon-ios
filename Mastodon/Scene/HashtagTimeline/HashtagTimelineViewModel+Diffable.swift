@@ -5,7 +5,6 @@
 //  Created by BradGao on 2021/3/30.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -40,7 +39,6 @@ extension HashtagTimelineViewModel {
             .sink { [weak self] records in
                 guard let self = self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): incoming \(records.count) objects")
                 
                 var snapshot = NSDiffableDataSourceSnapshot<StatusSection, StatusItem>()
                 snapshot.appendSections([.main])

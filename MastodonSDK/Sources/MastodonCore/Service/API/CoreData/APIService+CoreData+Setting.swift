@@ -6,7 +6,6 @@
 //
 
 
-import os.log
 import Foundation
 import CoreData
 import CoreDataStack

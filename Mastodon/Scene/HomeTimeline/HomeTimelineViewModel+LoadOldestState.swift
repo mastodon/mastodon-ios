@@ -5,16 +5,13 @@
 //  Created by sxiaojian on 2021/2/5.
 //
 
-import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
 
 extension HomeTimelineViewModel {
     class LoadOldestState: GKState {
-        
-        let logger = Logger(subsystem: "HomeTimelineViewModel.LoadOldestState", category: "StateMachine")
-        
+
         let id = UUID()
         
         weak var viewModel: HomeTimelineViewModel?
@@ -28,16 +25,11 @@ extension HomeTimelineViewModel {
             
             let from = previousState.flatMap { String(describing: $0) } ?? "nil"
             let to = String(describing: self)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor
         func enter(state: LoadOldestState.Type) {
             stateMachine?.enter(state)
-        }
-        
-        deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }
@@ -97,7 +89,6 @@ extension HomeTimelineViewModel.LoadOldestState {
                     viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.finished)
                     
                 } catch {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch statues failed: \(error.localizedDescription)")
                     await self.enter(state: Fail.self)
                     viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.failure(error))
                 }

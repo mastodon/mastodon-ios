@@ -5,7 +5,6 @@
 //  Created by BradGao on 2021/3/30.
 //
 
-import os.log
 import UIKit
 import AVKit
 import Combine
@@ -18,8 +17,6 @@ import MastodonLocalization
 import MastodonSDK
 
 final class HashtagTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
-    let logger = Logger(subsystem: "HashtagTimelineViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -61,10 +58,6 @@ final class HashtagTimelineViewController: UIViewController, NeedsDependency, Me
     }()
     
     let refreshControl = RefreshControl()
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
-    }
 }
 
 extension HashtagTimelineViewController {
@@ -205,7 +198,6 @@ extension HashtagTimelineViewController {
     }
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         let hashtag = "#" + viewModel.hashtag
         UITextChecker.learnWord(hashtag)
         let composeViewModel = ComposeViewModel(

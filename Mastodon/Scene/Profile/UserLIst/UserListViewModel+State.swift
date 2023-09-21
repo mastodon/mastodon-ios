@@ -5,15 +5,12 @@
 //  Created by MainasuK on 2022-5-17.
 //
 
-import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
 
 extension UserListViewModel {
     class State: GKState {
-        
-        let logger = Logger(subsystem: "UserListViewModel.State", category: "StateMachine")
 
         let id = UUID()
         
@@ -28,16 +25,11 @@ extension UserListViewModel {
             
             let from = previousState.flatMap { String(describing: $0) } ?? "nil"
             let to = String(describing: self)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor
         func enter(state: State.Type) {
             stateMachine?.enter(state)
-        }
-        
-        deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }
@@ -91,9 +83,7 @@ extension UserListViewModel.State {
             super.didEnter(from: previousState)
             guard let _ = viewModel, let stateMachine = stateMachine else { return }
             
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: retry loading 3s later…", ((#file as NSString).lastPathComponent), #line, #function)
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: retry loading", ((#file as NSString).lastPathComponent), #line, #function)
                 stateMachine.enter(Loading.self)
             }
         }
@@ -156,8 +146,6 @@ extension UserListViewModel.State {
                         )
                     }
 
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch \(response.value.count) accounts")
-                    
                     var hasNewAppend = false
                     var userIDs = viewModel.userFetchedResultsController.userIDs
                     for user in response.value {
@@ -177,7 +165,6 @@ extension UserListViewModel.State {
                     viewModel.userFetchedResultsController.userIDs = userIDs
                     
                 } catch {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch following fail: \(error.localizedDescription)")
                     await enter(state: Fail.self)
                 }
             }   // end Task

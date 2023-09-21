@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021/2/2.
 //
 
-import os.log
 import CoreDataStack
 import Foundation
 import Combine
@@ -67,7 +66,6 @@ extension APIService {
             authorization: authorization
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
-            let logger = Logger(subsystem: "Account", category: "API")
             let account = response.value
             
             let managedObjectContext = self.backgroundManagedObjectContext
@@ -82,7 +80,6 @@ extension APIService {
                     )
                 )
                 let flag = result.isNewInsertion ? "+" : "-"
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): mastodon user [\(flag)](\(result.user.id))\(result.user.username) verifed")
             }
             .setFailureType(to: Error.self)
             .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Account> in
@@ -103,8 +100,6 @@ extension APIService {
         query: Mastodon.API.Account.UpdateCredentialQuery,
         authorization: Mastodon.API.OAuth.Authorization
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Account> {
-        let logger = Logger(subsystem: "Account", category: "API")
-        
         let response = try await Mastodon.API.Account.updateCredentials(
             session: session,
             domain: domain,
@@ -126,7 +121,6 @@ extension APIService {
             let flag = result.isNewInsertion ? "+" : "-"
             let userID = response.value.id
             let username = response.value.username
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): mastodon user [\(flag)](\(userID)\(username) verifed")
         }
 
         return response

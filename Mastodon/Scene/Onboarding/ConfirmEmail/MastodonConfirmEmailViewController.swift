@@ -7,7 +7,6 @@
 
 import Combine
 import MastodonSDK
-import os.log
 import UIKit
 import MastodonAsset
 import MastodonCore
@@ -105,7 +104,7 @@ extension MastodonConfirmEmailViewController {
                     .sink { completion in
                         switch completion {
                         case .failure(let error):
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: swap user access token swap fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                                break
                         case .finished:
                             // upload avatar and set display name in the background
                             Just(self.viewModel.userToken.accessToken)
@@ -120,9 +119,9 @@ extension MastodonConfirmEmailViewController {
                                 .sink { completion in
                                     switch completion {
                                     case .failure(let error):
-                                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                                    case .finished:
-                                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name success", ((#file as NSString).lastPathComponent), #line, #function)
+                                            break
+                                        case .finished:
+                                            break
                                     }
                                 } receiveValue: { _ in
                                     // do nothing
@@ -130,7 +129,6 @@ extension MastodonConfirmEmailViewController {
                                 .store(in: &self.context.disposeBag)    // execute in the background
                         }   // end switch
                     } receiveValue: { response in
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: user %s's email confirmed", ((#file as NSString).lastPathComponent), #line, #function, response.value.username)
                         self.coordinator.setup()
                         // self.dismiss(animated: true, completion: nil)
                     }

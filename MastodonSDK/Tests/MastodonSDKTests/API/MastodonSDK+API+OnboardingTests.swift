@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-2-18.
 //
 
-import os.log
 import XCTest
 import Combine
 @testable import MastodonSDK
@@ -13,8 +12,8 @@ import Combine
 extension MastodonSDKTests {
     
     func testServers() throws {
-        try _testServers(query: Mastodon.API.Onboarding.ServersQuery(language: nil, category: nil))
-        try _testServers(query: Mastodon.API.Onboarding.ServersQuery(language: "en", category: "tech"))
+        try _testServers(query: Mastodon.API.Onboarding.ServersQuery(language: nil, category: nil, registrations: nil))
+        try _testServers(query: Mastodon.API.Onboarding.ServersQuery(language: "en", category: "tech", registrations: nil))
     }
     
     func _testServers(query: Mastodon.API.Onboarding.ServersQuery) throws {

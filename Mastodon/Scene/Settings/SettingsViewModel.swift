@@ -11,7 +11,6 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
-import os.log
 import AuthenticationServices
 import MastodonCore
 
@@ -63,12 +62,10 @@ class SettingsViewModel {
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 switch completion {
-                case .failure(let error):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch instance fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                case .failure(_):
                     self.currentInstance.value = nil
                 case .finished:
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch instance success", ((#file as NSString).lastPathComponent), #line, #function)
-
+                    break
                 }
             } receiveValue: { [weak self] response in
                 guard let self = self else { return }
@@ -76,11 +73,6 @@ class SettingsViewModel {
             }
             .store(in: &disposeBag)
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension SettingsViewModel {

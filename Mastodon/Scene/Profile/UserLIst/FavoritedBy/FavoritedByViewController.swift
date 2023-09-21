@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-5-17.
 //
 
-import os.log
 import UIKit
 import GameplayKit
 import Combine
@@ -15,9 +14,6 @@ import MastodonUI
 import CoreDataStack
 
 final class FavoritedByViewController: UIViewController, NeedsDependency {
-
-    let logger = Logger(subsystem: "FavoritedByViewController", category: "ViewController")
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -32,9 +28,6 @@ final class FavoritedByViewController: UIViewController, NeedsDependency {
         return tableView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -42,13 +35,6 @@ extension FavoritedByViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        #if DEBUG
-        switch viewModel.kind {
-        case .favoritedBy:  break
-        default:            assertionFailure()
-        }
-        #endif
         
         title = L10n.Scene.FavoritedBy.title
         

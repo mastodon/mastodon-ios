@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-25.
 //
 
-import os.log
 import Foundation
 import CryptoKit
 
@@ -13,7 +12,6 @@ extension NotificationService {
     
     static func decrypt(payload: Data, salt: Data, auth: Data, privateKey: P256.KeyAgreement.PrivateKey, publicKey: P256.KeyAgreement.PublicKey) -> Data? {
         guard let sharedSecret = try? privateKey.sharedSecretFromKeyAgreement(with: publicKey) else {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: failed to craete shared secret", ((#file as NSString).lastPathComponent), #line, #function)
             return nil
         }
         
@@ -28,7 +26,6 @@ extension NotificationService {
         let nonceData = nonce.withUnsafeBytes(Array.init)
 
         guard let sealedBox = try? AES.GCM.SealedBox(combined: nonceData + payload) else {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: failed to create sealedBox", ((#file as NSString).lastPathComponent), #line, #function)
             return nil
         }
         
@@ -36,10 +33,8 @@ extension NotificationService {
         do {
             _plaintext = try AES.GCM.open(sealedBox, using: key)
         } catch {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sealedBox open fail %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
         }
         guard let plaintext = _plaintext else {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: failed to open sealedBox", ((#file as NSString).lastPathComponent), #line, #function)
             return nil
         }
         

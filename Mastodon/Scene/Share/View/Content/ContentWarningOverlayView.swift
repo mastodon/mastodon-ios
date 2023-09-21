@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/3/11.
 //
 
-import os.log
 import Foundation
 import Combine
 import UIKit
@@ -200,7 +199,6 @@ extension ContentWarningOverlayView {
 
 extension ContentWarningOverlayView {
     @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.contentWarningOverlayViewDidPressed(self)
     }
 }

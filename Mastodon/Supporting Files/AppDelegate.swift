@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021/1/22.
 //
 
-import os.log
 import UIKit
 import UserNotifications
 import AVFoundation
@@ -78,15 +77,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
         guard let pushNotification = AppDelegate.mastodonPushNotification(from: notification) else {
             completionHandler([])
             return
         }
         
         let notificationID = String(pushNotification.notificationID)
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
-        
+
         let accessToken = pushNotification.accessToken
         UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
         appContext.notificationService.applicationIconBadgeNeedsUpdate.send()
@@ -109,15 +106,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
-        
+
         guard let pushNotification = AppDelegate.mastodonPushNotification(from: response.notification) else {
             completionHandler()
             return
         }
         
         let notificationID = String(pushNotification.notificationID)
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
         appContext.notificationService.handle(pushNotification: pushNotification)
         appContext.notificationService.requestRevealNotificationPublisher.send(pushNotification)
         completionHandler()

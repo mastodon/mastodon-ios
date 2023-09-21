@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-11-2.
 //
 
-import os.log
 import UIKit
 import GameplayKit
 import Combine
@@ -15,8 +14,6 @@ import MastodonUI
 import CoreDataStack
 
 final class FollowingListViewController: UIViewController, NeedsDependency {
-
-    let logger = Logger(subsystem: "FollowingListViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -35,9 +32,6 @@ final class FollowingListViewController: UIViewController, NeedsDependency {
         return tableView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-10.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -25,8 +24,6 @@ extension StatusView {
         var observations = Set<NSKeyValueObservation>()
         public var objects = Set<NSManagedObject>()
 
-        let logger = Logger(subsystem: "StatusView", category: "ViewModel")
-        
         public var context: AppContext?
         public var authContext: AuthContext?
         public var originalStatus: Status?

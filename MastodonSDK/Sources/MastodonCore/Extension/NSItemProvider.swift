@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2021/11/19.
 //
 
-import os.log
 import Foundation
 import UniformTypeIdentifiers
 import MobileCoreServices
@@ -15,8 +14,6 @@ import PhotosUI
 // Refs: https://christianselig.com/2020/09/phpickerviewcontroller-efficiently/
 
 extension NSItemProvider {
-    
-    static let logger = Logger(subsystem: "NSItemProvider", category: "Logic")
     
     public struct ImageLoadResult {
         public let data: Data
@@ -85,7 +82,6 @@ extension NSItemProvider {
                 CGImageDestinationFinalize(imageDestination)
                 
                 let dataSize = ByteCountFormatter.string(fromByteCount: Int64(data.length), countStyle: .memory)
-                NSItemProvider.logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): load image \(dataSize)")
                 
                 let result = ImageLoadResult(
                     data: data as Data,

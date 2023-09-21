@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-4.
 //
 
-import os.log
 import UIKit
 import Tabman
 import MastodonAsset

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022/10/28.
 //
 
-import os.log
 import UIKit
 import MetaTextKit
 import TwitterMeta
