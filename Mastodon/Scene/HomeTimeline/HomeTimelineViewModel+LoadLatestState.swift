@@ -29,7 +29,6 @@ extension HomeTimelineViewModel {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            let previousState = previousState as? HomeTimelineViewModel.LoadLatestState
             viewModel?.loadLatestStateMachinePublisher.send(self)
         }
         
@@ -90,12 +89,10 @@ extension HomeTimelineViewModel.LoadLatestState {
         managedObjectContext.parent = parentManagedObjectContext
 
         Task {
-            let start = CACurrentMediaTime()
             let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
                 guard let feed = record.object(in: managedObjectContext) else { return nil }
                 return feed.status?.id
             }
-            let end = CACurrentMediaTime()
 
             do {
                 let response = try await viewModel.context.apiService.homeTimeline(

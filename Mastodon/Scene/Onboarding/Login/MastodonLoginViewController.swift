@@ -228,15 +228,10 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
     @objc func keyboardWillShowNotification(_ notification: Notification) {
         
         guard let userInfo = notification.userInfo,
-              let keyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
               let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
         else { return }
         
         // inspired by https://stackoverflow.com/a/30245044
-        let keyboardFrame = keyboardFrameValue.cgRectValue
-        
-        let keyboardOrigin = view.convert(keyboardFrame.origin, from: nil)
-        
         UIView.animate(withDuration: duration.doubleValue, delay: 0, options: .curveEaseInOut) {
             self.view.layoutIfNeeded()
         }

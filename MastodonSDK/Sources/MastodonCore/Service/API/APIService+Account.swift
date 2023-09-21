@@ -45,8 +45,6 @@ extension APIService {
                     networkDate: response.networkDate
                 )
             )
-            
-            let flag = result.isNewInsertion ? "+" : "-"
         }
         
         return response
@@ -79,7 +77,6 @@ extension APIService {
                         networkDate: response.networkDate
                     )
                 )
-                let flag = result.isNewInsertion ? "+" : "-"
             }
             .setFailureType(to: Error.self)
             .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Account> in
@@ -118,9 +115,6 @@ extension APIService {
                     networkDate: response.networkDate
                 )
             )
-            let flag = result.isNewInsertion ? "+" : "-"
-            let userID = response.value.id
-            let username = response.value.username
         }
 
         return response

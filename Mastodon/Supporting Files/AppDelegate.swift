@@ -82,8 +82,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             return
         }
         
-        let notificationID = String(pushNotification.notificationID)
-
         let accessToken = pushNotification.accessToken
         UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
         appContext.notificationService.applicationIconBadgeNeedsUpdate.send()
@@ -112,7 +110,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             return
         }
         
-        let notificationID = String(pushNotification.notificationID)
         appContext.notificationService.handle(pushNotification: pushNotification)
         appContext.notificationService.requestRevealNotificationPublisher.send(pushNotification)
         completionHandler()

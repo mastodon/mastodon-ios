@@ -782,7 +782,7 @@ extension ComposeContentViewModel: AttachmentViewModelDelegate {
     
     @MainActor
     func uploadMediaInQueue() async throws {
-        for (i, attachmentViewModel) in attachmentViewModels.enumerated() {
+        for (_, attachmentViewModel) in attachmentViewModels.enumerated() {
             switch attachmentViewModel.uploadState {
             case .none:
                 return

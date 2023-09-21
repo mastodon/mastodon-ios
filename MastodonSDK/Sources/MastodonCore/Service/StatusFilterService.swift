@@ -75,7 +75,7 @@ public final class StatusFilterService {
             switch result {
             case .success(let response):
                 self.activeFilters = response.value
-            case .failure(let error):
+            case .failure(_):
                 break
             }
         }

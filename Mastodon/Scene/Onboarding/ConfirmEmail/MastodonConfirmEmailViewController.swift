@@ -103,7 +103,7 @@ extension MastodonConfirmEmailViewController {
                     .receive(on: DispatchQueue.main)
                     .sink { completion in
                         switch completion {
-                        case .failure(let error):
+                        case .failure(_):
                                 break
                         case .finished:
                             // upload avatar and set display name in the background
@@ -118,7 +118,7 @@ extension MastodonConfirmEmailViewController {
                                 .retry(3)
                                 .sink { completion in
                                     switch completion {
-                                    case .failure(let error):
+                                    case .failure(_):
                                             break
                                         case .finished:
                                             break

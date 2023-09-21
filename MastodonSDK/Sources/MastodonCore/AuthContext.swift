@@ -37,7 +37,7 @@ extension AuthContext {
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 switch completion {
-                case .failure(let error):
+                case .failure(_):
                         break
                 case .finished:
                         break

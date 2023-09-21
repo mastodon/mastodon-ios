@@ -30,7 +30,7 @@ final class RemoteProfileViewModel: ProfileViewModel {
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
-                case .failure(let error):
+                case .failure(_):
                     // TODO: handle error
                     break
                 case .finished:
@@ -106,7 +106,7 @@ final class RemoteProfileViewModel: ProfileViewModel {
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
-                case .failure(let error):
+                case .failure(_):
                     // TODO: handle error
                     break
                 case .finished:

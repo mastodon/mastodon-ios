@@ -20,13 +20,6 @@ extension UserListViewModel {
             self.viewModel = viewModel
         }
         
-        override func didEnter(from previousState: GKState?) {
-            super.didEnter(from: previousState)
-            
-            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
-            let to = String(describing: self)
-        }
-        
         @MainActor
         func enter(state: State.Type) {
             stateMachine?.enter(state)
