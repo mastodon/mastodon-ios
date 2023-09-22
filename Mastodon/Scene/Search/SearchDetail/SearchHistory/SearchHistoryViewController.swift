@@ -36,8 +36,7 @@ extension SearchHistoryViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme)
-
+        view.backgroundColor = .systemGroupedBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         collectionView.pinToParent()
@@ -47,12 +46,6 @@ extension SearchHistoryViewController {
             collectionView: collectionView,
             searchHistorySectionHeaderCollectionReusableViewDelegate: self
         )
-    }
-}
-
-extension SearchHistoryViewController {
-    private func setupBackgroundColor(theme: SystemTheme) {
-        view.backgroundColor = theme.systemGroupedBackgroundColor
     }
 }
 

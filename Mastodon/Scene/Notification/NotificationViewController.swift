@@ -47,7 +47,7 @@ extension NotificationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
         
         setupSegmentedControl(scopes: viewModel.scopes)
         pageSegmentedControl.translatesAutoresizingMaskIntoConstraints = false

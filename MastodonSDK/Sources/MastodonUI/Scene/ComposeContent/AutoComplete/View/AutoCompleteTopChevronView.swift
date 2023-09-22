@@ -20,12 +20,8 @@ final class AutoCompleteTopChevronView: UIView {
     private let maskLayer = CAShapeLayer()
         
     var chevronMinX: CGFloat = 0
-    var topViewBackgroundColor = ThemeService.shared.currentTheme.systemElevatedBackgroundColor {
-        didSet { setNeedsLayout() }
-    }
-    var bottomViewBackgroundColor = ThemeService.shared.currentTheme.systemBackgroundColor {
-        didSet { setNeedsLayout() }
-    }
+    var topViewBackgroundColor = SystemTheme.systemElevatedBackgroundColor
+    var bottomViewBackgroundColor = UIColor.systemBackground
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,8 +65,6 @@ extension AutoCompleteTopChevronView {
         
         shadowLayer.fillColor = topViewBackgroundColor.cgColor
         shadowView.layer.addSublayer(shadowLayer)
-
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme)
     }
     
     override func layoutSubviews() {
@@ -116,13 +110,6 @@ extension AutoCompleteTopChevronView {
 }
 
 extension AutoCompleteTopChevronView {
-    private func setupBackgroundColor(theme: SystemTheme) {
-        topViewBackgroundColor = theme.systemElevatedBackgroundColor
-        bottomViewBackgroundColor = theme.systemBackgroundColor
-    }
-}
-
-extension AutoCompleteTopChevronView {
     func invertMask(in rect: CGRect) -> CAShapeLayer {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: bounds.maxY))
@@ -161,7 +148,7 @@ struct AutoCompleteTopChevronView_Previews: PreviewProvider {
                 view.chevronMinX = 10
                 return view
             }
-            .background(Color(ThemeService.shared.currentTheme.systemElevatedBackgroundColor))
+            .background(Color(SystemTheme.systemElevatedBackgroundColor))
             .padding(20)
             .previewLayout(.fixed(width: 375 + 40, height: 100 + 40))
             UIViewPreview(width: 375) {
@@ -174,7 +161,7 @@ struct AutoCompleteTopChevronView_Previews: PreviewProvider {
                 view.chevronMinX = 10
                 return view
             }
-            .background(Color(ThemeService.shared.currentTheme.systemElevatedBackgroundColor))
+            .background(Color(SystemTheme.systemElevatedBackgroundColor))
             .preferredColorScheme(.dark)
             .padding(20)
             .previewLayout(.fixed(width: 375 + 40, height: 100 + 40))

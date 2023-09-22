@@ -80,7 +80,7 @@ extension DiscoveryViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupAppearance(theme: ThemeService.shared.currentTheme)
+        setupAppearance()
         
         dataSource = viewModel
         addBar(
@@ -109,9 +109,9 @@ extension DiscoveryViewController {
 
 extension DiscoveryViewController {
     
-    private func setupAppearance(theme: SystemTheme) {
-        view.backgroundColor = theme.secondarySystemBackgroundColor
-        buttonBarBackgroundView.backgroundColor = theme.systemBackgroundColor
+    private func setupAppearance() {
+        view.backgroundColor = .secondarySystemBackground
+        buttonBarBackgroundView.backgroundColor = .systemBackground
     }
     
 }

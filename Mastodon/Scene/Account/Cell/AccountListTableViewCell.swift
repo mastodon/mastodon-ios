@@ -50,7 +50,7 @@ final class AccountListTableViewCell: UITableViewCell {
 extension AccountListTableViewCell {
 
     private func _init() {
-        backgroundColor = ThemeService.shared.currentTheme.secondarySystemGroupedBackgroundColor
+        backgroundColor = .secondarySystemGroupedBackground
         
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarButton)

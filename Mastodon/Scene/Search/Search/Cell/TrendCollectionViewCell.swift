@@ -48,9 +48,9 @@ extension TrendCollectionViewCell {
         var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
         backgroundConfiguration.backgroundColorTransformer = .init { _ in
             if state.isHighlighted || state.isSelected {
-                return ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor
+                return SystemTheme.tableViewCellSelectionBackgroundColor
             }
-            return ThemeService.shared.currentTheme.secondarySystemGroupedBackgroundColor
+            return .secondarySystemGroupedBackground
         }
         self.backgroundConfiguration = backgroundConfiguration
     }

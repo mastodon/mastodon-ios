@@ -9,27 +9,13 @@ import UIKit
 import MastodonCore
 
 extension UIView {
-    
-    static let separatorColor: UIColor = {
-        UIColor(dynamicProvider: { collection in
-            switch collection.userInterfaceStyle {
-            case .dark:
-                return ThemeService.shared.currentTheme.separator
-            default:
-                return .separator
-            }
-        })
-    }()
-    
-    
     public static var separatorLine: UIView {
         let line = UIView()
-        line.backgroundColor = UIView.separatorColor
+        line.backgroundColor = .separator
         return line
     }
     
     public static func separatorLineHeight(of view: UIView) -> CGFloat {
         return 1.0 / view.traitCollection.displayScale
     }
-    
 }

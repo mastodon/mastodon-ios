@@ -92,7 +92,7 @@ extension SidebarListContentView {
         guard let item = configuration.item else { return }
         
         // configure state
-        let tintColor = item.isHighlighted ? ThemeService.tintColor.withAlphaComponent(0.5) : ThemeService.tintColor
+        let tintColor = item.isHighlighted ? SystemTheme.tintColor.withAlphaComponent(0.5) : SystemTheme.tintColor
         imageView.tintColor = tintColor
         avatarButton.tintColor = tintColor
         

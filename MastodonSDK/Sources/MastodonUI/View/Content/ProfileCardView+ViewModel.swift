@@ -47,14 +47,14 @@ extension ProfileCardView {
         @Published public var familiarFollowers: Mastodon.Entity.FamiliarFollowers?
         
         init() {
-            backgroundColor = ThemeService.shared.currentTheme.systemBackgroundColor
+            backgroundColor = .systemBackground
             $userInterfaceStyle
             .sink { [weak self] userInterfaceStyle in
                 guard let self = self else { return }
                 guard let userInterfaceStyle = userInterfaceStyle else { return }
                 switch userInterfaceStyle {
                 case .dark:
-                    self.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+                    self.backgroundColor = .secondarySystemBackground
                 case .light, .unspecified:
                     self.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
                 @unknown default:

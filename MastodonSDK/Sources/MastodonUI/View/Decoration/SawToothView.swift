@@ -26,12 +26,7 @@ public final class SawToothView: UIView {
     }
 
     func _init() {
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme)
-    }
-
-    private func setupBackgroundColor(theme: SystemTheme) {
-        backgroundColor = theme.secondarySystemBackgroundColor
-        setNeedsDisplay()
+        backgroundColor = .secondarySystemBackground
     }
 
     public override func draw(_ rect: CGRect) {
@@ -46,7 +41,7 @@ public final class SawToothView: UIView {
         }
         bezierPath.addLine(to: CGPoint(x: 0, y: bottomY))
         bezierPath.close()
-        ThemeService.shared.currentTheme.tableViewCellBackgroundColor.setFill()
+        SystemTheme.tableViewCellBackgroundColor.setFill()
         bezierPath.fill()
         bezierPath.lineWidth = 0
         bezierPath.stroke()

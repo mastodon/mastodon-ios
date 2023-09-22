@@ -53,7 +53,7 @@ extension DiscoveryIntroBannerView {
     private func _init() {
         preservesSuperviewLayoutMargins = true
         
-        setupAppearance(theme: ThemeService.shared.currentTheme)
+        backgroundColor = .systemBackground
         
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(closeButton)
@@ -81,12 +81,4 @@ extension DiscoveryIntroBannerView {
     @objc private func closeButtonDidPressed(_ sender: UIButton) {
         delegate?.discoveryIntroBannerView(self, closeButtonDidPressed: sender)
     }
-}
-
-extension DiscoveryIntroBannerView {
-    
-    private func setupAppearance(theme: SystemTheme) {
-        backgroundColor = theme.systemBackgroundColor
-    }
-    
 }

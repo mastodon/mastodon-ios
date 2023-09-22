@@ -42,7 +42,7 @@ extension FollowerListViewController {
         
         title = L10n.Scene.Follower.title
         
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

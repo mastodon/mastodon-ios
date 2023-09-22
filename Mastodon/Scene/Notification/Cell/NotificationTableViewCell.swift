@@ -64,7 +64,7 @@ extension NotificationTableViewCell {
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
         ])
         
-        notificationView.quoteBackgroundView.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        notificationView.quoteBackgroundView.backgroundColor = .secondarySystemBackground
         
         notificationView.delegate = self
     }

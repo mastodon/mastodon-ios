@@ -91,7 +91,7 @@ extension ProfileHeaderViewController {
         
         view.setContentHuggingPriority(.required - 1, for: .vertical)
 
-        view.backgroundColor = ThemeService.shared.currentTheme.systemBackgroundColor
+        view.backgroundColor = .systemBackground
 
 //        profileHeaderView.preservesSuperviewLayoutMargins = true
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false

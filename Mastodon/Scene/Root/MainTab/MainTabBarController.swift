@@ -167,7 +167,7 @@ extension MainTabBarController {
 
         delegate = self
 
-        view.backgroundColor = ThemeService.shared.currentTheme.systemBackgroundColor
+        view.backgroundColor = .systemBackground
 
         // seealso: `ThemeService.apply(theme:)`
         let tabs = Tab.allCases

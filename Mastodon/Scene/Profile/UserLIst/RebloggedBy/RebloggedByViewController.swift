@@ -44,7 +44,7 @@ extension RebloggedByViewController {
         
         title = L10n.Scene.RebloggedBy.title
         
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

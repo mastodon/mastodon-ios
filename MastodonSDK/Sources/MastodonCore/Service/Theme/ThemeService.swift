@@ -11,20 +11,14 @@ import MastodonCommon
 
 // ref: https://zamzam.io/protocol-oriented-themes-for-ios-apps/
 public final class ThemeService {
-    
-    public static let tintColor: UIColor = .label
-
     // MARK: - Singleton
     public static let shared = ThemeService()
-    public let currentTheme = SystemTheme()
-}
 
-extension ThemeService {
-    public func apply(theme: SystemTheme) {
+    public func apply() {
         // set navigation bar appearance
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = theme.navigationBarBackgroundColor
+        appearance.backgroundColor = SystemTheme.navigationBarBackgroundColor
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
@@ -39,30 +33,30 @@ extension ThemeService {
         tabBarItemAppearance.focused.titleTextAttributes = [.foregroundColor: UIColor.clear]
         tabBarItemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
         tabBarItemAppearance.disabled.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        tabBarItemAppearance.selected.iconColor = theme.tabBarItemSelectedIconColor
-        tabBarItemAppearance.focused.iconColor = theme.tabBarItemFocusedIconColor
-        tabBarItemAppearance.normal.iconColor = theme.tabBarItemNormalIconColor
-        tabBarItemAppearance.disabled.iconColor = theme.tabBarItemDisabledIconColor
+        tabBarItemAppearance.selected.iconColor = SystemTheme.tabBarItemSelectedIconColor
+        tabBarItemAppearance.focused.iconColor = SystemTheme.tabBarItemFocusedIconColor
+        tabBarItemAppearance.normal.iconColor = SystemTheme.tabBarItemNormalIconColor
+        tabBarItemAppearance.disabled.iconColor = SystemTheme.tabBarItemDisabledIconColor
         tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
         tabBarAppearance.inlineLayoutAppearance = tabBarItemAppearance
         tabBarAppearance.compactInlineLayoutAppearance = tabBarItemAppearance
 
-        tabBarAppearance.backgroundColor = theme.tabBarBackgroundColor
+        tabBarAppearance.backgroundColor = SystemTheme.tabBarBackgroundColor
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        UITabBar.appearance().barTintColor = theme.tabBarBackgroundColor
+        UITabBar.appearance().barTintColor = SystemTheme.tabBarBackgroundColor
 
         // set table view cell appearance
-        UITableView.appearance().backgroundColor = theme.tableViewBackgroundColor
-        UITableViewCell.appearance().backgroundColor = theme.tableViewCellBackgroundColor
+        UITableView.appearance().backgroundColor = SystemTheme.tableViewBackgroundColor
+        UITableViewCell.appearance().backgroundColor = SystemTheme.tableViewCellBackgroundColor
         // FIXME: refactor
-        // UITableViewCell.appearance(whenContainedInInstancesOf: [SettingsViewController.self]).backgroundColor = theme.secondarySystemGroupedBackgroundColor
-        // UITableViewCell.appearance().selectionColor = theme.tableViewCellSelectionBackgroundColor
+        // UITableViewCell.appearance(whenContainedInInstancesOf: [SettingsViewController.self]).backgroundColor = .secondarySystemGroupedBackground
+        // UITableViewCell.appearance().selectionColor = SystemTheme.tableViewCellSelectionBackgroundColor
 
         // set search bar appearance
-        UISearchBar.appearance().tintColor = ThemeService.tintColor
-        UISearchBar.appearance().barTintColor = theme.navigationBarBackgroundColor
-        let cancelButtonAttributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: ThemeService.tintColor]
+        UISearchBar.appearance().tintColor = SystemTheme.tintColor
+        UISearchBar.appearance().barTintColor = SystemTheme.navigationBarBackgroundColor
+        let cancelButtonAttributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: SystemTheme.tintColor]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes, for: .normal)
     }
 }

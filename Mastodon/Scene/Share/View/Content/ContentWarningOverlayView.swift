@@ -144,11 +144,7 @@ extension ContentWarningOverlayView {
         addGestureRecognizer(tapGestureRecognizer)
         
         configure(style: .media)
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme)
-    }
-
-    private func setupBackgroundColor(theme: SystemTheme) {
-        contentOverlayView.backgroundColor = theme.contentWarningOverlayBackgroundColor
+        contentOverlayView.backgroundColor = SystemTheme.contentWarningOverlayBackgroundColor
     }
 }
 

@@ -48,7 +48,7 @@ final class AddAccountTableViewCell: UITableViewCell {
 extension AddAccountTableViewCell {
 
     private func _init() {
-        backgroundColor = ThemeService.shared.currentTheme.secondarySystemGroupedBackgroundColor
+        backgroundColor = .secondarySystemGroupedBackground
         
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(iconImageView)

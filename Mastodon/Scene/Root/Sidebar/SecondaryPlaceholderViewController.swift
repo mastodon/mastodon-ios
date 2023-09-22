@@ -11,20 +11,11 @@ import MastodonCore
 
 final class SecondaryPlaceholderViewController: UIViewController {
     var disposeBag = Set<AnyCancellable>()
-}
-
-extension SecondaryPlaceholderViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupBackground(theme: ThemeService.shared.currentTheme)
+        view.backgroundColor = .secondarySystemBackground
     }
     
-}
-
-extension SecondaryPlaceholderViewController {
-    private func setupBackground(theme: SystemTheme) {
-        view.backgroundColor = theme.secondarySystemBackgroundColor
-    }
 }

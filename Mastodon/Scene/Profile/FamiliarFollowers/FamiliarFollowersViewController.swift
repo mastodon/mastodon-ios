@@ -38,7 +38,7 @@ extension FamiliarFollowersViewController {
         
         title = L10n.Scene.Familiarfollowers.title
         
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

@@ -87,9 +87,9 @@ extension ComposeStatusPollOptionCollectionViewCell {
         pollOptionView.optionPercentageLabel.isHidden = true
         pollOptionView.optionTextField.text = nil
 
-        pollOptionView.roundedBackgroundView.backgroundColor = ThemeService.shared.currentTheme.tertiarySystemGroupedBackgroundColor
+        pollOptionView.roundedBackgroundView.backgroundColor = .tertiarySystemGroupedBackground
         pollOptionView.checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
-            return traitCollection.userInterfaceStyle == .light ? .white : ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor
+            return traitCollection.userInterfaceStyle == .light ? .white : SystemTheme.tableViewCellSelectionBackgroundColor
         })
         setupBorderColor()
         
@@ -109,9 +109,9 @@ extension ComposeStatusPollOptionCollectionViewCell {
     
     private func setupBorderColor() {
         pollOptionView.roundedBackgroundView.layer.borderWidth = 1
-        pollOptionView.roundedBackgroundView.layer.borderColor = ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
+        pollOptionView.roundedBackgroundView.layer.borderColor = SystemTheme.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
 
-        pollOptionView.checkmarkBackgroundView.layer.borderColor = ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
+        pollOptionView.checkmarkBackgroundView.layer.borderColor = SystemTheme.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
         pollOptionView.checkmarkBackgroundView.layer.borderWidth = 1
     }
     

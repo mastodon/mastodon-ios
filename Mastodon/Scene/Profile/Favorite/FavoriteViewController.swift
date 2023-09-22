@@ -47,7 +47,7 @@ extension FavoriteViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
 
         navigationItem.titleView = titleView
         titleView.update(title: L10n.Scene.Favorite.title, subtitle: nil)

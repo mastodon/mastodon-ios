@@ -51,7 +51,7 @@ extension ThreadViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
         
         navigationItem.title = L10n.Scene.Thread.backTitle
         navigationItem.titleView = titleView

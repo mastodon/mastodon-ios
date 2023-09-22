@@ -106,7 +106,7 @@ final class SearchDetailViewController: UIViewController, NeedsDependency {
 
         super.viewDidLoad()
 
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme)
+        setupBackgroundColor()
 
         setupSearchBar()
         
@@ -239,8 +239,8 @@ extension SearchDetailViewController {
         searchBar.delegate = self
     }
 
-    private func setupBackgroundColor(theme: SystemTheme) {
-        navigationBarBackgroundView.backgroundColor = theme.navigationBarBackgroundColor
+    private func setupBackgroundColor() {
+        navigationBarBackgroundView.backgroundColor = SystemTheme.navigationBarBackgroundColor
         navigationBar.tintColor = Asset.Colors.Brand.blurple.color
     }
 }

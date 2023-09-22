@@ -252,7 +252,7 @@ final class ProfileHeaderView: UIView {
 
 extension ProfileHeaderView {
     private func _init() {
-        setColors(from: ThemeService.shared.currentTheme)
+        setColors()
         
         // banner
         bannerContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -461,10 +461,10 @@ extension ProfileHeaderView {
         updateLayoutMargins()
     }
 
-    private func setColors(from theme: SystemTheme) {
-        backgroundColor = theme.systemBackgroundColor
-        avatarButton.backgroundColor = theme.secondarySystemBackgroundColor
-        avatarImageViewBackgroundView.layer.borderColor = theme.systemBackgroundColor.cgColor
+    private func setColors() {
+        backgroundColor = .systemBackground
+        avatarButton.backgroundColor = .secondarySystemBackground
+        avatarImageViewBackgroundView.layer.borderColor = UIColor.systemBackground.cgColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

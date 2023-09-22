@@ -37,7 +37,7 @@ extension DiscoveryForYouViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

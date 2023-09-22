@@ -9,36 +9,27 @@ import UIKit
 import MastodonAsset
 import MastodonCommon
 
-public struct SystemTheme {
-    public let systemBackgroundColor = UIColor.systemBackground
-    public let secondarySystemBackgroundColor = UIColor.secondarySystemBackground
-    public let tertiarySystemBackgroundColor = UIColor.tertiarySystemBackground
+public enum SystemTheme {
+    public static let tintColor = UIColor.label
 
-    public let systemElevatedBackgroundColor = Asset.Theme.System.systemElevatedBackground.color
+    public static let systemElevatedBackgroundColor = Asset.Theme.System.systemElevatedBackground.color
+    public static let navigationBarBackgroundColor = Asset.Theme.System.navigationBarBackground.color
 
-    public let systemGroupedBackgroundColor = UIColor.systemGroupedBackground
-    public let secondarySystemGroupedBackgroundColor = UIColor.secondarySystemGroupedBackground
-    public let tertiarySystemGroupedBackgroundColor = UIColor.tertiarySystemGroupedBackground
-
-    public let navigationBarBackgroundColor = Asset.Theme.System.navigationBarBackground.color
-
-    public let sidebarBackgroundColor = Asset.Theme.System.sidebarBackground.color
+    public static let sidebarBackgroundColor = Asset.Theme.System.sidebarBackground.color
     
-    public let tabBarBackgroundColor = Asset.Theme.System.tabBarBackground.color
-    public let tabBarItemSelectedIconColor = Asset.Colors.Brand.blurple.color
-    public let tabBarItemFocusedIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
-    public let tabBarItemNormalIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
-    public let tabBarItemDisabledIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
+    public static let tabBarBackgroundColor = Asset.Theme.System.tabBarBackground.color
+    public static let tabBarItemSelectedIconColor = Asset.Colors.Brand.blurple.color
+    public static let tabBarItemFocusedIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
+    public static let tabBarItemNormalIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
+    public static let tabBarItemDisabledIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
 
-    public let separator = Asset.Theme.System.separator.color
+    public static let separator = Asset.Theme.System.separator.color
 
-    public let tableViewBackgroundColor: UIColor = .clear
-    public let tableViewCellBackgroundColor = Asset.Theme.System.tableViewCellBackground.color
-    public let tableViewCellSelectionBackgroundColor = Asset.Theme.System.tableViewCellSelectionBackground.color
+    public static let tableViewBackgroundColor: UIColor = .clear
+    public static let tableViewCellBackgroundColor = Asset.Theme.System.tableViewCellBackground.color
+    public static let tableViewCellSelectionBackgroundColor = Asset.Theme.System.tableViewCellSelectionBackground.color
 
-    public let contentWarningOverlayBackgroundColor = Asset.Theme.System.contentWarningOverlayBackground.color
-    public let profileFieldCollectionViewBackgroundColor = Asset.Theme.System.profileFieldCollectionViewBackground.color
-    public let composeToolbarBackgroundColor = Asset.Theme.System.composeToolbarBackground.color
-    public let composePollRowBackgroundColor = Asset.Theme.System.composePollRowBackground.color
-    public let notificationStatusBorderColor = Asset.Theme.System.notificationStatusBorderColor.color
+    public static let contentWarningOverlayBackgroundColor = Asset.Theme.System.contentWarningOverlayBackground.color
+    public static let composeToolbarBackgroundColor = Asset.Theme.System.composeToolbarBackground.color
+    public static let composePollRowBackgroundColor = Asset.Theme.System.composePollRowBackground.color
 }

@@ -48,7 +48,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     
     let settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = ThemeService.tintColor
+        barButtonItem.tintColor = SystemTheme.tintColor
         barButtonItem.image = Asset.ObjectsAndTools.gear.image.withRenderingMode(.alwaysTemplate)
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
         return barButtonItem
@@ -80,7 +80,7 @@ extension HomeTimelineViewController {
         super.viewDidLoad()
 
         title = L10n.Scene.HomeTimeline.title
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
 
         viewModel.$displaySettingBarButtonItem
             .receive(on: DispatchQueue.main)

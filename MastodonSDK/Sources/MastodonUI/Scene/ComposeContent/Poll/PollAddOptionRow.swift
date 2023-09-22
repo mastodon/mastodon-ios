@@ -46,6 +46,6 @@ public struct PollAddOptionRow: View {
 extension PollAddOptionRow {
     public class ViewModel: ObservableObject {
         // output
-        public var backgroundColor = ThemeService.shared.currentTheme.composePollRowBackgroundColor
+        public var backgroundColor = SystemTheme.composePollRowBackgroundColor
     }
 }

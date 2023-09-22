@@ -44,7 +44,7 @@ extension BookmarkViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
 
         navigationItem.titleView = titleView
         titleView.update(title: L10n.Scene.Bookmark.title, subtitle: nil)

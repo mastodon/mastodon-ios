@@ -516,7 +516,7 @@ private extension SceneCoordinator {
                     return nil
                 }
                 let _viewController = SFSafariViewController(url: url)
-                _viewController.preferredBarTintColor = ThemeService.shared.currentTheme.navigationBarBackgroundColor
+                _viewController.preferredBarTintColor = SystemTheme.navigationBarBackgroundColor
                 _viewController.preferredControlTintColor = Asset.Colors.Brand.blurple.color
                 viewController = _viewController
 

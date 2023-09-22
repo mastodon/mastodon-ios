@@ -43,7 +43,7 @@ extension FollowedTagsViewController {
 
         navigationItem.titleView = titleView
         
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

@@ -96,7 +96,7 @@ extension PollOptionView {
         .store(in: &disposeBag)
         // appearance
         checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
-            return trailtCollection.userInterfaceStyle == .light ? .white : ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor
+            return trailtCollection.userInterfaceStyle == .light ? .white : SystemTheme.tableViewCellSelectionBackgroundColor
         })
 
     }
@@ -105,14 +105,14 @@ extension PollOptionView {
 extension PollOptionView {
     public func configure(historyPollOption option: StatusEdit.Poll.Option) {
         // background
-        viewModel.roundedBackgroundViewColor = ThemeService.shared.currentTheme.systemElevatedBackgroundColor
+        viewModel.roundedBackgroundViewColor = SystemTheme.systemElevatedBackgroundColor
         // metaContent
         viewModel.metaContent = PlaintextMetaContent(string: option.title)
         // show left-hand-side dots, otherwise view looks "incomplete"
         viewModel.selectState = .off
         // appearance
         checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
-            return trailtCollection.userInterfaceStyle == .light ? .white : ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor
+            return trailtCollection.userInterfaceStyle == .light ? .white : SystemTheme.tableViewCellSelectionBackgroundColor
         })
     }
 }

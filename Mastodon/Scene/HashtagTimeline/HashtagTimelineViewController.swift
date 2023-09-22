@@ -70,7 +70,7 @@ extension HashtagTimelineViewController {
         titleView.update(title: _title, subtitle: nil)
         navigationItem.titleView = titleView
 
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
         
         navigationItem.rightBarButtonItem = composeBarButtonItem
         composeBarButtonItem.target = self

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppSecret.default.register()
 
         // configure appearance
-        ThemeService.shared.apply(theme: ThemeService.shared.currentTheme)
+        ThemeService.shared.apply()
         
         // configure AudioSession
         try? AVAudioSession.sharedInstance().setCategory(.ambient)

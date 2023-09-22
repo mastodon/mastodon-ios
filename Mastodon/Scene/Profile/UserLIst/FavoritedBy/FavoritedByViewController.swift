@@ -38,7 +38,7 @@ extension FavoritedByViewController {
         
         title = L10n.Scene.FavoritedBy.title
         
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

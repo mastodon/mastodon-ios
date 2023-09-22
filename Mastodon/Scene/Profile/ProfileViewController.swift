@@ -168,7 +168,7 @@ extension ProfileViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
+        view.backgroundColor = .secondarySystemBackground
         let barAppearance = UINavigationBarAppearance()
         if isModal {
             barAppearance.configureWithDefaultBackground()
