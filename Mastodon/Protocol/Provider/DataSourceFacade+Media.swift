@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-26.
 //
 
-import os.log
 import UIKit
 import CoreDataStack
 import MastodonUI
@@ -154,8 +153,6 @@ extension DataSourceFacade {
         user: ManagedObjectRecord<MastodonUser>,
         previewContext: ImagePreviewContext
     ) async throws {
-        let logger = Logger(subsystem: "DataSourceFacade", category: "Media")
-        
         let managedObjectContext = dependency.context.managedObjectContext
         
         var _avatarAssetURL: String?
@@ -227,7 +224,6 @@ extension DataSourceFacade {
         }()
         
         guard mediaPreviewItem.isAssetURLValid else {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): discard preview due to assetURL invalid")
             return
         }
         

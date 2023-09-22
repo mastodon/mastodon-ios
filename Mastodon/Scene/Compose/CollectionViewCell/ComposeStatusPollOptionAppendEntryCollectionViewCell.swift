@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-23.
 //
 
-import os.log
 import UIKit
 import MastodonAsset
 import MastodonCore
@@ -111,7 +110,6 @@ extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
 extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
 
     @objc private func singleTagGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.composeStatusPollOptionAppendEntryCollectionViewCellDidPressed(self)
     }
     

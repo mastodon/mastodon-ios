@@ -21,7 +21,6 @@ extension ProfileCardTableViewCell {
             assert(layoutMarginsGuide.layoutFrame.width > .zero)
             shadowBackgroundContainer.frame.size.width = layoutMarginsGuide.layoutFrame.width
             profileCardView.setupLayoutFrame(layoutMarginsGuide.layoutFrame)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): did layout for new cell")
         }
         
         profileCardView.configure(user: user)

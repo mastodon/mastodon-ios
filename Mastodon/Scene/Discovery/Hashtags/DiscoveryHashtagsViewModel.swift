@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-13.
 //
 
-import os.log
 import UIKit
 import Combine
 import GameplayKit

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-10.
 //
 
-import os.log
 import UIKit
 import Combine
 import MetaTextKit
@@ -44,8 +43,6 @@ public protocol StatusViewDelegate: AnyObject {
 public final class StatusView: UIView {
     
     public static let containerLayoutMargin: CGFloat = 16
-    
-    let logger = Logger(subsystem: "StatusView", category: "View")
     
     private var _disposeBag = Set<AnyCancellable>() // which lifetime same to view scope
     public var disposeBag = Set<AnyCancellable>()
@@ -394,23 +391,19 @@ extension StatusView {
 extension StatusView {
     
     @objc private func headerDidPressed(_ sender: UITapGestureRecognizer) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         assert(sender.view === headerContainerView)
         delegate?.statusView(self, headerDidPressed: headerContainerView)
     }
     
     @objc private func pollVoteButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, pollVoteButtonPressed: pollVoteButton)
     }
     
     @objc private func spoilerOverlayViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, spoilerOverlayViewDidPressed: spoilerOverlayView)
     }
 
     @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let url = viewModel.card?.url else { return }
         delegate?.statusView(self, didTapCardWithURL: url)
     }
@@ -723,7 +716,6 @@ extension StatusView: UITextViewDelegate {
 // MARK: - MetaTextViewDelegate
 extension StatusView: MetaTextViewDelegate {
     public func metaTextView(_ metaTextView: MetaTextView, didSelectMeta meta: Meta) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): meta: \(String(describing: meta))")
         switch metaTextView {
         case contentMetaText.textView:
             delegate?.statusView(self, metaText: contentMetaText, didSelectMeta: meta)
@@ -748,7 +740,6 @@ extension StatusView: MediaGridContainerViewDelegate {
 // MARK: - UITableViewDelegate
 extension StatusView: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select \(indexPath.debugDescription)")
         
         switch tableView {
         case pollTableView:

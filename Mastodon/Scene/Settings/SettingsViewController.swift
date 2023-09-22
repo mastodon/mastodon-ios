@@ -5,7 +5,6 @@
 //  Created by ihugo on 2021/4/7.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -128,12 +127,6 @@ class SettingsViewController: UIViewController, NeedsDependency {
         view.addArrangedSubview(tableFooterLabel)
         return view
     }()
-    
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension SettingsViewController {
@@ -570,26 +563,7 @@ extension SettingsViewController {
     }
     
     @objc private func closeSettingsWindowKeyCommandHandler(_ sender: UIKeyCommand) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         dismiss(animated: true, completion: nil)
     }
     
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct SettingsViewController_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        Group {
-            UIViewControllerPreview { () -> UIViewController in
-                return SettingsViewController()
-            }
-            .previewLayout(.fixed(width: 390, height: 844))
-        }
-    }
-    
-}
-
-#endif

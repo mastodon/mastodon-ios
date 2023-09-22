@@ -5,7 +5,6 @@
 //  Created by BradGao on 2021/2/24.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonSDK

@@ -5,16 +5,13 @@
 //  Created by MainasuK on 2022-2-9.
 //
 
-import os.log
 import UIKit
 import AVKit
 import Combine
 import func AVFoundation.AVMakeRect
 
 final class MediaPreviewVideoViewController: UIViewController {
-    
-    let logger = Logger(subsystem: "MediaPreviewVideoViewController", category: "ViewController")
-    
+
     var disposeBag = Set<AnyCancellable>()
     var viewModel: MediaPreviewVideoViewModel!
     
@@ -23,7 +20,6 @@ final class MediaPreviewVideoViewController: UIViewController {
     let previewImageView = UIImageView()
     
     deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         playerViewController.player?.pause()
         try? AVAudioSession.sharedInstance().setCategory(.ambient)
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
@@ -89,24 +85,6 @@ extension MediaPreviewVideoViewController {
 }
 
 // MARK: - ShareActivityProvider
-//extension MediaPreviewVideoViewController: ShareActivityProvider {
-//    var activities: [Any] {
-//        return []
-//    }
-//
-//    var applicationActivities: [UIActivity] {
-//        switch viewModel.item {
-//        case .gif(let mediaContext):
-//            guard let url = mediaContext.assetURL else { return [] }
-//            return [
-//                SavePhotoActivity(context: viewModel.context, url: url, resourceType: .video)
-//            ]
-//        default:
-//            return []
-//        }
-//    }
-//}
-
 extension MediaPreviewVideoViewController: MediaPreviewPage {
     func setShowingChrome(_ showingChrome: Bool) {
         // TODO: does this do anything?

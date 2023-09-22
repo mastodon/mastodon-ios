@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-21.
 //
 
-import os.log
 import UIKit
 import Combine
 import MetaTextKit
@@ -39,8 +38,6 @@ public protocol NotificationViewDelegate: AnyObject {
 public final class NotificationView: UIView {
     
     static let containerLayoutMargin = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-    
-    let logger = Logger(subsystem: "NotificationView", category: "View")
     
     public weak var delegate: NotificationViewDelegate?
     
@@ -434,17 +431,14 @@ extension NotificationView {
 extension NotificationView {
     
     @objc private func avatarButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.notificationView(self, authorAvatarButtonDidPressed: avatarButton)
     }
     
     @objc private func acceptFollowRequestButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.notificationView(self, acceptFollowRequestButtonDidPressed: sender)
     }
     
     @objc private func rejectFollowRequestButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.notificationView(self, rejectFollowRequestButtonDidPressed: sender)
     }
     
@@ -652,8 +646,6 @@ extension NotificationView: StatusViewDelegate {
 // MARK: - MastodonMenuDelegate
 extension NotificationView: MastodonMenuDelegate {
     public func menuAction(_ action: MastodonMenu.Action) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         delegate?.notificationView(self, menuButton: menuButton, didSelectAction: action)
     }
 }

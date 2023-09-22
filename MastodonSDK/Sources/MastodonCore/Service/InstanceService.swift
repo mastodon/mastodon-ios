@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-10-9.
 //
 
-import os.log
 import Foundation
 import Combine
 import CoreData
@@ -15,9 +14,7 @@ import MastodonSDK
 public final class InstanceService {
     
     var disposeBag = Set<AnyCancellable>()
-    
-    let logger = Logger(subsystem: "InstanceService", category: "Logic")
-    
+
     // input
     let backgroundManagedObjectContext: NSManagedObjectContext
     weak var apiService: APIService?
@@ -62,14 +59,7 @@ extension InstanceService {
 //            .flatMap { [unowned self] response -> AnyPublisher<Void, Error> in
 //                return
 //            }
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                switch completion {
-                case .failure(let error):
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Instance] update instance failure: \(error.localizedDescription)")
-                case .finished:
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Instance] update instance for domain: \(domain)")
-                }
+            .sink { _ in
             } receiveValue: { [weak self] response in
                 guard let _ = self else { return }
                 // do nothing
@@ -85,8 +75,7 @@ extension InstanceService {
                 into: managedObjectContext,
                 domain: domain,
                 entity: response.value,
-                networkDate: response.networkDate,
-                log: Logger(subsystem: "Update", category: "InstanceService")
+                networkDate: response.networkDate
             )
             
             // update relationship
@@ -123,8 +112,7 @@ extension InstanceService {
                 context: .init(
                     domain: domain,
                     entity: response.value,
-                    networkDate: response.networkDate,
-                    log: Logger(subsystem: "Update", category: "InstanceService")
+                    networkDate: response.networkDate
                 )
             )
             
@@ -167,9 +155,7 @@ public extension InstanceService {
                         authenticationBox: authBox
                     )
                     
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Instance] update mutes and blocks succeeded")
                 } catch {
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Instance] update mutes and blocks failure: \(error.localizedDescription)")
                 }
             }
         }

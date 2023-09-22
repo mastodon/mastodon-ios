@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-17.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonAsset
@@ -16,8 +15,6 @@ final class StatusThreadRootTableViewCell: UITableViewCell {
     
     static let marginForRegularHorizontalSizeClass: CGFloat = 64
     
-    let logger = Logger(subsystem: "StatusThreadRootTableViewCell", category: "View")
-        
     weak var delegate: StatusTableViewCellDelegate?
     var disposeBag = Set<AnyCancellable>()
 
@@ -44,9 +41,6 @@ final class StatusThreadRootTableViewCell: UITableViewCell {
         _init()
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 

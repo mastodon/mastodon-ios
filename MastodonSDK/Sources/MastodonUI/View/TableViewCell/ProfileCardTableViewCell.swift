@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-14.
 //
 
-import os.log
 import UIKit
 import Combine
 
@@ -15,8 +14,6 @@ public protocol ProfileCardTableViewCellDelegate: AnyObject {
 }
 
 public final class ProfileCardTableViewCell: UITableViewCell {
-    
-    let logger = Logger(subsystem: "ProfileCardTableViewCell", category: "Cell")
     
     public weak var delegate: ProfileCardTableViewCellDelegate?
     public var disposeBag = Set<AnyCancellable>()

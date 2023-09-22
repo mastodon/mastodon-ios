@@ -9,7 +9,6 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import CommonOSLog
 import MastodonSDK
 
 extension APIService {
@@ -34,8 +33,7 @@ extension APIService {
         user: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
-        let logger = Logger(subsystem: "APIService", category: "Follow")
-        
+
         let managedObjectContext = backgroundManagedObjectContext
         let _followContext: MastodonFollowContext? = try await managedObjectContext.performChanges {
             guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return nil }
@@ -49,17 +47,14 @@ extension APIService {
                 // unfollow
                 user.update(isFollowing: false, by: me)
                 user.update(isFollowRequested: false, by: me)
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Local] update user friendship: undo follow")
             } else {
                 // follow
                 if user.locked {
                     user.update(isFollowing: false, by: me)
                     user.update(isFollowRequested: true, by: me)
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Local] update user friendship: pending follow")
                 } else {
                     user.update(isFollowing: true, by: me)
                     user.update(isFollowRequested: false, by: me)
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Local] update user friendship: following")
                 }
             }
             let context = MastodonFollowContext(
@@ -88,7 +83,6 @@ extension APIService {
             ).singleOutput()
             result = .success(response)
         } catch {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update friendship failure: \(error.localizedDescription)")
             result = .failure(error)
         }
         
@@ -108,13 +102,10 @@ extension APIService {
                         networkDate: response.networkDate
                     )
                 )
-                let following = response.value.following
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update user friendship: following \(following)")
             case .failure:
                 // rollback
                 user.update(isFollowing: followContext.isFollowing, by: me)
                 user.update(isFollowRequested: followContext.isPending, by: me)
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] rollback user friendship")
             }
         }
         

@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/2/7.
 //
 
-import os.log
 import UIKit
 import CoreData
 import CoreDataStack

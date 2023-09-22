@@ -5,8 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-25.
 //
 
-
-import os.log
 import Foundation
 import CoreData
 import CoreDataStack

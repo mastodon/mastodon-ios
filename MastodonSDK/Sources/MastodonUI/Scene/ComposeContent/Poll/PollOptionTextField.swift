@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-5-27.
 //
 
-import os.log
 import UIKit
 import SwiftUI
 import Combine
@@ -64,8 +63,6 @@ protocol DeleteBackwardResponseTextFieldRelayDelegate: AnyObject {
 
 extension PollOptionTextField {
     public class Coordinator: NSObject {
-        let logger = Logger(subsystem: "DeleteBackwardResponseTextFieldRepresentable.Coordinator", category: "Coordinator")
-        
         var disposeBag = Set<AnyCancellable>()
         weak var delegate: DeleteBackwardResponseTextFieldRelayDelegate?
 

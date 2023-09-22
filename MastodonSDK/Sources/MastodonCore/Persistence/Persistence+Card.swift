@@ -9,7 +9,6 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import os.log
 
 extension Persistence.Card {
 
@@ -17,7 +16,6 @@ extension Persistence.Card {
         public let domain: String
         public let entity: Mastodon.Entity.Card
         public let me: MastodonUser?
-        public let log = Logger(subsystem: "Card", category: "Persistence")
         public init(
             domain: String,
             entity: Mastodon.Entity.Card,
@@ -40,14 +38,6 @@ extension Persistence.Card {
             self.card = card
             self.isNewInsertion = isNewInsertion
         }
-
-        #if DEBUG
-        public let logger = Logger(subsystem: "Persistence.MastodonCard.PersistResult", category: "Persist")
-        public func log() {
-            let pollInsertionFlag = isNewInsertion ? "+" : "-"
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(pollInsertionFlag)](\(card.title)):")
-        }
-        #endif
     }
 
     public static func create(

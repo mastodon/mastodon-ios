@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-10-9.
 //
 
-import os.log
 import Foundation
 import CoreData
 import CoreDataStack
@@ -17,8 +16,7 @@ extension APIService.CoreData {
         into managedObjectContext: NSManagedObjectContext,
         domain: String,
         entity: Mastodon.Entity.Instance,
-        networkDate: Date,
-        log: Logger
+        networkDate: Date
     ) -> (instance: Instance, isCreated: Bool) {
         // fetch old mastodon user
         let old: Instance? = {

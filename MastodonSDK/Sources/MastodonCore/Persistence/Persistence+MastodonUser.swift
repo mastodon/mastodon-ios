@@ -10,7 +10,6 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import os.log
 
 extension Persistence.MastodonUser {
     
@@ -19,7 +18,6 @@ extension Persistence.MastodonUser {
         public let entity: Mastodon.Entity.Account
         public let cache: Persistence.PersistCache<MastodonUser>?
         public let networkDate: Date
-        public let log = Logger(subsystem: "MastodonUser", category: "Persistence")
 
         public init(
             domain: String,
@@ -127,7 +125,6 @@ extension Persistence.MastodonUser {
         public let entity: Mastodon.Entity.Relationship
         public let me: MastodonUser
         public let networkDate: Date
-        public let log = Logger(subsystem: "MastodonUser", category: "Persistence")
 
         public init(
             entity: Mastodon.Entity.Relationship,

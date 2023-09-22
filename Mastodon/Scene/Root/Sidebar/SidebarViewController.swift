@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-9-22.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -19,9 +18,6 @@ protocol SidebarViewControllerDelegate: AnyObject {
 }
 
 final class SidebarViewController: UIViewController, NeedsDependency {
-    
-    let logger = Logger(subsystem: "SidebarViewController", category: "ViewController")
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -126,8 +122,7 @@ extension SidebarViewController {
             
             let contentHeight = secondaryCollectionView.contentSize.height
             guard contentHeight > 0 else { return }
-            self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): secondaryCollectionView contentSize: \(secondaryCollectionView.contentSize.debugDescription)")
-            
+
             let currentFrameHeight = secondaryCollectionView.frame.height
             guard currentFrameHeight < contentHeight else { return }
             
@@ -171,7 +166,6 @@ extension SidebarViewController {
     @objc private func sidebarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
         guard sender.state == .began else { return }
         
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         assert(sender.view === collectionView)
         
         let position = sender.location(in: collectionView)
@@ -185,7 +179,6 @@ extension SidebarViewController {
     @objc private func sidebarDoubleTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
         
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         assert(sender.view === collectionView)
         
         let position = sender.location(in: collectionView)

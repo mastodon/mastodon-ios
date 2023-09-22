@@ -6,7 +6,6 @@
 //
 
 import Combine
-import os.log
 import UIKit
 import WebKit
 import MastodonCore
@@ -27,8 +26,6 @@ final class MastodonResendEmailViewController: UIViewController, NeedsDependency
     }()
     
     deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
-        
         // cleanup cookie
         let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
         httpCookieStore.getAllCookies { cookies in
@@ -54,7 +51,6 @@ extension MastodonResendEmailViewController {
         let request = URLRequest(url: viewModel.resendEmailURL)
         webView.navigationDelegate = self.viewModel.navigationDelegate
         webView.load(request)
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: resendEmail via: %s", (#file as NSString).lastPathComponent, #line, #function, viewModel.resendEmailURL.debugDescription)
     }
     
 }

@@ -93,7 +93,6 @@ class FollowersCountHistory {
         let history = followersHistorySorted(for: account)
         let relevantDays = elapsedFollowersCountDateStrings()
         let today = relevantDays.last!
-        let yesterday = relevantDays[relevantDays.count - 2]
 
         let followersToday = history.first(where: { $0.dstring == today })?.count ?? account.followersCount
         let followersYesterday = history[safe: history.count-2]?.count ?? account.followersCount

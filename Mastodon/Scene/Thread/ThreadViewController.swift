@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-12.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -18,8 +17,6 @@ import MastodonLocalization
 
 final class ThreadViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
-    let logger = Logger(subsystem: "ThreadViewController", category: "ViewController")
-        
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -47,11 +44,6 @@ final class ThreadViewController: UIViewController, NeedsDependency, MediaPrevie
         
         return tableView
     }()
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension ThreadViewController {
@@ -112,7 +104,6 @@ extension ThreadViewController {
 
 extension ThreadViewController {
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard case let .root(threadContext) = viewModel.root else { return }
         let composeViewModel = ComposeViewModel(
             context: context,

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-14.
 //
 
-import os.log
 import UIKit
 import Combine
 import MetaTextKit
@@ -17,8 +16,6 @@ public protocol ProfileCardViewDelegate: AnyObject {
 }
 
 public final class ProfileCardView: UIView, AXCustomContentProvider {
-    
-    let logger = Logger(subsystem: "ProfileCardView", category: "View")
     
     static let avatarSize = CGSize(width: 56, height: 56)
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
@@ -288,13 +285,11 @@ extension ProfileCardView {
 
 extension ProfileCardView {
     @objc private func relationshipActionButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         assert(sender === relationshipActionButton)
         delegate?.profileCardView(self, relationshipButtonDidPressed: relationshipActionButton)
     }
     
     @objc private func familiarFollowersDashboardViewDidPressed(_ sender: UITapGestureRecognizer) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         assert(sender.view === familiarFollowersDashboardView)
         delegate?.profileCardView(self, familiarFollowersDashboardViewDidPressed: familiarFollowersDashboardView)
     }

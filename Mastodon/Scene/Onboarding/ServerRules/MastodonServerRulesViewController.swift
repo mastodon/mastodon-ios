@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-2-22.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonSDK
@@ -16,9 +15,6 @@ import MastodonCore
 import MastodonLocalization
 
 final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
-    
-    let logger = Logger(subsystem: "MastodonServerRulesViewController", category: "ViewController")
-    
     var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()
 

@@ -10,7 +10,6 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import os.log
 
 extension Persistence.Status {
     
@@ -21,7 +20,6 @@ extension Persistence.Status {
         public let statusCache: Persistence.PersistCache<Status>?
         public let userCache: Persistence.PersistCache<MastodonUser>?
         public let networkDate: Date
-        public let log = Logger(subsystem: "Status", category: "Persistence")
 
         public init(
             domain: String,
@@ -54,16 +52,6 @@ extension Persistence.Status {
             self.isNewInsertion = isNewInsertion
             self.isNewInsertionAuthor = isNewInsertionAuthor
         }
-        
-        #if DEBUG
-        public let logger = Logger(subsystem: "Persistence.Status.PersistResult", category: "Persist")
-        public func log() {
-            let statusInsertionFlag = isNewInsertion ? "+" : "-"
-            let authorInsertionFlag = isNewInsertionAuthor ? "+" : "-"
-            let contentPreview = status.content.prefix(32).replacingOccurrences(of: "\n", with: " ")
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(statusInsertionFlag)](\(status.id))[\(authorInsertionFlag)](\(status.author.id))@\(status.author.username): \(contentPreview)")
-        }
-        #endif
     }
     
     public static func createOrMerge(

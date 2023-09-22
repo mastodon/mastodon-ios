@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-21.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -14,8 +13,6 @@ import MastodonSDK
 import MastodonCore
 
 final class NotificationTimelineViewModel {
-    
-    let logger = Logger(subsystem: "NotificationTimelineViewModel", category: "ViewModel")
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -63,9 +60,6 @@ final class NotificationTimelineViewModel {
         )
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -125,7 +119,6 @@ extension NotificationTimelineViewModel {
             )
         } catch {
             didLoadLatest.send()
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(error.localizedDescription)")
         }
     }
     
@@ -155,7 +148,6 @@ extension NotificationTimelineViewModel {
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
         } catch {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch more failure: \(error.localizedDescription)")
         }
     }
     

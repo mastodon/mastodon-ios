@@ -6,7 +6,6 @@
 //
 
 import CoreDataStack
-import os.log
 import UIKit
 import MastodonAsset
 import MastodonLocalization

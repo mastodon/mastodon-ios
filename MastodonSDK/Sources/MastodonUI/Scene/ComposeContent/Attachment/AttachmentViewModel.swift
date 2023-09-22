@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2021/11/19.
 //
 
-import os.log
 import UIKit
 import Combine
 import PhotosUI
@@ -21,9 +20,6 @@ public protocol AttachmentViewModelDelegate: AnyObject {
 
 final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable {
 
-    static let logger = Logger(subsystem: "AttachmentViewModel", category: "ViewModel")
-    let logger = Logger(subsystem: "AttachmentViewModel", category: "ViewModel")
-    
     public let id = UUID()
     
     var disposeBag = Set<AnyCancellable>()
@@ -102,7 +98,6 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         progress
             .observe(\.fractionCompleted, options: [.initial, .new]) { [weak self] progress, _ in
                 guard let self = self else { return }
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): publish progress \(progress.fractionCompleted)")
                 DispatchQueue.main.async {
                     self.fractionCompleted = progress.fractionCompleted
                 }
@@ -113,7 +108,6 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         // progress
         //     .observe(\.isFinished, options: [.initial, .new]) { [weak self] progress, _ in
         //         guard let self = self else { return }
-        //         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): publish progress \(progress.fractionCompleted)")
         //         DispatchQueue.main.async {
         //             self.objectWillChange.send()
         //         }
@@ -182,7 +176,6 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     }
     
     deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         
         uploadTask?.cancel()
         

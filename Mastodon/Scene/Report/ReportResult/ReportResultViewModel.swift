@@ -10,7 +10,6 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import os.log
 import UIKit
 import MastodonAsset
 import MastodonCore

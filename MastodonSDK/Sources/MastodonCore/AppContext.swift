@@ -5,7 +5,6 @@
 //  Created by MainasuK on 22/9/30.
 //
 
-import os.log
 import UIKit
 import SwiftUI
 import Combine
@@ -115,9 +114,6 @@ public class AppContext: ObservableObject {
             .store(in: &disposeBag)
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -149,7 +145,6 @@ extension AppContext {
                 ImageDownloader.defaultURLCache().removeAllCachedResponses()
                 let currentDiskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
                 let purgedDiskBytes = max(0, diskBytes - currentDiskBytes)
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: purge AlamofireImage cache bytes: %ld -> %ld (%ld)", ((#file as NSString).lastPathComponent), #line, #function, diskBytes, currentDiskBytes, purgedDiskBytes)
                 promise(.success(purgedDiskBytes))
             }
         }

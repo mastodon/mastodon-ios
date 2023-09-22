@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-2-16.
 //
 
-import os.log
 import UIKit
 import CoreDataStack
 import MastodonCore
@@ -37,7 +36,6 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
         guard let rawValue = sender.propertyList as? String,
               let navigation = StatusTableViewNavigation(rawValue: rawValue) else { return }
         
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, navigation.title)
         Task {
             switch navigation {
             case .openAuthorProfile:    await openAuthorProfile(target: .status)

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-13.
 //
 
-import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
@@ -13,22 +12,12 @@ import MastodonSDK
 extension DiscoveryNewsViewModel {
     class State: GKState {
         
-        let logger = Logger(subsystem: "DiscoveryNewsViewModel.State", category: "StateMachine")
-
         let id = UUID()
 
         weak var viewModel: DiscoveryNewsViewModel?
         
         init(viewModel: DiscoveryNewsViewModel) {
             self.viewModel = viewModel
-        }
-        
-        override func didEnter(from previousState: GKState?) {
-            super.didEnter(from: previousState)
-            
-            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
-            let to = String(describing: self)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor

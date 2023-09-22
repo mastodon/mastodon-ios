@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/4/12.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonAsset
@@ -15,8 +14,6 @@ import Pageboy
 import MastodonCore
 
 final class NotificationViewController: TabmanViewController, NeedsDependency {
-    
-    let logger = Logger(subsystem: "NotificationViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -44,9 +41,6 @@ final class NotificationViewController: TabmanViewController, NeedsDependency {
         viewModel.currentPageIndex = index
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
 }
 
 extension NotificationViewController {
@@ -163,8 +157,6 @@ extension NotificationViewController {
 
 extension NotificationViewController {
     @objc private func pageSegmentedControlValueChanged(_ sender: UISegmentedControl) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         let index = sender.selectedSegmentIndex
         scrollToPage(.at(index: index), animated: true, completion: nil)
     }
@@ -232,7 +224,6 @@ extension NotificationViewController {
     }
 
     @objc private func showCategory(_ sender: UIKeyCommand) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let rawValue = sender.propertyList as? String,
               let category = CategorySwitch(rawValue: rawValue)
         else { return }

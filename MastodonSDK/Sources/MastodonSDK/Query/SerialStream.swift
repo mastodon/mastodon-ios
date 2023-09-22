@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-5-28.
 //
 
-import os.log
 import Foundation
 import Combine
 
@@ -15,8 +14,6 @@ import Combine
 // - https://gist.github.com/khanlou/b5e07f963bedcb6e0fcc5387b46991c3
 
 final class SerialStream: NSObject {
-    
-    let logger = Logger(subsystem: "SerialStream", category: "Stream")
     
     public let progress = Progress()
     var writingTimerSubscriber: AnyCancellable?
@@ -61,8 +58,7 @@ final class SerialStream: NSObject {
             .sink { [weak self] timer in
                 guard let self = self else { return }
                 guard self.canWrite else { return }
-                os_log(.debug, "%{public}s[%{public}ld], %{public}s: writing…", ((#file as NSString).lastPathComponent), #line, #function)
-                
+
                 guard self.currentStreamIndex < self.streams.count else {
                     self.boundStreams.output.close()
                     self.writingTimerSubscriber = nil   // cancel timer after task completed
@@ -78,11 +74,8 @@ final class SerialStream: NSObject {
                         baseAddress += writeResult
                         remainsBytes -= writeResult
                         
-                        os_log(.debug, "%{public}s[%{public}ld], %{public}s: write %ld/%ld bytes. write result: %ld", ((#file as NSString).lastPathComponent), #line, #function, baseAddress, readBytesCount, writeResult)
-                        
                         self.progress.completedUnitCount += Int64(writeResult)
-                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): estimate progress: \(self.progress.completedUnitCount)/\(self.progress.totalUnitCount)")
-                        
+
                         if writeResult == -1 {
                             break
                         }
@@ -108,7 +101,6 @@ final class SerialStream: NSObject {
                     
                     let reaminsCount = SerialStream.bufferSize - readBytesCount
                     let readCount = inputStream.read(&self.buffer[readBytesCount], maxLength: reaminsCount)
-                    os_log(.debug, "%{public}s[%{public}ld], %{public}s: read source %ld bytes", ((#file as NSString).lastPathComponent), #line, #function, readCount)
 
                     switch readCount {
                     case 0:
@@ -124,11 +116,6 @@ final class SerialStream: NSObject {
                 }
             }
     }
-    
-    deinit {
-        os_log(.debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension SerialStream {
@@ -141,8 +128,6 @@ extension SerialStream {
 // MARK: - StreamDelegate
 extension SerialStream: StreamDelegate {
     func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
-        os_log(.debug, "%{public}s[%{public}ld], %{public}s: eventCode %s", ((#file as NSString).lastPathComponent), #line, #function, String(eventCode.rawValue))
-
         guard aStream == boundStreams.output else {
             return
         }
