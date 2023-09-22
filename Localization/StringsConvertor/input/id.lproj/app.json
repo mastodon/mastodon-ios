@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Semua",
-                    "people": "Orang",
-                    "hashtags": "Tagar",
-                    "posts": "Postingan"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Tidak ada hasil"
                 },
                 "recent_search": "Pencarian terbaru",
+                "clear_all": "Clear all",
                 "clear": "Hapus"
             }
         },

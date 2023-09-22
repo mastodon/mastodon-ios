@@ -97,7 +97,6 @@ extension UserFetchedResultsController {
 // MARK: - NSFetchedResultsControllerDelegate
 extension UserFetchedResultsController: NSFetchedResultsControllerDelegate {
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
         let indexes = userIDs
         let objects = fetchedResultsController.fetchedObjects ?? []

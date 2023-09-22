@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Όλα",
-                    "people": "Άτομα",
-                    "hashtags": "Ετικέτες",
-                    "posts": "Αναρτήσεις"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Κανένα αποτέλεσμα"
                 },
                 "recent_search": "Πρόσφατες αναζητήσεις",
+                "clear_all": "Clear all",
                 "clear": "Εκκαθάριση"
             }
         },

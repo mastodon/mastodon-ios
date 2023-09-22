@@ -13,6 +13,8 @@ import MastodonLocalization
 import MastodonUI
 
 final class StatusTableViewCell: UITableViewCell {
+
+    static let reuseIdentifier = "StatusTableViewCell"
     
     static let marginForRegularHorizontalSizeClass: CGFloat = 64
         

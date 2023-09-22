@@ -14,8 +14,6 @@ import MastodonUI
 
 final class SearchHistoryViewController: UIViewController, NeedsDependency {
     
-    let logger = Logger(subsystem: "SearchHistoryViewController", category: "ViewController")
-
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
@@ -24,6 +22,8 @@ final class SearchHistoryViewController: UIViewController, NeedsDependency {
     
     let collectionView: UICollectionView = {
         var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        configuration.separatorConfiguration.bottomSeparatorInsets.leading = 62
+        configuration.separatorConfiguration.topSeparatorInsets.leading = 62
         configuration.backgroundColor = .clear
         configuration.headerMode = .supplementary
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
@@ -68,8 +68,6 @@ extension SearchHistoryViewController {
 extension SearchHistoryViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select item at: \(indexPath.debugDescription)")
-        
         defer {
             collectionView.deselectItem(at: indexPath, animated: true)
         }
@@ -116,14 +114,14 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
         _ searchHistorySectionHeaderCollectionReusableView: SearchHistorySectionHeaderCollectionReusableView,
         clearButtonDidPressed button: UIButton
     ) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         Task {
             try await DataSourceFacade.responseToDeleteSearchHistory(
                 provider: self
             )
+
+            await MainActor.run {
+                button.isEnabled = false
+            }
         }
     }
 }
-
-extension SearchHistoryViewController: UserTableViewCellDelegate {}

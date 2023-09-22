@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Na h-uile",
-                    "people": "Daoine",
-                    "hashtags": "Tagaichean hais",
-                    "posts": "Postaichean"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Gun toradh"
                 },
                 "recent_search": "Na lorg thu o chionn goirid",
+                "clear_all": "Clear all",
                 "clear": "Falamhaich"
             }
         },

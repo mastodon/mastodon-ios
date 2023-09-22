@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Hemû",
-                    "people": "Mirov",
-                    "hashtags": "Hashtag",
-                    "posts": "Şandî"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Encam tune"
                 },
                 "recent_search": "Lêgerînên dawî",
+                "clear_all": "Clear all",
                 "clear": "Pak bike"
             }
         },

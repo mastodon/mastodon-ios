@@ -5,14 +5,14 @@
 //  Created by MainasuK on 2022-1-17.
 //
 
-import Foundation
+import UIKit
 import CoreData
 import CoreDataStack
 import MastodonCore
 
 extension DataSourceFacade {
     static func coordinateToStatusThreadScene(
-        provider: DataSourceProvider & AuthContextProvider,
+        provider: ViewControllerWithDependencies & AuthContextProvider,
         target: StatusTarget,
         status: ManagedObjectRecord<Status>
     ) async {
@@ -40,7 +40,7 @@ extension DataSourceFacade {
     
     @MainActor
     static func coordinateToStatusThreadScene(
-        provider: DataSourceProvider & AuthContextProvider,
+        provider: ViewControllerWithDependencies & AuthContextProvider,
         root: StatusItem.Thread
     ) async {
         let threadViewModel = ThreadViewModel(

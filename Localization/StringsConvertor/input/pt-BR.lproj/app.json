@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Todos",
-                    "people": "Pessoas",
-                    "hashtags": "Hashtags",
-                    "posts": "Toots"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Sem resultados"
                 },
                 "recent_search": "Pesquisas recentes",
+                "clear_all": "Clear all",
                 "clear": "Limpar"
             }
         },

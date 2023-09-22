@@ -69,10 +69,13 @@ final class HashtagTimelineHeaderView: UIView {
     var onButtonTapped: (() -> Void)?
     
     let followButton: UIButton = {
-        let button = HashtagTimelineHeaderViewActionButton()
-        button.cornerRadius = 10
-        button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
-        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        let button = UIButton(configuration: .tinted())
+        button.configuration?.background.cornerRadius = 10
+        button.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer({ incoming in
+            var outgoing = incoming
+            outgoing.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .boldSystemFont(ofSize: 15))
+            return outgoing
+        })
         return button
     }()
     
@@ -153,14 +156,18 @@ private extension HashtagTimelineHeaderView {
 extension HashtagTimelineHeaderView {
     func update(_ entity: HashtagTimelineHeaderView.Data) {
         titleLabel.text = "#\(entity.name)"
-        followButton.setTitle(entity.following == true ? L10n.Scene.FollowedTags.Actions.unfollow : L10n.Scene.FollowedTags.Actions.follow, for: .normal)
 
-        followButton.backgroundColor = entity.following == true ? Asset.Colors.Button.tagUnfollow.color : Asset.Colors.Button.tagFollow.color
-        
-        followButton.setTitleColor(
-            entity.following == true ? Asset.Colors.Button.tagFollow.color : Asset.Colors.Button.tagUnfollow.color,
-            for: .normal
-        )
+        if entity.following {
+            followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollowing.color
+            followButton.configuration?.baseForegroundColor = Asset.Colors.Button.userFollowingTitle.color
+            followButton.configuration?.title = L10n.Scene.FollowedTags.Actions.unfollow
+        } else {
+            followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollow.color
+            followButton.configuration?.baseForegroundColor = .white
+            followButton.configuration?.title = L10n.Scene.FollowedTags.Actions.follow
+        }
+
+        followButton.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 16, bottom: 5, trailing: 16)
 
         postCountLabel.text = String(entity.postCount)
         participantsLabel.text = String(entity.participantsCount)

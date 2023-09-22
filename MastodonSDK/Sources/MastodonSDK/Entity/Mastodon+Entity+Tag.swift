@@ -25,6 +25,13 @@ extension Mastodon.Entity {
         public let history: [History]?
         public let following: Bool?
         
+        public init(name: String, url: String, history: [History]? = nil, following: Bool? = nil) {
+            self.name = name
+            self.url = url
+            self.history = history
+            self.following = following
+        }
+        
         enum CodingKeys: String, CodingKey {
             case name
             case url

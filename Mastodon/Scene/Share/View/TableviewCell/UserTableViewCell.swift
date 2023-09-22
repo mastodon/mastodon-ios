@@ -16,7 +16,8 @@ import MastodonSDK
 protocol UserTableViewCellDelegate: UserViewDelegate, AnyObject { }
 
 final class UserTableViewCell: UITableViewCell {
-    
+
+    static let reuseIdentifier = "UserTableViewCell"
     weak var delegate: UserTableViewCellDelegate?
     
     let userView = UserView()

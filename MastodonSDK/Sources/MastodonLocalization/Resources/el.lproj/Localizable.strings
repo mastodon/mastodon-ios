@@ -211,7 +211,7 @@
 "Scene.Compose.Attachment.ServerProcessingState" = "Επεξεργασία Διακομιστή...";
 "Scene.Compose.Attachment.UploadFailed" = "Η Μεταφόρτωση Απέτυχε";
 "Scene.Compose.Attachment.Video" = "βίντεο";
-"Scene.Compose.AutoComplete.SpaceToAdd" = ""Διάστημα" για προσθήκη";
+"Scene.Compose.AutoComplete.SpaceToAdd" = "\"Διάστημα\" για προσθήκη";
 "Scene.Compose.ComposeAction" = "Δημοσίευση";
 "Scene.Compose.ContentInputPlaceholder" = "Πληκτρολόγησε ή επικόλλησε τί έχεις στο μυαλό σου";
 "Scene.Compose.ContentWarning.Placeholder" = "Γράψε εδώ μια ακριβή προειδοποίηση...";
@@ -440,12 +440,14 @@
 "Scene.Search.SearchBar.Cancel" = "Άκυρο";
 "Scene.Search.SearchBar.Placeholder" = "Αναζήτησε ετικέτες και χρήστες";
 "Scene.Search.Searching.Clear" = "Εκκαθάριση";
+"Scene.Search.Searching.ClearAll" = "Clear all";
 "Scene.Search.Searching.EmptyState.NoResults" = "Κανένα αποτέλεσμα";
+"Scene.Search.Searching.Hashtag" = "Go to #%@";
+"Scene.Search.Searching.People" = "People matching \"%@\"";
+"Scene.Search.Searching.Posts" = "Posts matching \"%@\"";
+"Scene.Search.Searching.Profile" = "Go to @%@@%@";
 "Scene.Search.Searching.RecentSearch" = "Πρόσφατες αναζητήσεις";
-"Scene.Search.Searching.Segment.All" = "Όλα";
-"Scene.Search.Searching.Segment.Hashtags" = "Ετικέτες";
-"Scene.Search.Searching.Segment.People" = "Άτομα";
-"Scene.Search.Searching.Segment.Posts" = "Αναρτήσεις";
+"Scene.Search.Searching.Url" = "Open URL in Mastodon";
 "Scene.Search.Title" = "Αναζήτηση";
 "Scene.ServerPicker.Button.Category.Academia" = "ακαδημαϊκά";
 "Scene.ServerPicker.Button.Category.Activism" = "ακτιβισμός";

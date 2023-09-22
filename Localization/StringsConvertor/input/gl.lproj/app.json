@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Todo",
-                    "people": "Persoas",
-                    "hashtags": "Cancelos",
-                    "posts": "Publicacións"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Sen resultados"
                 },
                 "recent_search": "Buscas recentes",
+                "clear_all": "Clear all",
                 "clear": "Limpar"
             }
         },

@@ -98,10 +98,10 @@
                     "unknown_language": "Inconnu"
                 },
                 "edit_post": "Éditer",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Ajouter aux signets",
+                "remove_bookmark": "Supprimer le signet",
+                "follow": "S’abonner à %s",
+                "unfollow": "Se désabonner de %s"
             },
             "tabs": {
                 "home": "Accueil",
@@ -206,12 +206,12 @@
                 "buttons": {
                     "reblogs_title": "Reblogs",
                     "favorites_title": "Favoris",
-                    "edit_history_title": "Modifier l'historique",
+                    "edit_history_title": "Historique des modifications",
                     "edit_history_detail": "Dernière modification %s"
                 },
                 "edited_at_timestamp_prefix": "Édité %s",
                 "edit_history": {
-                    "title": "Modifier l'historique",
+                    "title": "Historique des modifications",
                     "original_post": "Message original · %s"
                 }
             },
@@ -258,14 +258,14 @@
         },
         "user_list": {
             "no_verified_link": "Lien non vérifié",
-            "followers_count": "%@ abonnés"
+            "followers_count": "%@ abonné·e·s"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Se connecter",
             "learn_more": "En savoir plus",
-            "join_default_server": "Join %@",
+            "join_default_server": "Rejoindre %@",
             "pick_server": "Trouver un autre serveur",
             "separator": {
                 "or": "ou"
@@ -344,7 +344,7 @@
             "no_server_selected_hint": "Nous choisirons un serveur basé sur votre langue si vous continuez sans en choisir un."
         },
         "privacy": {
-            "title": "Confidentialité",
+            "title": "Vie privée",
             "description": "Bien que l’application Mastodon ne collecte aucune donnée, le serveur auquel vous vous inscrivez peut avoir une politique différente. Prenez une minute pour examiner et accepter la politique de confidentialité de l’application Mastodon ainsi que celle de votre serveur.",
             "policy": {
                 "ios": "Politique de confidentialité - Mastodon pour iOS",
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Populaire sur Mastodon",
+            "follow_all": "Tout suivre"
         },
         "compose": {
             "title": {
@@ -515,7 +515,7 @@
             "visibility": {
                 "public": "Public",
                 "unlisted": "Non listé",
-                "private": "Abonnés seulement",
+                "private": "Abonné·e·s seulement",
                 "direct": "Seulement les personnes que je mentionne"
             },
             "auto_complete": {
@@ -553,11 +553,11 @@
             },
             "dashboard": {
                 "my_posts": "messages",
-                "my_following": "abonnement",
-                "my_followers": "abonnés",
+                "my_following": "abonnements",
+                "my_followers": "abonné·e·s",
                 "other_posts": "publications",
                 "other_following": "abonnement",
-                "other_followers": "abonnés",
+                "other_followers": "abonné·e·s",
                 "familiar_followers": "mutuel"
             },
             "fields": {
@@ -617,7 +617,7 @@
             "footer": "Les abonné·e·s issus des autres serveurs ne sont pas affiché·e·s."
         },
         "following": {
-            "title": "abonnement",
+            "title": "abonnements",
             "footer": "Les abonnés issus des autres serveurs ne sont pas affichés."
         },
         "familiarFollowers": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Tout",
-                    "people": "Personnes",
-                    "hashtags": "Hashtags",
-                    "posts": "Publications"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Aller à @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Aucun résultat"
                 },
                 "recent_search": "Recherches récentes",
+                "clear_all": "Effacer tout",
                 "clear": "Effacer"
             }
         },
@@ -682,7 +682,7 @@
                 "Mentions": "Mentions"
             },
             "notification_description": {
-                "followed_you": "s’est abonné à vous",
+                "followed_you": "s’est abonné·e à vous",
                 "favorited_your_post": "a ajouté votre message à ses favoris",
                 "reblogged_your_post": "a partagé votre message",
                 "mentioned_you": "vous a mentionné",
@@ -728,7 +728,7 @@
                     "mentions": "Me mentionne",
                     "trigger": {
                         "anyone": "n’importe qui",
-                        "follower": "un abonné",
+                        "follower": "un·e abonné·e",
                         "follow": "toute personne que je suis",
                         "noone": "personne",
                         "title": "Me notifier lorsque"
@@ -856,21 +856,21 @@
         "followers_count": {
             "configuration_display_name": "Abonné·e·s",
             "configuration_description": "Afficher le nombre d'abonnés.",
-            "title": "ABONNES",
-            "followers_today": "%s abonnés aujourd'hui"
+            "title": "ABONNÉ·E·S",
+            "followers_today": "%s abonné·e·s aujourd'hui"
         },
         "multiple_followers": {
-            "configuration_display_name": "Abonnés multiples",
+            "configuration_display_name": "Abonné·e·s multiples",
             "configuration_description": "Afficher le nombre d'abonnés pour plusieurs comptes.",
             "mock_user": {
-                "display_name": "Autres abonnés",
+                "display_name": "Autres abonné·e·s",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Derniers abonnés",
+            "configuration_display_name": "Derniers abonné·e·s",
             "configuration_description": "Afficher les derniers abonnés.",
-            "title": "Derniers abonnés",
+            "title": "Derniers abonné·e·s",
             "last_update": "Dernière mise à jour: %s"
         },
         "hashtag": {

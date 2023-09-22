@@ -8,6 +8,7 @@
 import UIKit
 import CoreDataStack
 import MastodonCore
+import MastodonAsset
 
 enum SearchHistorySection: Hashable {
     case main
@@ -30,16 +31,7 @@ extension SearchHistorySection {
         let userCellRegister = UICollectionView.CellRegistration<SearchHistoryUserCollectionViewCell, ManagedObjectRecord<MastodonUser>> { cell, indexPath, item in
             context.managedObjectContext.performAndWait {
                 guard let user = item.object(in: context.managedObjectContext) else { return }
-                cell.configure(
-                    me: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
-                    viewModel: SearchHistoryUserCollectionViewCell.ViewModel(
-                        value: user,
-                        followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
-                        blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
-                        followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()
-                    ),
-                    delegate: configuration.searchHistorySectionHeaderCollectionReusableViewDelegate
-                )
+                cell.condensedUserView.configure(with: user)
             }
         }
         
@@ -47,6 +39,8 @@ extension SearchHistorySection {
             context.managedObjectContext.performAndWait {
                 guard let hashtag = item.object(in: context.managedObjectContext) else { return }
                 var contentConfiguration = cell.defaultContentConfiguration()
+                contentConfiguration.image = UIImage(systemName: "magnifyingglass")
+                contentConfiguration.imageProperties.tintColor = Asset.Colors.Brand.blurple.color
                 contentConfiguration.text = "#" + hashtag.name
                 cell.contentConfiguration = contentConfiguration
             }
@@ -54,13 +48,13 @@ extension SearchHistorySection {
             var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
             backgroundConfiguration.backgroundColorTransformer = .init { [weak cell] _ in
                 guard let state = cell?.configurationState else {
-                    return ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+                    return .secondarySystemGroupedBackground
                 }
                 
                 if state.isHighlighted || state.isSelected {
                     return ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor
                 }
-                return ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+                return .secondarySystemGroupedBackground
             }
             cell.backgroundConfiguration = backgroundConfiguration
         }
@@ -78,13 +72,8 @@ extension SearchHistorySection {
             }
         }
         
-        let trendHeaderRegister = UICollectionView.SupplementaryRegistration<SearchHistorySectionHeaderCollectionReusableView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak dataSource] supplementaryView, elementKind, indexPath in
+        let trendHeaderRegister = UICollectionView.SupplementaryRegistration<SearchHistorySectionHeaderCollectionReusableView>(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, elementKind, indexPath in
             supplementaryView.delegate = configuration.searchHistorySectionHeaderCollectionReusableViewDelegate
-
-            guard let _ = dataSource else { return }
-            // let sections = dataSource.snapshot().sectionIdentifiers
-            // guard indexPath.section < sections.count else { return }
-            // let section = sections[indexPath.section]
         }
         
         dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, elementKind: String, indexPath: IndexPath) in

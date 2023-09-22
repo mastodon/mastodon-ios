@@ -21,9 +21,6 @@ final class HeightFixedSearchBar: UISearchBar {
 }
 
 final class SearchViewController: UIViewController, NeedsDependency {
-
-    let logger = Logger(subsystem: "SearchViewController", category: "ViewController")
-
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
@@ -36,16 +33,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
     // layout alongside with split mode button (on iPad)
     let titleViewContainer = UIView()
     let searchBar = HeightFixedSearchBar()
-
-//    let collectionView: UICollectionView = {
-//        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-//        configuration.backgroundColor = .clear
-//        configuration.headerMode = .supplementary
-//        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.backgroundColor = .clear
-//        return collectionView
-//    }()
 
     // value is the initial search text to set
     let searchBarTapPublisher = PassthroughSubject<String, Never>()
@@ -62,11 +49,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
         )
         return viewController
     }()
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
 }
 
 extension SearchViewController {
@@ -85,30 +67,12 @@ extension SearchViewController {
         title = L10n.Scene.Search.title
 
         setupSearchBar()
-
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(collectionView)
-//        NSLayoutConstraint.activate([
-//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//        ])
-//
-//        collectionView.delegate = self
-//        viewModel.setupDiffableDataSource(
-//            collectionView: collectionView
-//        )
-        
         guard let discoveryViewController = self.discoveryViewController else { return }
 
         addChild(discoveryViewController)
         discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(discoveryViewController.view)
         discoveryViewController.view.pinToParent()
-
-//        discoveryViewController.view.isHidden = true
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -171,7 +135,6 @@ extension SearchViewController {
 // MARK: - UISearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         searchBarTapPublisher.send("")
         return false
     }
@@ -184,11 +147,7 @@ extension SearchViewController: UISearchBarDelegate {
 // MARK: - UISearchControllerDelegate
 extension SearchViewController: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         searchController.isActive = true
-    }
-    func didPresentSearchController(_ searchController: UISearchController) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
     }
 }
 
@@ -201,23 +160,3 @@ extension SearchViewController: ScrollViewContainer {
         discoveryViewController?.scrollToTop(animated: animated)
     }
 }
-
-// MARK: - UICollectionViewDelegate
-//extension SearchViewController: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select item at: \(indexPath.debugDescription)")
-//
-//        defer {
-//            collectionView.deselectItem(at: indexPath, animated: true)
-//        }
-//
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-//
-//        switch item {
-//        case .trend(let hashtag):
-//            let viewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag.name)
-//            coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: self, transition: .show)
-//        }
-//    }
-//}

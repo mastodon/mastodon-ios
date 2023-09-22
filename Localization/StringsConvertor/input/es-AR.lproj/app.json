@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Todo",
-                    "people": "Cuentas",
-                    "hashtags": "Etiquetas",
-                    "posts": "Mensajes"
-                },
+                "posts": "Mensajes que coinciden con %s\"",
+                "people": "Personas que coinciden con \"%s\"",
+                "profile": "Ir a @%s@%s",
+                "url": "Abrir dirección web en Mastodon",
+                "hashtag": "Ir a %s",
                 "empty_state": {
                     "no_results": "No hay resultados"
                 },
                 "recent_search": "Búsquedas recientes",
+                "clear_all": "Limpiar todo",
                 "clear": "Limpiar"
             }
         },

@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "전부",
-                    "people": "사람",
-                    "hashtags": "해시태그",
-                    "posts": "게시물"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "결과가 없습니다"
                 },
                 "recent_search": "최근 검색",
+                "clear_all": "Clear all",
                 "clear": "모두 지우기"
             }
         },
