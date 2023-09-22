@@ -15,10 +15,6 @@
                 "title": "Napaka glasovanja",
                 "poll_ended": "Anketa je zaključena"
             },
-            "discard_post_content": {
-                "title": "Zavrzi osnutek",
-                "message": "Potrdite za opustitev sestavljene vsebine objave."
-            },
             "publish_post_failure": {
                 "title": "Spodletela objava",
                 "message": "Objava je spodletela.\nPreverite svojo internetno povezavo.",
@@ -101,7 +97,11 @@
                     "title": "Prevedi iz: %s",
                     "unknown_language": "Neznano"
                 },
-                "edit_post": "Uredi"
+                "edit_post": "Uredi",
+                "bookmark": "Zaznamek",
+                "remove_bookmark": "Odstrani zaznamek",
+                "follow": "Sledi %s",
+                "unfollow": "Prenehaj slediti %s"
             },
             "tabs": {
                 "home": "Domov",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Prijava",
             "learn_more": "Več o tem",
-            "join_default_server": "Pridruži se mastodon.social",
+            "join_default_server": "Pridruži se %@",
             "pick_server": "Izberi drug strežnik",
             "separator": {
                 "or": "ali"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Poiščite osebe, ki jim želite slediti",
-            "follow_explain": "Ko nekomu sledite, vidite njihove objave v svojem domačem viru."
+            "title": "Priljubljeno na Mastodonu",
+            "follow_all": "Sledi vsem"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Vse",
-                    "people": "Ljudje",
-                    "hashtags": "Ključniki",
-                    "posts": "Objave"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Ni rezultatov"
                 },
                 "recent_search": "Nedavna iskanja",
+                "clear_all": "Clear all",
                 "clear": "Počisti"
             }
         },

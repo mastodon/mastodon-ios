@@ -15,10 +15,6 @@
                 "title": "Dengdayîn têkçû",
                 "poll_ended": "Rapirsîya qediya"
             },
-            "discard_post_content": {
-                "title": "Reşnivîsê paşguh bike",
-                "message": "Bipejrîne ku naveroka şandiyê ya hatiye nivîsandin paşguh bikî."
-            },
             "publish_post_failure": {
                 "title": "Weşandin têkçû",
                 "message": "Weşandina şandiyê têkçû.\nJkx girêdana înternetê xwe kontrol bike.",
@@ -101,7 +97,11 @@
                     "title": "Ji %s wergerîne",
                     "unknown_language": "Nenas"
                 },
-                "edit_post": "Serrast bike"
+                "edit_post": "Serrast bike",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Serrûpel",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Têkeve",
             "learn_more": "Bêtir fêr bibe",
-            "join_default_server": "Tevlî mastodon.social bibe",
+            "join_default_server": "Join %@",
             "pick_server": "Rajekarek din hilbijêre",
             "separator": {
                 "or": "an jî"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Kesên bo ku bişopînî bibîne",
-            "follow_explain": "Gava tu kesekî dişopînî, tu yê şandiyê wan di serrûpelê de bibîne."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Hemû",
-                    "people": "Mirov",
-                    "hashtags": "Hashtag",
-                    "posts": "Şandî"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Encam tune"
                 },
                 "recent_search": "Lêgerînên dawî",
+                "clear_all": "Clear all",
                 "clear": "Pak bike"
             }
         },

@@ -15,10 +15,6 @@
                 "title": "Не удалось проголосовать",
                 "poll_ended": "Опрос уже завершился"
             },
-            "discard_post_content": {
-                "title": "Удалить черновик",
-                "message": "Вы действительно хотите удалить набранное содержимое поста?"
-            },
             "publish_post_failure": {
                 "title": "Ошибка публикации",
                 "message": "Не удалось опубликовать пост.\nПожалуйста, проверьте подключение к интернету.",
@@ -101,7 +97,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Главная",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Вход",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Подпишитесь на людей",
-            "follow_explain": "Посты людей, на которых вы подписались, будут видны на главной странице."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Всё",
-                    "people": "Люди",
-                    "hashtags": "Хэштеги",
-                    "posts": "Посты"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Нет результатов"
                 },
                 "recent_search": "Последние запросы",
+                "clear_all": "Clear all",
                 "clear": "Очистить"
             }
         },

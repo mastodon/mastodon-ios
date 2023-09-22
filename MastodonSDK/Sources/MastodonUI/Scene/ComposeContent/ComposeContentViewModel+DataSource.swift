@@ -111,7 +111,9 @@ extension ComposeContentViewModel {
             // Don't block the main queue
             .receive(on: DispatchQueue.global(qos: .userInteractive))
             // Sort emojis
-            .map({ (emojis) -> [Mastodon.Entity.Emoji] in
+            .compactMap({ (emojis) -> [Mastodon.Entity.Emoji]? in
+                guard let emojis else { return nil }
+
                 return emojis.sorted { a, b in
                     a.shortcode.lowercased() < b.shortcode.lowercased()
                 }

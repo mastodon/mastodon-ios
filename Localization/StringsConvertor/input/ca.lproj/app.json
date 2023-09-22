@@ -15,10 +15,6 @@
                 "title": "Error en votar",
                 "poll_ended": "L'enquesta ha finalitzat"
             },
-            "discard_post_content": {
-                "title": "Descarta l'esborrany",
-                "message": "Confirma per a descartar el contingut del tut."
-            },
             "publish_post_failure": {
                 "title": "Error en publicar",
                 "message": "No s'ha pogut enviar la publicació.\nComprova la connexió a Internet.",
@@ -49,8 +45,8 @@
                 "message": "Segur que vols eliminar aquesta publicació?"
             },
             "clean_cache": {
-                "title": "Neteja la memòria cau",
-                "message": "S'ha netejat correctament la memòria cau de %s."
+                "title": "Esborra la memòria cau",
+                "message": "S'han esborrat %s de memòria cau."
             },
             "translation_failed": {
                 "title": "Nota",
@@ -89,19 +85,23 @@
                 "open_in_safari": "Obrir a Safari",
                 "open_in_browser": "Obre al navegador",
                 "find_people": "Busca persones a seguir",
-                "manually_search": "Cerca manualment a canvi",
+                "manually_search": "Millor cerca manualment",
                 "skip": "Omet",
                 "reply": "Respon",
-                "report_user": "Informa sobre %s",
-                "block_domain": "Bloqueja %s",
+                "report_user": "Denuncia %s",
+                "block_domain": "Bloca %s",
                 "unblock_domain": "Desbloca %s",
                 "settings": "Configuració",
                 "delete": "Suprimeix",
                 "translate_post": {
-                    "title": "Traduït del %s",
+                    "title": "Tradueix del: %s",
                     "unknown_language": "Desconegut"
                 },
-                "edit_post": "Edita"
+                "edit_post": "Edita",
+                "bookmark": "Marcador",
+                "remove_bookmark": "Elimina el marcador",
+                "follow": "Segueix a %s",
+                "unfollow": "Deixa de seguir %s"
             },
             "tabs": {
                 "home": "Inici",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Inicia sessió",
             "learn_more": "Més informació",
-            "join_default_server": "Uneix-te a mastodon.social",
+            "join_default_server": "Uneix-te a %@",
             "pick_server": "Tria un altre servidor",
             "separator": {
                 "or": "o"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Cerca Persones a Seguir",
-            "follow_explain": "Quan segueixes algú, veuràs els seus tuts a Inici."
+            "title": "Popular a Mastodon",
+            "follow_all": "Seguir a tothom"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Tots",
-                    "people": "Gent",
-                    "hashtags": "Etiquetes",
-                    "posts": "Tuts"
-                },
+                "posts": "Tuts coincidents amb \"%s\"",
+                "people": "Perfils coincidents amb \"%s\"",
+                "profile": "Vés a @%s@%s",
+                "url": "Obre l'enllaç a Mastodon",
+                "hashtag": "Vés a #%s",
                 "empty_state": {
                     "no_results": "No hi ha resultats"
                 },
                 "recent_search": "Cerques recents",
+                "clear_all": "Esborra-ho tot",
                 "clear": "Neteja"
             }
         },

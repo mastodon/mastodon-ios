@@ -15,10 +15,6 @@
                 "title": "การลงคะแนนล้มเหลว",
                 "poll_ended": "การสำรวจความคิดเห็นได้สิ้นสุดแล้ว"
             },
-            "discard_post_content": {
-                "title": "ละทิ้งแบบร่าง",
-                "message": "ยืนยันเพื่อละทิ้งเนื้อหาโพสต์ที่เขียน"
-            },
             "publish_post_failure": {
                 "title": "การเผยแพร่ล้มเหลว",
                 "message": "ไม่สามารถเผยแพร่โพสต์\nโปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ",
@@ -101,7 +97,11 @@
                     "title": "แปลจาก %s",
                     "unknown_language": "ไม่รู้จัก"
                 },
-                "edit_post": "แก้ไข"
+                "edit_post": "แก้ไข",
+                "bookmark": "เพิ่มที่คั่นหน้า",
+                "remove_bookmark": "เอาที่คั่นหน้าออก",
+                "follow": "ติดตาม %s",
+                "unfollow": "เลิกติดตาม %s"
             },
             "tabs": {
                 "home": "หน้าแรก",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "เข้าสู่ระบบ",
             "learn_more": "เรียนรู้เพิ่มเติม",
-            "join_default_server": "เข้าร่วม mastodon.social",
+            "join_default_server": "เข้าร่วม %@",
             "pick_server": "เลือกเซิร์ฟเวอร์อื่น",
             "separator": {
                 "or": "หรือ"
@@ -341,7 +341,7 @@
             "search": {
                 "placeholder": "ค้นหาชื่อหรือ URL"
             },
-            "no_server_selected_hint": "เราจะเลือกเซิร์ฟเวอร์ตามภาษาของคุณหากคุณดำเนินการต่อโดยไม่ได้ทำการเลือก"
+            "no_server_selected_hint": "เราจะเลือกเซิร์ฟเวอร์โดยอิงตามภาษาของคุณหากคุณดำเนินการต่อโดยไม่ได้ทำการเลือก"
         },
         "privacy": {
             "title": "ความเป็นส่วนตัว",
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "ค้นหาผู้คนที่จะติดตาม",
-            "follow_explain": "เมื่อคุณติดตามใครสักคน คุณจะเห็นโพสต์ของเขาในฟีดหน้าแรกของคุณ"
+            "title": "เป็นที่นิยมใน Mastodon",
+            "follow_all": "ติดตามทั้งหมด"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "ทั้งหมด",
-                    "people": "ผู้คน",
-                    "hashtags": "แฮชแท็ก",
-                    "posts": "โพสต์"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "ไม่มีผลลัพธ์"
                 },
                 "recent_search": "การค้นหาล่าสุด",
+                "clear_all": "Clear all",
                 "clear": "ล้าง"
             }
         },
@@ -671,7 +671,7 @@
                 "community": "ชุมชน",
                 "for_you": "สำหรับคุณ"
             },
-            "intro": "นี่คือโพสต์ที่กำลังได้รับความสนใจในมุมของ Mastodon ของคุณ"
+            "intro": "นี่คือโพสต์ที่ได้รับความสนใจในมุมของ Mastodon ของคุณ"
         },
         "favorite": {
             "title": "รายการโปรด"
@@ -834,7 +834,7 @@
             "title": "แท็กที่ติดตาม",
             "header": {
                 "posts": "โพสต์",
-                "participants": "ผู้เข้าร่วม",
+                "participants": "ผู้มีส่วนร่วม",
                 "posts_today": "โพสต์วันนี้"
             },
             "actions": {

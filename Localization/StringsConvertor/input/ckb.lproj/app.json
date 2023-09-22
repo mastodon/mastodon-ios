@@ -15,10 +15,6 @@
                 "title": "نەتوانرا دەنگ بدرێت",
                 "poll_ended": "دەنگدانەکە کۆتایی هاتووە"
             },
-            "discard_post_content": {
-                "title": "ڕەشنووس هەڵمەگرە",
-                "message": "دڵنیا ببەوە بۆ وازهێنان لە ناوەڕۆکەت."
-            },
             "publish_post_failure": {
                 "title": "نەتوانرا پۆستەکە بکرێت",
                 "message": "نەتوانرا پۆستەکە بکرێت.\nتکایە لە بەردەستبوونی هێڵی ئینتەرنێت دڵنیا بە.",
@@ -101,7 +97,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "ماڵەوە",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "بچۆ ژوورەوە",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "خەڵک بدۆزەوە",
-            "follow_explain": "کاتێک شوێنی یەکێک دەکەویت، پۆستەکانی دێتە بەردەمت."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "هەمووی",
-                    "people": "خەڵک",
-                    "hashtags": "هاشتاگ",
-                    "posts": "پۆست"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "هیچ ئەنجامێک نەدۆزرایەوە"
                 },
                 "recent_search": "گەڕانەکانی پێشترت",
+                "clear_all": "Clear all",
                 "clear": "بیانسڕەوە"
             }
         },

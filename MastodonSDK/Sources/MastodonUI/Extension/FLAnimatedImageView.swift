@@ -39,8 +39,8 @@ extension FLAnimatedImageView {
     
     public func setImage(
         url: URL?,
-        placeholder: UIImage?,
-        scaleToSize: CGSize?
+        placeholder: UIImage? = nil,
+        scaleToSize: CGSize? = nil
     ) {
         // cancel task
         cancelTask()

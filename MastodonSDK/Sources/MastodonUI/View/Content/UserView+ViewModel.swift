@@ -6,7 +6,6 @@
 //
 
 import CoreDataStack
-import os.log
 import UIKit
 import Combine
 import MetaTextKit
@@ -19,9 +18,7 @@ extension UserView {
     public final class ViewModel: ObservableObject {
         public var disposeBag = Set<AnyCancellable>()
         public var observations = Set<NSKeyValueObservation>()
-        
-        let logger = Logger(subsystem: "StatusView", category: "ViewModel")
-        
+
         @Published public var authorAvatarImage: UIImage?
         @Published public var authorAvatarImageURL: URL?
         @Published public var authorName: MetaContent?

@@ -53,7 +53,7 @@ extension Parser {
             ].joined()
             let value = [
                 "\"",
-                pair.value.replacingOccurrences(of: "%s", with: "%@"),
+                pair.value.replacingOccurrences(of: "%s", with: "%@").replacingOccurrences(of: "\"", with: "\\\""),
                 "\""
             ].joined()
             let line = [

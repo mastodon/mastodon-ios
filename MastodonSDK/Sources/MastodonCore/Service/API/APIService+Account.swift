@@ -230,12 +230,12 @@ extension APIService {
         var result: MastodonUser?
         try await managedObjectContext.perform {
             result = Persistence.MastodonUser.fetch(in: managedObjectContext,
-                                                  context: Persistence.MastodonUser.PersistContext(
-                                                    domain: domain,
-                                                    entity: response.value,
-                                                    cache: nil,
-                                                    networkDate: response.networkDate
-                                                  ))
+                                                    context: Persistence.MastodonUser.PersistContext(
+                                                        domain: domain,
+                                                        entity: response.value,
+                                                        cache: nil,
+                                                        networkDate: response.networkDate
+                                                    ))
         }
         return result
     }

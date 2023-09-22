@@ -15,10 +15,6 @@
                 "title": "Памылка пры галасаванні",
                 "poll_ended": "Апытанне завяршылася"
             },
-            "discard_post_content": {
-                "title": "Скасаваць чарнавік",
-                "message": "Пацвердзіце, каб скасаваць змесціва допісу."
-            },
             "publish_post_failure": {
                 "title": "Памылка пры публікацыі",
                 "message": "Не ўдалося апублікаваць допіс.\nПраверце злучэнне з інтэрнэтам.",
@@ -101,7 +97,11 @@
                     "title": "Перакласці з %s",
                     "unknown_language": "Невядомая"
                 },
-                "edit_post": "Рэдагаваць"
+                "edit_post": "Рэдагаваць",
+                "bookmark": "Закладка",
+                "remove_bookmark": "Выдаліць закладку",
+                "follow": "Падпісацца на %s",
+                "unfollow": "Адпісацца ад %s"
             },
             "tabs": {
                 "home": "Галоўная",
@@ -257,16 +257,16 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Няма спраўджанай спасылкі",
+            "followers_count": "%@ падпісчыкаў"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Увайсці",
             "learn_more": "Даведацца больш",
-            "join_default_server": "Далучайцеся да mastodon.social",
-            "pick_server": "Pick another server",
+            "join_default_server": "Далучыцца да %@",
+            "pick_server": "Выбраць іншы сервер",
             "separator": {
                 "or": "або"
             },
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Знайсці людзей, каб падпісацца",
-            "follow_explain": "Калі вы падпішацеся на кагосьці, вы ўбачыце яго допісы ў сваёй хатняй стужцы."
+            "title": "Папулярна ў Mastodon",
+            "follow_all": "Падпісацца на ўсіх"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Усе",
-                    "people": "Людзі",
-                    "hashtags": "Хэштэгі",
-                    "posts": "Допісы"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Няма вынікаў"
                 },
                 "recent_search": "Нядаўнія запыты",
+                "clear_all": "Clear all",
                 "clear": "Ачысціць"
             }
         },
@@ -875,18 +875,18 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "display_name": "Хэштэг",
+                "description": "Паказвае нядаўні допіс з выбраным хэштэгам."
             },
             "not_found": {
-                "account_name": "John Mastodon",
+                "account_name": "Джон Мастадон",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "На жаль, мы не змаглі знайсці допісы з хэштэгам <a>#%@</a>. Калі ласка, паспрабуйце <a>#ІншыХэштэг</a> або праверце налады віджэта."
             },
             "placeholder": {
-                "account_name": "John Mastodon",
+                "account_name": "Джон Мастадон",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Вось як будзе выглядаць допіс з <a>#хэштэгам</a>. Выберыце любы <a>#хэштэг</a> у наладах віджэта."
             }
         }
     }

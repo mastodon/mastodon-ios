@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 μη αναγνωσμένη ειδοποίηση</string>
         <key>other</key>
-        <string>%ld unread notifications</string>
+        <string>%ld μη αναγνωσμένες ειδοποιήσεις</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Το όριο εισόδου υπερβαίνει το %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,15 +29,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 χαρακτήρας</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld χαρακτήρες</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Το όριο εισόδου παραμένει %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 χαρακτήρας</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld χαρακτήρες</string>
       </dict>
     </dict>
     <key>a11y.plural.count.characters_left</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>απομένει 1 χαρακτήρας</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>απομένουν %ld χαρακτήρες</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -88,9 +88,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Ακολουθείται από %1$@ και έναν ακόμα κοινό</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Ακολουθείται από %1$@, και %ld κοινούς</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -104,9 +104,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>ανάρτηση</string>
         <key>other</key>
-        <string>posts</string>
+        <string>αναρτήσεις</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -120,9 +120,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 πολυμέσο</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld πολυμέσα</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -136,9 +136,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 ανάρτηση</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld αναρτήσεις</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -152,9 +152,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 αγαπημένο</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld αγαπημένα</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -168,9 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 αναδημοσίευση</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld αναδημοσιεύσεις</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -184,9 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>1 αναδημοσίευση</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld αναδημοσιεύσεις</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -200,9 +200,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>1 απάντηση</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld απαντήσεις</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -216,9 +216,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 ψήφος</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld ψήφοι</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -232,9 +232,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 ψηφοφόρος</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld ψηφοφόροι</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -248,9 +248,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 άτομο που μιλάει</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld άτομα μιλούν</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -264,9 +264,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 ακολουθεί</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld ακολουθούν</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -280,9 +280,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 ακόλουθος</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld ακόλουθοι</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -296,9 +296,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>Απομένει 1 χρόνος</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>Απομένουν %ld χρόνια</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -312,9 +312,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>Απομένει 1 μήνας</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>Απομένουν %ld μήνες</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -328,9 +328,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>Απομένει 1 ημέρα</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>απομένουν %ld ημέρες</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -344,9 +344,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>απομένει 1 ώρα</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>απομένουν %ld ώρες</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -360,9 +360,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>απομένει 1 λεπτό</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>Απομένουν %ld λεπτά</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -376,9 +376,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>απομένει 1 δευτερόλεπτο</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>Απομένουν %ld δευτερόλεπτα</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -392,9 +392,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1χρ πριν</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ldχρ πριν</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -408,9 +408,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1μην πριν</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ldμην πριν</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -424,9 +424,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>%1ημ πριν</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ldημ πριν</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -440,9 +440,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1ώ πριν</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ldώ πριν</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -456,9 +456,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1λ πριν</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ldλ πριν</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -472,9 +472,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1δλ πριν</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ldδλ πριν</string>
       </dict>
     </dict>
   </dict>

@@ -39,9 +39,12 @@ extension NotificationView {
         @Published public var isMuting = false
         @Published public var isBlocking = false
         @Published public var isTranslated = false
+        @Published public var isFollowed = false
         
         @Published public var timestamp: Date?
         
+        @Published public var visibility: MastodonVisibility = .public
+
         @Published public var followRequestState = MastodonFollowRequestState(state: .none)
         @Published public var transientFollowRequestState = MastodonFollowRequestState(state: .none)
         
@@ -118,6 +121,12 @@ extension NotificationView.ViewModel {
         formattedTimestamp
             .sink { timestamp in
                 notificationView.dateLabel.configure(content: PlaintextMetaContent(string: timestamp))
+            }
+            .store(in: &disposeBag)
+
+        $visibility
+            .sink { visibility in
+                notificationView.visibilityIconImageView.image = visibility.image
             }
             .store(in: &disposeBag)
 
@@ -208,18 +217,19 @@ extension NotificationView.ViewModel {
             $authorName,
             $isMuting,
             $isBlocking,
-            Publishers.CombineLatest(
+            Publishers.CombineLatest3(
                 $isMyself,
-                $isTranslated
+                $isTranslated,
+                $isFollowed
             )
         )
-        .sink { [weak self] authorName, isMuting, isBlocking, isMyselfIsTranslated in
+        .sink { [weak self] authorName, isMuting, isBlocking, isMyselfIsTranslatedIsFollowed in
             guard let name = authorName?.string else {
                 notificationView.menuButton.menu = nil
                 return
             }
             
-            let (isMyself, isTranslated) = isMyselfIsTranslated
+            let (isMyself, isTranslated, isFollowed) = isMyselfIsTranslatedIsFollowed
             
             lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
                 guard
@@ -242,6 +252,7 @@ extension NotificationView.ViewModel {
                 isBlocking: isBlocking,
                 isMyself: isMyself,
                 isBookmarking: false,    // no bookmark action display for notification item
+                isFollowed: isFollowed,
                 isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
                 isTranslated: isTranslated,
                 statusLanguage: ""

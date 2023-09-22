@@ -352,10 +352,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     choices: [choice],
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): vote poll for \(choice) success")
             } catch {
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): vote poll fail: \(error.localizedDescription)")
-                
                 // restore voting state
                 try await managedObjectContext.performChanges {
                     guard
@@ -411,10 +408,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     choices: choices,
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): vote poll for \(choices) success")
             } catch {
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): vote poll fail: \(error.localizedDescription)")
-                
                 // restore voting state
                 try await managedObjectContext.performChanges {
                     guard let poll = poll.object(in: managedObjectContext) else { return }
@@ -494,6 +488,14 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                         cell.statusView.viewModel.isCurrentlyTranslating = true
                     }
                     cell.invalidateIntrinsicContentSize()
+                }
+            }
+
+            if case .showOriginal = action {
+                DispatchQueue.main.async {
+                    if let cell = cell as? StatusTableViewCell {
+                        cell.statusView.revertTranslation()
+                    }
                 }
             }
                         

@@ -134,7 +134,7 @@ extension Mastodon.API {
     static func get(
         url: URL,
         query: GetQuery? = nil,
-        authorization: OAuth.Authorization?
+        authorization: OAuth.Authorization? = nil
     ) -> URLRequest {
         return buildRequest(url: url, method: .GET, query: query, authorization: authorization)
     }
@@ -142,7 +142,7 @@ extension Mastodon.API {
     static func post(
         url: URL,
         query: PostQuery?,
-        authorization: OAuth.Authorization?
+        authorization: OAuth.Authorization? = nil
     ) -> URLRequest {
         return buildRequest(url: url, method: .POST, query: query, authorization: authorization)
     }
@@ -150,7 +150,7 @@ extension Mastodon.API {
     static func patch(
         url: URL,
         query: PatchQuery?,
-        authorization: OAuth.Authorization?
+        authorization: OAuth.Authorization? = nil
     ) -> URLRequest {
         return buildRequest(url: url, method: .PATCH, query: query, authorization: authorization)
     }
@@ -158,7 +158,7 @@ extension Mastodon.API {
     static func put(
         url: URL,
         query: PutQuery? = nil,
-        authorization: OAuth.Authorization?
+        authorization: OAuth.Authorization? = nil
     ) -> URLRequest {
         return buildRequest(url: url, method: .PUT, query: query, authorization: authorization)
     }
@@ -166,7 +166,7 @@ extension Mastodon.API {
     static func delete(
         url: URL,
         query: DeleteQuery?,
-        authorization: OAuth.Authorization?
+        authorization: OAuth.Authorization? = nil
     ) -> URLRequest {
         return buildRequest(url: url, method: .DELETE, query: query, authorization: authorization)
     }
@@ -208,7 +208,6 @@ extension Mastodon.API {
             return try Mastodon.API.decoder.decode(type, from: data)
         } catch let decodeError {
             #if DEBUG
-            os_log(.info, "%{public}s[%{public}ld], %{public}s: decode fail. content %s", ((#file as NSString).lastPathComponent), #line, #function, String(data: data, encoding: .utf8) ?? "<nil>")
             debugPrint(decodeError)
             #endif
             

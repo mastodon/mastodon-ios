@@ -113,12 +113,11 @@ extension MediaPreviewViewController {
                 guard let self = self else { return }
                 switch self.viewModel.item {
                 case .attachment(let previewContext):
-                    let needsHideCloseButton: Bool = {
+                    self.topToolbar.isHidden = {
                         guard index < previewContext.attachments.count else { return false }
                         let attachment = previewContext.attachments[index]
-                        return attachment.kind == .video    // not hide buttno for audio
+                        return attachment.kind == .video || attachment.kind == .audio
                     }()
-                    self.closeButton.isHidden = needsHideCloseButton
                 default:
                     break
                 }
@@ -272,10 +271,6 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
         } else {
             dismiss(animated: true, completion: nil)
         }
-    }
-    
-    func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        // do nothing
     }
     
     func mediaPreviewImageViewController(

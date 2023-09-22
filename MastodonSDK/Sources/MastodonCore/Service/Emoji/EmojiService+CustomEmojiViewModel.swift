@@ -32,8 +32,8 @@ extension EmojiService {
             stateMachine.enter(LoadState.Initial.self)
             return stateMachine
         }()
-        public let emojis = CurrentValueSubject<[Mastodon.Entity.Emoji], Never>([])
-        public let emojiDict = CurrentValueSubject<[String: [Mastodon.Entity.Emoji]], Never>([:])
+        public let emojis = CurrentValueSubject<[Mastodon.Entity.Emoji]?, Never>(nil)
+        public let emojiDict = CurrentValueSubject<[String: [Mastodon.Entity.Emoji]]?, Never>(nil)
         public let emojiMapping = CurrentValueSubject<[String: String], Never>([:])
         public let emojiTrie = CurrentValueSubject<Trie<Character>?, Never>(nil)
         
@@ -44,12 +44,17 @@ extension EmojiService {
             self.service = service
             
             emojis
-                .map { Dictionary(grouping: $0, by: { $0.shortcode }) }
+                .compactMap { value in
+                    guard let value else { return nil }
+                    return Dictionary(grouping: value, by: { value in value.shortcode })
+                }
                 .assign(to: \.value, on: emojiDict)
                 .store(in: &disposeBag)
 
             emojiDict
-                .map { dict in
+                .compactMap { dict in
+                    guard let dict else { return nil }
+
                     var mapping: [String: String] = [:]
                     for (key, values) in dict {
                         guard let emoji = values.first else { continue }
@@ -61,8 +66,8 @@ extension EmojiService {
                 .store(in: &disposeBag)
             
             emojis
-                .map { emojis -> Trie<Character>? in
-                    guard !emojis.isEmpty else { return nil }
+                .compactMap { emojis -> Trie<Character>? in
+                    guard let emojis, emojis.isEmpty == false else { return nil }
                     var trie: Trie<Character> = Trie()
                     for emoji in emojis {
                         let key = emoji.shortcode.lowercased()
@@ -84,7 +89,7 @@ extension EmojiService {
                 }
             }
 
-            return emojiDict.value[shortcode]?.first
+            return emojiDict.value?[shortcode]?.first
         }
         
     }

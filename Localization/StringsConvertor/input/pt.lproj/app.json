@@ -15,10 +15,6 @@
                 "title": "Erro na votação",
                 "poll_ended": "Esta sondagem está fechada"
             },
-            "discard_post_content": {
-                "title": "Descartar rascunho",
-                "message": "Confirm to discard composed post content."
-            },
             "publish_post_failure": {
                 "title": "Falha ao publicar",
                 "message": "Falha na publicação.\nPor favor verifique a sua ligação à Internet.",
@@ -101,7 +97,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Home",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Log In",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Etiquetas",
-                    "posts": "Publicações"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "No results"
                 },
                 "recent_search": "Recent searches",
+                "clear_all": "Clear all",
                 "clear": "Clear"
             }
         },

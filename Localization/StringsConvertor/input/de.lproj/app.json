@@ -15,10 +15,6 @@
                 "title": "Fehler bei Abstimmung",
                 "poll_ended": "Die Umfrage ist beendet"
             },
-            "discard_post_content": {
-                "title": "Entwurf verwerfen",
-                "message": "Bestätige, um den Beitrag zu verwerfen."
-            },
             "publish_post_failure": {
                 "title": "Fehler bei Veröffentlichung",
                 "message": "Fehler beim Veröffentlichen des Beitrags.\nBitte überprüfe deine Internetverbindung.",
@@ -101,7 +97,11 @@
                     "title": "Von %s übersetzen",
                     "unknown_language": "Unbekannt"
                 },
-                "edit_post": "Bearbeiten"
+                "edit_post": "Bearbeiten",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Startseite",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Anmelden",
             "learn_more": "Mehr erfahren",
-            "join_default_server": "mastodon.social beitreten",
+            "join_default_server": "Join %@",
             "pick_server": "Einen anderen Server auswählen",
             "separator": {
                 "or": "oder"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Finde Personen zum Folgen",
-            "follow_explain": "Sobald du anderen folgst, siehst du deren Beiträge in deinem Home-Feed."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Alles",
-                    "people": "Personen",
-                    "hashtags": "Hashtags",
-                    "posts": "Beiträge"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Keine Ergebnisse"
                 },
                 "recent_search": "Zuletzt gesucht",
+                "clear_all": "Clear all",
                 "clear": "Zurücksetzen"
             }
         },

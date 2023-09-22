@@ -23,8 +23,6 @@ enum SearchResultSection: Hashable {
 
 extension SearchResultSection {
     
-    static let logger = Logger(subsystem: "SearchResultSection", category: "logic")
-    
     struct Configuration {
         let authContext: AuthContext
         weak var statusViewTableViewCellDelegate: StatusTableViewCellDelegate?
@@ -45,7 +43,7 @@ extension SearchResultSection {
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
             case .user(let record):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as! UserTableViewCell
                 context.managedObjectContext.performAndWait {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
                     configure(
@@ -53,7 +51,7 @@ extension SearchResultSection {
                         authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: UserTableViewCell.ViewModel(value: .user(user),
+                        viewModel: UserTableViewCell.ViewModel(user: user,
                                                                followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
                                                                blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
                                                                followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()),

@@ -384,6 +384,16 @@ extension DataSourceFacade {
                 composeContext: .editStatus(status: status, statusSource: statusSource),
                 destination: .topLevel)
             _ = dependency.coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))
+
+        case .showOriginal:
+            // do nothing, as the translation is reverted in `StatusTableViewCellDelegate` in `DataSourceProvider+StatusTableViewCellDelegate.swift`.
+            break
+        case .followUser(_):
+
+            guard let author = menuContext.author else { return }
+
+            try await DataSourceFacade.responseToUserFollowAction(dependency: dependency,
+                                                                  user: author)
         }
     }   // end func
 }

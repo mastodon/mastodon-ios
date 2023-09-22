@@ -15,10 +15,6 @@
                 "title": "Dh’fhàillig leis a’ bhòt",
                 "poll_ended": "Thàinig an cunntas-bheachd gu crìoch"
             },
-            "discard_post_content": {
-                "title": "Tilg air falbh an dreachd",
-                "message": "Dearbh tilgeil air falbh susbaint a’ phuist a sgrìobh thu."
-            },
             "publish_post_failure": {
                 "title": "Dh’fhàillig leis an fhoillseachadh",
                 "message": "Cha deach leinn am post fhoillseachadh.\nThoir sùil air a’ cheangal agad ris an eadar-lìon.",
@@ -88,7 +84,7 @@
                 "share_post": "Co-roinn am post",
                 "open_in_safari": "Fosgail ann an Safari",
                 "open_in_browser": "Fosgail sa bhrabhsair",
-                "find_people": "Lorg daoine a leanas tu",
+                "find_people": "Lorg daoine gus an leantainn",
                 "manually_search": "Lorg a làimh ’na àite",
                 "skip": "Leum thairis air",
                 "reply": "Freagair",
@@ -101,7 +97,11 @@
                     "title": "Eadar-theangaich o: %s",
                     "unknown_language": "Chan eil fhios"
                 },
-                "edit_post": "Deasaich"
+                "edit_post": "Deasaich",
+                "bookmark": "Comharra-lìn",
+                "remove_bookmark": "Thoir air falbh an comharra-lìn",
+                "follow": "Lean %s",
+                "unfollow": "Na lean %s tuilleadh"
             },
             "tabs": {
                 "home": "Dachaigh",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Clàraich a-steach",
             "learn_more": "Barrachd fiosrachaidh",
-            "join_default_server": "Faigh ballrachd air mastodon.social",
+            "join_default_server": "Faigh ballrachd aig %@",
             "pick_server": "Tagh frithealaiche eile",
             "separator": {
                 "or": "no"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Lorg daoine a leanas tu",
-            "follow_explain": "Nuair a leanas tu cuideigin, chì thu na puist aca air inbhir na dachaigh agad."
+            "title": "Fèillmhor air Mastodon",
+            "follow_all": "Lean na h-uile"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Na h-uile",
-                    "people": "Daoine",
-                    "hashtags": "Tagaichean hais",
-                    "posts": "Postaichean"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Gun toradh"
                 },
                 "recent_search": "Na lorg thu o chionn goirid",
+                "clear_all": "Clear all",
                 "clear": "Falamhaich"
             }
         },
@@ -784,7 +784,7 @@
                 "malicious_links_fake_engagement_or_repetetive_replies": "Ceanglaichean droch-rùnach, conaltradh fuadain no an dearbh fhreagairt a-rithist ’s a-rithist",
                 "it_violates_server_rules": "Tha e a’ briseadh riaghailtean an fhrithealaiche",
                 "you_are_aware_that_it_breaks_specific_rules": "Mhothaich thu gu bheil e a’ briseadh riaghailtean sònraichte",
-                "its_something_else": "’S rud eile a tha ann",
+                "its_something_else": "’S e rud eile a tha ann",
                 "the_issue_does_not_fit_into_other_categories": "Chan eil na roinnean-seòrsa eile iomchaidh dhan chùis"
             },
             "step_two": {

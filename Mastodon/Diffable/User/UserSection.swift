@@ -39,30 +39,31 @@ extension UserSection {
 
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .user(let record):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
-                    configure(
-                        context: context,
-                        authContext: authContext,
-                        tableView: tableView,
-                        cell: cell,
-                        viewModel: UserTableViewCell.ViewModel(value: .user(user),
-                                         followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
-                                         blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
-                                         followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()
-                                        ),
-                        configuration: configuration
-                    )
-                }
- 
-                return cell
-            case .bottomLoader:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
-                cell.startAnimating()
-                return cell
-            case .bottomHeader(let text):
+                case .user(let record):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
+                    context.managedObjectContext.performAndWait {
+                        guard let user = record.object(in: context.managedObjectContext) else { return }
+                        configure(
+                            context: context,
+                            authContext: authContext,
+                            tableView: tableView,
+                            cell: cell,
+                            viewModel: UserTableViewCell.ViewModel(
+                                user: user,
+                                followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
+                                blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
+                                followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()
+                            ),
+                            configuration: configuration
+                        )
+                    }
+
+                    return cell
+                case .bottomLoader:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                    cell.startAnimating()
+                    return cell
+                case .bottomHeader(let text):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineFooterTableViewCell.self), for: indexPath) as! TimelineFooterTableViewCell
                 cell.messageLabel.text = text
                 return cell

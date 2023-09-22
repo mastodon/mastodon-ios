@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Ανάρτηση στο Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Περιεχόμενο Κειμένου";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Ανάρτηση στο Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Τι περιεχόμενο θα αναρτήσεις;";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Αποτυχία δημοσίευσης";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Λόγος Αποτυχίας";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Αποστολή ανάρτησης με περιεχόμενο κειμένου";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Ανάρτηση";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Ανάρτηση ${content} στο Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Ανάρτηση";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Ορατότητα";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Ορατότητα Ανάρτησης";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Υπάρχουν ${count} επιλογές που ταιριάζουν στο «Δημόσιο».";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Υπάρχουν ${count} επιλογές που ταιριάζουν στο «Μόνο για Ακόλουθους».";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Δημόσιο";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Μόνο Ακόλουθοι";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Ανάρτηση στο Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Δημόσιο";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Μόνο Ακόλουθοι";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Αποτυχία ανάρτησης. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Η ανάρτηση στάλθηκε με επιτυχία.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Απλά για να επιβεβαίωση, θες «Δημόσιο»;";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Απλά για επιβεβαίωση, θες «Μόνο Ακόλουθοι»;";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Η ανάρτηση στάλθηκε με επιτυχία. ";

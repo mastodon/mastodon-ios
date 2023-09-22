@@ -548,3 +548,10 @@ extension MastodonUser: AutoUpdatableObject {
         }
     }
 }
+
+extension MastodonUser {
+    public var verifiedLink: MastodonField? {
+        let firstVerified = fields.first(where: { $0.verifiedAt != nil })
+        return firstVerified
+    }
+}

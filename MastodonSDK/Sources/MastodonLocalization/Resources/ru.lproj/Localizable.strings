@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Пожалуйста, попробуйте позже.";
 "Common.Alerts.DeletePost.Message" = "Вы уверены, что хотите удалить этот пост?";
 "Common.Alerts.DeletePost.Title" = "Вы уверены, что хотите удалить этот пост?";
-"Common.Alerts.DiscardPostContent.Message" = "Вы действительно хотите удалить набранное содержимое поста?";
-"Common.Alerts.DiscardPostContent.Title" = "Удалить черновик";
 "Common.Alerts.EditProfileFailure.Message" = "Не удаётся изменить профиль. Пожалуйста, попробуйте ещё раз.";
 "Common.Alerts.EditProfileFailure.Title" = "Ошибка изменения профиля";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Невозможно прикрепить более одного видео.";
@@ -30,6 +28,7 @@
 "Common.Controls.Actions.Add" = "Добавить";
 "Common.Controls.Actions.Back" = "Назад";
 "Common.Controls.Actions.BlockDomain" = "Заблокировать %@";
+"Common.Controls.Actions.Bookmark" = "Bookmark";
 "Common.Controls.Actions.Cancel" = "Отмена";
 "Common.Controls.Actions.Compose" = "Написать";
 "Common.Controls.Actions.Confirm" = "Подтвердить";
@@ -42,6 +41,7 @@
 "Common.Controls.Actions.Edit" = "Изменить";
 "Common.Controls.Actions.EditPost" = "Edit";
 "Common.Controls.Actions.FindPeople" = "Подпишитесь на людей";
+"Common.Controls.Actions.Follow" = "Follow %@";
 "Common.Controls.Actions.ManuallySearch" = "Найти вручную";
 "Common.Controls.Actions.Next" = "Далее";
 "Common.Controls.Actions.Ok" = "ОК";
@@ -51,6 +51,7 @@
 "Common.Controls.Actions.Preview" = "Предпросмотр";
 "Common.Controls.Actions.Previous" = "Прошлые";
 "Common.Controls.Actions.Remove" = "Убрать";
+"Common.Controls.Actions.RemoveBookmark" = "Remove Bookmark";
 "Common.Controls.Actions.Reply" = "Ответить";
 "Common.Controls.Actions.ReportUser" = "Пожаловаться на %@";
 "Common.Controls.Actions.Save" = "Сохранить";
@@ -67,6 +68,7 @@
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "Попробовать снова";
 "Common.Controls.Actions.UnblockDomain" = "Разблокировать %@";
+"Common.Controls.Actions.Unfollow" = "Unfollow %@";
 "Common.Controls.Friendship.Block" = "Заблокировать";
 "Common.Controls.Friendship.BlockDomain" = "Заблокировать %@";
 "Common.Controls.Friendship.BlockUser" = "Заблокировать %@";
@@ -446,12 +448,14 @@
 "Scene.Search.SearchBar.Cancel" = "Отмена";
 "Scene.Search.SearchBar.Placeholder" = "Поиск хэштегов и пользователей";
 "Scene.Search.Searching.Clear" = "Очистить";
+"Scene.Search.Searching.ClearAll" = "Clear all";
 "Scene.Search.Searching.EmptyState.NoResults" = "Нет результатов";
+"Scene.Search.Searching.Hashtag" = "Go to #%@";
+"Scene.Search.Searching.People" = "People matching \"%@\"";
+"Scene.Search.Searching.Posts" = "Posts matching \"%@\"";
+"Scene.Search.Searching.Profile" = "Go to @%@@%@";
 "Scene.Search.Searching.RecentSearch" = "Последние запросы";
-"Scene.Search.Searching.Segment.All" = "Всё";
-"Scene.Search.Searching.Segment.Hashtags" = "Хэштеги";
-"Scene.Search.Searching.Segment.People" = "Люди";
-"Scene.Search.Searching.Segment.Posts" = "Посты";
+"Scene.Search.Searching.Url" = "Open URL in Mastodon";
 "Scene.Search.Title" = "Поиск";
 "Scene.ServerPicker.Button.Category.Academia" = "академия";
 "Scene.ServerPicker.Button.Category.Activism" = "активизм";
@@ -525,8 +529,8 @@
 "Scene.Settings.Section.SpicyZone.Signout" = "Выйти из учётной записи";
 "Scene.Settings.Section.SpicyZone.Title" = "Пикантная зона";
 "Scene.Settings.Title" = "Настройки";
-"Scene.SuggestionAccount.FollowExplain" = "Посты людей, на которых вы подписались, будут видны на главной странице.";
-"Scene.SuggestionAccount.Title" = "Подпишитесь на людей";
+"Scene.SuggestionAccount.FollowAll" = "Follow all";
+"Scene.SuggestionAccount.Title" = "Popular on Mastodon";
 "Scene.Thread.BackTitle" = "Пост";
 "Scene.Thread.Title" = "Пост %@";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "What is Mastodon?";
@@ -534,7 +538,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "Welcome to Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server.";
 "Scene.Welcome.Education.Servers.Title" = "What are servers?";
-"Scene.Welcome.JoinDefaultServer" = "Join mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "Join %@";
 "Scene.Welcome.LearnMore" = "Learn more";
 "Scene.Welcome.LogIn" = "Вход";
 "Scene.Welcome.PickServer" = "Pick another server";

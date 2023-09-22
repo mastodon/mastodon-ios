@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-7-14.
 //
 
-import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
@@ -13,8 +12,6 @@ import MastodonCore
 
 extension SearchResultViewModel {
     class State: GKState {
-        
-        let logger = Logger(subsystem: "SearchResultViewModel.State", category: "StateMachine")
         
         let id = UUID()
 
@@ -24,21 +21,9 @@ extension SearchResultViewModel {
             self.viewModel = viewModel
         }
 
-        override func didEnter(from previousState: GKState?) {
-            super.didEnter(from: previousState)
-            
-            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
-            let to = String(describing: self)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
-        }
-        
         @MainActor
-        func enter(state: State.Type) {
+        public func enter(state: State.Type) {
             stateMachine?.enter(state)
-        }
-        
-        deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }
@@ -46,24 +31,27 @@ extension SearchResultViewModel {
 extension SearchResultViewModel.State {
     class Initial: SearchResultViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            guard let viewModel = viewModel else { return false }
-            return stateClass == Loading.self && !viewModel.searchText.value.isEmpty
+            return stateClass == Loading.self
+        }
+
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+
+            guard let viewModel else { return }
+
+            viewModel.items = [.bottomLoader(attribute: .init(isEmptyResult: false))]
         }
     }
 
     class Loading: SearchResultViewModel.State {
 
-        var previousSearchText = ""
         var offset: Int? = nil
         var latestLoadingToken = UUID()
 
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            guard let viewModel = self.viewModel else { return false }
             switch stateClass {
             case is Fail.Type, is Idle.Type, is NoMore.Type:
                 return true
-            case is Loading.Type:
-                return viewModel.searchText.value != previousSearchText
             default:
                 return false
             }
@@ -71,12 +59,11 @@ extension SearchResultViewModel.State {
 
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel, let stateMachine = stateMachine else { return }
 
-            let searchText = viewModel.searchText.value
             let searchType = viewModel.searchScope.searchType
 
-            if previousState is NoMore && previousSearchText == searchText {
+            if previousState is NoMore {
                 // same searchText from NoMore
                 // break the loading and resume NoMore state
                 stateMachine.enter(NoMore.self)
@@ -86,17 +73,18 @@ extension SearchResultViewModel.State {
 //                viewModel.items.value = viewModel.items.value
             }
 
-            guard !searchText.isEmpty else {
+            guard viewModel.searchText.isEmpty == false else {
                 stateMachine.enter(Fail.self)
                 return
             }
 
-            if searchText != previousSearchText {
-                previousSearchText = searchText
-                offset = nil
-            } else {
-                offset = viewModel.items.count
-            }
+            offset = viewModel.items.filter({ item in
+                if case .bottomLoader(_) = item {
+                    return false
+                } else {
+                    return true
+                }
+            }).count
 
             // not set offset for all case
             // and assert other cases the items are all the same type elements
@@ -108,7 +96,7 @@ extension SearchResultViewModel.State {
             }()
 
             let query = Mastodon.API.V2.Search.Query(
-                q: searchText,
+                q: viewModel.searchText,
                 type: searchType,
                 accountID: nil,
                 maxID: nil,
@@ -130,8 +118,6 @@ extension SearchResultViewModel.State {
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
-                    // discard result when search text is outdated
-                    guard searchText == self.previousSearchText else { return }
                     // discard result when request not the latest one
                     guard id == self.latestLoadingToken else { return }
                     // discard result when state is not Loading
@@ -165,7 +151,6 @@ extension SearchResultViewModel.State {
                     viewModel.hashtags = hashtags
                     
                 } catch {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): search \(searchText) fail: \(error.localizedDescription)")
                     await enter(state: Fail.self)
                 }
             }   // end Task

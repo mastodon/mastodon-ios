@@ -22,4 +22,18 @@ public enum MastodonRegex {
     /// #…
     /// :…
     public static let autoCompletePattern = "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?|#([^\\s.]+))|(^\\B:|\\s:)([a-zA-Z0-9_]+)"
+
+    public enum Search {
+        public static let username = "^@?[a-z0-9_-]+(@[\\S]+)?$"
+
+        /// See: https://github.com/mastodon/mastodon/blob/main/app/javascript/mastodon/utils/hashtags.ts
+        public static var hashtag: String {
+            let word = "\\p{L}\\p{M}\\p{N}\\p{Pc}"
+            let alpha = "\\p{L}\\p{M}"
+            let hashtag_separators = "_\\u00b7\\u200c"
+
+            return "^(([\(word)_][\(word)\(hashtag_separators)]*[\(alpha)\(hashtag_separators)][\(word)\(hashtag_separators)]*[\(word)_])|([\(word)_]*[\(alpha)][\(word)_]*))$"
+        }
+    }
 }
+

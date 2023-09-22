@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-14.
 //
 
-import os.log
 import UIKit
 import Combine
 import GameplayKit
@@ -41,11 +40,6 @@ final class DiscoveryForYouViewModel {
         )
         // end init
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension DiscoveryForYouViewModel {

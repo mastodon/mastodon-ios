@@ -15,10 +15,6 @@
                 "title": "Greiðsla atkvæðis mistókst",
                 "poll_ended": "Könnuninni er lokið"
             },
-            "discard_post_content": {
-                "title": "Henda drögum",
-                "message": "Staðfestu til að henda efni úr saminni færslu."
-            },
             "publish_post_failure": {
                 "title": "Mistókst að birta",
                 "message": "Mistókst að birta færsluna.\nAthugaðu nettenginguna þína.",
@@ -101,7 +97,11 @@
                     "title": "Þýða úr %s",
                     "unknown_language": "Óþekkt"
                 },
-                "edit_post": "Breyta"
+                "edit_post": "Breyta",
+                "bookmark": "Bókamerki",
+                "remove_bookmark": "Fjarlægja bókamerki",
+                "follow": "Fylgjast með %s",
+                "unfollow": "Hætta að fylgjast með %s"
             },
             "tabs": {
                 "home": "Heim",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Skrá inn",
             "learn_more": "Kanna nánar",
-            "join_default_server": "Taka þátt á mastodon.social",
+            "join_default_server": "Taka þátt í %@",
             "pick_server": "Veldu annan netþjón",
             "separator": {
                 "or": "eða"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Finndu fólk til að fylgjast með",
-            "follow_explain": "Þegar þú fylgist með einhverjum, muntu sjá færslur frá viðkomandi á streyminu þínu."
+            "title": "Vinsælt á Mastodon",
+            "follow_all": "Fylgjast með öllum"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Allt",
-                    "people": "Fólk",
-                    "hashtags": "Myllumerki",
-                    "posts": "Færslur"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Engar niðurstöður"
                 },
                 "recent_search": "Nýlegar leitir",
+                "clear_all": "Hreinsa allt",
                 "clear": "Hreinsa"
             }
         },

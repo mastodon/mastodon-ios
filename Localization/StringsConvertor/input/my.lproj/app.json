@@ -15,10 +15,6 @@
                 "title": "မဲပေးမှု မအောင်မြင်ခြင်း",
                 "poll_ended": "စစ်တမ်းကောက်မှု ပြီးဆုံးပါပြီ"
             },
-            "discard_post_content": {
-                "title": "မူကြမ်းကို ပယ်ဖျက်ပါ",
-                "message": "ရေးသားထားသောမူကြမ်းကို ပယ်ဖျက်ရန် အတည်ပြုပါ"
-            },
             "publish_post_failure": {
                 "title": "ပို့စ်တင်ခြင်း မအောင်မြင်မှု",
                 "message": "ပို့စ်တင်ခြင်း မအောင်မြင်ပါ၊ သင်၏ အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ။",
@@ -101,7 +97,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "အိမ်",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "လော့ခ်အင်ဝင်ရန်",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Popular on Mastodon",
+            "follow_all": "Follow all"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "No results"
                 },
                 "recent_search": "Recent searches",
+                "clear_all": "Clear all",
                 "clear": "Clear"
             }
         },

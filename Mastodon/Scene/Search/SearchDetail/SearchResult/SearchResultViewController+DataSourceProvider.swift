@@ -40,7 +40,6 @@ extension SearchResultViewController: DataSourceProvider {
 
 extension SearchResultViewController {
     func aspectTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): indexPath: \(indexPath.debugDescription)")
         Task {
             let source = DataSourceItem.Source(tableViewCell: nil, indexPath: indexPath)
             guard let item = await item(from: source) else {
@@ -72,6 +71,8 @@ extension SearchResultViewController {
             case .notification:
                 assertionFailure()
             }   // end switch
+
+            tableView.deselectRow(at: indexPath, animated: true)
         }   // end Task
     }   // end func
 }

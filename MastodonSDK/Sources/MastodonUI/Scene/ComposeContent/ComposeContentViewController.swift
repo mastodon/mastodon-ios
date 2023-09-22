@@ -126,7 +126,6 @@ extension ComposeContentViewController {
             toolbarHostingView.view.heightAnchor.constraint(equalToConstant: ComposeContentToolbarView.toolbarHeight),
         ])
         toolbarHostingView.view.preservesSuperviewLayoutMargins = true
-        //composeToolbarView.delegate = self
         
         composeContentToolbarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(composeContentToolbarBackgroundView, belowSubview: toolbarHostingView.view)
@@ -272,10 +271,10 @@ extension ComposeContentViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] emojis in
                 guard let self = self else { return }
-                if emojis.isEmpty {
-                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
-                } else {
+                if emojis != nil {
                     self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
+                } else {
+                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
                 }
             })
             .store(in: &disposeBag)

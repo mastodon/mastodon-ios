@@ -6,8 +6,6 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "请稍后重试。";
 "Common.Alerts.DeletePost.Message" = "确定要删除这个帖子吗？";
 "Common.Alerts.DeletePost.Title" = "删除帖子";
-"Common.Alerts.DiscardPostContent.Message" = "确认要丢弃正在编辑的内容";
-"Common.Alerts.DiscardPostContent.Title" = "丢弃草案";
 "Common.Alerts.EditProfileFailure.Message" = "无法编辑个人资料，请重试。";
 "Common.Alerts.EditProfileFailure.Title" = "编辑个人资料出现错误";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "最多添加一个视频。";
@@ -30,6 +28,7 @@
 "Common.Controls.Actions.Add" = "添加";
 "Common.Controls.Actions.Back" = "返回";
 "Common.Controls.Actions.BlockDomain" = "屏蔽 %@";
+"Common.Controls.Actions.Bookmark" = "添加书签";
 "Common.Controls.Actions.Cancel" = "取消";
 "Common.Controls.Actions.Compose" = "撰写";
 "Common.Controls.Actions.Confirm" = "确认";
@@ -42,6 +41,7 @@
 "Common.Controls.Actions.Edit" = "编辑";
 "Common.Controls.Actions.EditPost" = "编辑";
 "Common.Controls.Actions.FindPeople" = "查看推荐关注的用户";
+"Common.Controls.Actions.Follow" = "关注 %@";
 "Common.Controls.Actions.ManuallySearch" = "手动搜索用户";
 "Common.Controls.Actions.Next" = "下一个";
 "Common.Controls.Actions.Ok" = "好的";
@@ -51,6 +51,7 @@
 "Common.Controls.Actions.Preview" = "预览";
 "Common.Controls.Actions.Previous" = "上一个";
 "Common.Controls.Actions.Remove" = "删除";
+"Common.Controls.Actions.RemoveBookmark" = "移除书签";
 "Common.Controls.Actions.Reply" = "回复";
 "Common.Controls.Actions.ReportUser" = "举报 %@";
 "Common.Controls.Actions.Save" = "保存";
@@ -67,6 +68,7 @@
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "未知的";
 "Common.Controls.Actions.TryAgain" = "再试一次";
 "Common.Controls.Actions.UnblockDomain" = "解除屏蔽 %@";
+"Common.Controls.Actions.Unfollow" = "不再关注 %@";
 "Common.Controls.Friendship.Block" = "屏蔽";
 "Common.Controls.Friendship.BlockDomain" = "屏蔽 %@";
 "Common.Controls.Friendship.BlockUser" = "屏蔽 %@";
@@ -117,7 +119,7 @@
 "Common.Controls.Status.Actions.Unreblog" = "取消转发";
 "Common.Controls.Status.Buttons.EditHistoryDetail" = "编辑于：%@";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "编辑历史";
-"Common.Controls.Status.Buttons.FavoritesTitle" = "收藏";
+"Common.Controls.Status.Buttons.FavoritesTitle" = "喜欢";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "转发";
 "Common.Controls.Status.ContentWarning" = "内容警告";
 "Common.Controls.Status.EditHistory.OriginalPost" = "原始帖文 · %@";
@@ -181,8 +183,8 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "正在加载帖子...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "显示更多回复";
 "Common.Controls.Timeline.Timestamp.Now" = "现在";
-"Common.UserList.FollowersCount" = "%@ followers";
-"Common.UserList.NoVerifiedLink" = "No verified link";
+"Common.UserList.FollowersCount" = "%@ 名关注者";
+"Common.UserList.NoVerifiedLink" = "未验证链接";
 "Extension.OpenIn.InvalidLinkError" = "这似乎不是一个有效的 Mastodon 链接。";
 "Scene.AccountList.AddAccount" = "添加账户";
 "Scene.AccountList.DismissAccountSwitcher" = "关闭账户切换页面";
@@ -270,8 +272,8 @@
 "Scene.Discovery.Tabs.Posts" = "嘟文";
 "Scene.Familiarfollowers.FollowedByNames" = "%@ 关注了这个账号";
 "Scene.Familiarfollowers.Title" = "你熟悉的关注者";
-"Scene.Favorite.Title" = "收藏";
-"Scene.FavoritedBy.Title" = "收藏者";
+"Scene.Favorite.Title" = "喜欢";
+"Scene.FavoritedBy.Title" = "喜欢者";
 "Scene.FollowedTags.Actions.Follow" = "关注";
 "Scene.FollowedTags.Actions.Unfollow" = "取消关注";
 "Scene.FollowedTags.Header.Participants" = "参与者";
@@ -438,12 +440,14 @@
 "Scene.Search.SearchBar.Cancel" = "取消";
 "Scene.Search.SearchBar.Placeholder" = "搜索标签和用户";
 "Scene.Search.Searching.Clear" = "清除";
+"Scene.Search.Searching.ClearAll" = "Clear all";
 "Scene.Search.Searching.EmptyState.NoResults" = "无结果";
+"Scene.Search.Searching.Hashtag" = "Go to #%@";
+"Scene.Search.Searching.People" = "People matching \"%@\"";
+"Scene.Search.Searching.Posts" = "Posts matching \"%@\"";
+"Scene.Search.Searching.Profile" = "Go to @%@@%@";
 "Scene.Search.Searching.RecentSearch" = "最近搜索";
-"Scene.Search.Searching.Segment.All" = "全部";
-"Scene.Search.Searching.Segment.Hashtags" = "标签";
-"Scene.Search.Searching.Segment.People" = "用户";
-"Scene.Search.Searching.Segment.Posts" = "帖子";
+"Scene.Search.Searching.Url" = "Open URL in Mastodon";
 "Scene.Search.Title" = "搜索";
 "Scene.ServerPicker.Button.Category.Academia" = "学术";
 "Scene.ServerPicker.Button.Category.Activism" = "行动主义";
@@ -517,8 +521,8 @@
 "Scene.Settings.Section.SpicyZone.Signout" = "退出";
 "Scene.Settings.Section.SpicyZone.Title" = "The Spicy Zone";
 "Scene.Settings.Title" = "设置";
-"Scene.SuggestionAccount.FollowExplain" = "当你关注某个人时，你将会在主页看到他们的帖子。";
-"Scene.SuggestionAccount.Title" = "查看推荐关注的用户";
+"Scene.SuggestionAccount.FollowAll" = "一键关注";
+"Scene.SuggestionAccount.Title" = "Mastodon上流行的";
 "Scene.Thread.BackTitle" = "帖子";
 "Scene.Thread.Title" = "来自 %@ 的帖子";
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "Mastodon 是什么？";
@@ -526,7 +530,7 @@
 "Scene.Welcome.Education.Mastodon.Title" = "欢迎来到 Mastodon";
 "Scene.Welcome.Education.Servers.Description" = "所有的 Mastodon 帐号皆托管于各自的服务器上，每个服务器有各自的价值取向、规则与管理员。无论你选择哪个服务器，你都能关注并与其他任何服务器上的用户互动。";
 "Scene.Welcome.Education.Servers.Title" = "服务器是什么？";
-"Scene.Welcome.JoinDefaultServer" = "加入 mastodon.social";
+"Scene.Welcome.JoinDefaultServer" = "加入 %@";
 "Scene.Welcome.LearnMore" = "了解详情";
 "Scene.Welcome.LogIn" = "登录";
 "Scene.Welcome.PickServer" = "选择另一个服务器";

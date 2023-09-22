@@ -236,7 +236,6 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
         let keyboardFrame = keyboardFrameValue.cgRectValue
         
         let keyboardOrigin = view.convert(keyboardFrame.origin, from: nil)
-        let intersectionY = CGRectGetMaxY(view.frame) - keyboardOrigin.y;
         
         UIView.animate(withDuration: duration.doubleValue, delay: 0, options: .curveEaseInOut) {
             self.view.layoutIfNeeded()

@@ -15,10 +15,6 @@
                 "title": "投票失败",
                 "poll_ended": "投票已结束"
             },
-            "discard_post_content": {
-                "title": "丢弃草案",
-                "message": "确认要丢弃正在编辑的内容"
-            },
             "publish_post_failure": {
                 "title": "发布失败",
                 "message": "帖子发送失败。\n请检查你的网络连接。",
@@ -101,7 +97,11 @@
                     "title": "翻译自 %s",
                     "unknown_language": "未知的"
                 },
-                "edit_post": "编辑"
+                "edit_post": "编辑",
+                "bookmark": "添加书签",
+                "remove_bookmark": "移除书签",
+                "follow": "关注 %s",
+                "unfollow": "不再关注 %s"
             },
             "tabs": {
                 "home": "主页",
@@ -205,7 +205,7 @@
                 "posted_via_application": "%s 通过 %s 发布",
                 "buttons": {
                     "reblogs_title": "转发",
-                    "favorites_title": "收藏",
+                    "favorites_title": "喜欢",
                     "edit_history_title": "编辑历史",
                     "edit_history_detail": "编辑于：%s"
                 },
@@ -257,15 +257,15 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "未验证链接",
+            "followers_count": "%@ 名关注者"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "登录",
             "learn_more": "了解详情",
-            "join_default_server": "加入 mastodon.social",
+            "join_default_server": "加入 %@",
             "pick_server": "选择另一个服务器",
             "separator": {
                 "or": "或"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "查看推荐关注的用户",
-            "follow_explain": "当你关注某个人时，你将会在主页看到他们的帖子。"
+            "title": "Mastodon上流行的",
+            "follow_all": "一键关注"
         },
         "compose": {
             "title": {
@@ -625,7 +625,7 @@
             "followed_by_names": "%s 关注了这个账号"
         },
         "favorited_by": {
-            "title": "收藏者"
+            "title": "喜欢者"
         },
         "reblogged_by": {
             "title": "转发者"
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "全部",
-                    "people": "用户",
-                    "hashtags": "标签",
-                    "posts": "帖子"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "无结果"
                 },
                 "recent_search": "最近搜索",
+                "clear_all": "Clear all",
                 "clear": "清除"
             }
         },
@@ -674,7 +674,7 @@
             "intro": "这些嘟文在你的长毛象小宇宙中备受关注。"
         },
         "favorite": {
-            "title": "收藏"
+            "title": "喜欢"
         },
         "notification": {
             "title": {

@@ -45,6 +45,7 @@ extension StatusView {
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
+        @Published public var isFollowed = false
         
         // Translation
         @Published public var isCurrentlyTranslating = false
@@ -291,6 +292,12 @@ extension StatusView.ViewModel {
                 authorView.dateLabel.configure(content: PlaintextMetaContent(string: text))
             }
             .store(in: &disposeBag)
+
+        $visibility
+            .sink { visibility in
+                authorView.visibilityIconImageView.image = visibility.image
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindContent(statusView: StatusView) {
@@ -354,8 +361,6 @@ extension StatusView.ViewModel {
             statusView.statusCardControl.alpha = isContentReveal ? 1 : 0
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
-            
-            self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): isContentReveal: \(isContentReveal)")
         }
         .store(in: &disposeBag)
 
@@ -393,7 +398,6 @@ extension StatusView.ViewModel {
         $mediaViewConfigurations
             .sink { [weak self] configurations in
                 guard let self = self else { return }
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): configure media")
                 
                 statusView.mediaGridContainerView.prepareForReuse()
                 
@@ -656,10 +660,11 @@ extension StatusView.ViewModel {
             $authorName,
             $isMyself
         )
-        let publishersTwo = Publishers.CombineLatest3(
+        let publishersTwo = Publishers.CombineLatest4(
             $isMuting,
             $isBlocking,
-            $isBookmark
+            $isBookmark,
+            $isFollowed
         )
         let publishersThree = Publishers.CombineLatest(
             $translatedFromLanguage,
@@ -673,7 +678,7 @@ extension StatusView.ViewModel {
         ).eraseToAnyPublisher()
         .sink { tupleOne, tupleTwo, tupleThree in
             let (authorName, isMyself) = tupleOne
-            let (isMuting, isBlocking, isBookmark) = tupleTwo
+            let (isMuting, isBlocking, isBookmark, isFollowed) = tupleTwo
             let (translatedFromLanguage, language) = tupleThree
     
             guard let name = authorName?.string else {
@@ -703,6 +708,7 @@ extension StatusView.ViewModel {
                 isBlocking: isBlocking,
                 isMyself: isMyself,
                 isBookmarking: isBookmark,
+                isFollowed: isFollowed,
                 isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
                 isTranslated: translatedFromLanguage != nil,
                 statusLanguage: language

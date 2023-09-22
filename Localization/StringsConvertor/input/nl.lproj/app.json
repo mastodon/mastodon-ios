@@ -15,10 +15,6 @@
                 "title": "Stemmen Mislukt",
                 "poll_ended": "De peiling is beëindigd"
             },
-            "discard_post_content": {
-                "title": "Verwijder concept",
-                "message": "Bevestig het verwijderen van het conceptbericht."
-            },
             "publish_post_failure": {
                 "title": "Publicatiefout",
                 "message": "Het publiceren van het bericht is mislukt. Controleer je internetverbinding.",
@@ -101,7 +97,11 @@
                     "title": "Vertaald uit het %s",
                     "unknown_language": "Onbekend"
                 },
-                "edit_post": "Bewerken"
+                "edit_post": "Bewerken",
+                "bookmark": "Bladwijzer toevoegen",
+                "remove_bookmark": "Bladwijzer verwijderen",
+                "follow": "Volg %s",
+                "unfollow": "Ontvolg %s"
             },
             "tabs": {
                 "home": "Start",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Inloggen",
             "learn_more": "Meer leren",
-            "join_default_server": "Registreren op mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Kies een andere server",
             "separator": {
                 "or": "of"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Zoek mensen om te volgen",
-            "follow_explain": "Wanneer je iemand volgt, zie je hun berichten op jouw starttijdlijn."
+            "title": "Populair op Mastodon",
+            "follow_all": "Iedereen volgen"
         },
         "compose": {
             "title": {
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Alles",
-                    "people": "Gebruikers",
-                    "hashtags": "Hashtags",
-                    "posts": "Berichten"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
                 "empty_state": {
                     "no_results": "Geen resultaten"
                 },
                 "recent_search": "Recente zoekopdrachten",
+                "clear_all": "Clear all",
                 "clear": "Wissen"
             }
         },

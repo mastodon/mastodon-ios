@@ -15,10 +15,6 @@
                 "title": "Voto fallito",
                 "poll_ended": "Il sondaggio è terminato"
             },
-            "discard_post_content": {
-                "title": "Elimina bozza",
-                "message": "Confermare di scartare il contenuto del post composto."
-            },
             "publish_post_failure": {
                 "title": "Pubblicazione fallita",
                 "message": "Pubblicazione del post fallita.\nPer favore verifica la tua connessione internet.",
@@ -101,7 +97,11 @@
                     "title": "Traduci da %s",
                     "unknown_language": "Sconosciuto"
                 },
-                "edit_post": "Modifica"
+                "edit_post": "Modifica",
+                "bookmark": "Segnalibro",
+                "remove_bookmark": "Rimuovi il segnalibro",
+                "follow": "Segui %s",
+                "unfollow": "Smetti di seguire %s"
             },
             "tabs": {
                 "home": "Inizio",
@@ -146,7 +146,7 @@
                 "sensitive_content": "Contenuto sensibile",
                 "media_content_warning": "Tocca ovunque per rivelare",
                 "tap_to_reveal": "Tocca per rivelare",
-                "load_embed": "Carica Incorpora",
+                "load_embed": "Carica l'incorporato",
                 "link_via_user": "%s tramite %s",
                 "poll": {
                     "vote": "Vota",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Accedi",
             "learn_more": "Scopri di più",
-            "join_default_server": "Unisciti a mastodon.social",
+            "join_default_server": "Unisciti a %@",
             "pick_server": "Scegli un altro server",
             "separator": {
                 "or": "o"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Trova alcune persone da seguire",
-            "follow_explain": "Quando segui qualcuno, vedrai i loro post nella tua home feed."
+            "title": "Popolare su Mastodon",
+            "follow_all": "Segui tutti"
         },
         "compose": {
             "title": {
@@ -613,7 +613,7 @@
             }
         },
         "follower": {
-            "title": "seguace",
+            "title": "seguaci",
             "footer": "I seguaci da altri server non vengono visualizzati."
         },
         "following": {
@@ -625,7 +625,7 @@
             "followed_by_names": "Seguito da %s"
         },
         "favorited_by": {
-            "title": "Preferito Da"
+            "title": "Preferito da"
         },
         "reblogged_by": {
             "title": "Condiviso Da"
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "Tutto",
-                    "people": "Persone",
-                    "hashtags": "Hashtags",
-                    "posts": "Post"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Vai a @%s@%s",
+                "url": "Apri l'URL su Mastodon",
+                "hashtag": "Vai a #%s",
                 "empty_state": {
                     "no_results": "Nessun risultato"
                 },
                 "recent_search": "Ricerche recenti",
+                "clear_all": "Cancella tutto",
                 "clear": "Cancella"
             }
         },
@@ -831,7 +831,7 @@
             "title": "Segnalibri"
         },
         "followed_tags": {
-            "title": "Etichette seguite",
+            "title": "Hashtag seguiti",
             "header": {
                 "posts": "post",
                 "participants": "partecipanti",

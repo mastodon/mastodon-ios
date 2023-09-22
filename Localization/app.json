@@ -15,10 +15,6 @@
                 "title": "Vote Failure",
                 "poll_ended": "The poll has ended"
             },
-            "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
-            },
             "publish_post_failure": {
                 "title": "Publish Failure",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
@@ -101,8 +97,11 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit"
-
+                "edit_post": "Edit",
+                "bookmark": "Bookmark",
+                "remove_bookmark": "Remove Bookmark",
+                "follow": "Follow %s",
+                "unfollow": "Unfollow %s"
             },
             "tabs": {
                 "home": "Home",
@@ -215,7 +214,6 @@
                     "title": "Edit History",
                     "original_post": "Original Post · %s"
                 }
-
             },
             "friendship": {
                 "follow": "Follow",
@@ -267,7 +265,7 @@
         "welcome": {
             "log_in": "Log In",
             "learn_more": "Learn more",
-            "join_default_server": "Join mastodon.social",
+            "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
@@ -283,9 +281,9 @@
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                      "title": "What is Mastodon?"
-                  }
-              }
+                        "title": "What is Mastodon?"
+                    }
+                }
             }
         },
         "login": {
@@ -652,16 +650,20 @@
                 }
             },
             "searching": {
-                "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
-                },
+                "posts": "Posts matching \"%s\"",
+                "people": "People matching \"%s\"",
+                "profile": "Go to @%s@%s",
+                "url": "Open URL in Mastodon",
+                "hashtag": "Go to #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                }
                 "empty_state": {
                     "no_results": "No results"
                 },
                 "recent_search": "Recent searches",
+                "clear_all": "Clear all",
                 "clear": "Clear"
             }
         },
