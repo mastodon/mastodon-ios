@@ -10,15 +10,15 @@ import MastodonAsset
 import MastodonCommon
 
 public struct SystemTheme {
-    public let systemBackgroundColor = Asset.Theme.System.systemBackground.color
-    public let secondarySystemBackgroundColor = Asset.Theme.System.secondarySystemBackground.color
-    public let tertiarySystemBackgroundColor = Asset.Theme.System.tertiarySystemBackground.color
+    public let systemBackgroundColor = UIColor.systemBackground
+    public let secondarySystemBackgroundColor = UIColor.secondarySystemBackground
+    public let tertiarySystemBackgroundColor = UIColor.tertiarySystemBackground
 
     public let systemElevatedBackgroundColor = Asset.Theme.System.systemElevatedBackground.color
 
-    public let systemGroupedBackgroundColor = Asset.Theme.System.systemGroupedBackground.color
-    public let secondarySystemGroupedBackgroundColor = Asset.Theme.System.secondaryGroupedSystemBackground.color
-    public let tertiarySystemGroupedBackgroundColor = Asset.Theme.System.tertiarySystemGroupedBackground.color
+    public let systemGroupedBackgroundColor = UIColor.systemGroupedBackground
+    public let secondarySystemGroupedBackgroundColor = UIColor.secondarySystemGroupedBackground
+    public let tertiarySystemGroupedBackgroundColor = UIColor.tertiarySystemGroupedBackground
 
     public let navigationBarBackgroundColor = Asset.Theme.System.navigationBarBackground.color
 

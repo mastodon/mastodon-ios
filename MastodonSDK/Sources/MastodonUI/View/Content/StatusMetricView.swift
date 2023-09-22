@@ -38,7 +38,7 @@ public final class StatusMetricView: UIView {
 
     private let separator: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Theme.Mastodon.separator.color
+        view.backgroundColor = .separator
         return view
     }()
     
