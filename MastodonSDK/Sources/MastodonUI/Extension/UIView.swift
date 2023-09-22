@@ -14,7 +14,7 @@ extension UIView {
         UIColor(dynamicProvider: { collection in
             switch collection.userInterfaceStyle {
             case .dark:
-                return ThemeService.shared.currentTheme.value.separator
+                return ThemeService.shared.currentTheme.separator
             default:
                 return .separator
             }

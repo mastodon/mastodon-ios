@@ -86,14 +86,7 @@ extension ThreadReplyLoaderTableViewCell {
         
         loadMoreButton.addTarget(self, action: #selector(ThreadReplyLoaderTableViewCell.loadMoreButtonDidPressed(_:)), for: .touchUpInside)
 
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
-            }
-            .store(in: &_disposeBag)
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme)
     }
     
     private func resetSeparatorLineLayout() {
@@ -125,7 +118,7 @@ extension ThreadReplyLoaderTableViewCell {
         }
     }
 
-    private func setupBackgroundColor(theme: Theme) {
+    private func setupBackgroundColor(theme: SystemTheme) {
         backgroundColor = theme.systemGroupedBackgroundColor
     }
     

@@ -106,7 +106,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .clear
-        tableView.separatorColor = ThemeService.shared.currentTheme.value.separator
+        tableView.separatorColor = ThemeService.shared.currentTheme.separator
         
         tableView.register(SettingsAppearanceTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsAppearanceTableViewCell.self))
         tableView.register(SettingsToggleTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsToggleTableViewCell.self))
@@ -207,14 +207,7 @@ extension SettingsViewController {
     }
     
     private func setupView() {
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
-            }
-            .store(in: &disposeBag)
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme)
 
         setupNavigation()
         view.addSubview(tableView)
@@ -224,7 +217,7 @@ extension SettingsViewController {
         updateSectionHeaderStackViewLayout()
     }
 
-    private func setupBackgroundColor(theme: Theme) {
+    private func setupBackgroundColor(theme: SystemTheme) {
         view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
             switch traitCollection.userInterfaceLevel {
             case .elevated where traitCollection.userInterfaceStyle == .dark:

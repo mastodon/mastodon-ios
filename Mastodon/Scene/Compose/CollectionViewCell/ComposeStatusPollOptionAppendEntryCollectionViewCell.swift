@@ -32,7 +32,7 @@ final class ComposeStatusPollOptionAppendEntryCollectionViewCell: UICollectionVi
     
     override var isHighlighted: Bool {
         didSet {
-            pollOptionView.roundedBackgroundView.backgroundColor = isHighlighted ? ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor.withAlphaComponent(0.6) : ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor
+            pollOptionView.roundedBackgroundView.backgroundColor = isHighlighted ? ThemeService.shared.currentTheme.tertiarySystemGroupedBackgroundColor.withAlphaComponent(0.6) : ThemeService.shared.currentTheme.tertiarySystemGroupedBackgroundColor
             pollOptionView.plusCircleImageView.tintColor = isHighlighted ? Asset.Colors.Brand.blurple.color.withAlphaComponent(0.5) : Asset.Colors.Brand.blurple.color
         }
     }
@@ -85,7 +85,7 @@ extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
         pollOptionView.optionTextField.isHidden = true
         pollOptionView.plusCircleImageView.isHidden = false
         
-        pollOptionView.roundedBackgroundView.backgroundColor = ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor
+        pollOptionView.roundedBackgroundView.backgroundColor = ThemeService.shared.currentTheme.tertiarySystemGroupedBackgroundColor
         setupBorderColor()
         
         pollOptionView.addGestureRecognizer(singleTagGestureRecognizer)
@@ -96,7 +96,7 @@ extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
     
     private func setupBorderColor() {
         pollOptionView.roundedBackgroundView.layer.borderWidth = 1
-        pollOptionView.roundedBackgroundView.layer.borderColor = ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
+        pollOptionView.roundedBackgroundView.layer.borderColor = ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

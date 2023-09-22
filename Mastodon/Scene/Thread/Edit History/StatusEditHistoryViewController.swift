@@ -49,13 +49,13 @@ class StatusEditHistoryViewController: UIViewController {
         }
 
         tableView.dataSource = tableViewDataSource
-        tableView.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
+        tableView.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
         self.tableViewDataSource = tableViewDataSource
 
 
         view.addSubview(tableView)
 
-        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
+        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
         setupConstraints()
 
         title = L10n.Common.Controls.Status.EditHistory.title

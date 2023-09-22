@@ -18,20 +18,13 @@ extension SecondaryPlaceholderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupBackground(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackground(theme: theme)
-            }
-            .store(in: &disposeBag)
+        setupBackground(theme: ThemeService.shared.currentTheme)
     }
     
 }
 
 extension SecondaryPlaceholderViewController {
-    private func setupBackground(theme: Theme) {
+    private func setupBackground(theme: SystemTheme) {
         view.backgroundColor = theme.secondarySystemBackgroundColor
     }
 }

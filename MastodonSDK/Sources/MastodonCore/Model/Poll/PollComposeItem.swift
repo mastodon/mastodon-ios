@@ -26,14 +26,10 @@ extension PollComposeItem {
         @Published public var shouldBecomeFirstResponder = false
         
         // output
-        @Published public var backgroundColor = ThemeService.shared.currentTheme.value.composePollRowBackgroundColor
+        @Published public var backgroundColor = ThemeService.shared.currentTheme.composePollRowBackgroundColor
         
         public override init() {
             super.init()
-            
-            ThemeService.shared.currentTheme
-                .map { $0.composePollRowBackgroundColor }
-                .assign(to: &$backgroundColor)
         }
     }
 }

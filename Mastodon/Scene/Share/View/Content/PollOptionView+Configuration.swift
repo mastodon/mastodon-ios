@@ -21,14 +21,6 @@ extension PollOptionView {
 
         viewModel.objects.insert(option)
         
-        // background
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.viewModel.roundedBackgroundViewColor = theme.systemElevatedBackgroundColor
-            }
-            .store(in: &disposeBag)
         // metaContent
         option.publisher(for: \.title)
             .map { title -> MetaContent? in
@@ -103,41 +95,24 @@ extension PollOptionView {
         }
         .store(in: &disposeBag)
         // appearance
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
-                    return trailtCollection.userInterfaceStyle == .light ? .white : theme.tableViewCellSelectionBackgroundColor
-                })
-            }
-            .store(in: &disposeBag)
+        checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
+            return trailtCollection.userInterfaceStyle == .light ? .white : ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor
+        })
+
     }
 }
 
 extension PollOptionView {
     public func configure(historyPollOption option: StatusEdit.Poll.Option) {
         // background
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.viewModel.roundedBackgroundViewColor = theme.systemElevatedBackgroundColor
-            }
-            .store(in: &disposeBag)
+        viewModel.roundedBackgroundViewColor = ThemeService.shared.currentTheme.systemElevatedBackgroundColor
         // metaContent
         viewModel.metaContent = PlaintextMetaContent(string: option.title)
         // show left-hand-side dots, otherwise view looks "incomplete"
         viewModel.selectState = .off
         // appearance
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
-                    return trailtCollection.userInterfaceStyle == .light ? .white : theme.tableViewCellSelectionBackgroundColor
-                })
-            }
-            .store(in: &disposeBag)
+        checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
+            return trailtCollection.userInterfaceStyle == .light ? .white : ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor
+        })
     }
 }

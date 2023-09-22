@@ -158,7 +158,7 @@ import MastodonUI
 //
 //    private func setupBroader() {
 //        emptyStateView.layer.borderWidth = 1
-//        emptyStateView.layer.borderColor = traitCollection.userInterfaceStyle == .dark ? ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor.cgColor : nil
+//        emptyStateView.layer.borderColor = traitCollection.userInterfaceStyle == .dark ? ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor.cgColor : nil
 //    }
 //
 //}

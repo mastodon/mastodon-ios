@@ -17,7 +17,7 @@ final class StatusContentWarningEditorView: UIView {
     // default hidden
     let containerBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
+        view.backgroundColor = ThemeService.shared.currentTheme.secondarySystemBackgroundColor
         return view
     }()
     

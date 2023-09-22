@@ -16,35 +16,11 @@ public final class ThemeService {
 
     // MARK: - Singleton
     public static let shared = ThemeService()
-
-    public let currentTheme: CurrentValueSubject<Theme, Never>
-
-    private init() {
-        let theme = ThemeName.system.theme
-        currentTheme = CurrentValueSubject(theme)
-    }
-
-}
-
-extension ThemeName {
-    public var theme: Theme {
-        switch self {
-        case .system:
-            return SystemTheme()
-        }
-    }
+    public let currentTheme = SystemTheme()
 }
 
 extension ThemeService {
-    public func set(themeName: ThemeName) {
-        UserDefaults.shared.currentThemeNameRawValue = themeName.rawValue
-
-        let theme = themeName.theme
-        apply(theme: theme)
-        currentTheme.value = theme
-    }
-
-    public func apply(theme: Theme) {
+    public func apply(theme: SystemTheme) {
         // set navigation bar appearance
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()

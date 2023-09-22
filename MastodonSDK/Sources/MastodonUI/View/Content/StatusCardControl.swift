@@ -69,11 +69,7 @@ public final class StatusCardControl: UIControl {
     public override init(frame: CGRect) {
         super.init(frame: frame)
 
-        apply(theme: ThemeService.shared.currentTheme.value)
-
-        ThemeService.shared.currentTheme.sink { [weak self] theme in
-            self?.apply(theme: theme)
-        }.store(in: &disposeBag)
+        apply(theme: ThemeService.shared.currentTheme)
 
         clipsToBounds = true
         layer.cornerCurve = .continuous
@@ -234,7 +230,7 @@ public final class StatusCardControl: UIControl {
         }
     }
 
-    private func apply(theme: Theme) {
+    private func apply(theme: SystemTheme) {
         layer.borderColor = theme.separator.cgColor
         dividerView.backgroundColor = theme.separator
         imageView.backgroundColor = UIColor.tertiarySystemFill

@@ -64,7 +64,7 @@ extension ProfilePagingViewController {
     
     override func viewDidLoad() {
         // configure style before viewDidLoad
-        settings.style.buttonBarBackgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
+        settings.style.buttonBarBackgroundColor = ThemeService.shared.currentTheme.systemBackgroundColor
         settings.style.buttonBarItemBackgroundColor = .clear
         settings.style.buttonBarItemsShouldFillAvailableWidth = false   // alignment from leading to trailing
         settings.style.selectedBarHeight = 3
@@ -80,21 +80,12 @@ extension ProfilePagingViewController {
     
         super.viewDidLoad()
         
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.settings.style.buttonBarBackgroundColor = theme.systemBackgroundColor
-                self.buttonBarView.backgroundColor = self.settings.style.buttonBarBackgroundColor
-                self.barButtonLayout?.invalidateLayout()
-            }
-            .store(in: &disposeBag)
-        
         updateBarButtonInsets()
         
         if let buttonBarView = self.buttonBarView {
             buttonBarShadowView.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(buttonBarShadowView, belowSubview: buttonBarView)
+            buttonBarView.backgroundColor = ThemeService.shared.currentTheme.systemBackgroundColor
             buttonBarShadowView.pinTo(to: buttonBarView)
             
             viewModel.$needsSetupBottomShadow

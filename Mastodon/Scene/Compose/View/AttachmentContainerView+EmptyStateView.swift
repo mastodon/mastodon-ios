@@ -56,7 +56,7 @@ import MastodonLocalization
 //        layer.masksToBounds = true
 //        layer.cornerRadius = AttachmentContainerView.containerViewCornerRadius
 //        layer.cornerCurve = .continuous
-//        backgroundColor = ThemeService.shared.currentTheme.value.systemGroupedBackgroundColor
+//        backgroundColor = ThemeService.shared.currentTheme.systemGroupedBackgroundColor
 //
 //        let stackView = UIStackView()
 //        stackView.axis = .vertical

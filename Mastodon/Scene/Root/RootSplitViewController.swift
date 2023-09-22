@@ -87,14 +87,7 @@ extension RootSplitViewController {
         
         updateBehavior(size: view.frame.size)
         
-        setupBackground(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackground(theme: theme)
-            }
-            .store(in: &disposeBag)
+        setupBackground(theme: ThemeService.shared.currentTheme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,7 +109,7 @@ extension RootSplitViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        setupBackground(theme: ThemeService.shared.currentTheme.value)
+        setupBackground(theme: ThemeService.shared.currentTheme)
     }
     
     private func updateBehavior(size: CGSize) {
@@ -144,7 +137,7 @@ extension RootSplitViewController {
 
 extension RootSplitViewController {
 
-    private func setupBackground(theme: Theme) {
+    private func setupBackground(theme: SystemTheme) {
         // this set column separator line color
         view.backgroundColor = theme.separator
     }

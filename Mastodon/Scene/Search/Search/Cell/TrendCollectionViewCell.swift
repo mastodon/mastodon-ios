@@ -37,15 +37,6 @@ final class TrendCollectionViewCell: UICollectionViewCell {
 extension TrendCollectionViewCell {
     
     private func _init() {
-        ThemeService.shared.currentTheme
-            .map { $0.secondarySystemGroupedBackgroundColor }
-            .sink { [weak self] backgroundColor in
-                guard let self = self else { return }
-                self.backgroundColor = backgroundColor
-                self.setNeedsUpdateConfiguration()
-            }
-            .store(in: &_disposeBag)
-        
         trendView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(trendView)
         trendView.pinToParent()
@@ -57,9 +48,9 @@ extension TrendCollectionViewCell {
         var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
         backgroundConfiguration.backgroundColorTransformer = .init { _ in
             if state.isHighlighted || state.isSelected {
-                return ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor
+                return ThemeService.shared.currentTheme.tableViewCellSelectionBackgroundColor
             }
-            return ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+            return ThemeService.shared.currentTheme.secondarySystemGroupedBackgroundColor
         }
         self.backgroundConfiguration = backgroundConfiguration
     }

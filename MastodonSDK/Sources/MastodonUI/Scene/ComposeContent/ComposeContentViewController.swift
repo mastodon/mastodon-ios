@@ -89,14 +89,7 @@ extension ComposeContentViewController {
         viewModel.delegate = self
         
         // setup view
-        self.setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
-            }
-            .store(in: &disposeBag)
+        self.setupBackgroundColor(theme: ThemeService.shared.currentTheme)
         
         // setup tableView
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -311,7 +304,7 @@ extension ComposeContentViewController {
 }
 
 extension ComposeContentViewController {
-    private func setupBackgroundColor(theme: Theme) {
+    private func setupBackgroundColor(theme: SystemTheme) {
         let backgroundColor = UIColor(dynamicProvider: { traitCollection in
             switch traitCollection.userInterfaceStyle {
             case .light: return .systemBackground
