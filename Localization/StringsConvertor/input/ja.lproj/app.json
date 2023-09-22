@@ -651,7 +651,7 @@
             },
             "searching": {
                 "posts": "「%s」に一致する投稿",
-                "people": "「%s」に一致する人",
+                "people": "「%s」に一致するアカウント",
                 "profile": "@%s@%s へ移動",
                 "url": "URL を Mastodon で開く",
                 "hashtag": "#%s へ移動",
@@ -659,7 +659,7 @@
                     "no_results": "なし"
                 },
                 "recent_search": "最近の検索",
-                "clear_all": "全消去",
+                "clear_all": "すべて消去",
                 "clear": "クリア"
             }
         },
