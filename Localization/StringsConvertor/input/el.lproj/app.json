@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Αναρτήσεις που ταιριάζουν με «%s»",
+                "people": "Άτομα που ταιριάζουν με «%s»",
+                "profile": "Μετάβαση στο @%s@%s",
+                "url": "Άνοιγμα URL στο Mastodon",
+                "hashtag": "Μετάβαση στο #%s",
                 "empty_state": {
                     "no_results": "Κανένα αποτέλεσμα"
                 },
                 "recent_search": "Πρόσφατες αναζητήσεις",
-                "clear_all": "Clear all",
+                "clear_all": "Εκκαθάριση όλων",
                 "clear": "Εκκαθάριση"
             }
         },
