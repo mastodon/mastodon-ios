@@ -9,7 +9,6 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import os.log
 import class CoreDataStack.Notification
 
 extension Persistence.Notification {
@@ -19,7 +18,6 @@ extension Persistence.Notification {
         public let entity: Mastodon.Entity.Notification
         public let me: MastodonUser
         public let networkDate: Date
-        public let log = Logger(subsystem: "Notification", category: "Persistence")
 
         public init(
             domain: String,

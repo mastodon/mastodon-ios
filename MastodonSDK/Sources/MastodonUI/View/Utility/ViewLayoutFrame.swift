@@ -5,13 +5,10 @@
 //  Created by MainasuK on 2022-8-17.
 //
 
-import os.log
 import UIKit
 import CoreGraphics
 
 public struct ViewLayoutFrame {
-    let logger = Logger(subsystem: "ViewLayoutFrame", category: "ViewLayoutFrame")
-    
     public var layoutFrame: CGRect
     public var safeAreaLayoutFrame: CGRect
     public var readableContentLayoutFrame: CGRect

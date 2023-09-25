@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-13.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonAsset
@@ -134,7 +133,6 @@ extension ThreadReplyLoaderTableViewCell {
 
 extension ThreadReplyLoaderTableViewCell {
     @objc private func loadMoreButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.threadReplyLoaderTableViewCell(self, loadMoreButtonDidPressed: sender)
     }
 }

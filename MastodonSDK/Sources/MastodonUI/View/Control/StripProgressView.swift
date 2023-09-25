@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-3.
 //
 
-import os.log
 import UIKit
 import Combine
 
@@ -34,8 +33,6 @@ public final class StripProgressLayer: CALayer {
             
             return presentation()?.progress ?? self.progress
         }()
-        // os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
-        
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         guard let context = UIGraphicsGetCurrentContext() else {
             assertionFailure()

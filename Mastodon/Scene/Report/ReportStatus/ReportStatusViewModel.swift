@@ -12,7 +12,6 @@ import Foundation
 import GameplayKit
 import MastodonSDK
 import OrderedCollections
-import os.log
 import UIKit
 import MastodonCore
 

@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-7-13.
 //
 
-import os.log
 import UIKit
 
 final class SearchToSearchDetailViewControllerAnimatedTransitioning: ViewControllerAnimatedTransitioning {
@@ -17,11 +16,6 @@ final class SearchToSearchDetailViewControllerAnimatedTransitioning: ViewControl
 
         self.transitionDuration = 0.2
     }
-
-    deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
 }
 
 // MARK: - UIViewControllerAnimatedTransitioning

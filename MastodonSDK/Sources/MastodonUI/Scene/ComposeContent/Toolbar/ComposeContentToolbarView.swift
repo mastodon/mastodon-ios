@@ -5,7 +5,6 @@
 //  Created by MainasuK on 22/10/18.
 //
 
-import os.log
 import SwiftUI
 import MastodonAsset
 import MastodonLocalization

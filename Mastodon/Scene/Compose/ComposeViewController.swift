@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-11.
 //
 
-import os.log
 import UIKit
 import Combine
 import PhotosUI
@@ -25,9 +24,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: ComposeViewModel!
-
-    let logger = Logger(subsystem: "ComposeViewController", category: "logic")
+    var viewModel: ComposeViewModel
 
     init(viewModel: ComposeViewModel) {
         self.viewModel = viewModel
@@ -114,9 +111,6 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
     }
 
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -202,7 +196,6 @@ extension ComposeViewController {
 extension ComposeViewController {
 
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard composeContentViewModel.shouldDismiss else {
             showDismissConfirmAlertController()
             return
@@ -282,11 +275,9 @@ extension ComposeViewController {
     }
     
     override func paste(_ sender: Any?) {
-        logger.debug("Paste event received")
 
         // Look for images on the clipboard
         if UIPasteboard.general.hasImages, let images = UIPasteboard.general.images {
-            logger.warning("Got image paste event, however attachments are not yet re-implemented.");
             let attachmentViewModels = images.map { image in
                 return AttachmentViewModel(
                     api: viewModel.context.apiService,
@@ -318,14 +309,8 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     }
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         showDismissConfirmAlertController()
     }
-    
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension ComposeViewController {

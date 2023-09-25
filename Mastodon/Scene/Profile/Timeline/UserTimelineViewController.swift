@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-29.
 //
 
-import os.log
 import UIKit
 import AVKit
 import Combine
@@ -17,8 +16,6 @@ import MastodonCore
 
 final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
-    let logger = Logger(subsystem: "UserTimelineViewController", category: "ViewController")
-        
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -38,9 +35,6 @@ final class UserTimelineViewController: UIViewController, NeedsDependency, Media
         
     let cellFrameCache = NSCache<NSNumber, NSValue>()
 
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 

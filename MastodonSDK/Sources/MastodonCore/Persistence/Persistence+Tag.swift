@@ -9,7 +9,6 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import os.log
 
 extension Persistence.Tag {
     
@@ -18,7 +17,6 @@ extension Persistence.Tag {
         public let entity: Mastodon.Entity.Tag
         public let me: MastodonUser?
         public let networkDate: Date
-        public let log = Logger(subsystem: "Tag", category: "Persistence")
         
         public init(
             domain: String,

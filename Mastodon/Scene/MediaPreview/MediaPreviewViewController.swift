@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-28.
 //
 
-import os.log
 import UIKit
 import Combine
 import Pageboy
@@ -42,9 +41,6 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
         button.setTitle("ALT", for: .normal)
     }
 
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -203,7 +199,6 @@ extension MediaPreviewViewController: MediaPreviewingViewController {
             let safeAreaInsets = previewImageView.safeAreaInsets
             let statusBarFrameHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
             let dismissible = previewImageView.contentOffset.y <= -(safeAreaInsets.top - statusBarFrameHeight) + 3 // add 3pt tolerance
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissible %s", ((#file as NSString).lastPathComponent), #line, #function, dismissible ? "true" : "false")
             return dismissible
         }
         
@@ -211,7 +206,6 @@ extension MediaPreviewViewController: MediaPreviewingViewController {
             return true
         }
 
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissible false", ((#file as NSString).lastPathComponent), #line, #function)
         return false
     }
     
@@ -309,8 +303,8 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
             context.photoLibraryService.copy(imageSource: .url(assetURL))
                 .sink { completion in
                     switch completion {
-                    case .failure(let error):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    case .failure(_):
+                        break
                     case .finished:
                         break
                     }

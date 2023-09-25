@@ -5,7 +5,6 @@
 //  Created by ProtoLimit on 2022-07-19.
 //
 
-import os.log
 import UIKit
 import AVKit
 import Combine
@@ -16,8 +15,6 @@ import MastodonUI
 import MastodonLocalization
 
 final class BookmarkViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
-    let logger = Logger(subsystem: "BookmarkViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -39,9 +36,6 @@ final class BookmarkViewController: UIViewController, NeedsDependency, MediaPrev
         return tableView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 

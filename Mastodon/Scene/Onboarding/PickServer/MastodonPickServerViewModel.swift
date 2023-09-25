@@ -5,7 +5,6 @@
 //  Created by BradGao on 2021/2/23.
 //
 
-import os.log
 import UIKit
 import Combine
 import GameplayKit
@@ -79,9 +78,6 @@ class MastodonPickServerViewModel: NSObject {
         configure()
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 

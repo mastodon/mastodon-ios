@@ -9,7 +9,6 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import os.log
 
 extension Persistence.SearchHistory {
     
@@ -17,7 +16,6 @@ extension Persistence.SearchHistory {
         public let entity: Entity
         public let me: MastodonUser
         public let now: Date
-        public let log = Logger(subsystem: "SearchHistory", category: "Persistence")
         public init(
             entity: Entity,
             me: MastodonUser,

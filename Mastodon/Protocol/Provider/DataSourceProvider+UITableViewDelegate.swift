@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-17.
 //
 
-import os.log
 import UIKit
 import CoreDataStack
 import MastodonCore
@@ -126,7 +125,6 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
                             attributes: [],
                             state: .off
                         ) { [weak self] _ in
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: save photo", ((#file as NSString).lastPathComponent), #line, #function)
                             guard let self = self else { return }
                             Task { @MainActor in
                                 do {
@@ -157,7 +155,6 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
                             attributes: [],
                             state: .off
                         ) { [weak self] _ in
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo", ((#file as NSString).lastPathComponent), #line, #function)
                             guard let self = self else { return }
                             Task {
                                 try await self.context.photoLibraryService.copy(
@@ -173,7 +170,6 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
                             attributes: [],
                             state: .off
                         ) { [weak self] _ in
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: share", ((#file as NSString).lastPathComponent), #line, #function)
                             guard let self = self else { return }
                             Task {
                                 let applicationActivities: [UIActivity] = [

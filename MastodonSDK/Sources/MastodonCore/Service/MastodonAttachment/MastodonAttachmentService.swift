@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-17.
 //
 
-import os.log
 import UIKit
 import Combine
 import PhotosUI
@@ -167,7 +166,6 @@ public final class MastodonAttachmentService {
                         let image = UIImage(cgImage: cgImage)
                         return image
                     } catch {
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: thumbnail generate fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                         return nil
                     }
                 }
@@ -176,9 +174,6 @@ public final class MastodonAttachmentService {
             .store(in: &disposeBag)
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -238,7 +233,6 @@ extension MastodonAttachmentService {
                     let imageData = try Data(contentsOf: url)
                     promise(.success(.jpeg(imageData)))
                 } catch {
-                    os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                     promise(.failure(error))
                 }
             }

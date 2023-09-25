@@ -5,7 +5,6 @@
 //  Created by BradGao on 2021/3/30.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -15,9 +14,7 @@ import MastodonSDK
 import MastodonCore
 
 final class HashtagTimelineViewModel {
-    
-    let logger = Logger(subsystem: "HashtagTimelineViewModel", category: "ViewModel")
-    
+
     let hashtag: String
     
     var disposeBag = Set<AnyCancellable>()
@@ -64,10 +61,6 @@ final class HashtagTimelineViewModel {
         )
         updateTagInformation()
         // end init
-    }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
     func viewWillAppear() {

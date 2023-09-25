@@ -5,7 +5,6 @@
 //  Created by Marcus Kida on 23.11.22.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -69,7 +68,6 @@ public final class FollowedTagsFetchedResultController: NSObject {
 // MARK: - NSFetchedResultsControllerDelegate
 extension FollowedTagsFetchedResultController: NSFetchedResultsControllerDelegate {
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         
         let objects = fetchedResultsController.fetchedObjects ?? []
         self.records = objects

@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-7-15.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -71,7 +70,6 @@ public final class SearchHistoryFetchedResultController: NSObject {
 // MARK: - NSFetchedResultsControllerDelegate
 extension SearchHistoryFetchedResultController: NSFetchedResultsControllerDelegate {
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
         let objects = fetchedResultsController.fetchedObjects ?? []
         self._objectIDs.value = objects.map { $0.objectID }

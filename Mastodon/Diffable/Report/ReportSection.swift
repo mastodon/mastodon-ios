@@ -11,7 +11,6 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
-import os.log
 import MastodonAsset
 import MastodonCore
 import MastodonUI

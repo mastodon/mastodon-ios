@@ -10,7 +10,6 @@ import Combine
 import MastodonSDK
 import CoreData
 import CoreDataStack
-import CommonOSLog
 
 extension APIService {
 
@@ -23,8 +22,7 @@ extension APIService {
         record: ManagedObjectRecord<Status>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
-        let logger = Logger(subsystem: "APIService", category: "Bookmark")
-        
+
         let managedObjectContext = backgroundManagedObjectContext
         
         // update bookmark state and retrieve bookmark context
@@ -42,7 +40,6 @@ extension APIService {
                 statusID: status.id,
                 isBookmarked: isBookmarked
             )
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update status bookmark: \(!isBookmarked)")
             return context
         }
 
@@ -59,7 +56,6 @@ extension APIService {
             result = .success(response)
         } catch {
             result = .failure(error)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update bookmark failure: \(error.localizedDescription)")
         }
         
         // update bookmark state
@@ -83,11 +79,9 @@ extension APIService {
                         networkDate: response.networkDate
                     )
                 )
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update status bookmark: \(response.value.bookmarked.debugDescription)")
             case .failure:
                 // rollback
                 status.update(bookmarked: bookmarkContext.isBookmarked, by: me)
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): rollback status bookmark")
             }
         }
         

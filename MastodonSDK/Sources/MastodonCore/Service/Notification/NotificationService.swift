@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-22.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -52,17 +51,6 @@ public final class NotificationService {
             })
             .store(in: &disposeBag)
         
-        deviceToken
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] deviceToken in
-                guard let _ = self else { return }
-                guard let deviceToken = deviceToken else { return }
-                let token = [UInt8](deviceToken).toHexString()
-                let logger = Logger(subsystem: "DeviceToken", category: "NotificationService")
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): deviceToken: \(token)")
-            }
-            .store(in: &disposeBag)
-        
         Publishers.CombineLatest(
             authenticationService.$mastodonAuthenticationBoxes,
             applicationIconBadgeNeedsUpdate
@@ -94,7 +82,6 @@ extension NotificationService {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
             guard let self = self else { return }
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: request notification permission: %s", ((#file as NSString).lastPathComponent), #line, #function, granted ? "granted" : "fail")
 
             self.isNotificationPermissionGranted.value = granted
             
@@ -230,9 +217,7 @@ extension NotificationService {
                 domain: domain,
                 authorization: .init(accessToken: userAccessToken)
             )
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] cancel sign-out user subscription", ((#file as NSString).lastPathComponent), #line, #function)
         } catch {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] failed to cancel sign-out user subscription: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
         }
     }
     

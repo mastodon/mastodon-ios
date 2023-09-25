@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-29.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -27,8 +26,6 @@ protocol ProfileHeaderViewControllerDelegate: AnyObject {
 
 final class ProfileHeaderViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
-    let logger = Logger(subsystem: "ProfileHeaderViewController", category: "ViewController")
-
     static let segmentedControlHeight: CGFloat = 50
     static let headerMinHeight: CGFloat = segmentedControlHeight
     
@@ -84,9 +81,6 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
         return documentPickerController
     }()
 
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -202,7 +196,6 @@ extension ProfileHeaderViewController {
         var children: [UIMenuElement] = []
         let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .photoLibaray", ((#file as NSString).lastPathComponent), #line, #function)
             self.currentImageType = type
             self.present(self.imagePicker, animated: true, completion: nil)
         }
@@ -210,7 +203,6 @@ extension ProfileHeaderViewController {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
                 guard let self = self else { return }
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .camera", ((#file as NSString).lastPathComponent), #line, #function)
                 self.currentImageType = type
                 self.present(self.imagePickerController, animated: true, completion: nil)
             })
@@ -218,7 +210,6 @@ extension ProfileHeaderViewController {
         }
         let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .browse", ((#file as NSString).lastPathComponent), #line, #function)
             self.currentImageType = type
             self.present(self.documentPickerController, animated: true, completion: nil)
         }
@@ -384,8 +375,6 @@ extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
 // MARK: - MetaTextDelegate
 extension ProfileHeaderViewController: MetaTextDelegate {
     func metaText(_ metaText: MetaText, processEditing textStorage: MetaTextStorage) -> MetaContent? {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, metaText.backedString)
-        
         switch metaText {
         case profileHeaderView.bioMetaText:
             guard viewModel.isEditing else { break }
@@ -438,7 +427,6 @@ extension ProfileHeaderViewController: UIImagePickerControllerDelegate & UINavig
     }
         
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -455,7 +443,6 @@ extension ProfileHeaderViewController: UIDocumentPickerDelegate {
             guard let image = UIImage(data: imageData) else { return }
             cropImage(image: image, pickerViewController: controller)
         } catch {
-            os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
         }
     }
 }

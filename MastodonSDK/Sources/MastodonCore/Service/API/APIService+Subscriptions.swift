@@ -5,7 +5,6 @@
 //  Created by ihugo on 2021/4/9.
 //
 
-import os.log
 import Combine
 import CoreData
 import CoreDataStack
@@ -29,8 +28,6 @@ extension APIService {
             query: query
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> in
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: create subscription successful %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.endpoint)
-
             let managedObjectContext = self.backgroundManagedObjectContext
             return managedObjectContext.performChanges {
                 guard let subscription = managedObjectContext.object(with: subscriptionObjectID) as? NotificationSubscription else {
@@ -59,8 +56,6 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: cancel subscription successful", ((#file as NSString).lastPathComponent), #line, #function)
-
         return response
     }
 

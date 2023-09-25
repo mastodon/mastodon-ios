@@ -5,7 +5,6 @@
 //  Created by ihugo on 2021/4/20.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -15,8 +14,6 @@ import MastodonLocalization
 
 class ReportViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {
     
-    let logger = Logger(subsystem: "ReportViewController", category: "ViewController")
-
     var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()
 
@@ -31,9 +28,6 @@ class ReportViewController: UIViewController, NeedsDependency, ReportViewControl
         action: #selector(ReportViewController.cancelBarButtonItemDidPressed(_:))
     )
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -162,7 +156,6 @@ extension ReportViewController: ReportSupplementaryViewControllerDelegate {
         Task { @MainActor in
             do {
                 let _ = try await viewModel.report()
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): report success")
                 
                 let reportResultViewModel = ReportResultViewModel(
                     context: context,

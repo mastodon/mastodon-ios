@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-15.
 //
 
-import os.log
 import Foundation
 import GameplayKit
 
@@ -15,10 +14,6 @@ extension EmojiService.CustomEmojiViewModel {
         
         init(viewModel: EmojiService.CustomEmojiViewModel) {
             self.viewModel = viewModel
-        }
-        
-        override func didEnter(from previousState: GKState?) {
-            os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", ((#file as NSString).lastPathComponent), #line, #function, self.debugDescription, previousState.debugDescription)
         }
     }
 }
@@ -44,14 +39,12 @@ extension EmojiService.CustomEmojiViewModel.LoadState {
                 // .receive(on: DispatchQueue.main)
                 .sink { completion in
                     switch completion {
-                    case .failure(let error):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: failed to load custom emojis for %s: %s. Retry 10s later", ((#file as NSString).lastPathComponent), #line, #function, viewModel.domain, error.localizedDescription)
+                    case .failure(_):
                         stateMachine.enter(Fail.self)
                     case .finished:
                         break
                     }
                 } receiveValue: { response in
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: load %ld custom emojis for %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.count, viewModel.domain)
                     stateMachine.enter(Finish.self)
                     viewModel.emojis.value = response.value
                 }

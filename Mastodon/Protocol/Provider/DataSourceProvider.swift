@@ -6,7 +6,6 @@
 //  Copyright © 2021 Twidere. All rights reserved.
 //
 
-import os.log
 import UIKit
 import CoreDataStack
 import MastodonSDK

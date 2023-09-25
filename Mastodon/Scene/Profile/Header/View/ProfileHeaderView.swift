@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-29.
 //
 
-import os.log
 import UIKit
 import Combine
 import FLAnimatedImage
@@ -511,19 +510,16 @@ extension ProfileHeaderView {
 
 extension ProfileHeaderView {
     @objc private func relationshipActionButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         assert(sender === relationshipActionButton)
         delegate?.profileHeaderView(self, relationshipButtonDidPressed: relationshipActionButton)
     }
     
     @objc private func avatarButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         assert(sender === avatarButton)
         delegate?.profileHeaderView(self, avatarButtonDidPressed: avatarButton)
     }
     
     @objc private func bannerImageViewDidPressed(_ sender: UITapGestureRecognizer) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.profileHeaderView(self, bannerImageViewDidPressed: bannerImageView)
     }
 }
@@ -544,7 +540,6 @@ extension ProfileHeaderView: UITextViewDelegate {
 // MARK: - MetaTextViewDelegate
 extension ProfileHeaderView: MetaTextViewDelegate {
     func metaTextView(_ metaTextView: MetaTextView, didSelectMeta meta: Meta) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select entity", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.profileHeaderView(self, metaTextView: metaTextView, metaDidPressed: meta)
     }
 }

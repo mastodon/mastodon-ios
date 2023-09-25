@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-5-25.
 //
 
-import os.log
 import UIKit
 import Combine
 import MetaTextKit
@@ -186,7 +185,6 @@ extension ProfileFieldCollectionViewCell {
 // MARK: - MetaLabelDelegate
 extension ProfileFieldCollectionViewCell: MetaLabelDelegate {
     func metaLabel(_ metaLabel: MetaLabel, didSelectMeta meta: Meta) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.profileFieldCollectionViewCell(self, metaLabel: metaLabel, didSelectMeta: meta)
     }
 }

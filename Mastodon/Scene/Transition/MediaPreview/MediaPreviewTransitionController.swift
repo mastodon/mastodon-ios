@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-28.
 //
 
-import os.log
 import UIKit
 
 final class MediaPreviewTransitionController: NSObject {
@@ -37,7 +36,6 @@ extension MediaPreviewTransitionController {
         guard let mediaPreviewViewController = self.mediaPreviewViewController else { return }
         wantsInteractiveStart = true
         mediaPreviewViewController.dismiss(animated: true, completion: nil)
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: start interactive dismiss", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }
@@ -116,8 +114,6 @@ extension MediaPreviewTransitionController: UIViewControllerTransitioningDelegat
 extension MediaPreviewTransitionController: ViewControllerAnimatedTransitioningDelegate {
 
     func animationEnded(_ transitionCompleted: Bool) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: completed: %s", ((#file as NSString).lastPathComponent), #line, #function, transitionCompleted.description)
-
         dismissInteractiveTransitioning = nil
         wantsInteractiveStart = false
     }

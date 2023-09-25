@@ -8,7 +8,6 @@
 // Note: Prefer use US favorite then EN favourite in coding
 // to following the text checker auto-correct behavior
 
-import os.log
 import UIKit
 import AVKit
 import Combine
@@ -19,8 +18,6 @@ import MastodonUI
 import MastodonLocalization
 
 final class FavoriteViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
-    let logger = Logger(subsystem: "FavoriteViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -42,9 +39,6 @@ final class FavoriteViewController: UIViewController, NeedsDependency, MediaPrev
         return tableView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 

@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-30.
 //
 
-import os.log
 import UIKit
 import MastodonAsset
 import MastodonLocalization
@@ -79,7 +78,6 @@ extension ProfileStatusDashboardView {
 
 extension ProfileStatusDashboardView {
     @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        os_log(.debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let sourceView = sender.view as? ProfileStatusDashboardMeterView else {
             assertionFailure()
             return

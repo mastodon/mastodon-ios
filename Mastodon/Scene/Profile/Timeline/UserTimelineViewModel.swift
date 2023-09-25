@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-29.
 //
 
-import os.log
 import UIKit
 import GameplayKit
 import Combine
@@ -65,11 +64,6 @@ final class UserTimelineViewModel {
         )
         self.queryFilter = queryFilter
     }
-
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-
 }
 
 extension UserTimelineViewModel {

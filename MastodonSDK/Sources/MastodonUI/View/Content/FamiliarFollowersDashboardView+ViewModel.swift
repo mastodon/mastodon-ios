@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-5-16.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -17,8 +16,6 @@ import MastodonLocalization
 extension FamiliarFollowersDashboardView {
     public final class ViewModel: ObservableObject {
         public var disposeBag = Set<AnyCancellable>()
-
-        let logger = Logger(subsystem: "FamiliarFollowersDashboardView", category: "ViewModel")
         
         @Published var avatarURLs: [URL?] = []
         @Published var names: [String] = []

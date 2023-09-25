@@ -7,7 +7,6 @@
 
 import Combine
 import CoreData
-import os.log
 import UIKit
 
 public protocol TimelineMiddleLoaderTableViewCellDelegate: AnyObject {
@@ -60,7 +59,6 @@ public final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCel
 
 extension TimelineMiddleLoaderTableViewCell {
     @objc private func loadMoreButtonDidPressed(_ sender: UIButton) {
-        os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
         delegate?.timelineMiddleLoaderTableViewCell(self, loadMoreButtonDidPressed: sender)
     }
 }

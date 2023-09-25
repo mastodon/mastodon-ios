@@ -3,7 +3,7 @@ GEM
   specs:
     CFPropertyList (3.0.6)
       rexml
-    activesupport (7.0.7.2)
+    activesupport (7.0.8)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -13,9 +13,9 @@ GEM
     algoliasearch (1.27.5)
       httpclient (~> 2.8, >= 2.8.3)
       json (>= 1.5.1)
-    arkana (1.3.0)
-      colorize (~> 0.8)
+    arkana (1.5.0)
       dotenv (~> 2.7)
+      rainbow (~> 3.1.1)
       yaml (~> 0.2)
     atomos (0.1.3)
     claide (1.1.0)
@@ -58,7 +58,6 @@ GEM
       netrc (~> 0.11)
     cocoapods-try (1.2.0)
     colored2 (3.1.2)
-    colorize (0.8.1)
     concurrent-ruby (1.2.2)
     dotenv (2.8.1)
     escape (0.0.4)
@@ -72,12 +71,13 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     json (2.6.3)
-    minitest (5.19.0)
+    minitest (5.20.0)
     molinillo (0.8.0)
     nanaimo (0.3.0)
     nap (1.1.0)
     netrc (0.11.0)
     public_suffix (4.0.7)
+    rainbow (3.1.1)
     rexml (3.2.6)
     rouge (2.0.7)
     ruby-macho (2.5.1)
@@ -94,7 +94,7 @@ GEM
       rexml (~> 3.2.4)
     xcpretty (0.3.0)
       rouge (~> 2.0.7)
-    yaml (0.2.0)
+    yaml (0.2.1)
 
 PLATFORMS
   arm64-darwin-21
@@ -109,4 +109,4 @@ DEPENDENCIES
   xcpretty
 
 BUNDLED WITH
-   2.3.26
+   2.4.6

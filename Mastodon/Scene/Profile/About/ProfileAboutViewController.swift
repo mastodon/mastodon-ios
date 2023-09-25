@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-22.
 //
 
-import os.log
 import UIKit
 import Combine
 import MetaTextKit
@@ -19,8 +18,6 @@ protocol ProfileAboutViewControllerDelegate: AnyObject {
 }
 
 final class ProfileAboutViewController: UIViewController {
-    
-    let logger = Logger(subsystem: "ProfileAboutViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -39,9 +36,6 @@ final class ProfileAboutViewController: UIViewController {
         return collectionView
     }()
  
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -129,7 +123,6 @@ extension ProfileAboutViewController {
 // MARK: - UICollectionViewDelegate
 extension ProfileAboutViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select \(indexPath.debugDescription)")
         
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }

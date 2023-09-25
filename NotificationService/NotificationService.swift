@@ -6,7 +6,6 @@
 //
 
 import UserNotifications
-import CommonOSLog
 import CryptoKit
 import AlamofireImage
 import MastodonCore
@@ -22,13 +21,11 @@ class NotificationService: UNNotificationServiceExtension {
         
         if let bestAttemptContent = bestAttemptContent {
             // Modify the notification content here...
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
             let privateKey = AppSecret.default.notificationPrivateKey
             let auth = AppSecret.default.notificationAuth
             
             guard let encodedPayload = bestAttemptContent.userInfo["p"] as? String else {
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: invalid payload", ((#file as NSString).lastPathComponent), #line, #function)
                 contentHandler(bestAttemptContent)
                 return
             }
@@ -36,13 +33,11 @@ class NotificationService: UNNotificationServiceExtension {
             
             guard let encodedPublicKey = bestAttemptContent.userInfo["k"] as? String,
                   let publicKey = NotificationService.publicKey(encodedPublicKey: encodedPublicKey) else {
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: invalid public key", ((#file as NSString).lastPathComponent), #line, #function)
                 contentHandler(bestAttemptContent)
                 return
             }
             
             guard let encodedSalt = bestAttemptContent.userInfo["s"] as? String else {
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: invalid salt", ((#file as NSString).lastPathComponent), #line, #function)
                 contentHandler(bestAttemptContent)
                 return
             }
@@ -75,10 +70,9 @@ class NotificationService: UNNotificationServiceExtension {
                 ImageDownloader.default.download(URLRequest(url: url), completion: { [weak self] response in
                     guard let _ = self else { return }
                     switch response.result {
-                    case .failure(let error):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s fail: %s", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription, error.localizedDescription)
+                    case .failure(_):
+                        break
                     case .success(let image):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s success", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription)
                         try? image.pngData()?.write(to: fileURL)
                         if let attachment = try? UNNotificationAttachment(identifier: filename, url: fileURL, options: nil) {
                             bestAttemptContent.attachments = [attachment]

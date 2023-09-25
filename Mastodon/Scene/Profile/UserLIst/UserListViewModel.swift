@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-5-17.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -13,7 +12,6 @@ import GameplayKit
 import MastodonCore
 
 final class UserListViewModel {
-    let logger = Logger(subsystem: "UserListViewModel", category: "ViewModel")
     var disposeBag = Set<AnyCancellable>()
     
     // input
