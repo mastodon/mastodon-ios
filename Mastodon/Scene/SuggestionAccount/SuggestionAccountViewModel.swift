@@ -66,7 +66,7 @@ final class SuggestionAccountViewModel: NSObject {
                 
             }
             
-            guard !userIDs.isEmpty else { return }
+            guard userIDs.isNotEmpty else { return }
             userFetchedResultsController.userIDs = userIDs
         }
         
