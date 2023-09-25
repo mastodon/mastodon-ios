@@ -1,6 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import CoreDataStack
 import MastodonLocalization
 
 protocol NotificationSettingsViewControllerDelegate: AnyObject {
@@ -17,10 +18,8 @@ class NotificationSettingsViewController: UIViewController {
     let sections: [NotificationSettingsSection]
     var viewModel: NotificationSettingsViewModel
 
-    init() {
-
-        //TODO: @zeitschlag Read Settings
-        viewModel = NotificationSettingsViewModel(selectedPolicy: .follow)
+    init(currentSetting: Setting?) {
+        viewModel = NotificationSettingsViewModel(selectedPolicy: currentSetting?.activeSubscription?.notificationPolicy ?? .noone)
         sections = [
             NotificationSettingsSection(entries: [.policy]),
             NotificationSettingsSection(entries: NotificationAlert.allCases.map { NotificationSettingEntry.alert($0) } )

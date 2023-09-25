@@ -2,6 +2,8 @@
 
 import Foundation
 import MastodonLocalization
+import MastodonSDK
+import CoreDataStack
 
 struct NotificationSettingsSection: Hashable {
     let entries: [NotificationSettingEntry]
@@ -34,6 +36,19 @@ enum NotificationPolicy: Hashable, CaseIterable {
             return L10n.Scene.Settings.Notifications.Policy.noone
         }
     }
+
+    var subscriptionPolicy: Mastodon.API.Subscriptions.Policy {
+        switch self {
+            case .anyone:
+                return .all
+            case .followers:
+                return .follower
+            case .follow:
+                return .followed
+            case .noone:
+                return .none
+        }
+    }
 }
 
 enum NotificationAlert: Hashable, CaseIterable {
@@ -53,6 +68,25 @@ enum NotificationAlert: Hashable, CaseIterable {
             return L10n.Scene.Settings.Notifications.Alert.favorites
         case .newFollowers:
             return L10n.Scene.Settings.Notifications.Alert.newFollowers
+        }
+    }
+}
+
+extension Subscription {
+    var notificationPolicy: NotificationPolicy? {
+        guard let policy else { return nil }
+
+        switch policy {
+            case .all:
+                return .anyone
+            case .followed:
+                return .follow
+            case .follower:
+                return .followers
+            case .none:
+                return .noone
+            case ._other(_):
+                return .noone
         }
     }
 }

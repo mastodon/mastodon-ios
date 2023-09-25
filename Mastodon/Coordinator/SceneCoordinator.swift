@@ -543,7 +543,8 @@ private extension SceneCoordinator {
                 
                 let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn,
                                                               accountName: accountName,
-                                                              setting: setting)
+                                                              setting: setting,
+                                                              appContext: appContext)
                 settingsCoordinator.delegate = self
                 settingsCoordinator.start()
                 

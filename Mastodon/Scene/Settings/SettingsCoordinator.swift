@@ -21,11 +21,13 @@ class SettingsCoordinator: NSObject, Coordinator {
     private let settingsViewController: SettingsViewController
 
     let setting: Setting
+    let appContext: AppContext
 
-    init(presentedOn: UIViewController, accountName: String, setting: Setting) {
+    init(presentedOn: UIViewController, accountName: String, setting: Setting, appContext: AppContext) {
         self.presentedOn = presentedOn
         navigationController = UINavigationController()
         self.setting = setting
+        self.appContext = appContext
 
         settingsViewController = SettingsViewController(accountName: accountName)
     }
@@ -46,26 +48,29 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
 
     func didSelect(_ viewController: UIViewController, entry: SettingsEntry) {
         switch entry {
-        case .general:
-            let generalSettingsViewController = GeneralSettingsViewController(setting: setting)
-            generalSettingsViewController.delegate = self
+            case .general:
+                let generalSettingsViewController = GeneralSettingsViewController(setting: setting)
+                generalSettingsViewController.delegate = self
 
-            navigationController.pushViewController(generalSettingsViewController, animated: true)
-        case .notifications:
-            let notificationViewController = NotificationSettingsViewController()
-            notificationViewController.delegate = self
+                navigationController.pushViewController(generalSettingsViewController, animated: true)
+            case .notifications:
 
-            navigationController.pushViewController(notificationViewController, animated: true)
-        case .aboutMastodon:
-            let aboutViewController = AboutViewController()
-            aboutViewController.delegate = self
+                let currentSetting = appContext.settingService.currentSetting.value
+                let notificationViewController = NotificationSettingsViewController(currentSetting: currentSetting)
+                notificationViewController.delegate = self
 
-            navigationController.pushViewController(aboutViewController, animated: true)
-        case .supportMastodon:
-            break
-            // present support-screen
-        case .logout(_):
-            delegate?.logout(self)
+                self.navigationController.pushViewController(notificationViewController, animated: true)
+
+            case .aboutMastodon:
+                let aboutViewController = AboutViewController()
+                aboutViewController.delegate = self
+
+                navigationController.pushViewController(aboutViewController, animated: true)
+            case .supportMastodon:
+                break
+                // present support-screen
+            case .logout(_):
+                delegate?.logout(self)
         }
     }
 }
