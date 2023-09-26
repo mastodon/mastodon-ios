@@ -19,7 +19,7 @@ class NotificationSettingsViewController: UIViewController {
     let sections: [NotificationSettingsSection]
     var viewModel: NotificationSettingsViewModel
 
-    init(currentSetting: Setting?) {
+    init(currentSetting: Setting?, notificationsEnabled: Bool) {
         let activeSubscription = currentSetting?.activeSubscription
         let alert = activeSubscription?.alert
         viewModel = NotificationSettingsViewModel(selectedPolicy: activeSubscription?.notificationPolicy ?? .noone,
@@ -37,6 +37,7 @@ class NotificationSettingsViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(NotificationSettingTableViewCell.self, forCellReuseIdentifier: NotificationSettingTableViewCell.reuseIdentifier)
         tableView.register(NotificationSettingTableViewToggleCell.self, forCellReuseIdentifier: NotificationSettingTableViewToggleCell.reuseIdentifier)
+        tableView.isUserInteractionEnabled = notificationsEnabled
 
         super.init(nibName: nil, bundle: nil)
 
@@ -45,18 +46,18 @@ class NotificationSettingsViewController: UIViewController {
             let cell: UITableViewCell
 
             switch itemIdentifier {
-            case .policy:
-                guard let self,
-                      let notificationCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewCell else { fatalError("WTF Wrong cell!?") }
+                case .policy:
+                    guard let self,
+                          let notificationCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewCell else { fatalError("WTF Wrong cell!?") }
 
-                notificationCell.configure(with: .policy, viewModel: self.viewModel)
-                cell = notificationCell
+                    notificationCell.configure(with: .policy, viewModel: self.viewModel, notificationsEnabled: notificationsEnabled)
+                    cell = notificationCell
 
-            case .alert(let alert):
-                guard let self,
-                      let toggleCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewToggleCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewToggleCell else { fatalError("WTF Wrong cell!?") }
-
-                toggleCell.configure(with: alert, viewModel: self.viewModel)
+                case .alert(let alert):
+                    guard let self,
+                          let toggleCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewToggleCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewToggleCell else { fatalError("WTF Wrong cell!?") }
+                    
+                    toggleCell.configure(with: alert, viewModel: self.viewModel, notificationsEnabled: notificationsEnabled)
                 toggleCell.delegate = self
                 cell = toggleCell
             }

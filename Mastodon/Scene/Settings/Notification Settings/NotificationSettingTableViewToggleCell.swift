@@ -24,7 +24,7 @@ class NotificationSettingTableViewToggleCell: ToggleTableViewCell {
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    func configure(with alert: NotificationAlert, viewModel: NotificationSettingsViewModel) {
+    func configure(with alert: NotificationAlert, viewModel: NotificationSettingsViewModel, notificationsEnabled: Bool) {
         self.alert = alert
         
         let toggleIsOn: Bool
@@ -40,7 +40,13 @@ class NotificationSettingTableViewToggleCell: ToggleTableViewCell {
         }
 
         label.text = alert.title
-        toggle.isOn = toggleIsOn
+        if notificationsEnabled {
+            label.textColor = .label
+        } else {
+            label.textColor = .secondaryLabel
+        }
+        toggle.isOn = toggleIsOn && notificationsEnabled
+        toggle.isEnabled = notificationsEnabled
     }
 
     @objc

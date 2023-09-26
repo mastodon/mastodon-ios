@@ -61,7 +61,8 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
             case .notifications:
 
                 let currentSetting = appContext.settingService.currentSetting.value
-                let notificationViewController = NotificationSettingsViewController(currentSetting: currentSetting)
+                let notificationsEnabled = appContext.notificationService.isNotificationPermissionGranted.value
+                let notificationViewController = NotificationSettingsViewController(currentSetting: currentSetting, notificationsEnabled: notificationsEnabled)
                 notificationViewController.delegate = self
 
                 self.navigationController.pushViewController(notificationViewController, animated: true)
