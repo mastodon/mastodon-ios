@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1849,13 +1849,11 @@
 		D81D12432A4E181C005009D4 /* Notification Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D8ECC80D2AC31E0F00AE0818 /* Policy Selection */,
+				D8ECC80E2AC31E2C00AE0818 /* Cells */,
 				D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */,
-				D8B5E4ED2A4EB8920008970C /* NotificationSettingTableViewToggleCell.swift */,
-				D8B5E4EF2A4EB8A00008970C /* NotificationSettingTableViewCell.swift */,
 				D8B5E4F12A4EBCF90008970C /* NotificationSettings.swift */,
 				D8B5E4F32A4ED0240008970C /* NotificationSettingsViewModel.swift */,
-				D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */,
-				D82BD7542ABC73AF009A374A /* NotificationPolicyTableViewCell.swift */,
 			);
 			path = "Notification Settings";
 			sourceTree = "<group>";
@@ -1915,6 +1913,24 @@
 				2A3D9B7D29A8F33A00F30313 /* StatusHistoryView.swift */,
 			);
 			path = "Edit History";
+			sourceTree = "<group>";
+		};
+		D8ECC80D2AC31E0F00AE0818 /* Policy Selection */ = {
+			isa = PBXGroup;
+			children = (
+				D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */,
+				D82BD7542ABC73AF009A374A /* NotificationPolicyTableViewCell.swift */,
+			);
+			path = "Policy Selection";
+			sourceTree = "<group>";
+		};
+		D8ECC80E2AC31E2C00AE0818 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D8B5E4ED2A4EB8920008970C /* NotificationSettingTableViewToggleCell.swift */,
+				D8B5E4EF2A4EB8A00008970C /* NotificationSettingTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		D8F8A03829CA5C02000195DD /* Hashtag */ = {
