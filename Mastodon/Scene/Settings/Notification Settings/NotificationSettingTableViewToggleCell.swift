@@ -26,8 +26,21 @@ class NotificationSettingTableViewToggleCell: ToggleTableViewCell {
 
     func configure(with alert: NotificationAlert, viewModel: NotificationSettingsViewModel) {
         self.alert = alert
+        
+        let toggleIsOn: Bool
+        switch alert {
+            case .mentionsAndReplies:
+                toggleIsOn = viewModel.notifyMentions
+            case .boosts:
+                toggleIsOn = viewModel.notifyBoosts
+            case .favorites:
+                toggleIsOn = viewModel.notifyFavorites
+            case .newFollowers:
+                toggleIsOn = viewModel.notifyNewFollowers
+        }
 
         label.text = alert.title
+        toggle.isOn = toggleIsOn
     }
 
     @objc

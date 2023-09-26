@@ -19,7 +19,14 @@ class NotificationSettingsViewController: UIViewController {
     var viewModel: NotificationSettingsViewModel
 
     init(currentSetting: Setting?) {
-        viewModel = NotificationSettingsViewModel(selectedPolicy: currentSetting?.activeSubscription?.notificationPolicy ?? .noone)
+        let activeSubscription = currentSetting?.activeSubscription
+        let alert = activeSubscription?.alert
+        viewModel = NotificationSettingsViewModel(selectedPolicy: activeSubscription?.notificationPolicy ?? .noone,
+                                                  notifyMentions: alert?.mention ?? false,
+                                                  notifyBoosts: alert?.reblog ?? false,
+                                                  notifyFavorites: alert?.favourite ?? false,
+                                                  notifyNewFollowers: alert?.follow ?? false)
+
         sections = [
             NotificationSettingsSection(entries: [.policy]),
             NotificationSettingsSection(entries: NotificationAlert.allCases.map { NotificationSettingEntry.alert($0) } )

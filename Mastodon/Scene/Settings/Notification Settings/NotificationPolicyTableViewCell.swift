@@ -18,6 +18,5 @@ class NotificationPolicyTableViewCell: UITableViewCell {
         }
 
         contentConfiguration = content
-
     }
 }
