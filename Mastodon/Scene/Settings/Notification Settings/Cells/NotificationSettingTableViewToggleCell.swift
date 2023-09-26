@@ -25,6 +25,8 @@ class NotificationSettingTableViewToggleCell: ToggleTableViewCell {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     func configure(with alert: NotificationAlert, viewModel: NotificationSettingsViewModel, notificationsEnabled: Bool) {
+
+        isUserInteractionEnabled = notificationsEnabled
         self.alert = alert
         
         let toggleIsOn: Bool

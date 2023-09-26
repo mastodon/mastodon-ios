@@ -161,6 +161,7 @@
 		D8D688F92AB8B970000F651A /* SearchResultOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D688F82AB8B970000F651A /* SearchResultOverviewCoordinator.swift */; };
 		D8E5C346296DAB84007E76A7 /* DataSourceFacade+Status+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */; };
 		D8E5C349296DB8A3007E76A7 /* StatusEditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */; };
+		D8ECC8102AC31EA400AE0818 /* NotificationSettingsDisabledTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ECC80F2AC31EA400AE0818 /* NotificationSettingsDisabledTableViewCell.swift */; };
 		D8F0372C29D232730027DE2E /* HashtagIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0372B29D232730027DE2E /* HashtagIntentHandler.swift */; };
 		D8F8A03A29CA5C15000195DD /* HashtagWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */; };
 		D8F8A03C29CA5CB6000195DD /* HashtagWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */; };
@@ -828,6 +829,7 @@
 		D8D688F82AB8B970000F651A /* SearchResultOverviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultOverviewCoordinator.swift; sourceTree = "<group>"; };
 		D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Status+History.swift"; sourceTree = "<group>"; };
 		D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryViewController.swift; sourceTree = "<group>"; };
+		D8ECC80F2AC31EA400AE0818 /* NotificationSettingsDisabledTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDisabledTableViewCell.swift; sourceTree = "<group>"; };
 		D8F0372B29D232730027DE2E /* HashtagIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagIntentHandler.swift; sourceTree = "<group>"; };
 		D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidgetView.swift; sourceTree = "<group>"; };
 		D8F8A03B29CA5CB6000195DD /* HashtagWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidget.swift; sourceTree = "<group>"; };
@@ -1929,6 +1931,7 @@
 			children = (
 				D8B5E4ED2A4EB8920008970C /* NotificationSettingTableViewToggleCell.swift */,
 				D8B5E4EF2A4EB8A00008970C /* NotificationSettingTableViewCell.swift */,
+				D8ECC80F2AC31EA400AE0818 /* NotificationSettingsDisabledTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4023,6 +4026,7 @@
 				DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */,
 				DB98EB6527B216500082E365 /* ReportResultViewModel.swift in Sources */,
 				DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */,
+				D8ECC8102AC31EA400AE0818 /* NotificationSettingsDisabledTableViewCell.swift in Sources */,
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DBEFCD82282A2AB100C0ABEA /* ReportServerRulesView.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,

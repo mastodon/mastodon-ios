@@ -7,6 +7,7 @@ import MastodonLocalization
 protocol NotificationSettingsViewControllerDelegate: AnyObject {
     func viewWillDisappear(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel)
     func showPolicyList(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel)
+    func showNotificationSettings(_ viewController: UIViewController)
 }
 
 class NotificationSettingsViewController: UIViewController {
@@ -28,16 +29,24 @@ class NotificationSettingsViewController: UIViewController {
                                                   notifyFavorites: alert?.favourite ?? false,
                                                   notifyNewFollowers: alert?.follow ?? false)
 
-        sections = [
-            NotificationSettingsSection(entries: [.policy]),
-            NotificationSettingsSection(entries: NotificationAlert.allCases.map { NotificationSettingEntry.alert($0) } )
-        ]
+        if notificationsEnabled {
+            sections = [
+                NotificationSettingsSection(entries: [.policy]),
+                NotificationSettingsSection(entries: NotificationAlert.allCases.map { NotificationSettingEntry.alert($0) } )
+            ]
+        } else {
+            sections = [
+                NotificationSettingsSection(entries: [.notificationDisabled]),
+                NotificationSettingsSection(entries: [.policy]),
+                NotificationSettingsSection(entries: NotificationAlert.allCases.map { NotificationSettingEntry.alert($0) } )
+            ]
+        }
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(NotificationSettingTableViewCell.self, forCellReuseIdentifier: NotificationSettingTableViewCell.reuseIdentifier)
         tableView.register(NotificationSettingTableViewToggleCell.self, forCellReuseIdentifier: NotificationSettingTableViewToggleCell.reuseIdentifier)
-        tableView.isUserInteractionEnabled = notificationsEnabled
+        tableView.register(NotificationSettingsDisabledTableViewCell.self, forCellReuseIdentifier: NotificationSettingsDisabledTableViewCell.reuseIdentifier)
 
         super.init(nibName: nil, bundle: nil)
 
@@ -46,6 +55,11 @@ class NotificationSettingsViewController: UIViewController {
             let cell: UITableViewCell
 
             switch itemIdentifier {
+                case .notificationDisabled:
+                    guard let notificationsDisabledCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingsDisabledTableViewCell.reuseIdentifier, for: indexPath) as? NotificationSettingsDisabledTableViewCell else { fatalError("WTF Wrong cell!?") }
+
+                    cell = notificationsDisabledCell
+
                 case .policy:
                     guard let self,
                           let notificationCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewCell else { fatalError("WTF Wrong cell!?") }
@@ -110,8 +124,6 @@ extension NotificationSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let entry = sections[indexPath.section].entries[indexPath.row]
-
-
         switch entry {
             case .alert(let alert):
 
@@ -124,6 +136,8 @@ extension NotificationSettingsViewController: UITableViewDelegate {
 
             case .policy:
                 delegate?.showPolicyList(self, viewModel: viewModel)
+            case .notificationDisabled:
+                delegate?.showNotificationSettings(self)
         }
 
         tableView.deselectRow(at: indexPath, animated: true)

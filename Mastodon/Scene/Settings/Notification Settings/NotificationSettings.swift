@@ -10,6 +10,7 @@ struct NotificationSettingsSection: Hashable {
 }
 
 enum NotificationSettingEntry: Hashable {
+    case notificationDisabled
     case policy
     case alert(NotificationAlert)
 }
