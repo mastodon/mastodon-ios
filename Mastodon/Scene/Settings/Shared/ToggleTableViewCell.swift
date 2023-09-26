@@ -23,7 +23,6 @@ class ToggleTableViewCell: UITableViewCell {
         toggle.onTintColor = Asset.Colors.Brand.blurple.color
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
 
         contentView.addSubview(label)
         contentView.addSubview(toggle)

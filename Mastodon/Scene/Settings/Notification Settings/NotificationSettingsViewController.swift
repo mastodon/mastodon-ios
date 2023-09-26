@@ -110,11 +110,19 @@ extension NotificationSettingsViewController: UITableViewDelegate {
 
         let entry = sections[indexPath.section].entries[indexPath.row]
 
+
         switch entry {
-        case .alert(_):
-            break
-        case .policy:
-            delegate?.showPolicyList(self, viewModel: viewModel)
+            case .alert(let alert):
+
+                guard let cell = tableView.cellForRow(at: indexPath) as? NotificationSettingTableViewToggleCell else { return }
+
+                let newValue = (cell.toggle.isOn == false)
+                cell.toggle.setOn(newValue, animated: true)
+
+                toggleValueChanged(cell, alert: alert, newValue: newValue)
+
+            case .policy:
+                delegate?.showPolicyList(self, viewModel: viewModel)
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
