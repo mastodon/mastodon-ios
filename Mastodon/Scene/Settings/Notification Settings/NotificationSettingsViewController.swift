@@ -5,6 +5,7 @@ import CoreDataStack
 import MastodonLocalization
 
 protocol NotificationSettingsViewControllerDelegate: AnyObject {
+    func viewWillDisappear(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel)
     func showPolicyList(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel)
 }
 
@@ -88,6 +89,20 @@ class NotificationSettingsViewController: UIViewController {
 
         tableViewDataSource?.apply(snapshot, animatingDifferences: false)
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let snapshot = tableViewDataSource?.snapshot() {
+            tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        delegate?.viewWillDisappear(self, viewModel: viewModel)
+    }
 }
 
 extension NotificationSettingsViewController: UITableViewDelegate {
@@ -107,5 +122,18 @@ extension NotificationSettingsViewController: UITableViewDelegate {
 }
 
 extension NotificationSettingsViewController: NotificationSettingToggleCellDelegate {
-    
+    func toggleValueChanged(_ tableViewCell: NotificationSettingTableViewToggleCell, alert: NotificationAlert, newValue: Bool) {
+        switch alert {
+            case .mentionsAndReplies:
+                viewModel.notifyMentions = newValue
+            case .boosts:
+                viewModel.notifyBoosts = newValue
+            case .favorites:
+                viewModel.notifyFavorites = newValue
+            case .newFollowers:
+                viewModel.notifyNewFollowers = newValue
+        }
+
+        viewModel.updated = true
+    }
 }

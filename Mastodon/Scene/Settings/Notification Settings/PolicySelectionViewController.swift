@@ -64,15 +64,17 @@ class PolicySelectionViewController: UIViewController {
 
 extension PolicySelectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
 
         let newPolicy = sections[indexPath.section].entries[indexPath.row]
         viewModel.selectedPolicy = newPolicy
+        viewModel.updated = true
 
         if let dataSource {
             dataSource.applySnapshotUsingReloadData(dataSource.snapshot())
         }
 
         delegate?.newPolicySelected(self, newPolicy: newPolicy)
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

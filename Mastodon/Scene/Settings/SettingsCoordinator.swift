@@ -4,6 +4,8 @@ import UIKit
 import AuthenticationServices
 import MastodonCore
 import CoreDataStack
+import MastodonSDK
+import Combine
 
 protocol SettingsCoordinatorDelegate: AnyObject {
     func logout(_ settingsCoordinator: SettingsCoordinator)
@@ -22,12 +24,15 @@ class SettingsCoordinator: NSObject, Coordinator {
 
     let setting: Setting
     let appContext: AppContext
+    let authContext: AuthContext
+    var disposeBag = Set<AnyCancellable>()
 
-    init(presentedOn: UIViewController, accountName: String, setting: Setting, appContext: AppContext) {
+    init(presentedOn: UIViewController, accountName: String, setting: Setting, appContext: AppContext, authContext: AuthContext) {
         self.presentedOn = presentedOn
         navigationController = UINavigationController()
         self.setting = setting
         self.appContext = appContext
+        self.authContext = authContext
 
         settingsViewController = SettingsViewController(accountName: accountName)
     }
@@ -131,11 +136,50 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
 
         navigationController.pushViewController(policyListViewController, animated: true)
     }
+
+    func viewWillDisappear(_ viewController: UIViewController, viewModel: NotificationSettingsViewModel) {
+
+        guard viewModel.updated else { return }
+
+        let authenticationBox = authContext.mastodonAuthenticationBox
+        guard let subscription = setting.activeSubscription,
+              setting.domain == authenticationBox.domain,
+              setting.userID == authenticationBox.userID,
+              let legacyViewModel = appContext.notificationService.dequeueNotificationViewModel(mastodonAuthenticationBox: authenticationBox), let deviceToken = appContext.notificationService.deviceToken.value else { return }
+
+        let queryData = Mastodon.API.Subscriptions.QueryData(
+            policy: viewModel.selectedPolicy.subscriptionPolicy,
+            alerts: Mastodon.API.Subscriptions.QueryData.Alerts(
+                favourite: viewModel.notifyFavorites,
+                follow: viewModel.notifyNewFollowers,
+                reblog: viewModel.notifyBoosts,
+                mention: viewModel.notifyMentions,
+                poll: subscription.alert.poll
+            )
+        )
+        let query = legacyViewModel.createSubscribeQuery(
+            deviceToken: deviceToken,
+            queryData: queryData,
+            mastodonAuthenticationBox: authenticationBox
+        )
+
+        appContext.apiService.createSubscription(
+            subscriptionObjectID: subscription.objectID,
+            query: query,
+            mastodonAuthenticationBox: authenticationBox
+        ).sink(receiveCompletion: { completion in
+            print(completion)
+        }, receiveValue: { output in
+            print(output)
+        })
+        .store(in: &disposeBag)
+    }
 }
 
 //MARK: - PolicySelectionViewControllerDelegate
 extension SettingsCoordinator: PolicySelectionViewControllerDelegate {
     func newPolicySelected(_ viewController: PolicySelectionViewController, newPolicy: NotificationPolicy) {
-        //TODO: Send to backend etc.
+        self.setting.activeSubscription?.policyRaw = newPolicy.subscriptionPolicy.rawValue
+        try? self.appContext.managedObjectContext.save()
     }
 }

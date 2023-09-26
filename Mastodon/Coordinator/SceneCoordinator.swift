@@ -538,13 +538,15 @@ private extension SceneCoordinator {
                 viewController = activityViewController
             case .settings(let setting):
                 guard let presentedOn = sender,
-                      let accountName = authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: appContext.managedObjectContext)?.username
+                      let accountName = authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: appContext.managedObjectContext)?.username,
+                      let authContext
                 else { return nil }
                 
                 let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn,
                                                               accountName: accountName,
                                                               setting: setting,
-                                                              appContext: appContext)
+                                                              appContext: appContext,
+                                                              authContext: authContext)
                 settingsCoordinator.delegate = self
                 settingsCoordinator.start()
                 

@@ -3,7 +3,7 @@
 import UIKit
 
 protocol NotificationSettingToggleCellDelegate: AnyObject {
-    
+    func toggleValueChanged(_ tableViewCell: NotificationSettingTableViewToggleCell, alert: NotificationAlert, newValue: Bool)
 }
 
 class NotificationSettingTableViewToggleCell: ToggleTableViewCell {
@@ -45,6 +45,8 @@ class NotificationSettingTableViewToggleCell: ToggleTableViewCell {
 
     @objc
     func toggleValueChanged(_ sender: UISwitch) {
-        
+        guard let alert else { return }
+
+        delegate?.toggleValueChanged(self, alert: alert, newValue: sender.isOn)
     }
 }
