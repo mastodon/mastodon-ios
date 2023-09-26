@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/2/1.
 //
 
-import os.log
 import UIKit
 import MastodonAsset
 import MastodonLocalization
@@ -18,8 +17,6 @@ public protocol ActionToolbarContainerDelegate: AnyObject {
 }
 
 public final class ActionToolbarContainer: UIView {
-    
-    let logger = Logger(subsystem: "ActionToolbarContainer", category: "Control")
     
     static let replyImage = Asset.Communication.bubbleLeftAndBubbleRight.image.withRenderingMode(.alwaysTemplate)
     static let reblogImage = Asset.Arrow.repeat.image.withRenderingMode(.alwaysTemplate)
@@ -194,8 +191,7 @@ extension ActionToolbarContainer {
 extension ActionToolbarContainer {
     
     @objc private func buttonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
+
         let _action: Action?
         switch sender {
         case replyButton:       _action = .reply
@@ -210,7 +206,6 @@ extension ActionToolbarContainer {
             return
         }
         
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(action.rawValue) button pressed")
         delegate?.actionToolbarContainer(self, buttonDidPressed: sender, action: action)
     }
     

@@ -5,7 +5,6 @@
 //  Created by Marcus Kida on 23.11.22.
 //
 
-import os.log
 import Foundation
 import Combine
 import CoreData

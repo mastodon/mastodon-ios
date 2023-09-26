@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-27.
 //
 
-
 import Foundation
 import CryptoKit
 import KeychainAccess

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-19.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonAsset
@@ -18,9 +17,6 @@ public protocol DiscoveryIntroBannerViewDelegate: AnyObject {
 }
 
 public final class DiscoveryIntroBannerView: UIView {
-    
-    let logger = Logger(subsystem: "DiscoveryIntroBannerView", category: "View")
-    
     var _disposeBag = Set<AnyCancellable>()
     
     public weak var delegate: DiscoveryIntroBannerViewDelegate?
@@ -90,7 +86,6 @@ extension DiscoveryIntroBannerView {
 
 extension DiscoveryIntroBannerView {
     @objc private func closeButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.discoveryIntroBannerView(self, closeButtonDidPressed: sender)
     }
 }

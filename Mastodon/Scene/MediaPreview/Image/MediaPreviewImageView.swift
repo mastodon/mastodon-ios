@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-28.
 //
 
-import os.log
 import func AVFoundation.AVMakeRect
 import UIKit
 import FLAnimatedImage
@@ -92,8 +91,6 @@ extension MediaPreviewImageView {
 extension MediaPreviewImageView {
  
     @objc private func doubleTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
         let middleZoomScale = 0.5 * maximumZoomScale
         if zoomScale >= middleZoomScale {
             setZoomScale(minimumZoomScale, animated: true)
@@ -169,8 +166,6 @@ extension MediaPreviewImageView {
                 }
             }
         }
-        
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup image for container %s", ((#file as NSString).lastPathComponent), #line, #function, container.frame.debugDescription)
     }
     
 }
@@ -183,7 +178,6 @@ extension MediaPreviewImageView: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         centerScrollViewContents()
         
         // set bounce when zoom in

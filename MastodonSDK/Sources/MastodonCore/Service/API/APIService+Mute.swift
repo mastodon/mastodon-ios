@@ -9,7 +9,6 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import CommonOSLog
 import MastodonSDK
 
 extension APIService {
@@ -64,8 +63,7 @@ extension APIService {
         user: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
-        let logger = Logger(subsystem: "APIService", category: "Mute")
-        
+
         let managedObjectContext = backgroundManagedObjectContext
         let muteContext: MastodonMuteContext = try await managedObjectContext.performChanges {
             let authentication = authenticationBox.authentication
@@ -81,7 +79,6 @@ extension APIService {
             
             // toggle mute state
             user.update(isMuting: !isMuting, by: me)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Local] update user[\(user.id)](\(user.username)) mute state: \(!isMuting)")
             return MastodonMuteContext(
                 sourceUserID: me.id,
                 targetUserID: user.id,
@@ -113,7 +110,6 @@ extension APIService {
             }
         } catch {
             result = .failure(error)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update user[\(muteContext.targetUserID)](\(muteContext.targetUsername)) mute failure: \(error.localizedDescription)")
         }
         
         try await managedObjectContext.performChanges {
@@ -132,11 +128,9 @@ extension APIService {
                         networkDate: response.networkDate
                     )
                 )
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update user[\(muteContext.targetUserID)](\(muteContext.targetUsername)) mute state: \(relationship.muting.debugDescription)")
             case .failure:
                 // rollback
                 user.update(isMuting: muteContext.isMuting, by: me)
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] rollback user[\(muteContext.targetUserID)](\(muteContext.targetUsername)) mute state")
             }
         }
         

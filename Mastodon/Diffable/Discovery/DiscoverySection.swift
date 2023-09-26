@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-13.
 //
 
-import os.log
 import UIKit
 import MastodonCore
 import MastodonUI
@@ -19,8 +18,6 @@ enum DiscoverySection: CaseIterable {
 }
 
 extension DiscoverySection {
-    
-    static let logger = Logger(subsystem: "DiscoverySection", category: "logic")
     
     class Configuration {
         let authContext: AuthContext

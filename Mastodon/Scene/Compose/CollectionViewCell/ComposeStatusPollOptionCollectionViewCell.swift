@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-23.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonAsset
@@ -127,7 +126,6 @@ extension ComposeStatusPollOptionCollectionViewCell {
 extension ComposeStatusPollOptionCollectionViewCell {
 
     @objc private func singleTagGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         pollOptionView.optionTextField.becomeFirstResponder()
     }
     
@@ -144,12 +142,10 @@ extension ComposeStatusPollOptionCollectionViewCell: DeleteBackwardResponseTextF
 extension ComposeStatusPollOptionCollectionViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.composeStatusPollOptionCollectionViewCell(self, textFieldDidBeginEditing: textField)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         if textField === pollOptionView.optionTextField {
             delegate?.composeStatusPollOptionCollectionViewCell(self, pollOptionTextFieldDidReturn: textField)
         }

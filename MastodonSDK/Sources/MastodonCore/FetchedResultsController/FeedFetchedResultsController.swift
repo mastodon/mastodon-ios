@@ -6,7 +6,6 @@
 //  Copyright © 2021 Twidere. All rights reserved.
 //
 
-import os.log
 import Foundation
 import UIKit
 import Combine
@@ -19,8 +18,6 @@ final public class FeedFetchedResultsController: NSObject {
     private enum Constants {
         static let defaultFetchLimit = 100
     }
-    
-    public let logger = Logger(subsystem: "FeedFetchedResultsController", category: "DB")
     
     var disposeBag = Set<AnyCancellable>()
     

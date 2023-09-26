@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-21.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -13,8 +12,6 @@ import MastodonCore
 import MastodonLocalization
 
 final class NotificationTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
-    let logger = Logger(subsystem: "NotificationTimelineViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -42,9 +39,6 @@ final class NotificationTimelineViewController: UIViewController, NeedsDependenc
     
     let cellFrameCache = NSCache<NSNumber, NSValue>()
 
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -101,13 +95,10 @@ extension NotificationTimelineViewController {
             let now = Date()
             if let timestamp = viewModel.lastAutomaticFetchTimestamp {
                 if now.timeIntervalSince(timestamp) > 60 {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): auto fetch latest timeline…")
                     Task {
                         await viewModel.loadLatest()
                     }
                     viewModel.lastAutomaticFetchTimestamp = now
-                } else {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): auto fetch latest timeline skip. Reason: updated in recent 60s")
                 }
             } else {
                 Task {
@@ -133,8 +124,6 @@ extension NotificationTimelineViewController: CellFrameCacheContainer {
 extension NotificationTimelineViewController {
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         Task {
             await viewModel.loadLatest()
         }

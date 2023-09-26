@@ -10,7 +10,6 @@ import Combine
 import CoreData
 import CoreDataStack
 import GameplayKit
-import CommonOSLog
 import MastodonSDK
 import MastodonCore
 

@@ -9,7 +9,6 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import os.log
 
 extension Persistence.PollOption {
     
@@ -19,7 +18,6 @@ extension Persistence.PollOption {
         public let entity: Mastodon.Entity.Poll.Option
         public let me: MastodonUser?
         public let networkDate: Date
-        public let log = Logger(subsystem: "PollOption", category: "Persistence")
         
         public init(
             index: Int,

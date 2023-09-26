@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021/1/29.
 //
 
-import os.log
 import XCTest
 import Combine
 @testable import MastodonSDK
@@ -37,8 +36,6 @@ extension MastodonSDKTests {
                 XCTAssertEqual(response.value.name, "XCTest")
                 XCTAssertEqual(response.value.website, nil)
                 XCTAssertEqual(response.value.redirectURI, "urn:ietf:wg:oauth:2.0:oob")
-                os_log("%{public}s[%{public}ld], %{public}s: (%s) clientID %s", ((#file as NSString).lastPathComponent), #line, #function, domain, response.value.clientID ?? "nil")
-                os_log("%{public}s[%{public}ld], %{public}s: (%s) clientSecret %s", ((#file as NSString).lastPathComponent), #line, #function, domain, response.value.clientSecret ?? "nil")
                 theExpectation.fulfill()
             }
             .store(in: &disposeBag)

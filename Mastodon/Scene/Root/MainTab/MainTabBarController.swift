@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-1-27.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -17,8 +16,6 @@ import MastodonUI
 
 class MainTabBarController: UITabBarController {
 
-    let logger = Logger(subsystem: "MainTabBarController", category: "UI")
-    
     public var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext!
@@ -412,7 +409,6 @@ extension MainTabBarController {
     @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
         guard sender.state == .began else { return }
         guard let tab = touchedTab(by: sender) else { return }
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): long press \(tab.title) tab")
 
         switch tab {
         case .me:
@@ -662,8 +658,7 @@ extension MainTabBarController {
     @objc private func switchToTabKeyCommandHandler(_ sender: UIKeyCommand) {
         guard let rawValue = sender.propertyList as? Int,
               let tab = Tab(rawValue: rawValue) else { return }
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, tab.title)
-        
+
         guard let index = Tab.allCases.firstIndex(of: tab) else { return }
         let previousTab = Tab(rawValue: selectedIndex)
         selectedIndex = index
@@ -689,14 +684,12 @@ extension MainTabBarController {
     }
     
     @objc private func showFavoritesKeyCommandHandler(_ sender: UIKeyCommand) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let authContext = self.authContext else { return }
         let favoriteViewModel = FavoriteViewModel(context: context, authContext: authContext)
         _ = coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: nil, transition: .show)
     }
     
     @objc private func openSettingsKeyCommandHandler(_ sender: UIKeyCommand) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let authContext = self.authContext else { return }
         guard let setting = context.settingService.currentSetting.value else { return }
         let settingsViewModel = SettingsViewModel(context: context, authContext: authContext, setting: setting)
@@ -704,7 +697,6 @@ extension MainTabBarController {
     }
     
     @objc private func composeNewPostKeyCommandHandler(_ sender: UIKeyCommand) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let authContext = self.authContext else { return }
         let composeViewModel = ComposeViewModel(
             context: context,

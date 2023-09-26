@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021/2/1.
 //
 
-import os.log
 import UIKit
 import CoreData
 import CoreDataStack
@@ -75,9 +74,7 @@ extension AuthenticationViewModel {
         let components = host.components(separatedBy: ".")
         guard !components.contains(where: { $0.isEmpty }) else { return nil }
         guard components.count >= 2 else { return nil }
-        
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: input host: %s", ((#file as NSString).lastPathComponent), #line, #function, host)
-        
+
         return host
     }
 }
@@ -156,7 +153,6 @@ extension AuthenticationViewModel {
                     )
                     .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
                         let token = response.value
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign in success. Token: %s", ((#file as NSString).lastPathComponent), #line, #function, token.accessToken)
                         return AuthenticationViewModel.verifyAndSaveAuthentication(
                             context: self.context,
                             info: info,
@@ -171,7 +167,6 @@ extension AuthenticationViewModel {
                 guard let self = self else { return }
                 switch completion {
                 case .failure(let error):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: swap user access token swap fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                     self.isAuthenticating.value = false
                     self.error.value = error
                 case .finished:
@@ -180,7 +175,6 @@ extension AuthenticationViewModel {
             } receiveValue: { [weak self] response in
                 guard let self = self else { return }
                 let account = response.value
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: user %s sign in success", ((#file as NSString).lastPathComponent), #line, #function, account.username)
                 
                 self.authenticated.send((domain: info.domain, account: account))
             }

@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-6-4.
 //
 
-import os.log
 import UIKit
 import Combine
 import AuthenticationServices
@@ -44,12 +43,10 @@ extension MastodonAuthenticationController {
             callbackURLScheme: APIService.callbackURLScheme
         ) { [weak self] callback, error in
             guard let self = self else { return }
-            os_log("%{public}s[%{public}ld], %{public}s: callback: %s, error: %s", ((#file as NSString).lastPathComponent), #line, #function, callback?.debugDescription ?? "<nil>", error.debugDescription)
-            
+
             if let error = error {
                 if let error = error as? ASWebAuthenticationSessionError {
                     if error.errorCode == ASWebAuthenticationSessionError.canceledLogin.rawValue {
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: user cancel authentication", ((#file as NSString).lastPathComponent), #line, #function)
                         self.isAuthenticating.value = false
                         return
                     }

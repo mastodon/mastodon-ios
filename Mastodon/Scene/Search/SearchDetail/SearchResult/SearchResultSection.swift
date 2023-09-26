@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/4/6.
 //
 
-import os.log
 import Foundation
 import MastodonSDK
 import UIKit

@@ -5,15 +5,12 @@
 //  Created by MainasuK on 2022-4-13.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonCore
 import MastodonUI
 
 final class DiscoveryNewsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
-    let logger = Logger(subsystem: "TrendPostsViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -33,11 +30,6 @@ final class DiscoveryNewsViewController: UIViewController, NeedsDependency, Medi
     }()
     
     let refreshControl = RefreshControl()
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension DiscoveryNewsViewController {
@@ -109,7 +101,6 @@ extension DiscoveryNewsViewController {
 extension DiscoveryNewsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         guard case let .link(link) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
         guard let url = URL(string: link.url) else { return }
         _ = coordinator.present(

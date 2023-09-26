@@ -5,7 +5,6 @@
 //  Created by MainasuK on 22/9/30.
 //
 
-import os.log
 import UIKit
 import SwiftUI
 import Combine
@@ -17,8 +16,6 @@ public final class ComposeContentViewController: UIViewController {
     
     static let minAutoCompleteVisibleHeight: CGFloat = 100
 
-    let logger = Logger(subsystem: "ComposeContentViewController", category: "ViewController")
-    
     var disposeBag = Set<AnyCancellable>()
     public var viewModel: ComposeContentViewModel!
     private(set) lazy var composeContentToolbarViewModel = ComposeContentToolbarView.ViewModel(delegate: self)
@@ -233,7 +230,6 @@ extension ComposeContentViewController {
             switch scrollViewState {
             case .fold:
                 self.tableView.contentInset.top = -replyToCellFrame.height
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: set contentInset.top: -%s", ((#file as NSString).lastPathComponent), #line, #function, replyToCellFrame.height.description)
             case .expand:
                 self.tableView.contentInset.top = 0
             }
@@ -441,7 +437,6 @@ extension ComposeContentViewController {
 
         switch viewModel.scrollViewState {
         case .fold:
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fold")
             guard velocity.y < 0 else { return }
             let offsetY = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
             if offsetY < -44 {
@@ -451,7 +446,6 @@ extension ComposeContentViewController {
             }
 
         case .expand:
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): expand")
             guard velocity.y > 0 else { return }
             // check if top across
             let topOffset = (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) - replyToCellFrame.height
@@ -511,7 +505,6 @@ extension ComposeContentViewController: UIImagePickerControllerDelegate & UINavi
     }
 
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -594,8 +587,6 @@ extension ComposeContentViewController: AutoCompleteViewControllerDelegate {
         _ viewController: AutoCompleteViewController,
         didSelectItem item: AutoCompleteItem
     ) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): did select item: \(String(describing: item))")
-        
         guard let info = viewModel.autoCompleteInfo else { return }
         guard let metaText = viewModel.contentMetaText else { return }
         
@@ -638,8 +629,6 @@ extension ComposeContentViewController: AutoCompleteViewControllerDelegate {
 extension ComposeContentViewController: UICollectionViewDelegate {
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
-        
         switch collectionView {
         case customEmojiPickerInputView.collectionView:
             guard let diffableDataSource = viewModel.customEmojiPickerDiffableDataSource else { return }

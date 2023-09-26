@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-7-14.
 //
 
-import os.log
 import Foundation
 import Combine
 import CoreData
@@ -75,11 +74,8 @@ public final class StatusFilterService {
         .sink { result in
             switch result {
             case .success(let response):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch account filters success. %ld items", ((#file as NSString).lastPathComponent), #line, #function, response.value.count)
                 self.activeFilters = response.value
-            case .failure(let error):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch account filters fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-
+            case .failure(_):
                 break
             }
         }

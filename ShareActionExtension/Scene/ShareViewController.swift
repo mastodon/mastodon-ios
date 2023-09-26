@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022/11/13.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -16,8 +15,6 @@ import MastodonLocalization
 import UniformTypeIdentifiers
 
 final class ShareViewController: UIViewController {
-    
-    let logger = Logger(subsystem: "ShareViewController", category: "ViewController")
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -65,9 +62,6 @@ final class ShareViewController: UIViewController {
         return label
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
 
 }
 
@@ -120,7 +114,6 @@ extension ShareViewController {
                 await load(inputItems: inputItems)
             }   // end Task
         } catch {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): error: \(error.localizedDescription)")
         }
         
         viewModel.$isPublishing
@@ -141,15 +134,10 @@ extension ShareViewController {
 
 extension ShareViewController {
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
         extensionContext?.cancelRequest(withError: NSError(domain: "org.joinmastodon.app.ShareActionExtension", code: -1))
     }
 
     @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
-        
         Task { @MainActor in
             viewModel.isPublishing = true
             do {
@@ -224,14 +212,8 @@ extension ShareViewController: UIAdaptivePresentationControllerDelegate {
     }
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         showDismissConfirmAlertController()
     }
-    
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension ShareViewController {

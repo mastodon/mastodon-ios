@@ -14,7 +14,6 @@ import MastodonSDK
 import MastodonCore
 
 final class FollowedTagsViewModel: NSObject {
-    let logger = Logger(subsystem: String(describing: FollowedTagsViewModel.self), category: "ViewModel")
     var disposeBag = Set<AnyCancellable>()
     let fetchedResultsController: FollowedTagsFetchedResultController
 
@@ -93,7 +92,6 @@ extension FollowedTagsViewModel {
 
 extension FollowedTagsViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         tableView.deselectRow(at: indexPath, animated: true)
 
         let object = fetchedResultsController.records[indexPath.row]

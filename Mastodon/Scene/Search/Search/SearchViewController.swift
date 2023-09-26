@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/3/31.
 //
 
-import os.log
 import Combine
 import GameplayKit
 import MastodonSDK

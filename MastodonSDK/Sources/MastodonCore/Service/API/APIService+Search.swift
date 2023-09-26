@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 import MastodonSDK
-import CommonOSLog
 
 extension APIService {
  

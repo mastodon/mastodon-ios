@@ -8,7 +8,6 @@
 import AlamofireImage
 import Combine
 import MastodonSDK
-import os.log
 import PhotosUI
 import UIKit
 import SwiftUI
@@ -20,8 +19,6 @@ import MastodonLocalization
 final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
     
     static let avatarImageMaxSizeInPixel = CGSize(width: 400, height: 400)
-    
-    let logger = Logger(subsystem: "MastodonRegisterViewController", category: "ViewController")
     
     var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()

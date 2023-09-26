@@ -9,7 +9,6 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import CommonOSLog
 import MastodonSDK
 
 extension APIService {
@@ -65,7 +64,6 @@ extension APIService {
         user: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
-        let logger = Logger(subsystem: "APIService", category: "Block")
         
         let managedObjectContext = backgroundManagedObjectContext
         let blockContext: MastodonBlockContext = try await managedObjectContext.performChanges {
@@ -87,7 +85,7 @@ extension APIService {
                 // will do block action. set to unfollow
                 user.update(isFollowing: false, by: me)
             }
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Local] update user[\(user.id)](\(user.username)) block state: \(!isBlocking)")
+
             return MastodonBlockContext(
                 sourceUserID: me.id,
                 targetUserID: user.id,
@@ -118,7 +116,6 @@ extension APIService {
             }
         } catch {
             result = .failure(error)
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update user[\(blockContext.targetUserID)](\(blockContext.targetUsername)) block failure: \(error.localizedDescription)")
         }
         
         try await managedObjectContext.performChanges {
@@ -141,12 +138,10 @@ extension APIService {
                         networkDate: response.networkDate
                     )
                 )
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update user[\(blockContext.targetUserID)](\(blockContext.targetUsername)) block state: \(relationship.blocking)")
             case .failure:
                 // rollback
                 user.update(isBlocking: blockContext.isBlocking, by: me)
                 user.update(isFollowing: blockContext.isFollowing, by: me)
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] rollback user[\(blockContext.targetUserID)](\(blockContext.targetUsername)) block state")
             }
         }
         

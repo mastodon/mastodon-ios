@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021/1/22.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -13,10 +12,6 @@ import MastodonCore
 import MastodonExtension
 import MastodonUI
 import MastodonSDK
-
-#if PROFILE
-import FPSIndicator
-#endif
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -26,13 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var coordinator: SceneCoordinator?
 
-    #if PROFILE
-    var fpsIndicator: FPSIndicator?
-    #endif
-
     var savedShortCutItem: UIApplicationShortcutItem?
-
-    let logger = Logger(subsystem: "SceneDelegate", category: "logic")
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
@@ -102,10 +91,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             #endif
         }
         .store(in: &observations)
-
-        #if PROFILE
-        fpsIndicator = FPSIndicator(windowScene: windowScene)
-        #endif
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -204,7 +189,6 @@ extension SceneDelegate {
 
     @MainActor
     private func handler(shortcutItem: UIApplicationShortcutItem) async -> Bool {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(shortcutItem.type)")
 
         switch shortcutItem.type {
         case NotificationService.unreadShortcutItemIdentifier:
@@ -236,11 +220,9 @@ extension SceneDelegate {
 
         case "org.joinmastodon.app.search":
             coordinator?.switchToTabBar(tab: .search)
-            logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select search tab")
 
             if let searchViewController = coordinator?.tabBarController.topMost as? SearchViewController {
                 searchViewController.searchBarTapPublisher.send("")
-                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): trigger search")
             }
 
         default:
@@ -260,7 +242,6 @@ extension SceneDelegate {
     
     private func showComposeViewController() {
         if coordinator?.tabBarController.topMost is ComposeViewController {
-            logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
         } else {
             if let authContext = coordinator?.authContext {
                 let composeViewModel = ComposeViewModel(
@@ -270,9 +251,6 @@ extension SceneDelegate {
                     destination: .topLevel
                 )
                 _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
-                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
-            } else {
-                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
             }
         }
     }

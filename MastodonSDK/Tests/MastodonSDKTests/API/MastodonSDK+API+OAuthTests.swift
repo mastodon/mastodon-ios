@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021/1/29.
 //
 
-import os.log
 import XCTest
 import Combine
 @testable import MastodonSDK
@@ -19,7 +18,6 @@ extension MastodonSDKTests {
     func _testOAuthAuthorize(domain: String) throws {
         let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: "StubClientID", redirectURI: "mastodon://joinmastodon.org/oauth")
         let authorizeURL = Mastodon.API.OAuth.authorizeURL(domain: domain, query: query)
-        os_log("%{public}s[%{public}ld], %{public}s: (%s) authorizeURL %s", ((#file as NSString).lastPathComponent), #line, #function, domain, authorizeURL.absoluteString)
         XCTAssertEqual(
             authorizeURL.absoluteString,
             "\(URL.httpScheme(domain: domain))://\(domain)/oauth/authorize?response_type=code&client_id=StubClientID&redirect_uri=mastodon://joinmastodon.org/oauth&scope=read%20write%20follow%20push"

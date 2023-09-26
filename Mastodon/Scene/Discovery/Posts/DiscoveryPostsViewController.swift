@@ -5,16 +5,12 @@
 //  Created by MainasuK on 2022-4-12.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonCore
 import MastodonUI
 
 final class DiscoveryPostsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
-    let logger = Logger(subsystem: "TrendPostsViewController", category: "ViewController")
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     

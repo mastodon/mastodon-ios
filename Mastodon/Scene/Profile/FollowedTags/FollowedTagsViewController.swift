@@ -14,8 +14,6 @@ import MastodonUI
 import MastodonLocalization
 
 final class FollowedTagsViewController: UIViewController, NeedsDependency {
-    let logger = Logger(subsystem: String(describing: FollowedTagsViewController.self), category: "ViewController")
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -33,9 +31,6 @@ final class FollowedTagsViewController: UIViewController, NeedsDependency {
         return tableView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
 }
 
 extension FollowedTagsViewController {

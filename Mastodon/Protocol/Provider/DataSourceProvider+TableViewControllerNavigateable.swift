@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-2-16.
 //
 
-import os.log
 import UIKit
 import MastodonCore
 
@@ -34,7 +33,6 @@ extension TableViewControllerNavigateableCore {
         guard let rawValue = sender.propertyList as? String,
               let navigation = TableViewNavigation(rawValue: rawValue) else { return }
         
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, navigation.title)
         switch navigation {
         case .up:                   navigate(direction: .up)
         case .down:                 navigate(direction: .down)

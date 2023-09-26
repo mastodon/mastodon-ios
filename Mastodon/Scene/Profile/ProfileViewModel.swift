@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-3-29.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -19,8 +18,6 @@ import MastodonUI
 // please override this base class
 class ProfileViewModel: NSObject {
         
-    let logger = Logger(subsystem: "ProfileViewModel", category: "ViewModel")
-    
     typealias UserID = String
     
     var disposeBag = Set<AnyCancellable>()
@@ -151,11 +148,9 @@ class ProfileViewModel: NSObject {
                         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
                             guard let _ = self else { return }
                             pendingRetryPublisher.value = min(2 * delay, 60)
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] fetch again due to pending", ((#file as NSString).lastPathComponent), #line, #function)
                         }
                     }
                 } catch {
-                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Relationship] update user relationship failure: \(error.localizedDescription)")
                 }
             }   // end Task
         }
@@ -197,12 +192,10 @@ class ProfileViewModel: NSObject {
         record: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Relationship] update user relationship...")
         let response = try await context.apiService.relationship(
             records: [record],
             authenticationBox: authenticationBox
         )
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Relationship] did update MastodonUser relationship")
         return response
     }
 

@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-2-23.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonMeta
@@ -26,8 +25,6 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     
     public static let containerViewMarginForRegularHorizontalSizeClass: CGFloat = 64
     public static let containerViewMarginForCompactHorizontalSizeClass: CGFloat = 16
-    
-    let logger = Logger(subsystem: "ProfileViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -153,9 +150,6 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
         profileHeaderViewController.titleView
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
 
 }
 
@@ -528,19 +522,16 @@ extension ProfileViewController {
 extension ProfileViewController {
 
     @objc private func cancelEditingBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         viewModel.isEditing = false
     }
 
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let setting = context.settingService.currentSetting.value else { return }
         let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
         _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let user = viewModel.user else { return }
         let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
         Task {
@@ -562,19 +553,16 @@ extension ProfileViewController {
     }
 
     @objc private func favoriteBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         let favoriteViewModel = FavoriteViewModel(context: context, authContext: viewModel.authContext)
         _ = coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: self, transition: .show)
     }
     
     @objc private func bookmarkBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         let bookmarkViewModel = BookmarkViewModel(context: context, authContext: viewModel.authContext)
         _ = coordinator.present(scene: .bookmark(viewModel: bookmarkViewModel), from: self, transition: .show)
     }
 
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let mastodonUser = viewModel.user else { return }
         let mention = "@" + mastodonUser.acct
         UITextChecker.learnWord(mention)
@@ -589,15 +577,11 @@ extension ProfileViewController {
     }
     
     @objc private func followedTagsItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
         let followedTagsViewModel = FollowedTagsViewModel(context: context, authContext: viewModel.authContext)
         _ = coordinator.present(scene: .followedTags(viewModel: followedTagsViewModel), from: self, transition: .show)
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-
         if let userTimelineViewController = profilePagingViewController.currentViewController as? UserTimelineViewController {
             userTimelineViewController.viewModel.stateMachine.enter(UserTimelineViewModel.State.Reloading.self)
         }
@@ -769,11 +753,9 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                             headerProfileInfo: profileHeaderViewModel.profileInfoEditing,
                             aboutProfileInfo: profileAboutViewModel.profileInfoEditing
                         )
-                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update profile info success")
                         self.viewModel.isEditing = false
                         
                     } catch {
-                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update profile info fail: \(error.localizedDescription)")
                         let alertController = UIAlertController(
                             for: error,
                             title: L10n.Common.Alerts.EditProfileFailure.title,
@@ -800,7 +782,6 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                         }
                         switch completion {
                         case .failure(let error):
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch profile info for edit fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                             let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.EditProfileFailure.title, preferredStyle: .alert)
                             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                             alertController.addAction(okAction)
@@ -810,7 +791,6 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                                 transition: .alertController(animated: true, completion: nil)
                             )
                         case .finished:
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch profile info for edit success", ((#file as NSString).lastPathComponent), #line, #function)
                             // enter editing mode
                             self.viewModel.isEditing.toggle()
                         }

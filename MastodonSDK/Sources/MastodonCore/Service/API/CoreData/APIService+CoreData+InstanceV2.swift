@@ -1,4 +1,3 @@
-import os.log
 import Foundation
 import CoreData
 import CoreDataStack
@@ -10,18 +9,15 @@ extension APIService.CoreData {
         public let domain: String
         public let entity: Mastodon.Entity.V2.Instance
         public let networkDate: Date
-        public let log: Logger
-        
+
         public init(
             domain: String,
             entity: Mastodon.Entity.V2.Instance,
-            networkDate: Date,
-            log: Logger
+            networkDate: Date
         ) {
             self.domain = domain
             self.entity = entity
             self.networkDate = networkDate
-            self.log = log
         }
     }
     

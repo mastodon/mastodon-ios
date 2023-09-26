@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-9-13.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData

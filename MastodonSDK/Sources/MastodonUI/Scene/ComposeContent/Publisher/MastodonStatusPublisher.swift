@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2021-12-1.
 //
 
-import os.log
 import Foundation
 import Combine
 import CoreData
@@ -14,8 +13,6 @@ import MastodonCore
 import MastodonSDK
 
 public final class MastodonStatusPublisher: NSObject, ProgressReporting {
-    
-    let logger = Logger(subsystem: "MastodonStatusPublisher", category: "Publisher")
     
     // Input
     
@@ -149,7 +146,6 @@ extension MastodonStatusPublisher: StatusPublisher {
                     // attachmentIDs.append(attachmentID)
                 }
             } catch {
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): upload attachment fail: \(error.localizedDescription)")
                 _state = .failure(error)
                 throw error
             }
@@ -190,7 +186,6 @@ extension MastodonStatusPublisher: StatusPublisher {
         )
         progress.completedUnitCount += publishStatusTaskCount
         _state = .success
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): status published: \(publishResponse.value.id)")
         
         return .post(publishResponse)
     }

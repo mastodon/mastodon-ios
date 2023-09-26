@@ -5,14 +5,11 @@
 //  Created by MainasuK on 2021-12-14.
 //
 
-import os.log
 import UIKit
 import MastodonLocalization
 
 public final class ContentWarningOverlayView: UIView {
         
-    let logger = Logger(subsystem: "ContentWarningOverlayView", category: "View")
-    
     let hintLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)

@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-4-12.
 //
 
-import os.log
 import UIKit
 import Combine
 import Tabman
@@ -20,8 +19,6 @@ public class DiscoveryViewController: TabmanViewController, NeedsDependency {
     public static let containerViewMarginForCompactHorizontalSizeClass: CGFloat = 16
     
     var disposeBag = Set<AnyCancellable>()
-    
-    let logger = Logger(subsystem: "DiscoveryViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }

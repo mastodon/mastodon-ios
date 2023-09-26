@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-10-28.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -46,9 +45,6 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
         return mainTabBarController
     }()
 
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 

@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-11-1.
 //
 
-import os.log
 import UIKit
 import CoreData
 import CoreDataStack
@@ -20,9 +19,6 @@ enum UserSection: Hashable {
 }
 
 extension UserSection {
-    
-    static let logger = Logger(subsystem: "StatusSection", category: "logic")
-    
     struct Configuration {
         weak var userTableViewCellDelegate: UserTableViewCellDelegate?
     }

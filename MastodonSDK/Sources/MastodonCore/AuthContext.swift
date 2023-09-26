@@ -5,7 +5,6 @@
 //  Created by MainasuK on 22/10/8.
 //
 
-import os.log
 import Foundation
 import Combine
 import CoreDataStack
@@ -18,8 +17,6 @@ public protocol AuthContextProvider {
 public class AuthContext {
     
     var disposeBag = Set<AnyCancellable>()
-    
-    let logger = Logger(subsystem: "AuthContext", category: "AuthContext")
     
     // Mastodon
     public private(set) var mastodonAuthenticationBox: MastodonAuthenticationBox

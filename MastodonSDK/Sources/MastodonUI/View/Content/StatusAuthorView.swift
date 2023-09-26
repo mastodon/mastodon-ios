@@ -5,7 +5,6 @@
 //  Created by Jed Fox on 2022-10-31.
 //
 
-import os.log
 import UIKit
 import Combine
 import Meta
@@ -15,7 +14,6 @@ import MastodonCore
 import MastodonLocalization
 
 public class StatusAuthorView: UIStackView {
-    let logger = Logger(subsystem: "StatusAuthorView", category: "View")
     private var _disposeBag = Set<AnyCancellable>() // which lifetime same to view scope
 
     weak var statusView: StatusView?

@@ -5,7 +5,6 @@
 //  Created by MainasuK Cirno on 2021-4-12.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
@@ -18,8 +17,6 @@ import MastodonCore
 import MastodonLocalization
 
 class ThreadViewModel {
-    
-    let logger = Logger(subsystem: "ThreadViewModel", category: "ViewModel")
     
     var disposeBag = Set<AnyCancellable>()
     var rootItemObserver: AnyCancellable?
@@ -107,9 +104,6 @@ class ThreadViewModel {
             .store(in: &disposeBag)
     }
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
 
 }
 

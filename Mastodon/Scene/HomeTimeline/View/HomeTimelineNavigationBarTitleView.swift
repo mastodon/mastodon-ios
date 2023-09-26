@@ -5,7 +5,6 @@
 //  Created by sxiaojian on 2021/3/15.
 //
 
-import os.log
 import UIKit
 import MastodonUI
 import MastodonAsset
@@ -69,12 +68,10 @@ extension HomeTimelineNavigationBarTitleView {
 
 extension HomeTimelineNavigationBarTitleView {
     @objc private func logoButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.homeTimelineNavigationBarTitleView(self, logoButtonDidPressed: sender)
     }
     
     @objc private func buttonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.homeTimelineNavigationBarTitleView(self, buttonDidPressed: sender)
     }
 }
@@ -88,7 +85,6 @@ extension HomeTimelineNavigationBarTitleView {
     }
     
     func configure(state: HomeTimelineNavigationBarTitleViewModel.State) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: configure title view: %s", ((#file as NSString).lastPathComponent), #line, #function, state.rawValue)
         self.state = state
     
         // check state block or not

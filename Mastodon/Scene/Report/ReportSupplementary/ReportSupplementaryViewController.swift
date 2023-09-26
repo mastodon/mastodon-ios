@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-2-7.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonAsset
@@ -19,8 +18,6 @@ protocol ReportSupplementaryViewControllerDelegate: AnyObject {
 }
 
 final class ReportSupplementaryViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {
-    
-    let logger = Logger(subsystem: "ReportSupplementaryViewController", category: "ViewController")
     
     var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()
@@ -63,9 +60,6 @@ final class ReportSupplementaryViewController: UIViewController, NeedsDependency
         return navigationActionView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
     
 }
 
@@ -134,16 +128,12 @@ extension ReportSupplementaryViewController {
     }
 
     @objc func skipButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         assert(viewModel.delegate != nil)
         viewModel.isSkip = true
         viewModel.delegate?.reportSupplementaryViewController(self, skipButtonDidPressed: sender)
     }
 
     @objc func nextButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
         assert(viewModel.delegate != nil)
         viewModel.isSkip = false
         viewModel.delegate?.reportSupplementaryViewController(self, nextButtonDidPressed: sender)

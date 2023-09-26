@@ -5,7 +5,6 @@
 //  Created by Cirno MainasuK on 2021-9-13.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -15,8 +14,6 @@ import MastodonLocalization
 import MastodonCore
 
 final class AccountListViewController: UIViewController, NeedsDependency {
-
-    let logger = Logger(subsystem: "AccountListViewController", category: "UI")
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -153,12 +150,10 @@ extension AccountListViewController {
 extension AccountListViewController {
 
     @objc private func addBarButtonItem(_ sender: UIBarButtonItem) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         _ = coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
     }
 
     override func accessibilityPerformEscape() -> Bool {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         dismiss(animated: true, completion: nil)
         return true
     }

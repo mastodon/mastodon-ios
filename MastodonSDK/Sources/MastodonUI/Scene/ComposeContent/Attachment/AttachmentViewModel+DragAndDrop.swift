@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022/11/8.
 //
 
-import os.log
 import UIKit
 import Combine
 import UniformTypeIdentifiers

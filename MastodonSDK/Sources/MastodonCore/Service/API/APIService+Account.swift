@@ -5,11 +5,9 @@
 //  Created by MainasuK Cirno on 2021/2/2.
 //
 
-import os.log
 import CoreDataStack
 import Foundation
 import Combine
-import CommonOSLog
 import MastodonCommon
 import MastodonSDK
 
@@ -38,7 +36,7 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            let result = Persistence.MastodonUser.createOrMerge(
+            _ = Persistence.MastodonUser.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.MastodonUser.PersistContext(
                     domain: domain,
@@ -47,10 +45,6 @@ extension APIService {
                     networkDate: response.networkDate
                 )
             )
-            
-            let flag = result.isNewInsertion ? "+" : "-"
-            let logger = Logger(subsystem: "APIService", category: "AccountInfo")
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch mastodon user [\(flag)](\(response.value.id))\(response.value.username)")
         }
         
         return response
@@ -70,12 +64,11 @@ extension APIService {
             authorization: authorization
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
-            let logger = Logger(subsystem: "Account", category: "API")
             let account = response.value
             
             let managedObjectContext = self.backgroundManagedObjectContext
             return managedObjectContext.performChanges {
-                let result = Persistence.MastodonUser.createOrMerge(
+                _ = Persistence.MastodonUser.createOrMerge(
                     in: managedObjectContext,
                     context: Persistence.MastodonUser.PersistContext(
                         domain: domain,
@@ -84,8 +77,6 @@ extension APIService {
                         networkDate: response.networkDate
                     )
                 )
-                let flag = result.isNewInsertion ? "+" : "-"
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): mastodon user [\(flag)](\(result.user.id))\(result.user.username) verifed")
             }
             .setFailureType(to: Error.self)
             .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Account> in
@@ -106,8 +97,6 @@ extension APIService {
         query: Mastodon.API.Account.UpdateCredentialQuery,
         authorization: Mastodon.API.OAuth.Authorization
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Account> {
-        let logger = Logger(subsystem: "Account", category: "API")
-        
         let response = try await Mastodon.API.Account.updateCredentials(
             session: session,
             domain: domain,
@@ -117,7 +106,7 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            let result = Persistence.MastodonUser.createOrMerge(
+            _ = Persistence.MastodonUser.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.MastodonUser.PersistContext(
                     domain: domain,
@@ -126,10 +115,6 @@ extension APIService {
                     networkDate: response.networkDate
                 )
             )
-            let flag = result.isNewInsertion ? "+" : "-"
-            let userID = response.value.id
-            let username = response.value.username
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): mastodon user [\(flag)](\(userID)\(username) verifed")
         }
 
         return response
