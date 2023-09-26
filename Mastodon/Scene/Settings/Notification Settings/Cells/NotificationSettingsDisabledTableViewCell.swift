@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonAsset
+import MastodonLocalization
 
 class NotificationSettingsDisabledTableViewCell: UITableViewCell {
 
@@ -21,13 +22,13 @@ class NotificationSettingsDisabledTableViewCell: UITableViewCell {
         notificationHintLabel.translatesAutoresizingMaskIntoConstraints = false
         notificationHintLabel.numberOfLines = 0
         notificationHintLabel.textColor = .label
-        notificationHintLabel.text = "Turn on notifications from your device settings to see updates on your lock screen."
+        notificationHintLabel.text = L10n.Scene.Settings.Notifications.Disabled.notificationHint
         notificationHintLabel.font = UIFontMetrics(forTextStyle: .callout).scaledFont(for: .systemFont(ofSize: 16, weight: .regular))
 
         goToSettingsLabel = UILabel()
         goToSettingsLabel.textColor = Asset.Colors.Brand.blurple.color
         goToSettingsLabel.translatesAutoresizingMaskIntoConstraints = false
-        goToSettingsLabel.text = "Go to Notification Settings"
+        goToSettingsLabel.text = L10n.Scene.Settings.Notifications.Disabled.goToSettings
         goToSettingsLabel.font = UIFontMetrics(forTextStyle: .callout).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)

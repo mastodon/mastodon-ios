@@ -557,6 +557,8 @@ uploaded to Mastodon.";
 "Scene.Settings.Notifications.Alert.Boosts" = "Boosts";
 "Scene.Settings.Notifications.Alert.Favorites" = "Favorites";
 "Scene.Settings.Notifications.Alert.NewFollowers" = "New Followers";
+"Scene.Settings.Notifications.Disabled.NotificationHint" = "Turn on notifications from your device settings to see updates on your lock screen.";
+"Scene.Settings.Notifications.Disabled.GoToSettings" = "Go to Notification Settings";
 
 "Scene.SuggestionAccount.FollowAll" = "Follow all";
 "Scene.SuggestionAccount.Title" = "Popular on Mastodon";

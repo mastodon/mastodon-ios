@@ -1479,6 +1479,12 @@ public enum L10n {
           /// New Followers
           public static let newFollowers = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.NewFollowers", fallback: "New Followers")
         }
+        public enum Disabled {
+          /// Go to Notification Settings
+          public static let goToSettings = L10n.tr("Localizable", "Scene.Settings.Notifications.Disabled.GoToSettings", fallback: "Go to Notification Settings")
+          /// Turn on notifications from your device settings to see updates on your lock screen.
+          public static let notificationHint = L10n.tr("Localizable", "Scene.Settings.Notifications.Disabled.NotificationHint", fallback: "Turn on notifications from your device settings to see updates on your lock screen.")
+        }
         public enum Policy {
           /// Anyone
           public static let anyone = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Anyone", fallback: "Anyone")
