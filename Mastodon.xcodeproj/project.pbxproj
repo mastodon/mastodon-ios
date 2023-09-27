@@ -397,7 +397,6 @@
 		DB98EB6227B215EB0082E365 /* ReportResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6127B215EB0082E365 /* ReportResultViewController.swift */; };
 		DB98EB6527B216500082E365 /* ReportResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6427B216500082E365 /* ReportResultViewModel.swift */; };
 		DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */; };
-		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
 		DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BE825E4F5340051B173 /* SearchViewController.swift */; };
 		DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */; };
 		DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */; };
@@ -730,11 +729,6 @@
 		46DAB0EBDDFB678347CD96FF /* Pods-MastodonTests.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk - release.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		5B24BBD7262DB14800A9381B /* ReportViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5B24BBD8262DB14800A9381B /* ReportStatusViewModel+Diffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportStatusViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		5B90C456262599800002E742 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsToggleTableViewCell.swift; sourceTree = "<group>"; };
-		5B90C45A262599800002E742 /* SettingsAppearanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceTableViewCell.swift; sourceTree = "<group>"; };
-		5B90C45B262599800002E742 /* SettingsLinkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLinkTableViewCell.swift; sourceTree = "<group>"; };
-		5B90C45C262599800002E742 /* SettingsSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeader.swift; sourceTree = "<group>"; };
 		5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSection.swift; sourceTree = "<group>"; };
 		5CE45680252519F42FEA2D13 /* Pods-ShareActionExtension.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareActionExtension.asdk - release.xcconfig"; path = "Target Support Files/Pods-ShareActionExtension/Pods-ShareActionExtension.asdk - release.xcconfig"; sourceTree = "<group>"; };
@@ -938,7 +932,6 @@
 		DB427DF325BAA00100D1B89D /* MastodonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MastodonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB443CD32694627B00159B29 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		DB4481B825EE289600BEFB67 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
@@ -1062,9 +1055,6 @@
 		DB6B74FF272FF73800C70B6E /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		DB6B750327300B4000C70B6E /* TimelineFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineFooterTableViewCell.swift; sourceTree = "<group>"; };
 		DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationService+Decrypt.swift"; sourceTree = "<group>"; };
-		DB6D9F7C26358ED4008423CD /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
-		DB6D9F8326358EEC008423CD /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
-		DB6D9F9626367249008423CD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
 		DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBatchFetchViewModel.swift; sourceTree = "<group>"; };
@@ -1124,7 +1114,6 @@
 		DB98EB6127B215EB0082E365 /* ReportResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultViewController.swift; sourceTree = "<group>"; };
 		DB98EB6427B216500082E365 /* ReportResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultViewModel.swift; sourceTree = "<group>"; };
 		DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultActionTableViewCell.swift; sourceTree = "<group>"; };
-		DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsAppearanceTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DB9D6BE825E4F5340051B173 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -1768,30 +1757,9 @@
 				D8F917042A4B0657008A5370 /* General Settings */,
 				D81D12432A4E181C005009D4 /* Notification Settings */,
 				D8F917092A4B2AFF008A5370 /* About Mastodon */,
-				D8318A7E2A4466C900C0FB73 /* Legacy */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		5B90C457262599800002E742 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				5B90C45C262599800002E742 /* SettingsSectionHeader.swift */,
-				DB443CD32694627B00159B29 /* AppearanceView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		5B90C458262599800002E742 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				5B90C45A262599800002E742 /* SettingsAppearanceTableViewCell.swift */,
-				DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */,
-				5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */,
-				5B90C45B262599800002E742 /* SettingsLinkTableViewCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		5D03938E2612D200007FE196 /* Webview */ = {
@@ -1863,19 +1831,6 @@
 				D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		D8318A7E2A4466C900C0FB73 /* Legacy */ = {
-			isa = PBXGroup;
-			children = (
-				5B90C458262599800002E742 /* Cell */,
-				5B90C457262599800002E742 /* View */,
-				DB6D9F9626367249008423CD /* SettingsViewController.swift */,
-				5B90C456262599800002E742 /* SettingsViewModel.swift */,
-				DB6D9F7C26358ED4008423CD /* SettingsSection.swift */,
-				DB6D9F8326358EEC008423CD /* SettingsItem.swift */,
-			);
-			path = Legacy;
 			sourceTree = "<group>";
 		};
 		D8A6AB68291C50F3003AB663 /* Login */ = {
