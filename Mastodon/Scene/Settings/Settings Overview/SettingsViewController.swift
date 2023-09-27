@@ -20,7 +20,7 @@ class SettingsViewController: UIViewController {
 
         sections = [
            .init(entries: [.general, .notifications]),
-           .init(entries: [.supportMastodon, .aboutMastodon]),
+           .init(entries: [.aboutMastodon]),
            .init(entries: [.logout(accountName: accountName)])
        ]
 

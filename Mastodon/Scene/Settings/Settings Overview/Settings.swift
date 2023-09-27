@@ -11,7 +11,6 @@ enum SettingsEntry: Hashable {
     case general
     case notifications
     case aboutMastodon
-    case supportMastodon
     case logout(accountName: String)
 
     var title: String {
@@ -22,8 +21,6 @@ enum SettingsEntry: Hashable {
             return L10n.Scene.Settings.Overview.notifications
         case .aboutMastodon:
             return L10n.Scene.Settings.Overview.aboutMastodon
-        case .supportMastodon:
-            return L10n.Scene.Settings.Overview.supportMastodon
         case .logout(let accountName):
             return L10n.Scene.Settings.Overview.logout(accountName)
         }
@@ -33,8 +30,6 @@ enum SettingsEntry: Hashable {
         switch self {
         case .general, .notifications, .aboutMastodon, .logout(_):
             return .disclosureIndicator
-        case .supportMastodon:
-            return .none
         }
     }
 
@@ -46,8 +41,6 @@ enum SettingsEntry: Hashable {
             return UIImage(systemName: "bell.badge")
         case .aboutMastodon:
             return UIImage(systemName: "info.circle.fill")
-        case .supportMastodon:
-            return UIImage(systemName: "heart.fill")
         case .logout(_):
             return nil
         }
@@ -61,8 +54,6 @@ enum SettingsEntry: Hashable {
             return .systemRed
         case .aboutMastodon:
             return .systemPurple
-        case .supportMastodon:
-            return .systemGreen
         case .logout(_):
             return nil
         }
@@ -71,7 +62,7 @@ enum SettingsEntry: Hashable {
 
     var textColor: UIColor {
         switch self {
-        case .general, .notifications, .aboutMastodon, .supportMastodon:
+        case .general, .notifications, .aboutMastodon:
             return .label
         case .logout(_):
             return .red

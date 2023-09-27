@@ -72,9 +72,6 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 aboutViewController.delegate = self
 
                 navigationController.pushViewController(aboutViewController, animated: true)
-            case .supportMastodon:
-                break
-                // present support-screen
             case .logout(_):
                 delegate?.logout(self)
         }
