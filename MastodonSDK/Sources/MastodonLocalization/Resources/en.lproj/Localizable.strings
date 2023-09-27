@@ -527,6 +527,7 @@ uploaded to Mastodon.";
 "Scene.Settings.Overview.General" = "General";
 "Scene.Settings.Overview.Notifications" = "Notifications";
 "Scene.Settings.Overview.SupportMastodon" = "Support Mastodon";
+"Scene.Settings.Overview.ServerDetails" = "Server Details";
 "Scene.Settings.Overview.AboutMastodon" = "About Mastodon";
 "Scene.Settings.Overview.Logout" = "Logout %@";
 

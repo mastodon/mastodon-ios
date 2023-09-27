@@ -1509,6 +1509,8 @@ public enum L10n {
         }
         /// Notifications
         public static let notifications = L10n.tr("Localizable", "Scene.Settings.Overview.Notifications", fallback: "Notifications")
+        /// Server Details
+        public static let serverDetails = L10n.tr("Localizable", "Scene.Settings.Overview.ServerDetails", fallback: "Server Details")
         /// Support Mastodon
         public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.SupportMastodon", fallback: "Support Mastodon")
         /// Settings

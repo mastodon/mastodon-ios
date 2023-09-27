@@ -9,7 +9,9 @@ class SettingsTableViewCell: UITableViewCell {
     let iconImageView: UIImageView
     let iconImageBackgroundView: UIView
     let titleLabel: UILabel
+    let secondaryLabel: UILabel
 
+    private let labelStackView: UIStackView
     private let contentStackView: UIStackView
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -21,8 +23,17 @@ class SettingsTableViewCell: UITableViewCell {
         iconImageBackgroundView.addSubview(iconImageView)
 
         titleLabel = UILabel()
+        titleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+        secondaryLabel = UILabel()
+        secondaryLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
+        secondaryLabel.textColor = .secondaryLabel
 
-        contentStackView = UIStackView(arrangedSubviews: [iconImageBackgroundView, titleLabel])
+        labelStackView = UIStackView(arrangedSubviews: [titleLabel, secondaryLabel])
+        labelStackView.axis = .vertical
+        labelStackView.spacing = 2
+        labelStackView.alignment = .leading
+
+        contentStackView = UIStackView(arrangedSubviews: [iconImageBackgroundView, labelStackView])
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         contentStackView.axis = .horizontal
         contentStackView.alignment = .center
@@ -50,8 +61,8 @@ class SettingsTableViewCell: UITableViewCell {
             iconImageView.centerXAnchor.constraint(equalTo: iconImageBackgroundView.centerXAnchor),
             iconImageView.widthAnchor.constraint(equalToConstant: 20),
 
-            titleLabel.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 12),
-            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: titleLabel.bottomAnchor, constant: 12),
+            labelStackView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 12),
+            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: labelStackView.bottomAnchor, constant: 12),
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -60,6 +71,13 @@ class SettingsTableViewCell: UITableViewCell {
     func update(with entry: SettingsEntry) {
         titleLabel.textColor = entry.textColor
         titleLabel.text = entry.title
+
+        if let secondaryTitle = entry.secondaryTitle {
+            secondaryLabel.isHidden = false
+            secondaryLabel.text = secondaryTitle
+        } else {
+            secondaryLabel.isHidden = true
+        }
 
         if let icon = entry.icon {
             iconImageView.image = icon
@@ -73,7 +91,6 @@ class SettingsTableViewCell: UITableViewCell {
         iconImageBackgroundView.backgroundColor = entry.iconBackgroundColor
 
         accessoryType = entry.accessoryType
-
     }
 }
 

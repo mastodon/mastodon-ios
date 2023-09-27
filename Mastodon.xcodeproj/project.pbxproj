@@ -129,6 +129,7 @@
 		D807C6C029DE197900A4E17C /* EducationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D807C6BF29DE197900A4E17C /* EducationViewController.swift */; };
 		D808B94C296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808B94B296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift */; };
 		D808B94E296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808B94D296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift */; };
+		D80911082AC4BFDE00EB4D15 /* ServerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80911072AC4BFDE00EB4D15 /* ServerDetailsViewController.swift */; };
 		D8099078294BC8A30050219F /* PrivacyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099077294BC8A30050219F /* PrivacyTableViewController.swift */; };
 		D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099079294BC9390050219F /* PrivacyTableViewCell.swift */; };
 		D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809907B294D25510050219F /* PrivacyViewModel.swift */; };
@@ -775,6 +776,7 @@
 		D807C6BF29DE197900A4E17C /* EducationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationViewController.swift; sourceTree = "<group>"; };
 		D808B94B296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryViewModel.swift; sourceTree = "<group>"; };
 		D808B94D296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		D80911072AC4BFDE00EB4D15 /* ServerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDetailsViewController.swift; sourceTree = "<group>"; };
 		D8099077294BC8A30050219F /* PrivacyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewController.swift; sourceTree = "<group>"; };
 		D8099079294BC9390050219F /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
 		D809907B294D25510050219F /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
@@ -1756,6 +1758,7 @@
 				D8F916FF2A4AD898008A5370 /* Settings Overview */,
 				D8F917042A4B0657008A5370 /* General Settings */,
 				D81D12432A4E181C005009D4 /* Notification Settings */,
+				D80911062AC4BFD100EB4D15 /* Server Details */,
 				D8F917092A4B2AFF008A5370 /* About Mastodon */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
 			);
@@ -1781,6 +1784,14 @@
 				6213AF5B28939C8A00BCADB6 /* BookmarkViewModel+State.swift */,
 			);
 			path = Bookmark;
+			sourceTree = "<group>";
+		};
+		D80911062AC4BFD100EB4D15 /* Server Details */ = {
+			isa = PBXGroup;
+			children = (
+				D80911072AC4BFDE00EB4D15 /* ServerDetailsViewController.swift */,
+			);
+			path = "Server Details";
 			sourceTree = "<group>";
 		};
 		D8099076294BC2BA0050219F /* Privacy */ = {
@@ -3615,6 +3626,7 @@
 				DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */,
 				5D0393962612D266007FE196 /* WebViewModel.swift in Sources */,
 				5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */,
+				D80911082AC4BFDE00EB4D15 /* ServerDetailsViewController.swift in Sources */,
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
 				DB6180EF26391CA50018D199 /* MediaPreviewImageViewController.swift in Sources */,
 				DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */,

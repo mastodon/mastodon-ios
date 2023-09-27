@@ -34,7 +34,7 @@ class SettingsCoordinator: NSObject, Coordinator {
         self.appContext = appContext
         self.authContext = authContext
 
-        settingsViewController = SettingsViewController(accountName: accountName)
+        settingsViewController = SettingsViewController(accountName: accountName, domain: authContext.mastodonAuthenticationBox.domain)
     }
 
     func start() {
@@ -65,8 +65,12 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 let notificationViewController = NotificationSettingsViewController(currentSetting: currentSetting, notificationsEnabled: notificationsEnabled)
                 notificationViewController.delegate = self
 
-                self.navigationController.pushViewController(notificationViewController, animated: true)
+                navigationController.pushViewController(notificationViewController, animated: true)
+            case .serverDetails(_):
+                let serverDetailsViewController = ServerDetailsViewController()
+                serverDetailsViewController.delegate = self
 
+                navigationController.pushViewController(serverDetailsViewController, animated: true)
             case .aboutMastodon:
                 let aboutViewController = AboutViewController()
                 aboutViewController.delegate = self
@@ -182,4 +186,9 @@ extension SettingsCoordinator: PolicySelectionViewControllerDelegate {
         self.setting.activeSubscription?.policyRaw = newPolicy.subscriptionPolicy.rawValue
         try? self.appContext.managedObjectContext.save()
     }
+}
+
+//MARK: - ServerDetailsViewControllerDelegate
+extension SettingsCoordinator: ServerDetailsViewControllerDelegate {
+    
 }

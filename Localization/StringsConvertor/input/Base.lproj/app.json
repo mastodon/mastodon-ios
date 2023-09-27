@@ -715,6 +715,7 @@
                 "notifications": "Notifications",
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
                 "logout": "Logout %@"
             }
 
