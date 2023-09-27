@@ -126,17 +126,25 @@ extension GeneralSettingsViewController: UITableViewDelegate {
         let section = sections[indexPath.section].entries[indexPath.row]
 
         switch section {
-        case .appearance(let appearanceOption):
-            viewModel.selectedAppearence = appearanceOption
-        case .design(_):
+            case .appearance(let appearanceOption):
+                viewModel.selectedAppearence = appearanceOption
 
-            break
-        case .openLinksIn(let openLinksInOption):
-            viewModel.selectedOpenLinks = openLinksInOption
-        }
+                if let snapshot = tableViewDataSource?.snapshot() {
+                    tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
+                }
+            case .design(let design):
+                guard let cell = tableView.cellForRow(at: indexPath) as? GeneralSettingToggleTableViewCell else { return}
 
-        if let snapshot = tableViewDataSource?.snapshot() {
-            tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
+                let newValue = (cell.toggle.isOn == false)
+                cell.toggle.setOn(newValue, animated: true)
+
+                toggle(cell, setting: .design(design), isOn: newValue)
+            case .openLinksIn(let openLinksInOption):
+                viewModel.selectedOpenLinks = openLinksInOption
+
+                if let snapshot = tableViewDataSource?.snapshot() {
+                    tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
+                }
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -147,18 +155,15 @@ extension GeneralSettingsViewController: UITableViewDelegate {
 extension GeneralSettingsViewController: GeneralSettingToggleTableViewCellDelegate {
     func toggle(_ cell: GeneralSettingToggleTableViewCell, setting: GeneralSetting, isOn: Bool) {
         switch setting {
-        case .appearance(_), .openLinksIn(_):
-            assertionFailure("No toggle")
-        case .design(let designSetting):
-            switch designSetting {
-            case .showAnimations:
-                viewModel.playAnimations = isOn
-            }
+            case .appearance(_), .openLinksIn(_):
+                assertionFailure("No toggle")
+            case .design(let designSetting):
+                switch designSetting {
+                    case .showAnimations:
+                        viewModel.playAnimations = isOn
+                }
         }
 
-        if let snapshot = tableViewDataSource?.snapshot() {
-            tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
-        }
         delegate?.save(self, setting: self.setting, viewModel: viewModel)
     }
 }
