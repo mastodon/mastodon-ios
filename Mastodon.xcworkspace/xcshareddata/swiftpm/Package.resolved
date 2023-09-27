@@ -92,15 +92,6 @@
         }
       },
       {
-        "package": "NukeFLAnimatedImagePlugin",
-        "repositoryURL": "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git",
-        "state": {
-          "branch": null,
-          "revision": "b59c346a7d536336db3b0f12c72c6e53ee709e16",
-          "version": "8.0.0"
-        }
-      },
-      {
         "package": "Pageboy",
         "repositoryURL": "https://github.com/uias/Pageboy",
         "state": {
