@@ -113,13 +113,7 @@ struct ComposeContentToolbarView: View {
                                         showingLanguagePicker = true
                                     }
                                 } label: {
-                                    let font: SwiftUI.Font = {
-                                        if #available(iOS 16, *) {
-                                            return .system(size: 11, weight: .semibold).width(viewModel.language.count == 3 ? .compressed : .standard)
-                                        } else {
-                                            return .system(size: 11, weight: .semibold)
-                                        }
-                                    }()
+                                    let font = SwiftUI.Font.system(size: 11, weight: .semibold).width(viewModel.language.count == 3 ? .compressed : .standard)
                                     
                                     Text(viewModel.language)
                                         .font(font)

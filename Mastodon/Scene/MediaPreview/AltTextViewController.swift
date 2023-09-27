@@ -9,15 +9,7 @@ import SwiftUI
 
 class AltTextViewController: UIViewController {
     let textView = {
-        let textView: UITextView
-
-        if #available(iOS 16, *) {
-            // TODO: update code below to use TextKit 2 when dropping iOS 15 support
-            textView = UITextView(usingTextLayoutManager: false)
-        } else {
-            textView = UITextView()
-        }
-
+        let textView = UITextView(usingTextLayoutManager: false)
         textView.textContainer.maximumNumberOfLines = 0
         textView.textContainer.lineBreakMode = .byWordWrapping
         textView.font = .preferredFont(forTextStyle: .callout)
