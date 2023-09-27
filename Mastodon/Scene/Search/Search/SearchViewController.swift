@@ -54,14 +54,7 @@ extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupAppearance(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupAppearance(theme: theme)
-            }
-            .store(in: &disposeBag)
+        setupAppearance()
 
         title = L10n.Scene.Search.title
 
@@ -86,13 +79,13 @@ extension SearchViewController {
 }
 
 extension SearchViewController {
-    private func setupAppearance(theme: Theme) {
-        view.backgroundColor = theme.systemGroupedBackgroundColor
+    private func setupAppearance() {
+        view.backgroundColor = .systemGroupedBackground
 
         // Match the DiscoveryViewController tab color and remove the double separator.
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
-        navigationBarAppearance.backgroundColor = theme.systemBackgroundColor
+        navigationBarAppearance.backgroundColor = .systemBackground
         navigationBarAppearance.shadowColor = nil
 
         navigationItem.standardAppearance = navigationBarAppearance

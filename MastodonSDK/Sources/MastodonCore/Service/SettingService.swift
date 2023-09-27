@@ -177,12 +177,6 @@ extension SettingService {
 extension SettingService {
 
     static func updatePreference(setting: Setting) {
-        // set theme
-        let themeName: ThemeName = .system
-        if UserDefaults.shared.currentThemeNameRawValue != themeName.rawValue {
-            ThemeService.shared.set(themeName: themeName)
-        }
-
         // set avatar mode
         if UserDefaults.shared.preferredStaticAvatar != setting.preferredStaticAvatar {
             UserDefaults.shared.preferredStaticAvatar = setting.preferredStaticAvatar

@@ -17,7 +17,7 @@ extension ComposeContentToolbarView {
         weak var delegate: ComposeContentToolbarViewDelegate?
         
         // input
-        @Published var backgroundColor = ThemeService.shared.currentTheme.value.composeToolbarBackgroundColor
+        @Published var backgroundColor = SystemTheme.composeToolbarBackgroundColor
         @Published var suggestedLanguages: [String] = []
         @Published var highConfidenceSuggestedLanguage: String?
         @Published var visibility: Mastodon.Entity.Status.Visibility = .public
@@ -43,13 +43,7 @@ extension ComposeContentToolbarView {
         
         init(delegate: ComposeContentToolbarViewDelegate) {
             self.delegate = delegate
-            // end init
-            
-            ThemeService.shared.currentTheme
-                .map { $0.composeToolbarBackgroundColor }
-                .assign(to: &$backgroundColor)
         }
-        
     }
 }
 

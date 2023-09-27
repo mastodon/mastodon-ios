@@ -87,14 +87,7 @@ extension SidebarViewController {
         
         navigationController?.setNavigationBarHidden(true, animated: false)
 
-        setupBackground(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackground(theme: theme)
-            }
-            .store(in: &disposeBag)
+        view.backgroundColor = SystemTheme.sidebarBackgroundColor
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -143,11 +136,6 @@ extension SidebarViewController {
 //        sidebarDoubleTapGestureRecognizer.cancelsTouchesInView = true
 //        collectionView.addGestureRecognizer(sidebarDoubleTapGestureRecognizer)
 
-    }
-    
-    private func setupBackground(theme: Theme) {
-        let color: UIColor = theme.sidebarBackgroundColor
-        view.backgroundColor = color
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

@@ -37,19 +37,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // set tint color
         window.tintColor = UIColor.label
 
-        ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
-            .dropFirst()
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                guard let window = self.window else { return }
-                window.subviews.forEach { view in
-                    view.removeFromSuperview()
-                    window.addSubview(view)
-                }
-            }
-            .store(in: &disposeBag)
-        
         let appContext = AppContext.shared
         let sceneCoordinator = SceneCoordinator(scene: scene, sceneDelegate: self, appContext: appContext)
         self.coordinator = sceneCoordinator
