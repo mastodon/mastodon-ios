@@ -15,8 +15,6 @@ import MastodonCore
 import MastodonLocalization
 
 final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
-    var disposeBag = Set<AnyCancellable>()
-    private var observations = Set<NSKeyValueObservation>()
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }

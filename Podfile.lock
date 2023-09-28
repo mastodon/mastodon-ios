@@ -1,8 +1,8 @@
 PODS:
   - Kanna (5.2.7)
-  - Sourcery (1.9.0):
-    - Sourcery/CLI-Only (= 1.9.0)
-  - Sourcery/CLI-Only (1.9.0)
+  - Sourcery (1.9.2):
+    - Sourcery/CLI-Only (= 1.9.2)
+  - Sourcery/CLI-Only (1.9.2)
   - SwiftGen (6.6.2)
   - XLPagerTabStrip (9.0.0)
 
@@ -21,10 +21,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
-  Sourcery: d7c59d100e55bf59123c8ae7d65a24cf30748979
+  Sourcery: 179539341c2261068528cd15a31837b7238fd901
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: 698a840245d400e5a1c93345481965cc16067dc0
+PODFILE CHECKSUM: 8c962b3cbb4c225f1e57fb2e4ca03d1f22c45e5e
 
 COCOAPODS: 1.12.1

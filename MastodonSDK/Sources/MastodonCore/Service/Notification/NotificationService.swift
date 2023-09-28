@@ -127,7 +127,7 @@ extension NotificationService {
 
 extension NotificationService {
     
-    func dequeueNotificationViewModel(
+    public func dequeueNotificationViewModel(
         mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> NotificationViewModel? {
         var _notificationSubscription: NotificationViewModel?
@@ -281,7 +281,7 @@ extension NotificationService {
 }
 
 extension NotificationService.NotificationViewModel {
-    func createSubscribeQuery(
+    public func createSubscribeQuery(
         deviceToken: Data,
         queryData: Mastodon.API.Subscriptions.QueryData,
         mastodonAuthenticationBox: MastodonAuthenticationBox

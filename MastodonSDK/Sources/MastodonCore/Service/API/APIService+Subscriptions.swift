@@ -13,7 +13,7 @@ import MastodonSDK
 
 extension APIService {
  
-    func createSubscription(
+    public func createSubscription(
         subscriptionObjectID: NSManagedObjectID,
         query: Mastodon.API.Subscriptions.CreateSubscriptionQuery,
         mastodonAuthenticationBox: MastodonAuthenticationBox
@@ -34,6 +34,12 @@ extension APIService {
                     assertionFailure()
                     return
                 }
+
+                subscription.alert.update(favourite: response.value.alerts.favourite)
+                subscription.alert.update(reblog: response.value.alerts.reblog)
+                subscription.alert.update(follow: response.value.alerts.follow)
+                subscription.alert.update(mention: response.value.alerts.mention)
+
                 subscription.endpoint = response.value.endpoint
                 subscription.serverKey = response.value.serverKey
                 subscription.userToken = authorization.accessToken

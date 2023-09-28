@@ -371,8 +371,8 @@ extension HomeTimelineViewController {
     
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         guard let setting = context.settingService.currentSetting.value else { return }
-        let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
-        _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+
+        _ = coordinator.present(scene: .settings(setting: setting), from: self, transition: .none)
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {

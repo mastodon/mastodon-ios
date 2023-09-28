@@ -200,9 +200,6 @@ public enum Asset {
       public static let background = ColorAsset(name: "Scene/Report/background")
       public static let reportBanner = ColorAsset(name: "Scene/Report/report.banner")
     }
-    public enum Setting {
-      public static let background = ColorAsset(name: "Scene/Setting/background")
-    }
     public enum Sidebar {
       public static let logo = ImageAsset(name: "Scene/Sidebar/logo")
     }
