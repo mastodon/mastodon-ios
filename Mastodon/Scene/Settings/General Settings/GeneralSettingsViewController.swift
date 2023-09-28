@@ -49,12 +49,12 @@ class GeneralSettingsViewController: UIViewController {
         ]
 
         let openLinksIn: GeneralSetting.OpenLinksIn
-        if setting.preferredUsingDefaultBrowser {
+        if UserDefaults.shared.preferredUsingDefaultBrowser {
             openLinksIn = .browser
         } else {
             openLinksIn = .mastodon
         }
-        let playAnimations = (setting.preferredStaticAvatar == false && setting.preferredStaticEmoji == false)
+        let playAnimations = (UserDefaults.shared.preferredStaticAvatar == false && UserDefaults.shared.preferredStaticEmoji == false)
         viewModel = GeneralSettingsViewModel(
             selectedAppearence: GeneralSetting.Appearance(rawValue: UserDefaults.shared.customUserInterfaceStyle.rawValue) ?? .system,
             playAnimations: playAnimations,

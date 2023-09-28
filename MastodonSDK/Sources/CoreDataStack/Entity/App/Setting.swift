@@ -13,13 +13,6 @@ public final class Setting: NSManagedObject {
     @NSManaged public var domain: String
     @NSManaged public var userID: String
 
-//    @NSManaged public var appearanceRaw: String
-    @available(*, deprecated, message: "We need a new core data version, so we postpone this.")
-    @NSManaged public var preferredTrueBlackDarkMode: Bool
-    @NSManaged public var preferredStaticAvatar: Bool
-    @NSManaged public var preferredStaticEmoji: Bool
-    @NSManaged public var preferredUsingDefaultBrowser: Bool
-    
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
     
@@ -60,28 +53,9 @@ extension Setting {
         return setting
     }
 
-    public func update(preferredStaticAvatar: Bool) {
-        guard preferredStaticAvatar != self.preferredStaticAvatar else { return }
-        self.preferredStaticAvatar = preferredStaticAvatar
-        didUpdate(at: Date())
-    }
-
-    public func update(preferredStaticEmoji: Bool) {
-        guard preferredStaticEmoji != self.preferredStaticEmoji else { return }
-        self.preferredStaticEmoji = preferredStaticEmoji
-        didUpdate(at: Date())
-    }
-
-    public func update(preferredUsingDefaultBrowser: Bool) {
-        guard preferredUsingDefaultBrowser != self.preferredUsingDefaultBrowser else { return }
-        self.preferredUsingDefaultBrowser = preferredUsingDefaultBrowser
-        didUpdate(at: Date())
-    }
-    
     public func didUpdate(at networkDate: Date) {
         self.updatedAt = networkDate
     }
-    
 }
 
 extension Setting {

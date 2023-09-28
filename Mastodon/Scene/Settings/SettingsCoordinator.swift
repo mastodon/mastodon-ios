@@ -116,13 +116,9 @@ extension SettingsCoordinator: ASWebAuthenticationPresentationContextProviding {
 extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
     func save(_ viewController: UIViewController, setting: Setting, viewModel: GeneralSettingsViewModel) {
         UserDefaults.shared.customUserInterfaceStyle = viewModel.selectedAppearence.interfaceStyle
-
-        setting.update(preferredStaticEmoji: viewModel.playAnimations == false)
-        setting.update(preferredStaticAvatar: viewModel.playAnimations == false)
         UserDefaults.shared.preferredStaticEmoji = viewModel.playAnimations == false
         UserDefaults.shared.preferredStaticAvatar = viewModel.playAnimations == false
-
-        setting.update(preferredUsingDefaultBrowser: viewModel.selectedOpenLinks == .browser)
+        UserDefaults.shared.preferredUsingDefaultBrowser = viewModel.selectedOpenLinks == .browser
     }
 }
 
