@@ -4,6 +4,12 @@ import UIKit
 import MastodonAsset
 import MastodonLocalization
 
+
+fileprivate extension CGFloat {
+    static let padding: Self = 16
+    static let appBadgeHeight: Self = 34
+}
+
 class NotificationSettingsDisabledTableViewCell: UITableViewCell {
 
     static let reuseIdentifier = "NotificationSettingsDisabledTableViewCell"
@@ -46,22 +52,21 @@ class NotificationSettingsDisabledTableViewCell: UITableViewCell {
 
     private func setupConstraints() {
         let constraints: [NSLayoutConstraint] = [
-            appBadgeImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            appBadgeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            appBadgeImageView.widthAnchor.constraint(equalToConstant: 34),
-            appBadgeImageView.heightAnchor.constraint(equalToConstant: 34),
+            appBadgeImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .padding),
+            appBadgeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .padding),
+            appBadgeImageView.heightAnchor.constraint(equalToConstant: .appBadgeHeight),
+            appBadgeImageView.widthAnchor.constraint(equalTo: appBadgeImageView.heightAnchor),
 
-            notificationHintLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            notificationHintLabel.leadingAnchor.constraint(equalTo: appBadgeImageView.trailingAnchor, constant: 16),
-            contentView.trailingAnchor.constraint(equalTo: notificationHintLabel.trailingAnchor, constant: 16),
+            notificationHintLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .padding),
+            notificationHintLabel.leadingAnchor.constraint(equalTo: appBadgeImageView.trailingAnchor, constant: .padding),
+            contentView.trailingAnchor.constraint(equalTo: notificationHintLabel.trailingAnchor, constant: .padding),
 
-            goToSettingsLabel.topAnchor.constraint(equalTo: notificationHintLabel.bottomAnchor, constant: 8),
+            goToSettingsLabel.topAnchor.constraint(equalTo: notificationHintLabel.bottomAnchor, constant: .padding/2),
             goToSettingsLabel.leadingAnchor.constraint(equalTo: notificationHintLabel.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: goToSettingsLabel.trailingAnchor, constant: 16),
-            contentView.bottomAnchor.constraint(equalTo: goToSettingsLabel.bottomAnchor, constant: 16),
+            contentView.trailingAnchor.constraint(equalTo: goToSettingsLabel.trailingAnchor, constant: .padding),
+            contentView.bottomAnchor.constraint(equalTo: goToSettingsLabel.bottomAnchor, constant: .padding),
         ]
 
         NSLayoutConstraint.activate(constraints)
     }
 }
-
