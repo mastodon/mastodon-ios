@@ -62,11 +62,7 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         // disable edge swipe gesture
         presentsWithGesture = false
         
-        if #available(iOS 14.5, *) {
-            displayModeButtonVisibility = .never
-        } else {
-            // Fallback on earlier versions
-        }
+        displayModeButtonVisibility = .never
         
         setViewController(searchViewController, for: .primary)
         setViewController(contentSplitViewController, for: .secondary)
