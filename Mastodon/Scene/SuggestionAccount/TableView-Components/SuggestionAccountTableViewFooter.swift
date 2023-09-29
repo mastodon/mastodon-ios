@@ -14,20 +14,20 @@ class SuggestionAccountTableViewFooter: UITableViewHeaderFooterView {
 
     weak var delegate: SuggestionAccountTableViewFooterDelegate?
 
-    let followAllButton: FollowButton
+    let followAllButton: UIButton
 
     override init(reuseIdentifier: String?) {
 
-        //TODO: Check if we can use UIButton.configuration here instead?
-        followAllButton = FollowButton()
-        followAllButton.translatesAutoresizingMaskIntoConstraints = false
-        followAllButton.setTitle(L10n.Scene.SuggestionAccount.followAll, for: .normal)
-        followAllButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
-        followAllButton.setTitleColor(.white, for: .normal)
-        followAllButton.contentEdgeInsets = .init(horizontal: 20, vertical: 12)
-        followAllButton.cornerRadius = 10
-        followAllButton.titleLabel?.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .boldSystemFont(ofSize: 15))
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.baseForegroundColor = .white
+        buttonConfiguration.baseBackgroundColor = Asset.Colors.Button.userFollow.color
+        buttonConfiguration.background.cornerRadius = 10
+        buttonConfiguration.attributedTitle = AttributedString(L10n.Scene.SuggestionAccount.followAll, attributes: AttributeContainer([.font: UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .boldSystemFont(ofSize: 15))]))
+        buttonConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20)
 
+        followAllButton = UIButton(configuration: buttonConfiguration)
+        followAllButton.isEnabled = false
+        followAllButton.translatesAutoresizingMaskIntoConstraints = false
         followAllButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         followAllButton.setContentHuggingPriority(.required, for: .horizontal)
 

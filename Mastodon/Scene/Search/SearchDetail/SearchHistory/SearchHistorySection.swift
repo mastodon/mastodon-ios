@@ -52,7 +52,7 @@ extension SearchHistorySection {
                 }
                 
                 if state.isHighlighted || state.isSelected {
-                    return ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor
+                    return SystemTheme.tableViewCellSelectionBackgroundColor
                 }
                 return .secondarySystemGroupedBackground
             }

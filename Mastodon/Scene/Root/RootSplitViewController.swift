@@ -87,14 +87,7 @@ extension RootSplitViewController {
         
         updateBehavior(size: view.frame.size)
         
-        setupBackground(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackground(theme: theme)
-            }
-            .store(in: &disposeBag)
+        view.backgroundColor = .separator
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,13 +105,7 @@ extension RootSplitViewController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .portraitOnPhone
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        setupBackground(theme: ThemeService.shared.currentTheme.value)
-    }
-    
+
     private func updateBehavior(size: CGSize) {
         if size.width > 960 {
             show(.primary)
@@ -140,15 +127,6 @@ extension RootSplitViewController {
         }
     }
 
-}
-
-extension RootSplitViewController {
-
-    private func setupBackground(theme: Theme) {
-        // this set column separator line color
-        view.backgroundColor = theme.separator
-    }
-    
 }
 
 // MARK: - ContentSplitViewControllerDelegate

@@ -1416,17 +1416,103 @@ public enum L10n {
       }
     }
     public enum Settings {
-      /// Settings
-      public static let title = L10n.tr("Localizable", "Scene.Settings.Title", fallback: "Settings")
+      public enum AboutMastodon {
+        /// Clear Media Storage
+        public static let cleaerMediaStorage = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.CleaerMediaStorage", fallback: "Clear Media Storage")
+        /// Contribute to Mastodon
+        public static let contributeToMastodon = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.ContributeToMastodon", fallback: "Contribute to Mastodon")
+        /// Even More Settings
+        public static let moreSettings = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.MoreSettings", fallback: "Even More Settings")
+        /// Privacy Policy
+        public static let privacyPolicy = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.PrivacyPolicy", fallback: "Privacy Policy")
+        /// About
+        public static let title = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.Title", fallback: "About")
+      }
       public enum Footer {
         /// Mastodon is open source software. You can report issues on GitHub at %@ (%@)
         public static func mastodonDescription(_ p1: Any, _ p2: Any) -> String {
           return L10n.tr("Localizable", "Scene.Settings.Footer.MastodonDescription", String(describing: p1), String(describing: p2), fallback: "Mastodon is open source software. You can report issues on GitHub at %@ (%@)")
         }
       }
+      public enum General {
+        /// General
+        public static let title = L10n.tr("Localizable", "Scene.Settings.General.Title", fallback: "General")
+        public enum Appearance {
+          /// Dark
+          public static let dark = L10n.tr("Localizable", "Scene.Settings.General.Appearance.Dark", fallback: "Dark")
+          /// Light
+          public static let light = L10n.tr("Localizable", "Scene.Settings.General.Appearance.Light", fallback: "Light")
+          /// Appearance
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Appearance.SectionTitle", fallback: "Appearance")
+          /// Use Device Appearance
+          public static let system = L10n.tr("Localizable", "Scene.Settings.General.Appearance.System", fallback: "Use Device Appearance")
+        }
+        public enum Design {
+          /// Design
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Design.SectionTitle", fallback: "Design")
+          /// Play Animated Avatars and Emoji
+          public static let showAnimations = L10n.tr("Localizable", "Scene.Settings.General.Design.ShowAnimations", fallback: "Play Animated Avatars and Emoji")
+        }
+        public enum Links {
+          /// Open in Browser
+          public static let openInBrowser = L10n.tr("Localizable", "Scene.Settings.General.Links.OpenInBrowser", fallback: "Open in Browser")
+          /// Open in Mastodon
+          public static let openInMastodon = L10n.tr("Localizable", "Scene.Settings.General.Links.OpenInMastodon", fallback: "Open in Mastodon")
+          /// Links
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Links.SectionTitle", fallback: "Links")
+        }
+      }
       public enum Keyboard {
         /// Close Settings Window
         public static let closeSettingsWindow = L10n.tr("Localizable", "Scene.Settings.Keyboard.CloseSettingsWindow", fallback: "Close Settings Window")
+      }
+      public enum Notifications {
+        /// Notifications
+        public static let title = L10n.tr("Localizable", "Scene.Settings.Notifications.Title", fallback: "Notifications")
+        public enum Alert {
+          /// Boosts
+          public static let boosts = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.Boosts", fallback: "Boosts")
+          /// Favorites
+          public static let favorites = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.Favorites", fallback: "Favorites")
+          /// Mentions & Replies
+          public static let mentionsAndReplies = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.MentionsAndReplies", fallback: "Mentions & Replies")
+          /// New Followers
+          public static let newFollowers = L10n.tr("Localizable", "Scene.Settings.Notifications.Alert.NewFollowers", fallback: "New Followers")
+        }
+        public enum Disabled {
+          /// Go to Notification Settings
+          public static let goToSettings = L10n.tr("Localizable", "Scene.Settings.Notifications.Disabled.GoToSettings", fallback: "Go to Notification Settings")
+          /// Turn on notifications from your device settings to see updates on your lock screen.
+          public static let notificationHint = L10n.tr("Localizable", "Scene.Settings.Notifications.Disabled.NotificationHint", fallback: "Turn on notifications from your device settings to see updates on your lock screen.")
+        }
+        public enum Policy {
+          /// Anyone
+          public static let anyone = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Anyone", fallback: "Anyone")
+          /// People you follow
+          public static let follow = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Follow", fallback: "People you follow")
+          /// People who follow you
+          public static let followers = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Followers", fallback: "People who follow you")
+          /// No one
+          public static let noone = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Noone", fallback: "No one")
+          /// Get Notifications from
+          public static let title = L10n.tr("Localizable", "Scene.Settings.Notifications.Policy.Title", fallback: "Get Notifications from")
+        }
+      }
+      public enum Overview {
+        /// About Mastodon
+        public static let aboutMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.AboutMastodon", fallback: "About Mastodon")
+        /// General
+        public static let general = L10n.tr("Localizable", "Scene.Settings.Overview.General", fallback: "General")
+        /// Logout %@
+        public static func logout(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Settings.Overview.Logout", String(describing: p1), fallback: "Logout %@")
+        }
+        /// Notifications
+        public static let notifications = L10n.tr("Localizable", "Scene.Settings.Overview.Notifications", fallback: "Notifications")
+        /// Support Mastodon
+        public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.SupportMastodon", fallback: "Support Mastodon")
+        /// Settings
+        public static let title = L10n.tr("Localizable", "Scene.Settings.Overview.Title", fallback: "Settings")
       }
       public enum Section {
         public enum Appearance {

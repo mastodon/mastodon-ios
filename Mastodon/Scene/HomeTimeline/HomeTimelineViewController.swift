@@ -48,7 +48,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     
     let settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = ThemeService.tintColor
+        barButtonItem.tintColor = SystemTheme.tintColor
         barButtonItem.image = Asset.ObjectsAndTools.gear.image.withRenderingMode(.alwaysTemplate)
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
         return barButtonItem
@@ -80,14 +80,8 @@ extension HomeTimelineViewController {
         super.viewDidLoad()
 
         title = L10n.Scene.HomeTimeline.title
-        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
-        ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.view.backgroundColor = theme.secondarySystemBackgroundColor
-            }
-            .store(in: &disposeBag)
+        view.backgroundColor = .secondarySystemBackground
+
         viewModel.$displaySettingBarButtonItem
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displaySettingBarButtonItem in
@@ -378,8 +372,8 @@ extension HomeTimelineViewController {
     
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         guard let setting = context.settingService.currentSetting.value else { return }
-        let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
-        _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+
+        _ = coordinator.present(scene: .settings(setting: setting), from: self, transition: .none)
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {

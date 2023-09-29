@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import MastodonLocalization
+import MastodonAsset
 
 public enum PollComposeItem: Hashable {
     case option(Option)
@@ -24,16 +25,11 @@ extension PollComposeItem {
         // input
         @Published public var text = ""
         @Published public var shouldBecomeFirstResponder = false
-        
-        // output
-        @Published public var backgroundColor = ThemeService.shared.currentTheme.value.composePollRowBackgroundColor
+
+        public let backgroundColor = SystemTheme.composePollRowBackgroundColor
         
         public override init() {
             super.init()
-            
-            ThemeService.shared.currentTheme
-                .map { $0.composePollRowBackgroundColor }
-                .assign(to: &$backgroundColor)
         }
     }
 }

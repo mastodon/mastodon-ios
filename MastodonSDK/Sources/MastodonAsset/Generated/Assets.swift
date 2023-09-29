@@ -200,9 +200,6 @@ public enum Asset {
       public static let background = ColorAsset(name: "Scene/Report/background")
       public static let reportBanner = ColorAsset(name: "Scene/Report/report.banner")
     }
-    public enum Setting {
-      public static let background = ColorAsset(name: "Scene/Setting/background")
-    }
     public enum Sidebar {
       public static let logo = ImageAsset(name: "Scene/Sidebar/logo")
     }
@@ -227,45 +224,16 @@ public enum Asset {
     public static let light = ImageAsset(name: "Settings/light")
   }
   public enum Theme {
-    public enum Mastodon {
-      public static let composePollRowBackground = ColorAsset(name: "Theme/Mastodon/compose.poll.row.background")
-      public static let composeToolbarBackground = ColorAsset(name: "Theme/Mastodon/compose.toolbar.background")
-      public static let contentWarningOverlayBackground = ColorAsset(name: "Theme/Mastodon/content.warning.overlay.background")
-      public static let navigationBarBackground = ColorAsset(name: "Theme/Mastodon/navigation.bar.background")
-      public static let profileFieldCollectionViewBackground = ColorAsset(name: "Theme/Mastodon/profile.field.collection.view.background")
-      public static let secondaryGroupedSystemBackground = ColorAsset(name: "Theme/Mastodon/secondary.grouped.system.background")
-      public static let secondarySystemBackground = ColorAsset(name: "Theme/Mastodon/secondary.system.background")
-      public static let sidebarBackground = ColorAsset(name: "Theme/Mastodon/sidebar.background")
-      public static let systemBackground = ColorAsset(name: "Theme/Mastodon/system.background")
-      public static let systemElevatedBackground = ColorAsset(name: "Theme/Mastodon/system.elevated.background")
-      public static let systemGroupedBackground = ColorAsset(name: "Theme/Mastodon/system.grouped.background")
-      public static let tabBarBackground = ColorAsset(name: "Theme/Mastodon/tab.bar.background")
-      public static let tableViewCellBackground = ColorAsset(name: "Theme/Mastodon/table.view.cell.background")
-      public static let tableViewCellSelectionBackground = ColorAsset(name: "Theme/Mastodon/table.view.cell.selection.background")
-      public static let tertiarySystemBackground = ColorAsset(name: "Theme/Mastodon/tertiary.system.background")
-      public static let tertiarySystemGroupedBackground = ColorAsset(name: "Theme/Mastodon/tertiary.system.grouped.background")
-      public static let notificationStatusBorderColor = ColorAsset(name: "Theme/Mastodon/notification.status.border.color")
-      public static let separator = ColorAsset(name: "Theme/Mastodon/separator")
-      public static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/Mastodon/tab.bar.item.inactive.icon.color")
-    }
     public enum System {
       public static let composePollRowBackground = ColorAsset(name: "Theme/system/compose.poll.row.background")
       public static let composeToolbarBackground = ColorAsset(name: "Theme/system/compose.toolbar.background")
       public static let contentWarningOverlayBackground = ColorAsset(name: "Theme/system/content.warning.overlay.background")
       public static let navigationBarBackground = ColorAsset(name: "Theme/system/navigation.bar.background")
-      public static let profileFieldCollectionViewBackground = ColorAsset(name: "Theme/system/profile.field.collection.view.background")
-      public static let secondaryGroupedSystemBackground = ColorAsset(name: "Theme/system/secondary.grouped.system.background")
-      public static let secondarySystemBackground = ColorAsset(name: "Theme/system/secondary.system.background")
       public static let sidebarBackground = ColorAsset(name: "Theme/system/sidebar.background")
-      public static let systemBackground = ColorAsset(name: "Theme/system/system.background")
       public static let systemElevatedBackground = ColorAsset(name: "Theme/system/system.elevated.background")
-      public static let systemGroupedBackground = ColorAsset(name: "Theme/system/system.grouped.background")
       public static let tabBarBackground = ColorAsset(name: "Theme/system/tab.bar.background")
       public static let tableViewCellBackground = ColorAsset(name: "Theme/system/table.view.cell.background")
       public static let tableViewCellSelectionBackground = ColorAsset(name: "Theme/system/table.view.cell.selection.background")
-      public static let tertiarySystemBackground = ColorAsset(name: "Theme/system/tertiary.system.background")
-      public static let tertiarySystemGroupedBackground = ColorAsset(name: "Theme/system/tertiary.system.grouped.background")
-      public static let notificationStatusBorderColor = ColorAsset(name: "Theme/system/notification.status.border.color")
       public static let separator = ColorAsset(name: "Theme/system/separator")
       public static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/system/tab.bar.item.inactive.icon.color")
     }

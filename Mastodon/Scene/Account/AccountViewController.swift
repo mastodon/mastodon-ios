@@ -82,14 +82,7 @@ extension AccountListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
-            }
-            .store(in: &disposeBag)
+        setupBackgroundColor()
         navigationItem.rightBarButtonItem = addBarButtonItem
 
         dragIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -133,13 +126,13 @@ extension AccountListViewController {
             .store(in: &disposeBag)
     }
 
-    private func setupBackgroundColor(theme: Theme) {
+    private func setupBackgroundColor() {
         let backgroundColor = UIColor { traitCollection in
             switch traitCollection.userInterfaceLevel {
             case .elevated where traitCollection.userInterfaceStyle == .dark:
-                return theme.systemElevatedBackgroundColor
+                return SystemTheme.systemElevatedBackgroundColor
             default:
-                return theme.systemBackgroundColor.withAlphaComponent(0.9)
+                return .systemBackground.withAlphaComponent(0.9)
             }
         }
         view.backgroundColor = backgroundColor

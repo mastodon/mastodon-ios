@@ -17,8 +17,6 @@ public final class SettingService {
     
     var disposeBag = Set<AnyCancellable>()
     
-    private var currentSettingUpdateSubscription: AnyCancellable?
- 
     // input
     weak var apiService: APIService?
     weak var authenticationService: AuthenticationService?
@@ -85,29 +83,6 @@ public final class SettingService {
         }
         .store(in: &disposeBag)
         
-        // observe current setting
-        currentSetting
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] setting in
-                guard let self = self else { return }
-                guard let setting = setting else {
-                    self.currentSettingUpdateSubscription = nil
-                    return
-                }
-
-                SettingService.updatePreference(setting: setting)
-                self.currentSettingUpdateSubscription = ManagedObjectObserver.observe(object: setting)
-                    .sink(receiveCompletion: { _ in
-                        // do nothing
-                    }, receiveValue: { change in
-                        guard case .update(let object) = change.changeType,
-                              let setting = object as? Setting else { return }
-
-                        SettingService.updatePreference(setting: setting)
-                    })
-            }
-            .store(in: &disposeBag)
-
         Publishers.CombineLatest3(
             notificationService.deviceToken,
             currentSetting.eraseToAnyPublisher(),
@@ -171,32 +146,4 @@ extension SettingService {
         alertController.addAction(cancelAction)
         return alertController
     }
-    
-}
-
-extension SettingService {
-
-    static func updatePreference(setting: Setting) {
-        // set theme
-        let themeName: ThemeName = .system
-        if UserDefaults.shared.currentThemeNameRawValue != themeName.rawValue {
-            ThemeService.shared.set(themeName: themeName)
-        }
-
-        // set avatar mode
-        if UserDefaults.shared.preferredStaticAvatar != setting.preferredStaticAvatar {
-            UserDefaults.shared.preferredStaticAvatar = setting.preferredStaticAvatar
-        }
-
-        // set emoji mode
-        if UserDefaults.shared.preferredStaticEmoji != setting.preferredStaticEmoji {
-            UserDefaults.shared.preferredStaticEmoji = setting.preferredStaticEmoji
-        }
-
-        // set browser
-        if UserDefaults.shared.preferredUsingDefaultBrowser != setting.preferredUsingDefaultBrowser {
-            UserDefaults.shared.preferredUsingDefaultBrowser = setting.preferredUsingDefaultBrowser
-        }
-    }
-    
 }

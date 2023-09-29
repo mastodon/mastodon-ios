@@ -37,7 +37,7 @@ extension SearchResultViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Asset.Theme.System.systemGroupedBackground.color
+        view.backgroundColor = .systemGroupedBackground
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
