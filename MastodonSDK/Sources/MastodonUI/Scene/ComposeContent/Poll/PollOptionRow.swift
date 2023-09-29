@@ -44,45 +44,15 @@ public struct PollOptionRow: View {
                     viewModel.textField?.becomeFirstResponder()
                 }
 
-                if #available(iOS 16.0, *) {
-                    field.accessibilityActions {
-                        if let moveUp {
-                            Button(L10n.Scene.Compose.Poll.moveUp, action: moveUp)
-                        }
-                        if let moveDown {
-                            Button(L10n.Scene.Compose.Poll.moveDown, action: moveDown)
-                        }
-                        if let removeOption {
-                            Button(L10n.Scene.Compose.Poll.removeOption, action: removeOption)
-                        }
+                field.accessibilityActions {
+                    if let moveUp {
+                        Button(L10n.Scene.Compose.Poll.moveUp, action: moveUp)
                     }
-                } else {
-                    switch (moveUp, moveDown, removeOption) {
-                    case let (.some(up), .some(down), .some(remove)):
-                        field
-                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, up)
-                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, down)
-                            .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, remove)
-                    case let (.some(up), .some(down), .none):
-                        field
-                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, up)
-                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, down)
-                    case let (.some(up), .none, .some(remove)):
-                        field
-                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, up)
-                            .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, remove)
-                    case let (.some(up), .none, .none):
-                        field.accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, up)
-                    case let (.none, .some(down), .some(remove)):
-                        field
-                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, down)
-                            .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, remove)
-                    case let (.none, .some(down), .none):
-                        field.accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, down)
-                    case let (.none, .none, .some(remove)):
-                        field.accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, remove)
-                    case (.none, .none, .none):
-                        field
+                    if let moveDown {
+                        Button(L10n.Scene.Compose.Poll.moveDown, action: moveDown)
+                    }
+                    if let removeOption {
+                        Button(L10n.Scene.Compose.Poll.removeOption, action: removeOption)
                     }
                 }
             }

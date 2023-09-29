@@ -148,9 +148,7 @@ struct FollowersCountWidgetView: View {
     
     private func viewForAccessoryCircular(_ account :FollowersEntryAccountable) -> some View {
         ZStack {
-            if #available(iOS 16, *) {
-                AccessoryWidgetBackground()
-            }
+            AccessoryWidgetBackground()
             VStack {
                 Image("BrandIcon")
 

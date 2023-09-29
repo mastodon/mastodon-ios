@@ -37,15 +37,9 @@ struct LanguagePicker: View {
                     return Text("")
                 }()
                 Button(action: { onSelect(lang.id) }) {
-                    if #available(iOS 16.0, *) {
-                        ViewThatFits(in: .horizontal) {
-                            HStack(spacing: 0) { endonym; Text(" "); exonym }
-                            VStack(alignment: .leading) { endonym; exonym }
-                        }
-                    } else {
-                        // less optimal because if you’re using an LTR language, RTL languages
-                        // will read as “ ([exonym])[endonym]” (and vice versa in RTL locales)
-                        Text("\(endonym)\(exonym)")
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: 0) { endonym; Text(" "); exonym }
+                        VStack(alignment: .leading) { endonym; exonym }
                     }
                 }
                 .tint(.primary)
