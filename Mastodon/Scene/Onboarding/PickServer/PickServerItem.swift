@@ -13,6 +13,7 @@ import MastodonSDK
 enum PickServerItem {
     case server(server: Mastodon.Entity.Server, attribute: ServerItemAttribute)
     case loader(attribute: LoaderItemAttribute)
+    case message(attribute: MessageItemAttribute)
 }
 
 extension PickServerItem {
@@ -53,6 +54,10 @@ extension PickServerItem {
             hasher.combine(id)
         }
     }
+
+    enum MessageItemAttribute: Equatable, Hashable {
+        case categoryIgnored(category: Mastodon.Entity.Category.Kind)
+    }
 }
 
 extension PickServerItem: Equatable {
@@ -74,6 +79,8 @@ extension PickServerItem: Hashable {
         case .server(let server, _):
             hasher.combine(server.domain)
         case .loader(let attribute):
+            hasher.combine(attribute)
+        case .message(let attribute):
             hasher.combine(attribute)
         }
     }
