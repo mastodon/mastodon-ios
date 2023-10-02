@@ -17,8 +17,6 @@ target 'Mastodon' do
   pod 'Kanna', '~> 5.2.2'
   pod 'Sourcery', '~> 1.9'
 
-  # DEBUG
-  
   target 'MastodonTests' do
     inherit! :search_paths
     # Pods for testing

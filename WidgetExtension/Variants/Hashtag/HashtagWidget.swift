@@ -146,11 +146,7 @@ struct HashtagWidgetTimelineEntry: TimelineEntry {
 struct HashtagWidget: Widget {
 
     private var availableFamilies: [WidgetFamily] {
-        if #available(iOS 16, *) {
-            return [.systemMedium, .systemLarge, .accessoryRectangular]
-        } else {
-            return [.systemMedium, .systemLarge]
-        }
+        return [.systemMedium, .systemLarge, .accessoryRectangular]
     }
 
     var body: some WidgetConfiguration {

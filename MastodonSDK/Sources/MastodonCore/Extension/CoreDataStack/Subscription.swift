@@ -13,8 +13,8 @@ public typealias NotificationSubscription = Subscription
 
 extension Subscription {
     
-    public var policy: Mastodon.API.Subscriptions.Policy {
-        return Mastodon.API.Subscriptions.Policy(rawValue: policyRaw) ?? .all
+    public var policy: Mastodon.API.Subscriptions.Policy? {
+        return Mastodon.API.Subscriptions.Policy(rawValue: policyRaw)
     }
     
 }

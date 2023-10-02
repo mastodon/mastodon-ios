@@ -69,16 +69,9 @@ extension ShareViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTheme(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.apply(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupTheme(theme: theme)
-            }
-            .store(in: &disposeBag)
-        
+        setupTheme()
+        ThemeService.shared.apply()
+
         view.backgroundColor = .systemBackground
         title = L10n.Scene.Compose.Title.newPost
         
@@ -182,12 +175,12 @@ extension ShareViewController {
         ])
     }
 
-    private func setupTheme(theme: Theme) {
-        view.backgroundColor = theme.systemElevatedBackgroundColor
+    private func setupTheme() {
+        view.backgroundColor = SystemTheme.systemElevatedBackgroundColor
 
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithDefaultBackground()
-        barAppearance.backgroundColor = theme.navigationBarBackgroundColor
+        barAppearance.backgroundColor = SystemTheme.navigationBarBackgroundColor
         navigationItem.standardAppearance = barAppearance
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance

@@ -43,14 +43,7 @@ extension ProfileAboutViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.view.backgroundColor = theme.systemBackgroundColor
-            }
-            .store(in: &disposeBag)
+        view.backgroundColor = .systemBackground
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)

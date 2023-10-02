@@ -104,6 +104,8 @@ extension SuggestionAccountViewController: UITableViewDelegate {
             return nil
         }
 
+        footerView.followAllButton.isEnabled = viewModel.userFetchedResultsController.records.isNotEmpty
+
         footerView.delegate = self
         return footerView
     }

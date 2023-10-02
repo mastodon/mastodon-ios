@@ -168,15 +168,7 @@ extension ProfileViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
-        ThemeService.shared.currentTheme
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.view.backgroundColor = theme.secondarySystemBackgroundColor
-            }
-            .store(in: &disposeBag)
-
+        view.backgroundColor = .secondarySystemBackground
         let barAppearance = UINavigationBarAppearance()
         if isModal {
             barAppearance.configureWithDefaultBackground()
@@ -525,8 +517,8 @@ extension ProfileViewController {
 
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         guard let setting = context.settingService.currentSetting.value else { return }
-        let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
-        _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+
+        _ = coordinator.present(scene: .settings(setting: setting), from: self, transition: .none)
     }
 
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
