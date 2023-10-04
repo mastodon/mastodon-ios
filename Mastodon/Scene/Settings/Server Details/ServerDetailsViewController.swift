@@ -52,6 +52,7 @@ class ServerDetailsViewController: UIViewController {
 
         pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         pageController.setViewControllers([aboutInstanceViewController], direction: .forward, animated: false)
+        pageController.view.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)
 
@@ -93,6 +94,11 @@ class ServerDetailsViewController: UIViewController {
             segmentedControl.leadingAnchor.constraint(equalTo: segmentedControlWrapper.leadingAnchor, constant: 16),
             segmentedControlWrapper.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 16),
             segmentedControlWrapper.bottomAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
+
+            pageController.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+            pageController.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: pageController.view.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: pageController.view.bottomAnchor),
         ]
 
         NSLayoutConstraint.activate(constraints)
