@@ -66,9 +66,17 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 notificationViewController.delegate = self
 
                 navigationController.pushViewController(notificationViewController, animated: true)
-            case .serverDetails(_):
-                let serverDetailsViewController = ServerDetailsViewController()
+            case .serverDetails(let domain):
+                let serverDetailsViewController = ServerDetailsViewController(domain: domain)
                 serverDetailsViewController.delegate = self
+
+                appContext.apiService.instanceV2(domain: domain)
+                    .sink { _ in
+
+                    } receiveValue: { content in
+                        serverDetailsViewController.update(with: content.value)
+                    }
+                    .store(in: &disposeBag)
 
                 navigationController.pushViewController(serverDetailsViewController, animated: true)
             case .aboutMastodon:
@@ -139,6 +147,8 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
 
         guard viewModel.updated else { return }
 
+        //Show spinner?
+
         let authenticationBox = authContext.mastodonAuthenticationBox
         guard let subscription = setting.activeSubscription,
               setting.domain == authenticationBox.domain,
@@ -190,5 +200,13 @@ extension SettingsCoordinator: PolicySelectionViewControllerDelegate {
 
 //MARK: - ServerDetailsViewControllerDelegate
 extension SettingsCoordinator: ServerDetailsViewControllerDelegate {
+    
+}
+
+extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
+
+}
+
+extension SettingsCoordinator: InstanceRulesViewControllerDelegate {
     
 }
