@@ -125,6 +125,7 @@ let package = Package(
                 .product(name: "PanModal", package: "PanModal"),
                 .product(name: "Stripes", package: "Stripes"),
                 .product(name: "NextLevelSessionExporter", package: "NextLevelSessionExporter"),
+                .product(name: "SDWebImage", package: "SDWebImage"),
             ]
         ),
         .testTarget(
