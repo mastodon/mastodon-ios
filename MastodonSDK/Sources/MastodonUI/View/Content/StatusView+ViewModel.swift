@@ -22,7 +22,7 @@ extension StatusView {
     public final class ViewModel: ObservableObject {
         var disposeBag = Set<AnyCancellable>()
         var observations = Set<NSKeyValueObservation>()
-        public var objects = Set<NSManagedObject>()
+        public var objects = Set<StatusNxt>()
 
         public var context: AppContext?
         public var authContext: AuthContext?

@@ -41,10 +41,9 @@ extension NotificationSection {
         
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .feed(let record):
+            case .feed(let feed):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
                 context.managedObjectContext.performAndWait {
-                    guard let feed = record.object(in: context.managedObjectContext) else { return }
                     configure(
                         context: context,
                         tableView: tableView,

@@ -26,7 +26,7 @@ extension StatusView {
                 assertionFailure()
                 return
             }
-            configure(status: status)
+            configure(status: .from(status: status))
         case .notificationAll:
             assertionFailure("TODO")
         case .notificationMentions:
@@ -40,7 +40,7 @@ extension StatusView {
 
 extension StatusView {
 
-    public func configure(status: Status, statusEdit: StatusEdit) {
+    public func configure(status: StatusNxt, statusEdit: StatusEdit) {
         viewModel.objects.insert(status)
         if let reblog = status.reblog {
             viewModel.objects.insert(reblog)
@@ -66,7 +66,7 @@ extension StatusView {
         viewModel.isContentReveal = true
     }
 
-    public func configure(status: Status) {
+    public func configure(status: StatusNxt) {
         viewModel.objects.insert(status)
         if let reblog = status.reblog {
             viewModel.objects.insert(reblog)
@@ -99,7 +99,7 @@ extension StatusView {
 }
 
 extension StatusView {
-    private func configureHeader(status: Status) {
+    private func configureHeader(status: StatusNxt) {
         if let _ = status.reblog {
             Publishers.CombineLatest(
                 status.author.publisher(for: \.displayName),
@@ -189,7 +189,7 @@ extension StatusView {
         }
     }
     
-    public func configureAuthor(author: MastodonUser) {
+    public func configureAuthor(author: MastodonUserNxt) {
         // author avatar
         Publishers.CombineLatest(
             author.publisher(for: \.avatar),

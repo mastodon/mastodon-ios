@@ -23,7 +23,6 @@ extension NotificationTimelineViewController: DataSourceProvider {
         case .feed(let record):
             let managedObjectContext = context.managedObjectContext
             let item: DataSourceItem? = try? await managedObjectContext.perform {
-                guard let feed = record.object(in: managedObjectContext) else { return nil }
                 guard feed.kind == .notificationAll || feed.kind == .notificationMentions else { return nil }
                 if let notification = feed.notification {
                     return .notification(record: .init(objectID: notification.objectID))

@@ -101,7 +101,7 @@ extension DiscoveryForYouViewController: UITableViewDelegate {
         let profileViewModel = CachedProfileViewModel(
             context: context,
             authContext: viewModel.authContext,
-            mastodonUser: user
+            mastodonUser: .from(user: user)
         )
         _ = coordinator.present(
             scene: .profile(viewModel: profileViewModel),

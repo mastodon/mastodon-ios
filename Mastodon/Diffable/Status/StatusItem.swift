@@ -8,6 +8,7 @@
 import Foundation
 import CoreDataStack
 import MastodonUI
+import MastodonSDK
 
 enum StatusItem: Hashable {
     case feed(record: ManagedObjectRecord<Feed>)
@@ -24,7 +25,7 @@ extension StatusItem {
         case reply(context: Context)
         case leaf(context: Context)
         
-        public var record: ManagedObjectRecord<Status> {
+        public var record: StatusNxt {
             switch self {
             case .root(let threadContext),
                 .reply(let threadContext),
@@ -37,12 +38,12 @@ extension StatusItem {
 
 extension StatusItem.Thread {
     class Context: Hashable {
-        let status: ManagedObjectRecord<Status>
+        let status: StatusNxt
         var displayUpperConversationLink: Bool
         var displayBottomConversationLink: Bool
         
         init(
-            status: ManagedObjectRecord<Status>,
+            status: StatusNxt,
             displayUpperConversationLink: Bool = false,
             displayBottomConversationLink: Bool = false
         ) {

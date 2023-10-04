@@ -33,8 +33,8 @@ class ProfileViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    @Published var me: MastodonUser?
-    @Published var user: MastodonUser?
+    @Published var me: MastodonUserNxt?
+    @Published var user: MastodonUserNxt?
     
     let viewDidAppear = PassthroughSubject<Void, Never>()
     
@@ -56,7 +56,7 @@ class ProfileViewModel: NSObject {
     // @Published var protected: Bool? = nil
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
-    init(context: AppContext, authContext: AuthContext, optionalMastodonUser mastodonUser: MastodonUser?) {
+    init(context: AppContext, authContext: AuthContext, optionalMastodonUser mastodonUser: MastodonUserNxt?) {
         self.context = context
         self.authContext = authContext
         self.user = mastodonUser

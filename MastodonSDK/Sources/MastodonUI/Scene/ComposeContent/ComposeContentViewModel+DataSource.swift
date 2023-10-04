@@ -62,7 +62,7 @@ extension ComposeContentViewModel {
             // configure status
             context.managedObjectContext.performAndWait {
                 guard let replyTo = status.object(in: context.managedObjectContext) else { return }
-                cell.statusView.configure(status: replyTo)
+                cell.statusView.configure(status: .from(status: replyTo))
             }
         }
     }

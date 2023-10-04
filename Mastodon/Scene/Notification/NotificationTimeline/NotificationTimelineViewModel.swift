@@ -20,11 +20,11 @@ final class NotificationTimelineViewModel {
     let context: AppContext
     let authContext: AuthContext
     let scope: Scope
-    let feedFetchedResultsController: FeedFetchedResultsController
+//    let feedFetchedResultsController: FeedFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     @Published var isLoadingLatest = false
     @Published var lastAutomaticFetchTimestamp: Date?
-    
+    @Published var notifications = [FeedNxt]()
     // output
     var diffableDataSource: UITableViewDiffableDataSource<NotificationSection, NotificationItem>?
     var didLoadLatest = PassthroughSubject<Void, Never>()
@@ -51,57 +51,57 @@ final class NotificationTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.scope = scope
-        self.feedFetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
+//        self.feedFetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
         // end init
         
-        feedFetchedResultsController.predicate = NotificationTimelineViewModel.feedPredicate(
-            authenticationBox: authContext.mastodonAuthenticationBox,
-            scope: scope
-        )
+//        feedFetchedResultsController.predicate = NotificationTimelineViewModel.feedPredicate(
+//            authenticationBox: authContext.mastodonAuthenticationBox,
+//            scope: scope
+//        )
     }
     
     
 }
 
 extension NotificationTimelineViewModel {
-
+//
     typealias Scope = APIService.MastodonNotificationScope
-    
-    static func feedPredicate(
-        authenticationBox: MastodonAuthenticationBox,
-        scope: Scope
-    ) -> NSPredicate {
-        let domain = authenticationBox.domain
-        let userID = authenticationBox.userID
-        let acct = Feed.Acct.mastodon(
-            domain: domain,
-            userID: userID
-        )
-        
-        let predicate: NSPredicate = {
-            switch scope {
-            case .everything:
-                return NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    Feed.hasNotificationPredicate(),
-                    Feed.predicate(
-                        kind: .notificationAll,
-                        acct: acct
-                    )
-                ])
-            case .mentions:
-                return NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    Feed.hasNotificationPredicate(),
-                    Feed.predicate(
-                        kind: .notificationMentions,
-                        acct: acct
-                    ),
-                    Feed.notificationTypePredicate(types: scope.includeTypes ?? [])
-                ])
-            }
-        }()
-        return predicate
-    }
-
+//    
+//    static func feedPredicate(
+//        authenticationBox: MastodonAuthenticationBox,
+//        scope: Scope
+//    ) -> NSPredicate {
+//        let domain = authenticationBox.domain
+//        let userID = authenticationBox.userID
+//        let acct = Feed.Acct.mastodon(
+//            domain: domain,
+//            userID: userID
+//        )
+//        
+//        let predicate: NSPredicate = {
+//            switch scope {
+//            case .everything:
+//                return NSCompoundPredicate(andPredicateWithSubpredicates: [
+//                    Feed.hasNotificationPredicate(),
+//                    Feed.predicate(
+//                        kind: .notificationAll,
+//                        acct: acct
+//                    )
+//                ])
+//            case .mentions:
+//                return NSCompoundPredicate(andPredicateWithSubpredicates: [
+//                    Feed.hasNotificationPredicate(),
+//                    Feed.predicate(
+//                        kind: .notificationMentions,
+//                        acct: acct
+//                    ),
+//                    Feed.notificationTypePredicate(types: scope.includeTypes ?? [])
+//                ])
+//            }
+//        }()
+//        return predicate
+//    }
+//
 }
 
 extension NotificationTimelineViewModel {
@@ -112,11 +112,15 @@ extension NotificationTimelineViewModel {
         defer { isLoadingLatest = false }
         
         do {
-            _ = try await context.apiService.notifications(
+            let result = try await context.apiService.notifications(
                 maxID: nil,
                 scope: scope,
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
+            
+            notifications = result.value.map {
+                FeedNxt.from(notification: $0, as: .notificationAll)
+            }
         } catch {
             didLoadLatest.send()
         }
@@ -127,18 +131,18 @@ extension NotificationTimelineViewModel {
         guard case let .feedLoader(record) = item else { return }
         
         let managedObjectContext = context.managedObjectContext
-        let key = "LoadMore@\(record.objectID)"
+//        let key = "LoadMore@\(record.objectID)"
         
         // return when already loading state
-        guard managedObjectContext.cache(froKey: key) == nil else { return }
+//        guard managedObjectContext.cache(froKey: key) == nil else { return }
 
-        guard let feed = record.object(in: managedObjectContext) else { return }
-        guard let maxID = feed.notification?.id else { return }
+//        guard let feed = record.object(in: managedObjectContext) else { return }
+        guard let maxID = record.notification?.id else { return }
         // keep transient property live
-        managedObjectContext.cache(feed, key: key)
-        defer {
-            managedObjectContext.cache(nil, key: key)
-        }
+//        managedObjectContext.cache(feed, key: key)
+//        defer {
+//            managedObjectContext.cache(nil, key: key)
+//        }
         
         // fetch data
         do {

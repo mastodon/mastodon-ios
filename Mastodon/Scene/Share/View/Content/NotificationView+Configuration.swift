@@ -16,9 +16,10 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import class CoreDataStack.Notification
+import MastodonSDK
 
 extension NotificationView {
-    public func configure(feed: Feed) {
+    public func configure(feed: FeedNxt) {
         guard let notification = feed.notification else {
             assertionFailure()
             return
@@ -29,7 +30,7 @@ extension NotificationView {
 }
 
 extension NotificationView {
-    public func configure(notification: Notification) {
+    public func configure(notification: NotificationNxt) {
         viewModel.objects.insert(notification)
 
         configureAuthor(notification: notification)
@@ -63,7 +64,7 @@ extension NotificationView {
 }
 
 extension NotificationView {
-    private func configureAuthor(notification: Notification) {
+    private func configureAuthor(notification: NotificationNxt) {
         let author = notification.account
         // author avatar
         

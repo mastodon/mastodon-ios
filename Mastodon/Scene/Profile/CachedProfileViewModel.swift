@@ -8,10 +8,11 @@
 import Foundation
 import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 final class CachedProfileViewModel: ProfileViewModel {
     
-    init(context: AppContext, authContext: AuthContext, mastodonUser: MastodonUser) {
+    init(context: AppContext, authContext: AuthContext, mastodonUser: MastodonUserNxt) {
         super.init(context: context, authContext: authContext, optionalMastodonUser: mastodonUser)
     }
 }
