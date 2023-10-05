@@ -1,5 +1,4 @@
 opt_out_usage
-xcode_select("/Applications/Xcode-15.0.0.app")
 default_platform(:ios)
 
 $appName = "Mastodon"
