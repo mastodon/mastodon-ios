@@ -20,6 +20,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Setup
+        env:
+          NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
+          NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
+        run: exec ./.github/scripts/setup.sh
       - name: Select required Xcode version
         run: sudo xcode-select -switch /Applications/Xcode_15.0.0.app
       - name: Deploy App Store
@@ -28,6 +33,4 @@ jobs:
           ITC_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           ITC_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
           ITC_KEY: ${{ secrets.APPSTORE_PRIVATE_KEY }}
-        run: |
-          bundle install
-          bundle exec fastlane ios deploy_appstore
+        run: bundle exec fastlane ios deploy_appstore
