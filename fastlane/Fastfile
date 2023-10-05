@@ -68,7 +68,7 @@ platform :ios do
       prepare_git
     end
 
-    commit_version_bump
+    # commit_version_bump
     add_git_tag(tag: "#{$version_number}-#{$build_number}")
     push_to_git_remote
   end
