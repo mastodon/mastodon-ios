@@ -1,0 +1,3 @@
+Device ID	Device Name	Device Platform
+00008120-00022D5A143B401E	Marcus-Kida-iPhone-14-Pro	ios
+00008130-0012691C207A8D3A	Marcus-Kida-iPhone-15-Pro-Max	ios
