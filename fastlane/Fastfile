@@ -49,8 +49,7 @@ platform :ios do
 
   desc " Build and deploy the App to App Store Connect & TestFlight"
   lane :deploy_appstore do
-    ipaName = "#{$appName}_appstore_#{$bundle_id}_#{$version_number}.#{$build_number}.ipa"
-    
+
     if is_ci
       create_keychain(name: "temp_keychain", password: "temp_123456", default_keychain: true, unlock: true, timeout: 3600, lock_when_sleeps: false)
       match(type: "appstore", app_identifier: $all_bundle_ids, force_for_new_devices: true, readonly: true, keychain_name: "temp_keychain", keychain_password: "temp_123456")
@@ -58,16 +57,11 @@ platform :ios do
       match(type: "appstore", app_identifier: $all_bundle_ids, force_for_new_devices: true, readonly: false)
     end
 
-    gym(project: "#{$appName}.xcodeproj",
+    gym(workspace: "#{$appName}.xcworkspace",
         scheme: "#{$appName}",
         clean: true,
         export_method: "app-store",
-        export_xcargs: "-allowProvisioningUpdates",
-        export_options: {
-          iCloudContainerEnvironment: "Production"
-        },
-        output_directory: "build/",
-        output_name: ipaName)
+        export_xcargs: "-allowProvisioningUpdates")
     deliver(app_identifier: $bundle_id, skip_screenshots: true, skip_metadata: true)
 
     if is_ci
