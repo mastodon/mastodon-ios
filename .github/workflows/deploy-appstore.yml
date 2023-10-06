@@ -34,3 +34,8 @@ jobs:
           ITC_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
           ITC_KEY: ${{ secrets.APPSTORE_PRIVATE_KEY }}
         run: bundle exec fastlane ios deploy_appstore
+      - name: Tag commit
+        uses: tvdias/github-tagger@v0.0.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          tag: "${{ env.GITHUB_TAG_NAME }}"

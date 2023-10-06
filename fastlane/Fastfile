@@ -64,19 +64,8 @@ platform :ios do
         export_xcargs: "-allowProvisioningUpdates")
     deliver(app_identifier: $bundle_id, skip_screenshots: true, skip_metadata: true)
 
-    if is_ci
-      prepare_git
-    end
-
-    # commit_version_bump
-    add_git_tag(tag: "#{$version_number}-#{$build_number}")
-    push_to_git_remote
+    sh("echo \"GITHUB_TAG_NAME=#{$version_number}-#{$build_number}\" >> $GITHUB_ENV")
   end
-end
-
-def prepare_git
-  sh("git config --local user.name Fastlane")
-  sh("git config --local user.email fastlane@joinmastodon.org")
 end
 
 def get_build_number
