@@ -5,7 +5,6 @@ on:
     branches:
       - develop
       - release*
-      - fastlane # Remove before merging
 jobs:
   deploy_appstore:
     name: Deploy App Store
