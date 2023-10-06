@@ -4270,6 +4270,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = OpenInActionExtension/OpenInActionExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -4284,6 +4286,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.OpenInActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -4379,6 +4382,8 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -4393,6 +4398,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -4618,6 +4624,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4975,6 +4983,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4984,6 +4994,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
@@ -5020,6 +5031,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5029,6 +5042,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
@@ -5265,6 +5279,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5274,6 +5290,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
