@@ -79,7 +79,7 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
                     return Persistence.Status.fetch(in: managedObjectContext, context: Persistence.Status.PersistContext(
                         domain: authContext.mastodonAuthenticationBox.domain,
                         entity: status,
-                        me: authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext),
+                        me: authContext.mastodonAuthenticationBox.authentication.user,
                         statusCache: nil,
                         userCache: nil,
                         networkDate: Date()))

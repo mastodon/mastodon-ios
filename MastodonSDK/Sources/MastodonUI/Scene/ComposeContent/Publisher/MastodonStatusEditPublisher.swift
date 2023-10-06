@@ -1,8 +1,6 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
-import CoreData
-import CoreDataStack
 import MastodonCore
 import MastodonSDK
 import Combine
@@ -10,8 +8,8 @@ import Combine
 public final class MastodonEditStatusPublisher: NSObject, ProgressReporting {
 
     // Input
-    public let statusID: Status.ID
-    public let author: ManagedObjectRecord<MastodonUser>
+    public let statusID: Mastodon.Entity.Status.ID
+    public let author: Mastodon.Entity.Account
 
     // content warning
     public let isContentWarningComposing: Bool
@@ -40,8 +38,8 @@ public final class MastodonEditStatusPublisher: NSObject, ProgressReporting {
     public var reactor: StatusPublisherReactor?
 
     public init(
-        statusID: Status.ID,
-        author: ManagedObjectRecord<MastodonUser>,
+        statusID: Mastodon.Entity.Status.ID,
+        author: Mastodon.Entity.Account,
         isContentWarningComposing: Bool,
         contentWarning: String,
         content: String,

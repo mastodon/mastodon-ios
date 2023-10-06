@@ -14,8 +14,8 @@ import MastodonSDK
 extension APIService {
     
     private struct MastodonMuteContext {
-        let sourceUserID: MastodonUser.ID
-        let targetUserID: MastodonUser.ID
+        let sourceUserID: Mastodon.Entity.Account.ID
+        let targetUserID: Mastodon.Entity.Account.ID
         let targetUsername: String
         let isMuting: Bool
     }
@@ -32,7 +32,6 @@ extension APIService {
         limit: Int?,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
-        let managedObjectContext = backgroundManagedObjectContext
         let response = try await Mastodon.API.Account.mutes(
             session: session,
             domain: authenticationBox.domain,
@@ -41,51 +40,24 @@ extension APIService {
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
         
-        let userIDs = response.value.map { $0.id }
-        let predicate = MastodonUser.predicate(domain: authenticationBox.domain, ids: userIDs)
-
-        let fetchRequest = MastodonUser.fetchRequest()
-        fetchRequest.predicate = predicate
-        fetchRequest.includesPropertyValues = false
-        
-        try await managedObjectContext.performChanges {
-            let users = try managedObjectContext.fetch(fetchRequest) as! [MastodonUser]
-            
-            for user in users {
-                user.deleteStatusAndNotificationFeeds(in: managedObjectContext)
-            }
-        }
-
         return response
     }
     
     public func toggleMute(
-        user: ManagedObjectRecord<MastodonUser>,
-        authenticationBox: MastodonAuthenticationBox
+        user: Mastodon.Entity.Account,
+        authenticationBox: MastodonAuthenticationBox,
+        isMuting: Bool
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
 
         let managedObjectContext = backgroundManagedObjectContext
-        let muteContext: MastodonMuteContext = try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-
-            guard
-                let user = user.object(in: managedObjectContext),
-                let me = authentication.user(in: managedObjectContext)
-            else {
-                throw APIError.implicit(.badRequest)
-            }
-            
-            let isMuting = user.mutingBy.contains(me)
-            
-            // toggle mute state
-            user.update(isMuting: !isMuting, by: me)
-            return MastodonMuteContext(
-                sourceUserID: me.id,
-                targetUserID: user.id,
-                targetUsername: user.username,
-                isMuting: isMuting
-            )
-        }
+        let me = authenticationBox.authentication.user
+        
+        let muteContext: MastodonMuteContext = MastodonMuteContext(
+            sourceUserID: me.id,
+            targetUserID: user.id,
+            targetUsername: user.username,
+            isMuting: isMuting
+        )
         
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
         do {
@@ -111,29 +83,7 @@ extension APIService {
         } catch {
             result = .failure(error)
         }
-        
-        try await managedObjectContext.performChanges {
-            guard let user = user.object(in: managedObjectContext),
-                  let me = authenticationBox.authentication.user(in: managedObjectContext)
-            else { return }
-            
-            switch result {
-            case .success(let response):
-                let relationship = response.value
-                Persistence.MastodonUser.update(
-                    mastodonUser: user,
-                    context: Persistence.MastodonUser.RelationshipContext(
-                        entity: relationship,
-                        me: me,
-                        networkDate: response.networkDate
-                    )
-                )
-            case .failure:
-                // rollback
-                user.update(isMuting: muteContext.isMuting, by: me)
-            }
-        }
-        
+
         let response = try result.get()
         return response
     }

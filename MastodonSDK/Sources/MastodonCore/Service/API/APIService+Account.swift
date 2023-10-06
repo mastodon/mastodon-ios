@@ -164,24 +164,7 @@ extension APIService {
             query: query,
             authorization: authorization
         ).singleOutput()
-        
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
 
-            for entity in response.value {
-                _ = Persistence.Tag.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Tag.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        me: me,
-                        networkDate: response.networkDate
-                    )
-                )
-            }
-        }
-        
         return response
     }   // end func
 }

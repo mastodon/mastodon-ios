@@ -225,23 +225,10 @@ extension NotificationView.ViewModel {
                 notificationView.menuButton.menu = nil
                 return
             }
-            
+                        
             let (isMyself, isTranslated, isFollowed) = isMyselfIsTranslatedIsFollowed
             
-            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
-                guard
-                    let self = self,
-                    let context = self.context,
-                    let authContext = self.authContext
-                else { return nil }
-                
-                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
-                context.managedObjectContext.performAndWait {
-                    let authentication = authContext.mastodonAuthenticationBox.authentication
-                    configuration = authentication.instance(in: context.managedObjectContext)?.configurationV2
-                }
-                return configuration
-            }()
+            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = self?.authContext?.mastodonAuthenticationBox.authentication.instanceV2?.configuration
             
             let menuContext = NotificationView.AuthorMenuContext(
                 name: name,

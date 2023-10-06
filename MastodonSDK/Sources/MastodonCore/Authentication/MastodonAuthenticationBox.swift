@@ -6,13 +6,12 @@
 //
 
 import Foundation
-import CoreDataStack
 import MastodonSDK
 
 public struct MastodonAuthenticationBox: UserIdentifier {
     public let authentication: MastodonAuthentication
     public let domain: String
-    public let userID: MastodonUser.ID
+    public let userID: Mastodon.Entity.Account.ID
     public let appAuthorization: Mastodon.API.OAuth.Authorization
     public let userAuthorization: Mastodon.API.OAuth.Authorization
     public let inMemoryCache: MastodonAccountInMemoryCache
@@ -20,7 +19,7 @@ public struct MastodonAuthenticationBox: UserIdentifier {
     public init(
         authentication: MastodonAuthentication,
         domain: String,
-        userID: MastodonUser.ID,
+        userID: Mastodon.Entity.Account.ID,
         appAuthorization: Mastodon.API.OAuth.Authorization,
         userAuthorization: Mastodon.API.OAuth.Authorization,
         inMemoryCache: MastodonAccountInMemoryCache

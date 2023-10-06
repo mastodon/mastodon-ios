@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import MastodonSDK
 import MastodonCore
 import MastodonLocalization
@@ -18,29 +17,11 @@ import NaturalLanguage
 extension StatusView {
     
     static let statusFilterWorkingQueue = DispatchQueue(label: "StatusFilterWorkingQueue")
-    
-    public func configure(feed: Feed) {
-        switch feed.kind {
-        case .home:
-            guard let status = feed.status else {
-                assertionFailure()
-                return
-            }
-            configure(status: status)
-        case .notificationAll:
-            assertionFailure("TODO")
-        case .notificationMentions:
-            assertionFailure("TODO")
-        case .none:
-            break
-        }
-        
-    }
 }
 
 extension StatusView {
 
-    public func configure(status: Status, statusEdit: StatusEdit) {
+    public func configure(status: Mastodon.Entity.Status, statusEdit: Mastodon.Entity.StatusEdit) {
         viewModel.objects.insert(status)
         if let reblog = status.reblog {
             viewModel.objects.insert(reblog)
@@ -66,7 +47,7 @@ extension StatusView {
         viewModel.isContentReveal = true
     }
 
-    public func configure(status: Status) {
+    public func configure(status: Mastodon.Entity.Status) {
         viewModel.objects.insert(status)
         if let reblog = status.reblog {
             viewModel.objects.insert(reblog)
@@ -99,7 +80,7 @@ extension StatusView {
 }
 
 extension StatusView {
-    private func configureHeader(status: Status) {
+    private func configureHeader(status: Mastodon.Entity.Status) {
         if let _ = status.reblog {
             Publishers.CombineLatest(
                 status.author.publisher(for: \.displayName),
@@ -189,7 +170,7 @@ extension StatusView {
         }
     }
     
-    public func configureAuthor(author: MastodonUser) {
+    public func configureAuthor(author: Mastodon.Entity.Account) {
         // author avatar
         Publishers.CombineLatest(
             author.publisher(for: \.avatar),
@@ -300,7 +281,7 @@ extension StatusView {
         configure(status: originalStatus)
     }
     
-    func configureTranslated(status: Status) {
+    func configureTranslated(status: Mastodon.Entity.Status) {
         let translatedContent: Status.TranslatedContent? = {
             if let translatedContent = status.reblog?.translatedContent {
                 return translatedContent
@@ -330,7 +311,7 @@ extension StatusView {
         }
     }
 
-    private func configureContent(statusEdit: StatusEdit, status: Status) {
+    private func configureContent(statusEdit: Mastodon.Entity.StatusEdit, status: Mastodon.Entity.Status) {
         statusEdit.spoilerText.map {
             viewModel.spoilerContent = PlaintextMetaContent(string: $0)
         }
@@ -350,7 +331,7 @@ extension StatusView {
         }
     }
 
-    private func configureContent(status: Status) {
+    private func configureContent(status: Mastodon.Entity.Status) {
         guard status.translatedContent == nil else {
             return configureTranslated(status: status)
         }
@@ -404,7 +385,7 @@ extension StatusView {
         viewModel.mediaViewConfigurations = configurations
     }
     
-    private func configurePollHistory(statusEdit: StatusEdit) {
+    private func configurePollHistory(statusEdit: Mastodon.Entity.StatusEdit) {
         guard let poll = statusEdit.poll else { return }
 
         let pollItems = poll.options.map { PollItem.history(option: $0) }
@@ -417,7 +398,7 @@ extension StatusView {
         pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(_snapshot)
     }
 
-    private func configurePoll(status: Status) {
+    private func configurePoll(status: Mastodon.Entity.Status) {
         let status = status.reblog ?? status
         
         if let poll = status.poll {
@@ -488,7 +469,7 @@ extension StatusView {
             .store(in: &disposeBag)
     }
 
-    private func configureCard(status: Status) {
+    private func configureCard(status: Mastodon.Entity.Status) {
         let status = status.reblog ?? status
         if viewModel.mediaViewConfigurations.isEmpty {
             status.publisher(for: \.card)
@@ -499,7 +480,7 @@ extension StatusView {
         }
     }
     
-    private func configureToolbar(status: Status) {
+    private func configureToolbar(status: Mastodon.Entity.Status) {
         let status = status.reblog ?? status
 
         status.publisher(for: \.repliesCount)
@@ -560,7 +541,7 @@ extension StatusView {
             .store(in: &disposeBag)
     }
     
-    private func configureFilter(status: Status) {
+    private func configureFilter(status: Mastodon.Entity.Status) {
         let status = status.reblog ?? status
         
         let content = status.content.lowercased()

@@ -29,7 +29,6 @@ final class SendPostIntentHandler: NSObject {
 
 // MARK: - SendPostIntentHandling
 extension SendPostIntentHandler: SendPostIntentHandling {
-
     func handle(intent: SendPostIntent) async -> SendPostIntentResponse {
         guard let content = intent.content else {
             return SendPostIntentResponse(code: .failure, userActivity: nil)
@@ -59,7 +58,7 @@ extension SendPostIntentHandler: SendPostIntentHandling {
                 }
                 mastodonAuthentications = [authentication]
             } else {
-                mastodonAuthentications = try accounts.mastodonAuthentication(in: managedObjectContext)
+                mastodonAuthentications = AuthenticationServiceProvider.shared.authentications.sorted(by: { $0.activedAt > $1.activedAt })
             }
 
             let authenticationBoxes = mastodonAuthentications.map { authentication in

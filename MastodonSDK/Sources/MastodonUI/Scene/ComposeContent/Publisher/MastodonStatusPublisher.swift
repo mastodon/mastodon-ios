@@ -7,8 +7,6 @@
 
 import Foundation
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonCore
 import MastodonSDK
 
@@ -17,9 +15,9 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     // Input
     
     // author
-    public let author: ManagedObjectRecord<MastodonUser>
+    public let author: Mastodon.Entity.Account
     // refer
-    public let replyTo: ManagedObjectRecord<Status>?
+    public let replyTo: Mastodon.Entity.Status?
     // content warning
     public let isContentWarningComposing: Bool
     public let contentWarning: String
@@ -47,8 +45,8 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public var reactor: StatusPublisherReactor?
 
     public init(
-        author: ManagedObjectRecord<MastodonUser>,
-        replyTo: ManagedObjectRecord<Status>?,
+        author: Mastodon.Entity.Account,
+        replyTo: Mastodon.Entity.Status?,
         isContentWarningComposing: Bool,
         contentWarning: String,
         content: String,
@@ -161,10 +159,7 @@ extension MastodonStatusPublisher: StatusPublisher {
             guard pollOptions != nil else { return nil }
             return self.pollExpireConfigurationOption.seconds
         }()
-        let inReplyToID: Mastodon.Entity.Status.ID? = try await api.backgroundManagedObjectContext.perform {
-            guard let replyTo = self.replyTo?.object(in: api.backgroundManagedObjectContext) else { return nil }
-            return replyTo.id
-        }
+        let inReplyToID: Mastodon.Entity.Status.ID? = self.replyTo?.id
         
         let query = Mastodon.API.Statuses.PublishStatusQuery(
             status: content,

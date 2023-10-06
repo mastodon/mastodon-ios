@@ -33,30 +33,7 @@ extension APIService {
             query: query,
             authorization: authorization
         ).singleOutput()
-        
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
 
-            for entity in response.value {
-                let result = Persistence.MastodonUser.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.MastodonUser.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        cache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-                
-                if let me = me {
-                    let user = result.user
-                    user.update(isFollowing: true, by: me)
-                }
-            }
-            
-        }
-        
         return response
     }
     

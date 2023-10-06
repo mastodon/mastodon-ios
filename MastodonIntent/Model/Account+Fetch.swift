@@ -19,17 +19,15 @@ extension Account {
         let accounts: [Account] = try await managedObjectContext.perform {
             let results = AuthenticationServiceProvider.shared.authentications
             let accounts = results.compactMap { mastodonAuthentication -> Account? in
-                guard let user = mastodonAuthentication.user(in: managedObjectContext) else {
-                    return nil
-                }
+                let user = mastodonAuthentication.user
                 let account = Account(
                     identifier: mastodonAuthentication.identifier.uuidString,
                     display: user.displayNameWithFallback,
-                    subtitle: user.acctWithDomain,
+                    subtitle: user.acct, // TODO: CD check
                     image: user.avatarImageURL().flatMap { INImage(url: $0) }
                 )
                 account.name = user.displayNameWithFallback
-                account.username = user.acctWithDomain
+                account.username = user.acctWithDomainIfMissing(mastodonAuthentication.domain)
                 return account
             }
             return accounts

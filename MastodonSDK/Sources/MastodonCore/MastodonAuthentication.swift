@@ -1,11 +1,12 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
-import CoreDataStack
 import MastodonSDK
 
-public struct MastodonAuthentication: Codable, Hashable {
+public struct MastodonAuthentication: Codable {
     public typealias ID = UUID
+    
+    public private(set) var user: Mastodon.Entity.Account
     
     public private(set) var identifier: ID
     public private(set) var domain: String
@@ -21,13 +22,16 @@ public struct MastodonAuthentication: Codable, Hashable {
     public private(set) var activedAt: Date
 
     public private(set) var userID: String
-    public private(set) var instanceObjectIdURI: URL?
     
+    public private(set) var instance: Mastodon.Entity.Instance?
+    public private(set) var instanceV2: Mastodon.Entity.V2.Instance?
+
     internal var persistenceIdentifier: String {
         "\(username)@\(domain)"
     }
     
     public static func createFrom(
+        user: Mastodon.Entity.Account,
         domain: String,
         userID: String,
         username: String,
@@ -38,6 +42,7 @@ public struct MastodonAuthentication: Codable, Hashable {
     ) -> Self {
         let now = Date()
         return MastodonAuthentication(
+            user: user,
             identifier: .init(),
             domain: domain,
             username: username,
@@ -49,11 +54,13 @@ public struct MastodonAuthentication: Codable, Hashable {
             updatedAt: now,
             activedAt: now,
             userID: userID,
-            instanceObjectIdURI: nil
+            instance: nil,
+            instanceV2: nil
         )
     }
     
     func copy(
+        user: Mastodon.Entity.Account? = nil,
         identifier: ID? = nil,
         domain: String? = nil,
         username: String? = nil,
@@ -65,9 +72,11 @@ public struct MastodonAuthentication: Codable, Hashable {
         updatedAt: Date? = nil,
         activedAt: Date? = nil,
         userID: String? = nil,
-        instanceObjectIdURI: URL? = nil
+        instance: Mastodon.Entity.Instance? = nil,
+        instanceV2: Mastodon.Entity.V2.Instance? = nil
     ) -> Self {
         MastodonAuthentication(
+            user: user ?? self.user,
             identifier: identifier ?? self.identifier,
             domain: domain ?? self.domain,
             username: username ?? self.username,
@@ -79,28 +88,19 @@ public struct MastodonAuthentication: Codable, Hashable {
             updatedAt: updatedAt ?? self.updatedAt,
             activedAt: activedAt ?? self.activedAt,
             userID: userID ?? self.userID,
-            instanceObjectIdURI: instanceObjectIdURI ?? self.instanceObjectIdURI
+            instance: instance ?? self.instance,
+            instanceV2: instanceV2 ?? self.instanceV2
         )
     }
     
-    public func instance(in context: NSManagedObjectContext) -> Instance? {
-        guard
-            let instanceObjectIdURI = instanceObjectIdURI,
-        let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: instanceObjectIdURI)
-        else { return nil }
-        
-        return try? context.existingObject(with: objectID) as? Instance
+    func updating(instance: Mastodon.Entity.Instance) -> Self {
+        copy(instance: instance)
     }
     
-    public func user(in context: NSManagedObjectContext) -> MastodonUser? {
-        let userPredicate = MastodonUser.predicate(domain: domain, id: userID)
-        return MastodonUser.findOrFetch(in: context, matching: userPredicate)
+    func updating(instanceV2: Mastodon.Entity.V2.Instance) -> Self {
+        copy(instanceV2: instanceV2)
     }
-    
-    func updating(instance: Instance) -> Self {
-        copy(instanceObjectIdURI: instance.objectID.uriRepresentation())
-    }
-    
+
     func updating(activatedAt: Date) -> Self {
         copy(activedAt: activatedAt)
     }

@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import Meta
 import MetaTextKit
 import MastodonMeta
@@ -23,7 +22,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
     public enum ComposeContext {
         case composeStatus
-        case editStatus(status: Status, statusSource: Mastodon.Entity.StatusSource)
+        case editStatus(status: Mastodon.Entity.Status, statusSource: Mastodon.Entity.StatusSource)
     }
     
     var disposeBag = Set<AnyCancellable>()
@@ -156,31 +155,25 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
-                guard let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else {
-                    return .public
-                }
+                let author = authContext.mastodonAuthenticationBox.authentication.user
                 return author.locked ? .private : .public
             }()
             // set visibility for reply post
-            if case .reply(let record) = destination {
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else {
-                        assertionFailure()
-                        return
-                    }
-                    let repliedStatusVisibility = status.visibility
-                    switch repliedStatusVisibility {
-                    case .public, .unlisted:
-                        // keep default
-                        break
-                    case .private:
-                        visibility = .private
-                    case .direct:
-                        visibility = .direct
-                    case ._other:
-                        assertionFailure()
-                        break
-                    }
+            if case .reply(let status) = destination {
+                let repliedStatusVisibility = status.visibility
+                switch repliedStatusVisibility {
+                case .public, .unlisted:
+                    // keep default
+                    break
+                case .private:
+                    visibility = .private
+                case .direct:
+                    visibility = .direct
+                case ._other:
+                    assertionFailure()
+                    break
+                case .none:
+                    break
                 }
             }
             return visibility
@@ -191,7 +184,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         )
         
         if case let ComposeContext.editStatus(status, _) = composeContext {
-            if status.isContentSensitive {
+            if status.sensitive == true {
                 isContentWarningActive = true
                 contentWarning = status.spoilerText ?? ""
             }
@@ -201,7 +194,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 if let pollExpiresAt = poll.expiresAt {
                     pollExpireConfigurationOption = .init(closestDateToExpiry: pollExpiresAt)
                 }
-                pollOptions = poll.options.sortedByIndex().map {
+                pollOptions = poll.options.map {
                     let option = PollComposeItem.Option()
                     option.text = $0.title
                     return option
@@ -218,52 +211,40 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         // setup initial value
         let initialContentWithSpace = initialContent.isEmpty ? "" : initialContent + " "
         switch destination {
-        case .reply(let record):
-            context.managedObjectContext.performAndWait {
-                guard let status = record.object(in: context.managedObjectContext) else {
-                    assertionFailure()
-                    return
-                }
-                let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
+        case .reply(let status):
+            let author = authContext.mastodonAuthenticationBox.authentication.user
 
-                var mentionAccts: [String] = []
-                if author?.id != status.author.id {
-                    mentionAccts.append("@" + status.author.acct)
-                }
-                let mentions = status.mentions
-                    .filter { author?.id != $0.id }
-                for mention in mentions {
-                    let acct = "@" + mention.acct
-                    guard !mentionAccts.contains(acct) else { continue }
-                    mentionAccts.append(acct)
-                }
-                for acct in mentionAccts {
-                    UITextChecker.learnWord(acct)
-                }
-                if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
-                    self.isContentWarningActive = true
-                    self.contentWarning = spoilerText
-                }
-
-                let initialComposeContent = mentionAccts.joined(separator: " ")
-                let preInsertedContent = initialComposeContent.isEmpty ? "" : initialComposeContent + " "
-                self.initialContent = preInsertedContent + initialContentWithSpace
-                self.content = preInsertedContent + initialContentWithSpace
+            var mentionAccts: [String] = []
+            if author.id != status.account.id {
+                mentionAccts.append("@" + status.account.acct)
             }
+            let mentions = status.mentions?
+                .filter { author.id != $0.id } ?? []
+            for mention in mentions {
+                let acct = "@" + mention.acct
+                guard !mentionAccts.contains(acct) else { continue }
+                mentionAccts.append(acct)
+            }
+            for acct in mentionAccts {
+                UITextChecker.learnWord(acct)
+            }
+            if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
+                self.isContentWarningActive = true
+                self.contentWarning = spoilerText
+            }
+
+            let initialComposeContent = mentionAccts.joined(separator: " ")
+            let preInsertedContent = initialComposeContent.isEmpty ? "" : initialComposeContent + " "
+            self.initialContent = preInsertedContent + initialContentWithSpace
+            self.content = preInsertedContent + initialContentWithSpace
         case .topLevel:
             self.initialContent = initialContentWithSpace
             self.content = initialContentWithSpace
         }
 
         // set limit
-        let _configuration: Mastodon.Entity.Instance.Configuration? = {
-            var configuration: Mastodon.Entity.Instance.Configuration? = nil
-            context.managedObjectContext.performAndWait {
-                let authentication = authContext.mastodonAuthenticationBox.authentication
-                configuration = authentication.instance(in: context.managedObjectContext)?.configuration
-            }
-            return configuration
-        }()
+        let _configuration: Mastodon.Entity.Instance.Configuration? = authContext.mastodonAuthenticationBox.authentication.instance?.configuration
+        
         if let configuration = _configuration {
             // set character limit
             if let maxCharacters = configuration.statuses?.maxCharacters {
@@ -288,22 +269,22 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case .composeStatus:
             self.isVisibilityButtonEnabled = true
         case let .editStatus(status, _):
-            if let visibility = Mastodon.Entity.Status.Visibility(rawValue: status.visibility.rawValue) {
+            if let visibility = status.visibility {
                 self.visibility = visibility
             }
             self.isVisibilityButtonEnabled = false
-            self.attachmentViewModels = status.attachments.compactMap {
-                guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
+            self.attachmentViewModels = status.mediaAttachments?.compactMap { attachment -> AttachmentViewModel? in
+                guard let assetURL = attachment.url, let url = URL(string: assetURL) else { return nil }
                 let attachmentViewModel = AttachmentViewModel(
                     api: context.apiService,
                     authContext: authContext,
-                    input: .mastodonAssetUrl(url, $0.id),
+                    input: .mastodonAssetUrl(url, attachment.id),
                     sizeLimit: sizeLimit,
                     delegate: self
                 )
-                attachmentViewModel.caption = $0.altDescription ?? ""
+                attachmentViewModel.caption = attachment.description ?? ""
                 return attachmentViewModel
-            }
+            } ?? []
         }
         
         bind()
@@ -318,10 +299,10 @@ extension ComposeContentViewModel {
         $authContext
             .sink { [weak self] authContext in
                 guard let self = self else { return }
-                guard let user = authContext.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else { return }
+                let user = authContext.mastodonAuthenticationBox.authentication.user
                 self.avatarURL = user.avatarImageURL()
                 self.name = user.nameMetaContent ?? PlaintextMetaContent(string: user.displayNameWithFallback)
-                self.username = user.acctWithDomain
+                self.username = user.acctWithDomainIfMissing(authContext.mastodonAuthenticationBox.domain)
             }
             .store(in: &disposeBag)
         
@@ -503,7 +484,7 @@ extension ComposeContentViewModel {
 extension ComposeContentViewModel {
     public enum Destination {
         case topLevel
-        case reply(parent: ManagedObjectRecord<Status>)
+        case reply(parent: Mastodon.Entity.Status)
     }
     
     public enum ScrollViewState {
@@ -562,10 +543,8 @@ extension ComposeContentViewModel {
         
         // author
         let managedObjectContext = self.context.managedObjectContext
-        var _author: ManagedObjectRecord<MastodonUser>?
-        managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
-        }
+        var _author: Mastodon.Entity.Account? = authContext.mastodonAuthenticationBox.authentication.user
+
         guard let author = _author else {
             throw AppError.badAuthentication
         }
@@ -618,13 +597,7 @@ extension ComposeContentViewModel {
 
         // author
         let managedObjectContext = self.context.managedObjectContext
-        var _author: ManagedObjectRecord<MastodonUser>?
-        managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
-        }
-        guard let author = _author else {
-            throw AppError.badAuthentication
-        }
+        var _author = authContext.mastodonAuthenticationBox.authentication.user
 
         // poll
         _ = try {
@@ -645,7 +618,7 @@ extension ComposeContentViewModel {
         }
 
         return MastodonEditStatusPublisher(statusID: status.id,
-                                           author: author,
+                                           author: _author,
                                            isContentWarningComposing: isContentWarningActive,
                                            contentWarning: contentWarning,
                                            content: content,
@@ -814,6 +787,30 @@ extension ComposeContentViewModel: AttachmentViewModelDelegate {
             Task {
                 try await uploadMediaInQueue()
             }
+        }
+    }
+}
+
+extension Mastodon.Entity.Account {
+    public var nameMetaContent: MastodonMetaContent? {
+        do {
+            let content = MastodonContent(content: displayNameWithFallback, emojis: emojis?.asDictionary ?? [:])
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            return metaContent
+        } catch {
+            assertionFailure()
+            return nil
+        }
+    }
+    
+    public var bioMetaContent: MastodonMetaContent? {
+        do {
+            let content = MastodonContent(content: note, emojis: emojis?.asDictionary ?? [:])
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            return metaContent
+        } catch {
+            assertionFailure()
+            return nil
         }
     }
 }

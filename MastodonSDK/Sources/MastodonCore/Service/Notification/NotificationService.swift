@@ -101,12 +101,12 @@ extension NotificationService {
         return try await managedObjectContext.perform {
             var items: [UIApplicationShortcutItem] = []
             for authentication in AuthenticationServiceProvider.shared.authentications {
-                guard let user = authentication.user(in: managedObjectContext) else { continue }
+                let user = authentication.user
                 let accessToken = authentication.userAccessToken
                 let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: accessToken)
                 guard count > 0 else { continue }
                 
-                let title = "@\(user.acctWithDomain)"
+                let title = "@\(user.acctWithDomainIfMissing(authentication.domain))"
                 let subtitle = L10n.A11y.Plural.Count.Unread.notification(count)
                 
                 let item = UIApplicationShortcutItem(

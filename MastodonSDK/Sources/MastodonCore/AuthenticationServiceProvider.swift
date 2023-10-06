@@ -2,11 +2,11 @@
 
 import Foundation
 import Combine
-import CoreDataStack
 import MastodonSDK
 import KeychainAccess
 import MastodonCommon
 import os.log
+import CoreDataStack
 
 public class AuthenticationServiceProvider: ObservableObject {
     private let logger = Logger(subsystem: "AuthenticationServiceProvider", category: "Authentication")
@@ -23,15 +23,22 @@ public class AuthenticationServiceProvider: ObservableObject {
         }
     }
         
-    func update(instance: Instance, where domain: String) {
+    func update(instance: Mastodon.Entity.Instance, where domain: String) {
         authentications = authentications.map { authentication in
             guard authentication.domain == domain else { return authentication }
             return authentication.updating(instance: instance)
         }
     }
     
+    func update(instanceV2: Mastodon.Entity.V2.Instance, where domain: String) {
+        authentications = authentications.map { authentication in
+            guard authentication.domain == domain else { return authentication }
+            return authentication.updating(instanceV2: instanceV2)
+        }
+    }
+    
     func delete(authentication: MastodonAuthentication) {
-        authentications.removeAll(where: { $0 == authentication })
+        authentications.removeAll(where: { $0.identifier == authentication.identifier })
     }
     
     func activateAuthentication(in domain: String, for userID: String) {
@@ -69,33 +76,47 @@ public extension AuthenticationServiceProvider {
     }
     
     func migrateLegacyAuthentications(in context: NSManagedObjectContext) {
-        do {
-            let legacyAuthentications = try context.fetch(MastodonAuthenticationLegacy.sortedFetchRequest)
-            let migratedAuthentications = legacyAuthentications.compactMap { auth -> MastodonAuthentication? in
-                return MastodonAuthentication(
-                    identifier: auth.identifier,
-                    domain: auth.domain,
-                    username: auth.username,
-                    appAccessToken: auth.appAccessToken,
-                    userAccessToken: auth.userAccessToken,
-                    clientID: auth.clientID,
-                    clientSecret: auth.clientSecret,
-                    createdAt: auth.createdAt,
-                    updatedAt: auth.updatedAt,
-                    activedAt: auth.activedAt,
-                    userID: auth.userID
-                )
-            }
+        Task {
+            do {
+                let legacyAuthentications = try context.fetch(MastodonAuthenticationLegacy.sortedFetchRequest)
+                
+                var migratedAuthentications = [MastodonAuthentication]()
+                
+                for auth in legacyAuthentications {
+                    let user = try await Mastodon.API.Account.accountInfo(
+                        session: URLSession.shared,
+                        domain: auth.domain,
+                        userID: auth.userID,
+                        authorization: .init(accessToken: auth.userAccessToken)
+                    ).singleOutput().value
+                    
+                    let newAuth = MastodonAuthentication(
+                        user: user,
+                        identifier: auth.identifier,
+                        domain: auth.domain,
+                        username: auth.username,
+                        appAccessToken: auth.appAccessToken,
+                        userAccessToken: auth.userAccessToken,
+                        clientID: auth.clientID,
+                        clientSecret: auth.clientSecret,
+                        createdAt: auth.createdAt,
+                        updatedAt: auth.updatedAt,
+                        activedAt: auth.activedAt,
+                        userID: auth.userID
+                    )
+                    migratedAuthentications.append(newAuth)
+                }
 
-            if migratedAuthentications.count != legacyAuthentications.count {
-                logger.log(level: .default, "Not all account authentications could be migrated.")
-            }
+                if migratedAuthentications.count != legacyAuthentications.count {
+                    logger.log(level: .default, "Not all account authentications could be migrated.")
+                }
 
-            self.authentications = migratedAuthentications
-            userDefaults.didMigrateAuthentications = true
-        } catch {
-            userDefaults.didMigrateAuthentications = false
-            logger.log(level: .error, "Could not migrate legacy authentications")
+                self.authentications = migratedAuthentications
+                userDefaults.didMigrateAuthentications = true
+            } catch {
+                userDefaults.didMigrateAuthentications = false
+                logger.log(level: .error, "Could not migrate legacy authentications")
+            }
         }
     }
     

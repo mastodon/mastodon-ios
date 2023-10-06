@@ -19,32 +19,23 @@ extension APIService {
     }
 
     public func bookmark(
-        record: ManagedObjectRecord<Status>,
+        status: Mastodon.Entity.Status,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
-
-        let managedObjectContext = backgroundManagedObjectContext
+        let authentication = authenticationBox.authentication
+        let me = authentication.user
         
-        // update bookmark state and retrieve bookmark context
-        let bookmarkContext: MastodonBookmarkContext = try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-            
-            guard
-                let _status = record.object(in: managedObjectContext),
-                let me = authentication.user(in: managedObjectContext)
-            else {
-                throw APIError.implicit(.badRequest)
-            }
+        let isBookmarked = try await Mastodon.API.Bookmarks.bookmarkedStatus(
+            domain: authenticationBox.domain,
+            session: session,
+            authorization: authenticationBox.userAuthorization,
+            query: .init()
+        ).singleOutput().value.contains(where: { $0.id == status.id }) // TODO: CD is this sufficient? Do we need to check the domain as well?
 
-            let status = _status.reblog ?? _status
-            let isBookmarked = status.bookmarkedBy.contains(me)
-            status.update(bookmarked: !isBookmarked, by: me)
-            let context = MastodonBookmarkContext(
-                statusID: status.id,
-                isBookmarked: isBookmarked
-            )
-            return context
-        }
+        let bookmarkContext = MastodonBookmarkContext(
+            statusID: status.id,
+            isBookmarked: isBookmarked
+        )
 
         // request bookmark or undo bookmark
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>
@@ -60,37 +51,7 @@ extension APIService {
         } catch {
             result = .failure(error)
         }
-        
-        // update bookmark state
-        try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-            
-            guard
-                let _status = record.object(in: managedObjectContext),
-                let me = authentication.user(in: managedObjectContext)
-            else { return }
-            
-            let status = _status.reblog ?? _status
-            
-            switch result {
-            case .success(let response):
-                _ = Persistence.Status.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Status.PersistContext(
-                        domain: authenticationBox.domain,
-                        entity: response.value,
-                        me: me,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            case .failure:
-                // rollback
-                status.update(bookmarked: bookmarkContext.isBookmarked, by: me)
-            }
-        }
-        
+
         let response = try result.get()
         return response
     }
@@ -111,35 +72,7 @@ extension APIService {
             authorization: authenticationBox.userAuthorization,
             query: query
         ).singleOutput()
-        
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            
-            guard
-                let me = authenticationBox.authentication.user(in: managedObjectContext)
-            else {
-                assertionFailure()
-                return
-            }
-            
-            for entity in response.value {
-                let result = Persistence.Status.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Status.PersistContext(
-                        domain: authenticationBox.domain,
-                        entity: entity,
-                        me: me,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-                
-                result.status.update(bookmarked: true, by: me)
-                result.status.reblog?.update(bookmarked: true, by: me)
-            }   // end for … in
-        }
-        
+
         return response
     }   // end func
 }
