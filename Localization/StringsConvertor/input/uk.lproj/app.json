@@ -558,7 +558,7 @@
                 "other_posts": "публікації",
                 "other_following": "підписок",
                 "other_followers": "підписники",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "спільні"
             },
             "fields": {
                 "joined": "Приєднався",
@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Збіг дописів %s\"",
+                "people": "Збіг профілів %s\"",
+                "profile": "Перейти в @%s@%s",
+                "url": "Відкрити URL-адресу в Mastodon",
+                "hashtag": "Перейти до %s",
                 "empty_state": {
                     "no_results": "Жодних результатів"
                 },
                 "recent_search": "Нещодавні запити",
-                "clear_all": "Clear all",
+                "clear_all": "Очистити все",
                 "clear": "Очистити"
             }
         },
@@ -845,13 +845,13 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Здається, це не дійсне посилання Mastodon."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Вибачте, але це сімейство віджетів не підтримується.",
+            "user_not_logged_in": "Будь ласка, відкрийте Mastodon, щоб увійти в обліковий запис."
         },
         "followers_count": {
             "configuration_display_name": "Підписники",
@@ -860,8 +860,8 @@
             "followers_today": "%s підписників сьогодні"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Кілька підписників",
+            "configuration_description": "Показати кількість підписників на кількох акаунтах.",
             "mock_user": {
                 "display_name": "Інший підписник",
                 "account_name": "another@follower.social"
@@ -876,12 +876,12 @@
         "hashtag": {
             "configuration": {
                 "display_name": "Хештеґ",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Показує останні публікації з вибраним хештегом."
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "Вибачте, ми не знайшли публікацій за хештегом<a>#%@</a>. Будь ласка, спробуйте <a>#ІншийХештег</a> або перевірте налаштування віджету."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
