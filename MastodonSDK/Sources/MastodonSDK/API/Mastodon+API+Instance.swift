@@ -30,11 +30,7 @@ extension Mastodon.API.Instance {
         session: URLSession,
         domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Instance>, Error>  {
-        let request = Mastodon.API.get(
-            url: instanceEndpointURL(domain: domain),
-            query: nil,
-            authorization: nil
-        )
+        let request = Mastodon.API.get(url: instanceEndpointURL(domain: domain))
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value: Mastodon.Entity.Instance
@@ -53,5 +49,27 @@ extension Mastodon.API.Instance {
             }
             .eraseToAnyPublisher()
     }
-    
+
+    static func extendedDescriptionEndpointURL(domain: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("extended_description")
+    }
+
+    /// Extended description of the server
+    ///
+    /// - Returns: A ``MastodonSDK.Mastodon.Entity.ExtendedDescription``
+    ///
+    /// ## Reference:
+    /// [Document](https://docs.joinmastodon.org/methods/instance/#extended_description)
+    public static func extendedDescription(
+        session: URLSession,
+        domain: String
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.ExtendedDescription>, Error>  {
+        let request = Mastodon.API.get(url: extendedDescriptionEndpointURL(domain: domain))
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.ExtendedDescription.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
 }
