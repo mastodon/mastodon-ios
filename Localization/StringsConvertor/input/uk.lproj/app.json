@@ -105,12 +105,12 @@
             },
             "tabs": {
                 "home": "Головна",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "Пошук і дослідження",
                 "notifications": "Сповіщення",
                 "profile": "Профіль",
                 "a11y": {
                     "search": "Пошук",
-                    "explore": "Explore"
+                    "explore": "Огляд"
                 }
             },
             "keyboard": {
@@ -146,7 +146,7 @@
                 "sensitive_content": "Контент 18+",
                 "media_content_warning": "Натисніть будь-де, щоб показати більше",
                 "tap_to_reveal": "Натисніть, щоб відобразити",
-                "load_embed": "Load Embed",
+                "load_embed": "Завантажити вбудований файл",
                 "link_via_user": "%s через %s",
                 "poll": {
                     "vote": "Проголосувати",
@@ -169,7 +169,7 @@
                     "show_image": "Показати зображення",
                     "show_gif": "Показати GIF",
                     "show_video_player": "Показати відеоплеєр",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Поділіться посиланням у повідомленні",
                     "tap_then_hold_to_show_menu": "Натисніть та утримуйте, щоб показати меню",
                     "a11y_labels": {
                         "reblog": "Репост",
@@ -199,7 +199,7 @@
                 "media": {
                     "accessibility_label": "%s, вкладення %d із %d",
                     "expand_image_hint": "Розгортає зображення. Двічі торкніться та утримуйте, щоб показати дії",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_gif_hint": "Розгортання GIF-файлу. Двічі торкніться і утримуйте, щоб показати дії",
                     "expand_video_hint": "Показує відеоплеєр. Натисніть двічі і утримуйте, щоб показати дії"
                 },
                 "posted_via_application": "%s через %s",
@@ -553,7 +553,7 @@
             },
             "dashboard": {
                 "my_posts": "публікації",
-                "my_following": "following",
+                "my_following": "підписки",
                 "my_followers": "підписники",
                 "other_posts": "публікації",
                 "other_following": "підписок",
