@@ -132,6 +132,7 @@
 		D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099079294BC9390050219F /* PrivacyTableViewCell.swift */; };
 		D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809907B294D25510050219F /* PrivacyViewModel.swift */; };
 		D81439862AD415DE0071A88F /* AboutInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81439852AD415DE0071A88F /* AboutInstance.swift */; };
+		D81439882AD450A40071A88F /* AboutInstanceTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81439872AD450A40071A88F /* AboutInstanceTableViewDataSource.swift */; };
 		D81A22752AB4643200905D71 /* SearchResultsOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */; };
 		D81A22782AB4782400905D71 /* SearchResultOverviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */; };
 		D81A227B2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */; };
@@ -784,6 +785,7 @@
 		D8099079294BC9390050219F /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
 		D809907B294D25510050219F /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
 		D81439852AD415DE0071A88F /* AboutInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstance.swift; sourceTree = "<group>"; };
+		D81439872AD450A40071A88F /* AboutInstanceTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstanceTableViewDataSource.swift; sourceTree = "<group>"; };
 		D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsOverviewTableViewController.swift; sourceTree = "<group>"; };
 		D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultOverviewSection.swift; sourceTree = "<group>"; };
 		D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDefaultSectionTableViewCell.swift; sourceTree = "<group>"; };
@@ -1957,6 +1959,7 @@
 				D8FAAE402AD0475900DC1832 /* AboutInstanceTableViewHeader.swift */,
 				D8FAAE422AD047B200DC1832 /* AboutInstanceTableFooterView.swift */,
 				D81439852AD415DE0071A88F /* AboutInstance.swift */,
+				D81439872AD450A40071A88F /* AboutInstanceTableViewDataSource.swift */,
 			);
 			path = "Table View Components";
 			sourceTree = "<group>";
@@ -3325,7 +3328,7 @@
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
-				2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart.git" */,
+				2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3882,6 +3885,7 @@
 				DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */,
 				0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */,
 				6213AF5C28939C8A00BCADB6 /* BookmarkViewModel+State.swift in Sources */,
+				D81439882AD450A40071A88F /* AboutInstanceTableViewDataSource.swift in Sources */,
 				D807C6C029DE197900A4E17C /* EducationViewController.swift in Sources */,
 				2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */,
 				DBEFCD7B282A162400C0ABEA /* ReportReasonView.swift in Sources */,
@@ -5455,7 +5459,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart.git" */ = {
+		2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Bearologics/LightChart.git";
 			requirement = {
@@ -5476,7 +5480,7 @@
 		};
 		2AB5011A2992322500346092 /* LightChart */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart.git" */;
+			package = 2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */;
 			productName = LightChart;
 		};
 		357FEEAE29523D470021C9DC /* MastodonSDKDynamic */ = {

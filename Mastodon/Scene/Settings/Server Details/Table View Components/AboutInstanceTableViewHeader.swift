@@ -24,7 +24,7 @@ class AboutInstanceTableHeaderView: UIView {
             thumbnailImageView.topAnchor.constraint(equalTo: topAnchor),
             thumbnailImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor),
-            bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 24),
+            bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor),
             thumbnailImageView.heightAnchor.constraint(equalToConstant: 188),
         ]
 

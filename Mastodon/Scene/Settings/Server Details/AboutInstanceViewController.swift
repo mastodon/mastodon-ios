@@ -11,7 +11,7 @@ protocol AboutInstanceViewControllerDelegate: AnyObject {
 class AboutInstanceViewController: UIViewController {
 
     weak var delegate: AboutInstanceViewControllerDelegate?
-    var dataSource: UITableViewDiffableDataSource<AboutInstanceSection, AboutInstanceItem>?
+    var dataSource: AboutInstanceTableViewDataSource?
 
     let tableView: UITableView
     let headerView: AboutInstanceTableHeaderView
@@ -30,7 +30,7 @@ class AboutInstanceViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        let dataSource = UITableViewDiffableDataSource<AboutInstanceSection, AboutInstanceItem>(tableView: tableView) { tableView, indexPath, itemIdentifier in
+        let dataSource = AboutInstanceTableViewDataSource(tableView: tableView) { tableView, indexPath, itemIdentifier in
             switch itemIdentifier {
 
                 case .adminAccount(let account):
