@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonSDK
+import MastodonLocalization
 import MetaTextKit
 
 enum ServerDetailsTab: Int, CaseIterable {
@@ -10,16 +11,13 @@ enum ServerDetailsTab: Int, CaseIterable {
 
     var title: String {
         switch self {
-                //TODO: Add localization @zeitschlag
-            case .about: return "About"
-            case .rules: return "Rules"
+            case .about: return L10n.Scene.Settings.ServerDetails.about
+            case .rules: return L10n.Scene.Settings.ServerDetails.rules
         }
     }
 }
 
-protocol ServerDetailsViewControllerDelegate: AnyObject {
-
-}
+protocol ServerDetailsViewControllerDelegate: AnyObject {}
 
 class ServerDetailsViewController: UIViewController {
 

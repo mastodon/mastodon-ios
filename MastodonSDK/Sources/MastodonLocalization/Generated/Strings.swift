@@ -1416,10 +1416,6 @@ public enum L10n {
       }
     }
     public enum Settings {
-      public enum AboutInstance {
-        /// Message Admin
-        public static let messageAdmin = L10n.tr("Localizable", "Scene.Settings.AboutInstance.MessageAdmin", fallback: "Message Admin")
-      }
       public enum AboutMastodon {
         /// Clear Media Storage
         public static let clearMediaStorage = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.ClearMediaStorage", fallback: "Clear Media Storage")
@@ -1596,6 +1592,18 @@ public enum L10n {
           public static let signout = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Signout", fallback: "Sign Out")
           /// The Spicy Zone
           public static let title = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Title", fallback: "The Spicy Zone")
+        }
+      }
+      public enum ServerDetails {
+        /// About
+        public static let about = L10n.tr("Localizable", "Scene.Settings.ServerDetails.About", fallback: "About")
+        /// Rules
+        public static let rules = L10n.tr("Localizable", "Scene.Settings.ServerDetails.Rules", fallback: "Rules")
+        public enum AboutInstance {
+          /// Message Admin
+          public static let messageAdmin = L10n.tr("Localizable", "Scene.Settings.ServerDetails.AboutInstance.MessageAdmin", fallback: "Message Admin")
+          /// Administrator
+          public static let title = L10n.tr("Localizable", "Scene.Settings.ServerDetails.AboutInstance.Title", fallback: "Administrator")
         }
       }
     }

@@ -9,6 +9,8 @@ class AboutInstanceTableViewDataSource: UITableViewDiffableDataSource<AboutInsta
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Administrator".uppercased()
+        guard let section = AboutInstanceSection(rawValue: section) else { return nil }
+
+        return section.title.uppercased()
     }
 }

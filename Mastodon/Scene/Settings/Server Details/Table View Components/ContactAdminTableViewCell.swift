@@ -14,7 +14,7 @@ class ContactAdminTableViewCell: UITableViewCell {
         configuration.textProperties.color = Asset.Colors.Brand.blurple.color
         configuration.image = UIImage(systemName: "envelope")
         configuration.imageProperties.tintColor = Asset.Colors.Brand.blurple.color
-        configuration.text = L10n.Scene.Settings.AboutInstance.messageAdmin
+        configuration.text = L10n.Scene.Settings.ServerDetails.AboutInstance.messageAdmin
 
         contentConfiguration = configuration
     }
