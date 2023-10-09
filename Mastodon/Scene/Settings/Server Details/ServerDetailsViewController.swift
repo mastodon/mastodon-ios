@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonSDK
+import MetaTextKit
 
 enum ServerDetailsTab: Int, CaseIterable {
     case about = 0
@@ -22,10 +23,11 @@ protocol ServerDetailsViewControllerDelegate: AnyObject {
 
 class ServerDetailsViewController: UIViewController {
 
-    weak var delegate: (ServerDetailsViewControllerDelegate & AboutInstanceViewControllerDelegate & InstanceRulesViewControllerDelegate)? {
+    weak var delegate: (ServerDetailsViewControllerDelegate & AboutInstanceViewControllerDelegate & InstanceRulesViewControllerDelegate & MetaLabelDelegate)? {
         didSet {
             aboutInstanceViewController.delegate = delegate
             instanceRulesViewController.delegate = delegate
+            aboutInstanceViewController.footerView.contentLabel.linkDelegate = delegate
         }
     }
     let pageController: UIPageViewController
@@ -120,6 +122,10 @@ class ServerDetailsViewController: UIViewController {
     func update(with instance: Mastodon.Entity.V2.Instance) {
         aboutInstanceViewController.update(with: instance)
         instanceRulesViewController.update(with: instance)
+    }
+
+    func updateFooter(with extendedDescription: Mastodon.Entity.ExtendedDescription) {
+        aboutInstanceViewController.updateFooter(with: extendedDescription)
     }
 }
 

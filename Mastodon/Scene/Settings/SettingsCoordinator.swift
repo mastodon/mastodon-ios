@@ -6,6 +6,7 @@ import MastodonCore
 import CoreDataStack
 import MastodonSDK
 import Combine
+import MetaTextKit
 
 protocol SettingsCoordinatorDelegate: AnyObject {
     func logout(_ settingsCoordinator: SettingsCoordinator)
@@ -79,6 +80,15 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                         serverDetailsViewController.update(with: content.value)
                     }
                     .store(in: &disposeBag)
+
+                appContext.apiService.extendedDescription(domain: domain)
+                    .sink { _ in
+
+                    } receiveValue: { content in
+                        serverDetailsViewController.updateFooter(with: content.value)
+                    }
+                    .store(in: &disposeBag)
+
 
                 navigationController.pushViewController(serverDetailsViewController, animated: true)
             case .aboutMastodon:
@@ -227,4 +237,30 @@ extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
 
 extension SettingsCoordinator: InstanceRulesViewControllerDelegate {
     
+}
+
+extension SettingsCoordinator: MetaLabelDelegate {
+    @MainActor
+    func metaLabel(_ metaLabel: MetaLabel, didSelectMeta meta: Meta) {
+        switch meta {
+            case .url(_, _, let url, _):
+                guard let url = URL(string: url) else { return }
+                _ = sceneCoordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+            case .mention(_, _, let userInfo):
+                guard let href = userInfo?["href"] as? String,
+                      let url = URL(string: href) else { return }
+                _ = sceneCoordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+            case .hashtag(_, let hashtag, _):
+                let hashtagTimelineViewModel = HashtagTimelineViewModel(context: appContext, authContext: authContext, hashtag: hashtag)
+                _ = sceneCoordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
+            case .email(let email, _):
+                if let emailUrl = URL(string: "mailto:\(email)"), UIApplication.shared.canOpenURL(emailUrl) {
+                    UIApplication.shared.open(emailUrl)
+                }
+            case .emoji:
+                break
+        }
+    }
+
+
 }

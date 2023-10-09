@@ -9,12 +9,14 @@ protocol AboutInstanceViewControllerDelegate: AnyObject {
 }
 
 class AboutInstanceViewController: UIViewController {
-    
+
     weak var delegate: AboutInstanceViewControllerDelegate?
     var dataSource: UITableViewDiffableDataSource<AboutInstanceSection, AboutInstanceItem>?
 
     let tableView: UITableView
     let headerView: AboutInstanceTableHeaderView
+    let footerView: AboutInstanceTableFooterView
+
     var instance: Mastodon.Entity.V2.Instance?
 
     init() {
@@ -24,6 +26,8 @@ class AboutInstanceViewController: UIViewController {
         tableView.register(AdminTableViewCell.self, forCellReuseIdentifier: AdminTableViewCell.reuseIdentifier)
 
         headerView = AboutInstanceTableHeaderView()
+        footerView = AboutInstanceTableFooterView()
+
         super.init(nibName: nil, bundle: nil)
 
         let dataSource = UITableViewDiffableDataSource<AboutInstanceSection, AboutInstanceItem>(tableView: tableView) { tableView, indexPath, itemIdentifier in
@@ -72,14 +76,23 @@ class AboutInstanceViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.tableHeaderView = headerView
+        tableView.tableFooterView = footerView
+
+        headerView.frame.size.height = 1
+        footerView.frame.size.height = 2
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
-        if let tableFooterView = tableView.tableHeaderView {
+        if let tableHeaderView = tableView.tableHeaderView {
+            tableHeaderView.frame.size = tableHeaderView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            tableView.tableHeaderView = tableHeaderView
+        }
+
+        if let tableFooterView = tableView.tableFooterView {
             tableFooterView.frame.size = tableFooterView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-            tableView.tableHeaderView = tableFooterView
+            tableView.tableFooterView = tableFooterView
         }
 
         super.viewWillLayoutSubviews()
@@ -112,6 +125,16 @@ class AboutInstanceViewController: UIViewController {
                         self?.headerView.layoutIfNeeded()
                     }
                 }
+            }
+        }
+    }
+
+    func updateFooter(with extendedDescription: Mastodon.Entity.ExtendedDescription) {
+        DispatchQueue.main.async {
+            self.footerView.update(with: extendedDescription)
+            if let tableFooterView = self.tableView.tableFooterView {
+                tableFooterView.frame.size = tableFooterView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
+                self.tableView.tableFooterView = tableFooterView
             }
         }
     }

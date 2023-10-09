@@ -178,6 +178,7 @@
 		D8FAAE3D2AD042E700DC1832 /* AdminTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FAAE3C2AD042E700DC1832 /* AdminTableViewCell.swift */; };
 		D8FAAE3F2AD0430E00DC1832 /* ContactAdminTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FAAE3E2AD0430E00DC1832 /* ContactAdminTableViewCell.swift */; };
 		D8FAAE412AD0475900DC1832 /* AboutInstanceTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FAAE402AD0475900DC1832 /* AboutInstanceTableViewHeader.swift */; };
+		D8FAAE432AD047B200DC1832 /* AboutInstanceTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FAAE422AD047B200DC1832 /* AboutInstanceTableFooterView.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */; };
@@ -843,6 +844,7 @@
 		D8FAAE3C2AD042E700DC1832 /* AdminTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTableViewCell.swift; sourceTree = "<group>"; };
 		D8FAAE3E2AD0430E00DC1832 /* ContactAdminTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAdminTableViewCell.swift; sourceTree = "<group>"; };
 		D8FAAE402AD0475900DC1832 /* AboutInstanceTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstanceTableViewHeader.swift; sourceTree = "<group>"; };
+		D8FAAE422AD047B200DC1832 /* AboutInstanceTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstanceTableFooterView.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivityProvider.swift; sourceTree = "<group>"; };
@@ -1953,6 +1955,7 @@
 				D8FAAE3C2AD042E700DC1832 /* AdminTableViewCell.swift */,
 				D8FAAE3E2AD0430E00DC1832 /* ContactAdminTableViewCell.swift */,
 				D8FAAE402AD0475900DC1832 /* AboutInstanceTableViewHeader.swift */,
+				D8FAAE422AD047B200DC1832 /* AboutInstanceTableFooterView.swift */,
 				D81439852AD415DE0071A88F /* AboutInstance.swift */,
 			);
 			path = "Table View Components";
@@ -3664,6 +3667,7 @@
 				DBDFF1902805543100557A48 /* DiscoveryPostsViewController.swift in Sources */,
 				DB697DD9278F4CED004EF2F7 /* HomeTimelineViewController+DataSourceProvider.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
+				D8FAAE432AD047B200DC1832 /* AboutInstanceTableFooterView.swift in Sources */,
 				D808B94E296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				D852C23E2AC5D03300309232 /* InstanceRulesViewController.swift in Sources */,
