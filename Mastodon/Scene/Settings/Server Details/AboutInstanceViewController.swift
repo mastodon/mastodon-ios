@@ -14,6 +14,7 @@ class AboutInstanceViewController: UIViewController {
     var dataSource: UITableViewDiffableDataSource<AboutInstanceSection, AboutInstanceItem>?
 
     let tableView: UITableView
+    let headerView: AboutInstanceTableHeaderView
     var instance: Mastodon.Entity.V2.Instance?
 
     init() {
@@ -21,6 +22,8 @@ class AboutInstanceViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ContactAdminTableViewCell.self, forCellReuseIdentifier: ContactAdminTableViewCell.reuseIdentifier)
         tableView.register(AdminTableViewCell.self, forCellReuseIdentifier: AdminTableViewCell.reuseIdentifier)
+
+        headerView = AboutInstanceTableHeaderView()
         super.init(nibName: nil, bundle: nil)
 
         let dataSource = UITableViewDiffableDataSource<AboutInstanceSection, AboutInstanceItem>(tableView: tableView) { tableView, indexPath, itemIdentifier in
@@ -65,6 +68,23 @@ class AboutInstanceViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.tableHeaderView = headerView
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        if let tableFooterView = tableView.tableHeaderView {
+            tableFooterView.frame.size = tableFooterView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            tableView.tableHeaderView = tableFooterView
+        }
+
+        super.viewWillLayoutSubviews()
+    }
+
     func update(with instance: Mastodon.Entity.V2.Instance) {
 
         self.instance = instance
@@ -80,19 +100,28 @@ class AboutInstanceViewController: UIViewController {
         }
 
         dataSource?.apply(snapshot, animatingDifferences: false)
-    }
-        //TODO: Implement
+
+        guard let thumbnailUrlString = instance.thumbnail?.url, let thumbnailUrl = URL(string: thumbnailUrlString) else { return }
+
+        DispatchQueue.main.async {
+            self.headerView.updateImage(with: thumbnailUrl) { [weak self] in
+                DispatchQueue.main.async {
+                    if self?.tableView.tableHeaderView == nil {
+
+                        self?.headerView.setNeedsLayout()
+                        self?.headerView.layoutIfNeeded()
+                    }
+                }
+            }
+        }
     }
 }
 
 extension AboutInstanceViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: Implement
-
         guard let snapshot = dataSource?.snapshot() else {
             return tableView.deselectRow(at: indexPath, animated: true)
         }
-
 
         switch snapshot.itemIdentifiers(inSection: .main)[indexPath.row] {
             case .adminAccount(let account):
@@ -100,7 +129,6 @@ extension AboutInstanceViewController: UITableViewDelegate {
             case .contactAdmin(let email):
                 delegate?.sendEmailToAdmin(self, emailAddress: email)
         }
-
 
         tableView.deselectRow(at: indexPath, animated: true)
     }

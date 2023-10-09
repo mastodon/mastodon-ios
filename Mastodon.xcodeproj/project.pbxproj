@@ -177,6 +177,7 @@
 		D8F917142A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917132A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift */; };
 		D8FAAE3D2AD042E700DC1832 /* AdminTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FAAE3C2AD042E700DC1832 /* AdminTableViewCell.swift */; };
 		D8FAAE3F2AD0430E00DC1832 /* ContactAdminTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FAAE3E2AD0430E00DC1832 /* ContactAdminTableViewCell.swift */; };
+		D8FAAE412AD0475900DC1832 /* AboutInstanceTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FAAE402AD0475900DC1832 /* AboutInstanceTableViewHeader.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */; };
@@ -841,6 +842,7 @@
 		D8F917132A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsDiffableTableViewDataSource.swift; sourceTree = "<group>"; };
 		D8FAAE3C2AD042E700DC1832 /* AdminTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTableViewCell.swift; sourceTree = "<group>"; };
 		D8FAAE3E2AD0430E00DC1832 /* ContactAdminTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAdminTableViewCell.swift; sourceTree = "<group>"; };
+		D8FAAE402AD0475900DC1832 /* AboutInstanceTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstanceTableViewHeader.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivityProvider.swift; sourceTree = "<group>"; };
@@ -1950,6 +1952,7 @@
 			children = (
 				D8FAAE3C2AD042E700DC1832 /* AdminTableViewCell.swift */,
 				D8FAAE3E2AD0430E00DC1832 /* ContactAdminTableViewCell.swift */,
+				D8FAAE402AD0475900DC1832 /* AboutInstanceTableViewHeader.swift */,
 				D81439852AD415DE0071A88F /* AboutInstance.swift */,
 			);
 			path = "Table View Components";
@@ -3711,6 +3714,7 @@
 				DBFEEC9D279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift in Sources */,
 				DB3E6FEC2806D7F100B035AE /* DiscoveryNewsViewController.swift in Sources */,
 				DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */,
+				D8FAAE412AD0475900DC1832 /* AboutInstanceTableViewHeader.swift in Sources */,
 				2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */,
 				2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */,
 				DB603113279EBEBA00A935FE /* DataSourceFacade+Block.swift in Sources */,
