@@ -131,6 +131,7 @@
 		D8099078294BC8A30050219F /* PrivacyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099077294BC8A30050219F /* PrivacyTableViewController.swift */; };
 		D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099079294BC9390050219F /* PrivacyTableViewCell.swift */; };
 		D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809907B294D25510050219F /* PrivacyViewModel.swift */; };
+		D81439862AD415DE0071A88F /* AboutInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81439852AD415DE0071A88F /* AboutInstance.swift */; };
 		D81A22752AB4643200905D71 /* SearchResultsOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */; };
 		D81A22782AB4782400905D71 /* SearchResultOverviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */; };
 		D81A227B2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */; };
@@ -174,6 +175,8 @@
 		D8F917112A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917102A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift */; };
 		D8F917122A4C6B67008A5370 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A832A4468A800C0FB73 /* GeneralSettingsViewController.swift */; };
 		D8F917142A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F917132A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift */; };
+		D8FAAE3D2AD042E700DC1832 /* AdminTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FAAE3C2AD042E700DC1832 /* AdminTableViewCell.swift */; };
+		D8FAAE3F2AD0430E00DC1832 /* ContactAdminTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FAAE3E2AD0430E00DC1832 /* ContactAdminTableViewCell.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */; };
@@ -778,6 +781,7 @@
 		D8099077294BC8A30050219F /* PrivacyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewController.swift; sourceTree = "<group>"; };
 		D8099079294BC9390050219F /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
 		D809907B294D25510050219F /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
+		D81439852AD415DE0071A88F /* AboutInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstance.swift; sourceTree = "<group>"; };
 		D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsOverviewTableViewController.swift; sourceTree = "<group>"; };
 		D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultOverviewSection.swift; sourceTree = "<group>"; };
 		D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDefaultSectionTableViewCell.swift; sourceTree = "<group>"; };
@@ -835,6 +839,8 @@
 		D8F9170E2A4B47EF008A5370 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		D8F917102A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingToggleTableViewCell.swift; sourceTree = "<group>"; };
 		D8F917132A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsDiffableTableViewDataSource.swift; sourceTree = "<group>"; };
+		D8FAAE3C2AD042E700DC1832 /* AdminTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTableViewCell.swift; sourceTree = "<group>"; };
+		D8FAAE3E2AD0430E00DC1832 /* ContactAdminTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAdminTableViewCell.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivityProvider.swift; sourceTree = "<group>"; };
@@ -1785,6 +1791,7 @@
 		D80911062AC4BFD100EB4D15 /* Server Details */ = {
 			isa = PBXGroup;
 			children = (
+				D8FAAE3B2AD042CD00DC1832 /* Table View Components */,
 				D80911072AC4BFDE00EB4D15 /* ServerDetailsViewController.swift */,
 				D852C23B2AC5D02C00309232 /* AboutInstanceViewController.swift */,
 				D852C23D2AC5D03300309232 /* InstanceRulesViewController.swift */,
@@ -1936,6 +1943,16 @@
 				D8F9170C2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift */,
 			);
 			path = "About Mastodon";
+			sourceTree = "<group>";
+		};
+		D8FAAE3B2AD042CD00DC1832 /* Table View Components */ = {
+			isa = PBXGroup;
+			children = (
+				D8FAAE3C2AD042E700DC1832 /* AdminTableViewCell.swift */,
+				D8FAAE3E2AD0430E00DC1832 /* ContactAdminTableViewCell.swift */,
+				D81439852AD415DE0071A88F /* AboutInstance.swift */,
+			);
+			path = "Table View Components";
 			sourceTree = "<group>";
 		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
@@ -3640,6 +3657,7 @@
 				DB697DD6278F4C29004EF2F7 /* DataSourceProvider.swift in Sources */,
 				DB0FCB8E2796C0B7006C02E2 /* TrendCollectionViewCell.swift in Sources */,
 				0F1E2D0B2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift in Sources */,
+				D81439862AD415DE0071A88F /* AboutInstance.swift in Sources */,
 				DBDFF1902805543100557A48 /* DiscoveryPostsViewController.swift in Sources */,
 				DB697DD9278F4CED004EF2F7 /* HomeTimelineViewController+DataSourceProvider.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
@@ -3664,6 +3682,7 @@
 				DBDFF19C28055BD600557A48 /* DiscoveryViewModel.swift in Sources */,
 				DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */,
 				DB3E6FF32806D97400B035AE /* DiscoveryNewsViewModel+State.swift in Sources */,
+				D8FAAE3F2AD0430E00DC1832 /* ContactAdminTableViewCell.swift in Sources */,
 				DB6746ED278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift in Sources */,
 				DB0618032785A7100030EE79 /* RegisterSection.swift in Sources */,
 				DB63F76B279A5ED300455B82 /* NotificationTimelineViewModel+LoadOldestState.swift in Sources */,
@@ -3938,6 +3957,7 @@
 				DB3E6FE42806A5B800B035AE /* DiscoverySection.swift in Sources */,
 				DB697DDB278F4DE3004EF2F7 /* DataSourceProvider+StatusTableViewCellDelegate.swift in Sources */,
 				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,
+				D8FAAE3D2AD042E700DC1832 /* AdminTableViewCell.swift in Sources */,
 				DBB45B5627B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift in Sources */,
 				D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */,
 				DB0FCB8027968F70006C02E2 /* MastodonStatusThreadViewModel.swift in Sources */,

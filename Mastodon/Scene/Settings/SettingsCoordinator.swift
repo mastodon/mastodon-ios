@@ -26,13 +26,15 @@ class SettingsCoordinator: NSObject, Coordinator {
     let appContext: AppContext
     let authContext: AuthContext
     var disposeBag = Set<AnyCancellable>()
+    let sceneCoordinator: SceneCoordinator
 
-    init(presentedOn: UIViewController, accountName: String, setting: Setting, appContext: AppContext, authContext: AuthContext) {
+    init(presentedOn: UIViewController, accountName: String, setting: Setting, appContext: AppContext, authContext: AuthContext, sceneCoordinator: SceneCoordinator) {
         self.presentedOn = presentedOn
         navigationController = UINavigationController()
         self.setting = setting
         self.appContext = appContext
         self.authContext = authContext
+        self.sceneCoordinator = sceneCoordinator
 
         settingsViewController = SettingsViewController(accountName: accountName, domain: authContext.mastodonAuthenticationBox.domain)
     }
@@ -204,7 +206,20 @@ extension SettingsCoordinator: ServerDetailsViewControllerDelegate {
 }
 
 extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
+    @MainActor func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account) {
 
+        //TODO: Get CoreData-profile from account
+
+        let profileViewModel = ProfileViewModel(context: appContext, authContext: authContext, optionalMastodonUser: nil)
+
+        sceneCoordinator.present(scene: .profile(viewModel: profileViewModel), transition: .show)
+    }
+    
+    func sendEmailToAdmin(_ viewController: AboutInstanceViewController, emailAddress: String) {
+        if let emailUrl = URL(string: "mailto:\(emailAddress)"), UIApplication.shared.canOpenURL(emailUrl) {
+            UIApplication.shared.open(emailUrl)
+        }
+    }
 }
 
 extension SettingsCoordinator: InstanceRulesViewControllerDelegate {
