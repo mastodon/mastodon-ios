@@ -51,7 +51,7 @@ extension Mastodon.API.Instance {
     }
 
     static func extendedDescriptionEndpointURL(domain: String) -> URL {
-        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("extended_description")
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("instance").appendingPathComponent("extended_description")
     }
 
     /// Extended description of the server
