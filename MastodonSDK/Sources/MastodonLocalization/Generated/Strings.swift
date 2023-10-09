@@ -1416,9 +1416,13 @@ public enum L10n {
       }
     }
     public enum Settings {
+      public enum AboutInstance {
+        /// Message Admin
+        public static let messageAdmin = L10n.tr("Localizable", "Scene.Settings.AboutInstance.MessageAdmin", fallback: "Message Admin")
+      }
       public enum AboutMastodon {
         /// Clear Media Storage
-        public static let cleaerMediaStorage = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.CleaerMediaStorage", fallback: "Clear Media Storage")
+        public static let clearMediaStorage = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.ClearMediaStorage", fallback: "Clear Media Storage")
         /// Contribute to Mastodon
         public static let contributeToMastodon = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.ContributeToMastodon", fallback: "Contribute to Mastodon")
         /// Even More Settings

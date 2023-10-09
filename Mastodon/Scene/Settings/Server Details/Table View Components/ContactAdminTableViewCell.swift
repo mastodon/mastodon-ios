@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonAsset
+import MastodonLocalization
 
 class ContactAdminTableViewCell: UITableViewCell {
 
@@ -13,7 +14,7 @@ class ContactAdminTableViewCell: UITableViewCell {
         configuration.textProperties.color = Asset.Colors.Brand.blurple.color
         configuration.image = UIImage(systemName: "envelope")
         configuration.imageProperties.tintColor = Asset.Colors.Brand.blurple.color
-        configuration.text = "Contact Admin"
+        configuration.text = L10n.Scene.Settings.AboutInstance.messageAdmin
 
         contentConfiguration = configuration
     }

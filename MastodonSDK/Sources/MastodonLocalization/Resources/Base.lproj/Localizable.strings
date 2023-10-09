@@ -535,7 +535,9 @@ uploaded to Mastodon.";
 "Scene.Settings.AboutMastodon.MoreSettings" = "Even More Settings";
 "Scene.Settings.AboutMastodon.ContributeToMastodon" = "Contribute to Mastodon";
 "Scene.Settings.AboutMastodon.PrivacyPolicy" = "Privacy Policy";
-"Scene.Settings.AboutMastodon.CleaerMediaStorage" = "Clear Media Storage";
+"Scene.Settings.AboutMastodon.ClearMediaStorage" = "Clear Media Storage";
+
+"Scene.Settings.AboutInstance.MessageAdmin" = "Message Admin";
 
 "Scene.Settings.General.Title" = "General";
 "Scene.Settings.General.Appearance.SectionTitle" = "Appearance";
