@@ -31,6 +31,14 @@ Update certificates
 
 Update devices
 
+### ios build_only
+
+```sh
+[bundle exec] fastlane ios build_only
+```
+
+
+
 ### ios deploy_appstore
 
 ```sh

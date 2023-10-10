@@ -3,15 +3,15 @@ name: CI
 on:
   push:
     branches:
-    - master
-    - develop
-    - feature/*
-    - feature-*
-    - issue/*
-    - issue-*
+      - master
+      - develop
+      - feature/*
+      - feature-*
+      - issue/*
+      - issue-*
   pull_request:
     branches:
-    - develop
+      - develop
 
 # macOS environments: https://github.com/actions/virtual-environments/tree/main/images/macos
 
@@ -20,12 +20,12 @@ jobs:
     name: CI build
     runs-on: macos-13
     steps:
-      - name: checkout
+      - name: Repository
         uses: actions/checkout@v2
-      - name: setup
-        env: 
+      - name: Setup Build Environment
+        env:
           NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
-      - name: build
-        run: exec ./.github/scripts/build.sh
+      - name: Build App
+        run: bundle exec fastlane ios build_only
