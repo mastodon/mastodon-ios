@@ -1,13 +1,15 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonAsset
 import AlamofireImage
 
 class AboutInstanceTableHeaderView: UIView {
     let thumbnailImageView: UIImageView
 
     init() {
-        thumbnailImageView = UIImageView()
+        thumbnailImageView = UIImageView(image: Asset.Settings.aboutInstancePlaceholder.image)
+        thumbnailImageView.contentMode = .scaleAspectFill
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(frame: .zero)
@@ -24,14 +26,15 @@ class AboutInstanceTableHeaderView: UIView {
             thumbnailImageView.topAnchor.constraint(equalTo: topAnchor),
             thumbnailImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor),
-            bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor),
-            thumbnailImageView.heightAnchor.constraint(equalToConstant: 188),
+            bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 16),
         ]
 
         NSLayoutConstraint.activate(constraints)
     }
 
     func updateImage(with thumbnailURL: URL, completion: (() -> Void)? = nil) {
-        thumbnailImageView.af.setImage(withURL: thumbnailURL)
+        thumbnailImageView.af.setImage(withURL: thumbnailURL, placeholderImage: Asset.Settings.aboutInstancePlaceholder.image, completion: { _ in
+            completion?()
+        })
     }
 }

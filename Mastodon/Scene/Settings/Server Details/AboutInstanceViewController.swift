@@ -86,12 +86,14 @@ class AboutInstanceViewController: UIViewController {
         super.viewWillLayoutSubviews()
 
         if let tableHeaderView = tableView.tableHeaderView {
-            tableHeaderView.frame.size = tableHeaderView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            let size = tableHeaderView.systemLayoutSizeFitting(.init(width: self.tableView.frame.width, height: 10_000))
+            tableHeaderView.frame.size = size
             tableView.tableHeaderView = tableHeaderView
         }
 
         if let tableFooterView = tableView.tableFooterView {
-            tableFooterView.frame.size = tableFooterView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            let size = tableFooterView.systemLayoutSizeFitting(.init(width: self.tableView.frame.width, height: 10_000))
+            tableFooterView.frame.size = size
             tableView.tableFooterView = tableFooterView
         }
 
@@ -119,11 +121,10 @@ class AboutInstanceViewController: UIViewController {
         DispatchQueue.main.async {
             self.headerView.updateImage(with: thumbnailUrl) { [weak self] in
                 DispatchQueue.main.async {
-                    if self?.tableView.tableHeaderView == nil {
+                    guard let self else { return }
 
-                        self?.headerView.setNeedsLayout()
-                        self?.headerView.layoutIfNeeded()
-                    }
+                    self.view.setNeedsLayout()
+                    self.view.layoutIfNeeded()
                 }
             }
         }
@@ -132,10 +133,9 @@ class AboutInstanceViewController: UIViewController {
     func updateFooter(with extendedDescription: Mastodon.Entity.ExtendedDescription) {
         DispatchQueue.main.async {
             self.footerView.update(with: extendedDescription)
-            if let tableFooterView = self.tableView.tableFooterView {
-                tableFooterView.frame.size = tableFooterView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
-                self.tableView.tableFooterView = tableFooterView
-            }
+
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
         }
     }
 }

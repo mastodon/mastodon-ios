@@ -33,17 +33,17 @@ class AboutInstanceTableFooterView: UIView {
     private func setupConstraints() {
 
         let horizontalMargin = 16.0
+        let verticalMargin = 24.0
 
         let constraints = [
-            headlineLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+            headlineLabel.topAnchor.constraint(equalTo: topAnchor, constant: verticalMargin),
             headlineLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontalMargin),
             trailingAnchor.constraint(equalTo: headlineLabel.trailingAnchor, constant: horizontalMargin),
 
             contentLabel.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: 8),
             contentLabel.leadingAnchor.constraint(equalTo: headlineLabel.leadingAnchor),
             contentLabel.trailingAnchor.constraint(equalTo: headlineLabel.trailingAnchor),
-//            contentLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 3000),
-            bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor),
+            bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: verticalMargin),
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -51,11 +51,16 @@ class AboutInstanceTableFooterView: UIView {
 
     func update(with extendedDescription: Mastodon.Entity.ExtendedDescription) {
         headlineLabel.text = "A legal notice"
-        
-        if let metaContent = try? MastodonMetaContent.convert(document: MastodonContent(content: extendedDescription.content, emojis: [:])) {
+
+        let content = extendedDescription.content
+            .replacingOccurrences(of: "<br>", with: "\n")
+            .replacingOccurrences(of: "\n\n", with: "\n")
+
+
+        if let metaContent = try? MastodonMetaContent.convert(document: MastodonContent(content: content, emojis: [:])) {
             contentLabel.configure(content: metaContent)
         } else {
-            let content = PlaintextMetaContent(string: extendedDescription.content)
+            let content = PlaintextMetaContent(string: content)
             contentLabel.configure(content: content)
         }
     }
