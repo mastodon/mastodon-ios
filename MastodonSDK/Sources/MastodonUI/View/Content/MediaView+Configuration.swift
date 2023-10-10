@@ -181,23 +181,29 @@ extension MediaView.Configuration {
 extension MediaView {
     public static func configuration(status: StatusCompatible) -> [MediaView.Configuration] {
         func videoInfo(from attachment: Mastodon.Entity.Attachment) -> MediaView.Configuration.VideoInfo {
-            MediaView.Configuration.VideoInfo(
-                aspectRadio: attachment.meta?.original?.size,
-                assetURL: attachment.assetURL,
+            let aspectRadio: CGSize = {
+                guard
+                    let width = attachment.meta?.original?.width,
+                    let height = attachment.meta?.original?.height
+                else {
+                    return .zero
+                }
+                return CGSize(width: width, height: height)
+            }()
+            return MediaView.Configuration.VideoInfo(
+                aspectRadio: aspectRadio,
+                assetURL: attachment.url,
                 previewURL: attachment.previewURL,
-                altDescription: attachment.altDescription,
-                durationMS: attachment.durationMS
+                altDescription: attachment.description,
+                durationMS: Int(attachment.meta?.duration ?? 0)
             )
         }
         
         let status: StatusCompatible = status.reblog != nil ? .from(status: status.reblog!) : status
         let attachments = status.mediaAttachments
         let configurations = attachments?.enumerated().compactMap { (idx, attachment) -> MediaView.Configuration? in
-            guard let attachmentKind = attachment.attachmentKind else {
-                return nil
-            }
             let configuration: MediaView.Configuration? = {
-                switch attachment.attachmentKind {
+                switch attachment.type {
                 case .image:
                     let info = MediaView.Configuration.ImageInfo(
                         aspectRadio: {
@@ -253,6 +259,6 @@ extension MediaView {
             return configuration
         }
         
-        return configurations
+        return configurations ?? []
     }
 }

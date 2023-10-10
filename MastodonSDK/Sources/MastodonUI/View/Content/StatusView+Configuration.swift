@@ -33,13 +33,13 @@ extension StatusView {
         let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
         configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
         configureApplicationName(status.application?.name)
-        configureMedia(status: status)
+        configureMedia(status: .from(status: status))
         configurePollHistory(statusEdit: statusEdit)
         configureCard(status: status)
         configureToolbar(status: status)
         configureFilter(status: status)
         configureContent(statusEdit: statusEdit, status: status)
-        configureMedia(status: statusEdit)
+        configureMedia(status: .from(statusEdit: statusEdit))
         actionToolbarAdaptiveMarginContainerView.isHidden = true
         authorView.menuButton.isHidden = true
         headerAdaptiveMarginContainerView.isHidden = true
@@ -48,19 +48,19 @@ extension StatusView {
     }
 
     public func configure(status: Mastodon.Entity.Status) {
-        viewModel.objects.insert(status)
+        viewModel.objects.append(status)
         if let reblog = status.reblog {
-            viewModel.objects.insert(reblog)
+            viewModel.objects.append(reblog)
         }
 
         configureHeader(status: status)
-        let author = (status.reblog ?? status).author
+        let author = (status.reblog ?? status).account
         configureAuthor(author: author)
         let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
         configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
         configureApplicationName(status.application?.name)
         configureContent(status: status)
-        configureMedia(status: status)
+        configureMedia(status: .from(status: status))
         configurePoll(status: status)
         configureCard(status: status)
         configureToolbar(status: status)
@@ -87,8 +87,8 @@ extension StatusView {
                 status.account.publisher(for: \.emojis)
             )
             .map { name, emojis -> StatusView.ViewModel.Header in
-                let text = L10n.Common.Controls.Status.userReblogged(status.author.displayNameWithFallback)
-                let content = MastodonContent(content: text, emojis: emojis.asDictionary)
+                let text = L10n.Common.Controls.Status.userReblogged(status.account.displayNameWithFallback)
+                let content = MastodonContent(content: text, emojis: emojis?.asDictionary ?? [:])
                 do {
                     let metaContent = try MastodonMetaContent.convert(document: content)
                     return .repost(info: .init(header: metaContent))

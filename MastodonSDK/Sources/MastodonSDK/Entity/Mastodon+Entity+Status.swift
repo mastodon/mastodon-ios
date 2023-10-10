@@ -60,6 +60,8 @@ extension Mastodon.Entity {
         public let bookmarked: Bool?
         public let pinned: Bool?
         
+        // Computed Properties
+        public var translatedContent: String? = nil
         
         enum CodingKeys: String, CodingKey {
             case id
