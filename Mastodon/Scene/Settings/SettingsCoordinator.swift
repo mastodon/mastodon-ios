@@ -168,16 +168,10 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
         })
         .store(in: &disposeBag)
     }
-
+    
     func showNotificationSettings(_ viewController: UIViewController) {
-        if #available(iOS 16.0, *) {
-            if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
-                UIApplication.shared.open(url)
-            }
-        } else {
-            if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.open(url)
-            }
+        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
+            UIApplication.shared.open(url)
         }
     }
 }
