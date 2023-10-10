@@ -219,7 +219,7 @@ extension ComposeContentToolbarView {
 }
 
 extension Mastodon.Entity.Status.Visibility {
-    fileprivate var title: String {
+    public var title: String {
         switch self {
         case .public:               return L10n.Scene.Compose.Visibility.public
         case .unlisted:             return L10n.Scene.Compose.Visibility.unlisted
@@ -229,7 +229,7 @@ extension Mastodon.Entity.Status.Visibility {
         }
     }
     
-    fileprivate var image: UIImage {
+    public var image: UIImage {
         switch self {
         case .public:       return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
         case .unlisted:     return Asset.Scene.Compose.people.image.withRenderingMode(.alwaysTemplate)

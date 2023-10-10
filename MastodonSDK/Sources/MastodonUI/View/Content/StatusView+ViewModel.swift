@@ -8,7 +8,6 @@
 import UIKit
 import Combine
 import CoreData
-import CoreDataStack
 import Meta
 import MastodonAsset
 import MastodonCore
@@ -22,11 +21,11 @@ extension StatusView {
     public final class ViewModel: ObservableObject {
         var disposeBag = Set<AnyCancellable>()
         var observations = Set<NSKeyValueObservation>()
-        public var objects = Set<NSManagedObject>()
+        public var objects = [Mastodon.Entity.Status]()
 
         public var context: AppContext?
         public var authContext: AuthContext?
-        public var originalStatus: Status?
+        public var originalStatus: Mastodon.Entity.Status?
 
         // Header
         @Published public var header: Header = .none
@@ -78,10 +77,10 @@ extension StatusView {
         @Published public var expired: Bool = false
 
         // Card
-        @Published public var card: Card?
+        @Published public var card: Mastodon.Entity.Card?
 
         // Visibility
-        @Published public var visibility: MastodonVisibility = .public
+        @Published public var visibility: Mastodon.Entity.Status.Visibility = .public
         
         // Sensitive
         @Published public var isContentSensitive: Bool = false
@@ -101,7 +100,7 @@ extension StatusView {
         @Published public var reblogCount: Int = 0
         @Published public var favoriteCount: Int = 0
 
-        @Published public var statusEdits: [StatusEdit] = []
+        @Published public var statusEdits: [Mastodon.Entity.StatusEdit] = []
         @Published public var editedAt: Date? = nil
         
         // Filter

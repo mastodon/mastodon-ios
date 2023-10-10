@@ -22,13 +22,13 @@ extension StatusView {
 extension StatusView {
 
     public func configure(status: Mastodon.Entity.Status, statusEdit: Mastodon.Entity.StatusEdit) {
-        viewModel.objects.insert(status)
+        viewModel.objects.append(status)
         if let reblog = status.reblog {
-            viewModel.objects.insert(reblog)
+            viewModel.objects.append(reblog)
         }
 
         configureHeader(status: status)
-        let author = (status.reblog ?? status).author
+        let author = (status.reblog ?? status).account
         configureAuthor(author: author)
         let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
         configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
@@ -83,8 +83,8 @@ extension StatusView {
     private func configureHeader(status: Mastodon.Entity.Status) {
         if let _ = status.reblog {
             Publishers.CombineLatest(
-                status.author.publisher(for: \.displayName),
-                status.author.publisher(for: \.emojis)
+                status.account.publisher(for: \.displayName),
+                status.account.publisher(for: \.emojis)
             )
             .map { name, emojis -> StatusView.ViewModel.Header in
                 let text = L10n.Common.Controls.Status.userReblogged(status.author.displayNameWithFallback)

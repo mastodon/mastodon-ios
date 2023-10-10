@@ -33,12 +33,12 @@ extension Persistence.StatusEdit {
 
         var entries: [StatusEdit] = []
 
-        for statusEdit in statusEdits {
-            let property = StatusEdit.Property(createdAt: statusEdit.createdAt, content: statusEdit.content, sensitive: statusEdit.sensitive, spoilerText: statusEdit.spoilerText, emojis: statusEdit.mastodonEmojis, attachments: statusEdit.mastodonAttachments, poll: statusEdit.poll.map { StatusEdit.Poll(options: $0.options.map { StatusEdit.Poll.Option(title: $0.title) } ) })
-            let statusEditEntry = StatusEdit.insert(into: managedObjectContext, property: property)
-
-            entries.append(statusEditEntry)
-        }
+//        for statusEdit in statusEdits {
+//            let property = StatusEdit.Property(createdAt: statusEdit.createdAt, content: statusEdit.content, sensitive: statusEdit.sensitive, spoilerText: statusEdit.spoilerText, emojis: statusEdit.mastodonEmojis, attachments: statusEdit.mastodonAttachments, poll: statusEdit.poll.map { StatusEdit.Poll(options: $0.options.map { StatusEdit.Poll.Option(title: $0.title) } ) })
+//            let statusEditEntry = StatusEdit.insert(into: managedObjectContext, property: property)
+//
+//            entries.append(statusEditEntry)
+//        }
 
         status.update(editHistory: Set(entries))
 

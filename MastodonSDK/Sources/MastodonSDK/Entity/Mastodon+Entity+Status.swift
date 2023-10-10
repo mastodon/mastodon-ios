@@ -17,8 +17,7 @@ extension Mastodon.Entity {
     ///   2021/2/23
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/status/)
-    public final class Status: Codable, Sendable {
-        
+    public final class Status: NSObject, Codable, Sendable {
         public typealias ID = String
 
         // Base
@@ -48,7 +47,7 @@ extension Mastodon.Entity {
         public let url: String?
         public let inReplyToID: Status.ID?
         public let inReplyToAccountID: Account.ID?
-        public let reblog: Status?
+        public let reblog: Mastodon.Entity.Status?
         public let poll: Poll?
         public let card: Card?
         public let language: String?        //  (ISO 639 Part 1 two-letter language code)

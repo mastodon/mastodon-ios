@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 import CoreData
-import CoreDataStack
+import MastodonSDK
 import Photos
 import AlamofireImage
 import MastodonCore
@@ -180,9 +180,9 @@ extension MediaView.Configuration {
 
 extension MediaView {
     public static func configuration(status: StatusCompatible) -> [MediaView.Configuration] {
-        func videoInfo(from attachment: MastodonAttachment) -> MediaView.Configuration.VideoInfo {
+        func videoInfo(from attachment: Mastodon.Entity.Attachment) -> MediaView.Configuration.VideoInfo {
             MediaView.Configuration.VideoInfo(
-                aspectRadio: attachment.size,
+                aspectRadio: attachment.meta?.original?.size,
                 assetURL: attachment.assetURL,
                 previewURL: attachment.previewURL,
                 altDescription: attachment.altDescription,
@@ -190,22 +190,33 @@ extension MediaView {
             )
         }
         
-        let status: StatusCompatible = status.reblog ?? status
-        let attachments = status.attachments
-        let configurations = attachments.enumerated().map { (idx, attachment) -> MediaView.Configuration in
-            let configuration: MediaView.Configuration = {
-                switch attachment.kind {
+        let status: StatusCompatible = status.reblog != nil ? .from(status: status.reblog!) : status
+        let attachments = status.mediaAttachments
+        let configurations = attachments?.enumerated().compactMap { (idx, attachment) -> MediaView.Configuration? in
+            guard let attachmentKind = attachment.attachmentKind else {
+                return nil
+            }
+            let configuration: MediaView.Configuration? = {
+                switch attachment.attachmentKind {
                 case .image:
                     let info = MediaView.Configuration.ImageInfo(
-                        aspectRadio: attachment.size,
-                        assetURL: attachment.assetURL,
-                        altDescription: attachment.altDescription
+                        aspectRadio: {
+                            guard
+                                let width = attachment.meta?.original?.width,
+                                let height = attachment.meta?.original?.height
+                            else {
+                                return CGSize(width: 32, height: 32)
+                            }
+                            return CGSize(width: width, height: height)
+                        }(),
+                        assetURL: attachment.url,
+                        altDescription: attachment.description
                     )
                     return .init(
                         info: .image(info: info),
                         blurhash: attachment.blurhash,
                         index: idx,
-                        total: attachments.count
+                        total: attachments?.count ?? 0
                     )
                 case .video:
                     let info = videoInfo(from: attachment)
@@ -213,7 +224,7 @@ extension MediaView {
                         info: .video(info: info),
                         blurhash: attachment.blurhash,
                         index: idx,
-                        total: attachments.count
+                        total: attachments?.count ?? 0
                     )
                 case .gifv:
                     let info = videoInfo(from: attachment)
@@ -221,7 +232,7 @@ extension MediaView {
                         info: .gif(info: info),
                         blurhash: attachment.blurhash,
                         index: idx,
-                        total: attachments.count
+                        total: attachments?.count ?? 0
                     )
                 case .audio:
                     let info = videoInfo(from: attachment)
@@ -229,13 +240,15 @@ extension MediaView {
                         info: .video(info: info),
                         blurhash: attachment.blurhash,
                         index: idx,
-                        total: attachments.count
+                        total: attachments?.count ?? 0
                     )
+                case .unknown, ._other:
+                    return nil
                 }   // end switch
             }()
             
-            configuration.load()
-            configuration.isReveal = status.isMediaSensitive ? status.isSensitiveToggled : true
+            configuration?.load()
+            configuration?.isReveal = status.isMediaSensitive ? status.isSensitiveToggled : true
             
             return configuration
         }

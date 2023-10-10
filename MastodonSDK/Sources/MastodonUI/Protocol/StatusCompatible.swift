@@ -1,27 +1,38 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
-import CoreDataStack
+import MastodonSDK
 
-public protocol StatusCompatible {
-    var reblog: Status? { get }
-    var attachments: [MastodonAttachment] { get }
-    var isMediaSensitive: Bool { get }
-    var isSensitiveToggled: Bool { get }
-}
-
-extension Status: StatusCompatible {}
-
-extension StatusEdit: StatusCompatible {
-    public var reblog: Status? {
-        nil
+public struct StatusCompatible {
+    let reblog: Mastodon.Entity.Status?
+    let mediaAttachments: [Mastodon.Entity.Attachment]?
+    let isMediaSensitive: Bool
+    var isSensitiveToggled: Bool
+    
+    static func from(status: Mastodon.Entity.Status) -> Self {
+        return StatusCompatible(
+            reblog: status.reblog,
+            mediaAttachments: status.mediaAttachments,
+            isMediaSensitive: status.sensitive ?? false,
+            isSensitiveToggled: false
+        )
     }
     
-    public var isMediaSensitive: Bool {
-        sensitive
+    static func from(statusEdit: Mastodon.Entity.StatusEdit) -> Self {
+        return StatusCompatible(
+            reblog: nil,
+            mediaAttachments: statusEdit.mediaAttachments,
+            isMediaSensitive: statusEdit.sensitive,
+            isSensitiveToggled: true
+        )
     }
     
-    public var isSensitiveToggled: Bool {
-        true
+    func toggleSensitive(_ on: Bool) -> Self {
+        return StatusCompatible(
+            reblog: reblog,
+            mediaAttachments: mediaAttachments,
+            isMediaSensitive: isMediaSensitive,
+            isSensitiveToggled: on
+        )
     }
 }
