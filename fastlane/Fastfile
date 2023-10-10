@@ -47,7 +47,11 @@ platform :ios do
   end
 
   lane :build_only do
-    xcodebuild(scheme: "Mastodon", workspace: "Mastodon.xcworkspace")
+    xcodebuild(
+      clean: true,
+      scheme: "Mastodon", 
+      workspace: "Mastodon.xcworkspace"
+    )
   end
 
   desc " Build and deploy the App to App Store Connect & TestFlight"
