@@ -6,6 +6,7 @@ import MastodonSDK
 import MastodonMeta
 import MastodonCore
 import MastodonAsset
+import MastodonLocalization
 
 class AboutInstanceTableFooterView: UIView {
     let headlineLabel: UILabel
@@ -50,7 +51,7 @@ class AboutInstanceTableFooterView: UIView {
     }
 
     func update(with extendedDescription: Mastodon.Entity.ExtendedDescription) {
-        headlineLabel.text = "A legal notice"
+        headlineLabel.text = L10n.Scene.Settings.ServerDetails.AboutInstance.legalNotice
 
         let content = extendedDescription.content
             .replacingOccurrences(of: "<br>", with: "\n")

@@ -541,6 +541,7 @@ uploaded to Mastodon.";
 "Scene.Settings.ServerDetails.Rules" = "Rules";
 "Scene.Settings.ServerDetails.AboutInstance.Title" = "Administrator";
 "Scene.Settings.ServerDetails.AboutInstance.MessageAdmin" = "Message Admin";
+"Scene.Settings.ServerDetails.AboutInstance.LegalNotice" = "A legal notice";
 
 "Scene.Settings.General.Title" = "General";
 "Scene.Settings.General.Appearance.SectionTitle" = "Appearance";

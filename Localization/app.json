@@ -732,7 +732,8 @@
                 "rules": "Rules"
                 "about_instance": {
                     "title": "Adminstrator"
-                    "message_admin": "Message Admin"
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
             "general": {

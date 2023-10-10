@@ -1600,6 +1600,8 @@ public enum L10n {
         /// Rules
         public static let rules = L10n.tr("Localizable", "Scene.Settings.ServerDetails.Rules", fallback: "Rules")
         public enum AboutInstance {
+          /// A legal notice
+          public static let legalNotice = L10n.tr("Localizable", "Scene.Settings.ServerDetails.AboutInstance.LegalNotice", fallback: "A legal notice")
           /// Message Admin
           public static let messageAdmin = L10n.tr("Localizable", "Scene.Settings.ServerDetails.AboutInstance.MessageAdmin", fallback: "Message Admin")
           /// Administrator
