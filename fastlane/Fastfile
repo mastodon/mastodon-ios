@@ -1,0 +1,80 @@
+opt_out_usage
+default_platform(:ios)
+
+$appName = "Mastodon"
+
+platform :ios do
+  before_all do |lane|
+    $bundle_id = "org.joinmastodon.app"
+    $all_bundle_ids = [
+      $bundle_id,
+      "org.joinmastodon.app.MastodonIntent", 
+      "org.joinmastodon.app.NotificationService", 
+      "org.joinmastodon.app.ShareActionExtension",
+      "org.joinmastodon.app.OpenInActionExtension",
+      "org.joinmastodon.app.WidgetExtension"
+    ]
+
+    lanes_for_building = [:deploy_appstore]
+
+    if lanes_for_building.include?(lane)
+      app_store_connect_api_key(
+        key_id: ENV["ITC_KEY_ID"],
+        issuer_id: ENV["ITC_ISSUER_ID"],
+        key_content: ENV["ITC_KEY"],
+        duration: 1200,
+        in_house: false
+      )
+      ensure_git_status_clean
+      $version_number = get_version_number_from_xcodeproj(target: $appName)
+      $build_number = get_build_number()
+      increment_build_number_in_xcodeproj(
+        xcodeproj: "#{$appName}.xcodeproj",
+        build_number: $build_number
+      )
+    end
+  end
+
+  desc "Update certificates"
+  lane :update_certificates do
+      match(type: "development", app_identifier: $all_bundle_ids, force_for_new_devices: true)
+      match(type: "appstore", app_identifier: $all_bundle_ids, force_for_new_devices: false)
+  end
+
+  desc "Update devices"
+  lane :update_devices do
+    register_devices(devices_file: "./fastlane/devices.txt")
+  end
+
+  lane :build_only do
+    xcodebuild(
+      clean: true,
+      scheme: "Mastodon", 
+      workspace: "Mastodon.xcworkspace"
+    )
+  end
+
+  desc " Build and deploy the App to App Store Connect & TestFlight"
+  lane :deploy_appstore do
+
+    if is_ci
+      create_keychain(name: "temp_keychain", password: "temp_123456", default_keychain: true, unlock: true, timeout: 3600, lock_when_sleeps: false)
+      match(type: "appstore", app_identifier: $all_bundle_ids, force_for_new_devices: true, readonly: true, keychain_name: "temp_keychain", keychain_password: "temp_123456")
+    else
+      match(type: "appstore", app_identifier: $all_bundle_ids, force_for_new_devices: true, readonly: false)
+    end
+
+    gym(workspace: "#{$appName}.xcworkspace",
+        scheme: "#{$appName}",
+        clean: true,
+        export_method: "app-store",
+        export_xcargs: "-allowProvisioningUpdates")
+    deliver(app_identifier: $bundle_id, skip_screenshots: true, skip_metadata: true)
+
+    sh("echo \"GITHUB_TAG_NAME=#{$version_number}-#{$build_number}\" >> $GITHUB_ENV")
+  end
+end
+
+def get_build_number
+    sh("git rev-list --count HEAD").chomp
+end
