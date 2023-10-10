@@ -75,6 +75,9 @@ class ServerDetailsViewController: UIViewController {
         setupConstraints()
 
         title = domain
+
+        setupNavigationBarAppearance()
+        setupNavigationBarBackgroundView()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -158,3 +161,5 @@ extension ServerDetailsViewController: UIPageViewControllerDelegate {
         }
     }
 }
+
+extension ServerDetailsViewController: OnboardingViewControllerAppearance {}
