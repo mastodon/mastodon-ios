@@ -77,9 +77,6 @@ class AboutInstanceViewController: UIViewController {
 
         tableView.tableHeaderView = headerView
         tableView.tableFooterView = footerView
-
-        headerView.frame.size.height = 1
-        footerView.frame.size.height = 2
     }
 
     override func viewWillLayoutSubviews() {
