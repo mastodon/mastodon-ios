@@ -20,7 +20,7 @@ public final class CoreDataStack {
         self.storeDescriptions = storeDescriptions
     }
     
-    public convenience init(databaseName: String = "shared", isInMemory: Bool) {
+    public convenience init(databaseName: String = "shared", isInMemory: Bool = false) {
         let storeURL = URL.storeURL(for: AppName.groupID, databaseName: databaseName)
         let storeDescription: NSPersistentStoreDescription
         if isInMemory {

@@ -17,7 +17,7 @@ final class SendPostIntentHandler: NSObject {
 
     var disposeBag = Set<AnyCancellable>()
 
-    let coreDataStack = CoreDataStack(isInMemory: true)
+    let coreDataStack = CoreDataStack()
     lazy var managedObjectContext = coreDataStack.persistentContainer.viewContext
     lazy var api: APIService = {
         let backgroundManagedObjectContext = coreDataStack.newTaskContext()

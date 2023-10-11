@@ -48,21 +48,16 @@ public class AppContext: ObservableObject {
     public init() {
 
         let authProvider = AuthenticationServiceProvider.shared
-        let _coreDataStack: CoreDataStack
+        let _coreDataStack = CoreDataStack()
         if authProvider.authenticationMigrationRequired {
-            _coreDataStack = CoreDataStack(isInMemory: false)
             authProvider.migrateLegacyAuthentications(
                 in: _coreDataStack.persistentContainer.viewContext
             )
-        } else {
-            _coreDataStack = CoreDataStack(isInMemory: true)
         }
-        
+
         let _managedObjectContext = _coreDataStack.persistentContainer.viewContext
-        _coreDataStack.persistentContainer.persistentStoreDescriptions.forEach {
-            $0.url = URL(fileURLWithPath: "/dev/null")
-        }
         let _backgroundManagedObjectContext = _coreDataStack.persistentContainer.newBackgroundContext()
+
         coreDataStack = _coreDataStack
         managedObjectContext = _managedObjectContext
         backgroundManagedObjectContext = _backgroundManagedObjectContext
