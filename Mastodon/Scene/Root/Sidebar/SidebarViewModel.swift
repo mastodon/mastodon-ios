@@ -119,13 +119,13 @@ extension SidebarViewModel {
                         return count > 0
                     }()
                     
-                    let image: UIImage = {
-                        if hasUnreadPushNotification {
-                            return UIImage(systemName: "bell.badge")!
-                        } else {
-                            return MainTabBarController.Tab.notifications.image
-                        }
-                    }()
+                    let image: UIImage
+                    if hasUnreadPushNotification {
+                        let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
+                        image = UIImage(systemName: "bell.badge", withConfiguration: imageConfiguration)!
+                    } else {
+                        image = MainTabBarController.Tab.notifications.image
+                    }
                     cell.item?.image = image
                     cell.item?.activeImage = image.withTintColor(Asset.Colors.Brand.blurple.color, renderingMode: .alwaysOriginal)
                     cell.setNeedsUpdateConfiguration()
