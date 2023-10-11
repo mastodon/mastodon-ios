@@ -19,11 +19,11 @@ extension ServerRuleSection {
     ) -> UITableViewDiffableDataSource<ServerRuleSection, ServerRuleItem> {
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item in
             switch item {
-            case .rule(let ruleContext):
+            case .rule(let index, let rule):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ServerRulesTableViewCell.self), for: indexPath) as! ServerRulesTableViewCell
-                cell.indexImageView.image = UIImage(systemName: "\(ruleContext.index + 1).circle") ?? UIImage(systemName: "questionmark.circle")
+                cell.indexImageView.image = UIImage(systemName: "\(index + 1).circle") ?? UIImage(systemName: "questionmark.circle")
                 cell.indexImageView.tintColor = Asset.Colors.Brand.lightBlurple.color
-                cell.ruleLabel.text = ruleContext.rule.text
+                cell.ruleLabel.text = rule.text
                 return cell
             }
         }

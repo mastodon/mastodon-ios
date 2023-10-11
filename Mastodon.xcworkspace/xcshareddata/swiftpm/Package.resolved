@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "FXPageControl",
+        "repositoryURL": "https://github.com/nicklockwood/FXPageControl.git",
+        "state": {
+          "branch": null,
+          "revision": "a94633402ba98c52f86c2a70e61ff086dec9de78",
+          "version": "1.6.0"
+        }
+      },
+      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
         "state": {
@@ -89,15 +98,6 @@
           "branch": null,
           "revision": "a002b7fd786f2df2ed4333fe73a9727499fd9d97",
           "version": "10.11.2"
-        }
-      },
-      {
-        "package": "NukeFLAnimatedImagePlugin",
-        "repositoryURL": "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git",
-        "state": {
-          "branch": null,
-          "revision": "b59c346a7d536336db3b0f12c72c6e53ee709e16",
-          "version": "8.0.0"
         }
       },
       {
@@ -215,6 +215,15 @@
           "branch": null,
           "revision": "20f513ded04a040cdf5467f0891849b1763ede3b",
           "version": "1.4.1"
+        }
+      },
+      {
+        "package": "XLPagerTabStrip",
+        "repositoryURL": "https://github.com/xmartlabs/XLPagerTabStrip.git",
+        "state": {
+          "branch": null,
+          "revision": "211ed62aa376722cf93c429802a8b6ff66a8bd52",
+          "version": "9.1.0"
         }
       }
     ]

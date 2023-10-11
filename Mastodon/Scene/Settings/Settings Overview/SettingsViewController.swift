@@ -16,11 +16,11 @@ class SettingsViewController: UIViewController {
     var tableViewDataSource: UITableViewDiffableDataSource<SettingsSection, SettingsEntry>?
     let tableView: UITableView
 
-    init(accountName: String) {
+    init(accountName: String, domain: String) {
 
         sections = [
            .init(entries: [.general, .notifications]),
-           .init(entries: [.aboutMastodon]),
+           .init(entries: [.serverDetails(domain: domain), .aboutMastodon]),
            .init(entries: [.logout(accountName: accountName)])
        ]
 

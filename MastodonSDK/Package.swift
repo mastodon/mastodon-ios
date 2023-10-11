@@ -42,7 +42,6 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.3"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.0.0"),
         .package(url: "https://github.com/Flipboard/FLAnimatedImage.git", from: "1.0.0"),
-        .package(url: "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git", from: "8.0.0"),
         .package(url: "https://github.com/kean/Nuke.git", from: "10.3.1"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.2.2"),
         .package(url: "https://github.com/slackhq/PanModal.git", from: "1.2.7"),
@@ -54,6 +53,7 @@ let package = Package(
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.12.0"),
         .package(url: "https://github.com/eneko/Stripes.git", from: "0.2.0"),
         .package(url: "https://github.com/NextLevel/NextLevelSessionExporter.git", from: "0.4.6"),
+        .package(url: "https://github.com/xmartlabs/XLPagerTabStrip.git", from: "9.1.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -126,6 +126,8 @@ let package = Package(
                 .product(name: "PanModal", package: "PanModal"),
                 .product(name: "Stripes", package: "Stripes"),
                 .product(name: "NextLevelSessionExporter", package: "NextLevelSessionExporter"),
+                .product(name: "SDWebImage", package: "SDWebImage"),
+                .product(name: "XLPagerTabStrip", package: "XLPagerTabStrip"),
             ]
         ),
         .testTarget(

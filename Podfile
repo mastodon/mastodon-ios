@@ -7,11 +7,6 @@ target 'Mastodon' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Mastodon
-
-  # UI
-  pod 'XLPagerTabStrip', '~> 9.0.0'
-
   # misc
   pod 'SwiftGen', '~> 6.6.2'
   pod 'Kanna', '~> 5.2.2'

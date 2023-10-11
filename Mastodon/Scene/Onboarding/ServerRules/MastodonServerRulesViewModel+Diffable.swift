@@ -15,10 +15,7 @@ extension MastodonServerRulesViewModel {
         
         var snapshot = NSDiffableDataSourceSnapshot<ServerRuleSection, ServerRuleItem>()
         snapshot.appendSections([.rules])
-        let ruleItems: [ServerRuleItem] = rules.enumerated().map { i, rule in
-            let ruleContext = ServerRuleItem.RuleContext(index: i, rule: rule)
-            return ServerRuleItem.rule(ruleContext)
-        }
+        let ruleItems: [ServerRuleItem] = rules.enumerated().map { index, rule in return ServerRuleItem.rule(index: index, rule: rule) }
         snapshot.appendItems(ruleItems, toSection: .rules)
         diffableDataSource?.apply(snapshot, animatingDifferences: false)
     }
