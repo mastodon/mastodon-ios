@@ -219,9 +219,7 @@ public enum Asset {
     }
   }
   public enum Settings {
-    public static let automatic = ImageAsset(name: "Settings/automatic")
-    public static let dark = ImageAsset(name: "Settings/dark")
-    public static let light = ImageAsset(name: "Settings/light")
+    public static let aboutInstancePlaceholder = ImageAsset(name: "Settings/about_instance_placeholder")
   }
   public enum Theme {
     public enum System {

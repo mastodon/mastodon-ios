@@ -31,17 +31,7 @@ final class MediaPreviewImageView: UIScrollView {
 
     private var containerFrame: CGRect?
 
-    private var _interaction: UIInteraction? = {
-        if #available(iOS 16.0, *) {
-            return ImageAnalysisInteraction()
-        } else {
-            return nil
-        }
-    }()
-    @available(iOS 16.0, *)
-    var liveTextInteraction: ImageAnalysisInteraction {
-        _interaction as! ImageAnalysisInteraction
-    }
+    let liveTextInteraction = ImageAnalysisInteraction()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,9 +62,7 @@ extension MediaPreviewImageView {
         doubleTapGestureRecognizer.delegate = self
 
         imageView.addGestureRecognizer(doubleTapGestureRecognizer)
-        if #available(iOS 16.0, *) {
-            imageView.addInteraction(liveTextInteraction)
-        }
+        imageView.addInteraction(liveTextInteraction)
 
         delegate = self
     }
@@ -119,8 +107,7 @@ extension MediaPreviewImageView: UIGestureRecognizerDelegate {
         // but only if the Live Text button is toggled off
         if let gr = otherGestureRecognizer as? UITapGestureRecognizer,
            gr.numberOfTapsRequired == 2,
-           #available(iOS 16, *),
-           !liveTextInteraction.selectableItemsHighlighted {
+           liveTextInteraction.selectableItemsHighlighted == false {
             return true
         }
         return false
@@ -151,18 +138,16 @@ extension MediaPreviewImageView {
         
         centerScrollViewContents()
 
-        if #available(iOS 16.0, *) {
-            Task.detached(priority: .userInitiated) {
-                do {
-                    let analysis = try await ImageAnalyzer.shared.analyze(image, configuration: ImageAnalyzer.Configuration([.text, .machineReadableCode]))
-                    await MainActor.run {
-                        self.liveTextInteraction.analysis = analysis
-                        self.liveTextInteraction.preferredInteractionTypes = .automatic
-                    }
-                } catch {
-                    await MainActor.run {
-                        self.liveTextInteraction.preferredInteractionTypes = []
-                    }
+        Task.detached(priority: .userInitiated) {
+            do {
+                let analysis = try await ImageAnalyzer.shared.analyze(image, configuration: ImageAnalyzer.Configuration([.text, .machineReadableCode]))
+                await MainActor.run {
+                    self.liveTextInteraction.analysis = analysis
+                    self.liveTextInteraction.preferredInteractionTypes = .automatic
+                }
+            } catch {
+                await MainActor.run {
+                    self.liveTextInteraction.preferredInteractionTypes = []
                 }
             }
         }

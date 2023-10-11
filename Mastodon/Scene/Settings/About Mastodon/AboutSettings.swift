@@ -23,7 +23,7 @@ enum AboutSettingsEntry: Hashable {
         case .privacyPolicy:
             return L10n.Scene.Settings.AboutMastodon.privacyPolicy
         case .clearMediaCache(_):
-            return L10n.Scene.Settings.AboutMastodon.cleaerMediaStorage
+            return L10n.Scene.Settings.AboutMastodon.clearMediaStorage
         }
     }
 

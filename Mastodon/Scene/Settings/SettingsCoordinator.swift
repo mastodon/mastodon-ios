@@ -6,6 +6,7 @@ import MastodonCore
 import CoreDataStack
 import MastodonSDK
 import Combine
+import MetaTextKit
 
 protocol SettingsCoordinatorDelegate: AnyObject {
     func logout(_ settingsCoordinator: SettingsCoordinator)
@@ -26,15 +27,17 @@ class SettingsCoordinator: NSObject, Coordinator {
     let appContext: AppContext
     let authContext: AuthContext
     var disposeBag = Set<AnyCancellable>()
+    let sceneCoordinator: SceneCoordinator
 
-    init(presentedOn: UIViewController, accountName: String, setting: Setting, appContext: AppContext, authContext: AuthContext) {
+    init(presentedOn: UIViewController, accountName: String, setting: Setting, appContext: AppContext, authContext: AuthContext, sceneCoordinator: SceneCoordinator) {
         self.presentedOn = presentedOn
         navigationController = UINavigationController()
         self.setting = setting
         self.appContext = appContext
         self.authContext = authContext
+        self.sceneCoordinator = sceneCoordinator
 
-        settingsViewController = SettingsViewController(accountName: accountName)
+        settingsViewController = SettingsViewController(accountName: accountName, domain: authContext.mastodonAuthenticationBox.domain)
     }
 
     func start() {
@@ -65,8 +68,29 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 let notificationViewController = NotificationSettingsViewController(currentSetting: currentSetting, notificationsEnabled: notificationsEnabled)
                 notificationViewController.delegate = self
 
-                self.navigationController.pushViewController(notificationViewController, animated: true)
+                navigationController.pushViewController(notificationViewController, animated: true)
+            case .serverDetails(let domain):
+                let serverDetailsViewController = ServerDetailsViewController(domain: domain)
+                serverDetailsViewController.delegate = self
 
+                appContext.apiService.instanceV2(domain: domain)
+                    .sink { _ in
+
+                    } receiveValue: { content in
+                        serverDetailsViewController.update(with: content.value)
+                    }
+                    .store(in: &disposeBag)
+
+                appContext.apiService.extendedDescription(domain: domain)
+                    .sink { _ in
+
+                    } receiveValue: { content in
+                        serverDetailsViewController.updateFooter(with: content.value)
+                    }
+                    .store(in: &disposeBag)
+
+
+                navigationController.pushViewController(serverDetailsViewController, animated: true)
             case .aboutMastodon:
                 let aboutViewController = AboutViewController()
                 aboutViewController.delegate = self
@@ -135,6 +159,8 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
 
         guard viewModel.updated else { return }
 
+        //Show spinner?
+
         let authenticationBox = authContext.mastodonAuthenticationBox
         guard let subscription = setting.activeSubscription,
               setting.domain == authenticationBox.domain,
@@ -168,16 +194,10 @@ extension SettingsCoordinator: NotificationSettingsViewControllerDelegate {
         })
         .store(in: &disposeBag)
     }
-
+    
     func showNotificationSettings(_ viewController: UIViewController) {
-        if #available(iOS 16.0, *) {
-            if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
-                UIApplication.shared.open(url)
-            }
-        } else {
-            if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.open(url)
-            }
+        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
+            UIApplication.shared.open(url)
         }
     }
 }
@@ -188,4 +208,59 @@ extension SettingsCoordinator: PolicySelectionViewControllerDelegate {
         self.setting.activeSubscription?.policyRaw = newPolicy.subscriptionPolicy.rawValue
         try? self.appContext.managedObjectContext.save()
     }
+}
+
+//MARK: - ServerDetailsViewControllerDelegate
+extension SettingsCoordinator: ServerDetailsViewControllerDelegate {
+    
+}
+
+extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
+    @MainActor func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account) {
+        Task {
+            let user = try await appContext.apiService.fetchUser(username: account.username, domain: authContext.mastodonAuthenticationBox.domain, authenticationBox: authContext.mastodonAuthenticationBox)
+
+            let profileViewModel = ProfileViewModel(context: appContext, authContext: authContext, optionalMastodonUser: user)
+
+            _ = await MainActor.run {
+                sceneCoordinator.present(scene: .profile(viewModel: profileViewModel), transition: .show)
+            }
+        }
+    }
+    
+    func sendEmailToAdmin(_ viewController: AboutInstanceViewController, emailAddress: String) {
+        if let emailUrl = URL(string: "mailto:\(emailAddress)"), UIApplication.shared.canOpenURL(emailUrl) {
+            UIApplication.shared.open(emailUrl)
+        }
+    }
+}
+
+extension SettingsCoordinator: InstanceRulesViewControllerDelegate {
+    
+}
+
+extension SettingsCoordinator: MetaLabelDelegate {
+    @MainActor
+    func metaLabel(_ metaLabel: MetaLabel, didSelectMeta meta: Meta) {
+        switch meta {
+            case .url(_, _, let url, _):
+                guard let url = URL(string: url) else { return }
+                _ = sceneCoordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+            case .mention(_, _, let userInfo):
+                guard let href = userInfo?["href"] as? String,
+                      let url = URL(string: href) else { return }
+                _ = sceneCoordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+            case .hashtag(_, let hashtag, _):
+                let hashtagTimelineViewModel = HashtagTimelineViewModel(context: appContext, authContext: authContext, hashtag: hashtag)
+                _ = sceneCoordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
+            case .email(let email, _):
+                if let emailUrl = URL(string: "mailto:\(email)"), UIApplication.shared.canOpenURL(emailUrl) {
+                    UIApplication.shared.open(emailUrl)
+                }
+            case .emoji:
+                break
+        }
+    }
+
+
 }

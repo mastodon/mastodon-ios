@@ -163,7 +163,7 @@ public class CondensedUserView: UIView {
         }
     }
 
-    public func configure(with account: Mastodon.Entity.Account) {
+    public func configure(with account: Mastodon.Entity.Account, showFollowers: Bool = true) {
         let displayNameMetaContent: MetaContent
         do {
             let content = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojis?.asDictionary ?? [:])
@@ -174,10 +174,16 @@ public class CondensedUserView: UIView {
 
         displayNameLabel.configure(content: displayNameMetaContent)
         acctLabel.text = account.acct
-        followersLabel.attributedText = NSAttributedString(
-            format: NSAttributedString(string: L10n.Common.UserList.followersCount("%@"), attributes: [.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))]),
-            args: NSAttributedString(string: Self.metricFormatter.string(from: account.followersCount) ?? account.followersCount.formatted(), attributes: [.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))])
-        )
+
+        if showFollowers {
+            followersLabel.attributedText = NSAttributedString(
+                format: NSAttributedString(string: L10n.Common.UserList.followersCount("%@"), attributes: [.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))]),
+                args: NSAttributedString(string: Self.metricFormatter.string(from: account.followersCount) ?? account.followersCount.formatted(), attributes: [.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))])
+            )
+            followersLabel.isHidden = false
+        } else {
+            followersLabel.isHidden = false
+        }
 
         avatarImageView.setImage(url: account.avatarImageURL())
 

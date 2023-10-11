@@ -541,7 +541,9 @@ private extension SceneCoordinator {
                                                               accountName: accountName,
                                                               setting: setting,
                                                               appContext: appContext,
-                                                              authContext: authContext)
+                                                              authContext: authContext,
+                                                              sceneCoordinator: self
+                )
                 settingsCoordinator.delegate = self
                 settingsCoordinator.start()
                 
@@ -643,7 +645,5 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
         authenticationController.authenticationSession?.start()
 
         self.mastodonAuthenticationController = authenticationController
-
-
     }
 }

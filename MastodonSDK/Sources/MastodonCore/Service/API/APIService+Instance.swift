@@ -24,4 +24,8 @@ extension APIService {
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.V2.Instance>, Error> {
         return Mastodon.API.V2.Instance.instance(session: session, domain: domain)
     }
+
+    public func extendedDescription(domain: String) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.ExtendedDescription>, Error> {
+        return Mastodon.API.Instance.extendedDescription(session: session, domain: domain)
+    }
 }

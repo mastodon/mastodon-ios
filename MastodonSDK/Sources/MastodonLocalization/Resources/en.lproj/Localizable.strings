@@ -527,6 +527,7 @@ uploaded to Mastodon.";
 "Scene.Settings.Overview.General" = "General";
 "Scene.Settings.Overview.Notifications" = "Notifications";
 "Scene.Settings.Overview.SupportMastodon" = "Support Mastodon";
+"Scene.Settings.Overview.ServerDetails" = "Server Details";
 "Scene.Settings.Overview.AboutMastodon" = "About Mastodon";
 "Scene.Settings.Overview.Logout" = "Logout %@";
 
@@ -534,7 +535,13 @@ uploaded to Mastodon.";
 "Scene.Settings.AboutMastodon.MoreSettings" = "Even More Settings";
 "Scene.Settings.AboutMastodon.ContributeToMastodon" = "Contribute to Mastodon";
 "Scene.Settings.AboutMastodon.PrivacyPolicy" = "Privacy Policy";
-"Scene.Settings.AboutMastodon.CleaerMediaStorage" = "Clear Media Storage";
+"Scene.Settings.AboutMastodon.ClearMediaStorage" = "Clear Media Storage";
+
+"Scene.Settings.ServerDetails.About" = "About";
+"Scene.Settings.ServerDetails.Rules" = "Rules";
+"Scene.Settings.ServerDetails.AboutInstance.Title" = "Administrator";
+"Scene.Settings.ServerDetails.AboutInstance.MessageAdmin" = "Message Admin";
+"Scene.Settings.ServerDetails.AboutInstance.LegalNotice" = "A legal notice";
 
 "Scene.Settings.General.Title" = "General";
 "Scene.Settings.General.Appearance.SectionTitle" = "Appearance";

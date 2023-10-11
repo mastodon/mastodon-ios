@@ -715,6 +715,7 @@
                 "notifications": "Notifications",
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
                 "logout": "Logout %@"
             }
 
@@ -724,6 +725,16 @@
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
+            },
+
+            "server_details": {
+                "about": "About",
+                "rules": "Rules"
+                "about_instance": {
+                    "title": "Adminstrator"
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
+                }
             },
             "general": {
                 "title": "General",
