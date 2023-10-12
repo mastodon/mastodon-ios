@@ -231,14 +231,15 @@ extension MainTabBarController {
                 let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.accessToken)
                 return count > 0
             } ?? false
+
+            let image: UIImage
+            if hasUnreadPushNotification {
+                let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
+                image = UIImage(systemName: "bell.badge", withConfiguration: imageConfiguration)!
+            } else {
+                image = Tab.notifications.image
+            }
             
-            let image: UIImage = {
-                if hasUnreadPushNotification {
-                    return UIImage(systemName: "bell.badge")!
-                } else {
-                    return Tab.notifications.image
-                }
-            }()
             notificationViewController.tabBarItem.image = image.imageWithoutBaseline()
             notificationViewController.navigationController?.tabBarItem.image = image.imageWithoutBaseline()
         }
