@@ -33,7 +33,7 @@ final class FollowedTagsViewModel: NSObject {
         self.fetchedResultsController = FollowedTagsFetchedResultController(
             managedObjectContext: context.managedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,
-            user: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)!.user
+            user: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)! // fixme:
         )
 
         super.init()

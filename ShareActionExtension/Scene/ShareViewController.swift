@@ -160,8 +160,7 @@ extension ShareViewController {
 
 extension ShareViewController {
     private func setupAuthContext() throws -> AuthContext? {
-        let request = MastodonAuthentication.activeSortedFetchRequest   // use active order
-        let _authentication = try context.managedObjectContext.fetch(request).first
+        let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
         let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
         return _authContext
     }

@@ -35,7 +35,7 @@ extension APIService {
         ).singleOutput()
         
         try await managedObjectContext.performChanges {
-            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
+            let me = authenticationBox.authentication.user(in: managedObjectContext)
             _ = Persistence.Poll.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.Poll.PersistContext(
@@ -78,7 +78,7 @@ extension APIService {
         ).singleOutput()
         
         try await managedObjectContext.performChanges {
-            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
+            let me = authenticationBox.authentication.user(in: managedObjectContext)
             _ = Persistence.Poll.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.Poll.PersistContext(

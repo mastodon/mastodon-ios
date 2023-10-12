@@ -41,7 +41,7 @@ public final class NotificationService {
         self.apiService = apiService
         self.authenticationService = authenticationService
         
-        authenticationService.$mastodonAuthentications
+        AuthenticationServiceProvider.shared.$authentications
             .sink(receiveValue: { [weak self] mastodonAuthentications in
                 guard let self = self else { return }
                 
@@ -100,13 +100,13 @@ extension NotificationService {
         let managedObjectContext = authenticationService.managedObjectContext
         return try await managedObjectContext.perform {
             var items: [UIApplicationShortcutItem] = []
-            for object in authenticationService.mastodonAuthentications {
-                guard let authentication = managedObjectContext.object(with: object.objectID) as? MastodonAuthentication else { continue }
+            for authentication in AuthenticationServiceProvider.shared.authentications {
+                guard let user = authentication.user(in: managedObjectContext) else { continue }
                 let accessToken = authentication.userAccessToken
                 let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: accessToken)
                 guard count > 0 else { continue }
                 
-                let title = "@\(authentication.user.acctWithDomain)"
+                let title = "@\(user.acctWithDomain)"
                 let subtitle = L10n.A11y.Plural.Count.Unread.notification(count)
                 
                 let item = UIApplicationShortcutItem(
@@ -201,9 +201,8 @@ extension NotificationService {
 
         let needsCancelSubscription: Bool = try await managedObjectContext.perform {
             // check authentication exists
-            let authenticationRequest = MastodonAuthentication.sortedFetchRequest
-            authenticationRequest.predicate = MastodonAuthentication.predicate(userAccessToken: userAccessToken)
-            return managedObjectContext.safeFetch(authenticationRequest).first == nil
+            let results = AuthenticationServiceProvider.shared.authentications.filter { $0.userAccessToken == userAccessToken }
+            return results.first == nil
         }
         
         guard needsCancelSubscription else {
@@ -240,22 +239,17 @@ extension NotificationService {
     
     private func authenticationBox(for pushNotification: MastodonPushNotification) async throws -> MastodonAuthenticationBox? {
         guard let authenticationService = self.authenticationService else { return nil }
-        let managedObjectContext = authenticationService.managedObjectContext
-        return try await managedObjectContext.perform {
-            let request = MastodonAuthentication.sortedFetchRequest
-            request.predicate = MastodonAuthentication.predicate(userAccessToken: pushNotification.accessToken)
-            request.fetchLimit = 1
-            guard let authentication = managedObjectContext.safeFetch(request).first else { return nil }
-            
-            return MastodonAuthenticationBox(
-                authenticationRecord: .init(objectID: authentication.objectID),
-                domain: authentication.domain,
-                userID: authentication.userID,
-                appAuthorization: .init(accessToken: authentication.appAccessToken),
-                userAuthorization: .init(accessToken: authentication.userAccessToken),
-                inMemoryCache: .sharedCache(for: authentication.objectID.description)
-            )
-        }
+        let results = AuthenticationServiceProvider.shared.authentications.filter { $0.userAccessToken == pushNotification.accessToken }
+        guard let authentication = results.first else { return nil }
+
+        return MastodonAuthenticationBox(
+            authentication: authentication,
+            domain: authentication.domain,
+            userID: authentication.userID,
+            appAuthorization: .init(accessToken: authentication.appAccessToken),
+            userAuthorization: .init(accessToken: authentication.userAccessToken),
+            inMemoryCache: .sharedCache(for: authentication.userAccessToken)
+        )
     }
     
 }

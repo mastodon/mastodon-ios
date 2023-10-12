@@ -98,6 +98,7 @@ extension ProfileHeaderView.ViewModel {
         // follows you
         $relationshipActionOptionSet
             .map { $0.contains(.followingBy) && !$0.contains(.isMyself) }
+            .receive(on: DispatchQueue.main)
             .sink { isFollowingBy in
                 view.followsYouBlurEffectView.isHidden = !isFollowingBy
             }
@@ -182,16 +183,19 @@ extension ProfileHeaderView.ViewModel {
         }
         .store(in: &disposeBag)
         $relationshipActionOptionSet
+            .receive(on: DispatchQueue.main)
             .sink { optionSet in
                 let isBlocking = optionSet.contains(.blocking)
                 let isBlockedBy = optionSet.contains(.blockingBy)
                 let isSuspended = optionSet.contains(.suspended)
                 let isNeedsHidden = isBlocking || isBlockedBy || isSuspended
+
                 view.bioMetaText.textView.isHidden = isNeedsHidden
             }
             .store(in: &disposeBag)
         // dashboard
         $isMyself
+            .receive(on: DispatchQueue.main)
             .sink { isMyself in
                 if isMyself {
                     view.statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myPosts
@@ -246,6 +250,7 @@ extension ProfileHeaderView.ViewModel {
             $isEditing,
             $isUpdating
         )
+        .receive(on: DispatchQueue.main)
         .sink { relationshipActionOptionSet, isEditing, isUpdating in
             if relationshipActionOptionSet.contains(.edit) {
                 // check .edit state and set .editing when isEditing

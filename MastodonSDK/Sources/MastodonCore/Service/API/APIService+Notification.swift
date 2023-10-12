@@ -88,7 +88,7 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else {
+            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else {
                 assertionFailure()
                 return
             }
@@ -176,7 +176,7 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
             _ = Persistence.Notification.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.Notification.PersistContext(

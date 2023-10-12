@@ -10,7 +10,7 @@ import CoreDataStack
 import MastodonSDK
 
 public struct MastodonAuthenticationBox: UserIdentifier {
-    public let authenticationRecord: ManagedObjectRecord<MastodonAuthentication>
+    public let authentication: MastodonAuthentication
     public let domain: String
     public let userID: MastodonUser.ID
     public let appAuthorization: Mastodon.API.OAuth.Authorization
@@ -18,14 +18,14 @@ public struct MastodonAuthenticationBox: UserIdentifier {
     public let inMemoryCache: MastodonAccountInMemoryCache
 
     public init(
-        authenticationRecord: ManagedObjectRecord<MastodonAuthentication>,
+        authentication: MastodonAuthentication,
         domain: String,
         userID: MastodonUser.ID,
         appAuthorization: Mastodon.API.OAuth.Authorization,
         userAuthorization: Mastodon.API.OAuth.Authorization,
         inMemoryCache: MastodonAccountInMemoryCache
     ) {
-        self.authenticationRecord = authenticationRecord
+        self.authentication = authentication
         self.domain = domain
         self.userID = userID
         self.appAuthorization = appAuthorization
@@ -38,12 +38,12 @@ extension MastodonAuthenticationBox {
     
     init(authentication: MastodonAuthentication) {
         self = MastodonAuthenticationBox(
-            authenticationRecord: .init(objectID: authentication.objectID),
+            authentication: authentication,
             domain: authentication.domain,
             userID: authentication.userID,
             appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
             userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken),
-            inMemoryCache: .sharedCache(for: authentication.objectID.description)
+            inMemoryCache: .sharedCache(for: authentication.userID) // todo: make sure this is really unique
         )
     }
     

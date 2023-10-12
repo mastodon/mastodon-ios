@@ -126,6 +126,7 @@ public final class RelationshipViewModel {
             $me,
             relationshipUpdatePublisher
         )
+        .receive(on: DispatchQueue.main)
         .sink { [weak self] user, me, _ in
             guard let self = self else { return }
             self.update(user: user, me: me)

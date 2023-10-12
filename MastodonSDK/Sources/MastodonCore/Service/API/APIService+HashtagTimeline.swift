@@ -44,8 +44,8 @@ extension APIService {
         
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
-            
+            let me = authenticationBox.authentication.user(in: managedObjectContext)
+
             for entity in response.value {
                 _ = Persistence.Status.createOrMerge(
                     in: managedObjectContext,

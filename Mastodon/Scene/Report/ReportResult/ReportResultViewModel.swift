@@ -59,7 +59,7 @@ class ReportResultViewModel: ObservableObject {
         
         Task { @MainActor in
             guard let user = user.object(in: context.managedObjectContext) else { return }
-            guard let me = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user else { return }
+            guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return }
             self.relationshipViewModel.user = user
             self.relationshipViewModel.me = me
             
