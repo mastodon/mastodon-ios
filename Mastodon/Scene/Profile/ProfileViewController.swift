@@ -273,6 +273,8 @@ extension ProfileViewController {
         bindTitleView()
         bindMoreBarButtonItem()
         bindPager()
+
+        viewModel.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -935,11 +937,6 @@ extension ProfileViewController: PagerTabStripNavigateable {
 
 private extension ProfileViewController {
     var currentInstance: Instance? {
-        guard let authenticationRecord = authContext.mastodonAuthenticationBox
-            .authenticationRecord
-            .object(in: context.managedObjectContext)
-        else { return nil }
-        
-        return authenticationRecord.instance
+        authContext.mastodonAuthenticationBox.authentication.instance(in: context.managedObjectContext)
     }
 }

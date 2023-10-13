@@ -19,7 +19,7 @@ public final class Instance: NSManagedObject {
     @NSManaged public private(set) var configurationV2Raw: Data?
 
     // MARK: one-to-many relationships
-    @NSManaged public var authentications: Set<MastodonAuthentication>
+    @NSManaged public var authentications: Set<MastodonAuthenticationLegacy>
 }
 
 extension Instance {

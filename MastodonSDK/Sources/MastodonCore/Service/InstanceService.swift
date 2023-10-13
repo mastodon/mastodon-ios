@@ -78,18 +78,8 @@ extension InstanceService {
                 networkDate: response.networkDate
             )
             
-            // update relationship
-            let request = MastodonAuthentication.sortedFetchRequest
-            request.predicate = MastodonAuthentication.predicate(domain: domain)
-            request.returnsObjectsAsFaults = false
-            do {
-                let authentications = try managedObjectContext.fetch(request)
-                for authentication in authentications {
-                    authentication.update(instance: instance)
-                }
-            } catch {
-                assertionFailure(error.localizedDescription)
-            }
+            // update instance
+            AuthenticationServiceProvider.shared.update(instance: instance, where: domain)
         }
         .setFailureType(to: Error.self)
         .tryMap { result in
@@ -116,18 +106,8 @@ extension InstanceService {
                 )
             )
             
-            // update relationship
-            let request = MastodonAuthentication.sortedFetchRequest
-            request.predicate = MastodonAuthentication.predicate(domain: domain)
-            request.returnsObjectsAsFaults = false
-            do {
-                let authentications = try managedObjectContext.fetch(request)
-                for authentication in authentications {
-                    authentication.update(instance: instance)
-                }
-            } catch {
-                assertionFailure(error.localizedDescription)
-            }
+            // update instance
+            AuthenticationServiceProvider.shared.update(instance: instance, where: domain)
         }
         .setFailureType(to: Error.self)
         .tryMap { result in

@@ -75,7 +75,7 @@ extension SidebarViewModel {
             let imageURL: URL? = {
                 switch item {
                 case .me:
-                    let user = self.authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.user
+                    let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext)
                     return user?.avatarImageURL()
                 default:
                     return nil
@@ -119,20 +119,20 @@ extension SidebarViewModel {
                         return count > 0
                     }()
                     
-                    let image: UIImage = {
-                        if hasUnreadPushNotification {
-                            return UIImage(systemName: "bell.badge")!
-                        } else {
-                            return MainTabBarController.Tab.notifications.image
-                        }
-                    }()
+                    let image: UIImage
+                    if hasUnreadPushNotification {
+                        let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
+                        image = UIImage(systemName: "bell.badge", withConfiguration: imageConfiguration)!
+                    } else {
+                        image = MainTabBarController.Tab.notifications.image
+                    }
                     cell.item?.image = image
                     cell.item?.activeImage = image.withTintColor(Asset.Colors.Brand.blurple.color, renderingMode: .alwaysOriginal)
                     cell.setNeedsUpdateConfiguration()
                 }
                 .store(in: &cell.disposeBag)
             case .me:
-                guard let user = self.authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.user else { return }
+                guard let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else { return }
                 let currentUserDisplayName = user.displayNameWithFallback
                 cell.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
             default:

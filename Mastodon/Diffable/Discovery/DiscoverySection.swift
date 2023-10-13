@@ -74,7 +74,7 @@ extension DiscoverySection {
                         cell.profileCardView.viewModel.familiarFollowers = nil
                     }
                     // bind me
-                    cell.profileCardView.viewModel.relationshipViewModel.me = configuration.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
+                    cell.profileCardView.viewModel.relationshipViewModel.me = configuration.authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
                 }
                 return cell
             case .bottomLoader:

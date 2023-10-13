@@ -10,12 +10,11 @@ extension Mastodon.Entity.V2 {
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/instance/)
     public struct Instance: Codable {
-        
+
         public let domain: String?
         public let title: String
         public let description: String
         public let shortDescription: String?
-        public let email: String?
         public let version: String?
         public let languages: [String]?     // (ISO 639 Part 1-5 language codes)
         public let registrations: Mastodon.Entity.V2.Instance.Registrations?
@@ -25,7 +24,7 @@ extension Mastodon.Entity.V2 {
         public let statistics: Mastodon.Entity.Instance.Statistics?
         
         public let thumbnail: Thumbnail?
-        public let contactAccount: Mastodon.Entity.Account?
+        public let contact: Mastodon.Entity.V2.Instance.Contact?
         public let rules: [Mastodon.Entity.Instance.Rule]?
         
         // https://github.com/mastodon/mastodon/pull/16485
@@ -36,7 +35,7 @@ extension Mastodon.Entity.V2 {
             self.title = domain
             self.description = ""
             self.shortDescription = nil
-            self.email = ""
+            self.contact = nil
             self.version = nil
             self.languages = nil
             self.registrations = nil
@@ -45,7 +44,6 @@ extension Mastodon.Entity.V2 {
             self.urls = nil
             self.statistics = nil
             self.thumbnail = nil
-            self.contactAccount = nil
             self.rules = nil
             self.configuration = nil
         }
@@ -55,7 +53,6 @@ extension Mastodon.Entity.V2 {
             case title
             case description
             case shortDescription = "short_description"
-            case email
             case version
             case languages
             case registrations
@@ -65,7 +62,7 @@ extension Mastodon.Entity.V2 {
             case statistics = "stats"
             
             case thumbnail
-            case contactAccount = "contact_account"
+            case contact
             case rules
             
             case configuration
@@ -104,5 +101,12 @@ extension Mastodon.Entity.V2.Instance.Configuration {
 extension Mastodon.Entity.V2.Instance {
     public struct Thumbnail: Codable {
         public let url: String?
+    }
+}
+
+extension Mastodon.Entity.V2.Instance {
+    public struct Contact: Codable {
+        public let email: String?
+        public let account: Mastodon.Entity.Account?
     }
 }

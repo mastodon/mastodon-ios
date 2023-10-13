@@ -17,9 +17,11 @@ extension Account {
     static func fetch(in managedObjectContext: NSManagedObjectContext) async throws -> [Account] {
         // get accounts
         let accounts: [Account] = try await managedObjectContext.perform {
-            let results = try MastodonAuthentication.fetch(in: managedObjectContext)
+            let results = AuthenticationServiceProvider.shared.authentications
             let accounts = results.compactMap { mastodonAuthentication -> Account? in
-                let user = mastodonAuthentication.user
+                guard let user = mastodonAuthentication.user(in: managedObjectContext) else {
+                    return nil
+                }
                 let account = Account(
                     identifier: mastodonAuthentication.identifier.uuidString,
                     display: user.displayNameWithFallback,
@@ -43,9 +45,7 @@ extension Array where Element == Account {
         let identifiers = self
             .compactMap { $0.identifier }
             .compactMap { UUID(uuidString: $0) }
-        let request = MastodonAuthentication.sortedFetchRequest
-        request.predicate = MastodonAuthentication.predicate(identifiers: identifiers)
-        let results = try managedObjectContext.fetch(request)
+        let results = AuthenticationServiceProvider.shared.authentications.filter({ identifiers.contains($0.identifier) })
         return results
     }
     

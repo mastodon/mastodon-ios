@@ -46,9 +46,18 @@ public class AppContext: ObservableObject {
         .eraseToAnyPublisher()
     
     public init() {
+
+        let authProvider = AuthenticationServiceProvider.shared
         let _coreDataStack = CoreDataStack()
+        if authProvider.authenticationMigrationRequired {
+            authProvider.migrateLegacyAuthentications(
+                in: _coreDataStack.persistentContainer.viewContext
+            )
+        }
+
         let _managedObjectContext = _coreDataStack.persistentContainer.viewContext
         let _backgroundManagedObjectContext = _coreDataStack.persistentContainer.newBackgroundContext()
+
         coreDataStack = _coreDataStack
         managedObjectContext = _managedObjectContext
         backgroundManagedObjectContext = _backgroundManagedObjectContext

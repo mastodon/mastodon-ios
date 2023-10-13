@@ -82,7 +82,7 @@ class ProfileViewModel: NSObject {
         super.init()
         
         // bind me
-        self.me = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
+        self.me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
         $me
             .assign(to: \.me, on: relationshipViewModel)
             .store(in: &disposeBag)
@@ -171,9 +171,10 @@ class ProfileViewModel: NSObject {
         .assign(to: &$isPagingEnabled)
     }
     
-}
 
-extension ProfileViewModel {
+    func viewDidLoad() {
+        
+    }
 
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {

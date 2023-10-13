@@ -20,9 +20,14 @@ public final class CoreDataStack {
         self.storeDescriptions = storeDescriptions
     }
     
-    public convenience init(databaseName: String = "shared") {
+    public convenience init(databaseName: String = "shared", isInMemory: Bool = false) {
         let storeURL = URL.storeURL(for: AppName.groupID, databaseName: databaseName)
-        let storeDescription = NSPersistentStoreDescription(url: storeURL)
+        let storeDescription: NSPersistentStoreDescription
+        if isInMemory {
+            storeDescription = NSPersistentStoreDescription(url: URL(string: "file:///dev/null")!)  /// in-memory store with all features in favor of NSInMemoryStoreType
+        } else {
+            storeDescription = NSPersistentStoreDescription(url: storeURL)
+        }
         self.init(persistentStoreDescriptions: [storeDescription])
     }
     
@@ -115,16 +120,18 @@ extension CoreDataStack {
     }
 }
 
-extension CoreDataStack {
-    
-    public func rebuild() {
+public extension CoreDataStack {
+    func tearDown() {
         let oldStoreURL = persistentContainer.persistentStoreCoordinator.url(for: persistentContainer.persistentStoreCoordinator.persistentStores.first!)
         try! persistentContainer.persistentStoreCoordinator.destroyPersistentStore(at: oldStoreURL, ofType: NSSQLiteStoreType, options: nil)
+    }
+    
+    func rebuild() {
+        tearDown()
         
         CoreDataStack.load(persistentContainer: persistentContainer) { [weak self] in
             guard let self = self else { return }
             self.didFinishLoad.value = true
         }
     }
-
 }

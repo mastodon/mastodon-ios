@@ -1418,7 +1418,7 @@ public enum L10n {
     public enum Settings {
       public enum AboutMastodon {
         /// Clear Media Storage
-        public static let cleaerMediaStorage = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.CleaerMediaStorage", fallback: "Clear Media Storage")
+        public static let clearMediaStorage = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.ClearMediaStorage", fallback: "Clear Media Storage")
         /// Contribute to Mastodon
         public static let contributeToMastodon = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.ContributeToMastodon", fallback: "Contribute to Mastodon")
         /// Even More Settings
@@ -1509,6 +1509,8 @@ public enum L10n {
         }
         /// Notifications
         public static let notifications = L10n.tr("Localizable", "Scene.Settings.Overview.Notifications", fallback: "Notifications")
+        /// Server Details
+        public static let serverDetails = L10n.tr("Localizable", "Scene.Settings.Overview.ServerDetails", fallback: "Server Details")
         /// Support Mastodon
         public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.SupportMastodon", fallback: "Support Mastodon")
         /// Settings
@@ -1590,6 +1592,20 @@ public enum L10n {
           public static let signout = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Signout", fallback: "Sign Out")
           /// The Spicy Zone
           public static let title = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Title", fallback: "The Spicy Zone")
+        }
+      }
+      public enum ServerDetails {
+        /// About
+        public static let about = L10n.tr("Localizable", "Scene.Settings.ServerDetails.About", fallback: "About")
+        /// Rules
+        public static let rules = L10n.tr("Localizable", "Scene.Settings.ServerDetails.Rules", fallback: "Rules")
+        public enum AboutInstance {
+          /// A legal notice
+          public static let legalNotice = L10n.tr("Localizable", "Scene.Settings.ServerDetails.AboutInstance.LegalNotice", fallback: "A legal notice")
+          /// Message Admin
+          public static let messageAdmin = L10n.tr("Localizable", "Scene.Settings.ServerDetails.AboutInstance.MessageAdmin", fallback: "Message Admin")
+          /// Administrator
+          public static let title = L10n.tr("Localizable", "Scene.Settings.ServerDetails.AboutInstance.Title", fallback: "Administrator")
         }
       }
     }

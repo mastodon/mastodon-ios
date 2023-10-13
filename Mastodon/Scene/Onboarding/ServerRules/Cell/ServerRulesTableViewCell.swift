@@ -10,7 +10,7 @@ import MastodonAsset
 import MastodonLocalization
 
 final class ServerRulesTableViewCell: UITableViewCell {
-    
+    static let reuseIdentifier = "ServerRulesTableViewCell"
     static let margin: CGFloat = 23
     
     let indexImageView: UIImageView = {

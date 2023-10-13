@@ -30,6 +30,7 @@ extension MetaLabel {
         case accountListUsername
         case sidebarHeadline(isSelected: Bool)
         case sidebarSubheadline(isSelected: Bool)
+        case aboutInstance
     }
 
     public convenience init(style: Style) {
@@ -129,6 +130,10 @@ extension MetaLabel {
         case .sidebarSubheadline(let isSelected):
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 13, weight: .regular), maximumPointSize: 18)
             textColor = isSelected ? .white : Asset.Colors.Label.secondary.color
+        case .aboutInstance:
+            font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+            textColor = .label
+            paragraphStyle.paragraphSpacing = 0
         }
         
         self.font = font

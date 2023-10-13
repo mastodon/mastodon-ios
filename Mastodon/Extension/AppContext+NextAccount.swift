@@ -12,17 +12,13 @@ import MastodonSDK
 
 extension AppContext {
     func nextAccount(in authContext: AuthContext) -> MastodonAuthentication? {
-        let request = MastodonAuthentication.sortedFetchRequest
-        guard
-            let accounts = try? managedObjectContext.fetch(request),
-            accounts.count > 1
-        else { return nil }
+        let accounts = AuthenticationServiceProvider.shared.authentications
+        guard accounts.count > 1 else { return nil }
         
         let nextSelectedAccountIndex: Int? = {
             for (index, account) in accounts.enumerated() {
                 guard account == authContext.mastodonAuthenticationBox
-                    .authenticationRecord
-                    .object(in: managedObjectContext)
+                    .authentication
                 else { continue }
                 
                 let nextAccountIndex = index + 1

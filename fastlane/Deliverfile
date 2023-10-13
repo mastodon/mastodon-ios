@@ -1,0 +1,3 @@
+force true
+app_identifier "org.joinmastodon.app"
+precheck_include_in_app_purchases false

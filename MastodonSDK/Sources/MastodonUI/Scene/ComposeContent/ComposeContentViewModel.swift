@@ -156,7 +156,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
-                guard let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user else {
+                guard let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else {
                     return .public
                 }
                 return author.locked ? .private : .public
@@ -224,7 +224,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                     assertionFailure()
                     return
                 }
-                let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
+                let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
 
                 var mentionAccts: [String] = []
                 if author?.id != status.author.id {
@@ -259,9 +259,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         let _configuration: Mastodon.Entity.Instance.Configuration? = {
             var configuration: Mastodon.Entity.Instance.Configuration? = nil
             context.managedObjectContext.performAndWait {
-                guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
-                else { return }
-                configuration = authentication.instance?.configuration
+                let authentication = authContext.mastodonAuthenticationBox.authentication
+                configuration = authentication.instance(in: context.managedObjectContext)?.configuration
             }
             return configuration
         }()
@@ -319,7 +318,7 @@ extension ComposeContentViewModel {
         $authContext
             .sink { [weak self] authContext in
                 guard let self = self else { return }
-                guard let user = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.user else { return }
+                guard let user = authContext.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else { return }
                 self.avatarURL = user.avatarImageURL()
                 self.name = user.nameMetaContent ?? PlaintextMetaContent(string: user.displayNameWithFallback)
                 self.username = user.acctWithDomain
@@ -565,7 +564,7 @@ extension ComposeContentViewModel {
         let managedObjectContext = self.context.managedObjectContext
         var _author: ManagedObjectRecord<MastodonUser>?
         managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecord
+            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
         }
         guard let author = _author else {
             throw AppError.badAuthentication
@@ -621,7 +620,7 @@ extension ComposeContentViewModel {
         let managedObjectContext = self.context.managedObjectContext
         var _author: ManagedObjectRecord<MastodonUser>?
         managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecord
+            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
         }
         guard let author = _author else {
             throw AppError.badAuthentication

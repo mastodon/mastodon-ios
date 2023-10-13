@@ -57,12 +57,8 @@ final public class SceneCoordinator {
                         return
                     } else {
                         // switch to notification's account
-                        let request = MastodonAuthentication.sortedFetchRequest
-                        request.predicate = MastodonAuthentication.predicate(userAccessToken: accessToken)
-                        request.returnsObjectsAsFaults = false
-                        request.fetchLimit = 1
                         do {
-                            guard let authentication = try appContext.managedObjectContext.fetch(request).first else {
+                            guard let authentication = AuthenticationServiceProvider.shared.authentications.first(where: { $0.userAccessToken == accessToken }) else {
                                 return
                             }
                             let domain = authentication.domain
@@ -226,8 +222,7 @@ extension SceneCoordinator {
         let rootViewController: UIViewController
         
         do {
-            let request = MastodonAuthentication.activeSortedFetchRequest   // use active order
-            let _authentication = try appContext.managedObjectContext.fetch(request).first
+            let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
             let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
             self.authContext = _authContext
             
@@ -538,7 +533,7 @@ private extension SceneCoordinator {
                 viewController = activityViewController
             case .settings(let setting):
                 guard let presentedOn = sender,
-                      let accountName = authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: appContext.managedObjectContext)?.username,
+                      let accountName = authContext?.mastodonAuthenticationBox.authentication.username,
                       let authContext
                 else { return nil }
                 
@@ -546,7 +541,9 @@ private extension SceneCoordinator {
                                                               accountName: accountName,
                                                               setting: setting,
                                                               appContext: appContext,
-                                                              authContext: authContext)
+                                                              authContext: authContext,
+                                                              sceneCoordinator: self
+                )
                 settingsCoordinator.delegate = self
                 settingsCoordinator.start()
                 
@@ -648,7 +645,5 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
         authenticationController.authenticationSession?.start()
 
         self.mastodonAuthenticationController = authenticationController
-
-
     }
 }
