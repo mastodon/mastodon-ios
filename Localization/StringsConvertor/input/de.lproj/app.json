@@ -98,10 +98,10 @@
                     "unknown_language": "Unbekannt"
                 },
                 "edit_post": "Bearbeiten",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Lesezeichen",
+                "remove_bookmark": "Lesezeichen entfernen",
+                "follow": "%s folgen",
+                "unfollow": "%s entfolgen"
             },
             "tabs": {
                 "home": "Startseite",
