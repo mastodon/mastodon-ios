@@ -206,7 +206,7 @@ extension StatusView {
         )
         .map { _, emojis in
             do {
-                let content = MastodonContent(content: author.displayNameWithFallback, emojis: emojis.asDictionary)
+                let content = MastodonContent(content: author.displayNameWithFallback, emojis: author.emojis?.asDictionary ?? [:])
                 let metaContent = try MastodonMetaContent.convert(document: content)
                 return metaContent
             } catch {
@@ -302,7 +302,7 @@ extension StatusView {
     }
     
     func configureTranslated(status: Mastodon.Entity.Status) {
-        let translatedContent: Status.TranslatedContent? = {
+        let translatedContent: Mastodon.Entity.Status.TranslatedContent? = {
             if let translatedContent = status.reblog?.translatedContent {
                 return translatedContent
             }
@@ -340,7 +340,7 @@ extension StatusView {
         viewModel.language = (status.reblog ?? status).language
         // content
         do {
-            let content = MastodonContent(content: statusEdit.content, emojis: statusEdit.emojis.asDictionary)
+            let content = MastodonContent(content: statusEdit.content, emojis: statusEdit.emojis?.asDictionary ?? [:])
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.translatedFromLanguage = nil
@@ -361,7 +361,7 @@ extension StatusView {
         // spoilerText
         if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
             do {
-                let content = MastodonContent(content: spoilerText, emojis: status.emojis.asDictionary)
+                let content = MastodonContent(content: spoilerText, emojis: status.emojis?.asDictionary ?? [:])
                 let metaContent = try MastodonMetaContent.convert(document: content)
                 viewModel.spoilerContent = metaContent
             } catch {
@@ -375,7 +375,7 @@ extension StatusView {
         viewModel.language = (status.reblog ?? status).language
         // content
         do {
-            let content = MastodonContent(content: status.content, emojis: status.emojis.asDictionary)
+            let content = MastodonContent(content: status.content, emojis: status.emojis?.asDictionary ?? [:])
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.translatedFromLanguage = nil
@@ -385,8 +385,8 @@ extension StatusView {
             viewModel.content = PlaintextMetaContent(string: "")
         }
         // visibility
-        status.publisher(for: \.visibilityRaw)
-            .compactMap { MastodonVisibility(rawValue: $0) }
+        status.publisher(for: \.visibility)
+            .map { $0 ?? .public }
             .assign(to: \.visibility, on: viewModel)
             .store(in: &disposeBag)
         // sensitive
@@ -504,59 +504,36 @@ extension StatusView {
         let status = status.reblog ?? status
 
         status.publisher(for: \.repliesCount)
-            .map(Int.init)
             .assign(to: \.replyCount, on: viewModel)
             .store(in: &disposeBag)
         status.publisher(for: \.reblogsCount)
-            .map(Int.init)
-            .assign(to: \.reblogCount, on: viewModel)
+        emojis?.asDictionary ?? [:]            .assign(to: \.reblogCount, on: viewModel)
             .store(in: &disposeBag)
         status.publisher(for: \.favouritesCount)
-            .map(Int.init)
             .assign(to: \.favoriteCount, on: viewModel)
             .store(in: &disposeBag)
         status.publisher(for: \.editedAt)
             .assign(to: \.editedAt, on: viewModel)
             .store(in: &disposeBag)
 
-        status.publisher(for: \.editHistory)
-            .compactMap({ guard let edits = $0 else { return nil }
-                return Array(edits)
-            })
-            .assign(to: \.statusEdits, on: viewModel)
-            .store(in: &disposeBag)
+//        status.publisher(for: \.editHistory)
+//            .compactMap({ guard let edits = $0 else { return nil }
+//                //TODO: @zeitschlag get edits here
+//                return Array(edits)
+//            })
+//            .assign(to: \.statusEdits, on: viewModel)
+//            .store(in: &disposeBag)
         
         // relationship
-        status.publisher(for: \.rebloggedBy)
-            .map { [weak viewModel] rebloggedBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return rebloggedBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
+        status.publisher(for: \.reblogged)
             .assign(to: \.isReblog, on: viewModel)
             .store(in: &disposeBag)
         
-        status.publisher(for: \.favouritedBy)
-            .map { [weak viewModel]favouritedBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return favouritedBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
+        status.publisher(for: \.favourited)
             .assign(to: \.isFavorite, on: viewModel)
             .store(in: &disposeBag)
 
-        status.publisher(for: \.bookmarkedBy)
-            .map { [weak viewModel] bookmarkedBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return bookmarkedBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
+        status.publisher(for: \.bookmarked)
             .assign(to: \.isBookmark, on: viewModel)
             .store(in: &disposeBag)
     }

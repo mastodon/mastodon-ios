@@ -42,7 +42,7 @@ extension Mastodon.Entity {
         // Informational
         public let reblogsCount: Int
         public let favouritesCount: Int
-        public let repliesCount: Int?
+        public let repliesCount: Int
         
         public let url: String?
         public let inReplyToID: Status.ID?
@@ -54,15 +54,23 @@ extension Mastodon.Entity {
         public let text: String?
         
         // Authorized user
-        public let favourited: Bool?
-        public let reblogged: Bool?
-        public let muted: Bool?
-        public let bookmarked: Bool?
+        public let favourited: Bool
+        public let reblogged: Bool
+        public let muted: Bool
+        public let bookmarked: Bool
         public let pinned: Bool?
         
         // Computed Properties
         public var translatedContent: String? = nil
-        
+
+        public var domain: String? {
+            // get from URL
+            guard let url else { return nil }
+
+            let components = URLComponents(string: url)
+            return components?.host
+        }
+
         enum CodingKeys: String, CodingKey {
             case id
             case uri
@@ -131,6 +139,18 @@ extension Mastodon.Entity.Status {
             case .direct:                       return "direct"
             case ._other(let value):            return value
             }
+        }
+    }
+}
+
+extension Mastodon.Entity.Status {
+    public class TranslatedContent: NSObject {
+        public let content: String
+        public let provider: String?
+
+        public init(content: String, provider: String?) {
+            self.content = content
+            self.provider = provider
         }
     }
 }

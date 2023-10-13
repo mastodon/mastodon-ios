@@ -11,16 +11,6 @@ import Foundation
 public final class Status: NSManagedObject {
     public typealias ID = String
     
-    public class TranslatedContent: NSObject {
-        public let content: String
-        public let provider: String?
-        
-        public init(content: String, provider: String?) {
-            self.content = content
-            self.provider = provider
-        }
-    }
-    
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var identifier: ID
     // sourcery: autoGenerateProperty
@@ -120,7 +110,6 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var revealedAt: Date?
     
     // sourcery: autoUpdatableObject
-    @NSManaged public private(set) var translatedContent: TranslatedContent?
 }
 
 extension Status {
@@ -533,11 +522,6 @@ extension Status: AutoUpdatableObject {
     public func update(revealedAt: Date?) {
     	if self.revealedAt != revealedAt {
     		self.revealedAt = revealedAt
-    	}
-    }
-    public func update(translatedContent: TranslatedContent?) {
-    	if self.translatedContent != translatedContent {
-    		self.translatedContent = translatedContent
     	}
     }
     public func update(attachments: [MastodonAttachment]) {
