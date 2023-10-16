@@ -668,7 +668,7 @@ extension StatusView {
     }
 
     private var hideTranslationAction: UIAccessibilityCustomAction? {
-        guard viewModel.translatedFromLanguage != nil else { return nil }
+        guard viewModel.translation?.sourceLanguage != nil else { return nil }
         return UIAccessibilityCustomAction(name: L10n.Common.Controls.Status.Translation.showOriginal) { [weak self] _ in
             self?.revertTranslation()
             return true

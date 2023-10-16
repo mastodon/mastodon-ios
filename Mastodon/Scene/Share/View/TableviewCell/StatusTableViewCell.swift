@@ -91,7 +91,7 @@ extension StatusTableViewCell {
             .store(in: &_disposeBag)
 
         statusView.viewModel
-            .$translatedFromLanguage
+            .$translation
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 self?.invalidateIntrinsicContentSize()
