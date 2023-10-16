@@ -894,7 +894,7 @@ extension ProfileViewController: MastodonMenuDelegate {
                 action: action,
                 menuContext: DataSourceFacade.MenuContext(
                     author: userRecord,
-                    status: nil,
+                    statusViewModel: nil,
                     button: nil,
                     barButtonItem: self.moreMenuBarButtonItem
                 )

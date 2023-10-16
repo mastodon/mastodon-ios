@@ -151,7 +151,7 @@ extension DataSourceFacade {
     
     struct MenuContext {
         let author: ManagedObjectRecord<MastodonUser>?
-        let status: ManagedObjectRecord<Status>?
+        let statusViewModel: StatusView.ViewModel?
         let button: UIButton?
         let barButtonItem: UIBarButtonItem?
     }
@@ -266,7 +266,7 @@ extension DataSourceFacade {
                     context: dependency.context,
                     authContext: dependency.authContext,
                     user: user,
-                    status: menuContext.status
+                    status: menuContext.statusViewModel?.originalStatus?.asRecord
                 )
                 
                 _ = dependency.coordinator.present(
@@ -297,7 +297,7 @@ extension DataSourceFacade {
             )
         case .bookmarkStatus:
             Task {
-                guard let status = menuContext.status else {
+                guard let status = menuContext.statusViewModel?.originalStatus?.asRecord else {
                     assertionFailure()
                     return
                 }
@@ -310,7 +310,7 @@ extension DataSourceFacade {
             Task {
                 let managedObjectContext = dependency.context.managedObjectContext
                 guard let status: ManagedObjectRecord<Status> = try? await managedObjectContext.perform(block: {
-                    guard let object = menuContext.status?.object(in: managedObjectContext) else { return nil }
+                    guard let object = menuContext.statusViewModel?.originalStatus?.asRecord.object(in: managedObjectContext) else { return nil }
                     let objectID = (object.reblog ?? object).objectID
                     return .init(objectID: objectID)
                 }) else {
@@ -344,7 +344,7 @@ extension DataSourceFacade {
                 style: .destructive
             ) { [weak dependency] _ in
                 guard let dependency = dependency else { return }
-                guard let status = menuContext.status else { return }
+                guard let status = menuContext.statusViewModel?.originalStatus?.asRecord else { return }
                 Task {
                     try await DataSourceFacade.responseToDeleteStatus(
                         dependency: dependency,
@@ -358,12 +358,12 @@ extension DataSourceFacade {
             dependency.present(alertController, animated: true)
             
         case .translateStatus:
-            guard let status = menuContext.status else { return }
+            guard let status = menuContext.statusViewModel?.originalStatus?.asRecord else { return }
+
             do {
-                try await DataSourceFacade.translateStatus(
-                    provider: dependency,
-                    status: status
-                )
+                let translation = try await DataSourceFacade.translateStatus(provider: dependency,status: status)
+
+                menuContext.statusViewModel?.translation = translation
             } catch TranslationFailure.emptyOrInvalidResponse {
                 let alertController = UIAlertController(title: L10n.Common.Alerts.TranslationFailed.title, message: L10n.Common.Alerts.TranslationFailed.message, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: L10n.Common.Alerts.TranslationFailed.button, style: .default))
@@ -371,7 +371,7 @@ extension DataSourceFacade {
             }
         case .editStatus:
 
-            guard let status = menuContext.status?.object(in: dependency.context.managedObjectContext) else { return }
+            guard let status = menuContext.statusViewModel?.originalStatus?.asRecord.object(in: dependency.context.managedObjectContext) else { return }
 
             let statusSource = try await dependency.context.apiService.getStatusSource(
                 forStatusID: status.id,

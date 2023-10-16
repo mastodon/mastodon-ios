@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 typealias Provider = UIViewController & NeedsDependency & AuthContextProvider
 
@@ -20,26 +21,26 @@ extension DataSourceFacade {
     public static func translateStatus(
         provider: Provider,
         status: ManagedObjectRecord<Status>
-    ) async throws {
+    ) async throws -> Mastodon.Entity.Translation? {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
 
         guard
             let status = status.object(in: provider.context.managedObjectContext)
         else {
-            return
+            return nil
         }
         
         if let reblog = status.reblog {
-            try await translateAndApply(provider: provider, status: reblog)
+            return try await translateStatus(provider: provider, status: reblog)
         } else {
-            try await translateAndApply(provider: provider, status: status)
+            return try await translateStatus(provider: provider, status: status)
         }
     }
 }
 
 private extension DataSourceFacade {
-    static func translateStatus(provider: Provider, status: Status) async throws -> Status.TranslatedContent? {
+    static func translateStatus(provider: Provider, status: Status) async throws -> Mastodon.Entity.Translation? {
         do {
             let value = try await provider.context
                 .apiService
@@ -49,21 +50,11 @@ private extension DataSourceFacade {
                 ).value
 
             guard let content = value.content else {
-                throw TranslationFailure.emptyOrInvalidResponse
+                return nil
             }
             
-            return Status.TranslatedContent(content: content, provider: value.provider)
+            return value
         } catch {
-            throw TranslationFailure.emptyOrInvalidResponse
-        }
-    }
-    
-    static func translateAndApply(provider: Provider, status: Status) async throws {
-        do {
-            let translated = try await translateStatus(provider: provider, status: status)
-            status.update(translatedContent: translated)
-        } catch {
-            status.update(translatedContent: nil)
             throw TranslationFailure.emptyOrInvalidResponse
         }
     }

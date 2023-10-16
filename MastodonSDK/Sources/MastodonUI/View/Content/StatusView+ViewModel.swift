@@ -48,6 +48,7 @@ extension StatusView {
         @Published public var isCurrentlyTranslating = false
         @Published public var translatedFromLanguage: String?
         @Published public var translatedUsingProvider: String?
+        @Published public var translation: Mastodon.Entity.Translation? = nil
 
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date, _ isEdited: Bool) -> String)?
@@ -151,7 +152,8 @@ extension StatusView {
             translatedFromLanguage = nil
             translatedUsingProvider = nil
             isCurrentlyTranslating = false
-            
+            translation = nil
+
             activeFilters = []
             filterContext = nil
         }
@@ -657,7 +659,7 @@ extension StatusView.ViewModel {
             $isFollowed
         )
         let publishersThree = Publishers.CombineLatest(
-            $translatedFromLanguage,
+            $translation,
             $language
         )
         

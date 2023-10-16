@@ -498,13 +498,23 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     }
                 }
             }
-                        
+
+            let statusViewModel: StatusView.ViewModel?
+
+            if let cell = cell as? StatusTableViewCell {
+                statusViewModel = await cell.statusView.viewModel
+            } else if let cell = cell as? StatusThreadRootTableViewCell {
+                statusViewModel = await cell.statusView.viewModel
+            } else {
+                statusViewModel = nil
+            }
+
             try await DataSourceFacade.responseToMenuAction(
                 dependency: self,
                 action: action,
                 menuContext: .init(
                     author: author,
-                    status: status,
+                    statusViewModel: statusViewModel,
                     button: button,
                     barButtonItem: nil
                 )

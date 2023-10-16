@@ -85,13 +85,10 @@ extension StatusView {
         configureToolbar(status: status)
         configureFilter(status: status)
         viewModel.originalStatus = status
-        [
-            status.publisher(for: \.translatedContent),
-            status.reblog?.publisher(for: \.translatedContent)
-        ].compactMap { $0 }
-            .last?
+
+        viewModel.$translation
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] translation in
                 self?.configureTranslated(status: status)
             }
             .store(in: &disposeBag)
@@ -293,36 +290,26 @@ extension StatusView {
     public func revertTranslation() {
         guard let originalStatus = viewModel.originalStatus else { return }
         
-        viewModel.translatedFromLanguage = nil
-        viewModel.translatedUsingProvider = nil
-        originalStatus.reblog?.update(translatedContent: nil)
-        originalStatus.update(translatedContent: nil)
+        viewModel.translation = nil
         configure(status: originalStatus)
     }
     
     func configureTranslated(status: Status) {
-        let translatedContent: Status.TranslatedContent? = {
-            if let translatedContent = status.reblog?.translatedContent {
-                return translatedContent
-            }
-            return status.translatedContent
-
-        }()
-        
-        guard
-            let translatedContent = translatedContent
-        else {
+        guard let translation = viewModel.translation,
+              let translatedContent = translation.content,
+              let sourceLanguage = translation.sourceLanguage,
+              let provider = translation.provider else {
             viewModel.isCurrentlyTranslating = false
             return
         }
 
         // content
         do {
-            let content = MastodonContent(content: translatedContent.content, emojis: status.emojis.asDictionary)
+            let content = MastodonContent(content: translatedContent, emojis: status.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
-            viewModel.translatedFromLanguage = status.reblog?.language ?? status.language
-            viewModel.translatedUsingProvider = status.reblog?.translatedContent?.provider ?? status.translatedContent?.provider
+            viewModel.translatedFromLanguage = sourceLanguage
+            viewModel.translatedUsingProvider = provider
             viewModel.isCurrentlyTranslating = false
         } catch {
             assertionFailure(error.localizedDescription)
@@ -351,7 +338,7 @@ extension StatusView {
     }
 
     private func configureContent(status: Status) {
-        guard status.translatedContent == nil else {
+        guard viewModel.translation == nil else {
             return configureTranslated(status: status)
         }
         
