@@ -658,57 +658,46 @@ extension StatusView.ViewModel {
             $translation,
             $language
         )
-        
+
         Publishers.CombineLatest3(
             publisherOne.eraseToAnyPublisher(),
             publishersTwo.eraseToAnyPublisher(),
             publishersThree.eraseToAnyPublisher()
         ).eraseToAnyPublisher()
-        .sink { tupleOne, tupleTwo, tupleThree in
-            let (authorName, isMyself) = tupleOne
-            let (isMuting, isBlocking, isBookmark, isFollowed) = tupleTwo
-            let (translatedFromLanguage, language) = tupleThree
-    
-            guard let name = authorName?.string else {
-                statusView.authorView.menuButton.menu = nil
-                return
-            }
-            
-            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
-                guard
-                    let context = self.context,
-                    let authContext = self.authContext
-                else {
-                    return nil
+            .sink { tupleOne, tupleTwo, tupleThree in
+                let (authorName, isMyself) = tupleOne
+                let (isMuting, isBlocking, isBookmark, isFollowed) = tupleTwo
+                let (translatedFromLanguage, language) = tupleThree
+
+                guard let name = authorName?.string, let context = self.context, let authContext = self.authContext else {
+                    statusView.authorView.menuButton.menu = nil
+                    return
                 }
+
+                let authentication = authContext.mastodonAuthenticationBox.authentication
+                let instance = authentication.instance(in: context.managedObjectContext)
+                let isTranslationEnabled = instance?.isTranslationEnabled ?? false
+
+                let menuContext = StatusAuthorView.AuthorMenuContext(
+                    name: name,
+                    isMuting: isMuting,
+                    isBlocking: isBlocking,
+                    isMyself: isMyself,
+                    isBookmarking: isBookmark,
+                    isFollowed: isFollowed,
+                    isTranslationEnabled: isTranslationEnabled,
+                    isTranslated: translatedFromLanguage != nil,
+                    statusLanguage: language
+                )
                 
-                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
-                context.managedObjectContext.performAndWait {
-                    let authentication = authContext.mastodonAuthenticationBox.authentication
-                    configuration = authentication.instance(in: context.managedObjectContext)?.configurationV2
-                }
-                return configuration
-            }()
-            
-            let menuContext = StatusAuthorView.AuthorMenuContext(
-                name: name,
-                isMuting: isMuting,
-                isBlocking: isBlocking,
-                isMyself: isMyself,
-                isBookmarking: isBookmark,
-                isFollowed: isFollowed,
-                isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
-                isTranslated: translatedFromLanguage != nil,
-                statusLanguage: language
-            )
-            let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
-            authorView.menuButton.menu = menu
-            authorView.authorActions = actions
-            authorView.menuButton.showsMenuAsPrimaryAction = true
-        }
-        .store(in: &disposeBag)
+                let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
+                authorView.menuButton.menu = menu
+                authorView.authorActions = actions
+                authorView.menuButton.showsMenuAsPrimaryAction = true
+            }
+            .store(in: &disposeBag)
     }
-    
+
     private func bindFilter(statusView: StatusView) {
         $isFiltered
             .sink { isFiltered in

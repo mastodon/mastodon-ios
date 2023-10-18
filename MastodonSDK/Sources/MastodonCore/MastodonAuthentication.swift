@@ -84,12 +84,14 @@ public struct MastodonAuthentication: Codable, Hashable {
     }
     
     public func instance(in context: NSManagedObjectContext) -> Instance? {
-        guard
-            let instanceObjectIdURI = instanceObjectIdURI,
-        let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: instanceObjectIdURI)
-        else { return nil }
-        
-        return try? context.existingObject(with: objectID) as? Instance
+        guard let instanceObjectIdURI,
+              let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: instanceObjectIdURI)
+        else {
+            return nil
+        }
+
+        let instance = try? context.existingObject(with: objectID) as? Instance
+        return instance
     }
     
     public func user(in context: NSManagedObjectContext) -> MastodonUser? {
