@@ -13,6 +13,7 @@ import MastodonLocalization
 import MastodonMeta
 import MastodonCore
 import Meta
+import MastodonSDK
 
 extension UserView {
     public func configure(user: MastodonUser, delegate: UserViewDelegate?) {
@@ -62,5 +63,9 @@ extension UserView {
             }
             .assign(to: \.authorVerifiedLink, on: viewModel)
             .store(in: &disposeBag)
+    }
+
+    func configure(with account: Mastodon.Entity.Account) {
+        //TODO: Implement
     }
 }

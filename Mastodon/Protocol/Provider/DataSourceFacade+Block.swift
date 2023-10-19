@@ -8,6 +8,7 @@
 import UIKit
 import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     static func responseToUserBlockAction(
@@ -29,5 +30,26 @@ extension DataSourceFacade {
             authenticationBox: authBox
         )
         dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
-    }   // end func
+    }
+
+    static func responseToUserBlockAction(
+        dependency: NeedsDependency & AuthContextProvider,
+        user: Mastodon.Entity.Account
+    ) async throws {
+        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
+        await selectionFeedbackGenerator.selectionChanged()
+
+        let apiService = dependency.context.apiService
+        let authBox = dependency.authContext.mastodonAuthenticationBox
+
+        _ = try await apiService.toggleBlock(
+            user: user,
+            authenticationBox: authBox
+        )
+
+        try await dependency.context.apiService.getBlocked(
+            authenticationBox: authBox
+        )
+        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+    }
 }

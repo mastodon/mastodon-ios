@@ -12,9 +12,11 @@ import MastodonAsset
 import MastodonLocalization
 import os
 import CoreDataStack
+import MastodonSDK
 
 public protocol UserViewDelegate: AnyObject {
     func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser)
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account)
 }
 
 public final class UserView: UIView {
@@ -251,9 +253,12 @@ public extension UserView {
         }
     }
     
-    @objc private func didTapButton() {
-        guard let user = viewModel.user else { return }
-        delegate?.userView(self, didTapButtonWith: currentButtonState, for: user)
+    @objc private func didTapFollowButton() {
+        if let user = viewModel.user {
+            delegate?.userView(self, didTapButtonWith: currentButtonState, for: user)
+        } else if let account = viewModel.account {
+            delegate?.userView(self, didTapButtonWith: currentButtonState, for: account)
+        }
     }
     
     func setButtonState(_ state: ButtonState) {
@@ -310,7 +315,8 @@ public extension UserView {
                 followButton.configuration?.baseBackgroundColor = .clear
         }
 
-        followButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        followButton.addTarget(self, action: #selector(didTapFollowButton), for: .touchUpInside)
         followButton.titleLabel?.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .boldSystemFont(ofSize: 15))
     }
 }
+

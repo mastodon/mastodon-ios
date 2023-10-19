@@ -9,6 +9,8 @@ import UIKit
 import CoreDataStack
 import MastodonUI
 import Combine
+import MastodonCore
+import MastodonSDK
 
 extension UserTableViewCell {
     final class ViewModel {
@@ -72,5 +74,27 @@ extension UserTableViewCell {
 
         self.delegate = delegate
     }
-    
+}
+
+extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextProvider {
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
+        Task {
+            try await DataSourceFacade.responseToUserViewButtonAction(
+                dependency: self,
+                user: user.asRecord,
+                buttonState: state
+            )
+        }
+    }
+
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account) {
+        Task {
+            try await DataSourceFacade.responseToUserViewButtonAction(
+                dependency: self,
+                user: user,
+                buttonState: state
+            )
+        }
+    }
+
 }
