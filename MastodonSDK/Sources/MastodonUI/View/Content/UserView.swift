@@ -101,8 +101,11 @@ public final class UserView: UIView {
     }()
 
     private let followButtonWrapper = UIView()
-    private let followButton: FollowButton = {
-        let button = FollowButton()
+    private let followButton: UIButton = {
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.background.cornerRadius = 10
+
+        let button = UIButton(configuration: buttonConfiguration)
         button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
