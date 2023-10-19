@@ -76,8 +76,7 @@ extension StatusThreadRootTableViewCell {
         statusView.contentMetaText.textView.isAccessibilityElement = true
         statusView.contentMetaText.textView.isSelectable = true
         
-        statusView.viewModel
-            .$translatedFromLanguage
+        statusView.viewModel.$translation
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 self?.invalidateIntrinsicContentSize()
