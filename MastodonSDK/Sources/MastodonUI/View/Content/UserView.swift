@@ -103,7 +103,6 @@ public final class UserView: UIView {
     private let followButtonWrapper = UIView()
     private let followButton: FollowButton = {
         let button = FollowButton()
-        button.cornerRadius = 10
         button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -257,57 +256,57 @@ public extension UserView {
     func setButtonState(_ state: ButtonState) {
         currentButtonState = state
         prepareButtonStateLayout(for: state)
-        
+
         switch state {
 
-        case .loading:
-            followButtonWrapper.isHidden = false
-            followButton.isHidden = false
-            followButton.setTitle(nil, for: .normal)
-            followButton.setBackgroundColor(Asset.Colors.Button.disabled.color, for: .normal)
-            
-        case .follow:
-            followButtonWrapper.isHidden = false
-            followButton.isHidden = false
-            followButton.setTitle(L10n.Common.Controls.Friendship.follow, for: .normal)
-            followButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
-            followButton.setTitleColor(.white, for: .normal)
+            case .loading:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = nil
+                followButton.setBackgroundColor(Asset.Colors.Button.disabled.color, for: .normal)
 
-        case .request:
-            followButtonWrapper.isHidden = false
-            followButton.isHidden = false
-            followButton.setTitle(L10n.Common.Controls.Friendship.request, for: .normal)
-            followButton.setBackgroundColor(Asset.Colors.Button.userFollow.color, for: .normal)
-            followButton.setTitleColor(.white, for: .normal)
+            case .follow:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.follow
+                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userFollow.color
+                followButton.configuration?.baseForegroundColor = .white
 
-        case .pending:
-            followButtonWrapper.isHidden = false
-            followButton.isHidden = false
-            followButton.setTitle(L10n.Common.Controls.Friendship.pending, for: .normal)
-            followButton.setTitleColor(Asset.Colors.Button.userFollowingTitle.color, for: .normal)
-            followButton.setBackgroundColor(Asset.Colors.Button.userFollowing.color, for: .normal)
+            case .request:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.request
+                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userFollow.color
+                followButton.configuration?.baseForegroundColor = .white
 
-        case .unfollow:
-            followButtonWrapper.isHidden = false
-            followButton.isHidden = false
-            followButton.setTitle(L10n.Common.Controls.Friendship.following, for: .normal)
-            followButton.setBackgroundColor(Asset.Colors.Button.userFollowing.color, for: .normal)
-            followButton.setTitleColor(Asset.Colors.Button.userFollowingTitle.color, for: .normal)
-            
-        case .blocked:
-            followButtonWrapper.isHidden = false
-            followButton.isHidden = false
-            followButton.setTitle(L10n.Common.Controls.Friendship.blocked, for: .normal)
-            followButton.setBackgroundColor(Asset.Colors.Button.userBlocked.color, for: .normal)
-            followButton.setTitleColor(.systemRed, for: .normal)
+            case .pending:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.pending
+                followButton.configuration?.baseForegroundColor = Asset.Colors.Button.userFollowingTitle.color
+                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userFollowing.color
 
-        case .none:
-            followButtonWrapper.isHidden = true
-            followButton.isHidden = true
-            followButton.setTitle(nil, for: .normal)
-            followButton.setBackgroundColor(.clear, for: .normal)
+            case .unfollow:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.following
+                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userFollowing.color
+                followButton.configuration?.baseForegroundColor = Asset.Colors.Button.userFollowingTitle.color
+
+            case .blocked:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.blocked
+                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userBlocked.color
+                followButton.configuration?.baseForegroundColor = .systemRed
+
+            case .none:
+                followButtonWrapper.isHidden = true
+                followButton.isHidden = true
+                followButton.configuration?.title = nil
+                followButton.configuration?.baseBackgroundColor = .clear
         }
-        
+
         followButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         followButton.titleLabel?.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .boldSystemFont(ofSize: 15))
     }

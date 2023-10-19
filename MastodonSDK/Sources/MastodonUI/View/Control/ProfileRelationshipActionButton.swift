@@ -77,15 +77,8 @@ extension ProfileRelationshipActionButton {
     private func configureAppearance() {
         setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
         setTitleColor(Asset.Colors.Label.primaryReverse.color.withAlphaComponent(0.5), for: .highlighted)
-        switch traitCollection.userInterfaceStyle {
-        case .dark:
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundDark.color), for: .normal)
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedDark.color), for: .highlighted)
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedDark.color), for: .disabled)
-        default:
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundLight.color), for: .normal)
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .highlighted)
-            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .disabled)
-        }
+        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.background.color), for: .normal)
+        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .highlighted)
+        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .disabled)
     }
 }
