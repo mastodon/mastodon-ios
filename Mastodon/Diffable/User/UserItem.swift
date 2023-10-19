@@ -8,9 +8,11 @@
 import Foundation
 import CoreData
 import CoreDataStack
+import MastodonSDK
 
 enum UserItem: Hashable {
     case user(record: ManagedObjectRecord<MastodonUser>)
+    case account(account: Mastodon.Entity.Account)
     case bottomLoader
     case bottomHeader(text: String)
 }

@@ -17,9 +17,7 @@ extension FamiliarFollowersViewModel {
             tableView: tableView,
             context: context,
             authContext: authContext,
-            configuration: UserSection.Configuration(
-                userTableViewCellDelegate: userTableViewCellDelegate
-            )
+            userTableViewCellDelegate: userTableViewCellDelegate
         )
         
         userFetchedResultsController.$records

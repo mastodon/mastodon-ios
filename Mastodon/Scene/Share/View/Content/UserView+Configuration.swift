@@ -19,6 +19,7 @@ extension UserView {
     public func configure(user: MastodonUser, delegate: UserViewDelegate?) {
         self.delegate = delegate
         viewModel.user = user
+        viewModel.account = nil
 
         Publishers.CombineLatest(
             user.publisher(for: \.avatar),
@@ -67,5 +68,11 @@ extension UserView {
 
     func configure(with account: Mastodon.Entity.Account) {
         //TODO: Implement
+        viewModel.account = account
+        viewModel.user = nil
+
+        // username
+        let metaContent = PlaintextMetaContent(string: "@\(account.username)")
+        authorUsernameLabel.configure(content: metaContent)
     }
 }

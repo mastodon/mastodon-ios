@@ -34,6 +34,18 @@ extension UserTableViewCell {
     func configure(
         me: MastodonUser? = nil,
         tableView: UITableView,
+        account: Mastodon.Entity.Account,
+        delegate: UserTableViewCellDelegate?
+    ) {
+        //TODO: Implement
+        userView.configure(with: account)
+    }
+
+
+    //TODO: Duplicate
+    func configure(
+        me: MastodonUser? = nil,
+        tableView: UITableView,
         viewModel: ViewModel,
         delegate: UserTableViewCellDelegate?
     ) {

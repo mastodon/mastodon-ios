@@ -20,9 +20,9 @@ final class FollowingListViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let userFetchedResultsController: UserFetchedResultsController
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
-    
+    @Published var accounts: [Mastodon.Entity.Account]
+    let listBatchFetchViewModel: ListBatchFetchViewModel
+
     @Published var domain: String?
     @Published var userID: String?
     
@@ -49,14 +49,9 @@ final class FollowingListViewModel {
     ) {
         self.context = context
         self.authContext = authContext
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: domain,
-            additionalPredicate: nil
-        )
         self.domain = domain
         self.userID = userID
-        // super.init()
-        
+        self.accounts = []
+        self.listBatchFetchViewModel = ListBatchFetchViewModel()
     }
 }

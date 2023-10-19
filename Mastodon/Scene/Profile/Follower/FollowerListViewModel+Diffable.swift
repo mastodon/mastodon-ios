@@ -18,9 +18,7 @@ extension FollowerListViewModel {
             tableView: tableView,
             context: context,
             authContext: authContext,
-            configuration: UserSection.Configuration(
-                userTableViewCellDelegate: userTableViewCellDelegate
-            )
+            userTableViewCellDelegate: userTableViewCellDelegate
         )
         
         // workaround to append loader wrong animation issue
