@@ -26,7 +26,8 @@ public final class UserView: UIView {
     }
     
     private var currentButtonState: ButtonState = .none
-    
+    public static var metricFormatter = MastodonMetricFormatter()
+
     public weak var delegate: UserViewDelegate?
     
     public var disposeBag = Set<AnyCancellable>()
@@ -102,7 +103,7 @@ public final class UserView: UIView {
         return label
     }()
 
-    private let followButtonWrapper = UIView()
+    public let followButtonWrapper = UIView()
     private let followButton: UIButton = {
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.background.cornerRadius = 10
