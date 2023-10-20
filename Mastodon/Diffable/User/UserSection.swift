@@ -34,6 +34,36 @@ extension UserSection {
                 case .account(let account):
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
                     cell.configure(tableView: tableView, account: account, delegate: userTableViewCellDelegate)
+                    cell.userView.setButtonState(.loading)
+                    Task {
+                        do {
+
+                            guard let relationship = try await context.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first else {
+                                return await MainActor.run {
+                                    cell.userView.setButtonState(.none)
+                                }
+                            }
+
+                            let buttonState: UserView.ButtonState
+                            if relationship.following {
+                                buttonState = .unfollow
+                            } else if relationship.blocking || (relationship.domainBlocking ?? false) {
+                                buttonState = .blocked
+                            } else if relationship.requested ?? false {
+                                buttonState = .pending
+                            } else {
+                                buttonState = .follow
+                            }
+
+                            await MainActor.run {
+                                cell.userView.setButtonState(buttonState)
+                            }
+                        } catch {
+                            await MainActor.run {
+                                cell.userView.setButtonState(.none)
+                            }
+                        }
+                    }
 
                     return cell
 
