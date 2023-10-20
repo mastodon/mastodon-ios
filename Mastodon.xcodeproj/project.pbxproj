@@ -147,6 +147,7 @@
 		D8363B1629469CE200A74079 /* OnboardingNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8363B1529469CE200A74079 /* OnboardingNextView.swift */; };
 		D852C23C2AC5D02C00309232 /* AboutInstanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852C23B2AC5D02C00309232 /* AboutInstanceViewController.swift */; };
 		D852C23E2AC5D03300309232 /* InstanceRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852C23D2AC5D03300309232 /* InstanceRulesViewController.swift */; };
+		D87364F92AE28DB500C8F919 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = D87364F82AE28DB500C8F919 /* Kanna */; };
 		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
 		D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */; };
 		D87BFC8F291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */; };
@@ -1289,6 +1290,7 @@
 			files = (
 				357FEEAF29523D470021C9DC /* MastodonSDKDynamic in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
+				D87364F92AE28DB500C8F919 /* Kanna in Frameworks */,
 				71458AF57697DB405CFEC37C /* Pods_Mastodon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3120,7 +3122,6 @@
 			buildConfigurationList = DB427DFC25BAA00100D1B89D /* Build configuration list for PBXNativeTarget "Mastodon" */;
 			buildPhases = (
 				7A04933A2AB1D5B758D4F908 /* [CP] Check Pods Manifest.lock */,
-				5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */,
 				DB427DD025BAA00100D1B89D /* Resources */,
 				DB427DCE25BAA00100D1B89D /* Sources */,
 				DB427DCF25BAA00100D1B89D /* Frameworks */,
@@ -3142,6 +3143,7 @@
 			name = Mastodon;
 			packageProductDependencies = (
 				357FEEAE29523D470021C9DC /* MastodonSDKDynamic */,
+				D87364F82AE28DB500C8F919 /* Kanna */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3178,7 +3180,6 @@
 				DB427DEF25BAA00100D1B89D /* Sources */,
 				DB427DF025BAA00100D1B89D /* Frameworks */,
 				DB427DF125BAA00100D1B89D /* Resources */,
-				ECC2E90D421B45415C311BED /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3326,6 +3327,7 @@
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
 				2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */,
+				D87364F72AE28DB500C8F919 /* XCRemoteSwiftPackageReference "Kanna" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3419,23 +3421,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Mastodon/Pods-Mastodon-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Mastodon/Pods-Mastodon-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mastodon/Pods-Mastodon-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6E033728B42BA1C0018B6131 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3554,23 +3539,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ECC2E90D421B45415C311BED /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -5463,6 +5431,14 @@
 				kind = branch;
 			};
 		};
+		D87364F72AE28DB500C8F919 /* XCRemoteSwiftPackageReference "Kanna" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tid-kijyun/Kanna.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.7;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -5498,6 +5474,11 @@
 		9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDKDynamic;
+		};
+		D87364F82AE28DB500C8F919 /* Kanna */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D87364F72AE28DB500C8F919 /* XCRemoteSwiftPackageReference "Kanna" */;
+			productName = Kanna;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
