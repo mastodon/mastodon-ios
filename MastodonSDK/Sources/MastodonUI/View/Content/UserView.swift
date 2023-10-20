@@ -104,7 +104,7 @@ public final class UserView: UIView {
     }()
 
     public let followButtonWrapper = UIView()
-    private let followButton: UIButton = {
+    public let followButton: UIButton = {
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.background.cornerRadius = 10
 
@@ -272,48 +272,63 @@ public extension UserView {
                 followButtonWrapper.isHidden = false
                 followButton.isHidden = false
                 followButton.configuration?.title = nil
-                followButton.setBackgroundColor(Asset.Colors.Button.disabled.color, for: .normal)
+                followButton.configuration?.showsActivityIndicator = true
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollowing.color
+                followButton.configuration?.baseForegroundColor = Asset.Colors.Brand.blurple.color
+                followButton.isEnabled = false
 
             case .follow:
                 followButtonWrapper.isHidden = false
                 followButton.isHidden = false
                 followButton.configuration?.title = L10n.Common.Controls.Friendship.follow
-                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userFollow.color
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollow.color
                 followButton.configuration?.baseForegroundColor = .white
+                followButton.isEnabled = true
 
             case .request:
                 followButtonWrapper.isHidden = false
                 followButton.isHidden = false
                 followButton.configuration?.title = L10n.Common.Controls.Friendship.request
-                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userFollow.color
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollow.color
                 followButton.configuration?.baseForegroundColor = .white
+                followButton.isEnabled = true
 
             case .pending:
                 followButtonWrapper.isHidden = false
                 followButton.isHidden = false
                 followButton.configuration?.title = L10n.Common.Controls.Friendship.pending
                 followButton.configuration?.baseForegroundColor = Asset.Colors.Button.userFollowingTitle.color
-                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userFollowing.color
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollowing.color
+                followButton.isEnabled = true
 
             case .unfollow:
                 followButtonWrapper.isHidden = false
                 followButton.isHidden = false
                 followButton.configuration?.title = L10n.Common.Controls.Friendship.following
-                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userFollowing.color
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollowing.color
                 followButton.configuration?.baseForegroundColor = Asset.Colors.Button.userFollowingTitle.color
+                followButton.isEnabled = true
 
             case .blocked:
                 followButtonWrapper.isHidden = false
                 followButton.isHidden = false
                 followButton.configuration?.title = L10n.Common.Controls.Friendship.blocked
-                followButton.configuration?.baseBackgroundColor = Asset.Colors.Button.userBlocked.color
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userBlocked.color
                 followButton.configuration?.baseForegroundColor = .systemRed
+                followButton.isEnabled = true
 
             case .none:
                 followButtonWrapper.isHidden = true
                 followButton.isHidden = true
                 followButton.configuration?.title = nil
-                followButton.configuration?.baseBackgroundColor = .clear
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = .clear
+                followButton.isEnabled = false
         }
 
         followButton.addTarget(self, action: #selector(didTapFollowButton), for: .touchUpInside)
