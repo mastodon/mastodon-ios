@@ -56,7 +56,8 @@ extension FollowingListViewModel.State {
             
             // reset
             viewModel.accounts = []
-            
+            viewModel.relationships = []
+
             stateMachine.enter(Loading.self)
         }
     }
