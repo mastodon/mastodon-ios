@@ -17,7 +17,8 @@ extension DataSourceFacade {
         item: DataSourceItem
     ) async {
         switch item {
-        case .status:
+
+        case .status, .account(_, _):
             break       // not create search history for status
         case .user(let record):
             let authenticationBox = provider.authContext.mastodonAuthenticationBox

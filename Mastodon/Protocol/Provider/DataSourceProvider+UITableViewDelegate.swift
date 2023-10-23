@@ -21,6 +21,8 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                 return
             }
             switch item {
+                case .account(let account, relationship: _):
+                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
             case .status(let status):
                 await DataSourceFacade.coordinateToStatusThreadScene(
                     provider: self,
