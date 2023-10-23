@@ -126,24 +126,34 @@ extension FollowingListViewModel.State {
             
             Task {
                 do {
-                    let response = try await viewModel.context.apiService.following(
+                    let accountResponse = try await viewModel.context.apiService.following(
                         userID: userID,
                         maxID: maxID,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
-                    
+
                     var hasNewAppend = false
+
+
+                    let newRelationships = try await viewModel.context.apiService.relationship(forAccounts: accountResponse.value, authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
+
                     var accounts = viewModel.accounts
-                    
-                    for user in response.value {
+
+                    for user in accountResponse.value {
                         guard accounts.contains(user) == false else { continue }
                         accounts.append(user)
                         hasNewAppend = true
                     }
 
+                    var relationships = viewModel.relationships
 
-                    let maxID = response.link?.maxID
-                    
+                    for relationship in newRelationships.value {
+                        guard relationships.contains(relationship) == false else { continue }
+                        relationships.append(relationship)
+                    }
+
+                    let maxID = accountResponse.link?.maxID
+
                     if hasNewAppend, maxID != nil {
                         await enter(state: Idle.self)
                     } else {
@@ -151,6 +161,7 @@ extension FollowingListViewModel.State {
                     }
                     
                     viewModel.accounts = accounts
+                    viewModel.relationships = relationships
                     self.maxID = maxID
                 } catch {
                     await enter(state: Fail.self)

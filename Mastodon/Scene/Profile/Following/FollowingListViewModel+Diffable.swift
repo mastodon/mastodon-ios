@@ -9,6 +9,7 @@ import UIKit
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
+import MastodonSDK
 
 extension FollowingListViewModel {
     func setupDiffableDataSource(
@@ -37,7 +38,14 @@ extension FollowingListViewModel {
 
                 var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
                 snapshot.appendSections([.main])
-                let items = accounts.map { UserItem.account(account: $0) }
+
+                let accountsWithRelationship: [(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)] = accounts.compactMap { account in
+                    guard let relationship = self.relationships.first(where: {$0.id == account.id }) else { return (account: account, relationship: nil)}
+
+                    return (account: account, relationship: relationship)
+                }
+
+                let items = accountsWithRelationship.map { UserItem.account(account: $0.account, relationship: $0.relationship) }
                 snapshot.appendItems(items, toSection: .main)
 
                 if let currentState = self.stateMachine.currentState {

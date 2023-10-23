@@ -31,39 +31,11 @@ extension UserSection {
 
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
-                case .account(let account):
+                case .account(let account, let relationship):
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
-                    cell.configure(tableView: tableView, account: account, delegate: userTableViewCellDelegate)
+
                     cell.userView.setButtonState(.loading)
-                    Task {
-                        do {
-
-                            guard let relationship = try await context.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first else {
-                                return await MainActor.run {
-                                    cell.userView.setButtonState(.none)
-                                }
-                            }
-
-                            let buttonState: UserView.ButtonState
-                            if relationship.following {
-                                buttonState = .unfollow
-                            } else if relationship.blocking || (relationship.domainBlocking ?? false) {
-                                buttonState = .blocked
-                            } else if relationship.requested ?? false {
-                                buttonState = .pending
-                            } else {
-                                buttonState = .follow
-                            }
-
-                            await MainActor.run {
-                                cell.userView.setButtonState(buttonState)
-                            }
-                        } catch {
-                            await MainActor.run {
-                                cell.userView.setButtonState(.none)
-                            }
-                        }
-                    }
+                    cell.configure(tableView: tableView, account: account, relationship: relationship, delegate: userTableViewCellDelegate)
 
                     return cell
 

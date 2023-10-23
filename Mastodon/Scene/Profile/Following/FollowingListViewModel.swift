@@ -21,6 +21,8 @@ final class FollowingListViewModel {
     let context: AppContext
     let authContext: AuthContext
     @Published var accounts: [Mastodon.Entity.Account]
+    @Published var relationships: [Mastodon.Entity.Relationship]
+
     let listBatchFetchViewModel: ListBatchFetchViewModel
 
     @Published var domain: String?
@@ -52,6 +54,7 @@ final class FollowingListViewModel {
         self.domain = domain
         self.userID = userID
         self.accounts = []
+        self.relationships = []
         self.listBatchFetchViewModel = ListBatchFetchViewModel()
     }
 }
