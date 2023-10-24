@@ -379,10 +379,10 @@ extension ProfileViewController {
         .sink { [weak self] (user, _) in
             guard let self = self, let user = user else { return }
             Task {
-                _ = try await self.context.apiService.accountInfo(
+                _ = try await self.context.apiService.fetchUser(
+                    username: user.username,
                     domain: user.domain,
-                    userID: user.id,
-                    authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
+                    authenticationBox: self.authContext.mastodonAuthenticationBox
                 )
             }
         }
