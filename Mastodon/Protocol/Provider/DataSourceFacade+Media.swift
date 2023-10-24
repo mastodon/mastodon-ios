@@ -65,10 +65,10 @@ extension DataSourceFacade {
         previewContext: AttachmentPreviewContext
     ) async throws {
         let managedObjectContext = dependency.context.managedObjectContext
-        let attachments: [MastodonAttachment] = try await managedObjectContext.perform {
-            guard let _status = status.object(in: managedObjectContext) else { return [] }
+        let (attachments, language): ([MastodonAttachment], String?) = try await managedObjectContext.perform {
+            guard let _status = status.object(in: managedObjectContext) else { return ([], nil) }
             let status = _status.reblog ?? _status
-            return status.attachments
+            return (status.attachments, status.language)
         }
         
         let thumbnails = await previewContext.thumbnails()
@@ -119,7 +119,8 @@ extension DataSourceFacade {
         let mediaPreviewItem = MediaPreviewViewModel.PreviewItem.attachment(.init(
             attachments: attachments,
             initialIndex: previewContext.index,
-            thumbnails: thumbnails
+            thumbnails: thumbnails,
+            language: language
         ))
         
         coordinateToMediaPreviewScene(

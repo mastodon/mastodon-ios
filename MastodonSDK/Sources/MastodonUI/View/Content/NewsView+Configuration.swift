@@ -42,6 +42,7 @@ extension NewsView {
                 assetURL: link.image,
                 altDescription: nil
             )),
+            language: nil,
             blurhash: link.blurhash,
             index: 1,
             total: 1

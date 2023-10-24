@@ -181,7 +181,7 @@ extension MediaPreviewViewController {
     @objc private func altButtonPressed(_ sender: UIButton) {
         guard let alt = viewModel.altText else { return }
 
-        present(AltTextViewController(alt: alt, sourceView: sender), animated: true)
+        present(AltTextViewController(alt: alt, language: viewModel.language, sourceView: sender), animated: true)
     }
 }
 

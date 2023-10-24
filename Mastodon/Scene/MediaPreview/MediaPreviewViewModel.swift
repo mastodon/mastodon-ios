@@ -28,6 +28,7 @@ final class MediaPreviewViewModel: NSObject {
     @Published var currentPage: Int
     @Published var showingChrome = true
     @Published var altText: String?
+    @Published var language: String?
 
     // output
     let viewControllers: [MediaPreviewPage]
@@ -47,6 +48,7 @@ final class MediaPreviewViewModel: NSObject {
         switch item {
         case .attachment(let previewContext):
             getAltText = { previewContext.attachments[$0].altDescription }
+            self.language = previewContext.language
 
             currentPage = previewContext.initialIndex
             for (i, attachment) in previewContext.attachments.enumerated() {
@@ -58,7 +60,8 @@ final class MediaPreviewViewModel: NSObject {
                         item: .init(
                             assetURL: attachment.assetURL.flatMap { URL(string: $0) },
                             thumbnail: previewContext.thumbnail(at: i),
-                            altText: attachment.altDescription
+                            altText: attachment.altDescription,
+                            language: previewContext.language
                         )
                     )
                     viewController.viewModel = viewModel
@@ -96,7 +99,8 @@ final class MediaPreviewViewModel: NSObject {
                 item: .init(
                     assetURL: previewContext.assetURL.flatMap { URL(string: $0) },
                     thumbnail: previewContext.thumbnail,
-                    altText: nil
+                    altText: nil,
+                    language: nil
                 )
             )
             viewController.viewModel = viewModel
@@ -108,7 +112,8 @@ final class MediaPreviewViewModel: NSObject {
                 item: .init(
                     assetURL: previewContext.assetURL.flatMap { URL(string: $0) },
                     thumbnail: previewContext.thumbnail,
-                    altText: nil
+                    altText: nil,
+                    language: nil
                 )
             )
             viewController.viewModel = viewModel
@@ -161,6 +166,7 @@ extension MediaPreviewViewModel {
         let attachments: [MastodonAttachment]
         let initialIndex: Int
         let thumbnails: [UIImage?]
+        let language: String?
         
         func thumbnail(at index: Int) -> UIImage? {
             guard index < thumbnails.count else { return nil }

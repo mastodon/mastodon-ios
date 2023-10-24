@@ -108,8 +108,8 @@ extension StatusView {
         @Published public var filterContext: Mastodon.Entity.Filter.Context?
         @Published public var isFiltered = false
 
-        @Published public var groupedAccessibilityLabel = ""
-        @Published public var contentAccessibilityLabel = ""
+        @Published public var groupedAccessibilityLabel: AttributedString = ""
+        @Published public var contentAccessibilityLabel: AttributedString = ""
 
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -716,7 +716,7 @@ extension StatusView.ViewModel {
             $authorUsername,
             $timestampText
         )
-        .map { header, authorName, authorUsername, timestamp -> String? in
+        .map { header, authorName, authorUsername, timestamp -> String in
             var strings: [String?] = []
             
             switch header {
@@ -776,30 +776,35 @@ extension StatusView.ViewModel {
         .assign(to: \.accessibilityLabel, on: statusView.authorView)
         .store(in: &disposeBag)
 
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             $isContentReveal,
             $spoilerContent,
-            $content
+            $content,
+            Publishers.CombineLatest($language, $translatedFromLanguage)
+                .map { language, translatedFromLanguage in
+                    translatedFromLanguage != nil  ? nil : language
+                }
         )
-        .map { isContentReveal, spoilerContent, content in
-            var strings: [String?] = []
-            
+        .map { isContentReveal, spoilerContent, content, language in
+            var strings: [AttributedString] = []
+            let languageAttributes = AttributeContainer(\.languageIdentifier, value: language)
             if let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
-                strings.append(L10n.Common.Controls.Status.contentWarning)
-                strings.append(spoilerContent.string)
+                strings.append(AttributedString(L10n.Common.Controls.Status.contentWarning))
+                strings.append(AttributedString(spoilerContent.string, attributes: languageAttributes))
                 
                 // TODO: replace with "Tap to reveal"
-                strings.append(L10n.Common.Controls.Status.mediaContentWarning)
+                strings.append(AttributedString(L10n.Common.Controls.Status.mediaContentWarning))
             }
 
             if isContentReveal {
-                strings.append(content?.string)
+                strings.append(AttributedString(statusView.contentMetaText.backedString, attributes: languageAttributes))
             }
             
-            return strings.compactMap { $0 }.joined(separator: ", ")
+            return strings.joined(separator: ", ")
         }
+        .removeDuplicates()
         .assign(to: &$contentAccessibilityLabel)
-        
+
         $isContentReveal
             .map { isContentReveal in
                 isContentReveal ? L10n.Scene.Compose.Accessibility.enableContentWarning : L10n.Scene.Compose.Accessibility.disableContentWarning
@@ -811,12 +816,13 @@ extension StatusView.ViewModel {
         
         $contentAccessibilityLabel
             .sink { contentAccessibilityLabel in
-                statusView.spoilerOverlayView.accessibilityLabel = contentAccessibilityLabel
+                statusView.spoilerOverlayView.attributedAccessibilityLabel = contentAccessibilityLabel
+                statusView.contentMetaText.textView.attributedAccessibilityLabel = contentAccessibilityLabel
             }
             .store(in: &disposeBag)
 
         let mediaAccessibilityLabel = $mediaViewConfigurations
-            .map { configurations -> String? in
+            .map { configurations in
                 let count = configurations.count
                 return L10n.Plural.Count.media(count)
             }
@@ -900,21 +906,23 @@ extension StatusView.ViewModel {
             mediaAccessibilityLabel
         )
         .map { author, content, translated, media in
-            var labels: [String?] = [content, translated, media]
+            var labels = [content]
+            if let translated {
+                labels.append(content)
+            }
+            labels.append(AttributedString(media))
 
             if statusView.style != .notification {
-                labels.insert(author, at: 0)
+                labels.insert(AttributedString(author), at: 0)
             }
 
-            return labels
-                .compactMap { $0 }
-                .joined(separator: ", ")
+            return labels.joined(separator: ", ")
         }
         .assign(to: &$groupedAccessibilityLabel)
         
         $groupedAccessibilityLabel
             .sink { accessibilityLabel in
-                statusView.accessibilityLabel = accessibilityLabel
+                statusView.attributedAccessibilityLabel = accessibilityLabel
             }
             .store(in: &disposeBag)
 

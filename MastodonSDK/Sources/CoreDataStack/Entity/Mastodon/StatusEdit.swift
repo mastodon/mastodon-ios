@@ -31,6 +31,9 @@ public final class StatusEdit: NSManagedObject {
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public var spoilerText: String?
 
+    // sourcery: autoUpdatableObject, autoGenerateProperty
+    @NSManaged public var status: Status?
+
     // MARK: - AutoGenerateProperty
     // sourcery:inline:StatusEdit.AutoGenerateProperty
 
@@ -203,6 +206,11 @@ extension StatusEdit: AutoUpdatableObject {
     public func update(spoilerText: String?) {
     	if self.spoilerText != spoilerText {
     		self.spoilerText = spoilerText
+    	}
+    }
+    public func update(status: Status?) {
+    	if self.status != status {
+    		self.status = status
     	}
     }
     public func update(emojis: [MastodonEmoji]) {
