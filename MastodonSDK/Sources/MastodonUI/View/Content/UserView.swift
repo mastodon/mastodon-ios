@@ -16,7 +16,7 @@ import MastodonSDK
 
 public protocol UserViewDelegate: AnyObject {
     func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser)
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account)
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account, me: MastodonUser?)
 }
 
 public final class UserView: UIView {
@@ -258,10 +258,33 @@ public extension UserView {
         if let user = viewModel.user {
             delegate?.userView(self, didTapButtonWith: currentButtonState, for: user)
         } else if let account = viewModel.account {
-            delegate?.userView(self, didTapButtonWith: currentButtonState, for: account)
+            delegate?.userView(self, didTapButtonWith: currentButtonState, for: account, me: nil)
         }
     }
-    
+
+    func updateButtonState(with relationship: Mastodon.Entity.Relationship?, isMe: Bool) {
+        let buttonState: UserView.ButtonState
+        
+        if let relationship {
+            if isMe {
+                buttonState = .none
+            } else if relationship.following {
+                buttonState = .unfollow
+            } else if relationship.blocking || (relationship.domainBlocking ?? false) {
+                buttonState = .blocked
+            } else if relationship.requested ?? false {
+                buttonState = .pending
+            } else {
+                buttonState = .follow
+            }
+        } else {
+            buttonState = .none
+        }
+
+        setButtonState(buttonState)
+
+    }
+
     func setButtonState(_ state: ButtonState) {
         currentButtonState = state
         prepareButtonStateLayout(for: state)

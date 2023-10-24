@@ -21,6 +21,7 @@ extension UserView {
         self.delegate = delegate
         viewModel.user = user
         viewModel.account = nil
+        viewModel.relationship = nil
 
         Publishers.CombineLatest(
             user.publisher(for: \.avatar),
@@ -67,9 +68,11 @@ extension UserView {
             .store(in: &disposeBag)
     }
 
-    func configure(with account: Mastodon.Entity.Account) {
+    func configure(with account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?, delegate: UserViewDelegate?) {
         viewModel.account = account
+        viewModel.relationship = relationship
         viewModel.user = nil
+        self.delegate = delegate
 
         let authorUsername = PlaintextMetaContent(string: "@\(account.username)")
         authorUsernameLabel.configure(content: authorUsername)

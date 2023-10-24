@@ -38,28 +38,12 @@ extension UserTableViewCell {
         relationship: Mastodon.Entity.Relationship?,
         delegate: UserTableViewCellDelegate?
     ) {
-        userView.configure(with: account)
+        userView.configure(with: account, relationship: relationship, delegate: delegate)
 
-        let buttonState: UserView.ButtonState
-        if let relationship {
-            let isMe = account.id == me.id
-            if isMe {
-                buttonState = .none
-            } else if relationship.following {
-                buttonState = .unfollow
-            } else if relationship.blocking || (relationship.domainBlocking ?? false) {
-                buttonState = .blocked
-            } else if relationship.requested ?? false {
-                buttonState = .pending
-            } else {
-                buttonState = .follow
-            }
-        } else {
-            buttonState = .none
-        }
+        let isMe = account.id == me.id
+        userView.updateButtonState(with: relationship, isMe: isMe)
 
-        userView.setButtonState(buttonState)
-        
+        self.delegate = delegate
     }
 
     func configure(
@@ -117,15 +101,30 @@ extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextPro
             )
         }
     }
-
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account) {
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for account: Mastodon.Entity.Account, me: MastodonUser?) {
         Task {
+            await MainActor.run { view.setButtonState(.loading) }
+
             try await DataSourceFacade.responseToUserViewButtonAction(
                 dependency: self,
-                user: user,
+                user: account,
                 buttonState: state
             )
+
+            let relationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first
+
+            let isMe: Bool
+            if let me {
+                isMe = account.id == me.id
+            } else {
+                isMe = false
+            }
+
+            await MainActor.run {
+                view.viewModel.relationship = relationship
+                view.updateButtonState(with: relationship, isMe: isMe)
+            }
+
         }
     }
-
 }

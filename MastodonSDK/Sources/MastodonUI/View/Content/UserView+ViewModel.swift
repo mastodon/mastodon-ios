@@ -28,6 +28,7 @@ extension UserView {
         @Published public var authorVerifiedLink: String?
         @Published public var user: MastodonUser?
         @Published public var account: Mastodon.Entity.Account?
+        @Published public var relationship: Mastodon.Entity.Relationship?
     }
 }
 
