@@ -14,7 +14,7 @@ import MastodonLocalization
 extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvider {
 
     func aspectTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true )
+        tableView.deselectRow(at: indexPath, animated: true)
         Task {
             let source = DataSourceItem.Source(tableViewCell: nil, indexPath: indexPath)
             guard let item = await item(from: source) else {

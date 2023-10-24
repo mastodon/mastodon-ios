@@ -29,13 +29,24 @@ extension UserSection {
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.register(TimelineFooterTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineFooterTableViewCell.self))
 
-        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
+        return UITableViewDiffableDataSource(tableView: tableView) {
+            tableView,
+            indexPath,
+            item -> UITableViewCell? in
             switch item {
                 case .account(let account, let relationship):
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
 
+                    guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return cell }
+
                     cell.userView.setButtonState(.loading)
-                    cell.configure(tableView: tableView, account: account, relationship: relationship, delegate: userTableViewCellDelegate)
+                    cell.configure(
+                        me: me,
+                        tableView: tableView,
+                        account: account,
+                        relationship: relationship,
+                        delegate: userTableViewCellDelegate
+                    )
 
                     return cell
 

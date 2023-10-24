@@ -32,18 +32,20 @@ extension UserTableViewCell {
 extension UserTableViewCell {
 
     func configure(
-        me: MastodonUser? = nil,
+        me: MastodonUser,
         tableView: UITableView,
         account: Mastodon.Entity.Account,
         relationship: Mastodon.Entity.Relationship?,
         delegate: UserTableViewCellDelegate?
     ) {
-        //TODO: Implement
         userView.configure(with: account)
 
         let buttonState: UserView.ButtonState
         if let relationship {
-            if relationship.following {
+            let isMe = account.id == me.id
+            if isMe {
+                buttonState = .none
+            } else if relationship.following {
                 buttonState = .unfollow
             } else if relationship.blocking || (relationship.domainBlocking ?? false) {
                 buttonState = .blocked
@@ -57,10 +59,9 @@ extension UserTableViewCell {
         }
 
         userView.setButtonState(buttonState)
+        
     }
 
-
-    //TODO: Duplicate
     func configure(
         me: MastodonUser? = nil,
         tableView: UITableView,
