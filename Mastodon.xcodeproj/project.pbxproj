@@ -318,7 +318,6 @@
 		DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F7442799056400455B82 /* HashtagTableViewCell.swift */; };
 		DB63F74727990B0600455B82 /* DataSourceFacade+Hashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F74627990B0600455B82 /* DataSourceFacade+Hashtag.swift */; };
 		DB63F7492799126300455B82 /* FollowerListViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F7482799126300455B82 /* FollowerListViewController+DataSourceProvider.swift */; };
-		DB63F74B279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F74A279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift */; };
 		DB63F74D27993F5B00455B82 /* SearchHistoryUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F74C27993F5B00455B82 /* SearchHistoryUserCollectionViewCell.swift */; };
 		DB63F74F2799405600455B82 /* SearchHistoryViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F74E2799405600455B82 /* SearchHistoryViewModel+Diffable.swift */; };
 		DB63F752279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F751279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift */; };
@@ -1023,7 +1022,6 @@
 		DB63F7442799056400455B82 /* HashtagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTableViewCell.swift; sourceTree = "<group>"; };
 		DB63F74627990B0600455B82 /* DataSourceFacade+Hashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Hashtag.swift"; sourceTree = "<group>"; };
 		DB63F7482799126300455B82 /* FollowerListViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowerListViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
-		DB63F74A279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowingListViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DB63F74C27993F5B00455B82 /* SearchHistoryUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB63F74E2799405600455B82 /* SearchHistoryViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistoryViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB63F751279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistorySectionHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -2320,7 +2318,6 @@
 			isa = PBXGroup;
 			children = (
 				DB5B7294273112B100081888 /* FollowingListViewController.swift */,
-				DB63F74A279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift */,
 				DB5B7297273112C800081888 /* FollowingListViewModel.swift */,
 				DB5B729B273113C200081888 /* FollowingListViewModel+Diffable.swift */,
 				DB5B729D273113F300081888 /* FollowingListViewModel+State.swift */,
@@ -3969,7 +3966,6 @@
 				DB98EB5927B109890082E365 /* ReportSupplementaryViewController.swift in Sources */,
 				DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
-				DB63F74B279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift in Sources */,
 				DBEFCD7D282A2A3B00C0ABEA /* ReportServerRulesViewController.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				D8F917122A4C6B67008A5370 /* GeneralSettingsViewController.swift in Sources */,
