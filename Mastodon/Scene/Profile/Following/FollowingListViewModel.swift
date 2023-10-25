@@ -27,7 +27,9 @@ final class FollowingListViewModel {
 
     @Published var domain: String?
     @Published var userID: String?
-    
+
+    var tableView: UITableView?
+
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
     private(set) lazy var stateMachine: GKStateMachine = {

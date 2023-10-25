@@ -92,6 +92,12 @@ extension FollowingListViewModel.State {
                     return false
             }
         }
+
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+
+            viewModel?.tableView?.refreshControl?.endRefreshing()
+        }
     }
     
     class Loading: FollowingListViewModel.State {
@@ -134,7 +140,6 @@ extension FollowingListViewModel.State {
                     )
 
                     var hasNewAppend = false
-
 
                     let newRelationships = try await viewModel.context.apiService.relationship(forAccounts: accountResponse.value, authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
 
@@ -179,6 +184,12 @@ extension FollowingListViewModel.State {
                 default:
                     return false
             }
+        }
+
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+
+            viewModel?.tableView?.refreshControl?.endRefreshing()
         }
     }
 }
