@@ -317,7 +317,6 @@
 		DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */; };
 		DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F7442799056400455B82 /* HashtagTableViewCell.swift */; };
 		DB63F74727990B0600455B82 /* DataSourceFacade+Hashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F74627990B0600455B82 /* DataSourceFacade+Hashtag.swift */; };
-		DB63F74B279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F74A279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift */; };
 		DB63F74D27993F5B00455B82 /* SearchHistoryUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F74C27993F5B00455B82 /* SearchHistoryUserCollectionViewCell.swift */; };
 		DB63F74F2799405600455B82 /* SearchHistoryViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F74E2799405600455B82 /* SearchHistoryViewModel+Diffable.swift */; };
 		DB63F752279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F751279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift */; };
@@ -1021,7 +1020,6 @@
 		DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewModel.swift; sourceTree = "<group>"; };
 		DB63F7442799056400455B82 /* HashtagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTableViewCell.swift; sourceTree = "<group>"; };
 		DB63F74627990B0600455B82 /* DataSourceFacade+Hashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Hashtag.swift"; sourceTree = "<group>"; };
-		DB63F74A279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowingListViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DB63F74C27993F5B00455B82 /* SearchHistoryUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB63F74E2799405600455B82 /* SearchHistoryViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistoryViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB63F751279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistorySectionHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
