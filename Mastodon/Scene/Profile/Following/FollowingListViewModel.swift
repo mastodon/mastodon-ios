@@ -7,8 +7,6 @@
 
 import Foundation
 import Combine
-import CoreData
-import CoreDataStack
 import GameplayKit
 import MastodonCore
 import MastodonSDK
