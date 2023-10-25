@@ -464,9 +464,8 @@ private extension SceneCoordinator {
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .follower(let viewModel):
-                let _viewController = FollowerListViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                let followerListViewController = FollowerListViewController(viewModel: viewModel, coordinator: self, context: appContext)
+                viewController = followerListViewController
             case .following(let viewModel):
                 let followingListViewController = FollowingListViewController(viewModel: viewModel, coordinator: self, context: appContext)
                 viewController = followingListViewController

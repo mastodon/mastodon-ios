@@ -11,28 +11,53 @@ import Combine
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
-import CoreDataStack
 
 final class FollowerListViewController: UIViewController, NeedsDependency {
     
-    weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
-    weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
+    weak var context: AppContext!
+    weak var coordinator: SceneCoordinator!
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: FollowerListViewModel!
+    var viewModel: FollowerListViewModel
         
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
+    let tableView: UITableView
+    let refreshControl: UIRefreshControl
+
+    init(viewModel: FollowerListViewModel, coordinator: SceneCoordinator, context: AppContext) {
+
+        self.context = context
+        self.coordinator = coordinator
+        self.viewModel = viewModel
+
+        tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.register(TimelineFooterTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineFooterTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        return tableView
-    }()
- 
-    
+
+        refreshControl = UIRefreshControl()
+        tableView.refreshControl = refreshControl
+
+        super.init(nibName: nil, bundle: nil)
+
+        title = L10n.Scene.Following.title
+
+        view.backgroundColor = .secondarySystemBackground
+
+        view.addSubview(tableView)
+        tableView.pinToParent()
+        tableView.delegate = self
+        tableView.refreshControl?.addTarget(self, action: #selector(FollowingListViewController.refresh(_:)), for: .valueChanged)
+
+        viewModel.tableView = tableView
+
+        refreshControl.addTarget(self, action: #selector(FollowerListViewController.refresh(_:)), for: .valueChanged)
+    }
+
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
 extension FollowerListViewController {
@@ -82,7 +107,13 @@ extension FollowerListViewController {
         
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
-    
+
+    //MARK: - Actions
+
+    @objc
+    func refresh(_ sender: UIRefreshControl) {
+        viewModel.stateMachine.enter(FollowerListViewModel.State.Reloading.self)
+    }
 }
 
 // MARK: - AuthContextProvider

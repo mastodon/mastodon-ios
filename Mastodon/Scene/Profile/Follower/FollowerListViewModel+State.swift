@@ -9,7 +9,6 @@ import Foundation
 import GameplayKit
 import MastodonSDK
 import MastodonCore
-import CoreDataStack
 
 extension FollowerListViewModel {
     class State: GKState {
@@ -97,6 +96,12 @@ extension FollowerListViewModel.State {
             default:
                 return false
             }
+        }
+
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+
+            viewModel?.tableView?.refreshControl?.endRefreshing()
         }
     }
     
@@ -188,6 +193,8 @@ extension FollowerListViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
+
+            viewModel?.tableView?.refreshControl?.endRefreshing()
         }
     }
 }
