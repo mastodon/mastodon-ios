@@ -111,6 +111,10 @@ extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextPro
                 buttonState: state
             )
 
+            // this is a dirty hack to give the backend enough time to process the relationship-change
+            // Otherwise the relationship might still be `pending`
+            try await Task.sleep(for: .seconds(1))
+
             let relationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first
 
             let isMe: Bool
