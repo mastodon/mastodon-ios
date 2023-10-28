@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Anmelden",
             "learn_more": "Mehr erfahren",
-            "join_default_server": "Join %@",
+            "join_default_server": "%@ beitreten",
             "pick_server": "Einen anderen Server auswählen",
             "separator": {
                 "or": "oder"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Beliebt auf Mastodon",
+            "follow_all": "Allen folgen"
         },
         "compose": {
             "title": {
