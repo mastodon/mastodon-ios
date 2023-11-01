@@ -139,6 +139,14 @@ extension FollowingListViewModel.State {
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
 
+                    if accountResponse.value.isEmpty {
+                        await enter(state: NoMore.self)
+
+                        viewModel.accounts = []
+                        viewModel.relationships = []
+                        return
+                    }
+
                     var hasNewAppend = false
 
                     let newRelationships = try await viewModel.context.apiService.relationship(forAccounts: accountResponse.value, authenticationBox: viewModel.authContext.mastodonAuthenticationBox)

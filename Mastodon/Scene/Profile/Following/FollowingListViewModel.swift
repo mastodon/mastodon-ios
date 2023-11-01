@@ -21,10 +21,10 @@ final class FollowingListViewModel {
     @Published var accounts: [Mastodon.Entity.Account]
     @Published var relationships: [Mastodon.Entity.Relationship]
 
-    let listBatchFetchViewModel: ListBatchFetchViewModel
-
     @Published var domain: String?
     @Published var userID: String?
+
+    let shouldFetch = PassthroughSubject<Void, Never>()
 
     var tableView: UITableView?
 
@@ -55,6 +55,5 @@ final class FollowingListViewModel {
         self.userID = userID
         self.accounts = []
         self.relationships = []
-        self.listBatchFetchViewModel = ListBatchFetchViewModel()
     }
 }
