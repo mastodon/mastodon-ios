@@ -201,8 +201,9 @@ extension APIService {
 
         // user
         let managedObjectContext = self.backgroundManagedObjectContext
+        var result: MastodonUser?
         try await managedObjectContext.performChanges {
-            _ = Persistence.MastodonUser.createOrMerge(
+             result = Persistence.MastodonUser.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.MastodonUser.PersistContext(
                     domain: domain,
@@ -210,18 +211,9 @@ extension APIService {
                     cache: nil,
                     networkDate: response.networkDate
                 )
-            )
+             ).user
         }
-        var result: MastodonUser?
-        try await managedObjectContext.perform {
-            result = Persistence.MastodonUser.fetch(in: managedObjectContext,
-                                                    context: Persistence.MastodonUser.PersistContext(
-                                                        domain: domain,
-                                                        entity: response.value,
-                                                        cache: nil,
-                                                        networkDate: response.networkDate
-                                                    ))
-        }
+
         return result
     }
 }
