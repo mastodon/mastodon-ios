@@ -119,7 +119,6 @@ public enum Asset {
   }
   public enum Editing {
     public static let checkmark20 = ImageAsset(name: "Editing/checkmark.20")
-    public static let checkmark = ImageAsset(name: "Editing/checkmark")
     public static let xmark = ImageAsset(name: "Editing/xmark")
   }
   public enum Human {
