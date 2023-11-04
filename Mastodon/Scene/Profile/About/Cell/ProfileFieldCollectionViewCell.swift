@@ -68,10 +68,10 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 11),
+            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 8),
             checkmark.heightAnchor.constraint(equalToConstant: 22),
             checkmark.widthAnchor.constraint(equalTo: checkmark.heightAnchor),
         ])
