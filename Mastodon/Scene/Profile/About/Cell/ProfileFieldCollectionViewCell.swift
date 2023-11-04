@@ -25,7 +25,7 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
     let keyMetaLabel = MetaLabel(style: .profileFieldName)
     let valueMetaLabel = MetaLabel(style: .profileFieldValue)
     
-    let checkmark = UIImageView(image: UIImage(systemName: "checkmark.seal"))
+    let checkmark: UIImageView
     var checkmarkPopoverString: String? = nil;
     let tapGesture = UITapGestureRecognizer();
     var editMenuInteraction: UIEditMenuInteraction!
@@ -37,25 +37,15 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
     }
 
     override init(frame: CGRect) {
-        super.init(frame: frame)
-        _init()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        _init()
-    }
-    
-}
-
-extension ProfileFieldCollectionViewCell {
-    
-    private func _init() {
-
-        editMenuInteraction = UIEditMenuInteraction(delegate: self)
 
         // Setup colors
+        checkmark = UIImageView(image: Asset.Scene.Profile.About.verifiedCheckmark.image.withRenderingMode(.alwaysTemplate))
         checkmark.tintColor = Asset.Colors.Brand.blurple.color
+        checkmark.translatesAutoresizingMaskIntoConstraints = false
+
+        super.init(frame: frame)
+
+        editMenuInteraction = UIEditMenuInteraction(delegate: self)
 
         // Setup gestures
         tapGesture.addTarget(self, action: #selector(ProfileFieldCollectionViewCell.didTapCheckmark(_:)))
@@ -82,6 +72,8 @@ extension ProfileFieldCollectionViewCell {
             containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 11),
+            checkmark.heightAnchor.constraint(equalToConstant: 22),
+            checkmark.widthAnchor.constraint(equalTo: checkmark.heightAnchor),
         ])
         
         // metaContainer: h - [ keyValueContainer | checkmark ]
@@ -108,7 +100,11 @@ extension ProfileFieldCollectionViewCell {
 
         isAccessibilityElement = true
     }
-    
+
+    required init?(coder: NSCoder) { fatalError("Just ... don't.") }
+
+    //MARK: - Actions
+
     @objc public func didTapCheckmark(_ recognizer: UITapGestureRecognizer) {
         editMenuInteraction?.presentEditMenu(with: UIEditMenuConfiguration(identifier: nil, sourcePoint: recognizer.location(in: checkmark)))
     }
@@ -123,6 +119,7 @@ extension ProfileFieldCollectionViewCell {
         return result
     }
 
+    //MARK: - Accessibility
     override func accessibilityActivate() -> Bool {
         if let (_, meta) = valueMetas.first {
             delegate?.profileFieldCollectionViewCell(self, metaLabel: valueMetaLabel, didSelectMeta: meta)
@@ -145,6 +142,11 @@ extension ProfileFieldCollectionViewCell {
             }
         }
         set {}
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        checkmark.image = Asset.Scene.Profile.About.verifiedCheckmark.image.withRenderingMode(.alwaysTemplate)
     }
 }
 

@@ -180,8 +180,7 @@ public enum Asset {
     }
     public enum Profile {
       public enum About {
-        public static let bioAboutFieldVerifiedBackground = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.background")
-        public static let bioAboutFieldVerifiedText = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.text")
+        public static let verifiedCheckmark = ImageAsset(name: "Scene/Profile/About/verified_checkmark")
       }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
