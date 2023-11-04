@@ -56,7 +56,7 @@ extension ProfileFieldCollectionViewCell {
 
         // Setup colors
         checkmark.tintColor = Asset.Colors.Brand.blurple.color
-        
+
         // Setup gestures
         tapGesture.addTarget(self, action: #selector(ProfileFieldCollectionViewCell.didTapCheckmark(_:)))
         checkmark.addGestureRecognizer(tapGesture)
@@ -76,30 +76,33 @@ extension ProfileFieldCollectionViewCell {
         containerStackView.preservesSuperviewLayoutMargins = true
         containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(containerStackView)
+        contentView.addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 11),
-            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 11),
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 11),
         ])
         
-        // metaContainer: V - [ keyMetaLabel | valueContainer ]
+        // metaContainer: h - [ keyValueContainer | checkmark ]
         let metaContainer = UIStackView()
-        metaContainer.axis = .vertical
+        metaContainer.axis = .horizontal
         metaContainer.spacing = 2
+        metaContainer.alignment = .center
+
+        // valueContainer: v - [ keyMetaLabel | valueMetaLabel ]
+        let keyValueContainer = UIStackView()
+        keyValueContainer.axis = .vertical
+        keyValueContainer.alignment = .leading
+        keyValueContainer.spacing = 2
+
         containerStackView.addArrangedSubview(metaContainer)
-        
-        // valueContainer: H - [ valueMetaLabel | checkmark ]
-        let valueContainer = UIStackView()
-        valueContainer.axis = .horizontal
-        valueContainer.spacing = 2
-        
-        metaContainer.addArrangedSubview(keyMetaLabel)
-        valueContainer.addArrangedSubview(valueMetaLabel)
-        valueContainer.addArrangedSubview(checkmark)
-        metaContainer.addArrangedSubview(valueContainer)
-        
+        keyValueContainer.addArrangedSubview(keyMetaLabel)
+        keyValueContainer.addArrangedSubview(valueMetaLabel)
+
+        metaContainer.addArrangedSubview(keyValueContainer)
+        metaContainer.addArrangedSubview(checkmark)
+
         keyMetaLabel.linkDelegate = self
         valueMetaLabel.linkDelegate = self
 
