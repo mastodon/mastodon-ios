@@ -35,28 +35,26 @@ extension ProfileFieldSection {
         let fieldCellRegistration = UICollectionView.CellRegistration<ProfileFieldCollectionViewCell, ProfileFieldItem> { cell, indexPath, item in
             let key, value: String
             let emojiMeta: MastodonContent.Emojis
-            let verified: Bool
 
             switch item {
-            case .field(field: let field):
-                key = field.name.value
-                value = field.value.value
-                emojiMeta = field.emojiMeta
-                verified = field.verifiedAt.value != nil
-            case .createdAt(date: let date):
-                key = L10n.Scene.Profile.Fields.joined
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .none
-                formatter.timeZone = TimeZone(identifier: "UTC")
-                value = formatter.string(from: date)
-                emojiMeta = [:]
-                verified = false
-            default: return
+                case .field(field: let field):
+                    key = field.name.value
+                    value = field.value.value
+                    emojiMeta = field.emojiMeta
+
+                case .createdAt(date: let date):
+                    key = L10n.Scene.Profile.Fields.joined
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .medium
+                    formatter.timeStyle = .none
+                    formatter.timeZone = TimeZone(identifier: "UTC")
+                    value = formatter.string(from: date)
+                    emojiMeta = [:]
+                case .addEntry, .editField(_): return
             }
             
             // set key
-            let keyColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedText.color : Asset.Colors.Label.secondary.color
+            let keyColor = Asset.Colors.Label.secondary.color
             do {
                 let mastodonContent = MastodonContent(content: key, emojis: emojiMeta)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
@@ -69,7 +67,7 @@ extension ProfileFieldSection {
             }
             
             // set value
-            let linkColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedText.color : Asset.Colors.Brand.blurple.color
+            let linkColor = Asset.Colors.Brand.blurple.color
             do {
                 let mastodonContent = MastodonContent(content: value, emojis: emojiMeta)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
@@ -83,7 +81,7 @@ extension ProfileFieldSection {
             
             // set background
             var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
-            backgroundConfiguration.backgroundColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedBackground.color : UIColor.secondarySystemBackground
+            backgroundConfiguration.backgroundColor = UIColor.secondarySystemBackground
             cell.backgroundConfiguration = backgroundConfiguration
             
             // set checkmark and edit menu label

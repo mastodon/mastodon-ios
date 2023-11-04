@@ -25,7 +25,7 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
     let keyMetaLabel = MetaLabel(style: .profileFieldName)
     let valueMetaLabel = MetaLabel(style: .profileFieldValue)
     
-    let checkmark = UIImageView(image: Asset.Editing.checkmark.image.withRenderingMode(.alwaysTemplate))
+    let checkmark = UIImageView(image: UIImage(systemName: "checkmark.seal"))
     var checkmarkPopoverString: String? = nil;
     let tapGesture = UITapGestureRecognizer();
     var editMenuInteraction: UIEditMenuInteraction!
@@ -55,7 +55,7 @@ extension ProfileFieldCollectionViewCell {
         editMenuInteraction = UIEditMenuInteraction(delegate: self)
 
         // Setup colors
-        checkmark.tintColor = Asset.Scene.Profile.About.bioAboutFieldVerifiedText.color;
+        checkmark.tintColor = Asset.Colors.Brand.blurple.color
         
         // Setup gestures
         tapGesture.addTarget(self, action: #selector(ProfileFieldCollectionViewCell.didTapCheckmark(_:)))
@@ -142,24 +142,6 @@ extension ProfileFieldCollectionViewCell {
             }
         }
         set {}
-    }
-}
-
-// UIMenuController boilerplate
-@available(iOS, deprecated: 16, message: "Can be removed when target version is >=16 -- boilerplate to maintain compatibility with UIMenuController")
-extension ProfileFieldCollectionViewCell {
-    override var canBecomeFirstResponder: Bool { true }
-    
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(dismissVerifiedMenu) {
-            return true
-        }
-        
-        return super.canPerformAction(action, withSender: sender)
-    }
-    
-    @objc public func dismissVerifiedMenu() {
-        UIMenuController.shared.hideMenu()
     }
 }
 

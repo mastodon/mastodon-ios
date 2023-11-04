@@ -78,7 +78,7 @@ extension MetaLabel {
             textColor = Asset.Colors.Label.secondary.color
             
         case .profileFieldName:
-            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 13, weight: .semibold))
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
             textColor = Asset.Colors.Label.secondary.color
             
         case .profileFieldValue:

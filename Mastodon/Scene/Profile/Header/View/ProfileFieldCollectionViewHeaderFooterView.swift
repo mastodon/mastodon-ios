@@ -14,18 +14,7 @@ final class ProfileFieldCollectionViewHeaderFooterView: UICollectionReusableView
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _init()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        _init()
-    }
-    
-}
-
-extension ProfileFieldCollectionViewHeaderFooterView {
-    private func _init() {
-
-    }
+    required init?(coder: NSCoder) { fatalError("Not implemented") }
 }
