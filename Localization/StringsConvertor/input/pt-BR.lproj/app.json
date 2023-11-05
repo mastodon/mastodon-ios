@@ -97,20 +97,20 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
+                "edit_post": "Editar",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "follow": "Seguir %s",
+                "unfollow": "Deixar de seguir %s"
             },
             "tabs": {
                 "home": "Início",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "search_and_explore": "Buscar e Explorar",
+                "notifications": "Notificações",
                 "profile": "Perfil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Buscar",
+                    "explore": "Explorar"
                 }
             },
             "keyboard": {
@@ -272,7 +272,7 @@
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Boas-vindas ao Mastodon",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
