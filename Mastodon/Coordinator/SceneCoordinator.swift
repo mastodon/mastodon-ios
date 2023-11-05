@@ -222,43 +222,35 @@ extension SceneCoordinator {
     
     func setup() {
         let rootViewController: UIViewController
-        
-        do {
-            let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
-            let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
-            self.authContext = _authContext
-            
-            switch UIDevice.current.userInterfaceIdiom {
-                case .phone:
-                    let viewController = MainTabBarController(context: appContext, coordinator: self, authContext: _authContext)
-                    self.splitViewController = nil
-                    self.tabBarController = viewController
-                    rootViewController = viewController
-                default:
-                    let splitViewController = RootSplitViewController(context: appContext, coordinator: self, authContext: _authContext)
-                    self.splitViewController = splitViewController
-                    self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
-                    rootViewController = splitViewController
-            }
-            sceneDelegate.window?.rootViewController = rootViewController                   // base: main
-            self.rootViewController = rootViewController
 
-            if _authContext == nil {                                                        // entry #1: welcome
-                DispatchQueue.main.async {
-                    _ = self.present(
-                        scene: .welcome,
-                        from: self.sceneDelegate.window?.rootViewController,
-                        transition: .modal(animated: true, completion: nil)
-                    )
-                }
+        let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
+        let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
+        self.authContext = _authContext
+
+        switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                let viewController = MainTabBarController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = nil
+                self.tabBarController = viewController
+                rootViewController = viewController
+            default:
+                let splitViewController = RootSplitViewController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = splitViewController
+                self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
+                rootViewController = splitViewController
+        }
+        
+        sceneDelegate.window?.rootViewController = rootViewController                   // base: main
+        self.rootViewController = rootViewController
+
+        if _authContext == nil {                                                        // entry #1: welcome
+            DispatchQueue.main.async {
+                _ = self.present(
+                    scene: .welcome,
+                    from: self.sceneDelegate.window?.rootViewController,
+                    transition: .modal(animated: true, completion: nil)
+                )
             }
-            
-        } catch {
-            assertionFailure(error.localizedDescription)
-            Task {
-                try? await Task.sleep(nanoseconds: .second * 2)
-                setup()                                                                     // entry #2: retry
-            }   // end Task
         }
     }
 
