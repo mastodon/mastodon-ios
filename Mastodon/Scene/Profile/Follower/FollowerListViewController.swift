@@ -50,7 +50,7 @@ final class FollowerListViewController: UIViewController, NeedsDependency {
         view.addSubview(tableView)
         tableView.pinToParent()
         tableView.delegate = self
-        tableView.refreshControl?.addTarget(self, action: #selector(FollowingListViewController.refresh(_:)), for: .valueChanged)
+        tableView.refreshControl?.addTarget(self, action: #selector(FollowerListViewController.refresh(_:)), for: .valueChanged)
 
         viewModel.tableView = tableView
 
@@ -65,23 +65,13 @@ extension FollowerListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = L10n.Scene.Follower.title
-        
-        view.backgroundColor = .secondarySystemBackground
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-        tableView.pinToParent()
-        
-        tableView.delegate = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
             userTableViewCellDelegate: self
         )
         
         // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
+        viewModel.shouldFetch
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -100,6 +90,8 @@ extension FollowerListViewController {
             self.viewModel.stateMachine.enter(FollowerListViewModel.State.Reloading.self)
         }
         .store(in: &disposeBag)
+
+        tableView.refreshControl = UIRefreshControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,5 +156,26 @@ extension FollowerListViewController: DataSourceProvider {
     @MainActor
     private func indexPath(for cell: UITableViewCell) async -> IndexPath? {
         return tableView.indexPath(for: cell)
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+
+extension FollowerListViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        if scrollView.isDragging || scrollView.isTracking { return }
+
+        let frame = scrollView.frame
+        let contentOffset = scrollView.contentOffset
+        let contentSize = scrollView.contentSize
+
+        let visibleBottomY = contentOffset.y + frame.height
+        let offset = 2 * frame.height
+        let fetchThrottleOffsetY = contentSize.height - offset
+
+        if visibleBottomY > fetchThrottleOffsetY {
+            viewModel.shouldFetch.send()
+        }
     }
 }
