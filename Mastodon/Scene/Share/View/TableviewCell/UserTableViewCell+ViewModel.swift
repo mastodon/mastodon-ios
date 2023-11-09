@@ -9,6 +9,8 @@ import UIKit
 import CoreDataStack
 import MastodonUI
 import Combine
+import MastodonCore
+import MastodonSDK
 
 extension UserTableViewCell {
     final class ViewModel {
@@ -28,6 +30,21 @@ extension UserTableViewCell {
 }
 
 extension UserTableViewCell {
+
+    func configure(
+        me: MastodonUser,
+        tableView: UITableView,
+        account: Mastodon.Entity.Account,
+        relationship: Mastodon.Entity.Relationship?,
+        delegate: UserTableViewCellDelegate?
+    ) {
+        userView.configure(with: account, relationship: relationship, delegate: delegate)
+
+        let isMe = account.id == me.id
+        userView.updateButtonState(with: relationship, isMe: isMe)
+
+        self.delegate = delegate
+    }
 
     func configure(
         me: MastodonUser? = nil,
@@ -72,5 +89,46 @@ extension UserTableViewCell {
 
         self.delegate = delegate
     }
-    
+}
+
+extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextProvider {
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
+        Task {
+            try await DataSourceFacade.responseToUserViewButtonAction(
+                dependency: self,
+                user: user.asRecord,
+                buttonState: state
+            )
+        }
+    }
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for account: Mastodon.Entity.Account, me: MastodonUser?) {
+        Task {
+            await MainActor.run { view.setButtonState(.loading) }
+
+            try await DataSourceFacade.responseToUserViewButtonAction(
+                dependency: self,
+                user: account,
+                buttonState: state
+            )
+
+            // this is a dirty hack to give the backend enough time to process the relationship-change
+            // Otherwise the relationship might still be `pending`
+            try await Task.sleep(for: .seconds(1))
+
+            let relationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first
+
+            let isMe: Bool
+            if let me {
+                isMe = account.id == me.id
+            } else {
+                isMe = false
+            }
+
+            await MainActor.run {
+                view.viewModel.relationship = relationship
+                view.updateButtonState(with: relationship, isMe: isMe)
+            }
+
+        }
+    }
 }

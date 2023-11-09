@@ -19,22 +19,37 @@ enum UserSection: Hashable {
 }
 
 extension UserSection {
-    struct Configuration {
-        weak var userTableViewCellDelegate: UserTableViewCellDelegate?
-    }
-
     static func diffableDataSource(
         tableView: UITableView,
         context: AppContext,
         authContext: AuthContext,
-        configuration: Configuration
+        userTableViewCellDelegate: UserTableViewCellDelegate?
     ) -> UITableViewDiffableDataSource<UserSection, UserItem> {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.register(TimelineFooterTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineFooterTableViewCell.self))
 
-        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
+        return UITableViewDiffableDataSource(tableView: tableView) {
+            tableView,
+            indexPath,
+            item -> UITableViewCell? in
             switch item {
+                case .account(let account, let relationship):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
+
+                    guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return cell }
+
+                    cell.userView.setButtonState(.loading)
+                    cell.configure(
+                        me: me,
+                        tableView: tableView,
+                        account: account,
+                        relationship: relationship,
+                        delegate: userTableViewCellDelegate
+                    )
+
+                    return cell
+
                 case .user(let record):
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
                     context.managedObjectContext.performAndWait {
@@ -50,7 +65,7 @@ extension UserSection {
                                 blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
                                 followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()
                             ),
-                            configuration: configuration
+                            userTableViewCellDelegate: userTableViewCellDelegate
                         )
                     }
 
@@ -60,13 +75,12 @@ extension UserSection {
                     cell.startAnimating()
                     return cell
                 case .bottomHeader(let text):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineFooterTableViewCell.self), for: indexPath) as! TimelineFooterTableViewCell
-                cell.messageLabel.text = text
-                return cell
-            }   // end switch
-        }   // end UITableViewDiffableDataSource
-    }   // end static func tableViewDiffableDataSource { … }
-    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineFooterTableViewCell.self), for: indexPath) as! TimelineFooterTableViewCell
+                    cell.messageLabel.text = text
+                    return cell
+            }
+        }
+    }
 }
 
 extension UserSection {
@@ -77,13 +91,13 @@ extension UserSection {
         tableView: UITableView,
         cell: UserTableViewCell,
         viewModel: UserTableViewCell.ViewModel,
-        configuration: Configuration
+        userTableViewCellDelegate: UserTableViewCellDelegate?
     ) {
         cell.configure(
             me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
             tableView: tableView,
             viewModel: viewModel,
-            delegate: configuration.userTableViewCellDelegate
+            delegate: userTableViewCellDelegate
         )
     }
 

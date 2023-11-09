@@ -91,11 +91,15 @@ extension Mastodon.Entity.Account {
         }
         return acct
     }
-}
 
-extension Mastodon.Entity.Account {
     public var verifiedLink: Mastodon.Entity.Field? {
         let firstVerified = fields?.first(where: { $0.verifiedAt != nil })
         return firstVerified
+    }
+
+    public var domain: String? {
+        guard let components = URLComponents(string: url) else { return nil }
+
+        return components.host
     }
 }

@@ -16,6 +16,7 @@ enum DataSourceItem: Hashable {
     case user(record: ManagedObjectRecord<MastodonUser>)
     case hashtag(tag: TagKind)
     case notification(record: ManagedObjectRecord<Notification>)
+    case account(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)
 }
 
 extension DataSourceItem {

@@ -52,6 +52,9 @@ extension SearchResultViewController {
             )
             
             switch item {
+            case .account(account: _, relationship: _):
+                // do nothing
+                break
             case .status(let status):
                 await DataSourceFacade.coordinateToStatusThreadScene(
                     provider: self,

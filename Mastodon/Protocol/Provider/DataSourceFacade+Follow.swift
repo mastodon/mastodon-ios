@@ -25,7 +25,22 @@ extension DataSourceFacade {
             authenticationBox: dependency.authContext.mastodonAuthenticationBox
         )
         dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
-    }   // end func
+    }
+
+    static func responseToUserFollowAction(
+        dependency: NeedsDependency & AuthContextProvider,
+        user: Mastodon.Entity.Account
+    ) async throws {
+        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
+        await selectionFeedbackGenerator.selectionChanged()
+
+        _ = try await dependency.context.apiService.toggleFollow(
+            user: user,
+            authenticationBox: dependency.authContext.mastodonAuthenticationBox
+        )
+        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+    }
+
 }
 
 extension DataSourceFacade {

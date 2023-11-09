@@ -8,6 +8,7 @@
 import UIKit
 import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     
@@ -53,7 +54,31 @@ extension DataSourceFacade {
             transition: .show
         )
     }
-    
+
+    @MainActor
+    static func coordinateToProfileScene(
+        provider: ViewControllerWithDependencies & AuthContextProvider,
+        account: Mastodon.Entity.Account
+    ) async {
+        provider.coordinator.showLoading()
+        
+        guard let domain = account.domain else { return provider.coordinator.hideLoading() }
+        
+        Task {
+            do {
+                let user = try await provider.context.apiService.fetchUser(username: account.username,
+                                                                           domain: domain,
+                                                                           authenticationBox: provider.authContext.mastodonAuthenticationBox)
+                provider.coordinator.hideLoading()
+                
+                if let user {
+                    await coordinateToProfileScene(provider: provider, user: user.asRecord)
+                }
+            } catch {
+                provider.coordinator.hideLoading()
+            }
+        }
+    }
 }
 
 extension DataSourceFacade {

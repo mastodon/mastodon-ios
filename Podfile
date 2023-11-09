@@ -9,7 +9,6 @@ target 'Mastodon' do
 
   # misc
   pod 'SwiftGen', '~> 6.6.2'
-  pod 'Kanna', '~> 5.2.2'
   pod 'Sourcery', '~> 1.9'
 
   target 'MastodonTests' do

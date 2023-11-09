@@ -13,6 +13,7 @@ import MastodonSDK
 import MastodonCore
 import MastodonAsset
 import MastodonLocalization
+import MBProgressHUD
 
 final public class SceneCoordinator {
     
@@ -28,7 +29,8 @@ final public class SceneCoordinator {
     
     private(set) weak var tabBarController: MainTabBarController!
     private(set) weak var splitViewController: RootSplitViewController?
-    
+    private(set) weak var rootViewController: UIViewController?
+
     private(set) var secondaryStackHashValues = Set<Int>()
     var childCoordinator: Coordinator?
 
@@ -198,7 +200,7 @@ extension SceneCoordinator {
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
-        
+
         var isOnboarding: Bool {
             switch self {
                 case .welcome,
@@ -239,6 +241,7 @@ extension SceneCoordinator {
                     rootViewController = splitViewController
             }
             sceneDelegate.window?.rootViewController = rootViewController                   // base: main
+            self.rootViewController = rootViewController
 
             if _authContext == nil {                                                        // entry #1: welcome
                 DispatchQueue.main.async {
@@ -465,9 +468,8 @@ private extension SceneCoordinator {
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .following(let viewModel):
-                let _viewController = FollowingListViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                let followingListViewController = FollowingListViewController(viewModel: viewModel, coordinator: self, context: appContext)
+                viewController = followingListViewController
             case .familiarFollowers(let viewModel):
                 let _viewController = FamiliarFollowersViewController()
                 _viewController.viewModel = viewModel
@@ -559,10 +561,27 @@ private extension SceneCoordinator {
 
         return viewController
     }
-    
+
     private func setupDependency(for needs: NeedsDependency?) {
         needs?.context = appContext
         needs?.coordinator = self
+    }
+}
+
+//MARK: - Loading
+
+public extension SceneCoordinator {
+    func showLoading() {
+        guard let rootViewController else { return }
+
+        MBProgressHUD.showAdded(to: rootViewController.view, animated: true)
+    }
+
+    @MainActor
+    func hideLoading() {
+        guard let rootViewController else { return }
+
+        MBProgressHUD.hide(for: rootViewController.view, animated: true)
     }
 }
 

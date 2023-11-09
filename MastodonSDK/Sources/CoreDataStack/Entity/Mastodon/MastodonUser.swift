@@ -8,6 +8,7 @@
 import CoreData
 import Foundation
 
+/// See also `CoreDataStack.MastodonUser`, this extension contains several 
 final public class MastodonUser: NSManagedObject {
     
     public typealias ID = String

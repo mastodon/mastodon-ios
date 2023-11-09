@@ -1,26 +1,22 @@
 PODS:
-  - Kanna (5.2.7)
   - Sourcery (1.9.2):
     - Sourcery/CLI-Only (= 1.9.2)
   - Sourcery/CLI-Only (1.9.2)
   - SwiftGen (6.6.2)
 
 DEPENDENCIES:
-  - Kanna (~> 5.2.2)
   - Sourcery (~> 1.9)
   - SwiftGen (~> 6.6.2)
 
 SPEC REPOS:
   trunk:
-    - Kanna
     - Sourcery
     - SwiftGen
 
 SPEC CHECKSUMS:
-  Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   Sourcery: 179539341c2261068528cd15a31837b7238fd901
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
 
-PODFILE CHECKSUM: 597c21d7aa08efec996048577c3c4fbeffbb6305
+PODFILE CHECKSUM: ee2c03fbf7eb6e4ee75d97b1309e9ed6dfcf5cdd
 
 COCOAPODS: 1.13.0
