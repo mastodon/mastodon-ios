@@ -43,7 +43,7 @@ final class FollowerListViewController: UIViewController, NeedsDependency {
 
         super.init(nibName: nil, bundle: nil)
 
-        title = L10n.Scene.Following.title
+        title = L10n.Scene.Follower.title
 
         view.backgroundColor = .secondarySystemBackground
 
