@@ -2,18 +2,18 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Փորձիր նորից",
+                "please_try_again_later": "Փորձիր մի փոքր ուշ"
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Գրանցումը ձախողուեց"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Սպասարկիչի խնդիր"
             },
             "vote_failure": {
                 "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "Հարցումդ աւարտուեց"
             },
             "publish_post_failure": {
                 "title": "Publish Failure",
@@ -28,9 +28,9 @@
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Դուրս գալ",
+                "message": "Համոզո՞ւած ես, որ ուզում ես դուրս գալ",
+                "confirm": "Դուրս գալ"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -41,45 +41,45 @@
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Delete Post",
-                "message": "Are you sure you want to delete this post?"
+                "title": "Ջնջել գրառումը",
+                "message": "Վստա՞հ ես, որ ուզում ես ջնջել այս գրառումը։"
             },
             "clean_cache": {
                 "title": "Clean Cache",
                 "message": "Successfully cleaned %s cache."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "Նշում",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "Լաւ"
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
+                "back": "Ետ",
+                "next": "Յաջորդ",
+                "previous": "Նախորդ",
+                "open": "Բացել",
+                "add": "Աւելացնել",
+                "remove": "Ջնջել",
+                "edit": "Խմբագրել",
+                "save": "Պահպանել",
+                "ok": "Լաւ",
+                "done": "Աւարտել",
+                "confirm": "Հաստատել",
+                "continue": "Շարունակել",
                 "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
+                "cancel": "Չեղարկել",
+                "discard": "Չեղարկել",
+                "try_again": "Կրկին փորձիր",
+                "take_photo": "Լուսանկարել",
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
-                "sign_in": "Log in",
-                "see_more": "See More",
-                "preview": "Preview",
-                "copy": "Copy",
-                "share": "Share",
+                "sign_in": "Մտնել",
+                "see_more": "Տեսնել աւելին",
+                "preview": "Նախադիտում",
+                "copy": "Պատճէնել",
+                "share": "Տարածել",
                 "share_user": "Share %s",
                 "share_post": "Share Post",
                 "open_in_safari": "Open in Safari",
@@ -149,7 +149,7 @@
                 "load_embed": "Load Embed",
                 "link_via_user": "%s via %s",
                 "poll": {
-                    "vote": "Vote",
+                    "vote": "Քուէարկել",
                     "closed": "Closed"
                 },
                 "meta_entity": {
@@ -159,13 +159,13 @@
                     "email": "Email address: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "Պատասխանել",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
-                    "menu": "Menu",
-                    "hide": "Hide",
+                    "menu": "Ցանկ",
+                    "hide": "Թաքցնել",
                     "show_image": "Show image",
                     "show_gif": "Show GIF",
                     "show_video_player": "Show video player",
@@ -178,11 +178,11 @@
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
-                    "emoji": "Emoji"
+                    "mention": "Նշել",
+                    "link": "Յղում",
+                    "hashtag": "Պիտակ",
+                    "email": "Էլ. փոստ",
+                    "emoji": "Զմայլիկ"
                 },
                 "visibility": {
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
@@ -206,17 +206,17 @@
                 "buttons": {
                     "reblogs_title": "Reblogs",
                     "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
+                    "edit_history_title": "Խմբագրման պատմութիւնը",
                     "edit_history_detail": "Last edit %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Խմբագրուել է՝ %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "Խմբագրման պատմութիւնը",
                     "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
-                "follow": "Follow",
+                "follow": "Հետեւել",
                 "following": "Following",
                 "request": "Request",
                 "pending": "Pending",
@@ -226,24 +226,24 @@
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
+                "mute": "Լռեցնել",
+                "mute_user": "Լռեցնել %s֊ին",
                 "unmute": "Unmute",
                 "unmute_user": "Unmute %s",
-                "muted": "Muted",
+                "muted": "Լռեցուած",
                 "edit_info": "Edit Info",
                 "show_reblogs": "Show Reblogs",
                 "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Զտուած",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Հիմա"
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
                     "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "show_more_replies": "Ցուցադրել պատասխանները"
                 },
                 "header": {
                     "no_status_found": "No Post Found",
@@ -263,16 +263,16 @@
     },
     "scene": {
         "welcome": {
-            "log_in": "Log In",
-            "learn_more": "Learn more",
-            "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "log_in": "Մտնել",
+            "learn_more": "Իմանալ աւելին",
+            "join_default_server": "Միանալ %@-ին",
+            "pick_server": "Ընտրել ուրիշ սերուեր",
             "separator": {
-                "or": "or"
+                "or": "կամ"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Բարի գալուստ Մաստոդոն",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
@@ -287,7 +287,7 @@
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Բարի վերադարձ",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
@@ -315,7 +315,7 @@
                     "tech": "tech"
                 },
                 "see_less": "See Less",
-                "see_more": "See More"
+                "see_more": "Տեսնել աւելին"
             },
             "label": {
                 "language": "LANGUAGE",
@@ -331,12 +331,12 @@
                 "no_results": "No results"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Բոլորը",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "Բոլորը"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -351,29 +351,29 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Համաձայն եմ"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Ստեղծել հաշիւ",
             "input": {
                 "avatar": {
                     "delete": "Delete"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken.",
+                    "placeholder": "մուտքանուն",
+                    "duplicate_prompt": "Օգտանունը զբաղուած է։",
                     "suggestion": "amazing_%@"
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "ցուցադրուող անուն"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "էլ. փոստ"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "confirmation_placeholder": "Confirm Password",
+                    "placeholder": "գաղտնաբառ",
+                    "confirmation_placeholder": "Հաստատել գաղտնաբառը",
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
                     "accessibility": {
@@ -388,12 +388,12 @@
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
+                    "username": "Մուտքանուն",
+                    "email": "Էլ. փոստ",
+                    "password": "Գաղտնաբառ",
                     "agreement": "Agreement",
                     "locale": "Locale",
-                    "reason": "Reason"
+                    "reason": "Պատճառ"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
@@ -434,12 +434,12 @@
             "dont_receive_email": {
                 "title": "Check your Email",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "Նորից ուղարկել էլ. նամակ"
             },
             "open_email_app": {
                 "title": "Check your Inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
+                "mail": "Փոստ",
                 "open_email_client": "Open Email Client"
             },
             "didnt_get_link": {
@@ -449,9 +449,9 @@
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Հիմնական",
             "navigation_bar_state": {
-                "offline": "Offline",
+                "offline": "Անցանց",
                 "new_posts": "See new posts",
                 "published": "Published!",
                 "Publishing": "Publishing post...",
@@ -477,7 +477,7 @@
                 "browse": "Browse"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
+            "compose_action": "Հրապարակել",
             "replying_to_user": "replying to %s",
             "attachment": {
                 "photo": "photo",
@@ -573,11 +573,11 @@
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
+                "posts": "Գրառումներ",
                 "replies": "Replies",
                 "posts_and_replies": "Posts and Replies",
                 "media": "Media",
-                "about": "About"
+                "about": "Մասին"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
