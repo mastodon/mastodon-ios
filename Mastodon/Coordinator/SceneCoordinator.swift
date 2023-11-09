@@ -571,6 +571,7 @@ private extension SceneCoordinator {
 //MARK: - Loading
 
 public extension SceneCoordinator {
+    @MainActor
     func showLoading() {
         guard let rootViewController else { return }
 

@@ -13,6 +13,7 @@ import CoreDataStack
 import Photos
 import AlamofireImage
 import MastodonCore
+import MastodonSDK
 
 extension MediaView {
     public class Configuration: Hashable {
@@ -236,6 +237,85 @@ extension MediaView {
             
             configuration.load()
             configuration.isReveal = status.isMediaSensitive ? status.isSensitiveToggled : true
+            
+            return configuration
+        }
+        
+        return configurations
+    }
+}
+
+extension MediaView {
+    public static func configuration(status: Mastodon.Entity.StatusEdit) -> [MediaView.Configuration] {
+        func aspectRatio(from attachment: Mastodon.Entity.Attachment) -> CGSize {
+            guard let width = attachment.meta?.width, let height = attachment.meta?.height else {
+                return .zero
+            }
+            return CGSize(width: width, height: height)
+        }
+        
+        func videoInfo(from attachment: Mastodon.Entity.Attachment) -> MediaView.Configuration.VideoInfo {
+            MediaView.Configuration.VideoInfo(
+                aspectRadio: aspectRatio(from: attachment),
+                assetURL: attachment.remoteURL,
+                previewURL: attachment.previewURL,
+                altDescription: attachment.description,
+                durationMS: {
+                    guard let duration = attachment.meta?.duration else {
+                        return 0
+                    }
+                    return Int(duration)
+                }()
+            )
+        }
+        
+        let attachments = status.mediaAttachments ?? []
+        let configurations = attachments.enumerated().compactMap { (idx, attachment) -> MediaView.Configuration? in
+            let configuration: MediaView.Configuration? = {
+                switch attachment.attachmentKind {
+                case .image:
+                    let info = MediaView.Configuration.ImageInfo(
+                        aspectRadio: aspectRatio(from: attachment),
+                        assetURL: attachment.remoteURL,
+                        altDescription: attachment.description
+                    )
+                    return .init(
+                        info: .image(info: info),
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
+                    )
+                case .video:
+                    let info = videoInfo(from: attachment)
+                    return .init(
+                        info: .video(info: info),
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
+                    )
+                case .gifv:
+                    let info = videoInfo(from: attachment)
+                    return .init(
+                        info: .gif(info: info),
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
+                    )
+                case .audio:
+                    let info = videoInfo(from: attachment)
+                    return .init(
+                        info: .video(info: info),
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
+                    )
+                case .none:
+                    return nil
+                }   // end switch
+            }()
+            
+            configuration?.load()
+            configuration?.isReveal = true
             
             return configuration
         }
