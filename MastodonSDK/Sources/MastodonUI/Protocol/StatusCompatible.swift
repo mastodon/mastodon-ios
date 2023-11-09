@@ -11,17 +11,3 @@ public protocol StatusCompatible {
 }
 
 extension Status: StatusCompatible {}
-
-extension StatusEdit: StatusCompatible {
-    public var reblog: Status? {
-        nil
-    }
-    
-    public var isMediaSensitive: Bool {
-        sensitive
-    }
-    
-    public var isSensitiveToggled: Bool {
-        true
-    }
-}

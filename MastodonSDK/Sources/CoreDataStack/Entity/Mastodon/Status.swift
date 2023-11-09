@@ -99,8 +99,6 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var replyFrom: Set<Status>
     @NSManaged public private(set) var notifications: Set<Notification>
     @NSManaged public private(set) var searchHistories: Set<SearchHistory>
-
-    @NSManaged public private(set) var editHistory: Set<StatusEdit>?
     
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var updatedAt: Date
@@ -589,10 +587,6 @@ extension Status: AutoUpdatableObject {
     
     public func update(isReveal: Bool) {
         revealedAt = isReveal ? Date() : nil
-    }
-
-    public func update(editHistory: Set<StatusEdit>) {
-        self.editHistory = editHistory
     }
 }
 
