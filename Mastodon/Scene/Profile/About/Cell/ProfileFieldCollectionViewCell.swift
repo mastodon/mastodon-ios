@@ -25,7 +25,7 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
     let keyMetaLabel = MetaLabel(style: .profileFieldName)
     let valueMetaLabel = MetaLabel(style: .profileFieldValue)
     
-    let checkmark = UIImageView(image: Asset.Editing.checkmark.image.withRenderingMode(.alwaysTemplate))
+    let checkmark: UIImageView
     var checkmarkPopoverString: String? = nil;
     let tapGesture = UITapGestureRecognizer();
     var editMenuInteraction: UIEditMenuInteraction!
@@ -37,26 +37,16 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
     }
 
     override init(frame: CGRect) {
-        super.init(frame: frame)
-        _init()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        _init()
-    }
-    
-}
 
-extension ProfileFieldCollectionViewCell {
-    
-    private func _init() {
+        // Setup colors
+        checkmark = UIImageView(image: Asset.Scene.Profile.About.verifiedCheckmark.image.withRenderingMode(.alwaysTemplate))
+        checkmark.tintColor = Asset.Colors.Brand.blurple.color
+        checkmark.translatesAutoresizingMaskIntoConstraints = false
+
+        super.init(frame: frame)
 
         editMenuInteraction = UIEditMenuInteraction(delegate: self)
 
-        // Setup colors
-        checkmark.tintColor = Asset.Scene.Profile.About.bioAboutFieldVerifiedText.color;
-        
         // Setup gestures
         tapGesture.addTarget(self, action: #selector(ProfileFieldCollectionViewCell.didTapCheckmark(_:)))
         checkmark.addGestureRecognizer(tapGesture)
@@ -76,36 +66,45 @@ extension ProfileFieldCollectionViewCell {
         containerStackView.preservesSuperviewLayoutMargins = true
         containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(containerStackView)
+        contentView.addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 11),
-            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 11),
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 8),
+            checkmark.heightAnchor.constraint(equalToConstant: 22),
+            checkmark.widthAnchor.constraint(equalTo: checkmark.heightAnchor),
         ])
         
-        // metaContainer: V - [ keyMetaLabel | valueContainer ]
+        // metaContainer: h - [ keyValueContainer | checkmark ]
         let metaContainer = UIStackView()
-        metaContainer.axis = .vertical
+        metaContainer.axis = .horizontal
         metaContainer.spacing = 2
+        metaContainer.alignment = .center
+
+        // valueContainer: v - [ keyMetaLabel | valueMetaLabel ]
+        let keyValueContainer = UIStackView()
+        keyValueContainer.axis = .vertical
+        keyValueContainer.alignment = .leading
+        keyValueContainer.spacing = 2
+
         containerStackView.addArrangedSubview(metaContainer)
-        
-        // valueContainer: H - [ valueMetaLabel | checkmark ]
-        let valueContainer = UIStackView()
-        valueContainer.axis = .horizontal
-        valueContainer.spacing = 2
-        
-        metaContainer.addArrangedSubview(keyMetaLabel)
-        valueContainer.addArrangedSubview(valueMetaLabel)
-        valueContainer.addArrangedSubview(checkmark)
-        metaContainer.addArrangedSubview(valueContainer)
-        
+        keyValueContainer.addArrangedSubview(keyMetaLabel)
+        keyValueContainer.addArrangedSubview(valueMetaLabel)
+
+        metaContainer.addArrangedSubview(keyValueContainer)
+        metaContainer.addArrangedSubview(checkmark)
+
         keyMetaLabel.linkDelegate = self
         valueMetaLabel.linkDelegate = self
 
         isAccessibilityElement = true
     }
-    
+
+    required init?(coder: NSCoder) { fatalError("Just ... don't.") }
+
+    //MARK: - Actions
+
     @objc public func didTapCheckmark(_ recognizer: UITapGestureRecognizer) {
         editMenuInteraction?.presentEditMenu(with: UIEditMenuConfiguration(identifier: nil, sourcePoint: recognizer.location(in: checkmark)))
     }
@@ -120,6 +119,7 @@ extension ProfileFieldCollectionViewCell {
         return result
     }
 
+    //MARK: - Accessibility
     override func accessibilityActivate() -> Bool {
         if let (_, meta) = valueMetas.first {
             delegate?.profileFieldCollectionViewCell(self, metaLabel: valueMetaLabel, didSelectMeta: meta)
@@ -143,23 +143,10 @@ extension ProfileFieldCollectionViewCell {
         }
         set {}
     }
-}
 
-// UIMenuController boilerplate
-@available(iOS, deprecated: 16, message: "Can be removed when target version is >=16 -- boilerplate to maintain compatibility with UIMenuController")
-extension ProfileFieldCollectionViewCell {
-    override var canBecomeFirstResponder: Bool { true }
-    
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(dismissVerifiedMenu) {
-            return true
-        }
-        
-        return super.canPerformAction(action, withSender: sender)
-    }
-    
-    @objc public func dismissVerifiedMenu() {
-        UIMenuController.shared.hideMenu()
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        checkmark.image = Asset.Scene.Profile.About.verifiedCheckmark.image.withRenderingMode(.alwaysTemplate)
     }
 }
 
