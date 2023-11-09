@@ -448,9 +448,9 @@ private extension SceneCoordinator {
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .followedTags(let viewModel):
-                let _viewController = FollowedTagsViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                guard let authContext else { return nil }
+                
+                viewController = FollowedTagsViewController(appContext: appContext, sceneCoordinator: self, authContext: authContext, viewModel: viewModel)
             case .favorite(let viewModel):
                 let _viewController = FavoriteViewController()
                 _viewController.viewModel = viewModel

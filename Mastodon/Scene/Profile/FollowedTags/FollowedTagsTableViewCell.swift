@@ -6,23 +6,24 @@
 //
 
 import UIKit
-import CoreDataStack
+import MastodonSDK
 
 final class FollowedTagsTableViewCell: UITableViewCell {
+
+    static let reuseIdentifier = "FollowedTagsTableViewCell"
+
     private var hashtagView: HashtagTimelineHeaderView!
     private let separatorLine = UIView.separatorLine
-    private weak var viewModel: FollowedTagsViewModel?
-    private weak var hashtag: Tag?
+    private var viewModel: FollowedTagsViewModel?
+    private var hashtag: Mastodon.Entity.Tag?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("Not implemented")
-    }
-    
+    required init?(coder: NSCoder) { fatalError("Not implemented") }
+
     override func prepareForReuse() {
         hashtagView.removeFromSuperview()
         viewModel = nil
@@ -67,7 +68,7 @@ private extension FollowedTagsTableViewCell {
 }
 
 extension FollowedTagsTableViewCell {
-    func populate(with tag: Tag) {
+    func populate(with tag: Mastodon.Entity.Tag) {
         self.hashtag = tag
         hashtagView.update(HashtagTimelineHeaderView.Data.from(tag))
     }
