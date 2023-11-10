@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import MastodonSDK
 import MastodonCore
 

@@ -5,9 +5,7 @@
 //  Created by Marcus Kida on 22.11.22.
 //
 
-import os
 import UIKit
-import Combine
 import MastodonAsset
 import MastodonCore
 import MastodonUI
@@ -42,14 +40,11 @@ final class FollowedTagsViewController: UIViewController, NeedsDependency {
 
         super.init(nibName: nil, bundle: nil)
 
-        let title = L10n.Scene.FollowedTags.title
-        self.title = title
+        title = L10n.Scene.FollowedTags.title
 
         view.backgroundColor = .secondarySystemBackground
-
         view.addSubview(tableView)
         tableView.pinToParent()
-
         tableView.delegate = self
 
         refreshControl.addTarget(self, action: #selector(FollowedTagsViewController.refresh(_:)), for: .valueChanged)

@@ -5,14 +5,11 @@
 //  Created by Marcus Kida on 23.11.22.
 //
 
-import os
 import UIKit
-import Combine
 import MastodonSDK
 import MastodonCore
 
 final class FollowedTagsViewModel: NSObject {
-    var disposeBag = Set<AnyCancellable>()
     private(set) var followedTags: [Mastodon.Entity.Tag]
 
     private weak var tableView: UITableView?
@@ -21,10 +18,7 @@ final class FollowedTagsViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    
-    // output
-    let presentHashtagTimeline = PassthroughSubject<HashtagTimelineViewModel, Never>()
-    
+
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
@@ -43,18 +37,20 @@ extension FollowedTagsViewModel {
     
     func fetchFollowedTags(completion: (() -> Void)? = nil ) {
         Task { @MainActor in
-            followedTags = try await context.apiService.getFollowedTags(
-                domain: authContext.mastodonAuthenticationBox.domain,
-                query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
-                authenticationBox: authContext.mastodonAuthenticationBox
-            ).value
+            do {
+                followedTags = try await context.apiService.getFollowedTags(
+                    domain: authContext.mastodonAuthenticationBox.domain,
+                    query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
+                    authenticationBox: authContext.mastodonAuthenticationBox
+                ).value
 
-            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-            snapshot.appendSections([.main])
-            let items = followedTags.compactMap { Item.hashtag($0) }
-            snapshot.appendItems(items, toSection: .main)
+                var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+                snapshot.appendSections([.main])
+                let items = followedTags.compactMap { Item.hashtag($0) }
+                snapshot.appendItems(items, toSection: .main)
 
-            await diffableDataSource?.apply(snapshot)
+                await diffableDataSource?.apply(snapshot)
+            } catch {}
 
             completion?()
         }
