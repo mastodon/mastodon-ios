@@ -247,17 +247,20 @@ extension MediaView {
 
 extension MediaView {
     public static func configuration(status: Mastodon.Entity.StatusEdit) -> [MediaView.Configuration] {
-        func aspectRatio(from attachment: Mastodon.Entity.Attachment) -> CGSize {
-            guard let width = attachment.meta?.width, let height = attachment.meta?.height else {
-                return .zero
+        func aspectRatio(from attachment: Mastodon.Entity.Attachment) -> CGSize? {
+            if let width = attachment.meta?.original?.width, let height = attachment.meta?.original?.height {
+                return CGSize(width: width, height: height)
+            } else if let width = attachment.meta?.width, let height = attachment.meta?.height {
+                return CGSize(width: width, height: height)
             }
-            return CGSize(width: width, height: height)
+            return nil
         }
         
-        func videoInfo(from attachment: Mastodon.Entity.Attachment) -> MediaView.Configuration.VideoInfo {
-            MediaView.Configuration.VideoInfo(
-                aspectRadio: aspectRatio(from: attachment),
-                assetURL: attachment.remoteURL,
+        func videoInfo(from attachment: Mastodon.Entity.Attachment) -> MediaView.Configuration.VideoInfo? {
+            guard let aspectRatio = aspectRatio(from: attachment) else { return nil }
+            return MediaView.Configuration.VideoInfo(
+                aspectRadio: aspectRatio,
+                assetURL: attachment.url,
                 previewURL: attachment.previewURL,
                 altDescription: attachment.description,
                 durationMS: {
@@ -274,9 +277,10 @@ extension MediaView {
             let configuration: MediaView.Configuration? = {
                 switch attachment.attachmentKind {
                 case .image:
+                    guard let aspectRatio = aspectRatio(from: attachment) else { return nil }
                     let info = MediaView.Configuration.ImageInfo(
-                        aspectRadio: aspectRatio(from: attachment),
-                        assetURL: attachment.remoteURL,
+                        aspectRadio: aspectRatio,
+                        assetURL: attachment.url,
                         altDescription: attachment.description
                     )
                     return .init(
@@ -286,7 +290,7 @@ extension MediaView {
                         total: attachments.count
                     )
                 case .video:
-                    let info = videoInfo(from: attachment)
+                    guard let info = videoInfo(from: attachment) else { return nil }
                     return .init(
                         info: .video(info: info),
                         blurhash: attachment.blurhash,
@@ -294,7 +298,7 @@ extension MediaView {
                         total: attachments.count
                     )
                 case .gifv:
-                    let info = videoInfo(from: attachment)
+                    guard let info = videoInfo(from: attachment) else { return nil }
                     return .init(
                         info: .gif(info: info),
                         blurhash: attachment.blurhash,
@@ -302,7 +306,7 @@ extension MediaView {
                         total: attachments.count
                     )
                 case .audio:
-                    let info = videoInfo(from: attachment)
+                    guard let info = videoInfo(from: attachment) else { return nil }
                     return .init(
                         info: .video(info: info),
                         blurhash: attachment.blurhash,
