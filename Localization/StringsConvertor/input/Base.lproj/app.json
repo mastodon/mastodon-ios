@@ -726,8 +726,15 @@
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
             },
-            "about_instance": {
-                "message_admin": "Message Admin"
+
+            "server_details": {
+                "about": "About",
+                "rules": "Rules"
+                "about_instance": {
+                    "title": "Adminstrator"
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
+                }
             },
             "general": {
                 "title": "General",
