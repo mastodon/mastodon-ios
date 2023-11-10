@@ -11,6 +11,7 @@ import CoreDataStack
 import MetaTextKit
 import MastodonCore
 import MastodonUI
+import MastodonSDK
 
 extension PollOptionView {
     public func configure(pollOption option: PollOption) {
@@ -103,7 +104,7 @@ extension PollOptionView {
 }
 
 extension PollOptionView {
-    public func configure(historyPollOption option: StatusEdit.Poll.Option) {
+    public func configure(historyPollOption option: Mastodon.Entity.StatusEdit.Poll.Option) {
         // background
         viewModel.roundedBackgroundViewColor = SystemTheme.systemElevatedBackgroundColor
         // metaContent

@@ -99,8 +99,7 @@ extension StatusView {
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
         @Published public var favoriteCount: Int = 0
-
-        @Published public var statusEdits: [StatusEdit] = []
+        
         @Published public var editedAt: Date? = nil
         
         // Filter

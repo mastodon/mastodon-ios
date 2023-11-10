@@ -40,7 +40,7 @@ extension StatusView {
 
 extension StatusView {
 
-    public func configure(status: Status, statusEdit: StatusEdit) {
+    public func configure(status: Status, statusEdit: Mastodon.Entity.StatusEdit) {
         viewModel.objects.insert(status)
         if let reblog = status.reblog {
             viewModel.objects.insert(reblog)
@@ -313,7 +313,7 @@ extension StatusView {
         }
     }
 
-    private func configureContent(statusEdit: StatusEdit, status: Status) {
+    private func configureContent(statusEdit: Mastodon.Entity.StatusEdit, status: Status) {
         statusEdit.spoilerText.map {
             viewModel.spoilerContent = PlaintextMetaContent(string: $0)
         }
@@ -322,7 +322,7 @@ extension StatusView {
         viewModel.language = (status.reblog ?? status).language
         // content
         do {
-            let content = MastodonContent(content: statusEdit.content, emojis: statusEdit.emojis.asDictionary)
+            let content = MastodonContent(content: statusEdit.content, emojis: statusEdit.emojis?.asDictionary ?? [:])
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.isCurrentlyTranslating = false
@@ -385,7 +385,14 @@ extension StatusView {
         viewModel.mediaViewConfigurations = configurations
     }
     
-    private func configurePollHistory(statusEdit: StatusEdit) {
+    private func configureMedia(status: Mastodon.Entity.StatusEdit) {
+        viewModel.isMediaSensitive = status.sensitive
+        
+        let configurations = MediaView.configuration(status: status)
+        viewModel.mediaViewConfigurations = configurations
+    }
+    
+    private func configurePollHistory(statusEdit: Mastodon.Entity.StatusEdit) {
         guard let poll = statusEdit.poll else { return }
 
         let pollItems = poll.options.map { PollItem.history(option: $0) }
@@ -499,13 +506,6 @@ extension StatusView {
             .assign(to: \.editedAt, on: viewModel)
             .store(in: &disposeBag)
 
-        status.publisher(for: \.editHistory)
-            .compactMap({ guard let edits = $0 else { return nil }
-                return Array(edits)
-            })
-            .assign(to: \.statusEdits, on: viewModel)
-            .store(in: &disposeBag)
-        
         // relationship
         status.publisher(for: \.rebloggedBy)
             .map { [weak viewModel] rebloggedBy in
