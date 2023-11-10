@@ -18,11 +18,11 @@ final class FollowedTagsViewController: UIViewController, NeedsDependency {
     var coordinator: SceneCoordinator!
     let authContext: AuthContext
 
-    var disposeBag = Set<AnyCancellable>()
     var viewModel: FollowedTagsViewModel
     
     let titleView = DoubleTitleLabelNavigationBarTitleView()
     let tableView: UITableView
+    let refreshControl: UIRefreshControl
 
     init(appContext: AppContext, sceneCoordinator: SceneCoordinator, authContext: AuthContext, viewModel: FollowedTagsViewModel) {
         self.context = appContext
@@ -30,20 +30,20 @@ final class FollowedTagsViewController: UIViewController, NeedsDependency {
         self.authContext = authContext
         self.viewModel = viewModel
 
+        refreshControl = UIRefreshControl()
+
         tableView = UITableView()
         tableView.register(FollowedTagsTableViewCell.self, forCellReuseIdentifier: FollowedTagsTableViewCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
+        tableView.refreshControl = refreshControl
 
         super.init(nibName: nil, bundle: nil)
 
         let title = L10n.Scene.FollowedTags.title
         self.title = title
-        titleView.update(title: title, subtitle: nil)
-
-        navigationItem.titleView = titleView
 
         view.backgroundColor = .secondarySystemBackground
 
@@ -51,6 +51,8 @@ final class FollowedTagsViewController: UIViewController, NeedsDependency {
         tableView.pinToParent()
 
         tableView.delegate = self
+
+        refreshControl.addTarget(self, action: #selector(FollowedTagsViewController.refresh(_:)), for: .valueChanged)
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -58,6 +60,17 @@ final class FollowedTagsViewController: UIViewController, NeedsDependency {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.setupTableView(tableView)
+    }
+
+    //MARK: - Actions
+    
+    @objc
+    func refresh(_ sender: UIRefreshControl) {
+        viewModel.fetchFollowedTags(completion: {
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
+        })
     }
 }
 

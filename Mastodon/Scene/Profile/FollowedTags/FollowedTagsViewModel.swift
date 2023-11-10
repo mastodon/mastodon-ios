@@ -41,7 +41,7 @@ extension FollowedTagsViewModel {
         fetchFollowedTags()
     }
     
-    func fetchFollowedTags() {
+    func fetchFollowedTags(completion: (() -> Void)? = nil ) {
         Task { @MainActor in
             followedTags = try await context.apiService.getFollowedTags(
                 domain: authContext.mastodonAuthenticationBox.domain,
@@ -55,6 +55,8 @@ extension FollowedTagsViewModel {
             snapshot.appendItems(items, toSection: .main)
 
             await diffableDataSource?.apply(snapshot)
+
+            completion?()
         }
     }
 
