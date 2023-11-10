@@ -8,6 +8,7 @@
 import UIKit
 import MastodonAsset
 import MastodonLocalization
+import MastodonSDK
 
 extension FollowerListViewModel {
     func setupDiffableDataSource(
@@ -27,34 +28,43 @@ extension FollowerListViewModel {
         snapshot.appendSections([.main])
         snapshot.appendItems([.bottomLoader], toSection: .main)
         diffableDataSource?.applySnapshotUsingReloadData(snapshot, completion: nil)
-        
-        userFetchedResultsController.$records
+
+        $accounts
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] records in
-                guard let self = self else { return }
+            .sink { [weak self] accounts in
+                guard let self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
-                
+
                 var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
                 snapshot.appendSections([.main])
-                let items = records.map { UserItem.user(record: $0) }
+
+                let accountsWithRelationship: [(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)] = accounts.compactMap { account in
+                    guard let relationship = self.relationships.first(where: {$0.id == account.id }) else { return (account: account, relationship: nil)}
+
+                    return (account: account, relationship: relationship)
+                }
+
+                let items = accountsWithRelationship.map { UserItem.account(account: $0.account, relationship: $0.relationship) }
                 snapshot.appendItems(items, toSection: .main)
-                
+
                 if let currentState = self.stateMachine.currentState {
                     switch currentState {
-                    case is State.Idle, is State.Loading, is State.Fail:
-                        snapshot.appendItems([.bottomLoader], toSection: .main)
-                    case is State.NoMore:
-                        guard let userID = self.userID,
-                              userID != self.authContext.mastodonAuthenticationBox.userID
-                        else { break }
-                        // display hint footer exclude self
-                        let text = L10n.Scene.Follower.footer
-                        snapshot.appendItems([.bottomHeader(text: text)], toSection: .main)
-                    default:
-                        break
+                        case is State.Loading:
+                            snapshot.appendItems([.bottomLoader], toSection: .main)
+                        case is State.NoMore:
+                            guard let userID = self.userID,
+                                  userID != self.authContext.mastodonAuthenticationBox.userID
+                            else { break }
+                            // display footer exclude self
+                            let text = L10n.Scene.Following.footer
+                            snapshot.appendItems([.bottomHeader(text: text)], toSection: .main)
+                        case is State.Idle, is State.Fail:
+                            break
+                        default:
+                            break
                     }
                 }
-                
+
                 diffableDataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &disposeBag)

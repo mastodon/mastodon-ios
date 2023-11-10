@@ -49,11 +49,12 @@ private extension DataSourceFacade {
                     authenticationBox: provider.authContext.mastodonAuthenticationBox
                 ).value
 
-            guard let content = value.content else {
+            if value.content != nil {
+                return value
+            } else {
                 return nil
             }
-            
-            return value
+
         } catch {
             throw TranslationFailure.emptyOrInvalidResponse
         }
