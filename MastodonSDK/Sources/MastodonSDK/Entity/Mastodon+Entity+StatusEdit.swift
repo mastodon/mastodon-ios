@@ -27,10 +27,6 @@ extension Mastodon.Entity {
             }
             public let options: [Option]
             public let title: String?
-            
-//            public static func == (lhs: Mastodon.Entity.StatusEdit.Poll, rhs: Mastodon.Entity.StatusEdit.Poll) -> Bool {
-//                lhs.title == rhs.title && lhs.options == rhs.options
-//            }
         }
         
         public let content: String
@@ -53,5 +49,16 @@ extension Mastodon.Entity {
             case emojis
         }
 
+    }
+}
+
+extension Mastodon.Entity.StatusEdit: Hashable, Equatable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(createdAt)
+        hasher.combine(content)
+    }
+    
+    public static func == (lhs: Mastodon.Entity.StatusEdit, rhs: Mastodon.Entity.StatusEdit) -> Bool {
+        lhs.createdAt == rhs.createdAt && lhs.content == rhs.content
     }
 }
