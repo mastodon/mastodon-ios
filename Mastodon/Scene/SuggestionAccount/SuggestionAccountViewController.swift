@@ -90,13 +90,7 @@ extension SuggestionAccountViewController: UITableViewDelegate {
         guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
         case .account(let account, _):
-                print("Show \(account.acct)")
-//                let cachedProfileViewModel = CachedProfileViewModel(context: context, authContext: viewModel.authContext, mastodonUser: account)
-//            _ = coordinator.present(
-//                scene: .profile(viewModel: cachedProfileViewModel),
-//                from: self,
-//                transition: .show
-//            )
+                Task { await DataSourceFacade.coordinateToProfileScene(provider: self, account: account) }
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
