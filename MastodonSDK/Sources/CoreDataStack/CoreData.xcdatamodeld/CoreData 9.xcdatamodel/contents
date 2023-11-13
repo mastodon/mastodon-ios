@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23B74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="22G74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName="CoreDataStack.Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -78,7 +78,7 @@
         <attribute name="userID" attributeType="String"/>
         <attribute name="username" attributeType="String"/>
         <relationship name="instance" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Instance" inverseName="authentications" inverseEntity="Instance"/>
-        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="mastodonAuthentication" inverseEntity="MastodonUser"/>
+        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
     </entity>
     <entity name="MastodonUser" representedClassName="CoreDataStack.MastodonUser" syncable="YES">
         <attribute name="acct" attributeType="String"/>
@@ -116,7 +116,6 @@
         <relationship name="followingBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="following" inverseEntity="MastodonUser"/>
         <relationship name="followRequested" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followRequestedBy" inverseEntity="MastodonUser"/>
         <relationship name="followRequestedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followRequested" inverseEntity="MastodonUser"/>
-        <relationship name="mastodonAuthentication" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonAuthentication" inverseName="user" inverseEntity="MastodonAuthentication"/>
         <relationship name="muted" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="mutedBy" inverseEntity="Status"/>
         <relationship name="muting" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="mutingBy" inverseEntity="MastodonUser"/>
         <relationship name="mutingBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muting" inverseEntity="MastodonUser"/>
