@@ -18,7 +18,7 @@ extension Mastodon.Entity {
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/account/)
     public final class Account: Codable, Sendable {
-        
+
         public typealias ID = String
 
         // Base
@@ -81,6 +81,64 @@ extension Mastodon.Entity {
             case suspended
             case muteExpiresAt = "mute_expires_at"
         }
+    }
+}
+
+extension Mastodon.Entity.Account: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(username)
+        hasher.combine(acct)
+        hasher.combine(url)
+        hasher.combine(displayName)
+        hasher.combine(note)
+        hasher.combine(avatar)
+        hasher.combine(avatarStatic)
+        hasher.combine(header)
+        hasher.combine(headerStatic)
+        hasher.combine(locked)
+        hasher.combine(emojis)
+        hasher.combine(discoverable)
+        hasher.combine(createdAt)
+        hasher.combine(lastStatusAt)
+        hasher.combine(statusesCount)
+        hasher.combine(followersCount)
+        hasher.combine(followingCount)
+        hasher.combine(moved)
+        hasher.combine(fields)
+        hasher.combine(bot)
+        hasher.combine(source)
+        hasher.combine(suspended)
+        hasher.combine(muteExpiresAt)
+    }
+}
+
+extension Mastodon.Entity.Account: Equatable {
+    public static func == (lhs: Mastodon.Entity.Account, rhs: Mastodon.Entity.Account) -> Bool {
+        return lhs.id == rhs.id &&
+        lhs.username == rhs.username &&
+        lhs.acct == rhs.acct &&
+        lhs.url == rhs.url &&
+        lhs.displayName == rhs.displayName &&
+        lhs.note == rhs.note &&
+        lhs.avatar == rhs.avatar &&
+        lhs.avatarStatic == rhs.avatarStatic &&
+        lhs.header == rhs.header &&
+        lhs.headerStatic == rhs.headerStatic &&
+        lhs.locked == rhs.locked &&
+        lhs.emojis == rhs.emojis &&
+        lhs.discoverable == rhs.discoverable &&
+        lhs.createdAt == rhs.createdAt &&
+        lhs.lastStatusAt == rhs.lastStatusAt &&
+        lhs.statusesCount == rhs.statusesCount &&
+        lhs.followersCount == rhs.followersCount &&
+        lhs.followingCount == rhs.followingCount &&
+        lhs.moved == rhs.moved &&
+        lhs.fields == rhs.fields &&
+        lhs.bot == rhs.bot &&
+        lhs.source == rhs.source &&
+        lhs.suspended == rhs.suspended &&
+        lhs.muteExpiresAt == rhs.muteExpiresAt
     }
 }
 
