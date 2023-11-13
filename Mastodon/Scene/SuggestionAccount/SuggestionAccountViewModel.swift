@@ -42,7 +42,11 @@ final class SuggestionAccountViewModel: NSObject {
 
         super.init()
 
-        // fetch recommended users
+        updateSuggestions()
+    }
+
+
+    func updateSuggestions() {
         Task {
             var suggestedAccounts: [Mastodon.Entity.V2.SuggestionAccount] = []
             do {
@@ -106,11 +110,12 @@ final class SuggestionAccountViewModel: NSObject {
             .store(in: &disposeBag)
     }
 
-    func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider, completion: (() -> Void)? = nil) {
+    func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider, presentedOn: UIViewController?, completion: (() -> Void)? = nil) {
 
         let tmpAccounts = accounts.compactMap { $0.account }
 
         Task {
+            await dependency.coordinator.showLoading(on: presentedOn)
             await withTaskGroup(of: Void.self, body: { taskGroup in
                 for account in tmpAccounts {
                     taskGroup.addTask {

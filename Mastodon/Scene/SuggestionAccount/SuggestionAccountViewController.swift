@@ -38,7 +38,6 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         setupNavigationBarAppearance()
         defer { setupNavigationBarBackgroundView() }
 
-
         title = L10n.Scene.SuggestionAccount.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: UIBarButtonItem.SystemItem.done,
@@ -72,6 +71,8 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         navigationItem.largeTitleDisplayMode = .automatic
 
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
+
+        viewModel.updateSuggestions()
     }
 
     //MARK: - Actions
@@ -122,8 +123,9 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
 
 extension SuggestionAccountViewController: SuggestionAccountTableViewFooterDelegate {
     func followAll(_ footerView: SuggestionAccountTableViewFooter) {
-        viewModel.followAllSuggestedAccounts(self) {
+        viewModel.followAllSuggestedAccounts(self, presentedOn: self.navigationController) {
             DispatchQueue.main.async {
+                self.coordinator.hideLoading(on: self.navigationController)
                 self.dismiss(animated: true)
             }
         }

@@ -562,18 +562,29 @@ private extension SceneCoordinator {
 //MARK: - Loading
 
 public extension SceneCoordinator {
+
     @MainActor
     func showLoading() {
-        guard let rootViewController else { return }
+        showLoading(on: rootViewController)
+    }
 
-        MBProgressHUD.showAdded(to: rootViewController.view, animated: true)
+    @MainActor
+    func showLoading(on viewController: UIViewController?) {
+        guard let viewController else { return }
+
+        MBProgressHUD.showAdded(to: viewController.view, animated: true)
     }
 
     @MainActor
     func hideLoading() {
-        guard let rootViewController else { return }
+        hideLoading(on: rootViewController)
+    }
 
-        MBProgressHUD.hide(for: rootViewController.view, animated: true)
+    @MainActor
+    func hideLoading(on viewController: UIViewController?) {
+        guard let viewController else { return }
+
+        MBProgressHUD.hide(for: viewController.view, animated: true)
     }
 }
 
