@@ -66,6 +66,7 @@ extension APIService {
 }
 
 fileprivate extension APIService {
+    @available(*, deprecated, message: "We don't persist tags anymore")
     func persistTag(
         from response: Mastodon.Response.Content<Mastodon.Entity.Tag>,
         domain: String,
