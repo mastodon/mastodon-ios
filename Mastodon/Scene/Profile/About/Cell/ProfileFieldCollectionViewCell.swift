@@ -57,25 +57,19 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
         checkmark.isAccessibilityElement = true
         checkmark.accessibilityTraits = .none
         keyMetaLabel.accessibilityTraits = .none
+        keyMetaLabel.linkDelegate = self
+        valueMetaLabel.linkDelegate = self
+
 
         // containerStackView: V - [ metaContainer | plainContainer ]
         let containerStackView = UIStackView()
-        containerStackView.axis = .vertical
-        
-        contentView.preservesSuperviewLayoutMargins = true
-        containerStackView.preservesSuperviewLayoutMargins = true
-        containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.axis = .vertical
+        containerStackView.preservesSuperviewLayoutMargins = true
+
         contentView.addSubview(containerStackView)
-        NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 8),
-            checkmark.heightAnchor.constraint(equalToConstant: 22),
-            checkmark.widthAnchor.constraint(equalTo: checkmark.heightAnchor),
-        ])
-        
+        contentView.preservesSuperviewLayoutMargins = true
+
         // metaContainer: h - [ keyValueContainer | checkmark ]
         let metaContainer = UIStackView()
         metaContainer.axis = .horizontal
@@ -95,8 +89,14 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
         metaContainer.addArrangedSubview(keyValueContainer)
         metaContainer.addArrangedSubview(checkmark)
 
-        keyMetaLabel.linkDelegate = self
-        valueMetaLabel.linkDelegate = self
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 11),
+            checkmark.heightAnchor.constraint(equalToConstant: 22),
+            checkmark.widthAnchor.constraint(equalTo: checkmark.heightAnchor),
+        ])
 
         isAccessibilityElement = true
     }
