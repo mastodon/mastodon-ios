@@ -63,6 +63,7 @@ final public class MastodonUser: NSManagedObject {
     
     // one-to-one relationship
     @NSManaged public private(set) var pinnedStatus: Status?
+    @NSManaged public private(set) var mastodonAuthentication: MastodonAuthenticationLegacy?
     
     // one-to-many relationship
     @NSManaged public private(set) var statuses: Set<Status>
