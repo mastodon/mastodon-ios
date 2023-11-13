@@ -34,21 +34,11 @@ extension RecommendAccountSection {
         UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SuggestionAccountTableViewCell.self)) as! SuggestionAccountTableViewCell
             switch item {
-            case .account(let record):
-                cell.delegate = configuration.suggestionAccountTableViewCellDelegate
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
-                    cell.configure(viewModel:
-                                    SuggestionAccountTableViewCell.ViewModel(
-                                        user: user,
-                                        followedUsers: configuration.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds,
-                                        blockedUsers: configuration.authContext.mastodonAuthenticationBox.inMemoryCache.blockedUserIds,
-                                        followRequestedUsers: configuration.authContext.mastodonAuthenticationBox.inMemoryCache.followRequestedUserIDs)
-                    )
-                }
+                case .account(let account, let relationship):
+                    cell.delegate = configuration.suggestionAccountTableViewCellDelegate
+                    cell.configure(account: account, relationship: relationship)
             }
             return cell
         }
     }
-    
 }

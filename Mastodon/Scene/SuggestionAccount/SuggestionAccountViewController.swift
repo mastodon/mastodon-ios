@@ -85,18 +85,21 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
 // MARK: - UITableViewDelegate
 extension SuggestionAccountViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         guard let tableViewDiffableDataSource = viewModel.tableViewDiffableDataSource else { return }
         guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
-        case .account(let record):
-            guard let account = record.object(in: context.managedObjectContext) else { return }
-            let cachedProfileViewModel = CachedProfileViewModel(context: context, authContext: viewModel.authContext, mastodonUser: account)
-            _ = coordinator.present(
-                scene: .profile(viewModel: cachedProfileViewModel),
-                from: self,
-                transition: .show
-            )
+        case .account(let account, _):
+                print("Show \(account.acct)")
+//                let cachedProfileViewModel = CachedProfileViewModel(context: context, authContext: viewModel.authContext, mastodonUser: account)
+//            _ = coordinator.present(
+//                scene: .profile(viewModel: cachedProfileViewModel),
+//                from: self,
+//                transition: .show
+//            )
         }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -104,7 +107,7 @@ extension SuggestionAccountViewController: UITableViewDelegate {
             return nil
         }
 
-        footerView.followAllButton.isEnabled = viewModel.userFetchedResultsController.records.isNotEmpty
+        footerView.followAllButton.isEnabled = viewModel.accounts.isNotEmpty
 
         footerView.delegate = self
         return footerView
