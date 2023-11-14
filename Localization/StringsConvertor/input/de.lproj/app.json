@@ -98,10 +98,10 @@
                     "unknown_language": "Unbekannt"
                 },
                 "edit_post": "Bearbeiten",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Lesezeichen",
+                "remove_bookmark": "Lesezeichen entfernen",
+                "follow": "%s folgen",
+                "unfollow": "%s entfolgen"
             },
             "tabs": {
                 "home": "Startseite",
@@ -265,7 +265,7 @@
         "welcome": {
             "log_in": "Anmelden",
             "learn_more": "Mehr erfahren",
-            "join_default_server": "Join %@",
+            "join_default_server": "%@ beitreten",
             "pick_server": "Einen anderen Server auswählen",
             "separator": {
                 "or": "oder"
@@ -462,8 +462,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Beliebt auf Mastodon",
+            "follow_all": "Allen folgen"
         },
         "compose": {
             "title": {
@@ -653,13 +653,13 @@
                 "posts": "Posts matching \"%s\"",
                 "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "url": "URL in Mastodon öffnen",
+                "hashtag": "Wechseln zu #%s",
                 "empty_state": {
                     "no_results": "Keine Ergebnisse"
                 },
                 "recent_search": "Zuletzt gesucht",
-                "clear_all": "Clear all",
+                "clear_all": "Alles löschen",
                 "clear": "Zurücksetzen"
             }
         },

@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "「%s」に一致する投稿",
+                "people": "「%s」に一致するアカウント",
+                "profile": "@%s@%s へ移動",
+                "url": "URL を Mastodon で開く",
+                "hashtag": "#%s へ移動",
                 "empty_state": {
                     "no_results": "なし"
                 },
                 "recent_search": "最近の検索",
-                "clear_all": "Clear all",
+                "clear_all": "すべて消去",
                 "clear": "クリア"
             }
         },

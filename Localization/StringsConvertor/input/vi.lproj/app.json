@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Tút nhắc đến \"%s\"",
+                "people": "Người có tên \"%s\"",
+                "profile": "Đến @%s@%s",
+                "url": "Mở liên kết trong Mastodon",
+                "hashtag": "Đến #%s",
                 "empty_state": {
                     "no_results": "Không có kết quả"
                 },
                 "recent_search": "Tìm kiếm gần đây",
-                "clear_all": "Clear all",
+                "clear_all": "Xóa tất cả",
                 "clear": "Xóa"
             }
         },

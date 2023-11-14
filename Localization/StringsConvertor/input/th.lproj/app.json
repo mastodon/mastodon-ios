@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "โพสต์ที่ตรงกับ \"%s\"",
+                "people": "ผู้คนที่ตรงกับ \"%s\"",
+                "profile": "ไปยัง @%s@%s",
+                "url": "เปิด URL ใน Mastodon",
+                "hashtag": "ไปยัง #%s",
                 "empty_state": {
                     "no_results": "ไม่มีผลลัพธ์"
                 },
                 "recent_search": "การค้นหาล่าสุด",
-                "clear_all": "Clear all",
+                "clear_all": "ล้างทั้งหมด",
                 "clear": "ล้าง"
             }
         },

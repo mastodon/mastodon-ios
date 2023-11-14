@@ -650,16 +650,16 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Objave, ki se ujemajo s/z »%s«",
+                "people": "Osebe, ki se ujemajo s/z »%s«",
+                "profile": "Pojdi na @%s@%s",
+                "url": "Odpri URL v Mastodonu",
+                "hashtag": "Pojdi na #%s",
                 "empty_state": {
                     "no_results": "Ni rezultatov"
                 },
                 "recent_search": "Nedavna iskanja",
-                "clear_all": "Clear all",
+                "clear_all": "Počisti vse",
                 "clear": "Počisti"
             }
         },
