@@ -656,7 +656,7 @@
                 "url": "เปิด URL ใน Mastodon",
                 "hashtag": "ไปยัง #%s",
                 "no_user": {
-                    "title": "No User Account Found",
+                    "title": "ไม่พบบัญชีผู้ใช้",
                     "message": "There's no Useraccount \"%s\" on %s"
                 },
                 "empty_state": {
@@ -710,37 +710,37 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "การตั้งค่า",
+                "general": "ทั่วไป",
+                "notifications": "การแจ้งเตือน",
+                "support_mastodon": "สนับสนุน Mastodon",
+                "about_mastodon": "เกี่ยวกับ Mastodon",
+                "server_details": "รายละเอียดเซิร์ฟเวอร์",
+                "logout": "ออกจากระบบ %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "เกี่ยวกับ",
+                "more_settings": "การตั้งค่าเพิ่มเติม",
+                "contribute_to_mastodon": "มีส่วนร่วมกับ Mastodon",
+                "privacy_policy": "นโยบายความเป็นส่วนตัว",
+                "clear_media_storage": "ล้างที่เก็บข้อมูลสื่อ"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "เกี่ยวกับ",
+                "rules": "กฎ",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
+                    "title": "ผู้ดูแล",
+                    "message_admin": "ส่งข้อความถึงผู้ดูแล",
                     "legal_notice": "A legal notice"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "ทั่วไป",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "ลักษณะที่ปรากฏ",
+                    "dark": "มืด",
+                    "light": "สว่าง",
+                    "system": "ใช้ลักษณะที่ปรากฏของอุปกรณ์"
                 },
                 "design": {
                     "section_title": "Design",
