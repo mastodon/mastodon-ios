@@ -657,7 +657,7 @@
                 "hashtag": "ไปยัง #%s",
                 "no_user": {
                     "title": "ไม่พบบัญชีผู้ใช้",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "message": "ไม่มีบัญชีผู้ใช้ \"%s\" ใน %s"
                 },
                 "empty_state": {
                     "no_results": "ไม่มีผลลัพธ์"
@@ -731,7 +731,7 @@
                 "about_instance": {
                     "title": "ผู้ดูแล",
                     "message_admin": "ส่งข้อความถึงผู้ดูแล",
-                    "legal_notice": "A legal notice"
+                    "legal_notice": "ประกาศทางกฎหมาย"
                 }
             },
             "general": {
@@ -743,33 +743,33 @@
                     "system": "ใช้ลักษณะที่ปรากฏของอุปกรณ์"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "การออกแบบ",
+                    "show_animations": "เล่นภาพประจำตัวและอีโมจิแบบเคลื่อนไหว"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "ลิงก์",
+                    "open_in_mastodon": "เปิดใน Mastodon",
+                    "open_in_browser": "เปิดในเบราว์เซอร์"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "การแจ้งเตือน",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "รับการแจ้งเตือนจาก",
+                    "anyone": "ใครก็ตาม",
+                    "followers": "ผู้คนที่ติดตามคุณ",
+                    "follow": "ผู้คนที่คุณติดตาม",
+                    "noone": "ไม่มีใคร"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "การกล่าวถึงและการตอบกลับ",
+                    "boosts": "การดัน",
+                    "favorites": "รายการโปรด",
+                    "new_followers": "ผู้ติดตามใหม่"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "เปิดการแจ้งเตือนจากการตั้งค่าอุปกรณ์ของคุณเพื่อดูการอัปเดตในหน้าจอล็อคของคุณ",
+                    "go_to_settings": "ไปยังการตั้งค่าการแจ้งเตือน"
                 }
             }
         },
