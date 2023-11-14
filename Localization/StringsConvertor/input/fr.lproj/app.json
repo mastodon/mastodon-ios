@@ -655,6 +655,10 @@
                 "profile": "Aller à @%s@%s",
                 "url": "Ouvrir l’URL dans Mastodon",
                 "hashtag": "Aller à #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "Aucun résultat"
                 },
@@ -705,59 +709,68 @@
             "title": "Publication de %s"
         },
         "settings": {
-            "title": "Paramètres",
-            "section": {
-                "appearance": {
-                    "title": "Apparence",
-                    "automatic": "Automatique",
-                    "light": "Toujours claire",
-                    "dark": "Toujours sombre"
-                },
-                "look_and_feel": {
-                    "title": "Apparence",
-                    "use_system": "Utiliser le thème du système",
-                    "really_dark": "Très sombre",
-                    "sorta_dark": "Légèrement sombre",
-                    "light": "Clair"
-                },
-                "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Ajoute l’une de mes publications à ses favoris",
-                    "follows": "Me suit",
-                    "boosts": "Reblogue mon message",
-                    "mentions": "Me mentionne",
-                    "trigger": {
-                        "anyone": "n’importe qui",
-                        "follower": "un·e abonné·e",
-                        "follow": "toute personne que je suis",
-                        "noone": "personne",
-                        "title": "Me notifier lorsque"
-                    }
-                },
-                "preference": {
-                    "title": "Préférences",
-                    "disable_avatar_animation": "Désactiver les avatars animés",
-                    "disable_emoji_animation": "Désactiver les émojis animées",
-                    "using_default_browser": "Utiliser le navigateur par défaut pour ouvrir les liens",
-                    "open_links_in_mastodon": "Ouvrir les liens dans Mastodon"
-                },
-                "boring_zone": {
-                    "title": "La zone ennuyante",
-                    "account_settings": "Paramètres du compte",
-                    "terms": "Entente de service",
-                    "privacy": "Politique de confidentialité"
-                },
-                "spicy_zone": {
-                    "title": "La Zone Épicée",
-                    "clear": "Vider le cache des médias",
-                    "signout": "Se déconnecter"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Adminstrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon est un logiciel open source. Vous pouvez rapporter des problèmes sur GitHub au %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Fermer la fenêtre des paramètres"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

@@ -655,6 +655,10 @@
                 "profile": "前往 @%s@%s",
                 "url": "於 Mastodon 中開啟連結",
                 "hashtag": "前往 #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "沒有任何結果"
                 },
@@ -705,59 +709,68 @@
             "title": "來自 %s 的嘟文"
         },
         "settings": {
-            "title": "設定",
-            "section": {
-                "appearance": {
-                    "title": "外觀設定",
-                    "automatic": "自動",
-                    "light": "亮色佈景主題",
-                    "dark": "深色佈景主題"
-                },
-                "look_and_feel": {
-                    "title": "外觀與風格",
-                    "use_system": "與系統一致",
-                    "really_dark": "闇黑風格",
-                    "sorta_dark": "有點黑又不會太黑",
-                    "light": "淺色"
-                },
-                "notifications": {
-                    "title": "通知",
-                    "favorites": "將我的嘟文加到最愛",
-                    "follows": "跟隨著我",
-                    "boosts": "將我的嘟文轉嘟",
-                    "mentions": "提到了我",
-                    "trigger": {
-                        "anyone": "任何人",
-                        "follower": "跟隨者",
-                        "follow": "任何我跟隨的人",
-                        "noone": "沒有人",
-                        "title": "以下狀況請通知我"
-                    }
-                },
-                "preference": {
-                    "title": "偏好設定",
-                    "disable_avatar_animation": "停用動畫大頭貼",
-                    "disable_emoji_animation": "停用動畫 emoji",
-                    "using_default_browser": "使用預設瀏覽器開啟連結",
-                    "open_links_in_mastodon": "於 Mastodon 中開啟連結"
-                },
-                "boring_zone": {
-                    "title": "無聊的這些",
-                    "account_settings": "帳號設定",
-                    "terms": "服務條款",
-                    "privacy": "隱私權政策"
-                },
-                "spicy_zone": {
-                    "title": "危險地帶",
-                    "clear": "清除媒體快取",
-                    "signout": "登出"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Adminstrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon 是開源軟體。您可以於 GitHub %s (%s) 回報問題。"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "關閉設定視窗"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

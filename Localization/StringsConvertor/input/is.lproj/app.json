@@ -655,6 +655,10 @@
                 "profile": "Fara á @%s@%s",
                 "url": "Opna slóð í Mastodon",
                 "hashtag": "Fara á #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "Engar niðurstöður"
                 },
@@ -705,59 +709,68 @@
             "title": "Færsla frá %s"
         },
         "settings": {
-            "title": "Stillingar",
-            "section": {
-                "appearance": {
-                    "title": "Útlit",
-                    "automatic": "Sjálfvirkt",
-                    "light": "Alltaf ljóst",
-                    "dark": "Alltaf dökkt"
-                },
-                "look_and_feel": {
-                    "title": "Útlit og viðmót",
-                    "use_system": "Nota stillingar kerfis",
-                    "really_dark": "Mjög dökkt",
-                    "sorta_dark": "Nokkuð dökkt",
-                    "light": "Ljóst"
-                },
-                "notifications": {
-                    "title": "Tilkynningar",
-                    "favorites": "Setur færsluna mína í eftirlæti",
-                    "follows": "Fylgist með mér",
-                    "boosts": "Endurbirtir færsluna mína",
-                    "mentions": "Minnist á mig",
-                    "trigger": {
-                        "anyone": "hver sem er",
-                        "follower": "fylgjandi",
-                        "follow": "hverjum sá sem ég fylgi",
-                        "noone": "enginn",
-                        "title": "Tilkynna mér þegar"
-                    }
-                },
-                "preference": {
-                    "title": "Kjörstillingar",
-                    "disable_avatar_animation": "Gera auðkennismyndir með hreyfingu óvirkar",
-                    "disable_emoji_animation": "Gera tjáningartákn með hreyfingu óvirkar",
-                    "using_default_browser": "Nota sjálfgefinn vafra til að opna tengla",
-                    "open_links_in_mastodon": "Opna tengla í Mastodon"
-                },
-                "boring_zone": {
-                    "title": "Óhressa svæðið",
-                    "account_settings": "Stillingar aðgangs",
-                    "terms": "Þjónustuskilmálar",
-                    "privacy": "Meðferð persónuupplýsinga"
-                },
-                "spicy_zone": {
-                    "title": "Kryddaða svæðið",
-                    "clear": "Hreinsa skyndiminni margmiðlunarefnis",
-                    "signout": "Skrá út"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Adminstrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon er frjáls hugbúnaður með opinn grunnkóða. Þú getur tilkynnt vandamál í gegnum GitHub á %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Loka stillingaglugga"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

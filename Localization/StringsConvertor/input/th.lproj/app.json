@@ -655,6 +655,10 @@
                 "profile": "ไปยัง @%s@%s",
                 "url": "เปิด URL ใน Mastodon",
                 "hashtag": "ไปยัง #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "ไม่มีผลลัพธ์"
                 },
@@ -705,59 +709,68 @@
             "title": "โพสต์จาก %s"
         },
         "settings": {
-            "title": "การตั้งค่า",
-            "section": {
-                "appearance": {
-                    "title": "ลักษณะที่ปรากฏ",
-                    "automatic": "อัตโนมัติ",
-                    "light": "สว่างเสมอ",
-                    "dark": "มืดเสมอ"
-                },
-                "look_and_feel": {
-                    "title": "ลักษณะที่แสดง",
-                    "use_system": "ใช้ของระบบ",
-                    "really_dark": "มืดมาก",
-                    "sorta_dark": "ค่อนข้างมืด",
-                    "light": "สว่าง"
-                },
-                "notifications": {
-                    "title": "การแจ้งเตือน",
-                    "favorites": "ชื่นชอบโพสต์ของฉัน",
-                    "follows": "ติดตามฉัน",
-                    "boosts": "ดันโพสต์ของฉัน",
-                    "mentions": "กล่าวถึงฉัน",
-                    "trigger": {
-                        "anyone": "ใครก็ตาม",
-                        "follower": "ผู้ติดตาม",
-                        "follow": "ใครก็ตามที่ฉันติดตาม",
-                        "noone": "ไม่มีใคร",
-                        "title": "แจ้งเตือนฉันเมื่อ"
-                    }
-                },
-                "preference": {
-                    "title": "การกำหนดลักษณะ",
-                    "disable_avatar_animation": "ปิดใช้งานภาพประจำตัวแบบเคลื่อนไหว",
-                    "disable_emoji_animation": "ปิดใช้งานอีโมจิแบบเคลื่อนไหว",
-                    "using_default_browser": "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์",
-                    "open_links_in_mastodon": "เปิดลิงก์ใน Mastodon"
-                },
-                "boring_zone": {
-                    "title": "โซนน่าเบื่อ",
-                    "account_settings": "การตั้งค่าบัญชี",
-                    "terms": "เงื่อนไขการให้บริการ",
-                    "privacy": "นโยบายความเป็นส่วนตัว"
-                },
-                "spicy_zone": {
-                    "title": "โซนเผ็ดร้อน",
-                    "clear": "ล้างแคชสื่อ",
-                    "signout": "ลงชื่อออก"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Adminstrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon เป็นซอฟต์แวร์โอเพนซอร์ส คุณสามารถรายงานปัญหาได้ใน GitHub ที่ %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "ปิดหน้าต่างการตั้งค่า"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

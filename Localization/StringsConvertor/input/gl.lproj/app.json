@@ -655,6 +655,10 @@
                 "profile": "Ir a @%s@%s",
                 "url": "Abrir URL en Mastodon",
                 "hashtag": "Ir a #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "Sen resultados"
                 },
@@ -705,59 +709,68 @@
             "title": "Publicación de %s"
         },
         "settings": {
-            "title": "Axustes",
-            "section": {
-                "appearance": {
-                    "title": "Aparencia",
-                    "automatic": "Automático",
-                    "light": "Sempre claro",
-                    "dark": "Sempre escuro"
-                },
-                "look_and_feel": {
-                    "title": "Aparencia",
-                    "use_system": "Seguir o sistema",
-                    "really_dark": "Realmente escuro",
-                    "sorta_dark": "Algo escuro",
-                    "light": "Claro"
-                },
-                "notifications": {
-                    "title": "Notificacións",
-                    "favorites": "Favorece a miña publicación",
-                    "follows": "Me segue",
-                    "boosts": "Promove a miña publicación",
-                    "mentions": "Me menciona",
-                    "trigger": {
-                        "anyone": "calquera",
-                        "follower": "unha seguidora",
-                        "follow": "alguén a quen sigo",
-                        "noone": "ninguén",
-                        "title": "Avisarme cando"
-                    }
-                },
-                "preference": {
-                    "title": "Preferencias",
-                    "disable_avatar_animation": "Desactivar avatares animados",
-                    "disable_emoji_animation": "Desactivar emojis animados",
-                    "using_default_browser": "Usar navegador por defecto para as ligazóns",
-                    "open_links_in_mastodon": "Abrir ligazóns en Mastodon"
-                },
-                "boring_zone": {
-                    "title": "A zona aburrida",
-                    "account_settings": "Axustes da conta",
-                    "terms": "Termos do Servizo",
-                    "privacy": "Política de Privacidade"
-                },
-                "spicy_zone": {
-                    "title": "A zona picante",
-                    "clear": "Limpar caché multimedia",
-                    "signout": "Pechar sesión"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Adminstrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon é software de código aberto. Podes informar de fallos en GitHub en %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Pechar ventá de axustes"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {
