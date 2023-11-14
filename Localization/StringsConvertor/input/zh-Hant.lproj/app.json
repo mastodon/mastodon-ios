@@ -19,7 +19,7 @@
                 "title": "發表嘟文失敗",
                 "message": "發表嘟文失敗。\n請檢查您的網路連線。",
                 "attachments_message": {
-                    "video_attach_with_photo": "無法於已有圖片的嘟文上附加影片。",
+                    "video_attach_with_photo": "無法於已有圖片之嘟文中加入影片.",
                     "more_than_one_video": "無法附加一個以上影片。"
                 }
             },
@@ -569,7 +569,7 @@
                 },
                 "verified": {
                     "short": "於 %s 上已驗證",
-                    "long": "已在 %s 檢查此連結的擁有者權限"
+                    "long": "已於 %s 檢查此連結的擁有者權限"
                 }
             },
             "segmented_control": {
