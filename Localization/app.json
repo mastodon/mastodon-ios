@@ -658,7 +658,7 @@
                 "no_user": {
                     "title": "No User Account Found",
                     "message": "There's no Useraccount \"%s\" on %s"
-                }
+                },
                 "empty_state": {
                     "no_results": "No results"
                 },
@@ -717,8 +717,7 @@
                 "about_mastodon": "About Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logout %@"
-            }
-
+            },
             "about_mastodon": {
                 "title": "About",
                 "more_settings": "Even More Settings",
@@ -726,12 +725,11 @@
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
             },
-
             "server_details": {
                 "about": "About",
-                "rules": "Rules"
+                "rules": "Rules",
                 "about_instance": {
-                    "title": "Adminstrator"
+                    "title": "Adminstrator",
                     "message_admin": "Message Admin",
                     "legal_notice": "A legal notice"
                 }
