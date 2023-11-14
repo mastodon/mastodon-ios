@@ -88,9 +88,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>%1$@ seuraajaa, joista yhteistä</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@ seuraajaa, joista %ld yhteistä</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -120,9 +120,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>Yksi media</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld mediaa</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -168,9 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 edelleen jako</string>
+        <string>Yksi edelleenjulkaisu</string>
         <key>other</key>
-        <string>%ld edelleen jakoa</string>
+        <string>%ld edelleenjulkaisua</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -184,9 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 edelleenjako</string>
+        <string>Yksi edelleenjulkaisu</string>
         <key>other</key>
-        <string>%ld edelleenjakoa</string>
+        <string>%ld edelleenjulkaisua</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -200,9 +200,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>Yksi vastaus</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld vastausta</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
