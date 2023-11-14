@@ -656,8 +656,8 @@
                 "url": "於 Mastodon 中開啟連結",
                 "hashtag": "前往 #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "找不到任何帳號",
+                    "message": "使用者「%s」於 %s 上不存在"
                 },
                 "empty_state": {
                     "no_results": "沒有任何結果"
@@ -710,65 +710,65 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "設定",
+                "general": "一般",
+                "notifications": "通知",
+                "support_mastodon": "支援 Mastodon",
+                "about_mastodon": "關於 Mastodon",
+                "server_details": "伺服器詳細資料",
+                "logout": "登出 %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "關於",
+                "more_settings": "更多更多的設定",
+                "contribute_to_mastodon": "貢獻 Mastodon",
+                "privacy_policy": "隱私權政策",
+                "clear_media_storage": "清空媒體儲存空間"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "關於",
+                "rules": "規則",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "管理員",
+                    "message_admin": "私訊管理員",
+                    "legal_notice": "法律聲明"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "一般",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "外觀設定",
+                    "dark": "深色",
+                    "light": "淺色",
+                    "system": "使用裝置外觀設定"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "設計",
+                    "show_animations": "播放動畫大頭貼與表情符號"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "連結",
+                    "open_in_mastodon": "於 Mastodon 中開啟連結",
+                    "open_in_browser": "在瀏覽器中開啟連結"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "通知",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "接受通知來自",
+                    "anyone": "所有人",
+                    "followers": "跟隨您的人",
+                    "follow": "您跟隨的人",
+                    "noone": "沒有人"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "提及與回覆",
+                    "boosts": "轉嘟",
+                    "favorites": "最愛",
+                    "new_followers": "新跟隨者"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "notification_hint": "自您的裝置啟用通知設定以於鎖定畫面檢視新消息。",
                     "go_to_settings": "Go to Notification Settings"
                 }
             }
