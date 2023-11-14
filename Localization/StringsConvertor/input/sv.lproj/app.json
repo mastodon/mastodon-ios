@@ -336,7 +336,7 @@
                 "manually_reviewed": "Manuell granskning"
             },
             "language": {
-                "all": "All"
+                "all": "Alla"
             },
             "search": {
                 "placeholder": "Sök namn eller URL"
@@ -656,7 +656,7 @@
                 "url": "Öppna URL i Mastodon",
                 "hashtag": "Gå till #%s",
                 "no_user": {
-                    "title": "No User Account Found",
+                    "title": "Inget användarkonto hittades",
                     "message": "There's no Useraccount \"%s\" on %s"
                 },
                 "empty_state": {
@@ -710,46 +710,46 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
+                "title": "Inställningar",
+                "general": "Allmänt",
                 "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
+                "support_mastodon": "Stöd Mastodon",
+                "about_mastodon": "Om Mastodon",
                 "server_details": "Server Details",
-                "logout": "Logout %@"
+                "logout": "Logga ut %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Om",
                 "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
+                "contribute_to_mastodon": "Bidra till Mastodon",
+                "privacy_policy": "Integritetspolicy",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Om",
+                "rules": "Regler",
                 "about_instance": {
-                    "title": "Administrator",
+                    "title": "Administratör",
                     "message_admin": "Message Admin",
                     "legal_notice": "A legal notice"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Allmänt",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
+                    "section_title": "Utseende",
+                    "dark": "Mörkt",
+                    "light": "Ljust",
                     "system": "Use Device Appearance"
                 },
                 "design": {
                     "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "show_animations": "Spela animerade avatarer och emojis"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Länkar",
+                    "open_in_mastodon": "Öppna i Mastodon",
+                    "open_in_browser": "Öppna i webbläsare"
                 }
             },
             "notifications": {
@@ -757,15 +757,15 @@
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "followers": "Personer som följer dig",
+                    "follow": "Personer du följer",
+                    "noone": "Ingen"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
+                    "mentions_and_replies": "Omnämnanden & Svar",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "favorites": "Favoriter",
+                    "new_followers": "Nya följare"
                 },
                 "disabled": {
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
