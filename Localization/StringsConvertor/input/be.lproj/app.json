@@ -577,7 +577,7 @@
                 "replies": "Адказы",
                 "posts_and_replies": "Допісы і адказы",
                 "media": "Медыя",
-                "about": "Аб праграме"
+                "about": "Аб"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -656,8 +656,8 @@
                 "url": "Адкрыць спасылку ў Mastodon",
                 "hashtag": "Перайсці да #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Уліковы запіс карыстальніка не знойдзены",
+                    "message": "На %s няма ўліковага запісу карыстальніка \"%s\""
                 },
                 "empty_state": {
                     "no_results": "Няма вынікаў"
@@ -710,66 +710,66 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "Налады",
+                "general": "Агульныя",
+                "notifications": "Апавяшчэнні",
+                "support_mastodon": "Падтрымаць Mastodon",
+                "about_mastodon": "Пра Mastodon",
+                "server_details": "Інфармацыя аб серверы",
+                "logout": "Выйсці з %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Аб",
+                "more_settings": "Яшчэ больш налад",
+                "contribute_to_mastodon": "Унесці ўклад у Mastodon",
+                "privacy_policy": "Палітыка канфідэнцыяльнасці",
+                "clear_media_storage": "Ачысціце сховішча мультымедыя"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Пра сервер",
+                "rules": "Правілы",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Адміністратар",
+                    "message_admin": "Напісаць адміністратару",
+                    "legal_notice": "Прававая інфармацыя"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Агульныя",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Знешні выгляд",
+                    "dark": "Цёмная",
+                    "light": "Светлая",
+                    "system": "Выкарыстоўваць сістэмную тэму"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Афармленне",
+                    "show_animations": "Прайграваць аніміраваныя аватары і эмодзі"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Спасылкі",
+                    "open_in_mastodon": "Адкрываць у Mastodon",
+                    "open_in_browser": "Адкрываць у браўзеры"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Апавяшчэнні",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Атрымліваць апавяшчэнні ад",
+                    "anyone": "Усіх",
+                    "followers": "Людзей, якія падпісаны на вас",
+                    "follow": "Людзей, на якіх вы падпісаны",
+                    "noone": "Нікога"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Згадванні & Адказы",
+                    "boosts": "Пашырэнні",
+                    "favorites": "Упадабаныя",
+                    "new_followers": "Новыя падпісчыкі"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Уключыце апавяшчэнні ў наладах прылады, каб бачыць абнаўлення на экране блакіроўкі.",
+                    "go_to_settings": "Перайсці ў налады апавяшчэнняў"
                 }
             }
         },
