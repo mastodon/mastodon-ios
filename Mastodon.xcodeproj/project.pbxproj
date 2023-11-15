@@ -51,6 +51,7 @@
 		2A9D0664298C048800BF38CB /* LatestFollowersWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D0663298C048800BF38CB /* LatestFollowersWidget.swift */; };
 		2A9D0666298C05A800BF38CB /* LatestFollowersWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D0665298C05A800BF38CB /* LatestFollowersWidgetView.swift */; };
 		2A9D066F298D0FD100BF38CB /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9D066E298D0FD100BF38CB /* MastodonSDKDynamic */; };
+		2AAAA34E2B04DE21004C6672 /* VisionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAAA34D2B04DE21004C6672 /* VisionKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2AB12E4629362F27006BC925 /* DataSourceFacade+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */; };
 		2AB5011B2992322500346092 /* LightChart in Frameworks */ = {isa = PBXBuildFile; productRef = 2AB5011A2992322500346092 /* LightChart */; };
 		2AB5011C299243FB00346092 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */; };
@@ -659,6 +660,7 @@
 		2A86A14A2989326E007F1062 /* MultiFollowersCountWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountWidgetView.swift; sourceTree = "<group>"; };
 		2A9D0663298C048800BF38CB /* LatestFollowersWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestFollowersWidget.swift; sourceTree = "<group>"; };
 		2A9D0665298C05A800BF38CB /* LatestFollowersWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestFollowersWidgetView.swift; sourceTree = "<group>"; };
+		2AAAA34D2B04DE21004C6672 /* VisionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VisionKit.framework; path = System/Library/Frameworks/VisionKit.framework; sourceTree = SDKROOT; };
 		2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Translate.swift"; sourceTree = "<group>"; };
 		2AB5011F299243FB00346092 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/WidgetExtension.intentdefinition; sourceTree = "<group>"; };
 		2AB501222992440200346092 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
@@ -1294,6 +1296,7 @@
 				D84FA0932AE6915800987F47 /* MBProgressHUD in Frameworks */,
 				D87364F92AE28DB500C8F919 /* Kanna in Frameworks */,
 				71458AF57697DB405CFEC37C /* Pods_Mastodon.framework in Frameworks */,
+				2AAAA34E2B04DE21004C6672 /* VisionKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1734,6 +1737,7 @@
 		3FE14AD363ED19AE7FF210A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2AAAA34D2B04DE21004C6672 /* VisionKit.framework */,
 				DBF96325262EC0A6001D8D25 /* AuthenticationServices.framework */,
 				DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */,
 				DB8FABA926AEC3A2008E5AF4 /* IntentsUI.framework */,
