@@ -710,10 +710,10 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Einstellungen",
                 "general": "General",
                 "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
+                "support_mastodon": "Mastodon unterstützen",
                 "about_mastodon": "About Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logout %@"
