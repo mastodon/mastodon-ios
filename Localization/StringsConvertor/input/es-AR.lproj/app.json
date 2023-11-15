@@ -656,8 +656,8 @@
                 "url": "Abrir dirección web en Mastodon",
                 "hashtag": "Ir a %s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "No se encontró la cuenta del usuario",
+                    "message": "No se encontró la cuenta de usuario \"%s\" en %s"
                 },
                 "empty_state": {
                     "no_results": "No hay resultados"
@@ -710,66 +710,66 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Configuración",
                 "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "notifications": "Notificaciones",
+                "support_mastodon": "Apoyá a Mastodon",
+                "about_mastodon": "Acerca de Mastodon",
+                "server_details": "Detalles del servidor",
+                "logout": "Cerrar sesión en %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Información",
+                "more_settings": "Configuración extra",
+                "contribute_to_mastodon": "Contribuí a Mastodon",
+                "privacy_policy": "Política de privacidad",
+                "clear_media_storage": "Limpiar almacenamiento multimedia"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Información",
+                "rules": "Reglas",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Administración",
+                    "message_admin": "Enviar mensaje a la administración",
+                    "legal_notice": "Un aviso legal"
                 }
             },
             "general": {
                 "title": "General",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Apariencia",
+                    "dark": "Oscura",
+                    "light": "Clara",
+                    "system": "Usar apariencia del dispositivo"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Diseño",
+                    "show_animations": "Reproducir avatares animados y emojis"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Enlaces",
+                    "open_in_mastodon": "Abrir en Mastodon",
+                    "open_in_browser": "Abrir en el navegador web"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notificaciones",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Recibir notificaciones de",
+                    "anyone": "Cualquier cuenta",
+                    "followers": "Cuentas que te siguen",
+                    "follow": "Cuentas que seguís",
+                    "noone": "Ninguna cuenta"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Menciones y respuestas",
+                    "boosts": "Adhesiones",
+                    "favorites": "Favoritos",
+                    "new_followers": "Nuevos seguidores"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Activá las notificaciones desde la configuración de tu dispositivo para ver actualizaciones en la pantalla de bloqueo.",
+                    "go_to_settings": "Ir a la configuración de notificaciones"
                 }
             }
         },

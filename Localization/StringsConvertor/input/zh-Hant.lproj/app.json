@@ -19,7 +19,7 @@
                 "title": "發表嘟文失敗",
                 "message": "發表嘟文失敗。\n請檢查您的網路連線。",
                 "attachments_message": {
-                    "video_attach_with_photo": "無法在已有圖片的嘟文上附加影片。",
+                    "video_attach_with_photo": "無法於已有圖片之嘟文中加入影片.",
                     "more_than_one_video": "無法附加一個以上影片。"
                 }
             },
@@ -82,8 +82,8 @@
                 "share": "分享",
                 "share_user": "分享 %s",
                 "share_post": "分享嘟文",
-                "open_in_safari": "在 Safari 中開啟",
-                "open_in_browser": "在瀏覽器中開啟",
+                "open_in_safari": "於 Safari 中開啟",
+                "open_in_browser": "於瀏覽器中開啟",
                 "find_people": "尋找一些人來跟隨",
                 "manually_search": "手動搜尋",
                 "skip": "跳過",
@@ -418,7 +418,7 @@
         "server_rules": {
             "title": "一些基本守則。",
             "subtitle": "這些被 %s 的管管們制定以及實施。",
-            "prompt": "繼續的話，代表您將遵守 %s 的服務條款和隱私權政策。",
+            "prompt": "繼續的話，代表您將遵守 %s 的服務條款與隱私權政策。",
             "terms_of_service": "服務條款",
             "privacy_policy": "隱私權政策",
             "button": {
@@ -569,7 +569,7 @@
                 },
                 "verified": {
                     "short": "於 %s 上已驗證",
-                    "long": "已在 %s 檢查此連結的擁有者權限"
+                    "long": "已於 %s 檢查此連結的擁有者權限"
                 }
             },
             "segmented_control": {
@@ -656,8 +656,8 @@
                 "url": "於 Mastodon 中開啟連結",
                 "hashtag": "前往 #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "找不到使用者帳號",
+                    "message": "使用者「%s」於 %s 上不存在"
                 },
                 "empty_state": {
                     "no_results": "沒有任何結果"
@@ -710,66 +710,66 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "設定",
+                "general": "一般",
+                "notifications": "通知",
+                "support_mastodon": "支援 Mastodon",
+                "about_mastodon": "關於 Mastodon",
+                "server_details": "伺服器詳細資料",
+                "logout": "登出 %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "關於",
+                "more_settings": "更多更多的設定",
+                "contribute_to_mastodon": "貢獻 Mastodon",
+                "privacy_policy": "隱私權政策",
+                "clear_media_storage": "清空媒體儲存空間"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "關於",
+                "rules": "規則",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "管理員",
+                    "message_admin": "私訊管理員",
+                    "legal_notice": "法律聲明"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "一般",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "外觀設定",
+                    "dark": "深色",
+                    "light": "淺色",
+                    "system": "使用裝置外觀設定"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "設計",
+                    "show_animations": "播放動畫大頭貼與表情符號"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "連結",
+                    "open_in_mastodon": "於 Mastodon 中開啟連結",
+                    "open_in_browser": "於瀏覽器中開啟連結"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "通知",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "接受通知來自",
+                    "anyone": "所有人",
+                    "followers": "跟隨您的人",
+                    "follow": "您跟隨的人",
+                    "noone": "沒有人"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "提及與回覆",
+                    "boosts": "轉嘟",
+                    "favorites": "最愛",
+                    "new_followers": "新跟隨者"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "自您的裝置啟用通知設定以於鎖定畫面檢視新消息。",
+                    "go_to_settings": "前往系統通知設定"
                 }
             }
         },
@@ -817,12 +817,12 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "不想再看到這個？",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "當您看到某些不喜歡的內容時，您可以將該帳號從您的體驗中移除。",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "當您看到某些不喜歡的內容時，您可以將該帳號自您的體驗中移除。",
                 "unfollow": "取消跟隨",
                 "unfollowed": "已取消跟隨",
                 "unfollow_user": "取消跟隨 %s",
                 "mute_user": "靜音 %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "您不會在您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "您不會於您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。",
                 "block_user": "封鎖 %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他們將無法跟隨您或是看到您的嘟文。他們能看到他們是否已被封鎖。",
                 "while_we_review_this_you_can_take_action_against_user": "當我們正在審核時，您可以對 %s 採取以下措施"
