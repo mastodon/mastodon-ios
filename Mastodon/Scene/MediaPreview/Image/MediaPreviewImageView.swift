@@ -12,6 +12,8 @@ import VisionKit
 
 final class MediaPreviewImageView: UIScrollView {
     
+    private static let imageAnalyzer = ImageAnalyzer()
+    
     let imageView: FLAnimatedImageView = {
         let imageView = FLAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
@@ -140,7 +142,7 @@ extension MediaPreviewImageView {
 
         Task.detached(priority: .userInitiated) {
             do {
-                let analysis = try await ImageAnalyzer.shared.analyze(image, configuration: ImageAnalyzer.Configuration([.text, .machineReadableCode]))
+                let analysis = try await Self.imageAnalyzer.analyze(image, configuration: ImageAnalyzer.Configuration([.text, .machineReadableCode]))
                 await MainActor.run {
                     self.liveTextInteraction.analysis = analysis
                     self.liveTextInteraction.preferredInteractionTypes = .automatic
