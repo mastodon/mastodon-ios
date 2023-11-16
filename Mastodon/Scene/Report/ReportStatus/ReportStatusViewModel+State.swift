@@ -7,9 +7,8 @@
 
 import func QuartzCore.CACurrentMediaTime
 import Foundation
-import CoreData
-import CoreDataStack
 import GameplayKit
+import MastodonSDK
 
 extension ReportStatusViewModel {
     class State: GKState {
@@ -64,14 +63,11 @@ extension ReportStatusViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel else { return }
             
-            let maxID = viewModel.statusFetchedResultsController.statusIDs.last
+            let maxID = viewModel.records.last?.id
             
             Task {
                 let managedObjectContext = viewModel.context.managedObjectContext
-                let _userID: MastodonUser.ID? = try await managedObjectContext.perform {
-                    guard let user = viewModel.user.object(in: managedObjectContext) else { return nil }
-                    return user.id
-                }
+                let _userID: Mastodon.Entity.Account.ID? = viewModel.user.id
                 guard let userID = _userID else {
                     await enter(state: Fail.self)
                     return
@@ -89,10 +85,10 @@ extension ReportStatusViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs
+                    var newRecords = viewModel.records
                     for status in response.value {
-                        guard !statusIDs.contains(status.id) else { continue }
-                        statusIDs.append(status.id)
+                        guard !newRecords.contains(where: { $0.id == status.id }) else { continue }
+                        newRecords.append(status)
                         hasNewStatusesAppend = true
                     }
                     
@@ -101,7 +97,7 @@ extension ReportStatusViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
+                    viewModel.records = newRecords
 
                 } catch {
                     await enter(state: Fail.self)

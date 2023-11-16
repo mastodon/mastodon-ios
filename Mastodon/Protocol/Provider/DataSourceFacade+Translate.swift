@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import CoreData
-import CoreDataStack
 import MastodonCore
 import MastodonSDK
 
@@ -20,27 +18,21 @@ extension DataSourceFacade {
     
     public static func translateStatus(
         provider: Provider,
-        status: ManagedObjectRecord<Status>
+        status: Mastodon.Entity.Status
     ) async throws -> Mastodon.Entity.Translation? {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
 
-        guard
-            let status = status.object(in: provider.context.managedObjectContext)
-        else {
-            return nil
-        }
-        
         if let reblog = status.reblog {
-            return try await translateStatus(provider: provider, status: reblog)
+            return try await _translateStatus(provider: provider, status: reblog)
         } else {
-            return try await translateStatus(provider: provider, status: status)
+            return try await _translateStatus(provider: provider, status: status)
         }
     }
 }
 
 private extension DataSourceFacade {
-    static func translateStatus(provider: Provider, status: Status) async throws -> Mastodon.Entity.Translation? {
+    static func _translateStatus(provider: Provider, status: Mastodon.Entity.Status) async throws -> Mastodon.Entity.Translation? {
         do {
             let value = try await provider.context
                 .apiService

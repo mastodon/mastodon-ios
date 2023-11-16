@@ -6,8 +6,6 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
 import Foundation
 import GameplayKit
 import MastodonSDK
@@ -28,8 +26,8 @@ class ReportViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let user: ManagedObjectRecord<MastodonUser>
-    let status: ManagedObjectRecord<Status>?
+    let user: Mastodon.Entity.Account
+    let status: Mastodon.Entity.Status?
     
     // output
     @Published var isReporting = false
@@ -38,8 +36,8 @@ class ReportViewModel {
     init(
         context: AppContext,
         authContext: AuthContext,
-        user: ManagedObjectRecord<MastodonUser>,
-        status: ManagedObjectRecord<Status>?
+        user: Mastodon.Entity.Account,
+        status: Mastodon.Entity.Status?
     ) {
         self.context = context
         self.authContext = authContext
@@ -56,16 +54,7 @@ class ReportViewModel {
             reportReasonViewModel.headline = L10n.Scene.Report.StepOne.whatsWrongWithThisPost
         } else {
             Task { @MainActor in
-                let managedObjectContext = context.managedObjectContext
-                let _username: String? = try? await managedObjectContext.perform {
-                    let user = user.object(in: managedObjectContext)
-                    return user?.acctWithDomain
-                }
-                if let username = _username {
-                    reportReasonViewModel.headline = L10n.Scene.Report.StepOne.whatsWrongWithThisUsername(username)
-                } else {
-                    reportReasonViewModel.headline = L10n.Scene.Report.StepOne.whatsWrongWithThisAccount
-                }
+                reportReasonViewModel.headline = L10n.Scene.Report.StepOne.whatsWrongWithThisUsername(user.acctWithDomain)
             }   // end Task
         }
         
@@ -95,64 +84,56 @@ extension ReportViewModel {
     func report() async throws {
         guard !isReporting else { return }
 
-        let managedObjectContext = context.managedObjectContext
-        let _query: Mastodon.API.Reports.FileReportQuery? = try await managedObjectContext.perform {
-            guard let user = self.user.object(in: managedObjectContext) else { return nil }
-            
-            // the status picker is essential step in report flow
-            // only check isSkip or not
-            let statusIDs: [Status.ID]? = {
-                if self.reportStatusViewModel.isSkip {
-                    let _id: Status.ID? = self.reportStatusViewModel.status.flatMap { record -> Status.ID? in
-                        guard let status = record.object(in: managedObjectContext) else { return nil }
-                        return status.id
-                    }
-                    return _id.flatMap { [$0] }
-                } else {
-                    return self.reportStatusViewModel.selectStatuses.compactMap { record -> Status.ID? in
-                        guard let status = record.object(in: managedObjectContext) else { return nil }
-                        return status.id
-                    }
+        // the status picker is essential step in report flow
+        // only check isSkip or not
+        let statusIDs: [Mastodon.Entity.Status.ID]? = {
+            if self.reportStatusViewModel.isSkip {
+                let _id: Mastodon.Entity.Status.ID? = self.reportStatusViewModel.status.flatMap { record -> Mastodon.Entity.Status.ID? in
+                    return record.id
                 }
-            }()
-            
-            // the user comment is essential step in report flow
-            // only check isSkip or not
-            let comment: String? = {
-                let _comment = self.reportSupplementaryViewModel.isSkip ? nil : self.reportSupplementaryViewModel.commentContext.comment
-                if let comment = _comment, !comment.isEmpty {
-                    return comment
-                } else {
+                return _id.flatMap { [$0] } ?? []
+            } else {
+                return self.reportStatusViewModel.selectStatuses.compactMap { record -> Mastodon.Entity.Status.ID? in
+                    return record.id
+                }
+            }
+        }()
+        
+        // the user comment is essential step in report flow
+        // only check isSkip or not
+        let comment: String? = {
+            let _comment = self.reportSupplementaryViewModel.isSkip ? nil : self.reportSupplementaryViewModel.commentContext.comment
+            if let comment = _comment, !comment.isEmpty {
+                return comment
+            } else {
+                return nil
+            }
+        }()
+        
+        let query = Mastodon.API.Reports.FileReportQuery(
+            accountID: user.id,
+            statusIDs: statusIDs,
+            comment: comment,
+            forward: true,
+            category: {
+                switch self.reportReasonViewModel.selectReason {
+                case .dislike:          return nil
+                case .spam:             return .spam
+                case .violateRule:      return .violation
+                case .other:            return .other
+                case .none:             return nil
+                }
+            }(),
+            ruleIDs: {
+                switch self.reportReasonViewModel.selectReason {
+                case .violateRule:
+                    let ruleIDs = self.reportServerRulesViewModel.selectRules.map { $0.id }.sorted()
+                    return ruleIDs
+                default:
                     return nil
                 }
             }()
-            return Mastodon.API.Reports.FileReportQuery(
-                accountID: user.id,
-                statusIDs: statusIDs,
-                comment: comment,
-                forward: true,
-                category: {
-                    switch self.reportReasonViewModel.selectReason {
-                    case .dislike:          return nil
-                    case .spam:             return .spam
-                    case .violateRule:      return .violation
-                    case .other:            return .other
-                    case .none:             return nil
-                    }
-                }(),
-                ruleIDs: {
-                    switch self.reportReasonViewModel.selectReason {
-                    case .violateRule:
-                        let ruleIDs = self.reportServerRulesViewModel.selectRules.map { $0.id }.sorted()
-                        return ruleIDs
-                    default:
-                        return nil
-                    }
-                }()
-            )
-        }
-
-        guard let query = _query else { return }
+        )
 
         do {
             isReporting = true

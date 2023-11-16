@@ -53,7 +53,7 @@ public final class Card: NSManagedObject {
     @NSManaged public private(set) var html: String?
 
     // sourcery: autoGenerateRelationship
-    @NSManaged public private(set) var status: Status
+    @NSManaged public private(set) var status: StatusLegacy
 }
 
 extension Card {
@@ -163,10 +163,10 @@ extension Card: AutoGenerateRelationship {
     // Generated using Sourcery
     // DO NOT EDIT
     public struct Relationship {
-    	public let status: Status
+    	public let status: StatusLegacy
 
     	public init(
-    		status: Status
+    		status: StatusLegacy
     	) {
     		self.status = status
     	}

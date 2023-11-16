@@ -57,25 +57,22 @@ extension DiscoverySection {
                 return cell
             case .user(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileCardTableViewCell.self), for: indexPath) as! ProfileCardTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
-                    cell.configure(
-                        tableView: tableView,
-                        user: user,
-                        profileCardTableViewCellDelegate: configuration.profileCardTableViewCellDelegate
-                    )
-                    // bind familiarFollowers
-                    if let familiarFollowers = configuration.familiarFollowers {
-                        familiarFollowers
-                            .map { array in array.first(where: { $0.id == user.id }) }
-                            .assign(to: \.familiarFollowers, on: cell.profileCardView.viewModel)
-                            .store(in: &cell.disposeBag)
-                    } else {
-                        cell.profileCardView.viewModel.familiarFollowers = nil
-                    }
-                    // bind me
-                    cell.profileCardView.viewModel.relationshipViewModel.me = configuration.authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
+                cell.configure(
+                    tableView: tableView,
+                    user: record,
+                    profileCardTableViewCellDelegate: configuration.profileCardTableViewCellDelegate
+                )
+                // bind familiarFollowers
+                if let familiarFollowers = configuration.familiarFollowers {
+                    familiarFollowers
+                        .map { array in array.first(where: { $0.id == record.id }) }
+                        .assign(to: \.familiarFollowers, on: cell.profileCardView.viewModel)
+                        .store(in: &cell.disposeBag)
+                } else {
+                    cell.profileCardView.viewModel.familiarFollowers = nil
                 }
+                // bind me
+                cell.profileCardView.viewModel.relationshipViewModel.me = configuration.authContext.mastodonAuthenticationBox.inMemoryCache.meAccount
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell

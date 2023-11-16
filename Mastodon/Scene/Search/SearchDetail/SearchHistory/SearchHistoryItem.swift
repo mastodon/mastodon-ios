@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import CoreData
-import CoreDataStack
+import MastodonSDK
 
 enum SearchHistoryItem: Hashable {
-    case hashtag(ManagedObjectRecord<Tag>)
-    case user(ManagedObjectRecord<MastodonUser>)
+    case hashtag(Mastodon.Entity.Tag)
+    case user(Mastodon.Entity.Account)
 }

@@ -21,7 +21,7 @@ final class UserTimelineViewModel {
     let context: AppContext
     let authContext: AuthContext
     let title: String
-    let statusFetchedResultsController: StatusFetchedResultsController
+//    let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     @Published var userIdentifier: UserIdentifier?
     @Published var queryFilter: QueryFilter
@@ -32,7 +32,8 @@ final class UserTimelineViewModel {
 
     // let userDisplayName = CurrentValueSubject<String?, Never>(nil)  // for suspended prompt label
     // var dataSourceDidUpdate = PassthroughSubject<Void, Never>()
-
+    @Published var records = [Mastodon.Entity.Status]()
+    
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
     private(set) lazy var stateMachine: GKStateMachine = {
@@ -57,11 +58,11 @@ final class UserTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.title = title
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+//        self.statusFetchedResultsController = StatusFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            additionalTweetPredicate: nil
+//        )
         self.queryFilter = queryFilter
     }
 }

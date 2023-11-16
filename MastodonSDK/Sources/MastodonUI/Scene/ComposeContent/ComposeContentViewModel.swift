@@ -23,7 +23,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
     public enum ComposeContext {
         case composeStatus
-        case editStatus(status: Status, statusSource: Mastodon.Entity.StatusSource)
+        case editStatus(status: Mastodon.Entity.Status, statusSource: Mastodon.Entity.StatusSource)
     }
     
     var disposeBag = Set<AnyCancellable>()
@@ -162,12 +162,12 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 return author.locked ? .private : .public
             }()
             // set visibility for reply post
-            if case .reply(let record) = destination {
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else {
-                        assertionFailure()
-                        return
-                    }
+            if case .reply(let status) = destination {
+//                context.managedObjectContext.performAndWait {
+//                    guard let status = record.object(in: context.managedObjectContext) else {
+//                        assertionFailure()
+//                        return
+//                    }
                     let repliedStatusVisibility = status.visibility
                     switch repliedStatusVisibility {
                     case .public, .unlisted:
@@ -179,9 +179,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                         visibility = .direct
                     case ._other:
                         assertionFailure()
+                    case .none:
                         break
                     }
-                }
+//                }
             }
             return visibility
         }()
@@ -191,7 +192,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         )
         
         if case let ComposeContext.editStatus(status, _) = composeContext {
-            if status.isContentSensitive {
+            if status.sensitive == true {
                 isContentWarningActive = true
                 contentWarning = status.spoilerText ?? ""
             }
@@ -201,7 +202,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 if let pollExpiresAt = poll.expiresAt {
                     pollExpireConfigurationOption = .init(closestDateToExpiry: pollExpiresAt)
                 }
-                pollOptions = poll.options.sortedByIndex().map {
+                pollOptions = poll.options.map {
                     let option = PollComposeItem.Option()
                     option.text = $0.title
                     return option
@@ -218,19 +219,19 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         // setup initial value
         let initialContentWithSpace = initialContent.isEmpty ? "" : initialContent + " "
         switch destination {
-        case .reply(let record):
-            context.managedObjectContext.performAndWait {
-                guard let status = record.object(in: context.managedObjectContext) else {
-                    assertionFailure()
-                    return
-                }
+        case .reply(let status):
+//            context.managedObjectContext.performAndWait {
+//                guard let status = record.object(in: context.managedObjectContext) else {
+//                    assertionFailure()
+//                    return
+//                }
                 let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
 
                 var mentionAccts: [String] = []
-                if author?.id != status.author.id {
-                    mentionAccts.append("@" + status.author.acct)
+            if author?.id != status.account.id {
+                mentionAccts.append("@" + status.account.acct)
                 }
-                let mentions = status.mentions
+                let mentions = status.mentions ?? []
                     .filter { author?.id != $0.id }
                 for mention in mentions {
                     let acct = "@" + mention.acct
@@ -249,7 +250,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 let preInsertedContent = initialComposeContent.isEmpty ? "" : initialComposeContent + " "
                 self.initialContent = preInsertedContent + initialContentWithSpace
                 self.content = preInsertedContent + initialContentWithSpace
-            }
+//            }
         case .topLevel:
             self.initialContent = initialContentWithSpace
             self.content = initialContentWithSpace
@@ -288,22 +289,22 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case .composeStatus:
             self.isVisibilityButtonEnabled = true
         case let .editStatus(status, _):
-            if let visibility = Mastodon.Entity.Status.Visibility(rawValue: status.visibility.rawValue) {
+            if let vis = status.visibility, let visibility = Mastodon.Entity.Status.Visibility(rawValue: vis.rawValue) {
                 self.visibility = visibility
             }
             self.isVisibilityButtonEnabled = false
-            self.attachmentViewModels = status.attachments.compactMap {
-                guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
+            self.attachmentViewModels = status.mediaAttachments?.compactMap { att -> AttachmentViewModel? in
+                guard let assetURL = att.url, let url = URL(string: assetURL) else { return nil }
                 let attachmentViewModel = AttachmentViewModel(
                     api: context.apiService,
                     authContext: authContext,
-                    input: .mastodonAssetUrl(url, $0.id),
+                    input: .mastodonAssetUrl(url, att.id),
                     sizeLimit: sizeLimit,
                     delegate: self
                 )
-                attachmentViewModel.caption = $0.altDescription ?? ""
+                attachmentViewModel.caption = att.description ?? ""
                 return attachmentViewModel
-            }
+            } ?? []
         }
         
         bind()
@@ -503,7 +504,7 @@ extension ComposeContentViewModel {
 extension ComposeContentViewModel {
     public enum Destination {
         case topLevel
-        case reply(parent: ManagedObjectRecord<Status>)
+        case reply(parent: Mastodon.Entity.Status)
     }
     
     public enum ScrollViewState {

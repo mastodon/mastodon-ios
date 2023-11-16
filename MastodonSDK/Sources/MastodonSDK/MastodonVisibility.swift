@@ -1,10 +1,4 @@
-//
-//  MastodonVisibility.swift
-//  MastodonVisibility
-//
-//  Created by Cirno MainasuK on 2021-8-27.
-//  Copyright © 2021 Twidere. All rights reserved.
-//
+// Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
 

@@ -85,6 +85,19 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Account {
+    public var acctWithDomain: String {
+        if !acct.contains("@") {
+            // Safe concat due to username cannot contains "@"
+            guard let domain = domain else {
+                assertionFailure("domain is missing")
+                return username
+            }
+            return username + "@" + domain
+        } else {
+            return acct
+        }
+    }
+    
     public func acctWithDomainIfMissing(_ localDomain: String) -> String {
         guard acct.contains("@") else {
             return "\(acct)@\(localDomain)"
@@ -102,4 +115,34 @@ extension Mastodon.Entity.Account {
 
         return components.host
     }
+}
+
+extension Mastodon.Entity.Account: Hashable {
+    public static func == (lhs: Mastodon.Entity.Account, rhs: Mastodon.Entity.Account) -> Bool {
+        lhs.domain == rhs.domain && lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(domain)
+        hasher.combine(id)
+    }
+}
+
+extension Mastodon.Entity.Account {
+    
+    public var profileURL: URL {
+        if let url = URL(string: url) {
+            return url
+        } else {
+            #warning("fix domain!")
+            return URL(string: "https://\(domain!)/@\(username)")!
+        }
+    }
+
+    public var activityItems: [Any] {
+        var items: [Any] = []
+        items.append(profileURL)
+        return items
+    }
+    
 }

@@ -6,8 +6,6 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
@@ -23,7 +21,7 @@ class ReportResultViewModel: ObservableObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let user: ManagedObjectRecord<MastodonUser>
+    let user: Mastodon.Entity.Account
     let isReported: Bool
     
     var headline: String {
@@ -48,7 +46,7 @@ class ReportResultViewModel: ObservableObject {
     init(
         context: AppContext,
         authContext: AuthContext,
-        user: ManagedObjectRecord<MastodonUser>,
+        user: Mastodon.Entity.Account,
         isReported: Bool
     ) {
         self.context = context
@@ -58,10 +56,8 @@ class ReportResultViewModel: ObservableObject {
         // end init
         
         Task { @MainActor in
-            guard let user = user.object(in: context.managedObjectContext) else { return }
-            guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return }
             self.relationshipViewModel.user = user
-            self.relationshipViewModel.me = me
+            self.relationshipViewModel.me = authContext.mastodonAuthenticationBox.inMemoryCache.meAccount
             
             self.avatarURL = user.avatarImageURL()
             self.username = user.acctWithDomain

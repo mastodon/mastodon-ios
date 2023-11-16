@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import CoreDataStack
+import MastodonSDK
 
 enum RecommendAccountItem: Hashable {
-    case account(ManagedObjectRecord<MastodonUser>)
+    case account(Mastodon.Entity.Account)
 }

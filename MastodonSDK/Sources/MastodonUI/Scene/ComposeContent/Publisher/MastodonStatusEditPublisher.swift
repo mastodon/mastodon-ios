@@ -10,7 +10,7 @@ import Combine
 public final class MastodonEditStatusPublisher: NSObject, ProgressReporting {
 
     // Input
-    public let statusID: Status.ID
+    public let statusID: Mastodon.Entity.Status.ID
     public let author: ManagedObjectRecord<MastodonUser>
 
     // content warning
@@ -40,7 +40,7 @@ public final class MastodonEditStatusPublisher: NSObject, ProgressReporting {
     public var reactor: StatusPublisherReactor?
 
     public init(
-        statusID: Status.ID,
+        statusID: Mastodon.Entity.Status.ID,
         author: ManagedObjectRecord<MastodonUser>,
         isContentWarningComposing: Bool,
         contentWarning: String,

@@ -7,9 +7,9 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import GameplayKit
 import MastodonCore
+import MastodonSDK
 
 final class UserListViewModel {
     var disposeBag = Set<AnyCancellable>()
@@ -18,9 +18,10 @@ final class UserListViewModel {
     let context: AppContext
     let authContext: AuthContext
     let kind: Kind
-    let userFetchedResultsController: UserFetchedResultsController
+//    let userFetchedResultsController: UserFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
-
+    @Published var records = [Mastodon.Entity.Account]()
+    
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>!
     @MainActor private(set) lazy var stateMachine: GKStateMachine = {
@@ -43,11 +44,11 @@ final class UserListViewModel {
         self.context = context
         self.authContext = authContext
         self.kind = kind
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalPredicate: nil
-        )
+//        self.userFetchedResultsController = UserFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            additionalPredicate: nil
+//        )
         // end init
     }
 }
@@ -55,7 +56,7 @@ final class UserListViewModel {
 extension UserListViewModel {
     // TODO: refactor follower and following into user list
     enum Kind {
-        case rebloggedBy(status: ManagedObjectRecord<Status>)
-        case favoritedBy(status: ManagedObjectRecord<Status>)
+        case rebloggedBy(status: Mastodon.Entity.Status)
+        case favoritedBy(status: Mastodon.Entity.Status)
     }
 }

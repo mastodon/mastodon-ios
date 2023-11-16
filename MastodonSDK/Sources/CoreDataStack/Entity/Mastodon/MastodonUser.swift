@@ -62,19 +62,19 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var updatedAt: Date
     
     // one-to-one relationship
-    @NSManaged public private(set) var pinnedStatus: Status?
+    @NSManaged public private(set) var pinnedStatus: StatusLegacy?
     @NSManaged public private(set) var mastodonAuthentication: MastodonAuthenticationLegacy?
     
     // one-to-many relationship
-    @NSManaged public private(set) var statuses: Set<Status>
+    @NSManaged public private(set) var statuses: Set<StatusLegacy>
     @NSManaged public private(set) var notifications: Set<Notification>
     @NSManaged public private(set) var searchHistories: Set<SearchHistory>
     
     // many-to-many relationship
-    @NSManaged public private(set) var favourite: Set<Status>
-    @NSManaged public private(set) var reblogged: Set<Status>
-    @NSManaged public private(set) var muted: Set<Status>
-    @NSManaged public private(set) var bookmarked: Set<Status>
+    @NSManaged public private(set) var favourite: Set<StatusLegacy>
+    @NSManaged public private(set) var reblogged: Set<StatusLegacy>
+    @NSManaged public private(set) var muted: Set<StatusLegacy>
+    @NSManaged public private(set) var bookmarked: Set<StatusLegacy>
     @NSManaged public private(set) var votePollOptions: Set<PollOption>
     @NSManaged public private(set) var votePolls: Set<Poll>
     // relationships

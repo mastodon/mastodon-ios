@@ -6,8 +6,6 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import MastodonCore
@@ -25,12 +23,14 @@ final class SuggestionAccountViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let userFetchedResultsController: UserFetchedResultsController
+//    let userFetchedResultsController: UserFetchedResultsController
 
     var viewWillAppear = PassthroughSubject<Void, Never>()
 
     // output
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<RecommendAccountSection, RecommendAccountItem>?
+    
+    @Published var records = [Mastodon.Entity.Account]()
     
     init(
         context: AppContext,
@@ -38,40 +38,40 @@ final class SuggestionAccountViewModel: NSObject {
     ) {
         self.context = context
         self.authContext = authContext
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: nil,
-            additionalPredicate: nil
-        )
+//        self.userFetchedResultsController = UserFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: nil,
+//            additionalPredicate: nil
+//        )
         super.init()
                 
-        userFetchedResultsController.domain = authContext.mastodonAuthenticationBox.domain
+//        userFetchedResultsController.domain = authContext.mastodonAuthenticationBox.domain
 
         // fetch recommended users
         Task {
-            var userIDs: [MastodonUser.ID] = []
+            var users: [Mastodon.Entity.Account] = []
             do {
                 let response = try await context.apiService.suggestionAccountV2(
                     query: .init(limit: 5),
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
-                userIDs = response.value.map { $0.account.id }
+                users = response.value.map { $0.account }
             } catch let error as Mastodon.API.Error where error.httpResponseStatus == .notFound {
                 let response = try await context.apiService.suggestionAccount(
                     query: nil,
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
-                userIDs = response.value.map { $0.id }
+                users = response.value.map { $0 }
             } catch {
                 
             }
             
-            guard userIDs.isNotEmpty else { return }
-            userFetchedResultsController.userIDs = userIDs
+            guard users.isNotEmpty else { return }
+            records = users
         }
         
         // fetch relationship
-        userFetchedResultsController.$records
+        $records
             .removeDuplicates()
             .sink { [weak self] records in
                 guard let _ = self else { return }
@@ -98,7 +98,7 @@ final class SuggestionAccountViewModel: NSObject {
             )
         )
 
-        userFetchedResultsController.$records
+        $records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }
@@ -116,13 +116,9 @@ final class SuggestionAccountViewModel: NSObject {
 
     func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider, completion: (() -> Void)? = nil) {
 
-        let userRecords = userFetchedResultsController.records.compactMap {
-            $0.object(in: dependency.context.managedObjectContext)?.asRecord
-        }
-
         Task {
             await withTaskGroup(of: Void.self, body: { taskGroup in
-                for user in userRecords {
+                for user in records {
                     taskGroup.addTask {
                         try? await DataSourceFacade.responseToUserViewButtonAction(
                             dependency: dependency,

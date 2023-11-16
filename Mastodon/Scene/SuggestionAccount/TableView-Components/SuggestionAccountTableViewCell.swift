@@ -102,11 +102,11 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
 
         let metaContent: MetaContent = {
             do {
-                let mastodonContent = MastodonContent(content: viewModel.user.note ?? "", emojis: viewModel.user.emojis.asDictionary)
+                let mastodonContent = MastodonContent(content: viewModel.user.note, emojis: viewModel.user.emojis?.asDictionary ?? [:])
                 return try MastodonMetaContent.convert(document: mastodonContent)
             } catch {
                 assertionFailure()
-                return PlaintextMetaContent(string: viewModel.user.note ?? "")
+                return PlaintextMetaContent(string: viewModel.user.note)
             }
         }()
 

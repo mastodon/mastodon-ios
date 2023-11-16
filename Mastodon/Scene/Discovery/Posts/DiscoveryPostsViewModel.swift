@@ -20,7 +20,7 @@ final class DiscoveryPostsViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let statusFetchedResultsController: StatusFetchedResultsController
+    @Published var records = [Mastodon.Entity.Status]()
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     
     // output
@@ -44,12 +44,6 @@ final class DiscoveryPostsViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
-        // end init
         
         Task {
             await checkServerEndpoint()

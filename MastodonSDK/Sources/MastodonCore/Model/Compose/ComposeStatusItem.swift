@@ -10,16 +10,17 @@ import Combine
 import CoreData
 import MastodonMeta
 import CoreDataStack
+import MastodonSDK
 
 /// Note: update Equatable when change case
 enum ComposeStatusItem {
-    case replyTo(record: ManagedObjectRecord<Status>)
-    case input(replyTo: ManagedObjectRecord<Status>?, attribute: ComposeStatusAttribute)
+    case replyTo(record: Mastodon.Entity.Status)
+    case input(replyTo: Mastodon.Entity.Status?, attribute: ComposeStatusAttribute)
     case attachment(attachmentAttribute: ComposeStatusAttachmentAttribute)
     case pollOption(pollOptionAttributes: [ComposeStatusPollItem.PollOptionAttribute], pollExpiresOptionAttribute: ComposeStatusPollItem.PollExpiresOptionAttribute)
 }
 
-extension ComposeStatusItem: Hashable { }
+extension ComposeStatusItem: Hashable {}
 
 extension ComposeStatusItem {
     final class ComposeStatusAttribute: Hashable {

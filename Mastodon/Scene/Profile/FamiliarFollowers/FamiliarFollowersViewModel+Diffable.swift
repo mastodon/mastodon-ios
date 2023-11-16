@@ -20,7 +20,7 @@ extension FamiliarFollowersViewModel {
             userTableViewCellDelegate: userTableViewCellDelegate
         )
         
-        userFetchedResultsController.$records
+        $records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }

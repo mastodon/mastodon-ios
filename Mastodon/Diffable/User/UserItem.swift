@@ -11,7 +11,7 @@ import CoreDataStack
 import MastodonSDK
 
 enum UserItem: Hashable {
-    case user(record: ManagedObjectRecord<MastodonUser>)
+    case user(record: Mastodon.Entity.Account)
     case account(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)
     case bottomLoader
     case bottomHeader(text: String)

@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import MastodonSDK
 import MastodonMeta
 import MastodonAsset
@@ -33,8 +32,8 @@ class ProfileViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    @Published var me: MastodonUser?
-    @Published var user: MastodonUser?
+    @Published var me: Mastodon.Entity.Account?
+    @Published var user: Mastodon.Entity.Account?
     
     let viewDidAppear = PassthroughSubject<Void, Never>()
     
@@ -56,7 +55,7 @@ class ProfileViewModel: NSObject {
     // @Published var protected: Bool? = nil
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
-    init(context: AppContext, authContext: AuthContext, optionalMastodonUser mastodonUser: MastodonUser?) {
+    init(context: AppContext, authContext: AuthContext, optionalMastodonUser mastodonUser: Mastodon.Entity.Account?) {
         self.context = context
         self.authContext = authContext
         self.user = mastodonUser
@@ -82,7 +81,9 @@ class ProfileViewModel: NSObject {
         super.init()
         
         // bind me
-        self.me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
+        relationshipViewModel.me = authContext.mastodonAuthenticationBox.inMemoryCache.meAccount
+        
+        
         $me
             .assign(to: \.me, on: relationshipViewModel)
             .store(in: &disposeBag)
@@ -91,7 +92,8 @@ class ProfileViewModel: NSObject {
         $user
             .map { user -> UserIdentifier? in
                 guard let user = user else { return nil }
-                return MastodonUserIdentifier(domain: user.domain, userID: user.id)
+#warning("fix domain!")
+                return MastodonUserIdentifier(domain: user.domain!, userID: user.id)
             }
             .assign(to: &$userIdentifier)
         $user
@@ -122,14 +124,11 @@ class ProfileViewModel: NSObject {
             .store(in: &disposeBag)
 
         // query relationship
-        let userRecord = $user.map { user -> ManagedObjectRecord<MastodonUser>? in
-            user.flatMap { ManagedObjectRecord<MastodonUser>(objectID: $0.objectID) }
-        }
         let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
 
         // observe friendship
         Publishers.CombineLatest(
-            userRecord,
+            $user,
             pendingRetryPublisher
         )
         .sink { [weak self] userRecord, _ in
@@ -178,18 +177,17 @@ class ProfileViewModel: NSObject {
 
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        guard let me = me,
-              let mastodonAuthentication = me.mastodonAuthentication
+        guard let me = me
         else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
 
-        let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
-        return context.apiService.accountVerifyCredentials(domain: me.domain, authorization: authorization)
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: authContext.mastodonAuthenticationBox.userAuthorization.accessToken)
+        return context.apiService.accountVerifyCredentials(domain: authContext.mastodonAuthenticationBox.domain, authorization: authorization)
     }
     
     private func updateRelationship(
-        record: ManagedObjectRecord<MastodonUser>,
+        record: Mastodon.Entity.Account,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
         let response = try await context.apiService.relationship(

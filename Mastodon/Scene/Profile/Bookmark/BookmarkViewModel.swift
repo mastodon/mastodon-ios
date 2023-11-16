@@ -11,6 +11,7 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 import MastodonCore
+import MastodonSDK
 
 final class BookmarkViewModel {
     
@@ -20,7 +21,8 @@ final class BookmarkViewModel {
     let context: AppContext
     let authContext: AuthContext
     
-    let statusFetchedResultsController: StatusFetchedResultsController
+//    let statusFetchedResultsController: StatusFetchedResultsController
+    @Published var statuses = [Mastodon.Entity.Status]()
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     // output
@@ -41,11 +43,11 @@ final class BookmarkViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+//        self.statusFetchedResultsController = StatusFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            additionalTweetPredicate: nil
+//        )
     }
     
 }

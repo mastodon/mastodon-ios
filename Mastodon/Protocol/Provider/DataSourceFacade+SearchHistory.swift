@@ -22,71 +22,60 @@ extension DataSourceFacade {
             break       // not create search history for status
         case .user(let record):
             let authenticationBox = provider.authContext.mastodonAuthenticationBox
-            let managedObjectContext = provider.context.backgroundManagedObjectContext
-            
-            try? await managedObjectContext.performChanges {
-                guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
-                guard let user = record.object(in: managedObjectContext) else { return }
-                _ = Persistence.SearchHistory.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.SearchHistory.PersistContext(
-                        entity: .user(user),
-                        me: me,
-                        now: Date()
-                    )
-                )
-            }   // end try? await managedObjectContext.performChanges { … }
+            assertionFailure("Implement storing search history")
         case .hashtag(let tag):
             let authenticationBox = provider.authContext.mastodonAuthenticationBox
             let managedObjectContext = provider.context.backgroundManagedObjectContext
 
             switch tag {
             case .entity(let entity):
-                try? await managedObjectContext.performChanges {
-                    guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
-                    
-                    let now = Date()
-                    
-                    let result = Persistence.Tag.createOrMerge(
-                        in: managedObjectContext,
-                        context: Persistence.Tag.PersistContext(
-                            domain: authenticationBox.domain,
-                            entity: entity,
-                            me: me,
-                            networkDate: now
-                        )
-                    )
-                    
-                    _ = Persistence.SearchHistory.createOrMerge(
-                        in: managedObjectContext,
-                        context: Persistence.SearchHistory.PersistContext(
-                            entity: .hashtag(result.tag),
-                            me: me,
-                            now: now
-                        )
-                    )
-                }   // end try? await managedObjectContext.performChanges { … }
-            case .record(let record):
-                try? await managedObjectContext.performChanges {
-                    let authenticationBox = provider.authContext.mastodonAuthenticationBox
-                    guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
-                    guard let tag = record.object(in: managedObjectContext) else { return }
-                    
-                    let now = Date()
+                assertionFailure("Implement storing search history")
 
-                    _ = Persistence.SearchHistory.createOrMerge(
-                        in: managedObjectContext,
-                        context: Persistence.SearchHistory.PersistContext(
-                            entity: .hashtag(tag),
-                            me: me,
-                            now: now
-                        )
-                    )
-                }   // end try? await managedObjectContext.performChanges { … }
+//                try? await managedObjectContext.performChanges {
+//                    guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
+//                    
+//                    let now = Date()
+//                    
+//                    let result = Persistence.Tag.createOrMerge(
+//                        in: managedObjectContext,
+//                        context: Persistence.Tag.PersistContext(
+//                            domain: authenticationBox.domain,
+//                            entity: entity,
+//                            me: me,
+//                            networkDate: now
+//                        )
+//                    )
+//                    
+//                    _ = Persistence.SearchHistory.createOrMerge(
+//                        in: managedObjectContext,
+//                        context: Persistence.SearchHistory.PersistContext(
+//                            entity: .hashtag(result.tag),
+//                            me: me,
+//                            now: now
+//                        )
+//                    )
+//                }   // end try? await managedObjectContext.performChanges { … }
+//            case .record(let record):
+//                try? await managedObjectContext.performChanges {
+//                    let authenticationBox = provider.authContext.mastodonAuthenticationBox
+//                    guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
+//                    guard let tag = record.object(in: managedObjectContext) else { return }
+//                    
+//                    let now = Date()
+//
+//                    _ = Persistence.SearchHistory.createOrMerge(
+//                        in: managedObjectContext,
+//                        context: Persistence.SearchHistory.PersistContext(
+//                            entity: .hashtag(tag),
+//                            me: me,
+//                            now: now
+//                        )
+//                    )
+//                }   // end try? await managedObjectContext.performChanges { … }
             }   // end switch tag { … }
         case .notification:
             assertionFailure()
-        }   // end switch item { … }
+        }    //end switch item { … }
     }   // end func
     
 }

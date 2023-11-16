@@ -43,7 +43,7 @@ final public class Feed: NSManagedObject {
     @NSManaged public private(set) var updatedAt: Date
     
     // one-to-one relationship
-    @NSManaged public private(set) var status: Status?
+    @NSManaged public private(set) var status: StatusLegacy?
     @NSManaged public private(set) var notification: Notification?
     
 }
@@ -97,17 +97,17 @@ extension Feed {
         return NSPredicate(format: "%K != nil", #keyPath(Feed.notification))
     }
     
-    public static func notificationTypePredicate(types: [MastodonNotificationType]) -> NSPredicate {
-        return NSCompoundPredicate(andPredicateWithSubpredicates: [
-            hasNotificationPredicate(),
-            NSPredicate(
-                format: "%K.%K IN %@",
-                #keyPath(Feed.notification),
-                #keyPath(Notification.typeRaw),
-                types.map { $0.rawValue }
-            )
-        ])
-    }
+//    public static func notificationTypePredicate(types: [MastodonNotificationType]) -> NSPredicate {
+//        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+//            hasNotificationPredicate(),
+//            NSPredicate(
+//                format: "%K.%K IN %@",
+//                #keyPath(Feed.notification),
+//                #keyPath(Notification.typeRaw),
+//                types.map { $0.rawValue }
+//            )
+//        ])
+//    }
 
 }
 

@@ -7,8 +7,6 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import MastodonCore
@@ -24,7 +22,7 @@ final class HashtagTimelineViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let fetchedResultsController: StatusFetchedResultsController
+//    let fetchedResultsController: StatusFetchedResultsController
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let hashtagEntity = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
@@ -34,6 +32,8 @@ final class HashtagTimelineViewModel {
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
     let didLoadLatest = PassthroughSubject<Void, Never>()
     let hashtagDetails = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
+    
+    @Published var records = [Mastodon.Entity.Status]()
 
     // bottom loader
     private(set) lazy var stateMachine: GKStateMachine = {
@@ -54,28 +54,30 @@ final class HashtagTimelineViewModel {
         self.context  = context
         self.authContext = authContext
         self.hashtag = hashtag
-        self.fetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+//        self.fetchedResultsController = StatusFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            additionalTweetPredicate: nil
+//        )
         updateTagInformation()
         // end init
     }
     
     func viewWillAppear() {
-        let predicate = Tag.predicate(
-            domain: authContext.mastodonAuthenticationBox.domain,
-            name: hashtag
-        )
+//        let predicate = Tag.predicate(
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            name: hashtag
+//        )
+        
+        #warning("Re-Implement this")
 
         guard
-            let object = Tag.findOrFetch(in: context.managedObjectContext, matching: predicate)
+            false//let object = Tag.findOrFetch(in: context.managedObjectContext, matching: predicate)
         else {
             return hashtagDetails.send(hashtagDetails.value?.copy(following: false))
         }
 
-        hashtagDetails.send(hashtagDetails.value?.copy(following: object.following))
+//        hashtagDetails.send(hashtagDetails.value?.copy(following: object.following))
     }
 }
 

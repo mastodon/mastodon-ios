@@ -75,22 +75,10 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
                 showProfile(viewController, for: account)
             } else if let status = searchResult.statuses.first {
 
-                let status = try await managedObjectContext.perform {
-                    return Persistence.Status.fetch(in: managedObjectContext, context: Persistence.Status.PersistContext(
-                        domain: authContext.mastodonAuthenticationBox.domain,
-                        entity: status,
-                        me: authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext),
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: Date()))
-                }
-
-                guard let status else { return }
-
                 await DataSourceFacade.coordinateToStatusThreadScene(
                     provider: viewController,
                     target: .status,    // remove reblog wrapper
-                    status: status.asRecord
+                    status: status
                 )
             } else if let url = URL(string: urlString) {
                 let prefixedURL: URL?
@@ -111,27 +99,12 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
     }
 
     func showProfile(_ viewController: SearchResultsOverviewTableViewController, for account: Mastodon.Entity.Account) {
-        let managedObjectContext = context.managedObjectContext
-        let domain = authContext.mastodonAuthenticationBox.domain
-
         Task {
-            let user = try await managedObjectContext.perform {
-                return Persistence.MastodonUser.fetch(in: managedObjectContext,
-                                                      context: Persistence.MastodonUser.PersistContext(
-                                                        domain: domain,
-                                                        entity: account,
-                                                        cache: nil,
-                                                        networkDate: Date()
-                                                      ))
-            }
+            await DataSourceFacade.coordinateToProfileScene(provider: viewController,
+                                                            user: account)
 
-            if let user {
-                await DataSourceFacade.coordinateToProfileScene(provider: viewController,
-                                                                user: user.asRecord)
-
-                await DataSourceFacade.responseToCreateSearchHistory(provider: viewController,
-                                                                     item: .user(record: user.asRecord))
-            }
+            await DataSourceFacade.responseToCreateSearchHistory(provider: viewController,
+                                                                 item: .user(record: account))
         }
     }
 

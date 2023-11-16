@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import MastodonCore
 import MastodonSDK
 
@@ -18,7 +17,7 @@ class ReportSupplementaryViewModel {
     // Input
     let context: AppContext
     let authContext: AuthContext
-    let user: ManagedObjectRecord<MastodonUser>
+    let user: Mastodon.Entity.Account
     let commentContext = ReportItem.CommentContext()
     
     @Published var isSkip = false
@@ -31,7 +30,7 @@ class ReportSupplementaryViewModel {
     init(
         context: AppContext,
         authContext: AuthContext,
-        user: ManagedObjectRecord<MastodonUser>
+        user: Mastodon.Entity.Account
     ) {
         self.context = context
         self.authContext = authContext

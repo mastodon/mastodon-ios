@@ -7,10 +7,9 @@
 
 import func QuartzCore.CACurrentMediaTime
 import Foundation
-import CoreData
-import CoreDataStack
 import GameplayKit
 import MastodonCore
+import MastodonSDK
 
 extension HomeTimelineViewModel {
     class LoadLatestState: GKState {
@@ -83,15 +82,11 @@ extension HomeTimelineViewModel.LoadLatestState {
 
         guard let viewModel else { return }
         
-        let latestFeedRecords = viewModel.fetchedResultsController.records.prefix(APIService.onceRequestStatusMaxCount)
-        let parentManagedObjectContext = viewModel.fetchedResultsController.managedObjectContext
-        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        managedObjectContext.parent = parentManagedObjectContext
+        let latestFeedRecords = viewModel.records.prefix(APIService.onceRequestStatusMaxCount)
 
         Task {
-            let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
-                guard let feed = record.object(in: managedObjectContext) else { return nil }
-                return feed.status?.id
+            let latestStatusIDs: [Mastodon.Entity.Status.ID] = latestFeedRecords.compactMap { record in
+                return record.id
             }
 
             do {

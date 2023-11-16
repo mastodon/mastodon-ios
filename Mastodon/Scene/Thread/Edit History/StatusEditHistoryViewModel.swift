@@ -1,14 +1,13 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
-import CoreDataStack
 import MastodonCore
 import MastodonUI
 import UIKit
 import MastodonSDK
 
 struct StatusEditHistoryViewModel {
-    let status: Status
+    let status: Mastodon.Entity.Status
     let edits: [Mastodon.Entity.StatusEdit]
     
     let appContext: AppContext

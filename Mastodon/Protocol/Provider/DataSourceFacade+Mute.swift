@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     static func responseToUserMuteAction(
         dependency: NeedsDependency & AuthContextProvider,
-        user: ManagedObjectRecord<MastodonUser>
+        user: Mastodon.Entity.Account
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()

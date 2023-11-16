@@ -1,13 +1,8 @@
-//
-//  MastodonNotificationType.swift
-//  CoreDataStack
-//
-//  Created by MainasuK on 2022-1-21.
-//
+// Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
 
-public enum MastodonNotificationTypeLegacy: RawRepresentable, Equatable {
+public enum MastodonNotificationType11: RawRepresentable, Equatable {
     case follow
     case followRequest
     case mention

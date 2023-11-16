@@ -9,12 +9,11 @@ import func AVFoundation.AVMakeRect
 import UIKit
 import AVKit
 import Combine
-import CoreData
-import CoreDataStack
 import GameplayKit
 import AlamofireImage
 import MastodonCore
 import MastodonUI
+import MastodonSDK
 
 final class HomeTimelineViewModel: NSObject {
     
@@ -24,7 +23,7 @@ final class HomeTimelineViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let fetchedResultsController: FeedFetchedResultsController
+//    let fetchedResultsController: FeedFetchedResultsController
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
@@ -34,6 +33,7 @@ final class HomeTimelineViewModel: NSObject {
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil
     @Published var displaySettingBarButtonItem = true
     @Published var hasPendingStatusEditReload = false
+    @Published var records = [Mastodon.Entity.Status]()
     
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
@@ -80,14 +80,19 @@ final class HomeTimelineViewModel: NSObject {
     init(context: AppContext, authContext: AuthContext) {
         self.context  = context
         self.authContext = authContext
-        self.fetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
+//        self.fetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         
-        fetchedResultsController.predicate = Feed.predicate(
-            kind: .home,
-            acct: .mastodon(domain: authContext.mastodonAuthenticationBox.domain, userID: authContext.mastodonAuthenticationBox.userID)
-        )
+//        fetchedResultsController.predicate = Feed.predicate(
+//            kind: .home,
+//            acct: .mastodon(domain: authContext.mastodonAuthenticationBox.domain, userID: authContext.mastodonAuthenticationBox.userID)
+//        )
+        
+        Task {
+            records = try await context.apiService.homeTimeline(authenticationBox: authContext.mastodonAuthenticationBox)
+                .value
+        }
         
         homeTimelineNeedRefresh
             .sink { [weak self] _ in
@@ -116,7 +121,15 @@ extension HomeTimelineViewModel {
 
 extension HomeTimelineViewModel {
     func timelineDidReachEnd() {
-        fetchedResultsController.fetchNextBatch()
+//        fetchedResultsController.fetchNextBatch()
+        Task {
+            let newRecords = try await context.apiService.homeTimeline(
+                sinceID: records.last?.id,
+                authenticationBox: authContext.mastodonAuthenticationBox
+            ).value
+            
+            records += newRecords
+        }
     }
 }
 
@@ -124,29 +137,29 @@ extension HomeTimelineViewModel {
 
     // load timeline gap
     func loadMore(item: StatusItem) async {
-        guard case let .feedLoader(record) = item else { return }
+        guard case let .feedLoader(record) = item, let status = record.status else { return }
         guard let diffableDataSource = diffableDataSource else { return }
         var snapshot = diffableDataSource.snapshot()
-
-        let managedObjectContext = context.managedObjectContext
-        let key = "LoadMore@\(record.objectID)"
         
-        guard let feed = record.object(in: managedObjectContext) else { return }
-        guard let status = feed.status else { return }
+//        let managedObjectContext = context.managedObjectContext
+        let key = "LoadMore@\(status.id)"
         
-        // keep transient property live
-        managedObjectContext.cache(feed, key: key)
-        defer {
-            managedObjectContext.cache(nil, key: key)
-        }
-        do {
-            // update state
-            try await managedObjectContext.performChanges {
-                feed.update(isLoadingMore: true)
-            }
-        } catch {
-            assertionFailure(error.localizedDescription)
-        }
+//        guard let feed = record.object(in: managedObjectContext) else { return }
+//        guard let status = feed.status else { return }
+        
+//         keep transient property live
+//        managedObjectContext.cache(feed, key: key)
+//        defer {
+//            managedObjectContext.cache(nil, key: key)
+//        }
+//        do {
+//            // update state
+//            try await managedObjectContext.performChanges {
+//                feed.update(isLoadingMore: true)
+//            }
+//        } catch {
+//            assertionFailure(error.localizedDescription)
+//        }
         
         // reconfigure item
         snapshot.reconfigureItems([item])
@@ -160,14 +173,14 @@ extension HomeTimelineViewModel {
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
         } catch {
-            do {
-                // restore state
-                try await managedObjectContext.performChanges {
-                    feed.update(isLoadingMore: false)
-                }
-            } catch {
-                assertionFailure(error.localizedDescription)
-            }
+//            do {
+//                // restore state
+//                try await managedObjectContext.performChanges {
+//                    feed.update(isLoadingMore: false)
+//                }
+//            } catch {
+//                assertionFailure(error.localizedDescription)
+//            }
         }
         
         // reconfigure item again

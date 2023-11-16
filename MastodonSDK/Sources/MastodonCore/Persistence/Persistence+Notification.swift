@@ -68,21 +68,22 @@ extension Persistence.Notification {
             )
             let account = accountResult.user
             
-            let status: Status? = {
-                guard let entity = context.entity.status else { return nil }
-                let result = Persistence.Status.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Status.PersistContext(
-                        domain: context.domain,
-                        entity: entity,
-                        me: context.me,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: context.networkDate
-                    )
-                )
-                return result.status
-            }()
+            let status: StatusLegacy? = nil
+//            {
+//                guard let entity = context.entity.status else { return nil }
+//                let result = Persistence.Status.createOrMerge(
+//                    in: managedObjectContext,
+//                    context: Persistence.Status.PersistContext(
+//                        domain: context.domain,
+//                        entity: entity,
+//                        me: context.me,
+//                        statusCache: nil,
+//                        userCache: nil,
+//                        networkDate: context.networkDate
+//                    )
+//                )
+//                return result.status
+//            }()
                             
             let relationship = Notification.Relationship(
                 account: account,
@@ -159,14 +160,14 @@ extension Persistence.Notification {
         )
         object.update(property: property)
         
-        if let status = object.status, let entity = context.entity.status {
-            let property = Status.Property(
-                entity: entity,
-                domain: context.domain,
-                networkDate: context.networkDate
-            )
-            status.update(property: property)
-        }
+//        if let status = object.status, let entity = context.entity.status {
+//            let property = StatusLegacy.Property(
+//                entity: entity,
+//                domain: context.domain,
+//                networkDate: context.networkDate
+//            )
+//            status.update(property: property)
+//        }
         
         let accountProperty = MastodonUser.Property(
             entity: context.entity.account,
@@ -175,14 +176,14 @@ extension Persistence.Notification {
         )
         object.account.update(property: accountProperty)
         
-        if let author = object.status, let entity = context.entity.status {
-            let property = Status.Property(
-                entity: entity,
-                domain: context.domain,
-                networkDate: context.networkDate
-            )
-            author.update(property: property)
-        }
+//        if let author = object.status, let entity = context.entity.status {
+//            let property = StatusLegacy.Property(
+//                entity: entity,
+//                domain: context.domain,
+//                networkDate: context.networkDate
+//            )
+//            author.update(property: property)
+//        }
         
         update(object: object, context: context)
     }

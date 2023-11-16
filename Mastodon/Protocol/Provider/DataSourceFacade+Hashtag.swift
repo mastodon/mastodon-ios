@@ -19,8 +19,6 @@ extension DataSourceFacade {
         switch tag {
         case .entity(let entity):
             await coordinateToHashtagScene(provider: provider, tag: entity)
-        case .record(let record):
-            await coordinateToHashtagScene(provider: provider, tag: record)
         }
     }
     

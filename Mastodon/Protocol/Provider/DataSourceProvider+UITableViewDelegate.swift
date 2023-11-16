@@ -40,30 +40,17 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                     tag: tag
                 )
             case .notification(let notification):
-                let managedObjectContext = context.managedObjectContext
-                
-                let _status: ManagedObjectRecord<Status>? = try await managedObjectContext.perform {
-                    guard let notification = notification.object(in: managedObjectContext) else { return nil }
-                    guard let status = notification.status else { return nil }
-                    return .init(objectID: status.objectID)
-                }
-                if let status = _status {
+                if let status = notification.status {
                     await DataSourceFacade.coordinateToStatusThreadScene(
                         provider: self,
                         target: .status,        // remove reblog wrapper
                         status: status
                     )
                 } else {
-                    let _author: ManagedObjectRecord<MastodonUser>? = try await managedObjectContext.perform {
-                        guard let notification = notification.object(in: managedObjectContext) else { return nil }
-                        return .init(objectID: notification.account.objectID)
-                    }
-                    if let author = _author {
-                        await DataSourceFacade.coordinateToProfileScene(
-                            provider: self,
-                            user: author
-                        )
-                    }
+                    await DataSourceFacade.coordinateToProfileScene(
+                        provider: self,
+                        user: notification.account
+                    )
                 }
             }
         }   // end Task

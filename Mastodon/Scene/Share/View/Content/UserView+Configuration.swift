@@ -8,7 +8,6 @@
 import UIKit
 import Combine
 import MastodonUI
-import CoreDataStack
 import MastodonLocalization
 import MastodonMeta
 import MastodonCore
@@ -17,55 +16,32 @@ import MastodonSDK
 import MastodonAsset
 
 extension UserView {
-    public func configure(user: MastodonUser, delegate: UserViewDelegate?) {
+    public func configure(user: Mastodon.Entity.Account, delegate: UserViewDelegate?) {
         self.delegate = delegate
         viewModel.user = user
         viewModel.account = nil
         viewModel.relationship = nil
 
-        Publishers.CombineLatest(
-            user.publisher(for: \.avatar),
-            UserDefaults.shared.publisher(for: \.preferredStaticAvatar)
-        )
-        .map { _ in user.avatarImageURL() }
-        .assign(to: \.authorAvatarImageURL, on: viewModel)
-        .store(in: &disposeBag)
+        viewModel.authorAvatarImageURL = user.avatarImageURL()
         
         // author name
-        Publishers.CombineLatest(
-            user.publisher(for: \.displayName),
-            user.publisher(for: \.emojis)
-        )
-        .map { _, emojis in
+        viewModel.authorName = {
             do {
-                let content = MastodonContent(content: user.displayNameWithFallback, emojis: emojis.asDictionary)
+                let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojis?.asDictionary ?? [:])
                 let metaContent = try MastodonMetaContent.convert(document: content)
                 return metaContent
             } catch {
                 assertionFailure(error.localizedDescription)
                 return PlaintextMetaContent(string: user.displayNameWithFallback)
             }
-        }
-        .assign(to: \.authorName, on: viewModel)
-        .store(in: &disposeBag)
+        }()
+        
         // author username
-        user.publisher(for: \.acct)
-            .map { $0 as String? }
-            .assign(to: \.authorUsername, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.authorUsername = user.acct
         
-        user.publisher(for: \.followersCount)
-            .map { Int($0) }
-            .assign(to: \.authorFollowers, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.authorFollowers = user.followersCount
         
-        user.publisher(for: \.fields)
-            .map { fields in
-                let firstVerified = fields.first(where: { $0.verifiedAt != nil })
-                return firstVerified?.value
-            }
-            .assign(to: \.authorVerifiedLink, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.authorVerifiedLink = user.fields?.first(where: { $0.verifiedAt != nil })?.value
     }
 
     func configure(with account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?, delegate: UserViewDelegate?) {

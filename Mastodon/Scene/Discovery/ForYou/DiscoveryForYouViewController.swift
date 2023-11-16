@@ -97,11 +97,10 @@ extension DiscoveryForYouViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        guard let user = record.object(in: context.managedObjectContext) else { return }
-        let profileViewModel = CachedProfileViewModel(
+        let profileViewModel = ProfileViewModel(
             context: context,
             authContext: viewModel.authContext,
-            mastodonUser: user
+            optionalMastodonUser: record
         )
         _ = coordinator.present(
             scene: .profile(viewModel: profileViewModel),
@@ -137,9 +136,8 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
     ) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        guard let user = record.object(in: context.managedObjectContext) else { return }
         
-        let userID = user.id
+        let userID = record.id
         let _familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })
         guard let familiarFollowers = _familiarFollowers else {
             assertionFailure()

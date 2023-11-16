@@ -7,24 +7,21 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 
 extension APIService {
  
     public func relationship(
-        records: [ManagedObjectRecord<MastodonUser>],
+        records: [Mastodon.Entity.Account],
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
         let managedObjectContext = backgroundManagedObjectContext
 
         let _query: Mastodon.API.Account.RelationshipQuery? = try? await managedObjectContext.perform {
-            var ids: [MastodonUser.ID] = []
+            var ids: [Mastodon.Entity.Account.ID] = []
             for record in records {
-                guard let user = record.object(in: managedObjectContext) else { continue }
-                guard user.id != authenticationBox.userID else { continue }
-                ids.append(user.id)
+                guard record.id != authenticationBox.userID else { continue }
+                ids.append(record.id)
             }
             guard !ids.isEmpty else { return nil }
             return Mastodon.API.Account.RelationshipQuery(ids: ids)
@@ -40,28 +37,6 @@ extension APIService {
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
 
-        try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else {
-                // assertionFailure()
-                return
-            }
-
-            let relationships = response.value
-            for record in records {
-                guard let user = record.object(in: managedObjectContext) else { continue }
-                guard let relationship = relationships.first(where: { $0.id == user.id }) else { continue }
-
-                Persistence.MastodonUser.update(
-                    mastodonUser: user,
-                    context: Persistence.MastodonUser.RelationshipContext(
-                        entity: relationship,
-                        me: me,
-                        networkDate: response.networkDate
-                    )
-                )
-            }   // end for in
-        }
-
         return response
     }
 
@@ -71,7 +46,7 @@ extension APIService {
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
 
-        let ids: [MastodonUser.ID] = accounts.compactMap { $0.id }
+        let ids: [Mastodon.Entity.Account.ID] = accounts.compactMap { $0.id }
 
         guard ids.isEmpty == false else { throw APIError.implicit(.badRequest) }
 

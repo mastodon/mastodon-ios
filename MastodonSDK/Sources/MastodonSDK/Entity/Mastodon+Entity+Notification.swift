@@ -20,7 +20,7 @@ extension Mastodon.Entity {
         public typealias ID = String
         
         public let id: ID
-        public let type: Type
+        public let type: NotificationType
         public let createdAt: Date
         public let account: Account
         
@@ -86,5 +86,16 @@ extension Mastodon.Entity.Notification {
             case ._other(let value):            return value
             }
         }
+    }
+}
+
+extension Mastodon.Entity.Notification: Hashable {
+    public static func == (lhs: Mastodon.Entity.Notification, rhs: Mastodon.Entity.Notification) -> Bool {
+        lhs.account == rhs.account && lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(account)
+        hasher.combine(id)
     }
 }

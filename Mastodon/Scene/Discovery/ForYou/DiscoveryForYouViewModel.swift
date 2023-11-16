@@ -20,12 +20,13 @@ final class DiscoveryForYouViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let userFetchedResultsController: UserFetchedResultsController
+//    let userFetchedResultsController: UserFetchedResultsController
     
     @MainActor
     @Published var familiarFollowers: [Mastodon.Entity.FamiliarFollowers] = []
     @Published var isFetching = false
-
+    @Published var records = [Mastodon.Entity.Account]()
+    
     // output
     var diffableDataSource: UITableViewDiffableDataSource<DiscoverySection, DiscoveryItem>?
     let didLoadLatest = PassthroughSubject<Void, Never>()
@@ -33,11 +34,11 @@ final class DiscoveryForYouViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalPredicate: nil
-        )
+//        self.userFetchedResultsController = UserFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            additionalPredicate: nil
+//        )
         // end init
     }
 }
@@ -58,7 +59,7 @@ extension DiscoveryForYouViewModel {
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
             familiarFollowers = _familiarFollowersResponse?.value ?? []
-            userFetchedResultsController.userIDs = userIDs
+//            userFetchedResultsController.userIDs = userIDs
         } catch {
             // do nothing
         }

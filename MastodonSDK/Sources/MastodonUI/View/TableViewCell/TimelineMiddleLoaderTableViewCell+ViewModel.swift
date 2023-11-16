@@ -7,7 +7,7 @@
 
 import UIKit
 import Combine
-import CoreDataStack
+import MastodonSDK
 
 extension TimelineMiddleLoaderTableViewCell {
     public class ViewModel {
@@ -34,15 +34,10 @@ extension TimelineMiddleLoaderTableViewCell.ViewModel {
 
 extension TimelineMiddleLoaderTableViewCell {
     public func configure(
-        feed: Feed,
+        feed: FeedItem,
         delegate: TimelineMiddleLoaderTableViewCellDelegate?
     ) {
-        feed.publisher(for: \.isLoadingMore)
-            .sink { [weak self] isLoadingMore in
-                guard let self = self else { return }
-                self.viewModel.isFetching = isLoadingMore
-            }
-            .store(in: &disposeBag)
+        self.viewModel.isFetching = feed.isLoadingMore
         
         self.delegate = delegate
     }

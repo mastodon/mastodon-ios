@@ -38,7 +38,7 @@ public final class Poll: NSManagedObject {
     @NSManaged public private(set) var isVoting: Bool
     
     // one-to-one relationship
-    @NSManaged public private(set) var status: Status?
+    @NSManaged public private(set) var status: StatusLegacy?
     
     // one-to-many relationship
     @NSManaged public private(set) var options: Set<PollOption>

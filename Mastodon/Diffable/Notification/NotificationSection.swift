@@ -43,16 +43,13 @@ extension NotificationSection {
             switch item {
             case .feed(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let feed = record.object(in: context.managedObjectContext) else { return }
-                    configure(
-                        context: context,
-                        tableView: tableView,
-                        cell: cell,
-                        viewModel: NotificationTableViewCell.ViewModel(value: .feed(feed)),
-                        configuration: configuration
-                    )
-                }
+                configure(
+                    context: context,
+                    tableView: tableView,
+                    cell: cell,
+                    viewModel: NotificationTableViewCell.ViewModel(value: .feed(record)),
+                    configuration: configuration
+                )
                 return cell
             case .feedLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell

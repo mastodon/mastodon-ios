@@ -33,7 +33,7 @@ extension UserListViewModel {
         // trigger initial loading
         stateMachine.enter(UserListViewModel.State.Reloading.self)
         
-        userFetchedResultsController.$records
+        $records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }

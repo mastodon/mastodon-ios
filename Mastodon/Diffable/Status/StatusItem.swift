@@ -6,13 +6,13 @@
 //
 
 import Foundation
-import CoreDataStack
 import MastodonUI
+import MastodonSDK
 
 enum StatusItem: Hashable {
-    case feed(record: ManagedObjectRecord<Feed>)
-    case feedLoader(record: ManagedObjectRecord<Feed>)
-    case status(record: ManagedObjectRecord<Status>)
+    case feed(record: FeedItem)
+    case feedLoader(record: FeedItem)
+    case status(record: Mastodon.Entity.Status)
     case thread(Thread)
     case topLoader
     case bottomLoader
@@ -24,7 +24,7 @@ extension StatusItem {
         case reply(context: Context)
         case leaf(context: Context)
         
-        public var record: ManagedObjectRecord<Status> {
+        public var record: Mastodon.Entity.Status {
             switch self {
             case .root(let threadContext),
                 .reply(let threadContext),
@@ -37,12 +37,12 @@ extension StatusItem {
 
 extension StatusItem.Thread {
     class Context: Hashable {
-        let status: ManagedObjectRecord<Status>
+        let status: Mastodon.Entity.Status
         var displayUpperConversationLink: Bool
         var displayBottomConversationLink: Bool
         
         init(
-            status: ManagedObjectRecord<Status>,
+            status: Mastodon.Entity.Status,
             displayUpperConversationLink: Bool = false,
             displayBottomConversationLink: Bool = false
         ) {

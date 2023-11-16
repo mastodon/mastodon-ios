@@ -164,31 +164,14 @@ extension APIService {
             query: query,
             authorization: authorization
         ).singleOutput()
-        
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
 
-            for entity in response.value {
-                _ = Persistence.Tag.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Tag.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        me: me,
-                        networkDate: response.networkDate
-                    )
-                )
-            }
-        }
-        
         return response
     }   // end func
 }
 
 extension APIService {
     public func fetchUser(username: String, domain: String, authenticationBox: MastodonAuthenticationBox)
-    async throws -> MastodonUser? {
+    async throws -> Mastodon.Entity.Account {
         let query = Mastodon.API.Account.AccountLookupQuery(acct: "\(username)@\(domain)")
         let authorization = authenticationBox.userAuthorization
 
@@ -199,21 +182,6 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
 
-        // user
-        let managedObjectContext = self.backgroundManagedObjectContext
-        var result: MastodonUser?
-        try await managedObjectContext.performChanges {
-             result = Persistence.MastodonUser.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.MastodonUser.PersistContext(
-                    domain: domain,
-                    entity: response.value,
-                    cache: nil,
-                    networkDate: response.networkDate
-                )
-             ).user
-        }
-
-        return result
+        return response.value
     }
 }

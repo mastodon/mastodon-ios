@@ -32,8 +32,8 @@ extension SearchResultViewModel {
         diffableDataSource.apply(snapshot, animatingDifferences: false)
 
         Publishers.CombineLatest3(
-            statusFetchedResultsController.$records,
-            userFetchedResultsController.$records,
+            $statusRecords,
+            $userRecords,
             $hashtags
         )
         .map { statusRecords, userRecords, hashtags in

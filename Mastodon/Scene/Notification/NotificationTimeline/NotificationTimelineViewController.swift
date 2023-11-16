@@ -280,14 +280,13 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
         Task { @MainActor in
             switch item {
             case .feed(let record):
-                guard let feed = record.object(in: self.context.managedObjectContext) else { return }
-                guard let notification = feed.notification else { return }
+                guard let notification = record.notification else { return }
                 
-                if let stauts = notification.status {
+                if let status = notification.status {
                     let threadViewModel = ThreadViewModel(
                         context: self.context,
                         authContext: self.viewModel.authContext,
-                        optionalRoot: .root(context: .init(status: .init(objectID: stauts.objectID)))
+                        optionalRoot: .root(context: .init(status: status))
                     )
                     _ = self.coordinator.present(
                         scene: .thread(viewModel: threadViewModel),

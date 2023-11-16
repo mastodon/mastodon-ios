@@ -6,13 +6,12 @@
 //
 
 import UIKit
-import CoreData
-import CoreDataStack
 import MastodonCore
 import MastodonUI
 import MastodonMeta
 import MetaTextKit
 import Combine
+import MastodonSDK
 
 enum UserSection: Hashable {
     case main
@@ -37,7 +36,7 @@ extension UserSection {
                 case .account(let account, let relationship):
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
 
-                    guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return cell }
+                guard let me = authContext.mastodonAuthenticationBox.inMemoryCache.meAccount else { return cell }
 
                     cell.userView.setButtonState(.loading)
                     cell.configure(
@@ -53,14 +52,13 @@ extension UserSection {
                 case .user(let record):
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
                     context.managedObjectContext.performAndWait {
-                        guard let user = record.object(in: context.managedObjectContext) else { return }
                         configure(
                             context: context,
                             authContext: authContext,
                             tableView: tableView,
                             cell: cell,
                             viewModel: UserTableViewCell.ViewModel(
-                                user: user,
+                                user: record,
                                 followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
                                 blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
                                 followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()
@@ -94,7 +92,7 @@ extension UserSection {
         userTableViewCellDelegate: UserTableViewCellDelegate?
     ) {
         cell.configure(
-            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
+            me: authContext.mastodonAuthenticationBox.inMemoryCache.meAccount,
             tableView: tableView,
             viewModel: viewModel,
             delegate: userTableViewCellDelegate

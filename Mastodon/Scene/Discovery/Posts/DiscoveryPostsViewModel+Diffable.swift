@@ -29,7 +29,7 @@ extension DiscoveryPostsViewModel {
         
         stateMachine.enter(State.Reloading.self)
         
-        statusFetchedResultsController.$records
+        $records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }

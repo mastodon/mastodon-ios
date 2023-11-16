@@ -143,10 +143,10 @@ extension DiscoveryPostsViewModel.State {
                     self.offset = newOffset
 
                     var hasNewStatusesAppend = false
-                    var statusIDs = isReloading ? [] : viewModel.statusFetchedResultsController.statusIDs
+                    var newStatuses = isReloading ? [] : viewModel.records
                     for status in response.value {
-                        guard !statusIDs.contains(status.id) else { continue }
-                        statusIDs.append(status.id)
+                        guard !newStatuses.contains(where: { $0.id == status.id }) else { continue }
+                        newStatuses.append(status)
                         hasNewStatusesAppend = true
                     }
 
@@ -155,7 +155,7 @@ extension DiscoveryPostsViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
+                    viewModel.records = newStatuses
                     viewModel.didLoadLatest.send()
                     
                 } catch {

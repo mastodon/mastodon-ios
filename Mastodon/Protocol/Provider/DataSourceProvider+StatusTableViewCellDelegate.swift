@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import CoreDataStack
 import MetaTextKit
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
 import MastodonAsset
 import LinkPresentation
+import MastodonSDK
 
 // MARK: - header
 extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
@@ -37,22 +37,15 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             case .none:
                 break
             case .reply:
-                let _replyToAuthor: ManagedObjectRecord<MastodonUser>? = try? await context.managedObjectContext.perform {
-                    guard let status = status.object(in: self.context.managedObjectContext) else { return nil }
-                    guard let inReplyToAccountID = status.inReplyToAccountID else { return nil }
-                    let request = MastodonUser.sortedFetchRequest
-                    request.predicate = MastodonUser.predicate(domain: status.author.domain, id: inReplyToAccountID)
-                    request.fetchLimit = 1
-                    guard let author = self.context.managedObjectContext.safeFetch(request).first else { return nil }
-                    return .init(objectID: author.objectID)
-                }
-                guard let replyToAuthor = _replyToAuthor else {
-                    return
-                }
+                let account = try await context.apiService.accountLookup(
+                    domain: authContext.mastodonAuthenticationBox.domain,
+                    query: .init(acct: status.account.id),
+                    authorization: authContext.mastodonAuthenticationBox.userAuthorization
+                ).singleOutput().value
                 
                 await DataSourceFacade.coordinateToProfileScene(
                     provider: self,
-                    user: replyToAuthor
+                    user: account
                 )
 
             case .repost:
@@ -184,7 +177,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         cardControlMenu statusCardControl: StatusCardControl
     ) -> [LabeledAction]? {
         guard let card = statusView.viewModel.card,
-              let url = card.url else {
+              let url = URL(string: card.url) else {
             return nil
         }
 
@@ -206,8 +199,8 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                             URLActivityItemWithMetadata(url: url) { metadata in
                                 metadata.title = card.title
 
-                                if let image = card.imageURL {
-                                    metadata.iconProvider = ImageProvider(url: image, filter: nil).itemProvider
+                                if let image = card.image, let url = URL(string: image) {
+                                    metadata.iconProvider = ImageProvider(url: url, filter: nil).itemProvider
                                 }
                             }
                         ],
@@ -313,54 +306,51 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 return
             }
                      
-            var _poll: ManagedObjectRecord<Poll>?
-            var _isMultiple: Bool?
-            var _choice: Int?
-            
-            try await managedObjectContext.performChanges {
-                guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
-                guard let poll = pollOption.poll else { return }
-                _poll = .init(objectID: poll.objectID)
-
-                _isMultiple = poll.multiple
-                guard !poll.isVoting else { return }
-                
-                if !poll.multiple {
-                    for option in poll.options where option != pollOption {
-                        option.update(isSelected: false)
-                    }
-                    
-                    // mark voting
-                    poll.update(isVoting: true)
-                    // set choice
-                    _choice = Int(pollOption.index)
-                }
-                
-                pollOption.update(isSelected: !pollOption.isSelected)
-                poll.update(updatedAt: Date())
-            }
+//            var _poll: ManagedObjectRecord<Poll>?
+//            var _isMultiple: Bool?
+//            var _choice: Int?
+//            
+//            try await managedObjectContext.performChanges {
+//                guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
+//                guard let poll = pollOption.poll else { return }
+//                _poll = .init(objectID: poll.objectID)
+//
+//                _isMultiple = poll.multiple
+//                guard !poll.isVoting else { return }
+//                
+//                if !poll.multiple {
+//                    for option in poll.options where option != pollOption {
+//                        option.update(isSelected: false)
+//                    }
+//                    
+//                    // mark voting
+//                    poll.update(isVoting: true)
+//                    // set choice
+//                    _choice = Int(pollOption.index)
+//                }
+//                
+//                pollOption.update(isSelected: !pollOption.isSelected)
+//                poll.update(updatedAt: Date())
+//            }
             
             // Trigger vote API request for
-            guard let poll = _poll,
-                  _isMultiple == false,
-                  let choice = _choice
-            else { return }
-            
+            guard pollOption.poll.multiple == false else { return }
+
             do {
                 _ = try await context.apiService.vote(
-                    poll: poll,
-                    choices: [choice],
+                    poll: pollOption.poll,
+                    choices: [indexPath.row],
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
             } catch {
                 // restore voting state
-                try await managedObjectContext.performChanges {
-                    guard
-                        let pollOption = pollOption.object(in: managedObjectContext),
-                        let poll = pollOption.poll
-                    else { return }
-                    poll.update(isVoting: false)
-                }
+//                try await managedObjectContext.performChanges {
+//                    guard
+//                        let pollOption = pollOption.object(in: managedObjectContext),
+//                        let poll = pollOption.poll
+//                    else { return }
+//                    poll.update(isVoting: false)
+//                }
             }
             
         }   // end Task
@@ -373,48 +363,27 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     ) {
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
         guard let firstPollItem = pollTableViewDiffableDataSource.snapshot().itemIdentifiers.first else { return }
-        guard case let .option(firstPollOption) = firstPollItem else { return }
+        guard case let .option(option, poll) = firstPollItem else { return }
         
         let managedObjectContext = context.managedObjectContext
         
         Task {
-            var _poll: ManagedObjectRecord<Poll>?
-            var _choices: [Int]?
-            
-            try await managedObjectContext.performChanges {
-                guard let poll = firstPollOption.object(in: managedObjectContext)?.poll else { return }
-                _poll = .init(objectID: poll.objectID)
-                
-                guard poll.multiple else { return }
-                
-                // mark voting
-                poll.update(isVoting: true)
-                // set choice
-                _choices = poll.options
-                    .filter { $0.isSelected }
-                    .map { Int($0.index) }
-                
-                poll.update(updatedAt: Date())
-            }
-            
             // Trigger vote API request for
-            guard let poll = _poll,
-                  let choices = _choices
-            else { return }
             
-            do {
-                _ = try await context.apiService.vote(
-                    poll: poll,
-                    choices: choices,
-                    authenticationBox: authContext.mastodonAuthenticationBox
-                )
-            } catch {
-                // restore voting state
-                try await managedObjectContext.performChanges {
-                    guard let poll = poll.object(in: managedObjectContext) else { return }
-                    poll.update(isVoting: false)
-                }
-            }
+            assertionFailure("Re-implement this")
+//            do {
+//                _ = try await context.apiService.vote(
+//                    poll: poll,
+//                    choices: choices,
+//                    authenticationBox: authContext.mastodonAuthenticationBox
+//                )
+//            } catch {
+//                // restore voting state
+//                try await managedObjectContext.performChanges {
+//                    guard let poll = poll.object(in: managedObjectContext) else { return }
+//                    poll.update(isVoting: false)
+//                }
+//            }
             
         }   // end Task
     }
@@ -470,16 +439,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                guard let _status = status.object(in: self.context.managedObjectContext) else { return nil }
-                let author = (_status.reblog ?? _status).author
-                return .init(objectID: author.objectID)
-            }
-            guard let author = _author else {
-                assertionFailure()
-                return
-            }
-            
+
             if case .translateStatus = action {
                 DispatchQueue.main.async {
                     if let cell = cell as? StatusTableViewCell {
@@ -513,7 +473,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 dependency: self,
                 action: action,
                 menuContext: .init(
-                    author: author,
+                    author: status.account,
                     statusViewModel: statusViewModel,
                     button: button,
                     barButtonItem: nil
@@ -679,11 +639,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure("only works for status data provider")
                 return
             }
-            
-            guard let status = status.object(in: context.managedObjectContext) else {
-                return await coordinator.hideLoading()
-            }
-            
+
             do {
                 let edits = try await context.apiService.getHistory(forStatusID: status.id, authenticationBox: authContext.mastodonAuthenticationBox).value
 

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreDataStack
 import Alamofire
 import AlamofireImage
 import MastodonCore
@@ -14,13 +13,14 @@ import MastodonUI
 import MastodonLocalization
 import LinkPresentation
 import UniformTypeIdentifiers
+import MastodonSDK
 
 // Delete
 extension DataSourceFacade {
     
     static func responseToDeleteStatus(
         dependency: NeedsDependency & AuthContextProvider,
-        status: ManagedObjectRecord<Status>
+        status: Mastodon.Entity.Status
     ) async throws {
         _ = try await dependency.context.apiService.deleteStatus(
             status: status,
@@ -36,7 +36,7 @@ extension DataSourceFacade {
     @MainActor
     public static func responseToStatusShareAction(
         provider: DataSourceProvider,
-        status: ManagedObjectRecord<Status>,
+        status: Mastodon.Entity.Status,
         button: UIButton
     ) async throws {
         let activityViewController = try await createActivityViewController(
@@ -56,22 +56,21 @@ extension DataSourceFacade {
     
     private static func createActivityViewController(
         dependency: NeedsDependency,
-        status: ManagedObjectRecord<Status>
+        status: Mastodon.Entity.Status
     ) async throws -> UIActivityViewController {
-        var activityItems: [Any] = try await dependency.context.managedObjectContext.perform {
-            guard let status = status.object(in: dependency.context.managedObjectContext),
-                  let url = URL(string: status.url ?? status.uri)
+        var activityItems: [Any] = {
+            guard let url = URL(string: status.url ?? status.uri)
             else { return [] }
             return [
                 URLActivityItemWithMetadata(url: url) { metadata in
-                    metadata.title = "\(status.author.displayName) (@\(status.author.acctWithDomain))"
+                    metadata.title = "\(status.account.displayName) (@\(status.account.acctWithDomain))"
                     metadata.iconProvider = ImageProvider(
-                        url: status.author.avatarImageURLWithFallback(domain: status.author.domain),
+                        url: status.account.avatarImageURLWithFallback(domain: status.account.domain!),
                         filter: ScaledToSizeFilter(size: CGSize.authorAvatarButtonSize)
                     ).itemProvider
                 }
             ] as [Any]
-        }
+        }()
         var applicationActivities: [UIActivity] = [
             SafariActivity(sceneCoordinator: dependency.coordinator),     // open URL
         ]
@@ -94,20 +93,20 @@ extension DataSourceFacade {
     @MainActor
     static func responseToActionToolbar(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>,
+        status: Mastodon.Entity.Status,
         action: ActionToolbarContainer.Action,
         sender: UIButton
     ) async throws {
-        let managedObjectContext = provider.context.managedObjectContext
-        let _status: ManagedObjectRecord<Status>? = try? await managedObjectContext.perform {
-            guard let object = status.object(in: managedObjectContext) else { return nil }
-            let objectID = (object.reblog ?? object).objectID
-            return .init(objectID: objectID)
-        }
-        guard let status = _status else {
-            assertionFailure()
-            return
-        }
+//        let managedObjectContext = provider.context.managedObjectContext
+//        let _status: ManagedObjectRecord<Status>? = try? await managedObjectContext.perform {
+//            guard let object = status.object(in: managedObjectContext) else { return nil }
+//            let objectID = (object.reblog ?? object).objectID
+//            return .init(objectID: objectID)
+//        }
+//        guard let status = _status else {
+//            assertionFailure()
+//            return
+//        }
 
         switch action {
         case .reply:
@@ -150,7 +149,7 @@ extension DataSourceFacade {
 extension DataSourceFacade {
     
     struct MenuContext {
-        let author: ManagedObjectRecord<MastodonUser>?
+        let author: Mastodon.Entity.Account?
         let statusViewModel: StatusView.ViewModel?
         let button: UIButton?
         let barButtonItem: UIBarButtonItem?
@@ -178,17 +177,9 @@ extension DataSourceFacade {
                     title: actionTitle,
                     style: .destructive
                 ) { [weak dependency] _ in
-                    guard let dependency else { return }
+                    guard let dependency, let user = menuContext.author else { return }
 
                     Task {
-                        let managedObjectContext = dependency.context.managedObjectContext
-                        let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
-                            guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
-                            return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                        }
-
-                        guard let user = _user else { return }
-
                         try await DataSourceFacade.responseToShowHideReblogAction(
                             dependency: dependency,
                             user: user
@@ -214,12 +205,7 @@ extension DataSourceFacade {
             ) { [weak dependency] _ in
                 guard let dependency = dependency else { return }
                 Task {
-                    let managedObjectContext = dependency.context.managedObjectContext
-                    let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
-                        guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
-                        return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                    }
-                    guard let user = _user else { return }
+                    guard let user = menuContext.author else { return }
                     try await DataSourceFacade.responseToUserMuteAction(
                         dependency: dependency,
                         user: user
@@ -242,12 +228,7 @@ extension DataSourceFacade {
             ) { [weak dependency] _ in
                 guard let dependency = dependency else { return }
                 Task {
-                    let managedObjectContext = dependency.context.managedObjectContext
-                    let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
-                        guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
-                        return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                    }
-                    guard let user = _user else { return }
+                    guard let user = menuContext.author else { return }
                     try await DataSourceFacade.responseToUserBlockAction(
                         dependency: dependency,
                         user: user
@@ -266,7 +247,7 @@ extension DataSourceFacade {
                     context: dependency.context,
                     authContext: dependency.authContext,
                     user: user,
-                    status: menuContext.statusViewModel?.originalStatus?.asRecord
+                    status: menuContext.statusViewModel?.originalStatus
                 )
                 
                 _ = dependency.coordinator.present(
@@ -297,7 +278,7 @@ extension DataSourceFacade {
             )
         case .bookmarkStatus:
             Task {
-                guard let status = menuContext.statusViewModel?.originalStatus?.asRecord else {
+                guard let status = menuContext.statusViewModel?.originalStatus else {
                     assertionFailure()
                     return
                 }
@@ -308,13 +289,7 @@ extension DataSourceFacade {
             }   // end Task
         case .shareStatus:
             Task {
-                let managedObjectContext = dependency.context.managedObjectContext
-                guard let status: ManagedObjectRecord<Status> = try? await managedObjectContext.perform(block: {
-                    guard let object = menuContext.statusViewModel?.originalStatus?.asRecord.object(in: managedObjectContext) else { return nil }
-                    let objectID = (object.reblog ?? object).objectID
-                    return .init(objectID: objectID)
-                }) else {
-                    assertionFailure()
+                guard let status = menuContext.statusViewModel?.originalStatus else {
                     return
                 }
 
@@ -344,7 +319,7 @@ extension DataSourceFacade {
                 style: .destructive
             ) { [weak dependency] _ in
                 guard let dependency = dependency else { return }
-                guard let status = menuContext.statusViewModel?.originalStatus?.asRecord else { return }
+                guard let status = menuContext.statusViewModel?.originalStatus else { return }
                 Task {
                     try await DataSourceFacade.responseToDeleteStatus(
                         dependency: dependency,
@@ -358,7 +333,7 @@ extension DataSourceFacade {
             dependency.present(alertController, animated: true)
             
         case .translateStatus:
-            guard let status = menuContext.statusViewModel?.originalStatus?.asRecord else { return }
+            guard let status = menuContext.statusViewModel?.originalStatus else { return }
 
             do {
                 let translation = try await DataSourceFacade.translateStatus(provider: dependency,status: status)
@@ -371,7 +346,7 @@ extension DataSourceFacade {
             }
         case .editStatus:
 
-            guard let status = menuContext.statusViewModel?.originalStatus?.asRecord.object(in: dependency.context.managedObjectContext) else { return }
+            guard let status = menuContext.statusViewModel?.originalStatus else { return }
 
             let statusSource = try await dependency.context.apiService.getStatusSource(
                 forStatusID: status.id,
@@ -402,13 +377,13 @@ extension DataSourceFacade {
     
     static func responseToToggleSensitiveAction(
         dependency: NeedsDependency,
-        status: ManagedObjectRecord<Status>
+        status: Mastodon.Entity.Status
     ) async throws {
-        try await dependency.context.managedObjectContext.perform {
-            guard let _status = status.object(in: dependency.context.managedObjectContext) else { return }
-            let status = _status.reblog ?? _status
-            status.update(isSensitiveToggled: !status.isSensitiveToggled)
-        }
+//        try await dependency.context.managedObjectContext.perform {
+//            let _status = status.reblog ?? status
+//            status.update(isSensitiveToggled: !_status.sensitiveToggled)
+//        }
+        assertionFailure("Net yet implemented :-(")
     }
     
 }

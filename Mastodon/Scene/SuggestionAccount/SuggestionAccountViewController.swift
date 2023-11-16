@@ -6,14 +6,13 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
 import Foundation
 import UIKit
 import MastodonAsset
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
+import MastodonSDK
 
 class SuggestionAccountViewController: UIViewController, NeedsDependency {
 
@@ -89,10 +88,9 @@ extension SuggestionAccountViewController: UITableViewDelegate {
         guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
         case .account(let record):
-            guard let account = record.object(in: context.managedObjectContext) else { return }
-            let cachedProfileViewModel = CachedProfileViewModel(context: context, authContext: viewModel.authContext, mastodonUser: account)
+            let profileViewModel = ProfileViewModel(context: context, authContext: viewModel.authContext, optionalMastodonUser: record)
             _ = coordinator.present(
-                scene: .profile(viewModel: cachedProfileViewModel),
+                scene: .profile(viewModel: profileViewModel),
                 from: self,
                 transition: .show
             )
@@ -104,7 +102,7 @@ extension SuggestionAccountViewController: UITableViewDelegate {
             return nil
         }
 
-        footerView.followAllButton.isEnabled = viewModel.userFetchedResultsController.records.isNotEmpty
+        footerView.followAllButton.isEnabled = viewModel.records.isNotEmpty
 
         footerView.delegate = self
         return footerView

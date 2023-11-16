@@ -61,7 +61,7 @@ extension FollowerListViewModel.State {
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
             // reset
-            viewModel.userFetchedResultsController.userIDs = []
+            viewModel.records = []
             
             stateMachine.enter(Loading.self)
         }
@@ -139,10 +139,10 @@ extension FollowerListViewModel.State {
                     )
                     
                     var hasNewAppend = false
-                    var userIDs = viewModel.userFetchedResultsController.userIDs
+                    var newRecords = viewModel.records
                     for user in response.value {
-                        guard !userIDs.contains(user.id) else { continue }
-                        userIDs.append(user.id)
+                        guard !newRecords.contains(where: { $0.id == user.id }) else { continue }
+                        newRecords.append(user)
                         hasNewAppend = true
                     }
                     
@@ -155,7 +155,7 @@ extension FollowerListViewModel.State {
                     }
                     
                     self.maxID = maxID
-                    viewModel.userFetchedResultsController.userIDs = userIDs
+                    viewModel.records = newRecords
                     
                 } catch {
                     await enter(state: Fail.self)

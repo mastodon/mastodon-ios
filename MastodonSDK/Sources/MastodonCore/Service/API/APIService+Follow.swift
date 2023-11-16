@@ -146,21 +146,29 @@ extension APIService {
     }
 
     public func toggleShowReblogs(
-      for user: ManagedObjectRecord<MastodonUser>,
+      for user: Mastodon.Entity.Account,
       authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
 
-        let managedObjectContext = backgroundManagedObjectContext
-        guard let user = user.object(in: managedObjectContext),
-              let me = authenticationBox.authentication.user(in: managedObjectContext)
-        else { throw APIError.implicit(.badRequest) }
+//        let managedObjectContext = backgroundManagedObjectContext
+//        guard let me = authenticationBox.inMemoryCache.meAccount
+//        else { throw APIError.implicit(.badRequest) }
 
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
 
-        let oldShowReblogs = me.showingReblogsBy.contains(user)
-        let newShowReblogs = (oldShowReblogs == false)
+//        let oldShowReblogs = me.showingReblogsBy.contains(user)
+//        let newShowReblogs = (oldShowReblogs == false)
 
         do {
+            let relation = try await Mastodon.API.Account.relationships(
+                session: session,
+                domain: authenticationBox.domain,
+                query: .init(ids: [user.id]),
+                authorization: authenticationBox.userAuthorization
+            ).singleOutput().value.first
+            
+            let newShowReblogs = relation?.showingReblogs == false
+            
             let response = try await Mastodon.API.Account.follow(
                 session: session,
                 domain: authenticationBox.domain,
@@ -174,24 +182,24 @@ extension APIService {
             result = .failure(error)
         }
 
-        try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
-
-            switch result {
-                case .success(let response):
-                    Persistence.MastodonUser.update(
-                        mastodonUser: user,
-                        context: Persistence.MastodonUser.RelationshipContext(
-                            entity: response.value,
-                            me: me,
-                            networkDate: response.networkDate
-                        )
-                    )
-                case .failure:
-                    // rollback
-                    user.update(isShowingReblogs: oldShowReblogs, by: me)
-            }
-        }
+//        try await managedObjectContext.performChanges {
+//            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
+//
+//            switch result {
+//                case .success(let response):
+//                    Persistence.MastodonUser.update(
+//                        mastodonUser: user,
+//                        context: Persistence.MastodonUser.RelationshipContext(
+//                            entity: response.value,
+//                            me: me,
+//                            networkDate: response.networkDate
+//                        )
+//                    )
+//                case .failure:
+//                    // rollback
+//                    user.update(isShowingReblogs: oldShowReblogs, by: me)
+//            }
+//        }
 
         return try result.get()
     }

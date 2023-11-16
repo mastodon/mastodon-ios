@@ -7,46 +7,23 @@
 
 import Foundation
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 
 extension APIService {
     
     public func poll(
-        poll: ManagedObjectRecord<Poll>,
+        poll: Mastodon.Entity.Poll,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Poll> {
         let authorization = authenticationBox.userAuthorization
         
-        let managedObjectContext = self.backgroundManagedObjectContext
-        let pollID: Poll.ID = try await managedObjectContext.perform {
-            guard let poll = poll.object(in: managedObjectContext) else {
-                throw APIError.implicit(.badRequest)
-            }
-            return poll.id
-        }
-        
         let response = try await Mastodon.API.Polls.poll(
             session: session,
             domain: authenticationBox.domain,
-            pollID: pollID,
+            pollID: poll.id,
             authorization: authorization
         ).singleOutput()
-        
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
-            _ = Persistence.Poll.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.Poll.PersistContext(
-                    domain: authenticationBox.domain,
-                    entity: response.value,
-                    me: me,
-                    networkDate: response.networkDate
-                )
-            )
-        }
-        
+
         return response
     }
     
@@ -55,41 +32,19 @@ extension APIService {
 extension APIService {
 
     public func vote(
-        poll: ManagedObjectRecord<Poll>,
+        poll: Mastodon.Entity.Poll,
         choices: [Int],
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Poll> {
-        let managedObjectContext = backgroundManagedObjectContext
-        let _pollID: Poll.ID? = try await managedObjectContext.perform {
-            guard let poll = poll.object(in: managedObjectContext) else { return nil }
-            return poll.id
-        }
-        
-        guard let pollID = _pollID else {
-            throw APIError.implicit(.badRequest)
-        }
 
         let response = try await Mastodon.API.Polls.vote(
             session: session,
             domain: authenticationBox.domain,
-            pollID: pollID,
+            pollID: poll.id,
             query: Mastodon.API.Polls.VoteQuery(choices: choices),
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
-        
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
-            _ = Persistence.Poll.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.Poll.PersistContext(
-                    domain: authenticationBox.domain,
-                    entity: response.value,
-                    me: me,
-                    networkDate: response.networkDate
-                )
-            )
-        }
-        
+
         return response
     }
     

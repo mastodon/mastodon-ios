@@ -24,7 +24,7 @@ extension SearchHistoryViewController: DataSourceProvider {
         case .user(let record):
             return .user(record: record)
         case .hashtag(let record):
-            return .hashtag(tag: .record(record))
+            return .hashtag(tag: .entity(record))
         }
     }
     

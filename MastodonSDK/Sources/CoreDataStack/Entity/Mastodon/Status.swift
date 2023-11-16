@@ -1,5 +1,5 @@
 //
-//  Status.swift
+//  StatusLegacy.swift
 //  CoreDataStack
 //
 //  Created by MainasuK Cirno on 2021/1/27.
@@ -8,7 +8,38 @@
 import CoreData
 import Foundation
 
-public final class Status: NSManagedObject {
+public enum MastodonVisibilityLegacy: RawRepresentable {
+    case `public`
+    case unlisted
+    case `private`
+    case direct
+    
+    case _other(String)
+    
+    public init?(rawValue: String) {
+        switch rawValue {
+        case "public":                      self = .public
+        case "unlisted":                    self = .unlisted
+        case "private":                     self = .private
+        case "direct":                      self = .direct
+        default:                            self = ._other(rawValue)
+        }
+    }
+    
+    public var rawValue: String {
+        switch self {
+        case .public:                       return "public"
+        case .unlisted:                     return "unlisted"
+        case .private:                      return "private"
+        case .direct:                       return "direct"
+        case ._other(let value):            return value
+        }
+    }
+}
+
+
+@objc(Status)
+public final class StatusLegacy: NSManagedObject {
     public typealias ID = String
 
     // sourcery: autoGenerateProperty
@@ -31,10 +62,10 @@ public final class Status: NSManagedObject {
     
     @NSManaged public private(set) var visibilityRaw: String
     // sourcery: autoUpdatableObject, autoGenerateProperty
-    public var visibility: MastodonVisibility {
+    public var visibility: MastodonVisibilityLegacy {
         get {
             let rawValue = visibilityRaw
-            return MastodonVisibility(rawValue: rawValue) ?? ._other(rawValue)
+            return MastodonVisibilityLegacy(rawValue: rawValue) ?? ._other(rawValue)
         }
         set {
             visibilityRaw = newValue.rawValue
@@ -62,7 +93,7 @@ public final class Status: NSManagedObject {
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var url: String?
     // sourcery: autoUpdatableObject, autoGenerateProperty
-    @NSManaged public private(set) var inReplyToID: Status.ID?
+    @NSManaged public private(set) var inReplyToID: StatusLegacy.ID?
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var inReplyToAccountID: MastodonUser.ID?
     
@@ -75,9 +106,9 @@ public final class Status: NSManagedObject {
     // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var author: MastodonUser
     // sourcery: autoGenerateRelationship
-    @NSManaged public private(set) var reblog: Status?
+    @NSManaged public private(set) var reblog: StatusLegacy?
     // sourcery: autoUpdatableObject
-    @NSManaged public private(set) var replyTo: Status?
+    @NSManaged public private(set) var replyTo: StatusLegacy?
     
     // many-to-many relationship
     @NSManaged public private(set) var favouritedBy: Set<MastodonUser>
@@ -95,8 +126,8 @@ public final class Status: NSManagedObject {
     // one-to-many relationship
     @NSManaged public private(set) var feeds: Set<Feed>
     
-    @NSManaged public private(set) var reblogFrom: Set<Status>
-    @NSManaged public private(set) var replyFrom: Set<Status>
+    @NSManaged public private(set) var reblogFrom: Set<StatusLegacy>
+    @NSManaged public private(set) var replyFrom: Set<StatusLegacy>
     @NSManaged public private(set) var notifications: Set<Notification>
     @NSManaged public private(set) var searchHistories: Set<SearchHistory>
     
@@ -108,11 +139,11 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var revealedAt: Date?
 }
 
-extension Status {
+extension StatusLegacy {
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @objc public var attachments: [MastodonAttachment] {
         get {
-            let keyPath = #keyPath(Status.attachments)
+            let keyPath = #keyPath(StatusLegacy.attachments)
             willAccessValue(forKey: keyPath)
             let _data = primitiveValue(forKey: keyPath) as? Data
             didAccessValue(forKey: keyPath)
@@ -126,7 +157,7 @@ extension Status {
             }
         }
         set {
-            let keyPath = #keyPath(Status.attachments)
+            let keyPath = #keyPath(StatusLegacy.attachments)
             let data = try? JSONEncoder().encode(newValue)
             willChangeValue(forKey: keyPath)
             setPrimitiveValue(data, forKey: keyPath)
@@ -137,7 +168,7 @@ extension Status {
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @objc public var emojis: [MastodonEmoji] {
         get {
-            let keyPath = #keyPath(Status.emojis)
+            let keyPath = #keyPath(StatusLegacy.emojis)
             willAccessValue(forKey: keyPath)
             let _data = primitiveValue(forKey: keyPath) as? Data
             didAccessValue(forKey: keyPath)
@@ -151,7 +182,7 @@ extension Status {
             }
         }
         set {
-            let keyPath = #keyPath(Status.emojis)
+            let keyPath = #keyPath(StatusLegacy.emojis)
             let data = try? JSONEncoder().encode(newValue)
             willChangeValue(forKey: keyPath)
             setPrimitiveValue(data, forKey: keyPath)
@@ -162,7 +193,7 @@ extension Status {
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @objc public var mentions: [MastodonMention] {
         get {
-            let keyPath = #keyPath(Status.mentions)
+            let keyPath = #keyPath(StatusLegacy.mentions)
             willAccessValue(forKey: keyPath)
             let _data = primitiveValue(forKey: keyPath) as? Data
             didAccessValue(forKey: keyPath)
@@ -176,7 +207,7 @@ extension Status {
             }
         }
         set {
-            let keyPath = #keyPath(Status.mentions)
+            let keyPath = #keyPath(StatusLegacy.mentions)
             let data = try? JSONEncoder().encode(newValue)
             willChangeValue(forKey: keyPath)
             setPrimitiveValue(data, forKey: keyPath)
@@ -185,17 +216,17 @@ extension Status {
     }
 }
 
-extension Status: FeedIndexable { }
+extension StatusLegacy: FeedIndexable { }
 
-extension Status {
+extension StatusLegacy {
     
     @discardableResult
     public static func insert(
         into context: NSManagedObjectContext,
         property: Property,
         relationship: Relationship
-    ) -> Status {
-        let object: Status = context.insertObject()
+    ) -> StatusLegacy {
+        let object: StatusLegacy = context.insertObject()
         
         object.configure(property: property)
         object.configure(relationship: relationship)
@@ -205,20 +236,20 @@ extension Status {
 
 }
 
-extension Status: Managed {
+extension StatusLegacy: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \Status.createdAt, ascending: false)]
+        return [NSSortDescriptor(keyPath: \StatusLegacy.createdAt, ascending: false)]
     }
 }
 
-extension Status {
+extension StatusLegacy {
     
     static func predicate(domain: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Status.domain), domain)
+        return NSPredicate(format: "%K == %@", #keyPath(StatusLegacy.domain), domain)
     }
     
     static func predicate(id: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Status.id), id)
+        return NSPredicate(format: "%K == %@", #keyPath(StatusLegacy.id), id)
     }
     
     public static func predicate(domain: String, id: String) -> NSPredicate {
@@ -229,7 +260,7 @@ extension Status {
     }
     
     static func predicate(ids: [String]) -> NSPredicate {
-        return NSPredicate(format: "%K IN %@", #keyPath(Status.id), ids)
+        return NSPredicate(format: "%K IN %@", #keyPath(StatusLegacy.id), ids)
     }
     
     public static func predicate(domain: String, ids: [String]) -> NSPredicate {
@@ -240,18 +271,18 @@ extension Status {
     }
     
     public static func notDeleted() -> NSPredicate {
-        return NSPredicate(format: "%K == nil", #keyPath(Status.deletedAt))
+        return NSPredicate(format: "%K == nil", #keyPath(StatusLegacy.deletedAt))
     }
     
     public static func deleted() -> NSPredicate {
-        return NSPredicate(format: "%K != nil", #keyPath(Status.deletedAt))
+        return NSPredicate(format: "%K != nil", #keyPath(StatusLegacy.deletedAt))
     }
     
 }
 
 // MARK: - AutoGenerateProperty
-extension Status: AutoGenerateProperty {
-    // sourcery:inline:Status.AutoGenerateProperty
+extension StatusLegacy: AutoGenerateProperty {
+    // sourcery:inline:StatusLegacy.AutoGenerateProperty
 
     // Generated using Sourcery
     // DO NOT EDIT
@@ -263,14 +294,14 @@ extension Status: AutoGenerateProperty {
         public let createdAt: Date
         public let editedAt: Date?
         public let content: String
-        public let visibility: MastodonVisibility
+        public let visibility: MastodonVisibilityLegacy
         public let sensitive: Bool
         public let spoilerText: String?
         public let reblogsCount: Int64
         public let favouritesCount: Int64
         public let repliesCount: Int64
         public let url: String?
-        public let inReplyToID: Status.ID?
+        public let inReplyToID: StatusLegacy.ID?
         public let inReplyToAccountID: MastodonUser.ID?
         public let language: String?
         public let text: String?
@@ -288,14 +319,14 @@ extension Status: AutoGenerateProperty {
     		createdAt: Date,
     		editedAt: Date?,
     		content: String,
-    		visibility: MastodonVisibility,
+    		visibility: MastodonVisibilityLegacy,
     		sensitive: Bool,
     		spoilerText: String?,
     		reblogsCount: Int64,
     		favouritesCount: Int64,
     		repliesCount: Int64,
     		url: String?,
-    		inReplyToID: Status.ID?,
+    		inReplyToID: StatusLegacy.ID?,
     		inReplyToAccountID: MastodonUser.ID?,
     		language: String?,
     		text: String?,
@@ -382,22 +413,22 @@ extension Status: AutoGenerateProperty {
 }
 
 // MARK: - AutoGenerateRelationship
-extension Status: AutoGenerateRelationship {
-    // sourcery:inline:Status.AutoGenerateRelationship
+extension StatusLegacy: AutoGenerateRelationship {
+    // sourcery:inline:StatusLegacy.AutoGenerateRelationship
 
     // Generated using Sourcery
     // DO NOT EDIT
     public struct Relationship {
     	public let application: Application?
     	public let author: MastodonUser
-    	public let reblog: Status?
+    	public let reblog: StatusLegacy?
     	public let poll: Poll?
     	public let card: Card?
 
     	public init(
     		application: Application?,
     		author: MastodonUser,
-    		reblog: Status?,
+    		reblog: StatusLegacy?,
     		poll: Poll?,
     		card: Card?
     	) {
@@ -420,8 +451,8 @@ extension Status: AutoGenerateRelationship {
 }
 
 // MARK: - AutoUpdatableObject
-extension Status: AutoUpdatableObject {
-    // sourcery:inline:Status.AutoUpdatableObject
+extension StatusLegacy: AutoUpdatableObject {
+    // sourcery:inline:StatusLegacy.AutoUpdatableObject
 
     // Generated using Sourcery
     // DO NOT EDIT
@@ -440,7 +471,7 @@ extension Status: AutoUpdatableObject {
     		self.content = content
     	}
     }
-    public func update(visibility: MastodonVisibility) {
+    public func update(visibility: MastodonVisibilityLegacy) {
     	if self.visibility != visibility {
     		self.visibility = visibility
     	}
@@ -480,7 +511,7 @@ extension Status: AutoUpdatableObject {
     		self.url = url
     	}
     }
-    public func update(inReplyToID: Status.ID?) {
+    public func update(inReplyToID: StatusLegacy.ID?) {
     	if self.inReplyToID != inReplyToID {
     		self.inReplyToID = inReplyToID
     	}
@@ -500,7 +531,7 @@ extension Status: AutoUpdatableObject {
     		self.text = text
     	}
     }
-    public func update(replyTo: Status?) {
+    public func update(replyTo: StatusLegacy?) {
     	if self.replyTo != replyTo {
     		self.replyTo = replyTo
     	}
@@ -540,11 +571,11 @@ extension Status: AutoUpdatableObject {
     public func update(liked: Bool, by mastodonUser: MastodonUser) {
         if liked {
             if !self.favouritedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).add(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(StatusLegacy.favouritedBy)).add(mastodonUser)
             }
         } else {
             if self.favouritedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).remove(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(StatusLegacy.favouritedBy)).remove(mastodonUser)
             }
         }
     }
@@ -552,11 +583,11 @@ extension Status: AutoUpdatableObject {
     public func update(reblogged: Bool, by mastodonUser: MastodonUser) {
         if reblogged {
             if !self.rebloggedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).add(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(StatusLegacy.rebloggedBy)).add(mastodonUser)
             }
         } else {
             if self.rebloggedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).remove(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(StatusLegacy.rebloggedBy)).remove(mastodonUser)
             }
         }
     }
@@ -564,11 +595,11 @@ extension Status: AutoUpdatableObject {
     public func update(muted: Bool, by mastodonUser: MastodonUser) {
         if muted {
             if !self.mutedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.mutedBy)).add(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(StatusLegacy.mutedBy)).add(mastodonUser)
             }
         } else {
             if self.mutedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.mutedBy)).remove(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(StatusLegacy.mutedBy)).remove(mastodonUser)
             }
         }
     }
@@ -576,11 +607,11 @@ extension Status: AutoUpdatableObject {
     public func update(bookmarked: Bool, by mastodonUser: MastodonUser) {
         if bookmarked {
             if !self.bookmarkedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).add(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(StatusLegacy.bookmarkedBy)).add(mastodonUser)
             }
         } else {
             if self.bookmarkedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).remove(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(StatusLegacy.bookmarkedBy)).remove(mastodonUser)
             }
         }
     }
@@ -590,8 +621,8 @@ extension Status: AutoUpdatableObject {
     }
 }
 
-extension Status {
+extension StatusLegacy {
     public func attach(feed: Feed) {
-        mutableSetValue(forKey: #keyPath(Status.feeds)).add(feed)
+        mutableSetValue(forKey: #keyPath(StatusLegacy.feeds)).add(feed)
     }
 }

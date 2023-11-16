@@ -56,7 +56,7 @@ extension UserTimelineViewModel.State {
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
             // reset
-            viewModel.statusFetchedResultsController.statusIDs = []
+            viewModel.records = []
 
             stateMachine.enter(Loading.self)
         }
@@ -112,7 +112,7 @@ extension UserTimelineViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            let maxID = viewModel.statusFetchedResultsController.statusIDs.last
+            let maxID = viewModel.records.last?.id
             
             guard let userID = viewModel.userIdentifier?.userID, !userID.isEmpty else {
                 stateMachine.enter(Fail.self)
@@ -135,10 +135,10 @@ extension UserTimelineViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs
+                    var newRecords = viewModel.records
                     for status in response.value {
-                        guard !statusIDs.contains(status.id) else { continue }
-                        statusIDs.append(status.id)
+                        guard !newRecords.contains(where: { $0.id == status.id }) else { continue }
+                        newRecords.append(status)
                         hasNewStatusesAppend = true
                     }
                     
@@ -147,7 +147,7 @@ extension UserTimelineViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
+                    viewModel.records = newRecords
                     
                 } catch {
                     await enter(state: Fail.self)

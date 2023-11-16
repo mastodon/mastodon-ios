@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import CoreDataStack
+import MastodonSDK
 
 extension ReportStatusTableViewCell {
     final class ViewModel {
-        let value: Status
+        let value: Mastodon.Entity.Status
 
-        init(value: Status) {
+        init(value: Mastodon.Entity.Status) {
             self.value = value
         }
     }

@@ -6,8 +6,6 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
 import Foundation
 import GameplayKit
 import MastodonSDK
@@ -24,14 +22,15 @@ class ReportStatusViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let user: ManagedObjectRecord<MastodonUser>
-    let status: ManagedObjectRecord<Status>?
-    let statusFetchedResultsController: StatusFetchedResultsController
+    let user: Mastodon.Entity.Account
+    let status: Mastodon.Entity.Status?
+//    let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     @Published var isSkip = false
-    @Published var selectStatuses = OrderedSet<ManagedObjectRecord<Status>>()
-
+    @Published var selectStatuses = OrderedSet<Mastodon.Entity.Status>()
+    @Published var records = [Mastodon.Entity.Status]()
+    
     // output
     var diffableDataSource: UITableViewDiffableDataSource<ReportSection, ReportItem>?
     private(set) lazy var stateMachine: GKStateMachine = {
@@ -51,18 +50,18 @@ class ReportStatusViewModel {
     init(
         context: AppContext,
         authContext: AuthContext,
-        user: ManagedObjectRecord<MastodonUser>,
-        status: ManagedObjectRecord<Status>?
+        user: Mastodon.Entity.Account,
+        status: Mastodon.Entity.Status?
     ) {
         self.context = context
         self.authContext = authContext
         self.user = user
         self.status = status
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+//        self.statusFetchedResultsController = StatusFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            additionalTweetPredicate: nil
+//        )
         // end init
         
         if let status = status {

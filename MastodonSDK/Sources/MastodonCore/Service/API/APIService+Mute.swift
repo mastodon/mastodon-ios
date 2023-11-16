@@ -60,32 +60,32 @@ extension APIService {
     }
     
     public func toggleMute(
-        user: ManagedObjectRecord<MastodonUser>,
+        user: Mastodon.Entity.Account,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
 
-        let managedObjectContext = backgroundManagedObjectContext
-        let muteContext: MastodonMuteContext = try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-
-            guard
-                let user = user.object(in: managedObjectContext),
-                let me = authentication.user(in: managedObjectContext)
-            else {
-                throw APIError.implicit(.badRequest)
-            }
-            
-            let isMuting = user.mutingBy.contains(me)
-            
-            // toggle mute state
-            user.update(isMuting: !isMuting, by: me)
-            return MastodonMuteContext(
-                sourceUserID: me.id,
-                targetUserID: user.id,
-                targetUsername: user.username,
-                isMuting: isMuting
-            )
+        guard
+            let me = authenticationBox.inMemoryCache.meAccount
+        else {
+            throw APIError.implicit(.badRequest)
         }
+                
+        let relation = try await Mastodon.API.Account.relationships(
+            session: session,
+            domain: authenticationBox.domain,
+            query: .init(ids: [user.id]),
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput().value.first
+        
+        let isMuting = relation?.muting == true
+        
+        // toggle mute state
+        let muteContext = MastodonMuteContext(
+            sourceUserID: me.id,
+            targetUserID: user.id,
+            targetUsername: user.username,
+            isMuting: isMuting
+        )
         
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
         do {
@@ -110,28 +110,6 @@ extension APIService {
             }
         } catch {
             result = .failure(error)
-        }
-        
-        try await managedObjectContext.performChanges {
-            guard let user = user.object(in: managedObjectContext),
-                  let me = authenticationBox.authentication.user(in: managedObjectContext)
-            else { return }
-            
-            switch result {
-            case .success(let response):
-                let relationship = response.value
-                Persistence.MastodonUser.update(
-                    mastodonUser: user,
-                    context: Persistence.MastodonUser.RelationshipContext(
-                        entity: relationship,
-                        me: me,
-                        networkDate: response.networkDate
-                    )
-                )
-            case .failure:
-                // rollback
-                user.update(isMuting: muteContext.isMuting, by: me)
-            }
         }
         
         let response = try result.get()

@@ -13,18 +13,15 @@ import MastodonAsset
 import MastodonLocalization
 import MastodonExtension
 import MastodonCore
-import CoreData
-import CoreDataStack
 
 extension NotificationView {
     public final class ViewModel: ObservableObject {
         public var disposeBag = Set<AnyCancellable>()
-        public var objects = Set<NSManagedObject>()
 
         @Published public var context: AppContext?
         @Published public var authContext: AuthContext?
 
-        @Published public var type: MastodonNotificationType?
+        @Published public var type: Mastodon.Entity.Notification.NotificationType?
         @Published public var notificationIndicatorText: MetaContent?
 
         @Published public var authorAvatarImage: UIImage?
@@ -165,7 +162,9 @@ extension NotificationView.ViewModel {
         )
         .sink { avatarImage, type in
             var actions = [UIAccessibilityCustomAction]()
-
+            
+            guard let type else { return }
+            
             // these notifications can be directly actioned to view the profile
             if type != .follow, type != .followRequest {
                 actions.append(

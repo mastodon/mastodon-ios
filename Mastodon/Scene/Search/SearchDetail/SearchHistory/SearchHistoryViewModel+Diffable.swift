@@ -27,7 +27,7 @@ extension SearchHistoryViewModel {
         snapshot.appendSections([.main])
         diffableDataSource?.apply(snapshot, animatingDifferences: false)
         
-        searchHistoryFetchedResultController.$records
+        $records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }
@@ -35,23 +35,24 @@ extension SearchHistoryViewModel {
                 
                 Task {
                     do {
-                        let managedObjectContext = self.context.managedObjectContext
-                        let items: [SearchHistoryItem] = try await managedObjectContext.perform {
-                            var items: [SearchHistoryItem] = []
+//                        let managedObjectContext = self.context.managedObjectContext
+//                        let items: [SearchHistoryItem] = try await managedObjectContext.perform {
+//                            var items: [SearchHistoryItem] = []
+//
+//                            for record in records {
+//                                guard let searchHistory = record.object(in: managedObjectContext) else { continue }
+//                                if let user = searchHistory.account {
+//                                    items.append(.user(.init(objectID: user.objectID)))
+//                                } else if let hashtag = searchHistory.hashtag {
+//                                    items.append(.hashtag(.init(objectID: hashtag.objectID)))
+//                                }
+//                            }
+//                            
+//                            return items
+//                        }
 
-                            for record in records {
-                                guard let searchHistory = record.object(in: managedObjectContext) else { continue }
-                                if let user = searchHistory.account {
-                                    items.append(.user(.init(objectID: user.objectID)))
-                                } else if let hashtag = searchHistory.hashtag {
-                                    items.append(.hashtag(.init(objectID: hashtag.objectID)))
-                                }
-                            }
-                            
-                            return items
-                        }
-
-                        let mostRecentItems = Array(items.prefix(10))
+                        #warning("Reimplement storing and recovering search history")
+                        let mostRecentItems = [SearchHistoryItem]() //Array(items.prefix(10))
                         var snapshot = NSDiffableDataSourceSnapshot<SearchHistorySection, SearchHistoryItem>()
                         snapshot.appendSections([.main])
                         snapshot.appendItems(mostRecentItems, toSection: .main)

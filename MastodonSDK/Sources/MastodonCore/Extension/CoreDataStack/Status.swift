@@ -9,7 +9,7 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 
-extension Status {
+extension StatusLegacy {
     public enum SensitiveType {
         case none
         case all
@@ -45,7 +45,7 @@ extension Status {
 //    }
 //}
 
-extension Status {
+extension StatusLegacy {
     public var statusURL: URL {
         if let urlString = self.url,
            let url = URL(string: urlString)
@@ -70,8 +70,8 @@ extension Status {
 //    }
 //}
 
-extension Status {
-    public var asRecord: ManagedObjectRecord<Status> {
+extension StatusLegacy {
+    public var asRecord: ManagedObjectRecord<StatusLegacy> {
         return .init(objectID: self.objectID)
     }
 }

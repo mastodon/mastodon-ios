@@ -25,38 +25,38 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
             
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
-            
-            // user
-            for entity in response.value.accounts {
-                _ = Persistence.MastodonUser.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.MastodonUser.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        cache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }
-            
-            // statuses
-            for entity in response.value.statuses {
-                _ = Persistence.Status.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Status.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        me: me,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }
-        }   // ent try await managedObjectContext.performChanges { … } 
+//        let managedObjectContext = self.backgroundManagedObjectContext
+//        try await managedObjectContext.performChanges {
+//            let me = authenticationBox.authentication.user(in: managedObjectContext)
+//            
+//            // user
+//            for entity in response.value.accounts {
+//                _ = Persistence.MastodonUser.createOrMerge(
+//                    in: managedObjectContext,
+//                    context: Persistence.MastodonUser.PersistContext(
+//                        domain: domain,
+//                        entity: entity,
+//                        cache: nil,
+//                        networkDate: response.networkDate
+//                    )
+//                )
+//            }
+//            
+//            // statuses
+//            for entity in response.value.statuses {
+//                _ = Persistence.Status.createOrMerge(
+//                    in: managedObjectContext,
+//                    context: Persistence.Status.PersistContext(
+//                        domain: domain,
+//                        entity: entity,
+//                        me: me,
+//                        statusCache: nil,
+//                        userCache: nil,
+//                        networkDate: response.networkDate
+//                    )
+//                )
+//            }
+//        }   // ent try await managedObjectContext.performChanges { … } 
         
         return response
     }

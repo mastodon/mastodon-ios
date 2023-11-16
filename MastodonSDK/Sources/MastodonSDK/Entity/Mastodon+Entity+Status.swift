@@ -31,6 +31,7 @@ extension Mastodon.Entity {
         
         public let visibility: Visibility?
         public let sensitive: Bool?
+        public var sensitiveToggled: Bool = false
         public let spoilerText: String?
         public let mediaAttachments: [Attachment]?
         public let application: Application?
@@ -72,6 +73,8 @@ extension Mastodon.Entity {
             
             case visibility
             case sensitive
+            case sensitiveToggled
+            
             case spoilerText = "spoiler_text"
             case mediaAttachments = "media_attachments"
             case application
@@ -131,5 +134,25 @@ extension Mastodon.Entity.Status {
             case ._other(let value):            return value
             }
         }
+    }
+}
+
+extension Mastodon.Entity.Status: Equatable {
+    public static func == (lhs: Mastodon.Entity.Status, rhs: Mastodon.Entity.Status) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension Mastodon.Entity.Status: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+extension Mastodon.Entity.Status {
+    public var activityItems: [Any] {
+        var items: [Any] = []
+        items.append(self.url)
+        return items
     }
 }

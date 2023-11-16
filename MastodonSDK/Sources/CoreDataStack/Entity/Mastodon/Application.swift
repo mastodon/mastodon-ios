@@ -18,7 +18,7 @@ public final class Application: NSManagedObject {
     @NSManaged public private(set) var vapidKey: String?
 
     // one-to-one relationship
-    @NSManaged public private(set) var status: Status
+    @NSManaged public private(set) var status: StatusLegacy
 }
 
 public extension Application {

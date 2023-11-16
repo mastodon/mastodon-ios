@@ -6,12 +6,9 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
 import Foundation
 import MastodonSDK
 import OSLog
-import class CoreDataStack.Notification
 
 extension APIService {
     
@@ -19,14 +16,14 @@ extension APIService {
         case mentions
         case everything
         
-        public var includeTypes: [MastodonNotificationType]? {
+        public var includeTypes: [Mastodon.Entity.Notification.NotificationType]? {
             switch self {
             case .everything:       return nil
             case .mentions:         return [.mention, .status]
             }
         }
         
-        public var excludeTypes: [MastodonNotificationType]? {
+        public var excludeTypes: [Mastodon.Entity.Notification.NotificationType]? {
             switch self {
             case .everything:       return nil
             case .mentions:         return [.follow, .followRequest, .reblog, .favourite, .poll]
@@ -86,73 +83,73 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else {
-                assertionFailure()
-                return
-            }
-            
-            var notifications: [Notification] = []
-            for entity in response.value {
-                let result = Persistence.Notification.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Notification.PersistContext(
-                        domain: authenticationBox.domain,
-                        entity: entity,
-                        me: me,
-                        networkDate: response.networkDate
-                    )
-                )
-                notifications.append(result.notification)
-            }
-            
-            // locate anchor notification
-            let anchorNotification: Notification? = {
-                guard let maxID = query.maxID else { return nil }
-                let request = Notification.sortedFetchRequest
-                request.predicate = Notification.predicate(
-                    domain: authenticationBox.domain,
-                    userID: authenticationBox.userID,
-                    id: maxID
-                )
-                request.fetchLimit = 1
-                return try? managedObjectContext.fetch(request).first
-            }()
-            
-            // update hasMore flag for anchor status
-            let acct = Feed.Acct.mastodon(domain: authenticationBox.domain, userID: authenticationBox.userID)
-            let kind: Feed.Kind = scope == .everything ? .notificationAll : .notificationMentions
-            if let anchorNotification = anchorNotification,
-               let feed = anchorNotification.feed(kind: kind, acct: acct) {
-                feed.update(hasMore: false)
-            }
-            
-            // persist Feed relationship
-            let sortedNotifications = notifications.sorted(by: { $0.createAt < $1.createAt })
-            let oldestNotification = sortedNotifications.first
-            for notification in notifications {
-                let _feed = notification.feed(kind: kind, acct: acct)
-                if let feed = _feed {
-                    feed.update(updatedAt: response.networkDate)
-                } else {
-                    let feedProperty = Feed.Property(
-                        acct: acct,
-                        kind: kind,
-                        hasMore: false,
-                        createdAt: notification.createAt,
-                        updatedAt: response.networkDate
-                    )
-                    let feed = Feed.insert(into: managedObjectContext, property: feedProperty)
-                    notification.attach(feed: feed)
-                    
-                    // set hasMore on oldest notification if is new feed
-                    if notification === oldestNotification {
-                        feed.update(hasMore: true)
-                    }
-                }
-            }
-        }
+//        let managedObjectContext = self.backgroundManagedObjectContext
+//        try await managedObjectContext.performChanges {
+//            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else {
+//                assertionFailure()
+//                return
+//            }
+//            
+//            var notifications: [Notification] = []
+//            for entity in response.value {
+//                let result = Persistence.Notification.createOrMerge(
+//                    in: managedObjectContext,
+//                    context: Persistence.Notification.PersistContext(
+//                        domain: authenticationBox.domain,
+//                        entity: entity,
+//                        me: me,
+//                        networkDate: response.networkDate
+//                    )
+//                )
+//                notifications.append(result.notification)
+//            }
+//            
+//            // locate anchor notification
+//            let anchorNotification: Notification? = {
+//                guard let maxID = query.maxID else { return nil }
+//                let request = Notification.sortedFetchRequest
+//                request.predicate = Notification.predicate(
+//                    domain: authenticationBox.domain,
+//                    userID: authenticationBox.userID,
+//                    id: maxID
+//                )
+//                request.fetchLimit = 1
+//                return try? managedObjectContext.fetch(request).first
+//            }()
+//            
+//            // update hasMore flag for anchor status
+//            let acct = Feed.Acct.mastodon(domain: authenticationBox.domain, userID: authenticationBox.userID)
+//            let kind: Feed.Kind = scope == .everything ? .notificationAll : .notificationMentions
+//            if let anchorNotification = anchorNotification,
+//               let feed = anchorNotification.feed(kind: kind, acct: acct) {
+//                feed.update(hasMore: false)
+//            }
+//            
+//            // persist Feed relationship
+//            let sortedNotifications = notifications.sorted(by: { $0.createAt < $1.createAt })
+//            let oldestNotification = sortedNotifications.first
+//            for notification in notifications {
+//                let _feed = notification.feed(kind: kind, acct: acct)
+//                if let feed = _feed {
+//                    feed.update(updatedAt: response.networkDate)
+//                } else {
+//                    let feedProperty = Feed.Property(
+//                        acct: acct,
+//                        kind: kind,
+//                        hasMore: false,
+//                        createdAt: notification.createAt,
+//                        updatedAt: response.networkDate
+//                    )
+//                    let feed = Feed.insert(into: managedObjectContext, property: feedProperty)
+//                    notification.attach(feed: feed)
+//                    
+//                    // set hasMore on oldest notification if is new feed
+//                    if notification === oldestNotification {
+//                        feed.update(hasMore: true)
+//                    }
+//                }
+//            }
+//        }
         
         return response
     }

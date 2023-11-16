@@ -6,13 +6,11 @@
 //
 
 import Foundation
-import CoreData
-import CoreDataStack
 import MastodonSDK
 
 enum SearchResultItem: Hashable {
-    case user(ManagedObjectRecord<MastodonUser>)
-    case status(ManagedObjectRecord<Status>)
+    case user(Mastodon.Entity.Account)
+    case status(Mastodon.Entity.Status)
     case hashtag(tag: Mastodon.Entity.Tag)
     case bottomLoader(attribute: BottomLoaderAttribute)
 }

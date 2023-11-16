@@ -30,23 +30,23 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
-        #if !APP_EXTENSION
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
-            _ = Persistence.Status.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.Status.PersistContext(
-                    domain: domain,
-                    entity: response.value,
-                    me: me,
-                    statusCache: nil,
-                    userCache: nil,
-                    networkDate: response.networkDate
-                )
-            )
-        }
-        #endif
+//        #if !APP_EXTENSION
+//        let managedObjectContext = self.backgroundManagedObjectContext
+//        try await managedObjectContext.performChanges {
+//            let me = authenticationBox.authentication.user(in: managedObjectContext)
+//            _ = Persistence.Status.createOrMerge(
+//                in: managedObjectContext,
+//                context: Persistence.Status.PersistContext(
+//                    domain: domain,
+//                    entity: response.value,
+//                    me: me,
+//                    statusCache: nil,
+//                    userCache: nil,
+//                    networkDate: response.networkDate
+//                )
+//            )
+//        }
+//        #endif
         
         return response
     }

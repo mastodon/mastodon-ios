@@ -7,10 +7,9 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import GameplayKit
 import MastodonCore
+import MastodonSDK
 
 final class FavoriteViewModel {
     
@@ -19,9 +18,9 @@ final class FavoriteViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
-
+    @Published var records = [Mastodon.Entity.Status]()
+    
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
     private(set) lazy var stateMachine: GKStateMachine = {
@@ -40,11 +39,6 @@ final class FavoriteViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
     }
     
 }

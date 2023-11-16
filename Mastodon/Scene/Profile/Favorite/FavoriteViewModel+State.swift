@@ -56,7 +56,7 @@ extension FavoriteViewModel.State {
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
             // reset
-            viewModel.statusFetchedResultsController.statusIDs = []
+            viewModel.records = []
             
             stateMachine.enter(Loading.self)
         }
@@ -127,10 +127,10 @@ extension FavoriteViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs
+                    var newRecords = viewModel.records
                     for status in response.value {
-                        guard !statusIDs.contains(status.id) else { continue }
-                        statusIDs.append(status.id)
+                        guard !newRecords.contains(where: { $0.id == status.id }) else { continue }
+                        newRecords.append(status)
                         hasNewStatusesAppend = true
                     }
                     
@@ -146,7 +146,7 @@ extension FavoriteViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
+                    viewModel.records = newRecords
                 } catch {
                     await enter(state: Fail.self)
                 }

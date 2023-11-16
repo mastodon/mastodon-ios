@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-19.
 //
 
-import CoreDataStack
 import UIKit
 import Combine
 import MetaTextKit
@@ -26,7 +25,7 @@ extension UserView {
         @Published public var authorUsername: String?
         @Published public var authorFollowers: Int?
         @Published public var authorVerifiedLink: String?
-        @Published public var user: MastodonUser?
+        @Published public var user: Mastodon.Entity.Account?
         @Published public var account: Mastodon.Entity.Account?
         @Published public var relationship: Mastodon.Entity.Relationship?
     }

@@ -6,14 +6,14 @@
 //
 
 import UIKit
-import CoreDataStack
 import MastodonCore
 import MastodonUI
+import MastodonSDK
 
 extension DataSourceFacade {
     static func responseToStatusReblogAction(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>
+        status: Mastodon.Entity.Status
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()

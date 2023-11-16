@@ -28,7 +28,7 @@ public final class SearchHistory: NSManagedObject {
     // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var hashtag: Tag?
     // sourcery: autoGenerateRelationship
-    @NSManaged public private(set) var status: Status?
+    @NSManaged public private(set) var status: StatusLegacy?
 
 }
 
@@ -122,12 +122,12 @@ extension SearchHistory: AutoGenerateRelationship {
     public struct Relationship {
     	public let account: MastodonUser?
     	public let hashtag: Tag?
-    	public let status: Status?
+    	public let status: StatusLegacy?
 
     	public init(
     		account: MastodonUser?,
     		hashtag: Tag?,
-    		status: Status?
+    		status: StatusLegacy?
     	) {
     		self.account = account
     		self.hashtag = hashtag

@@ -388,7 +388,6 @@
 		DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */; };
 		DB938EE62623F50700E5B6C1 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938EE52623F50700E5B6C1 /* ThreadViewController.swift */; };
 		DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938EEC2623F79B00E5B6C1 /* ThreadViewModel.swift */; };
-		DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F0226240EA300E5B6C1 /* CachedThreadViewModel.swift */; };
 		DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F0826240F3C00E5B6C1 /* RemoteThreadViewModel.swift */; };
 		DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */; };
 		DB938F1F2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */; };
@@ -451,7 +450,6 @@
 		DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBF3267CB070000F5B51 /* Decode85.swift */; };
 		DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */; };
 		DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B2F261440A50045B23D /* UITabBarController.swift */; };
-		DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */; };
 		DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376B1269302A4007FEC24 /* UITableViewCell.swift */; };
 		DBD5B1F827BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */; };
 		DBD5B1FA27BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F927BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift */; };
@@ -1102,7 +1100,6 @@
 		DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerEmptyStateView.swift; sourceTree = "<group>"; };
 		DB938EE52623F50700E5B6C1 /* ThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewController.swift; sourceTree = "<group>"; };
 		DB938EEC2623F79B00E5B6C1 /* ThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewModel.swift; sourceTree = "<group>"; };
-		DB938F0226240EA300E5B6C1 /* CachedThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedThreadViewModel.swift; sourceTree = "<group>"; };
 		DB938F0826240F3C00E5B6C1 /* RemoteThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteThreadViewModel.swift; sourceTree = "<group>"; };
 		DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+LoadThreadState.swift"; sourceTree = "<group>"; };
 		DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+Diffable.swift"; sourceTree = "<group>"; };
@@ -1190,7 +1187,6 @@
 		DBCBCBF3267CB070000F5B51 /* Decode85.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decode85.swift; sourceTree = "<group>"; };
 		DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBCC3B2F261440A50045B23D /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
-		DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedProfileViewModel.swift; sourceTree = "<group>"; };
 		DBD376B1269302A4007FEC24 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+TableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
 		DBD5B1F927BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+StatusTableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
@@ -2663,7 +2659,6 @@
 				DB938EEC2623F79B00E5B6C1 /* ThreadViewModel.swift */,
 				DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */,
 				DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */,
-				DB938F0226240EA300E5B6C1 /* CachedThreadViewModel.swift */,
 				DB938F0826240F3C00E5B6C1 /* RemoteThreadViewModel.swift */,
 				DB0FCB7F27968F70006C02E2 /* MastodonStatusThreadViewModel.swift */,
 			);
@@ -2758,7 +2753,6 @@
 				DBFEEC97279BDC6A004F81DD /* About */,
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
-				DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */,
 				DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */,
 				DBB525632612C988002F1F29 /* MeProfileViewModel.swift */,
 			);
@@ -3870,7 +3864,6 @@
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
 				D8F9170D2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift in Sources */,
 				DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */,
-				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
 				DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */,
 				D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */,
@@ -3882,7 +3875,6 @@
 				2AB5011C299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
 				DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
-				DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */,
 				DBA5A53526F0A36A00CACBAA /* AddAccountTableViewCell.swift in Sources */,
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,
 				DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */,

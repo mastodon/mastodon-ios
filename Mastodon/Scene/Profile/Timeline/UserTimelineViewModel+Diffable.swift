@@ -48,7 +48,7 @@ extension UserTimelineViewModel {
         ).map { $0 || $1 || $2 }
         
         Publishers.CombineLatest(
-            statusFetchedResultsController.$records,
+            $records,
             needsTimelineHidden.removeDuplicates()
         )
         .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)

@@ -19,7 +19,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     // author
     public let author: ManagedObjectRecord<MastodonUser>
     // refer
-    public let replyTo: ManagedObjectRecord<Status>?
+    public let replyTo: Mastodon.Entity.Status?
     // content warning
     public let isContentWarningComposing: Bool
     public let contentWarning: String
@@ -48,7 +48,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
 
     public init(
         author: ManagedObjectRecord<MastodonUser>,
-        replyTo: ManagedObjectRecord<Status>?,
+        replyTo: Mastodon.Entity.Status?,
         isContentWarningComposing: Bool,
         contentWarning: String,
         content: String,
@@ -162,7 +162,7 @@ extension MastodonStatusPublisher: StatusPublisher {
             return self.pollExpireConfigurationOption.seconds
         }()
         let inReplyToID: Mastodon.Entity.Status.ID? = try await api.backgroundManagedObjectContext.perform {
-            guard let replyTo = self.replyTo?.object(in: api.backgroundManagedObjectContext) else { return nil }
+            guard let replyTo = self.replyTo else { return nil } //?.object(in: api.backgroundManagedObjectContext) else { return nil }
             return replyTo.id
         }
         

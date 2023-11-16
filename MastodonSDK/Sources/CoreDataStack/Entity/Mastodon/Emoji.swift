@@ -20,7 +20,7 @@ public final class Emoji: NSManagedObject {
     @NSManaged public private(set) var category: String?
     
     // many-to-one relationship
-    @NSManaged public private(set) var status: Status?
+    @NSManaged public private(set) var status: StatusLegacy?
 }
 
 public extension Emoji {

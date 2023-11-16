@@ -28,7 +28,7 @@ extension FollowerListViewModel {
         snapshot.appendItems([.bottomLoader], toSection: .main)
         diffableDataSource?.applySnapshotUsingReloadData(snapshot, completion: nil)
         
-        userFetchedResultsController.$records
+        $records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }

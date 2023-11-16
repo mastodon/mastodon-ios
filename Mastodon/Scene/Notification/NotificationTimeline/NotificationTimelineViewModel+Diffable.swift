@@ -30,7 +30,7 @@ extension NotificationTimelineViewModel {
         snapshot.appendSections([.main])
         diffableDataSource?.apply(snapshot)
         
-        feedFetchedResultsController.$records
+        $records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }
@@ -40,7 +40,7 @@ extension NotificationTimelineViewModel {
                     let oldSnapshot = diffableDataSource.snapshot()
                     var newSnapshot: NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem> = {
                         let newItems = records.map { record in
-                            NotificationItem.feed(record: record)
+                            NotificationItem.feed(record: .init(status: nil, notification: record, hasMore: false, isLoadingMore: false))
                         }
                         var snapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
                         snapshot.appendSections([.main])
@@ -48,36 +48,37 @@ extension NotificationTimelineViewModel {
                         return snapshot
                     }()
 
-                    let parentManagedObjectContext = self.context.managedObjectContext
-                    let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-                    managedObjectContext.parent = parentManagedObjectContext
-                    try? await managedObjectContext.perform {
-                        let anchors: [Feed] = {
-                            let request = Feed.sortedFetchRequest
-                            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                                Feed.hasMorePredicate(),
-                                self.feedFetchedResultsController.predicate,
-                            ])
-                            do {
-                                return try managedObjectContext.fetch(request)
-                            } catch {
-                                assertionFailure(error.localizedDescription)
-                                return []
-                            }
-                        }()
-                        
-                        let itemIdentifiers = newSnapshot.itemIdentifiers
-                        for (index, item) in itemIdentifiers.enumerated() {
-                            guard case let .feed(record) = item else { continue }
-                            guard anchors.contains(where: { feed in feed.objectID == record.objectID }) else { continue }
-                            let isLast = index + 1 == itemIdentifiers.count
-                            if isLast {
-                                newSnapshot.insertItems([.bottomLoader], afterItem: item)
-                            } else {
-                                newSnapshot.insertItems([.feedLoader(record: record)], afterItem: item)
-                            }
-                        }
-                    }
+                    #warning("Code below needs to be re-implemented")
+//                    let parentManagedObjectContext = self.context.managedObjectContext
+//                    let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+//                    managedObjectContext.parent = parentManagedObjectContext
+//                    try? await managedObjectContext.perform {
+//                        let anchors: [Feed] = {
+//                            let request = Feed.sortedFetchRequest
+//                            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+//                                Feed.hasMorePredicate(),
+//                                self.feedFetchedResultsController.predicate,
+//                            ])
+//                            do {
+//                                return try managedObjectContext.fetch(request)
+//                            } catch {
+//                                assertionFailure(error.localizedDescription)
+//                                return []
+//                            }
+//                        }()
+//                        
+//                        let itemIdentifiers = newSnapshot.itemIdentifiers
+//                        for (index, item) in itemIdentifiers.enumerated() {
+//                            guard case let .feed(record) = item else { continue }
+//                            guard anchors.contains(where: { feed in feed.objectID == record.objectID }) else { continue }
+//                            let isLast = index + 1 == itemIdentifiers.count
+//                            if isLast {
+//                                newSnapshot.insertItems([.bottomLoader], afterItem: item)
+//                            } else {
+//                                newSnapshot.insertItems([.feedLoader(record: record)], afterItem: item)
+//                            }
+//                        }
+//                    }
 
                     let hasChanges = newSnapshot.itemIdentifiers != oldSnapshot.itemIdentifiers
                     if !hasChanges {

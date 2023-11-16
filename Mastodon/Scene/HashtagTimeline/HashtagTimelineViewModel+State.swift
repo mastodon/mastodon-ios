@@ -7,7 +7,7 @@
 
 import Foundation
 import GameplayKit
-import CoreDataStack
+import MastodonSDK
 
 extension HashtagTimelineViewModel {
     class State: GKState {
@@ -93,7 +93,7 @@ extension HashtagTimelineViewModel.State {
     }
     
     class Loading: HashtagTimelineViewModel.State {
-        var maxID: Status.ID?
+        var maxID: Mastodon.Entity.Status.ID?
         
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
@@ -145,10 +145,10 @@ extension HashtagTimelineViewModel.State {
                     self.maxID = newMaxID
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = isReloading ? [] : viewModel.fetchedResultsController.statusIDs
+                    var newRecords = isReloading ? [] : viewModel.records
                     for status in response.value {
-                        guard !statusIDs.contains(status.id) else { continue }
-                        statusIDs.append(status.id)
+                        guard !newRecords.contains(where: { $0.id == status.id }) else { continue }
+                        newRecords.append(status)
                         hasNewStatusesAppend = true
                     }
 
@@ -158,7 +158,7 @@ extension HashtagTimelineViewModel.State {
                         await enter(state: NoMore.self)
                     }
                     
-                    viewModel.fetchedResultsController.append(statusIDs: statusIDs)
+                    viewModel.records = newRecords
                     viewModel.didLoadLatest.send()
                 } catch {
                     await enter(state: Fail.self)

@@ -11,12 +11,11 @@ import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
 import os
-import CoreDataStack
 import MastodonSDK
 
 public protocol UserViewDelegate: AnyObject {
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser)
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account, me: MastodonUser?)
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account)
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account, me: Mastodon.Entity.Account?)
 }
 
 public final class UserView: UIView {

@@ -45,14 +45,33 @@ extension MastodonAuthenticationBox {
             userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken),
             inMemoryCache: .sharedCache(for: authentication.userID) // todo: make sure this is really unique
         )
+        
+        fetchMeAccount()
     }
     
+    private func fetchMeAccount() {
+        Task {
+            do {
+                let account = try await Mastodon.API.Account.accountInfo(
+                    session: .shared,
+                    domain: domain,
+                    userID: userID,
+                    authorization: userAuthorization
+                ).singleOutput().value
+                
+                self.inMemoryCache.meAccount = account
+            } catch {
+                assertionFailure("Failed to fetchMeAccount")
+            }
+        }
+    }
 }
 
 public class MastodonAccountInMemoryCache {
     @Published public var followingUserIds: [String] = []
     @Published public var blockedUserIds: [String] = []
     @Published public var followRequestedUserIDs: [String] = []
+    @Published public var meAccount: Mastodon.Entity.Account?
     
     static var sharedCaches = [String: MastodonAccountInMemoryCache]()
     

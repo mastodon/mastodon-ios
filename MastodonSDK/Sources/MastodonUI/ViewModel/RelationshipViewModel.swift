@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import MastodonAsset
 import MastodonLocalization
-import CoreDataStack
+import MastodonSDK
 
 public enum RelationshipAction: Int, CaseIterable {
     case showReblogs
@@ -104,8 +104,8 @@ public final class RelationshipViewModel {
     public var meObserver: AnyCancellable?
     
     // input
-    @Published public var user: MastodonUser?
-    @Published public var me: MastodonUser?
+    @Published public var user: Mastodon.Entity.Account?
+    @Published public var me: Mastodon.Entity.Account?
     public let relationshipUpdatePublisher = CurrentValueSubject<Void, Never>(Void())  // needs initial event
     
     // output
@@ -129,140 +129,140 @@ public final class RelationshipViewModel {
         .receive(on: DispatchQueue.main)
         .sink { [weak self] user, me, _ in
             guard let self = self else { return }
-            self.update(user: user, me: me)
+//            self.update(user: user, me: me)
             
-            guard let user = user, let me = me else {
-                self.userObserver = nil
-                self.meObserver = nil
-                return
-            }
+//            guard let user = user, let me = me else {
+//                self.userObserver = nil
+//                self.meObserver = nil
+//                return
+//            }
             
-            // do not modify object to prevent infinity loop
-            self.userObserver = RelationshipViewModel.createObjectChangePublisher(user: user)
-                .sink { [weak self] _ in
-                    guard let self = self else { return }
-                    self.relationshipUpdatePublisher.send()
-                }
-                
-            self.meObserver = RelationshipViewModel.createObjectChangePublisher(user: me)
-                .sink { [weak self] _ in
-                    guard let self = self else { return }
-                    self.relationshipUpdatePublisher.send()
-                }
+//            // do not modify object to prevent infinity loop
+//            self.userObserver = RelationshipViewModel.createObjectChangePublisher(user: user)
+//                .sink { [weak self] _ in
+//                    guard let self = self else { return }
+//                    self.relationshipUpdatePublisher.send()
+//                }
+//                
+//            self.meObserver = RelationshipViewModel.createObjectChangePublisher(user: me)
+//                .sink { [weak self] _ in
+//                    guard let self = self else { return }
+//                    self.relationshipUpdatePublisher.send()
+//                }
         }
         .store(in: &disposeBag)
     }
     
 }
 
-extension RelationshipViewModel {
-    
-    public static func createObjectChangePublisher(user: MastodonUser) -> AnyPublisher<Void, Never> {
-        return ManagedObjectObserver
-            .observe(object: user)
-            .map { _ in Void() }
-            .catch { error in
-                return Just(Void())
-            }
-            .eraseToAnyPublisher()
-    }
-    
-}
+//extension RelationshipViewModel {
+//    
+//    public static func createObjectChangePublisher(user: MastodonUser) -> AnyPublisher<Void, Never> {
+//        return ManagedObjectObserver
+//            .observe(object: user)
+//            .map { _ in Void() }
+//            .catch { error in
+//                return Just(Void())
+//            }
+//            .eraseToAnyPublisher()
+//    }
+//    
+//}
 
-extension RelationshipViewModel {
-    private func update(user: MastodonUser?, me: MastodonUser?) {
-        guard let user = user,
-              let me = me
-        else {
-            reset()
-            return
-        }
-        
-        let optionSet = RelationshipViewModel.optionSet(user: user, me: me)
-
-        self.isMyself = optionSet.contains(.isMyself)
-        self.isFollowingBy = optionSet.contains(.followingBy)
-        self.isFollowing = optionSet.contains(.following)
-        self.isMuting = optionSet.contains(.muting)
-        self.isBlockingBy = optionSet.contains(.blockingBy)
-        self.isBlocking = optionSet.contains(.blocking)
-        self.isSuspended = optionSet.contains(.suspended)
-        self.showReblogs = optionSet.contains(.showReblogs)
-
-        self.optionSet = optionSet
-    }
-    
-    private func reset() {
-        isMyself = false
-        isFollowingBy = false
-        isFollowing = false
-        isMuting = false
-        isBlockingBy = false
-        isBlocking = false
-        optionSet = nil
-        showReblogs = false
-    }
-}
-
-extension RelationshipViewModel {
-
-    public static func optionSet(user: MastodonUser, me: MastodonUser) -> RelationshipActionOptionSet {
-        let isMyself = user.id == me.id && user.domain == me.domain
-        guard !isMyself else {
-            return [.isMyself, .edit]
-        }
-        
-        let isProtected = user.locked
-        let isFollowingBy = me.followingBy.contains(user)
-        let isFollowing = user.followingBy.contains(me)
-        let isPending = user.followRequestedBy.contains(me)
-        let isMuting = user.mutingBy.contains(me)
-        let isBlockingBy = me.blockingBy.contains(user)
-        let isBlocking = user.blockingBy.contains(me)
-        let isShowingReblogs = me.showingReblogsBy.contains(user)
-
-        var optionSet: RelationshipActionOptionSet = [.follow]
-        
-        if isMyself {
-            optionSet.insert(.isMyself)
-        }
-        
-        if isProtected {
-            optionSet.insert(.request)
-        }
-        
-        if isFollowingBy {
-            optionSet.insert(.followingBy)
-        }
-        
-        if isFollowing {
-            optionSet.insert(.following)
-        }
-        
-        if isPending {
-            optionSet.insert(.pending)
-        }
-        
-        if isMuting {
-            optionSet.insert(.muting)
-        }
-        
-        if isBlockingBy {
-            optionSet.insert(.blockingBy)
-        }
-
-        if isBlocking {
-            optionSet.insert(.blocking)
-        }
-        
-        if user.suspended {
-            optionSet.insert(.suspended)
-        }
-
-        if isShowingReblogs {
-            optionSet.insert(.showReblogs)
-        }
-
-        return optionSet
-    }
-}
+//extension RelationshipViewModel {
+//    private func update(user: MastodonUser?, me: MastodonUser?) {
+//        guard let user = user,
+//              let me = me
+//        else {
+//            reset()
+//            return
+//        }
+//        
+//        let optionSet = RelationshipViewModel.optionSet(user: user, me: me)
+//
+//        self.isMyself = optionSet.contains(.isMyself)
+//        self.isFollowingBy = optionSet.contains(.followingBy)
+//        self.isFollowing = optionSet.contains(.following)
+//        self.isMuting = optionSet.contains(.muting)
+//        self.isBlockingBy = optionSet.contains(.blockingBy)
+//        self.isBlocking = optionSet.contains(.blocking)
+//        self.isSuspended = optionSet.contains(.suspended)
+//        self.showReblogs = optionSet.contains(.showReblogs)
+//
+//        self.optionSet = optionSet
+//    }
+//    
+//    private func reset() {
+//        isMyself = false
+//        isFollowingBy = false
+//        isFollowing = false
+//        isMuting = false
+//        isBlockingBy = false
+//        isBlocking = false
+//        optionSet = nil
+//        showReblogs = false
+//    }
+//}
+//
+//extension RelationshipViewModel {
+//
+//    public static func optionSet(user: MastodonUser, me: MastodonUser) -> RelationshipActionOptionSet {
+//        let isMyself = user.id == me.id && user.domain == me.domain
+//        guard !isMyself else {
+//            return [.isMyself, .edit]
+//        }
+//        
+//        let isProtected = user.locked
+//        let isFollowingBy = me.followingBy.contains(user)
+//        let isFollowing = user.followingBy.contains(me)
+//        let isPending = user.followRequestedBy.contains(me)
+//        let isMuting = user.mutingBy.contains(me)
+//        let isBlockingBy = me.blockingBy.contains(user)
+//        let isBlocking = user.blockingBy.contains(me)
+//        let isShowingReblogs = me.showingReblogsBy.contains(user)
+//
+//        var optionSet: RelationshipActionOptionSet = [.follow]
+//        
+//        if isMyself {
+//            optionSet.insert(.isMyself)
+//        }
+//        
+//        if isProtected {
+//            optionSet.insert(.request)
+//        }
+//        
+//        if isFollowingBy {
+//            optionSet.insert(.followingBy)
+//        }
+//        
+//        if isFollowing {
+//            optionSet.insert(.following)
+//        }
+//        
+//        if isPending {
+//            optionSet.insert(.pending)
+//        }
+//        
+//        if isMuting {
+//            optionSet.insert(.muting)
+//        }
+//        
+//        if isBlockingBy {
+//            optionSet.insert(.blockingBy)
+//        }
+//
+//        if isBlocking {
+//            optionSet.insert(.blocking)
+//        }
+//        
+//        if user.suspended {
+//            optionSet.insert(.suspended)
+//        }
+//
+//        if isShowingReblogs {
+//            optionSet.insert(.showReblogs)
+//        }
+//
+//        return optionSet
+//    }
+//}

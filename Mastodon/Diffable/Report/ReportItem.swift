@@ -6,13 +6,13 @@
 //
 
 import Foundation
-import CoreDataStack
+import MastodonSDK
 
 enum ReportItem: Hashable {
     case header(context: HeaderContext)
-    case status(record: ManagedObjectRecord<Status>)
+    case status(record: Mastodon.Entity.Status)
     case comment(context: CommentContext)
-    case result(record: ManagedObjectRecord<MastodonUser>)
+    case result(record: Mastodon.Entity.Account)
     case bottomLoader
 }
 

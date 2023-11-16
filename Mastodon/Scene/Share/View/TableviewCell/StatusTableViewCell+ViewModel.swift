@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import CoreDataStack
+import MastodonSDK
 
 extension StatusTableViewCell {
     final class ViewModel {
@@ -17,8 +17,8 @@ extension StatusTableViewCell {
         }
         
         enum Value {
-            case feed(Feed)
-            case status(Status)
+            case feed(FeedItem)
+            case status(Mastodon.Entity.Status)
         }
     }
 }
@@ -38,13 +38,8 @@ extension StatusTableViewCell {
         switch viewModel.value {
         case .feed(let feed):
             statusView.configure(feed: feed)
-            
-            feed.publisher(for: \.hasMore)
-                .sink { [weak self] hasMore in
-                    guard let self = self else { return }
-                    self.separatorLine.isHidden = hasMore
-                }
-                .store(in: &disposeBag)
+
+            self.separatorLine.isHidden = feed.hasMore
             
         case .status(let status):
             statusView.configure(status: status)

@@ -8,17 +8,16 @@
 import UIKit
 import Combine
 import MastodonUI
-import CoreDataStack
 import MetaTextKit
 import MastodonMeta
 import Meta
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
-import class CoreDataStack.Notification
+import MastodonSDK
 
 extension NotificationView {
-    public func configure(feed: Feed) {
+    public func configure(feed: FeedItem) {
         guard let notification = feed.notification else {
             assertionFailure()
             return
@@ -29,17 +28,10 @@ extension NotificationView {
 }
 
 extension NotificationView {
-    public func configure(notification: Notification) {
-        viewModel.objects.insert(notification)
-
+    public func configure(notification: Mastodon.Entity.Notification) {
         configureAuthor(notification: notification)
-        
-        guard let type = MastodonNotificationType(rawValue: notification.typeRaw) else {
-            assertionFailure()
-            return
-        }
-        
-        switch type {
+
+        switch notification.type {
         case .follow:
             setAuthorContainerBottomPaddingViewDisplay()
         case .followRequest:
@@ -63,167 +55,125 @@ extension NotificationView {
 }
 
 extension NotificationView {
-    private func configureAuthor(notification: Notification) {
+    private func configureAuthor(notification: Mastodon.Entity.Notification) {
         let author = notification.account
         // author avatar
-        
-        Publishers.CombineLatest(
-            author.publisher(for: \.avatar),
-            UserDefaults.shared.publisher(for: \.preferredStaticAvatar)
-        )
-        .map { _ in author.avatarImageURL() }
-        .assign(to: \.authorAvatarImageURL, on: viewModel)
-        .store(in: &disposeBag)
+        viewModel.authorAvatarImageURL = author.avatarImageURL()
         
         // author name
-        Publishers.CombineLatest(
-            author.publisher(for: \.displayName),
-            author.publisher(for: \.emojis)
-        )
-        .map { _, emojis in
+        viewModel.authorName = {
             do {
-                let content = MastodonContent(content: author.displayNameWithFallback, emojis: emojis.asDictionary)
+                let content = MastodonContent(content: author.displayNameWithFallback, emojis: author.emojis?.asDictionary ?? [:])
                 let metaContent = try MastodonMetaContent.convert(document: content)
                 return metaContent
             } catch {
                 assertionFailure(error.localizedDescription)
                 return PlaintextMetaContent(string: author.displayNameWithFallback)
             }
-        }
-        .assign(to: \.authorName, on: viewModel)
-        .store(in: &disposeBag)
+        }()
+        
         // author username
-        author.publisher(for: \.acct)
-            .map { $0 as String? }
-            .assign(to: \.authorUsername, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.authorUsername = author.acct
+        
         // timestamp
-        viewModel.timestamp = notification.createAt
+        viewModel.timestamp = notification.createdAt
 
-        viewModel.visibility = notification.status?.visibility ?? ._other("")
+        viewModel.visibility = notification.status?.mastodonVisibility ?? ._other("")
 
         // notification type indicator
-        Publishers.CombineLatest3(
-            notification.publisher(for: \.typeRaw),
-            author.publisher(for: \.displayName),
-            author.publisher(for: \.emojis)
-        )
-        .sink { [weak self] typeRaw, _, emojis in
-            guard let self = self else { return }
-            guard let type = MastodonNotificationType(rawValue: typeRaw) else {
-                self.viewModel.notificationIndicatorText = nil
-                return
-            }
-            self.viewModel.type = type
+        self.viewModel.type = notification.type
 
-            func createMetaContent(text: String, emojis: MastodonContent.Emojis) -> MetaContent {
-                let content = MastodonContent(content: text, emojis: emojis)
-                guard let metaContent = try? MastodonMetaContent.convert(document: content) else {
-                    return PlaintextMetaContent(string: text)
-                }
-                return metaContent
+        func createMetaContent(text: String, emojis: MastodonContent.Emojis) -> MetaContent {
+            let content = MastodonContent(content: text, emojis: emojis)
+            guard let metaContent = try? MastodonMetaContent.convert(document: content) else {
+                return PlaintextMetaContent(string: text)
             }
-
-            // TODO: fix the i18n. The subject should assert place at the string beginning
-            switch type {
-            case .follow:
-                self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.NotificationDescription.followedYou,
-                    emojis: emojis.asDictionary
-                )
-            case .followRequest:
-                self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.NotificationDescription.requestToFollowYou,
-                    emojis: emojis.asDictionary
-                )
-            case .mention:
-                self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.NotificationDescription.mentionedYou,
-                    emojis: emojis.asDictionary
-                )
-            case .reblog:
-                self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.NotificationDescription.rebloggedYourPost,
-                    emojis: emojis.asDictionary
-                )
-            case .favourite:
-                self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.NotificationDescription.favoritedYourPost,
-                    emojis: emojis.asDictionary
-                )
-            case .poll:
-                self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.NotificationDescription.pollHasEnded,
-                    emojis: emojis.asDictionary
-                )
-            case .status:
-                self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: .empty,
-                    emojis: emojis.asDictionary
-                )
-            case ._other:
-                self.viewModel.notificationIndicatorText = nil
-            }
+            return metaContent
         }
-        .store(in: &disposeBag)
+
+        // TODO: fix the i18n. The subject should assert place at the string beginning
+        guard let type = viewModel.type else { return }
         
-        let authContext = viewModel.authContext
-        // isMuting
-        author.publisher(for: \.mutingBy)
-            .map { mutingBy in
-                guard let authContext = authContext else { return false }
-                return mutingBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID
-                    && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
+        switch type {
+        case .follow:
+            self.viewModel.notificationIndicatorText = createMetaContent(
+                text: L10n.Scene.Notification.NotificationDescription.followedYou,
+                emojis: author.emojis?.asDictionary ?? [:]
+            )
+        case .followRequest:
+            self.viewModel.notificationIndicatorText = createMetaContent(
+                text: L10n.Scene.Notification.NotificationDescription.requestToFollowYou,
+                emojis: author.emojis?.asDictionary ?? [:]
+            )
+        case .mention:
+            self.viewModel.notificationIndicatorText = createMetaContent(
+                text: L10n.Scene.Notification.NotificationDescription.mentionedYou,
+                emojis: author.emojis?.asDictionary ?? [:]
+            )
+        case .reblog:
+            self.viewModel.notificationIndicatorText = createMetaContent(
+                text: L10n.Scene.Notification.NotificationDescription.rebloggedYourPost,
+                emojis: author.emojis?.asDictionary ?? [:]
+            )
+        case .favourite:
+            self.viewModel.notificationIndicatorText = createMetaContent(
+                text: L10n.Scene.Notification.NotificationDescription.favoritedYourPost,
+                emojis: author.emojis?.asDictionary ?? [:]
+            )
+        case .poll:
+            self.viewModel.notificationIndicatorText = createMetaContent(
+                text: L10n.Scene.Notification.NotificationDescription.pollHasEnded,
+                emojis: author.emojis?.asDictionary ?? [:]
+            )
+        case .status:
+            self.viewModel.notificationIndicatorText = createMetaContent(
+                text: .empty,
+                emojis: author.emojis?.asDictionary ?? [:]
+            )
+        case ._other:
+            self.viewModel.notificationIndicatorText = nil
+        }
+        
+        guard let authContext = viewModel.authContext else { return }
+
+        Task {
+            guard let context = viewModel.context else { return }
+            if let relationship = try await context.apiService.relationship(records: [author], authenticationBox: authContext.mastodonAuthenticationBox).value.first {
+                
+                viewModel.isMuting = relationship.muting == true
+                viewModel.isBlocking = relationship.blockedBy == true // OR: blocking ???
+                viewModel.isFollowed = relationship.followedBy
             }
-            .assign(to: \.isMuting, on: viewModel)
-            .store(in: &disposeBag)
-        // isBlocking
-        author.publisher(for: \.blockingBy)
-            .map { blockingBy in
-                guard let authContext = authContext else { return false }
-                return blockingBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID
-                    && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
-            .assign(to: \.isBlocking, on: viewModel)
-            .store(in: &disposeBag)
+            
+//            let pendingFollowRequests = try await context.apiService.pendingFollowRequest(userID: notification.account.id, authenticationBox: authContext.mastodonAuthenticationBox).value
+            
+//            pendingFollowRequests
+        }
 
         // isMyself
-        Publishers.CombineLatest(
-            author.publisher(for: \.domain),
-            author.publisher(for: \.id)
-        )
-        .map { domain, id in
-            guard let authContext = authContext else { return false }
-            return authContext.mastodonAuthenticationBox.domain == domain
-                && authContext.mastodonAuthenticationBox.userID == id
-        }
-        .assign(to: \.isMyself, on: viewModel)
-        .store(in: &disposeBag)
+        viewModel.isMyself = (author.domain == authContext.mastodonAuthenticationBox.domain) && (author.id == authContext.mastodonAuthenticationBox.userID)
 
+        #warning("re-implemented the two below")
         // follow request state
-        notification.publisher(for: \.followRequestState)
-            .assign(to: \.followRequestState, on: viewModel)
-            .store(in: &disposeBag)
-
-        notification.publisher(for: \.transientFollowRequestState)
-            .assign(to: \.transientFollowRequestState, on: viewModel)
-            .store(in: &disposeBag)
+//        notification.publisher(for: \.followRequestState)
+//            .assign(to: \.followRequestState, on: viewModel)
+//            .store(in: &disposeBag)
+        
+//        notification.publisher(for: \.transientFollowRequestState)
+//            .assign(to: \.transientFollowRequestState, on: viewModel)
+//            .store(in: &disposeBag)
 
         // Following
-        author.publisher(for: \.followingBy)
-            .map { [weak viewModel] followingBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return followingBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
-            .assign(to: \.isFollowed, on: viewModel)
-            .store(in: &disposeBag)
+//        author.publisher(for: \.followingBy)
+//            .map { [weak viewModel] followingBy in
+//                guard let viewModel = viewModel else { return false }
+//                guard let authContext = viewModel.authContext else { return false }
+//                return followingBy.contains(where: {
+//                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
+//                })
+//            }
+//            .assign(to: \.isFollowed, on: viewModel)
+//            .store(in: &disposeBag)
 
     }
 }

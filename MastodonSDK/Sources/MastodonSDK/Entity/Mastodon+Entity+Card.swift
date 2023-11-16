@@ -83,3 +83,13 @@ extension Mastodon.Entity.Card {
         }
     }
 }
+
+extension Mastodon.Entity.Card: Hashable {
+    public static func == (lhs: Mastodon.Entity.Card, rhs: Mastodon.Entity.Card) -> Bool {
+        lhs.url == rhs.url
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(url)
+    }
+}

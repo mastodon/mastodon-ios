@@ -7,7 +7,7 @@
 
 import UIKit
 import Combine
-import CoreDataStack
+import MastodonSDK
 
 extension NotificationTableViewCell {
     final class ViewModel {
@@ -18,7 +18,7 @@ extension NotificationTableViewCell {
         }
         
         enum Value {
-            case feed(Feed)
+            case feed(FeedItem)
         }
     }
 }

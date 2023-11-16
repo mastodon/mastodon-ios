@@ -6,20 +6,19 @@
 //
 
 import Foundation
-import CoreDataStack
 import MetaTextKit
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     
     static func responseToMetaTextAction(
         provider: DataSourceProvider & AuthContextProvider,
         target: StatusTarget,
-        status: ManagedObjectRecord<Status>,
+        status: Mastodon.Entity.Status,
         meta: Meta
     ) async throws {
-        let _redirectRecord = await DataSourceFacade.status(
-            managedObjectContext: provider.context.managedObjectContext,
+        let _redirectRecord = DataSourceFacade.status(
             status: status,
             target: target
         )
@@ -35,7 +34,7 @@ extension DataSourceFacade {
     
     static func responseToMetaTextAction(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>,
+        status: Mastodon.Entity.Status,
         meta: Meta
     ) async {
         switch meta {

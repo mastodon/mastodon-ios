@@ -6,19 +6,18 @@
 //
 
 import UIKit
-import CoreDataStack
 import MastodonCore
 import MastodonSDK
+import CoreDataStack
 
 extension DataSourceFacade {
     
     static func coordinateToProfileScene(
         provider: DataSourceProvider & AuthContextProvider,
         target: StatusTarget,
-        status: ManagedObjectRecord<Status>
+        status: Mastodon.Entity.Status
     ) async {
-        let _redirectRecord = await DataSourceFacade.author(
-            managedObjectContext: provider.context.managedObjectContext,
+        let _redirectRecord = DataSourceFacade.author(
             status: status,
             target: target
         )
@@ -35,17 +34,12 @@ extension DataSourceFacade {
     @MainActor
     static func coordinateToProfileScene(
         provider: ViewControllerWithDependencies & AuthContextProvider,
-        user: ManagedObjectRecord<MastodonUser>
+        user: Mastodon.Entity.Account
     ) async {
-        guard let user = user.object(in: provider.context.managedObjectContext) else {
-            assertionFailure()
-            return
-        }
-        
-        let profileViewModel = CachedProfileViewModel(
+        let profileViewModel = ProfileViewModel(
             context: provider.context,
             authContext: provider.authContext,
-            mastodonUser: user
+            optionalMastodonUser: user
         )
         
         _ = provider.coordinator.present(
@@ -71,9 +65,8 @@ extension DataSourceFacade {
                                                                            authenticationBox: provider.authContext.mastodonAuthenticationBox)
                 provider.coordinator.hideLoading()
                 
-                if let user {
-                    await coordinateToProfileScene(provider: provider, user: user.asRecord)
-                }
+                await coordinateToProfileScene(provider: provider, user: user)
+
             } catch {
                 provider.coordinator.hideLoading()
             }
@@ -85,12 +78,10 @@ extension DataSourceFacade {
 
     static func coordinateToProfileScene(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>,
+        status: Mastodon.Entity.Status,
         mention: String,        // username,
         userInfo: [AnyHashable: Any]?
     ) async {
-        let domain = provider.authContext.mastodonAuthenticationBox.domain
-        
         guard
             let href = userInfo?["href"] as? String,
             let url = URL(string: href)
@@ -98,10 +89,7 @@ extension DataSourceFacade {
             return
         }
     
-        let managedObjectContext = provider.context.managedObjectContext
-        let mentions = try? await managedObjectContext.perform {
-            return status.object(in: managedObjectContext)?.mentions ?? []
-        }
+        let mentions = status.mentions
         
         guard let mention = mentions?.first(where: { $0.url == href }) else {
             _  = await provider.coordinator.present(
@@ -119,16 +107,7 @@ extension DataSourceFacade {
                 return MeProfileViewModel(context: provider.context, authContext: provider.authContext)
             }
 
-            let request = MastodonUser.sortedFetchRequest
-            request.fetchLimit = 1
-            request.predicate = MastodonUser.predicate(domain: domain, id: userID)
-            let _user = provider.context.managedObjectContext.safeFetch(request).first
-
-            if let user = _user {
-                return CachedProfileViewModel(context: provider.context, authContext: provider.authContext, mastodonUser: user)
-            } else {
-                return RemoteProfileViewModel(context: provider.context, authContext: provider.authContext, userID: userID)
-            }
+            return RemoteProfileViewModel(context: provider.context, authContext: provider.authContext, userID: userID)
         }()
         
         _ = await provider.coordinator.present(
@@ -154,11 +133,10 @@ extension DataSourceFacade {
     
     static func createActivityViewController(
         dependency: NeedsDependency,
-        user: ManagedObjectRecord<MastodonUser>
+        user: Mastodon.Entity.Account
     ) async throws -> UIActivityViewController? {
         let managedObjectContext = dependency.context.managedObjectContext
         let activityItems: [Any] = try await managedObjectContext.perform {
-            guard let user = user.object(in: managedObjectContext) else { return [] }
             return user.activityItems
         }
         guard !activityItems.isEmpty else {
@@ -173,7 +151,7 @@ extension DataSourceFacade {
         return activityViewController
     }
     
-    static func createActivityViewControllerForMastodonUser(status: Status, dependency: NeedsDependency) -> UIActivityViewController {
+    static func createActivityViewControllerForMastodonUser(status: Mastodon.Entity.Status, dependency: NeedsDependency) -> UIActivityViewController {
         let activityViewController = UIActivityViewController(
             activityItems: status.activityItems,
             applicationActivities: [SafariActivity(sceneCoordinator: dependency.coordinator)]

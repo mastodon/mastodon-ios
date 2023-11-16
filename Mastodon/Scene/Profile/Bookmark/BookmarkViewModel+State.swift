@@ -57,7 +57,7 @@ extension BookmarkViewModel.State {
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
             // reset
-            viewModel.statusFetchedResultsController.statusIDs = []
+            viewModel.statuses = []
             
             stateMachine.enter(Loading.self)
         }
@@ -128,10 +128,10 @@ extension BookmarkViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs
+                    var modifiedStatuses = viewModel.statuses
                     for status in response.value {
-                        guard !statusIDs.contains(status.id) else { continue }
-                        statusIDs.append(status.id)
+                        guard !modifiedStatuses.map({ $0.id }).contains(status.id) else { continue }
+                        modifiedStatuses.append(status)
                         hasNewStatusesAppend = true
                     }
                     
@@ -147,7 +147,7 @@ extension BookmarkViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
+                    viewModel.statuses = modifiedStatuses
                 } catch {
                     await enter(state: Fail.self)
                 }

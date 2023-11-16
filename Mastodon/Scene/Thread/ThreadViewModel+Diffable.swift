@@ -7,8 +7,6 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonCore
 import MastodonUI
 import MastodonSDK
@@ -38,8 +36,7 @@ extension ThreadViewModel {
         snapshot.appendSections([.main])
         if let root = self.root {
             if case let .root(threadContext) = root,
-               let status = threadContext.status.object(in: context.managedObjectContext),
-               status.inReplyToID != nil
+               threadContext.status.inReplyToID != nil
             {
                 snapshot.appendItems([.topLoader], toSection: .main)
             }
@@ -81,8 +78,7 @@ extension ThreadViewModel {
                 // top loader
                 let _hasReplyTo: Bool? = try? await self.context.managedObjectContext.perform {
                     guard case let .root(threadContext) = root else { return nil }
-                    guard let status = threadContext.status.object(in: self.context.managedObjectContext) else { return nil }
-                    return status.inReplyToID != nil
+                    return threadContext.status.inReplyToID != nil
                 }
                 if let hasReplyTo = _hasReplyTo, hasReplyTo {
                     let state = self.loadThreadStateMachine.currentState

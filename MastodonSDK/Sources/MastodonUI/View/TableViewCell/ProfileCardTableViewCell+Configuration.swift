@@ -6,14 +6,13 @@
 //
 
 import UIKit
-import CoreDataStack
 import MastodonSDK
 
 extension ProfileCardTableViewCell {
     
     public func configure(
         tableView: UITableView,
-        user: MastodonUser,
+        user: Mastodon.Entity.Account,
         profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate?
     ) {
         if profileCardView.frame == .zero {

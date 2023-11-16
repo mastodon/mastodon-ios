@@ -32,6 +32,9 @@ extension Mastodon.Entity {
         public let ownVotes: [Int]?
         public let options: [Option]
         
+        // virtual
+        public var isVoting = false
+        
         enum CodingKeys: String, CodingKey {
             case id
             case expiresAt = "expires_at"
@@ -42,6 +45,7 @@ extension Mastodon.Entity {
             case voted
             case ownVotes = "own_votes"
             case options
+            case isVoting
         }
     }
 }
@@ -58,5 +62,19 @@ extension Mastodon.Entity.Poll {
             case votesCount = "votes_count"
             case emojis
         }
+    }
+}
+
+extension Mastodon.Entity.Poll: Hashable {
+    
+}
+
+extension Mastodon.Entity.Poll.Option: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+    }
+    
+    public static func == (lhs: Mastodon.Entity.Poll.Option, rhs: Mastodon.Entity.Poll.Option) -> Bool {
+        lhs.title == rhs.title
     }
 }

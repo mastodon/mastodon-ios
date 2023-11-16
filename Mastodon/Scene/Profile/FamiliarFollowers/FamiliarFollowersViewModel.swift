@@ -17,8 +17,8 @@ final class FamiliarFollowersViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let userFetchedResultsController: UserFetchedResultsController
-
+//    let userFetchedResultsController: UserFetchedResultsController
+    @Published var records = [Mastodon.Entity.Account]()
     @Published var familiarFollowers: Mastodon.Entity.FamiliarFollowers?
     
     // output
@@ -27,19 +27,19 @@ final class FamiliarFollowersViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalPredicate: nil
-        )
+//        self.userFetchedResultsController = UserFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            additionalPredicate: nil
+//        )
         // end init
         
         $familiarFollowers
-            .map { familiarFollowers -> [MastodonUser.ID] in
+            .map { familiarFollowers in
                 guard let familiarFollowers = familiarFollowers else { return [] }
-                return familiarFollowers.accounts.map { $0.id }
+                return familiarFollowers.accounts
             }
-            .assign(to: \.userIDs, on: userFetchedResultsController)
+            .assign(to: \.records, on: self)
             .store(in: &disposeBag)
     }
     

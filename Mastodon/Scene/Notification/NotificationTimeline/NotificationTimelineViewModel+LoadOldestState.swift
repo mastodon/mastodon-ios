@@ -5,7 +5,6 @@
 //  Created by MainasuK on 2022-1-21.
 //
 
-import CoreDataStack
 import Foundation
 import GameplayKit
 import MastodonSDK
@@ -32,7 +31,7 @@ extension NotificationTimelineViewModel.LoadOldestState {
     class Initial: NotificationTimelineViewModel.LoadOldestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
-            guard !viewModel.feedFetchedResultsController.records.isEmpty else { return false }
+            guard !viewModel.records.isEmpty else { return false }
             return stateClass == Loading.self
         }
     }
@@ -47,7 +46,7 @@ extension NotificationTimelineViewModel.LoadOldestState {
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            guard let lastFeedRecord = viewModel.feedFetchedResultsController.records.last else {
+            guard let lastFeedRecord = viewModel.records.last else {
                 stateMachine.enter(Fail.self)
                 return
             }
@@ -55,12 +54,7 @@ extension NotificationTimelineViewModel.LoadOldestState {
             
             Task {
                 let managedObjectContext = viewModel.context.managedObjectContext
-                let _maxID: Mastodon.Entity.Notification.ID? = try await managedObjectContext.perform {
-                    guard let feed = lastFeedRecord.object(in: managedObjectContext),
-                          let notification = feed.notification
-                    else { return nil }
-                    return notification.id
-                }
+                let _maxID: Mastodon.Entity.Notification.ID? = viewModel.records.last?.id
                 
                 guard let maxID = _maxID else {
                     await self.enter(state: Fail.self)

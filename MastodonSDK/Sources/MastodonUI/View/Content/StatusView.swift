@@ -307,7 +307,6 @@ public final class StatusView: UIView {
     public func prepareForReuse() {
         disposeBag.removeAll()
         
-        viewModel.objects.removeAll()
         viewModel.prepareForReuse()
         
         authorView.avatarButton.avatarImageView.cancelTask()
@@ -404,7 +403,7 @@ extension StatusView {
     }
 
     @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
-        guard let url = viewModel.card?.url else { return }
+        guard let urlString = viewModel.card?.url, let url = URL(string: urlString) else { return }
         delegate?.statusView(self, didTapCardWithURL: url)
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 import CoreDataStack
 
-extension Status {
+extension StatusLegacy {
     
     // mark content sensitive when status contains spoilerText
     public var isContentSensitive: Bool {

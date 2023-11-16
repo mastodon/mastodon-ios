@@ -10,6 +10,7 @@ import MetaTextKit
 import CoreDataStack
 import MastodonCore
 import MastodonUI
+import MastodonSDK
 
 // MARK: - Notification AuthorMenuAction
 extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
@@ -30,20 +31,11 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
             
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
-                return .init(objectID: notification.account.objectID)
-            }
-            guard let author = _author else {
-                assertionFailure()
-                return
-            }
-            
             try await DataSourceFacade.responseToMenuAction(
                 dependency: self,
                 action: action,
                 menuContext: .init(
-                    author: author,
+                    author: notification.account,
                     statusViewModel: nil,
                     button: button,
                     barButtonItem: nil
@@ -70,17 +62,9 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
-                return .init(objectID: notification.account.objectID)
-            }
-            guard let author = _author else {
-                assertionFailure()
-                return
-            }
             await DataSourceFacade.coordinateToProfileScene(
                 provider: self,
-                user: author
+                user: notification.account
             )
         }   // end Task
     }
@@ -155,7 +139,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
 }
 
 private struct NotificationMediaTransitionContext {
-    let status: ManagedObjectRecord<Status>
+    let status: Mastodon.Entity.Status
     let needsToggleMediaSensitive: Bool
 }
 
@@ -175,23 +159,17 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
                 assertionFailure()
                 return
             }
-            guard case let .notification(record) = item else {
+            guard case let .notification(record) = item, let _status = record.status else {
                 assertionFailure("only works for status data provider")
                 return
             }
             
             let managedObjectContext = self.context.managedObjectContext
-            let _mediaTransitionContext: NotificationMediaTransitionContext? = try await managedObjectContext.perform {
-                guard let notification = record.object(in: managedObjectContext) else { return nil }
-                guard let _status = notification.status else { return nil }
-                let status = _status.reblog ?? _status
-                return NotificationMediaTransitionContext(
-                    status: .init(objectID: status.objectID),
-                    needsToggleMediaSensitive: status.isSensitiveToggled ? !status.sensitive : status.sensitive
-                )
-            }
-
-            guard let mediaTransitionContext = _mediaTransitionContext else { return }
+            let status = _status.reblog ?? _status
+            let mediaTransitionContext = NotificationMediaTransitionContext(
+                status: status,
+                needsToggleMediaSensitive: status.sensitiveToggled ? !(status.sensitive == true) : status.sensitive == true
+            )
             
             guard !mediaTransitionContext.needsToggleMediaSensitive else {
                 try await DataSourceFacade.responseToToggleSensitiveAction(
@@ -227,23 +205,18 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
                 assertionFailure()
                 return
             }
-            guard case let .notification(record) = item else {
+            guard case let .notification(record) = item, let _status = record.status else {
                 assertionFailure("only works for status data provider")
                 return
             }
             
             let managedObjectContext = self.context.managedObjectContext
-            let _mediaTransitionContext: NotificationMediaTransitionContext? = try await managedObjectContext.perform {
-                guard let notification = record.object(in: managedObjectContext) else { return nil }
-                guard let _status = notification.status else { return nil }
-                let status = _status.reblog ?? _status
-                return NotificationMediaTransitionContext(
-                    status: .init(objectID: status.objectID),
-                    needsToggleMediaSensitive: status.isMediaSensitive ? !status.isSensitiveToggled : false
-                )
-            }
-
-            guard let mediaTransitionContext = _mediaTransitionContext else { return }
+            
+            let status = _status.reblog ?? _status
+            let mediaTransitionContext = NotificationMediaTransitionContext(
+                status: status,
+                needsToggleMediaSensitive: status.sensitiveToggled ? !status.sensitiveToggled : false
+            )
             
             guard !mediaTransitionContext.needsToggleMediaSensitive else {
                 try await DataSourceFacade.responseToToggleSensitiveAction(
@@ -286,11 +259,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
-                guard let status = notification.status else { return nil }
-                return .init(objectID: status.objectID)
-            }
+            let _status = notification.status
+            
             guard let status = _status else {
                 assertionFailure()
                 return
@@ -323,12 +293,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
-                guard let status = notification.status else { return nil }
-                return .init(objectID: status.author.objectID)
-            }
-            guard let author = _author else {
+            
+            guard let author = notification.status?.account else {
                 assertionFailure()
                 return
             }
@@ -367,12 +333,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
             assertionFailure("only works for notification item")
             return
         }
-        let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-            guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
-            guard let status = notification.status else { return nil }
-            return .init(objectID: status.objectID)
-        }
-        guard let status = _status else {
+
+        guard let status = notification.status else {
             assertionFailure()
             return
         }
@@ -400,12 +362,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for notification item")
                 return
             }
-            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
-                guard let status = notification.status else { return nil }
-                return .init(objectID: status.objectID)
-            }
-            guard let status = _status else {
+
+            guard let status = notification.status else {
                 assertionFailure()
                 return
             }
@@ -465,12 +423,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for notification item")
                 return
             }
-            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
-                guard let status = notification.status else { return nil }
-                return .init(objectID: status.objectID)
-            }
-            guard let status = _status else {
+
+            guard let status = notification.status else {
                 assertionFailure()
                 return
             }
@@ -497,12 +451,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for notification item")
                 return
             }
-            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
-                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
-                guard let status = notification.status else { return nil }
-                return .init(objectID: status.objectID)
-            }
-            guard let status = _status else {
+
+            guard let status = notification.status else {
                 assertionFailure()
                 return
             }

@@ -7,8 +7,6 @@
 
 import Foundation
 import Combine
-import CoreData
-import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import MastodonCore
@@ -22,8 +20,11 @@ final class SearchResultViewModel {
     let searchScope: SearchScope
     let searchText: String
     @Published var hashtags: [Mastodon.Entity.Tag] = []
-    let userFetchedResultsController: UserFetchedResultsController
-    let statusFetchedResultsController: StatusFetchedResultsController
+    @Published var userRecords = [Mastodon.Entity.Account]()
+    @Published var statusRecords = [Mastodon.Entity.Status]()
+    
+//    let userFetchedResultsController: UserFetchedResultsController
+//    let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     var cellFrameCache = NSCache<NSNumber, NSValue>()
@@ -51,15 +52,15 @@ final class SearchResultViewModel {
         self.searchScope = searchScope
         self.searchText = searchText
 
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalPredicate: nil
-        )
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+//        self.userFetchedResultsController = UserFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            additionalPredicate: nil
+//        )
+//        self.statusFetchedResultsController = StatusFetchedResultsController(
+//            managedObjectContext: context.managedObjectContext,
+//            domain: authContext.mastodonAuthenticationBox.domain,
+//            additionalTweetPredicate: nil
+//        )
     }
 }
