@@ -203,7 +203,7 @@ extension MastodonPickServerViewModel {
 
     func chooseRandomServer() -> Mastodon.Entity.Server? {
 
-        let language = Locale.autoupdatingCurrent.languageCode?.lowercased() ?? "en"
+        let language = Locale.autoupdatingCurrent.language.languageCode?.identifier.lowercased() ?? "en"
 
         let servers = indexedServers.value
         guard servers.isNotEmpty else { return nil }

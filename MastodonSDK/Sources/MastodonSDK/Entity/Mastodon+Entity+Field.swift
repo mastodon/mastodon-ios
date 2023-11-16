@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/field/)
-    public struct Field: Codable, Sendable {
+    public struct Field: Codable, Sendable, Hashable {
         public let name: String
         public let value: String
         
