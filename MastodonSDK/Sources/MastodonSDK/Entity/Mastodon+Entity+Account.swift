@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MastodonCommon
 
 extension Mastodon.Entity {
     
@@ -84,64 +85,24 @@ extension Mastodon.Entity {
     }
 }
 
+//MARK: - Hashable
 extension Mastodon.Entity.Account: Hashable {
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(username)
-        hasher.combine(acct)
+        // The URL seems to be the only thing that doesn't change across instances.
         hasher.combine(url)
-        hasher.combine(displayName)
-        hasher.combine(note)
-        hasher.combine(avatar)
-        hasher.combine(avatarStatic)
-        hasher.combine(header)
-        hasher.combine(headerStatic)
-        hasher.combine(locked)
-        hasher.combine(emojis)
-        hasher.combine(discoverable)
-        hasher.combine(createdAt)
-        hasher.combine(lastStatusAt)
-        hasher.combine(statusesCount)
-        hasher.combine(followersCount)
-        hasher.combine(followingCount)
-        hasher.combine(moved)
-        hasher.combine(fields)
-        hasher.combine(bot)
-        hasher.combine(source)
-        hasher.combine(suspended)
-        hasher.combine(muteExpiresAt)
     }
+
 }
 
+//MARK: - Equatable
 extension Mastodon.Entity.Account: Equatable {
     public static func == (lhs: Mastodon.Entity.Account, rhs: Mastodon.Entity.Account) -> Bool {
-        return lhs.id == rhs.id &&
-        lhs.username == rhs.username &&
-        lhs.acct == rhs.acct &&
-        lhs.url == rhs.url &&
-        lhs.displayName == rhs.displayName &&
-        lhs.note == rhs.note &&
-        lhs.avatar == rhs.avatar &&
-        lhs.avatarStatic == rhs.avatarStatic &&
-        lhs.header == rhs.header &&
-        lhs.headerStatic == rhs.headerStatic &&
-        lhs.locked == rhs.locked &&
-        lhs.emojis == rhs.emojis &&
-        lhs.discoverable == rhs.discoverable &&
-        lhs.createdAt == rhs.createdAt &&
-        lhs.lastStatusAt == rhs.lastStatusAt &&
-        lhs.statusesCount == rhs.statusesCount &&
-        lhs.followersCount == rhs.followersCount &&
-        lhs.followingCount == rhs.followingCount &&
-        lhs.moved == rhs.moved &&
-        lhs.fields == rhs.fields &&
-        lhs.bot == rhs.bot &&
-        lhs.source == rhs.source &&
-        lhs.suspended == rhs.suspended &&
-        lhs.muteExpiresAt == rhs.muteExpiresAt
+        // The URL seems to be the only thing that doesn't change across instances.
+        return lhs.url == rhs.url
     }
 }
 
+//MARK: - Convenience
 extension Mastodon.Entity.Account {
     public func acctWithDomainIfMissing(_ localDomain: String) -> String {
         guard acct.contains("@") else {
@@ -159,5 +120,19 @@ extension Mastodon.Entity.Account {
         guard let components = URLComponents(string: url) else { return nil }
 
         return components.host
+    }
+
+    public func avatarImageURL() -> URL? {
+        let string = UserDefaults.shared.preferredStaticAvatar ? avatarStatic ?? avatar : avatar
+        return URL(string: string)
+    }
+
+    public func avatarImageURLWithFallback(domain: String) -> URL {
+        return avatarImageURL() ?? URL(string: "https://\(domain)/avatars/original/missing.png")!
+    }
+
+    public var displayNameWithFallback: String {
+        return !displayName.isEmpty ? displayName : username
+
     }
 }
