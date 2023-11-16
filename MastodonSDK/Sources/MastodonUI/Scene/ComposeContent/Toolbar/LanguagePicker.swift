@@ -14,7 +14,7 @@ struct LanguagePicker: View {
         let locales = Locale.availableIdentifiers.map(Locale.init(identifier:))
         var languages: [String: Language] = [:]
         for locale in locales {
-            if let code = locale.languageCode,
+            if let code = locale.language.languageCode?.identifier,
                let endonym = locale.localizedString(forLanguageCode: code),
                let exonym = Locale.current.localizedString(forLanguageCode: code) {
                 // don’t overwrite the “base” language

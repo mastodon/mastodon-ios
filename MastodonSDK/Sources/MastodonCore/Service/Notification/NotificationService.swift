@@ -238,7 +238,7 @@ extension NotificationService {
     }
     
     private func authenticationBox(for pushNotification: MastodonPushNotification) async throws -> MastodonAuthenticationBox? {
-        guard let authenticationService = self.authenticationService else { return nil }
+        guard self.authenticationService != nil else { return nil }
         let results = AuthenticationServiceProvider.shared.authentications.filter { $0.userAccessToken == pushNotification.accessToken }
         guard let authentication = results.first else { return nil }
 
