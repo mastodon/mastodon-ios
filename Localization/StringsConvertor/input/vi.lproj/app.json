@@ -743,33 +743,33 @@
                     "system": "Giống thiết bị"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Thiết kế",
+                    "show_animations": "Ảnh đại diện và emoji động"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Liên kết",
+                    "open_in_mastodon": "Mở liên kết trong Mastodon",
+                    "open_in_browser": "Mở trong trình duyệt"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Thông báo",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Nhận thông báo từ",
+                    "anyone": "Bất cứ ai",
+                    "followers": "Những người theo dõi",
+                    "follow": "Những người tôi theo dõi",
+                    "noone": "Không ai"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Lượt nhắc và trả lời",
+                    "boosts": "Lượt đăng lại",
+                    "favorites": "Lượt thích",
+                    "new_followers": "Người theo dõi mới"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Bật thông báo từ cài đặt thiết bị của bạn để xem chúng từ mọi nơi.",
+                    "go_to_settings": "Thiết lập thông báo"
                 }
             }
         },
