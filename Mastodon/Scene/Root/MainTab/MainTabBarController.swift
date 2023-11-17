@@ -292,12 +292,11 @@ extension MainTabBarController {
         tabBarLongPressGestureRecognizer.delegate = self
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
 
-        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
-//        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
-//        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
-//        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
-//        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
-//        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
+        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
 
         self.isReadyForWizardAvatarButton = authContext != nil
         
@@ -359,17 +358,22 @@ extension MainTabBarController {
         guard let tab = touchedTab(by: sender) else { return }
 
         switch tab {
-        case .me:
-            guard let authContext = authContext else { return }
+        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
+//        case .me:
+//            guard let authContext = authContext else { return }
+//            assert(Thread.isMainThread)
+//
+//            guard let nextAccount = context.nextAccount(in: authContext) else { return }
+//            
+//            Task { @MainActor in
+//                let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
+//                guard isActive else { return }
+//                self.coordinator.setup()
+//            }
+        case .search:
             assert(Thread.isMainThread)
-
-            guard let nextAccount = context.nextAccount(in: authContext) else { return }
-            
-            Task { @MainActor in
-                let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
-                guard isActive else { return }
-                self.coordinator.setup()
-            }
+            // double tapping search tab opens the search bar without additional taps
+            searchViewController?.searchBarTapPublisher.send("")
         default:
             break
         }
