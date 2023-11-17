@@ -8,8 +8,6 @@
 import UIKit
 import Combine
 import GameplayKit
-import CoreData
-import CoreDataStack
 import MastodonSDK
 import MastodonCore
 
@@ -20,11 +18,11 @@ final class DiscoveryForYouViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let userFetchedResultsController: UserFetchedResultsController
-    
+
     @MainActor
     @Published var familiarFollowers: [Mastodon.Entity.FamiliarFollowers] = []
     @Published var isFetching = false
+    @Published var accounts: [Mastodon.Entity.Account]
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<DiscoverySection, DiscoveryItem>?
@@ -33,12 +31,7 @@ final class DiscoveryForYouViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalPredicate: nil
-        )
-        // end init
+        self.accounts = []
     }
 }
 
@@ -46,40 +39,39 @@ extension DiscoveryForYouViewModel {
     
     @MainActor
     func fetch() async throws {
-        guard !isFetching else { return }
+        guard isFetching == false else { return }
         isFetching = true
         defer { isFetching = false }
         
         do {
-            let userIDs = try await fetchSuggestionAccounts()
-            
-            let _familiarFollowersResponse = try? await context.apiService.familiarFollowers(
-                query: .init(ids: userIDs),
+            let suggestedAccounts = try await fetchSuggestionAccounts()
+
+            let familiarFollowersResponse = try? await context.apiService.familiarFollowers(
+                query: .init(ids: suggestedAccounts.compactMap { $0.id }),
                 authenticationBox: authContext.mastodonAuthenticationBox
-            )
-            familiarFollowers = _familiarFollowersResponse?.value ?? []
-            userFetchedResultsController.userIDs = userIDs
+            ).value
+            familiarFollowers = familiarFollowersResponse ?? []
+            accounts = suggestedAccounts
         } catch {
             // do nothing
         }
     }
     
-    private func fetchSuggestionAccounts() async throws -> [Mastodon.Entity.Account.ID] {
+    private func fetchSuggestionAccounts() async throws -> [Mastodon.Entity.Account] {
         do {
             let response = try await context.apiService.suggestionAccountV2(
                 query: nil,
                 authenticationBox: authContext.mastodonAuthenticationBox
-            )
-            let userIDs = response.value.map { $0.account.id }
-            return userIDs
+            ).value
+            return response.compactMap { $0.account }
         } catch {
             // fallback V1
             let response = try await context.apiService.suggestionAccount(
                 query: nil,
                 authenticationBox: authContext.mastodonAuthenticationBox
-            )
-            let userIDs = response.value.map { $0.id }
-            return userIDs
+            ).value
+
+            return response
         }
     }
 }

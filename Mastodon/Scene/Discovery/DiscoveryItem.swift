@@ -7,11 +7,10 @@
 
 import Foundation
 import MastodonSDK
-import CoreDataStack
 
 enum DiscoveryItem: Hashable {
     case hashtag(Mastodon.Entity.Tag)
     case link(Mastodon.Entity.Link)
-    case user(ManagedObjectRecord<MastodonUser>)
+    case account(Mastodon.Entity.Account)
     case bottomLoader
 }

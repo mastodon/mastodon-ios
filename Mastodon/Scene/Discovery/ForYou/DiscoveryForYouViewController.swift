@@ -96,18 +96,11 @@ extension DiscoveryForYouViewController: AuthContextProvider {
 extension DiscoveryForYouViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        guard let user = record.object(in: context.managedObjectContext) else { return }
-        let profileViewModel = CachedProfileViewModel(
-            context: context,
-            authContext: viewModel.authContext,
-            mastodonUser: user
-        )
-        _ = coordinator.present(
-            scene: .profile(viewModel: profileViewModel),
-            from: self,
-            transition: .show
-        )
+        guard case let .account(account) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+
+        Task {
+            await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+        }
     }
 
 }
@@ -120,14 +113,11 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         relationshipButtonDidPressed button: ProfileRelationshipActionButton
     ) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        
+        guard case let .account(account) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+
         Task {
-            try await DataSourceFacade.responseToUserFollowAction(
-                dependency: self,
-                user: record
-            )
-        }   // end Task
+            try await DataSourceFacade.responseToUserFollowAction(dependency: self, user: account)
+        }
     }
     
     func profileCardTableViewCell(
@@ -136,10 +126,9 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         familiarFollowersDashboardViewDidPressed view: FamiliarFollowersDashboardView
     ) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        guard let user = record.object(in: context.managedObjectContext) else { return }
-        
-        let userID = user.id
+        guard case let .account(account) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+
+        let userID = account.id
         let _familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })
         guard let familiarFollowers = _familiarFollowers else {
             assertionFailure()

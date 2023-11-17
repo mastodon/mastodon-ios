@@ -55,19 +55,15 @@ extension DiscoverySection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsTableViewCell.self), for: indexPath) as! NewsTableViewCell
                 cell.newsView.configure(link: link)
                 return cell
-            case .user(let record):
+            case .account(let account):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileCardTableViewCell.self), for: indexPath) as! ProfileCardTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
-                    cell.configure(
-                        tableView: tableView,
-                        user: user,
-                        profileCardTableViewCellDelegate: configuration.profileCardTableViewCellDelegate
-                    )
+
+                    cell.configure(tableView: tableView, account: account, profileCardTableViewCellDelegate: configuration.profileCardTableViewCellDelegate)
+
                     // bind familiarFollowers
                     if let familiarFollowers = configuration.familiarFollowers {
                         familiarFollowers
-                            .map { array in array.first(where: { $0.id == user.id }) }
+                            .map { array in array.first(where: { $0.id == account.id }) }
                             .assign(to: \.familiarFollowers, on: cell.profileCardView.viewModel)
                             .store(in: &cell.disposeBag)
                     } else {
@@ -75,7 +71,7 @@ extension DiscoverySection {
                     }
                     // bind me
                     cell.profileCardView.viewModel.relationshipViewModel.me = configuration.authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
-                }
+//                }
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell

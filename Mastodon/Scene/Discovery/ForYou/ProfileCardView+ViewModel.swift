@@ -14,6 +14,7 @@ import MastodonLocalization
 import MastodonAsset
 import MastodonSDK
 import MastodonCore
+import MastodonUI
 
 extension ProfileCardView {
     public class ViewModel: ObservableObject {
@@ -77,7 +78,7 @@ extension ProfileCardView.ViewModel {
         bindRelationship(view: view)
         bindDashboard(view: view)
         bindFamiliarFollowers(view: view)
-        bindAccessibility(view: view)
+//        bindAccessibility(view: view)
     }
     
     private func bindAppearacne(view: ProfileCardView) {
@@ -212,73 +213,73 @@ extension ProfileCardView.ViewModel {
                 view.familiarFollowersDashboardView.configure(familiarFollowers: familiarFollowers)
             }
             .store(in: &disposeBag)
-        $backgroundColor
-            .assign(to: \.backgroundColor, on: view.familiarFollowersDashboardView.viewModel)
-            .store(in: &disposeBag)
+//        $backgroundColor
+//            .assign(to: \.backgroundColor, on: view.familiarFollowersDashboardView.viewModel)
+//            .store(in: &disposeBag)
     }
     
-    private func bindAccessibility(view: ProfileCardView) {
-        let authorAccessibilityLabel = Publishers.CombineLatest(
-            $authorName,
-            $bioContent
-        )
-        .map { authorName, bioContent -> String? in
-            var strings: [String?] = []
-            strings.append(authorName?.string)
-            strings.append(bioContent?.string)
-            return strings.compactMap { $0 }.joined(separator: ", ")
-        }
-        
-        authorAccessibilityLabel
-            .map { $0 ?? "" }
-            .assign(to: &$groupedAccessibilityLabel)
-        
-        $groupedAccessibilityLabel
-            .sink { accessibilityLabel in
-                view.accessibilityLabel = accessibilityLabel
-            }
-            .store(in: &disposeBag)
-
-        let statusesContent = $statusesCount
-            .removeDuplicates()
-            .map {
-                AXCustomContent(
-                    label: L10n.Scene.Profile.Dashboard.otherPosts,
-                    value: $0
-                )
-            }
-        let followingContent = $followingCount
-            .removeDuplicates()
-            .map {
-                AXCustomContent(
-                    label: L10n.Scene.Profile.Dashboard.otherFollowing,
-                    value: $0
-                )
-            }
-        let followersContent = $followersCount
-            .removeDuplicates()
-            .map {
-                AXCustomContent(
-                    label: L10n.Scene.Profile.Dashboard.otherFollowers,
-                    value: $0
-                )
-            }
-        let familiarContent = view.familiarFollowersDashboardView.viewModel.$label
-            .map { $0?.accessibilityLabel }
-            .removeDuplicates()
-            .map {
-                AXCustomContent(
-                    label: L10n.Scene.Profile.Dashboard.familiarFollowers,
-                    value: $0
-                )
-            }
-        Publishers.CombineLatest4(
-            statusesContent,
-            followingContent,
-            followersContent,
-            familiarContent
-        ).sink { statuses, following, followers, familiar in
-            view.accessibilityCustomContent = [statuses, following, followers, familiar].compactMap { $0 }
-        }.store(in: &disposeBag)
-    }
+//    private func bindAccessibility(view: ProfileCardView) {
+//        let authorAccessibilityLabel = Publishers.CombineLatest(
+//            $authorName,
+//            $bioContent
+//        )
+//        .map { authorName, bioContent -> String? in
+//            var strings: [String?] = []
+//            strings.append(authorName?.string)
+//            strings.append(bioContent?.string)
+//            return strings.compactMap { $0 }.joined(separator: ", ")
+//        }
+//        
+//        authorAccessibilityLabel
+//            .map { $0 ?? "" }
+//            .assign(to: &$groupedAccessibilityLabel)
+//        
+//        $groupedAccessibilityLabel
+//            .sink { accessibilityLabel in
+//                view.accessibilityLabel = accessibilityLabel
+//            }
+//            .store(in: &disposeBag)
+//
+//        let statusesContent = $statusesCount
+//            .removeDuplicates()
+//            .map {
+//                AXCustomContent(
+//                    label: L10n.Scene.Profile.Dashboard.otherPosts,
+//                    value: "\($0.)"
+//                )
+//            }
+//        let followingContent = $followingCount
+//            .removeDuplicates()
+//            .map {
+//                AXCustomContent(
+//                    label: L10n.Scene.Profile.Dashboard.otherFollowing,
+//                    value: $0
+//                )
+//            }
+//        let followersContent = $followersCount
+//            .removeDuplicates()
+//            .map {
+//                AXCustomContent(
+//                    label: L10n.Scene.Profile.Dashboard.otherFollowers,
+//                    value: $0
+//                )
+//            }
+//        let familiarContent = view.familiarFollowersDashboardView.viewModel.$label
+//            .map { $0?.accessibilityLabel }
+//            .removeDuplicates()
+//            .map {
+//                AXCustomContent(
+//                    label: L10n.Scene.Profile.Dashboard.familiarFollowers,
+//                    value: $0
+//                )
+//            }
+//        Publishers.CombineLatest4(
+//            statusesContent,
+//            followingContent,
+//            followersContent,
+//            familiarContent
+//        ).sink { statuses, following, followers, familiar in
+//            view.accessibilityCustomContent = [statuses, following, followers, familiar].compactMap { $0 }
+//        }.store(in: &disposeBag)
+//    }
 }

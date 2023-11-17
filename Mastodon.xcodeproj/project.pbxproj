@@ -137,6 +137,11 @@
 		D81A22752AB4643200905D71 /* SearchResultsOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */; };
 		D81A22782AB4782400905D71 /* SearchResultOverviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22772AB4782400905D71 /* SearchResultOverviewSection.swift */; };
 		D81A227B2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A227A2AB47B9A00905D71 /* SearchResultDefaultSectionTableViewCell.swift */; };
+		D81A94122B07A1BE0067A19D /* ProfileCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A94112B07A1BE0067A19D /* ProfileCardTableViewCell.swift */; };
+		D81A94132B07A1BE0067A19D /* ProfileCardTableViewCell+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A94102B07A1BE0067A19D /* ProfileCardTableViewCell+Configuration.swift */; };
+		D81A94172B07A1D30067A19D /* ProfileCardView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A94162B07A1D30067A19D /* ProfileCardView+Configuration.swift */; };
+		D81A94182B07A1D30067A19D /* ProfileCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A94142B07A1D30067A19D /* ProfileCardView.swift */; };
+		D81A94192B07A1D30067A19D /* ProfileCardView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A94152B07A1D30067A19D /* ProfileCardView+ViewModel.swift */; };
 		D81D12462A4E1861005009D4 /* PolicySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */; };
 		D81D124B2A4E1914005009D4 /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */; };
 		D82BD7532ABC44C2009A374A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9170E2A4B47EF008A5370 /* Coordinator.swift */; };
@@ -451,7 +456,6 @@
 		DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBF3267CB070000F5B51 /* Decode85.swift */; };
 		DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */; };
 		DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B2F261440A50045B23D /* UITabBarController.swift */; };
-		DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */; };
 		DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376B1269302A4007FEC24 /* UITableViewCell.swift */; };
 		DBD5B1F827BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */; };
 		DBD5B1FA27BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F927BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift */; };
@@ -794,6 +798,11 @@
 		D81A940D2B04E7AC0067A19D /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D81A940E2B04E7AD0067A19D /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		D81A940F2B04E7AD0067A19D /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D81A94102B07A1BE0067A19D /* ProfileCardTableViewCell+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileCardTableViewCell+Configuration.swift"; sourceTree = "<group>"; };
+		D81A94112B07A1BE0067A19D /* ProfileCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardTableViewCell.swift; sourceTree = "<group>"; };
+		D81A94142B07A1D30067A19D /* ProfileCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardView.swift; sourceTree = "<group>"; };
+		D81A94152B07A1D30067A19D /* ProfileCardView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileCardView+ViewModel.swift"; sourceTree = "<group>"; };
+		D81A94162B07A1D30067A19D /* ProfileCardView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileCardView+Configuration.swift"; sourceTree = "<group>"; };
 		D81D12452A4E1861005009D4 /* PolicySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicySelectionViewController.swift; sourceTree = "<group>"; };
 		D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
 		D82463522A52B47B00A3DBDD /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -1194,7 +1203,6 @@
 		DBCBCBF3267CB070000F5B51 /* Decode85.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decode85.swift; sourceTree = "<group>"; };
 		DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBCC3B2F261440A50045B23D /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
-		DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedProfileViewModel.swift; sourceTree = "<group>"; };
 		DBD376B1269302A4007FEC24 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+TableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
 		DBD5B1F927BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+StatusTableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
@@ -2094,8 +2102,6 @@
 		DB3E6FE52806A5BA00B035AE /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
-				DB3E6FE32806A5B800B035AE /* DiscoverySection.swift */,
-				DB3E6FE62806A7A200B035AE /* DiscoveryItem.swift */,
 			);
 			path = Discovery;
 			sourceTree = "<group>";
@@ -2114,6 +2120,11 @@
 		DB3E6FF62807C40500B035AE /* ForYou */ = {
 			isa = PBXGroup;
 			children = (
+				D81A94142B07A1D30067A19D /* ProfileCardView.swift */,
+				D81A94162B07A1D30067A19D /* ProfileCardView+Configuration.swift */,
+				D81A94152B07A1D30067A19D /* ProfileCardView+ViewModel.swift */,
+				D81A94112B07A1BE0067A19D /* ProfileCardTableViewCell.swift */,
+				D81A94102B07A1BE0067A19D /* ProfileCardTableViewCell+Configuration.swift */,
 				DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */,
 				DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */,
 				DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */,
@@ -2763,7 +2774,6 @@
 				DBFEEC97279BDC6A004F81DD /* About */,
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
-				DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */,
 				DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */,
 				DBB525632612C988002F1F29 /* MeProfileViewModel.swift */,
 			);
@@ -2926,6 +2936,8 @@
 				DB3E6FED2806D7FC00B035AE /* News */,
 				DB3EA8E7281B79E500598866 /* Community */,
 				DB3E6FF62807C40500B035AE /* ForYou */,
+				DB3E6FE32806A5B800B035AE /* DiscoverySection.swift */,
+				DB3E6FE62806A7A200B035AE /* DiscoveryItem.swift */,
 				DBDFF19928055A1400557A48 /* DiscoveryViewController.swift */,
 				DBDFF19B28055BD600557A48 /* DiscoveryViewModel.swift */,
 			);
@@ -3727,6 +3739,7 @@
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				DB5B7295273112B100081888 /* FollowingListViewController.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
+				D81A94172B07A1D30067A19D /* ProfileCardView+Configuration.swift in Sources */,
 				DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */,
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				D82BD7552ABC73AF009A374A /* NotificationPolicyTableViewCell.swift in Sources */,
@@ -3772,6 +3785,7 @@
 				2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */,
 				DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */,
 				DB852D1926FAEB6B00FC9D81 /* SidebarViewController.swift in Sources */,
+				D81A94132B07A1BE0067A19D /* ProfileCardTableViewCell+Configuration.swift in Sources */,
 				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,
 				85904C02293BC0EB0011C817 /* ImageProvider.swift in Sources */,
 				DBDFF1932805554900557A48 /* DiscoveryPostsViewModel.swift in Sources */,
@@ -3799,6 +3813,7 @@
 				DB63F769279A5EBB00455B82 /* NotificationTimelineViewModel+Diffable.swift in Sources */,
 				DBFEEC9B279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift in Sources */,
 				DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */,
+				D81A94192B07A1D30067A19D /* ProfileCardView+ViewModel.swift in Sources */,
 				D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */,
 				DB0618012785732C0030EE79 /* ServerRulesTableViewCell.swift in Sources */,
 				DB98EB5C27B10A730082E365 /* ReportSupplementaryViewModel.swift in Sources */,
@@ -3875,7 +3890,6 @@
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
 				D8F9170D2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift in Sources */,
 				DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */,
-				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
 				DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */,
 				D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */,
@@ -3974,6 +3988,7 @@
 				DBEFCD7D282A2A3B00C0ABEA /* ReportServerRulesViewController.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				D8F917122A4C6B67008A5370 /* GeneralSettingsViewController.swift in Sources */,
+				D81A94122B07A1BE0067A19D /* ProfileCardTableViewCell.swift in Sources */,
 				DB98EB4927B0F0CD0082E365 /* ReportStatusTableViewCell.swift in Sources */,
 				855149CA29606D6400943D96 /* PortraitAlertController.swift in Sources */,
 				DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */,
@@ -3981,6 +3996,7 @@
 				DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */,
 				D8ECC8102AC31EA400AE0818 /* NotificationSettingsDisabledTableViewCell.swift in Sources */,
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
+				D81A94182B07A1D30067A19D /* ProfileCardView.swift in Sources */,
 				DBEFCD82282A2AB100C0ABEA /* ReportServerRulesView.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
 				2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */,

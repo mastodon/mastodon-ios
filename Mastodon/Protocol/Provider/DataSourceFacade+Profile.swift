@@ -42,10 +42,10 @@ extension DataSourceFacade {
             return
         }
         
-        let profileViewModel = CachedProfileViewModel(
+        let profileViewModel = ProfileViewModel(
             context: provider.context,
             authContext: provider.authContext,
-            mastodonUser: user
+            optionalMastodonUser: user
         )
         
         _ = provider.coordinator.present(
@@ -125,7 +125,7 @@ extension DataSourceFacade {
             let _user = provider.context.managedObjectContext.safeFetch(request).first
 
             if let user = _user {
-                return CachedProfileViewModel(context: provider.context, authContext: provider.authContext, mastodonUser: user)
+                return ProfileViewModel(context: provider.context, authContext: provider.authContext, optionalMastodonUser: user)
             } else {
                 return RemoteProfileViewModel(context: provider.context, authContext: provider.authContext, userID: userID)
             }

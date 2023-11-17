@@ -15,12 +15,23 @@ import MastodonSDK
 
 extension ProfileCardView {
 
+    public func configure(account: Mastodon.Entity.Account) {
+        //TODO: Implement
+        viewModel.authorBannerImageURL = URL(string: account.header)
+        
+        do {
+            let content = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojis?.asDictionary ?? [:])
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            viewModel.authorName = metaContent
+        } catch {
+            assertionFailure(error.localizedDescription)
+            let metaContent = PlaintextMetaContent(string: account.displayNameWithFallback)
+            viewModel.authorName = metaContent
+        }
+
+    }
+
     public func configure(user: MastodonUser) {
-        // banner
-        user.publisher(for: \.header)
-            .map { URL(string: $0) }
-            .assign(to: \.authorBannerImageURL, on: viewModel)
-            .store(in: &disposeBag)
         // author avatar
         Publishers.CombineLatest3(
             user.publisher(for: \.avatar),

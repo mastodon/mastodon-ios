@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MastodonUI
 
 public protocol ProfileCardTableViewCellDelegate: AnyObject {
     func profileCardTableViewCell(_ cell: ProfileCardTableViewCell, profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)

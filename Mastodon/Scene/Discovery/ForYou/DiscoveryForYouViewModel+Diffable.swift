@@ -29,16 +29,16 @@ extension DiscoveryForYouViewModel {
             try await fetch()
         }
         
-        userFetchedResultsController.$records
+        $accounts
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] records in
+            .sink { [weak self] accounts in
                 guard let self = self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
                 
                 var snapshot = NSDiffableDataSourceSnapshot<DiscoverySection, DiscoveryItem>()
                 snapshot.appendSections([.forYou])
                 
-                let items = records.map { DiscoveryItem.user($0) }
+                let items = accounts.map { DiscoveryItem.account($0) }
                 snapshot.appendItems(items, toSection: .forYou)
             
                 diffableDataSource.apply(snapshot, animatingDifferences: false)

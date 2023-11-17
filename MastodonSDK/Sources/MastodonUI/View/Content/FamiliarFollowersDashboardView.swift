@@ -63,15 +63,3 @@ extension FamiliarFollowersDashboardView {
     }
     
 }
-
-
-#if DEBUG
-import SwiftUI
-struct FamiliarFollowersDashboardView_Preview: PreviewProvider {
-    static var previews: some View {
-        UIViewPreview {
-            FamiliarFollowersDashboardView()
-        }
-    }
-}
-#endif

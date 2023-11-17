@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import MetaTextKit
 import MastodonAsset
+import MastodonUI
 
 public protocol ProfileCardViewDelegate: AnyObject {
     func profileCardView(_ profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
