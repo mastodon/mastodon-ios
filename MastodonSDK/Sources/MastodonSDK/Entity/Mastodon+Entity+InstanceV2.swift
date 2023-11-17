@@ -110,3 +110,13 @@ extension Mastodon.Entity.V2.Instance {
         public let account: Mastodon.Entity.Account?
     }
 }
+
+extension Mastodon.Entity.V2.Instance: Hashable {
+    public static func == (lhs: Mastodon.Entity.V2.Instance, rhs: Mastodon.Entity.V2.Instance) -> Bool {
+        lhs.domain == rhs.domain
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(domain)
+    }
+}

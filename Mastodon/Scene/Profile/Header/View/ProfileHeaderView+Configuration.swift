@@ -7,49 +7,33 @@
 
 import UIKit
 import Combine
-import CoreDataStack
+import MastodonSDK
 
 extension ProfileHeaderView {
-    func configuration(user: MastodonUser) {
+    func configuration(user: Mastodon.Entity.Account) {
         // header
-        user.publisher(for: \.header)
-            .map { _ in user.headerImageURL() }
-            .assign(to: \.headerImageURL, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.headerImageURL = URL(string: user.header)
+        
         // avatar
-        user.publisher(for: \.avatar)
-            .map { _ in user.avatarImageURL() }
-            .assign(to: \.avatarImageURL, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.avatarImageURL = user.avatarImageURL()
+        
         // emojiMeta
-        user.publisher(for: \.emojis)
-            .map { $0.asDictionary }
-            .assign(to: \.emojiMeta, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.emojiMeta = user.emojiMeta
+        
         // name
-        user.publisher(for: \.displayName)
-            .map { _ in user.displayNameWithFallback }
-            .assign(to: \.name, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.name = user.displayNameWithFallback
+        
         // username
         viewModel.acct = user.acctWithDomain
         // bio
-        user.publisher(for: \.note)
-            .assign(to: \.note, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.note = user.note
+        
         // dashboard
-        user.publisher(for: \.statusesCount)
-            .map { Int($0) }
-            .assign(to: \.statusesCount, on: viewModel)
-            .store(in: &disposeBag)
-        user.publisher(for: \.followingCount)
-            .map { Int($0) }
-            .assign(to: \.followingCount, on: viewModel)
-            .store(in: &disposeBag)
-        user.publisher(for: \.followersCount)
-            .map { Int($0) }
-            .assign(to: \.followersCount, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.statusesCount = user.statusesCount
+        
+        viewModel.followingCount = user.followingCount
+        
+        viewModel.followersCount = user.followersCount
     }
 }
 

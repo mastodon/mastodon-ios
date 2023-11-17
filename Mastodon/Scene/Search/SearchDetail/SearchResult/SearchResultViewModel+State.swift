@@ -136,13 +136,13 @@ extension SearchResultViewModel.State {
                     
                     // reset data source when the search is refresh
                     if offset == nil {
-                        viewModel.userFetchedResultsController.userIDs = []
-                        viewModel.statusFetchedResultsController.statusIDs = []
+                        viewModel.statusRecords = []
+                        viewModel.userRecords = []
                         viewModel.hashtags = []
                     }
 
-                    viewModel.userFetchedResultsController.append(userIDs: userIDs)
-                    viewModel.statusFetchedResultsController.append(statusIDs: statusIDs)
+                    viewModel.userRecords.append(contentsOf: response.value.accounts)
+                    viewModel.statusRecords.append(contentsOf: response.value.statuses)
                     
                     var hashtags = viewModel.hashtags
                     for hashtag in response.value.hashtags where !hashtags.contains(hashtag) {

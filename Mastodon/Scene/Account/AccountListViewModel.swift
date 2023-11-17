@@ -78,12 +78,13 @@ extension AccountListViewModel {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountListTableViewCell.self), for: indexPath) as! AccountListTableViewCell
                 if let activeAuthentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
                 {
-                    AccountListViewModel.configure(
-                        in: managedObjectContext,
-                        cell: cell,
-                        authentication: record,
-                        activeAuthentication: activeAuthentication
-                    )
+                    Task { @MainActor in
+                        await AccountListViewModel.configure(
+                            in: managedObjectContext,
+                            cell: cell,
+                            authentication: record,
+                            activeAuthentication: activeAuthentication
+                        )}
                 }
                 return cell
             case .addAccount:
@@ -97,13 +98,14 @@ extension AccountListViewModel {
         diffableDataSource?.apply(snapshot)
     }
 
+    @MainActor
     static func configure(
         in context: NSManagedObjectContext,
         cell: AccountListTableViewCell,
         authentication: MastodonAuthentication,
         activeAuthentication: MastodonAuthentication
-    ) {
-        guard let user = authentication.user(in: context) else { return }
+    ) async {
+        guard let user = try? await authentication.me() else { return }
         
         // avatar
         cell.avatarButton.avatarImageView.configure(
@@ -112,7 +114,7 @@ extension AccountListViewModel {
 
         // name
         do {
-            let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
+            let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojis?.asDictionary ?? [:])
             let metaContent = try MastodonMetaContent.convert(document: content)
             cell.nameLabel.configure(content: metaContent)
         } catch {

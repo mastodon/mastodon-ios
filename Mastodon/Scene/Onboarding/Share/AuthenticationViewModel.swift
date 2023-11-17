@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import CoreData
-import CoreDataStack
 import Combine
 import MastodonSDK
 import MastodonCore
@@ -188,31 +186,36 @@ extension AuthenticationViewModel {
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: userToken.accessToken)
         let managedObjectContext = context.backgroundManagedObjectContext
-
+#warning("what happens if instancev2 is not reachable (errors out)??")
         return context.apiService.accountVerifyCredentials(
             domain: info.domain,
             authorization: authorization
         )
-        .tryMap { response -> Mastodon.Response.Content<Mastodon.Entity.Account> in
-            let account = response.value
-            let mastodonUserRequest = MastodonUser.sortedFetchRequest
-            mastodonUserRequest.predicate = MastodonUser.predicate(domain: info.domain, id: account.id)
-            mastodonUserRequest.fetchLimit = 1
-            guard let mastodonUser = try? managedObjectContext.fetch(mastodonUserRequest).first else {
-                throw AuthenticationError.badCredentials
-            }
-                        
+        .flatMap { response in
+            Publishers.CombineLatest3(
+                Just(response).setFailureType(to: Error.self).eraseToAnyPublisher(),
+                Mastodon.API.Instance.instance(session: .shared, domain: info.domain).eraseToAnyPublisher(),
+                Mastodon.API.V2.Instance.instance(session: .shared, domain: info.domain).eraseToAnyPublisher()
+            ).eraseToAnyPublisher()
+        }
+        .tryMap { (accountResponse, instanceV1Response, instanceV2Response) -> Mastodon.Response.Content<Mastodon.Entity.Account> in
+            let account = accountResponse.value
+            let instanceV1 = instanceV1Response.value
+            let instanceV2 = instanceV2Response.value
+            
             AuthenticationServiceProvider.shared
                 .authentications
                 .insert(MastodonAuthentication.createFrom(domain: info.domain,
-                                                          userID: mastodonUser.id,
-                                                          username: mastodonUser.username,
+                                                          userID: account.id,
+                                                          username: account.username,
                                                           appAccessToken: userToken.accessToken,  // TODO: swap app token
                                                           userAccessToken: userToken.accessToken,
                                                           clientID: info.clientID,
-                                                          clientSecret: info.clientSecret), at: 0)
+                                                          clientSecret: info.clientSecret,
+                                                          instance: instanceV1,
+                                                         instanceV2: instanceV2), at: 0)
             
-            return response
+            return accountResponse
         }
         .eraseToAnyPublisher()
     }

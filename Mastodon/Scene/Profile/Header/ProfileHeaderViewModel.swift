@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import Kanna
 import MastodonSDK
 import MastodonMeta
@@ -26,7 +25,7 @@ final class ProfileHeaderViewModel {
     let context: AppContext
     let authContext: AuthContext
     
-    @Published var user: MastodonUser?
+    @Published var user: Mastodon.Entity.Account?
     @Published var relationshipActionOptionSet: RelationshipActionOptionSet = .none
 
     @Published var isMyself = false

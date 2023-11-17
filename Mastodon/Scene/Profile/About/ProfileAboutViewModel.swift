@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import MastodonSDK
 import MastodonMeta
 import MastodonCore
@@ -19,7 +18,7 @@ final class ProfileAboutViewModel {
 
     // input
     let context: AppContext
-    @Published var user: MastodonUser?
+    @Published var user: Mastodon.Entity.Account?
     @Published var isEditing = false
     @Published var accountForEdit: Mastodon.Entity.Account?
     
@@ -28,7 +27,7 @@ final class ProfileAboutViewModel {
     let profileInfo = ProfileInfo()
     let profileInfoEditing = ProfileInfo()
     
-    @Published var fields: [MastodonField] = []
+    @Published var fields: [Mastodon.Entity.Field] = []
     @Published var emojiMeta: MastodonContent.Emojis = [:]
     @Published var createdAt: Date = Date()
 
@@ -38,18 +37,18 @@ final class ProfileAboutViewModel {
         
         $user
             .compactMap { $0 }
-            .flatMap { $0.publisher(for: \.emojis) }
+            .compactMap { $0.emojis }
             .map { $0.asDictionary }
             .assign(to: &$emojiMeta)
         
         $user
             .compactMap { $0 }
-            .flatMap { $0.publisher(for: \.fields) }
+            .compactMap { $0.fields }
             .assign(to: &$fields)
 
         $user
             .compactMap { $0 }
-            .flatMap { $0.publisher(for: \.createdAt) }
+            .compactMap { $0.createdAt }
             .assign(to: &$createdAt)
         
         Publishers.CombineLatest(

@@ -18,7 +18,7 @@ extension FollowedTagsViewModel {
     }
     
     enum Item: Hashable {
-        case hashtag(Tag)
+        case hashtag(Mastodon.Entity.Tag)
     }
     
     func tableViewDiffableDataSource(

@@ -7,15 +7,13 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 
 extension APIService {
     
     private struct MastodonBlockContext {
-        let sourceUserID: MastodonUser.ID
-        let targetUserID: MastodonUser.ID
+        let sourceUserID: Mastodon.Entity.Account.ID
+        let targetUserID: Mastodon.Entity.Account.ID
         let targetUsername: String
         let isBlocking: Bool
         let isFollowing: Bool
@@ -41,113 +39,92 @@ extension APIService {
             limit: limit,
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
-        
-        let userIDs = response.value.map { $0.id }
-        let predicate = MastodonUser.predicate(domain: authenticationBox.domain, ids: userIDs)
-
-        let fetchRequest = MastodonUser.fetchRequest()
-        fetchRequest.predicate = predicate
-        fetchRequest.includesPropertyValues = false
-        
-        try await managedObjectContext.performChanges {
-            let users = try managedObjectContext.fetch(fetchRequest) as! [MastodonUser]
-            
-            for user in users {
-                user.deleteStatusAndNotificationFeeds(in: managedObjectContext)
-            }
-        }
-
+    
         return response
     }
     
-    public func toggleBlock(
-        user: ManagedObjectRecord<MastodonUser>,
-        authenticationBox: MastodonAuthenticationBox
-    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
-        
-        let managedObjectContext = backgroundManagedObjectContext
-        let blockContext: MastodonBlockContext = try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-            
-            guard
-                let user = user.object(in: managedObjectContext),
-                let me = authentication.user(in: managedObjectContext)
-            else {
-                throw APIError.implicit(.badRequest)
-            }
-
-            let isBlocking = user.blockingBy.contains(me)
-            let isFollowing = user.followingBy.contains(me)
-            // toggle block state
-            user.update(isBlocking: !isBlocking, by: me)
-            // update follow state implicitly
-            if !isBlocking {
-                // will do block action. set to unfollow
-                user.update(isFollowing: false, by: me)
-            }
-
-            return MastodonBlockContext(
-                sourceUserID: me.id,
-                targetUserID: user.id,
-                targetUsername: user.username,
-                isBlocking: isBlocking,
-                isFollowing: isFollowing
-            )
-        }
-        
-        let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
-        do {
-            if blockContext.isBlocking {
-                let response = try await Mastodon.API.Account.unblock(
-                    session: session,
-                    domain: authenticationBox.domain,
-                    accountID: blockContext.targetUserID,
-                    authorization: authenticationBox.userAuthorization
-                ).singleOutput()
-                result = .success(response)
-            } else {
-                let response = try await Mastodon.API.Account.block(
-                    session: session,
-                    domain: authenticationBox.domain,
-                    accountID: blockContext.targetUserID,
-                    authorization: authenticationBox.userAuthorization
-                ).singleOutput()
-                result = .success(response)
-            }
-        } catch {
-            result = .failure(error)
-        }
-        
-        try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-            
-            guard
-                let user = user.object(in: managedObjectContext),
-                let me = authentication.user(in: managedObjectContext)
-            else { return }
-            
-            
-            switch result {
-            case .success(let response):
-                let relationship = response.value
-                Persistence.MastodonUser.update(
-                    mastodonUser: user,
-                    context: Persistence.MastodonUser.RelationshipContext(
-                        entity: relationship,
-                        me: me,
-                        networkDate: response.networkDate
-                    )
-                )
-            case .failure:
-                // rollback
-                user.update(isBlocking: blockContext.isBlocking, by: me)
-                user.update(isFollowing: blockContext.isFollowing, by: me)
-            }
-        }
-        
-        let response = try result.get()
-        return response
-    }
+//    public func toggleBlock(
+//        user: Mastodon.Entity.Account,
+//        authenticationBox: MastodonAuthenticationBox
+//    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
+//        
+////        let managedObjectContext = backgroundManagedObjectContext
+////        let blockContext: MastodonBlockContext = try await managedObjectContext.performChanges {
+////            let authentication = authenticationBox.authentication
+////            
+//            guard
+////                let user = user.object(in: managedObjectContext),
+//                let me = authenticationBox.inMemoryCache.meAccount,
+//                let relationship = try await Mastodon.API.Account.relationships(
+//                    session: session,
+//                    domain: authenticationBox.domain,
+//                    query: .init(ids: [user.id]),
+//                    authorization: authenticationBox.userAuthorization
+//                ).singleOutput().value.first
+//            else {
+//                throw APIError.implicit(.badRequest)
+//            }
+////
+////            let isBlocking = user.blockingBy.contains(me)
+////            let isFollowing = user.followingBy.contains(me)
+////            // toggle block state
+////            user.update(isBlocking: !isBlocking, by: me)
+////            // update follow state implicitly
+////            if !isBlocking {
+////                // will do block action. set to unfollow
+////                user.update(isFollowing: false, by: me)
+////            }
+////
+////            return MastodonBlockContext(
+////                sourceUserID: me.id,
+////                targetUserID: user.id,
+////                targetUsername: user.username,
+////                isBlocking: isBlocking,
+////                isFollowing: isFollowing
+////            )
+////        }
+//        
+//
+//        
+//        let blockContext = MastodonBlockContext(
+//            sourceUserID: me.id,
+//            targetUserID: user.id,
+//            targetUsername: user.username,
+//            isBlocking: !relationship.blocking,
+//            isFollowing: {
+//                if !relationship.blocking {
+//                    return false
+//                }
+//                return relationship.following
+//            }()
+//        )
+//        
+//        let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
+//        do {
+//            if blockContext.isBlocking {
+//                let response = try await Mastodon.API.Account.unblock(
+//                    session: session,
+//                    domain: authenticationBox.domain,
+//                    accountID: blockContext.targetUserID,
+//                    authorization: authenticationBox.userAuthorization
+//                ).singleOutput()
+//                result = .success(response)
+//            } else {
+//                let response = try await Mastodon.API.Account.block(
+//                    session: session,
+//                    domain: authenticationBox.domain,
+//                    accountID: blockContext.targetUserID,
+//                    authorization: authenticationBox.userAuthorization
+//                ).singleOutput()
+//                result = .success(response)
+//            }
+//        } catch {
+//            result = .failure(error)
+//        }
+//                
+//        let response = try result.get()
+//        return response
+//    }
 
     public func toggleBlock(
         user: Mastodon.Entity.Account,
@@ -176,23 +153,5 @@ extension APIService {
         }
 
         return response
-    }
-}
-
-extension MastodonUser {
-    func deleteStatusAndNotificationFeeds(in context: NSManagedObjectContext) {
-        statuses.map {
-            $0.feeds
-                .union($0.reblogFrom.map { $0.feeds }.flatMap { $0 })
-                .union($0.notifications.map { $0.feeds }.flatMap { $0 })
-        }
-        .flatMap { $0 }
-        .forEach(context.delete)
-        
-        notifications.map {
-            $0.feeds
-        }
-        .flatMap { $0 }
-        .forEach(context.delete)
     }
 }

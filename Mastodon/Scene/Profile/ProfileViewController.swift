@@ -13,9 +13,9 @@ import MastodonAsset
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
-import CoreDataStack
 import TabBarPager
 import XLPagerTabStrip
+import MastodonSDK
 
 protocol ProfileViewModelEditable {
     var isEdited: Bool { get }
@@ -237,7 +237,7 @@ extension ProfileViewController {
                 items.append(self.favoriteBarButtonItem)
                 items.append(self.bookmarkBarButtonItem)
                 
-                if self.currentInstance?.canFollowTags == true {
+                if self.currentInstance?.version?.majorServerVersion(greaterThanOrEquals: 4) ?? false == true {
                     items.append(self.followedTagsBarButtonItem)
                 }
                 
@@ -400,7 +400,6 @@ extension ProfileViewController {
                 return nil
             }
             let name = user.displayNameWithFallback
-            let _ = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
 
             var menuActions: [MastodonMenu.Action] = [
                 .muteUser(.init(name: name, isMuting: self.viewModel.relationshipViewModel.isMuting)),
@@ -408,9 +407,14 @@ extension ProfileViewController {
                 .reportUser(.init(name: name)),
                 .shareUser(.init(name: name)),
             ]
+            
+            let relationship = try await context.apiService.relationship(
+                forAccounts: [user],
+                authenticationBox: authContext.mastodonAuthenticationBox
+            ).value.first
 
-            if let me = self.viewModel?.me, me.following.contains(user) {
-                let showReblogs = me.showingReblogsBy.contains(user)
+            if let relationship, relationship.following {
+                let showReblogs = relationship.showingReblogs == true
                 let context = MastodonMenu.HideReblogsActionContext(showReblogs: showReblogs)
                 menuActions.insert(.hideReblogs(context), at: 1)
             }
@@ -525,11 +529,10 @@ extension ProfileViewController {
 
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
         guard let user = viewModel.user else { return }
-        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
         Task {
             let _activityViewController = try await DataSourceFacade.createActivityViewController(
                 dependency: self,
-                user: record
+                user: user
             )
             guard let activityViewController = _activityViewController else { return }
             _ = self.coordinator.present(
@@ -799,11 +802,10 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 break
             case .follow, .request, .pending, .following:
                 guard let user = viewModel.user else { return }
-                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
                 Task {
                     try await DataSourceFacade.responseToUserFollowAction(
                         dependency: self,
-                        user: record
+                        user: user
                     )
                 }
             case .muting:
@@ -815,13 +817,12 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.message(name),
                     preferredStyle: .alert
                 )
-                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
                 let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unmute, style: .default) { [weak self] _ in
                     guard let self = self else { return }
                     Task {
                         try await DataSourceFacade.responseToUserMuteAction(
                             dependency: self,
-                            user: record
+                            user: user
                         )
                     }
                 }
@@ -838,13 +839,12 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(name),
                     preferredStyle: .alert
                 )
-                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
                 let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblock, style: .default) { [weak self] _ in
                     guard let self = self else { return }
                     Task {
                         try await DataSourceFacade.responseToUserBlockAction(
                             dependency: self,
-                            user: record
+                            user: user
                         )
                     }
                 }
@@ -886,14 +886,12 @@ extension ProfileViewController: MastodonMenuDelegate {
     func menuAction(_ action: MastodonMenu.Action) {
         guard let user = viewModel.user else { return }
 
-        let userRecord: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
-
         Task {
             try await DataSourceFacade.responseToMenuAction(
                 dependency: self,
                 action: action,
                 menuContext: DataSourceFacade.MenuContext(
-                    author: userRecord,
+                    author: user,
                     statusViewModel: nil,
                     button: nil,
                     barButtonItem: self.moreMenuBarButtonItem
@@ -936,7 +934,7 @@ extension ProfileViewController: PagerTabStripNavigateable {
 }
 
 private extension ProfileViewController {
-    var currentInstance: Instance? {
-        authContext.mastodonAuthenticationBox.authentication.instance(in: context.managedObjectContext)
+    var currentInstance: Mastodon.Entity.V2.Instance? {
+        authContext.mastodonAuthenticationBox.authentication.instanceV2
     }
 }

@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import PhotosUI
 import AlamofireImage
 import CropViewController
@@ -270,12 +269,11 @@ extension ProfileHeaderViewController {
 extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarButtonDidPressed button: AvatarButton) {
         guard let user = viewModel.user else { return }
-        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
 
         Task {
             try await DataSourceFacade.coordinateToMediaPreviewScene(
                 dependency: self,
-                user: record,
+                user: user,
                 previewContext: DataSourceFacade.ImagePreviewContext(
                     imageView: button.avatarImageView,
                     containerView: .profileAvatar(profileHeaderView)
@@ -286,12 +284,11 @@ extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
 
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView) {
         guard let user = viewModel.user else { return }
-        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
 
         Task {
             try await DataSourceFacade.coordinateToMediaPreviewScene(
                 dependency: self,
-                user: record,
+                user: user,
                 previewContext: DataSourceFacade.ImagePreviewContext(
                     imageView: imageView,
                     containerView: .profileBanner(profileHeaderView)

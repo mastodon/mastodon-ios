@@ -10,6 +10,11 @@ import Combine
 import MastodonAsset
 import MastodonLocalization
 import MastodonSDK
+import MastodonCore
+
+enum RelationshipError: Error {
+    case FailedToResolveUser
+}
 
 public enum RelationshipAction: Int, CaseIterable {
     case showReblogs
@@ -127,8 +132,39 @@ public final class RelationshipViewModel {
             relationshipUpdatePublisher
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] user, me, _ in
-            guard let self = self else { return }
+        .compactMap { user, me, _ -> Optional<(Mastodon.Entity.Account, Mastodon.Entity.Account, MastodonAuthentication)> in
+            guard let user, let me else { return nil }
+            guard let authBox = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first else { return nil }
+            return (user, me, authBox)
+        }
+        .flatMap { (user, me, authBox) in
+            return Mastodon.API.Account.relationships(
+                session: .shared,
+                domain: authBox.domain,
+                query: .init(ids: [user.id]),
+                authorization: Mastodon.API.OAuth.Authorization(accessToken: authBox.userAccessToken)
+            ).eraseToAnyPublisher()
+        }
+        .sink { completion in
+            // no-op
+        } receiveValue: { [weak self] response in
+            guard let self, let relationship = response.value.first else { return }
+            isMyself = relationship.id == me?.id
+            isFollowingBy = relationship.followedBy
+            isFollowing = relationship.following
+            isMuting = relationship.muting == true
+            isBlockingBy = relationship.blockedBy == true
+            isBlocking = relationship.blocking
+            showReblogs = relationship.showingReblogs == true
+        }
+        .store(in: &disposeBag)
+
+        
+
+
+//        .sink { [weak self] relationship in
+            
+//            guard let self = self else { return }
 //            self.update(user: user, me: me)
             
 //            guard let user = user, let me = me else {
@@ -149,8 +185,7 @@ public final class RelationshipViewModel {
 //                    guard let self = self else { return }
 //                    self.relationshipUpdatePublisher.send()
 //                }
-        }
-        .store(in: &disposeBag)
+//        }
     }
     
 }

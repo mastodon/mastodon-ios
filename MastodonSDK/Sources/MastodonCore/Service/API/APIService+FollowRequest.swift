@@ -7,8 +7,6 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 
 extension APIService {
@@ -25,28 +23,7 @@ extension APIService {
             query: query,
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
-        
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            let request = MastodonUser.sortedFetchRequest
-            request.predicate = MastodonUser.predicate(
-                domain: authenticationBox.domain,
-                id: authenticationBox.userID
-            )
-            request.fetchLimit = 1
-            guard let user = managedObjectContext.safeFetch(request).first else { return }
-            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
-            
-            Persistence.MastodonUser.update(
-                mastodonUser: user,
-                context: Persistence.MastodonUser.RelationshipContext(
-                    entity: response.value,
-                    me: me,
-                    networkDate: response.networkDate
-                )
-            )
-        }
-        
+
         return response
     }
 

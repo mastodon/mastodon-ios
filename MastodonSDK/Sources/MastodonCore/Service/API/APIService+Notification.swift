@@ -170,21 +170,7 @@ extension APIService {
             notificationID: notificationID,
             authorization: authorization
         ).singleOutput()
-        
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            guard let me = authenticationBox.authentication.user(in: managedObjectContext) else { return }
-            _ = Persistence.Notification.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.Notification.PersistContext(
-                    domain: domain,
-                    entity: response.value,
-                    me: me,
-                    networkDate: response.networkDate
-                )
-            )
-        }
-        
+
         return response
     }
 

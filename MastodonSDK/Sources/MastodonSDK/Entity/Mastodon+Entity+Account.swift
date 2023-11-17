@@ -98,6 +98,15 @@ extension Mastodon.Entity.Account {
         }
     }
     
+    public var domainFromAcct: String {
+        if !acct.contains("@") {
+            return domain!
+        } else {
+            let domain = acct.split(separator: "@").last
+            return String(domain!)
+        }
+    }
+    
     public func acctWithDomainIfMissing(_ localDomain: String) -> String {
         guard acct.contains("@") else {
             return "\(acct)@\(localDomain)"

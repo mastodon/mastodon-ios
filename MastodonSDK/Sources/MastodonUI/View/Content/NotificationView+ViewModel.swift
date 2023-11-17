@@ -220,7 +220,7 @@ extension NotificationView.ViewModel {
             )
         )
         .sink { [weak self] authorName, isMuting, isBlocking, isMyselfIsTranslatedIsFollowed in
-            guard let name = authorName?.string, let self, let context = self.context, let authContext = self.authContext else {
+            guard let name = authorName?.string, let self, let authContext = self.authContext else {
                 notificationView.menuButton.menu = nil
                 return
             }
@@ -228,8 +228,7 @@ extension NotificationView.ViewModel {
               let (isMyself, isTranslated, isFollowed) = isMyselfIsTranslatedIsFollowed
 
               let authentication = authContext.mastodonAuthenticationBox.authentication
-              let instance = authentication.instance(in: context.managedObjectContext)
-              let isTranslationEnabled = instance?.isTranslationEnabled ?? false
+            let isTranslationEnabled = authentication.instanceV2?.configuration?.translation?.enabled ?? false
 
               let menuContext = NotificationView.AuthorMenuContext(
                 name: name,

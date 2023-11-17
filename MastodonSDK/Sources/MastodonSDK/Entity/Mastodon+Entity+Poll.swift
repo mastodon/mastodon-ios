@@ -45,7 +45,6 @@ extension Mastodon.Entity {
             case voted
             case ownVotes = "own_votes"
             case options
-            case isVoting
         }
     }
 }

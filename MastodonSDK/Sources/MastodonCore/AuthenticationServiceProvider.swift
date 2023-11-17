@@ -23,10 +23,17 @@ public class AuthenticationServiceProvider: ObservableObject {
         }
     }
         
-    func update(instance: Instance, where domain: String) {
+    func update(instance: Mastodon.Entity.Instance, where domain: String) {
         authentications = authentications.map { authentication in
             guard authentication.domain == domain else { return authentication }
             return authentication.updating(instance: instance)
+        }
+    }
+    
+    func update(instanceV2: Mastodon.Entity.V2.Instance, where domain: String) {
+        authentications = authentications.map { authentication in
+            guard authentication.domain == domain else { return authentication }
+            return authentication.updating(instanceV2: instanceV2)
         }
     }
     

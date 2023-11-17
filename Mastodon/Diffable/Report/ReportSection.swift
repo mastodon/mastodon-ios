@@ -6,8 +6,6 @@
 //
 
 import Combine
-import CoreData
-import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
@@ -48,12 +46,11 @@ extension ReportSection {
             case .status(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportStatusTableViewCell.self), for: indexPath) as! ReportStatusTableViewCell
                 context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else { return }
                     configure(
                         context: context,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: .init(value: status),
+                        viewModel: .init(value: record),
                         configuration: configuration
                     )
                 }
@@ -78,8 +75,7 @@ extension ReportSection {
             case .result(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportResultActionTableViewCell.self), for: indexPath) as! ReportResultActionTableViewCell
                 context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
-                    cell.avatarImageView.configure(configuration: .init(url: user.avatarImageURL()))
+                    cell.avatarImageView.configure(configuration: .init(url: record.avatarImageURL()))
                 }
                 return cell
             case .bottomLoader:

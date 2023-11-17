@@ -7,15 +7,13 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 
 extension APIService {
     
     private struct MastodonMuteContext {
-        let sourceUserID: MastodonUser.ID
-        let targetUserID: MastodonUser.ID
+        let sourceUserID: Mastodon.Entity.Account.ID
+        let targetUserID: Mastodon.Entity.Account.ID
         let targetUsername: String
         let isMuting: Bool
     }
@@ -41,21 +39,6 @@ extension APIService {
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
         
-        let userIDs = response.value.map { $0.id }
-        let predicate = MastodonUser.predicate(domain: authenticationBox.domain, ids: userIDs)
-
-        let fetchRequest = MastodonUser.fetchRequest()
-        fetchRequest.predicate = predicate
-        fetchRequest.includesPropertyValues = false
-        
-        try await managedObjectContext.performChanges {
-            let users = try managedObjectContext.fetch(fetchRequest) as! [MastodonUser]
-            
-            for user in users {
-                user.deleteStatusAndNotificationFeeds(in: managedObjectContext)
-            }
-        }
-
         return response
     }
     

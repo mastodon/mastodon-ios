@@ -8,8 +8,6 @@
 
 import Foundation
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 import MastodonCore
 import MastodonMeta
@@ -20,7 +18,7 @@ final class MastodonStatusThreadViewModel {
     
     // input
     let context: AppContext
-    @Published private(set) var deletedObjectIDs: Set<NSManagedObjectID> = Set()
+    @Published private(set) var deletedObjectIDs: Set<Mastodon.Entity.Status.ID> = Set()
 
     // output
     @Published var __ancestors: [StatusItem] = []
@@ -41,7 +39,7 @@ final class MastodonStatusThreadViewModel {
             let newItems = items.filter { item in
                 switch item {
                 case .thread(let thread):
-                    return !deletedObjectIDs.contains(thread.record.objectID)
+                    return !deletedObjectIDs.contains(thread.record.id)
                 default:
                     assertionFailure()
                     return false
@@ -60,7 +58,7 @@ final class MastodonStatusThreadViewModel {
             let newItems = items.filter { item in
                 switch item {
                 case .thread(let thread):
-                    return !deletedObjectIDs.contains(thread.record.objectID)
+                    return !deletedObjectIDs.contains(thread.record.id)
                 default:
                     assertionFailure()
                     return false
@@ -81,14 +79,16 @@ extension MastodonStatusThreadViewModel {
         nodes: [Node]
     ) {
         let ids = nodes.map { $0.statusID }
-        var dictionary: [Status.ID: Status] = [:]
+        var dictionary: [Mastodon.Entity.Status.ID: Mastodon.Entity.Status] = [:]
         do {
-            let request = Status.sortedFetchRequest
-            request.predicate = Status.predicate(domain: domain, ids: ids)
-            let statuses = try self.context.managedObjectContext.fetch(request)
-            for status in statuses {
-                dictionary[status.id] = status
-            }
+//            let request = Status.sortedFetchRequest
+//            request.predicate = Status.predicate(domain: domain, ids: ids)
+//            let statuses = try self.context.managedObjectContext.fetch(request)
+            
+            #warning("figure out what this does")
+//            for status in statuses {
+//                dictionary[status.id] = status
+//            }
         } catch {
             return
         }
@@ -98,9 +98,9 @@ extension MastodonStatusThreadViewModel {
             guard let status = dictionary[node.statusID] else { continue }
             let isLast = i == nodes.count - 1
             
-            let record = ManagedObjectRecord<Status>(objectID: status.objectID)
+//            let record = ManagedObjectRecord<Status>(objectID: status.objectID)
             let context = StatusItem.Thread.Context(
-                status: record,
+                status: status,
                 displayUpperConversationLink: !isLast,
                 displayBottomConversationLink: true
             )
@@ -119,14 +119,15 @@ extension MastodonStatusThreadViewModel {
         let childrenIDs = nodes
             .map { node in [node.statusID, node.children.first?.statusID].compactMap { $0 } }
             .flatMap { $0 }
-        var dictionary: [Status.ID: Status] = [:]
+        var dictionary: [Mastodon.Entity.Status.ID: Mastodon.Entity.Status] = [:]
         do {
-            let request = Status.sortedFetchRequest
-            request.predicate = Status.predicate(domain: domain, ids: childrenIDs)
-            let statuses = try self.context.managedObjectContext.fetch(request)
-            for status in statuses {
-                dictionary[status.id] = status
-            }
+//            let request = Status.sortedFetchRequest
+//            request.predicate = Status.predicate(domain: domain, ids: childrenIDs)
+//            let statuses = try self.context.managedObjectContext.fetch(request)
+            #warning("what is this???")
+//            for status in statuses {
+//                dictionary[status.id] = status
+//            }
         } catch {
             return
         }
@@ -135,9 +136,9 @@ extension MastodonStatusThreadViewModel {
         for node in nodes {
             guard let status = dictionary[node.statusID] else { continue }
             // first tier
-            let record = ManagedObjectRecord<Status>(objectID: status.objectID)
+//            let record = ManagedObjectRecord<Status>(objectID: status.objectID)
             let context = StatusItem.Thread.Context(
-                status: record
+                status: status
             )
             let item = StatusItem.thread(.leaf(context: context))
             newItems.append(item)
@@ -145,9 +146,9 @@ extension MastodonStatusThreadViewModel {
             // second tier
             if let child = node.children.first {
                 guard let secondaryStatus = dictionary[child.statusID] else { continue }
-                let secondaryRecord = ManagedObjectRecord<Status>(objectID: secondaryStatus.objectID)
+//                let secondaryRecord = ManagedObjectRecord<Status>(objectID: secondaryStatus.objectID)
                 let secondaryContext = StatusItem.Thread.Context(
-                    status: secondaryRecord,
+                    status: secondaryStatus,
                     displayUpperConversationLink: true
                 )
                 let secondaryItem = StatusItem.thread(.leaf(context: secondaryContext))
@@ -263,7 +264,7 @@ extension MastodonStatusThreadViewModel.Node {
 }
 
 extension MastodonStatusThreadViewModel {
-    func delete(objectIDs: [NSManagedObjectID]) {
+    func delete(objectIDs: [Mastodon.Entity.Status.ID]) {
         var set = deletedObjectIDs
         for objectID in objectIDs {
             set.insert(objectID)

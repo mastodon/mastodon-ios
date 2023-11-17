@@ -8,8 +8,6 @@
 import UIKit
 import AVKit
 import Combine
-import CoreData
-import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import AlamofireImage
@@ -206,24 +204,25 @@ extension HomeTimelineViewController {
         viewModel.timelineIsEmpty
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isEmpty in
-                if isEmpty {
-                    self?.showEmptyView()
-
-                    let userDoesntFollowPeople: Bool
-                    if let managedObjectContext = self?.context.managedObjectContext,
-                       let authContext = self?.authContext,
-                       let me = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext){
-                        userDoesntFollowPeople = me.followersCount == 0
+                Task { @MainActor in
+                    if isEmpty {
+                        self?.showEmptyView()
+                        
+                        let userDoesntFollowPeople: Bool
+                        if let authContext = self?.authContext,
+                           let me = try? await authContext.mastodonAuthenticationBox.authentication.me() {
+                            userDoesntFollowPeople = me.followersCount == 0
+                        } else {
+                            userDoesntFollowPeople = true
+                        }
+                        
+                        if (self?.viewModel.presentedSuggestions == false) && userDoesntFollowPeople {
+                            self?.findPeopleButtonPressed(self)
+                            self?.viewModel.presentedSuggestions = true
+                        }
                     } else {
-                        userDoesntFollowPeople = true
+                        self?.emptyView.removeFromSuperview()
                     }
-
-                    if (self?.viewModel.presentedSuggestions == false) && userDoesntFollowPeople {
-                        self?.findPeopleButtonPressed(self)
-                        self?.viewModel.presentedSuggestions = true
-                    }
-                } else {
-                    self?.emptyView.removeFromSuperview()
                 }
             }
             .store(in: &disposeBag)

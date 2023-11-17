@@ -73,7 +73,6 @@ extension Mastodon.Entity {
             
             case visibility
             case sensitive
-            case sensitiveToggled
             
             case spoilerText = "spoiler_text"
             case mediaAttachments = "media_attachments"

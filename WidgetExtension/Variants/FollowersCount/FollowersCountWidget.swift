@@ -82,10 +82,10 @@ private extension FollowersCountWidgetProvider {
                 return completion(.unconfigured)
             }
             
+            let meAcctDomain = try? await authBox.authentication.me().acctWithDomain
+            
             guard
-                let desiredAccount = configuration.account ?? authBox.authentication.user(
-                    in: WidgetExtension.appContext.managedObjectContext
-                )?.acctWithDomain
+                let desiredAccount = configuration.account ?? meAcctDomain
             else {
                 return completion(.unconfigured)
             }

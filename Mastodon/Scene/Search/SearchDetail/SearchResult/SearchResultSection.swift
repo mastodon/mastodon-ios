@@ -44,13 +44,12 @@ extension SearchResultSection {
             case .user(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as! UserTableViewCell
                 context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
                     configure(
                         context: context,
                         authContext: authContext,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: UserTableViewCell.ViewModel(user: user,
+                        viewModel: UserTableViewCell.ViewModel(user: record,
                                                                followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
                                                                blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
                                                                followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()),
@@ -61,12 +60,11 @@ extension SearchResultSection {
             case .status(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
                 context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else { return }
                     configure(
                         context: context,
                         tableView: tableView,
                         cell: cell,
-                        viewModel: StatusTableViewCell.ViewModel(value: .status(status)),
+                        viewModel: StatusTableViewCell.ViewModel(value: .status(record)),
                         configuration: configuration
                     )
                 }
@@ -126,7 +124,7 @@ extension SearchResultSection {
         configuration: Configuration
     ) {
         cell.configure(
-            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
+            me: authContext.mastodonAuthenticationBox.inMemoryCache.meAccount,
             tableView: tableView,
             viewModel: viewModel,
             delegate: configuration.userTableViewCellDelegate

@@ -7,12 +7,12 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import SafariServices
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
+import MastodonSDK
 
 class MainTabBarController: UITabBarController {
 
@@ -131,7 +131,6 @@ class MainTabBarController: UITabBarController {
     private(set) var isReadyForWizardAvatarButton = false
     
     // output
-    var avatarURLObserver: AnyCancellable?
     @Published var avatarURL: URL?
     
     // haptic feedback
@@ -262,14 +261,8 @@ extension MainTabBarController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                if let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) {
-                    self.avatarURLObserver = user.publisher(for: \.avatar)
-                        .sink { [weak self, weak user] _ in
-                            guard let self = self else { return }
-                            guard let user = user else { return }
-                            guard user.managedObjectContext != nil else { return }
-                            self.avatarURL = user.avatarImageURL()
-                        }
+                if let user = self.authContext?.mastodonAuthenticationBox.inMemoryCache.meAccount {
+                    self.avatarURL = user.avatarImageURL()
 
                     // a11y
                     let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
@@ -281,8 +274,6 @@ extension MainTabBarController {
                             self?.updateUserAccount()
                         }
                         .store(in: &self.disposeBag)
-                } else {
-                    self.avatarURLObserver = nil
                 }
             }
             .store(in: &disposeBag)
@@ -457,16 +448,7 @@ extension MainTabBarController {
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
             
-            if let user = authContext.mastodonAuthenticationBox.authentication.user(
-                in: context.managedObjectContext
-            ) {
-                user.update(
-                    property: .init(
-                        entity: profileResponse.value,
-                        domain: authContext.mastodonAuthenticationBox.domain
-                    )
-                )
-            }
+            authContext.mastodonAuthenticationBox.inMemoryCache.meAccount = profileResponse.value
         }
     }
 }

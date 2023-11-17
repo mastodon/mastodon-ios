@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreDataStack
 import MastodonUI
 import MastodonLocalization
 import MastodonSDK
@@ -66,10 +65,8 @@ extension DataSourceFacade {
         previewContext: AttachmentPreviewContext
     ) async throws {
         let managedObjectContext = dependency.context.managedObjectContext
-        let attachments: [MastodonAttachment] = try await managedObjectContext.perform {
-            let status = status.reblog ?? status
-            return status.mastodonAttachments
-        }
+        let status = status.reblog ?? status
+        let attachments = status.mastodonAttachments
         
         let thumbnails = await previewContext.thumbnails()
         
@@ -150,20 +147,14 @@ extension DataSourceFacade {
     @MainActor
     static func coordinateToMediaPreviewScene(
         dependency: NeedsDependency & MediaPreviewableViewController,
-        user: ManagedObjectRecord<MastodonUser>,
+        user: Mastodon.Entity.Account,
         previewContext: ImagePreviewContext
     ) async throws {
         let managedObjectContext = dependency.context.managedObjectContext
         
-        var _avatarAssetURL: String?
-        var _headerAssetURL: String?
-        
-        try await managedObjectContext.perform {
-            guard let user = user.object(in: managedObjectContext) else { return }
-            _avatarAssetURL = user.avatar
-            _headerAssetURL = user.header
-        }
-        
+        var _avatarAssetURL: String? = user.avatar
+        var _headerAssetURL: String? = user.header
+
         let thumbnail = await previewContext.thumbnail()
         
         let source: MediaPreviewTransitionItem.Source = {

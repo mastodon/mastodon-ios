@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreDataStack
 import MastodonCore
 import UIKit
 
@@ -86,21 +85,10 @@ extension DataSourceFacade {
         provider: DataSourceProvider & AuthContextProvider
     ) async throws {
         let authenticationBox = provider.authContext.mastodonAuthenticationBox
-        let managedObjectContext = provider.context.backgroundManagedObjectContext
         
-        try await managedObjectContext.performChanges {
-            guard let _ = authenticationBox.authentication.user(in: managedObjectContext) else { return }
-            let request = SearchHistory.sortedFetchRequest
-            request.predicate = SearchHistory.predicate(
-                domain: authenticationBox.domain,
-                userID: authenticationBox.userID
-            )
-            let searchHistories = managedObjectContext.safeFetch(request)
-            
-            for searchHistory in searchHistories {
-                managedObjectContext.delete(searchHistory)
-            }
-        }   // end try await managedObjectContext.performChanges { … }
+        guard let _ = try? await authenticationBox.authentication.me() else { return }
+
+        #warning("re-implement search history")
     }   // end func
 
 }

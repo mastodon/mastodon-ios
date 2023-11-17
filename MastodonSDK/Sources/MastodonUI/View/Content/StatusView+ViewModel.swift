@@ -7,8 +7,6 @@
 
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import Meta
 import MastodonAsset
 import MastodonCore
@@ -668,14 +666,13 @@ extension StatusView.ViewModel {
                 let (isMuting, isBlocking, isBookmark, isFollowed) = tupleTwo
                 let (translatedFromLanguage, language) = tupleThree
 
-                guard let name = authorName?.string, let context = self.context, let authContext = self.authContext else {
+                guard let name = authorName?.string, let authContext = self.authContext else {
                     statusView.authorView.menuButton.menu = nil
                     return
                 }
 
                 let authentication = authContext.mastodonAuthenticationBox.authentication
-                let instance = authentication.instance(in: context.managedObjectContext)
-                let isTranslationEnabled = instance?.isTranslationEnabled ?? false
+                let isTranslationEnabled = authentication.instanceV2?.configuration?.translation?.enabled ?? false
 
                 let menuContext = StatusAuthorView.AuthorMenuContext(
                     name: name,

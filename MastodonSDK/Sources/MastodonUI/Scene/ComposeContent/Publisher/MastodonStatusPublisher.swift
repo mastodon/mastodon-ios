@@ -7,8 +7,6 @@
 
 import Foundation
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonCore
 import MastodonSDK
 
@@ -17,7 +15,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     // Input
     
     // author
-    public let author: ManagedObjectRecord<MastodonUser>
+    public let author: Mastodon.Entity.Account?
     // refer
     public let replyTo: Mastodon.Entity.Status?
     // content warning
@@ -47,7 +45,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public var reactor: StatusPublisherReactor?
 
     public init(
-        author: ManagedObjectRecord<MastodonUser>,
+        author: Mastodon.Entity.Account,
         replyTo: Mastodon.Entity.Status?,
         isContentWarningComposing: Bool,
         contentWarning: String,

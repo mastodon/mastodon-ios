@@ -7,8 +7,6 @@
 
 import Foundation
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 
 public final class InstanceService {
@@ -16,7 +14,6 @@ public final class InstanceService {
     var disposeBag = Set<AnyCancellable>()
 
     // input
-    let backgroundManagedObjectContext: NSManagedObjectContext
     weak var apiService: APIService?
     weak var authenticationService: AuthenticationService?
     
@@ -26,7 +23,6 @@ public final class InstanceService {
         apiService: APIService,
         authenticationService: AuthenticationService
     ) {
-        self.backgroundManagedObjectContext = apiService.backgroundManagedObjectContext
         self.apiService = apiService
         self.authenticationService = authenticationService
         
@@ -68,57 +64,13 @@ extension InstanceService {
     }
     
     private func updateInstance(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.Instance>) -> AnyPublisher<Void, Error> {
-        let managedObjectContext = self.backgroundManagedObjectContext
-        return managedObjectContext.performChanges {
-            // get instance
-            let (instance, _) = APIService.CoreData.createOrMergeInstance(
-                into: managedObjectContext,
-                domain: domain,
-                entity: response.value,
-                networkDate: response.networkDate
-            )
-            
-            // update instance
-            AuthenticationServiceProvider.shared.update(instance: instance, where: domain)
-        }
-        .setFailureType(to: Error.self)
-        .tryMap { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                throw error
-            }
-        }
-        .eraseToAnyPublisher()
+        AuthenticationServiceProvider.shared.update(instance: response.value, where: domain)
+        return Just(Void()).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
     
     private func updateInstanceV2(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.V2.Instance>) -> AnyPublisher<Void, Error> {
-        let managedObjectContext = self.backgroundManagedObjectContext
-        return managedObjectContext.performChanges {
-            // get instance
-            let (instance, _) = APIService.CoreData.createOrMergeInstance(
-                in: managedObjectContext,
-                context: .init(
-                    domain: domain,
-                    entity: response.value,
-                    networkDate: response.networkDate
-                )
-            )
-            
-            // update instance
-            AuthenticationServiceProvider.shared.update(instance: instance, where: domain)
-        }
-        .setFailureType(to: Error.self)
-        .tryMap { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                throw error
-            }
-        }
-        .eraseToAnyPublisher()
+        AuthenticationServiceProvider.shared.update(instanceV2: response.value, where: domain)
+        return Just(Void()).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
 }
 

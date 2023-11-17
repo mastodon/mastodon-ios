@@ -6,9 +6,9 @@
 //
 
 import UIKit
-import CoreDataStack
 import MastodonCore
 import MastodonAsset
+import MastodonSDK
 
 enum SearchHistorySection: Hashable {
     case main
@@ -28,20 +28,18 @@ extension SearchHistorySection {
         configuration: Configuration
     ) -> UICollectionViewDiffableDataSource<SearchHistorySection, SearchHistoryItem> {
         
-        let userCellRegister = UICollectionView.CellRegistration<SearchHistoryUserCollectionViewCell, ManagedObjectRecord<MastodonUser>> { cell, indexPath, item in
+        let userCellRegister = UICollectionView.CellRegistration<SearchHistoryUserCollectionViewCell, Mastodon.Entity.Account> { cell, indexPath, item in
             context.managedObjectContext.performAndWait {
-                guard let user = item.object(in: context.managedObjectContext) else { return }
-                cell.condensedUserView.configure(with: user)
+                cell.condensedUserView.configure(with: item)
             }
         }
         
-        let hashtagCellRegister = UICollectionView.CellRegistration<UICollectionViewListCell, ManagedObjectRecord<Tag>> { cell, indexPath, item in
+        let hashtagCellRegister = UICollectionView.CellRegistration<UICollectionViewListCell, Mastodon.Entity.Tag> { cell, indexPath, item in
             context.managedObjectContext.performAndWait {
-                guard let hashtag = item.object(in: context.managedObjectContext) else { return }
                 var contentConfiguration = cell.defaultContentConfiguration()
                 contentConfiguration.image = UIImage(systemName: "magnifyingglass")
                 contentConfiguration.imageProperties.tintColor = Asset.Colors.Brand.blurple.color
-                contentConfiguration.text = "#" + hashtag.name
+                contentConfiguration.text = "#" + item.name
                 cell.contentConfiguration = contentConfiguration
             }
             

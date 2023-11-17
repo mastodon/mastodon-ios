@@ -153,21 +153,17 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.authContext = authContext
         self.destination = destination
         self.composeContext = composeContext
+
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
-                guard let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else {
+                guard let author = authContext.mastodonAuthenticationBox.inMemoryCache.meAccount else {
                     return .public
                 }
                 return author.locked ? .private : .public
             }()
             // set visibility for reply post
             if case .reply(let status) = destination {
-//                context.managedObjectContext.performAndWait {
-//                    guard let status = record.object(in: context.managedObjectContext) else {
-//                        assertionFailure()
-//                        return
-//                    }
                     let repliedStatusVisibility = status.visibility
                     switch repliedStatusVisibility {
                     case .public, .unlisted:
@@ -225,7 +221,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 //                    assertionFailure()
 //                    return
 //                }
-                let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
+            let author = authContext.mastodonAuthenticationBox.inMemoryCache.meAccount
 
                 var mentionAccts: [String] = []
             if author?.id != status.account.id {
@@ -258,11 +254,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
         // set limit
         let _configuration: Mastodon.Entity.Instance.Configuration? = {
-            var configuration: Mastodon.Entity.Instance.Configuration? = nil
-            context.managedObjectContext.performAndWait {
-                let authentication = authContext.mastodonAuthenticationBox.authentication
-                configuration = authentication.instance(in: context.managedObjectContext)?.configuration
-            }
+            let authentication = authContext.mastodonAuthenticationBox.authentication
+            var configuration: Mastodon.Entity.Instance.Configuration? = authentication.instance?.configuration
             return configuration
         }()
         if let configuration = _configuration {
@@ -319,7 +312,7 @@ extension ComposeContentViewModel {
         $authContext
             .sink { [weak self] authContext in
                 guard let self = self else { return }
-                guard let user = authContext.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else { return }
+                guard let user = authContext.mastodonAuthenticationBox.inMemoryCache.meAccount else { return }
                 self.avatarURL = user.avatarImageURL()
                 self.name = user.nameMetaContent ?? PlaintextMetaContent(string: user.displayNameWithFallback)
                 self.username = user.acctWithDomain
@@ -563,10 +556,7 @@ extension ComposeContentViewModel {
         
         // author
         let managedObjectContext = self.context.managedObjectContext
-        var _author: ManagedObjectRecord<MastodonUser>?
-        managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
-        }
+        var _author = authContext.mastodonAuthenticationBox.inMemoryCache.meAccount
         guard let author = _author else {
             throw AppError.badAuthentication
         }
@@ -619,10 +609,7 @@ extension ComposeContentViewModel {
 
         // author
         let managedObjectContext = self.context.managedObjectContext
-        var _author: ManagedObjectRecord<MastodonUser>?
-        managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
-        }
+        var _author = authContext.mastodonAuthenticationBox.inMemoryCache.meAccount
         guard let author = _author else {
             throw AppError.badAuthentication
         }
@@ -815,6 +802,31 @@ extension ComposeContentViewModel: AttachmentViewModelDelegate {
             Task {
                 try await uploadMediaInQueue()
             }
+        }
+    }
+}
+
+
+extension Mastodon.Entity.Account {
+    public var nameMetaContent: MastodonMetaContent? {
+        do {
+            let content = MastodonContent(content: displayNameWithFallback, emojis: emojis?.asDictionary ?? [:])
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            return metaContent
+        } catch {
+            assertionFailure()
+            return nil
+        }
+    }
+    
+    public var bioMetaContent: MastodonMetaContent? {
+        do {
+            let content = MastodonContent(content: note, emojis: emojis?.asDictionary ?? [:])
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            return metaContent
+        } catch {
+            assertionFailure()
+            return nil
         }
     }
 }

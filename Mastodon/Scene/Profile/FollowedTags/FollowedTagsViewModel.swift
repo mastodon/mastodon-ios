@@ -8,14 +8,11 @@
 import os
 import UIKit
 import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 import MastodonCore
 
 final class FollowedTagsViewModel: NSObject {
     var disposeBag = Set<AnyCancellable>()
-    let fetchedResultsController: FollowedTagsFetchedResultController
 
     private weak var tableView: UITableView?
     var diffableDataSource: UITableViewDiffableDataSource<Section, Item>?
@@ -24,22 +21,18 @@ final class FollowedTagsViewModel: NSObject {
     let context: AppContext
     let authContext: AuthContext
     
+    @Published var records = [Mastodon.Entity.Tag]()
+    
     // output
     let presentHashtagTimeline = PassthroughSubject<HashtagTimelineViewModel, Never>()
     
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.fetchedResultsController = FollowedTagsFetchedResultController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            user: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)! // fixme:
-        )
 
         super.init()
 
-        self.fetchedResultsController
-            .$records
+            $records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }
@@ -71,15 +64,17 @@ extension FollowedTagsViewModel {
         }
     }
 
-    func followOrUnfollow(_ tag: Tag) {
+    func followOrUnfollow(_ tag: Mastodon.Entity.Tag) {
         Task { @MainActor in
             switch tag.following {
-            case true:
+            case .none:
+                break
+            case .some(true):
                 _ = try? await context.apiService.unfollowTag(
                     for: tag.name,
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
-            case false:
+            case .some(false):
                 _ = try? await context.apiService.followTag(
                     for: tag.name,
                     authenticationBox: authContext.mastodonAuthenticationBox
@@ -94,7 +89,7 @@ extension FollowedTagsViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let object = fetchedResultsController.records[indexPath.row]
+        let object = records[indexPath.row]
 
         let hashtagTimelineViewModel = HashtagTimelineViewModel(
             context: self.context,
