@@ -542,7 +542,7 @@
             },
             "language": {
                 "title": "Jazyk příspěvku",
-                "suggested": "Suggested",
+                "suggested": "Navrhované",
                 "recent": "Nedávné",
                 "other": "Jiný jazyk…"
             }
@@ -558,7 +558,7 @@
                 "other_posts": "příspěvky",
                 "other_following": "sledování",
                 "other_followers": "sledující",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "vzájemní"
             },
             "fields": {
                 "joined": "Připojen/a",
@@ -653,17 +653,17 @@
                 "posts": "Příspěvky s \"%s\"",
                 "people": "Profily s \"%s\"",
                 "profile": "Přejít na @%s@%s",
-                "url": "Open URL in Mastodon",
+                "url": "Otevřít URL v Mastodonu",
                 "hashtag": "Přejít na #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Nebyl nalezen žádný uživatelský účet",
+                    "message": "Neexistuje žádný uživatelský účet \"%s\" na %s"
                 },
                 "empty_state": {
                     "no_results": "Žádné výsledky"
                 },
                 "recent_search": "Nedávná hledání",
-                "clear_all": "Clear all",
+                "clear_all": "Vymazat vše",
                 "clear": "Vymazat"
             }
         },
@@ -743,33 +743,33 @@
                     "system": "Použít vzhled zařízení"
                 },
                 "design": {
-                    "section_title": "Design",
+                    "section_title": "Vzhled",
                     "show_animations": "Přehrát animované Avatary a Emoji"
                 },
                 "links": {
                     "section_title": "Odkazy",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_mastodon": "Otevřít v Mastodonu",
+                    "open_in_browser": "Otevřít v prohlížeči"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Oznámení",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Dostávat oznámení od",
+                    "anyone": "Kdokoliv",
+                    "followers": "Lidé, kteří vás sledují",
+                    "follow": "Lidé, které sledujete",
+                    "noone": "Nikdo"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Zmínění a odpovědi",
+                    "boosts": "Boosty",
+                    "favorites": "Oblíbené",
+                    "new_followers": "Noví sledující"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Zapněte oznámení z nastavení zařízení pro zobrazení aktualizací na zamykací obrazovce.",
+                    "go_to_settings": "Přejít do nastavení oznámení"
                 }
             }
         },
@@ -858,48 +858,48 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Nezdá se, že by to byl platný odkaz Mastodon."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Omlouváme se, ale tato rodina widgetů není podporována.",
+            "user_not_logged_in": "Pro přihlášení k účtu otevřete prosím Mastodon."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Sledujících",
+            "configuration_description": "Zobrazit počet sledujících.",
+            "title": "SLEDUJÍCÍ",
+            "followers_today": "%s sledujících dnes"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Více sledujících",
+            "configuration_description": "Zobrazit počet sledujících pro více účtů.",
             "mock_user": {
-                "display_name": "Another follower",
+                "display_name": "Další sledující",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Nejnovější sledující",
+            "configuration_description": "Zobrazit nejnovější sledující.",
+            "title": "Nejnovější sledující",
+            "last_update": "Poslední aktualizace: %s"
         },
         "hashtag": {
             "configuration": {
                 "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Zobrazí poslední příspěvek s vybraným hashtagem."
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "Omlouváme se, nepodařilo se nám najít žádné příspěvky s hashtag <a>#%@</a>. Zkuste prosím <a>#DifferentHashtag</a> nebo zkontrolujte nastavení widgetu."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Takto by vypadal příspěvek s <a>#hashtag</a>. Vyberte si jakýkoliv <a>#hashtag</a> který chcete v nastavení widgetu."
             }
         }
     }
