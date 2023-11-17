@@ -656,8 +656,8 @@
                 "url": "Mở liên kết trong Mastodon",
                 "hashtag": "Đến #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Không tìm thấy ai",
+                    "message": "Không tìm thấy người tên \"%s\" trên %s"
                 },
                 "empty_state": {
                     "no_results": "Không có kết quả"
@@ -710,37 +710,37 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "Cài đặt",
+                "general": "Chung",
+                "notifications": "Thông báo",
+                "support_mastodon": "Hỗ trợ Mastodon",
+                "about_mastodon": "Về Mastodon",
+                "server_details": "Thông tin máy chủ",
+                "logout": "Đăng xuất %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Giới thiệu",
+                "more_settings": "Nhiều hơn",
+                "contribute_to_mastodon": "Đóng góp cho Mastodon",
+                "privacy_policy": "Chính sách bảo mật",
+                "clear_media_storage": "Xóa bộ nhớ đệm"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Giới thiệu",
+                "rules": "Nội quy",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Quản trị viên",
+                    "message_admin": "Nhắn cho quản trị viên",
+                    "legal_notice": "Pháp lý"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Chung",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Giao diện",
+                    "dark": "Tối",
+                    "light": "Sáng",
+                    "system": "Giống thiết bị"
                 },
                 "design": {
                     "section_title": "Design",
