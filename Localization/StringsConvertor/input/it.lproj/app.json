@@ -650,11 +650,15 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Post corrispondenti a \"%s\"",
+                "people": "Persone corrispondenti a \"%s\"",
                 "profile": "Vai a @%s@%s",
                 "url": "Apri l'URL su Mastodon",
                 "hashtag": "Vai a #%s",
+                "no_user": {
+                    "title": "Nessun account utente trovato",
+                    "message": "Non c'è un account utente \"%s\" su %s"
+                },
                 "empty_state": {
                     "no_results": "Nessun risultato"
                 },
@@ -705,59 +709,68 @@
             "title": "Post da %s"
         },
         "settings": {
-            "title": "Impostazioni",
-            "section": {
-                "appearance": {
-                    "title": "Aspetto",
-                    "automatic": "Automatico",
-                    "light": "Sempre chiaro",
-                    "dark": "Sempre scuro"
-                },
-                "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Predefinito di sistema",
-                    "really_dark": "Davvero scuro",
-                    "sorta_dark": "Un po' scuro",
-                    "light": "Chiaro"
-                },
-                "notifications": {
-                    "title": "Notifiche",
-                    "favorites": "Apprezza i miei post",
-                    "follows": "Mi segue",
-                    "boosts": "Condivide i miei post",
-                    "mentions": "Mi menziona",
-                    "trigger": {
-                        "anyone": "chiunque",
-                        "follower": "un seguace",
-                        "follow": "chiunque io segua",
-                        "noone": "nessuno",
-                        "title": "Avvisami quando"
-                    }
-                },
-                "preference": {
-                    "title": "Preferenze",
-                    "disable_avatar_animation": "Disabilita avatar animati",
-                    "disable_emoji_animation": "Disabilita emoji animate",
-                    "using_default_browser": "Usa browser predefinito per aprire i collegamenti",
-                    "open_links_in_mastodon": "Apri i link in Mastodon"
-                },
-                "boring_zone": {
-                    "title": "La zona boring",
-                    "account_settings": "Impostazioni account",
-                    "terms": "Termini di servizio",
-                    "privacy": "Politica sulla Privacy"
-                },
-                "spicy_zone": {
-                    "title": "La zona piccante",
-                    "clear": "Cancella la cache multimediale",
-                    "signout": "Esci"
+            "overview": {
+                "title": "Impostazioni",
+                "general": "Generale",
+                "notifications": "Notifiche",
+                "support_mastodon": "Supporta Mastodon",
+                "about_mastodon": "Informazioni su Mastodon",
+                "server_details": "Dettagli del server",
+                "logout": "Esci da %@"
+            },
+            "about_mastodon": {
+                "title": "Info",
+                "more_settings": "Ancora più impostazioni",
+                "contribute_to_mastodon": "Contribuisci a Mastodon",
+                "privacy_policy": "Politica sulla privacy",
+                "clear_media_storage": "Cancella l'archiviazione multimediale"
+            },
+            "server_details": {
+                "about": "Info",
+                "rules": "Regole",
+                "about_instance": {
+                    "title": "Amministratore",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "Un avviso legale"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon è un software open source. Puoi segnalare problemi su GitHub a %s (%s)"
+            "general": {
+                "title": "Generale",
+                "appearance": {
+                    "section_title": "Aspetto",
+                    "dark": "Scuro",
+                    "light": "Chiaro",
+                    "system": "Utilizza l'aspetto del dispositivo"
+                },
+                "design": {
+                    "section_title": "Stile",
+                    "show_animations": "Riproduci avatar ed emoji animati"
+                },
+                "links": {
+                    "section_title": "Collegamenti",
+                    "open_in_mastodon": "Apri su Mastodon",
+                    "open_in_browser": "Apri nel browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Chiudi la finestra Impostazioni"
+            "notifications": {
+                "title": "Notifiche",
+                "policy": {
+                    "title": "Ricevi notifiche da",
+                    "anyone": "Chiunque",
+                    "followers": "Persone che ti seguono",
+                    "follow": "Persone che segui",
+                    "noone": "Nessuno"
+                },
+                "alert": {
+                    "mentions_and_replies": "Menzioni e risposte",
+                    "boosts": "Condivisioni",
+                    "favorites": "Preferiti",
+                    "new_followers": "Nuovi seguaci"
+                },
+                "disabled": {
+                    "notification_hint": "Attiva le notifiche dalle impostazioni del tuo dispositivo per vedere gli aggiornamenti sulla schermata di blocco.",
+                    "go_to_settings": "Vai alle impostazioni di notifica"
+                }
             }
         },
         "report": {

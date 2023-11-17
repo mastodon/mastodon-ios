@@ -655,6 +655,10 @@
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "결과가 없습니다"
                 },
@@ -705,59 +709,68 @@
             "title": "%s 님의 게시물"
         },
         "settings": {
-            "title": "설정",
-            "section": {
-                "appearance": {
-                    "title": "외관",
-                    "automatic": "자동",
-                    "light": "항상 밝음",
-                    "dark": "항상 어두움"
-                },
-                "look_and_feel": {
-                    "title": "인터페이스",
-                    "use_system": "시스템 설정 사용",
-                    "really_dark": "진짜 어두움",
-                    "sorta_dark": "좀 어두움",
-                    "light": "밝음"
-                },
-                "notifications": {
-                    "title": "알림",
-                    "favorites": "내 게시물을 마음에 들어할 때",
-                    "follows": "나를 팔로우 할 때",
-                    "boosts": "내 게시물을 리블로그 할 때",
-                    "mentions": "나를 언급할 때",
-                    "trigger": {
-                        "anyone": "누구든",
-                        "follower": "팔로워가",
-                        "follow": "내가 팔로우하는 사람이",
-                        "noone": "아무도 못 하게",
-                        "title": "알림을 보낼 조건은"
-                    }
-                },
-                "preference": {
-                    "title": "설정",
-                    "disable_avatar_animation": "움직이는 아바타 비활성화",
-                    "disable_emoji_animation": "움직이는 에모지 비활성화",
-                    "using_default_browser": "기본 브라우저로 링크 열기",
-                    "open_links_in_mastodon": "마스토돈에서 링크 열기"
-                },
-                "boring_zone": {
-                    "title": "지루한 영역",
-                    "account_settings": "계정 설정",
-                    "terms": "서비스 약관",
-                    "privacy": "개인정보 정책"
-                },
-                "spicy_zone": {
-                    "title": "매운 영역",
-                    "clear": "미디어 캐시 삭제",
-                    "signout": "로그아웃"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "마스토돈은 오픈소스 소프트웨어입니다. Github의 %s (%s)에서 문제를 보고할 수 있습니다."
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "설정 창 닫기"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

@@ -655,6 +655,10 @@
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "Žádné výsledky"
                 },
@@ -705,59 +709,68 @@
             "title": "Příspěvek od %s"
         },
         "settings": {
-            "title": "Nastavení",
-            "section": {
-                "appearance": {
-                    "title": "Vzhled",
-                    "automatic": "Automaticky",
-                    "light": "Vždy světlý",
-                    "dark": "Vždy tmavý"
-                },
-                "look_and_feel": {
-                    "title": "Vzhled a chování",
-                    "use_system": "Použít systém",
-                    "really_dark": "Skutečně tmavý",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Světlý"
-                },
-                "notifications": {
-                    "title": "Upozornění",
-                    "favorites": "Oblíbil si můj příspěvek",
-                    "follows": "Sleduje mě",
-                    "boosts": "Boostnul můj příspěvek",
-                    "mentions": "Zmiňuje mě",
-                    "trigger": {
-                        "anyone": "kdokoliv",
-                        "follower": "sledující",
-                        "follow": "kdokoli, koho sleduji",
-                        "noone": "nikdo",
-                        "title": "Upozornit, když"
-                    }
-                },
-                "preference": {
-                    "title": "Předvolby",
-                    "disable_avatar_animation": "Zakázat animované avatary",
-                    "disable_emoji_animation": "Zakázat animované emoji",
-                    "using_default_browser": "Použít výchozí prohlížeč pro otevírání odkazů",
-                    "open_links_in_mastodon": "Otevřít odkazy v Mastodonu"
-                },
-                "boring_zone": {
-                    "title": "Nudná část",
-                    "account_settings": "Nastavení účtu",
-                    "terms": "Podmínky služby",
-                    "privacy": "Zásady ochrany osobních údajů"
-                },
-                "spicy_zone": {
-                    "title": "Ostrá část",
-                    "clear": "Vymazat mezipaměť médií",
-                    "signout": "Odhlásit se"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon je open source software. Na GitHub můžete nahlásit problémy na %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Zavřít okno nastavení"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

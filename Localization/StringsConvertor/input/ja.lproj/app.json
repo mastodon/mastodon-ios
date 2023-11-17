@@ -650,16 +650,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "「%s」に一致する投稿",
+                "people": "「%s」に一致するアカウント",
+                "profile": "@%s@%s へ移動",
+                "url": "URL を Mastodon で開く",
+                "hashtag": "#%s へ移動",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "なし"
                 },
                 "recent_search": "最近の検索",
-                "clear_all": "Clear all",
+                "clear_all": "すべて消去",
                 "clear": "クリア"
             }
         },
@@ -705,59 +709,68 @@
             "title": "%sの投稿"
         },
         "settings": {
-            "title": "設定",
-            "section": {
-                "appearance": {
-                    "title": "外観",
-                    "automatic": "システムに準拠",
-                    "light": "ライト",
-                    "dark": "ダーク"
-                },
-                "look_and_feel": {
-                    "title": "テーマ",
-                    "use_system": "端末の設定を使う",
-                    "really_dark": "ブラック",
-                    "sorta_dark": "ダーク",
-                    "light": "ライト"
-                },
-                "notifications": {
-                    "title": "通知",
-                    "favorites": "お気に入り登録",
-                    "follows": "フォロー",
-                    "boosts": "ブースト",
-                    "mentions": "メンション",
-                    "trigger": {
-                        "anyone": "誰でも",
-                        "follower": "フォロワー",
-                        "follow": "フォローしている人",
-                        "noone": "なし",
-                        "title": "通知を受け取る"
-                    }
-                },
-                "preference": {
-                    "title": "環境設定",
-                    "disable_avatar_animation": "アバターのアニメーションを無効化する",
-                    "disable_emoji_animation": "絵文字のアニメーションを無効化する",
-                    "using_default_browser": "既定のブラウザでリンクを開く",
-                    "open_links_in_mastodon": "Mastodonでリンクを開く"
-                },
-                "boring_zone": {
-                    "title": "アプリについて",
-                    "account_settings": "アカウント設定",
-                    "terms": "利用規約",
-                    "privacy": "プライバシーポリシー"
-                },
-                "spicy_zone": {
-                    "title": "取り扱い注意項目",
-                    "clear": "メディアキャッシュをクリア",
-                    "signout": "サインアウト"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodonはオープンソースです。バグの報告はGithubの%s (%s)で行うことができます。"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "設定を閉じる"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

@@ -650,16 +650,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "โพสต์ที่ตรงกับ \"%s\"",
+                "people": "ผู้คนที่ตรงกับ \"%s\"",
+                "profile": "ไปยัง @%s@%s",
+                "url": "เปิด URL ใน Mastodon",
+                "hashtag": "ไปยัง #%s",
+                "no_user": {
+                    "title": "ไม่พบบัญชีผู้ใช้",
+                    "message": "ไม่มีบัญชีผู้ใช้ \"%s\" ใน %s"
+                },
                 "empty_state": {
                     "no_results": "ไม่มีผลลัพธ์"
                 },
                 "recent_search": "การค้นหาล่าสุด",
-                "clear_all": "Clear all",
+                "clear_all": "ล้างทั้งหมด",
                 "clear": "ล้าง"
             }
         },
@@ -705,59 +709,68 @@
             "title": "โพสต์จาก %s"
         },
         "settings": {
-            "title": "การตั้งค่า",
-            "section": {
-                "appearance": {
-                    "title": "ลักษณะที่ปรากฏ",
-                    "automatic": "อัตโนมัติ",
-                    "light": "สว่างเสมอ",
-                    "dark": "มืดเสมอ"
-                },
-                "look_and_feel": {
-                    "title": "ลักษณะที่แสดง",
-                    "use_system": "ใช้ของระบบ",
-                    "really_dark": "มืดมาก",
-                    "sorta_dark": "ค่อนข้างมืด",
-                    "light": "สว่าง"
-                },
-                "notifications": {
-                    "title": "การแจ้งเตือน",
-                    "favorites": "ชื่นชอบโพสต์ของฉัน",
-                    "follows": "ติดตามฉัน",
-                    "boosts": "ดันโพสต์ของฉัน",
-                    "mentions": "กล่าวถึงฉัน",
-                    "trigger": {
-                        "anyone": "ใครก็ตาม",
-                        "follower": "ผู้ติดตาม",
-                        "follow": "ใครก็ตามที่ฉันติดตาม",
-                        "noone": "ไม่มีใคร",
-                        "title": "แจ้งเตือนฉันเมื่อ"
-                    }
-                },
-                "preference": {
-                    "title": "การกำหนดลักษณะ",
-                    "disable_avatar_animation": "ปิดใช้งานภาพประจำตัวแบบเคลื่อนไหว",
-                    "disable_emoji_animation": "ปิดใช้งานอีโมจิแบบเคลื่อนไหว",
-                    "using_default_browser": "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์",
-                    "open_links_in_mastodon": "เปิดลิงก์ใน Mastodon"
-                },
-                "boring_zone": {
-                    "title": "โซนน่าเบื่อ",
-                    "account_settings": "การตั้งค่าบัญชี",
-                    "terms": "เงื่อนไขการให้บริการ",
-                    "privacy": "นโยบายความเป็นส่วนตัว"
-                },
-                "spicy_zone": {
-                    "title": "โซนเผ็ดร้อน",
-                    "clear": "ล้างแคชสื่อ",
-                    "signout": "ลงชื่อออก"
+            "overview": {
+                "title": "การตั้งค่า",
+                "general": "ทั่วไป",
+                "notifications": "การแจ้งเตือน",
+                "support_mastodon": "สนับสนุน Mastodon",
+                "about_mastodon": "เกี่ยวกับ Mastodon",
+                "server_details": "รายละเอียดเซิร์ฟเวอร์",
+                "logout": "ออกจากระบบ %@"
+            },
+            "about_mastodon": {
+                "title": "เกี่ยวกับ",
+                "more_settings": "การตั้งค่าเพิ่มเติม",
+                "contribute_to_mastodon": "มีส่วนร่วมกับ Mastodon",
+                "privacy_policy": "นโยบายความเป็นส่วนตัว",
+                "clear_media_storage": "ล้างที่เก็บข้อมูลสื่อ"
+            },
+            "server_details": {
+                "about": "เกี่ยวกับ",
+                "rules": "กฎ",
+                "about_instance": {
+                    "title": "ผู้ดูแล",
+                    "message_admin": "ส่งข้อความถึงผู้ดูแล",
+                    "legal_notice": "ประกาศทางกฎหมาย"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon เป็นซอฟต์แวร์โอเพนซอร์ส คุณสามารถรายงานปัญหาได้ใน GitHub ที่ %s (%s)"
+            "general": {
+                "title": "ทั่วไป",
+                "appearance": {
+                    "section_title": "ลักษณะที่ปรากฏ",
+                    "dark": "มืด",
+                    "light": "สว่าง",
+                    "system": "ใช้ลักษณะที่ปรากฏของอุปกรณ์"
+                },
+                "design": {
+                    "section_title": "การออกแบบ",
+                    "show_animations": "เล่นภาพประจำตัวและอีโมจิแบบเคลื่อนไหว"
+                },
+                "links": {
+                    "section_title": "ลิงก์",
+                    "open_in_mastodon": "เปิดใน Mastodon",
+                    "open_in_browser": "เปิดในเบราว์เซอร์"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "ปิดหน้าต่างการตั้งค่า"
+            "notifications": {
+                "title": "การแจ้งเตือน",
+                "policy": {
+                    "title": "รับการแจ้งเตือนจาก",
+                    "anyone": "ใครก็ตาม",
+                    "followers": "ผู้คนที่ติดตามคุณ",
+                    "follow": "ผู้คนที่คุณติดตาม",
+                    "noone": "ไม่มีใคร"
+                },
+                "alert": {
+                    "mentions_and_replies": "การกล่าวถึงและการตอบกลับ",
+                    "boosts": "การดัน",
+                    "favorites": "รายการโปรด",
+                    "new_followers": "ผู้ติดตามใหม่"
+                },
+                "disabled": {
+                    "notification_hint": "เปิดการแจ้งเตือนจากการตั้งค่าอุปกรณ์ของคุณเพื่อดูการอัปเดตในหน้าจอล็อคของคุณ",
+                    "go_to_settings": "ไปยังการตั้งค่าการแจ้งเตือน"
+                }
             }
         },
         "report": {

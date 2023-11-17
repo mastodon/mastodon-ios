@@ -37,7 +37,6 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         setupNavigationBarAppearance()
         defer { setupNavigationBarBackgroundView() }
 
-
         title = L10n.Scene.SuggestionAccount.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: UIBarButtonItem.SystemItem.done,
@@ -71,6 +70,8 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         navigationItem.largeTitleDisplayMode = .automatic
 
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
+
+        viewModel.updateSuggestions()
     }
 
     //MARK: - Actions
@@ -84,17 +85,21 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
 // MARK: - UITableViewDelegate
 extension SuggestionAccountViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         guard let tableViewDiffableDataSource = viewModel.tableViewDiffableDataSource else { return }
         guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
-        case .account(let record):
-            let profileViewModel = ProfileViewModel(context: context, authContext: viewModel.authContext, optionalMastodonUser: record)
+        case .account(let account, _):
+            let profileViewModel = ProfileViewModel(context: context, authContext: viewModel.authContext, optionalMastodonUser: account)
+                Task { await DataSourceFacade.coordinateToProfileScene(provider: self, account: account) }
             _ = coordinator.present(
                 scene: .profile(viewModel: profileViewModel),
                 from: self,
                 transition: .show
             )
         }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -103,6 +108,7 @@ extension SuggestionAccountViewController: UITableViewDelegate {
         }
 
         footerView.followAllButton.isEnabled = viewModel.records.isNotEmpty
+        footerView.followAllButton.isEnabled = viewModel.accounts.isNotEmpty
 
         footerView.delegate = self
         return footerView
@@ -123,8 +129,9 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
 
 extension SuggestionAccountViewController: SuggestionAccountTableViewFooterDelegate {
     func followAll(_ footerView: SuggestionAccountTableViewFooter) {
-        viewModel.followAllSuggestedAccounts(self) {
+        viewModel.followAllSuggestedAccounts(self, presentedOn: self.navigationController) {
             DispatchQueue.main.async {
+                self.coordinator.hideLoading(on: self.navigationController)
                 self.dismiss(animated: true)
             }
         }

@@ -577,7 +577,7 @@
                 "replies": "Replies",
                 "posts_and_replies": "Posts and Replies",
                 "media": "මාධ්‍ය",
-                "about": "පිලිබඳව"
+                "about": "පිළිබඳව"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -655,6 +655,10 @@
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "ප්‍රතිඵල නැත"
                 },
@@ -705,59 +709,68 @@
             "title": "Post from %s"
         },
         "settings": {
-            "title": "සැකසුම්",
-            "section": {
-                "appearance": {
-                    "title": "පෙනුම",
-                    "automatic": "ස්වයංක්‍රීය",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
-                },
-                "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
-                },
-                "notifications": {
-                    "title": "දැනුම්දීම්",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
-                    "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
-                    }
-                },
-                "preference": {
-                    "title": "Preferences",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
-                },
-                "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
-                },
-                "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "නික්මෙන්න"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Close Settings Window"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

@@ -655,6 +655,10 @@
                 "profile": "Ir a @%s@%s",
                 "url": "Abrir dirección web en Mastodon",
                 "hashtag": "Ir a %s",
+                "no_user": {
+                    "title": "No se encontró la cuenta del usuario",
+                    "message": "No se encontró la cuenta de usuario \"%s\" en %s"
+                },
                 "empty_state": {
                     "no_results": "No hay resultados"
                 },
@@ -705,59 +709,68 @@
             "title": "Mensaje de %s"
         },
         "settings": {
-            "title": "Configuración",
-            "section": {
-                "appearance": {
-                    "title": "Apariencia",
-                    "automatic": "Automática",
-                    "light": "Siempre clara",
-                    "dark": "Siempre oscura"
-                },
-                "look_and_feel": {
-                    "title": "Apariencia",
-                    "use_system": "Usar sistema",
-                    "really_dark": "Oscuro de verdad",
-                    "sorta_dark": "Algo oscuro",
-                    "light": "Claro"
-                },
-                "notifications": {
-                    "title": "Notificaciones",
-                    "favorites": "Marca mi mensaje como favorito",
-                    "follows": "Me sigue",
-                    "boosts": "Adhiere a mi mensaje",
-                    "mentions": "Me menciona",
-                    "trigger": {
-                        "anyone": "cualquiera",
-                        "follower": "un seguidor",
-                        "follow": "alguien a quien sigo",
-                        "noone": "nadie",
-                        "title": "Notificarme cuando"
-                    }
-                },
-                "preference": {
-                    "title": "Configuración",
-                    "disable_avatar_animation": "Deshabilitar avatares animados",
-                    "disable_emoji_animation": "Deshabilitar emojis animados",
-                    "using_default_browser": "Usar navegador web predet. para abrir enlaces",
-                    "open_links_in_mastodon": "Abrir enlaces en Mastodon"
-                },
-                "boring_zone": {
-                    "title": "La zona aburrida",
-                    "account_settings": "Configuración de la cuenta",
-                    "terms": "Términos del servicio",
-                    "privacy": "Política de privacidad"
-                },
-                "spicy_zone": {
-                    "title": "La zona picante",
-                    "clear": "Limpiar memoria caché multimedia",
-                    "signout": "Cerrar sesión"
+            "overview": {
+                "title": "Configuración",
+                "general": "General",
+                "notifications": "Notificaciones",
+                "support_mastodon": "Apoyá a Mastodon",
+                "about_mastodon": "Acerca de Mastodon",
+                "server_details": "Detalles del servidor",
+                "logout": "Cerrar sesión en %@"
+            },
+            "about_mastodon": {
+                "title": "Información",
+                "more_settings": "Configuración extra",
+                "contribute_to_mastodon": "Contribuí a Mastodon",
+                "privacy_policy": "Política de privacidad",
+                "clear_media_storage": "Limpiar almacenamiento multimedia"
+            },
+            "server_details": {
+                "about": "Información",
+                "rules": "Reglas",
+                "about_instance": {
+                    "title": "Administración",
+                    "message_admin": "Enviar mensaje a la administración",
+                    "legal_notice": "Un aviso legal"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon es software de código abierto. Podés informar errores en GitHub en %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Apariencia",
+                    "dark": "Oscura",
+                    "light": "Clara",
+                    "system": "Usar apariencia del dispositivo"
+                },
+                "design": {
+                    "section_title": "Diseño",
+                    "show_animations": "Reproducir avatares animados y emojis"
+                },
+                "links": {
+                    "section_title": "Enlaces",
+                    "open_in_mastodon": "Abrir en Mastodon",
+                    "open_in_browser": "Abrir en el navegador web"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Cerrar ventana de configuración"
+            "notifications": {
+                "title": "Notificaciones",
+                "policy": {
+                    "title": "Recibir notificaciones de",
+                    "anyone": "Cualquier cuenta",
+                    "followers": "Cuentas que te siguen",
+                    "follow": "Cuentas que seguís",
+                    "noone": "Ninguna cuenta"
+                },
+                "alert": {
+                    "mentions_and_replies": "Menciones y respuestas",
+                    "boosts": "Adhesiones",
+                    "favorites": "Favoritos",
+                    "new_followers": "Nuevos seguidores"
+                },
+                "disabled": {
+                    "notification_hint": "Activá las notificaciones desde la configuración de tu dispositivo para ver actualizaciones en la pantalla de bloqueo.",
+                    "go_to_settings": "Ir a la configuración de notificaciones"
+                }
             }
         },
         "report": {

@@ -9,9 +9,12 @@ import UIKit
 import MastodonSDK
 
 final class FollowedTagsTableViewCell: UITableViewCell {
+
+    static let reuseIdentifier = "FollowedTagsTableViewCell"
+
     private var hashtagView: HashtagTimelineHeaderView!
     private let separatorLine = UIView.separatorLine
-    private weak var viewModel: FollowedTagsViewModel?
+    private var viewModel: FollowedTagsViewModel?
     private var hashtag: Mastodon.Entity.Tag?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -19,10 +22,8 @@ final class FollowedTagsTableViewCell: UITableViewCell {
         setup()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("Not implemented")
-    }
-    
+    required init?(coder: NSCoder) { fatalError("Not implemented") }
+
     override func prepareForReuse() {
         hashtagView.removeFromSuperview()
         viewModel = nil

@@ -66,6 +66,7 @@ extension ProfileAboutViewModel {
             $emojiMeta.removeDuplicates()
         )
         .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: true)
+        .receive(on: DispatchQueue.main)
         .sink { [weak self] isEditing, createdAt, fields, emojiMeta in
             guard let self = self else { return }
             guard let diffableDataSource = self.diffableDataSource else { return }

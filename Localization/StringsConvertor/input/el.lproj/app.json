@@ -650,16 +650,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Αναρτήσεις που ταιριάζουν με «%s»",
+                "people": "Άτομα που ταιριάζουν με «%s»",
+                "profile": "Μετάβαση στο @%s@%s",
+                "url": "Άνοιγμα URL στο Mastodon",
+                "hashtag": "Μετάβαση στο #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "Κανένα αποτέλεσμα"
                 },
                 "recent_search": "Πρόσφατες αναζητήσεις",
-                "clear_all": "Clear all",
+                "clear_all": "Εκκαθάριση όλων",
                 "clear": "Εκκαθάριση"
             }
         },
@@ -705,59 +709,68 @@
             "title": "Ανάρτηση από %s"
         },
         "settings": {
-            "title": "Ρυθμίσεις",
-            "section": {
-                "appearance": {
-                    "title": "Εμφάνιση",
-                    "automatic": "Αυτόματο",
-                    "light": "Πάντα Φωτεινό",
-                    "dark": "Πάντα Σκοτεινό"
-                },
-                "look_and_feel": {
-                    "title": "Eμφάνιση και Αίσθηση",
-                    "use_system": "Χρήση Συστήματος",
-                    "really_dark": "Πραγματικά Σκοτεινό",
-                    "sorta_dark": "Περίπου Σκοτεινό",
-                    "light": "Φωτεινό"
-                },
-                "notifications": {
-                    "title": "Ειδοποιήσεις",
-                    "favorites": "Ορίζει ως αγαπημένη την ανάρτησή μου",
-                    "follows": "Με ακολουθεί",
-                    "boosts": "Αναδημοσιεύει την ανάρτησή μου",
-                    "mentions": "Με επισημαίνει",
-                    "trigger": {
-                        "anyone": "οποιοσδήποτε",
-                        "follower": "ακόλουθος",
-                        "follow": "όποιον ακολουθώ",
-                        "noone": "κανείς",
-                        "title": "Να ειδοποιούμαι όταν"
-                    }
-                },
-                "preference": {
-                    "title": "Προτιμήσεις",
-                    "disable_avatar_animation": "Απενεργοποίηση κινούμενων avatars",
-                    "disable_emoji_animation": "Απενεργοποίηση κινούμενων emojis",
-                    "using_default_browser": "Χρησιμοποίησε τον προεπιλεγμένο περιηγητή για να ανοίξεις συνδέσμους",
-                    "open_links_in_mastodon": "Άνοιγμα συνδέσμων στο Mastodon"
-                },
-                "boring_zone": {
-                    "title": "Η Βαρετή Ζώνη",
-                    "account_settings": "Ρυθμίσεις Λογαριασμού",
-                    "terms": "Όροι Χρήσης",
-                    "privacy": "Πολιτική Απορρήτου"
-                },
-                "spicy_zone": {
-                    "title": "Η Πικάντικη Ζώνη",
-                    "clear": "Καθαρισμός Κρυφής Μνήμης Πολυμέσων",
-                    "signout": "Αποσύνδεση"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Το Mastodon είναι λογισμικό ανοιχτού κώδικα. Μπορείς να αναφέρεις ζητήματα στο GitHub στο %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Κλείσιμο Παραθύρου Ρυθμίσεων"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

@@ -158,15 +158,15 @@ extension APIService {
         let domain = authenticationBox.domain
         let authorization = authenticationBox.userAuthorization
         
-        let response = try await Mastodon.API.Account.followedTags(
+        let followedTags = try await Mastodon.API.Account.followedTags(
             session: session,
             domain: domain,
             query: query,
             authorization: authorization
         ).singleOutput()
 
-        return response
-    }   // end func
+        return followedTags
+    }
 }
 
 extension APIService {

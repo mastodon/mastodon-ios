@@ -85,28 +85,17 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         disposeBag.removeAll()
     }
 
-    func configure(viewModel: SuggestionAccountTableViewCell.ViewModel) {
-        userView.configure(user: viewModel.user, delegate: delegate)
-
-        if viewModel.blockedUsers.contains(viewModel.user.id) {
-            self.userView.setButtonState(.blocked)
-        } else if viewModel.followedUsers.contains(viewModel.user.id) {
-            self.userView.setButtonState(.unfollow)
-        } else if viewModel.followRequestedUsers.contains(viewModel.user.id) {
-            self.userView.setButtonState(.pending)
-        } else if viewModel.user.locked {
-            self.userView.setButtonState(.request)
-        } else {
-            self.userView.setButtonState(.follow)
-        }
+    func configure(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?) {
+        userView.configure(with: account, relationship: relationship, delegate: delegate)
+        userView.updateButtonState(with: relationship, isMe: false)
 
         let metaContent: MetaContent = {
             do {
-                let mastodonContent = MastodonContent(content: viewModel.user.note, emojis: viewModel.user.emojis?.asDictionary ?? [:])
+                let mastodonContent = MastodonContent(content: account.note, emojis: account.emojis?.asDictionary ?? [:])
                 return try MastodonMetaContent.convert(document: mastodonContent)
             } catch {
                 assertionFailure()
-                return PlaintextMetaContent(string: viewModel.user.note)
+                return PlaintextMetaContent(string: account.note)
             }
         }()
 

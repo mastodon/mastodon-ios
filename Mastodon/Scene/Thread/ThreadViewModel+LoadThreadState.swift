@@ -65,7 +65,7 @@ extension ThreadViewModel.LoadThreadState {
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
 
-                    await enter(state: NoMore.self)
+                    enter(state: NoMore.self)
                     
                     // assert(!Thread.isMainThread)
                     // await Task.sleep(1_000_000_000)     // 1s delay to prevent UI render issue
@@ -88,7 +88,7 @@ extension ThreadViewModel.LoadThreadState {
                         }
                     )
                 } catch {
-                    await enter(state: Fail.self)
+                    enter(state: Fail.self)
                 }
             }   // end Task
         }

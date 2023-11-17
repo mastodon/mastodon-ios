@@ -168,9 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 edelleen jako</string>
+        <string>Yksi edelleenjulkaisu</string>
         <key>other</key>
-        <string>%ld edelleen jakoa</string>
+        <string>%ld edelleenjulkaisua</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -184,9 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 edelleenjako</string>
+        <string>Yksi edelleenjulkaisu</string>
         <key>other</key>
-        <string>%ld edelleenjakoa</string>
+        <string>%ld edelleenjulkaisua</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>

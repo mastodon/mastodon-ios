@@ -173,7 +173,6 @@ extension FollowingListViewController: UIScrollViewDelegate {
         if visibleBottomY > fetchThrottleOffsetY {
             viewModel.shouldFetch.send()
         }
-
     }
 }
 

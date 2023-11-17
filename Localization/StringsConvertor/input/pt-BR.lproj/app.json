@@ -97,20 +97,20 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
+                "edit_post": "Editar",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "follow": "Seguir %s",
+                "unfollow": "Deixar de seguir %s"
             },
             "tabs": {
                 "home": "Início",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "search_and_explore": "Buscar e Explorar",
+                "notifications": "Notificações",
                 "profile": "Perfil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Buscar",
+                    "explore": "Explorar"
                 }
             },
             "keyboard": {
@@ -272,7 +272,7 @@
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Boas-vindas ao Mastodon",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
@@ -655,6 +655,10 @@
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "Sem resultados"
                 },
@@ -705,59 +709,68 @@
             "title": "Publicação de %s"
         },
         "settings": {
-            "title": "Configurações",
-            "section": {
-                "appearance": {
-                    "title": "Aparência",
-                    "automatic": "Automático",
-                    "light": "Sempre Claro",
-                    "dark": "Sempre Escuro"
-                },
-                "look_and_feel": {
-                    "title": "Aparência e Comportamento",
-                    "use_system": "Usar configuração do sistema",
-                    "really_dark": "Bem escuro",
-                    "sorta_dark": "Meio escuro",
-                    "light": "Claro"
-                },
-                "notifications": {
-                    "title": "Notificações",
-                    "favorites": "Favoritaram minha publicação",
-                    "follows": "Me segue",
-                    "boosts": "Rebloga minha publicação",
-                    "mentions": "Me menciona",
-                    "trigger": {
-                        "anyone": "qualquer pessoa",
-                        "follower": "um seguidor",
-                        "follow": "qualquer um que eu siga",
-                        "noone": "ninguém",
-                        "title": "Me notificar quando"
-                    }
-                },
-                "preference": {
-                    "title": "Preferências",
-                    "disable_avatar_animation": "Desativar fotos animadas",
-                    "disable_emoji_animation": "Desativar emojis animados",
-                    "using_default_browser": "Usar o navegador padrão pra abrir links",
-                    "open_links_in_mastodon": "Abrir links no Mastodon"
-                },
-                "boring_zone": {
-                    "title": "A zona chata",
-                    "account_settings": "Configurações da conta",
-                    "terms": "Termos de serviço",
-                    "privacy": "Política de privacidade"
-                },
-                "spicy_zone": {
-                    "title": "A zona apimentada",
-                    "clear": "Limpar cachê de mídia",
-                    "signout": "Sair"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon é um software de código aberto. Você pode reportar problemas no GitHub em %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Fechar janela de configurações"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

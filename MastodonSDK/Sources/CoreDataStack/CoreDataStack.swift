@@ -94,18 +94,6 @@ public final class CoreDataStack {
             container.viewContext.automaticallyMergesChangesFromParent = true
 
             callback()
-            
-            #if DEBUG
-            do {
-                let storeURL = URL.storeURL(for: AppName.groupID, databaseName: "shared")
-                let data = try Data(contentsOf: storeURL)
-                let formatter = ByteCountFormatter()
-                formatter.allowedUnits = [.useMB]
-                formatter.countStyle = .file
-                let size = formatter.string(fromByteCount: Int64(data.count))
-            } catch {
-            }
-            #endif
         })
     }
     

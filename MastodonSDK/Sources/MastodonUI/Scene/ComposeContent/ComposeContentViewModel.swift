@@ -208,7 +208,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         
         let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
         self.recentLanguages = recentLanguages
-        self.language = recentLanguages.first ?? Locale.current.languageCode ?? "en"
+        self.language = recentLanguages.first ?? Locale.current.language.languageCode?.identifier ?? "en"
         super.init()
         // end init
         
@@ -484,7 +484,7 @@ extension ComposeContentViewModel {
             .flatMap { settings in
                 if let settings {
                     return settings.publisher(for: \.recentLanguages, options: .initial).eraseToAnyPublisher()
-                } else if let code = Locale.current.languageCode {
+                } else if let code = Locale.current.language.languageCode?.identifier {
                     return Just([code]).eraseToAnyPublisher()
                 }
                 return Just([]).eraseToAnyPublisher()

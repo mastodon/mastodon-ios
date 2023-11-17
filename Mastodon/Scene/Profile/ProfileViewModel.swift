@@ -177,11 +177,11 @@ class ProfileViewModel: NSObject {
 
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        guard let me = me
-        else {
+        guard let me else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
 
+        let mastodonAuthentication = authContext.mastodonAuthenticationBox.authentication
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: authContext.mastodonAuthenticationBox.userAuthorization.accessToken)
         return context.apiService.accountVerifyCredentials(domain: authContext.mastodonAuthenticationBox.domain, authorization: authorization)
     }

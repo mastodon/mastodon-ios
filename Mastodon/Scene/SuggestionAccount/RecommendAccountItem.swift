@@ -10,4 +10,5 @@ import MastodonSDK
 
 enum RecommendAccountItem: Hashable {
     case account(Mastodon.Entity.Account)
+    case account(Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)
 }

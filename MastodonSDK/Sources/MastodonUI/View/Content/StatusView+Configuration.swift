@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import MastodonSDK
 import MastodonCore
 import MastodonLocalization
@@ -31,15 +30,9 @@ extension StatusView {
 extension StatusView {
 
     public func configure(status: Mastodon.Entity.Status, statusEdit: Mastodon.Entity.StatusEdit) {
-//        viewModel.objects.insert(status)
-//        if let reblog = status.reblog {
-//            viewModel.objects.insert(status)
-//        }
-
         configureHeader(status: status)
         let author = (status.reblog ?? status).account
         configureAuthor(author: author)
-//        let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
         configureTimestamp(timestamp: (status.reblog ?? status).createdAt)
         configureApplicationName(status.application?.name)
         configureMedia(status: status)

@@ -19,13 +19,19 @@ final class FollowerListViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-//    let userFetchedResultsController: UserFetchedResultsController
+
     @Published var records = [Mastodon.Entity.Account]()
     let listBatchFetchViewModel = ListBatchFetchViewModel()
+    @Published var accounts: [Mastodon.Entity.Account]
+    @Published var relationships: [Mastodon.Entity.Relationship]
     
     @Published var domain: String?
     @Published var userID: String?
 
+    let shouldFetch = PassthroughSubject<Void, Never>()
+
+    var tableView: UITableView?
+    
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
     private(set) lazy var stateMachine: GKStateMachine = {
@@ -49,13 +55,9 @@ final class FollowerListViewModel {
     ) {
         self.context = context
         self.authContext = authContext
-//        self.userFetchedResultsController = UserFetchedResultsController(
-//            managedObjectContext: context.managedObjectContext,
-//            domain: domain,
-//            additionalPredicate: nil
-//        )
         self.domain = domain
         self.userID = userID
-        // end init
+        self.accounts = []
+        self.relationships = []
     }
 }

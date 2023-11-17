@@ -222,43 +222,35 @@ extension SceneCoordinator {
     
     func setup() {
         let rootViewController: UIViewController
-        
-        do {
-            let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
-            let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
-            self.authContext = _authContext
-            
-            switch UIDevice.current.userInterfaceIdiom {
-                case .phone:
-                    let viewController = MainTabBarController(context: appContext, coordinator: self, authContext: _authContext)
-                    self.splitViewController = nil
-                    self.tabBarController = viewController
-                    rootViewController = viewController
-                default:
-                    let splitViewController = RootSplitViewController(context: appContext, coordinator: self, authContext: _authContext)
-                    self.splitViewController = splitViewController
-                    self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
-                    rootViewController = splitViewController
-            }
-            sceneDelegate.window?.rootViewController = rootViewController                   // base: main
-            self.rootViewController = rootViewController
 
-            if _authContext == nil {                                                        // entry #1: welcome
-                DispatchQueue.main.async {
-                    _ = self.present(
-                        scene: .welcome,
-                        from: self.sceneDelegate.window?.rootViewController,
-                        transition: .modal(animated: true, completion: nil)
-                    )
-                }
+        let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
+        let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
+        self.authContext = _authContext
+
+        switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                let viewController = MainTabBarController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = nil
+                self.tabBarController = viewController
+                rootViewController = viewController
+            default:
+                let splitViewController = RootSplitViewController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = splitViewController
+                self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
+                rootViewController = splitViewController
+        }
+        
+        sceneDelegate.window?.rootViewController = rootViewController                   // base: main
+        self.rootViewController = rootViewController
+
+        if _authContext == nil {                                                        // entry #1: welcome
+            DispatchQueue.main.async {
+                _ = self.present(
+                    scene: .welcome,
+                    from: self.sceneDelegate.window?.rootViewController,
+                    transition: .modal(animated: true, completion: nil)
+                )
             }
-            
-        } catch {
-            assertionFailure(error.localizedDescription)
-            Task {
-                try? await Task.sleep(nanoseconds: .second * 2)
-                setup()                                                                     // entry #2: retry
-            }   // end Task
         }
     }
 
@@ -456,17 +448,16 @@ private extension SceneCoordinator {
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .followedTags(let viewModel):
-                let _viewController = FollowedTagsViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                guard let authContext else { return nil }
+                
+                viewController = FollowedTagsViewController(appContext: appContext, sceneCoordinator: self, authContext: authContext, viewModel: viewModel)
             case .favorite(let viewModel):
                 let _viewController = FavoriteViewController()
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .follower(let viewModel):
-                let _viewController = FollowerListViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                let followerListViewController = FollowerListViewController(viewModel: viewModel, coordinator: self, context: appContext)
+                viewController = followerListViewController
             case .following(let viewModel):
                 let followingListViewController = FollowingListViewController(viewModel: viewModel, coordinator: self, context: appContext)
                 viewController = followingListViewController
@@ -571,18 +562,29 @@ private extension SceneCoordinator {
 //MARK: - Loading
 
 public extension SceneCoordinator {
+
     @MainActor
     func showLoading() {
-        guard let rootViewController else { return }
+        showLoading(on: rootViewController)
+    }
 
-        MBProgressHUD.showAdded(to: rootViewController.view, animated: true)
+    @MainActor
+    func showLoading(on viewController: UIViewController?) {
+        guard let viewController else { return }
+
+        MBProgressHUD.showAdded(to: viewController.view, animated: true)
     }
 
     @MainActor
     func hideLoading() {
-        guard let rootViewController else { return }
+        hideLoading(on: rootViewController)
+    }
 
-        MBProgressHUD.hide(for: rootViewController.view, animated: true)
+    @MainActor
+    func hideLoading(on viewController: UIViewController?) {
+        guard let viewController else { return }
+
+        MBProgressHUD.hide(for: viewController.view, animated: true)
     }
 }
 

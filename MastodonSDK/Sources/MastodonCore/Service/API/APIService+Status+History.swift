@@ -50,7 +50,7 @@ extension APIService {
                 domain: domain,
                 authorization: authorization).singleOutput()
 
-            let responseHistory = try await Mastodon.API.Statuses.editHistory(
+            _ = try await Mastodon.API.Statuses.editHistory(
                 forStatusID: statusID,
                 session: session,
                 domain: domain,
