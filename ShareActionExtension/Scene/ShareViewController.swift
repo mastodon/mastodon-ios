@@ -160,9 +160,11 @@ extension ShareViewController {
 
 extension ShareViewController {
     private func setupAuthContext() throws -> AuthContext? {
-        let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
-        let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
-        return _authContext
+        AuthenticationServiceProvider.shared.restore()
+
+        let authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
+        let authContext = authentication.flatMap { AuthContext(authentication: $0) }
+        return authContext
     }
     
     private func setupHintLabel() {
