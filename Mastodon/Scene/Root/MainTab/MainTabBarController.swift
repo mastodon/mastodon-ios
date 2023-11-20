@@ -358,22 +358,10 @@ extension MainTabBarController {
         guard let tab = touchedTab(by: sender) else { return }
 
         switch tab {
-        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
-//        case .me:
-//            guard let authContext = authContext else { return }
-//            assert(Thread.isMainThread)
-//
-//            guard let nextAccount = context.nextAccount(in: authContext) else { return }
-//            
-//            Task { @MainActor in
-//                let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
-//                guard isActive else { return }
-//                self.coordinator.setup()
-//            }
         case .search:
             assert(Thread.isMainThread)
             // double tapping search tab opens the search bar without additional taps
-            searchViewController?.searchBarTapPublisher.send("")
+            searchViewController?.searchBar.becomeFirstResponder()
         default:
             break
         }
