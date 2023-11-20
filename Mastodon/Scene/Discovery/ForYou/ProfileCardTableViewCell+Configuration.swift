@@ -13,6 +13,7 @@ extension ProfileCardTableViewCell {
     public func configure(
         tableView: UITableView,
         account: Mastodon.Entity.Account,
+        relationship: Mastodon.Entity.Relationship?,
         profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate?
     ) {
         if profileCardView.frame == .zero {
@@ -22,7 +23,7 @@ extension ProfileCardTableViewCell {
             profileCardView.setupLayoutFrame(layoutMarginsGuide.layoutFrame)
         }
 
-        profileCardView.configure(account: account)
+        profileCardView.configure(account: account, relationship: relationship)
         delegate = profileCardTableViewCellDelegate
     }
 

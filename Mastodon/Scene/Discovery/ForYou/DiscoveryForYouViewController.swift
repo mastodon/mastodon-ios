@@ -96,7 +96,7 @@ extension DiscoveryForYouViewController: AuthContextProvider {
 extension DiscoveryForYouViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard case let .account(account) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+        guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
 
         Task {
             await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
@@ -110,10 +110,10 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
     func profileCardTableViewCell(
         _ cell: ProfileCardTableViewCell,
         profileCardView: ProfileCardView,
-        relationshipButtonDidPressed button: ProfileRelationshipActionButton
+        relationshipButtonDidPressed button: UIButton
     ) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        guard case let .account(account) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+        guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
 
         Task {
             try await DataSourceFacade.responseToUserFollowAction(dependency: self, user: account)
@@ -126,7 +126,7 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         familiarFollowersDashboardViewDidPressed view: FamiliarFollowersDashboardView
     ) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        guard case let .account(account) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+        guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
 
         let userID = account.id
         let _familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })

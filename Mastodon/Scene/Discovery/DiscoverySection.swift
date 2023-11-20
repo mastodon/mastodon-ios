@@ -18,12 +18,12 @@ enum DiscoverySection: CaseIterable {
 }
 
 extension DiscoverySection {
-    
+
     class Configuration {
         let authContext: AuthContext
         weak var profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate?
         let familiarFollowers: Published<[Mastodon.Entity.FamiliarFollowers]>.Publisher?
-        
+
         public init(
             authContext: AuthContext,
             profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate? = nil,
@@ -34,31 +34,40 @@ extension DiscoverySection {
             self.familiarFollowers = familiarFollowers
         }
     }
-    
+
     static func diffableDataSource(
         tableView: UITableView,
         context: AppContext,
         configuration: Configuration
     ) -> UITableViewDiffableDataSource<DiscoverySection, DiscoveryItem> {
+        
         tableView.register(TrendTableViewCell.self, forCellReuseIdentifier: String(describing: TrendTableViewCell.self))
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: String(describing: NewsTableViewCell.self))
         tableView.register(ProfileCardTableViewCell.self, forCellReuseIdentifier: String(describing: ProfileCardTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
 
-        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item in
+        return UITableViewDiffableDataSource(tableView: tableView) {
+            tableView,
+            indexPath,
+            item in
             switch item {
-            case .hashtag(let tag):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TrendTableViewCell.self), for: indexPath) as! TrendTableViewCell
-                cell.trendView.configure(tag: tag)
-                return cell
-            case .link(let link):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsTableViewCell.self), for: indexPath) as! NewsTableViewCell
-                cell.newsView.configure(link: link)
-                return cell
-            case .account(let account):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileCardTableViewCell.self), for: indexPath) as! ProfileCardTableViewCell
+                case .hashtag(let tag):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TrendTableViewCell.self), for: indexPath) as! TrendTableViewCell
+                    cell.trendView.configure(tag: tag)
+                    return cell
+                case .link(let link):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsTableViewCell.self), for: indexPath) as! NewsTableViewCell
+                    cell.newsView.configure(link: link)
+                    return cell
+                case .account(let account, relationship: let relationship):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileCardTableViewCell.self), for: indexPath) as! ProfileCardTableViewCell
 
-                    cell.configure(tableView: tableView, account: account, profileCardTableViewCellDelegate: configuration.profileCardTableViewCellDelegate)
+                    cell.configure(
+                        tableView: tableView,
+                        account: account,
+                        relationship: relationship,
+                        profileCardTableViewCellDelegate: configuration.profileCardTableViewCellDelegate
+                    )
 
                     // bind familiarFollowers
                     if let familiarFollowers = configuration.familiarFollowers {
@@ -69,16 +78,14 @@ extension DiscoverySection {
                     } else {
                         cell.profileCardView.viewModel.familiarFollowers = nil
                     }
-                    // bind me
-                    cell.profileCardView.viewModel.relationshipViewModel.me = configuration.authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
-//                }
-                return cell
-            case .bottomLoader:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
-                cell.activityIndicatorView.startAnimating()
-                return cell
+
+                    return cell
+                case .bottomLoader:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                    cell.activityIndicatorView.startAnimating()
+                    return cell
             }
         }
     }
-    
+
 }

@@ -11,6 +11,6 @@ import MastodonSDK
 enum DiscoveryItem: Hashable {
     case hashtag(Mastodon.Entity.Tag)
     case link(Mastodon.Entity.Link)
-    case account(Mastodon.Entity.Account)
+    case account(Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)
     case bottomLoader
 }

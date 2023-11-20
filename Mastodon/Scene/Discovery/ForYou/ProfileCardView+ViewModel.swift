@@ -20,8 +20,6 @@ extension ProfileCardView {
     public class ViewModel: ObservableObject {
         var disposeBag = Set<AnyCancellable>()
         
-        public let relationshipViewModel = RelationshipViewModel()
-
         // Author
         @Published public var authorBannerImageURL: URL?
         @Published public var authorAvatarImageURL: URL?
@@ -51,7 +49,6 @@ extension ProfileCardView.ViewModel {
         bindHeader(view: view)
         bindUser(view: view)
         bindBio(view: view)
-        bindRelationship(view: view)
         bindDashboard(view: view)
         bindFamiliarFollowers(view: view)
         bindAccessibility(view: view)
@@ -117,30 +114,7 @@ extension ProfileCardView.ViewModel {
             .store(in: &disposeBag)
     }
     
-    private func bindRelationship(view: ProfileCardView) {
-        relationshipViewModel.$optionSet
-            .receive(on: DispatchQueue.main)
-            .sink { relationshipActionSet in
-                let relationshipActionSet = relationshipActionSet ?? .follow
-                view.relationshipActionButton.configure(actionOptionSet: relationshipActionSet)
-            }
-            .store(in: &disposeBag)
-    }
-    
     private func bindDashboard(view: ProfileCardView) {
-        relationshipViewModel.$isMyself
-            .sink { isMyself in
-                if isMyself {
-                    view.statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myPosts
-                    view.statusDashboardView.followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myFollowing
-                    view.statusDashboardView.followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myFollowers
-                } else {
-                    view.statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherPosts
-                    view.statusDashboardView.followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowing
-                    view.statusDashboardView.followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowers
-                }
-            }
-            .store(in: &disposeBag)
         $statusesCount
             .receive(on: DispatchQueue.main)
             .sink { count in

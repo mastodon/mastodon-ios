@@ -23,6 +23,7 @@ final class DiscoveryForYouViewModel {
     @Published var familiarFollowers: [Mastodon.Entity.FamiliarFollowers] = []
     @Published var isFetching = false
     @Published var accounts: [Mastodon.Entity.Account]
+    var relationships: [Mastodon.Entity.Relationship?]
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<DiscoverySection, DiscoveryItem>?
@@ -32,6 +33,7 @@ final class DiscoveryForYouViewModel {
         self.context = context
         self.authContext = authContext
         self.accounts = []
+        self.relationships = []
     }
 }
 
@@ -50,10 +52,34 @@ extension DiscoveryForYouViewModel {
                 query: .init(ids: suggestedAccounts.compactMap { $0.id }),
                 authenticationBox: authContext.mastodonAuthenticationBox
             ).value
+
+            let relationships = try? await context.apiService.relationship(
+                forAccounts: suggestedAccounts,
+                authenticationBox: authContext.mastodonAuthenticationBox
+            ).value
+
             familiarFollowers = familiarFollowersResponse ?? []
             accounts = suggestedAccounts
+            self.relationships = relationships ?? []
         } catch {
             // do nothing
+        }
+
+        await MainActor.run {
+            guard let diffableDataSource = self.diffableDataSource else { return }
+
+            var snapshot = NSDiffableDataSourceSnapshot<DiscoverySection, DiscoveryItem>()
+            snapshot.appendSections([.forYou])
+
+            let items = self.accounts.map { account in
+                let relationship = relationships.first { $0?.id == account.id } ?? nil
+
+                return DiscoveryItem.account(account, relationship: relationship)
+            }
+            
+            snapshot.appendItems(items, toSection: .forYou)
+
+            diffableDataSource.apply(snapshot, animatingDifferences: false)
         }
     }
     

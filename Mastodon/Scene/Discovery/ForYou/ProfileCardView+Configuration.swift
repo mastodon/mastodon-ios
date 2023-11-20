@@ -15,7 +15,7 @@ import MastodonSDK
 
 extension ProfileCardView {
 
-    public func configure(account: Mastodon.Entity.Account) {
+    public func configure(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?) {
         viewModel.authorBannerImageURL = URL(string: account.header)
         viewModel.statusesCount = account.statusesCount
         viewModel.followingCount = account.followingCount
@@ -45,5 +45,7 @@ extension ProfileCardView {
             let metaContent = PlaintextMetaContent(string: account.note)
             viewModel.bioContent = metaContent
         }
+
+        updateButtonState(with: relationship, isMe: false)
     }
 }

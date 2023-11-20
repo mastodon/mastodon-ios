@@ -1,6 +1,6 @@
 //
 //  ProfileCardView.swift
-//  
+//
 //
 //  Created by MainasuK on 2022-4-14.
 //
@@ -10,14 +10,16 @@ import Combine
 import MetaTextKit
 import MastodonAsset
 import MastodonUI
+import MastodonLocalization
+import MastodonSDK
 
 public protocol ProfileCardViewDelegate: AnyObject {
-    func profileCardView(_ profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
+    func profileCardView(_ profileCardView: ProfileCardView, relationshipButtonDidPressed button: UIButton)
     func profileCardView(_ profileCardView: ProfileCardView, familiarFollowersDashboardViewDidPressed view: FamiliarFollowersDashboardView)
 }
 
 public final class ProfileCardView: UIView, AXCustomContentProvider {
-    
+
     static let avatarSize = CGSize(width: 56, height: 56)
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
     static let contentMargin: CGFloat = 16
@@ -29,7 +31,7 @@ public final class ProfileCardView: UIView, AXCustomContentProvider {
     public var accessibilityCustomContent: [AXCustomContent]! = []
 
     let container = UIStackView()
-    
+
     let bannerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -38,17 +40,17 @@ public final class ProfileCardView: UIView, AXCustomContentProvider {
         imageView.layer.cornerCurve = .continuous
         return imageView
     }()
-    
+
     // avatar
     public let avatarButtonBackgroundView = UIView()
     public let avatarButton = AvatarButton()
-    
+
     // author name
     public let authorNameLabel = MetaLabel(style: .profileCardName)
-    
+
     // author username
     public let authorUsernameLabel = MetaLabel(style: .profileCardUsername)
-    
+
     // bio
     let bioMetaTextAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let bioMetaText: MetaText = {
@@ -82,46 +84,56 @@ public final class ProfileCardView: UIView, AXCustomContentProvider {
         ]
         return metaText
     }()
-    
+
     let infoContainerAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let infoContainer = UIStackView()
-    
+
     let statusDashboardView = ProfileStatusDashboardView()
-    
-    let relationshipActionButtonShadowContainer = ShadowBackgroundContainer()
-    let relationshipActionButton: ProfileRelationshipActionButton = {
-        let button = ProfileRelationshipActionButton()
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.minimumScaleFactor = 0.5
+
+    public let followButtonWrapper = UIView()
+    public let followButton: UIButton = {
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.background.cornerRadius = 10
+
+        let button = UIButton(configuration: buttonConfiguration)
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setContentHuggingPriority(.required, for: .horizontal)
+
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 96),
+            button.heightAnchor.constraint(equalToConstant: 36)
+        ])
+
         return button
     }()
-    
+
     let familiarFollowersDashboardViewAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let familiarFollowersDashboardView = FamiliarFollowersDashboardView()
-    
+
     public private(set) lazy var viewModel: ViewModel = {
         let viewModel = ViewModel()
         viewModel.bind(view: self)
         return viewModel
     }()
-    
+
     public func prepareForReuse() {
         disposeBag.removeAll()
         bannerImageView.af.cancelImageRequest()
         bannerImageView.image = nil
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
     }
-    
+
 }
 
 extension ProfileCardView {
@@ -130,8 +142,8 @@ extension ProfileCardView {
         authorNameLabel.isUserInteractionEnabled = false
         authorUsernameLabel.isUserInteractionEnabled = false
         bioMetaText.textView.isUserInteractionEnabled = false
-        statusDashboardView.isUserInteractionEnabled = false        
-        
+        statusDashboardView.isUserInteractionEnabled = false
+
         // container: V - [ bannerContainer | authorContainer | bioMetaText | infoContainer | familiarFollowersDashboardView ]
         container.axis = .vertical
         container.spacing = 8
@@ -139,13 +151,13 @@ extension ProfileCardView {
         container.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
         addSubview(container)
         container.pinToParent()
-        
+
         // bannerContainer
         let bannerContainer = UIView()
         bannerContainer.translatesAutoresizingMaskIntoConstraints = false
         container.addArrangedSubview(bannerContainer)
         container.setCustomSpacing(6, after: bannerContainer)
-        
+
         // bannerImageView
         bannerImageView.translatesAutoresizingMaskIntoConstraints = false
         bannerContainer.addSubview(bannerImageView)
@@ -156,7 +168,7 @@ extension ProfileCardView {
             bannerImageView.bottomAnchor.constraint(equalTo: bannerContainer.bottomAnchor),
             bannerImageView.widthAnchor.constraint(equalTo: bannerImageView.heightAnchor, multiplier: 335.0/128.0).priority(.required - 1),
         ])
-        
+
         // authorContainer: H - [ avatarPlaceholder | authorInfoContainer ]
         let authorContainer = UIStackView()
         authorContainer.axis = .horizontal
@@ -175,7 +187,7 @@ extension ProfileCardView {
             avatarPlaceholder.widthAnchor.constraint(equalToConstant: ProfileCardView.avatarSize.width).priority(.required - 1),
             avatarPlaceholder.heightAnchor.constraint(equalToConstant: ProfileCardView.avatarSize.height - 14).priority(.required - 1),
         ])
-        
+
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         authorContainer.addSubview(avatarButton)
         NSLayoutConstraint.activate([
@@ -184,7 +196,7 @@ extension ProfileCardView {
             avatarButton.bottomAnchor.constraint(equalTo: avatarPlaceholder.bottomAnchor),
             avatarButton.heightAnchor.constraint(equalToConstant: ProfileCardView.avatarSize.height).priority(.required - 1),
         ])
-        
+
         avatarButtonBackgroundView.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
         avatarButtonBackgroundView.layer.masksToBounds = true
         avatarButtonBackgroundView.layer.cornerCurve = .continuous
@@ -197,16 +209,16 @@ extension ProfileCardView {
             avatarButtonBackgroundView.widthAnchor.constraint(equalToConstant: ProfileCardView.avatarSize.width + 4).priority(.required - 1),
             avatarButtonBackgroundView.heightAnchor.constraint(equalToConstant: ProfileCardView.avatarSize.height + 4).priority(.required - 1),
         ])
-        
+
         // authorInfoContainer: V - [ authorNameLabel | authorUsernameLabel ]
         let authorInfoContainer = UIStackView()
         authorInfoContainer.axis = .vertical
         // authorInfoContainer.spacing = 2
         authorContainer.addArrangedSubview(authorInfoContainer)
-    
+
         authorInfoContainer.addArrangedSubview(authorNameLabel)
         authorInfoContainer.addArrangedSubview(authorUsernameLabel)
-        
+
         // bioMetaText
         bioMetaTextAdaptiveMarginContainerView.contentView = bioMetaText.textView
         bioMetaTextAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
@@ -222,24 +234,23 @@ extension ProfileCardView {
         infoContainerAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
         container.addArrangedSubview(infoContainerAdaptiveMarginContainerView)
         container.setCustomSpacing(16, after: infoContainerAdaptiveMarginContainerView)
-        
+
         infoContainer.addArrangedSubview(statusDashboardView)
         let infoContainerSpacer = UIView()
         infoContainer.addArrangedSubview(UIView())
         infoContainerSpacer.setContentHuggingPriority(.defaultLow - 100, for: .vertical)
         infoContainerSpacer.setContentHuggingPriority(.defaultLow - 100, for: .horizontal)
-        let relationshipActionButtonShadowContainer = ShadowBackgroundContainer()
-        relationshipActionButtonShadowContainer.translatesAutoresizingMaskIntoConstraints = false
-        infoContainer.addArrangedSubview(relationshipActionButtonShadowContainer)
+        infoContainer.addArrangedSubview(followButtonWrapper)
 
-        relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
-        relationshipActionButtonShadowContainer.addSubview(relationshipActionButton)
-        relationshipActionButton.pinToParent()
+        followButtonWrapper.translatesAutoresizingMaskIntoConstraints = false
+        followButtonWrapper.addSubview(followButton)
         NSLayoutConstraint.activate([
-            relationshipActionButtonShadowContainer.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileCardView.friendshipActionButtonSize.width).priority(.required - 1),
-            relationshipActionButtonShadowContainer.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.required - 1),
+            followButton.topAnchor.constraint(lessThanOrEqualTo: followButtonWrapper.topAnchor),
+            followButton.leadingAnchor.constraint(equalTo: followButtonWrapper.leadingAnchor),
+            followButtonWrapper.trailingAnchor.constraint(equalTo: followButton.trailingAnchor),
+            followButtonWrapper.bottomAnchor.constraint(greaterThanOrEqualTo: followButton.bottomAnchor),
         ])
-        
+
         familiarFollowersDashboardViewAdaptiveMarginContainerView.contentView = familiarFollowersDashboardView
         familiarFollowersDashboardViewAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
         container.addArrangedSubview(familiarFollowersDashboardViewAdaptiveMarginContainerView)
@@ -250,19 +261,23 @@ extension ProfileCardView {
         NSLayoutConstraint.activate([
             bottomPadding.heightAnchor.constraint(equalToConstant: 8).priority(.required - 10),
         ])
-        
-        relationshipActionButton.addTarget(self, action: #selector(ProfileCardView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
-        
+
+        followButton.addTarget(self, action: #selector(ProfileCardView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
+
         let familiarFollowersDashboardViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         familiarFollowersDashboardViewTapGestureRecognizer.addTarget(self, action: #selector(ProfileCardView.familiarFollowersDashboardViewDidPressed(_:)))
         familiarFollowersDashboardView.addGestureRecognizer(familiarFollowersDashboardViewTapGestureRecognizer)
+
+        statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherPosts
+        statusDashboardView.followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowing
+        statusDashboardView.followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowers
     }
-    
+
     public override func layoutSubviews() {
         updateInfoContainerLayout()
         super.layoutSubviews()
     }
-    
+
 }
 
 extension ProfileCardView {
@@ -273,7 +288,7 @@ extension ProfileCardView {
         infoContainerAdaptiveMarginContainerView.frame.size.width = frame.width
         infoContainerAdaptiveMarginContainerView.contentView?.frame.size.width = frame.width - 2 * infoContainerAdaptiveMarginContainerView.margin
     }
-    
+
     private func updateInfoContainerLayout() {
         let isCompactAdaptive = bounds.width < 350
         infoContainer.axis = isCompactAdaptive ? .vertical : .horizontal
@@ -282,12 +297,108 @@ extension ProfileCardView {
 
 extension ProfileCardView {
     @objc private func relationshipActionButtonDidPressed(_ sender: UIButton) {
-        assert(sender === relationshipActionButton)
-        delegate?.profileCardView(self, relationshipButtonDidPressed: relationshipActionButton)
+        assert(sender === followButton)
+        delegate?.profileCardView(self, relationshipButtonDidPressed: followButton)
     }
-    
+
     @objc private func familiarFollowersDashboardViewDidPressed(_ sender: UITapGestureRecognizer) {
         assert(sender.view === familiarFollowersDashboardView)
         delegate?.profileCardView(self, familiarFollowersDashboardViewDidPressed: familiarFollowersDashboardView)
+    }
+}
+
+extension ProfileCardView {
+    func updateButtonState(with relationship: Mastodon.Entity.Relationship?, isMe: Bool) {
+        let buttonState: UserView.ButtonState
+
+        if let relationship {
+            if isMe {
+                buttonState = .none
+            } else if relationship.following {
+                buttonState = .unfollow
+            } else if relationship.blocking || (relationship.domainBlocking ?? false) {
+                buttonState = .blocked
+            } else if relationship.requested ?? false {
+                buttonState = .pending
+            } else {
+                buttonState = .follow
+            }
+        } else {
+            buttonState = .none
+        }
+
+        setButtonState(buttonState)
+
+    }
+
+    func setButtonState(_ state: UserView.ButtonState) {
+//        currentButtonState = state
+        
+        switch state {
+
+            case .loading:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = nil
+                followButton.configuration?.showsActivityIndicator = true
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollowing.color
+                followButton.configuration?.baseForegroundColor = Asset.Colors.Brand.blurple.color
+                followButton.isEnabled = false
+
+            case .follow:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.follow
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollow.color
+                followButton.configuration?.baseForegroundColor = .white
+                followButton.isEnabled = true
+
+            case .request:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.request
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollow.color
+                followButton.configuration?.baseForegroundColor = .white
+                followButton.isEnabled = true
+
+            case .pending:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.pending
+                followButton.configuration?.baseForegroundColor = Asset.Colors.Button.userFollowingTitle.color
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollowing.color
+                followButton.isEnabled = true
+
+            case .unfollow:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.following
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userFollowing.color
+                followButton.configuration?.baseForegroundColor = Asset.Colors.Button.userFollowingTitle.color
+                followButton.isEnabled = true
+
+            case .blocked:
+                followButtonWrapper.isHidden = false
+                followButton.isHidden = false
+                followButton.configuration?.title = L10n.Common.Controls.Friendship.blocked
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = Asset.Colors.Button.userBlocked.color
+                followButton.configuration?.baseForegroundColor = .systemRed
+                followButton.isEnabled = true
+
+            case .none:
+                followButtonWrapper.isHidden = true
+                followButton.isHidden = true
+                followButton.configuration?.title = nil
+                followButton.configuration?.showsActivityIndicator = false
+                followButton.configuration?.background.backgroundColor = .clear
+                followButton.isEnabled = false
+        }
+
+        followButton.titleLabel?.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .boldSystemFont(ofSize: 15))
     }
 }
