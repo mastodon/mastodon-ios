@@ -1,14 +1,14 @@
 name: 🐞 Bug
-description: File a bug/issue
+description: File a bug
 title: "[BUG] <title>"
 labels: [Bug, Needs Triage]
 body:
 - type: checkboxes
   attributes:
     label: Is there an existing issue for this?
-    description: Please search to see if an issue already exists for the bug you encountered.
+    description: Please [search the issues](https://github.com/mastodon/mastodon-ios/issues) to see if an issue already exists for the bug you encountered. Please check also the [closed issues](https://github.com/mastodon/mastodon-ios/issues?q=is%3Aissue+is%3Aclosed). 
     options:
-    - label: I have searched the existing issues
+    - label: I have searched the issues (both open and closed)
       required: true
 - type: textarea
   attributes:
@@ -41,7 +41,7 @@ body:
       examples:
         - **Device**: iPhone X
         - **OS**: iOS 15.3
-        - **Version**: v1.3.0
+        - **Version**: `2023.15`
         - **Build**: 103
     value: |
         - Device:
