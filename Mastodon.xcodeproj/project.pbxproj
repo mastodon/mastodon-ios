@@ -1658,7 +1658,6 @@
 				DB65C63527A2AF52008BAC2E /* Report */,
 				DB0617F727855B010030EE79 /* Notification */,
 				DB4F097726A039A200D62E92 /* Search */,
-				DB3E6FE52806A5BA00B035AE /* Discovery */,
 			);
 			path = Diffable;
 			sourceTree = "<group>";
@@ -2097,13 +2096,6 @@
 				DB3E6FE12806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift */,
 			);
 			path = Hashtags;
-			sourceTree = "<group>";
-		};
-		DB3E6FE52806A5BA00B035AE /* Discovery */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Discovery;
 			sourceTree = "<group>";
 		};
 		DB3E6FED2806D7FC00B035AE /* News */ = {
