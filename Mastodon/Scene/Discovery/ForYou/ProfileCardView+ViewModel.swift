@@ -21,9 +21,6 @@ extension ProfileCardView {
         var disposeBag = Set<AnyCancellable>()
         
         public let relationshipViewModel = RelationshipViewModel()
-        
-        @Published public var userInterfaceStyle: UIUserInterfaceStyle?
-        @Published public var backgroundColor: UIColor?
 
         // Author
         @Published public var authorBannerImageURL: URL?
@@ -46,32 +43,11 @@ extension ProfileCardView {
         @Published public var groupedAccessibilityLabel = ""
         
         @Published public var familiarFollowers: Mastodon.Entity.FamiliarFollowers?
-        
-        init() {
-            backgroundColor = .systemBackground
-            $userInterfaceStyle
-            .sink { [weak self] userInterfaceStyle in
-                guard let self = self else { return }
-                guard let userInterfaceStyle = userInterfaceStyle else { return }
-                switch userInterfaceStyle {
-                case .dark:
-                    self.backgroundColor = .secondarySystemBackground
-                case .light, .unspecified:
-                    self.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
-                @unknown default:
-                    self.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
-                    assertionFailure()
-                    // do nothing
-                }
-            }
-            .store(in: &disposeBag)
-        }
     }
 }
 
 extension ProfileCardView.ViewModel {
     func bind(view: ProfileCardView) {
-        bindAppearacne(view: view)
         bindHeader(view: view)
         bindUser(view: view)
         bindBio(view: view)
@@ -80,18 +56,6 @@ extension ProfileCardView.ViewModel {
         bindFamiliarFollowers(view: view)
 //        bindAccessibility(view: view)
     }
-    
-    private func bindAppearacne(view: ProfileCardView) {
-        userInterfaceStyle = view.traitCollection.userInterfaceStyle
-        
-        $backgroundColor
-            .assign(to: \.backgroundColor, on: view.container)
-            .store(in: &disposeBag)
-        $backgroundColor
-            .assign(to: \.backgroundColor, on: view.avatarButtonBackgroundView)
-            .store(in: &disposeBag)
-    }
-    
     
     private func bindHeader(view: ProfileCardView) {
         $authorBannerImageURL

@@ -136,6 +136,7 @@ extension ProfileCardView {
         container.axis = .vertical
         container.spacing = 8
         container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
         addSubview(container)
         container.pinToParent()
         
@@ -184,6 +185,7 @@ extension ProfileCardView {
             avatarButton.heightAnchor.constraint(equalToConstant: ProfileCardView.avatarSize.height).priority(.required - 1),
         ])
         
+        avatarButtonBackgroundView.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
         avatarButtonBackgroundView.layer.masksToBounds = true
         avatarButtonBackgroundView.layer.cornerCurve = .continuous
         avatarButtonBackgroundView.layer.cornerRadius = 12 + 1
@@ -254,12 +256,6 @@ extension ProfileCardView {
         let familiarFollowersDashboardViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         familiarFollowersDashboardViewTapGestureRecognizer.addTarget(self, action: #selector(ProfileCardView.familiarFollowersDashboardViewDidPressed(_:)))
         familiarFollowersDashboardView.addGestureRecognizer(familiarFollowersDashboardViewTapGestureRecognizer)
-    }
-    
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        viewModel.userInterfaceStyle = traitCollection.userInterfaceStyle
     }
     
     public override func layoutSubviews() {
