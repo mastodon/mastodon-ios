@@ -115,8 +115,14 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
 
+        cell.profileCardView.setButtonState(.loading)
+
         Task {
-            try await DataSourceFacade.responseToUserFollowAction(dependency: self, user: account)
+            let newRelationship = try await DataSourceFacade.responseToUserFollowAction(dependency: self, user: account)
+
+            await MainActor.run {
+                cell.profileCardView.updateButtonState(with: newRelationship, isMe: false)
+            }
         }
     }
     
