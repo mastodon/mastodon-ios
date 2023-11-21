@@ -120,8 +120,10 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         Task {
             let newRelationship = try await DataSourceFacade.responseToUserFollowAction(dependency: self, user: account)
 
+            let isMe = (account.id == authContext.mastodonAuthenticationBox.userID)
+
             await MainActor.run {
-                cell.profileCardView.updateButtonState(with: newRelationship, isMe: false)
+                cell.profileCardView.updateButtonState(with: newRelationship, isMe: isMe)
             }
         }
     }
