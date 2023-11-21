@@ -147,6 +147,8 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
                 let familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })?.accounts ?? []
                 let relationships = try await context.apiService.relationship(forAccounts: familiarFollowers, authenticationBox: authContext.mastodonAuthenticationBox).value
 
+                coordinator.hideLoading()
+
                 let familiarFollowersViewModel = FamiliarFollowersViewModel(
                     context: context,
                     authContext: authContext,
@@ -154,17 +156,11 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
                     relationships: relationships
                 )
 
-                coordinator.hideLoading()
-
                 let viewController = coordinator.present(
                     scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
                     from: self,
                     transition: .show
                 )
-
-                if let familiarFollowersViewController = viewController as? FamiliarFollowersViewController {
-                    familiarFollowersViewController.delegate = self
-                }
             } catch {
 
             }
@@ -175,12 +171,4 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
 // MARK: ScrollViewContainer
 extension DiscoveryForYouViewController: ScrollViewContainer {
     var scrollView: UIScrollView { tableView }
-}
-
-extension DiscoveryForYouViewController: FamiliarFollowersViewControllerDelegate {
-    func relationshipChanged(_ viewController: UIViewController, account: Mastodon.Entity.Account) {
-        Task {
-            try? await viewModel.fetch()
-        }
-    }
 }

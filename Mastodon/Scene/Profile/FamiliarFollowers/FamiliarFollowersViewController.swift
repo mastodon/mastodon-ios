@@ -13,16 +13,11 @@ import MastodonUI
 import MastodonSDK
 import CoreDataStack
 
-protocol FamiliarFollowersViewControllerDelegate: AnyObject {
-    func relationshipChanged(_ viewController: UIViewController, account: Mastodon.Entity.Account)
-}
-
 final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
 
     weak var context: AppContext!
     weak var coordinator: SceneCoordinator!
     let viewModel: FamiliarFollowersViewModel
-    weak var delegate: FamiliarFollowersViewControllerDelegate?
 
     let tableView: UITableView
 
@@ -85,43 +80,7 @@ extension FamiliarFollowersViewController: UITableViewDelegate, AutoGenerateTabl
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FamiliarFollowersViewController: UserTableViewCellDelegate {
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) { }
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for account: Mastodon.Entity.Account, me: MastodonUser?) {
-
-        // Can we call the default implementation somehow? Maybe add a FollowAction-class with a completion-block?
-        Task {
-            await MainActor.run { view.setButtonState(.loading) }
-
-            try await DataSourceFacade.responseToUserViewButtonAction(
-                dependency: self,
-                user: account,
-                buttonState: state
-            )
-
-            // this is a dirty hack to give the backend enough time to process the relationship-change
-            // Otherwise the relationship might still be `pending`
-            try await Task.sleep(for: .seconds(1))
-
-            let relationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first
-
-            let isMe: Bool
-            if let me {
-                isMe = account.id == me.id
-            } else {
-                isMe = false
-            }
-
-            await MainActor.run {
-                view.viewModel.relationship = relationship
-                view.updateButtonState(with: relationship, isMe: isMe)
-
-                delegate?.relationshipChanged(self, account: account)
-            }
-        }
-    }
-
-}
+extension FamiliarFollowersViewController: UserTableViewCellDelegate {}
 
 //MARK: - DataSourceProvider
 extension FamiliarFollowersViewController: DataSourceProvider {
