@@ -156,7 +156,7 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
                     relationships: relationships
                 )
 
-                let viewController = coordinator.present(
+                _ = coordinator.present(
                     scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
                     from: self,
                     transition: .show
