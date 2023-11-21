@@ -10,8 +10,6 @@ import Combine
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
-import MastodonSDK
-import CoreDataStack
 
 final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
 
