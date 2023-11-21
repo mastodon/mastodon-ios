@@ -22,7 +22,7 @@ extension FamiliarFollowersDashboardView {
         @Published var emojis: MastodonContent.Emojis = [:]
         @Published var backgroundColor: UIColor?
 
-        @Published var label: MetaContent?
+        @Published public var label: MetaContent?
     }
 }
 

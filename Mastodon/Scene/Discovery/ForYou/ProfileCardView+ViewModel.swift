@@ -14,16 +14,12 @@ import MastodonLocalization
 import MastodonAsset
 import MastodonSDK
 import MastodonCore
+import MastodonUI
 
 extension ProfileCardView {
     public class ViewModel: ObservableObject {
         var disposeBag = Set<AnyCancellable>()
         
-        public let relationshipViewModel = RelationshipViewModel()
-        
-        @Published public var userInterfaceStyle: UIUserInterfaceStyle?
-        @Published public var backgroundColor: UIColor?
-
         // Author
         @Published public var authorBannerImageURL: URL?
         @Published public var authorAvatarImageURL: URL?
@@ -45,52 +41,18 @@ extension ProfileCardView {
         @Published public var groupedAccessibilityLabel = ""
         
         @Published public var familiarFollowers: Mastodon.Entity.FamiliarFollowers?
-        
-        init() {
-            backgroundColor = .systemBackground
-            $userInterfaceStyle
-            .sink { [weak self] userInterfaceStyle in
-                guard let self = self else { return }
-                guard let userInterfaceStyle = userInterfaceStyle else { return }
-                switch userInterfaceStyle {
-                case .dark:
-                    self.backgroundColor = .secondarySystemBackground
-                case .light, .unspecified:
-                    self.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
-                @unknown default:
-                    self.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
-                    assertionFailure()
-                    // do nothing
-                }
-            }
-            .store(in: &disposeBag)
-        }
     }
 }
 
 extension ProfileCardView.ViewModel {
     func bind(view: ProfileCardView) {
-        bindAppearacne(view: view)
         bindHeader(view: view)
         bindUser(view: view)
         bindBio(view: view)
-        bindRelationship(view: view)
         bindDashboard(view: view)
         bindFamiliarFollowers(view: view)
         bindAccessibility(view: view)
     }
-    
-    private func bindAppearacne(view: ProfileCardView) {
-        userInterfaceStyle = view.traitCollection.userInterfaceStyle
-        
-        $backgroundColor
-            .assign(to: \.backgroundColor, on: view.container)
-            .store(in: &disposeBag)
-        $backgroundColor
-            .assign(to: \.backgroundColor, on: view.avatarButtonBackgroundView)
-            .store(in: &disposeBag)
-    }
-    
     
     private func bindHeader(view: ProfileCardView) {
         $authorBannerImageURL
@@ -152,30 +114,7 @@ extension ProfileCardView.ViewModel {
             .store(in: &disposeBag)
     }
     
-    private func bindRelationship(view: ProfileCardView) {
-        relationshipViewModel.$optionSet
-            .receive(on: DispatchQueue.main)
-            .sink { relationshipActionSet in
-                let relationshipActionSet = relationshipActionSet ?? .follow
-                view.relationshipActionButton.configure(actionOptionSet: relationshipActionSet)
-            }
-            .store(in: &disposeBag)
-    }
-    
     private func bindDashboard(view: ProfileCardView) {
-        relationshipViewModel.$isMyself
-            .sink { isMyself in
-                if isMyself {
-                    view.statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myPosts
-                    view.statusDashboardView.followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myFollowing
-                    view.statusDashboardView.followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myFollowers
-                } else {
-                    view.statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherPosts
-                    view.statusDashboardView.followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowing
-                    view.statusDashboardView.followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowers
-                }
-            }
-            .store(in: &disposeBag)
         $statusesCount
             .receive(on: DispatchQueue.main)
             .sink { count in
@@ -212,11 +151,7 @@ extension ProfileCardView.ViewModel {
                 view.familiarFollowersDashboardView.configure(familiarFollowers: familiarFollowers)
             }
             .store(in: &disposeBag)
-        $backgroundColor
-            .assign(to: \.backgroundColor, on: view.familiarFollowersDashboardView.viewModel)
-            .store(in: &disposeBag)
     }
-    
     private func bindAccessibility(view: ProfileCardView) {
         let authorAccessibilityLabel = Publishers.CombineLatest(
             $authorName,
@@ -244,7 +179,7 @@ extension ProfileCardView.ViewModel {
             .map {
                 AXCustomContent(
                     label: L10n.Scene.Profile.Dashboard.otherPosts,
-                    value: $0
+                    value: String(describing: $0)
                 )
             }
         let followingContent = $followingCount
@@ -252,7 +187,7 @@ extension ProfileCardView.ViewModel {
             .map {
                 AXCustomContent(
                     label: L10n.Scene.Profile.Dashboard.otherFollowing,
-                    value: $0
+                    value: String(describing: $0)
                 )
             }
         let followersContent = $followersCount
@@ -260,11 +195,11 @@ extension ProfileCardView.ViewModel {
             .map {
                 AXCustomContent(
                     label: L10n.Scene.Profile.Dashboard.otherFollowers,
-                    value: $0
+                    value: String(describing: $0)
                 )
             }
         let familiarContent = view.familiarFollowersDashboardView.viewModel.$label
-            .map { $0?.accessibilityLabel }
+            .map { $0?.accessibilityLabel ?? ""}
             .removeDuplicates()
             .map {
                 AXCustomContent(
