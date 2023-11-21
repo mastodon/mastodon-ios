@@ -293,7 +293,6 @@
 		DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */; };
 		DB5B549A2833A60400DEF8B2 /* FamiliarFollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */; };
 		DB5B549D2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */; };
-		DB5B54A12833A89600DEF8B2 /* FamiliarFollowersViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A02833A89600DEF8B2 /* FamiliarFollowersViewController+DataSourceProvider.swift */; };
 		DB5B54A32833BD1A00DEF8B2 /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */; };
 		DB5B54A62833BE0000DEF8B2 /* UserListViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */; };
 		DB5B54A82833BFA500DEF8B2 /* FavoritedByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A72833BFA500DEF8B2 /* FavoritedByViewController.swift */; };
@@ -1004,7 +1003,6 @@
 		DB519B17281BCC2F00F0C99D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarFollowersViewController.swift; sourceTree = "<group>"; };
 		DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarFollowersViewModel.swift; sourceTree = "<group>"; };
-		DB5B54A02833A89600DEF8B2 /* FamiliarFollowersViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FamiliarFollowersViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
 		DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListViewModel+State.swift"; sourceTree = "<group>"; };
 		DB5B54A72833BFA500DEF8B2 /* FavoritedByViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritedByViewController.swift; sourceTree = "<group>"; };
@@ -2284,7 +2282,6 @@
 			isa = PBXGroup;
 			children = (
 				DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */,
-				DB5B54A02833A89600DEF8B2 /* FamiliarFollowersViewController+DataSourceProvider.swift */,
 				DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */,
 			);
 			path = FamiliarFollowers;
@@ -3751,7 +3748,6 @@
 				D8E5C349296DB8A3007E76A7 /* StatusEditHistoryViewController.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
 				D8318A882A4468D300C0FB73 /* NotificationSettingsViewController.swift in Sources */,
-				DB5B54A12833A89600DEF8B2 /* FamiliarFollowersViewController+DataSourceProvider.swift in Sources */,
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				DB025B78278D606A002F581E /* StatusItem.swift in Sources */,
 				D82BD7532ABC44C2009A374A /* Coordinator.swift in Sources */,

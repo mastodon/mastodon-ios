@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import MastodonUI
 import MastodonCore
+import MastodonSDK
 
 final class DiscoveryForYouViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
 
@@ -136,20 +137,38 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
 
-        let userID = account.id
-        let _familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })
-        guard let familiarFollowers = _familiarFollowers else {
-            assertionFailure()
-            return
-        }
-        
-        let familiarFollowersViewModel = FamiliarFollowersViewModel(context: context, authContext: authContext, accounts: viewModel.accounts, relationships: viewModel.relationships)
+        coordinator.showLoading()
 
-        _ = coordinator.present(
-            scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
-            from: self,
-            transition: .show
-        )
+        Task { [weak self] in
+
+            guard let self else { return }
+            do {
+                let userID = account.id
+                let familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })?.accounts ?? []
+                let relationships = try await context.apiService.relationship(forAccounts: familiarFollowers, authenticationBox: authContext.mastodonAuthenticationBox).value
+
+                let familiarFollowersViewModel = FamiliarFollowersViewModel(
+                    context: context,
+                    authContext: authContext,
+                    accounts: familiarFollowers,
+                    relationships: relationships
+                )
+
+                coordinator.hideLoading()
+
+                let viewController = coordinator.present(
+                    scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
+                    from: self,
+                    transition: .show
+                )
+
+                if let familiarFollowersViewController = viewController as? FamiliarFollowersViewController {
+                    familiarFollowersViewController.delegate = self
+                }
+            } catch {
+
+            }
+        }
     }
 }
 
@@ -158,3 +177,10 @@ extension DiscoveryForYouViewController: ScrollViewContainer {
     var scrollView: UIScrollView { tableView }
 }
 
+extension DiscoveryForYouViewController: FamiliarFollowersViewControllerDelegate {
+    func relationshipChanged(_ viewController: UIViewController, account: Mastodon.Entity.Account) {
+        Task {
+            try? await viewModel.fetch()
+        }
+    }
+}
