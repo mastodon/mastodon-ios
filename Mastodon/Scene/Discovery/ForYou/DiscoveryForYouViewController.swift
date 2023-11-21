@@ -143,8 +143,8 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
             return
         }
         
-        let familiarFollowersViewModel = FamiliarFollowersViewModel(context: context, authContext: authContext)
-        familiarFollowersViewModel.familiarFollowers = familiarFollowers
+        let familiarFollowersViewModel = FamiliarFollowersViewModel(context: context, authContext: authContext, accounts: viewModel.accounts, relationships: viewModel.relationships)
+
         _ = coordinator.present(
             scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
             from: self,

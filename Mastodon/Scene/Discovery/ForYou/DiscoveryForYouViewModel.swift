@@ -23,7 +23,7 @@ final class DiscoveryForYouViewModel {
     @Published var familiarFollowers: [Mastodon.Entity.FamiliarFollowers] = []
     @Published var isFetching = false
     @Published var accounts: [Mastodon.Entity.Account]
-    var relationships: [Mastodon.Entity.Relationship?]
+    var relationships: [Mastodon.Entity.Relationship]
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<DiscoverySection, DiscoveryItem>?
@@ -72,7 +72,7 @@ extension DiscoveryForYouViewModel {
             snapshot.appendSections([.forYou])
 
             let items = self.accounts.map { account in
-                let relationship = relationships.first { $0?.id == account.id } ?? nil
+                let relationship = relationships.first { $0.id == account.id } ?? nil
 
                 return DiscoveryItem.account(account, relationship: relationship)
             }

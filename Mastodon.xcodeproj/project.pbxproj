@@ -293,7 +293,6 @@
 		DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */; };
 		DB5B549A2833A60400DEF8B2 /* FamiliarFollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */; };
 		DB5B549D2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */; };
-		DB5B549F2833A72500DEF8B2 /* FamiliarFollowersViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B549E2833A72500DEF8B2 /* FamiliarFollowersViewModel+Diffable.swift */; };
 		DB5B54A12833A89600DEF8B2 /* FamiliarFollowersViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A02833A89600DEF8B2 /* FamiliarFollowersViewController+DataSourceProvider.swift */; };
 		DB5B54A32833BD1A00DEF8B2 /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */; };
 		DB5B54A62833BE0000DEF8B2 /* UserListViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */; };
@@ -1005,7 +1004,6 @@
 		DB519B17281BCC2F00F0C99D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarFollowersViewController.swift; sourceTree = "<group>"; };
 		DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarFollowersViewModel.swift; sourceTree = "<group>"; };
-		DB5B549E2833A72500DEF8B2 /* FamiliarFollowersViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FamiliarFollowersViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB5B54A02833A89600DEF8B2 /* FamiliarFollowersViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FamiliarFollowersViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
 		DB5B54A52833BE0000DEF8B2 /* UserListViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListViewModel+State.swift"; sourceTree = "<group>"; };
@@ -2288,7 +2286,6 @@
 				DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */,
 				DB5B54A02833A89600DEF8B2 /* FamiliarFollowersViewController+DataSourceProvider.swift */,
 				DB5B549C2833A67400DEF8B2 /* FamiliarFollowersViewModel.swift */,
-				DB5B549E2833A72500DEF8B2 /* FamiliarFollowersViewModel+Diffable.swift */,
 			);
 			path = FamiliarFollowers;
 			sourceTree = "<group>";
@@ -3718,7 +3715,6 @@
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
 				2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */,
 				DB6180E926391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift in Sources */,
-				DB5B549F2833A72500DEF8B2 /* FamiliarFollowersViewModel+Diffable.swift in Sources */,
 				DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */,
 				DB8F7076279E954700E1225B /* DataSourceFacade+Follow.swift in Sources */,
 				DB63F7542799491600455B82 /* DataSourceFacade+SearchHistory.swift in Sources */,

@@ -14,36 +14,34 @@ import CoreDataStack
 
 final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
 
-    weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
-    weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
-    
+    weak var context: AppContext!
+    weak var coordinator: SceneCoordinator!
+
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: FamiliarFollowersViewModel!
+    var viewModel: FamiliarFollowersViewModel
     
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
+    let tableView: UITableView
+
+    init(viewModel: FamiliarFollowersViewModel, context: AppContext, coordinator: SceneCoordinator) {
+        self.viewModel = viewModel
+        self.context = context
+        self.coordinator = coordinator
+
+        tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        return tableView
-    }()
-    
-    
-}
 
-extension FamiliarFollowersViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.init(nibName: nil, bundle: nil)
+
         title = L10n.Scene.Familiarfollowers.title
-        
+
         view.backgroundColor = .secondarySystemBackground
-        
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         tableView.pinToParent()
-        
+
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
@@ -51,10 +49,13 @@ extension FamiliarFollowersViewController {
         )
     }
     
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
+        viewModel.viewWillAppear()
     }
     
 }

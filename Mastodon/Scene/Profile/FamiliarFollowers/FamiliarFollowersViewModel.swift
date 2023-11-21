@@ -6,41 +6,54 @@
 //
 
 import UIKit
-import Combine
 import MastodonCore
 import MastodonSDK
-import CoreDataStack
 
 final class FamiliarFollowersViewModel {
-    var disposeBag = Set<AnyCancellable>()
-
-    // input
     let context: AppContext
     let authContext: AuthContext
-    let userFetchedResultsController: UserFetchedResultsController
 
-    @Published var familiarFollowers: Mastodon.Entity.FamiliarFollowers?
-    
+    var accounts: [Mastodon.Entity.Account]
+    var relationships: [Mastodon.Entity.Relationship]
+
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
 
-    init(context: AppContext, authContext: AuthContext) {
+    init(context: AppContext, authContext: AuthContext, accounts: [Mastodon.Entity.Account], relationships: [Mastodon.Entity.Relationship]) {
         self.context = context
         self.authContext = authContext
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalPredicate: nil
-        )
-        // end init
-        
-        $familiarFollowers
-            .map { familiarFollowers -> [MastodonUser.ID] in
-                guard let familiarFollowers = familiarFollowers else { return [] }
-                return familiarFollowers.accounts.map { $0.id }
-            }
-            .assign(to: \.userIDs, on: userFetchedResultsController)
-            .store(in: &disposeBag)
+        self.accounts = accounts
+        self.relationships = relationships
     }
-    
+
+    func setupDiffableDataSource(
+        tableView: UITableView,
+        userTableViewCellDelegate: UserTableViewCellDelegate?
+    ) {
+        diffableDataSource = UserSection.diffableDataSource(
+            tableView: tableView,
+            context: context,
+            authContext: authContext,
+            userTableViewCellDelegate: userTableViewCellDelegate
+        )
+    }
+
+    func viewWillAppear() {
+        guard let diffableDataSource else { return }
+
+        var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
+        snapshot.appendSections([.main])
+        let accountsWithRelationship: [(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)] = accounts.compactMap { account in
+            guard let relationship = self.relationships.first(where: {$0.id == account.id }) else { return (account: account, relationship: nil)}
+
+            return (account: account, relationship: relationship)
+        }
+
+        let items = accountsWithRelationship.map { UserItem.account(account: $0.account, relationship: $0.relationship) }
+
+        snapshot.appendItems(items, toSection: .main)
+
+        diffableDataSource.apply(snapshot, animatingDifferences: false)
+
+    }
 }
