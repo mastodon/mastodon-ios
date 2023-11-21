@@ -12,6 +12,7 @@ import MastodonCore
 
 protocol ContentSplitViewControllerDelegate: AnyObject {
     func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
+    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didDoubleTapTab tab: MainTabBarController.Tab)
 }
 
 final class ContentSplitViewController: UIViewController, NeedsDependency {
@@ -121,16 +122,7 @@ extension ContentSplitViewController: SidebarViewControllerDelegate {
     }
     
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didDoubleTapItem item: SidebarViewModel.Item, sourceView: UIView) {
-        guard case let .tab(tab) = item, tab == .me else { return }
-        guard let authContext = authContext else { return }
-        assert(Thread.isMainThread)
-
-        guard let nextAccount = context.nextAccount(in: authContext) else { return }
-
-        Task { @MainActor in
-            let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
-            guard isActive else { return }
-            self.coordinator.setup()
-        }
+        guard case let .tab(tab) = item else { return }
+        delegate?.contentSplitViewController(self, sidebarViewController: sidebarViewController, didDoubleTapTab: tab)
     }
 }
