@@ -64,9 +64,10 @@ extension ReportStatusViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel else { return }
             
-            let maxID = viewModel.statusFetchedResultsController.statusIDs.last
             
             Task {
+                let maxID = await viewModel.statusFetchedResultsController.records.last?.id
+
                 let managedObjectContext = viewModel.context.managedObjectContext
                 let _userID: MastodonUser.ID? = try await managedObjectContext.perform {
                     guard let user = viewModel.user.object(in: managedObjectContext) else { return nil }
@@ -89,10 +90,10 @@ extension ReportStatusViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs
+                    var statusIDs = await viewModel.statusFetchedResultsController.records
                     for status in response.value {
-                        guard !statusIDs.contains(status.id) else { continue }
-                        statusIDs.append(status.id)
+                        guard !statusIDs.contains(where: { $0.id == status.id }) else { continue }
+                        statusIDs.append(.fromEntity(status))
                         hasNewStatusesAppend = true
                     }
                     
@@ -101,7 +102,7 @@ extension ReportStatusViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
+                    await viewModel.statusFetchedResultsController.setRecords(statusIDs)
 
                 } catch {
                     await enter(state: Fail.self)

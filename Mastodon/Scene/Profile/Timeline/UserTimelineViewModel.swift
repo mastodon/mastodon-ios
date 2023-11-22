@@ -48,6 +48,7 @@ final class UserTimelineViewModel {
         return stateMachine
     }()
 
+    @MainActor
     init(
         context: AppContext,
         authContext: AuthContext,
@@ -57,11 +58,7 @@ final class UserTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.title = title
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+        self.statusFetchedResultsController = StatusFetchedResultsController()
         self.queryFilter = queryFilter
     }
 }

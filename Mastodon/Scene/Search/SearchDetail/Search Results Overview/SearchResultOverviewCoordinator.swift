@@ -75,22 +75,10 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
                 showProfile(viewController, for: account)
             } else if let status = searchResult.statuses.first {
 
-                let status = try await managedObjectContext.perform {
-                    return Persistence.Status.fetch(in: managedObjectContext, context: Persistence.Status.PersistContext(
-                        domain: authContext.mastodonAuthenticationBox.domain,
-                        entity: status,
-                        me: authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext),
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: Date()))
-                }
-
-                guard let status else { return }
-
                 await DataSourceFacade.coordinateToStatusThreadScene(
                     provider: viewController,
                     target: .status,    // remove reblog wrapper
-                    status: status.asRecord
+                    status: MastodonStatus.fromEntity(status)
                 )
             } else if let url = URL(string: urlString) {
                 let prefixedURL: URL?

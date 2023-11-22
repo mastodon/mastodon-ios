@@ -16,30 +16,29 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import class CoreDataStack.Notification
+import MastodonSDK
 
 extension NotificationView {
-    public func configure(feed: Feed) {
-        guard let notification = feed.notification else {
+    public func configure(feed: MastodonFeed) {
+        guard 
+            let notification = feed.notification,
+            let managedObjectContext = viewModel.context?.managedObjectContext
+        else {
             assertionFailure()
             return
         }
-        
-        configure(notification: notification)
+
+        MastodonNotification.fromEntity(notification, using: managedObjectContext).map(configure(notification:))
     }
 }
 
 extension NotificationView {
-    public func configure(notification: Notification) {
+    public func configure(notification: MastodonNotification) {
         viewModel.objects.insert(notification)
 
         configureAuthor(notification: notification)
-        
-        guard let type = MastodonNotificationType(rawValue: notification.typeRaw) else {
-            assertionFailure()
-            return
-        }
-        
-        switch type {
+
+        switch notification.entity.type {
         case .follow:
             setAuthorContainerBottomPaddingViewDisplay()
         case .followRequest:
@@ -63,7 +62,7 @@ extension NotificationView {
 }
 
 extension NotificationView {
-    private func configureAuthor(notification: Notification) {
+    private func configureAuthor(notification: MastodonNotification) {
         let author = notification.account
         // author avatar
         
@@ -98,19 +97,18 @@ extension NotificationView {
             .assign(to: \.authorUsername, on: viewModel)
             .store(in: &disposeBag)
         // timestamp
-        viewModel.timestamp = notification.createAt
+        viewModel.timestamp = notification.entity.createdAt
 
-        viewModel.visibility = notification.status?.visibility ?? ._other("")
+        viewModel.visibility = notification.entity.status?.mastodonVisibility ?? ._other("")
 
         // notification type indicator
-        Publishers.CombineLatest3(
-            notification.publisher(for: \.typeRaw),
+        Publishers.CombineLatest(
             author.publisher(for: \.displayName),
             author.publisher(for: \.emojis)
         )
-        .sink { [weak self] typeRaw, _, emojis in
+        .sink { [weak self] _, emojis in
             guard let self = self else { return }
-            guard let type = MastodonNotificationType(rawValue: typeRaw) else {
+            guard let type = MastodonNotificationType(rawValue: notification.entity.type.rawValue) else {
                 self.viewModel.notificationIndicatorText = nil
                 return
             }
@@ -205,13 +203,8 @@ extension NotificationView {
         .store(in: &disposeBag)
 
         // follow request state
-        notification.publisher(for: \.followRequestState)
-            .assign(to: \.followRequestState, on: viewModel)
-            .store(in: &disposeBag)
-
-        notification.publisher(for: \.transientFollowRequestState)
-            .assign(to: \.transientFollowRequestState, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.followRequestState = notification.followRequestState
+        viewModel.transientFollowRequestState = notification.transientFollowRequestState
 
         // Following
         author.publisher(for: \.followingBy)

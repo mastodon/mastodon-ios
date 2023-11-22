@@ -52,13 +52,10 @@ extension HomeTimelineViewModel.LoadOldestState {
             }
             
             Task {
-                let managedObjectContext = viewModel.fetchedResultsController.managedObjectContext
-                let _maxID: Mastodon.Entity.Status.ID? = try await managedObjectContext.perform {
-                    guard let feed = lastFeedRecord.object(in: managedObjectContext),
-                          let status = feed.status
-                    else { return nil }
+                let _maxID: Mastodon.Entity.Status.ID? = {
+                    guard let status = lastFeedRecord.status else { return nil }
                     return status.id
-                }
+                }()
                 
                 guard let maxID = _maxID else {
                     await self.enter(state: Fail.self)

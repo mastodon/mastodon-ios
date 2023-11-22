@@ -20,7 +20,7 @@ extension APIService {
     }
     
     public func reblog(
-        record: ManagedObjectRecord<Status>,
+        status: MastodonStatus,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
         let managedObjectContext = backgroundManagedObjectContext
@@ -30,19 +30,16 @@ extension APIService {
             let authentication = authenticationBox.authentication
             
             guard
-                let me = authentication.user(in: managedObjectContext),
-                let _status = record.object(in: managedObjectContext)
+                let me = authentication.user(in: managedObjectContext)
             else { return nil }
             
-            let status = _status.reblog ?? _status
-            let isReblogged = status.rebloggedBy.contains(me)
-            let rebloggedCount = status.reblogsCount
-            let reblogCount = isReblogged ? rebloggedCount - 1 : rebloggedCount + 1
-            status.update(reblogged: !isReblogged, by: me)
-            status.update(reblogsCount: Int64(max(0, reblogCount)))
+            let _status = status.reblog ?? status
+            let isReblogged = _status.entity.reblogged == true
+            let rebloggedCount = Int64(_status.entity.reblogsCount)
+
             let reblogContext = MastodonReblogContext(
-                statusID: status.id,
-                isReblogged: isReblogged,
+                statusID: _status.id,
+                isReblogged: !isReblogged,
                 rebloggedCount: rebloggedCount
             )
             return reblogContext
@@ -65,41 +62,7 @@ extension APIService {
         } catch {
             result = .failure(error)
         }
-        
-        // update repost state
-        try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-            
-            guard
-                let me = authentication.user(in: managedObjectContext),
-                let _status = record.object(in: managedObjectContext)
-            else { return }
-            
-            let status = _status.reblog ?? _status
-            
-            switch result {
-            case .success(let response):
-                _ = Persistence.Status.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Status.PersistContext(
-                        domain: authentication.domain,
-                        entity: response.value,
-                        me: me,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-                if reblogContext.isReblogged {
-                    status.update(reblogsCount: max(0, status.reblogsCount - 1))        // undo API return count has delay. Needs -1 local
-                }
-            case .failure:
-                // rollback
-                status.update(reblogged: reblogContext.isReblogged, by: me)
-                status.update(reblogsCount: reblogContext.rebloggedCount)
-            }
-        }
-        
+                
         let response = try result.get()
         return response
     }
@@ -108,19 +71,12 @@ extension APIService {
 
 extension APIService {
     public func rebloggedBy(
-        status: ManagedObjectRecord<Status>,
+        status: MastodonStatus,
         query: Mastodon.API.Statuses.RebloggedByQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
         let managedObjectContext = backgroundManagedObjectContext
-        let _statusID: Status.ID? = try? await managedObjectContext.perform {
-            guard let _status = status.object(in: managedObjectContext) else { return nil }
-            let status = _status.reblog ?? _status
-            return status.id
-        }
-        guard let statusID = _statusID else {
-            throw APIError.implicit(.badRequest)
-        }
+        let statusID: Status.ID = status.reblog?.id ?? status.id
 
         let response = try await Mastodon.API.Statuses.rebloggedBy(
             session: session,
@@ -130,6 +86,7 @@ extension APIService {
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
         
+        #warning("Is this still required?")
         try await managedObjectContext.performChanges {
             for entity in response.value {
                 _ = Persistence.MastodonUser.createOrMerge(

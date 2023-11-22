@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import CoreDataStack
+import MastodonSDK
 
 extension StatusThreadRootTableViewCell {
     final class ViewModel {
@@ -17,7 +17,7 @@ extension StatusThreadRootTableViewCell {
         }
         
         enum Value {
-            case status(Status)
+            case status(MastodonStatus)
         }
     }
 }

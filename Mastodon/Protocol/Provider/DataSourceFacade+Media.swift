@@ -9,6 +9,7 @@ import UIKit
 import CoreDataStack
 import MastodonUI
 import MastodonLocalization
+import MastodonSDK
 
 extension DataSourceFacade {
     
@@ -61,15 +62,12 @@ extension DataSourceFacade {
     @MainActor
     static func coordinateToMediaPreviewScene(
         dependency: NeedsDependency & MediaPreviewableViewController,
-        status: ManagedObjectRecord<Status>,
+        status: MastodonStatus,
         previewContext: AttachmentPreviewContext
     ) async throws {
         let managedObjectContext = dependency.context.managedObjectContext
-        let attachments: [MastodonAttachment] = try await managedObjectContext.perform {
-            guard let _status = status.object(in: managedObjectContext) else { return [] }
-            let status = _status.reblog ?? _status
-            return status.attachments
-        }
+        let status = status.reblog ?? status
+        let attachments = status.entity.mastodonAttachments
         
         let thumbnails = await previewContext.thumbnails()
         

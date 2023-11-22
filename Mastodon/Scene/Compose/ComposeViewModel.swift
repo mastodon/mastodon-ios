@@ -21,7 +21,7 @@ final class ComposeViewModel {
 
     enum Context {
         case composeStatus
-        case editStatus(status: Status, statusSource: Mastodon.Entity.StatusSource)
+        case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource)
     }
     
     var disposeBag = Set<AnyCancellable>()

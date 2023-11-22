@@ -7,10 +7,10 @@
 
 import CoreData
 import Foundation
-import CoreDataStack
+import MastodonSDK
 
 enum NotificationItem: Hashable {
-    case feed(record: ManagedObjectRecord<Feed>)
-    case feedLoader(record: ManagedObjectRecord<Feed>)
+    case feed(record: MastodonFeed)
+    case feedLoader(record: MastodonFeed)
     case bottomLoader
 }

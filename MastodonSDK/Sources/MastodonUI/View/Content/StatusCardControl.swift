@@ -13,6 +13,7 @@ import MastodonLocalization
 import CoreDataStack
 import UIKit
 import WebKit
+import MastodonSDK
 
 public protocol StatusCardControlDelegate: AnyObject {
     func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)
@@ -133,20 +134,24 @@ public final class StatusCardControl: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func configure(card: Card) {
+    public func configure(card: Mastodon.Entity.Card) {
         let title = card.title.trimmingCharacters(in: .whitespacesAndNewlines)
-        if let host = card.url?.host {
+        let url = URL(string: card.url)
+        if let host = url?.host {
             accessibilityLabel = "\(title) \(host)"
         } else {
             accessibilityLabel = title
         }
 
         titleLabel.text = title
-        linkLabel.text = card.url?.host
+        linkLabel.text = url?.host
         imageView.contentMode = .center
 
         imageView.sd_setImage(
-            with: card.imageURL,
+            with: {
+                guard let image = card.image else { return nil }
+                return URL(string: image)
+            }(),
             placeholderImage: icon(for: card.layout)
         ) { [weak self] image, _, _, _ in
             if image != nil {
@@ -324,6 +329,18 @@ private extension StatusCardControl {
 private extension Card {
     var layout: StatusCardControl.Layout {
         var aspectRatio = CGFloat(width) / CGFloat(height)
+        if !aspectRatio.isFinite {
+            aspectRatio = 1
+        }
+        return (abs(aspectRatio - 1) < 0.05 || image == nil) && html == nil
+        ? .compact
+        : .large(aspectRatio: aspectRatio)
+    }
+}
+
+private extension Mastodon.Entity.Card {
+    var layout: StatusCardControl.Layout {
+        var aspectRatio = CGFloat(width ?? 1) / CGFloat(height ?? 1)
         if !aspectRatio.isFinite {
             aspectRatio = 1
         }

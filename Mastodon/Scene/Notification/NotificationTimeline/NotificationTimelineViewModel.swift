@@ -43,6 +43,7 @@ final class NotificationTimelineViewModel {
         return stateMachine
     }()
     
+    @MainActor
     init(
         context: AppContext,
         authContext: AuthContext,
@@ -51,13 +52,7 @@ final class NotificationTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.scope = scope
-        self.feedFetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
-        // end init
-        
-        feedFetchedResultsController.predicate = NotificationTimelineViewModel.feedPredicate(
-            authenticationBox: authContext.mastodonAuthenticationBox,
-            scope: scope
-        )
+        self.feedFetchedResultsController = FeedFetchedResultsController()
     }
     
     
@@ -125,29 +120,16 @@ extension NotificationTimelineViewModel {
     // load timeline gap
     func loadMore(item: NotificationItem) async {
         guard case let .feedLoader(record) = item else { return }
-        
-        let managedObjectContext = context.managedObjectContext
-        let key = "LoadMore@\(record.objectID)"
-        
-        // return when already loading state
-        guard managedObjectContext.cache(froKey: key) == nil else { return }
 
-        guard let feed = record.object(in: managedObjectContext) else { return }
-        guard let maxID = feed.notification?.id else { return }
-        // keep transient property live
-        managedObjectContext.cache(feed, key: key)
-        defer {
-            managedObjectContext.cache(nil, key: key)
-        }
-        
+        guard let maxID = record.notification?.id else { return }
+
         // fetch data
-        do {
-            _ = try await context.apiService.notifications(
-                maxID: maxID,
-                scope: scope,
-                authenticationBox: authContext.mastodonAuthenticationBox
-            )
-        } catch {
+        if let notifications = try? await context.apiService.notifications(
+            maxID: maxID,
+            scope: scope,
+            authenticationBox: authContext.mastodonAuthenticationBox
+        ) {
+            self.feedFetchedResultsController.records += notifications.value.map { MastodonFeed.fromNotification($0, kind: record.kind) }
         }
     }
     

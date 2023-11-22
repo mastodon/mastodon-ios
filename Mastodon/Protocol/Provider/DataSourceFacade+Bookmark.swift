@@ -9,11 +9,12 @@ import UIKit
 import CoreData
 import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     public static func responseToStatusBookmarkAction(
         provider: UIViewController & NeedsDependency & AuthContextProvider,
-        status: ManagedObjectRecord<Status>
+        status: MastodonStatus
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()

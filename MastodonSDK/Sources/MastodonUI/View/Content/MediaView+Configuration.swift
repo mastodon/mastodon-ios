@@ -180,7 +180,7 @@ extension MediaView.Configuration {
 }
 
 extension MediaView {
-    public static func configuration(status: StatusCompatible) -> [MediaView.Configuration] {
+    public static func configuration(status: MastodonStatus) -> [MediaView.Configuration] {
         func videoInfo(from attachment: MastodonAttachment) -> MediaView.Configuration.VideoInfo {
             MediaView.Configuration.VideoInfo(
                 aspectRadio: attachment.size,
@@ -191,8 +191,8 @@ extension MediaView {
             )
         }
         
-        let status: StatusCompatible = status.reblog ?? status
-        let attachments = status.attachments
+//        let status: StatusCompatible = status.reblog ?? status
+        let attachments = status.entity.mastodonAttachments
         let configurations = attachments.enumerated().map { (idx, attachment) -> MediaView.Configuration in
             let configuration: MediaView.Configuration = {
                 switch attachment.kind {
@@ -236,7 +236,7 @@ extension MediaView {
             }()
             
             configuration.load()
-            configuration.isReveal = status.isMediaSensitive ? status.isSensitiveToggled : true
+            configuration.isReveal = status.entity.sensitive == true ? status.isSensitiveToggled : true
             
             return configuration
         }

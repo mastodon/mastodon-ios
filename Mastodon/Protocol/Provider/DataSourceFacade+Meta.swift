@@ -9,16 +9,17 @@ import Foundation
 import CoreDataStack
 import MetaTextKit
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     
     static func responseToMetaTextAction(
         provider: DataSourceProvider & AuthContextProvider,
         target: StatusTarget,
-        status: ManagedObjectRecord<Status>,
+        status: MastodonStatus,
         meta: Meta
     ) async throws {
-        let _redirectRecord = await DataSourceFacade.status(
+        let _redirectRecord = DataSourceFacade.status(
             managedObjectContext: provider.context.managedObjectContext,
             status: status,
             target: target
@@ -35,7 +36,7 @@ extension DataSourceFacade {
     
     static func responseToMetaTextAction(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>,
+        status: MastodonStatus,
         meta: Meta
     ) async {
         switch meta {
@@ -55,7 +56,7 @@ extension DataSourceFacade {
                 url: url
             )
         case .hashtag(_, let hashtag, _):
-            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: provider.context, authContext: provider.authContext, hashtag: hashtag)
+            let hashtagTimelineViewModel = await HashtagTimelineViewModel(context: provider.context, authContext: provider.authContext, hashtag: hashtag)
             _ = await provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
         case .mention(_, let mention, let userInfo):
             await coordinateToProfileScene(

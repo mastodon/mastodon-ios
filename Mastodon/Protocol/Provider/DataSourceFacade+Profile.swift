@@ -15,7 +15,7 @@ extension DataSourceFacade {
     static func coordinateToProfileScene(
         provider: DataSourceProvider & AuthContextProvider,
         target: StatusTarget,
-        status: ManagedObjectRecord<Status>
+        status: MastodonStatus
     ) async {
         let _redirectRecord = await DataSourceFacade.author(
             managedObjectContext: provider.context.managedObjectContext,
@@ -83,9 +83,10 @@ extension DataSourceFacade {
 
 extension DataSourceFacade {
 
+    @MainActor
     static func coordinateToProfileScene(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>,
+        status: MastodonStatus,
         mention: String,        // username,
         userInfo: [AnyHashable: Any]?
     ) async {
@@ -100,11 +101,11 @@ extension DataSourceFacade {
     
         let managedObjectContext = provider.context.managedObjectContext
         let mentions = try? await managedObjectContext.perform {
-            return status.object(in: managedObjectContext)?.mentions ?? []
+            return status.entity.mentions ?? []
         }
         
         guard let mention = mentions?.first(where: { $0.url == href }) else {
-            _  = await provider.coordinator.present(
+            _  = provider.coordinator.present(
                 scene: .safari(url: url),
                 from: provider,
                 transition: .safariPresent(animated: true, completion: nil)
@@ -131,7 +132,7 @@ extension DataSourceFacade {
             }
         }()
         
-        _ = await provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .profile(viewModel: profileViewModel),
             from: provider,
             transition: .show

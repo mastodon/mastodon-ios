@@ -22,11 +22,12 @@ extension StatusView {
     public final class ViewModel: ObservableObject {
         var disposeBag = Set<AnyCancellable>()
         var observations = Set<NSKeyValueObservation>()
-        public var objects = Set<NSManagedObject>()
+        public var objects = Set<MastodonStatus>()
+        public var managedObjects = Set<NSManagedObject>()
 
         public var context: AppContext?
         public var authContext: AuthContext?
-        public var originalStatus: Status?
+        public var originalStatus: MastodonStatus?
 
         // Header
         @Published public var header: Header = .none
@@ -77,7 +78,7 @@ extension StatusView {
         @Published public var expired: Bool = false
 
         // Card
-        @Published public var card: Card?
+        @Published public var card: Mastodon.Entity.Card?
 
         // Visibility
         @Published public var visibility: MastodonVisibility = .public

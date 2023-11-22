@@ -87,7 +87,8 @@ class MainTabBarController: UITabBarController {
             return image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
         }
 
-        func viewController(context: AppContext, authContext: AuthContext?, coordinator: SceneCoordinator) -> UIViewController {
+        @MainActor
+        func viewController(context: AppContext, authContext: AuthContext?, coordinator: SceneCoordinator) async -> UIViewController {
             guard let authContext = authContext else {
                 return UITableViewController()
             }
@@ -170,21 +171,26 @@ extension MainTabBarController {
         view.backgroundColor = .systemBackground
 
         // seealso: `ThemeService.apply(theme:)`
-        let tabs = Tab.allCases
-        let viewControllers: [UIViewController] = tabs.map { tab in
-            let viewController = tab.viewController(context: context, authContext: authContext, coordinator: coordinator)
-            viewController.tabBarItem.tag = tab.tag
-            viewController.tabBarItem.title = tab.title     // needs for acessiblity large content label
-            viewController.tabBarItem.image = tab.image.imageWithoutBaseline()
-            viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
-            viewController.tabBarItem.accessibilityLabel = tab.title
-            viewController.tabBarItem.accessibilityUserInputLabels = tab.inputLabels
-            viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-            return viewController
+        Task { @MainActor in
+            let tabs = Tab.allCases
+            var viewControllers = [UIViewController]()
+            
+            for tab in tabs {
+                let viewController = await tab.viewController(context: context, authContext: authContext, coordinator: coordinator)
+                viewController.tabBarItem.tag = tab.tag
+                viewController.tabBarItem.title = tab.title     // needs for acessiblity large content label
+                viewController.tabBarItem.image = tab.image.imageWithoutBaseline()
+                viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
+                viewController.tabBarItem.accessibilityLabel = tab.title
+                viewController.tabBarItem.accessibilityUserInputLabels = tab.inputLabels
+                viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+                viewControllers.append(viewController)
+            }
+            
+            _viewControllers = viewControllers
+            setViewControllers(viewControllers, animated: false)
+            selectedIndex = 0
         }
-        _viewControllers = viewControllers
-        setViewControllers(viewControllers, animated: false)
-        selectedIndex = 0
 
         // hacky workaround for FB11986255 (Setting accessibilityUserInputLabels on a UITabBarItem has no effect)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {

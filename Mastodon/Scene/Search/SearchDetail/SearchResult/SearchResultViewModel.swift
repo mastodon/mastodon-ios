@@ -45,6 +45,7 @@ final class SearchResultViewModel {
     }()
     let didDataSourceUpdate = PassthroughSubject<Void, Never>()
 
+    @MainActor
     init(context: AppContext, authContext: AuthContext, searchScope: SearchScope = .all, searchText: String) {
         self.context = context
         self.authContext = authContext
@@ -56,10 +57,6 @@ final class SearchResultViewModel {
             domain: authContext.mastodonAuthenticationBox.domain,
             additionalPredicate: nil
         )
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+        self.statusFetchedResultsController = StatusFetchedResultsController()
     }
 }

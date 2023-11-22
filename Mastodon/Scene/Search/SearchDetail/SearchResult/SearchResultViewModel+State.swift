@@ -124,7 +124,7 @@ extension SearchResultViewModel.State {
                     guard stateMachine.currentState is Loading else { return }
 
                     let userIDs = response.value.accounts.map { $0.id }
-                    let statusIDs = response.value.statuses.map { $0.id }
+                    let statusIDs = response.value.statuses.map { MastodonStatus.fromEntity($0) }
 
                     let isNoMore = userIDs.isEmpty && statusIDs.isEmpty
 
@@ -137,12 +137,12 @@ extension SearchResultViewModel.State {
                     // reset data source when the search is refresh
                     if offset == nil {
                         viewModel.userFetchedResultsController.userIDs = []
-                        viewModel.statusFetchedResultsController.statusIDs = []
+                        await viewModel.statusFetchedResultsController.reset()
                         viewModel.hashtags = []
                     }
 
                     viewModel.userFetchedResultsController.append(userIDs: userIDs)
-                    viewModel.statusFetchedResultsController.append(statusIDs: statusIDs)
+                    await viewModel.statusFetchedResultsController.appendRecords(statusIDs)
                     
                     var hashtags = viewModel.hashtags
                     for hashtag in response.value.hashtags where !hashtags.contains(hashtag) {

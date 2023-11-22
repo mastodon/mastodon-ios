@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 extension NotificationTimelineViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
@@ -20,17 +21,16 @@ extension NotificationTimelineViewController: DataSourceProvider {
         }
         
         switch item {
-        case .feed(let record):
+        case .feed(let feed):
             let managedObjectContext = context.managedObjectContext
-            let item: DataSourceItem? = try? await managedObjectContext.perform {
-                guard let feed = record.object(in: managedObjectContext) else { return nil }
+            let item: DataSourceItem? = {
                 guard feed.kind == .notificationAll || feed.kind == .notificationMentions else { return nil }
-                if let notification = feed.notification {
-                    return .notification(record: .init(objectID: notification.objectID))
+                if let notification = feed.notification, let mastodonNotification = MastodonNotification.fromEntity(notification, using: managedObjectContext) {
+                    return .notification(record: mastodonNotification)
                 } else {
                     return nil
                 }
-            }
+            }()
             return item
         default:
             return nil

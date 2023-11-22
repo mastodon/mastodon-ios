@@ -2,6 +2,7 @@
 
 import Foundation
 import CoreDataStack
+import MastodonSDK
 
 public protocol StatusCompatible {
     var reblog: Status? { get }

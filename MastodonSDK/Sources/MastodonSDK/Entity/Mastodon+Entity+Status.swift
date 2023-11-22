@@ -133,3 +133,14 @@ extension Mastodon.Entity.Status {
         }
     }
 }
+
+extension Mastodon.Entity.Status: Hashable {
+    public static func == (lhs: Mastodon.Entity.Status, rhs: Mastodon.Entity.Status) -> Bool {
+        lhs.uri == rhs.uri && lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(uri)
+        hasher.combine(id)
+    }
+}

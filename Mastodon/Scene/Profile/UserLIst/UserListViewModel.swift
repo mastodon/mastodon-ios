@@ -10,6 +10,7 @@ import Combine
 import CoreDataStack
 import GameplayKit
 import MastodonCore
+import MastodonSDK
 
 final class UserListViewModel {
     var disposeBag = Set<AnyCancellable>()
@@ -55,7 +56,7 @@ final class UserListViewModel {
 extension UserListViewModel {
     // TODO: refactor follower and following into user list
     enum Kind {
-        case rebloggedBy(status: ManagedObjectRecord<Status>)
-        case favoritedBy(status: ManagedObjectRecord<Status>)
+        case rebloggedBy(status: MastodonStatus)
+        case favoritedBy(status: MastodonStatus)
     }
 }

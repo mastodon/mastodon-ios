@@ -54,11 +54,13 @@ extension UserTimelineViewModel.State {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            
-            // reset
-            viewModel.statusFetchedResultsController.statusIDs = []
 
-            stateMachine.enter(Loading.self)
+            Task {
+                // reset
+                await viewModel.statusFetchedResultsController.reset()
+
+                stateMachine.enter(Loading.self)
+            }
         }
     }
     
@@ -112,17 +114,17 @@ extension UserTimelineViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            let maxID = viewModel.statusFetchedResultsController.statusIDs.last
-            
-            guard let userID = viewModel.userIdentifier?.userID, !userID.isEmpty else {
-                stateMachine.enter(Fail.self)
-                return
-            }
-            
-            let queryFilter = viewModel.queryFilter
 
             Task {
-    
+                let maxID = await viewModel.statusFetchedResultsController.records.last?.id
+                
+                guard let userID = viewModel.userIdentifier?.userID, !userID.isEmpty else {
+                    stateMachine.enter(Fail.self)
+                    return
+                }
+                
+                let queryFilter = viewModel.queryFilter
+
                 do {
                     let response = try await viewModel.context.apiService.userTimeline(
                         accountID: userID,
@@ -135,10 +137,10 @@ extension UserTimelineViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs
+                    var statusIDs = await viewModel.statusFetchedResultsController.records
                     for status in response.value {
-                        guard !statusIDs.contains(status.id) else { continue }
-                        statusIDs.append(status.id)
+                        guard !statusIDs.contains(where: { $0.id == status.id }) else { continue }
+                        statusIDs.append(.fromEntity(status))
                         hasNewStatusesAppend = true
                     }
                     
@@ -147,7 +149,7 @@ extension UserTimelineViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
+                    await viewModel.statusFetchedResultsController.setRecords(statusIDs)
                     
                 } catch {
                     await enter(state: Fail.self)

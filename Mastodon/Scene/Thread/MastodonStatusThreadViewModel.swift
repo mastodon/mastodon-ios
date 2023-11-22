@@ -20,7 +20,7 @@ final class MastodonStatusThreadViewModel {
     
     // input
     let context: AppContext
-    @Published private(set) var deletedObjectIDs: Set<NSManagedObjectID> = Set()
+    @Published private(set) var deletedObjectIDs: Set<MastodonStatus.ID> = Set()
 
     // output
     @Published var __ancestors: [StatusItem] = []
@@ -41,7 +41,7 @@ final class MastodonStatusThreadViewModel {
             let newItems = items.filter { item in
                 switch item {
                 case .thread(let thread):
-                    return !deletedObjectIDs.contains(thread.record.objectID)
+                    return !deletedObjectIDs.contains(thread.record.id)
                 default:
                     assertionFailure()
                     return false
@@ -60,7 +60,7 @@ final class MastodonStatusThreadViewModel {
             let newItems = items.filter { item in
                 switch item {
                 case .thread(let thread):
-                    return !deletedObjectIDs.contains(thread.record.objectID)
+                    return !deletedObjectIDs.contains(thread.record.id)
                 default:
                     assertionFailure()
                     return false
@@ -94,19 +94,20 @@ extension MastodonStatusThreadViewModel {
         }
         
         var newItems: [StatusItem] = []
-        for (i, node) in nodes.enumerated() {
-            guard let status = dictionary[node.statusID] else { continue }
-            let isLast = i == nodes.count - 1
-            
-            let record = ManagedObjectRecord<Status>(objectID: status.objectID)
-            let context = StatusItem.Thread.Context(
-                status: record,
-                displayUpperConversationLink: !isLast,
-                displayBottomConversationLink: true
-            )
-            let item = StatusItem.thread(.leaf(context: context))
-            newItems.append(item)
-        }
+        #warning("Potentially this can be removed and replaced by native threading logic")
+//        for (i, node) in nodes.enumerated() {
+//            guard let status = dictionary[node.statusID] else { continue }
+//            let isLast = i == nodes.count - 1
+//            
+//            let record = ManagedObjectRecord<Status>(objectID: status.objectID)
+//            let context = StatusItem.Thread.Context(
+//                status: record,
+//                displayUpperConversationLink: !isLast,
+//                displayBottomConversationLink: true
+//            )
+//            let item = StatusItem.thread(.leaf(context: context))
+//            newItems.append(item)
+//        }
         
         let items = self.__ancestors + newItems
         self.__ancestors = items
@@ -132,31 +133,32 @@ extension MastodonStatusThreadViewModel {
         }
         
         var newItems: [StatusItem] = []
-        for node in nodes {
-            guard let status = dictionary[node.statusID] else { continue }
-            // first tier
-            let record = ManagedObjectRecord<Status>(objectID: status.objectID)
-            let context = StatusItem.Thread.Context(
-                status: record
-            )
-            let item = StatusItem.thread(.leaf(context: context))
-            newItems.append(item)
-            
-            // second tier
-            if let child = node.children.first {
-                guard let secondaryStatus = dictionary[child.statusID] else { continue }
-                let secondaryRecord = ManagedObjectRecord<Status>(objectID: secondaryStatus.objectID)
-                let secondaryContext = StatusItem.Thread.Context(
-                    status: secondaryRecord,
-                    displayUpperConversationLink: true
-                )
-                let secondaryItem = StatusItem.thread(.leaf(context: secondaryContext))
-                newItems.append(secondaryItem)
-                
-                // update first tier context
-                context.displayBottomConversationLink = true
-            }
-        }
+#warning("Potentially this can be removed and replaced by native threading logic")
+//        for node in nodes {
+//            guard let status = dictionary[node.statusID] else { continue }
+//            // first tier
+//            let record = ManagedObjectRecord<Status>(objectID: status.objectID)
+//            let context = StatusItem.Thread.Context(
+//                status: record
+//            )
+//            let item = StatusItem.thread(.leaf(context: context))
+//            newItems.append(item)
+//            
+//            // second tier
+//            if let child = node.children.first {
+//                guard let secondaryStatus = dictionary[child.statusID] else { continue }
+//                let secondaryRecord = ManagedObjectRecord<Status>(objectID: secondaryStatus.objectID)
+//                let secondaryContext = StatusItem.Thread.Context(
+//                    status: secondaryRecord,
+//                    displayUpperConversationLink: true
+//                )
+//                let secondaryItem = StatusItem.thread(.leaf(context: secondaryContext))
+//                newItems.append(secondaryItem)
+//                
+//                // update first tier context
+//                context.displayBottomConversationLink = true
+//            }
+//        }
         
         var items = self.__descendants
         for item in newItems {
@@ -262,12 +264,3 @@ extension MastodonStatusThreadViewModel.Node {
     
 }
 
-extension MastodonStatusThreadViewModel {
-    func delete(objectIDs: [NSManagedObjectID]) {
-        var set = deletedObjectIDs
-        for objectID in objectIDs {
-            set.insert(objectID)
-        }
-        self.deletedObjectIDs = set
-    }
-}

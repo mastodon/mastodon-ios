@@ -11,6 +11,7 @@ import MastodonCore
 
 final class CachedProfileViewModel: ProfileViewModel {
     
+    @MainActor
     init(context: AppContext, authContext: AuthContext, mastodonUser: MastodonUser) {
         super.init(context: context, authContext: authContext, optionalMastodonUser: mastodonUser)
     }

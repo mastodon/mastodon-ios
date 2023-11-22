@@ -29,17 +29,18 @@ class ReportViewModel {
     let context: AppContext
     let authContext: AuthContext
     let user: ManagedObjectRecord<MastodonUser>
-    let status: ManagedObjectRecord<Status>?
+    let status: MastodonStatus?
     
     // output
     @Published var isReporting = false
     @Published var isReportSuccess = false
     
+    @MainActor
     init(
         context: AppContext,
         authContext: AuthContext,
         user: ManagedObjectRecord<MastodonUser>,
-        status: ManagedObjectRecord<Status>?
+        status: MastodonStatus?
     ) {
         self.context = context
         self.authContext = authContext
@@ -101,17 +102,15 @@ extension ReportViewModel {
             
             // the status picker is essential step in report flow
             // only check isSkip or not
-            let statusIDs: [Status.ID]? = {
+            let statusIDs: [MastodonStatus.ID]? = {
                 if self.reportStatusViewModel.isSkip {
-                    let _id: Status.ID? = self.reportStatusViewModel.status.flatMap { record -> Status.ID? in
-                        guard let status = record.object(in: managedObjectContext) else { return nil }
-                        return status.id
+                    let _id: MastodonStatus.ID? = self.reportStatusViewModel.status.flatMap { record -> MastodonStatus.ID? in
+                        return record.id
                     }
-                    return _id.flatMap { [$0] }
+                    return _id.flatMap { [$0] } ?? []
                 } else {
-                    return self.reportStatusViewModel.selectStatuses.compactMap { record -> Status.ID? in
-                        guard let status = record.object(in: managedObjectContext) else { return nil }
-                        return status.id
+                    return self.reportStatusViewModel.selectStatuses.compactMap { record -> MastodonStatus.ID? in
+                        return record.id
                     }
                 }
             }()

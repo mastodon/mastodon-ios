@@ -20,17 +20,16 @@ extension HomeTimelineViewController: DataSourceProvider {
         }
         
         switch item {
-        case .feed(let record):
+        case .feed(let feed):
             let managedObjectContext = context.managedObjectContext
-            let item: DataSourceItem? = try? await managedObjectContext.perform {
-                guard let feed = record.object(in: managedObjectContext) else { return nil }
+            let item: DataSourceItem? = {
                 guard feed.kind == .home else { return nil }
                 if let status = feed.status {
-                    return .status(record: .init(objectID: status.objectID))
+                    return .status(record: status)
                 } else {
                     return nil
                 }
-            }
+            }()
             return item
         default:
             return nil

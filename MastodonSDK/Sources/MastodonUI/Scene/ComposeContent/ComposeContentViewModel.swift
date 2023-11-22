@@ -23,7 +23,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
     public enum ComposeContext {
         case composeStatus
-        case editStatus(status: Status, statusSource: Mastodon.Entity.StatusSource)
+        case editStatus(status: MastodonStatus, statusSource: Mastodon.Entity.StatusSource)
     }
     
     var disposeBag = Set<AnyCancellable>()
@@ -163,24 +163,18 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             }()
             // set visibility for reply post
             if case .reply(let record) = destination {
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else {
-                        assertionFailure()
-                        return
-                    }
-                    let repliedStatusVisibility = status.visibility
-                    switch repliedStatusVisibility {
-                    case .public, .unlisted:
-                        // keep default
-                        break
-                    case .private:
-                        visibility = .private
-                    case .direct:
-                        visibility = .direct
-                    case ._other:
-                        assertionFailure()
-                        break
-                    }
+                let repliedStatusVisibility = record.entity.visibility
+                switch repliedStatusVisibility {
+                case .public, .unlisted:
+                    // keep default
+                    break
+                case .private:
+                    visibility = .private
+                case .direct:
+                    visibility = .direct
+                case ._other, .none:
+                    assertionFailure()
+                    break
                 }
             }
             return visibility
@@ -189,26 +183,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(
             for: authContext.mastodonAuthenticationBox.domain
         )
-        
-        if case let ComposeContext.editStatus(status, _) = composeContext {
-            if status.isContentSensitive {
-                isContentWarningActive = true
-                contentWarning = status.spoilerText ?? ""
-            }
-            if let poll = status.poll {
-                isPollActive = !poll.expired
-                pollMultipleConfigurationOption = poll.multiple
-                if let pollExpiresAt = poll.expiresAt {
-                    pollExpireConfigurationOption = .init(closestDateToExpiry: pollExpiresAt)
-                }
-                pollOptions = poll.options.sortedByIndex().map {
-                    let option = PollComposeItem.Option()
-                    option.text = $0.title
-                    return option
-                }
-            }
-        }
-        
+                
         let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
         self.recentLanguages = recentLanguages
         self.language = recentLanguages.first ?? Locale.current.language.languageCode?.identifier ?? "en"
@@ -220,17 +195,14 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         switch destination {
         case .reply(let record):
             context.managedObjectContext.performAndWait {
-                guard let status = record.object(in: context.managedObjectContext) else {
-                    assertionFailure()
-                    return
-                }
+                let status = record.entity
                 let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
 
                 var mentionAccts: [String] = []
-                if author?.id != status.author.id {
-                    mentionAccts.append("@" + status.author.acct)
+                if author?.id != status.account.id {
+                    mentionAccts.append("@" + status.account.acct)
                 }
-                let mentions = status.mentions
+                let mentions = status.mentions ?? []
                     .filter { author?.id != $0.id }
                 for mention in mentions {
                     let acct = "@" + mention.acct
@@ -288,11 +260,11 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case .composeStatus:
             self.isVisibilityButtonEnabled = true
         case let .editStatus(status, _):
-            if let visibility = Mastodon.Entity.Status.Visibility(rawValue: status.visibility.rawValue) {
+            if let visibility = status.entity.visibility {
                 self.visibility = visibility
             }
             self.isVisibilityButtonEnabled = false
-            self.attachmentViewModels = status.attachments.compactMap {
+            self.attachmentViewModels = status.entity.mastodonAttachments.compactMap {
                 guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
                 let attachmentViewModel = AttachmentViewModel(
                     api: context.apiService,
@@ -303,6 +275,27 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 )
                 attachmentViewModel.caption = $0.altDescription ?? ""
                 return attachmentViewModel
+            }
+        }
+        
+        if case let ComposeContext.editStatus(status, _) = composeContext {
+            if status.entity.sensitive == true {
+                isContentWarningActive = true
+                contentWarning = status.entity.spoilerText ?? ""
+            }
+            Task {
+                if let poll = await status.getPoll(in: context.managedObjectContext) {
+                    isPollActive = !poll.expired
+                    pollMultipleConfigurationOption = poll.multiple
+                    if let pollExpiresAt = poll.expiresAt {
+                        pollExpireConfigurationOption = .init(closestDateToExpiry: pollExpiresAt)
+                    }
+                    pollOptions = poll.options.sortedByIndex().map {
+                        let option = PollComposeItem.Option()
+                        option.text = $0.title
+                        return option
+                    }
+                }
             }
         }
         
@@ -503,7 +496,7 @@ extension ComposeContentViewModel {
 extension ComposeContentViewModel {
     public enum Destination {
         case topLevel
-        case reply(parent: ManagedObjectRecord<Status>)
+        case reply(parent: MastodonStatus)
     }
     
     public enum ScrollViewState {

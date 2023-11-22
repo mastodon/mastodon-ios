@@ -55,10 +55,12 @@ extension FavoriteViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            // reset
-            viewModel.statusFetchedResultsController.statusIDs = []
-            
-            stateMachine.enter(Loading.self)
+            Task {
+                // reset
+                await viewModel.statusFetchedResultsController.reset()
+                
+                stateMachine.enter(Loading.self)
+            }
         }
     }
     
@@ -127,10 +129,10 @@ extension FavoriteViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs
+                    var statusIDs = await viewModel.statusFetchedResultsController.records
                     for status in response.value {
-                        guard !statusIDs.contains(status.id) else { continue }
-                        statusIDs.append(status.id)
+                        guard !statusIDs.contains(where: { $0.id == status.id }) else { continue }
+                        statusIDs.append(.fromEntity(status))
                         hasNewStatusesAppend = true
                     }
                     
@@ -146,7 +148,7 @@ extension FavoriteViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
+                    await viewModel.statusFetchedResultsController.setRecords(statusIDs)
                 } catch {
                     await enter(state: Fail.self)
                 }

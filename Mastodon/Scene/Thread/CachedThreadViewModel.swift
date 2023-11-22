@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import CoreDataStack
+import MastodonSDK
 import MastodonCore
 
 final class CachedThreadViewModel: ThreadViewModel {
-    init(context: AppContext, authContext: AuthContext, status: Status) {
-        let threadContext = StatusItem.Thread.Context(status: .init(objectID: status.objectID))
+    init(context: AppContext, authContext: AuthContext, status: MastodonStatus) {
+        let threadContext = StatusItem.Thread.Context(status: status)
         super.init(
             context: context,
             authContext: authContext,

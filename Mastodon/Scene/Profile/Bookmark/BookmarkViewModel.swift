@@ -38,14 +38,11 @@ final class BookmarkViewModel {
         return stateMachine
     }()
     
+    @MainActor
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+        self.statusFetchedResultsController = StatusFetchedResultsController()
     }
     
 }

@@ -80,15 +80,9 @@ final class HomeTimelineViewModel: NSObject {
     init(context: AppContext, authContext: AuthContext) {
         self.context  = context
         self.authContext = authContext
-        self.fetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
+        self.fetchedResultsController = FeedFetchedResultsController()
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
-        
-        fetchedResultsController.predicate = Feed.predicate(
-            kind: .home,
-            acct: .mastodon(domain: authContext.mastodonAuthenticationBox.domain, userID: authContext.mastodonAuthenticationBox.userID)
-        )
-        
         homeTimelineNeedRefresh
             .sink { [weak self] _ in
                 self?.loadLatestStateMachine.enter(LoadLatestState.Loading.self)
@@ -116,7 +110,7 @@ extension HomeTimelineViewModel {
 
 extension HomeTimelineViewModel {
     func timelineDidReachEnd() {
-        fetchedResultsController.fetchNextBatch()
+        #warning("Check if required, e.g. when locally caching MastodonStatus")
     }
 }
 
@@ -128,47 +122,41 @@ extension HomeTimelineViewModel {
         guard let diffableDataSource = diffableDataSource else { return }
         var snapshot = diffableDataSource.snapshot()
 
-        let managedObjectContext = context.managedObjectContext
-        let key = "LoadMore@\(record.objectID)"
         
-        guard let feed = record.object(in: managedObjectContext) else { return }
-        guard let status = feed.status else { return }
+//        let managedObjectContext = context.managedObjectContext
+//        let key = "LoadMore@\(record.objectID)"
+//        
+//        guard let feed = record.object(in: managedObjectContext) else { return }
         
-        // keep transient property live
-        managedObjectContext.cache(feed, key: key)
-        defer {
-            managedObjectContext.cache(nil, key: key)
-        }
-        do {
-            // update state
-            try await managedObjectContext.performChanges {
-                feed.update(isLoadingMore: true)
-            }
-        } catch {
-            assertionFailure(error.localizedDescription)
-        }
+        guard let status = record.status else { return }
+        record.isLoadingMore = true
+        
+//        // keep transient property live
+//        managedObjectContext.cache(feed, key: key)
+//        defer {
+//            managedObjectContext.cache(nil, key: key)
+//        }
+//        do {
+//            // update state
+//            try await managedObjectContext.performChanges {
+//                feed.update(isLoadingMore: true)
+//            }
+//        } catch {
+//            assertionFailure(error.localizedDescription)
+//        }
         
         // reconfigure item
         snapshot.reconfigureItems([item])
         await updateSnapshotUsingReloadData(snapshot: snapshot)
         
         // fetch data
-        do {
-            let maxID = status.id
-            _ = try await context.apiService.homeTimeline(
-                maxID: maxID,
-                authenticationBox: authContext.mastodonAuthenticationBox
-            )
-        } catch {
-            do {
-                // restore state
-                try await managedObjectContext.performChanges {
-                    feed.update(isLoadingMore: false)
-                }
-            } catch {
-                assertionFailure(error.localizedDescription)
-            }
-        }
+        let maxID = status.id
+        _ = try? await context.apiService.homeTimeline(
+            maxID: maxID,
+            authenticationBox: authContext.mastodonAuthenticationBox
+        )
+        
+        record.isLoadingMore = false
         
         // reconfigure item again
         snapshot.reconfigureItems([item])

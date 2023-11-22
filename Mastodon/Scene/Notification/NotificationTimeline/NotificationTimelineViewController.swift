@@ -280,14 +280,13 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
         Task { @MainActor in
             switch item {
             case .feed(let record):
-                guard let feed = record.object(in: self.context.managedObjectContext) else { return }
-                guard let notification = feed.notification else { return }
+                guard let notification = record.notification else { return }
                 
-                if let stauts = notification.status {
+                if let status = notification.status {
                     let threadViewModel = ThreadViewModel(
                         context: self.context,
                         authContext: self.viewModel.authContext,
-                        optionalRoot: .root(context: .init(status: .init(objectID: stauts.objectID)))
+                        optionalRoot: .root(context: .init(status: .fromEntity(status)))
                     )
                     _ = self.coordinator.present(
                         scene: .thread(viewModel: threadViewModel),
@@ -295,16 +294,25 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                         transition: .show
                     )
                 } else {
-                    let profileViewModel = ProfileViewModel(
-                        context: self.context,
-                        authContext: self.viewModel.authContext,
-                        optionalMastodonUser: notification.account
-                    )
-                    _ = self.coordinator.present(
-                        scene: .profile(viewModel: profileViewModel),
-                        from: self,
-                        transition: .show
-                    )
+                    context.managedObjectContext.perform {
+                        let mastodonUserRequest = MastodonUser.sortedFetchRequest
+                        mastodonUserRequest.predicate = MastodonUser.predicate(domain: notification.account.domain ?? "", id: notification.account.id)
+                        mastodonUserRequest.fetchLimit = 1
+                        guard let mastodonUser = try? self.context.managedObjectContext.fetch(mastodonUserRequest).first else {
+                            return
+                        }
+                        
+                        let profileViewModel = ProfileViewModel(
+                            context: self.context,
+                            authContext: self.viewModel.authContext,
+                            optionalMastodonUser: mastodonUser
+                        )
+                        _ = self.coordinator.present(
+                            scene: .profile(viewModel: profileViewModel),
+                            from: self,
+                            transition: .show
+                        )
+                    }
                 }
             default:
                 break
