@@ -233,6 +233,7 @@ extension SearchDetailViewController {
             navigationItem.setHidesBackButton(true, animated: false)
             navigationItem.titleView = nil
             navigationItem.searchController = searchController
+            navigationItem.preferredSearchBarPlacement = .stacked
             searchController.searchBar.sizeToFit()
         }
 

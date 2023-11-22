@@ -157,6 +157,24 @@ extension RootSplitViewController: ContentSplitViewControllerDelegate {
             
         }
     }
+    
+    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didDoubleTapTab tab: MainTabBarController.Tab) {
+        guard let _ = MainTabBarController.Tab.allCases.firstIndex(of: tab) else {
+            assertionFailure()
+            return
+        }
+        
+        switch tab {
+        case .search:
+            // allow double tap to focus search bar only when is not primary display (iPad potrait)
+            guard !isPrimaryDisplay else {
+                return
+            }
+            contentSplitViewController.mainTabBarController.searchViewController?.searchBar.becomeFirstResponder()
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - UISplitViewControllerDelegate

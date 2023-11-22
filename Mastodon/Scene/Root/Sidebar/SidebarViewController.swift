@@ -128,13 +128,12 @@ extension SidebarViewController {
         sidebarLongPressGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarLongPressGestureRecognizerHandler(_:)))
         collectionView.addGestureRecognizer(sidebarLongPressGestureRecognizer)
         
-        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
-//        let sidebarDoubleTapGestureRecognizer = UITapGestureRecognizer()
-//        sidebarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
-//        sidebarDoubleTapGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarDoubleTapGestureRecognizerHandler(_:)))
-//        sidebarDoubleTapGestureRecognizer.delaysTouchesEnded = false
-//        sidebarDoubleTapGestureRecognizer.cancelsTouchesInView = true
-//        collectionView.addGestureRecognizer(sidebarDoubleTapGestureRecognizer)
+        let sidebarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+        sidebarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+        sidebarDoubleTapGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarDoubleTapGestureRecognizerHandler(_:)))
+        sidebarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+        sidebarDoubleTapGestureRecognizer.cancelsTouchesInView = true
+        collectionView.addGestureRecognizer(sidebarDoubleTapGestureRecognizer)
 
     }
     

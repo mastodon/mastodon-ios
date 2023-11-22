@@ -6,14 +6,14 @@
 //
 
 import UIKit
-import CoreDataStack
 import MastodonSDK
 
 extension ProfileCardTableViewCell {
     
     public func configure(
         tableView: UITableView,
-        user: MastodonUser,
+        account: Mastodon.Entity.Account,
+        relationship: Mastodon.Entity.Relationship?,
         profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate?
     ) {
         if profileCardView.frame == .zero {
@@ -22,9 +22,9 @@ extension ProfileCardTableViewCell {
             shadowBackgroundContainer.frame.size.width = layoutMarginsGuide.layoutFrame.width
             profileCardView.setupLayoutFrame(layoutMarginsGuide.layoutFrame)
         }
-        
-        profileCardView.configure(user: user)
+
+        profileCardView.configure(account: account, relationship: relationship)
         delegate = profileCardTableViewCellDelegate
     }
-    
+
 }

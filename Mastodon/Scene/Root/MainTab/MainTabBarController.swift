@@ -298,12 +298,11 @@ extension MainTabBarController {
         tabBarLongPressGestureRecognizer.delegate = self
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
 
-        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
-//        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
-//        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
-//        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
-//        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
-//        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
+        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
 
         self.isReadyForWizardAvatarButton = authContext != nil
         
@@ -365,17 +364,10 @@ extension MainTabBarController {
         guard let tab = touchedTab(by: sender) else { return }
 
         switch tab {
-        case .me:
-            guard let authContext = authContext else { return }
+        case .search:
             assert(Thread.isMainThread)
-
-            guard let nextAccount = context.nextAccount(in: authContext) else { return }
-            
-            Task { @MainActor in
-                let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
-                guard isActive else { return }
-                self.coordinator.setup()
-            }
+            // double tapping search tab opens the search bar without additional taps
+            searchViewController?.searchBar.becomeFirstResponder()
         default:
             break
         }
@@ -504,7 +496,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
 
         // Assert index is as same as the tab rawValue. This check needs to be done `shouldSelect`
         // because the nav controller has already popped in `didSelect`.
-        if currentTab.rawValue == tabBarController.selectedIndex,
+        if currentTab.rawValue == viewController.tabBarItem.tag,
            let navigationController = viewController as? UINavigationController,
            navigationController.viewControllers.count == 1,
            let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer  {

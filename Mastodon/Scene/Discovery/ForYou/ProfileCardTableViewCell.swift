@@ -7,9 +7,10 @@
 
 import UIKit
 import Combine
+import MastodonUI
 
 public protocol ProfileCardTableViewCellDelegate: AnyObject {
-    func profileCardTableViewCell(_ cell: ProfileCardTableViewCell, profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
+    func profileCardTableViewCell(_ cell: ProfileCardTableViewCell, profileCardView: ProfileCardView, relationshipButtonDidPressed button: UIButton)
     func profileCardTableViewCell(_ cell: ProfileCardTableViewCell, profileCardView: ProfileCardView, familiarFollowersDashboardViewDidPressed view: FamiliarFollowersDashboardView)
 }
 
@@ -71,7 +72,7 @@ extension ProfileCardTableViewCell {
         profileCardView.isAccessibilityElement = true
         accessibilityElements = [
             profileCardView,
-            profileCardView.relationshipActionButton
+            profileCardView.followButton
         ]
     }
     
@@ -80,7 +81,7 @@ extension ProfileCardTableViewCell {
 // MARK: - ProfileCardViewDelegate
 extension ProfileCardTableViewCell: ProfileCardViewDelegate {
     
-    public func profileCardView(_ profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton) {
+    public func profileCardView(_ profileCardView: ProfileCardView, relationshipButtonDidPressed button: UIButton) {
         delegate?.profileCardTableViewCell(self, profileCardView: profileCardView, relationshipButtonDidPressed: button)
     }
     
