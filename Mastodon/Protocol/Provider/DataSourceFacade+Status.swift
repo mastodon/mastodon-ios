@@ -99,7 +99,6 @@ extension DataSourceFacade {
         action: ActionToolbarContainer.Action,
         sender: UIButton
     ) async throws {
-        let managedObjectContext = provider.context.managedObjectContext
         let _status = status.reblog ?? status
 
         switch action {
@@ -111,7 +110,7 @@ extension DataSourceFacade {
                 context: provider.context,
                 authContext: provider.authContext,
                 composeContext: .composeStatus,
-                destination: .reply(parent: status)
+                destination: .reply(parent: _status)
             )
             _ = provider.coordinator.present(
                 scene: .compose(viewModel: composeViewModel),
@@ -121,17 +120,17 @@ extension DataSourceFacade {
         case .reblog:
             try await DataSourceFacade.responseToStatusReblogAction(
                 provider: provider,
-                status: status
+                status: _status
             )
         case .like:
             try await DataSourceFacade.responseToStatusFavoriteAction(
                 provider: provider,
-                status: status
+                status: _status
             )
         case .share:
             try await DataSourceFacade.responseToStatusShareAction(
                 provider: provider,
-                status: status,
+                status: _status,
                 button: sender
             )
         }   // end switch

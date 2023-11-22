@@ -37,11 +37,11 @@ extension APIService {
             }
 
             let _status = status.reblog ?? status
-            let isFavorited = status.entity.favourited == true
-            let favoritedCount = Int64(status.entity.favouritesCount)
+            let isFavorited = _status.entity.favourited == true
+            let favoritedCount = Int64(_status.entity.favouritesCount)
 
             let context = MastodonFavoriteContext(
-                statusID: status.id,
+                statusID: _status.id,
                 isFavorited: isFavorited,
                 favoritedCount: favoritedCount
             )
