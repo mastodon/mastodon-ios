@@ -84,7 +84,7 @@ extension ThreadViewModel.LoadThreadState {
                     viewModel.mastodonStatusThreadViewModel.appendDescendant(
                         domain: threadContext.domain,
                         nodes: response.value.descendants.map { status in
-                            return .init(statusID: status.id, children: [])
+                            return .init(status: .fromEntity(status), children: [])
                         }
                     )
                 } catch {
