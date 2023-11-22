@@ -106,31 +106,35 @@ extension NotificationTimelineViewModel {
         isLoadingLatest = true
         defer { isLoadingLatest = false }
         
-        do {
-            _ = try await context.apiService.notifications(
-                maxID: nil,
-                scope: scope,
-                authenticationBox: authContext.mastodonAuthenticationBox
-            )
-        } catch {
-            didLoadLatest.send()
+        switch scope {
+        case .everything:
+            feedFetchedResultsController.loadInitial(kind: .notificationAll)
+        case .mentions:
+            feedFetchedResultsController.loadInitial(kind: .notificationMentions)
         }
+
+        didLoadLatest.send()
     }
     
     // load timeline gap
     func loadMore(item: NotificationItem) async {
-        guard case let .feedLoader(record) = item else { return }
+//        guard case let .feedLoader(record) = item else { return }
 
-        guard let maxID = record.notification?.id else { return }
+//        guard let maxID = record.notification?.id else { return }
 
-        // fetch data
-        if let notifications = try? await context.apiService.notifications(
-            maxID: maxID,
-            scope: scope,
-            authenticationBox: authContext.mastodonAuthenticationBox
-        ) {
-            self.feedFetchedResultsController.records += notifications.value.map { MastodonFeed.fromNotification($0, kind: record.kind) }
+//        // fetch data
+//        if let notifications = try? await context.apiService.notifications(
+//            maxID: maxID,
+//            scope: scope,
+//            authenticationBox: authContext.mastodonAuthenticationBox
+//        ) {
+//            self.feedFetchedResultsController.records += notifications.value.map { MastodonFeed.fromNotification($0, kind: record.kind) }
+//        }
+        switch scope {
+        case .everything:
+            feedFetchedResultsController.loadNext(kind: .notificationAll)
+        case .mentions:
+            feedFetchedResultsController.loadNext(kind: .notificationMentions)
         }
     }
-    
 }
