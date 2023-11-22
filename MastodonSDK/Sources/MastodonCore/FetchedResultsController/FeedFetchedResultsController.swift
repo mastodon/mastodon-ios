@@ -14,6 +14,44 @@ import MastodonSDK
 final public class FeedFetchedResultsController {
 
     @Published public var records: [MastodonFeed] = []
+    
+    private let context: AppContext
+    private let authContext: AuthContext
 
-    public init() {}
+    public init(context: AppContext, authContext: AuthContext) {
+        self.context = context
+        self.authContext = authContext
+    }
+    
+    public func loadInitial(kind: MastodonFeed.Kind) {
+        Task {
+            records = try await load(kind: kind, sinceId: nil)
+        }
+    }
+    
+    public func loadNext(kind: MastodonFeed.Kind) {
+        Task {
+            guard let lastId = records.last?.status?.id else {
+                return loadInitial(kind: kind)
+            }
+            
+            records = try await load(kind: kind, sinceId: lastId)
+        }
+    }
+}
+
+private extension FeedFetchedResultsController {
+    func load(kind: MastodonFeed.Kind, sinceId: MastodonStatus.ID?) async throws -> [MastodonFeed] {
+        switch kind {
+        case .home:
+            return try await context.apiService.homeTimeline(sinceID: sinceId, authenticationBox: authContext.mastodonAuthenticationBox)
+                .value.map { .fromStatus(.fromEntity($0), kind: .home) }
+        case .notificationAll:
+            return try await context.apiService.notifications(maxID: nil, scope: .everything, authenticationBox: authContext.mastodonAuthenticationBox)
+                .value.map { .fromNotification($0, kind: .notificationAll) }
+        case .notificationMentions:
+            return try await context.apiService.notifications(maxID: nil, scope: .mentions, authenticationBox: authContext.mastodonAuthenticationBox)
+                .value.map { .fromNotification($0, kind: .notificationMentions) }
+        }
+    }
 }

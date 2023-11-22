@@ -13,7 +13,8 @@ import MastodonSDK
 
 public final class StatusFetchedResultsController {
     @MainActor
-    @Published public private(set) var records: [MastodonStatus] = []
+    @Published 
+    public private(set) var records: [MastodonStatus] = []
     
     @MainActor
     public init(records: [MastodonStatus] = []) {

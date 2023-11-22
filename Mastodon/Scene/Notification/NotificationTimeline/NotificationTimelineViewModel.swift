@@ -52,7 +52,7 @@ final class NotificationTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.scope = scope
-        self.feedFetchedResultsController = FeedFetchedResultsController()
+        self.feedFetchedResultsController = FeedFetchedResultsController(context: context, authContext: authContext)
     }
     
     

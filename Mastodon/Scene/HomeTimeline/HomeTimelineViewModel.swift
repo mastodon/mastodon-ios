@@ -80,7 +80,7 @@ final class HomeTimelineViewModel: NSObject {
     init(context: AppContext, authContext: AuthContext) {
         self.context  = context
         self.authContext = authContext
-        self.fetchedResultsController = FeedFetchedResultsController()
+        self.fetchedResultsController = FeedFetchedResultsController(context: context, authContext: authContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         homeTimelineNeedRefresh
@@ -97,6 +97,8 @@ final class HomeTimelineViewModel: NSObject {
                 self.homeTimelineNeedRefresh.send()
             }
             .store(in: &disposeBag)
+        
+        self.fetchedResultsController.loadInitial(kind: .home)
     }
 }
 
@@ -110,7 +112,7 @@ extension HomeTimelineViewModel {
 
 extension HomeTimelineViewModel {
     func timelineDidReachEnd() {
-        #warning("Check if required, e.g. when locally caching MastodonStatus")
+        fetchedResultsController.loadNext(kind: .home)
     }
 }
 
@@ -122,29 +124,9 @@ extension HomeTimelineViewModel {
         guard let diffableDataSource = diffableDataSource else { return }
         var snapshot = diffableDataSource.snapshot()
 
-        
-//        let managedObjectContext = context.managedObjectContext
-//        let key = "LoadMore@\(record.objectID)"
-//        
-//        guard let feed = record.object(in: managedObjectContext) else { return }
-        
         guard let status = record.status else { return }
         record.isLoadingMore = true
-        
-//        // keep transient property live
-//        managedObjectContext.cache(feed, key: key)
-//        defer {
-//            managedObjectContext.cache(nil, key: key)
-//        }
-//        do {
-//            // update state
-//            try await managedObjectContext.performChanges {
-//                feed.update(isLoadingMore: true)
-//            }
-//        } catch {
-//            assertionFailure(error.localizedDescription)
-//        }
-        
+
         // reconfigure item
         snapshot.reconfigureItems([item])
         await updateSnapshotUsingReloadData(snapshot: snapshot)

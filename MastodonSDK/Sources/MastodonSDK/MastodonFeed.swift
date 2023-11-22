@@ -4,6 +4,14 @@ import Foundation
 import CoreDataStack
 
 public final class MastodonFeed {
+    
+    public enum Kind {
+        case home
+        case notificationAll
+        case notificationMentions
+    }
+    
+    public let id: String
     public var hasMore: Bool = false
     public var isLoadingMore: Bool = false
     
@@ -13,6 +21,7 @@ public final class MastodonFeed {
     public let kind: Feed.Kind
     
     init(hasMore: Bool, isLoadingMore: Bool, status: MastodonStatus?, notification: Mastodon.Entity.Notification?, kind: Feed.Kind) {
+        self.id = status?.id ?? notification?.id ?? UUID().uuidString
         self.hasMore = hasMore
         self.isLoadingMore = isLoadingMore
         self.status = status
@@ -45,10 +54,11 @@ public extension MastodonFeed {
 
 extension MastodonFeed: Hashable {
     public static func == (lhs: MastodonFeed, rhs: MastodonFeed) -> Bool {
-        lhs.status?.id == rhs.status?.id || lhs.notification?.id == rhs.notification?.id
+        lhs.id == rhs.id && (lhs.status?.id == rhs.status?.id || lhs.notification?.id == rhs.notification?.id)
     }
     
     public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
         hasher.combine(status)
         hasher.combine(notification)
     }
