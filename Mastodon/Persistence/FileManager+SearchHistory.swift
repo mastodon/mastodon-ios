@@ -15,7 +15,7 @@ extension FileManager {
         do {
             let searchItems = try jsonDecoder.decode([Persistence.SearchHistory.Item].self, from: data)
                 .filter { $0.userID == userID }
-                .sorted { $0.updatedAt < $1.updatedAt }
+                .sorted { $0.updatedAt > $1.updatedAt }
 
             return searchItems
         } catch {
