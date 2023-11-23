@@ -5,6 +5,10 @@ import MastodonCore
 
 extension FileManager {
     func searchItems(forUser userID: String) throws -> [Persistence.SearchHistory.Item] {
+        return try searchItems().filter { $0.userID == userID }
+    }
+
+    func searchItems() throws -> [Persistence.SearchHistory.Item] {
         guard let documentsDirectory else { return [] }
 
         let searchHistoryPath = Persistence.searchHistory.filepath(baseURL: documentsDirectory)
@@ -16,7 +20,6 @@ extension FileManager {
 
         do {
             let searchItems = try jsonDecoder.decode([Persistence.SearchHistory.Item].self, from: data)
-                .filter { $0.userID == userID }
                 .sorted { $0.updatedAt > $1.updatedAt }
 
             return searchItems
@@ -28,7 +31,7 @@ extension FileManager {
     func addSearchItem(_ newSearchItem: Persistence.SearchHistory.Item) throws {
         guard let documentsDirectory else { return }
 
-        var searchItems = (try? searchItems(forUser: newSearchItem.userID)) ?? []
+        var searchItems = (try? searchItems()) ?? []
 
         if let index = searchItems.firstIndex(of: newSearchItem) {
             searchItems.remove(at: index)

@@ -19,7 +19,7 @@ extension Persistence.SearchHistory {
         }
 
         public static func == (lhs: Persistence.SearchHistory.Item, rhs: Persistence.SearchHistory.Item) -> Bool {
-            return lhs.account == rhs.account && lhs.hashtag == rhs.hashtag
+            return lhs.account == rhs.account && lhs.hashtag == rhs.hashtag && lhs.userID == rhs.userID
         }
     }
 }
