@@ -8,7 +8,16 @@
 
 import Foundation
 
-public enum Persistence { }
+public enum Persistence {
+    case searchHistory
+
+    public var filename: String {
+        switch self {
+            case .searchHistory:
+                return "search_history"
+        }
+    }
+}
 
 
 extension Persistence {

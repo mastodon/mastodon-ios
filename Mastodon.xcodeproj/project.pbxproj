@@ -161,6 +161,8 @@
 		D886FBD329DF710F00272017 /* WelcomeSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D886FBD229DF710F00272017 /* WelcomeSeparatorView.swift */; };
 		D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8916DBF29211BE500124085 /* ContentSizedTableView.swift */; };
 		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
+		D8AC98762B0F61680045EC2B /* FileManager+SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC98752B0F61680045EC2B /* FileManager+SearchHistory.swift */; };
+		D8AC98792B0F622B0045EC2B /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC98782B0F622B0045EC2B /* SearchHistory.swift */; };
 		D8B5E4EE2A4EB8930008970C /* NotificationSettingTableViewToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B5E4ED2A4EB8920008970C /* NotificationSettingTableViewToggleCell.swift */; };
 		D8B5E4F02A4EB8A00008970C /* NotificationSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B5E4EF2A4EB8A00008970C /* NotificationSettingTableViewCell.swift */; };
 		D8B5E4F22A4EBCF90008970C /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B5E4F12A4EBCF90008970C /* NotificationSettings.swift */; };
@@ -832,6 +834,8 @@
 		D8A6FE6429325F5900666A47 /* StringsConvertor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = StringsConvertor; sourceTree = "<group>"; };
 		D8A6FE6529325F5900666A47 /* ios-infoPlist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ios-infoPlist.json"; sourceTree = "<group>"; };
 		D8A6FE6629325F5900666A47 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		D8AC98752B0F61680045EC2B /* FileManager+SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+SearchHistory.swift"; sourceTree = "<group>"; };
+		D8AC98782B0F622B0045EC2B /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		D8B5E4ED2A4EB8920008970C /* NotificationSettingTableViewToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingTableViewToggleCell.swift; sourceTree = "<group>"; };
 		D8B5E4EF2A4EB8A00008970C /* NotificationSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingTableViewCell.swift; sourceTree = "<group>"; };
 		D8B5E4F12A4EBCF90008970C /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
@@ -1889,6 +1893,23 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
+		D8AC98742B0F615E0045EC2B /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				D8AC98772B0F62230045EC2B /* Model */,
+				D8AC98752B0F61680045EC2B /* FileManager+SearchHistory.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		D8AC98772B0F62230045EC2B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D8AC98782B0F622B0045EC2B /* SearchHistory.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D8E5C347296DB896007E76A7 /* Edit History */ = {
 			isa = PBXGroup;
 			children = (
@@ -2174,6 +2195,7 @@
 		DB427DD425BAA00100D1B89D /* Mastodon */ = {
 			isa = PBXGroup;
 			children = (
+				D8AC98742B0F615E0045EC2B /* Persistence */,
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
 				DB427DE325BAA00100D1B89D /* Info.plist */,
 				2D76319C25C151DE00929FB9 /* Diffable */,
@@ -3842,6 +3864,7 @@
 				2A1FE47C2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift in Sources */,
 				DB852D1C26FB021500FC9D81 /* RootSplitViewController.swift in Sources */,
 				DB697DD1278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift in Sources */,
+				D8AC98792B0F622B0045EC2B /* SearchHistory.swift in Sources */,
 				DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */,
 				DB3E6FFA2807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift in Sources */,
 				DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */,
@@ -3849,6 +3872,7 @@
 				DB6180E626391B550018D199 /* MediaPreviewTransitionController.swift in Sources */,
 				DB0FCB922796DE19006C02E2 /* TrendSectionHeaderCollectionReusableView.swift in Sources */,
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
+				D8AC98762B0F61680045EC2B /* FileManager+SearchHistory.swift in Sources */,
 				DB63F779279ABF9C00455B82 /* DataSourceFacade+Reblog.swift in Sources */,
 				DB4F0963269ED06300D62E92 /* SearchResultViewController.swift in Sources */,
 				DB603111279EB38500A935FE /* DataSourceFacade+Mute.swift in Sources */,

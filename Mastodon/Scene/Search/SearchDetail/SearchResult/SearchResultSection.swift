@@ -41,23 +41,21 @@ extension SearchResultSection {
 
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .user(let record):
-                let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as! UserTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
-                    configure(
-                        context: context,
-                        authContext: authContext,
+                case .account(let account, let relationship):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as! UserTableViewCell
+
+                    guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return cell }
+
+                    cell.userView.setButtonState(.loading)
+                    cell.configure(
+                        me: me,
                         tableView: tableView,
-                        cell: cell,
-                        viewModel: UserTableViewCell.ViewModel(user: user,
-                                                               followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
-                                                               blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
-                                                               followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()),
-                        configuration: configuration
+                        account: account,
+                        relationship: relationship,
+                        delegate: configuration.userTableViewCellDelegate
                     )
-                }
-                return cell
+
+                    return cell
             case .status(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
                 context.managedObjectContext.performAndWait {
