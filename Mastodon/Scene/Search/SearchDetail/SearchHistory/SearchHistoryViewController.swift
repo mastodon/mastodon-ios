@@ -98,7 +98,9 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
         _ searchHistorySectionHeaderCollectionReusableView: SearchHistorySectionHeaderCollectionReusableView,
         clearButtonDidPressed button: UIButton
     ) {
-        FileManager.default.removeSearchHistory()
+        let userID = authContext.mastodonAuthenticationBox.userID
+
+        FileManager.default.removeSearchHistory(forUser: userID)
         viewModel.items = []
     }
 }

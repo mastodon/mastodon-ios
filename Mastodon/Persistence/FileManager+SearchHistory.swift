@@ -39,23 +39,32 @@ extension FileManager {
         
         searchItems.append(newSearchItem)
 
+        storeJSON(searchItems, .searchHistory)
+    }
+
+    private func storeJSON(_ encodable: Encodable, _ persistence: Persistence) {
+        guard let documentsDirectory else { return }
+
         let jsonEncoder = JSONEncoder()
         jsonEncoder.dateEncodingStrategy = .iso8601
         do {
-            let data = try jsonEncoder.encode(searchItems)
+            let data = try jsonEncoder.encode(encodable)
 
-            let searchHistoryPath = Persistence.searchHistory.filepath(baseURL: documentsDirectory)
+            let searchHistoryPath = persistence.filepath(baseURL: documentsDirectory)
             try data.write(to: searchHistoryPath)
         } catch {
             debugPrint(error.localizedDescription)
         }
+
     }
 
-    func removeSearchHistory() {
+    func removeSearchHistory(forUser userID: String) {
         guard let documentsDirectory else { return }
 
-        let searchHistoryPath = Persistence.searchHistory.filepath(baseURL: documentsDirectory)
-        try? removeItem(at: searchHistoryPath)
+        var searchItems = (try? searchItems()) ?? []
+        let newSearchItems = searchItems.filter { $0.userID != userID }
+
+        storeJSON(newSearchItems, .searchHistory)
     }
 }
 
