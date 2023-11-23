@@ -5,9 +5,11 @@ import MastodonCore
 
 extension FileManager {
     func searchItems(forUser userID: String) throws -> [Persistence.SearchHistory.Item] {
-        guard let path = documentsDirectory()?.appending(path: Persistence.searchHistory.filename).appendingPathExtension("json"),
-              let data = try? Data(contentsOf: path)
-        else { return [] }
+        guard let documentsDirectory else { return [] }
+
+        let searchHistoryPath = Persistence.searchHistory.filepath(baseURL: documentsDirectory)
+
+        guard let data = try? Data(contentsOf: searchHistoryPath) else { return [] }
 
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .iso8601
@@ -24,7 +26,7 @@ extension FileManager {
     }
 
     func addSearchItem(_ newSearchItem: Persistence.SearchHistory.Item) throws {
-        guard let path = documentsDirectory()?.appending(path: Persistence.searchHistory.filename).appendingPathExtension("json") else { return }
+        guard let documentsDirectory else { return }
 
         var searchItems = (try? searchItems(forUser: newSearchItem.userID)) ?? []
 
@@ -38,21 +40,24 @@ extension FileManager {
         jsonEncoder.dateEncodingStrategy = .iso8601
         do {
             let data = try jsonEncoder.encode(searchItems)
-            try data.write(to: path)
+
+            let searchHistoryPath = Persistence.searchHistory.filepath(baseURL: documentsDirectory)
+            try data.write(to: searchHistoryPath)
         } catch {
             debugPrint(error.localizedDescription)
         }
     }
 
     func removeSearchHistory() {
-        guard let path = documentsDirectory()?.appending(path: Persistence.searchHistory.filename).appendingPathExtension("json") else { return }
+        guard let documentsDirectory else { return }
 
-        try? removeItem(at: path)
+        let searchHistoryPath = Persistence.searchHistory.filepath(baseURL: documentsDirectory)
+        try? removeItem(at: searchHistoryPath)
     }
 }
 
 extension FileManager {
-    func documentsDirectory() -> URL? {
+    public var documentsDirectory: URL? {
         return self.urls(for: .documentDirectory, in: .userDomainMask).first
     }
 }
