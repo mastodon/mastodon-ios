@@ -28,6 +28,10 @@ extension FileManager {
 
         var searchItems = (try? searchItems(forUser: newSearchItem.userID)) ?? []
 
+        if let index = searchItems.firstIndex(of: newSearchItem) {
+            searchItems.remove(at: index)
+        }
+        
         searchItems.append(newSearchItem)
 
         let jsonEncoder = JSONEncoder()
