@@ -118,8 +118,6 @@
 		62FD27D12893707600B205C5 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D02893707600B205C5 /* BookmarkViewController.swift */; };
 		62FD27D32893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */; };
 		62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */; };
-		71458AF57697DB405CFEC37C /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2A2448AEEDA65B4CD099FC /* Pods_Mastodon.framework */; };
-		7910197261F9D06EFCDCCDBC /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89FE8B85A00419CEF4678056 /* Pods_MastodonTests.framework */; };
 		855149C8295F1C5F00943D96 /* UIInterfaceOrientationMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */; };
 		855149CA29606D6400943D96 /* PortraitAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855149C929606D6400943D96 /* PortraitAlertController.swift */; };
 		85904C02293BC0EB0011C817 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C01293BC0EB0011C817 /* ImageProvider.swift */; };
@@ -498,7 +496,6 @@
 		DBFEEC99279BDCDE004F81DD /* ProfileAboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC98279BDCDE004F81DD /* ProfileAboutViewModel.swift */; };
 		DBFEEC9B279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC9A279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift */; };
 		DBFEEC9D279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC9C279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift */; };
-		EF7771EAA493A869D65A105C /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD12474E169668871A9F6AB4 /* Pods_Mastodon_MastodonUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -614,8 +611,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0655B257371274BEB7EB1C19 /* Pods-Mastodon.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.release snapshot.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.release snapshot.xcconfig"; sourceTree = "<group>"; };
-		0827D1674B2523503E8605F6 /* Pods-Mastodon-MastodonUITests.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.release snapshot.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.release snapshot.xcconfig"; sourceTree = "<group>"; };
 		0F1E2D0A2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTitleLabelNavigationBarTitleView.swift; sourceTree = "<group>"; };
 		0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineViewController.swift; sourceTree = "<group>"; };
 		0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineViewModel.swift; sourceTree = "<group>"; };
@@ -629,7 +624,6 @@
 		0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
 		164F0EBB267D4FE400249499 /* BoopSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoopSound.caf; sourceTree = "<group>"; };
-		1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		27D701F4292FC2D60031BCBB /* DataSourceFacade+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+URL.swift"; sourceTree = "<group>"; };
 		2A1BF99429F7E68400FA1BA5 /* DataSourceFacade+UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+UserView.swift"; sourceTree = "<group>"; };
 		2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowedTagsViewModel+DiffableDataSource.swift"; sourceTree = "<group>"; };
@@ -733,56 +727,26 @@
 		2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountTableViewCell.swift; sourceTree = "<group>"; };
 		2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendCollectionHeader.swift; sourceTree = "<group>"; };
 		2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAccountSection.swift; sourceTree = "<group>"; };
-		2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.debug.xcconfig"; sourceTree = "<group>"; };
-		3B7FD8F28DDA8FBCE5562B78 /* Pods-NotificationService.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk - debug.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk - debug.xcconfig"; sourceTree = "<group>"; };
-		3E08A432F40BA7B9CAA9DB68 /* Pods-AppShared.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.release snapshot.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.release snapshot.xcconfig"; sourceTree = "<group>"; };
-		459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		46DAB0EBDDFB678347CD96FF /* Pods-MastodonTests.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk - release.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		5B24BBD7262DB14800A9381B /* ReportViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5B24BBD8262DB14800A9381B /* ReportStatusViewModel+Diffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportStatusViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSection.swift; sourceTree = "<group>"; };
-		5CE45680252519F42FEA2D13 /* Pods-ShareActionExtension.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareActionExtension.asdk - release.xcconfig"; path = "Target Support Files/Pods-ShareActionExtension/Pods-ShareActionExtension.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		5D03938F2612D259007FE196 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		5D0393952612D266007FE196 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		5DA732CB2629CEF500A92342 /* UIView+Remove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Remove.swift"; sourceTree = "<group>"; };
-		5DA82A9B4ABDAFA3AB9A49C7 /* Pods-MastodonTests.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk.xcconfig"; sourceTree = "<group>"; };
 		5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayer.swift; sourceTree = "<group>"; };
-		6130CBE4B26E3C976ACC1688 /* Pods-ShareActionExtension.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareActionExtension.asdk - debug.xcconfig"; path = "Target Support Files/Pods-ShareActionExtension/Pods-ShareActionExtension.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		6213AF5928939C8400BCADB6 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
 		6213AF5B28939C8A00BCADB6 /* BookmarkViewModel+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookmarkViewModel+State.swift"; sourceTree = "<group>"; };
 		6213AF5D2893A8B200BCADB6 /* DataSourceFacade+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Bookmark.swift"; sourceTree = "<group>"; };
 		62FD27D02893707600B205C5 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarkViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarkViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		63EF9E6E5B575CD2A8B0475D /* Pods-AppShared.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.profile.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.profile.xcconfig"; sourceTree = "<group>"; };
-		728DE51ADA27C395C6E1BAB5 /* Pods-Mastodon-MastodonUITests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.profile.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.profile.xcconfig"; sourceTree = "<group>"; };
-		75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.release.xcconfig"; sourceTree = "<group>"; };
-		7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.profile.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.profile.xcconfig"; sourceTree = "<group>"; };
-		7CEFFAE9AF9284B13C0A758D /* Pods-MastodonTests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
-		819CEC9DCAD8E8E7BD85A7BB /* Pods-Mastodon.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk.xcconfig"; sourceTree = "<group>"; };
 		855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInterfaceOrientationMask.swift; sourceTree = "<group>"; };
 		855149C929606D6400943D96 /* PortraitAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitAlertController.swift; sourceTree = "<group>"; };
 		85904C01293BC0EB0011C817 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		85904C03293BC1940011C817 /* URLActivityItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLActivityItem.swift; sourceTree = "<group>"; };
 		85BC11B22932414900E191CD /* AltTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltTextViewController.swift; sourceTree = "<group>"; };
-		8850E70A1D5FF51432E43653 /* Pods-Mastodon-MastodonUITests.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; sourceTree = "<group>"; };
-		89FE8B85A00419CEF4678056 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C2A2448AEEDA65B4CD099FC /* Pods_Mastodon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E79CCBE51FBC3F7FE8CF49F /* Pods-MastodonTests.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.release snapshot.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.release snapshot.xcconfig"; sourceTree = "<group>"; };
-		8ED8C4B1F1BA2DCFF2926BB1 /* Pods-Mastodon-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-NotificationService/Pods-Mastodon-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
-		9780A4C98FFC65B32B50D1C0 /* Pods-MastodonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.release.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.release.xcconfig"; sourceTree = "<group>"; };
-		9A0982D8F349244EB558CDFD /* Pods-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
-		9CFF58FD900AC059428700E7 /* Pods-NotificationService.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk - release.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk - release.xcconfig"; sourceTree = "<group>"; };
-		A67FD038ECDA0E411AF8DB4D /* Pods-Mastodon-MastodonUITests.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk.xcconfig"; sourceTree = "<group>"; };
-		A9B1FB898DFD6063B044298C /* Pods-AppShared.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk - debug.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk - debug.xcconfig"; sourceTree = "<group>"; };
-		B31D44635FCF6452F7E1B865 /* Pods-Mastodon-AppShared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.release.xcconfig"; sourceTree = "<group>"; };
-		B44342AC2B6585F8295F1DDF /* Pods-Mastodon-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-NotificationService.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-NotificationService/Pods-Mastodon-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
-		BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.release.xcconfig"; sourceTree = "<group>"; };
-		BD7598A87F4497045EDEF252 /* Pods-Mastodon.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		C24C97022922F30500BAE8CB /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
-		C3789232A52F43529CA67E95 /* Pods-MastodonIntent.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - debug.xcconfig"; sourceTree = "<group>"; };
-		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
 		D807C6BF29DE197900A4E17C /* EducationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationViewController.swift; sourceTree = "<group>"; };
 		D808B94B296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryViewModel.swift; sourceTree = "<group>"; };
 		D808B94D296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -818,6 +782,13 @@
 		D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		D8318A892A4468DC00C0FB73 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		D8363B1529469CE200A74079 /* OnboardingNextView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = OnboardingNextView.swift; sourceTree = "<group>"; tabWidth = 4; };
+		D84C099D2B0F9E33009E685E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D84C099F2B0F9E41009E685E /* Setup.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Setup.md; sourceTree = "<group>"; };
+		D84C09A02B0F9E41009E685E /* How-it-works.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "How-it-works.md"; sourceTree = "<group>"; };
+		D84C09A12B0F9E41009E685E /* Snapshot.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Snapshot.md; sourceTree = "<group>"; };
+		D84C09A22B0F9E41009E685E /* Deployment.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Deployment.md; sourceTree = "<group>"; };
+		D84C09A32B0F9E41009E685E /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		D84C09A42B0F9E41009E685E /* Acknowledgments.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Acknowledgments.md; sourceTree = "<group>"; };
 		D852C23B2AC5D02C00309232 /* AboutInstanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstanceViewController.swift; sourceTree = "<group>"; };
 		D852C23D2AC5D03300309232 /* InstanceRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceRulesViewController.swift; sourceTree = "<group>"; };
 		D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginView.swift; sourceTree = "<group>"; };
@@ -1257,17 +1228,8 @@
 		DBFEEC9A279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileAboutViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBFEEC9C279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldEditCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBFEF06726A58D07006D7ED1 /* ShareActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareActionExtension.entitlements; sourceTree = "<group>"; };
-		DD12474E169668871A9F6AB4 /* Pods_Mastodon_MastodonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_MastodonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DDB1B139FA8EA26F510D58B6 /* Pods-AppShared.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk - release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk - release.xcconfig"; sourceTree = "<group>"; };
-		DF65937EC1FF64462BC002EE /* Pods-MastodonTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.profile.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.profile.xcconfig"; sourceTree = "<group>"; };
-		E5C7236E58D14A0322FE00F2 /* Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		E9AABD3D26B64B8C00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Intents.strings; sourceTree = "<group>"; };
 		E9AABD4026B64B8D00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
-		ECA373ABA86BE3C2D7ED878E /* Pods-AppShared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.release.xcconfig"; sourceTree = "<group>"; };
-		EE13214BC0246BE5210CCC10 /* Pods-AppShared.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk.xcconfig"; sourceTree = "<group>"; };
-		F31E7502A7E3945B98C6CBAF /* Pods-NotificationService.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk.xcconfig"; sourceTree = "<group>"; };
-		F920AD4EC23B0D00F5CCA58E /* Pods-MastodonIntent.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - release.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1299,7 +1261,6 @@
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				D84FA0932AE6915800987F47 /* MBProgressHUD in Frameworks */,
 				D87364F92AE28DB500C8F919 /* Kanna in Frameworks */,
-				71458AF57697DB405CFEC37C /* Pods_Mastodon.framework in Frameworks */,
 				2AAAA34E2B04DE21004C6672 /* VisionKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1309,7 +1270,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E44C7202967AD17004B2A72 /* MastodonSDKDynamic in Frameworks */,
-				7910197261F9D06EFCDCCDBC /* Pods_MastodonTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1317,7 +1277,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF7771EAA493A869D65A105C /* Pods_Mastodon_MastodonUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1417,52 +1376,6 @@
 				0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
-			sourceTree = "<group>";
-		};
-		1EBA4F56E920856A3FC84ACB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */,
-				75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */,
-				459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */,
-				BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */,
-				EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */,
-				9780A4C98FFC65B32B50D1C0 /* Pods-MastodonTests.release.xcconfig */,
-				8ED8C4B1F1BA2DCFF2926BB1 /* Pods-Mastodon-NotificationService.debug.xcconfig */,
-				B44342AC2B6585F8295F1DDF /* Pods-Mastodon-NotificationService.release.xcconfig */,
-				D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */,
-				B31D44635FCF6452F7E1B865 /* Pods-Mastodon-AppShared.release.xcconfig */,
-				9A0982D8F349244EB558CDFD /* Pods-AppShared.debug.xcconfig */,
-				ECA373ABA86BE3C2D7ED878E /* Pods-AppShared.release.xcconfig */,
-				EE13214BC0246BE5210CCC10 /* Pods-AppShared.asdk.xcconfig */,
-				819CEC9DCAD8E8E7BD85A7BB /* Pods-Mastodon.asdk.xcconfig */,
-				A67FD038ECDA0E411AF8DB4D /* Pods-Mastodon-MastodonUITests.asdk.xcconfig */,
-				5DA82A9B4ABDAFA3AB9A49C7 /* Pods-MastodonTests.asdk.xcconfig */,
-				F31E7502A7E3945B98C6CBAF /* Pods-NotificationService.asdk.xcconfig */,
-				A9B1FB898DFD6063B044298C /* Pods-AppShared.asdk - debug.xcconfig */,
-				DDB1B139FA8EA26F510D58B6 /* Pods-AppShared.asdk - release.xcconfig */,
-				1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */,
-				BD7598A87F4497045EDEF252 /* Pods-Mastodon.asdk - release.xcconfig */,
-				E5C7236E58D14A0322FE00F2 /* Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig */,
-				8850E70A1D5FF51432E43653 /* Pods-Mastodon-MastodonUITests.asdk - release.xcconfig */,
-				7CEFFAE9AF9284B13C0A758D /* Pods-MastodonTests.asdk - debug.xcconfig */,
-				46DAB0EBDDFB678347CD96FF /* Pods-MastodonTests.asdk - release.xcconfig */,
-				3B7FD8F28DDA8FBCE5562B78 /* Pods-NotificationService.asdk - debug.xcconfig */,
-				9CFF58FD900AC059428700E7 /* Pods-NotificationService.asdk - release.xcconfig */,
-				6130CBE4B26E3C976ACC1688 /* Pods-ShareActionExtension.asdk - debug.xcconfig */,
-				5CE45680252519F42FEA2D13 /* Pods-ShareActionExtension.asdk - release.xcconfig */,
-				C3789232A52F43529CA67E95 /* Pods-MastodonIntent.asdk - debug.xcconfig */,
-				F920AD4EC23B0D00F5CCA58E /* Pods-MastodonIntent.asdk - release.xcconfig */,
-				3E08A432F40BA7B9CAA9DB68 /* Pods-AppShared.release snapshot.xcconfig */,
-				0655B257371274BEB7EB1C19 /* Pods-Mastodon.release snapshot.xcconfig */,
-				0827D1674B2523503E8605F6 /* Pods-Mastodon-MastodonUITests.release snapshot.xcconfig */,
-				8E79CCBE51FBC3F7FE8CF49F /* Pods-MastodonTests.release snapshot.xcconfig */,
-				63EF9E6E5B575CD2A8B0475D /* Pods-AppShared.profile.xcconfig */,
-				7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */,
-				728DE51ADA27C395C6E1BAB5 /* Pods-Mastodon-MastodonUITests.profile.xcconfig */,
-				DF65937EC1FF64462BC002EE /* Pods-MastodonTests.profile.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		2A506CF2292CD83B00059C37 /* FollowedTags */ = {
@@ -1754,9 +1667,6 @@
 				2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */,
 				2A728121297EA9D7004138C5 /* WidgetKit.framework */,
 				2A728123297EA9D7004138C5 /* SwiftUI.framework */,
-				8C2A2448AEEDA65B4CD099FC /* Pods_Mastodon.framework */,
-				DD12474E169668871A9F6AB4 /* Pods_Mastodon_MastodonUITests.framework */,
-				89FE8B85A00419CEF4678056 /* Pods_MastodonTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1878,6 +1788,19 @@
 				D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		D84C099E2B0F9E41009E685E /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				D84C099F2B0F9E41009E685E /* Setup.md */,
+				D84C09A02B0F9E41009E685E /* How-it-works.md */,
+				D84C09A12B0F9E41009E685E /* Snapshot.md */,
+				D84C09A22B0F9E41009E685E /* Deployment.md */,
+				D84C09A32B0F9E41009E685E /* CONTRIBUTING.md */,
+				D84C09A42B0F9E41009E685E /* Acknowledgments.md */,
+			);
+			path = Documentation;
 			sourceTree = "<group>";
 		};
 		D8A6AB68291C50F3003AB663 /* Login */ = {
@@ -2152,6 +2075,8 @@
 		DB427DC925BAA00100D1B89D = {
 			isa = PBXGroup;
 			children = (
+				D84C099D2B0F9E33009E685E /* README.md */,
+				D84C099E2B0F9E41009E685E /* Documentation */,
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
 				DB47AB6327CF858400CD73C7 /* AppStoreSnapshotTestPlan.xctestplan */,
@@ -2165,7 +2090,6 @@
 				2A71F53C296DBDA80049F54A /* OpenInActionExtension */,
 				2A728125297EA9D7004138C5 /* WidgetExtension */,
 				DB427DD325BAA00100D1B89D /* Products */,
-				1EBA4F56E920856A3FC84ACB /* Pods */,
 				3FE14AD363ED19AE7FF210A6 /* Frameworks */,
 				D8A6FE6029325F5900666A47 /* Localization */,
 			);
@@ -3139,7 +3063,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB427DFC25BAA00100D1B89D /* Build configuration list for PBXNativeTarget "Mastodon" */;
 			buildPhases = (
-				7A04933A2AB1D5B758D4F908 /* [CP] Check Pods Manifest.lock */,
 				DB427DD025BAA00100D1B89D /* Resources */,
 				DB427DCE25BAA00100D1B89D /* Sources */,
 				DB427DCF25BAA00100D1B89D /* Frameworks */,
@@ -3172,7 +3095,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB427DFF25BAA00100D1B89D /* Build configuration list for PBXNativeTarget "MastodonTests" */;
 			buildPhases = (
-				E139F888AA77A10B890BFED6 /* [CP] Check Pods Manifest.lock */,
 				DB427DE425BAA00100D1B89D /* Sources */,
 				DB427DE525BAA00100D1B89D /* Frameworks */,
 				DB427DE625BAA00100D1B89D /* Resources */,
@@ -3195,7 +3117,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB427E0225BAA00100D1B89D /* Build configuration list for PBXNativeTarget "MastodonUITests" */;
 			buildPhases = (
-				6E033728B42BA1C0018B6131 /* [CP] Check Pods Manifest.lock */,
 				DB427DEF25BAA00100D1B89D /* Sources */,
 				DB427DF025BAA00100D1B89D /* Frameworks */,
 				DB427DF125BAA00100D1B89D /* Resources */,
@@ -3442,50 +3363,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6E033728B42BA1C0018B6131 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Mastodon-MastodonUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7A04933A2AB1D5B758D4F908 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Mastodon-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		DB025B8E278D6448002F581E /* Run Sourcery: Core Data */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -3502,7 +3379,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./MastodonSDK/Sources/CoreDataStack\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
+			shellScript = "if [[ -f \"sourcery\" ]]; then\n  \"sourcery\" --config ./MastodonSDK/Sources/CoreDataStack\nelse\n  echo \"warning: Sourcery is not installed. Run 'brew install sourcery' to install it.\"\nfi\n";
 		};
 		DB3D100425BAA71500EAA174 /* Run SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3520,7 +3397,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" \nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
+			shellScript = "if [[ -f \"swiftgen\" ]]; then\n  \"swiftgen\" \nelse\n  echo \"warning: SwiftGen is not installed. Run 'brew install swiftgen' to install it.\"\nfi\n";
 		};
 		DB697DD2278F48D5004EF2F7 /* Run Sourcery */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3538,29 +3415,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./Mastodon\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
-		};
-		E139F888AA77A10B890BFED6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MastodonTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "if [[ -f \"sourcery\" ]]; then\n  \"sourcery\" --config ./Mastodon\nelse\n  echo \"warning: Sourcery is not installed. Run 'brew install sourcery' to install it.\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -4638,7 +4493,6 @@
 		};
 		DB427DFD25BAA00100D1B89D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4669,7 +4523,6 @@
 		};
 		DB427DFE25BAA00100D1B89D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4700,7 +4553,6 @@
 		};
 		DB427E0025BAA00100D1B89D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -4725,7 +4577,6 @@
 		};
 		DB427E0125BAA00100D1B89D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9780A4C98FFC65B32B50D1C0 /* Pods-MastodonTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -4750,7 +4601,6 @@
 		};
 		DB427E0325BAA00100D1B89D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5889;
@@ -4774,7 +4624,6 @@
 		};
 		DB427E0425BAA00100D1B89D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5889;
@@ -4861,7 +4710,6 @@
 		};
 		DB848E2B282B5E6300A302CC /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4890,7 +4738,6 @@
 		};
 		DB848E2C282B5E6300A302CC /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF65937EC1FF64462BC002EE /* Pods-MastodonTests.profile.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -4915,7 +4762,6 @@
 		};
 		DB848E2D282B5E6300A302CC /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 728DE51ADA27C395C6E1BAB5 /* Pods-Mastodon-MastodonUITests.profile.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5889;
@@ -5157,7 +5003,6 @@
 		};
 		DBEB19E227E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0655B257371274BEB7EB1C19 /* Pods-Mastodon.release snapshot.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -5185,7 +5030,6 @@
 		};
 		DBEB19E327E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E79CCBE51FBC3F7FE8CF49F /* Pods-MastodonTests.release snapshot.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -5210,7 +5054,6 @@
 		};
 		DBEB19E427E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0827D1674B2523503E8605F6 /* Pods-Mastodon-MastodonUITests.release snapshot.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5889;
