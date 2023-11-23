@@ -462,9 +462,7 @@ private extension SceneCoordinator {
                 let followingListViewController = FollowingListViewController(viewModel: viewModel, coordinator: self, context: appContext)
                 viewController = followingListViewController
             case .familiarFollowers(let viewModel):
-                let _viewController = FamiliarFollowersViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                viewController = FamiliarFollowersViewController(viewModel: viewModel, context: appContext, coordinator: self)
             case .rebloggedBy(let viewModel):
                 let _viewController = RebloggedByViewController()
                 _viewController.viewModel = viewModel
