@@ -96,6 +96,7 @@ public struct RelationshipActionOptionSet: OptionSet {
     }
 }
 
+@available(*, deprecated, message: "Replace with Mastodon.Entity.Relationship")
 public final class RelationshipViewModel {
     
     var disposeBag = Set<AnyCancellable>()

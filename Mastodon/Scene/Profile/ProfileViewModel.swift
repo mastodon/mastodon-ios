@@ -33,7 +33,11 @@ class ProfileViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
+
+    @available(*, deprecated, message: "Replace with Account")
     @Published var me: MastodonUser?
+
+    @available(*, deprecated, message: "Replace with Account")
     @Published var user: MastodonUser?
     
     let viewDidAppear = PassthroughSubject<Void, Never>()

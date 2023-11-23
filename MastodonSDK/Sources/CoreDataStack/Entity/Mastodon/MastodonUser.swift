@@ -9,6 +9,7 @@ import CoreData
 import Foundation
 
 /// See also `CoreDataStack.MastodonUser`, this extension contains several 
+@available(*, deprecated, message: "Replace with Mastodon.Entity.Account")
 final public class MastodonUser: NSManagedObject {
     
     public typealias ID = String
