@@ -601,10 +601,19 @@ extension SceneCoordinator: MastodonLoginViewControllerDelegate {
 //MARK: - SettingsCoordinatorDelegate
 extension SceneCoordinator: SettingsCoordinatorDelegate {
     func logout(_ settingsCoordinator: SettingsCoordinator) {
+
+        let preferredStyle: UIAlertController.Style
+
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            preferredStyle = .actionSheet
+        } else {
+            preferredStyle = .alert
+        }
+
         let alertController = UIAlertController(
             title: L10n.Common.Alerts.SignOut.title,
             message: L10n.Common.Alerts.SignOut.message,
-            preferredStyle: .actionSheet
+            preferredStyle: preferredStyle
         )
 
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
