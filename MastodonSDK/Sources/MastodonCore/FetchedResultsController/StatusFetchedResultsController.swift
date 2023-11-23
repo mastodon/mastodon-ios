@@ -35,4 +35,17 @@ public final class StatusFetchedResultsController {
     public func appendRecords(_ records: [MastodonStatus]) {
         self.records += records
     }
+    
+    @MainActor
+    public func update(status: MastodonStatus) {
+        var newRecords = Array(records)
+        for (i, record) in newRecords.enumerated() {
+            if record.id == status.id {
+                newRecords[i] = status
+            } else if let reblog = record.reblog, reblog.id == status.id {
+                newRecords[i].reblog = status
+            }
+        }
+        records = newRecords
+    }
 }

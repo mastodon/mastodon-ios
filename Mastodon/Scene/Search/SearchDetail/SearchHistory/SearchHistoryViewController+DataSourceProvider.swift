@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 // MARK: - DataSourceProvider
 extension SearchHistoryViewController: DataSourceProvider {
@@ -26,6 +27,10 @@ extension SearchHistoryViewController: DataSourceProvider {
         case .hashtag(let record):
             return .hashtag(tag: .record(record))
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Implement not required in this class")
     }
     
     @MainActor

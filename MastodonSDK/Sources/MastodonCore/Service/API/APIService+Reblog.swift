@@ -39,7 +39,7 @@ extension APIService {
 
             let reblogContext = MastodonReblogContext(
                 statusID: _status.id,
-                isReblogged: !isReblogged,
+                isReblogged: isReblogged,
                 rebloggedCount: rebloggedCount
             )
             return reblogContext

@@ -8,7 +8,7 @@ public final class MastodonStatus: ObservableObject {
     public typealias ID = Mastodon.Entity.Status.ID
     
     @Published public var entity: Mastodon.Entity.Status
-    @Published public private(set) var reblog: MastodonStatus?
+    @Published public var reblog: MastodonStatus?
     
     @Published public var isSensitiveToggled: Bool = false
     
@@ -36,12 +36,13 @@ extension MastodonStatus {
 
 extension MastodonStatus: Hashable {
     public static func == (lhs: MastodonStatus, rhs: MastodonStatus) -> Bool {
-        lhs.entity.id == rhs.entity.id
+        lhs.entity == rhs.entity &&
+        lhs.reblog?.entity == rhs.reblog?.entity
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(entity)
-        hasher.combine(isSensitiveToggled)
+        hasher.combine(reblog?.entity)
     }
 }
 

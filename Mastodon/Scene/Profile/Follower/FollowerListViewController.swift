@@ -11,6 +11,7 @@ import Combine
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
+import MastodonSDK
 
 final class FollowerListViewController: UIViewController, NeedsDependency {
     
@@ -151,6 +152,10 @@ extension FollowerListViewController: DataSourceProvider {
             default:
                 return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Implement not required in this class")
     }
 
     @MainActor

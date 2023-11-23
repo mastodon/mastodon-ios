@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 extension DiscoveryCommunityViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
@@ -25,6 +26,10 @@ extension DiscoveryCommunityViewController: DataSourceProvider {
         default:
             return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        viewModel.statusFetchedResultsController.update(status: status)
     }
     
     @MainActor

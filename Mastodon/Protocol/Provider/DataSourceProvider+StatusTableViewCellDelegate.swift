@@ -439,7 +439,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure("only works for status data provider")
                 return
             }
-            
+
             try await DataSourceFacade.responseToActionToolbar(
                 provider: self,
                 status: status,

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 // MARK: - DataSourceProvider
 extension ThreadViewController: DataSourceProvider {
@@ -26,6 +27,10 @@ extension ThreadViewController: DataSourceProvider {
         default:
             return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        viewModel.root = .root(context: .init(status: status))
     }
     
     @MainActor

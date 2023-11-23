@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 extension HomeTimelineViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
@@ -33,6 +34,10 @@ extension HomeTimelineViewController: DataSourceProvider {
         default:
             return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        viewModel.fetchedResultsController.update(status: status)
     }
     
     @MainActor

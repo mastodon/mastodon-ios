@@ -37,6 +37,10 @@ extension NotificationTimelineViewController: DataSourceProvider {
         }
     }
     
+    func update(status: MastodonStatus) {
+        viewModel.feedFetchedResultsController.update(status: status)
+    }
+    
     @MainActor
     private func indexPath(for cell: UITableViewCell) async -> IndexPath? {
         return tableView.indexPath(for: cell)

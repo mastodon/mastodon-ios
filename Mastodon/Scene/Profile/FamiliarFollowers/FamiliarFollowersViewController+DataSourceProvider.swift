@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 extension FamiliarFollowersViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
@@ -25,6 +26,10 @@ extension FamiliarFollowersViewController: DataSourceProvider {
         default:
             return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Implement not required in this class")
     }
     
     @MainActor

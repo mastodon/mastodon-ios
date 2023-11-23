@@ -18,9 +18,11 @@ extension DataSourceFacade {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
         
-        _ = try await provider.context.apiService.favorite(
+        let newStatus = try await provider.context.apiService.favorite(
             status: status,
             authenticationBox: provider.authContext.mastodonAuthenticationBox
-        )
+        ).value
+        
+        provider.update(status: .fromEntity(newStatus))
     }
 }

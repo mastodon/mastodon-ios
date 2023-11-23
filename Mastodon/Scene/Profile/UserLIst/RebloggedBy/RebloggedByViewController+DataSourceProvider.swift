@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import MastodonSDK
 
 extension RebloggedByViewController: DataSourceProvider {
+    
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
         var _indexPath = source.indexPath
         if _indexPath == nil, let cell = source.tableViewCell {
@@ -25,6 +27,10 @@ extension RebloggedByViewController: DataSourceProvider {
         default:
             return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Implement not required in this class")
     }
     
     @MainActor

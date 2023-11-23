@@ -38,6 +38,28 @@ final public class FeedFetchedResultsController {
             records = try await load(kind: kind, sinceId: lastId)
         }
     }
+    
+    public func update(status: MastodonStatus) {
+        var newRecords = Array(records)
+        for (i, record) in newRecords.enumerated() {
+            if record.status?.id == status.id {
+                newRecords[i] = .fromStatus(status, kind: record.kind)
+            } else if let reblog = status.reblog, reblog.id == record.status?.id {
+                newRecords[i] = .fromStatus(status, kind: record.kind)
+            } else if let reblog = record.status?.reblog, reblog.id == status.id {
+                newRecords[i] = .fromStatus(status, kind: record.kind)
+                switch status.entity.reblogged {
+                case .some(true):
+                    newRecords[i].status?.reblog = status
+                case .some(false):
+                    newRecords[i].status?.reblog = nil
+                case .none:
+                    break
+                }
+            }
+        }
+        records = newRecords
+    }
 }
 
 private extension FeedFetchedResultsController {
