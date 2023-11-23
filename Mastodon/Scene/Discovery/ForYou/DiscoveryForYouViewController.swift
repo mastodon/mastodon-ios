@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import MastodonUI
 import MastodonCore
+import MastodonSDK
 
 final class DiscoveryForYouViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
 
@@ -136,20 +137,34 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
 
-        let userID = account.id
-        let _familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })
-        guard let familiarFollowers = _familiarFollowers else {
-            assertionFailure()
-            return
+        coordinator.showLoading()
+
+        Task { [weak self] in
+
+            guard let self else { return }
+            do {
+                let userID = account.id
+                let familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })?.accounts ?? []
+                let relationships = try await context.apiService.relationship(forAccounts: familiarFollowers, authenticationBox: authContext.mastodonAuthenticationBox).value
+
+                coordinator.hideLoading()
+
+                let familiarFollowersViewModel = FamiliarFollowersViewModel(
+                    context: context,
+                    authContext: authContext,
+                    accounts: familiarFollowers,
+                    relationships: relationships
+                )
+
+                _ = coordinator.present(
+                    scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
+                    from: self,
+                    transition: .show
+                )
+            } catch {
+
+            }
         }
-        
-        let familiarFollowersViewModel = FamiliarFollowersViewModel(context: context, authContext: authContext)
-        familiarFollowersViewModel.familiarFollowers = familiarFollowers
-        _ = coordinator.present(
-            scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
-            from: self,
-            transition: .show
-        )
     }
 }
 
@@ -157,4 +172,3 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
 extension DiscoveryForYouViewController: ScrollViewContainer {
     var scrollView: UIScrollView { tableView }
 }
-
