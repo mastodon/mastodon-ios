@@ -30,7 +30,8 @@ public class AuthenticationServiceProvider: ObservableObject {
         }
     }
     
-    func delete(authentication: MastodonAuthentication) {
+    func delete(authentication: MastodonAuthentication) throws {
+        try Self.keychain.remove(authentication.persistenceIdentifier)
         authentications.removeAll(where: { $0 == authentication })
     }
     

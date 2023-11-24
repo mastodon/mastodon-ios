@@ -150,8 +150,12 @@ extension AuthenticationService {
             for feed in feeds {
                 managedObjectContext.delete(feed)
             }
-            
-            AuthenticationServiceProvider.shared.delete(authentication: authenticationBox.authentication)
+        }
+        
+        do {
+            try AuthenticationServiceProvider.shared.delete(authentication: authenticationBox.authentication)
+        } catch {
+            assertionFailure("Failed to delete Authentication: \(error)")
         }
         
         // cancel push notification subscription
