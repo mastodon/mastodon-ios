@@ -206,8 +206,8 @@
                 "buttons": {
                     "reblogs_title": "Reblogs",
                     "favorites_title": "Favoriter",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "edit_history_title": "Redigeringshistorik",
+                    "edit_history_detail": "Senast ändrad %s"
                 },
                 "edited_at_timestamp_prefix": "Ändrad %s",
                 "edit_history": {
@@ -432,12 +432,12 @@
                 "resend": "Skicka igen"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Kontrollera din e-post",
                 "description": "Kontrollera om din e-postadress är korrekt samt din skräppostmapp om du inte har gjort det.",
                 "resend_email": "Skicka e-postmeddelande igen"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Kolla din inkorg.",
                 "description": "Vi har precis skickat ett e-postmeddelande till dig. Kontrollera din skräpmapp om du inte har gjort det.",
                 "mail": "E-post",
                 "open_email_client": "Öppna e-postklient"
@@ -493,7 +493,7 @@
                 "server_processing_state": "Behandlas av servern..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Omröstning",
                 "duration_time": "Längd: %s",
                 "thirty_minutes": "30 minuter",
                 "one_hour": "1 timme",
@@ -505,7 +505,7 @@
                 "the_poll_is_invalid": "Undersökningen är ogiltig",
                 "the_poll_has_empty_option": "Undersökningen har ett tomt alternativ",
                 "add_option": "Lägg till alternativ",
-                "remove_option": "Remove Option",
+                "remove_option": "Ta bort alternativ",
                 "move_up": "Flytta upp",
                 "move_down": "Flytta ned"
             },
@@ -650,8 +650,8 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Inlägg som matchar \"%s\"",
+                "people": "Profiler som matchar \"%s\"",
                 "profile": "Gå till @%s@%s",
                 "url": "Öppna URL i Mastodon",
                 "hashtag": "Gå till #%s",
@@ -712,7 +712,7 @@
             "overview": {
                 "title": "Inställningar",
                 "general": "Allmänt",
-                "notifications": "Notifications",
+                "notifications": "Aviseringar",
                 "support_mastodon": "Stöd Mastodon",
                 "about_mastodon": "Om Mastodon",
                 "server_details": "Server Details",
@@ -730,7 +730,7 @@
                 "rules": "Regler",
                 "about_instance": {
                     "title": "Administratör",
-                    "message_admin": "Message Admin",
+                    "message_admin": "Meddela administratör",
                     "legal_notice": "A legal notice"
                 }
             },
@@ -755,7 +755,7 @@
             "notifications": {
                 "title": "Notifications",
                 "policy": {
-                    "title": "Get Notifications from",
+                    "title": "Få aviseringar från",
                     "anyone": "Anyone",
                     "followers": "Personer som följer dig",
                     "follow": "Personer du följer",
