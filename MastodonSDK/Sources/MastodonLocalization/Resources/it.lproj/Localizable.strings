@@ -525,7 +525,7 @@ caricato su Mastodon.";
 "Scene.Settings.Overview.Title" = "Impostazioni";
 "Scene.Settings.ServerDetails.About" = "Info";
 "Scene.Settings.ServerDetails.AboutInstance.LegalNotice" = "Un avviso legale";
-"Scene.Settings.ServerDetails.AboutInstance.MessageAdmin" = "Message Admin";
+"Scene.Settings.ServerDetails.AboutInstance.MessageAdmin" = "Invia un messaggio all'amministrazione";
 "Scene.Settings.ServerDetails.AboutInstance.Title" = "Amministratore";
 "Scene.Settings.ServerDetails.Rules" = "Regole";
 "Scene.SuggestionAccount.FollowAll" = "Segui tutti";
