@@ -730,7 +730,7 @@
                 "rules": "Regole",
                 "about_instance": {
                     "title": "Amministratore",
-                    "message_admin": "Message Admin",
+                    "message_admin": "Invia un messaggio all'amministrazione",
                     "legal_notice": "Un avviso legale"
                 }
             },
