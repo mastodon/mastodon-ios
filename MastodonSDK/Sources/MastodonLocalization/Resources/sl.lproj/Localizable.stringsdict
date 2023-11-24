@@ -232,7 +232,7 @@
         <key>two</key>
         <string>%ld re-blogs</string>
         <key>few</key>
-        <string>%ld re-blogs</string>
+        <string>%ld poobjave</string>
         <key>other</key>
         <string>%ld poobjav</string>
       </dict>
