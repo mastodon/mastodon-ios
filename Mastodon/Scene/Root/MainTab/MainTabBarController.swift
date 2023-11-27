@@ -190,131 +190,133 @@ extension MainTabBarController {
             _viewControllers = viewControllers
             setViewControllers(viewControllers, animated: false)
             selectedIndex = 0
-        }
-
-        // hacky workaround for FB11986255 (Setting accessibilityUserInputLabels on a UITabBarItem has no effect)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
-            if let searchItem = self.tabBar.subviews.first(where: { $0.accessibilityLabel == Tab.search.title }) {
-                searchItem.accessibilityUserInputLabels = Tab.search.inputLabels
-            }
-        }
-        
-        context.apiService.error
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let self = self, let coordinator = self.coordinator else { return }
-                switch error {
-                case .implicit:
-                    break
-                case .explicit:
-                    let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertController.addAction(okAction)
-                    _ = coordinator.present(
-                        scene: .alertController(alertController: alertController),
-                        from: nil,
-                        transition: .alertController(animated: true, completion: nil)
-                    )
+            
+            
+            // hacky workaround for FB11986255 (Setting accessibilityUserInputLabels on a UITabBarItem has no effect)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                if let searchItem = self.tabBar.subviews.first(where: { $0.accessibilityLabel == Tab.search.title }) {
+                    searchItem.accessibilityUserInputLabels = Tab.search.inputLabels
                 }
             }
-            .store(in: &disposeBag)
-        
-        // handle post failure
-
-        // handle push notification.
-        // toggle entry when finish fetch latest notification
-        Publishers.CombineLatest(
-            context.notificationService.unreadNotificationCountDidUpdate,
-            $currentTab
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] authentication, currentTab in
-            guard let self = self else { return }
-            guard let notificationViewController = self.notificationViewController else { return }
             
-            let authentication = self.authContext?.mastodonAuthenticationBox.userAuthorization
-            let hasUnreadPushNotification: Bool = authentication.flatMap { authentication in
-                let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.accessToken)
-                return count > 0
-            } ?? false
-
-            let image: UIImage
-            if hasUnreadPushNotification {
-                let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
-                image = UIImage(systemName: "bell.badge", withConfiguration: imageConfiguration)!
-            } else {
-                image = Tab.notifications.image
-            }
+            context.apiService.error
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] error in
+                    guard let self = self, let coordinator = self.coordinator else { return }
+                    switch error {
+                    case .implicit:
+                        break
+                    case .explicit:
+                        let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alertController.addAction(okAction)
+                        _ = coordinator.present(
+                            scene: .alertController(alertController: alertController),
+                            from: nil,
+                            transition: .alertController(animated: true, completion: nil)
+                        )
+                    }
+                }
+                .store(in: &disposeBag)
             
-            notificationViewController.tabBarItem.image = image.imageWithoutBaseline()
-            notificationViewController.navigationController?.tabBarItem.image = image.imageWithoutBaseline()
-        }
-        .store(in: &disposeBag)
-        layoutAvatarButton()
-        
-        $avatarURL
+            // handle post failure
+            
+            // handle push notification.
+            // toggle entry when finish fetch latest notification
+            Publishers.CombineLatest(
+                context.notificationService.unreadNotificationCountDidUpdate,
+                $currentTab
+            )
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] avatarURL in
+            .sink { [weak self] authentication, currentTab in
                 guard let self = self else { return }
-                self.avatarButton.avatarImageView.setImage(
-                    url: avatarURL,
-                    placeholder: .placeholder(color: .systemFill),
-                    scaleToSize: MainTabBarController.avatarButtonSize
-                )
-            }
-            .store(in: &disposeBag)
-        
-        NotificationCenter.default.publisher(for: .userFetched)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                if let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) {
-                    self.avatarURLObserver = user.publisher(for: \.avatar)
-                        .sink { [weak self, weak user] _ in
-                            guard let self = self else { return }
-                            guard let user = user else { return }
-                            guard user.managedObjectContext != nil else { return }
-                            self.avatarURL = user.avatarImageURL()
-                        }
-
-                    // a11y
-                    let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
-                    guard let profileTabItem = _profileTabItem else { return }
-                    profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(user.displayNameWithFallback)
-
-                    self.context.authenticationService.updateActiveUserAccountPublisher
-                        .sink { [weak self] in
-                            self?.updateUserAccount()
-                        }
-                        .store(in: &self.disposeBag)
+                guard let notificationViewController = self.notificationViewController else { return }
+                
+                let authentication = self.authContext?.mastodonAuthenticationBox.userAuthorization
+                let hasUnreadPushNotification: Bool = authentication.flatMap { authentication in
+                    let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.accessToken)
+                    return count > 0
+                } ?? false
+                
+                let image: UIImage
+                if hasUnreadPushNotification {
+                    let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
+                    image = UIImage(systemName: "bell.badge", withConfiguration: imageConfiguration)!
                 } else {
-                    self.avatarURLObserver = nil
+                    image = Tab.notifications.image
                 }
+                
+                notificationViewController.tabBarItem.image = image.imageWithoutBaseline()
+                notificationViewController.navigationController?.tabBarItem.image = image.imageWithoutBaseline()
             }
             .store(in: &disposeBag)
-
-        let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
-        tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
-        tabBarLongPressGestureRecognizer.delegate = self
-        tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
-
-        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
-        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
-        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
-        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
-        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
-
-        self.isReadyForWizardAvatarButton = authContext != nil
-        
-        $currentTab
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] tab in
-                guard let self = self else { return }
-                self.updateAvatarButtonAppearance()
-            }
-            .store(in: &disposeBag)
-        
-        updateTabBarDisplay()
+            layoutAvatarButton()
+            
+            $avatarURL
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] avatarURL in
+                    guard let self = self else { return }
+                    self.avatarButton.avatarImageView.setImage(
+                        url: avatarURL,
+                        placeholder: .placeholder(color: .systemFill),
+                        scaleToSize: MainTabBarController.avatarButtonSize
+                    )
+                    //                self.avatarButton.avatarImageView.image = UIImage(named: "AppIcon")
+                }
+                .store(in: &disposeBag)
+            
+            NotificationCenter.default.publisher(for: .userFetched)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    guard let self = self else { return }
+                    if let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) {
+                        self.avatarURLObserver = user.publisher(for: \.avatar)
+                            .sink { [weak self, weak user] _ in
+                                guard let self = self else { return }
+                                guard let user = user else { return }
+                                guard user.managedObjectContext != nil else { return }
+                                self.avatarURL = user.avatarImageURL()
+                            }
+                        
+                        // a11y
+                        let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
+                        guard let profileTabItem = _profileTabItem else { return }
+                        profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(user.displayNameWithFallback)
+                        
+                        self.context.authenticationService.updateActiveUserAccountPublisher
+                            .sink { [weak self] in
+                                self?.updateUserAccount()
+                            }
+                            .store(in: &self.disposeBag)
+                    } else {
+                        self.avatarURLObserver = nil
+                    }
+                }
+                .store(in: &disposeBag)
+            
+            let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
+            tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
+            tabBarLongPressGestureRecognizer.delegate = self
+            tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
+            
+            let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+            tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+            tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+            tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+            tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
+            
+            self.isReadyForWizardAvatarButton = authContext != nil
+            
+            $currentTab
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] tab in
+                    guard let self = self else { return }
+                    self.updateAvatarButtonAppearance()
+                }
+                .store(in: &disposeBag)
+            
+            updateTabBarDisplay()
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
