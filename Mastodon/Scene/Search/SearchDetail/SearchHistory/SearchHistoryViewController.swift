@@ -48,6 +48,11 @@ extension SearchHistoryViewController {
             searchHistorySectionHeaderCollectionReusableViewDelegate: self
         )
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        let userID = authContext.mastodonAuthenticationBox.userID
+        viewModel.items = (try? FileManager.default.searchItems(forUser: userID)) ?? []
+    }
 }
 
 // MARK: - UICollectionViewDelegate
