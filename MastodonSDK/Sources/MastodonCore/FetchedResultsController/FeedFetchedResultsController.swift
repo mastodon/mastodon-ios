@@ -47,15 +47,24 @@ final public class FeedFetchedResultsController {
             } else if let reblog = status.reblog, reblog.id == record.status?.id {
                 newRecords[i] = .fromStatus(status, kind: record.kind)
             } else if let reblog = record.status?.reblog, reblog.id == status.id {
-                newRecords[i] = .fromStatus(status, kind: record.kind)
+                // Handle reblogged state
                 switch status.entity.reblogged {
                 case .some(true):
-                    newRecords[i].status?.reblog = status
-                case .some(false):
-                    newRecords[i].status?.reblog = nil
-                case .none:
-                    break
+                    newRecords[i] = .fromStatus({
+                        let stat = MastodonStatus.fromEntity(records[i].status!.entity)
+                        stat.reblog = .fromEntity(status.entity)
+                        return stat
+                    }(), kind: record.kind)
+                case .some(false), .none:
+                    newRecords[i] = .fromStatus({
+                        let stat = MastodonStatus.fromEntity(status.entity)
+                        return stat
+                    }(), kind: record.kind)
                 }
+
+            } else if let reblog = record.status?.reblog, reblog.id == status.reblog?.id {
+                // Handle re-reblogged state
+                newRecords[i] = .fromStatus(status, kind: record.kind)
             }
         }
         records = newRecords
