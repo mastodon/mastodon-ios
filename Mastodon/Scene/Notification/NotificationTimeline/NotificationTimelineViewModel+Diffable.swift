@@ -7,7 +7,7 @@
 
 import UIKit
 import CoreData
-import CoreDataStack
+import MastodonSDK
 
 extension NotificationTimelineViewModel {
     
@@ -48,37 +48,18 @@ extension NotificationTimelineViewModel {
                         return snapshot
                     }()
 
-                    #warning("Do we still need the code below?")
-//                    let parentManagedObjectContext = self.context.managedObjectContext
-//                    let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-//                    managedObjectContext.parent = parentManagedObjectContext
-//                    try? await managedObjectContext.perform {
-//                        let anchors: [Feed] = {
-//                            let request = Feed.sortedFetchRequest
-//                            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-//                                Feed.hasMorePredicate(),
-//                                self.feedFetchedResultsController.predicate,
-//                            ])
-//                            do {
-//                                return try managedObjectContext.fetch(request)
-//                            } catch {
-//                                assertionFailure(error.localizedDescription)
-//                                return []
-//                            }
-//                        }()
-//
-//                        let itemIdentifiers = newSnapshot.itemIdentifiers
-//                        for (index, item) in itemIdentifiers.enumerated() {
-//                            guard case let .feed(record) = item else { continue }
-//                            guard anchors.contains(where: { feed in feed.objectID == record.objectID }) else { continue }
-//                            let isLast = index + 1 == itemIdentifiers.count
-//                            if isLast {
-//                                newSnapshot.insertItems([.bottomLoader], afterItem: item)
-//                            } else {
-//                                newSnapshot.insertItems([.feedLoader(record: record)], afterItem: item)
-//                            }
-//                        }
-//                    }
+                    let anchors: [MastodonFeed] = records.filter { $0.hasMore == true }
+                    let itemIdentifiers = newSnapshot.itemIdentifiers
+                    for (index, item) in itemIdentifiers.enumerated() {
+                        guard case let .feed(record) = item else { continue }
+                        guard anchors.contains(where: { feed in feed.id == record.id }) else { continue }
+                        let isLast = index + 1 == itemIdentifiers.count
+                        if isLast {
+                            newSnapshot.insertItems([.bottomLoader], afterItem: item)
+                        } else {
+                            newSnapshot.insertItems([.feedLoader(record: record)], afterItem: item)
+                        }
+                    }
 
                     let hasChanges = newSnapshot.itemIdentifiers != oldSnapshot.itemIdentifiers
                     if !hasChanges {
