@@ -11,6 +11,7 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 import MastodonCore
+import MastodonSDK
 
 extension HomeTimelineViewModel {
     class LoadLatestState: GKState {
@@ -110,6 +111,11 @@ extension HomeTimelineViewModel.LoadLatestState {
                     if !latestStatusIDs.isEmpty {
                         viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
                     }
+                    
+                    let newRecords: [MastodonFeed] = newStatuses.map {
+                        MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
+                    }
+                    viewModel.fetchedResultsController.records = newRecords + viewModel.fetchedResultsController.records
                 }
                 viewModel.timelineIsEmpty.value = latestStatusIDs.isEmpty && statuses.isEmpty
                 
