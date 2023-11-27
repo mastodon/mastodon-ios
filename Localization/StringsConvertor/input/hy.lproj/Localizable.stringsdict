@@ -13,19 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld neprebrano obvestilo</string>
-        <key>two</key>
-        <string>%ld neprebrani obvestili</string>
-        <key>few</key>
-        <string>%ld neprebrana obvestila</string>
+        <string>1 unread notification</string>
         <key>other</key>
-        <string>%ld neprebranih obvestil</string>
+        <string>%ld unread notifications</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Omejitev vnosa presega %#@character_count@</string>
+      <string>Input limit exceeds %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,19 +29,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld znak</string>
-        <key>two</key>
-        <string>%ld znaka</string>
-        <key>few</key>
-        <string>%ld znaki</string>
+        <string>1 character</string>
         <key>other</key>
-        <string>%ld znakov</string>
+        <string>%ld characters</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Omejitev vnosa ostaja %#@character_count@</string>
+      <string>Input limit remains %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -53,13 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld znak</string>
-        <key>two</key>
-        <string>%ld znaka</string>
-        <key>few</key>
-        <string>%ld znaki</string>
+        <string>1 character</string>
         <key>other</key>
-        <string>%ld znakov</string>
+        <string>%ld characters</string>
       </dict>
     </dict>
     <key>a11y.plural.count.characters_left</key>
@@ -73,13 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Na voljo je še %ld znak</string>
-        <key>two</key>
-        <string>Na voljo sta še %ld znaka</string>
-        <key>few</key>
-        <string>Na voljo so še %ld znaki</string>
+        <string>1 character left</string>
         <key>other</key>
-        <string>Na voljo je še %ld znakov</string>
+        <string>%ld characters left</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -89,10 +73,6 @@
       <key>names</key>
       <dict>
         <key>one</key>
-        <string></string>
-        <key>two</key>
-        <string></string>
-        <key>few</key>
         <string></string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
@@ -108,13 +88,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Sledijo %1$@ in %ld skupni</string>
-        <key>two</key>
-        <string>Sledijo %1$@ in %ld skupna</string>
-        <key>few</key>
-        <string>Sledijo %1$@ in %ld skupni</string>
+        <string>Followed by %1$@, and another mutual</string>
         <key>other</key>
-        <string>Sledijo %1$@ in %ld skupnih</string>
+        <string>Followed by %1$@, and %ld mutuals</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -128,13 +104,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>objava</string>
-        <key>two</key>
-        <string>objavi</string>
-        <key>few</key>
-        <string>objave</string>
+        <string>post</string>
         <key>other</key>
-        <string>objav</string>
+        <string>posts</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -148,13 +120,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld medij</string>
-        <key>two</key>
-        <string>%ld medija</string>
-        <key>few</key>
-        <string>%ld mediji</string>
+        <string>1 media</string>
         <key>other</key>
-        <string>%ld medijev</string>
+        <string>%ld media</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -168,13 +136,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld objava</string>
-        <key>two</key>
-        <string>%ld objavi</string>
-        <key>few</key>
-        <string>%ld objave</string>
+        <string>1 post</string>
         <key>other</key>
-        <string>%ld objav</string>
+        <string>%ld posts</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -188,13 +152,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld priljubljeni</string>
-        <key>two</key>
-        <string>%ld priljubljena</string>
-        <key>few</key>
-        <string>%ld priljubljeni</string>
+        <string>1 favorite</string>
         <key>other</key>
-        <string>%ld priljubljenih</string>
+        <string>%ld favorites</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -208,13 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld poobjava</string>
-        <key>two</key>
-        <string>%ld poobjavi</string>
-        <key>few</key>
-        <string>%ld poobjave</string>
+        <string>1 reblog</string>
         <key>other</key>
-        <string>%ld poobjav</string>
+        <string>%ld reblogs</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -228,13 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld pobjava</string>
-        <key>two</key>
-        <string>%ld re-blogs</string>
-        <key>few</key>
-        <string>%ld poobjave</string>
+        <string>1 re-blog</string>
         <key>other</key>
-        <string>%ld poobjav</string>
+        <string>%ld re-blogs</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -248,13 +200,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld odgovor</string>
-        <key>two</key>
-        <string>%ld odgovora</string>
-        <key>few</key>
-        <string>%ld odgovori</string>
+        <string>1 reply</string>
         <key>other</key>
-        <string>%ld odgovorov</string>
+        <string>%ld replies</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -268,13 +216,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld glas</string>
-        <key>two</key>
-        <string>%ld glasova</string>
-        <key>few</key>
-        <string>%ld glasovi</string>
+        <string>1 vote</string>
         <key>other</key>
-        <string>%ld glasov</string>
+        <string>%ld votes</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -288,13 +232,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld glasovalec</string>
-        <key>two</key>
-        <string>%ld glasovalca</string>
-        <key>few</key>
-        <string>%ld glasovalci</string>
+        <string>1 voter</string>
         <key>other</key>
-        <string>%ld glasovalcev</string>
+        <string>%ld voters</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -308,13 +248,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld oseba se pogovarja</string>
-        <key>two</key>
-        <string>%ld osebi se pogovarjata</string>
-        <key>few</key>
-        <string>%ld osebe se pogovarjajo</string>
+        <string>1 people talking</string>
         <key>other</key>
-        <string>%ld oseb se pogovarja</string>
+        <string>%ld people talking</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -328,13 +264,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld sledi</string>
-        <key>two</key>
-        <string>%ld sledita</string>
-        <key>few</key>
-        <string>%ld sledijo</string>
+        <string>1 following</string>
         <key>other</key>
-        <string>%ld sledijo</string>
+        <string>%ld following</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -348,13 +280,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld sledilec</string>
-        <key>two</key>
-        <string>%ld sledilca</string>
-        <key>few</key>
-        <string>%ld sledilci</string>
+        <string>1 follower</string>
         <key>other</key>
-        <string>%ld sledilcev</string>
+        <string>%ld followers</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -368,13 +296,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>na voljo še %ld leto</string>
-        <key>two</key>
-        <string>na voljo še %ld leti</string>
-        <key>few</key>
-        <string>na voljo še %ld leta</string>
+        <string>1 year left</string>
         <key>other</key>
-        <string>na voljo še %ld let</string>
+        <string>%ld years left</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -388,13 +312,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>na voljo še %ld mesec</string>
-        <key>two</key>
-        <string>na voljo še %ld meseca</string>
-        <key>few</key>
-        <string>na voljo še %ld mesece</string>
+        <string>1 months left</string>
         <key>other</key>
-        <string>na voljo še %ld mesecev</string>
+        <string>%ld months left</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -408,13 +328,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>še %ld dan</string>
-        <key>two</key>
-        <string>še %ld dneva</string>
-        <key>few</key>
-        <string>še %ld dnevi</string>
+        <string>1 day left</string>
         <key>other</key>
-        <string>še %ld dni</string>
+        <string>%ld days left</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -428,13 +344,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>na voljo še %ld uro</string>
-        <key>two</key>
-        <string>na voljo še %ld uri</string>
-        <key>few</key>
-        <string>na voljo še %ld ure</string>
+        <string>1 hour left</string>
         <key>other</key>
-        <string>na voljo še %ld ur</string>
+        <string>%ld hours left</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -448,13 +360,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Še %ld min.</string>
-        <key>two</key>
-        <string>Še %ld min.</string>
-        <key>few</key>
-        <string>Še %ld min.</string>
+        <string>1 minute left</string>
         <key>other</key>
-        <string>Še %ld min.</string>
+        <string>%ld minutes left</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -468,13 +376,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Preostane še %ld s</string>
-        <key>two</key>
-        <string>Preostaneta še %ld s</string>
-        <key>few</key>
-        <string>Preostanejo še %ld s</string>
+        <string>1 second left</string>
         <key>other</key>
-        <string>Preostane še %ld s</string>
+        <string>%ld seconds left</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -488,13 +392,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>pred %ld letom</string>
-        <key>two</key>
-        <string>pred %ld letoma</string>
-        <key>few</key>
-        <string>pred %ld leti</string>
+        <string>1y ago</string>
         <key>other</key>
-        <string>pred %ld leti</string>
+        <string>%ldy ago</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -508,13 +408,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>pred %ld mesecem</string>
-        <key>two</key>
-        <string>pred %ld mesecema</string>
-        <key>few</key>
-        <string>pred %ld meseci</string>
+        <string>1M ago</string>
         <key>other</key>
-        <string>pred %ld meseci</string>
+        <string>%ldM ago</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -528,13 +424,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>pred %ld dnem</string>
-        <key>two</key>
-        <string>pred %ld dnevoma</string>
-        <key>few</key>
-        <string>pred %ld dnemi</string>
+        <string>1d ago</string>
         <key>other</key>
-        <string>pred %ld dnemi</string>
+        <string>%ldd ago</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -548,13 +440,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>pred %ld uro</string>
-        <key>two</key>
-        <string>pred %ld urama</string>
-        <key>few</key>
-        <string>pred %ld urami</string>
+        <string>1h ago</string>
         <key>other</key>
-        <string>pred %ld urami</string>
+        <string>%ldh ago</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -568,13 +456,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>pred %ld min</string>
-        <key>two</key>
-        <string>pred %ld min</string>
-        <key>few</key>
-        <string>pred %ld min</string>
+        <string>1m ago</string>
         <key>other</key>
-        <string>pred %ld min</string>
+        <string>%ldm ago</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -588,13 +472,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>pred %ld s</string>
-        <key>two</key>
-        <string>pred %ld s</string>
-        <key>few</key>
-        <string>pred %ld s</string>
+        <string>1s ago</string>
         <key>other</key>
-        <string>pred %ld s</string>
+        <string>%lds ago</string>
       </dict>
     </dict>
   </dict>

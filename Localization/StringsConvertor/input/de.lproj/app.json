@@ -710,26 +710,26 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Einstellungen",
                 "general": "General",
                 "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
+                "support_mastodon": "Mastodon unterstützen",
                 "about_mastodon": "About Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
+                "title": "Über",
+                "more_settings": "Noch mehr Einstellungen",
                 "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
+                "privacy_policy": "Datenschutzerklärung",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Über",
+                "rules": "Regeln",
                 "about_instance": {
-                    "title": "Administrator",
+                    "title": "Administrator*in",
                     "message_admin": "Message Admin",
                     "legal_notice": "A legal notice"
                 }

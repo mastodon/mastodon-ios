@@ -656,8 +656,8 @@
                 "url": "Mở liên kết trong Mastodon",
                 "hashtag": "Đến #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Không tìm thấy ai",
+                    "message": "Không tìm thấy người tên \"%s\" trên %s"
                 },
                 "empty_state": {
                     "no_results": "Không có kết quả"
@@ -710,66 +710,66 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "Cài đặt",
+                "general": "Chung",
+                "notifications": "Thông báo",
+                "support_mastodon": "Hỗ trợ Mastodon",
+                "about_mastodon": "Về Mastodon",
+                "server_details": "Thông tin máy chủ",
+                "logout": "Đăng xuất %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Giới thiệu",
+                "more_settings": "Nhiều hơn",
+                "contribute_to_mastodon": "Đóng góp cho Mastodon",
+                "privacy_policy": "Chính sách bảo mật",
+                "clear_media_storage": "Xóa bộ nhớ đệm"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Giới thiệu",
+                "rules": "Nội quy",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Quản trị viên",
+                    "message_admin": "Nhắn cho quản trị viên",
+                    "legal_notice": "Pháp lý"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Chung",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Giao diện",
+                    "dark": "Tối",
+                    "light": "Sáng",
+                    "system": "Giống thiết bị"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Thiết kế",
+                    "show_animations": "Ảnh đại diện và emoji động"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Liên kết",
+                    "open_in_mastodon": "Mở liên kết trong Mastodon",
+                    "open_in_browser": "Mở trong trình duyệt"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Thông báo",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Nhận thông báo từ",
+                    "anyone": "Bất cứ ai",
+                    "followers": "Những người theo dõi",
+                    "follow": "Những người tôi theo dõi",
+                    "noone": "Không ai"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Lượt nhắc và trả lời",
+                    "boosts": "Lượt đăng lại",
+                    "favorites": "Lượt thích",
+                    "new_followers": "Người theo dõi mới"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Bật thông báo từ cài đặt thiết bị của bạn để xem chúng từ mọi nơi.",
+                    "go_to_settings": "Thiết lập thông báo"
                 }
             }
         },
