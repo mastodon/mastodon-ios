@@ -5,12 +5,18 @@ import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
+protocol SearchResultOverviewCoordinatorDelegate: AnyObject {
+    func newSearchHistoryItemAdded(_ coordinator: SearchResultOverviewCoordinator)
+}
+
 class SearchResultOverviewCoordinator: Coordinator {
 
     let overviewViewController: SearchResultsOverviewTableViewController
     let sceneCoordinator: SceneCoordinator
     let context: AppContext
     let authContext: AuthContext
+
+    weak var delegate: SearchResultOverviewCoordinatorDelegate?
 
     var activeTask: Task<Void, Never>?
 
@@ -37,13 +43,13 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
 
     func showPosts(_ viewController: SearchResultsOverviewTableViewController, tag: Mastodon.Entity.Tag) {
         Task {
-            await DataSourceFacade.coordinateToHashtagScene(
-                provider: viewController,
-                tag: tag
-            )
+            await DataSourceFacade.coordinateToHashtagScene(provider: viewController,
+                                                            tag: tag)
 
             await DataSourceFacade.responseToCreateSearchHistory(provider: viewController,
-                                                                 item: .hashtag(tag: .entity(tag)))
+                                                                 item: .hashtag(tag: tag))
+
+            delegate?.newSearchHistoryItemAdded(self)
         }
     }
 
@@ -111,27 +117,14 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
     }
 
     func showProfile(_ viewController: SearchResultsOverviewTableViewController, for account: Mastodon.Entity.Account) {
-        let managedObjectContext = context.managedObjectContext
-        let domain = authContext.mastodonAuthenticationBox.domain
-
         Task {
-            let user = try await managedObjectContext.perform {
-                return Persistence.MastodonUser.fetch(in: managedObjectContext,
-                                                      context: Persistence.MastodonUser.PersistContext(
-                                                        domain: domain,
-                                                        entity: account,
-                                                        cache: nil,
-                                                        networkDate: Date()
-                                                      ))
-            }
+            await DataSourceFacade.coordinateToProfileScene(provider: viewController,
+                                                            account: account)
 
-            if let user {
-                await DataSourceFacade.coordinateToProfileScene(provider: viewController,
-                                                                user: user.asRecord)
+            await DataSourceFacade.responseToCreateSearchHistory(provider: viewController,
+                                                                 item: .account(account: account, relationship: nil))
 
-                await DataSourceFacade.responseToCreateSearchHistory(provider: viewController,
-                                                                     item: .user(record: user.asRecord))
-            }
+            delegate?.newSearchHistoryItemAdded(self)
         }
     }
 

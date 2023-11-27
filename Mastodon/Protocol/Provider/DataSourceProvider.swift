@@ -14,16 +14,9 @@ import class CoreDataStack.Notification
 enum DataSourceItem: Hashable {
     case status(record: ManagedObjectRecord<Status>)
     case user(record: ManagedObjectRecord<MastodonUser>)
-    case hashtag(tag: TagKind)
+    case hashtag(tag: Mastodon.Entity.Tag)
     case notification(record: ManagedObjectRecord<Notification>)
     case account(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)
-}
-
-extension DataSourceItem {
-    enum TagKind: Hashable {
-        case entity(Mastodon.Entity.Tag)
-        case record(ManagedObjectRecord<Tag>)
-    }
 }
 
 extension DataSourceItem {

@@ -21,12 +21,12 @@ extension SearchResultViewController: DataSourceProvider {
         }
         
         switch item {
-        case .user(let record):
-            return .user(record: record)
+        case .account(let account, let relationship):
+            return .account(account: account, relationship: relationship)
         case .status(let record):
             return .status(record: record)
-        case .hashtag(let entity):
-            return .hashtag(tag: .entity(entity))
+        case .hashtag(let tag):
+            return .hashtag(tag: tag)
         default:
             return nil
         }
@@ -52,9 +52,8 @@ extension SearchResultViewController {
             )
             
             switch item {
-            case .account(account: _, relationship: _):
-                // do nothing
-                break
+            case .account(let account, relationship: _):
+                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
             case .status(let status):
                 await DataSourceFacade.coordinateToStatusThreadScene(
                     provider: self,

@@ -31,9 +31,6 @@ public final class Tag: NSManagedObject {
 
     // many-to-many relationship
     @NSManaged public private(set) var followedBy: Set<MastodonUser>
-
-    // one-to-many relationship
-    @NSManaged public private(set) var searchHistories: Set<SearchHistory>
 }
 
 extension Tag {
@@ -215,46 +212,4 @@ extension Tag: AutoUpdatableObject {
         }
     }
     
-}
-    
-
-extension Tag {
-    
-    public func findSearchHistory(domain: String, userID: MastodonUser.ID) -> SearchHistory? {
-        return searchHistories.first { searchHistory in
-            return searchHistory.domain == domain
-            && searchHistory.userID == userID
-        }
-    }
-    
-    public func findSearchHistory(for user: MastodonUser) -> SearchHistory? {
-        return searchHistories.first { searchHistory in
-            return searchHistory.domain == user.domain
-                && searchHistory.userID == user.id
-        }
-    }
-    
-}
-
-public extension Tag {
-//    func updateHistory(index: Int, day: Date, uses: String, account: String) {
-//        let histories = self.histories.sorted {
-//            $0.createAt.compare($1.createAt) == .orderedAscending
-//        }
-//        guard index < histories.count else { return }
-//        let history = histories[index]
-//        history.update(day: day)
-//        history.update(uses: uses)
-//        history.update(accounts: account)
-//    }
-//
-//    func appendHistory(history: History) {
-//        self.mutableSetValue(forKeyPath: #keyPath(Tag.histories)).add(history)
-//    }
-//
-//    func update(url: String) {
-//        if self.url != url {
-//            self.url = url
-//        }
-//    }
 }

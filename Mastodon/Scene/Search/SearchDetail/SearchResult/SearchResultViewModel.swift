@@ -22,7 +22,8 @@ final class SearchResultViewModel {
     let searchScope: SearchScope
     let searchText: String
     @Published var hashtags: [Mastodon.Entity.Tag] = []
-    let userFetchedResultsController: UserFetchedResultsController
+    @Published var accounts: [Mastodon.Entity.Account] = []
+    var relationships: [Mastodon.Entity.Relationship] = []
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
@@ -50,12 +51,9 @@ final class SearchResultViewModel {
         self.authContext = authContext
         self.searchScope = searchScope
         self.searchText = searchText
+        self.accounts = []
+        self.relationships = []
 
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalPredicate: nil
-        )
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
             domain: authContext.mastodonAuthenticationBox.domain,

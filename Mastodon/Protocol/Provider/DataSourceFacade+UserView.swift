@@ -72,7 +72,7 @@ extension DataSourceFacade {
     ) async throws {
         switch buttonState {
             case .follow:
-                try await DataSourceFacade.responseToUserFollowAction(
+                _ = try await DataSourceFacade.responseToUserFollowAction(
                     dependency: dependency,
                     user: user
                 )
@@ -80,21 +80,21 @@ extension DataSourceFacade {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds.append(user.id)
 
             case .request:
-                try await DataSourceFacade.responseToUserFollowAction(
+                _ = try  await DataSourceFacade.responseToUserFollowAction(
                     dependency: dependency,
                     user: user
                 )
 
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followRequestedUserIDs.append(user.id)
             case .unfollow:
-                try await DataSourceFacade.responseToUserFollowAction(
+                _ = try  await DataSourceFacade.responseToUserFollowAction(
                     dependency: dependency,
                     user: user
                 )
 
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds.removeAll(where: { $0 == user.id })
             case .blocked:
-                try await DataSourceFacade.responseToUserBlockAction(
+                try  await DataSourceFacade.responseToUserBlockAction(
                     dependency: dependency,
                     user: user
                 )
@@ -102,7 +102,7 @@ extension DataSourceFacade {
                 dependency.authContext.mastodonAuthenticationBox.inMemoryCache.blockedUserIds.append(user.id)
 
             case .pending:
-                try await DataSourceFacade.responseToUserFollowAction(
+                _ = try  await DataSourceFacade.responseToUserFollowAction(
                     dependency: dependency,
                     user: user
                 )

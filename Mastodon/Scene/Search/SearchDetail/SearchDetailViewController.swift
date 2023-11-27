@@ -73,13 +73,7 @@ final class SearchDetailViewController: UIViewController, NeedsDependency {
         return searchBar
     }()
 
-    private(set) lazy var searchHistoryViewController: SearchHistoryViewController = {
-        let searchHistoryViewController = SearchHistoryViewController()
-        searchHistoryViewController.context = context
-        searchHistoryViewController.coordinator = coordinator
-        searchHistoryViewController.viewModel = SearchHistoryViewModel(context: context, authContext: viewModel.authContext)
-        return searchHistoryViewController
-    }()
+    private var searchHistoryViewController: SearchHistoryViewController
 
     private(set) lazy var searchResultsOverviewViewController: SearchResultsOverviewTableViewController = {
         return searchResultOverviewCoordinator.overviewViewController
@@ -92,8 +86,14 @@ final class SearchDetailViewController: UIViewController, NeedsDependency {
         self.coordinator = sceneCoordinator
 
         self.searchResultOverviewCoordinator = SearchResultOverviewCoordinator(appContext: appContext, authContext: authContext, sceneCoordinator: sceneCoordinator)
+        self.searchHistoryViewController = SearchHistoryViewController()
+        searchHistoryViewController.context = appContext
+        searchHistoryViewController.coordinator = sceneCoordinator
+        searchHistoryViewController.viewModel = SearchHistoryViewModel(context: appContext, authContext: authContext)
 
         super.init(nibName: nil, bundle: nil)
+
+        searchResultOverviewCoordinator.delegate = searchHistoryViewController
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

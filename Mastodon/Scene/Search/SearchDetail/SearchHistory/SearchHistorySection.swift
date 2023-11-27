@@ -9,6 +9,7 @@ import UIKit
 import CoreDataStack
 import MastodonCore
 import MastodonAsset
+import MastodonSDK
 
 enum SearchHistorySection: Hashable {
     case main
@@ -28,47 +29,44 @@ extension SearchHistorySection {
         configuration: Configuration
     ) -> UICollectionViewDiffableDataSource<SearchHistorySection, SearchHistoryItem> {
         
-        let userCellRegister = UICollectionView.CellRegistration<SearchHistoryUserCollectionViewCell, ManagedObjectRecord<MastodonUser>> { cell, indexPath, item in
-            context.managedObjectContext.performAndWait {
-                guard let user = item.object(in: context.managedObjectContext) else { return }
-                cell.condensedUserView.configure(with: user)
-            }
+        let userCellRegister = UICollectionView.CellRegistration<SearchHistoryUserCollectionViewCell, Mastodon.Entity.Account> { cell, indexPath, account in
+
+            cell.condensedUserView.configure(with: account)
         }
-        
-        let hashtagCellRegister = UICollectionView.CellRegistration<UICollectionViewListCell, ManagedObjectRecord<Tag>> { cell, indexPath, item in
-            context.managedObjectContext.performAndWait {
-                guard let hashtag = item.object(in: context.managedObjectContext) else { return }
-                var contentConfiguration = cell.defaultContentConfiguration()
-                contentConfiguration.image = UIImage(systemName: "magnifyingglass")
-                contentConfiguration.imageProperties.tintColor = Asset.Colors.Brand.blurple.color
-                contentConfiguration.text = "#" + hashtag.name
-                cell.contentConfiguration = contentConfiguration
-            }
-            
+
+        let hashtagCellRegister = UICollectionView.CellRegistration<UICollectionViewListCell, Mastodon.Entity.Tag> { cell, indexPath, hashtag in
+
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.image = UIImage(systemName: "magnifyingglass")
+            contentConfiguration.imageProperties.tintColor = Asset.Colors.Brand.blurple.color
+            contentConfiguration.text = "#" + hashtag.name
+            cell.contentConfiguration = contentConfiguration
+
             var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
             backgroundConfiguration.backgroundColorTransformer = .init { [weak cell] _ in
                 guard let state = cell?.configurationState else {
                     return .secondarySystemGroupedBackground
                 }
-                
+
                 if state.isHighlighted || state.isSelected {
                     return SystemTheme.tableViewCellSelectionBackgroundColor
                 }
                 return .secondarySystemGroupedBackground
             }
+
             cell.backgroundConfiguration = backgroundConfiguration
         }
-        
+
         let dataSource = UICollectionViewDiffableDataSource<SearchHistorySection, SearchHistoryItem>(collectionView: collectionView) { collectionView, indexPath, item in
             switch item {
-            case .user(let record):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: userCellRegister,
-                    for: indexPath, item: record)
-            case .hashtag(let record):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: hashtagCellRegister,
-                    for: indexPath, item: record)
+                case .account(let account):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: userCellRegister,
+                        for: indexPath, item: account)
+                case .hashtag(let tag):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: hashtagCellRegister,
+                        for: indexPath, item: tag)
             }
         }
         
