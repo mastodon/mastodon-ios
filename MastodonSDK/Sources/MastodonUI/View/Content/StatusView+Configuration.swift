@@ -184,31 +184,45 @@ extension StatusView {
     }
     
     public func configureAuthor(author: Mastodon.Entity.Account) {
-        // author avatar
-        viewModel.authorAvatarImageURL = author.avatarImageURL()
-        let emojis = author.emojis?.asDictionary ?? [:]
-        
-        // author name
-        viewModel.authorName = {
-            do {
-                let content = MastodonContent(content: author.displayNameWithFallback, emojis: emojis)
-                let metaContent = try MastodonMetaContent.convert(document: content)
-                return metaContent
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return PlaintextMetaContent(string: author.displayNameWithFallback)
-            }
-        }()
-        
-        // author username
-        viewModel.authorUsername = author.acct
-
-        // locked
-        viewModel.locked = author.locked
-
-        // isMuting, isBlocking, Following
         Task {
+            
+            // author avatar
+            viewModel.authorAvatarImageURL = author.avatarImageURL()
+            let emojis = author.emojis?.asDictionary ?? [:]
+            
+            // author name
+            viewModel.authorName = {
+                do {
+                    let content = MastodonContent(content: author.displayNameWithFallback, emojis: emojis)
+                    let metaContent = try MastodonMetaContent.convert(document: content)
+                    return metaContent
+                } catch {
+                    assertionFailure(error.localizedDescription)
+                    return PlaintextMetaContent(string: author.displayNameWithFallback)
+                }
+            }()
+            
+            // author username
+            viewModel.authorUsername = author.acct
+            
+            // locked
+            viewModel.locked = author.locked
+                        
+            // isMyself
+            viewModel.isMyself = {
+                guard let authContext = viewModel.authContext else { return false }
+                return authContext.mastodonAuthenticationBox.domain == author.domain && authContext.mastodonAuthenticationBox.userID == author.id
+            }()
+            
+            // isMuting, isBlocking, Following
             guard let auth = viewModel.authContext?.mastodonAuthenticationBox else { return }
+            guard !viewModel.isMyself else {
+                viewModel.isMuting = false
+                viewModel.isBlocking = false
+                viewModel.isFollowed = false
+                return
+            }
+            
             if let relationship = try? await Mastodon.API.Account.relationships(
                 session: .shared,
                 domain: auth.domain,
@@ -223,13 +237,6 @@ extension StatusView {
                 }
             }
         }
-
-        // isMyself
-        viewModel.isMyself = {
-            guard let authContext = viewModel.authContext else { return false }
-            return authContext.mastodonAuthenticationBox.domain == author.domain && authContext.mastodonAuthenticationBox.userID == author.id
-        }()
-
     }
     
     private func configureTimestamp(timestamp: Date) {
