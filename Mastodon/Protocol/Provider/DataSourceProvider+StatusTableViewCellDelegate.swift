@@ -465,13 +465,14 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure()
                 return
             }
-            guard case let .status(status) = item else {
+            guard case let .status(_status) = item else {
                 assertionFailure("only works for status data provider")
                 return
             }
             let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
+                let status = _status.reblog ?? _status
                 let request = MastodonUser.sortedFetchRequest
-                request.predicate = MastodonUser.predicate(domain: status.entity.account.domain ?? "", id: status.entity.account.id)
+                request.predicate = MastodonUser.predicate(domain: self.authContext.mastodonAuthenticationBox.domain, id: status.entity.account.id)
                 request.fetchLimit = 1
                 guard let author = self.context.managedObjectContext.safeFetch(request).first else { return nil }
                 return .init(objectID: author.objectID)
