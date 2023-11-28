@@ -54,6 +54,7 @@ extension SearchResultSection {
                         relationship: relationship,
                         delegate: configuration.userTableViewCellDelegate
                     )
+                return cell
             case .status(let status):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
                 configure(

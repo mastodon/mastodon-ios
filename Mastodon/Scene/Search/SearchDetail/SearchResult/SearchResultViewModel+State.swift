@@ -123,19 +123,14 @@ extension SearchResultViewModel.State {
                     // discard result when state is not Loading
                     guard stateMachine.currentState is Loading else { return }
 
-//<<<<<<< remove_status
-//                    let userIDs = response.value.accounts.map { $0.id }
-//                    let statusIDs = response.value.statuses.map { MastodonStatus.fromEntity($0) }
-//=======
+                    let statusIDs = searchResults.statuses.map { MastodonStatus.fromEntity($0) }
+
                     let accounts = searchResults.accounts
 
                     let relationships = try await viewModel.context.apiService.relationship(
                         forAccounts: accounts,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     ).value
-
-                    let statusIDs = searchResults.statuses.map { $0.id }
-//>>>>>>> develop
 
                     let isNoMore = accounts.isEmpty && statusIDs.isEmpty
 
@@ -150,11 +145,9 @@ extension SearchResultViewModel.State {
                         await viewModel.statusFetchedResultsController.reset()
                         viewModel.relationships = []
                         viewModel.accounts = []
-                        //viewModel.statusFetchedResultsController.statusIDs = []
                         viewModel.hashtags = []
                     }
 
-                    viewModel.userFetchedResultsController.append(userIDs: userIDs)
                     await viewModel.statusFetchedResultsController.appendRecords(statusIDs)
 
                     
@@ -163,8 +156,6 @@ extension SearchResultViewModel.State {
                         existingRelationships.append(hashtag)
                     }
                     viewModel.relationships = existingRelationships
-
-                    viewModel.statusFetchedResultsController.append(statusIDs: statusIDs)
                     
                     var existingHashtags = viewModel.hashtags
                     for hashtag in searchResults.hashtags where !existingHashtags.contains(hashtag) {
