@@ -42,10 +42,29 @@ public final class StatusFetchedResultsController {
         for (i, record) in newRecords.enumerated() {
             if record.id == status.id {
                 newRecords[i] = status
+            } else if let reblog = status.reblog, reblog.id == record.id {
+                newRecords[i] = status
             } else if let reblog = record.reblog, reblog.id == status.id {
-                newRecords[i].reblog = status
-            } else if status.reblog?.id == status.id {
-                newRecords[i].reblog = status
+                // Handle reblogged state
+                switch status.entity.reblogged {
+                case .some(true):
+                    newRecords[i] = {
+                        let stat = MastodonStatus.fromEntity(records[i].entity)
+                        stat.isSensitiveToggled = status.isSensitiveToggled
+                        stat.reblog = .fromEntity(status.entity)
+                        return stat
+                    }()
+                case .some(false), .none:
+                    newRecords[i] = {
+                        let stat = MastodonStatus.fromEntity(status.entity)
+                        stat.isSensitiveToggled = status.isSensitiveToggled
+                        return stat
+                    }()
+                }
+
+            } else if let reblog = record.reblog, reblog.id == status.reblog?.id {
+                // Handle re-reblogged state
+                newRecords[i] = status
             }
         }
         records = newRecords
