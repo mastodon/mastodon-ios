@@ -27,7 +27,16 @@ extension StatusView {
 
         public var context: AppContext?
         public var authContext: AuthContext?
-        public var originalStatus: MastodonStatus?
+        public var originalStatus: MastodonStatus? {
+            didSet {
+                originalStatus?.$entity
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveValue: { status in
+                        self.isBookmark = status.bookmarked == true
+                    })
+                    .store(in: &disposeBag)
+            }
+        }
 
         // Header
         @Published public var header: Header = .none
@@ -148,6 +157,7 @@ extension StatusView {
             isMediaSensitive = false
             isSensitiveToggled = false
             isCurrentlyTranslating = false
+            isBookmark = false
             translation = nil
 
             activeFilters = []
