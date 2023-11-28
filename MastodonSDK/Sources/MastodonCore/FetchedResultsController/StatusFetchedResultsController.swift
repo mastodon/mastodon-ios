@@ -44,6 +44,8 @@ public final class StatusFetchedResultsController {
                 newRecords[i] = status
             } else if let reblog = record.reblog, reblog.id == status.id {
                 newRecords[i].reblog = status
+            } else if status.reblog?.id == status.id {
+                newRecords[i].reblog = status
             }
         }
         records = newRecords

@@ -33,6 +33,7 @@ extension StatusView {
                     .receive(on: DispatchQueue.main)
                     .sink(receiveValue: { status in
                         self.isBookmark = status.bookmarked == true
+                        self.isMuting = status.muted == true
                     })
                     .store(in: &disposeBag)
             }
