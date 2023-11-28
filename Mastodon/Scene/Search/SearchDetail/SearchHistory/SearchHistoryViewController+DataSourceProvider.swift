@@ -22,10 +22,10 @@ extension SearchHistoryViewController: DataSourceProvider {
         }
         
         switch item {
-        case .user(let record):
-            return .user(record: record)
-        case .hashtag(let record):
-            return .hashtag(tag: .record(record))
+        case .account(let account):
+            return .account(account: account, relationship: nil)
+        case .hashtag(let tag):
+            return .hashtag(tag: tag)
         }
     }
     

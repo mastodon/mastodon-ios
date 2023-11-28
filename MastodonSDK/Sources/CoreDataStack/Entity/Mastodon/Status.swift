@@ -98,7 +98,6 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var reblogFrom: Set<Status>
     @NSManaged public private(set) var replyFrom: Set<Status>
     @NSManaged public private(set) var notifications: Set<Notification>
-    @NSManaged public private(set) var searchHistories: Set<SearchHistory>
     
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var updatedAt: Date

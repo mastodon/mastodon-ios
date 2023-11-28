@@ -113,20 +113,31 @@ extension SearchResultViewModel.State {
             
             Task {
                 do {
-                    let response = try await viewModel.context.apiService.search(
+                    let searchResults = try await viewModel.context.apiService.search(
                         query: query,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
-                    )
-                    
+                    ).value
+
                     // discard result when request not the latest one
                     guard id == self.latestLoadingToken else { return }
                     // discard result when state is not Loading
                     guard stateMachine.currentState is Loading else { return }
 
-                    let userIDs = response.value.accounts.map { $0.id }
-                    let statusIDs = response.value.statuses.map { MastodonStatus.fromEntity($0) }
+//<<<<<<< remove_status
+//                    let userIDs = response.value.accounts.map { $0.id }
+//                    let statusIDs = response.value.statuses.map { MastodonStatus.fromEntity($0) }
+//=======
+                    let accounts = searchResults.accounts
 
-                    let isNoMore = userIDs.isEmpty && statusIDs.isEmpty
+                    let relationships = try await viewModel.context.apiService.relationship(
+                        forAccounts: accounts,
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                    ).value
+
+                    let statusIDs = searchResults.statuses.map { $0.id }
+//>>>>>>> develop
+
+                    let isNoMore = accounts.isEmpty && statusIDs.isEmpty
 
                     if viewModel.searchScope == .all || isNoMore {
                         await enter(state: NoMore.self)
@@ -136,20 +147,37 @@ extension SearchResultViewModel.State {
                     
                     // reset data source when the search is refresh
                     if offset == nil {
-                        viewModel.userFetchedResultsController.userIDs = []
                         await viewModel.statusFetchedResultsController.reset()
+                        viewModel.relationships = []
+                        viewModel.accounts = []
+                        //viewModel.statusFetchedResultsController.statusIDs = []
                         viewModel.hashtags = []
                     }
 
                     viewModel.userFetchedResultsController.append(userIDs: userIDs)
                     await viewModel.statusFetchedResultsController.appendRecords(statusIDs)
+
                     
-                    var hashtags = viewModel.hashtags
-                    for hashtag in response.value.hashtags where !hashtags.contains(hashtag) {
-                        hashtags.append(hashtag)
+                    var existingRelationships = viewModel.relationships
+                    for hashtag in relationships where !existingRelationships.contains(hashtag) {
+                        existingRelationships.append(hashtag)
                     }
-                    viewModel.hashtags = hashtags
+                    viewModel.relationships = existingRelationships
+
+                    viewModel.statusFetchedResultsController.append(statusIDs: statusIDs)
                     
+                    var existingHashtags = viewModel.hashtags
+                    for hashtag in searchResults.hashtags where !existingHashtags.contains(hashtag) {
+                        existingHashtags.append(hashtag)
+                    }
+                    viewModel.hashtags = existingHashtags
+
+                    var existingAccounts = viewModel.accounts
+                    for hashtag in searchResults.accounts where !existingAccounts.contains(hashtag) {
+                        existingAccounts.append(hashtag)
+                    }
+                    viewModel.accounts = existingAccounts
+
                 } catch {
                     await enter(state: Fail.self)
                 }

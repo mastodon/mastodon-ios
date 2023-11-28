@@ -14,14 +14,9 @@ extension DataSourceFacade {
     @MainActor
     static func coordinateToHashtagScene(
         provider: DataSourceProvider & AuthContextProvider,
-        tag: DataSourceItem.TagKind
+        tag: Mastodon.Entity.Tag
     ) async {
-        switch tag {
-        case .entity(let entity):
-            await coordinateToHashtagScene(provider: provider, tag: entity)
-        case .record(let record):
-            await coordinateToHashtagScene(provider: provider, tag: record)
-        }
+        await coordinateToHashtagScene(provider: provider, tag: tag)
     }
     
     @MainActor

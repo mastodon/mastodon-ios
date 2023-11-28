@@ -27,6 +27,7 @@ final class SearchHistoryViewController: UIViewController, NeedsDependency {
         configuration.headerMode = .supplementary
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.keyboardDismissMode = .onDrag
         return collectionView
     }()
 }
@@ -47,6 +48,11 @@ extension SearchHistoryViewController {
             searchHistorySectionHeaderCollectionReusableViewDelegate: self
         )
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        let userID = authContext.mastodonAuthenticationBox.userID
+        viewModel.items = (try? FileManager.default.searchItems(forUser: userID)) ?? []
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -56,32 +62,30 @@ extension SearchHistoryViewController: UICollectionViewDelegate {
         defer {
             collectionView.deselectItem(at: indexPath, animated: true)
         }
-        
+
         Task {
             let source = DataSourceItem.Source(indexPath: indexPath)
             guard let item = await item(from: source) else {
                 return
             }
-            
+
             await DataSourceFacade.responseToCreateSearchHistory(
                 provider: self,
                 item: item
             )
-            
+
             switch item {
-            case .user(let record):
-                await DataSourceFacade.coordinateToProfileScene(
-                    provider: self,
-                    user: record
-                )
-            case .hashtag(let record):
-                await DataSourceFacade.coordinateToHashtagScene(
-                    provider: self,
-                    tag: record
-                )
-            default:
-                assertionFailure()
-                break
+                case .account(account: let account, relationship: _):
+                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+
+                case .hashtag(let tag):
+                    await DataSourceFacade.coordinateToHashtagScene(
+                        provider: self,
+                        tag: tag
+                    )
+                default:
+                    assertionFailure()
+                    break
             }
         }
     }
@@ -99,14 +103,17 @@ extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusa
         _ searchHistorySectionHeaderCollectionReusableView: SearchHistorySectionHeaderCollectionReusableView,
         clearButtonDidPressed button: UIButton
     ) {
-        Task {
-            try await DataSourceFacade.responseToDeleteSearchHistory(
-                provider: self
-            )
+        let userID = authContext.mastodonAuthenticationBox.userID
 
-            await MainActor.run {
-                button.isEnabled = false
-            }
-        }
+        FileManager.default.removeSearchHistory(forUser: userID)
+        viewModel.items = []
+    }
+}
+
+//MARK: - SearchResultOverviewCoordinatorDelegate
+extension SearchHistoryViewController: SearchResultOverviewCoordinatorDelegate {
+    func newSearchHistoryItemAdded(_ coordinator: SearchResultOverviewCoordinator) {
+        let userID = authContext.mastodonAuthenticationBox.userID
+        viewModel.items = (try? FileManager.default.searchItems(forUser: userID)) ?? []
     }
 }

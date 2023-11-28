@@ -8,7 +8,22 @@
 
 import Foundation
 
-public enum Persistence { }
+public enum Persistence {
+    case searchHistory
+
+    private var filename: String {
+        switch self {
+            case .searchHistory:
+                return "search_history"
+        }
+    }
+
+    public func filepath(baseURL: URL) -> URL {
+        baseURL
+            .appending(path: filename)
+            .appendingPathExtension("json")
+    }
+}
 
 
 extension Persistence {
