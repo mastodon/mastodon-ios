@@ -20,8 +20,7 @@ final class HomeTimelineNavigationBarTitleViewModel {
     // input
     let context: AppContext
     var networkErrorCount = CurrentValueSubject<Int, Never>(0)
-    var networkErrorPublisher = PassthroughSubject<Void, Never>()
-    
+
     // output
     let state = CurrentValueSubject<State, Never>(.logo)
     let hasNewPosts = CurrentValueSubject<Bool, Never>(false)
@@ -32,15 +31,7 @@ final class HomeTimelineNavigationBarTitleViewModel {
     
     init(context: AppContext) {
         self.context = context
-        
-        networkErrorPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.networkErrorCount.value = self.networkErrorCount.value + 1
-            }
-            .store(in: &disposeBag)
-        
+
         networkErrorCount
             .receive(on: DispatchQueue.main)
             .map { count in
@@ -131,23 +122,18 @@ extension HomeTimelineNavigationBarTitleViewModel {
 
 // MARK: - Offline state
 extension HomeTimelineNavigationBarTitleViewModel {
-
-    func resetOfflineCounterListener() {
-        networkErrorCount.value = 0
-    }
-    
     func receiveLoadingStateCompletion(_ completion: Subscribers.Completion<Error>) {
         switch completion {
-        case .failure:
-            networkErrorPublisher.send()
-        case .finished:
-            resetOfflineCounterListener()
+            case .failure:
+                networkErrorCount.value += 1
+            case .finished:
+                networkErrorCount.value = 0
         }
     }
-    
+
     func handleScrollViewDidScroll(_ scrollView: UIScrollView) {
         guard hasNewPosts.value else { return }
-        
+
         let contentOffsetY = scrollView.contentOffset.y
         let isScrollToTop = contentOffsetY < -scrollView.contentInset.top
         guard isScrollToTop else { return }
@@ -155,28 +141,3 @@ extension HomeTimelineNavigationBarTitleViewModel {
     }
     
 }
-
-// MARK: Publish post state
-//extension HomeTimelineNavigationBarTitleViewModel {
-//
-//    func setupPublishingProgress() {
-//        let progressUpdatePublisher = Timer.publish(every: 0.016, on: .main, in: .common)     // ~ 60FPS
-//            .autoconnect()
-//            .share()
-//            .eraseToAnyPublisher()
-//
-//        publishingProgressSubscription = progressUpdatePublisher
-//            .map { _ in Float(0) }
-//            .scan(0.0) { progress, _ -> Float in
-//                return 0.95 * progress + 0.05    // progress + 0.05 * (1.0 - progress). ~ 1 sec to 0.95 (under 60FPS)
-//            }
-//            .subscribe(publishingProgress)
-//    }
-//
-//    func suspendPublishingProgress() {
-//        publishingProgressSubscription = nil
-//        publishingProgress.send(0)
-//    }
-//
-//}
-
