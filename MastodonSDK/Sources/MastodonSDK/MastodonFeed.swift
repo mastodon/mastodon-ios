@@ -56,13 +56,15 @@ extension MastodonFeed: Hashable {
     public static func == (lhs: MastodonFeed, rhs: MastodonFeed) -> Bool {
         lhs.id == rhs.id && 
         lhs.status?.entity == rhs.status?.entity &&
-        lhs.status?.reblog?.entity == rhs.status?.reblog?.entity
+        lhs.status?.reblog?.entity == rhs.status?.reblog?.entity &&
+        lhs.status?.isSensitiveToggled == rhs.status?.isSensitiveToggled
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(status?.entity)
         hasher.combine(status?.reblog?.entity)
+        hasher.combine(status?.isSensitiveToggled)
     }
     
 }

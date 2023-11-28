@@ -150,7 +150,7 @@ extension DataSourceFacade {
     
     @MainActor
     static func responseToMenuAction(
-        dependency: UIViewController & NeedsDependency & AuthContextProvider,
+        dependency: UIViewController & NeedsDependency & AuthContextProvider & DataSourceProvider,
         action: MastodonMenu.Action,
         menuContext: MenuContext
     ) async throws {
@@ -389,13 +389,15 @@ extension DataSourceFacade {
 extension DataSourceFacade {
     
     static func responseToToggleSensitiveAction(
-        dependency: NeedsDependency,
+        dependency: NeedsDependency & DataSourceProvider,
         status: MastodonStatus
     ) async throws {
-        try await dependency.context.managedObjectContext.perform {
-            let _status = status.reblog ?? status
-            _status.isSensitiveToggled = !_status.isSensitiveToggled
-        }
+        let _status = status.reblog ?? status
+        
+        let newStatus: MastodonStatus = .fromEntity(_status.entity)
+        newStatus.isSensitiveToggled = !_status.isSensitiveToggled
+        
+        dependency.update(status: newStatus)
     }
     
 }

@@ -16,6 +16,7 @@ import MastodonLocalization
 import CoreDataStack
 import TabBarPager
 import XLPagerTabStrip
+import MastodonSDK
 
 protocol ProfileViewModelEditable {
     var isEdited: Bool { get }
@@ -938,5 +939,16 @@ extension ProfileViewController: PagerTabStripNavigateable {
 private extension ProfileViewController {
     var currentInstance: Instance? {
         authContext.mastodonAuthenticationBox.authentication.instance(in: context.managedObjectContext)
+    }
+}
+
+extension ProfileViewController: DataSourceProvider {
+    func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
+        assertionFailure("Implement not required in this class")
+        return nil
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Implement not required in this class")
     }
 }

@@ -37,12 +37,14 @@ extension MastodonStatus {
 extension MastodonStatus: Hashable {
     public static func == (lhs: MastodonStatus, rhs: MastodonStatus) -> Bool {
         lhs.entity == rhs.entity &&
-        lhs.reblog?.entity == rhs.reblog?.entity
+        lhs.reblog?.entity == rhs.reblog?.entity &&
+        lhs.isSensitiveToggled == rhs.isSensitiveToggled
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(entity)
         hasher.combine(reblog?.entity)
+        hasher.combine(isSensitiveToggled)
     }
 }
 
