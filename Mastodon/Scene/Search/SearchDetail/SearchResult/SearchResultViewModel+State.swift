@@ -125,10 +125,15 @@ extension SearchResultViewModel.State {
 
                     let accounts = searchResults.accounts
 
-                    let relationships = try await viewModel.context.apiService.relationship(
-                        forAccounts: accounts,
-                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
-                    ).value
+                    let relationships: [Mastodon.Entity.Relationship]
+                    if accounts.isNotEmpty {
+                        relationships = try await viewModel.context.apiService.relationship(
+                            forAccounts: accounts,
+                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                        ).value
+                    } else {
+                        relationships = []
+                    }
 
                     let statusIDs = searchResults.statuses.map { $0.id }
 
