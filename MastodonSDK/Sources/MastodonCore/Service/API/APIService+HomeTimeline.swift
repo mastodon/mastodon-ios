@@ -46,8 +46,9 @@ extension APIService {
         // FIXME: This is a dirty hack to make the performance-stuff work.
         // Problem is, that we don't persist the user on disk anymore. So we have to fetch
         // it when we need it to display on the home timeline.
+        // We need this (also) for the Account-list, but it might be the wrong place. App Startup might be more appropriate
         for authentication in AuthenticationServiceProvider.shared.authentications {
-            _ = try await accountInfo(domain: authentication.domain,
+            _ = try await? accountInfo(domain: authentication.domain,
                                        userID: authentication.userID,
                                        authorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)).value
         }
