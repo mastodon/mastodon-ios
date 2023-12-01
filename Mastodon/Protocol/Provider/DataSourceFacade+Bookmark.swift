@@ -24,6 +24,9 @@ extension DataSourceFacade {
             authenticationBox: provider.authContext.mastodonAuthenticationBox
         ).value
         
-        provider.update(status: .fromEntity(updatedStatus))
+        let newStatus: MastodonStatus = .fromEntity(updatedStatus)
+        newStatus.isSensitiveToggled = status.isSensitiveToggled
+        
+        provider.update(status: newStatus)
     }
 }
