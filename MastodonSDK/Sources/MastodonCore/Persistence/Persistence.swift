@@ -10,11 +10,14 @@ import Foundation
 
 public enum Persistence {
     case searchHistory
+    case homeTimeline(String)
 
     private var filename: String {
         switch self {
             case .searchHistory:
                 return "search_history"
+            case let .homeTimeline(userId):
+                return "home_timeline_\(userId)"
         }
     }
 

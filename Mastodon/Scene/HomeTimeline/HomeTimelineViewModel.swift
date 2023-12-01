@@ -15,6 +15,7 @@ import GameplayKit
 import AlamofireImage
 import MastodonCore
 import MastodonUI
+import MastodonSDK
 
 final class HomeTimelineViewModel: NSObject {
     
@@ -83,6 +84,10 @@ final class HomeTimelineViewModel: NSObject {
         self.fetchedResultsController = FeedFetchedResultsController(context: context, authContext: authContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
+        self.fetchedResultsController.records = (try? FileManager.default.cachedHomeTimeline(for: authContext.mastodonAuthenticationBox.userID).map {
+            MastodonFeed.fromStatus($0, kind: .home)
+        }) ?? []
+        
         homeTimelineNeedRefresh
             .sink { [weak self] _ in
                 self?.loadLatestStateMachine.enter(LoadLatestState.Loading.self)
@@ -96,6 +101,18 @@ final class HomeTimelineViewModel: NSObject {
                 guard let self = self else { return }
                 self.homeTimelineNeedRefresh.send()
             }
+            .store(in: &disposeBag)
+        
+        self.fetchedResultsController.$records
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { feeds in
+                let items: [MastodonStatus] = feeds.compactMap { feed -> MastodonStatus? in
+                    guard let status = feed.status else { return nil }
+                    return status
+                }
+                FileManager.default.cacheHomeTimeline(items: items, for: authContext.mastodonAuthenticationBox.userID)
+            })
             .store(in: &disposeBag)
         
         self.fetchedResultsController.loadInitial(kind: .home)
