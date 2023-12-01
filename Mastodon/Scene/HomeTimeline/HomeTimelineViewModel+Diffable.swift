@@ -76,12 +76,12 @@ extension HomeTimelineViewModel {
                         oldSnapshot: oldSnapshot,
                         newSnapshot: newSnapshot
                     ) else {
-                        self.updateSnapshotUsingReloadData(snapshot: newSnapshot)
+                        await self.updateDataSource(snapshot: newSnapshot, animatingDifferences: false)
                         self.didLoadLatest.send()
                         return
                     }
                     
-                    self.updateSnapshotUsingReloadData(snapshot: newSnapshot)
+                    await self.updateDataSource(snapshot: newSnapshot, animatingDifferences: false)
                     tableView.scrollToRow(at: difference.targetIndexPath, at: .top, animated: false)
                     var contentOffset = tableView.contentOffset
                     contentOffset.y = tableView.contentOffset.y - difference.sourceDistanceToTableViewTopEdge
