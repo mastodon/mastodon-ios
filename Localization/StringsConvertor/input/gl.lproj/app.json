@@ -656,8 +656,8 @@
                 "url": "Abrir URL en Mastodon",
                 "hashtag": "Ir a #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Non se atopou ningunha conta",
+                    "message": "Non hai contas con \"%s\" en %s"
                 },
                 "empty_state": {
                     "no_results": "Sen resultados"
@@ -710,44 +710,44 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "Axustes",
+                "general": "Xeral",
+                "notifications": "Notificacións",
+                "support_mastodon": "Apoia a Mastodon",
+                "about_mastodon": "Acerca de Mastodon",
+                "server_details": "Detalles do servidor",
+                "logout": "Pechar sesión %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Acerca de",
+                "more_settings": "Máis axustes",
+                "contribute_to_mastodon": "Colaborar con Mastodon",
+                "privacy_policy": "Política de Privacidade",
+                "clear_media_storage": "Limpar Almacenaxe Multimedia"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Acerca de",
+                "rules": "Regras",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Administración",
+                    "message_admin": "Mensaxe a Admin",
+                    "legal_notice": "Aviso Legal"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Xeral",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Aparencia",
+                    "dark": "Escuro",
+                    "light": "Claro",
+                    "system": "Seguir ao dispositivo"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Deseño",
+                    "show_animations": "Reproducir avatares e emoji animados"
                 },
                 "links": {
-                    "section_title": "Links",
+                    "section_title": "Ligazóns",
                     "open_in_mastodon": "Open in Mastodon",
                     "open_in_browser": "Open in Browser"
                 }
