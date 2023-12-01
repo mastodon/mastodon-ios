@@ -17,18 +17,29 @@ extension DataSourceFacade {
         target: StatusTarget,
         status: MastodonStatus
     ) async {
-        let _redirectRecord = await DataSourceFacade.author(
-            managedObjectContext: provider.context.managedObjectContext,
-            status: status,
-            target: target
-        )
+        let acct: String = {
+            switch target {
+            case .status:
+                return status.reblog?.entity.account.acct ?? status.entity.account.acct
+            case .reblog:
+                return status.entity.account.acct
+            }
+        }()
+        
+        let _redirectRecord = try? await Mastodon.API.Account.lookupAccount(
+            session: .shared,
+            domain: provider.authContext.mastodonAuthenticationBox.domain,
+            query: .init(acct: acct),
+            authorization: provider.authContext.mastodonAuthenticationBox.userAuthorization
+        ).singleOutput().value
+                
         guard let redirectRecord = _redirectRecord else {
             assertionFailure()
             return
         }
         await coordinateToProfileScene(
             provider: provider,
-            user: redirectRecord
+            account: redirectRecord
         )
     }
     
