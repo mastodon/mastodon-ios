@@ -2,7 +2,7 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Inténtao de novo.",
+                "please_try_again": "Téntao de novo.",
                 "please_try_again_later": "Inténtao de novo máis tarde."
             },
             "sign_up_failure": {
@@ -748,28 +748,28 @@
                 },
                 "links": {
                     "section_title": "Ligazóns",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_mastodon": "Abrir en Mastodon",
+                    "open_in_browser": "Abrir no navegador"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notificacións",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Recibir notificacións de",
+                    "anyone": "Calquera",
+                    "followers": "Persoas que te seguen",
+                    "follow": "Persoas que segues",
+                    "noone": "Ninguén"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Mencións e respostas",
+                    "boosts": "Promocións",
+                    "favorites": "Favoritos",
+                    "new_followers": "Novas seguidoras"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Activar notificacións nos axustes do dispositivo para ver novidades na pantalla de bloqueo.",
+                    "go_to_settings": "Ir aos axustes das notificacións"
                 }
             }
         },
