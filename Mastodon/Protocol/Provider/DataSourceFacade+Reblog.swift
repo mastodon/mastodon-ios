@@ -24,6 +24,7 @@ extension DataSourceFacade {
         ).value
 
         let newStatus: MastodonStatus = .fromEntity(updatedStatus)
+        newStatus.reblog?.isSensitiveToggled = status.isSensitiveToggled
         newStatus.isSensitiveToggled = status.isSensitiveToggled
         
         provider.update(status: newStatus)
