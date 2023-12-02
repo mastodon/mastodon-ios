@@ -722,8 +722,8 @@
                 "title": "About",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "privacy_policy": "プライバシーポリシー",
+                "clear_media_storage": "メディアキャッシュの削除"
             },
             "server_details": {
                 "about": "About",
@@ -737,23 +737,23 @@
             "general": {
                 "title": "General",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "テーマ",
+                    "dark": "ダーク",
+                    "light": "ライト",
+                    "system": "端末の設定に合わせる"
                 },
                 "design": {
                     "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "show_animations": "アニメーションアイコンと絵文字を再生"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Webブラウザ",
+                    "open_in_mastodon": "アプリ内ブラウザアプリで開く",
+                    "open_in_browser": "ブラウザアプリで開く"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "通知",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
@@ -764,8 +764,8 @@
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "favorites": "お気に入り",
+                    "new_followers": "新しいフォロワー"
                 },
                 "disabled": {
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
