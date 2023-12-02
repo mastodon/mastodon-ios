@@ -656,8 +656,8 @@
                 "url": "URL を Mastodon で開く",
                 "hashtag": "#%s へ移動",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "ユーザーアカウントが見つかりませんでした",
+                    "message": "\"%s\"というユーザーは%sには見つかりませんでした"
                 },
                 "empty_state": {
                     "no_results": "なし"
@@ -710,32 +710,32 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
+                "title": "設定",
+                "general": "一般",
+                "notifications": "通知",
                 "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "about_mastodon": "Mastodonについて",
+                "server_details": "サーバーの詳細",
+                "logout": "%@ をログアウト"
             },
             "about_mastodon": {
                 "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
+                "more_settings": "さらに詳しい設定",
+                "contribute_to_mastodon": "Mastodonに貢献する",
                 "privacy_policy": "プライバシーポリシー",
                 "clear_media_storage": "メディアキャッシュの削除"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "このサーバーについて",
+                "rules": "ルール",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
+                    "title": "管理者",
+                    "message_admin": "管理者にメッセージを送信",
                     "legal_notice": "A legal notice"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "一般",
                 "appearance": {
                     "section_title": "テーマ",
                     "dark": "ダーク",
@@ -743,7 +743,7 @@
                     "system": "端末の設定に合わせる"
                 },
                 "design": {
-                    "section_title": "Design",
+                    "section_title": "アニメーション",
                     "show_animations": "アニメーションアイコンと絵文字を再生"
                 },
                 "links": {
@@ -755,21 +755,21 @@
             "notifications": {
                 "title": "通知",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "通知を送信する人",
+                    "anyone": "誰でも",
+                    "followers": "あなたのフォロワーのみ",
+                    "follow": "あなたがフォローしている人のみ",
+                    "noone": "誰にも許可しない"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
+                    "mentions_and_replies": "メンションと返信",
+                    "boosts": "ブースト",
                     "favorites": "お気に入り",
                     "new_followers": "新しいフォロワー"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "プッシュ通知を受け取るには、端末の設定から通知を許可しましょう。",
+                    "go_to_settings": "端末の通知設定を開く"
                 }
             }
         },
