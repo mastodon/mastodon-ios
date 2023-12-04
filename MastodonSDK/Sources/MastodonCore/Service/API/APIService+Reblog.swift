@@ -23,30 +23,17 @@ extension APIService {
         status: MastodonStatus,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
-        let managedObjectContext = backgroundManagedObjectContext
-        
+       
         // update repost state and retrieve repost context
-        let _reblogContext: MastodonReblogContext? = try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-            
-            guard
-                let me = authentication.user(in: managedObjectContext)
-            else { return nil }
-            
-            let _status = status.reblog ?? status
-            let isReblogged = _status.entity.reblogged == true
-            let rebloggedCount = Int64(_status.entity.reblogsCount)
+        let _status = status.reblog ?? status
+        let isReblogged = _status.entity.reblogged == true
+        let rebloggedCount = Int64(_status.entity.reblogsCount)
 
-            let reblogContext = MastodonReblogContext(
-                statusID: _status.id,
-                isReblogged: isReblogged,
-                rebloggedCount: rebloggedCount
-            )
-            return reblogContext
-        }
-        guard let reblogContext = _reblogContext else {
-            throw APIError.implicit(.badRequest)
-        }
+        let reblogContext = MastodonReblogContext(
+            statusID: _status.id,
+            isReblogged: isReblogged,
+            rebloggedCount: rebloggedCount
+        )
         
         // request repost or undo repost
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>
@@ -86,7 +73,6 @@ extension APIService {
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
         
-        #warning("Is this still required?")
         try await managedObjectContext.performChanges {
             for entity in response.value {
                 _ = Persistence.MastodonUser.createOrMerge(

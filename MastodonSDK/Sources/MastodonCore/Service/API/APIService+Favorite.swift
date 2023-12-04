@@ -23,30 +23,17 @@ extension APIService {
         status: MastodonStatus,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
-
-        let managedObjectContext = backgroundManagedObjectContext
         
         // update like state and retrieve like context
-        let favoriteContext: MastodonFavoriteContext = try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-            
-            guard
-                let me = authentication.user(in: managedObjectContext)
-            else {
-                throw APIError.implicit(.badRequest)
-            }
+        let _status = status.reblog ?? status
+        let isFavorited = _status.entity.favourited == true
+        let favoritedCount = Int64(_status.entity.favouritesCount)
 
-            let _status = status.reblog ?? status
-            let isFavorited = _status.entity.favourited == true
-            let favoritedCount = Int64(_status.entity.favouritesCount)
-
-            let context = MastodonFavoriteContext(
-                statusID: _status.id,
-                isFavorited: isFavorited,
-                favoritedCount: favoritedCount
-            )
-            return context
-        }
+        let favoriteContext = MastodonFavoriteContext(
+            statusID: _status.id,
+            isFavorited: isFavorited,
+            favoritedCount: favoritedCount
+        )
 
         // request like or undo like
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>

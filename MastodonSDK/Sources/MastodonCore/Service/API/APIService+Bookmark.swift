@@ -22,29 +22,16 @@ extension APIService {
         record: MastodonStatus,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
-
-        let managedObjectContext = backgroundManagedObjectContext
                 
         // update bookmark state and retrieve bookmark context
-        let bookmarkContext: MastodonBookmarkContext = try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-            
-            guard
-                let me = authentication.user(in: managedObjectContext)
-            else {
-                throw APIError.implicit(.badRequest)
-            }
-            
-            let _status = record.entity
-            let status = _status.reblog ?? _status
-            let isBookmarked = status.bookmarked == true
+        let _status = record.entity
+        let status = _status.reblog ?? _status
+        let isBookmarked = status.bookmarked == true
 
-            let context = MastodonBookmarkContext(
-                statusID: status.id,
-                isBookmarked: isBookmarked
-            )
-            return context
-        }
+        let bookmarkContext = MastodonBookmarkContext(
+            statusID: status.id,
+            isBookmarked: isBookmarked
+        )
 
         // request bookmark or undo bookmark
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>
