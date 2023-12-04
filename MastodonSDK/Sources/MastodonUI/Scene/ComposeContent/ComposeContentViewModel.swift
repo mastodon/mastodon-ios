@@ -283,7 +283,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 isContentWarningActive = true
                 contentWarning = status.entity.spoilerText ?? ""
             }
-            Task {
+            Task { @MainActor in
                 if let poll = await status.getPoll(in: context.managedObjectContext, domain: authContext.mastodonAuthenticationBox.domain) {
                     isPollActive = !poll.expired
                     pollMultipleConfigurationOption = poll.multiple

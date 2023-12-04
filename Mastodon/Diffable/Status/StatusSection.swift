@@ -109,9 +109,7 @@ extension StatusSection {
         tableView: UITableView,
         indexPath: IndexPath,
         configuration: ThreadCellRegistrationConfiguration
-    ) -> UITableViewCell {
-        let managedObjectContext = context.managedObjectContext
-        
+    ) -> UITableViewCell {        
         switch configuration.thread {
         case .root(let threadContext):
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusThreadRootTableViewCell.self), for: indexPath) as! StatusThreadRootTableViewCell
