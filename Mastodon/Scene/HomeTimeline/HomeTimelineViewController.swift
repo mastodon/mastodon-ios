@@ -386,7 +386,10 @@ extension HomeTimelineViewController {
     @objc func signOutAction(_ sender: UIAction) {
         Task { @MainActor in
             try await context.authenticationService.signOutMastodonUser(authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
-            FileManager.default.invalidateHomeTimelineCache(for: viewModel.authContext.mastodonAuthenticationBox.userID)
+            let userId = viewModel.authContext.mastodonAuthenticationBox.userID
+            FileManager.default.invalidateHomeTimelineCache(for: userId)
+            FileManager.default.invalidateNotificationsAll(for: userId)
+            FileManager.default.invalidateNotificationsMentions(for: userId)
             self.coordinator.setup()
         }
     }

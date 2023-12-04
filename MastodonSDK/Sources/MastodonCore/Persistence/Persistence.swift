@@ -11,6 +11,8 @@ import Foundation
 public enum Persistence {
     case searchHistory
     case homeTimeline(String)
+    case notificationsMentions(String)
+    case notificationsAll(String)
 
     private var filename: String {
         switch self {
@@ -18,6 +20,10 @@ public enum Persistence {
                 return "search_history"
             case let .homeTimeline(userId):
                 return "home_timeline_\(userId)"
+            case let .notificationsMentions(userId):
+                return "notifications_mentions_\(userId)"
+            case let .notificationsAll(userId):
+                return "notifications_all_\(userId)"
         }
     }
 

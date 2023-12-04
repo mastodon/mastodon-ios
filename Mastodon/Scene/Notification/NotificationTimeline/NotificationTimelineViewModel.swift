@@ -53,6 +53,34 @@ final class NotificationTimelineViewModel {
         self.authContext = authContext
         self.scope = scope
         self.feedFetchedResultsController = FeedFetchedResultsController(context: context, authContext: authContext)
+        
+        switch scope {
+        case .everything:
+            self.feedFetchedResultsController.records = (try? FileManager.default.cachedNotificationsAll(for: authContext.mastodonAuthenticationBox.userID))?.map({ notification in
+                MastodonFeed.fromNotification(notification, kind: .notificationAll)
+            }) ?? []
+        case .mentions:
+            self.feedFetchedResultsController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox.userID))?.map({ notification in
+                MastodonFeed.fromNotification(notification, kind: .notificationMentions)
+            }) ?? []
+        }
+        
+        self.feedFetchedResultsController.$records
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { feeds in
+                let items: [Mastodon.Entity.Notification] = feeds.compactMap { feed -> Mastodon.Entity.Notification? in
+                    guard let status = feed.notification else { return nil }
+                    return status
+                }
+                switch self.scope {
+                case .everything:
+                    FileManager.default.cacheNotificationsAll(items: items, for: authContext.mastodonAuthenticationBox.userID)
+                case .mentions:
+                    FileManager.default.cacheNotificationsMentions(items: items, for: authContext.mastodonAuthenticationBox.userID)
+                }
+            })
+            .store(in: &disposeBag)
     }
     
     

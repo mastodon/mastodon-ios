@@ -626,7 +626,10 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
                 try await self.appContext.authenticationService.signOutMastodonUser(
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
-                FileManager.default.invalidateHomeTimelineCache(for: authContext.mastodonAuthenticationBox.userID)
+                let userId = authContext.mastodonAuthenticationBox.userID
+                FileManager.default.invalidateHomeTimelineCache(for: userId)
+                FileManager.default.invalidateNotificationsAll(for: userId)
+                FileManager.default.invalidateNotificationsMentions(for: userId)
                 self.setup()
             }
 
