@@ -362,12 +362,13 @@ extension StatusView {
 
     private func configurePoll(status: MastodonStatus) {
         Task {
+            let status = status.reblog ?? status
+
             guard
                 let context = viewModel.context?.managedObjectContext,
-                let poll = await status.getPoll(in: context)
+                let poll = await status.getPoll(in: context, domain: viewModel.authContext?.mastodonAuthenticationBox.domain ?? "")
             else { return }
             
-            let status = status.reblog ?? status
             
             viewModel.managedObjects.insert(poll)
 
@@ -507,9 +508,8 @@ extension StatusView {
 }
 
 extension MastodonStatus {
-    func getPoll(in context: NSManagedObjectContext) async -> Poll? {
+    func getPoll(in context: NSManagedObjectContext, domain: String) async -> Poll? {
         guard
-            let domain = entity.account.domain,
             let pollId = entity.poll?.id
         else { return nil }
         return try? await context.perform {
