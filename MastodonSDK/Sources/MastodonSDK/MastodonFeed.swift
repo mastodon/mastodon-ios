@@ -45,7 +45,12 @@ public extension MastodonFeed {
         MastodonFeed(
             hasMore: false,
             isLoadingMore: false,
-            status: nil,
+            status: {
+                guard let status = notification.status else {
+                    return nil
+                }
+                return .fromEntity(status)
+            }(),
             notification: notification,
             kind: kind
         )
