@@ -50,6 +50,10 @@ public final class StatusView: UIView {
     public weak var delegate: StatusViewDelegate?
     
     public private(set) var style: Style?
+    
+    public var domain: String? {
+        viewModel.authContext?.mastodonAuthenticationBox.domain
+    }
 
     // accessibility actions
     var toolbarActions = [UIAccessibilityCustomAction]()

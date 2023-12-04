@@ -25,7 +25,7 @@ extension NotificationTimelineViewController: DataSourceProvider {
             let managedObjectContext = context.managedObjectContext
             let item: DataSourceItem? = {
                 guard feed.kind == .notificationAll || feed.kind == .notificationMentions else { return nil }
-                if let notification = feed.notification, let mastodonNotification = MastodonNotification.fromEntity(notification, using: managedObjectContext) {
+                if let notification = feed.notification, let mastodonNotification = MastodonNotification.fromEntity(notification, using: managedObjectContext, domain: authContext.mastodonAuthenticationBox.domain) {
                     return .notification(record: mastodonNotification)
                 } else {
                     return nil

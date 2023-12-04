@@ -28,7 +28,11 @@ extension NotificationView {
             return
         }
 
-        MastodonNotification.fromEntity(notification, using: managedObjectContext).map(configure(notification:))
+        MastodonNotification.fromEntity(
+            notification,
+            using: managedObjectContext,
+            domain: viewModel.authContext?.mastodonAuthenticationBox.domain ?? ""
+        ).map(configure(notification:))
     }
 }
 

@@ -21,7 +21,7 @@ public final class MastodonFeed {
     public let kind: Feed.Kind
     
     init(hasMore: Bool, isLoadingMore: Bool, status: MastodonStatus?, notification: Mastodon.Entity.Notification?, kind: Feed.Kind) {
-        self.id = status?.id ?? notification?.id ?? UUID().uuidString
+        self.id = notification?.id ?? status?.id ?? UUID().uuidString
         self.hasMore = hasMore
         self.isLoadingMore = isLoadingMore
         self.status = status

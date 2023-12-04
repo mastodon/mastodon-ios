@@ -61,41 +61,6 @@ final class NotificationTimelineViewModel {
 extension NotificationTimelineViewModel {
 
     typealias Scope = APIService.MastodonNotificationScope
-    
-    static func feedPredicate(
-        authenticationBox: MastodonAuthenticationBox,
-        scope: Scope
-    ) -> NSPredicate {
-        let domain = authenticationBox.domain
-        let userID = authenticationBox.userID
-        let acct = Feed.Acct.mastodon(
-            domain: domain,
-            userID: userID
-        )
-        
-        let predicate: NSPredicate = {
-            switch scope {
-            case .everything:
-                return NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    Feed.hasNotificationPredicate(),
-                    Feed.predicate(
-                        kind: .notificationAll,
-                        acct: acct
-                    )
-                ])
-            case .mentions:
-                return NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    Feed.hasNotificationPredicate(),
-                    Feed.predicate(
-                        kind: .notificationMentions,
-                        acct: acct
-                    ),
-                    Feed.notificationTypePredicate(types: scope.includeTypes ?? [])
-                ])
-            }
-        }()
-        return predicate
-    }
 
 }
 

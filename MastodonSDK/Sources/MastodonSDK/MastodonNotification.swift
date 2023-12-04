@@ -26,10 +26,13 @@ public final class MastodonNotification {
 }
 
 public extension MastodonNotification {
-    static func fromEntity(_ entity: Mastodon.Entity.Notification, using managedObjectContext: NSManagedObjectContext) -> MastodonNotification? {
+    static func fromEntity(_ entity: Mastodon.Entity.Notification, using managedObjectContext: NSManagedObjectContext, domain: String) -> MastodonNotification? {
         guard let user = MastodonUser.fetch(in: managedObjectContext, configurationBlock: { request in
-            request.predicate = MastodonUser.predicate(domain: entity.account.domain ?? "", id: entity.account.id)
-        }).first else { return nil }
+            request.predicate = MastodonUser.predicate(domain: domain, id: entity.account.id)
+        }).first else {
+            assertionFailure()
+            return nil
+        }
         return MastodonNotification(entity: entity, account: user, status: entity.status.map(MastodonStatus.fromEntity), feeds: [])
     }
 }

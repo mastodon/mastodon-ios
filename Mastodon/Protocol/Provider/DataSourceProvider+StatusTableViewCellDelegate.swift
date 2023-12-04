@@ -22,6 +22,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         statusView: StatusView,
         headerDidPressed header: UIView
     ) {
+        let domain = statusView.domain ?? ""
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
             guard let item = await item(from: source) else {
@@ -40,12 +41,13 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 let _replyToAuthor: ManagedObjectRecord<MastodonUser>? = try? await context.managedObjectContext.perform {
                     guard let inReplyToAccountID = status.entity.inReplyToAccountID else { return nil }
                     let request = MastodonUser.sortedFetchRequest
-                    request.predicate = MastodonUser.predicate(domain: status.entity.account.domain ?? "", id: inReplyToAccountID)
+                    request.predicate = MastodonUser.predicate(domain: domain, id: inReplyToAccountID)
                     request.fetchLimit = 1
                     guard let author = self.context.managedObjectContext.safeFetch(request).first else { return nil }
                     return .init(objectID: author.objectID)
                 }
                 guard let replyToAuthor = _replyToAuthor else {
+                    assertionFailure()
                     return
                 }
                 
