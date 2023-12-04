@@ -276,6 +276,7 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
         guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return }
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPathForSelectedRow) else { return }
+        let domain = authContext.mastodonAuthenticationBox.domain
         
         Task { @MainActor in
             switch item {
@@ -296,7 +297,7 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                 } else {
                     context.managedObjectContext.perform {
                         let mastodonUserRequest = MastodonUser.sortedFetchRequest
-                        mastodonUserRequest.predicate = MastodonUser.predicate(domain: notification.account.domain ?? "", id: notification.account.id)
+                        mastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: notification.account.id)
                         mastodonUserRequest.fetchLimit = 1
                         guard let mastodonUser = try? self.context.managedObjectContext.fetch(mastodonUserRequest).first else {
                             return

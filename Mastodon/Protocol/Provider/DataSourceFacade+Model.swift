@@ -25,19 +25,3 @@ extension DataSourceFacade {
         }
     }
 }
-
-extension DataSourceFacade {
-    static func author(
-        managedObjectContext: NSManagedObjectContext,
-        status: MastodonStatus,
-        target: StatusTarget
-    ) async -> ManagedObjectRecord<MastodonUser>? {
-        return try? await managedObjectContext.perform {
-            return DataSourceFacade.status(managedObjectContext: managedObjectContext, status: status, target: target)
-                .flatMap { $0.entity.account }
-                .flatMap {
-                    MastodonUser.findOrFetch(in: managedObjectContext, matching: MastodonUser.predicate(domain: $0.domain ?? "", id: $0.id))?.asRecord
-                }
-        }
-    }
-}

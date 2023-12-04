@@ -142,15 +142,6 @@ extension StatusView {
                 }
             } else {
                 // B. replyTo status not exist
-                
-//                let request = MastodonUser.sortedFetchRequest
-//                request.predicate = MastodonUser.predicate(domain: status.domain, id: inReplyToAccountID)
-//                if let user = status.managedObjectContext?.safeFetch(request).first {
-//                    // B1. replyTo user exist
-//                    let header = createHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
-//                    viewModel.header = header
-//                } else {
-                    // B2. replyTo user not exist
                     let header = createHeader(name: nil, emojis: nil)
                     viewModel.header = header
                     
