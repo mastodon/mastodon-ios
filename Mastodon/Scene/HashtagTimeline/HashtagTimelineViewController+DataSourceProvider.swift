@@ -32,6 +32,10 @@ extension HashtagTimelineViewController: DataSourceProvider {
         viewModel.fetchedResultsController.update(status: status)
     }
     
+    func delete(status: MastodonStatus) {
+        viewModel.fetchedResultsController.deleteRecord(status)
+    }
+    
     @MainActor
     private func indexPath(for cell: UITableViewCell) async -> IndexPath? {
         return tableView.indexPath(for: cell)

@@ -27,9 +27,15 @@ extension FavoriteViewController: DataSourceProvider {
             return nil
         }
     }
-    
+
     func update(status: MastodonStatus) {
         viewModel.statusFetchedResultsController.update(status: status)
+    }
+    
+    func delete(status: MastodonStatus) {
+        viewModel.statusFetchedResultsController.setRecords(
+            viewModel.statusFetchedResultsController.records.filter { $0.id != status.id }
+        )
     }
     
     @MainActor

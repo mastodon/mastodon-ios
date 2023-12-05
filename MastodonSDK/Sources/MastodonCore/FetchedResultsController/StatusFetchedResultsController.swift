@@ -37,6 +37,11 @@ public final class StatusFetchedResultsController {
     }
     
     @MainActor
+    public func deleteRecord(_ record: MastodonStatus) {
+        self.records = self.records.filter { $0.id != record.id }
+    }
+    
+    @MainActor
     public func update(status: MastodonStatus) {
         var newRecords = Array(records)
         for (i, record) in newRecords.enumerated() {

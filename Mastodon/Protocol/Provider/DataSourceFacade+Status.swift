@@ -20,13 +20,15 @@ import MastodonSDK
 extension DataSourceFacade {
     
     static func responseToDeleteStatus(
-        dependency: NeedsDependency & AuthContextProvider,
+        dependency: NeedsDependency & AuthContextProvider & DataSourceProvider,
         status: MastodonStatus
     ) async throws {
-        _ = try await dependency.context.apiService.deleteStatus(
+        let deletedStatus = try await dependency.context.apiService.deleteStatus(
             status: status,
             authenticationBox: dependency.authContext.mastodonAuthenticationBox
-        )
+        ).value.asMastodonStatus
+        
+        dependency.delete(status: deletedStatus)
     }
     
 }

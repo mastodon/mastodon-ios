@@ -33,6 +33,10 @@ extension ThreadViewController: DataSourceProvider {
         viewModel.root = .root(context: .init(status: status))
     }
     
+    func delete(status: MastodonStatus) {
+        assertionFailure("Needs implementation")
+    }
+    
     @MainActor
     private func indexPath(for cell: UITableViewCell) async -> IndexPath? {
         return tableView.indexPath(for: cell)

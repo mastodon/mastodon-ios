@@ -71,6 +71,10 @@ final public class FeedFetchedResultsController {
         }
         records = newRecords
     }
+    
+    public func delete(status: MastodonStatus) {
+        self.records.removeAll { $0.id == status.id }
+    }
 }
 
 private extension FeedFetchedResultsController {

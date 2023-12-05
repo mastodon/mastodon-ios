@@ -944,11 +944,15 @@ private extension ProfileViewController {
 
 extension ProfileViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
-        assertionFailure("Implement not required in this class")
+        assertionFailure("Not required")
         return nil
     }
     
     func update(status: MastodonStatus) {
-        assertionFailure("Implement not required in this class")
+        assertionFailure("Not required")
+    }
+    
+    func delete(status: MastodonStatus) {
+        assertionFailure("Not required")
     }
 }

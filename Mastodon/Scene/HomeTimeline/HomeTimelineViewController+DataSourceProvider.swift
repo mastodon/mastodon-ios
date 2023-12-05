@@ -35,9 +35,13 @@ extension HomeTimelineViewController: DataSourceProvider {
             return nil
         }
     }
-    
+
     func update(status: MastodonStatus) {
         viewModel.fetchedResultsController.update(status: status)
+    }
+    
+    func delete(status: MastodonStatus) {
+        viewModel.fetchedResultsController.records = viewModel.fetchedResultsController.records.filter { $0.id != status.id }
     }
     
     @MainActor

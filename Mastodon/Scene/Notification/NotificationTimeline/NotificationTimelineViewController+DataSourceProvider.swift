@@ -36,9 +36,13 @@ extension NotificationTimelineViewController: DataSourceProvider {
             return nil
         }
     }
-    
+
     func update(status: MastodonStatus) {
         viewModel.feedFetchedResultsController.update(status: status)
+    }
+    
+    func delete(status: MastodonStatus) {
+        viewModel.feedFetchedResultsController
     }
     
     @MainActor

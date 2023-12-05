@@ -29,7 +29,11 @@ extension FavoritedByViewController: DataSourceProvider {
     }
     
     func update(status: MastodonStatus) {
-        assertionFailure("Implement not required in this class")
+        assertionFailure("Not required")
+    }
+    
+    func delete(status: MastodonStatus) {
+        assertionFailure("Not required")
     }
     
     @MainActor
