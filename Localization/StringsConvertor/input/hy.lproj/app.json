@@ -97,20 +97,20 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "edit_post": "Խմբագրել",
+                "bookmark": "Էջանիշ",
+                "remove_bookmark": "Հեռացնել էջանիշը",
+                "follow": "Հետեւել %s-ին",
+                "unfollow": "Չհետեւել %s-ին"
             },
             "tabs": {
-                "home": "Home",
+                "home": "Հիմնական",
                 "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
-                "profile": "Profile",
+                "notifications": "Ծանուցումներ",
+                "profile": "Հաշիւ",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Որոնել",
+                    "explore": "Բացայայտել"
                 }
             },
             "keyboard": {
