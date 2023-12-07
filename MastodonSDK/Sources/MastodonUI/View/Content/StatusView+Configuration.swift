@@ -86,12 +86,35 @@ extension StatusView {
 
 extension StatusView {
     private func configureHeader(status: MastodonStatus) {
-        if let _ = status.reblog {
-            let name = status.entity.account.displayName
+        if status.entity.reblogged == true, 
+            let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox,
+            let managedObjectContext = viewModel.context?.managedObjectContext {
+            
+            let user = MastodonUser.findOrFetch(
+                in: managedObjectContext,
+                matching: MastodonUser.predicate(domain: authenticationBox.domain, id: authenticationBox.userID)
+            )
+
+            let name = user?.displayNameWithFallback ?? authenticationBox.authentication.username
+            let emojis = user?.emojis ?? []
+            
+            viewModel.header = {
+                let text = L10n.Common.Controls.Status.userReblogged(name)
+                let content = MastodonContent(content: text, emojis: emojis.asDictionary)
+                do {
+                    let metaContent = try MastodonMetaContent.convert(document: content)
+                    return .repost(info: .init(header: metaContent))
+                } catch {
+                    let metaContent = PlaintextMetaContent(string: name)
+                    return .repost(info: .init(header: metaContent))
+                }
+            }()
+        } else if status.reblog != nil {
+            let name = status.entity.account.displayNameWithFallback
             let emojis = status.entity.account.emojis ?? []
             
             viewModel.header = {
-                let text = L10n.Common.Controls.Status.userReblogged(status.entity.account.displayNameWithFallback)
+                let text = L10n.Common.Controls.Status.userReblogged(name)
                 let content = MastodonContent(content: text, emojis: emojis.asDictionary)
                 do {
                     let metaContent = try MastodonMetaContent.convert(document: content)

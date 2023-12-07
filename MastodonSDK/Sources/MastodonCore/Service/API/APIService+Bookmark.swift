@@ -72,35 +72,7 @@ extension APIService {
             authorization: authenticationBox.userAuthorization,
             query: query
         ).singleOutput()
-        
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            
-            guard
-                let me = authenticationBox.authentication.user(in: managedObjectContext)
-            else {
-                assertionFailure()
-                return
-            }
-            
-            for entity in response.value {
-                let result = Persistence.Status.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Status.PersistContext(
-                        domain: authenticationBox.domain,
-                        entity: entity,
-                        me: me,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-                
-                result.status.update(bookmarked: true, by: me)
-                result.status.reblog?.update(bookmarked: true, by: me)
-            }   // end for … in
-        }
-        
+
         return response
     }   // end func
 }
