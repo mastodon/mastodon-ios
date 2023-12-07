@@ -144,8 +144,7 @@ extension DataSourceFacade {
 extension DataSourceFacade {
     
     struct MenuContext {
-        let author: ManagedObjectRecord<MastodonUser>? // todo: Remove once IOS-192 is ready
-        let authorEntity: Mastodon.Entity.Account?
+        let author: Mastodon.Entity.Account
         let statusViewModel: StatusView.ViewModel?
         let button: UIButton?
         let barButtonItem: UIBarButtonItem?
@@ -176,17 +175,9 @@ extension DataSourceFacade {
                     guard let dependency else { return }
 
                     Task {
-                        let managedObjectContext = dependency.context.managedObjectContext
-                        let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
-                            guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
-                            return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                        }
-
-                        guard let user = _user else { return }
-
                         try await DataSourceFacade.responseToShowHideReblogAction(
                             dependency: dependency,
-                            user: user
+                            account: menuContext.author
                         )
                     }
                 }
@@ -207,17 +198,11 @@ extension DataSourceFacade {
                 title: actionContext.isMuting ? L10n.Common.Controls.Friendship.unmute : L10n.Common.Controls.Friendship.mute,
                 style: .destructive
             ) { [weak dependency] _ in
-                guard let dependency = dependency else { return }
+                guard let dependency else { return }
                 Task {
-                    let managedObjectContext = dependency.context.managedObjectContext
-                    let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
-                        guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
-                        return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                    }
-                    guard let user = _user else { return }
                     try await DataSourceFacade.responseToUserMuteAction(
                         dependency: dependency,
-                        user: user
+                        account: menuContext.author
                     )
                 }   // end Task
             }
@@ -235,19 +220,13 @@ extension DataSourceFacade {
                 title: actionContext.isBlocking ? L10n.Common.Controls.Friendship.unblock : L10n.Common.Controls.Friendship.block,
                 style: .destructive
             ) { [weak dependency] _ in
-                guard let dependency = dependency else { return }
+                guard let dependency else { return }
                 Task {
-                    let managedObjectContext = dependency.context.managedObjectContext
-                    let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
-                        guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
-                        return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                    }
-                    guard let user = _user else { return }
                     try await DataSourceFacade.responseToUserBlockAction(
                         dependency: dependency,
-                        user: user
+                        user: menuContext.author
                     )
-                }   // end Task
+                }
             }
             alertController.addAction(confirmAction)
             let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
@@ -255,12 +234,11 @@ extension DataSourceFacade {
             dependency.present(alertController, animated: true)
         case .reportUser:
             Task {
-                guard let user = menuContext.author else { return }
-                
+
                 let reportViewModel = ReportViewModel(
                     context: dependency.context,
                     authContext: dependency.authContext,
-                    user: user,
+                    account: menuContext.author,
                     status: menuContext.statusViewModel?.originalStatus
                 )
                 
@@ -272,15 +250,11 @@ extension DataSourceFacade {
             }   // end Task
                 
         case .shareUser:
-            guard let user = menuContext.author else {
-                assertionFailure()
-                return
-            }
-            let _activityViewController = try await DataSourceFacade.createActivityViewController(
+            let activityViewController = DataSourceFacade.createActivityViewController(
                 dependency: dependency,
-                user: user
+                account: menuContext.author
             )
-            guard let activityViewController = _activityViewController else { return }
+
             _ = dependency.coordinator.present(
                 scene: .activityViewController(
                     activityViewController: activityViewController,
@@ -303,7 +277,6 @@ extension DataSourceFacade {
             }   // end Task
         case .shareStatus:
             Task {
-                let managedObjectContext = dependency.context.managedObjectContext
                 guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
                     assertionFailure()
                     return
@@ -380,11 +353,8 @@ extension DataSourceFacade {
             // do nothing, as the translation is reverted in `StatusTableViewCellDelegate` in `DataSourceProvider+StatusTableViewCellDelegate.swift`.
             break
         case .followUser(_):
-
-            guard let author = menuContext.author else { return }
-
             try await DataSourceFacade.responseToUserFollowAction(dependency: dependency,
-                                                                  user: author)
+                                                                  user: menuContext.author)
         }
     }   // end func
 }

@@ -7,49 +7,48 @@
 
 import UIKit
 import Combine
-import CoreDataStack
+import MastodonSDK
 
 extension ProfileHeaderView {
-    func configuration(user: MastodonUser) {
-        // header
-        user.publisher(for: \.header)
-            .map { _ in user.headerImageURL() }
-            .assign(to: \.headerImageURL, on: viewModel)
-            .store(in: &disposeBag)
-        // avatar
-        user.publisher(for: \.avatar)
-            .map { _ in user.avatarImageURL() }
-            .assign(to: \.avatarImageURL, on: viewModel)
-            .store(in: &disposeBag)
-        // emojiMeta
-        user.publisher(for: \.emojis)
-            .map { $0.asDictionary }
-            .assign(to: \.emojiMeta, on: viewModel)
-            .store(in: &disposeBag)
-        // name
-        user.publisher(for: \.displayName)
-            .map { _ in user.displayNameWithFallback }
-            .assign(to: \.name, on: viewModel)
-            .store(in: &disposeBag)
-        // username
-        viewModel.acct = user.acctWithDomain
-        // bio
-        user.publisher(for: \.note)
-            .assign(to: \.note, on: viewModel)
-            .store(in: &disposeBag)
-        // dashboard
-        user.publisher(for: \.statusesCount)
-            .map { Int($0) }
-            .assign(to: \.statusesCount, on: viewModel)
-            .store(in: &disposeBag)
-        user.publisher(for: \.followingCount)
-            .map { Int($0) }
-            .assign(to: \.followingCount, on: viewModel)
-            .store(in: &disposeBag)
-        user.publisher(for: \.followersCount)
-            .map { Int($0) }
-            .assign(to: \.followersCount, on: viewModel)
-            .store(in: &disposeBag)
+    func configuration(account: Mastodon.Entity.Account) {
+        #warning("TODO: Implement")
+//        // header
+//        account.header.publisher
+//            .assign(to: \.headerImageURL, on: viewModel)
+//            .store(in: &disposeBag)
+//        // avatar
+//        account.avatar.publisher
+//            .assign(to: \.avatarImageURL, on: viewModel)
+//            .store(in: &disposeBag)
+//        // emojiMeta
+//        account.emojis.publisher
+//            .map { $0.asDictionary }
+//            .assign(to: \.emojiMeta, on: viewModel)
+//            .store(in: &disposeBag)
+//        // name
+//        account.publisher(for: \.displayName)
+//            .map { _ in account.displayNameWithFallback }
+//            .assign(to: \.name, on: viewModel)
+//            .store(in: &disposeBag)
+//        // username
+//        viewModel.acct = account.acctWithDomain
+//        // bio
+//        account.publisher(for: \.note)
+//            .assign(to: \.note, on: viewModel)
+//            .store(in: &disposeBag)
+//        // dashboard
+//        account.publisher(for: \.statusesCount)
+//            .map { Int($0) }
+//            .assign(to: \.statusesCount, on: viewModel)
+//            .store(in: &disposeBag)
+//        account.publisher(for: \.followingCount)
+//            .map { Int($0) }
+//            .assign(to: \.followingCount, on: viewModel)
+//            .store(in: &disposeBag)
+//        account.publisher(for: \.followersCount)
+//            .map { Int($0) }
+//            .assign(to: \.followersCount, on: viewModel)
+//            .store(in: &disposeBag)
     }
 }
 

@@ -295,25 +295,17 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                         transition: .show
                     )
                 } else {
-                    context.managedObjectContext.perform {
-                        let mastodonUserRequest = MastodonUser.sortedFetchRequest
-                        mastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: notification.account.id)
-                        mastodonUserRequest.fetchLimit = 1
-                        guard let mastodonUser = try? self.context.managedObjectContext.fetch(mastodonUserRequest).first else {
-                            return
-                        }
-                        
-                        let profileViewModel = ProfileViewModel(
-                            context: self.context,
-                            authContext: self.viewModel.authContext,
-                            optionalMastodonUser: mastodonUser
-                        )
-                        _ = self.coordinator.present(
-                            scene: .profile(viewModel: profileViewModel),
-                            from: self,
-                            transition: .show
-                        )
-                    }
+
+                    let profileViewModel = ProfileViewModel(
+                        context: self.context,
+                        authContext: self.viewModel.authContext,
+                        account: notification.account
+                    )
+                    _ = self.coordinator.present(
+                        scene: .profile(viewModel: profileViewModel),
+                        from: self,
+                        transition: .show
+                    )
                 }
             default:
                 break

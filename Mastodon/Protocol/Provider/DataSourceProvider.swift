@@ -13,6 +13,7 @@ import class CoreDataStack.Notification
 
 enum DataSourceItem: Hashable {
     case status(record: MastodonStatus)
+    @available(*, deprecated, message: "Use .account")
     case user(record: ManagedObjectRecord<MastodonUser>)
     case hashtag(tag: Mastodon.Entity.Tag)
     case notification(record: MastodonNotification)

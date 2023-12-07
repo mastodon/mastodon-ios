@@ -16,19 +16,12 @@ final class MeProfileViewModel: ProfileViewModel {
     
     @MainActor
     init(context: AppContext, authContext: AuthContext) {
-        let user = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
+        let me = authContext.mastodonAuthenticationBox.authentication.account()
         super.init(
             context: context,
             authContext: authContext,
-            optionalMastodonUser: user
+            account: me
         )
-        
-        $me
-            .sink { [weak self] me in
-                guard let self = self else { return }
-                self.user = me
-            }
-            .store(in: &disposeBag)
     }
 
     override func viewDidLoad() {
@@ -37,17 +30,9 @@ final class MeProfileViewModel: ProfileViewModel {
 
         Task {
             do {
-
-                _ = try await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value
-
-                try await context.managedObjectContext.performChanges {
-                    guard let me = self.authContext.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else {
-                        assertionFailure()
-                        return
-                    }
-
-                    self.me = me
-                }
+                let account = try await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value
+                self.account = account
+                self.me = account
             } catch {
                 // do nothing?
             }

@@ -26,8 +26,8 @@ final class ProfileHeaderViewModel {
     let context: AppContext
     let authContext: AuthContext
     
-    @Published var user: MastodonUser?
-    @Published var relationshipActionOptionSet: RelationshipActionOptionSet = .none
+    @Published var account: Mastodon.Entity.Account?
+    @Published var relationship: Mastodon.Entity.Relationship?
 
     @Published var isMyself = false
     @Published var isEditing = false

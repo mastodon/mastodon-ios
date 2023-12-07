@@ -90,7 +90,7 @@ extension ReportResultViewController {
                     do {
                         try await DataSourceFacade.responseToUserFollowAction(
                             dependency: self,
-                            user: self.viewModel.user
+                            user: self.viewModel.account
                         )
                     } catch {
                         // handle error
@@ -110,7 +110,7 @@ extension ReportResultViewController {
                     do {
                         try await DataSourceFacade.responseToUserMuteAction(
                             dependency: self,
-                            user: self.viewModel.user
+                            account: self.viewModel.account
                         )
                     } catch {
                         // handle error
@@ -130,7 +130,7 @@ extension ReportResultViewController {
                     do {
                         try await DataSourceFacade.responseToUserBlockAction(
                             dependency: self,
-                            user: self.viewModel.user
+                            user: self.viewModel.account
                         )
                     } catch {
                         // handle error

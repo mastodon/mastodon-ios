@@ -24,43 +24,37 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
             switch item {
                 case .account(let account, relationship: _):
                     await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
-            case .status(let status):
-                await DataSourceFacade.coordinateToStatusThreadScene(
-                    provider: self,
-                    target: .status,    // remove reblog wrapper
-                    status: status
-                )
-            case .user(let user):
-                await DataSourceFacade.coordinateToProfileScene(
-                    provider: self,
-                    user: user
-                )
-            case .hashtag(let tag):
-                await DataSourceFacade.coordinateToHashtagScene(
-                    provider: self,
-                    tag: tag
-                )
-            case .notification(let notification):                
-                let _status: MastodonStatus? = notification.status
-                if let status = _status {
+                case .status(let status):
                     await DataSourceFacade.coordinateToStatusThreadScene(
                         provider: self,
-                        target: .status,        // remove reblog wrapper
+                        target: .status,    // remove reblog wrapper
                         status: status
                     )
-                } else {
-                    let _author: ManagedObjectRecord<MastodonUser>? = notification.account.asRecord
-                    if let author = _author {
+                case .user(let user):
+                    break
+                case .hashtag(let tag):
+                    await DataSourceFacade.coordinateToHashtagScene(
+                        provider: self,
+                        tag: tag
+                    )
+                case .notification(let notification):
+                    let managedObjectContext = context.managedObjectContext
+                    
+                    let _status: MastodonStatus? = notification.status
+                    if let status = _status {
+                        await DataSourceFacade.coordinateToStatusThreadScene(
+                            provider: self,
+                            target: .status,        // remove reblog wrapper
+                            status: status
+                        )
+                    } else {
                         await DataSourceFacade.coordinateToProfileScene(
                             provider: self,
-                            user: author
-                        )
+                            account: notification.entity.account)
                     }
-                }
-            }
-        }   // end Task
-    }   // end func
-    
+            }   // end Task
+        }   // end func
+    }
 }
 
 extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableViewController {

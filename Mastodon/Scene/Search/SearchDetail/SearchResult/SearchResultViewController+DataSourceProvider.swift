@@ -70,10 +70,7 @@ extension SearchResultViewController {
                     status: status
                 )
             case .user(let user):
-                await DataSourceFacade.coordinateToProfileScene(
-                    provider: self,
-                    user: user
-                )
+                    assertionFailure()
             case .hashtag(let tag):
                 await DataSourceFacade.coordinateToHashtagScene(
                     provider: self,

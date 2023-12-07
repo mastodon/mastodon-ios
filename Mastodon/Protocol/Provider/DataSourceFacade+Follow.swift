@@ -120,11 +120,12 @@ extension DataSourceFacade {
 extension DataSourceFacade {
   static func responseToShowHideReblogAction(
     dependency: NeedsDependency & AuthContextProvider,
-    user: ManagedObjectRecord<MastodonUser>
+    account: Mastodon.Entity.Account
   ) async throws {
-    _ = try await dependency.context.apiService.toggleShowReblogs(
-      for: user,
-      authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+      #warning("TODO: Implement")
+//    _ = try await dependency.context.apiService.toggleShowReblogs(
+//      for: user,
+//      authenticationBox: dependency.authContext.mastodonAuthenticationBox)
   }
     
     static func responseToShowHideReblogAction(

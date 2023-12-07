@@ -18,7 +18,7 @@ class ReportSupplementaryViewModel {
     // Input
     let context: AppContext
     let authContext: AuthContext
-    let user: ManagedObjectRecord<MastodonUser>
+    let account: Mastodon.Entity.Account
     let commentContext = ReportItem.CommentContext()
     
     @Published var isSkip = false
@@ -31,11 +31,11 @@ class ReportSupplementaryViewModel {
     init(
         context: AppContext,
         authContext: AuthContext,
-        user: ManagedObjectRecord<MastodonUser>
+        account: Mastodon.Entity.Account
     ) {
         self.context = context
         self.authContext = authContext
-        self.user = user
+        self.account = account
         // end init
         
         Publishers.CombineLatest(

@@ -542,27 +542,3 @@ extension ProfileHeaderView: ProfileStatusDashboardViewDelegate {
         delegate?.profileHeaderView(self, profileStatusDashboardView: dashboardView, dashboardMeterViewDidPressed: dashboardMeterView, meter: meter)
     }
 }
-
-#if DEBUG
-import SwiftUI
-
-struct ProfileHeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            UIViewPreview(width: 375) {
-                let banner = ProfileHeaderView()
-                banner.bannerImageView.image = UIImage(named: "lucas-ludwig")
-                return banner
-            }
-            .previewLayout(.fixed(width: 375, height: 800))
-            UIViewPreview(width: 375) {
-                let banner = ProfileHeaderView()
-                //banner.bannerImageView.image = UIImage(named: "peter-luo")
-                return banner
-            }
-            .preferredColorScheme(.dark)
-            .previewLayout(.fixed(width: 375, height: 800))
-        }
-    }
-}
-#endif

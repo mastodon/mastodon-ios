@@ -34,21 +34,16 @@ class ProfileViewModel: NSObject {
     let context: AppContext
     let authContext: AuthContext
 
-    @available(*, deprecated, message: "Replace with Account")
-    @Published var me: MastodonUser?
+    @Published var me: Mastodon.Entity.Account?
+    @Published var account: Mastodon.Entity.Account
+    @Published var relationship: Mastodon.Entity.Relationship?
 
-    @available(*, deprecated, message: "Replace with Account")
-    @Published var user: MastodonUser?
-    
     let viewDidAppear = PassthroughSubject<Void, Never>()
     
     @Published var isEditing = false
     @Published var isUpdating = false
     @Published var accountForEdit: Mastodon.Entity.Account?
         
-    // output
-    let relationshipViewModel = RelationshipViewModel()
-    
     @Published var userIdentifier: UserIdentifier? = nil
     
     @Published var isRelationshipActionButtonHidden: Bool = true
@@ -61,10 +56,10 @@ class ProfileViewModel: NSObject {
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
     @MainActor
-    init(context: AppContext, authContext: AuthContext, optionalMastodonUser mastodonUser: MastodonUser?) {
+    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account?) {
         self.context = context
         self.authContext = authContext
-        self.user = mastodonUser
+        self.account = account!
         self.postsUserTimelineViewModel = UserTimelineViewModel(
             context: context,
             authContext: authContext,
@@ -87,93 +82,86 @@ class ProfileViewModel: NSObject {
         super.init()
         
         // bind me
-        self.me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
-        $me
-            .assign(to: \.me, on: relationshipViewModel)
-            .store(in: &disposeBag)
+        self.me = authContext.mastodonAuthenticationBox.authentication.account()
 
         // bind user
-        $user
+        $account
             .map { user -> UserIdentifier? in
-                guard let user = user else { return nil }
-                return MastodonUserIdentifier(domain: user.domain, userID: user.id)
+                guard let account, let domain = account.domain else { return nil }
+                return MastodonUserIdentifier(domain: domain, userID: account.id)
             }
             .assign(to: &$userIdentifier)
-        $user
-            .assign(to: \.user, on: relationshipViewModel)
-            .store(in: &disposeBag)
-        
+
         // bind userIdentifier
         $userIdentifier.assign(to: &postsUserTimelineViewModel.$userIdentifier)
         $userIdentifier.assign(to: &repliesUserTimelineViewModel.$userIdentifier)
         $userIdentifier.assign(to: &mediaUserTimelineViewModel.$userIdentifier)
         
         // bind bar button items
-        relationshipViewModel.$optionSet
-            .sink { [weak self] optionSet in
-                guard let self = self else { return }
-                guard let optionSet = optionSet, !optionSet.contains(.none) else {
-                    self.isReplyBarButtonItemHidden = true
-                    self.isMoreMenuBarButtonItemHidden = true
-                    self.isMeBarButtonItemsHidden = true
-                    return
-                }
-                
-                let isMyself = optionSet.contains(.isMyself)
-                self.isReplyBarButtonItemHidden = isMyself
-                self.isMoreMenuBarButtonItemHidden = isMyself
-                self.isMeBarButtonItemsHidden = !isMyself
-            }
-            .store(in: &disposeBag)
+#warning("TODO: Implement")
+//        relationshipViewModel.$optionSet
+//            .sink { [weak self] optionSet in
+//                guard let self = self else { return }
+//                guard let optionSet = optionSet, !optionSet.contains(.none) else {
+//                    self.isReplyBarButtonItemHidden = true
+//                    self.isMoreMenuBarButtonItemHidden = true
+//                    self.isMeBarButtonItemsHidden = true
+//                    return
+//                }
+//                
+//                let isMyself = optionSet.contains(.isMyself)
+//                self.isReplyBarButtonItemHidden = isMyself
+//                self.isMoreMenuBarButtonItemHidden = isMyself
+//                self.isMeBarButtonItemsHidden = !isMyself
+//            }
+//            .store(in: &disposeBag)
 
         // query relationship
-        let userRecord = $user.map { user -> ManagedObjectRecord<MastodonUser>? in
-            user.flatMap { ManagedObjectRecord<MastodonUser>(objectID: $0.objectID) }
-        }
-        let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
+    #warning("TODO: Implement")
+//        let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
 
-        // observe friendship
-        Publishers.CombineLatest(
-            userRecord,
-            pendingRetryPublisher
-        )
-        .sink { [weak self] userRecord, _ in
-            guard let self = self else { return }
-            guard let userRecord = userRecord else { return }
-            Task {
-                do {
-                    let response = try await self.updateRelationship(
-                        record: userRecord,
-                        authenticationBox: self.authContext.mastodonAuthenticationBox
-                    )
-                    // there are seconds delay after request follow before requested -> following. Query again when needs
-                    guard let relationship = response.value.first else { return }
-                    if relationship.requested == true {
-                        let delay = pendingRetryPublisher.value
-                        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-                            guard let _ = self else { return }
-                            pendingRetryPublisher.value = min(2 * delay, 60)
-                        }
-                    }
-                } catch {
-                }
-            }   // end Task
-        }
-        .store(in: &disposeBag)
+//        // observe friendship
+//        Publishers.CombineLatest(
+//            account,
+//            pendingRetryPublisher
+//        )
+//        .sink { [weak self] account, _ in
+//            guard let self, let account else { return }
+//
+//            Task {
+//                do {
+//                    let response = try await self.updateRelationship(
+//                        account: account,
+//                        authenticationBox: self.authContext.mastodonAuthenticationBox
+//                    )
+//                    // there are seconds delay after request follow before requested -> following. Query again when needs
+//                    guard let relationship = response.value.first else { return }
+//                    if relationship.requested == true {
+//                        let delay = pendingRetryPublisher.value
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+//                            guard let _ = self else { return }
+//                            pendingRetryPublisher.value = min(2 * delay, 60)
+//                        }
+//                    }
+//                } catch {
+//                }
+//            }   // end Task
+//        }
+//        .store(in: &disposeBag)
 
-        let isBlockingOrBlocked = Publishers.CombineLatest(
-            relationshipViewModel.$isBlocking,
-            relationshipViewModel.$isBlockingBy
-        )
-        .map { $0 || $1 }
-        .share()
-        
-        Publishers.CombineLatest(
-            isBlockingOrBlocked,
-            $isEditing
-        )
-        .map { !$0 && !$1 }
-        .assign(to: &$isPagingEnabled)
+//        let isBlockingOrBlocked = Publishers.CombineLatest(
+//            relationshipViewModel.$isBlocking,
+//            relationshipViewModel.$isBlockingBy
+//        )
+//        .map { $0 || $1 }
+//        .share()
+//        
+//        Publishers.CombineLatest(
+//            isBlockingOrBlocked,
+//            $isEditing
+//        )
+//        .map { !$0 && !$1 }
+//        .assign(to: &$isPagingEnabled)
     }
     
 
@@ -183,21 +171,21 @@ class ProfileViewModel: NSObject {
 
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        guard let me else {
+        guard let me, let domain = me.domain else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
 
         let mastodonAuthentication = authContext.mastodonAuthenticationBox.authentication
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
-        return context.apiService.accountVerifyCredentials(domain: me.domain, authorization: authorization)
+        return context.apiService.accountVerifyCredentials(domain: domain, authorization: authorization)
     }
     
     private func updateRelationship(
-        record: ManagedObjectRecord<MastodonUser>,
+        account: Mastodon.Entity.Account,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
         let response = try await context.apiService.relationship(
-            records: [record],
+            forAccounts: [account],
             authenticationBox: authenticationBox
         )
         return response

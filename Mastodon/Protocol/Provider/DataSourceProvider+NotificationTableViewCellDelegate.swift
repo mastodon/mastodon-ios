@@ -31,20 +31,11 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
             
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                return .init(objectID: notification.account.objectID)
-            }
-            guard let author = _author else {
-                assertionFailure()
-                return
-            }
-            
             try await DataSourceFacade.responseToMenuAction(
                 dependency: self,
                 action: action,
                 menuContext: .init(
-                    author: author,
-                    authorEntity: notification.entity.account,
+                    author: notification.entity.account,
                     statusViewModel: nil,
                     button: button,
                     barButtonItem: nil
@@ -71,16 +62,10 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                return .init(objectID: notification.account.objectID)
-            }
-            guard let author = _author else {
-                assertionFailure()
-                return
-            }
+
             await DataSourceFacade.coordinateToProfileScene(
                 provider: self,
-                user: author
+                account: notification.entity.account
             )
         }   // end Task
     }
@@ -322,7 +307,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
 
             await DataSourceFacade.coordinateToProfileScene(
                 provider: self,
-                user: notification.account.asRecord
+                account: notification.entity.account
             )
         }   // end Task
     }
@@ -494,21 +479,20 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
             switch item {
-            case .status(let status):
-                await DataSourceFacade.coordinateToStatusThreadScene(
-                    provider: self,
-                    target: .status,    // remove reblog wrapper
-                    status: status
-                )
-            case .user(let user):
-                await DataSourceFacade.coordinateToProfileScene(
-                    provider: self,
-                    user: user
-                )
-            case .notification:
-                assertionFailure("TODO")
-            default:
-                assertionFailure("TODO")
+                case .status(let status):
+                    await DataSourceFacade.coordinateToStatusThreadScene(
+                        provider: self,
+                        target: .status,    // remove reblog wrapper
+                        status: status
+                    )
+                case .user(let user):
+                    break
+                case .account(let account, let relationship):
+                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+                case .notification:
+                    assertionFailure("TODO")
+                case .hashtag(_):
+                    assertionFailure("TODO")
             }
         }   // end Task
     }

@@ -203,7 +203,7 @@ extension ProfileViewController {
             .store(in: &disposeBag)
 
         Publishers.CombineLatest4 (
-            viewModel.relationshipViewModel.$isSuspended,
+            viewModel.account.suspended.publisher,
             profileHeaderViewController.viewModel.$isTitleViewDisplaying,
             editingAndUpdatingPublisher.eraseToAnyPublisher(),
             barButtonItemHiddenPublisher.eraseToAnyPublisher()
@@ -296,43 +296,43 @@ extension ProfileViewController {
     
     private func bindViewModel() {
         // header
+#warning("TODO: Implement")
         let headerViewModel = profileHeaderViewController.viewModel!
-        viewModel.$user
-            .assign(to: \.user, on: headerViewModel)
-            .store(in: &disposeBag)
+//        viewModel.$account
+//            .assign(to: \.account, on: headerViewModel)
+//            .store(in: &disposeBag)
         viewModel.$isEditing
             .assign(to: \.isEditing, on: headerViewModel)
             .store(in: &disposeBag)
         viewModel.$isUpdating
             .assign(to: \.isUpdating, on: headerViewModel)
             .store(in: &disposeBag)
-        viewModel.relationshipViewModel.$isMyself
-            .assign(to: \.isMyself, on: headerViewModel)
-            .store(in: &disposeBag)
-        viewModel.relationshipViewModel.$optionSet
-            .map { $0 ?? .none }
-            .assign(to: \.relationshipActionOptionSet, on: headerViewModel)
+//        viewModel.relationshipViewModel.$isMyself
+//            .assign(to: \.isMyself, on: headerViewModel)
+//            .store(in: &disposeBag)
+        viewModel.$relationship
+            .assign(to: \.relationship, on: headerViewModel)
             .store(in: &disposeBag)
         viewModel.$accountForEdit
             .assign(to: \.accountForEdit, on: headerViewModel)
             .store(in: &disposeBag)
-        
+#warning("TODO: Implement")
         // timeline
-        [
-            viewModel.postsUserTimelineViewModel,
-            viewModel.repliesUserTimelineViewModel,
-            viewModel.mediaUserTimelineViewModel,
-        ].forEach { userTimelineViewModel in
-            viewModel.relationshipViewModel.$isBlocking.assign(to: \.isBlocking, on: userTimelineViewModel).store(in: &disposeBag)
-            viewModel.relationshipViewModel.$isBlockingBy.assign(to: \.isBlockedBy, on: userTimelineViewModel).store(in: &disposeBag)
-            viewModel.relationshipViewModel.$isSuspended.assign(to: \.isSuspended, on: userTimelineViewModel).store(in: &disposeBag)
-        }
+//        [
+//            viewModel.postsUserTimelineViewModel,
+//            viewModel.repliesUserTimelineViewModel,
+//            viewModel.mediaUserTimelineViewModel,
+//        ].forEach { userTimelineViewModel in
+//            viewModel.relationshipViewModel.$isBlocking.assign(to: \.isBlocking, on: userTimelineViewModel).store(in: &disposeBag)
+//            viewModel.relationshipViewModel.$isBlockingBy.assign(to: \.isBlockedBy, on: userTimelineViewModel).store(in: &disposeBag)
+//            viewModel.relationshipViewModel.$isSuspended.assign(to: \.isSuspended, on: userTimelineViewModel).store(in: &disposeBag)
+//        }
     
         // about
         let aboutViewModel = viewModel.profileAboutViewModel
-        viewModel.$user
-            .assign(to: \.user, on: aboutViewModel)
-            .store(in: &disposeBag)
+//        viewModel.$account
+//            .assign(to: \.account, on: aboutViewModel)
+//            .store(in: &disposeBag)
         viewModel.$isEditing
             .assign(to: \.isEditing, on: aboutViewModel)
             .store(in: &disposeBag)
@@ -374,7 +374,7 @@ extension ProfileViewController {
             }
             .store(in: &disposeBag)
         Publishers.CombineLatest(
-            profileHeaderViewController.viewModel.$user,
+            profileHeaderViewController.viewModel.$account,
             profileHeaderViewController.profileHeaderView.viewModel.viewDidAppear
         )
         .sink { [weak self] (user, _) in
@@ -382,7 +382,7 @@ extension ProfileViewController {
             Task {
                 _ = try await self.context.apiService.fetchUser(
                     username: user.username,
-                    domain: user.domainFromAcct,
+                    domain: "user.domainFromAcct",
                     authenticationBox: self.authContext.mastodonAuthenticationBox
                 )
             }
@@ -392,26 +392,23 @@ extension ProfileViewController {
 
     private func bindMoreBarButtonItem() {
         Publishers.CombineLatest(
-            viewModel.$user,
-            viewModel.relationshipViewModel.$optionSet
+            viewModel.$account,
+            viewModel.$relationship
         )
-        .asyncMap { [weak self] user, relationshipSet -> UIMenu? in
-            guard let self = self else { return nil }
-            guard let user = user else {
-                return nil
-            }
+        .asyncMap { [weak self] user, relationship -> UIMenu? in
+            guard let self, let relationship else { return nil }
+
             let name = user.displayNameWithFallback
-            let _ = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
 
             var menuActions: [MastodonMenu.Action] = [
-                .muteUser(.init(name: name, isMuting: self.viewModel.relationshipViewModel.isMuting)),
-                .blockUser(.init(name: name, isBlocking: self.viewModel.relationshipViewModel.isBlocking)),
+                .muteUser(.init(name: name, isMuting: relationship.muting ?? false)),
+                .blockUser(.init(name: name, isBlocking: relationship.blocking)),
                 .reportUser(.init(name: name)),
                 .shareUser(.init(name: name)),
             ]
 
-            if let me = self.viewModel?.me, me.following.contains(user) {
-                let showReblogs = me.showingReblogsBy.contains(user)
+            if relationship.following {
+                let showReblogs = relationship.showingReblogs ?? false// me.showingReblogsBy.contains(user)
                 let context = MastodonMenu.HideReblogsActionContext(showReblogs: showReblogs)
                 menuActions.insert(.hideReblogs(context), at: 1)
             }
@@ -473,26 +470,6 @@ extension ProfileViewController {
             .store(in: &disposeBag)
     }
 
-//    private func bindProfileRelationship() {
-//
-//        Publishers.CombineLatest3(
-//            viewModel.isBlocking.eraseToAnyPublisher(),
-//            viewModel.isBlockedBy.eraseToAnyPublisher(),
-//            viewModel.suspended.eraseToAnyPublisher()
-//        )
-//        .receive(on: DispatchQueue.main)
-//        .sink { [weak self] isBlocking, isBlockedBy, suspended in
-//            guard let self = self else { return }
-//            let isNeedSetHidden = isBlocking || isBlockedBy || suspended
-//            self.profileHeaderViewController.viewModel.needsSetupBottomShadow.value = !isNeedSetHidden
-//            self.profileHeaderViewController.profileHeaderView.bioContainerView.isHidden = isNeedSetHidden
-//            self.profileHeaderViewController.viewModel.needsFiledCollectionViewHidden.value = isNeedSetHidden
-//            self.profileHeaderViewController.buttonBar.isUserInteractionEnabled = !isNeedSetHidden
-//            self.viewModel.needsPagePinToTop.value = isNeedSetHidden
-//        }
-//        .store(in: &disposeBag)
-//    }   // end func bindProfileRelationship
-
     private func handleMetaPress(_ meta: Meta) {
         switch meta {
         case .url(_, _, let url, _):
@@ -525,24 +502,19 @@ extension ProfileViewController {
     }
 
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        guard let user = viewModel.user else { return }
-        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
-        Task {
-            let _activityViewController = try await DataSourceFacade.createActivityViewController(
-                dependency: self,
-                user: record
-            )
-            guard let activityViewController = _activityViewController else { return }
-            _ = self.coordinator.present(
-                scene: .activityViewController(
-                    activityViewController: activityViewController,
-                    sourceView: nil,
-                    barButtonItem: sender
-                ),
-                from: self,
-                transition: .activityViewControllerPresent(animated: true, completion: nil)
-            )
-        }   // end Task
+        let activityViewController = DataSourceFacade.createActivityViewController(
+            dependency: self,
+            account: viewModel.account
+        )
+        _ = self.coordinator.present(
+            scene: .activityViewController(
+                activityViewController: activityViewController,
+                sourceView: nil,
+                barButtonItem: sender
+            ),
+            from: self,
+            transition: .activityViewControllerPresent(animated: true, completion: nil)
+        )
     }
 
     @objc private func favoriteBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -556,8 +528,8 @@ extension ProfileViewController {
     }
 
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        guard let mastodonUser = viewModel.user else { return }
-        let mention = "@" + mastodonUser.acct
+
+        let mention = "@" + viewModel.account.acct
         UITextChecker.learnWord(mention)
         let composeViewModel = ComposeViewModel(
             context: context,
@@ -683,34 +655,6 @@ extension ProfileViewController: TabBarPagerDataSource {
     }
 }
 
-//// MARK: - UIScrollViewDelegate
-//extension ProfileViewController: UIScrollViewDelegate {
-//
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        contentOffsets[profileSegmentedViewController.pagingViewController.currentIndex!] = scrollView.contentOffset.y
-//        let topMaxContentOffsetY = profileSegmentedViewController.view.frame.minY - ProfileHeaderViewController.headerMinHeight - containerScrollView.safeAreaInsets.top
-//        if scrollView.contentOffset.y < topMaxContentOffsetY {
-//            self.containerScrollView.contentOffset.y = scrollView.contentOffset.y
-//            for postTimelineView in profileSegmentedViewController.pagingViewController.viewModel.viewControllers {
-//                postTimelineView.scrollView?.contentOffset.y = 0
-//            }
-//            contentOffsets.removeAll()
-//        } else {
-//            containerScrollView.contentOffset.y = topMaxContentOffsetY
-//            if viewModel.needsPagePinToTop.value {
-//                // do nothing
-//            } else {
-//                if let customScrollViewContainerController = profileSegmentedViewController.pagingViewController.currentViewController as? ScrollViewContainer {
-//                    let contentOffsetY = scrollView.contentOffset.y - containerScrollView.contentOffset.y
-//                    customScrollViewContainerController.scrollView?.contentOffset.y = contentOffsetY
-//                }
-//            }
-//
-//        }
-//    }
-//
-//}
-
 // MARK: - AuthContextProvider
 extension ProfileViewController: AuthContextProvider {
     var authContext: AuthContext { viewModel.authContext }
@@ -723,140 +667,140 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
         profileHeaderView: ProfileHeaderView,
         relationshipButtonDidPressed button: ProfileRelationshipActionButton
     ) {
-        let relationshipActionSet = viewModel.relationshipViewModel.optionSet ?? .none
-        
+//        let relationshipActionSet = viewModel.relationshipViewModel.optionSet ?? .none
+#warning("TODO: Implement")
         // handle edit logic for editable profile
         // handle relationship logic for non-editable profile
-        if relationshipActionSet.contains(.edit) {
-            // do nothing when updating
-            guard !viewModel.isUpdating else { return }
-
-            guard let profileHeaderViewModel = profileHeaderViewController.viewModel else { return }
-            guard let profileAboutViewModel = profilePagingViewController.viewModel.profileAboutViewController.viewModel else { return }
-            
-            let isEdited = profileHeaderViewModel.isEdited || profileAboutViewModel.isEdited
-            
-            if isEdited {
-                // update profile when edited
-                viewModel.isUpdating = true
-                Task { @MainActor in
-                    do {
-                        // TODO: handle error
-                        _ = try await viewModel.updateProfileInfo(
-                            headerProfileInfo: profileHeaderViewModel.profileInfoEditing,
-                            aboutProfileInfo: profileAboutViewModel.profileInfoEditing
-                        )
-                        self.viewModel.isEditing = false
-                        
-                    } catch {
-                        let alertController = UIAlertController(
-                            for: error,
-                            title: L10n.Common.Alerts.EditProfileFailure.title,
-                            preferredStyle: .alert
-                        )
-                        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default)
-                        alertController.addAction(okAction)
-                        self.present(alertController, animated: true)
-                    }
-                    
-                    // finish updating
-                    self.viewModel.isUpdating = false
-                }   // end Task
-            } else {
-                // set `updating` then toggle `edit` state
-                viewModel.isUpdating = true
-                viewModel.fetchEditProfileInfo()
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak self] completion in
-                        guard let self = self else { return }
-                        defer {
-                            // finish updating
-                            self.viewModel.isUpdating = false
-                        }
-                        switch completion {
-                        case .failure(let error):
-                            let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.EditProfileFailure.title, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
-                            alertController.addAction(okAction)
-                            _ = self.coordinator.present(
-                                scene: .alertController(alertController: alertController),
-                                from: nil,
-                                transition: .alertController(animated: true, completion: nil)
-                            )
-                        case .finished:
-                            // enter editing mode
-                            self.viewModel.isEditing.toggle()
-                        }
-                    } receiveValue: { [weak self] response in
-                        guard let self = self else { return }
-                        self.viewModel.accountForEdit = response.value
-                    }
-                    .store(in: &disposeBag)
-            }
-        } else {
-            guard let relationshipAction = relationshipActionSet.highPriorityAction(except: .editOptions) else { return }
-            switch relationshipAction {
-            case .none:
-                break
-            case .follow, .request, .pending, .following:
-                guard let user = viewModel.user else { return }
-                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                Task {
-                    try await DataSourceFacade.responseToUserFollowAction(
-                        dependency: self,
-                        user: record
-                    )
-                }
-            case .muting:
-                guard let user = viewModel.user else { return }
-                let name = user.displayNameWithFallback
-                
-                let alertController = UIAlertController(
-                    title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.title,
-                    message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.message(name),
-                    preferredStyle: .alert
-                )
-                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unmute, style: .default) { [weak self] _ in
-                    guard let self = self else { return }
-                    Task {
-                        try await DataSourceFacade.responseToUserMuteAction(
-                            dependency: self,
-                            user: record
-                        )
-                    }
-                }
-                alertController.addAction(unmuteAction)
-                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
-                alertController.addAction(cancelAction)
-                present(alertController, animated: true, completion: nil)
-            case .blocking:
-                guard let user = viewModel.user else { return }
-                let name = user.displayNameWithFallback
-                
-                let alertController = UIAlertController(
-                    title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title,
-                    message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(name),
-                    preferredStyle: .alert
-                )
-                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblock, style: .default) { [weak self] _ in
-                    guard let self = self else { return }
-                    Task {
-                        try await DataSourceFacade.responseToUserBlockAction(
-                            dependency: self,
-                            user: record
-                        )
-                    }
-                }
-                alertController.addAction(unblockAction)
-                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
-                alertController.addAction(cancelAction)
-                present(alertController, animated: true, completion: nil)
-            case .blocked, .showReblogs, .isMyself,.followingBy, .blockingBy, .suspended, .edit, .editing, .updating:
-                break
-            }
-        }
+//        if relationshipActionSet.contains(.edit) {
+//            // do nothing when updating
+//            guard !viewModel.isUpdating else { return }
+//
+//            guard let profileHeaderViewModel = profileHeaderViewController.viewModel else { return }
+//            guard let profileAboutViewModel = profilePagingViewController.viewModel.profileAboutViewController.viewModel else { return }
+//            
+//            let isEdited = profileHeaderViewModel.isEdited || profileAboutViewModel.isEdited
+//            
+//            if isEdited {
+//                // update profile when edited
+//                viewModel.isUpdating = true
+//                Task { @MainActor in
+//                    do {
+//                        // TODO: handle error
+//                        _ = try await viewModel.updateProfileInfo(
+//                            headerProfileInfo: profileHeaderViewModel.profileInfoEditing,
+//                            aboutProfileInfo: profileAboutViewModel.profileInfoEditing
+//                        )
+//                        self.viewModel.isEditing = false
+//                        
+//                    } catch {
+//                        let alertController = UIAlertController(
+//                            for: error,
+//                            title: L10n.Common.Alerts.EditProfileFailure.title,
+//                            preferredStyle: .alert
+//                        )
+//                        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default)
+//                        alertController.addAction(okAction)
+//                        self.present(alertController, animated: true)
+//                    }
+//                    
+//                    // finish updating
+//                    self.viewModel.isUpdating = false
+//                }   // end Task
+//            } else {
+//                // set `updating` then toggle `edit` state
+//                viewModel.isUpdating = true
+//                viewModel.fetchEditProfileInfo()
+//                    .receive(on: DispatchQueue.main)
+//                    .sink { [weak self] completion in
+//                        guard let self = self else { return }
+//                        defer {
+//                            // finish updating
+//                            self.viewModel.isUpdating = false
+//                        }
+//                        switch completion {
+//                        case .failure(let error):
+//                            let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.EditProfileFailure.title, preferredStyle: .alert)
+//                            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+//                            alertController.addAction(okAction)
+//                            _ = self.coordinator.present(
+//                                scene: .alertController(alertController: alertController),
+//                                from: nil,
+//                                transition: .alertController(animated: true, completion: nil)
+//                            )
+//                        case .finished:
+//                            // enter editing mode
+//                            self.viewModel.isEditing.toggle()
+//                        }
+//                    } receiveValue: { [weak self] response in
+//                        guard let self = self else { return }
+//                        self.viewModel.accountForEdit = response.value
+//                    }
+//                    .store(in: &disposeBag)
+//            }
+//        } else {
+//            guard let relationshipAction = relationshipActionSet.highPriorityAction(except: .editOptions) else { return }
+//            switch relationshipAction {
+//            case .none:
+//                break
+//            case .follow, .request, .pending, .following:
+//                guard let user = viewModel.user else { return }
+//                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+//                Task {
+//                    try await DataSourceFacade.responseToUserFollowAction(
+//                        dependency: self,
+//                        user: record
+//                    )
+//                }
+//            case .muting:
+//                guard let user = viewModel.user else { return }
+//                let name = user.displayNameWithFallback
+//                
+//                let alertController = UIAlertController(
+//                    title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.title,
+//                    message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.message(name),
+//                    preferredStyle: .alert
+//                )
+//                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+//                let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unmute, style: .default) { [weak self] _ in
+//                    guard let self = self else { return }
+//                    Task {
+//                        try await DataSourceFacade.responseToUserMuteAction(
+//                            dependency: self,
+//                            user: record
+//                        )
+//                    }
+//                }
+//                alertController.addAction(unmuteAction)
+//                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
+//                alertController.addAction(cancelAction)
+//                present(alertController, animated: true, completion: nil)
+//            case .blocking:
+//                guard let user = viewModel.user else { return }
+//                let name = user.displayNameWithFallback
+//                
+//                let alertController = UIAlertController(
+//                    title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title,
+//                    message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(name),
+//                    preferredStyle: .alert
+//                )
+//                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+//                let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblock, style: .default) { [weak self] _ in
+//                    guard let self = self else { return }
+//                    Task {
+//                        try await DataSourceFacade.responseToUserBlockAction(
+//                            dependency: self,
+//                            user: record
+//                        )
+//                    }
+//                }
+//                alertController.addAction(unblockAction)
+//                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
+//                alertController.addAction(cancelAction)
+//                present(alertController, animated: true, completion: nil)
+//            case .blocked, .showReblogs, .isMyself,.followingBy, .blockingBy, .suspended, .edit, .editing, .updating:
+//                break
+//            }
+//        }
         
     }
     
@@ -885,23 +829,19 @@ extension ProfileViewController: ProfileAboutViewControllerDelegate {
 // MARK: - MastodonMenuDelegate
 extension ProfileViewController: MastodonMenuDelegate {
     func menuAction(_ action: MastodonMenu.Action) {
-        guard let user = viewModel.user else { return }
-
-        let userRecord: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
 
         Task {
             try await DataSourceFacade.responseToMenuAction(
                 dependency: self,
                 action: action,
                 menuContext: DataSourceFacade.MenuContext(
-                    author: userRecord,
-                    authorEntity: nil,
+                    author: viewModel.account,
                     statusViewModel: nil,
                     button: nil,
                     barButtonItem: self.moreMenuBarButtonItem
                 )
             )
-        }   // end Task
+        }
     }
 }
 

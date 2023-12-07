@@ -217,15 +217,8 @@ extension SettingsCoordinator: ServerDetailsViewControllerDelegate {
 
 extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
     @MainActor func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account) {
-        Task {
-            let user = try await appContext.apiService.fetchUser(username: account.username, domain: authContext.mastodonAuthenticationBox.domain, authenticationBox: authContext.mastodonAuthenticationBox)
-
-            let profileViewModel = ProfileViewModel(context: appContext, authContext: authContext, optionalMastodonUser: user)
-
-            _ = await MainActor.run {
-                sceneCoordinator.present(scene: .profile(viewModel: profileViewModel), transition: .show)
-            }
-        }
+        let profileViewModel = ProfileViewModel(context: appContext, authContext: authContext, account: account)
+        sceneCoordinator.present(scene: .profile(viewModel: profileViewModel), transition: .show)
     }
     
     func sendEmailToAdmin(_ viewController: AboutInstanceViewController, emailAddress: String) {

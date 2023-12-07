@@ -98,7 +98,13 @@ public struct MastodonAuthentication: Codable, Hashable {
         let userPredicate = MastodonUser.predicate(domain: domain, id: userID)
         return MastodonUser.findOrFetch(in: context, matching: userPredicate)
     }
-    
+
+    public func account() -> Mastodon.Entity.Account? {
+        // store accounts
+#warning("TODO: Implement")
+        return nil
+    }
+
     func updating(instance: Instance) -> Self {
         copy(instanceObjectIdURI: instance.objectID.uriRepresentation())
     }

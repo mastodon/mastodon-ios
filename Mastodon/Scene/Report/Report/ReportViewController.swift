@@ -84,7 +84,7 @@ extension ReportViewController: ReportReasonViewControllerDelegate {
             let reportResultViewModel = ReportResultViewModel(
                 context: context,
                 authContext: viewModel.authContext,
-                user: viewModel.user,
+                account: viewModel.account,
                 isReported: false
             )
             _ = coordinator.present(
@@ -160,7 +160,7 @@ extension ReportViewController: ReportSupplementaryViewControllerDelegate {
                 let reportResultViewModel = ReportResultViewModel(
                     context: context,
                     authContext: viewModel.authContext,
-                    user: viewModel.user,
+                    account: viewModel.account,
                     isReported: true
                 )
                 

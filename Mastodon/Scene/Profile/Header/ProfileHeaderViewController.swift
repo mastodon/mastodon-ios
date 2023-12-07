@@ -128,17 +128,17 @@ extension ProfileHeaderViewController {
                 self.titleView.subtitleLabel.alpha = isTitleViewContentOffsetDidSet ? 1 : 0
             }
             .store(in: &disposeBag)
-        viewModel.$user
+        viewModel.$account
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] user in
-                guard let self = self else { return }
-                guard let user = user else { return }
+            .sink { [weak self] account in
+                guard let self, let account else { return }
+
                 self.profileHeaderView.prepareForReuse()
-                self.profileHeaderView.configuration(user: user)
+                self.profileHeaderView.configuration(account: account)
             }
             .store(in: &disposeBag)
-        viewModel.$relationshipActionOptionSet
-            .assign(to: \.relationshipActionOptionSet, on: profileHeaderView.viewModel)
+        viewModel.$relationship
+            .assign(to: \.relationship, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
         viewModel.$isMyself
             .assign(to: \.isMyself, on: profileHeaderView.viewModel)
@@ -269,35 +269,37 @@ extension ProfileHeaderViewController {
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarButtonDidPressed button: AvatarButton) {
-        guard let user = viewModel.user else { return }
-        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
-
-        Task {
-            try await DataSourceFacade.coordinateToMediaPreviewScene(
-                dependency: self,
-                user: record,
-                previewContext: DataSourceFacade.ImagePreviewContext(
-                    imageView: button.avatarImageView,
-                    containerView: .profileAvatar(profileHeaderView)
-                )
-            )
-        }   // end Task
+#warning("TODO: Implement")
+//        guard let user = viewModel.user else { return }
+//        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
+//
+//        Task {
+//            try await DataSourceFacade.coordinateToMediaPreviewScene(
+//                dependency: self,
+//                user: record,
+//                previewContext: DataSourceFacade.ImagePreviewContext(
+//                    imageView: button.avatarImageView,
+//                    containerView: .profileAvatar(profileHeaderView)
+//                )
+//            )
+//        }   // end Task
     }
 
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView) {
-        guard let user = viewModel.user else { return }
-        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
-
-        Task {
-            try await DataSourceFacade.coordinateToMediaPreviewScene(
-                dependency: self,
-                user: record,
-                previewContext: DataSourceFacade.ImagePreviewContext(
-                    imageView: imageView,
-                    containerView: .profileBanner(profileHeaderView)
-                )
-            )
-        }   // end Task
+#warning("TODO: Implement")
+//        guard let account = viewModel.account else { return }
+//        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
+//
+//        Task {
+//            try await DataSourceFacade.coordinateToMediaPreviewScene(
+//                dependency: self,
+//                user: record,
+//                previewContext: DataSourceFacade.ImagePreviewContext(
+//                    imageView: imageView,
+//                    containerView: .profileBanner(profileHeaderView)
+//                )
+//            )
+//        }   // end Task
     }
 
     func profileHeaderView(
@@ -331,35 +333,39 @@ extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
             // do nothing
             break
         case .follower:
-            guard let domain = viewModel.user?.domain,
-                  let userID = viewModel.user?.id
-            else { return }
-            let followerListViewModel = FollowerListViewModel(
-                context: context,
-                authContext: viewModel.authContext,
-                domain: domain,
-                userID: userID
-            )
-            _ = coordinator.present(
-                scene: .follower(viewModel: followerListViewModel),
-                from: self,
-                transition: .show
-            )
+#warning("TODO: Implement")
+//            guard let domain = viewModel.account.domain,
+//                  let userID = viewModel.account.id
+//            else { return }
+//            let followerListViewModel = FollowerListViewModel(
+//                context: context,
+//                authContext: viewModel.authContext,
+//                domain: domain,
+//                userID: userID
+//            )
+//            _ = coordinator.present(
+//                scene: .follower(viewModel: followerListViewModel),
+//                from: self,
+//                transition: .show
+//            )
+                break
         case .following:
-            guard let domain = viewModel.user?.domain,
-                  let userID = viewModel.user?.id
-            else { return }
-            let followingListViewModel = FollowingListViewModel(
-                context: context,
-                authContext: viewModel.authContext,
-                domain: domain,
-                userID: userID
-            )
-            _ = coordinator.present(
-                scene: .following(viewModel: followingListViewModel),
-                from: self,
-                transition: .show
-            )
+#warning("TODO: Implement")
+//            guard let domain = viewModel.account.domain,
+//                  let userID = viewModel.account.id
+//            else { return }
+//            let followingListViewModel = FollowingListViewModel(
+//                context: context,
+//                authContext: viewModel.authContext,
+//                domain: domain,
+//                userID: userID
+//            )
+//            _ = coordinator.present(
+//                scene: .following(viewModel: followingListViewModel),
+//                from: self,
+//                transition: .show
+//            )
+                break
         }
     }
 

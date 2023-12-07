@@ -14,6 +14,7 @@ import MastodonCore
 import MastodonUI
 import MastodonAsset
 import MastodonLocalization
+import MastodonSDK
 
 extension ProfileHeaderView {
     class ViewModel: ObservableObject {
@@ -45,15 +46,16 @@ extension ProfileHeaderView {
         
         @Published var fields: [MastodonField] = []
         
-        @Published var relationshipActionOptionSet: RelationshipActionOptionSet = .none
+        @Published var relationship: Mastodon.Entity.Relationship?
         @Published var isRelationshipActionButtonHidden = false
         @Published var isMyself = false
         
         init() {
-            $relationshipActionOptionSet
-                .compactMap { $0.highPriorityAction(except: []) }
-                .map { $0 == .none }
-                .assign(to: &$isRelationshipActionButtonHidden)
+#warning("TODO: Implement")
+//            $relationshipActionOptionSet
+//                .compactMap { $0.highPriorityAction(except: []) }
+//                .map { $0 == .none }
+//                .assign(to: &$isRelationshipActionButtonHidden)
         }
     }
 }
@@ -96,13 +98,14 @@ extension ProfileHeaderView.ViewModel {
         }
         .store(in: &disposeBag)
         // follows you
-        $relationshipActionOptionSet
-            .map { $0.contains(.followingBy) && !$0.contains(.isMyself) }
-            .receive(on: DispatchQueue.main)
-            .sink { isFollowingBy in
-                view.followsYouBlurEffectView.isHidden = !isFollowingBy
-            }
-            .store(in: &disposeBag)
+#warning("TODO: Implement")
+//        $relationshipActionOptionSet
+//            .map { $0.contains(.followingBy) && !$0.contains(.isMyself) }
+//            .receive(on: DispatchQueue.main)
+//            .sink { isFollowingBy in
+//                view.followsYouBlurEffectView.isHidden = !isFollowingBy
+//            }
+//            .store(in: &disposeBag)
         // avatar
         Publishers.CombineLatest4(
             $avatarImageURL,
@@ -117,18 +120,19 @@ extension ProfileHeaderView.ViewModel {
             ))
         }
         .store(in: &disposeBag)
-        // blur for blocking & blockingBy
-        $relationshipActionOptionSet
-            .map { $0.contains(.blocking) || $0.contains(.blockingBy) }
-            .sink { needsImageOverlayBlurred in
-                UIView.animate(withDuration: 0.33) {
-                    let bannerEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.bannerImageViewOverlayBlurEffect : nil
-                    view.bannerImageViewOverlayVisualEffectView.effect = bannerEffect
-                    let avatarEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.avatarImageViewOverlayBlurEffect : nil
-                    view.avatarImageViewOverlayVisualEffectView.effect = avatarEffect
-                }
-            }
-            .store(in: &disposeBag)
+#warning("TODO: Implement")
+//        // blur for blocking & blockingBy
+//        $relationshipActionOptionSet
+//            .map { $0.contains(.blocking) || $0.contains(.blockingBy) }
+//            .sink { needsImageOverlayBlurred in
+//                UIView.animate(withDuration: 0.33) {
+//                    let bannerEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.bannerImageViewOverlayBlurEffect : nil
+//                    view.bannerImageViewOverlayVisualEffectView.effect = bannerEffect
+//                    let avatarEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.avatarImageViewOverlayBlurEffect : nil
+//                    view.avatarImageViewOverlayVisualEffectView.effect = avatarEffect
+//                }
+//            }
+//            .store(in: &disposeBag)
         // name
         Publishers.CombineLatest4(
             $isEditing.removeDuplicates(),
@@ -182,17 +186,18 @@ extension ProfileHeaderView.ViewModel {
             view.bioMetaText.configure(content: metaContent)
         }
         .store(in: &disposeBag)
-        $relationshipActionOptionSet
-            .receive(on: DispatchQueue.main)
-            .sink { optionSet in
-                let isBlocking = optionSet.contains(.blocking)
-                let isBlockedBy = optionSet.contains(.blockingBy)
-                let isSuspended = optionSet.contains(.suspended)
-                let isNeedsHidden = isBlocking || isBlockedBy || isSuspended
-
-                view.bioMetaText.textView.isHidden = isNeedsHidden
-            }
-            .store(in: &disposeBag)
+#warning("TODO: Implement")
+        //        $relationshipActionOptionSet
+//            .receive(on: DispatchQueue.main)
+//            .sink { optionSet in
+//                let isBlocking = optionSet.contains(.blocking)
+//                let isBlockedBy = optionSet.contains(.blockingBy)
+//                let isSuspended = optionSet.contains(.suspended)
+//                let isNeedsHidden = isBlocking || isBlockedBy || isSuspended
+//
+//                view.bioMetaText.textView.isHidden = isNeedsHidden
+//            }
+//            .store(in: &disposeBag)
         // dashboard
         $isMyself
             .receive(on: DispatchQueue.main)
@@ -245,22 +250,23 @@ extension ProfileHeaderView.ViewModel {
         $isRelationshipActionButtonHidden
             .assign(to: \.isHidden, on: view.relationshipActionButtonShadowContainer)
             .store(in: &disposeBag)
-        Publishers.CombineLatest3(
-            $relationshipActionOptionSet,
-            $isEditing,
-            $isUpdating
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { relationshipActionOptionSet, isEditing, isUpdating in
-            if relationshipActionOptionSet.contains(.edit) {
-                // check .edit state and set .editing when isEditing
-                view.relationshipActionButton.configure(actionOptionSet: isUpdating ? .updating : (isEditing ? .editing : .edit))
-                view.configure(state: isEditing ? .editing : .normal)
-            } else {
-                view.relationshipActionButton.configure(actionOptionSet: relationshipActionOptionSet)
-            }
-        }
-        .store(in: &disposeBag)
+#warning("TODO: Implement")
+//        Publishers.CombineLatest2(
+//            $relationshipActionOptionSet,
+//            $isEditing,
+//            $isUpdating
+//        )
+//        .receive(on: DispatchQueue.main)
+//        .sink { relationshipActionOptionSet, isEditing, isUpdating in
+//            if relationshipActionOptionSet.contains(.edit) {
+//                // check .edit state and set .editing when isEditing
+//                view.relationshipActionButton.configure(actionOptionSet: isUpdating ? .updating : (isEditing ? .editing : .edit))
+//                view.configure(state: isEditing ? .editing : .normal)
+//            } else {
+//                view.relationshipActionButton.configure(actionOptionSet: relationshipActionOptionSet)
+//            }
+//        }
+//        .store(in: &disposeBag)
     }
 
 }

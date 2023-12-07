@@ -23,7 +23,7 @@ class ReportResultViewModel: ObservableObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let user: ManagedObjectRecord<MastodonUser>
+    let account: Mastodon.Entity.Account
     let isReported: Bool
     
     var headline: String {
@@ -48,24 +48,20 @@ class ReportResultViewModel: ObservableObject {
     init(
         context: AppContext,
         authContext: AuthContext,
-        user: ManagedObjectRecord<MastodonUser>,
+        account: Mastodon.Entity.Account,
         isReported: Bool
     ) {
         self.context = context
         self.authContext = authContext
-        self.user = user
+        self.account = account
         self.isReported = isReported
         // end init
         
         Task { @MainActor in
-            guard let user = user.object(in: context.managedObjectContext) else { return }
-            guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return }
-            self.relationshipViewModel.user = user
-            self.relationshipViewModel.me = me
             
-            self.avatarURL = user.avatarImageURL()
-            self.username = user.acctWithDomain
-            
+            self.avatarURL = account.avatarImageURL()
+            self.username = account.username
+
         }   // end Task
     }
 

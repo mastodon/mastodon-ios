@@ -68,19 +68,9 @@ extension ReportStatusViewModel.State {
             Task {
                 let maxID = await viewModel.statusFetchedResultsController.records.last?.id
 
-                let managedObjectContext = viewModel.context.managedObjectContext
-                let _userID: MastodonUser.ID? = try await managedObjectContext.perform {
-                    guard let user = viewModel.user.object(in: managedObjectContext) else { return nil }
-                    return user.id
-                }
-                guard let userID = _userID else {
-                    await enter(state: Fail.self)
-                    return
-                }
-
                 do {
                     let response = try await viewModel.context.apiService.userTimeline(
-                        accountID: userID,
+                        accountID: viewModel.account.id,
                         maxID: maxID,
                         sinceID: nil,
                         excludeReplies: true,

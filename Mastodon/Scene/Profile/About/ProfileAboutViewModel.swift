@@ -19,7 +19,7 @@ final class ProfileAboutViewModel {
 
     // input
     let context: AppContext
-    @Published var user: MastodonUser?
+    @Published var account: Mastodon.Entity.Account?
     @Published var isEditing = false
     @Published var accountForEdit: Mastodon.Entity.Account?
     
@@ -34,23 +34,22 @@ final class ProfileAboutViewModel {
 
     init(context: AppContext) {
         self.context = context
-        // end init
-        
-        $user
-            .compactMap { $0 }
-            .flatMap { $0.publisher(for: \.emojis) }
-            .map { $0.asDictionary }
-            .assign(to: &$emojiMeta)
-        
-        $user
-            .compactMap { $0 }
-            .flatMap { $0.publisher(for: \.fields) }
-            .assign(to: &$fields)
-
-        $user
-            .compactMap { $0 }
-            .flatMap { $0.publisher(for: \.createdAt) }
-            .assign(to: &$createdAt)
+#warning("TODO: Implement")
+//        $account
+//            .compactMap { $0 }
+//            .flatMap { $0.publisher(for: \.emojis) }
+//            .map { $0.asDictionary }
+//            .assign(to: &$emojiMeta)
+//        
+//        $account
+//            .compactMap { $0 }
+//            .flatMap { $0.publisher(for: \.fields) }
+//            .assign(to: &$fields)
+//
+//        $account
+//            .compactMap { $0 }
+//            .flatMap { $0.publisher(for: \.createdAt) }
+//            .assign(to: &$createdAt)
         
         Publishers.CombineLatest(
             $fields,
