@@ -37,24 +37,7 @@ extension APIService {
             query: query,
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
-        
-        let managedObjectContext = backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            for entity in response.value {
-                _ = Persistence.Status.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Status.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        me: nil,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }   // end for … in
-        }
-        
+
         return response
     }
     

@@ -41,21 +41,7 @@ extension APIService {
                     )
                 )
             }
-            
-            // statuses
-            for entity in response.value.statuses {
-                _ = Persistence.Status.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Status.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        me: me,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }
+
         }   // ent try await managedObjectContext.performChanges { … } 
         
         return response
