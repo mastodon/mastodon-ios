@@ -88,7 +88,11 @@ extension ProfileHeaderViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        profileHeaderView.prepareForReuse()
+        profileHeaderView.configuration(account: viewModel.account)
+
+
         view.setContentHuggingPriority(.required - 1, for: .vertical)
 
         view.backgroundColor = .systemBackground
@@ -126,15 +130,6 @@ extension ProfileHeaderViewController {
                 guard let self = self else { return }
                 self.titleView.titleLabel.alpha = isTitleViewContentOffsetDidSet ? 1 : 0
                 self.titleView.subtitleLabel.alpha = isTitleViewContentOffsetDidSet ? 1 : 0
-            }
-            .store(in: &disposeBag)
-        viewModel.$account
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] account in
-                guard let self, let account else { return }
-
-                self.profileHeaderView.prepareForReuse()
-                self.profileHeaderView.configuration(account: account)
             }
             .store(in: &disposeBag)
         viewModel.$relationship

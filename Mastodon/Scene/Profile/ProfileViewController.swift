@@ -122,7 +122,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
         let viewController = ProfileHeaderViewController()
         viewController.context = context
         viewController.coordinator = coordinator
-        viewController.viewModel = ProfileHeaderViewModel(context: context, authContext: viewModel.authContext)
+        viewController.viewModel = ProfileHeaderViewModel(context: context, authContext: viewModel.authContext, account: viewModel.account)
         return viewController
     }()
     
@@ -378,7 +378,7 @@ extension ProfileViewController {
             profileHeaderViewController.profileHeaderView.viewModel.viewDidAppear
         )
         .sink { [weak self] (user, _) in
-            guard let self, let user else { return }
+            guard let self else { return }
             Task {
                 _ = try await self.context.apiService.fetchUser(
                     username: user.username,

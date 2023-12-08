@@ -216,6 +216,11 @@ extension Mastodon.Entity.Account {
         return components.host
     }
 
+    public func headerImageURL() -> URL? {
+        let string = UserDefaults.shared.preferredStaticAvatar ? headerStatic ?? header : header
+        return URL(string: string)
+    }
+
     public func avatarImageURL() -> URL? {
         let string = UserDefaults.shared.preferredStaticAvatar ? avatarStatic ?? avatar : avatar
         return URL(string: string)

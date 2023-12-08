@@ -26,7 +26,7 @@ final class ProfileHeaderViewModel {
     let context: AppContext
     let authContext: AuthContext
     
-    @Published var account: Mastodon.Entity.Account?
+    @Published var account: Mastodon.Entity.Account
     @Published var relationship: Mastodon.Entity.Relationship?
 
     @Published var isMyself = false
@@ -44,10 +44,11 @@ final class ProfileHeaderViewModel {
     @Published var isTitleViewDisplaying = false
     @Published var isTitleViewContentOffsetSet = false    
 
-    init(context: AppContext, authContext: AuthContext) {
+    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account) {
         self.context = context
         self.authContext = authContext
-    
+        self.account = account
+
         $accountForEdit
             .receive(on: DispatchQueue.main)
             .sink { [weak self] account in
