@@ -78,7 +78,7 @@ class ProfileViewModel: NSObject {
             title: L10n.Scene.Profile.SegmentedControl.media,
             queryFilter: .init(onlyMedia: true)
         )
-        self.profileAboutViewModel = ProfileAboutViewModel(context: context)
+        self.profileAboutViewModel = ProfileAboutViewModel(context: context, account: account)
         super.init()
         
         // bind me
