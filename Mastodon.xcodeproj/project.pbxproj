@@ -427,7 +427,6 @@
 		DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA94435265CBB7400C537E1 /* ProfileFieldItem.swift */; };
 		DBA9443E265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9443D265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift */; };
 		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
-		DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */; };
 		DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */; };
 		DBB3BA2B26A81D060004F2D4 /* FLAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */; };
 		DBB45B5627B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B5527B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift */; };
@@ -441,7 +440,6 @@
 		DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5254F2611ED6D002F1F29 /* ProfileHeaderView.swift */; };
 		DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525552611EDCA002F1F29 /* UserTimelineViewModel.swift */; };
 		DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */; };
-		DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525632612C988002F1F29 /* MeProfileViewModel.swift */; };
 		DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */; };
 		DBB8AB4F26AED13F00F6D281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
 		DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9759B262462E1004620BD /* ThreadMetaView.swift */; };
@@ -1167,7 +1165,6 @@
 		DBA94435265CBB7400C537E1 /* ProfileFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldItem.swift; sourceTree = "<group>"; };
 		DBA9443D265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
-		DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteProfileViewModel.swift; sourceTree = "<group>"; };
 		DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAnimatedImageView.swift; sourceTree = "<group>"; };
 		DBB45B5527B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewVideoViewController.swift; sourceTree = "<group>"; };
 		DBB45B5827B39FE4002DC5A7 /* MediaPreviewVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewVideoViewModel.swift; sourceTree = "<group>"; };
@@ -1180,7 +1177,6 @@
 		DBB5254F2611ED6D002F1F29 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		DBB525552611EDCA002F1F29 /* UserTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTimelineViewModel.swift; sourceTree = "<group>"; };
 		DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		DBB525632612C988002F1F29 /* MeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeProfileViewModel.swift; sourceTree = "<group>"; };
 		DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPostIntentHandler.swift; sourceTree = "<group>"; };
 		DBB9759B262462E1004620BD /* ThreadMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadMetaView.swift; sourceTree = "<group>"; };
 		DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerAppearance.swift; sourceTree = "<group>"; };
@@ -2782,8 +2778,6 @@
 				DBFEEC97279BDC6A004F81DD /* About */,
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
-				DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */,
-				DBB525632612C988002F1F29 /* MeProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -3748,7 +3742,6 @@
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				D81A94172B07A1D30067A19D /* ProfileCardView+Configuration.swift in Sources */,
 				DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */,
-				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				D82BD7552ABC73AF009A374A /* NotificationPolicyTableViewCell.swift in Sources */,
 				DB3EA8EB281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift in Sources */,
 				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
@@ -3850,7 +3843,6 @@
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
 				DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */,
 				DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */,
-				DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */,
 				DB3EA8EF281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift in Sources */,
 				DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */,
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,

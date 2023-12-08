@@ -56,10 +56,10 @@ class ProfileViewModel: NSObject {
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
     @MainActor
-    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account?) {
+    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account) {
         self.context = context
         self.authContext = authContext
-        self.account = account!
+        self.account = account
         self.postsUserTimelineViewModel = UserTimelineViewModel(
             context: context,
             authContext: authContext,
@@ -87,7 +87,7 @@ class ProfileViewModel: NSObject {
         // bind user
         $account
             .map { user -> UserIdentifier? in
-                guard let account, let domain = account.domain else { return nil }
+                guard let domain = account.domain else { return nil }
                 return MastodonUserIdentifier(domain: domain, userID: account.id)
             }
             .assign(to: &$userIdentifier)

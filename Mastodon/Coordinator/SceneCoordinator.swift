@@ -49,7 +49,8 @@ final public class SceneCoordinator {
         
         appContext.notificationService.requestRevealNotificationPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] pushNotification in
+            .sink(receiveValue: {
+                [weak self] pushNotification in
                 guard let self = self else { return }
                 Task {
                     guard let currentActiveAuthenticationBox = self.authContext?.mastodonAuthenticationBox else { return }
@@ -101,20 +102,44 @@ final public class SceneCoordinator {
                                 
                                 switch type {
                                     case .follow:
-                                        let profileViewModel = RemoteProfileViewModel(context: appContext, authContext: authContext, notificationID: notificationID)
-                                        _ = self.present(scene: .profile(viewModel: profileViewModel), from: from, transition: .show)
+                                        Task {
+                                            let account = try await appContext.apiService.notification(
+                                                notificationID: notificationID,
+                                                authenticationBox: authContext.mastodonAuthenticationBox
+                                            ).value.account
+                                            
+                                            let profileViewModel = ProfileViewModel(
+                                                context: appContext,
+                                                authContext: authContext,
+                                                account: account
+                                            )
+                                            _ = self.present(
+                                                scene: .profile(viewModel: profileViewModel),
+                                                from: from,
+                                                transition: .show
+                                            )
+                                        }
                                     case .followRequest:
                                         // do nothing
                                         break
                                     case .mention, .reblog, .favourite, .poll, .status:
-                                        let threadViewModel = RemoteThreadViewModel(context: appContext, authContext: authContext, notificationID: notificationID)
-                                        _ = self.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .show)
+                                        let threadViewModel = RemoteThreadViewModel(
+                                            context: appContext,
+                                            authContext: authContext,
+                                            notificationID: notificationID
+                                        )
+                                        _ = self.present(
+                                            scene: .thread(viewModel: threadViewModel),
+                                            from: from,
+                                            transition: .show
+                                        )
+
                                     case ._other:
                                         assertionFailure()
                                         break
                                 }
                             }   // end DispatchQueue.main.async
-                            
+
                         } catch {
                             assertionFailure(error.localizedDescription)
                             return

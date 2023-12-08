@@ -137,16 +137,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         switch (profile, statusID) {
             case (profile, nil):
-                let profileViewModel = RemoteProfileViewModel(
-                    context: AppContext.shared,
-                    authContext: authContext,
-                    acct: incomingURL.absoluteString
-                )
-                self.coordinator?.present(
-                    scene: .profile(viewModel: profileViewModel),
-                    from: nil,
-                    transition: .show
-                )
+                Task {
+                    let domain = authContext.mastodonAuthenticationBox.domain
+                    let authenticationBox = authContext.mastodonAuthenticationBox
+
+                    guard let account = try await AppContext.shared.apiService.search(
+                        query: .init(q: incomingURL.absoluteString, type: .accounts, resolve: true),
+                        authenticationBox: authenticationBox
+                    ).value.accounts.first else { return }
+
+                    let profileViewModel = ProfileViewModel(
+                        context: AppContext.shared,
+                        authContext: authContext,
+                        account: account
+                    )
+                    _ = self.coordinator?.present(
+                        scene: .profile(viewModel: profileViewModel),
+                        from: nil,
+                        transition: .show
+                    )
+                }
 
             case (profile, statusID):
                 Task {
@@ -248,58 +258,72 @@ extension SceneDelegate {
 
         if !UIApplication.shared.canOpenURL(url) { return }
 
-        #if DEBUG
+#if DEBUG
         print("source application = \(sendingAppID ?? "Unknown")")
         print("url = \(url)")
-        #endif
-        
+#endif
+
         switch url.host {
-        case "post":
-            showComposeViewController()
-        case "profile":
-            let components = url.pathComponents
-            guard
-                components.count == 2,
-                components[0] == "/",
-                let authContext = coordinator?.authContext
-            else { return }
-            
-            let profileViewModel = RemoteProfileViewModel(
-                context: AppContext.shared,
-                authContext: authContext,
-                acct: components[1]
-            )
-            self.coordinator?.present(
-                scene: .profile(viewModel: profileViewModel),
-                from: nil,
-                transition: .show
-            )
-        case "status":
-            let components = url.pathComponents
-            guard
-                components.count == 2,
-                components[0] == "/",
-                let authContext = coordinator?.authContext
-            else { return }
-            let statusId = components[1]
-            // View post from user
-            let threadViewModel = RemoteThreadViewModel(
-                context: AppContext.shared,
-                authContext: authContext,
-                statusID: statusId
-            )
-            coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
-        case "search":
-            let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
-            guard
-                let authContext = coordinator?.authContext,
-                let searchQuery = queryItems?.first(where: { $0.name == "query" })?.value
-            else { return }
-            
-            let viewModel = SearchDetailViewModel(authContext: authContext, initialSearchText: searchQuery)
-            coordinator?.present(scene: .searchDetail(viewModel: viewModel), from: nil, transition: .show)
-        default:
-            return
+            case "post":
+                showComposeViewController()
+            case "profile":
+                let components = url.pathComponents
+                guard
+                    components.count == 2,
+                    components[0] == "/",
+                    let authContext = coordinator?.authContext
+                else { return }
+
+                Task {
+                    do {
+                        let domain = authContext.mastodonAuthenticationBox.domain
+                        let authenticationBox = authContext.mastodonAuthenticationBox
+
+                        guard let account = try await AppContext.shared.apiService.search(
+                            query: .init(q: components[1], type: .accounts, resolve: true),
+                            authenticationBox: authenticationBox
+                        ).value.accounts.first else { return }
+
+                        let profileViewModel = ProfileViewModel(
+                            context: AppContext.shared,
+                            authContext: authContext,
+                            account: account
+                        )
+                        self.coordinator?.present(
+                            scene: .profile(viewModel: profileViewModel),
+                            from: nil,
+                            transition: .show
+                        )
+                    } catch {
+                        // fail silently
+                    }
+                }
+            case "status":
+                let components = url.pathComponents
+                guard
+                    components.count == 2,
+                    components[0] == "/",
+                    let authContext = coordinator?.authContext
+                else { return }
+                let statusId = components[1]
+                // View post from user
+                let threadViewModel = RemoteThreadViewModel(
+                    context: AppContext.shared,
+                    authContext: authContext,
+                    statusID: statusId
+                )
+                coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+            case "search":
+                let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
+                guard
+                    let authContext = coordinator?.authContext,
+                    let searchQuery = queryItems?.first(where: { $0.name == "query" })?.value
+                else { return }
+
+                let viewModel = SearchDetailViewModel(authContext: authContext, initialSearchText: searchQuery)
+                coordinator?.present(scene: .searchDetail(viewModel: viewModel), from: nil, transition: .show)
+            default:
+                return
         }
     }
 }

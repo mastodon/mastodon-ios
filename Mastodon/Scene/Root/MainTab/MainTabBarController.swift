@@ -95,32 +95,33 @@ class MainTabBarController: UITabBarController {
 
             let viewController: UIViewController
             switch self {
-            case .home:
-                let _viewController = HomeTimelineViewController()
-                _viewController.context = context
-                _viewController.coordinator = coordinator
-                _viewController.viewModel = .init(context: context, authContext: authContext)
-                viewController = _viewController
-            case .search:
-                let _viewController = SearchViewController()
-                _viewController.context = context
-                _viewController.coordinator = coordinator
-                _viewController.viewModel = .init(context: context, authContext: authContext)
-                viewController = _viewController
-            case .compose:
-                viewController = UIViewController()
-            case .notifications:
-                let _viewController = NotificationViewController()
-                _viewController.context = context
-                _viewController.coordinator = coordinator
-                _viewController.viewModel = .init(context: context, authContext: authContext)
-                viewController = _viewController
-            case .me:
-                let _viewController = ProfileViewController()
-                _viewController.context = context
-                _viewController.coordinator = coordinator
-                _viewController.viewModel = MeProfileViewModel(context: context, authContext: authContext)
-                viewController = _viewController
+                case .home:
+                    let _viewController = HomeTimelineViewController()
+                    _viewController.context = context
+                    _viewController.coordinator = coordinator
+                    _viewController.viewModel = .init(context: context, authContext: authContext)
+                    viewController = _viewController
+                case .search:
+                    let _viewController = SearchViewController()
+                    _viewController.context = context
+                    _viewController.coordinator = coordinator
+                    _viewController.viewModel = .init(context: context, authContext: authContext)
+                    viewController = _viewController
+                case .compose:
+                    viewController = UIViewController()
+                case .notifications:
+                    let _viewController = NotificationViewController()
+                    _viewController.context = context
+                    _viewController.coordinator = coordinator
+                    _viewController.viewModel = .init(context: context, authContext: authContext)
+                    viewController = _viewController
+                case .me:
+                    let me = authContext.mastodonAuthenticationBox.authentication.account()
+                    let _viewController = ProfileViewController()
+                    _viewController.context = context
+                    _viewController.coordinator = coordinator
+                    _viewController.viewModel = ProfileViewModel(context: context, authContext: authContext, account: me)
+                    viewController = _viewController
             }
             viewController.title = self.title
             return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
