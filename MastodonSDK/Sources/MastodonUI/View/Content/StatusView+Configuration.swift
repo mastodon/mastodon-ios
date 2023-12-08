@@ -150,8 +150,12 @@ extension StatusView {
 
             if let inReplyToID = status.entity.inReplyToID {
                 // A. replyTo status exist
+                
+                /// we need to initially set an empty header, otherwise the layout gets messed up
+                viewModel.header = createHeader(name: "", emojis: [:])
+                /// finally we can load the status information and display the correct header
                 if let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox {
-                    Task {
+                    Task { @MainActor in
                         if let replyTo = try? await Mastodon.API.Statuses.status(
                             session: .shared,
                             domain: authenticationBox.domain,
@@ -198,7 +202,7 @@ extension StatusView {
     }
     
     public func configureAuthor(author: Mastodon.Entity.Account) {
-        Task {
+        Task { @MainActor in
             
             // author avatar
             viewModel.authorAvatarImageURL = author.avatarImageURL()
