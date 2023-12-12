@@ -45,7 +45,7 @@ extension HomeTimelineViewModel {
                     var newSnapshot: NSDiffableDataSourceSnapshot<StatusSection, StatusItem> = {
                         let newItems = records.map { record in
                             StatusItem.feed(record: record)
-                        }
+                        }.removingDuplicates()
                         var snapshot = NSDiffableDataSourceSnapshot<StatusSection, StatusItem>()
                         snapshot.appendSections([.main])
                         snapshot.appendItems(newItems, toSection: .main)
