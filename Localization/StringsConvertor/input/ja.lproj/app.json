@@ -713,13 +713,13 @@
                 "title": "設定",
                 "general": "一般",
                 "notifications": "通知",
-                "support_mastodon": "Support Mastodon",
+                "support_mastodon": "Mastodonを支援する",
                 "about_mastodon": "Mastodonについて",
                 "server_details": "サーバーの詳細",
                 "logout": "%@ をログアウト"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Mastodonについて",
                 "more_settings": "さらに詳しい設定",
                 "contribute_to_mastodon": "Mastodonに貢献する",
                 "privacy_policy": "プライバシーポリシー",
@@ -731,7 +731,7 @@
                 "about_instance": {
                     "title": "管理者",
                     "message_admin": "管理者にメッセージを送信",
-                    "legal_notice": "A legal notice"
+                    "legal_notice": "法的通知"
                 }
             },
             "general": {
