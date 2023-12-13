@@ -92,6 +92,7 @@ extension HomeTimelineViewModel.LoadLatestState {
             }
 
             do {
+                await AuthenticationServiceProvider.shared.fetchAccounts(apiService: viewModel.context.apiService)
                 let response = try await viewModel.context.apiService.homeTimeline(
                     authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                 )

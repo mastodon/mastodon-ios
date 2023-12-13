@@ -54,21 +54,21 @@ public extension AuthenticationServiceProvider {
     func getAuthentication(matching userAccessToken: String) -> MastodonAuthentication? {
         authentications.first(where: { $0.userAccessToken == userAccessToken })
     }
-    
+
     func authenticationSortedByActivation() -> [MastodonAuthentication] { // fixme: why do we need this?
         return authentications.sorted(by: { $0.activedAt > $1.activedAt })
     }
-        
+
     func restore() {
         authentications = Self.keychain.allKeys().compactMap {
             guard
                 let encoded = Self.keychain[$0],
-                    let data = Data(base64Encoded: encoded)
+                let data = Data(base64Encoded: encoded)
             else { return nil }
             return try? JSONDecoder().decode(MastodonAuthentication.self, from: data)
         }
     }
-    
+
     func migrateLegacyAuthentications(in context: NSManagedObjectContext) {
         do {
             let legacyAuthentications = try context.fetch(MastodonAuthenticationLegacy.sortedFetchRequest)
@@ -101,10 +101,29 @@ public extension AuthenticationServiceProvider {
             logger.log(level: .error, "Could not migrate legacy authentications")
         }
     }
-    
+
     var authenticationMigrationRequired: Bool {
         userDefaults.didMigrateAuthentications == false
     }
+
+    func fetchAccounts(apiService: APIService, completion: (() -> Void)? = nil) async {
+        // FIXME: This is a dirty hack to make the performance-stuff work.
+        // Problem is, that we don't persist the user on disk anymore. So we have to fetch
+        // it when we need it to display on the home timeline.
+        // We need this (also) for the Account-list, but it might be the wrong place. App Startup might be more appropriate
+        for authentication in authentications {
+            guard let account = try? await apiService.accountInfo(domain: authentication.domain,
+                                                                  userID: authentication.userID,
+                                                                  authorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)).value else { continue }
+
+            FileManager.default.store(account: account, forUserID: authentication.userID)
+        }
+
+        NotificationCenter.default.post(name: .userFetched, object: nil)
+
+        completion?()
+    }
+
 }
 
 // MARK: - Private

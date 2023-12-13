@@ -99,10 +99,10 @@ public struct MastodonAuthentication: Codable, Hashable {
         return MastodonUser.findOrFetch(in: context, matching: userPredicate)
     }
 
-    public func account() -> Mastodon.Entity.Account {
-        // store accounts
-#warning("TODO: Implement")
-        return Mastodon.Entity.Account.placeholder()
+    public func account() -> Mastodon.Entity.Account? {
+        let account = FileManager.default.accounts(forUserID: userID).first(where: { $0.id == userID })
+
+        return account
     }
 
     func updating(instance: Instance) -> Self {

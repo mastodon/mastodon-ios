@@ -89,7 +89,7 @@ class MainTabBarController: UITabBarController {
 
         @MainActor
         func viewController(context: AppContext, authContext: AuthContext?, coordinator: SceneCoordinator) async -> UIViewController {
-            guard let authContext = authContext else {
+            guard let authContext, let me = authContext.mastodonAuthenticationBox.authentication.account() else {
                 return UITableViewController()
             }
 
@@ -116,7 +116,6 @@ class MainTabBarController: UITabBarController {
                     _viewController.viewModel = .init(context: context, authContext: authContext)
                     viewController = _viewController
                 case .me:
-                    let me = authContext.mastodonAuthenticationBox.authentication.account()
                     let _viewController = ProfileViewController()
                     _viewController.context = context
                     _viewController.coordinator = coordinator
@@ -133,7 +132,6 @@ class MainTabBarController: UITabBarController {
     private(set) var isReadyForWizardAvatarButton = false
     
     // output
-    var avatarURLObserver: AnyCancellable?
     @Published var avatarURL: URL?
     
     // haptic feedback
@@ -268,28 +266,20 @@ extension MainTabBarController {
             NotificationCenter.default.publisher(for: .userFetched)
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
-                    guard let self = self else { return }
-                    if let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) {
-                        self.avatarURLObserver = user.publisher(for: \.avatar)
-                            .sink { [weak self, weak user] _ in
-                                guard let self = self else { return }
-                                guard let user = user else { return }
-                                guard user.managedObjectContext != nil else { return }
-                                self.avatarURL = user.avatarImageURL()
-                            }
+                    guard let self else { return }
+                    if let account = self.authContext?.mastodonAuthenticationBox.authentication.account() {
+                        self.avatarURL = account.avatarImageURL()
                         
                         // a11y
                         let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
                         guard let profileTabItem = _profileTabItem else { return }
-                        profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(user.displayNameWithFallback)
+                        profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(account.displayNameWithFallback)
                         
                         self.context.authenticationService.updateActiveUserAccountPublisher
                             .sink { [weak self] in
                                 self?.updateUserAccount()
                             }
                             .store(in: &self.disposeBag)
-                    } else {
-                        self.avatarURLObserver = nil
                     }
                 }
                 .store(in: &disposeBag)

@@ -39,21 +39,19 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     break
                 case .reply:
                     guard let replyToAccountID = status.entity.inReplyToAccountID else { return }
-                    #warning("TODO: Implement Domain")
-                await DataSourceFacade.coordinateToProfileScene(provider: self,
-                                                                domain: "",
-                                                                accountID: replyToAccountID)
+                    await DataSourceFacade.coordinateToProfileScene(provider: self,
+                                                                    domain: domain,
+                                                                    accountID: replyToAccountID)
 
-            case .repost:
-                await DataSourceFacade.coordinateToProfileScene(
-                    provider: self,
-                    target: .reblog,      // keep the wrapper for header author
-                    status: status
-                )
+                case .repost:
+                    await DataSourceFacade.coordinateToProfileScene(
+                        provider: self,
+                        target: .reblog,      // keep the wrapper for header author
+                        status: status
+                    )
             }
         }
     }
-
 }
 
 // MARK: - avatar button

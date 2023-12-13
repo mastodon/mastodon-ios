@@ -1,22 +1,21 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
-import MastodonCore
 import MastodonSDK
 
 extension FileManager {
     private static let cacheItemsLimit: Int = 100 // max number of items to cache
     
     // Retrieve
-    func cachedHomeTimeline(for userId: UserIdentifier) throws -> [MastodonStatus] {
+    public func cachedHomeTimeline(for userId: UserIdentifier) throws -> [MastodonStatus] {
         try cached(timeline: .homeTimeline(userId)).map(MastodonStatus.fromEntity)
     }
     
-    func cachedNotificationsAll(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
+    public func cachedNotificationsAll(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
         try cached(timeline: .notificationsAll(userId))
     }
     
-    func cachedNotificationsMentions(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
+    public func cachedNotificationsMentions(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
         try cached(timeline: .notificationsMentions(userId))
     }
     
@@ -38,15 +37,15 @@ extension FileManager {
     }
     
     // Create
-    func cacheHomeTimeline(items: [MastodonStatus], for userIdentifier: UserIdentifier) {
+    public func cacheHomeTimeline(items: [MastodonStatus], for userIdentifier: UserIdentifier) {
         cache(items.map { $0.entity }, timeline: .homeTimeline(userIdentifier))
     }
     
-    func cacheNotificationsAll(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
+    public func cacheNotificationsAll(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
         cache(items, timeline: .notificationsAll(userIdentifier))
     }
     
-    func cacheNotificationsMentions(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
+    public func cacheNotificationsMentions(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
         cache(items, timeline: .notificationsMentions(userIdentifier))
     }
     
@@ -71,15 +70,15 @@ extension FileManager {
     }
     
     // Delete
-    func invalidateHomeTimelineCache(for userId: UserIdentifier) {
+    public func invalidateHomeTimelineCache(for userId: UserIdentifier) {
         invalidate(timeline: .homeTimeline(userId))
     }
     
-    func invalidateNotificationsAll(for userId: UserIdentifier) {
+    public func invalidateNotificationsAll(for userId: UserIdentifier) {
         invalidate(timeline: .notificationsAll(userId))
     }
     
-    func invalidateNotificationsMentions(for userId: UserIdentifier) {
+    public func invalidateNotificationsMentions(for userId: UserIdentifier) {
         invalidate(timeline: .notificationsMentions(userId))
     }
     

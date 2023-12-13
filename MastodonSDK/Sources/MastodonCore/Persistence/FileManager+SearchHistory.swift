@@ -4,11 +4,11 @@ import Foundation
 import MastodonCore
 
 extension FileManager {
-    func searchItems(forUser userID: String) throws -> [Persistence.SearchHistory.Item] {
+    public func searchItems(forUser userID: String) throws -> [Persistence.SearchHistory.Item] {
         return try searchItems().filter { $0.userID == userID }
     }
 
-    func searchItems() throws -> [Persistence.SearchHistory.Item] {
+    public func searchItems() throws -> [Persistence.SearchHistory.Item] {
         guard let documentsDirectory else { return [] }
 
         let searchHistoryPath = Persistence.searchHistory.filepath(baseURL: documentsDirectory)
@@ -28,9 +28,7 @@ extension FileManager {
         }
     }
 
-    func addSearchItem(_ newSearchItem: Persistence.SearchHistory.Item) throws {
-        guard let documentsDirectory else { return }
-
+    public func addSearchItem(_ newSearchItem: Persistence.SearchHistory.Item) throws {
         var searchItems = (try? searchItems()) ?? []
 
         if let index = searchItems.firstIndex(of: newSearchItem) {
@@ -58,10 +56,8 @@ extension FileManager {
 
     }
 
-    func removeSearchHistory(forUser userID: String) {
-        guard let documentsDirectory else { return }
-
-        var searchItems = (try? searchItems()) ?? []
+    public func removeSearchHistory(forUser userID: String) {
+        let searchItems = (try? searchItems()) ?? []
         let newSearchItems = searchItems.filter { $0.userID != userID }
 
         storeJSON(newSearchItems, .searchHistory)

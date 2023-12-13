@@ -5,8 +5,6 @@
 //  Created by Marcus Kida on 17.11.22.
 //
 
-import CoreData
-import CoreDataStack
 import MastodonCore
 import MastodonSDK
 

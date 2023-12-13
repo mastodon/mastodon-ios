@@ -8,6 +8,7 @@
 import Foundation
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 
 extension HomeTimelineViewModel {
     class LoadOldestState: GKState {
@@ -60,6 +61,8 @@ extension HomeTimelineViewModel.LoadOldestState {
                 }
 
                 do {
+                    await AuthenticationServiceProvider.shared.fetchAccounts(apiService: viewModel.context.apiService)
+
                     let response = try await viewModel.context.apiService.homeTimeline(
                         maxID: maxID,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox

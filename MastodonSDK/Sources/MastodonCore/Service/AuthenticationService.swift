@@ -25,13 +25,13 @@ public final class AuthenticationService: NSObject {
 
     // output
     @Published public var mastodonAuthenticationBoxes: [MastodonAuthenticationBox] = []
-    
+
     private func fetchFollowedBlockedUserIds(
         _ authBox: MastodonAuthenticationBox,
         _ previousFollowingIDs: [String]? = nil,
         _ maxID: String? = nil
     ) async throws {
-        guard let apiService = apiService else { return }
+        guard let apiService else { return }
         
         let followingResponse = try await fetchFollowing(maxID, apiService, authBox)
         let followingIds = (previousFollowingIDs ?? []) + followingResponse.ids
