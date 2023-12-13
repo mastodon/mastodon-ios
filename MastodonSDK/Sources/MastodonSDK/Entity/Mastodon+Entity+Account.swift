@@ -78,62 +78,6 @@ extension Mastodon.Entity {
             self.suspended = suspended
             self.muteExpiresAt = muteExpiresAt
         }
-
-        @available(*, deprecated, message: "Remove!")
-        public static func placeholder() -> Mastodon.Entity.Account {
-            let data = """
-{
-  "id": "3006",
-  "username": "zeitschlag",
-  "acct": "zeitschlag",
-  "display_name": "nathan",
-  "locked": false,
-  "bot": false,
-  "discoverable": true,
-  "group": false,
-  "created_at": "2017-04-18T00:00:00.000Z",
-  "note": "<p>release-notes-autor.<br /> wer nervt, wird geblockt.</p>",
-  "url": "https://chaos.social/@zeitschlag",
-  "uri": "https://chaos.social/users/zeitschlag",
-  "avatar": "https://assets.chaos.social/accounts/avatars/000/003/006/original/cf15bb24f41bf74e.jpeg",
-  "avatar_static": "https://assets.chaos.social/accounts/avatars/000/003/006/original/cf15bb24f41bf74e.jpeg",
-  "header": "https://assets.chaos.social/accounts/headers/000/003/006/original/5936fa5b2ef78ced.png",
-  "header_static": "https://assets.chaos.social/accounts/headers/000/003/006/original/5936fa5b2ef78ced.png",
-  "followers_count": 1347,
-  "following_count": 235,
-  "statuses_count": 7484,
-  "last_status_at": "2023-12-08",
-  "noindex": false,
-  "emojis": [],
-  "roles": [],
-  "fields": [
-    {
-      "name": "blog",
-      "value": "<a href=\\\"https://bullenscheisse.de\\\" target=\\\"_blank\\\" rel=\\\"nofollow noopener noreferrer me\\\" translate=\\\"no\\\"><span class=\\\"invisible\\\">https://</span><span class=\\\"\\\">bullenscheisse.de</span><span class=\\\"invisible\\\"></span></a>",
-      "verified_at": "2023-04-20T13:18:18.930+00:00"
-    },
-    {
-      "name": "Mastodon",
-      "value": "<a href=\\\"https://joinmastodon.org/about\\\" target=\\\"_blank\\\" rel=\\\"nofollow noopener noreferrer me\\\" translate=\\\"no\\\"><span class=\\\"invisible\\\">https://</span><span class=\\\"\\\">joinmastodon.org/about</span><span class=\\\"invisible\\\"></span></a>",
-      "verified_at": "2023-11-10T17:06:50.631+00:00"
-    },
-    {
-      "name": "github",
-      "value": "<a href=\\\"https://github.com/zeitschlag/\\\" target=\\\"_blank\\\" rel=\\\"nofollow noopener noreferrer me\\\" translate=\\\"no\\\"><span class=\\\"invisible\\\">https://</span><span class=\\\"\\\">github.com/zeitschlag/</span><span class=\\\"invisible\\\"></span></a>",
-      "verified_at": "2023-11-10T17:25:59.868+00:00"
-    },
-    {
-      "name": "German CV",
-      "value": "<a href=\\\"https://zeitschlag.net/lebenslauf/\\\" target=\\\"_blank\\\" rel=\\\"nofollow noopener noreferrer me\\\" translate=\\\"no\\\"><span class=\\\"invisible\\\">https://</span><span class=\\\"\\\">zeitschlag.net/lebenslauf/</span><span class=\\\"invisible\\\"></span></a>",
-      "verified_at": null
-    }
-  ]
-}
-""".data(using: .utf8)!
-            
-            let account = try! Mastodon.API.decoder.decode(Self.self, from: data)
-            return account
-        }
     }
 }
 
