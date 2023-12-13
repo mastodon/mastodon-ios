@@ -87,7 +87,7 @@ extension MastodonStatusThreadViewModel {
         }
         
         let items = self.__ancestors + newItems
-        self.__ancestors = items
+        self.__ancestors = items.removingDuplicates()
     }
     
     func appendDescendant(
@@ -122,7 +122,7 @@ extension MastodonStatusThreadViewModel {
             guard !items.contains(item) else { continue }
             items.append(item)
         }
-        self.__descendants = items
+        self.__descendants = items.removingDuplicates()
     }
     
 }

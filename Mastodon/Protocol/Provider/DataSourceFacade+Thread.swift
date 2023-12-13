@@ -18,13 +18,11 @@ extension DataSourceFacade {
         status: MastodonStatus
     ) async {
         let _root: StatusItem.Thread? = {
-            let _redirectRecord = DataSourceFacade.status(
-                managedObjectContext: provider.context.managedObjectContext,
+            let redirectRecord = DataSourceFacade.status(
                 status: status,
                 target: target
             )
-            guard let redirectRecord = _redirectRecord else { return nil }
-
+            
             let threadContext = StatusItem.Thread.Context(status: redirectRecord)
             return StatusItem.Thread.root(context: threadContext)
         }()

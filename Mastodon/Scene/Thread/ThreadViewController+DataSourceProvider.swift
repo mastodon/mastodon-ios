@@ -55,12 +55,13 @@ extension ThreadViewController: DataSourceProvider {
     }
     
     private func handle(status: MastodonStatus) {
-        viewModel.mastodonStatusThreadViewModel.ancestors.handle(status: status, for: viewModel)
-        viewModel.mastodonStatusThreadViewModel.descendants.handle(status: status, for: viewModel)
+        viewModel.mastodonStatusThreadViewModel.ancestors.handleUpdate(status: status, for: viewModel)
+        viewModel.mastodonStatusThreadViewModel.descendants.handleUpdate(status: status, for: viewModel)
     }
     
     func delete(status: MastodonStatus) {
-        assertionFailure("Needs implementation")
+        viewModel.mastodonStatusThreadViewModel.ancestors.handleDelete(status: status, for: viewModel)
+        viewModel.mastodonStatusThreadViewModel.descendants.handleDelete(status: status, for: viewModel)
     }
     
     @MainActor
@@ -70,7 +71,7 @@ extension ThreadViewController: DataSourceProvider {
 }
 
 private extension [StatusItem] {
-    mutating func handle(status: MastodonStatus, for viewModel: ThreadViewModel) {
+    mutating func handleUpdate(status: MastodonStatus, for viewModel: ThreadViewModel) {
         for (index, ancestor) in enumerated() {
             switch ancestor {
             case let .feed(record):
@@ -98,6 +99,42 @@ private extension [StatusItem] {
                 case let .leaf(context):
                     if context.status.id == status.id {
                         self[index] = .thread(.leaf(context: .init(status: status)))
+                    }
+                }
+            case .bottomLoader, .topLoader:
+                break
+            }
+        }
+    }
+    
+    mutating func handleDelete(status: MastodonStatus, for viewModel: ThreadViewModel) {
+        for (index, ancestor) in enumerated() {
+            switch ancestor {
+            case let .feed(record):
+                if record.status?.id == status.id {
+                    self.remove(at: index)
+                }
+            case let.feedLoader(record):
+                if record.status?.id == status.id {
+                    self.remove(at: index)
+                }
+            case let .status(record):
+                if record.id == status.id {
+                    self.remove(at: index)
+                }
+            case let .thread(thread):
+                switch thread {
+                case let .root(context):
+                    if context.status.id == status.id {
+                        self.remove(at: index)
+                    }
+                case let .reply(context):
+                    if context.status.id == status.id {
+                        self.remove(at: index)
+                    }
+                case let .leaf(context):
+                    if context.status.id == status.id {
+                        self.remove(at: index)
                     }
                 }
             case .bottomLoader, .topLoader:

@@ -13,10 +13,9 @@ import MastodonSDK
 
 extension DataSourceFacade {
     static func status(
-        managedObjectContext: NSManagedObjectContext,
         status: MastodonStatus,
         target: StatusTarget
-    ) -> MastodonStatus? {
+    ) -> MastodonStatus {
         switch target {
         case .status:
             return status.reblog ?? status

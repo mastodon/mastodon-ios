@@ -394,7 +394,6 @@
 		DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */; };
 		DB938EE62623F50700E5B6C1 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938EE52623F50700E5B6C1 /* ThreadViewController.swift */; };
 		DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938EEC2623F79B00E5B6C1 /* ThreadViewModel.swift */; };
-		DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F0226240EA300E5B6C1 /* CachedThreadViewModel.swift */; };
 		DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F0826240F3C00E5B6C1 /* RemoteThreadViewModel.swift */; };
 		DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */; };
 		DB938F1F2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */; };
@@ -1117,7 +1116,6 @@
 		DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerEmptyStateView.swift; sourceTree = "<group>"; };
 		DB938EE52623F50700E5B6C1 /* ThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewController.swift; sourceTree = "<group>"; };
 		DB938EEC2623F79B00E5B6C1 /* ThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewModel.swift; sourceTree = "<group>"; };
-		DB938F0226240EA300E5B6C1 /* CachedThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedThreadViewModel.swift; sourceTree = "<group>"; };
 		DB938F0826240F3C00E5B6C1 /* RemoteThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteThreadViewModel.swift; sourceTree = "<group>"; };
 		DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+LoadThreadState.swift"; sourceTree = "<group>"; };
 		DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+Diffable.swift"; sourceTree = "<group>"; };
@@ -2690,7 +2688,6 @@
 				DB938EEC2623F79B00E5B6C1 /* ThreadViewModel.swift */,
 				DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */,
 				DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */,
-				DB938F0226240EA300E5B6C1 /* CachedThreadViewModel.swift */,
 				DB938F0826240F3C00E5B6C1 /* RemoteThreadViewModel.swift */,
 				DB0FCB7F27968F70006C02E2 /* MastodonStatusThreadViewModel.swift */,
 			);
@@ -3912,7 +3909,6 @@
 				2AB5011C299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
 				DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
-				DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */,
 				DBA5A53526F0A36A00CACBAA /* AddAccountTableViewCell.swift in Sources */,
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,
 				DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */,

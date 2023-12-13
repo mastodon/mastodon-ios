@@ -19,12 +19,10 @@ extension DataSourceFacade {
         status: MastodonStatus,
         meta: Meta
     ) async throws {
-        let _redirectRecord = DataSourceFacade.status(
-            managedObjectContext: provider.context.managedObjectContext,
+        let redirectRecord = DataSourceFacade.status(
             status: status,
             target: target
         )
-        guard let redirectRecord = _redirectRecord else { return }
         
         await responseToMetaTextAction(
             provider: provider,

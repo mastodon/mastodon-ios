@@ -82,8 +82,15 @@ class ThreadViewModel {
         context.publisherService
             .statusPublishResult
             .sink { [weak self] value in
-                if case let Result.success(result) = value, case StatusPublishResult.edit = result {
-                    self?.hasPendingStatusEditReload = true
+                if case let Result.success(result) = value {
+                    switch result {
+                    case .edit:
+                        self?.hasPendingStatusEditReload = true
+                    case .post:
+                        guard let self else { return }
+                        self.loadThreadStateMachine.enter(LoadThreadState.Loading.self)
+
+                    }
                 }
             }
             .store(in: &disposeBag)
