@@ -20,7 +20,7 @@ extension APIService {
         let managedObjectContext = backgroundManagedObjectContext
 
         let _query: Mastodon.API.Account.RelationshipQuery? = try? await managedObjectContext.perform {
-            var ids: [MastodonUser.ID] = []
+            var ids: [String] = []
             for record in records {
                 guard let user = record.object(in: managedObjectContext) else { continue }
                 guard user.id != authenticationBox.userID else { continue }
@@ -71,7 +71,7 @@ extension APIService {
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
 
-        let ids: [MastodonUser.ID] = accounts.compactMap { $0.id }
+        let ids: [String] = accounts.compactMap { $0.id }
 
         guard ids.isEmpty == false else { throw APIError.implicit(.badRequest) }
 

@@ -56,7 +56,7 @@ extension DataSourceFacade {
         await selectionFeedbackGenerator.selectionChanged()
         
         let managedObjectContext = dependency.context.managedObjectContext
-        let _userID: MastodonUser.ID? = try await managedObjectContext.perform {
+        let _userID: String? = try await managedObjectContext.perform {
             return notification.account.id
         }
         

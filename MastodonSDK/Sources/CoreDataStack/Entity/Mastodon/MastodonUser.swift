@@ -11,15 +11,13 @@ import Foundation
 /// See also `CoreDataStack.MastodonUser`, this extension contains several 
 @available(*, deprecated, message: "Replace with Mastodon.Entity.Account")
 final public class MastodonUser: NSManagedObject {
-    
-    public typealias ID = String
-    
+
     // sourcery: autoGenerateProperty
-    @NSManaged public private(set) var identifier: ID
+    @NSManaged public private(set) var identifier: String
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var domain: String
     // sourcery: autoGenerateProperty
-    @NSManaged public private(set) var id: ID
+    @NSManaged public private(set) var id: String
 
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var acct: String
@@ -206,11 +204,11 @@ extension MastodonUser {
         ])
     }
     
-    public static func predicate(followingBy userID: MastodonUser.ID) -> NSPredicate {
+    public static func predicate(followingBy userID: String) -> NSPredicate {
         NSPredicate(format: "ANY %K.%K == %@", #keyPath(MastodonUser.followingBy), #keyPath(MastodonUser.id), userID)
     }
     
-    public static func predicate(followRequestedBy userID: MastodonUser.ID) -> NSPredicate {
+    public static func predicate(followRequestedBy userID: String) -> NSPredicate {
         NSPredicate(format: "ANY %K.%K == %@", #keyPath(MastodonUser.followRequestedBy), #keyPath(MastodonUser.id), userID)
     }
     
@@ -223,9 +221,9 @@ extension MastodonUser: AutoGenerateProperty {
     // Generated using Sourcery
     // DO NOT EDIT
     public struct Property {
-        public let identifier: ID
+        public let identifier: String
         public let domain: String
-        public let id: ID
+        public let id: String
         public let acct: String
         public let username: String
         public let displayName: String
@@ -247,9 +245,9 @@ extension MastodonUser: AutoGenerateProperty {
         public let fields: [MastodonField]
 
     	public init(
-    		identifier: ID,
+    		identifier: String,
     		domain: String,
-    		id: ID,
+    		id: String,
     		acct: String,
     		username: String,
     		displayName: String,

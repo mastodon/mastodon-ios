@@ -14,7 +14,7 @@ extension Notification.Property {
     public init(
         entity: Mastodon.Entity.Notification,
         domain: String,
-        userID: MastodonUser.ID,
+        userID: String,
         networkDate: Date
     ) {
         self.init(

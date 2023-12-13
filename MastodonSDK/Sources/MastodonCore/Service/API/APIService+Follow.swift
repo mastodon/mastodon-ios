@@ -14,8 +14,8 @@ import MastodonSDK
 extension APIService {
 
     private struct MastodonFollowContext {
-        let sourceUserID: MastodonUser.ID
-        let targetUserID: MastodonUser.ID
+        let sourceUserID: String
+        let targetUserID: String
         let isFollowing: Bool
         let isPending: Bool
         let needsUnfollow: Bool

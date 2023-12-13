@@ -125,7 +125,7 @@ public final class AuthenticationService: NSObject {
 
 extension AuthenticationService {
     
-    public func activeMastodonUser(domain: String, userID: MastodonUser.ID) async throws -> Bool {
+    public func activeMastodonUser(domain: String, userID: String) async throws -> Bool {
         var isActive = false
         
         AuthenticationServiceProvider.shared.activateAuthentication(in: domain, for: userID)

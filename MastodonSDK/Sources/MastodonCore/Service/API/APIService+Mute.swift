@@ -14,7 +14,7 @@ import MastodonSDK
 extension APIService {
     
     private struct MastodonMuteContext {
-        let targetUserID: MastodonUser.ID
+        let targetUserID: String
         let targetUsername: String
         let isMuting: Bool
     }

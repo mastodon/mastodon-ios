@@ -64,7 +64,7 @@ public final class Status: NSManagedObject {
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var inReplyToID: Status.ID?
     // sourcery: autoUpdatableObject, autoGenerateProperty
-    @NSManaged public private(set) var inReplyToAccountID: MastodonUser.ID?
+    @NSManaged public private(set) var inReplyToAccountID: String?
     
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var language: String? //  (ISO 639 Part 1 two-letter language code)
@@ -270,7 +270,7 @@ extension Status: AutoGenerateProperty {
         public let repliesCount: Int64
         public let url: String?
         public let inReplyToID: Status.ID?
-        public let inReplyToAccountID: MastodonUser.ID?
+        public let inReplyToAccountID: String?
         public let language: String?
         public let text: String?
         public let updatedAt: Date
@@ -295,7 +295,7 @@ extension Status: AutoGenerateProperty {
     		repliesCount: Int64,
     		url: String?,
     		inReplyToID: Status.ID?,
-    		inReplyToAccountID: MastodonUser.ID?,
+    		inReplyToAccountID: String?,
     		language: String?,
     		text: String?,
     		updatedAt: Date,
@@ -484,7 +484,7 @@ extension Status: AutoUpdatableObject {
     		self.inReplyToID = inReplyToID
     	}
     }
-    public func update(inReplyToAccountID: MastodonUser.ID?) {
+    public func update(inReplyToAccountID: String?) {
     	if self.inReplyToAccountID != inReplyToAccountID {
     		self.inReplyToAccountID = inReplyToAccountID
     	}
