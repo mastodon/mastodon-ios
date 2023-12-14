@@ -32,6 +32,8 @@ class ThreadViewModel {
     @Published var threadContext: ThreadContext?
     @Published var hasPendingStatusEditReload = false
     
+    let onDismiss = PassthroughSubject<MastodonStatus, Never>()
+    
     private(set) lazy var loadThreadStateMachine: GKStateMachine = {
         let stateMachine = GKStateMachine(states: [
             LoadThreadState.Initial(viewModel: self),

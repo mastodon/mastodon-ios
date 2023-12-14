@@ -60,6 +60,10 @@ extension ThreadViewController: DataSourceProvider {
     }
     
     func delete(status: MastodonStatus) {
+        if viewModel.root?.record.id == status.id {
+            viewModel.root = nil
+            viewModel.onDismiss.send(status)
+        }
         viewModel.mastodonStatusThreadViewModel.ancestors.handleDelete(status: status, for: viewModel)
         viewModel.mastodonStatusThreadViewModel.descendants.handleDelete(status: status, for: viewModel)
     }

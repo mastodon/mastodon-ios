@@ -14,6 +14,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
+import MastodonSDK
 
 final class ThreadViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -68,6 +69,14 @@ extension ThreadViewController {
                 }
                 self.titleView.update(titleMetaContent: title, subtitle: nil)
             }
+            .store(in: &disposeBag)
+        
+        viewModel.onDismiss
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] status in
+                self?.navigationController?.popViewController(animated: true)
+                self?.navigationController?.notifyChildrenAboutStatusDeletion(status)
+            })
             .store(in: &disposeBag)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -180,5 +189,13 @@ extension ThreadViewController: StatusTableViewControllerNavigateable {
 
     @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
         statusKeyCommandHandler(sender)
+    }
+}
+
+extension UINavigationController {
+    func notifyChildrenAboutStatusDeletion(_ status: MastodonStatus) {
+        viewControllers.compactMap { $0 as? DataSourceProvider }.forEach { provider in
+            provider?.delete(status: status )
+        }
     }
 }
