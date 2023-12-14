@@ -41,6 +41,20 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
+        #warning("TODO: Remove this with IOS-181, IOS-182")
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+           let me = authenticationBox.authentication.user(in: managedObjectContext)
+
+           for entity in response.value {
+               guard let poll = entity.poll else { continue }
+               _ = Persistence.Poll.createOrMerge(
+                in: managedObjectContext,
+                context: .init(domain: domain, entity: poll, me: me, networkDate: response.networkDate)
+               )
+           }
+        }
+        
         // FIXME: This is a dirty hack to make the performance-stuff work.
         // Problem is, that we don't persist the user on disk anymore. So we have to fetch
         // it when we need it to display on the home timeline.

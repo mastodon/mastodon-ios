@@ -165,7 +165,7 @@ extension StatusSection {
                         return
                     }
                     
-                    cell.pollOptionView.configure(pollOption: option)
+                    cell.pollOptionView.configure(pollOption: option, status: statusView.viewModel.originalStatus)
                     
                     // trigger update if needs
                     let needsUpdatePoll: Bool = {

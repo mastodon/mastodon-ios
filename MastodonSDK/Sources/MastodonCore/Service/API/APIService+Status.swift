@@ -26,6 +26,19 @@ extension APIService {
             statusID: statusID,
             authorization: authorization
         ).singleOutput()
+        
+        #warning("TODO: Remove this with IOS-181, IOS-182")
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+           let me = authenticationBox.authentication.user(in: managedObjectContext)
+
+            if let poll = response.value.poll {
+                _ = Persistence.Poll.createOrMerge(
+                    in: managedObjectContext,
+                    context: .init(domain: domain, entity: poll, me: me, networkDate: response.networkDate)
+                )
+           }
+        }
 
         return response
     }
