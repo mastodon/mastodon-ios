@@ -180,7 +180,7 @@ extension Mastodon.Entity.Account {
     }
 
     public var domainFromAcct: String? {
-        if acct.contains("@") {
+        if acct.contains("@") == false {
             return domain
         } else if let domain = acct.split(separator: "@").last {
             return String(domain)
