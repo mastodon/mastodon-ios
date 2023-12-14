@@ -102,17 +102,23 @@ extension DataSourceFacade {
         account: Mastodon.Entity.Account
     ) {
 
-        let profileViewModel = ProfileViewModel(
-            context: provider.context,
-            authContext: provider.authContext,
-            account: account
-        )
-        
-        _ = provider.coordinator.present(
-            scene: .profile(viewModel: profileViewModel),
-            from: provider,
-            transition: .show
-        )
+        Task { @MainActor in
+
+            guard let relationship = try? await provider.context.apiService.relationship(forAccounts: [account], authenticationBox: provider.authContext.mastodonAuthenticationBox).value.first else { return }
+
+            let profileViewModel = ProfileViewModel(
+                context: provider.context,
+                authContext: provider.authContext,
+                account: account,
+                relationship: relationship
+            )
+
+            _ = provider.coordinator.present(
+                scene: .profile(viewModel: profileViewModel),
+                from: provider,
+                transition: .show
+            )
+        }
     }
 }
 

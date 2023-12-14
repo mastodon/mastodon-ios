@@ -119,7 +119,7 @@ class MainTabBarController: UITabBarController {
                     let _viewController = ProfileViewController()
                     _viewController.context = context
                     _viewController.coordinator = coordinator
-                    _viewController.viewModel = ProfileViewModel(context: context, authContext: authContext, account: me)
+                    _viewController.viewModel = ProfileViewModel(context: context, authContext: authContext, account: me, relationship: nil)
                     viewController = _viewController
             }
             viewController.title = self.title

@@ -4,6 +4,7 @@ import UIKit
 import MastodonSDK
 import MastodonLocalization
 import MetaTextKit
+import MastodonCore
 
 enum ServerDetailsTab: Int, CaseIterable {
     case about = 0
@@ -36,7 +37,7 @@ class ServerDetailsViewController: UIViewController {
     let instanceRulesViewController: InstanceRulesViewController
     let containerView: UIView
 
-    init(domain: String) {
+    init(domain: String, appContext: AppContext, authContext: AuthContext, sceneCoordinator: SceneCoordinator) {
         segmentedControl = UISegmentedControl()
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
 
@@ -47,7 +48,7 @@ class ServerDetailsViewController: UIViewController {
         containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
 
-        aboutInstanceViewController = AboutInstanceViewController()
+        aboutInstanceViewController = AboutInstanceViewController(context: appContext, authContext: authContext, coordinator: sceneCoordinator)
         instanceRulesViewController = InstanceRulesViewController()
 
         pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)

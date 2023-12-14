@@ -146,10 +146,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         authenticationBox: authenticationBox
                     ).value.accounts.first else { return }
 
+                    guard let relationship = try await AppContext.shared.apiService.relationship(
+                        forAccounts: [account],
+                        authenticationBox: authenticationBox
+                    ).value.first else { return }
+
                     let profileViewModel = ProfileViewModel(
                         context: AppContext.shared,
                         authContext: authContext,
-                        account: account
+                        account: account,
+                        relationship: relationship
                     )
                     _ = self.coordinator?.present(
                         scene: .profile(viewModel: profileViewModel),
@@ -284,11 +290,18 @@ extension SceneDelegate {
                             authenticationBox: authenticationBox
                         ).value.accounts.first else { return }
 
+                        guard let relationship = try await AppContext.shared.apiService.relationship(
+                            forAccounts: [account],
+                            authenticationBox: authenticationBox
+                        ).value.first else { return }
+
                         let profileViewModel = ProfileViewModel(
                             context: AppContext.shared,
                             authContext: authContext,
-                            account: account
+                            account: account,
+                            relationship: relationship
                         )
+
                         self.coordinator?.present(
                             scene: .profile(viewModel: profileViewModel),
                             from: nil,

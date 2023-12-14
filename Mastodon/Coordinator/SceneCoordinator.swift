@@ -107,11 +107,14 @@ final public class SceneCoordinator {
                                                 notificationID: notificationID,
                                                 authenticationBox: authContext.mastodonAuthenticationBox
                                             ).value.account
-                                            
+
+                                            let relationship = try await appContext.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first
+
                                             let profileViewModel = ProfileViewModel(
                                                 context: appContext,
                                                 authContext: authContext,
-                                                account: account
+                                                account: account,
+                                                relationship: relationship
                                             )
                                             _ = self.present(
                                                 scene: .profile(viewModel: profileViewModel),

@@ -56,10 +56,12 @@ class ProfileViewModel: NSObject {
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
     @MainActor
-    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account) {
+    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?) {
         self.context = context
         self.authContext = authContext
         self.account = account
+        self.relationship = relationship
+
         self.postsUserTimelineViewModel = UserTimelineViewModel(
             context: context,
             authContext: authContext,

@@ -296,16 +296,7 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                     )
                 } else {
 
-                    let profileViewModel = ProfileViewModel(
-                        context: self.context,
-                        authContext: self.viewModel.authContext,
-                        account: notification.account
-                    )
-                    _ = self.coordinator.present(
-                        scene: .profile(viewModel: profileViewModel),
-                        from: self,
-                        transition: .show
-                    )
+                    DataSourceFacade.coordinateToProfileScene(provider: self, account: notification.account)
                 }
             default:
                 break

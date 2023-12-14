@@ -70,7 +70,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
 
                 navigationController.pushViewController(notificationViewController, animated: true)
             case .serverDetails(let domain):
-                let serverDetailsViewController = ServerDetailsViewController(domain: domain)
+                let serverDetailsViewController = ServerDetailsViewController(domain: domain, appContext: appContext, authContext: authContext, sceneCoordinator: sceneCoordinator)
                 serverDetailsViewController.delegate = self
 
                 appContext.apiService.instanceV2(domain: domain)
@@ -217,8 +217,7 @@ extension SettingsCoordinator: ServerDetailsViewControllerDelegate {
 
 extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
     @MainActor func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account) {
-        let profileViewModel = ProfileViewModel(context: appContext, authContext: authContext, account: account)
-        sceneCoordinator.present(scene: .profile(viewModel: profileViewModel), transition: .show)
+        DataSourceFacade.coordinateToProfileScene(provider: viewController, account: account)
     }
     
     func sendEmailToAdmin(_ viewController: AboutInstanceViewController, emailAddress: String) {

@@ -24,25 +24,6 @@ extension APIService {
             query: query,
             authorization: authorization
         ).singleOutput()
-            
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
-            
-            // user
-            for entity in response.value.accounts {
-                _ = Persistence.MastodonUser.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.MastodonUser.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        cache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }
-
-        }   // ent try await managedObjectContext.performChanges { … } 
         
         return response
     }

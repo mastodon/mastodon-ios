@@ -2,13 +2,18 @@
 
 import UIKit
 import MastodonSDK
+import MastodonCore
 
 protocol AboutInstanceViewControllerDelegate: AnyObject {
     func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account)
     func sendEmailToAdmin(_ viewController: AboutInstanceViewController, emailAddress: String)
 }
 
-class AboutInstanceViewController: UIViewController {
+class AboutInstanceViewController: UIViewController, NeedsDependency, AuthContextProvider {
+
+    var authContext: AuthContext
+    var context: AppContext!
+    var coordinator: SceneCoordinator!
 
     weak var delegate: AboutInstanceViewControllerDelegate?
     var dataSource: AboutInstanceTableViewDataSource?
@@ -19,7 +24,12 @@ class AboutInstanceViewController: UIViewController {
 
     var instance: Mastodon.Entity.V2.Instance?
 
-    init() {
+    init(context: AppContext, authContext: AuthContext, coordinator: SceneCoordinator) {
+
+        self.context = context
+        self.authContext = authContext
+        self.coordinator = coordinator
+
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ContactAdminTableViewCell.self, forCellReuseIdentifier: ContactAdminTableViewCell.reuseIdentifier)
