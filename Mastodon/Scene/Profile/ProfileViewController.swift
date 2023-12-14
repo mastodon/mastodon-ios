@@ -298,9 +298,9 @@ extension ProfileViewController {
         // header
 #warning("TODO: Implement")
         let headerViewModel = profileHeaderViewController.viewModel!
-//        viewModel.$account
-//            .assign(to: \.account, on: headerViewModel)
-//            .store(in: &disposeBag)
+        viewModel.$account
+            .assign(to: \.account, on: headerViewModel)
+            .store(in: &disposeBag)
         viewModel.$isEditing
             .assign(to: \.isEditing, on: headerViewModel)
             .store(in: &disposeBag)
@@ -378,11 +378,11 @@ extension ProfileViewController {
             profileHeaderViewController.profileHeaderView.viewModel.viewDidAppear
         )
         .sink { [weak self] (user, _) in
-            guard let self else { return }
+            guard let self, let domain = user.domainFromAcct else { return }
             Task {
                 _ = try await self.context.apiService.fetchUser(
                     username: user.username,
-                    domain: "user.domainFromAcct",
+                    domain: domain,
                     authenticationBox: self.authContext.mastodonAuthenticationBox
                 )
             }

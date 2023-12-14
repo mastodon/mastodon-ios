@@ -178,4 +178,15 @@ extension Mastodon.Entity.Account {
         return !displayName.isEmpty ? displayName : username
 
     }
+
+    public var domainFromAcct: String? {
+        if acct.contains("@") {
+            return domain
+        } else if let domain = acct.split(separator: "@").last {
+            return String(domain)
+        } else {
+            return nil
+        }
+    }
+
 }
