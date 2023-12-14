@@ -15,27 +15,13 @@ import MastodonLocalization
 extension DataSourceFacade {
     static func responseToUserFollowAction(
         dependency: NeedsDependency & AuthContextProvider,
-        user: ManagedObjectRecord<MastodonUser>
-    ) async throws {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
-    
-        _ = try await dependency.context.apiService.toggleFollow(
-            user: user,
-            authenticationBox: dependency.authContext.mastodonAuthenticationBox
-        )
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
-    }
-
-    static func responseToUserFollowAction(
-        dependency: NeedsDependency & AuthContextProvider,
-        user: Mastodon.Entity.Account
+        account: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
 
         let response = try await dependency.context.apiService.toggleFollow(
-            user: user,
+            account: account,
             authenticationBox: dependency.authContext.mastodonAuthenticationBox
         ).value
 
@@ -118,22 +104,12 @@ extension DataSourceFacade {
 }
 
 extension DataSourceFacade {
-  static func responseToShowHideReblogAction(
-    dependency: NeedsDependency & AuthContextProvider,
-    account: Mastodon.Entity.Account
-  ) async throws {
-      #warning("TODO: Implement")
-//    _ = try await dependency.context.apiService.toggleShowReblogs(
-//      for: user,
-//      authenticationBox: dependency.authContext.mastodonAuthenticationBox)
-  }
-    
     static func responseToShowHideReblogAction(
-      dependency: NeedsDependency & AuthContextProvider,
-      user: Mastodon.Entity.Account
+        dependency: NeedsDependency & AuthContextProvider,
+        account: Mastodon.Entity.Account
     ) async throws {
-      _ = try await dependency.context.apiService.toggleShowReblogs(
-        for: user,
-        authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+        _ = try await dependency.context.apiService.toggleShowReblogs(
+            for: account,
+            authenticationBox: dependency.authContext.mastodonAuthenticationBox)
     }
 }

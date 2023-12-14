@@ -15,8 +15,7 @@ import CoreDataStack
 import MastodonSDK
 
 public protocol UserViewDelegate: AnyObject {
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser)
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account, me: MastodonUser?)
+    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: Mastodon.Entity.Account, me: Mastodon.Entity.Account?)
 }
 
 public final class UserView: UIView {
@@ -255,9 +254,7 @@ public extension UserView {
     }
     
     @objc private func didTapFollowButton() {
-        if let user = viewModel.user {
-            delegate?.userView(self, didTapButtonWith: currentButtonState, for: user)
-        } else if let account = viewModel.account {
+        if let account = viewModel.account {
             delegate?.userView(self, didTapButtonWith: currentButtonState, for: account, me: nil)
         }
     }

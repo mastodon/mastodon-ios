@@ -22,7 +22,7 @@ extension RebloggedByViewController: DataSourceProvider {
         }
 
         switch item {
-            case .user(_), .bottomHeader(_), .bottomLoader:
+            case .bottomHeader(_), .bottomLoader:
                 return nil
             case .account(let account, let relationship):
                 return .account(account: account, relationship: relationship)

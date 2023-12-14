@@ -354,7 +354,7 @@ extension DataSourceFacade {
             break
         case .followUser(_):
             try await DataSourceFacade.responseToUserFollowAction(dependency: dependency,
-                                                                  user: menuContext.author)
+                                                                  account: menuContext.author)
         }
     }   // end func
 }

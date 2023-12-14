@@ -90,7 +90,7 @@ extension ReportResultViewController {
                     do {
                         try await DataSourceFacade.responseToUserFollowAction(
                             dependency: self,
-                            user: self.viewModel.account
+                            account: self.viewModel.account
                         )
                     } catch {
                         // handle error

@@ -99,9 +99,7 @@ extension DiscoveryForYouViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
 
-        Task {
-            await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
-        }
+        DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
     }
 
 }
@@ -119,7 +117,7 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         cell.profileCardView.setButtonState(.loading)
 
         Task {
-            let newRelationship = try await DataSourceFacade.responseToUserFollowAction(dependency: self, user: account)
+            let newRelationship = try await DataSourceFacade.responseToUserFollowAction(dependency: self, account: account)
 
             let isMe = (account.id == authContext.mastodonAuthenticationBox.userID)
 

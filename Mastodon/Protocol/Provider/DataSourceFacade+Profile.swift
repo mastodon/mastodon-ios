@@ -144,20 +144,8 @@ extension DataSourceFacade {
 
             return
         }
-        
-#warning("TODO: Implement")
-        await DataSourceFacade.coordinateToProfileScene(provider: provider, domain: "", accountID: mention.id)
-//        let profileViewModel = ProfileViewModel(
-//            context: provider.context,
-//            authContext: provider.authContext,
-//            account: status.entity.account
-//        )
-//        
-//        _ = provider.coordinator.present(
-//            scene: .profile(viewModel: profileViewModel),
-//            from: provider,
-//            transition: .show
-//        )
+
+        await DataSourceFacade.coordinateToProfileScene(provider: provider, domain: domain, accountID: mention.id)
     }
 
 }
