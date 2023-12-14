@@ -30,7 +30,7 @@ extension UserListViewModel {
 extension UserListViewModel.State {
     class Initial: UserListViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            guard let _ = viewModel else { return false }
+            guard viewModel != nil else { return false }
             switch stateClass {
             case is Reloading.Type:
                 return true
@@ -52,10 +52,10 @@ extension UserListViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel, let stateMachine else { return }
             
             // reset
-            viewModel.userFetchedResultsController.userIDs = []
+            viewModel.accounts = []
             
             stateMachine.enter(Loading.self)
         }
@@ -74,8 +74,8 @@ extension UserListViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let _ = viewModel, let stateMachine = stateMachine else { return }
-            
+            guard viewModel != nil, let stateMachine else { return }
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 stateMachine.enter(Loading.self)
             }
@@ -117,10 +117,11 @@ extension UserListViewModel.State {
                 maxID = nil
             }
             
-            guard let viewModel = viewModel else { return }
+            guard let viewModel else { return }
             
             let maxID = self.maxID
-            
+            let authenticationBox = viewModel.authContext.mastodonAuthenticationBox
+
             Task {
                 do {
                     let response: Mastodon.Response.Content<[Mastodon.Entity.Account]>
@@ -129,24 +130,45 @@ extension UserListViewModel.State {
                         response = try await viewModel.context.apiService.favoritedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
-                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                            authenticationBox: authenticationBox
                         )
                     case .rebloggedBy(let status):
                         response = try await viewModel.context.apiService.rebloggedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
-                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                            authenticationBox: authenticationBox
                         )
                     }
 
+                    if response.value.isEmpty {
+                        await enter(state: NoMore.self)
+
+                        viewModel.accounts = []
+                        viewModel.relationships = []
+                        return
+                    }
+
+                    let newRelationships = try await viewModel.context.apiService.relationship(
+                        forAccounts: response.value,
+                        authenticationBox: authenticationBox
+                    )
+
                     var hasNewAppend = false
-                    var userIDs = viewModel.userFetchedResultsController.userIDs
-                    for user in response.value {
-                        guard !userIDs.contains(user.id) else { continue }
-                        userIDs.append(user.id)
+                    var accounts = viewModel.accounts
+                    for account in response.value {
+                        guard !accounts.contains(account) else { continue }
+
+                        accounts.append(account)
                         hasNewAppend = true
                     }
-                                        
+
+                    var relationships = viewModel.relationships
+
+                    for relationship in newRelationships.value {
+                        guard relationships.contains(relationship) == false else { continue }
+                        relationships.append(relationship)
+                    }
+
                     let maxID = response.link?.maxID
                     
                     if hasNewAppend, maxID != nil {
@@ -155,8 +177,9 @@ extension UserListViewModel.State {
                         await enter(state: NoMore.self)
                     }
                     self.maxID = maxID
-                    viewModel.userFetchedResultsController.userIDs = userIDs
-                    
+                    viewModel.relationships = relationships
+                    viewModel.accounts = accounts
+
                 } catch {
                     await enter(state: Fail.self)
                 }
@@ -177,9 +200,9 @@ extension UserListViewModel.State {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             
-            guard let viewModel = viewModel else { return }
+            guard let viewModel else { return }
             // trigger reload
-            viewModel.userFetchedResultsController.userIDs = viewModel.userFetchedResultsController.userIDs
+            viewModel.accounts = viewModel.accounts
         }
     }
 }

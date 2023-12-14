@@ -21,10 +21,10 @@ extension FavoritedByViewController: DataSourceProvider {
         }
         
         switch item {
-        case .user(let record):
-            return .user(record: record)
-        default:
-            return nil
+            case .user(_), .bottomHeader(_), .bottomLoader:
+                return nil
+            case .account(let account, let relationship):
+                return .account(account: account, relationship: relationship)
         }
     }
     
