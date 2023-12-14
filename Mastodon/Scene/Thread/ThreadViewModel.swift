@@ -33,6 +33,7 @@ class ThreadViewModel {
     @Published var hasPendingStatusEditReload = false
     
     let onDismiss = PassthroughSubject<MastodonStatus, Never>()
+    let onEdit = PassthroughSubject<MastodonStatus, Never>()
     
     private(set) lazy var loadThreadStateMachine: GKStateMachine = {
         let stateMachine = GKStateMachine(states: [
@@ -84,14 +85,20 @@ class ThreadViewModel {
         context.publisherService
             .statusPublishResult
             .sink { [weak self] value in
+                guard let self else { return }
                 if case let Result.success(result) = value {
                     switch result {
-                    case .edit:
-                        self?.hasPendingStatusEditReload = true
-                    case .post:
-                        guard let self else { return }
+                    case let .edit(content):
+                        let status = content.value
+                        let mastodonStatus = MastodonStatus.fromEntity(status)
+                        self.hasPendingStatusEditReload = true
+                        if status.id == root?.record.id {
+                            self.root = .root(context: .init(status: mastodonStatus))
+                        }
                         self.loadThreadStateMachine.enter(LoadThreadState.Loading.self)
-
+                        self.onEdit.send(mastodonStatus)
+                    case .post:
+                        self.loadThreadStateMachine.enter(LoadThreadState.Loading.self)
                     }
                 }
             }

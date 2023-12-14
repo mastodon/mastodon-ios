@@ -79,6 +79,13 @@ extension ThreadViewController {
             })
             .store(in: &disposeBag)
         
+        viewModel.onEdit
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] status in
+                self?.navigationController?.notifyChildrenAboutStatusUpdate(status)
+            })
+            .store(in: &disposeBag)
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         tableView.pinToParent()
@@ -196,6 +203,12 @@ extension UINavigationController {
     func notifyChildrenAboutStatusDeletion(_ status: MastodonStatus) {
         viewControllers.compactMap { $0 as? DataSourceProvider }.forEach { provider in
             provider?.delete(status: status )
+        }
+    }
+    
+    func notifyChildrenAboutStatusUpdate(_ status: MastodonStatus) {
+        viewControllers.compactMap { $0 as? DataSourceProvider }.forEach { provider in
+            provider?.update(status: status )
         }
     }
 }
