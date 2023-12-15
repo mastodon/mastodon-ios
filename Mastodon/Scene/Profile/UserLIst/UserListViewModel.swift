@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import GameplayKit
 import MastodonCore
 import MastodonSDK
@@ -19,7 +18,8 @@ final class UserListViewModel {
     let context: AppContext
     let authContext: AuthContext
     let kind: Kind
-    let userFetchedResultsController: UserFetchedResultsController
+    @Published var accounts: [Mastodon.Entity.Account]
+    @Published var relationships: [Mastodon.Entity.Relationship]
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     // output
@@ -44,12 +44,8 @@ final class UserListViewModel {
         self.context = context
         self.authContext = authContext
         self.kind = kind
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalPredicate: nil
-        )
-        // end init
+        self.accounts = []
+        self.relationships = []
     }
 }
 
