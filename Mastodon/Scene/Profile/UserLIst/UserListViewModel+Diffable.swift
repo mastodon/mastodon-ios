@@ -9,6 +9,7 @@ import UIKit
 import MastodonAsset
 import MastodonLocalization
 import Combine
+import MastodonSDK
 
 extension UserListViewModel {
     @MainActor
@@ -33,17 +34,24 @@ extension UserListViewModel {
         // trigger initial loading
         stateMachine.enter(UserListViewModel.State.Reloading.self)
         
-        userFetchedResultsController.$records
+        $accounts
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] records in
-                guard let self = self else { return }
+            .sink { [weak self] accounts in
+                guard let self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
             
                 var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
                 snapshot.appendSections([.main])
-                let items = records.map { UserItem.user(record: $0) }
+
+                let accountsWithRelationship: [(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)] = accounts.compactMap { account in
+                    guard let relationship = self.relationships.first(where: {$0.id == account.id }) else { return (account: account, relationship: nil)}
+
+                    return (account: account, relationship: relationship)
+                }
+
+                let items = accountsWithRelationship.map { UserItem.account(account: $0.account, relationship: $0.relationship) }
                 snapshot.appendItems(items, toSection: .main)
-                
+
                 if let currentState = self.stateMachine.currentState {
                     switch currentState {
                     case is State.Initial, is State.Idle, is State.Reloading, is State.Loading, is State.Fail:

@@ -20,10 +20,10 @@ extension RebloggedByViewController: DataSourceProvider {
         }
         
         switch item {
-        case .user(let record):
-            return .user(record: record)
-        default:
-            return nil
+            case .account(let account, let relationship):
+                return .account(account: account, relationship: relationship)
+            case .bottomHeader(_), .bottomLoader:
+                return nil
         }
     }
     
