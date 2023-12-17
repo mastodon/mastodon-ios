@@ -205,7 +205,7 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
+                    "favorites_title": "즐겨찾기",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
@@ -748,24 +748,24 @@
                 },
                 "links": {
                     "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "브라우저로 보기"
+                    "open_in_mastodon": "Mastodon으로 열기",
+                    "open_in_browser": "브라우저로 열기"
                 }
             },
             "notifications": {
                 "title": "알림",
                 "policy": {
                     "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "anyone": "모두",
+                    "followers": "나를 팔로우하는 사람들",
+                    "follow": "내가 팔로우하는 사람들",
+                    "noone": "알림 받지않기"
                 },
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "favorites": "즐겨찾기",
+                    "new_followers": "새 팔로워"
                 },
                 "disabled": {
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
@@ -841,7 +841,7 @@
             "add_account": "계정 추가"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "북마크"
         },
         "followed_tags": {
             "title": "팔로우한 태그",
@@ -867,7 +867,7 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
+            "configuration_display_name": "팔로워",
             "configuration_description": "Show number of followers.",
             "title": "FOLLOWERS",
             "followers_today": "%s followers today"
