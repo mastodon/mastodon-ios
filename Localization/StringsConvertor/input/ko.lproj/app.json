@@ -98,10 +98,10 @@
                     "unknown_language": "알 수 없음"
                 },
                 "edit_post": "수정",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "북마크",
+                "remove_bookmark": "북마크 삭제",
+                "follow": "%s 팔로우하기",
+                "unfollow": "%s 언팔로우하기"
             },
             "tabs": {
                 "home": "홈",
@@ -194,7 +194,7 @@
                     "translated_from": "%s에서 %s를 사용해 번역됨",
                     "unknown_language": "알 수 없음",
                     "unknown_provider": "알 수 없음",
-                    "show_original": "Show Original"
+                    "show_original": "원본 보기"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -258,7 +258,7 @@
         },
         "user_list": {
             "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "followers_count": "%@ 팔로잉"
         }
     },
     "scene": {
@@ -268,11 +268,11 @@
             "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
-                "or": "or"
+                "or": "또는"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Mastodon에 오신 것을 환영합니다",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
@@ -296,7 +296,7 @@
         "server_picker": {
             "title": "Pick Server",
             "button": {
-                "language": "Language",
+                "language": "언어",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "모두",
@@ -373,7 +373,7 @@
                 },
                 "password": {
                     "placeholder": "암호",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "비밀번호 확인",
                     "require": "암호의 최소 요구사항:",
                     "character_limit": "8글자",
                     "accessibility": {
@@ -541,10 +541,10 @@
                 "select_visibility_entry": "Select Visibility - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
+                "title": "게시물 언어",
+                "suggested": "추천",
                 "recent": "Recent",
-                "other": "Other Language…"
+                "other": "다른 언어"
             }
         },
         "profile": {
@@ -552,12 +552,12 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers",
+                "my_posts": "게시물",
+                "my_following": "팔로잉",
+                "my_followers": "팔로워",
+                "other_posts": "게시물",
+                "other_following": "팔로잉",
+                "other_followers": "팔로워",
                 "familiar_followers": "mutuals"
             },
             "fields": {
@@ -710,7 +710,7 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "설정",
                 "general": "General",
                 "notifications": "Notifications",
                 "support_mastodon": "Support Mastodon",
@@ -749,11 +749,11 @@
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "브라우저로 보기"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "알림",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
