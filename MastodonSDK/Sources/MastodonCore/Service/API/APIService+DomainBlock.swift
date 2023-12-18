@@ -88,28 +88,6 @@ extension APIService {
             response = try await blockDomain(user: _user, authorizationBox: authenticationBox).singleOutput()
         }
 
-        guard let relationship = try await self.relationship(records: [user], authenticationBox: authenticationBox).value.first else {
-            throw APIError.implicit(.badRequest)
-        }
-
-        try await managedObjectContext.performChanges {
-            let authentication = authenticationBox.authentication
-
-            guard
-                let user = user.object(in: managedObjectContext),
-                let me = authentication.user(in: managedObjectContext)
-            else { return }
-
-            Persistence.MastodonUser.update(
-                mastodonUser: user,
-                context: Persistence.MastodonUser.RelationshipContext(
-                    entity: relationship,
-                    me: me,
-                    networkDate: response.networkDate
-                )
-            )
-        }
-
         return response
     }
 
