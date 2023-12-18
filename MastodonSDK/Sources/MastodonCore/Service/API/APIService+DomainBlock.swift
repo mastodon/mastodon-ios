@@ -71,20 +71,43 @@ extension APIService {
         user: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Empty> {
-        guard let relationship = try await relationship(records: [user], authenticationBox: authenticationBox).value.first else {
+        guard let originalRelationship = try await relationship(records: [user], authenticationBox: authenticationBox).value.first else {
             throw APIError.implicit(.badRequest)
         }
 
         let response: Mastodon.Response.Content<Mastodon.Entity.Empty>
-        let domainBlocking = relationship.domainBlocking ?? false
+        let domainBlocking = originalRelationship.domainBlocking ?? false
 
         let managedObjectContext = backgroundManagedObjectContext
-        guard let user = user.object(in: managedObjectContext) else { throw APIError.implicit(.badRequest) }
+
+        guard let _user = user.object(in: managedObjectContext) else { throw APIError.implicit(.badRequest) }
 
         if domainBlocking {
-            response = try await unblockDomain(user: user, authorizationBox: authenticationBox).singleOutput()
+            response = try await unblockDomain(user: _user, authorizationBox: authenticationBox).singleOutput()
         } else {
-            response = try await blockDomain(user: user, authorizationBox: authenticationBox).singleOutput()
+            response = try await blockDomain(user: _user, authorizationBox: authenticationBox).singleOutput()
+        }
+
+        guard let relationship = try await self.relationship(records: [user], authenticationBox: authenticationBox).value.first else {
+            throw APIError.implicit(.badRequest)
+        }
+
+        try await managedObjectContext.performChanges {
+            let authentication = authenticationBox.authentication
+
+            guard
+                let user = user.object(in: managedObjectContext),
+                let me = authentication.user(in: managedObjectContext)
+            else { return }
+
+            Persistence.MastodonUser.update(
+                mastodonUser: user,
+                context: Persistence.MastodonUser.RelationshipContext(
+                    entity: relationship,
+                    me: me,
+                    networkDate: response.networkDate
+                )
+            )
         }
 
         return response
