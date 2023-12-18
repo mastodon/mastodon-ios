@@ -395,16 +395,16 @@ extension ProfileViewController {
             viewModel.relationshipViewModel.$optionSet
         )
         .asyncMap { [weak self] user, relationshipSet -> UIMenu? in
-            guard let self = self else { return nil }
-            guard let user = user else {
-                return nil
-            }
+            guard let self, let user else { return nil }
+
             let name = user.displayNameWithFallback
+            let domain = user.domainFromAcct 
             let _ = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
 
             var menuActions: [MastodonMenu.Action] = [
                 .muteUser(.init(name: name, isMuting: self.viewModel.relationshipViewModel.isMuting)),
                 .blockUser(.init(name: name, isBlocking: self.viewModel.relationshipViewModel.isBlocking)),
+                .blockDomain(.init(domain: domain, isBlocking: self.viewModel.relationshipViewModel.isDomainBlocking)),
                 .reportUser(.init(name: name)),
                 .shareUser(.init(name: name)),
             ]
@@ -829,6 +829,27 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
                 alertController.addAction(cancelAction)
                 present(alertController, animated: true, completion: nil)
+            case .domainBlocking:
+                    guard let user = viewModel.user else { return }
+                    let name = user.displayNameWithFallback
+
+                    let alertController = UIAlertController(
+                        title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title,
+                        message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(name),
+                        preferredStyle: .alert
+                    )
+                    let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+                    let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblock, style: .default) { [weak self] _ in
+                        guard let self = self else { return }
+                        Task {
+                            try await DataSourceFacade.responseToDomainBlockAction(dependency: self, user: record)
+                        }
+                    }
+                    alertController.addAction(unblockAction)
+                    let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
+                    alertController.addAction(cancelAction)
+                    present(alertController, animated: true, completion: nil)
+
             case .blocking:
                 guard let user = viewModel.user else { return }
                 let name = user.displayNameWithFallback

@@ -394,8 +394,48 @@ extension DataSourceFacade {
 
             try await DataSourceFacade.responseToUserFollowAction(dependency: dependency,
                                                                   user: author)
+        case .blockDomain(let context):
+            let title: String
+            let message: String
+            let actionTitle: String
+
+            #warning("Localization")
+            if context.isBlocking {
+                title = "Unblock \(context.domain)"
+                message = "Really unblock \(context.domain)"
+                actionTitle = L10n.Common.Controls.Friendship.unblockUser(context.domain)
+            } else {
+                title = "Block \(context.domain)"
+                message = "Really block \(context.domain)"
+                actionTitle = L10n.Common.Controls.Friendship.blockUser(context.domain)
+            }
+            let alertController = UIAlertController(
+                title: title,
+                message: message,
+                preferredStyle: .alert
+            )
+
+            let confirmAction = UIAlertAction(title: actionTitle, style: .destructive ) { [weak dependency] _ in
+                guard let dependency = dependency else { return }
+                Task {
+                    let managedObjectContext = dependency.context.managedObjectContext
+                    let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
+                        guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
+                        return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+                    }
+                    guard let user = _user else { return }
+                    try await DataSourceFacade.responseToDomainBlockAction(
+                        dependency: dependency,
+                        user: user
+                    )
+                }
+            }
+            alertController.addAction(confirmAction)
+            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
+            alertController.addAction(cancelAction)
+            dependency.present(alertController, animated: true)
         }
-    }   // end func
+    }
 }
 
 extension DataSourceFacade {
