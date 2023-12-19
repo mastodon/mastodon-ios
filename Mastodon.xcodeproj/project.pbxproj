@@ -1883,13 +1883,6 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
-		D8AC98742B0F615E0045EC2B /* Persistence */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Persistence;
-			sourceTree = "<group>";
-		};
 		D8E5C347296DB896007E76A7 /* Edit History */ = {
 			isa = PBXGroup;
 			children = (
@@ -2175,7 +2168,6 @@
 		DB427DD425BAA00100D1B89D /* Mastodon */ = {
 			isa = PBXGroup;
 			children = (
-				D8AC98742B0F615E0045EC2B /* Persistence */,
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
 				DB427DE325BAA00100D1B89D /* Info.plist */,
 				2D76319C25C151DE00929FB9 /* Diffable */,

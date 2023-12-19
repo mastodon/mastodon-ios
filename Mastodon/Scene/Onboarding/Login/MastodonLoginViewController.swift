@@ -142,10 +142,10 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
         
         authenticationViewModel
             .authenticated
-            .asyncMap { domain, user -> Result<Bool, Error> in
+            .asyncMap { domain, user -> Result<Mastodon.Entity.Account, Error> in
                 do {
                     let result = try await self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
-                    return .success(result)
+                    return .success(user)
                 } catch {
                     return .failure(error)
                 }
@@ -156,8 +156,8 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
                 switch result {
                 case .failure(let error):
                     assertionFailure(error.localizedDescription)
-                case .success(let isActived):
-                    assert(isActived)
+                case .success(let account):
+                    FileManager.default.store(account: account, forUserID: account.id)
                     self.coordinator.setup()
                 }
             }
