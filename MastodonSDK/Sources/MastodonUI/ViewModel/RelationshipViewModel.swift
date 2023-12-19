@@ -204,6 +204,7 @@ extension RelationshipViewModel {
         isBlocking = false
         optionSet = nil
         showReblogs = false
+        isDomainBlocking = false
     }
 }
 
@@ -223,6 +224,7 @@ extension RelationshipViewModel {
         let isBlockingBy = me.blockingBy.contains(user)
         let isBlocking = user.blockingBy.contains(me)
         let isShowingReblogs = me.showingReblogsBy.contains(user)
+        let isDomainBlocking = user.domainBlockingBy.contains(me)
 
         var optionSet: RelationshipActionOptionSet = [.follow]
         
@@ -264,6 +266,10 @@ extension RelationshipViewModel {
 
         if isShowingReblogs {
             optionSet.insert(.showReblogs)
+        }
+
+        if isDomainBlocking {
+            optionSet.insert(.domainBlocking)
         }
 
         return optionSet
