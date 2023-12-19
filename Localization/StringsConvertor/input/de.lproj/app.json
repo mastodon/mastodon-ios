@@ -656,8 +656,8 @@
                 "url": "URL in Mastodon öffnen",
                 "hashtag": "Wechseln zu #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Kein Benutzerkonto gefunden",
+                    "message": "Es gibt kein Benutzerkonto „%s” auf %s"
                 },
                 "empty_state": {
                     "no_results": "Keine Ergebnisse"
@@ -711,17 +711,17 @@
         "settings": {
             "overview": {
                 "title": "Einstellungen",
-                "general": "General",
-                "notifications": "Notifications",
+                "general": "Allgemein",
+                "notifications": "Benachrichtigungen",
                 "support_mastodon": "Mastodon unterstützen",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "about_mastodon": "Über Mastodon",
+                "server_details": "Serverdetails",
+                "logout": "%@ abmelden"
             },
             "about_mastodon": {
                 "title": "Über",
                 "more_settings": "Noch mehr Einstellungen",
-                "contribute_to_mastodon": "Contribute to Mastodon",
+                "contribute_to_mastodon": "Zu Mastodon beitragen",
                 "privacy_policy": "Datenschutzerklärung",
                 "clear_media_storage": "Clear Media Storage"
             },
@@ -735,12 +735,12 @@
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Allgemein",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Farbschema",
+                    "dark": "Dunkel",
+                    "light": "Hell",
+                    "system": "Einstellungen des Geräts übernehmen"
                 },
                 "design": {
                     "section_title": "Design",
