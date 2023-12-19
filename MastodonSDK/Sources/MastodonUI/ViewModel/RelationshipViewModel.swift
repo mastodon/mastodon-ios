@@ -94,7 +94,7 @@ public struct RelationshipActionOptionSet: OptionSet {
             case .editing: return L10n.Common.Controls.Actions.done
             case .updating: return " "
             case .showReblogs: return " "
-            case .domainBlocking: return " "
+            case .domainBlocking: return "Unblock domain"
         }
     }
 }

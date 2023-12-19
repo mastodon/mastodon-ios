@@ -325,6 +325,7 @@ extension ProfileViewController {
             viewModel.relationshipViewModel.$isBlocking.assign(to: \.isBlocking, on: userTimelineViewModel).store(in: &disposeBag)
             viewModel.relationshipViewModel.$isBlockingBy.assign(to: \.isBlockedBy, on: userTimelineViewModel).store(in: &disposeBag)
             viewModel.relationshipViewModel.$isSuspended.assign(to: \.isSuspended, on: userTimelineViewModel).store(in: &disposeBag)
+            viewModel.relationshipViewModel.$isDomainBlocking.assign(to: \.isDomainBlocking, on: userTimelineViewModel).store(in: &disposeBag)
         }
     
         // about
@@ -831,11 +832,11 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 present(alertController, animated: true, completion: nil)
             case .domainBlocking:
                     guard let user = viewModel.user else { return }
-                    let name = user.displayNameWithFallback
+                    let domain = user.domainFromAcct
 
                     let alertController = UIAlertController(
-                        title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title,
-                        message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(name),
+                        title: "Unblock domain \(domain)",
+                        message: "Really unblock domain \(domain)?!",
                         preferredStyle: .alert
                     )
                     let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
