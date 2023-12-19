@@ -202,12 +202,11 @@ extension MastodonMenu {
             case .blockDomain(let context):
                     let title: String
                     let image: UIImage?
-                    //TODO: Add localization
                     if context.isBlocking {
-                        title = "Unblock \(context.domain)"
+                        title = L10n.Common.Controls.Actions.unblockDomain(context.domain)
                         image = UIImage(systemName: "hand.raised.slash.fill")
                     } else {
-                        title = "Block \(context.domain)"
+                        title = L10n.Common.Controls.Actions.blockDomain(context.domain)
                         image = UIImage(systemName: "hand.raised.fill")
                     }
                     let action = LabeledAction(title: title, image: image) { [weak delegate] in

@@ -399,16 +399,16 @@ extension DataSourceFacade {
             let message: String
             let actionTitle: String
 
-            #warning("Localization")
             if context.isBlocking {
-                title = "Unblock \(context.domain)"
-                message = "Really unblock \(context.domain)"
-                actionTitle = L10n.Common.Controls.Friendship.unblockUser(context.domain)
+                title = L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.title
+                message = L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.message(context.domain)
+                actionTitle = L10n.Common.Controls.Friendship.unblockDomain(context.domain)
             } else {
-                title = "Block \(context.domain)"
-                message = "Really block \(context.domain)"
-                actionTitle = L10n.Common.Controls.Friendship.blockUser(context.domain)
+                title = L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.title
+                message = L10n.Common.Alerts.BlockDomain.title(context.domain)
+                actionTitle = L10n.Common.Alerts.BlockDomain.blockEntireDomain
             }
+
             let alertController = UIAlertController(
                 title: title,
                 message: message,
