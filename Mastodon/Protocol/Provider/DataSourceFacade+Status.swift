@@ -71,6 +71,10 @@ extension DataSourceFacade {
                         url: status.entity.account.avatarImageURLWithFallback(domain: status.entity.account.domain ?? ""),
                         filter: ScaledToSizeFilter(size: CGSize.authorAvatarButtonSize)
                     ).itemProvider
+
+                    if let firstAssetURL = status.attachments.first?.previewURL, let url = URL(string: firstAssetURL) {
+                        metadata.imageProvider = ImageProvider(url: url).itemProvider
+                    }
                 }
             ] as [Any]
         }()
