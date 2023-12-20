@@ -13,6 +13,7 @@ class URLActivityItemWithMetadata: NSObject, UIActivityItemSource {
         self.url = url
         self.metadata = LPLinkMetadata()
         metadata.url = url
+        metadata.originalURL = url
         configureMetadata(metadata)
     }
 
@@ -20,14 +21,10 @@ class URLActivityItemWithMetadata: NSObject, UIActivityItemSource {
     let metadata: LPLinkMetadata
 
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-        url
+        return url
     }
 
     func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-        url
-    }
-
-    func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
-        metadata
+        return url
     }
 }
