@@ -50,7 +50,7 @@
             },
             "translation_failed": {
                 "title": "노트",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "message": "번역에 실패했습니다. 관리자가 번역 기능을 활성화시키지 않았거나 번역 기능을 지원하지 않는 Mastodon의 버전을 사용하는 것일 수 있습니다.",
                 "button": "확인"
             }
         },
@@ -276,12 +276,12 @@
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
-                    "title": "What are servers?",
+                    "title": "서버는 무엇인가요?",
                     "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Mastodon이란?"
                     }
                 }
             }
@@ -294,7 +294,7 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "서버 선택하기",
             "button": {
                 "language": "언어",
                 "signup_speed": "Sign-up Speed",
@@ -327,7 +327,7 @@
             },
             "empty_state": {
                 "finding_servers": "사용 가능한 서버를 찾는 중입니다...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "bad_network": "데이터를 로딩하는 과정에서 문제가 발생했습니다. 인터넷 연결 상태를 확인해주세요.",
                 "no_results": "결과 없음"
             },
             "signup_speed": {
