@@ -331,24 +331,24 @@
                 "no_results": "결과 없음"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "모두",
+                "instant": "바로 가입",
+                "manually_reviewed": "수동 심사"
             },
             "language": {
-                "all": "All"
+                "all": "모두"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "이름 또는 URL 검색"
             },
             "no_server_selected_hint": "아무 것도 고르지 않은 경우, 당신의 언어에 따라 서버를 골라드립니다."
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "개인 정보",
             "description": "마스토돈 앱은 아무런 데이터도 수집하지 않지만, 가입한 서버의 정책은 다를 수도 있습니다. 잠시 시간을 들여 마스토돈 앱과 서버의 개인정보 정책을 확인한 후 동의해 주세요.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "개인정보처리방침 - Mastodon iOS",
+                "server": "개인정보처리방침 - %s"
             },
             "button": {
                 "confirm": "동의합니다"
@@ -420,7 +420,7 @@
             "subtitle": "다음은 %s의 중재자들에 의해 설정되고 적용되는 규칙들입니다.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "이용약관",
-            "privacy_policy": "개인정보 정책",
+            "privacy_policy": "개인정보처리방침",
             "button": {
                 "confirm": "동의합니다"
             }
@@ -722,7 +722,7 @@
                 "title": "About",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
+                "privacy_policy": "개인정보처리방침",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
