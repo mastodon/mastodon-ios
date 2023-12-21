@@ -355,7 +355,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Utwórz konto",
             "input": {
                 "avatar": {
                     "delete": "Usuń"
