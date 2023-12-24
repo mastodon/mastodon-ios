@@ -121,19 +121,22 @@ extension ProfileHeaderView.ViewModel {
             ))
         }
         .store(in: &disposeBag)
-#warning("TODO: Implement")
-//        // blur for blocking & blockingBy
-//        $relationshipActionOptionSet
-//            .map { $0.contains(.blocking) || $0.contains(.blockingBy) }
-//            .sink { needsImageOverlayBlurred in
-//                UIView.animate(withDuration: 0.33) {
-//                    let bannerEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.bannerImageViewOverlayBlurEffect : nil
-//                    view.bannerImageViewOverlayVisualEffectView.effect = bannerEffect
-//                    let avatarEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.avatarImageViewOverlayBlurEffect : nil
-//                    view.avatarImageViewOverlayVisualEffectView.effect = avatarEffect
-//                }
-//            }
-//            .store(in: &disposeBag)
+        // blur for blocking & blockingBy
+        $relationship
+            .compactMap { relationship in
+                guard let relationship else { return false }
+
+                return relationship.blocking || (relationship.blockedBy ?? false)
+            }
+            .sink { needsImageOverlayBlurred in
+                UIView.animate(withDuration: 0.33) {
+                    let bannerEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.bannerImageViewOverlayBlurEffect : nil
+                    view.bannerImageViewOverlayVisualEffectView.effect = bannerEffect
+                    let avatarEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.avatarImageViewOverlayBlurEffect : nil
+                    view.avatarImageViewOverlayVisualEffectView.effect = avatarEffect
+                }
+            }
+            .store(in: &disposeBag)
         // name
         Publishers.CombineLatest4(
             $isEditing.removeDuplicates(),
