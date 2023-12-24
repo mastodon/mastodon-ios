@@ -98,14 +98,15 @@ extension ProfileHeaderView.ViewModel {
         }
         .store(in: &disposeBag)
         // follows you
-#warning("TODO: Implement")
-//        $relationshipActionOptionSet
-//            .map { $0.contains(.followingBy) && !$0.contains(.isMyself) }
-//            .receive(on: DispatchQueue.main)
-//            .sink { isFollowingBy in
-//                view.followsYouBlurEffectView.isHidden = !isFollowingBy
-//            }
-//            .store(in: &disposeBag)
+        Publishers.CombineLatest($relationship, $isMyself)
+            .map { relationship, isMyself in
+                (relationship?.following ?? false) && (isMyself == false) }
+            .receive(on: DispatchQueue.main)
+            .sink { isFollowing in
+                view.followsYouBlurEffectView.isHidden = (isFollowing == false)
+            }
+            .store(in: &disposeBag)
+
         // avatar
         Publishers.CombineLatest4(
             $avatarImageURL,
