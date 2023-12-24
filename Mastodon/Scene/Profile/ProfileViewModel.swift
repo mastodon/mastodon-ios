@@ -100,24 +100,31 @@ class ProfileViewModel: NSObject {
         $userIdentifier.assign(to: &mediaUserTimelineViewModel.$userIdentifier)
         
         // bind bar button items
-#warning("TODO: Implement")
-//        relationshipViewModel.$optionSet
-//            .sink { [weak self] optionSet in
-//                guard let self = self else { return }
-//                guard let optionSet = optionSet, !optionSet.contains(.none) else {
-//                    self.isReplyBarButtonItemHidden = true
-//                    self.isMoreMenuBarButtonItemHidden = true
-//                    self.isMeBarButtonItemsHidden = true
-//                    return
-//                }
-//                
-//                let isMyself = optionSet.contains(.isMyself)
-//                self.isReplyBarButtonItemHidden = isMyself
-//                self.isMoreMenuBarButtonItemHidden = isMyself
-//                self.isMeBarButtonItemsHidden = !isMyself
-//            }
-//            .store(in: &disposeBag)
+        Publishers.CombineLatest3($account, $me, $relationship)
+            .sink(receiveValue: { [weak self] account, me, relationship in
+                guard let self else {
+                    self?.isReplyBarButtonItemHidden = true
+                    self?.isMoreMenuBarButtonItemHidden = true
+                    self?.isMeBarButtonItemsHidden = true
+                    return
+                }
 
+                let isMyself = (account == me)
+                self.isReplyBarButtonItemHidden = isMyself
+                self.isMoreMenuBarButtonItemHidden = isMyself
+                self.isMeBarButtonItemsHidden = (isMyself == false)
+            })
+            .store(in: &disposeBag)
+
+        viewDidAppear
+            .sink { [weak self] _ in
+                guard let self else { return }
+
+                self.isReplyBarButtonItemHidden = self.isReplyBarButtonItemHidden
+                self.isMoreMenuBarButtonItemHidden = self.isMoreMenuBarButtonItemHidden
+                self.isMeBarButtonItemsHidden = self.isMeBarButtonItemsHidden
+            }
+            .store(in: &disposeBag)
         // query relationship
     #warning("TODO: Implement")
 //        let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
@@ -151,26 +158,22 @@ class ProfileViewModel: NSObject {
 //        }
 //        .store(in: &disposeBag)
 
-//        let isBlockingOrBlocked = Publishers.CombineLatest(
-//            relationshipViewModel.$isBlocking,
-//            relationshipViewModel.$isBlockingBy
-//        )
-//        .map { $0 || $1 }
-//        .share()
-//        
-//        Publishers.CombineLatest(
-//            isBlockingOrBlocked,
-//            $isEditing
-//        )
-//        .map { !$0 && !$1 }
-//        .assign(to: &$isPagingEnabled)
+        let isBlockingOrBlocked = Publishers.CombineLatest3(
+            (relationship?.blocking ?? false).publisher,
+            (relationship?.blockedBy ?? false).publisher,
+            (relationship?.domainBlocking ?? false).publisher
+        )
+        .map { $0 || $1 || $2 }
+        .share()
+        
+        Publishers.CombineLatest(
+            isBlockingOrBlocked,
+            $isEditing
+        )
+        .map { !$0 && !$1 }
+        .assign(to: &$isPagingEnabled)
     }
     
-
-    func viewDidLoad() {
-        
-    }
-
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
         guard let me, let domain = me.domain else {
