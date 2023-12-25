@@ -119,10 +119,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     private(set) lazy var tabBarPagerController = TabBarPagerController()
 
     private(set) lazy var profileHeaderViewController: ProfileHeaderViewController = {
-        let viewController = ProfileHeaderViewController()
-        viewController.context = context
-        viewController.coordinator = coordinator
-        viewController.viewModel = ProfileHeaderViewModel(context: context, authContext: viewModel.authContext, account: viewModel.account)
+        let viewController = ProfileHeaderViewController(context: context, authContext: authContext, account: viewModel.account, coordinator: coordinator)
         return viewController
     }()
     
@@ -300,7 +297,7 @@ extension ProfileViewController {
     
     private func bindViewModel() {
         // header
-        let headerViewModel = profileHeaderViewController.viewModel!
+        let headerViewModel = profileHeaderViewController.viewModel
         viewModel.$account
             .assign(to: \.account, on: headerViewModel)
             .store(in: &disposeBag)
@@ -698,7 +695,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 //            // do nothing when updating
             guard !viewModel.isUpdating else { return }
 
-            guard let profileHeaderViewModel = profileHeaderViewController.viewModel else { return }
+            let profileHeaderViewModel = profileHeaderViewController.viewModel
             guard let profileAboutViewModel = profilePagingViewController.viewModel.profileAboutViewController.viewModel else { return }
             
             let isEdited = profileHeaderViewModel.isEdited || profileAboutViewModel.isEdited
@@ -885,7 +882,7 @@ extension ProfileViewController: MastodonMenuDelegate {
                             barButtonItem: self.moreMenuBarButtonItem
                         ))
                 }
-                
+
             case .translateStatus(_),
                     .showOriginal,
                     .bookmarkStatus(_),

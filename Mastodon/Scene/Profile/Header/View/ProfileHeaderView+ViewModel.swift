@@ -46,12 +46,15 @@ extension ProfileHeaderView {
         
         @Published var fields: [MastodonField] = []
         
+        @Published var account: Mastodon.Entity.Account
         @Published var relationship: Mastodon.Entity.Relationship?
         @Published var isRelationshipActionButtonHidden = false
         @Published var isMyself = false
         
-        init() {
-#warning("TODO: Implement")
+        init(account: Mastodon.Entity.Account) {
+            self.account = account
+
+            #warning("TODO: Implement")
 //            $relationshipActionOptionSet
 //                .compactMap { $0.highPriorityAction(except: []) }
 //                .map { $0 == .none }
@@ -190,18 +193,23 @@ extension ProfileHeaderView.ViewModel {
             view.bioMetaText.configure(content: metaContent)
         }
         .store(in: &disposeBag)
-#warning("TODO: Implement")
-        //        $relationshipActionOptionSet
-//            .receive(on: DispatchQueue.main)
-//            .sink { optionSet in
-//                let isBlocking = optionSet.contains(.blocking)
-//                let isBlockedBy = optionSet.contains(.blockingBy)
-//                let isSuspended = optionSet.contains(.suspended)
-//                let isNeedsHidden = isBlocking || isBlockedBy || isSuspended
-//
-//                view.bioMetaText.textView.isHidden = isNeedsHidden
-//            }
-//            .store(in: &disposeBag)
+
+        Publishers.CombineLatest($relationship, $account)
+            .compactMap { relationship, account in
+                guard let relationship else { return nil }
+                let isBlocking = relationship.blocking
+                let isBlockedBy = relationship.blockedBy ?? false
+                let isSuspended = account.suspended ?? false
+                let isNeedsHidden = isBlocking || isBlockedBy || isSuspended
+
+                return isNeedsHidden
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { isNeedsHidden in
+                view.bioMetaText.textView.isHidden = isNeedsHidden
+            }
+            .store(in: &disposeBag)
+
         // dashboard
         $isMyself
             .receive(on: DispatchQueue.main)

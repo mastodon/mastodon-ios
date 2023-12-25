@@ -18,6 +18,7 @@ import MastodonCore
 import MastodonUI
 import MastodonLocalization
 import TabBarPager
+import MastodonSDK
 
 protocol ProfileHeaderViewControllerDelegate: AnyObject {
     func profileHeaderViewController(_ profileHeaderViewController: ProfileHeaderViewController, profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
@@ -29,12 +30,12 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
     static let segmentedControlHeight: CGFloat = 50
     static let headerMinHeight: CGFloat = segmentedControlHeight
     
-    weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
+    weak var context: AppContext!
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: ProfileHeaderViewModel!
-    
+    let viewModel: ProfileHeaderViewModel
+
     weak var delegate: ProfileHeaderViewControllerDelegate?
     weak var headerDelegate: TabBarPagerHeaderDelegate?
     
@@ -51,7 +52,7 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
         return titleView
     }()
     
-    let profileHeaderView = ProfileHeaderView()
+    let profileHeaderView: ProfileHeaderView
 
 //    private var isBannerPinned = false
 
@@ -81,11 +82,17 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
         return documentPickerController
     }()
 
-    
-}
+    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account, coordinator: SceneCoordinator) {
+        self.context = context
+        self.coordinator = coordinator
+        self.viewModel = ProfileHeaderViewModel(context: context, authContext: authContext, account: account)
+        self.profileHeaderView = ProfileHeaderView(account: account)
 
-extension ProfileHeaderViewController {
+        super.init(nibName: nil, bundle: nil)
+    }
     
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -134,6 +141,9 @@ extension ProfileHeaderViewController {
             .store(in: &disposeBag)
         viewModel.$relationship
             .assign(to: \.relationship, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
+        viewModel.$account
+            .assign(to: \.account, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
         viewModel.$isMyself
             .assign(to: \.isMyself, on: profileHeaderView.viewModel)

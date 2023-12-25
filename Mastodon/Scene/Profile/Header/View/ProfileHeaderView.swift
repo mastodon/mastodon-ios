@@ -13,6 +13,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
+import MastodonSDK
 
 protocol ProfileHeaderViewDelegate: AnyObject {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarButtonDidPressed button: AvatarButton)
@@ -42,12 +43,8 @@ final class ProfileHeaderView: UIView {
         disposeBag.removeAll()
     }
     
-    private(set) lazy var viewModel: ViewModel = {
-        let viewModel = ViewModel()
-        viewModel.bind(view: self)
-        return viewModel
-    }()
-        
+    private(set) var viewModel: ViewModel
+
     let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     let bannerContainerView = UIView()
     let bannerImageView: UIImageView = {
@@ -238,20 +235,14 @@ final class ProfileHeaderView: UIView {
         return metaText
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        _init()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        _init()
-    }
-    
-}
+    init(account: Mastodon.Entity.Account) {
 
-extension ProfileHeaderView {
-    private func _init() {
+        viewModel = ViewModel(account: account)
+
+        super.init(frame: .zero)
+
+        viewModel.bind(view: self)
+
         setColors()
         
         // banner
@@ -460,6 +451,8 @@ extension ProfileHeaderView {
         
         updateLayoutMargins()
     }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     private func setColors() {
         backgroundColor = .systemBackground
