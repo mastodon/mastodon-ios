@@ -13,13 +13,15 @@ extension DataSourceFacade {
     static func responseToUserMuteAction(
         dependency: NeedsDependency & AuthContextProvider,
         account: Mastodon.Entity.Account
-    ) async throws {
+    ) async throws -> Mastodon.Entity.Relationship {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
     
-        _ = try await dependency.context.apiService.toggleMute(
+        let response = try await dependency.context.apiService.toggleMute(
             authenticationBox: dependency.authContext.mastodonAuthenticationBox,
             account: account
         )
-    }   // end func
+
+        return response.value
+    }
 }

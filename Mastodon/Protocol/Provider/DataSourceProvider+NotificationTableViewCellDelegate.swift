@@ -30,8 +30,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            
-            try await DataSourceFacade.responseToMenuAction(
+
+            _ = try await DataSourceFacade.responseToMenuAction(
                 dependency: self,
                 action: action,
                 menuContext: .init(

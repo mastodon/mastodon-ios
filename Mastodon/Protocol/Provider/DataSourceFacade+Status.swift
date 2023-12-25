@@ -151,10 +151,11 @@ extension DataSourceFacade {
     }
     
     @MainActor
-    static func responseToMenuAction(
+    static func responseToMenuAction<T>(
         dependency: UIViewController & NeedsDependency & AuthContextProvider & DataSourceProvider,
         action: MastodonMenu.Action,
-        menuContext: MenuContext
+        menuContext: MenuContext,
+        completion: ((T) -> Void)? = { (param: Void) in }
     ) async throws {
         switch action {
             case .hideReblogs(let actionContext):
@@ -200,11 +201,15 @@ extension DataSourceFacade {
             ) { [weak dependency] _ in
                 guard let dependency else { return }
                 Task {
-                    try await DataSourceFacade.responseToUserMuteAction(
+                    let newRelationship = try await DataSourceFacade.responseToUserMuteAction(
                         dependency: dependency,
                         account: menuContext.author
                     )
-                }   // end Task
+
+                    if let completion {
+                        completion(newRelationship as! T)
+                    }
+                }
             }
             alertController.addAction(confirmAction)
             let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
@@ -222,10 +227,14 @@ extension DataSourceFacade {
             ) { [weak dependency] _ in
                 guard let dependency else { return }
                 Task {
-                    try await DataSourceFacade.responseToUserBlockAction(
+                    let newRelationship = try await DataSourceFacade.responseToUserBlockAction(
                         dependency: dependency,
                         user: menuContext.author
                     )
+
+                    if let completion {
+                        completion(newRelationship as! T)
+                    }
                 }
             }
             alertController.addAction(confirmAction)

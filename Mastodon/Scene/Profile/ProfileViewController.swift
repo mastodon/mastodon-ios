@@ -316,17 +316,28 @@ extension ProfileViewController {
         viewModel.$accountForEdit
             .assign(to: \.accountForEdit, on: headerViewModel)
             .store(in: &disposeBag)
-#warning("TODO: Implement")
-        // timeline
-//        [
-//            viewModel.postsUserTimelineViewModel,
-//            viewModel.repliesUserTimelineViewModel,
-//            viewModel.mediaUserTimelineViewModel,
-//        ].forEach { userTimelineViewModel in
-//            viewModel.relationshipViewModel.$isBlocking.assign(to: \.isBlocking, on: userTimelineViewModel).store(in: &disposeBag)
-//            viewModel.relationshipViewModel.$isBlockingBy.assign(to: \.isBlockedBy, on: userTimelineViewModel).store(in: &disposeBag)
-//            viewModel.relationshipViewModel.$isSuspended.assign(to: \.isSuspended, on: userTimelineViewModel).store(in: &disposeBag)
-//        }
+
+        [
+            viewModel.postsUserTimelineViewModel,
+            viewModel.repliesUserTimelineViewModel,
+            viewModel.mediaUserTimelineViewModel,
+        ].forEach { userTimelineViewModel in
+
+            viewModel.relationship.publisher
+                .map { $0.blocking }
+                .assign(to: \UserTimelineViewModel.isBlocking, on: userTimelineViewModel)
+                .store(in: &disposeBag)
+
+            viewModel.relationship.publisher
+                .compactMap { $0.blockedBy }
+                .assign(to: \UserTimelineViewModel.isBlockedBy, on: userTimelineViewModel)
+                .store(in: &disposeBag)
+
+            viewModel.$account
+                .compactMap { $0.suspended }
+                .assign(to: \UserTimelineViewModel.isSuspended, on: userTimelineViewModel)
+                .store(in: &disposeBag)
+        }
     
         // about
         let aboutViewModel = viewModel.profileAboutViewModel
@@ -843,18 +854,49 @@ extension ProfileViewController: ProfileAboutViewControllerDelegate {
 // MARK: - MastodonMenuDelegate
 extension ProfileViewController: MastodonMenuDelegate {
     func menuAction(_ action: MastodonMenu.Action) {
+        switch action {
+            case .muteUser(_),
+                    .blockUser(_),
+                    .hideReblogs(_):
+                Task {
+                    try await DataSourceFacade.responseToMenuAction(
+                        dependency: self,
+                        action: action,
+                        menuContext: DataSourceFacade.MenuContext(
+                            author: viewModel.account,
+                            statusViewModel: nil,
+                            button: nil,
+                            barButtonItem: self.moreMenuBarButtonItem
+                        )) { [weak self] newRelationship in
+                            guard let self else { return }
+
+                            self.viewModel.relationship = newRelationship
+                        }
+                }
+            case .reportUser(_), .shareUser(_):
+                Task {
+                    try await DataSourceFacade.responseToMenuAction(
+                        dependency: self,
+                        action: action,
+                        menuContext: DataSourceFacade.MenuContext(
+                            author: viewModel.account,
+                            statusViewModel: nil,
+                            button: nil,
+                            barButtonItem: self.moreMenuBarButtonItem
+                        ))
+                }
+                
+            case .translateStatus(_),
+                    .showOriginal,
+                    .bookmarkStatus(_),
+                    .shareStatus,
+                    .deleteStatus,
+                    .editStatus,
+                    .followUser(_):
+                break
+        }
 
         Task {
-            try await DataSourceFacade.responseToMenuAction(
-                dependency: self,
-                action: action,
-                menuContext: DataSourceFacade.MenuContext(
-                    author: viewModel.account,
-                    statusViewModel: nil,
-                    button: nil,
-                    barButtonItem: self.moreMenuBarButtonItem
-                )
-            )
         }
     }
 }
