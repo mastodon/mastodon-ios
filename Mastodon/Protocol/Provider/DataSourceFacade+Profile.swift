@@ -104,13 +104,15 @@ extension DataSourceFacade {
 
         Task { @MainActor in
 
-            guard let relationship = try? await provider.context.apiService.relationship(forAccounts: [account], authenticationBox: provider.authContext.mastodonAuthenticationBox).value.first else { return }
+            guard let me = provider.authContext.mastodonAuthenticationBox.authentication.account(),
+                  let relationship = try? await provider.context.apiService.relationship(forAccounts: [account], authenticationBox: provider.authContext.mastodonAuthenticationBox).value.first else { return }
 
             let profileViewModel = ProfileViewModel(
                 context: provider.context,
                 authContext: provider.authContext,
                 account: account,
-                relationship: relationship
+                relationship: relationship,
+                me: me
             )
 
             _ = provider.coordinator.present(

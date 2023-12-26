@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonAsset
+import MastodonSDK
 import MastodonLocalization
 
 public final class ProfileRelationshipActionButton: RoundedEdgesButton {
@@ -55,6 +56,32 @@ extension ProfileRelationshipActionButton {
 }
 
 extension ProfileRelationshipActionButton {
+
+    public func configure(relationship: Mastodon.Entity.Relationship, between user: Mastodon.Entity.Account, and me: Mastodon.Entity.Account, isEditing: Bool = false, isUpdating: Bool = false) {
+
+        let isMyself = (user == me)
+        let title: String
+
+        if isMyself {
+            if isEditing {
+                title = "SAVE"
+            } else {
+                title = "EDIT"
+            }
+        } else if relationship.following {
+            title = L10n.Common.Controls.Friendship.follow
+        } else {
+            title = "TITLE"
+        }
+        setTitle(title, for: .normal)
+
+        if relationship.blocking || user.suspended ?? false {
+            isEnabled = false
+        } else {
+            isEnabled = true
+        }
+    }
+
     public func configure(actionOptionSet: RelationshipActionOptionSet) {
         setTitle(actionOptionSet.title, for: .normal)
         

@@ -82,11 +82,11 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
         return documentPickerController
     }()
 
-    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account, coordinator: SceneCoordinator) {
+    init(context: AppContext, authContext: AuthContext, coordinator: SceneCoordinator, profileViewModel: ProfileViewModel) {
         self.context = context
         self.coordinator = coordinator
-        self.viewModel = ProfileHeaderViewModel(context: context, authContext: authContext, account: account)
-        self.profileHeaderView = ProfileHeaderView(account: account)
+        self.viewModel = ProfileHeaderViewModel(context: context, authContext: authContext, account: profileViewModel.account, me: profileViewModel.me, relationship: profileViewModel.relationship)
+        self.profileHeaderView = ProfileHeaderView(account: profileViewModel.account, me: profileViewModel.me, relationship: profileViewModel.relationship)
 
         super.init(nibName: nil, bundle: nil)
     }

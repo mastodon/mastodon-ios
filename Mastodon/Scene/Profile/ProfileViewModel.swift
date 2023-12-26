@@ -34,7 +34,7 @@ class ProfileViewModel: NSObject {
     let context: AppContext
     let authContext: AuthContext
 
-    @Published var me: Mastodon.Entity.Account?
+    @Published var me: Mastodon.Entity.Account
     @Published var account: Mastodon.Entity.Account
     @Published var relationship: Mastodon.Entity.Relationship?
 
@@ -56,11 +56,12 @@ class ProfileViewModel: NSObject {
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
     @MainActor
-    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?) {
+    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?, me: Mastodon.Entity.Account) {
         self.context = context
         self.authContext = authContext
         self.account = account
         self.relationship = relationship
+        self.me = me
 
         self.postsUserTimelineViewModel = UserTimelineViewModel(
             context: context,
@@ -82,9 +83,6 @@ class ProfileViewModel: NSObject {
         )
         self.profileAboutViewModel = ProfileAboutViewModel(context: context, account: account)
         super.init()
-        
-        // bind me
-        self.me = authContext.mastodonAuthenticationBox.authentication.account()
 
         // bind user
         $account
@@ -176,7 +174,7 @@ class ProfileViewModel: NSObject {
     
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        guard let me, let domain = me.domain else {
+        guard let domain = me.domain else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
 

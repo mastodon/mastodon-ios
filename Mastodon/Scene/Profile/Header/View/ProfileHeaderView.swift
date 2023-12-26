@@ -235,9 +235,9 @@ final class ProfileHeaderView: UIView {
         return metaText
     }()
     
-    init(account: Mastodon.Entity.Account) {
+    init(account: Mastodon.Entity.Account, me: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?) {
 
-        viewModel = ViewModel(account: account)
+        viewModel = ViewModel(account: account, me: me, relationship: relationship)
 
         super.init(frame: .zero)
 

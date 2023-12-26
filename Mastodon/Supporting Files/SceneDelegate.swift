@@ -141,6 +141,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     let domain = authContext.mastodonAuthenticationBox.domain
                     let authenticationBox = authContext.mastodonAuthenticationBox
 
+                    guard let me = authenticationBox.authentication.account() else { return }
+
                     guard let account = try await AppContext.shared.apiService.search(
                         query: .init(q: incomingURL.absoluteString, type: .accounts, resolve: true),
                         authenticationBox: authenticationBox
@@ -155,7 +157,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         context: AppContext.shared,
                         authContext: authContext,
                         account: account,
-                        relationship: relationship
+                        relationship: relationship,
+                        me: me
                     )
                     _ = self.coordinator?.present(
                         scene: .profile(viewModel: profileViewModel),
@@ -285,6 +288,8 @@ extension SceneDelegate {
                         let domain = authContext.mastodonAuthenticationBox.domain
                         let authenticationBox = authContext.mastodonAuthenticationBox
 
+                        guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return }
+
                         guard let account = try await AppContext.shared.apiService.search(
                             query: .init(q: components[1], type: .accounts, resolve: true),
                             authenticationBox: authenticationBox
@@ -299,7 +304,8 @@ extension SceneDelegate {
                             context: AppContext.shared,
                             authContext: authContext,
                             account: account,
-                            relationship: relationship
+                            relationship: relationship,
+                            me: me
                         )
 
                         self.coordinator?.present(

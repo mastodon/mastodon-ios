@@ -46,13 +46,16 @@ extension ProfileHeaderView {
         
         @Published var fields: [MastodonField] = []
         
+        @Published var me: Mastodon.Entity.Account
         @Published var account: Mastodon.Entity.Account
         @Published var relationship: Mastodon.Entity.Relationship?
         @Published var isRelationshipActionButtonHidden = false
         @Published var isMyself = false
         
-        init(account: Mastodon.Entity.Account) {
+        init(account: Mastodon.Entity.Account, me: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?) {
             self.account = account
+            self.me = me
+            self.relationship = relationship
 
             #warning("TODO: Implement")
 //            $relationshipActionOptionSet
@@ -103,7 +106,8 @@ extension ProfileHeaderView.ViewModel {
         // follows you
         Publishers.CombineLatest($relationship, $isMyself)
             .map { relationship, isMyself in
-                (relationship?.following ?? false) && (isMyself == false) }
+                return (relationship?.following ?? false) && (isMyself == false)
+            }
             .receive(on: DispatchQueue.main)
             .sink { isFollowing in
                 view.followsYouBlurEffectView.isHidden = (isFollowing == false)
@@ -196,7 +200,9 @@ extension ProfileHeaderView.ViewModel {
 
         Publishers.CombineLatest($relationship, $account)
             .compactMap { relationship, account in
+
                 guard let relationship else { return nil }
+
                 let isBlocking = relationship.blocking
                 let isBlockedBy = relationship.blockedBy ?? false
                 let isSuspended = account.suspended ?? false
@@ -263,13 +269,17 @@ extension ProfileHeaderView.ViewModel {
             .assign(to: \.isHidden, on: view.relationshipActionButtonShadowContainer)
             .store(in: &disposeBag)
 #warning("TODO: Implement")
-//        Publishers.CombineLatest2(
-//            $relationshipActionOptionSet,
-//            $isEditing,
-//            $isUpdating
-//        )
-//        .receive(on: DispatchQueue.main)
-//        .sink { relationshipActionOptionSet, isEditing, isUpdating in
+        Publishers.CombineLatest3(
+            Publishers.CombineLatest3($me, $account, $relationship).eraseToAnyPublisher(),
+            $isEditing,
+            $isUpdating
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { tuple, isEditing, isUpdating in
+            let (me, account, relationship) = tuple
+            guard let relationship else { return }
+
+            view.relationshipActionButton.configure(relationship: relationship, between: account, and: me, isEditing: isEditing, isUpdating: isUpdating)
 //            if relationshipActionOptionSet.contains(.edit) {
 //                // check .edit state and set .editing when isEditing
 //                view.relationshipActionButton.configure(actionOptionSet: isUpdating ? .updating : (isEditing ? .editing : .edit))
@@ -277,8 +287,8 @@ extension ProfileHeaderView.ViewModel {
 //            } else {
 //                view.relationshipActionButton.configure(actionOptionSet: relationshipActionOptionSet)
 //            }
-//        }
-//        .store(in: &disposeBag)
+        }
+        .store(in: &disposeBag)
     }
 
 }

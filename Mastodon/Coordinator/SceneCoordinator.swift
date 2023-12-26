@@ -98,6 +98,7 @@ final public class SceneCoordinator {
                                 // show notification related content
                                 guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
                                 guard let authContext = self.authContext else { return }
+                                guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return }
                                 let notificationID = String(pushNotification.notificationID)
                                 
                                 switch type {
@@ -114,7 +115,8 @@ final public class SceneCoordinator {
                                                 context: appContext,
                                                 authContext: authContext,
                                                 account: account,
-                                                relationship: relationship
+                                                relationship: relationship,
+                                                me: me
                                             )
                                             _ = self.present(
                                                 scene: .profile(viewModel: profileViewModel),

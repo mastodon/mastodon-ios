@@ -119,7 +119,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     private(set) lazy var tabBarPagerController = TabBarPagerController()
 
     private(set) lazy var profileHeaderViewController: ProfileHeaderViewController = {
-        let viewController = ProfileHeaderViewController(context: context, authContext: authContext, account: viewModel.account, coordinator: coordinator)
+        let viewController = ProfileHeaderViewController(context: context, authContext: authContext, coordinator: coordinator, profileViewModel: viewModel)
         return viewController
     }()
     
@@ -691,7 +691,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 #warning("TODO: Implement")
         // handle edit logic for editable profile
         // handle relationship logic for non-editable profile
-        if let me = viewModel.me, me == viewModel.account {
+        if viewModel.me == viewModel.account {
 //            // do nothing when updating
             guard !viewModel.isUpdating else { return }
 
@@ -706,12 +706,13 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 Task { @MainActor in
                     do {
                         // TODO: handle error
-                        _ = try await viewModel.updateProfileInfo(
+                        let updatedAccount = try await viewModel.updateProfileInfo(
                             headerProfileInfo: profileHeaderViewModel.profileInfoEditing,
                             aboutProfileInfo: profileAboutViewModel.profileInfoEditing
-                        )
+                        ).value
                         self.viewModel.isEditing = false
-                        
+                        self.viewModel.account = updatedAccount
+
                     } catch {
                         let alertController = UIAlertController(
                             for: error,
