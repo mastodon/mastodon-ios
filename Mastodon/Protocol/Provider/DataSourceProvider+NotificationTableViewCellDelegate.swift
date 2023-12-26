@@ -305,9 +305,11 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
 
+            guard let account = notification.status?.entity.account else { return }
+
             await DataSourceFacade.coordinateToProfileScene(
                 provider: self,
-                account: notification.entity.account
+                account: account
             )
         }   // end Task
     }
