@@ -140,87 +140,61 @@ extension DataSourceFacade {
             case profileBanner(ProfileHeaderView)
         }
         
-        func thumbnail() async -> UIImage? {
-            return await imageView.image
+        func thumbnail() -> UIImage? {
+            return imageView.image
         }
     }
     
     @MainActor
     static func coordinateToMediaPreviewScene(
         dependency: NeedsDependency & MediaPreviewableViewController,
-        user: ManagedObjectRecord<MastodonUser>,
+        account: Mastodon.Entity.Account,
         previewContext: ImagePreviewContext
     ) async throws {
-        let managedObjectContext = dependency.context.managedObjectContext
+
+        let avatarAssetURL = account.avatar
+        let headerAssetURL = account.header
+
+        let thumbnail = previewContext.thumbnail()
         
-        var _avatarAssetURL: String?
-        var _headerAssetURL: String?
-        
-        try await managedObjectContext.perform {
-            guard let user = user.object(in: managedObjectContext) else { return }
-            _avatarAssetURL = user.avatar
-            _headerAssetURL = user.header
+        let source: MediaPreviewTransitionItem.Source
+        switch previewContext.containerView {
+            case .profileAvatar(let view): source = .profileAvatar(view)
+            case .profileBanner(let view): source = .profileBanner(view)
         }
-        
-        let thumbnail = await previewContext.thumbnail()
-        
-        let source: MediaPreviewTransitionItem.Source = {
+
+        let mediaPreviewTransitionItem = MediaPreviewTransitionItem(
+            source: source,
+            previewableViewController: dependency
+        )
+
+        let imageView = previewContext.imageView
+        mediaPreviewTransitionItem.initialFrame = imageView.superview?.convert(imageView.frame, to: nil)
+        mediaPreviewTransitionItem.image = thumbnail
+        mediaPreviewTransitionItem.aspectRatio = thumbnail?.size ?? CGSize(width: 100, height: 100)
+        mediaPreviewTransitionItem.sourceImageViewCornerRadius = {
             switch previewContext.containerView {
-            case .profileAvatar(let view):      return .profileAvatar(view)
-            case .profileBanner(let view):      return .profileBanner(view)
-            }
-        }()
-        
-        let mediaPreviewTransitionItem: MediaPreviewTransitionItem = {
-            let item = MediaPreviewTransitionItem(
-                source: source,
-                previewableViewController: dependency
-            )
-            
-            let imageView = previewContext.imageView
-            item.initialFrame = {
-                let initialFrame = imageView.superview!.convert(imageView.frame, to: nil)
-                assert(initialFrame != .zero)
-                return initialFrame
-            }()
-            
-            item.image = thumbnail
-            
-            item.aspectRatio = {
-                if let thumbnail = thumbnail {
-                    return thumbnail.size
-                }
-                return CGSize(width: 100, height: 100)
-            }()
-            
-            item.sourceImageViewCornerRadius = {
-                switch previewContext.containerView {
                 case .profileAvatar:
                     return ProfileHeaderView.avatarImageViewCornerRadius
                 case .profileBanner:
                     return 0
-                }
-            }()
-            
-            return item
+            }
         }()
-        
-        
-        let mediaPreviewItem: MediaPreviewViewModel.PreviewItem = {
-            switch previewContext.containerView {
+
+        let mediaPreviewItem: MediaPreviewViewModel.PreviewItem
+        switch previewContext.containerView {
             case .profileAvatar:
-                return .profileAvatar(.init(
-                    assetURL: _avatarAssetURL,
+                mediaPreviewItem = .profileAvatar(.init(
+                    assetURL: avatarAssetURL,
                     thumbnail: thumbnail
                 ))
             case .profileBanner:
-                return .profileBanner(.init(
-                    assetURL: _headerAssetURL,
+                mediaPreviewItem = .profileBanner(.init(
+                    assetURL: headerAssetURL,
                     thumbnail: thumbnail
                 ))
-            }
-        }()
-        
+        }
+
         guard mediaPreviewItem.isAssetURLValid else {
             return
         }

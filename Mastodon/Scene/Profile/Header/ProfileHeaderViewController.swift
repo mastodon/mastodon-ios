@@ -268,43 +268,35 @@ extension ProfileHeaderViewController {
         profileHeaderView.avatarButton.alpha = alpha
         profileHeaderView.editAvatarBackgroundView.alpha = alpha
     }
-    
+
 }
 
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarButtonDidPressed button: AvatarButton) {
-#warning("TODO: Implement")
-//        guard let user = viewModel.user else { return }
-//        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
-//
-//        Task {
-//            try await DataSourceFacade.coordinateToMediaPreviewScene(
-//                dependency: self,
-//                user: record,
-//                previewContext: DataSourceFacade.ImagePreviewContext(
-//                    imageView: button.avatarImageView,
-//                    containerView: .profileAvatar(profileHeaderView)
-//                )
-//            )
-//        }   // end Task
+        Task {
+            try await DataSourceFacade.coordinateToMediaPreviewScene(
+                dependency: self,
+                account: viewModel.account,
+                previewContext: DataSourceFacade.ImagePreviewContext(
+                    imageView: button.avatarImageView,
+                    containerView: .profileAvatar(profileHeaderView)
+                )
+            )
+        }
     }
 
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView) {
-#warning("TODO: Implement")
-//        guard let account = viewModel.account else { return }
-//        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
-//
-//        Task {
-//            try await DataSourceFacade.coordinateToMediaPreviewScene(
-//                dependency: self,
-//                user: record,
-//                previewContext: DataSourceFacade.ImagePreviewContext(
-//                    imageView: imageView,
-//                    containerView: .profileBanner(profileHeaderView)
-//                )
-//            )
-//        }   // end Task
+        Task {
+            try await DataSourceFacade.coordinateToMediaPreviewScene(
+                dependency: self,
+                account: viewModel.account,
+                previewContext: DataSourceFacade.ImagePreviewContext(
+                    imageView: imageView,
+                    containerView: .profileBanner(profileHeaderView)
+                )
+            )
+        }
     }
 
     func profileHeaderView(

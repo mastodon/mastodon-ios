@@ -151,8 +151,8 @@ extension MediaPreviewViewModel {
                 return true     // default valid
             case .profileBanner(let item):
                 guard let assertURL = item.assetURL else { return false }
-                guard !assertURL.hasSuffix("missing.png") else { return false }
-                return true
+
+                return assertURL.hasSuffix("missing.png") == false
             }
         }
     }
