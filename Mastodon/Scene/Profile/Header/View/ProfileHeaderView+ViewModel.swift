@@ -106,11 +106,11 @@ extension ProfileHeaderView.ViewModel {
         // follows you
         Publishers.CombineLatest($relationship, $isMyself)
             .map { relationship, isMyself in
-                return (relationship?.following ?? false) && (isMyself == false)
+                return (relationship?.followedBy ?? false) && (isMyself == false)
             }
             .receive(on: DispatchQueue.main)
-            .sink { isFollowing in
-                view.followsYouBlurEffectView.isHidden = (isFollowing == false)
+            .sink { followsYou in
+                view.followsYouBlurEffectView.isHidden = (followsYou == false)
             }
             .store(in: &disposeBag)
 
