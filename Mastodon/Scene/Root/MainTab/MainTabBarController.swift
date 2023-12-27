@@ -261,7 +261,6 @@ extension MainTabBarController {
                         placeholder: .placeholder(color: .systemFill),
                         scaleToSize: MainTabBarController.avatarButtonSize
                     )
-                    //                self.avatarButton.avatarImageView.image = UIImage(named: "AppIcon")
                 }
                 .store(in: &disposeBag)
             
