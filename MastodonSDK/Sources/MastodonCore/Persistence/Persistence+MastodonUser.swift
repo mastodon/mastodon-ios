@@ -150,10 +150,10 @@ extension Persistence.MastodonUser {
         relationship.requested.flatMap { user.update(isFollowRequested: $0, by: me) }
         // relationship.endorsed.flatMap { user.update(isEndorsed: $0, by: me) }
         me.update(isFollowing: relationship.followedBy, by: user)
-        relationship.muting.flatMap { user.update(isMuting: $0, by: me) }
+        user.update(isMuting: relationship.muting, by: me)
         user.update(isBlocking: relationship.blocking, by: me)
-        relationship.domainBlocking.flatMap { user.update(isDomainBlocking: $0, by: me) }
-        relationship.blockedBy.flatMap { me.update(isBlocking: $0, by: user) }
-        relationship.showingReblogs.flatMap { me.update(isShowingReblogs: $0, by: user) }
+        user.update(isDomainBlocking: relationship.domainBlocking, by: me)
+        me.update(isBlocking: relationship.blockedBy, by: user)
+        me.update(isShowingReblogs: relationship.showingReblogs, by: user)
     }
 }

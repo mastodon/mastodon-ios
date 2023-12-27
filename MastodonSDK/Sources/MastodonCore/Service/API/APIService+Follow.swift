@@ -72,7 +72,7 @@ extension APIService {
             authorization: authenticationBox.userAuthorization
         ).singleOutput().value.first
 
-        let oldShowReblogs = relationship?.showingReblogs == true
+        let oldShowReblogs = relationship?.showingReblogs ?? true
         let newShowReblogs = (oldShowReblogs == false)
 
         let response = try await Mastodon.API.Account.follow(

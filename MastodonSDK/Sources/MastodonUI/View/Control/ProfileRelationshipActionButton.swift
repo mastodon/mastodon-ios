@@ -57,25 +57,37 @@ extension ProfileRelationshipActionButton {
 
 extension ProfileRelationshipActionButton {
 
-    public func configure(relationship: Mastodon.Entity.Relationship, between user: Mastodon.Entity.Account, and me: Mastodon.Entity.Account, isEditing: Bool = false, isUpdating: Bool = false) {
+    public func configure(relationship: Mastodon.Entity.Relationship, between account: Mastodon.Entity.Account, and me: Mastodon.Entity.Account, isEditing: Bool = false, isUpdating: Bool = false) {
 
-        let isMyself = (user == me)
+        let isMyself = (account == me)
         let title: String
 
         if isMyself {
             if isEditing {
-                title = "SAVE"
+                title = L10n.Common.Controls.Actions.save
             } else {
-                title = "EDIT"
+                title = L10n.Common.Controls.Friendship.editInfo
             }
+        } else if relationship.blocking {
+            title = L10n.Common.Controls.Friendship.blocked
+        } else if relationship.domainBlocking {
+            #warning("Wait for #1198 (Domain Block, IOS-5) to be merged")
+            title = "Unblock domain"
+        } else if (relationship.requested ?? false) {
+            title = L10n.Common.Controls.Friendship.pending
+        } else if relationship.muting {
+            title = L10n.Common.Controls.Friendship.muted
         } else if relationship.following {
-            title = L10n.Common.Controls.Friendship.follow
+            title = L10n.Common.Controls.Friendship.following
+        } else if account.locked {
+            title = L10n.Common.Controls.Friendship.request
         } else {
-            title = "TITLE"
+            title = L10n.Common.Controls.Friendship.follow
         }
+
         setTitle(title, for: .normal)
 
-        if relationship.blocking || user.suspended ?? false {
+        if relationship.blocking || account.suspended ?? false {
             isEnabled = false
         } else {
             isEnabled = true

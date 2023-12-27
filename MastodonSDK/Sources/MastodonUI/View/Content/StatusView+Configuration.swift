@@ -248,7 +248,7 @@ extension StatusView {
             ).singleOutput().value {
                 guard let rel = relationship.first else { return }
                 DispatchQueue.main.async { [self] in
-                    viewModel.isMuting = rel.muting ?? false
+                    viewModel.isMuting = rel.muting
                     viewModel.isBlocking = rel.blocking
                     viewModel.isFollowed = rel.followedBy
                 }

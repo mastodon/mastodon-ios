@@ -73,7 +73,7 @@ extension APIService {
         let muteContext = MastodonMuteContext(
             targetUserID: account.id,
             targetUsername: account.username,
-            isMuting: relationship.muting ?? false
+            isMuting: relationship.muting
         )
 
         let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
