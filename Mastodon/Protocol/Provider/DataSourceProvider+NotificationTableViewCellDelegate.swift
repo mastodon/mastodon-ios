@@ -44,6 +44,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 action: action,
                 menuContext: .init(
                     author: author,
+                    authorEntity: notification.entity.account,
                     statusViewModel: nil,
                     button: button,
                     barButtonItem: nil

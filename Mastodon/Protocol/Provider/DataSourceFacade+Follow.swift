@@ -126,4 +126,13 @@ extension DataSourceFacade {
       for: user,
       authenticationBox: dependency.authContext.mastodonAuthenticationBox)
   }
+    
+    static func responseToShowHideReblogAction(
+      dependency: NeedsDependency & AuthContextProvider,
+      user: Mastodon.Entity.Account
+    ) async throws {
+      _ = try await dependency.context.apiService.toggleShowReblogs(
+        for: user,
+        authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+    }
 }

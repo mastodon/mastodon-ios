@@ -144,7 +144,8 @@ extension DataSourceFacade {
 extension DataSourceFacade {
     
     struct MenuContext {
-        let author: ManagedObjectRecord<MastodonUser>?
+        let author: ManagedObjectRecord<MastodonUser>? // todo: Remove once IOS-192 is ready
+        let authorEntity: Mastodon.Entity.Account?
         let statusViewModel: StatusView.ViewModel?
         let button: UIButton?
         let barButtonItem: UIBarButtonItem?
