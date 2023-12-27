@@ -56,11 +56,11 @@ final class NotificationTimelineViewModel {
         
         switch scope {
         case .everything:
-            self.feedFetchedResultsController.records = (try? FileManager.default.cachedNotificationsAll(for: authContext.mastodonAuthenticationBox.userID))?.map({ notification in
+            self.feedFetchedResultsController.records = (try? FileManager.default.cachedNotificationsAll(for: authContext.mastodonAuthenticationBox))?.map({ notification in
                 MastodonFeed.fromNotification(notification, kind: .notificationAll)
             }) ?? []
         case .mentions:
-            self.feedFetchedResultsController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox.userID))?.map({ notification in
+            self.feedFetchedResultsController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox))?.map({ notification in
                 MastodonFeed.fromNotification(notification, kind: .notificationMentions)
             }) ?? []
         }
@@ -75,9 +75,9 @@ final class NotificationTimelineViewModel {
                 }
                 switch self.scope {
                 case .everything:
-                    FileManager.default.cacheNotificationsAll(items: items, for: authContext.mastodonAuthenticationBox.userID)
+                    FileManager.default.cacheNotificationsAll(items: items, for: authContext.mastodonAuthenticationBox)
                 case .mentions:
-                    FileManager.default.cacheNotificationsMentions(items: items, for: authContext.mastodonAuthenticationBox.userID)
+                    FileManager.default.cacheNotificationsMentions(items: items, for: authContext.mastodonAuthenticationBox)
                 }
             })
             .store(in: &disposeBag)

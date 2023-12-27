@@ -8,15 +8,15 @@ extension FileManager {
     private static let cacheItemsLimit: Int = 100 // max number of items to cache
     
     // Retrieve
-    func cachedHomeTimeline(for userId: String) throws -> [MastodonStatus] {
+    func cachedHomeTimeline(for userId: UserIdentifier) throws -> [MastodonStatus] {
         try cached(timeline: .homeTimeline(userId)).map(MastodonStatus.fromEntity)
     }
     
-    func cachedNotificationsAll(for userId: String) throws -> [Mastodon.Entity.Notification] {
+    func cachedNotificationsAll(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
         try cached(timeline: .notificationsAll(userId))
     }
     
-    func cachedNotificationsMentions(for userId: String) throws -> [Mastodon.Entity.Notification] {
+    func cachedNotificationsMentions(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
         try cached(timeline: .notificationsMentions(userId))
     }
     
@@ -38,16 +38,16 @@ extension FileManager {
     }
     
     // Create
-    func cacheHomeTimeline(items: [MastodonStatus], for userId: String) {
-        cache(items.map { $0.entity }, timeline: .homeTimeline(userId))
+    func cacheHomeTimeline(items: [MastodonStatus], for userIdentifier: UserIdentifier) {
+        cache(items.map { $0.entity }, timeline: .homeTimeline(userIdentifier))
     }
     
-    func cacheNotificationsAll(items: [Mastodon.Entity.Notification], for userId: String) {
-        cache(items, timeline: .notificationsAll(userId))
+    func cacheNotificationsAll(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
+        cache(items, timeline: .notificationsAll(userIdentifier))
     }
     
-    func cacheNotificationsMentions(items: [Mastodon.Entity.Notification], for userId: String) {
-        cache(items, timeline: .notificationsMentions(userId))
+    func cacheNotificationsMentions(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
+        cache(items, timeline: .notificationsMentions(userIdentifier))
     }
     
     private func cache<T: Encodable>(_ items: [T], timeline: Persistence) {
@@ -71,15 +71,15 @@ extension FileManager {
     }
     
     // Delete
-    func invalidateHomeTimelineCache(for userId: String) {
+    func invalidateHomeTimelineCache(for userId: UserIdentifier) {
         invalidate(timeline: .homeTimeline(userId))
     }
     
-    func invalidateNotificationsAll(for userId: String) {
+    func invalidateNotificationsAll(for userId: UserIdentifier) {
         invalidate(timeline: .notificationsAll(userId))
     }
     
-    func invalidateNotificationsMentions(for userId: String) {
+    func invalidateNotificationsMentions(for userId: UserIdentifier) {
         invalidate(timeline: .notificationsMentions(userId))
     }
     

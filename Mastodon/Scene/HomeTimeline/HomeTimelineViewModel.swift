@@ -84,7 +84,7 @@ final class HomeTimelineViewModel: NSObject {
         self.fetchedResultsController = FeedFetchedResultsController(context: context, authContext: authContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
-        self.fetchedResultsController.records = (try? FileManager.default.cachedHomeTimeline(for: authContext.mastodonAuthenticationBox.userID).map {
+        self.fetchedResultsController.records = (try? FileManager.default.cachedHomeTimeline(for: authContext.mastodonAuthenticationBox).map {
             MastodonFeed.fromStatus($0, kind: .home)
         }) ?? []
         
@@ -111,7 +111,7 @@ final class HomeTimelineViewModel: NSObject {
                     guard let status = feed.status else { return nil }
                     return status
                 }
-                FileManager.default.cacheHomeTimeline(items: items, for: authContext.mastodonAuthenticationBox.userID)
+                FileManager.default.cacheHomeTimeline(items: items, for: authContext.mastodonAuthenticationBox)
             })
             .store(in: &disposeBag)
         
