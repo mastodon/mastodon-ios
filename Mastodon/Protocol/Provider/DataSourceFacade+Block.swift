@@ -14,27 +14,6 @@ extension DataSourceFacade {
     static func responseToUserBlockAction(
         dependency: NeedsDependency & AuthContextProvider,
         account: Mastodon.Entity.Account
-    ) async throws {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
-
-        let apiService = dependency.context.apiService
-        let authBox = dependency.authContext.mastodonAuthenticationBox
-        
-        _ = try await apiService.toggleBlock(
-            account: account,
-            authenticationBox: authBox
-        )
-        
-        try await dependency.context.apiService.getBlocked(
-            authenticationBox: authBox
-        )
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
-    }
-
-    static func responseToUserBlockAction(
-        dependency: NeedsDependency & AuthContextProvider,
-        user: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
@@ -43,7 +22,7 @@ extension DataSourceFacade {
         let authBox = dependency.authContext.mastodonAuthenticationBox
 
         let response = try await apiService.toggleBlock(
-            user: user,
+            account: account,
             authenticationBox: authBox
         )
 

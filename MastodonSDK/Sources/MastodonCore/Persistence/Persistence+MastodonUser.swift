@@ -147,7 +147,7 @@ extension Persistence.MastodonUser {
         let me = context.me
         
         user.update(isFollowing: relationship.following, by: me)
-        relationship.requested.flatMap { user.update(isFollowRequested: $0, by: me) }
+        user.update(isFollowRequested: relationship.requested, by: me)
         // relationship.endorsed.flatMap { user.update(isEndorsed: $0, by: me) }
         me.update(isFollowing: relationship.followedBy, by: user)
         user.update(isMuting: relationship.muting, by: me)

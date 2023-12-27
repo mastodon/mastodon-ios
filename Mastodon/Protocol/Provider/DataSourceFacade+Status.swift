@@ -229,7 +229,7 @@ extension DataSourceFacade {
                 Task {
                     let newRelationship = try await DataSourceFacade.responseToUserBlockAction(
                         dependency: dependency,
-                        user: menuContext.author
+                        account: menuContext.author
                     )
 
                     if let completion {

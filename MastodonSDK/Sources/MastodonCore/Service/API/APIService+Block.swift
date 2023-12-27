@@ -64,51 +64,7 @@ extension APIService {
         account: Mastodon.Entity.Account,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
-
-        guard let me = authenticationBox.authentication.account(),
-              let relationship = try await relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first
-        else { throw APIError.implicit(.badRequest) }
-
-        let blockContext = MastodonBlockContext(
-            sourceUserID: me.id,
-            targetUserID: account.id,
-            targetUsername: account.username,
-            isBlocking: relationship.blocking,
-            isFollowing: relationship.following
-        )
-
-        let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
-        do {
-            if blockContext.isBlocking {
-                let response = try await Mastodon.API.Account.unblock(
-                    session: session,
-                    domain: authenticationBox.domain,
-                    accountID: blockContext.targetUserID,
-                    authorization: authenticationBox.userAuthorization
-                ).singleOutput()
-                result = .success(response)
-            } else {
-                let response = try await Mastodon.API.Account.block(
-                    session: session,
-                    domain: authenticationBox.domain,
-                    accountID: blockContext.targetUserID,
-                    authorization: authenticationBox.userAuthorization
-                ).singleOutput()
-                result = .success(response)
-            }
-        } catch {
-            result = .failure(error)
-        }
-
-        let response = try result.get()
-        return response
-    }
-
-    public func toggleBlock(
-        user: Mastodon.Entity.Account,
-        authenticationBox: MastodonAuthenticationBox
-    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
-        guard let relationship = try await relationship(forAccounts: [user], authenticationBox: authenticationBox).value.first else {
+        guard let relationship = try await relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first else {
             throw APIError.implicit(.badRequest)
         }
 
@@ -118,14 +74,14 @@ extension APIService {
             response = try await Mastodon.API.Account.unblock(
                 session: session,
                 domain: authenticationBox.domain,
-                accountID: user.id,
+                accountID: account.id,
                 authorization: authenticationBox.userAuthorization
             ).singleOutput()
         } else {
             response = try await Mastodon.API.Account.block(
                 session: session,
                 domain: authenticationBox.domain,
-                accountID: user.id,
+                accountID: account.id,
                 authorization: authenticationBox.userAuthorization
             ).singleOutput()
         }

@@ -108,7 +108,7 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestMute else { return }
                     self.viewModel.isRequestMute = true
                     do {
-                        try await DataSourceFacade.responseToUserMuteAction(
+                        _ = try await DataSourceFacade.responseToUserMuteAction(
                             dependency: self,
                             account: self.viewModel.account
                         )
@@ -128,9 +128,9 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestBlock else { return }
                     self.viewModel.isRequestBlock = true
                     do {
-                        try await DataSourceFacade.responseToUserBlockAction(
+                        _ = try await DataSourceFacade.responseToUserBlockAction(
                             dependency: self,
-                            user: self.viewModel.account
+                            account: self.viewModel.account
                         )
                     } catch {
                         // handle error

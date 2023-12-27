@@ -22,7 +22,7 @@ extension Mastodon.Entity {
         /// Are you following this user?
         public let following: Bool
         /// Do you have a pending follow request for this user?
-        public let requested: Bool?
+        public let requested: Bool
         /// Are you featuring this user on your profile?
         public let endorsed: Bool
         /// Are you followed by this user?

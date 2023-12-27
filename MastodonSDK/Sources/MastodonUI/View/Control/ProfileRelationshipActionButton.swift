@@ -87,7 +87,7 @@ extension ProfileRelationshipActionButton {
 
         setTitle(title, for: .normal)
 
-        if relationship.blocking || account.suspended ?? false {
+        if relationship.blockedBy || account.suspended ?? false {
             isEnabled = false
         } else {
             isEnabled = true
