@@ -115,10 +115,7 @@ extension ThreadViewModel.LoadThreadState {
     
     class NoMore: ThreadViewModel.LoadThreadState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            switch stateClass {
-            case is Loading.Type: return true
-            default: return false
-            }
+            stateClass is Loading.Type
         }
     }
 }
