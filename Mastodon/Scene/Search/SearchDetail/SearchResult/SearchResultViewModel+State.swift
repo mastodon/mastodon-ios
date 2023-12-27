@@ -123,7 +123,7 @@ extension SearchResultViewModel.State {
                     // discard result when state is not Loading
                     guard stateMachine.currentState is Loading else { return }
 
-                    let statusIDs = searchResults.statuses.map { MastodonStatus.fromEntity($0) }
+                    let statuses = searchResults.statuses.map { MastodonStatus.fromEntity($0) }
 
                     let accounts = searchResults.accounts
 
@@ -137,7 +137,7 @@ extension SearchResultViewModel.State {
                         relationships = []
                     }
 
-                    let isNoMore = accounts.isEmpty && statusIDs.isEmpty
+                    let isNoMore = accounts.isEmpty && statuses.isEmpty
 
                     if viewModel.searchScope == .all || isNoMore {
                         await enter(state: NoMore.self)
@@ -153,7 +153,7 @@ extension SearchResultViewModel.State {
                         viewModel.hashtags = []
                     }
 
-                    await viewModel.statusFetchedResultsController.appendRecords(statusIDs)
+                    await viewModel.statusFetchedResultsController.appendRecords(statuses)
 
                     
                     var existingRelationships = viewModel.relationships
