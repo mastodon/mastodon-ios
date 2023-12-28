@@ -148,7 +148,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
             await DataSourceFacade.responseToURLAction(
                 provider: self,
-                status: status,
                 url: url
             )
         }
@@ -173,7 +172,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
             await DataSourceFacade.responseToURLAction(
                 provider: self,
-                status: status,
                 url: url
             )
         }

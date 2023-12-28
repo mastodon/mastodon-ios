@@ -12,19 +12,21 @@ import MastodonSDK
 
 extension DataSourceFacade {
     
+    @MainActor
     static func coordinateToProfileScene(
         provider: DataSourceProvider & AuthContextProvider,
         target: StatusTarget,
         status: MastodonStatus
     ) async {
-        let acct: String = {
-            switch target {
-            case .status:
-                return status.reblog?.entity.account.acct ?? status.entity.account.acct
-            case .reblog:
-                return status.entity.account.acct
-            }
-        }()
+        let acct: String
+        switch target {
+        case .status:
+            acct = status.reblog?.entity.account.acct ?? status.entity.account.acct
+        case .reblog:
+            acct = status.entity.account.acct
+        }
+        
+        provider.coordinator.showLoading()
         
         let _redirectRecord = try? await Mastodon.API.Account.lookupAccount(
             session: .shared,
@@ -35,6 +37,7 @@ extension DataSourceFacade {
                 
         guard let redirectRecord = _redirectRecord else {
             assertionFailure()
+            provider.coordinator.hideLoading()
             return
         }
         await coordinateToProfileScene(
@@ -110,12 +113,9 @@ extension DataSourceFacade {
             return
         }
     
-        let managedObjectContext = provider.context.managedObjectContext
-        let mentions = try? await managedObjectContext.perform {
-            return status.entity.mentions ?? []
-        }
+        let mentions = status.entity.mentions ?? []
         
-        guard let mention = mentions?.first(where: { $0.url == href }) else {
+        guard let mention = mentions.first(where: { $0.url == href }) else {
             _  = provider.coordinator.present(
                 scene: .safari(url: url),
                 from: provider,

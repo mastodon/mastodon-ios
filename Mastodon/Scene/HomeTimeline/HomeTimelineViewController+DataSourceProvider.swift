@@ -22,15 +22,12 @@ extension HomeTimelineViewController: DataSourceProvider {
         
         switch item {
         case .feed(let feed):
-            let item: DataSourceItem? = {
-                guard feed.kind == .home else { return nil }
-                if let status = feed.status {
-                    return .status(record: status)
-                } else {
-                    return nil
-                }
-            }()
-            return item
+            guard feed.kind == .home else { return nil }
+            if let status = feed.status {
+                return .status(record: status)
+            } else {
+                return nil
+            }
         default:
             return nil
         }

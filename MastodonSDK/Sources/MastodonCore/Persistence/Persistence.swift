@@ -14,20 +14,16 @@ public enum Persistence {
     case notificationsMentions(UserIdentifier)
     case notificationsAll(UserIdentifier)
     
-    private func uniqueUserDomainIdentifier(for userIdentifier: UserIdentifier) -> String {
-        "\(userIdentifier.userID)@\(userIdentifier.domain)"
-    }
-
     private var filename: String {
         switch self {
             case .searchHistory:
                 return "search_history" // todo: @zeitschlag should this be user-scoped as well?
             case let .homeTimeline(userIdentifier):
-            return "home_timeline_\(uniqueUserDomainIdentifier(for: userIdentifier))"
+                return "home_timeline_\(userIdentifier.uniqueUserDomainIdentifier)"
             case let .notificationsMentions(userIdentifier):
-                return "notifications_mentions_\(uniqueUserDomainIdentifier(for: userIdentifier))"
+                return "notifications_mentions_\(userIdentifier.uniqueUserDomainIdentifier)"
             case let .notificationsAll(userIdentifier):
-                return "notifications_all_\(uniqueUserDomainIdentifier(for: userIdentifier))"
+                return "notifications_all_\(userIdentifier.uniqueUserDomainIdentifier)"
         }
     }
 

@@ -182,9 +182,15 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
             
             let _mediaTransitionContext: NotificationMediaTransitionContext? = {
                 guard let status = record.status?.reblog ?? record.status else { return nil }
+                let needsToBeToggled: Bool = {
+                    guard let sensitive = status.entity.sensitive else {
+                        return false
+                    }
+                    return status.isSensitiveToggled ? !sensitive : sensitive
+                }()
                 return NotificationMediaTransitionContext(
                     status: status,
-                    needsToggleMediaSensitive: status.isSensitiveToggled ? !(status.entity.sensitive == true) : (status.entity.sensitive == true)
+                    needsToggleMediaSensitive: needsToBeToggled
                 )
             }()
 

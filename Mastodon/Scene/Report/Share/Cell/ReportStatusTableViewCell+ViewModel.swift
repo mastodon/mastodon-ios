@@ -9,6 +9,7 @@ import UIKit
 import MastodonSDK
 
 extension ReportStatusTableViewCell {
+    // todo: refactor / remove this
     final class ViewModel {
         let value: MastodonStatus
 

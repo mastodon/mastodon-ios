@@ -569,7 +569,10 @@ public extension SceneCoordinator {
     @MainActor
     func showLoading(on viewController: UIViewController?) {
         guard let viewController else { return }
-
+        
+        /// Don't add HUD twice
+        guard MBProgressHUD.forView(viewController.view) == nil else { return }
+        
         MBProgressHUD.showAdded(to: viewController.view, animated: true)
     }
 

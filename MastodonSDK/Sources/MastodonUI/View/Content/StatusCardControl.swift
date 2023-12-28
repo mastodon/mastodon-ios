@@ -344,9 +344,12 @@ private extension Mastodon.Entity.Card {
         if !aspectRatio.isFinite {
             aspectRatio = 1
         }
-        return (abs(aspectRatio - 1) < 0.05 || image == nil) && html == nil
-        ? .compact
-        : .large(aspectRatio: aspectRatio)
+        
+        if (abs(aspectRatio - 1) < 0.05 || image == nil) && html == nil {
+            return .compact
+        } else {
+            return .large(aspectRatio: aspectRatio)
+        }
     }
 }
 

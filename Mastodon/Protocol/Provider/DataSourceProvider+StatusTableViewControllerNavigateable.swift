@@ -65,10 +65,7 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
         case .status(let record):
             return record
         case .notification(let record):
-            guard let statusRecord = record.status else {
-                return nil
-            }
-            return statusRecord
+            return record.status
         default:
             return nil
         }

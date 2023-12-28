@@ -111,18 +111,6 @@ extension NotificationTimelineViewModel {
     
     // load timeline gap
     func loadMore(item: NotificationItem) async {
-//        guard case let .feedLoader(record) = item else { return }
-
-//        guard let maxID = record.notification?.id else { return }
-
-//        // fetch data
-//        if let notifications = try? await context.apiService.notifications(
-//            maxID: maxID,
-//            scope: scope,
-//            authenticationBox: authContext.mastodonAuthenticationBox
-//        ) {
-//            self.feedFetchedResultsController.records += notifications.value.map { MastodonFeed.fromNotification($0, kind: record.kind) }
-//        }
         switch scope {
         case .everything:
             feedFetchedResultsController.loadNext(kind: .notificationAll)

@@ -50,8 +50,8 @@ extension APIService {
            for entity in response.value {
                guard let poll = entity.poll else { continue }
                _ = Persistence.Poll.createOrMerge(
-                in: managedObjectContext,
-                context: .init(domain: domain, entity: poll, me: me, networkDate: response.networkDate)
+                  in: managedObjectContext,
+                  context: .init(domain: domain, entity: poll, me: me, networkDate: response.networkDate)
                )
            }
         }

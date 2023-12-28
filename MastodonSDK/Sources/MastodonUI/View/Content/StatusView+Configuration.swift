@@ -193,7 +193,6 @@ extension StatusView {
                             }
                             .store(in: &disposeBag)
                     }   // end if let
-//                }   // end else B2.
             }   // end else B.
             
         } else {
@@ -389,14 +388,17 @@ extension StatusView {
 
     private func configurePoll(status: MastodonStatus) {
         let status = status.reblog ?? status
-
-        let predicate = Poll.predicate(domain: viewModel.authContext?.mastodonAuthenticationBox.domain ?? "", id: status.entity.poll?.id ?? "")
-
+        
         guard
             let context = viewModel.context?.managedObjectContext,
-            let poll = Poll.findOrFetch(in: context, matching: predicate)
-        else { return }
-        
+            let domain = viewModel.authContext?.mastodonAuthenticationBox.domain,
+            let pollId = status.entity.poll?.id
+        else {
+            return
+        }
+
+        let predicate = Poll.predicate(domain: domain, id: pollId)
+        guard let poll = Poll.findOrFetch(in: context, matching: predicate) else { return }
         
         viewModel.managedObjects.insert(poll)
 

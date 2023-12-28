@@ -50,7 +50,6 @@ extension DataSourceFacade {
 
             await responseToURLAction(
                 provider: provider,
-                status: status,
                 url: url
             )
         case .hashtag(_, let hashtag, _):

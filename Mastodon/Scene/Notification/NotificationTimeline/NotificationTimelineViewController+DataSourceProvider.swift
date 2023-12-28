@@ -42,7 +42,7 @@ extension NotificationTimelineViewController: DataSourceProvider {
     }
     
     func delete(status: MastodonStatus) {
-        viewModel.feedFetchedResultsController
+        viewModel.feedFetchedResultsController.delete(status: status)
     }
     
     @MainActor

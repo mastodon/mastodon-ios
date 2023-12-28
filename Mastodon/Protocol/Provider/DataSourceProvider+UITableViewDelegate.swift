@@ -40,9 +40,7 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                     provider: self,
                     tag: tag
                 )
-            case .notification(let notification):
-                let managedObjectContext = context.managedObjectContext
-                
+            case .notification(let notification):                
                 let _status: MastodonStatus? = notification.status
                 if let status = _status {
                     await DataSourceFacade.coordinateToStatusThreadScene(

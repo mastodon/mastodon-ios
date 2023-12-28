@@ -14,7 +14,6 @@ import MastodonSDK
 extension DataSourceFacade {
     static func responseToURLAction(
         provider: DataSourceProvider & AuthContextProvider,
-        status: MastodonStatus,
         url: URL
     ) async {
         let domain = provider.authContext.mastodonAuthenticationBox.domain
