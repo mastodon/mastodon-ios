@@ -63,13 +63,3 @@ extension FileManager {
         storeJSON(newSearchItems, .searchHistory)
     }
 }
-
-public extension FileManager {
-    var documentsDirectory: URL? {
-        urls(for: .documentDirectory, in: .userDomainMask).first
-    }
-    
-    var cachesDirectory: URL? {
-        urls(for: .cachesDirectory, in: .userDomainMask).first
-    }
-}
