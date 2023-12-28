@@ -316,9 +316,9 @@ extension ProfileCardView {
                 buttonState = .none
             } else if relationship.following {
                 buttonState = .unfollow
-            } else if relationship.blocking || (relationship.domainBlocking ?? false) {
+            } else if relationship.blocking || relationship.domainBlocking {
                 buttonState = .blocked
-            } else if relationship.requested ?? false {
+            } else if relationship.requested {
                 buttonState = .pending
             } else {
                 buttonState = .follow

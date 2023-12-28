@@ -62,7 +62,7 @@ extension SearchResultViewController {
             
             switch item {
             case .account(let account, relationship: _):
-                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+                    DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
             case .status(let status):
                 await DataSourceFacade.coordinateToStatusThreadScene(
                     provider: self,

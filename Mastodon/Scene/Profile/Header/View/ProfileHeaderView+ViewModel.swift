@@ -133,7 +133,7 @@ extension ProfileHeaderView.ViewModel {
             .compactMap { relationship in
                 guard let relationship else { return false }
 
-                return relationship.blocking || (relationship.blockedBy ?? false)
+                return relationship.blocking || relationship.blockedBy
             }
             .sink { needsImageOverlayBlurred in
                 UIView.animate(withDuration: 0.33) {

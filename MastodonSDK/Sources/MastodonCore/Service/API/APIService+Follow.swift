@@ -40,7 +40,7 @@ extension APIService {
 
         let response: Mastodon.Response.Content<Mastodon.Entity.Relationship>
 
-        if relationship.following || (relationship.requested ?? false) {
+        if relationship.following || relationship.requested {
             // unfollow
             response = try await Mastodon.API.Account.unfollow(
                 session: session,

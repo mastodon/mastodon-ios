@@ -420,14 +420,14 @@ extension ProfileViewController {
             let name = user.displayNameWithFallback
 
             var menuActions: [MastodonMenu.Action] = [
-                .muteUser(.init(name: name, isMuting: relationship.muting ?? false)),
+                .muteUser(.init(name: name, isMuting: relationship.muting)),
                 .blockUser(.init(name: name, isBlocking: relationship.blocking)),
                 .reportUser(.init(name: name)),
                 .shareUser(.init(name: name)),
             ]
 
             if relationship.following {
-                let showReblogs = relationship.showingReblogs ?? false// me.showingReblogsBy.contains(user)
+                let showReblogs = relationship.showingReblogs// me.showingReblogsBy.contains(user)
                 let context = MastodonMenu.HideReblogsActionContext(showReblogs: showReblogs)
                 menuActions.insert(.hideReblogs(context), at: 1)
             }
