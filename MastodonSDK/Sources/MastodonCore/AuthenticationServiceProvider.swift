@@ -116,7 +116,7 @@ public extension AuthenticationServiceProvider {
                                                                   userID: authentication.userID,
                                                                   authorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)).value else { continue }
 
-            FileManager.default.store(account: account, forUserID: authentication.userID)
+            FileManager.default.store(account: account, forUserID: authentication.userIdentifier())
         }
 
         NotificationCenter.default.post(name: .userFetched, object: nil)

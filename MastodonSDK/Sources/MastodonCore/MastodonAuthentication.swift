@@ -100,9 +100,17 @@ public struct MastodonAuthentication: Codable, Hashable {
     }
 
     public func account() -> Mastodon.Entity.Account? {
-        let account = FileManager.default.accounts(forUserID: userID).first(where: { $0.id == userID })
+
+        let account = FileManager
+            .default
+            .accounts(for: self.userIdentifier())
+            .first(where: { $0.id == userID })
 
         return account
+    }
+
+    public func userIdentifier() -> MastodonUserIdentifier {
+        MastodonUserIdentifier(domain: domain, userID: userID)
     }
 
     func updating(instance: Instance) -> Self {

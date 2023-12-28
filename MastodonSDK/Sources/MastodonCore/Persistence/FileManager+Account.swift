@@ -3,10 +3,9 @@
 import Foundation
 import MastodonSDK
 
-extension FileManager {
-    public func store(account: Mastodon.Entity.Account, forUserID userID: String) {
-        // store accounts for each loged in user
-        var accounts = accounts(forUserID: userID)
+public extension FileManager {
+    func store(account: Mastodon.Entity.Account, forUserID userID: UserIdentifier) {
+        var accounts = accounts(for: userID)
 
         if let index = accounts.firstIndex(of: account) {
             accounts.remove(at: index)
@@ -17,10 +16,10 @@ extension FileManager {
         storeJSON(accounts, userID: userID)
     }
 
-    public func accounts(forUserID userID: String) -> [Mastodon.Entity.Account] {
+    func accounts(for userId: UserIdentifier) -> [Mastodon.Entity.Account] {
         guard let documentsDirectory else { return [] }
 
-        let accountPath = Persistence.accounts(userID: userID).filepath(baseURL: documentsDirectory)
+        let accountPath = Persistence.accounts(userId).filepath(baseURL: documentsDirectory)
 
         guard let data = try? Data(contentsOf: accountPath) else { return [] }
 
@@ -35,8 +34,10 @@ extension FileManager {
         }
 
     }
+}
 
-    private func storeJSON(_ encodable: Encodable, userID: String) {
+private extension FileManager {
+    private func storeJSON(_ encodable: Encodable, userID: UserIdentifier) {
         guard let documentsDirectory else { return }
 
         let jsonEncoder = JSONEncoder()
@@ -44,7 +45,7 @@ extension FileManager {
         do {
             let data = try jsonEncoder.encode(encodable)
 
-            let accountsPath = Persistence.accounts(userID: userID).filepath(baseURL: documentsDirectory)
+            let accountsPath = Persistence.accounts( userID).filepath(baseURL: documentsDirectory)
             try data.write(to: accountsPath)
         } catch {
             debugPrint(error.localizedDescription)
