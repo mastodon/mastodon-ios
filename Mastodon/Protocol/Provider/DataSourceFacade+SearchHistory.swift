@@ -42,8 +42,6 @@ extension DataSourceFacade {
                 try? FileManager.default.addSearchItem(searchEntry, for: provider.authContext.mastodonAuthenticationBox)
             case .status:
                 break
-            case .user(_):
-                break
             case .notification:
                 break
 

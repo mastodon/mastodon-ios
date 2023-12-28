@@ -693,8 +693,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                         provider: self,
                         account: account
                     )
-                case .user(_):
-                    assertionFailure("TODO")
                 case .notification:
                     assertionFailure("TODO")
                 case .hashtag(_):

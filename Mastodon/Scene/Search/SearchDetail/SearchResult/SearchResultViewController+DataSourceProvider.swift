@@ -69,8 +69,6 @@ extension SearchResultViewController {
                     target: .status,    // remove reblog wrapper
                     status: status
                 )
-            case .user(let user):
-                    assertionFailure()
             case .hashtag(let tag):
                 await DataSourceFacade.coordinateToHashtagScene(
                     provider: self,

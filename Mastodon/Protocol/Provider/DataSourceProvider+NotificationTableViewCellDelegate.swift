@@ -487,8 +487,6 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                         target: .status,    // remove reblog wrapper
                         status: status
                     )
-                case .user(let user):
-                    break
                 case .account(let account, let relationship):
                     await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
                 case .notification:
