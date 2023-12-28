@@ -48,7 +48,6 @@ extension Persistence {
     public enum Poll { }
     public enum Card { }
     public enum PollOption { }
-    public enum Tag { }
     public enum SearchHistory { }
     public enum Notification { }
 }
