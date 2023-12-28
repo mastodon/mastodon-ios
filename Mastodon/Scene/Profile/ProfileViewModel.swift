@@ -124,37 +124,38 @@ class ProfileViewModel: NSObject {
             }
             .store(in: &disposeBag)
         // query relationship
-    #warning("TODO: Implement")
-//        let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
 
-//        // observe friendship
-//        Publishers.CombineLatest(
-//            account,
-//            pendingRetryPublisher
-//        )
-//        .sink { [weak self] account, _ in
-//            guard let self, let account else { return }
-//
-//            Task {
-//                do {
-//                    let response = try await self.updateRelationship(
-//                        account: account,
-//                        authenticationBox: self.authContext.mastodonAuthenticationBox
-//                    )
-//                    // there are seconds delay after request follow before requested -> following. Query again when needs
-//                    guard let relationship = response.value.first else { return }
-//                    if relationship.requested == true {
-//                        let delay = pendingRetryPublisher.value
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-//                            guard let _ = self else { return }
-//                            pendingRetryPublisher.value = min(2 * delay, 60)
-//                        }
-//                    }
-//                } catch {
-//                }
-//            }   // end Task
-//        }
-//        .store(in: &disposeBag)
+        let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
+
+        // observe friendship
+        Publishers.CombineLatest(
+            $account,
+            pendingRetryPublisher
+        )
+        .sink { [weak self] account, _ in
+            guard let self else { return }
+
+            Task {
+                do {
+                    let response = try await self.context.apiService.relationship(
+                        forAccounts: [account],
+                        authenticationBox: self.authContext.mastodonAuthenticationBox
+                    )
+
+                    // there are seconds delay after request follow before requested -> following. Query again when needs
+                    guard let relationship = response.value.first else { return }
+                    if relationship.requested == true {
+                        let delay = pendingRetryPublisher.value
+                        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                            guard let _ = self else { return }
+                            pendingRetryPublisher.value = min(2 * delay, 60)
+                        }
+                    }
+                } catch {
+                }
+            }   // end Task
+        }
+        .store(in: &disposeBag)
 
         let isBlockingOrBlocked = Publishers.CombineLatest3(
             (relationship?.blocking ?? false).publisher,
@@ -182,18 +183,6 @@ class ProfileViewModel: NSObject {
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
         return context.apiService.accountVerifyCredentials(domain: domain, authorization: authorization)
     }
-    
-    private func updateRelationship(
-        account: Mastodon.Entity.Account,
-        authenticationBox: MastodonAuthenticationBox
-    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
-        let response = try await context.apiService.relationship(
-            forAccounts: [account],
-            authenticationBox: authenticationBox
-        )
-        return response
-    }
-
 }
 
 extension ProfileViewModel {

@@ -268,7 +268,7 @@ extension ProfileHeaderView.ViewModel {
         $isRelationshipActionButtonHidden
             .assign(to: \.isHidden, on: view.relationshipActionButtonShadowContainer)
             .store(in: &disposeBag)
-#warning("TODO: Implement")
+
         Publishers.CombineLatest3(
             Publishers.CombineLatest3($me, $account, $relationship).eraseToAnyPublisher(),
             $isEditing,
@@ -280,13 +280,6 @@ extension ProfileHeaderView.ViewModel {
             guard let relationship else { return }
 
             view.relationshipActionButton.configure(relationship: relationship, between: account, and: me, isEditing: isEditing, isUpdating: isUpdating)
-//            if relationshipActionOptionSet.contains(.edit) {
-//                // check .edit state and set .editing when isEditing
-//                view.relationshipActionButton.configure(actionOptionSet: isUpdating ? .updating : (isEditing ? .editing : .edit))
-//                view.configure(state: isEditing ? .editing : .normal)
-//            } else {
-//                view.relationshipActionButton.configure(actionOptionSet: relationshipActionOptionSet)
-//            }
         }
         .store(in: &disposeBag)
     }
