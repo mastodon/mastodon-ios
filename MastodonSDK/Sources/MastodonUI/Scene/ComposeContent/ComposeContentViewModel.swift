@@ -552,14 +552,8 @@ extension ComposeContentViewModel {
     
     public func statusPublisher() throws -> StatusPublisher {
         let authContext = self.authContext
-        
-        // author
-        let managedObjectContext = self.context.managedObjectContext
-        var _author: ManagedObjectRecord<MastodonUser>?
-        managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
-        }
-        guard let author = _author else {
+
+        guard authContext.mastodonAuthenticationBox.authentication.account() != nil else {
             throw AppError.badAuthentication
         }
         
@@ -582,7 +576,6 @@ extension ComposeContentViewModel {
         }
 
         return MastodonStatusPublisher(
-            author: author,
             replyTo: {
                 if case .reply(let status) = destination {
                     return status
