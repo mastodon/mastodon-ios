@@ -502,9 +502,7 @@ private extension SceneCoordinator {
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .report(let viewModel):
-                let _viewController = ReportViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                viewController = ReportViewController(viewModel: viewModel)
             case .reportServerRules(let viewModel):
                 let _viewController = ReportServerRulesViewController()
                 _viewController.viewModel = viewModel

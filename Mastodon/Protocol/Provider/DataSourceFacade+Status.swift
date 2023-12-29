@@ -244,10 +244,13 @@ extension DataSourceFacade {
         case .reportUser:
             Task {
 
+                guard let relationship = try? await dependency.context.apiService.relationship(forAccounts: [menuContext.author], authenticationBox: dependency.authContext.mastodonAuthenticationBox).value.first else { return }
+
                 let reportViewModel = ReportViewModel(
                     context: dependency.context,
                     authContext: dependency.authContext,
                     account: menuContext.author,
+                    relationship: relationship,
                     status: menuContext.statusViewModel?.originalStatus
                 )
                 

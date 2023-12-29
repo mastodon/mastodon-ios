@@ -25,9 +25,9 @@ final class ReportReasonViewController: UIViewController, NeedsDependency, Repor
     var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()
     
-    var viewModel: ReportReasonViewModel!
-    private(set) lazy var reportReasonView = ReportReasonView(viewModel: viewModel)
-    
+    let viewModel: ReportReasonViewModel
+    let reportReasonView: ReportReasonView
+
     let navigationActionView: NavigationActionView = {
         let navigationActionView = NavigationActionView()
         navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
@@ -35,10 +35,14 @@ final class ReportReasonViewController: UIViewController, NeedsDependency, Repor
         return navigationActionView
     }()
     
+    init(viewModel: ReportReasonViewModel) {
+        self.viewModel = viewModel
+        reportReasonView = ReportReasonView(viewModel: viewModel)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
     
-}
-
-extension ReportReasonViewController {
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func viewDidLoad() {
         super.viewDidLoad()

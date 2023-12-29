@@ -88,10 +88,11 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestFollow else { return }
                     self.viewModel.isRequestFollow = true
                     do {
-                        try await DataSourceFacade.responseToUserFollowAction(
+                        let newRelationship = try await DataSourceFacade.responseToUserFollowAction(
                             dependency: self,
                             account: self.viewModel.account
                         )
+                        self.viewModel.relationship = newRelationship
                     } catch {
                         // handle error
                     }
@@ -108,10 +109,11 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestMute else { return }
                     self.viewModel.isRequestMute = true
                     do {
-                        _ = try await DataSourceFacade.responseToUserMuteAction(
+                        let newRelationship = try await DataSourceFacade.responseToUserMuteAction(
                             dependency: self,
                             account: self.viewModel.account
                         )
+                        self.viewModel.relationship = newRelationship
                     } catch {
                         // handle error
                     }
@@ -128,10 +130,11 @@ extension ReportResultViewController {
                     guard !self.viewModel.isRequestBlock else { return }
                     self.viewModel.isRequestBlock = true
                     do {
-                        _ = try await DataSourceFacade.responseToUserBlockAction(
+                        let newRelationship = try await DataSourceFacade.responseToUserBlockAction(
                             dependency: self,
                             account: self.viewModel.account
                         )
+                        self.viewModel.relationship = newRelationship
                     } catch {
                         // handle error
                     }

@@ -24,6 +24,7 @@ class ReportResultViewModel: ObservableObject {
     let context: AppContext
     let authContext: AuthContext
     let account: Mastodon.Entity.Account
+    var relationship: Mastodon.Entity.Relationship
     let isReported: Bool
     
     var headline: String {
@@ -39,8 +40,7 @@ class ReportResultViewModel: ObservableObject {
     // output
     @Published var avatarURL: URL?
     @Published var username: String = ""
-    
-    let relationshipViewModel = RelationshipViewModel()
+
     let muteActionPublisher = PassthroughSubject<Void, Never>()
     let followActionPublisher = PassthroughSubject<Void, Never>()
     let blockActionPublisher = PassthroughSubject<Void, Never>()
@@ -49,11 +49,13 @@ class ReportResultViewModel: ObservableObject {
         context: AppContext,
         authContext: AuthContext,
         account: Mastodon.Entity.Account,
+        relationship: Mastodon.Entity.Relationship,
         isReported: Bool
     ) {
         self.context = context
         self.authContext = authContext
         self.account = account
+        self.relationship = relationship
         self.isReported = isReported
         // end init
         

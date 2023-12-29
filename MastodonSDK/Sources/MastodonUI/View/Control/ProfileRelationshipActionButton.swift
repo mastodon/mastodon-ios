@@ -94,25 +94,6 @@ extension ProfileRelationshipActionButton {
         }
     }
 
-    public func configure(actionOptionSet: RelationshipActionOptionSet) {
-        setTitle(actionOptionSet.title, for: .normal)
-        
-        configureAppearance()
-        
-        titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
-        
-        activityIndicatorView.stopAnimating()
-        
-        if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked || option == .suspended {
-            isEnabled = false
-        } else if actionOptionSet.contains(.updating) {
-            isEnabled = false
-            activityIndicatorView.startAnimating()
-        } else {
-            isEnabled = true
-        }
-    }
-    
     private func configureAppearance() {
         setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
         setTitleColor(Asset.Colors.Label.primaryReverse.color.withAlphaComponent(0.5), for: .highlighted)

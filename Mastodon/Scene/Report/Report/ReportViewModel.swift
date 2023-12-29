@@ -29,6 +29,7 @@ class ReportViewModel {
     let context: AppContext
     let authContext: AuthContext
     let account: Mastodon.Entity.Account
+    let relationship: Mastodon.Entity.Relationship
     let status: MastodonStatus?
     
     // output
@@ -40,11 +41,13 @@ class ReportViewModel {
         context: AppContext,
         authContext: AuthContext,
         account: Mastodon.Entity.Account,
+        relationship: Mastodon.Entity.Relationship,
         status: MastodonStatus?
     ) {
         self.context = context
         self.authContext = authContext
         self.account = account
+        self.relationship = relationship
         self.status = status
         self.reportReasonViewModel = ReportReasonViewModel(context: context)
         self.reportServerRulesViewModel = ReportServerRulesViewModel(context: context)
