@@ -204,7 +204,7 @@ extension ProfileHeaderView.ViewModel {
                 guard let relationship else { return nil }
 
                 let isBlocking = relationship.blocking
-                let isBlockedBy = relationship.blockedBy ?? false
+                let isBlockedBy = relationship.blockedBy
                 let isSuspended = account.suspended ?? false
                 let isNeedsHidden = isBlocking || isBlockedBy || isSuspended
 
