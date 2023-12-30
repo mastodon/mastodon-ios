@@ -89,15 +89,21 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
         self.profileHeaderView = ProfileHeaderView(account: profileViewModel.account, me: profileViewModel.me, relationship: profileViewModel.relationship)
 
         super.init(nibName: nil, bundle: nil)
+
+        viewModel.$account
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] account in
+                guard let self else { return }
+
+                self.profileHeaderView.configuration(account: account)
+            }
+            .store(in: &disposeBag)
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        profileHeaderView.prepareForReuse()
-        profileHeaderView.configuration(account: viewModel.account)
 
 
         view.setContentHuggingPriority(.required - 1, for: .vertical)
