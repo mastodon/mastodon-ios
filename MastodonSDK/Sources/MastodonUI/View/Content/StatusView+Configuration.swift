@@ -88,16 +88,11 @@ extension StatusView {
     private func configureHeader(status: MastodonStatus) {
         if status.entity.reblogged == true, 
             let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox,
-            let managedObjectContext = viewModel.context?.managedObjectContext {
-            
-            let user = MastodonUser.findOrFetch(
-                in: managedObjectContext,
-                matching: MastodonUser.predicate(domain: authenticationBox.domain, id: authenticationBox.userID)
-            )
+           let account = authenticationBox.authentication.account() {
 
-            let name = user?.displayNameWithFallback ?? authenticationBox.authentication.username
-            let emojis = user?.emojis ?? []
-            
+            let name = account.displayNameWithFallback
+            let emojis = account.emojis ?? []
+
             viewModel.header = {
                 let text = L10n.Common.Controls.Status.userReblogged(name)
                 let content = MastodonContent(content: text, emojis: emojis.asDictionary)
