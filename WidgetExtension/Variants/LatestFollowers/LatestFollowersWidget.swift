@@ -5,6 +5,7 @@ import SwiftUI
 import Intents
 import MastodonSDK
 import MastodonLocalization
+import MastodonCore
 
 struct LatestFollowersWidgetProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> LatestFollowersEntry {
@@ -77,6 +78,9 @@ struct LatestFollowersWidget: Widget {
 private extension LatestFollowersWidgetProvider {
     func loadCurrentEntry(for configuration: LatestFollowersIntent, in context: Context, completion: @escaping (LatestFollowersEntry) -> Void) {
         Task { @MainActor in
+
+            AuthenticationServiceProvider.shared.restore()
+
             guard
                 let authBox = WidgetExtension.appContext
                     .authenticationService

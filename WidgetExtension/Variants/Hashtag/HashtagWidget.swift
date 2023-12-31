@@ -4,6 +4,7 @@ import WidgetKit
 import SwiftUI
 import MastodonSDK
 import MastodonLocalization
+import MastodonCore
 
 struct HashtagWidgetProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> HashtagWidgetTimelineEntry {
@@ -23,6 +24,8 @@ struct HashtagWidgetProvider: IntentTimelineProvider {
 
 extension HashtagWidgetProvider {
     func loadMostRecentHashtag(for configuration: HashtagIntent, in context: Context, completion: @escaping (HashtagWidgetTimelineEntry) -> Void ) {
+
+        AuthenticationServiceProvider.shared.restore()
 
         guard
             let authBox = WidgetExtension.appContext

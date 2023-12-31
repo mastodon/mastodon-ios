@@ -4,6 +4,7 @@ import WidgetKit
 import SwiftUI
 import Intents
 import MastodonSDK
+import MastodonCore
 import MastodonLocalization
 
 struct FollowersCountWidgetProvider: IntentTimelineProvider {
@@ -70,6 +71,9 @@ struct FollowersCountWidget: Widget {
 private extension FollowersCountWidgetProvider {
     func loadCurrentEntry(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (FollowersCountEntry) -> Void) {
         Task {
+
+            AuthenticationServiceProvider.shared.restore()
+
             guard
                 let authBox = WidgetExtension.appContext
                     .authenticationService
