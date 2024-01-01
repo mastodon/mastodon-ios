@@ -156,7 +156,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
-                guard let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else {
+                guard let author = authContext.mastodonAuthenticationBox.authentication.account() else {
                     return .public
                 }
                 return author.locked ? .private : .public
@@ -196,7 +196,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case .reply(let record):
             context.managedObjectContext.performAndWait {
                 let status = record.entity
-                let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
+                let author = authContext.mastodonAuthenticationBox.authentication.account()
 
                 var mentionAccts: [String] = []
                 if author?.id != status.account.id {
@@ -603,12 +603,7 @@ extension ComposeContentViewModel {
         guard case let .editStatus(status, _) = composeContext else { return nil }
 
         // author
-        let managedObjectContext = self.context.managedObjectContext
-        var _author: ManagedObjectRecord<MastodonUser>?
-        managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
-        }
-        guard let author = _author else {
+        guard let author = authContext.mastodonAuthenticationBox.authentication.account() else {
             throw AppError.badAuthentication
         }
 
