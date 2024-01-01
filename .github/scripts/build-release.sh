@@ -11,7 +11,6 @@ function finish() {
 trap finish EXIT
 
 SDK="${SDK:-iphoneos}"
-WORKSPACE="${WORKSPACE:-Mastodon.xcworkspace}"
 SCHEME="${SCHEME:-Mastodon}"
 CONFIGURATION=${CONFIGURATION:-Release}
 
@@ -41,12 +40,10 @@ echo "GITHUB_TAG_NAME=build-$CURRENT_PROJECT_VERSION" >> $GITHUB_ENV
 agvtool new-version -all $CURRENT_PROJECT_VERSION
 
 xcrun xcodebuild clean \
-    -workspace "${WORKSPACE}" \
     -scheme "${SCHEME}" \
     -configuration "${CONFIGURATION}"
 
 xcrun xcodebuild archive \
-    -workspace "${WORKSPACE}" \
     -scheme "${SCHEME}" \
     -configuration "${CONFIGURATION}" \
     -destination generic/platform=iOS \
