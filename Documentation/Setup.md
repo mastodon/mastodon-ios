@@ -50,8 +50,8 @@ bundle install
 # please check the `.env.example` to create your's or use the empty example directly
 bundle exec arkana -e ./env/.env
 
-# open workspace
-open Mastodon.xcworkspace
+# open project
+xed .
 ```
 
 The Arkana plugin will setup the push notification endpoint. You can use the empty template from `./env/.env` or use your own `.env` file. To setup the push notification. Please check section `Push Notification` below.
@@ -71,7 +71,7 @@ Note:
 Please check and set the `notification.Topic` to the app BundleID in [toot-relay.go](https://github.com/DagAgren/toot-relay/blob/f9d6894040509881fee845972cd38ec6cd8f5a11/toot-relay.go#L112). The server needs use a reverse proxy to port this relay on 443 port with valid domain and HTTPS certificate.
 
 ## Start
-1. Open `Mastodon.xcworkspace` 
+1. Open `Mastodon.xcodeproj` 
 2. Wait for the Swift Package Dependencies resolved. 
 2. Check the signing settings make sure to choose a team. [More info…](https://help.apple.com/xcode/mac/current/#/dev23aab79b4)
 3. Select `Mastodon` scheme and device then run it. (Command + R)
