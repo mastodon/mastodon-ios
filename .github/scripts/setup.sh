@@ -11,5 +11,3 @@ bundle install
 
 # Setup notification endpoint
 bundle exec arkana
-
-bundle exec pod install
