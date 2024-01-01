@@ -49,9 +49,7 @@ platform :ios do
   lane :build_only do
     xcodebuild(
       clean: true,
-      scheme: "Mastodon", 
-      workspace: "Mastodon.xcworkspace"
-    )
+      scheme: "Mastodon")
   end
 
   desc " Build and deploy the App to App Store Connect & TestFlight"
@@ -64,8 +62,7 @@ platform :ios do
       match(type: "appstore", app_identifier: $all_bundle_ids, force_for_new_devices: true, readonly: false)
     end
 
-    gym(workspace: "#{$appName}.xcworkspace",
-        scheme: "#{$appName}",
+    gym(scheme: "#{$appName}",
         clean: true,
         export_method: "app-store",
         export_xcargs: "-allowProvisioningUpdates")
