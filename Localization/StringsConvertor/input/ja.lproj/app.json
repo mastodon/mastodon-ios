@@ -222,11 +222,11 @@
                 "pending": "保留",
                 "block": "ブロック",
                 "block_user": "%sをブロック",
-                "block_domain": "Block domain %s",
+                "block_domain": "%s全体をブロック",
                 "unblock": "ブロックを解除",
                 "unblock_user": "%sのブロックを解除",
                 "blocked": "ブロック済み",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "ドメインブロック中",
                 "mute": "ミュート",
                 "mute_user": "%sをミュート",
                 "unmute": "ミュートを解除",
@@ -606,12 +606,12 @@
                     "message": "ブーストを非表示にしますか？"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "ドメインのブロック",
+                    "message": "%sのドメイン全体をブロックしてよいですか？"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "ドメインのブロックを解除",
+                    "message": "%sのブロックを解除してよいですか？"
                 }
             },
             "accessibility": {
