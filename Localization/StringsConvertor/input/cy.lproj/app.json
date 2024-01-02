@@ -222,10 +222,11 @@
                 "pending": "Yn aros",
                 "block": "Blocio",
                 "block_user": "Blocio %s",
-                "block_domain": "Blocio %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Dadflocio",
                 "unblock_user": "Dadflocio %s",
                 "blocked": "Wedi blocio",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Anwybyddu",
                 "mute_user": "Anwybyddu %s",
                 "unmute": "Dad-anwybyddu",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Cuddio Ailflogiau",
                     "message": "Cadarnhau i guddio ailflogiau"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
