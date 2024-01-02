@@ -28,6 +28,7 @@ public enum RelationshipAction: Int, CaseIterable {
     case edit
     case editing
     case updating
+    case domainBlocking
 
     public var option: RelationshipActionOptionSet {
         return RelationshipActionOptionSet(rawValue: 1 << rawValue)
@@ -60,7 +61,8 @@ public struct RelationshipActionOptionSet: OptionSet {
     public static let updating = RelationshipAction.updating.option
     public static let showReblogs = RelationshipAction.showReblogs.option
     public static let editOptions: RelationshipActionOptionSet = [.edit, .editing, .updating]
-    
+    public static let domainBlocking = RelationshipAction.domainBlocking.option
+
     public func highPriorityAction(except: RelationshipActionOptionSet) -> RelationshipAction? {
         let set = subtracting(except)
         for action in RelationshipAction.allCases.reversed() where set.contains(action.option) {
@@ -92,6 +94,7 @@ public struct RelationshipActionOptionSet: OptionSet {
             case .editing: return L10n.Common.Controls.Actions.done
             case .updating: return " "
             case .showReblogs: return " "
+            case .domainBlocking: return L10n.Common.Controls.Friendship.domainBlocked
         }
     }
 }
@@ -119,7 +122,8 @@ public final class RelationshipViewModel {
     @Published public var isBlocking = false
     @Published public var isBlockingBy = false
     @Published public var isSuspended = false
-    
+    @Published public var isDomainBlocking = false
+
     public init() {
         Publishers.CombineLatest3(
             $user,
@@ -171,9 +175,7 @@ extension RelationshipViewModel {
 
 extension RelationshipViewModel {
     private func update(user: MastodonUser?, me: MastodonUser?) {
-        guard let user = user,
-              let me = me
-        else {
+        guard let user, let me else {
             reset()
             return
         }
@@ -188,6 +190,7 @@ extension RelationshipViewModel {
         self.isBlocking = optionSet.contains(.blocking)
         self.isSuspended = optionSet.contains(.suspended)
         self.showReblogs = optionSet.contains(.showReblogs)
+        self.isDomainBlocking = optionSet.contains(.domainBlocking)
 
         self.optionSet = optionSet
     }
@@ -201,6 +204,7 @@ extension RelationshipViewModel {
         isBlocking = false
         optionSet = nil
         showReblogs = false
+        isDomainBlocking = false
     }
 }
 
@@ -220,6 +224,7 @@ extension RelationshipViewModel {
         let isBlockingBy = me.blockingBy.contains(user)
         let isBlocking = user.blockingBy.contains(me)
         let isShowingReblogs = me.showingReblogsBy.contains(user)
+        let isDomainBlocking = user.domainBlockingBy.contains(me)
 
         var optionSet: RelationshipActionOptionSet = [.follow]
         
@@ -261,6 +266,10 @@ extension RelationshipViewModel {
 
         if isShowingReblogs {
             optionSet.insert(.showReblogs)
+        }
+
+        if isDomainBlocking {
+            optionSet.insert(.domainBlocking)
         }
 
         return optionSet

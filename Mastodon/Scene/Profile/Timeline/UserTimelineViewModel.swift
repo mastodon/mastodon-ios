@@ -27,6 +27,7 @@ final class UserTimelineViewModel {
     @Published var queryFilter: QueryFilter
 
     @Published var isBlocking = false
+    @Published var isDomainBlocking = false
     @Published var isBlockedBy = false
     @Published var isSuspended = false
 
