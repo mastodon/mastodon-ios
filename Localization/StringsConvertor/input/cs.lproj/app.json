@@ -222,10 +222,11 @@
                 "pending": "Čekající",
                 "block": "Blokovat",
                 "block_user": "Blokovat %s",
-                "block_domain": "Blokovat %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Odblokovat",
                 "unblock_user": "Odblokovat %s",
                 "blocked": "Blokovaný",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Skrýt",
                 "mute_user": "Skrýt %s",
                 "unmute": "Odkrýt",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Skrýt Reblogy",
                     "message": "Potvrďte skrytí reblogů"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
