@@ -71,8 +71,7 @@ extension ProfileRelationshipActionButton {
         } else if relationship.blocking {
             title = L10n.Common.Controls.Friendship.blocked
         } else if relationship.domainBlocking {
-            #warning("Wait for #1198 (Domain Block, IOS-5) to be merged")
-            title = "Unblock domain"
+            title = L10n.Common.Controls.Friendship.domainBlocked
         } else if relationship.requested {
             title = L10n.Common.Controls.Friendship.pending
         } else if relationship.muting {
