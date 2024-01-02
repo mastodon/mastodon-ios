@@ -835,8 +835,8 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     let domain = user.domainFromAcct
 
                     let alertController = UIAlertController(
-                        title: "Unblock domain \(domain)",
-                        message: "Really unblock domain \(domain)?!",
+                        title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.title,
+                        message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.message(domain),
                         preferredStyle: .alert
                     )
                     let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
