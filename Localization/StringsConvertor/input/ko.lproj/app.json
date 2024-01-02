@@ -222,10 +222,11 @@
                 "pending": "대기중",
                 "block": "차단",
                 "block_user": "%s 차단",
-                "block_domain": "%s 차단",
+                "block_domain": "Block domain %s",
                 "unblock": "차단 해제",
                 "unblock_user": "%s 차단 해제",
                 "blocked": "차단됨",
+                "domain_blocked": "Domain Blocked",
                 "mute": "뮤트",
                 "mute_user": "%s 뮤트",
                 "unmute": "뮤트 해제",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "리블로그 가리기",
                     "message": "리블로그를 가리기 전 확인"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
