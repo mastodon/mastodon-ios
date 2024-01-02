@@ -34,10 +34,11 @@ extension DataSourceFacade {
             query: .init(acct: acct),
             authorization: provider.authContext.mastodonAuthenticationBox.userAuthorization
         ).singleOutput().value
+        
+        provider.coordinator.hideLoading()
                 
         guard let redirectRecord = _redirectRecord else {
             assertionFailure()
-            provider.coordinator.hideLoading()
             return
         }
         await coordinateToProfileScene(
