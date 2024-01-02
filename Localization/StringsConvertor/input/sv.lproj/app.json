@@ -222,10 +222,11 @@
                 "pending": "Väntande",
                 "block": "Blockera",
                 "block_user": "Blockera %s",
-                "block_domain": "Blockera %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Avblockera",
                 "unblock_user": "Avblockera %s",
                 "blocked": "Blockerad",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Tysta",
                 "mute_user": "Tysta %s",
                 "unmute": "Avtysta",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Dölj boostar",
                     "message": "Bekräfta för att dölja boostar"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
