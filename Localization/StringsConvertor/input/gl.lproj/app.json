@@ -222,11 +222,11 @@
                 "pending": "Pendente",
                 "block": "Bloquear",
                 "block_user": "Bloquear a %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Bloquear dominio %s",
                 "unblock": "Desbloquear",
                 "unblock_user": "Desbloquear a %s",
                 "blocked": "Bloqueada",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Dominio bloqueado",
                 "mute": "Acalar",
                 "mute_user": "Acalar a %s",
                 "unmute": "Non Acalar",
@@ -606,7 +606,7 @@
                     "message": "Confirma para agochar promocións"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
+                    "title": "Bloquear dominio",
                     "message": "Confirm to block domain %s"
                 },
                 "confirm_unblock_domain": {
