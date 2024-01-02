@@ -222,11 +222,11 @@
                 "pending": "Pendientes",
                 "block": "Bloquear",
                 "block_user": "Bloquear a %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Bloquear dominio %s",
                 "unblock": "Desbloquear",
                 "unblock_user": "Desbloquear a %s",
                 "blocked": "Bloqueado",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Dominio bloqueado",
                 "mute": "Silenciar",
                 "mute_user": "Silenciar a %s",
                 "unmute": "Dejar de silenciar",
@@ -606,12 +606,12 @@
                     "message": "Confirmá para ocultar adhesiones"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Bloquear dominio",
+                    "message": "Confirmar para bloquear el dominio %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Desbloquear dominio",
+                    "message": "Confirmar para desbloquear el dominio %s"
                 }
             },
             "accessibility": {
