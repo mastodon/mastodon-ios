@@ -191,7 +191,6 @@ extension MediaView {
             )
         }
         
-//        let status: StatusCompatible = status.reblog ?? status
         let attachments = status.entity.mastodonAttachments
         let configurations = attachments.enumerated().map { (idx, attachment) -> MediaView.Configuration in
             let configuration: MediaView.Configuration = {
