@@ -222,10 +222,11 @@
                 "pending": "Đang chờ",
                 "block": "Chặn",
                 "block_user": "Chặn %s",
-                "block_domain": "Chặn %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Bỏ chặn",
                 "unblock_user": "Bỏ chặn %s",
                 "blocked": "Đã chặn",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Ẩn",
                 "mute_user": "Ẩn %s",
                 "unmute": "Bỏ ẩn",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Ẩn đăng lại",
                     "message": "Xác nhận ẩn đăng lại"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
