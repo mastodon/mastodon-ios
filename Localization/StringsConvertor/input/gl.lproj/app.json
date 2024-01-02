@@ -607,11 +607,11 @@
                 },
                 "confirm_block_domain": {
                     "title": "Bloquear dominio",
-                    "message": "Confirm to block domain %s"
+                    "message": "Confirmar o bloqueo do dominio %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Desbloquear dominio",
+                    "message": "Confirmar o desbloqueo de %s"
                 }
             },
             "accessibility": {
