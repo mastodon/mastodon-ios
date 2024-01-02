@@ -222,10 +222,11 @@
                 "pending": "Na čakanju",
                 "block": "Blokiraj",
                 "block_user": "Blokiraj %s",
-                "block_domain": "Blokiraj %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Odblokiraj",
                 "unblock_user": "Odblokiraj %s",
                 "blocked": "Blokirano",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Utišaj",
                 "mute_user": "Utišaj %s",
                 "unmute": "Odtišaj",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Skrij poobjave",
                     "message": "Potrdite, da poobjave ne bodo prikazane"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
