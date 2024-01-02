@@ -222,11 +222,11 @@
                 "pending": "In attesa",
                 "block": "Blocca",
                 "block_user": "Blocca %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Blocca il dominio %s",
                 "unblock": "Sblocca",
                 "unblock_user": "Sblocca %s",
                 "blocked": "Bloccato",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Dominio bloccato",
                 "mute": "Silenzia",
                 "mute_user": "Silenzia %s",
                 "unmute": "Riattiva",
@@ -606,12 +606,12 @@
                     "message": "Conferma di nascondere le condivisioni"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Blocca il dominio",
+                    "message": "Conferma per bloccare il dominio %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Sblocca il dominio",
+                    "message": "Conferma per sbloccare il dominio %s"
                 }
             },
             "accessibility": {
