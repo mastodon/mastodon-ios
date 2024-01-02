@@ -791,6 +791,33 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
             let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
             alertController.addAction(cancelAction)
             coordinator.present(scene: .alertController(alertController: alertController), transition: .alertController(animated: true))
+        } else if relationship.domainBlocking {
+            guard let domain = account.domain else { return }
+
+            let alertController = UIAlertController(
+                title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.title,
+                message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.message(domain),
+                preferredStyle: .alert
+            )
+
+            let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblockDomain(domain), style: .default) { [weak self] _ in
+                guard let self else { return }
+                Task {
+                    _ = try await DataSourceFacade.responseToDomainBlockAction(
+                        dependency: self,
+                        account: account
+                    )
+
+                    guard let newRelationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: self.authContext.mastodonAuthenticationBox).value.first else { return }
+
+                    self.viewModel.relationship = newRelationship
+                }
+            }
+            alertController.addAction(unblockAction)
+            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
+            alertController.addAction(cancelAction)
+            coordinator.present(scene: .alertController(alertController: alertController), transition: .alertController(animated: true))
+
         } else if relationship.muting {
             let name = account.displayNameWithFallback
 
@@ -877,6 +904,7 @@ extension ProfileViewController: MastodonMenuDelegate {
         switch action {
             case .muteUser(_),
                     .blockUser(_),
+                    .blockDomain(_),
                     .hideReblogs(_):
                 Task {
                     try await DataSourceFacade.responseToMenuAction(

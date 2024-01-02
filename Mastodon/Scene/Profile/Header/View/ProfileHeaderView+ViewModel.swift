@@ -133,7 +133,7 @@ extension ProfileHeaderView.ViewModel {
             .compactMap { relationship in
                 guard let relationship else { return false }
 
-                return relationship.blocking || relationship.blockedBy
+                return relationship.blocking || relationship.blockedBy || relationship.domainBlocking
             }
             .sink { needsImageOverlayBlurred in
                 UIView.animate(withDuration: 0.33) {
@@ -203,9 +203,10 @@ extension ProfileHeaderView.ViewModel {
 
                 guard let relationship else { return nil }
 
-                let isBlocking = relationship.blocking
+                let isBlocking = relationship.blocking || relationship.domainBlocking
                 let isBlockedBy = relationship.blockedBy
                 let isSuspended = account.suspended ?? false
+
                 let isNeedsHidden = isBlocking || isBlockedBy || isSuspended
 
                 return isNeedsHidden

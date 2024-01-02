@@ -34,4 +34,19 @@ extension DataSourceFacade {
 
         return response.value
     }
+
+    static func responseToDomainBlockAction(
+        dependency: NeedsDependency & AuthContextProvider,
+        account: Mastodon.Entity.Account
+    ) async throws -> Mastodon.Entity.Empty {
+        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
+        await selectionFeedbackGenerator.selectionChanged()
+
+        let apiService = dependency.context.apiService
+        let authBox = dependency.authContext.mastodonAuthenticationBox
+
+        let response = try await apiService.toggleDomainBlock(account: account, authenticationBox: authBox)
+
+        return response.value
+    }
 }

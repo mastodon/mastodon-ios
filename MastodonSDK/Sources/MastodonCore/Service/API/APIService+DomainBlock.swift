@@ -66,72 +66,64 @@ extension APIService {
         }
         .eraseToAnyPublisher()
     }
- 
+
+    public func toggleDomainBlock(
+        account: Mastodon.Entity.Account,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Empty> {
+        guard let originalRelationship = try await relationship(forAccounts: [account], authenticationBox: authenticationBox).value.first else {
+            throw APIError.implicit(.badRequest)
+        }
+
+        let response: Mastodon.Response.Content<Mastodon.Entity.Empty>
+        let domainBlocking = originalRelationship.domainBlocking
+
+        if domainBlocking {
+            response = try await unblockDomain(account: account, authorizationBox: authenticationBox)
+        } else {
+            response = try await blockDomain(account: account, authorizationBox: authenticationBox)
+        }
+
+        return response
+    }
+
     func blockDomain(
-        user: MastodonUser,
+        account: Mastodon.Entity.Account,
         authorizationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> {
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Empty> {
         let authorization = authorizationBox.userAuthorization
 
-        return Mastodon.API.DomainBlock.blockDomain(
+        guard let domain = account.domainFromAcct else {
+            throw APIError.implicit(.badRequest)
+        }
+
+        let result = try await Mastodon.API.DomainBlock.blockDomain(
             domain: authorizationBox.domain,
-            blockDomain: user.domainFromAcct,
+            blockDomain: domain,
             session: session,
             authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> in
-            self.backgroundManagedObjectContext.performChanges {
-                let requestMastodonUserRequest = MastodonUser.sortedFetchRequest
-                requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: authorizationBox.domain, id: authorizationBox.userID)
-                requestMastodonUserRequest.fetchLimit = 1
-                guard let requestMastodonUser = self.backgroundManagedObjectContext.safeFetch(requestMastodonUserRequest).first else { return }
-                user.update(isDomainBlocking: true, by: requestMastodonUser)
-            }
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Empty> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
-        }
-        .eraseToAnyPublisher()
+        ).singleOutput()
+
+        return result
     }
     
     func unblockDomain(
-        user: MastodonUser,
+        account: Mastodon.Entity.Account,
         authorizationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> {
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Empty> {
         let authorization = authorizationBox.userAuthorization
-        
-        return Mastodon.API.DomainBlock.unblockDomain(
+
+        guard let domain = account.domainFromAcct else {
+            throw APIError.implicit(.badRequest)
+        }
+
+        let result = try await Mastodon.API.DomainBlock.unblockDomain(
             domain: authorizationBox.domain,
-            blockDomain: user.domainFromAcct,
+            blockDomain: domain,
             session: session,
             authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> in
-            self.backgroundManagedObjectContext.performChanges {
-                let requestMastodonUserRequest = MastodonUser.sortedFetchRequest
-                requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: authorizationBox.domain, id: authorizationBox.userID)
-                requestMastodonUserRequest.fetchLimit = 1
-                guard let requestMastodonUser = self.backgroundManagedObjectContext.safeFetch(requestMastodonUserRequest).first else { return }
-                user.update(isDomainBlocking: false, by: requestMastodonUser)
-            }
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Empty> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
-        }
-        .eraseToAnyPublisher()
+        ).singleOutput()
+
+        return result
     }
 }
