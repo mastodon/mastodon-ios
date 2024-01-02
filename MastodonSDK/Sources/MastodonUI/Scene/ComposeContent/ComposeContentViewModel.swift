@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import Meta
 import MetaTextKit
 import MastodonMeta
@@ -310,11 +309,19 @@ extension ComposeContentViewModel {
         // bind author
         $authContext
             .sink { [weak self] authContext in
-                guard let self = self else { return }
-                guard let user = authContext.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else { return }
-                self.avatarURL = user.avatarImageURL()
-                self.name = user.nameMetaContent ?? PlaintextMetaContent(string: user.displayNameWithFallback)
-                self.username = user.acctWithDomain
+                guard let self, let account = authContext.mastodonAuthenticationBox.authentication.account() else { return }
+
+                self.avatarURL = account.avatarImageURL()
+
+                do {
+                    let content = MastodonContent(content: account.displayNameWithFallback, emojis: (account.emojis ?? []).asDictionary)
+                    let metaContent = try MastodonMetaContent.convert(document: content)
+                    self.name = metaContent
+                } catch {
+                    self.name = PlaintextMetaContent(string: account.displayNameWithFallback)
+                }
+
+                self.username = account.acctWithDomain
             }
             .store(in: &disposeBag)
         
