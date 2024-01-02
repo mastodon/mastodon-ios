@@ -222,10 +222,11 @@
                 "pending": "In Warteschlange",
                 "block": "Blockieren",
                 "block_user": "%s blockieren",
-                "block_domain": "%s blockieren",
+                "block_domain": "Block domain %s",
                 "unblock": "Blockierung aufheben",
                 "unblock_user": "Blockierung von %s aufheben",
                 "blocked": "Blockiert",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Stummschalten",
                 "mute_user": "%s stummschalten",
                 "unmute": "Nicht mehr stummschalten",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Teilen ausblenden",
                     "message": "Bestätigen, um Teilen auszublenden"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
