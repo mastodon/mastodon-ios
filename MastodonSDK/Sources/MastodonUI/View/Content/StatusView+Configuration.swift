@@ -535,15 +535,3 @@ extension StatusView {
     }
 
 }
-
-extension MastodonStatus {
-    func getPoll(in context: NSManagedObjectContext, domain: String) async -> Poll? {
-        guard
-            let pollId = entity.poll?.id
-        else { return nil }
-        return try? await context.perform {
-            let predicate = Poll.predicate(domain: domain, id: pollId)
-            return Poll.findOrFetch(in: context, matching: predicate)
-        }
-    }
-}
