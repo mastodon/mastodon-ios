@@ -222,10 +222,11 @@
                 "pending": "Εκκρεμεί",
                 "block": "Αποκλεισμός",
                 "block_user": "Αποκλεισμός %s",
-                "block_domain": "Αποκλεισμός %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Άρση αποκλεισμού",
                 "unblock_user": "Άρση αποκλεισμού %s",
                 "blocked": "Αποκλείστηκε",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Σίγαση",
                 "mute_user": "Σίγαση %s",
                 "unmute": "Κατάργηση σίγασης",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Απόκρυψη Αναδημοσιεύσεων",
                     "message": "Επιβεβαίωση απόκρυψης αναδημοσιεύσεων"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
