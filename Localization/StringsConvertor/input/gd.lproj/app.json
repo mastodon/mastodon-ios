@@ -222,10 +222,11 @@
                 "pending": "Ri dhèiligeadh",
                 "block": "Bac",
                 "block_user": "Bac %s",
-                "block_domain": "Bac %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Dì-bhac",
                 "unblock_user": "Dì-bhac %s",
                 "blocked": "’Ga bhacadh",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Mùch",
                 "mute_user": "Mùch %s",
                 "unmute": "Dì-mhùch",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Falaich na brosnachaidhean",
                     "message": "Dearbh falach nam brosnachaidhean"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
