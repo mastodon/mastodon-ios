@@ -17,9 +17,9 @@ public extension FileManager {
     }
 
     func accounts(for userId: UserIdentifier) -> [Mastodon.Entity.Account] {
-        guard let documentsDirectory else { return [] }
+        guard let sharedDirectory else { return [] }
 
-        let accountPath = Persistence.accounts(userId).filepath(baseURL: documentsDirectory)
+        let accountPath = Persistence.accounts(userId).filepath(baseURL: sharedDirectory)
 
         guard let data = try? Data(contentsOf: accountPath) else { return [] }
 
@@ -38,14 +38,14 @@ public extension FileManager {
 
 private extension FileManager {
     private func storeJSON(_ encodable: Encodable, userID: UserIdentifier) {
-        guard let documentsDirectory else { return }
+        guard let sharedDirectory else { return }
 
         let jsonEncoder = JSONEncoder()
         jsonEncoder.dateEncodingStrategy = .iso8601
         do {
             let data = try jsonEncoder.encode(encodable)
 
-            let accountsPath = Persistence.accounts( userID).filepath(baseURL: documentsDirectory)
+            let accountsPath = Persistence.accounts( userID).filepath(baseURL: sharedDirectory)
             try data.write(to: accountsPath)
         } catch {
             debugPrint(error.localizedDescription)
