@@ -117,25 +117,9 @@ extension StatusView {
         
         public enum Header {
             case none
-            case reply(info: ReplyInfo)
-            case repost(info: RepostInfo)
+            case reply(header: MetaContent)
+            case repost(header: MetaContent)
             // case notification(info: NotificationHeaderInfo)
-            
-            public class ReplyInfo {
-                public let header: MetaContent
-                
-                public init(header: MetaContent) {
-                    self.header = header
-                }
-            }
-            
-            public struct RepostInfo {
-                public let header: MetaContent
-                
-                public init(header: MetaContent) {
-                    self.header = header
-                }
-            }
         }
         
         public func prepareForReuse() {
@@ -211,14 +195,14 @@ extension StatusView.ViewModel {
                 switch header {
                 case .none:
                     return
-                case .repost(let info):
+                case .repost(let header):
                     statusView.headerIconImageView.image = Asset.Arrow.repeatSmall.image.withRenderingMode(.alwaysTemplate)
-                    statusView.headerInfoLabel.configure(content: info.header)
+                    statusView.headerInfoLabel.configure(content: header)
                     statusView.setHeaderDisplay()
-                case .reply(let info):
+                case .reply(let header):
                     assert(Thread.isMainThread)
                     statusView.headerIconImageView.image = UIImage(systemName: "arrowshape.turn.up.left.fill")
-                    statusView.headerInfoLabel.configure(content: info.header)
+                    statusView.headerInfoLabel.configure(content: header)
                     statusView.setHeaderDisplay()
                 }
             }
@@ -722,12 +706,12 @@ extension StatusView.ViewModel {
             case .none:
                 strings.append(authorName?.string)
                 strings.append(authorUsername)
-            case .reply(let info):
+            case .reply(let header):
                 strings.append(authorName?.string)
                 strings.append(authorUsername)
-                strings.append(info.header.string)
-            case .repost(let info):
-                strings.append(info.header.string)
+                strings.append(header.string)
+            case .repost(let header):
+                strings.append(header.string)
                 strings.append(authorName?.string)
                 strings.append(authorUsername)
             }
@@ -766,10 +750,10 @@ extension StatusView.ViewModel {
             switch header {
             case .none:
                 return "\(nameAndUsername), \(timestamp)"
-            case .repost(info: let info):
-                return "\(info.header.string) \(nameAndUsername), \(timestamp)"
-            case .reply(info: let info):
-                return "\(nameAndUsername) \(info.header.string), \(timestamp)"
+            case .repost(let header):
+                return "\(header.string) \(nameAndUsername), \(timestamp)"
+            case .reply(let header):
+                return "\(nameAndUsername) \(header.string), \(timestamp)"
             }
         }
         .assign(to: \.accessibilityLabel, on: statusView.authorView)

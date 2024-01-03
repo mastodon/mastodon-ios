@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import CoreData
 import CoreDataStack
 import MastodonSDK
 import MastodonCore
@@ -96,8 +97,27 @@ extension StatusView {
 }
 
 extension StatusView {
+    private func createReplyHeader(
+        name: String?,
+        emojis: MastodonContent.Emojis?
+    ) -> ViewModel.Header {
+        guard let name = name,
+              let emojis = emojis
+        else {
+            let unknownUserMetaContent = PlaintextMetaContent(string: L10n.Common.Controls.Status.userRepliedTo("…"))
+            return .reply(header: unknownUserMetaContent)
+        }
+        
+        let content = MastodonContent(content: L10n.Common.Controls.Status.userRepliedTo(name), emojis: emojis)
+        guard let metaContent = try? MastodonMetaContent.convert(document: content) else {
+            let fallbackMetaContent = PlaintextMetaContent(string: L10n.Common.Controls.Status.userRepliedTo(name))
+            return .reply(header: fallbackMetaContent)
+        }
+        return .reply(header: metaContent)
+    }
+    
     private func configureHeader(status: Status) {
-        if let _ = status.reblog {
+        if status.reblog != nil {
             Publishers.CombineLatest(
                 status.author.publisher(for: \.displayName),
                 status.author.publisher(for: \.emojis)
@@ -107,83 +127,85 @@ extension StatusView {
                 let content = MastodonContent(content: text, emojis: emojis.asDictionary)
                 do {
                     let metaContent = try MastodonMetaContent.convert(document: content)
-                    return .repost(info: .init(header: metaContent))
+                    return .repost(header: metaContent)
                 } catch {
                     let metaContent = PlaintextMetaContent(string: name)
-                    return .repost(info: .init(header: metaContent))
+                    return .repost(header: metaContent)
                 }
                 
             }
             .assign(to: \.header, on: viewModel)
             .store(in: &disposeBag)
-        } else if let _ = status.inReplyToID,
-                  let inReplyToAccountID = status.inReplyToAccountID
-        {
-            func createHeader(
-                name: String?,
-                emojis: MastodonContent.Emojis?
-            ) -> ViewModel.Header {
-                let fallbackMetaContent = PlaintextMetaContent(string: L10n.Common.Controls.Status.userRepliedTo("-"))
-                let fallbackReplyHeader = ViewModel.Header.reply(info: .init(header: fallbackMetaContent))
-                guard let name = name,
-                      let emojis = emojis
-                else {
-                    return fallbackReplyHeader
-                }
-                
-                let content = MastodonContent(content: L10n.Common.Controls.Status.userRepliedTo(name), emojis: emojis)
-                guard let metaContent = try? MastodonMetaContent.convert(document: content) else {
-                    return fallbackReplyHeader
-                }
-                let header = ViewModel.Header.reply(info: .init(header: metaContent))
-                return header
-            }
-
-            if let replyTo = status.replyTo {
-                // A. replyTo status exist
-                let header = createHeader(name: replyTo.author.displayNameWithFallback, emojis: replyTo.author.emojis.asDictionary)
-                viewModel.header = header
-            } else {
-                // B. replyTo status not exist
-                
-                let request = MastodonUser.sortedFetchRequest
-                request.predicate = MastodonUser.predicate(domain: status.domain, id: inReplyToAccountID)
-                if let user = status.managedObjectContext?.safeFetch(request).first {
-                    // B1. replyTo user exist
-                    let header = createHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
-                    viewModel.header = header
-                } else {
-                    // B2. replyTo user not exist
-                    let header = createHeader(name: nil, emojis: nil)
-                    viewModel.header = header
-                    
-                    if let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox {
-                        Just(inReplyToAccountID)
-                            .asyncMap { userID in
-                                return try await Mastodon.API.Account.accountInfo(
-                                    session: .shared,
-                                    domain: authenticationBox.domain,
-                                    userID: userID,
-                                    authorization: authenticationBox.userAuthorization
-                                ).singleOutput()
-                            }
-                            .receive(on: DispatchQueue.main)
-                            .sink { completion in
-                                // do nothing
-                            } receiveValue: { [weak self] response in
-                                guard let self = self else { return }
-                                let user = response.value
-                                let header = createHeader(name: user.displayNameWithFallback, emojis: user.emojiMeta)
-                                self.viewModel.header = header
-                            }
-                            .store(in: &disposeBag)
-                    }   // end if let
-                }   // end else B2.
-            }   // end else B.
-            
-        } else {
-            viewModel.header = .none
+            return
         }
+
+        guard
+            status.inReplyToID != nil,
+            let inReplyToAccountID = status.inReplyToAccountID
+        else {
+            viewModel.header = .none
+            return
+        }
+
+        if let replyTo = status.replyTo {
+            // A. replyTo status exist
+            let header = createReplyHeader(name: replyTo.author.displayNameWithFallback, emojis: replyTo.author.emojis.asDictionary)
+            viewModel.header = header
+            return
+        }
+
+        viewModel.header = createReplyHeader(name: nil, emojis: nil)
+        
+        // B. replyTo status not exist
+        Task {
+            guard
+                let authContext = self.viewModel.authContext,
+                let context = self.viewModel.context?.backgroundManagedObjectContext
+            else { return }
+
+            let user: MastodonUser
+
+            let existingUser = try await context.perform {
+                MastodonUser.findOrFetch(
+                    in: context,
+                    matching: MastodonUser.predicate(domain: status.domain, id: inReplyToAccountID)
+                )
+            }
+            if let existingUser {
+                user = existingUser
+            } else {
+                let domain = authContext.mastodonAuthenticationBox.domain
+                let response = try await Mastodon.API.Account.accountInfo(
+                    session: .shared,
+                    domain: domain,
+                    userID: inReplyToAccountID,
+                    authorization: authContext.mastodonAuthenticationBox.userAuthorization
+                ).singleOutput()
+                
+                user = try await context.perform {
+                    Persistence.MastodonUser.create(in: context, context: .init(
+                        domain: domain,
+                        entity: response.value,
+                        cache: nil,
+                        networkDate: response.networkDate
+                    ))
+                }
+            }
+            
+            try Task.checkCancellation()
+
+            Publishers.CombineLatest3(
+                user.publisher(for: \.displayName),
+                user.publisher(for: \.username),
+                user.publisher(for: \.emojis)
+            ).receive(on: RunLoop.main).sink { [unowned self] _ in
+                self.viewModel.header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
+            }.store(in: &self.disposeBag)
+
+            await MainActor.run {
+                self.viewModel.header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
+            }
+        }.store(in: &disposeBag)
     }
     
     public func configureAuthor(author: MastodonUser) {
