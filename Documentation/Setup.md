@@ -12,7 +12,7 @@ This guide may not suit your machine and actually setup procedure may change in 
 
 ### Swiftgen and Sourcery
 
-This app uses [SwiftGen](https://github.com/SwiftGen/SwiftGen) and [Sourcery](https://github.com/krzysztofzablocki/Sourcery) for Code Generation. Please insteall them
+This app uses [SwiftGen](https://github.com/SwiftGen/SwiftGen) and [Sourcery](https://github.com/krzysztofzablocki/Sourcery) for Code Generation. Please install them
 
 ```zsh
 brew install swiftgen
