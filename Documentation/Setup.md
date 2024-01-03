@@ -8,16 +8,21 @@
 
 Install the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
 
-This guide may not suit your machine and actually setup procedure may change in the future. Please file the issue or Pull Request if there are any problems.
+This guide may not suit your machine and actually setup procedure may change in the future. Please file an issue or open a Pull Request if there are any problems.
 
 ### Swiftgen and Sourcery
 
-This app uses [SwiftGen](https://github.com/SwiftGen/SwiftGen) and [Sourcery](https://github.com/krzysztofzablocki/Sourcery) for Code Generation. Please install them
+This app uses [SwiftGen](https://github.com/SwiftGen/SwiftGen) and [Sourcery](https://github.com/krzysztofzablocki/Sourcery) for Code Generation.
+
+> [!NOTE]
+> Both tools are optional. Using the following command will install them system wide:
 
 ```zsh
 brew install swiftgen
 brew install sourcery
 ```
+
+### Arkana
 
 The app uses [Arkana](https://github.com/rogerluan/arkana). Ruby Gems are managed through Bundler. Make sure you have [Rosetta](https://support.apple.com/en-us/HT211861) installed if you are using the M1 Mac.
 
@@ -71,11 +76,12 @@ Note:
 Please check and set the `notification.Topic` to the app BundleID in [toot-relay.go](https://github.com/DagAgren/toot-relay/blob/f9d6894040509881fee845972cd38ec6cd8f5a11/toot-relay.go#L112). The server needs use a reverse proxy to port this relay on 443 port with valid domain and HTTPS certificate.
 
 ## Start
+
 1. Open `Mastodon.xcodeproj` 
-2. Wait for the Swift Package Dependencies resolved. 
+2. Wait for the Swift Package Dependencies to be resolved. 
 2. Check the signing settings make sure to choose a team. [More info…](https://help.apple.com/xcode/mac/current/#/dev23aab79b4)
 3. Select `Mastodon` scheme and device then run it. (Command + R)
 
 ## What's next
 
-We welcome contributions! And if you have an interest to contribute codes. Here is a document that describes the app architecture and what's tech stack it uses.
+We welcome contributions! And if you have an interest to contribute code, [here is a document](How-it-works.md) that describes the app architecture and what tech stack it uses.
