@@ -127,13 +127,13 @@ extension UserListViewModel.State {
                     let accountResponse: Mastodon.Response.Content<[Mastodon.Entity.Account]>
                     switch viewModel.kind {
                     case .favoritedBy(let status):
-                            accountResponse = try await viewModel.context.apiService.favoritedBy(
+                        accountResponse = try await viewModel.context.apiService.favoritedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
                             authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                         )
                     case .rebloggedBy(let status):
-                            accountResponse = try await viewModel.context.apiService.rebloggedBy(
+                        accountResponse = try await viewModel.context.apiService.rebloggedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
                             authenticationBox: viewModel.authContext.mastodonAuthenticationBox
