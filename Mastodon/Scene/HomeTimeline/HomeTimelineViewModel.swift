@@ -25,7 +25,7 @@ final class HomeTimelineViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let fetchedResultsController: FeedFetchedResultsController
+    let fetchedResultsController: FeedDataController
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
@@ -81,7 +81,7 @@ final class HomeTimelineViewModel: NSObject {
     init(context: AppContext, authContext: AuthContext) {
         self.context  = context
         self.authContext = authContext
-        self.fetchedResultsController = FeedFetchedResultsController(context: context, authContext: authContext)
+        self.fetchedResultsController = FeedDataController(context: context, authContext: authContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         self.fetchedResultsController.records = (try? FileManager.default.cachedHomeTimeline(for: authContext.mastodonAuthenticationBox).map {

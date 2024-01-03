@@ -145,7 +145,7 @@ extension DiscoveryCommunityViewModel.State {
                     self.maxID = newMaxID
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = isReloading ? [] : await viewModel.statusFetchedResultsController.records
+                    var statusIDs = isReloading ? [] : await viewModel.dataController.records
                     for status in response.value {
                         guard !statusIDs.contains(where: { $0.id == status.id }) else { continue }
                         statusIDs.append(.fromEntity(status))
@@ -158,7 +158,7 @@ extension DiscoveryCommunityViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    await viewModel.statusFetchedResultsController.setRecords(statusIDs)
+                    await viewModel.dataController.setRecords(statusIDs)
                     viewModel.didLoadLatest.send()
                     
                 } catch {

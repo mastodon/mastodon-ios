@@ -20,7 +20,7 @@ final class DiscoveryPostsViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let statusFetchedResultsController: StatusFetchedResultsController
+    let dataController: StatusDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     
     // output
@@ -45,7 +45,7 @@ final class DiscoveryPostsViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.statusFetchedResultsController = StatusFetchedResultsController()
+        self.dataController = StatusDataController()
         // end init
         
         Task {

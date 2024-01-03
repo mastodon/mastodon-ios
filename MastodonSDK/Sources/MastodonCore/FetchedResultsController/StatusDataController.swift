@@ -1,17 +1,10 @@
-//
-//  StatusFetchedResultsController.swift
-//  Mastodon
-//
-//  Created by MainasuK Cirno on 2021-3-30.
-//
-
 import UIKit
 import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
 
-public final class StatusFetchedResultsController {
+public final class StatusDataController {
     @MainActor
     @Published 
     public private(set) var records: [MastodonStatus] = []

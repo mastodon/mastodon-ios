@@ -19,7 +19,7 @@ final class FavoriteViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let statusFetchedResultsController: StatusFetchedResultsController
+    let dataController: StatusDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     // output
@@ -41,7 +41,7 @@ final class FavoriteViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.statusFetchedResultsController = StatusFetchedResultsController()
+        self.dataController = StatusDataController()
     }
     
 }

@@ -21,7 +21,7 @@ final class UserTimelineViewModel {
     let context: AppContext
     let authContext: AuthContext
     let title: String
-    let statusFetchedResultsController: StatusFetchedResultsController
+    let dataController: StatusDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     @Published var userIdentifier: UserIdentifier?
     @Published var queryFilter: QueryFilter
@@ -58,7 +58,7 @@ final class UserTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.title = title
-        self.statusFetchedResultsController = StatusFetchedResultsController()
+        self.dataController = StatusDataController()
         self.queryFilter = queryFilter
     }
 }

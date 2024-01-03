@@ -58,7 +58,7 @@ extension BookmarkViewModel.State {
             
             // reset
             DispatchQueue.main.async {
-                viewModel.statusFetchedResultsController.reset()
+                viewModel.dataController.reset()
             }
             
             stateMachine.enter(Loading.self)
@@ -130,7 +130,7 @@ extension BookmarkViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = await viewModel.statusFetchedResultsController.records.map { $0.entity }
+                    var statusIDs = await viewModel.dataController.records.map { $0.entity }
                     for status in response.value {
                         guard !statusIDs.contains(status) else { continue }
                         statusIDs.append(status)
@@ -150,7 +150,7 @@ extension BookmarkViewModel.State {
                         await enter(state: NoMore.self)
                     }
 
-                    await viewModel.statusFetchedResultsController.setRecords(statusIDs.map { MastodonStatus.fromEntity($0) })
+                    await viewModel.dataController.setRecords(statusIDs.map { MastodonStatus.fromEntity($0) })
 
                 } catch {
                     await enter(state: Fail.self)

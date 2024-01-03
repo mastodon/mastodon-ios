@@ -20,7 +20,7 @@ final class NotificationTimelineViewModel {
     let context: AppContext
     let authContext: AuthContext
     let scope: Scope
-    let feedFetchedResultsController: FeedFetchedResultsController
+    let dataController: FeedDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     @Published var isLoadingLatest = false
     @Published var lastAutomaticFetchTimestamp: Date?
@@ -52,20 +52,20 @@ final class NotificationTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.scope = scope
-        self.feedFetchedResultsController = FeedFetchedResultsController(context: context, authContext: authContext)
+        self.dataController = FeedDataController(context: context, authContext: authContext)
         
         switch scope {
         case .everything:
-            self.feedFetchedResultsController.records = (try? FileManager.default.cachedNotificationsAll(for: authContext.mastodonAuthenticationBox))?.map({ notification in
+            self.dataController.records = (try? FileManager.default.cachedNotificationsAll(for: authContext.mastodonAuthenticationBox))?.map({ notification in
                 MastodonFeed.fromNotification(notification, kind: .notificationAll)
             }) ?? []
         case .mentions:
-            self.feedFetchedResultsController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox))?.map({ notification in
+            self.dataController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox))?.map({ notification in
                 MastodonFeed.fromNotification(notification, kind: .notificationMentions)
             }) ?? []
         }
         
-        self.feedFetchedResultsController.$records
+        self.dataController.$records
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { feeds in
@@ -101,9 +101,9 @@ extension NotificationTimelineViewModel {
         
         switch scope {
         case .everything:
-            feedFetchedResultsController.loadInitial(kind: .notificationAll)
+            dataController.loadInitial(kind: .notificationAll)
         case .mentions:
-            feedFetchedResultsController.loadInitial(kind: .notificationMentions)
+            dataController.loadInitial(kind: .notificationMentions)
         }
 
         didLoadLatest.send()
@@ -113,9 +113,9 @@ extension NotificationTimelineViewModel {
     func loadMore(item: NotificationItem) async {
         switch scope {
         case .everything:
-            feedFetchedResultsController.loadNext(kind: .notificationAll)
+            dataController.loadNext(kind: .notificationAll)
         case .mentions:
-            feedFetchedResultsController.loadNext(kind: .notificationMentions)
+            dataController.loadNext(kind: .notificationMentions)
         }
     }
 }
