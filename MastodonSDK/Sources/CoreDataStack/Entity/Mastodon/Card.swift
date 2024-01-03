@@ -57,6 +57,17 @@ public final class Card: NSManagedObject {
 }
 
 extension Card {
+    public var websiteName: String? {
+        if let authorName, !authorName.isEmpty {
+            return authorName
+        } else if let host = url?.host {
+            return host
+        }
+        return nil
+    }
+}
+
+extension Card {
 
     @discardableResult
     public static func insert(
