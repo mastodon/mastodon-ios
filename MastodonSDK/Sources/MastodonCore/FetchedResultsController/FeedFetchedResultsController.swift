@@ -48,22 +48,26 @@ final public class FeedFetchedResultsController {
                 newRecords[i] = .fromStatus(status, kind: record.kind)
             } else if let reblog = record.status?.reblog, reblog.id == status.id {
                 // Handle reblogged state
-                switch status.entity.reblogged {
-                case .some(true):
-                    newRecords[i] = .fromStatus({
-                        let stat = MastodonStatus.fromEntity(records[i].status!.entity)
-                        stat.isSensitiveToggled = status.isSensitiveToggled
-                        stat.reblog = .fromEntity(status.entity)
-                        return stat
-                    }(), kind: record.kind)
-                case .some(false), .none:
-                    newRecords[i] = .fromStatus({
-                        let stat = MastodonStatus.fromEntity(status.entity)
-                        stat.isSensitiveToggled = status.isSensitiveToggled
-                        return stat
-                    }(), kind: record.kind)
+                let isRebloggedByAnyOne: Bool = records[i].status!.reblog != nil
+
+                let newStatus: MastodonStatus
+                if isRebloggedByAnyOne {
+                    // if status was previously reblogged by me: remove reblogged status
+                    if records[i].status!.entity.reblogged == true && status.entity.reblogged == false {
+                        newStatus = .fromEntity(status.entity)
+                    } else {
+                        newStatus = .fromEntity(records[i].status!.entity)
+                    }
+                    
+                } else {
+                    newStatus = .fromEntity(status.entity)
                 }
 
+                newStatus.isSensitiveToggled = status.isSensitiveToggled
+                newStatus.reblog = isRebloggedByAnyOne ? .fromEntity(status.entity) : nil
+                
+                newRecords[i] = .fromStatus(newStatus, kind: record.kind)
+   
             } else if let reblog = record.status?.reblog, reblog.id == status.reblog?.id {
                 // Handle re-reblogged state
                 newRecords[i] = .fromStatus(status, kind: record.kind)
