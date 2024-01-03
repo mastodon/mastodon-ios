@@ -1,5 +1,5 @@
 //
-//  RebloggedByViewController+DataSourceProvider.swift
+//  FavoritedByViewController+DataSourceProvider.swift
 //  Mastodon
 //
 //  Created by MainasuK on 2022-5-17.
@@ -8,8 +8,7 @@
 import UIKit
 import MastodonSDK
 
-extension RebloggedByViewController: DataSourceProvider {
-    
+extension FavoritedByViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
         var _indexPath = source.indexPath
         if _indexPath == nil, let cell = source.tableViewCell {
@@ -20,12 +19,12 @@ extension RebloggedByViewController: DataSourceProvider {
         guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
             return nil
         }
-
+        
         switch item {
-            case .bottomHeader(_), .bottomLoader:
-                return nil
             case .account(let account, let relationship):
                 return .account(account: account, relationship: relationship)
+            case .bottomHeader(_), .bottomLoader:
+                return nil
         }
     }
     

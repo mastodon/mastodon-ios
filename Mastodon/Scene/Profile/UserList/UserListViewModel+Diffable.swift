@@ -37,7 +37,7 @@ extension UserListViewModel {
         $accounts
             .receive(on: DispatchQueue.main)
             .sink { [weak self] accounts in
-                guard let self = self else { return }
+                guard let self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
             
                 var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
@@ -52,7 +52,7 @@ extension UserListViewModel {
 
                 let items = accountsWithRelationship.map { UserItem.account(account: $0.account, relationship: $0.relationship) }
                 snapshot.appendItems(items, toSection: .main)
-                
+
                 if let currentState = self.stateMachine.currentState {
                     switch currentState {
                     case is State.Initial, is State.Idle, is State.Reloading, is State.Loading, is State.Fail:

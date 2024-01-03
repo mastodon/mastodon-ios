@@ -56,7 +56,8 @@ extension UserListViewModel.State {
             
             // reset
             viewModel.accounts = []
-            
+            viewModel.relationships = []
+
             stateMachine.enter(Loading.self)
         }
     }
@@ -124,23 +125,23 @@ extension UserListViewModel.State {
 
             Task {
                 do {
-                    let response: Mastodon.Response.Content<[Mastodon.Entity.Account]>
+                    let accountResponse: Mastodon.Response.Content<[Mastodon.Entity.Account]>
                     switch viewModel.kind {
                     case .favoritedBy(let status):
-                        response = try await viewModel.context.apiService.favoritedBy(
+                        accountResponse = try await viewModel.context.apiService.favoritedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
                             authenticationBox: authenticationBox
                         )
                     case .rebloggedBy(let status):
-                        response = try await viewModel.context.apiService.rebloggedBy(
+                        accountResponse = try await viewModel.context.apiService.rebloggedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
                             authenticationBox: authenticationBox
                         )
                     }
 
-                    if response.value.isEmpty {
+                    if accountResponse.value.isEmpty {
                         await enter(state: NoMore.self)
 
                         viewModel.accounts = []
@@ -148,17 +149,15 @@ extension UserListViewModel.State {
                         return
                     }
 
-                    let newRelationships = try await viewModel.context.apiService.relationship(
-                        forAccounts: response.value,
-                        authenticationBox: authenticationBox
-                    )
-
                     var hasNewAppend = false
-                    var accounts = viewModel.accounts
-                    for account in response.value {
-                        guard !accounts.contains(account) else { continue }
 
-                        accounts.append(account)
+                    let newRelationships = try await viewModel.context.apiService.relationship(forAccounts: accountResponse.value, authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
+
+                    var accounts = viewModel.accounts
+
+                    for user in accountResponse.value {
+                        guard accounts.contains(user) == false else { continue }
+                        accounts.append(user)
                         hasNewAppend = true
                     }
 
@@ -169,16 +168,17 @@ extension UserListViewModel.State {
                         relationships.append(relationship)
                     }
 
-                    let maxID = response.link?.maxID
-                    
+                    let maxID = accountResponse.link?.maxID
+
                     if hasNewAppend, maxID != nil {
                         await enter(state: Idle.self)
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    self.maxID = maxID
-                    viewModel.relationships = relationships
+
                     viewModel.accounts = accounts
+                    viewModel.relationships = relationships
+                    self.maxID = maxID
 
                 } catch {
                     await enter(state: Fail.self)

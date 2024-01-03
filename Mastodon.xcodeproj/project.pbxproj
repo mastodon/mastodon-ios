@@ -2278,7 +2278,7 @@
 			path = FamiliarFollowers;
 			sourceTree = "<group>";
 		};
-		DB5B54A42833BD1D00DEF8B2 /* UserLIst */ = {
+		DB5B54A42833BD1D00DEF8B2 /* UserList */ = {
 			isa = PBXGroup;
 			children = (
 				DB5B54A22833BD1A00DEF8B2 /* UserListViewModel.swift */,
@@ -2287,7 +2287,7 @@
 				DB5B54A92833BFAC00DEF8B2 /* FavoritedBy */,
 				DB5B54AC2833C12D00DEF8B2 /* RebloggedBy */,
 			);
-			path = UserLIst;
+			path = UserList;
 			sourceTree = "<group>";
 		};
 		DB5B54A92833BFAC00DEF8B2 /* FavoritedBy */ = {
@@ -2746,7 +2746,7 @@
 				DB6B74F0272FB55400C70B6E /* Follower */,
 				DB5B7296273112B400081888 /* Following */,
 				DB5B549B2833A60600DEF8B2 /* FamiliarFollowers */,
-				DB5B54A42833BD1D00DEF8B2 /* UserLIst */,
+				DB5B54A42833BD1D00DEF8B2 /* UserList */,
 				DBFEEC97279BDC6A004F81DD /* About */,
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
