@@ -606,7 +606,7 @@
                     "message": "Bekräfta för att dölja boostar"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
+                    "title": "Blockera domän",
                     "message": "Confirm to block domain %s"
                 },
                 "confirm_unblock_domain": {
