@@ -222,11 +222,11 @@
                 "pending": "รอดำเนินการ",
                 "block": "ปิดกั้น",
                 "block_user": "ปิดกั้น %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "ปิดกั้นโดเมน %s",
                 "unblock": "เลิกปิดกั้น",
                 "unblock_user": "เลิกปิดกั้น %s",
                 "blocked": "ปิดกั้นอยู่",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "ปิดกั้นโดเมนอยู่",
                 "mute": "ซ่อน",
                 "mute_user": "ซ่อน %s",
                 "unmute": "เลิกซ่อน",
@@ -606,12 +606,12 @@
                     "message": "ยืนยันเพื่อซ่อนการดัน"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "ปิดกั้นโดเมน",
+                    "message": "ยืนยันเพื่อปิดกั้นโดเมน %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "เลิกปิดกั้นโดเมน",
+                    "message": "ยืนยันเพื่อเลิกปิดกั้นโดเมน %s"
                 }
             },
             "accessibility": {
