@@ -29,11 +29,11 @@ extension HashtagTimelineViewController: DataSourceProvider {
     }
     
     func update(status: MastodonStatus) {
-        viewModel.fetchedResultsController.update(status: status)
+        viewModel.dataController.update(status: status)
     }
     
     func delete(status: MastodonStatus) {
-        viewModel.fetchedResultsController.deleteRecord(status)
+        viewModel.dataController.deleteRecord(status)
     }
     
     @MainActor

@@ -31,7 +31,7 @@ extension HomeTimelineViewModel.LoadOldestState {
     class Initial: HomeTimelineViewModel.LoadOldestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
-            guard !viewModel.fetchedResultsController.records.isEmpty else { return false }
+            guard !viewModel.dataController.records.isEmpty else { return false }
             return stateClass == Loading.self
         }
     }
@@ -46,7 +46,7 @@ extension HomeTimelineViewModel.LoadOldestState {
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            guard let lastFeedRecord = viewModel.fetchedResultsController.records.last else {
+            guard let lastFeedRecord = viewModel.dataController.records.last else {
                 stateMachine.enter(Idle.self)
                 return
             }

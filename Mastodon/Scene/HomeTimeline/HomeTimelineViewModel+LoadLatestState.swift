@@ -84,7 +84,7 @@ extension HomeTimelineViewModel.LoadLatestState {
 
         guard let viewModel else { return }
         
-        let latestFeedRecords = viewModel.fetchedResultsController.records.prefix(APIService.onceRequestStatusMaxCount)
+        let latestFeedRecords = viewModel.dataController.records.prefix(APIService.onceRequestStatusMaxCount)
 
         Task {
             let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
@@ -115,8 +115,8 @@ extension HomeTimelineViewModel.LoadLatestState {
                     var newRecords: [MastodonFeed] = newStatuses.map {
                         MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
                     }
-                    viewModel.fetchedResultsController.records = {
-                        var oldRecords = viewModel.fetchedResultsController.records
+                    viewModel.dataController.records = {
+                        var oldRecords = viewModel.dataController.records
                         for (i, record) in newRecords.enumerated() {
                             if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {
                                 oldRecords[index] = record

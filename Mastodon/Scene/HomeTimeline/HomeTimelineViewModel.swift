@@ -25,7 +25,7 @@ final class HomeTimelineViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let fetchedResultsController: FeedDataController
+    let dataController: FeedDataController
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
@@ -81,10 +81,10 @@ final class HomeTimelineViewModel: NSObject {
     init(context: AppContext, authContext: AuthContext) {
         self.context  = context
         self.authContext = authContext
-        self.fetchedResultsController = FeedDataController(context: context, authContext: authContext)
+        self.dataController = FeedDataController(context: context, authContext: authContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
-        self.fetchedResultsController.records = (try? FileManager.default.cachedHomeTimeline(for: authContext.mastodonAuthenticationBox).map {
+        self.dataController.records = (try? FileManager.default.cachedHomeTimeline(for: authContext.mastodonAuthenticationBox).map {
             MastodonFeed.fromStatus($0, kind: .home)
         }) ?? []
         
@@ -103,7 +103,7 @@ final class HomeTimelineViewModel: NSObject {
             }
             .store(in: &disposeBag)
         
-        self.fetchedResultsController.$records
+        self.dataController.$records
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { feeds in
@@ -115,7 +115,7 @@ final class HomeTimelineViewModel: NSObject {
             })
             .store(in: &disposeBag)
         
-        self.fetchedResultsController.loadInitial(kind: .home)
+        self.dataController.loadInitial(kind: .home)
     }
 }
 
@@ -129,7 +129,7 @@ extension HomeTimelineViewModel {
 
 extension HomeTimelineViewModel {
     func timelineDidReachEnd() {
-        fetchedResultsController.loadNext(kind: .home)
+        dataController.loadNext(kind: .home)
     }
 }
 
