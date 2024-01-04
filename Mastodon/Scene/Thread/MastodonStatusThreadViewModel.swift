@@ -77,7 +77,6 @@ final class MastodonStatusThreadViewModel {
 extension MastodonStatusThreadViewModel {
     
     func appendAncestor(
-        domain: String,
         nodes: [Node]
     ) {
         var newItems: [StatusItem] = []
@@ -91,7 +90,6 @@ extension MastodonStatusThreadViewModel {
     }
     
     func appendDescendant(
-        domain: String,
         nodes: [Node]
     ) {
 
