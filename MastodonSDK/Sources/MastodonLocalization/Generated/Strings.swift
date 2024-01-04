@@ -216,6 +216,8 @@ public enum L10n {
         public static func blockUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Friendship.BlockUser", String(describing: p1), fallback: "Block %@")
         }
+        /// Domain Blocked
+        public static let domainBlocked = L10n.tr("Localizable", "Common.Controls.Friendship.DomainBlocked", fallback: "Domain Blocked")
         /// Edit Info
         public static let editInfo = L10n.tr("Localizable", "Common.Controls.Friendship.EditInfo", fallback: "Edit Info")
         /// Follow
@@ -240,6 +242,10 @@ public enum L10n {
         public static let showReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.ShowReblogs", fallback: "Show Reblogs")
         /// Unblock
         public static let unblock = L10n.tr("Localizable", "Common.Controls.Friendship.Unblock", fallback: "Unblock")
+        /// Unblock %@
+        public static func unblockDomain(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Friendship.UnblockDomain", String(describing: p1), fallback: "Unblock %@")
+        }
         /// Unblock %@
         public static func unblockUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Friendship.UnblockUser", String(describing: p1), fallback: "Unblock %@")
@@ -953,6 +959,10 @@ public enum L10n {
         public static let followsYou = L10n.tr("Localizable", "Scene.Profile.Header.FollowsYou", fallback: "Follows You")
       }
       public enum RelationshipActionAlert {
+        public enum ConfirmBlockDomain {
+          /// Block Domain
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Title", fallback: "Block Domain")
+        }
         public enum ConfirmBlockUser {
           /// Confirm to block %@
           public static func message(_ p1: Any) -> String {
@@ -980,6 +990,14 @@ public enum L10n {
           public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message", fallback: "Confirm to show reblogs")
           /// Show Reblogs
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title", fallback: "Show Reblogs")
+        }
+        public enum ConfirmUnblockDomain {
+          /// Confirm to unblock domain %@
+          public static func message(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Message", String(describing: p1), fallback: "Confirm to unblock domain %@")
+          }
+          /// Unblock Domain
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Title", fallback: "Unblock Domain")
         }
         public enum ConfirmUnblockUser {
           /// Confirm to unblock %@

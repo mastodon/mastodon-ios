@@ -119,7 +119,7 @@ extension ProfileHeaderView.ViewModel {
         .store(in: &disposeBag)
         // blur for blocking & blockingBy
         $relationshipActionOptionSet
-            .map { $0.contains(.blocking) || $0.contains(.blockingBy) }
+            .map { $0.contains(.blocking) || $0.contains(.blockingBy) || $0.contains(.domainBlocking) }
             .sink { needsImageOverlayBlurred in
                 UIView.animate(withDuration: 0.33) {
                     let bannerEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.bannerImageViewOverlayBlurEffect : nil
@@ -185,7 +185,7 @@ extension ProfileHeaderView.ViewModel {
         $relationshipActionOptionSet
             .receive(on: DispatchQueue.main)
             .sink { optionSet in
-                let isBlocking = optionSet.contains(.blocking)
+                let isBlocking = optionSet.contains(.blocking) || optionSet.contains(.domainBlocking)
                 let isBlockedBy = optionSet.contains(.blockingBy)
                 let isSuspended = optionSet.contains(.suspended)
                 let isNeedsHidden = isBlocking || isBlockedBy || isSuspended

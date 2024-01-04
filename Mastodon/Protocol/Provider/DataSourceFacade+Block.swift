@@ -52,4 +52,17 @@ extension DataSourceFacade {
         )
         dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
     }
+
+    static func responseToDomainBlockAction(
+        dependency: NeedsDependency & AuthContextProvider,
+        user: ManagedObjectRecord<MastodonUser>
+    ) async throws {
+        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
+        await selectionFeedbackGenerator.selectionChanged()
+
+        let apiService = dependency.context.apiService
+        let authBox = dependency.authContext.mastodonAuthenticationBox
+
+        _ = try await apiService.toggleDomainBlock(user: user, authenticationBox: authBox)
+    }
 }

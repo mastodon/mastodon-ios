@@ -49,27 +49,6 @@ extension UserSection {
                     )
 
                     return cell
-
-                case .user(let record):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
-                    context.managedObjectContext.performAndWait {
-                        guard let user = record.object(in: context.managedObjectContext) else { return }
-                        configure(
-                            context: context,
-                            authContext: authContext,
-                            tableView: tableView,
-                            cell: cell,
-                            viewModel: UserTableViewCell.ViewModel(
-                                user: user,
-                                followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
-                                blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
-                                followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()
-                            ),
-                            userTableViewCellDelegate: userTableViewCellDelegate
-                        )
-                    }
-
-                    return cell
                 case .bottomLoader:
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
                     cell.startAnimating()
@@ -81,24 +60,4 @@ extension UserSection {
             }
         }
     }
-}
-
-extension UserSection {
-
-    static func configure(
-        context: AppContext,
-        authContext: AuthContext,
-        tableView: UITableView,
-        cell: UserTableViewCell,
-        viewModel: UserTableViewCell.ViewModel,
-        userTableViewCellDelegate: UserTableViewCellDelegate?
-    ) {
-        cell.configure(
-            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
-            tableView: tableView,
-            viewModel: viewModel,
-            delegate: userTableViewCellDelegate
-        )
-    }
-
 }

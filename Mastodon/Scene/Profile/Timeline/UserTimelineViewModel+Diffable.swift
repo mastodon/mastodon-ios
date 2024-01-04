@@ -41,11 +41,12 @@ extension UserTimelineViewModel {
             }
             .store(in: &disposeBag)
         
-        let needsTimelineHidden = Publishers.CombineLatest3(
+        let needsTimelineHidden = Publishers.CombineLatest4(
             $isBlocking,
             $isBlockedBy,
-            $isSuspended
-        ).map { $0 || $1 || $2 }
+            $isSuspended,
+            $isDomainBlocking
+        ).map { $0 || $1 || $2 || $3 }
         
         Publishers.CombineLatest(
             dataController.$records,

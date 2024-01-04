@@ -66,7 +66,31 @@ extension APIService {
         }
         .eraseToAnyPublisher()
     }
- 
+
+    public func toggleDomainBlock(
+        user: ManagedObjectRecord<MastodonUser>,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Empty> {
+        guard let originalRelationship = try await relationship(records: [user], authenticationBox: authenticationBox).value.first else {
+            throw APIError.implicit(.badRequest)
+        }
+
+        let response: Mastodon.Response.Content<Mastodon.Entity.Empty>
+        let domainBlocking = originalRelationship.domainBlocking ?? false
+
+        let managedObjectContext = backgroundManagedObjectContext
+
+        guard let _user = user.object(in: managedObjectContext) else { throw APIError.implicit(.badRequest) }
+
+        if domainBlocking {
+            response = try await unblockDomain(user: _user, authorizationBox: authenticationBox).singleOutput()
+        } else {
+            response = try await blockDomain(user: _user, authorizationBox: authenticationBox).singleOutput()
+        }
+
+        return response
+    }
+
     func blockDomain(
         user: MastodonUser,
         authorizationBox: MastodonAuthenticationBox
