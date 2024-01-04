@@ -222,11 +222,11 @@
                 "pending": "Đang chờ",
                 "block": "Chặn",
                 "block_user": "Chặn %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Chặn %s",
                 "unblock": "Bỏ chặn",
                 "unblock_user": "Bỏ chặn %s",
                 "blocked": "Đã chặn",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Máy chủ chặn",
                 "mute": "Ẩn",
                 "mute_user": "Ẩn %s",
                 "unmute": "Bỏ ẩn",
@@ -606,12 +606,12 @@
                     "message": "Xác nhận ẩn đăng lại"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Chặn máy chủ",
+                    "message": "Bạn muốn chặn %s?"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Bỏ chặn máy chủ",
+                    "message": "Bạn muốn bỏ chặn %s?"
                 }
             },
             "accessibility": {
