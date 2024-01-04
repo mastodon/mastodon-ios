@@ -222,11 +222,11 @@
                 "pending": "Na čakanju",
                 "block": "Blokiraj",
                 "block_user": "Blokiraj %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Blokiraj domeno %s",
                 "unblock": "Odblokiraj",
                 "unblock_user": "Odblokiraj %s",
                 "blocked": "Blokirano",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Domena blokirana",
                 "mute": "Utišaj",
                 "mute_user": "Utišaj %s",
                 "unmute": "Odtišaj",
@@ -606,12 +606,12 @@
                     "message": "Potrdite, da poobjave ne bodo prikazane"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Blokiraj domeno",
+                    "message": "Potrdite blokado domene %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Odblokiraj domeno",
+                    "message": "Potrdite umik blokade domene %s"
                 }
             },
             "accessibility": {
