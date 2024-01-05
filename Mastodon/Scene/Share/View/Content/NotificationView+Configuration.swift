@@ -15,7 +15,6 @@ import Meta
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
-import class CoreDataStack.Notification
 import MastodonSDK
 
 extension NotificationView {

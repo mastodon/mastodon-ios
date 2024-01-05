@@ -53,7 +53,6 @@
         <attribute name="isLoadingMore" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="kindRaw" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="notification" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notification" inverseName="feeds" inverseEntity="Notification"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="feeds" inverseEntity="Status"/>
     </entity>
     <entity name="Instance" representedClassName="CoreDataStack.Instance" syncable="YES">
@@ -119,29 +118,13 @@
         <relationship name="muted" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="mutedBy" inverseEntity="Status"/>
         <relationship name="muting" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="mutingBy" inverseEntity="MastodonUser"/>
         <relationship name="mutingBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muting" inverseEntity="MastodonUser"/>
-        <relationship name="notifications" toMany="YES" deletionRule="Nullify" destinationEntity="Notification" inverseName="account" inverseEntity="Notification"/>
         <relationship name="pinnedStatus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="pinnedBy" inverseEntity="Status"/>
-        <relationship name="privateNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="to" inverseEntity="PrivateNote"/>
-        <relationship name="privateNotesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="from" inverseEntity="PrivateNote"/>
         <relationship name="reblogged" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="rebloggedBy" inverseEntity="Status"/>
         <relationship name="showingReblogs" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="showingReblogsBy" inverseEntity="MastodonUser"/>
         <relationship name="showingReblogsBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="showingReblogs" inverseEntity="MastodonUser"/>
         <relationship name="statuses" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="author" inverseEntity="Status"/>
         <relationship name="votePollOptions" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="votedBy" inverseEntity="PollOption"/>
         <relationship name="votePolls" toMany="YES" deletionRule="Nullify" destinationEntity="Poll" inverseName="votedBy" inverseEntity="Poll"/>
-    </entity>
-    <entity name="Notification" representedClassName="CoreDataStack.Notification" syncable="YES">
-        <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="domain" attributeType="String"/>
-        <attribute name="followRequestState" optional="YES" attributeType="Binary"/>
-        <attribute name="id" attributeType="String"/>
-        <attribute name="transientFollowRequestState" optional="YES" transient="YES" attributeType="Binary"/>
-        <attribute name="typeRaw" attributeType="String"/>
-        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="userID" attributeType="String"/>
-        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="notifications" inverseEntity="MastodonUser"/>
-        <relationship name="feeds" toMany="YES" deletionRule="Cascade" destinationEntity="Feed" inverseName="notification" inverseEntity="Feed"/>
-        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="notifications" inverseEntity="Status"/>
     </entity>
     <entity name="Poll" representedClassName="CoreDataStack.Poll" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -167,12 +150,6 @@
         <attribute name="votesCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="poll" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Poll" inverseName="options" inverseEntity="Poll"/>
         <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePollOptions" inverseEntity="MastodonUser"/>
-    </entity>
-    <entity name="PrivateNote" representedClassName="CoreDataStack.PrivateNote" syncable="YES">
-        <attribute name="note" optional="YES" attributeType="String"/>
-        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="from" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="privateNotesTo" inverseEntity="MastodonUser"/>
-        <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="privateNotes" inverseEntity="MastodonUser"/>
     </entity>
     <entity name="Setting" representedClassName="CoreDataStack.Setting" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -216,7 +193,6 @@
         <relationship name="favouritedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="favourite" inverseEntity="MastodonUser"/>
         <relationship name="feeds" toMany="YES" deletionRule="Cascade" destinationEntity="Feed" inverseName="status" inverseEntity="Feed"/>
         <relationship name="mutedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
-        <relationship name="notifications" toMany="YES" deletionRule="Cascade" destinationEntity="Notification" inverseName="status" inverseEntity="Notification"/>
         <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedStatus" inverseEntity="MastodonUser"/>
         <relationship name="poll" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Poll" inverseName="status" inverseEntity="Poll"/>
         <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="reblogFrom" inverseEntity="Status"/>

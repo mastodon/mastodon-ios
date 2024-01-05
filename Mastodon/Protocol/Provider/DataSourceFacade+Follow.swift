@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreDataStack
-import class CoreDataStack.Notification
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization

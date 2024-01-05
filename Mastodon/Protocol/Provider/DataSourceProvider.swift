@@ -9,7 +9,6 @@
 import UIKit
 import CoreDataStack
 import MastodonSDK
-import class CoreDataStack.Notification
 
 enum DataSourceItem: Hashable {
     case status(record: MastodonStatus)
