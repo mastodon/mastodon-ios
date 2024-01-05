@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Combine
 import MastodonSDK
-import MastodonCore
 
 final public class FeedFetchedResultsController {
 

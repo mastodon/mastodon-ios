@@ -314,7 +314,7 @@ extension ComposeContentViewModel {
                 self.avatarURL = account.avatarImageURL()
 
                 do {
-                    let content = MastodonContent(content: account.displayNameWithFallback, emojis: (account.emojis ?? []).asDictionary)
+                    let content = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojis.asDictionary)
                     let metaContent = try MastodonMetaContent.convert(document: content)
                     self.name = metaContent
                 } catch {

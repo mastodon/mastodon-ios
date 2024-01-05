@@ -20,7 +20,7 @@ extension FamiliarFollowersDashboardView {
         viewModel.emojis = {
             var array: [Mastodon.Entity.Emoji] = []
             for account in accounts {
-                array.append(contentsOf: account.emojis ?? [])
+                array.append(contentsOf: account.emojis)
             }
             return array.asDictionary
         }()

@@ -91,7 +91,7 @@ extension StatusView {
            let account = authenticationBox.authentication.account() {
 
             let name = account.displayNameWithFallback
-            let emojis = account.emojis ?? []
+            let emojis = account.emojis
 
             viewModel.header = {
                 let text = L10n.Common.Controls.Status.userReblogged(name)
@@ -106,7 +106,7 @@ extension StatusView {
             }()
         } else if status.reblog != nil {
             let name = status.entity.account.displayNameWithFallback
-            let emojis = status.entity.account.emojis ?? []
+            let emojis = status.entity.account.emojis
             
             viewModel.header = {
                 let text = L10n.Common.Controls.Status.userReblogged(name)
