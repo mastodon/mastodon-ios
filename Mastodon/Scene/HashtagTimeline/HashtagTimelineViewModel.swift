@@ -61,18 +61,7 @@ final class HashtagTimelineViewModel {
     }
     
     func viewWillAppear() {
-        let predicate = Tag.predicate(
-            domain: authContext.mastodonAuthenticationBox.domain,
-            name: hashtag
-        )
-
-        guard
-            let object = Tag.findOrFetch(in: context.managedObjectContext, matching: predicate)
-        else {
-            return hashtagDetails.send(hashtagDetails.value?.copy(following: false))
-        }
-
-        hashtagDetails.send(hashtagDetails.value?.copy(following: object.following))
+        hashtagDetails.send(hashtagDetails.value?.copy(following: hashtagEntity.value?.following ?? false))
     }
 }
 

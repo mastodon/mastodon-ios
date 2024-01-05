@@ -38,20 +38,6 @@ final class HashtagTimelineHeaderView: UIView {
                 postsTodayCount: Int(entity.history?.first?.uses ?? "0") ?? 0
             )
         }
-        
-        static func from(_ entity: Tag) -> Self {
-            Data(
-                name: entity.name,
-                following: entity.following,
-                postCount: entity.histories.reduce(0) { res, acc in
-                    res + (Int(acc.uses) ?? 0)
-                },
-                participantsCount: entity.histories.reduce(0) { res, acc in
-                    res + (Int(acc.accounts) ?? 0)
-                },
-                postsTodayCount: Int(entity.histories.first?.uses ?? "0") ?? 0
-            )
-        }
     }
     
     let titleLabel = UILabel()

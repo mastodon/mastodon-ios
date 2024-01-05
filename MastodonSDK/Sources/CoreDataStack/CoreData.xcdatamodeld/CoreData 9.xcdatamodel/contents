@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23B74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName="CoreDataStack.Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -111,7 +111,6 @@
         <relationship name="endorsed" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="endorsedBy" inverseEntity="MastodonUser"/>
         <relationship name="endorsedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="endorsed" inverseEntity="MastodonUser"/>
         <relationship name="favourite" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="favouritedBy" inverseEntity="Status"/>
-        <relationship name="followedTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="followedBy" inverseEntity="Tag"/>
         <relationship name="following" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followingBy" inverseEntity="MastodonUser"/>
         <relationship name="followingBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="following" inverseEntity="MastodonUser"/>
         <relationship name="followRequested" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followRequestedBy" inverseEntity="MastodonUser"/>
@@ -248,16 +247,5 @@
         <attribute name="reblogRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="subscription" maxCount="1" deletionRule="Nullify" destinationEntity="Subscription" inverseName="alert" inverseEntity="Subscription"/>
-    </entity>
-    <entity name="Tag" representedClassName="CoreDataStack.Tag" syncable="YES">
-        <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
-        <attribute name="domain" attributeType="String" defaultValueString=""/>
-        <attribute name="following" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="histories" optional="YES" attributeType="Binary"/>
-        <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="name" attributeType="String"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="url" attributeType="String"/>
-        <relationship name="followedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followedTags" inverseEntity="MastodonUser"/>
     </entity>
 </model>
