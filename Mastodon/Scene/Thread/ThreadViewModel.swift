@@ -76,7 +76,7 @@ class ThreadViewModel {
                 // bind titleView
                 self.navigationBarTitle = {
                     let title = L10n.Scene.Thread.title(status.entity.account.displayNameWithFallback)
-                    let content = MastodonContent(content: title, emojis: status.entity.account.emojis?.asDictionary ?? [:])
+                    let content = MastodonContent(content: title, emojis: status.entity.account.emojis.asDictionary)
                     return try? MastodonMetaContent.convert(document: content)
                 }()
             }

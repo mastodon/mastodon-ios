@@ -26,7 +26,7 @@ extension UserView {
         authorUsernameLabel.configure(content: authorUsername)
 
         do {
-            let emojis = account.emojis?.asDictionary ?? [:]
+            let emojis = account.emojis.asDictionary
             let content = MastodonContent(content: account.displayNameWithFallback, emojis: emojis)
             let metaContent = try MastodonMetaContent.convert(document: content)
             authorNameLabel.configure(content: metaContent)

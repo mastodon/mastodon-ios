@@ -37,8 +37,8 @@ extension Mastodon.Entity {
         
         // Rendering
         public let mentions: [Mention]?
-        public let tags: [Tag]?
-        public let emojis: [Emoji]?
+        public let tags: [Tag]
+        public let emojis: [Emoji]
         
         // Informational
         public let reblogsCount: Int

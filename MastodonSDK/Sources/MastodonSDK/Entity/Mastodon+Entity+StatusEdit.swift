@@ -36,7 +36,7 @@ extension Mastodon.Entity {
         public let account: Account
         public let poll: Poll?
         public let mediaAttachments: [Attachment]?
-        public let emojis: [Emoji]?
+        public let emojis: [Emoji]
 
         enum CodingKeys: String, CodingKey {
             case content

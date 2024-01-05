@@ -35,7 +35,7 @@ extension Mastodon.Entity {
         public let header: String
         public let headerStatic: String?
         public let locked: Bool
-        public let emojis: [Emoji]?
+        public let emojis: [Emoji]
         public let discoverable: Bool?
 
         // Statistical
@@ -52,7 +52,7 @@ extension Mastodon.Entity {
         public let suspended: Bool?
         public let muteExpiresAt: Date?
 
-        internal init(id: Mastodon.Entity.Account.ID, username: String, acct: String, url: String, displayName: String, note: String, avatar: String, avatarStatic: String? = nil, header: String, headerStatic: String? = nil, locked: Bool, emojis: [Mastodon.Entity.Emoji]? = nil, discoverable: Bool? = nil, createdAt: Date, lastStatusAt: Date? = nil, statusesCount: Int, followersCount: Int, followingCount: Int, moved: Mastodon.Entity.Account? = nil, fields: [Mastodon.Entity.Field]? = nil, bot: Bool? = nil, source: Mastodon.Entity.Source? = nil, suspended: Bool? = nil, muteExpiresAt: Date? = nil) {
+        internal init(id: Mastodon.Entity.Account.ID, username: String, acct: String, url: String, displayName: String, note: String, avatar: String, avatarStatic: String? = nil, header: String, headerStatic: String? = nil, locked: Bool, emojis: [Mastodon.Entity.Emoji] = [], discoverable: Bool? = nil, createdAt: Date, lastStatusAt: Date? = nil, statusesCount: Int, followersCount: Int, followingCount: Int, moved: Mastodon.Entity.Account? = nil, fields: [Mastodon.Entity.Field]? = nil, bot: Bool? = nil, source: Mastodon.Entity.Source? = nil, suspended: Bool? = nil, muteExpiresAt: Date? = nil) {
             self.id = id
             self.username = username
             self.acct = acct
