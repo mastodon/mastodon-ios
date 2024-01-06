@@ -506,7 +506,7 @@
                 "the_poll_is_invalid": "Die Umfrage ist ungültig",
                 "the_poll_has_empty_option": "Die Umfrage hat eine leere Option",
                 "add_option": "Option hinzufügen",
-                "remove_option": "Remove Option",
+                "remove_option": "Option entfernen",
                 "move_up": "Nach oben",
                 "move_down": "Nach unten"
             },
@@ -543,7 +543,7 @@
             },
             "language": {
                 "title": "Beitragssprache",
-                "suggested": "Suggested",
+                "suggested": "Empfohlen",
                 "recent": "Kürzlich",
                 "other": "Andere Sprache…"
             }
