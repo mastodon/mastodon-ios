@@ -104,7 +104,7 @@
                 "unfollow": "Bỏ theo dõi %s"
             },
             "tabs": {
-                "home": "Trang chính",
+                "home": "Trang chủ",
                 "search_and_explore": "Tìm và Khám Phá",
                 "notifications": "Thông báo",
                 "profile": "Trang hồ sơ",
@@ -450,7 +450,7 @@
             }
         },
         "home_timeline": {
-            "title": "Trang chính",
+            "title": "Trang chủ",
             "navigation_bar_state": {
                 "offline": "Ngoại tuyến",
                 "new_posts": "Đọc những tút mới",
