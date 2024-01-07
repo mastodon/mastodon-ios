@@ -765,10 +765,10 @@
                 "title": "Notifications",
                 "policy": {
                     "title": "Get Notifications from",
-                    "anyone": "Anyone",
+                    "anyone": "Jeder",
                     "followers": "People who follow you",
                     "follow": "People you follow",
-                    "noone": "No one"
+                    "noone": "Niemand"
                 },
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
