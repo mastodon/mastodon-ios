@@ -66,7 +66,7 @@ extension ReportStatusViewModel.State {
             
             
             Task {
-                let maxID = await viewModel.statusFetchedResultsController.records.last?.id
+                let maxID = await viewModel.dataController.records.last?.id
 
                 do {
                     let response = try await viewModel.context.apiService.userTimeline(
@@ -80,7 +80,7 @@ extension ReportStatusViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = await viewModel.statusFetchedResultsController.records
+                    var statusIDs = await viewModel.dataController.records
                     for status in response.value {
                         guard !statusIDs.contains(where: { $0.id == status.id }) else { continue }
                         statusIDs.append(.fromEntity(status))
@@ -92,7 +92,7 @@ extension ReportStatusViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    await viewModel.statusFetchedResultsController.setRecords(statusIDs)
+                    await viewModel.dataController.setRecords(statusIDs)
 
                 } catch {
                     await enter(state: Fail.self)

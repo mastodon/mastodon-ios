@@ -68,7 +68,6 @@ class ThreadViewModel {
                 
                 // bind threadContext
                 self.threadContext = .init(
-                    domain: authContext.mastodonAuthenticationBox.domain, //status.domain,
                     statusID: status.id,
                     replyToID: status.entity.inReplyToID
                 )
@@ -111,7 +110,6 @@ class ThreadViewModel {
 extension ThreadViewModel {
     
     struct ThreadContext {
-        let domain: String
         let statusID: Mastodon.Entity.Status.ID
         let replyToID: Mastodon.Entity.Status.ID?
     }

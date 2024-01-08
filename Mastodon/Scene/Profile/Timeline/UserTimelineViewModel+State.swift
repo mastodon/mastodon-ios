@@ -57,7 +57,7 @@ extension UserTimelineViewModel.State {
 
             Task {
                 // reset
-                await viewModel.statusFetchedResultsController.reset()
+                await viewModel.dataController.reset()
 
                 stateMachine.enter(Loading.self)
             }
@@ -116,8 +116,8 @@ extension UserTimelineViewModel.State {
             
 
             Task {
-                let maxID = await viewModel.statusFetchedResultsController.records.last?.id
-                
+                let maxID = await viewModel.dataController.records.last?.id
+
                 guard let userID = viewModel.userIdentifier?.userID, !userID.isEmpty else {
                     stateMachine.enter(Fail.self)
                     return
@@ -137,7 +137,7 @@ extension UserTimelineViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = await viewModel.statusFetchedResultsController.records
+                    var statusIDs = await viewModel.dataController.records
                     for status in response.value {
                         guard !statusIDs.contains(where: { $0.id == status.id }) else { continue }
                         statusIDs.append(.fromEntity(status))
@@ -149,7 +149,7 @@ extension UserTimelineViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    await viewModel.statusFetchedResultsController.setRecords(statusIDs)
+                    await viewModel.dataController.setRecords(statusIDs)
                     
                 } catch {
                     await enter(state: Fail.self)

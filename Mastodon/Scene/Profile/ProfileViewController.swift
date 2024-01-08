@@ -943,9 +943,6 @@ extension ProfileViewController: MastodonMenuDelegate {
                     .followUser(_):
                 break
         }
-
-        Task {
-        }
     }
 }
 

@@ -1,17 +1,10 @@
-//
-//  StatusFetchedResultsController.swift
-//  Mastodon
-//
-//  Created by MainasuK Cirno on 2021-3-30.
-//
-
 import UIKit
 import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
 
-public final class StatusFetchedResultsController {
+public final class StatusDataController {
     @MainActor
     @Published 
     public private(set) var records: [MastodonStatus] = []
@@ -51,22 +44,25 @@ public final class StatusFetchedResultsController {
                 newRecords[i] = status
             } else if let reblog = record.reblog, reblog.id == status.id {
                 // Handle reblogged state
-                switch status.entity.reblogged {
-                case .some(true):
-                    newRecords[i] = {
-                        let stat = MastodonStatus.fromEntity(records[i].entity)
-                        stat.isSensitiveToggled = status.isSensitiveToggled
-                        stat.reblog = .fromEntity(status.entity)
-                        return stat
-                    }()
-                case .some(false), .none:
-                    newRecords[i] = {
-                        let stat = MastodonStatus.fromEntity(status.entity)
-                        stat.isSensitiveToggled = status.isSensitiveToggled
-                        return stat
-                    }()
+                let isRebloggedByAnyOne: Bool = records[i].reblog != nil
+
+                let newStatus: MastodonStatus
+                if isRebloggedByAnyOne {
+                    // if status was previously reblogged by me: remove reblogged status
+                    if records[i].entity.reblogged == true && status.entity.reblogged == false {
+                        newStatus = .fromEntity(status.entity)
+                    } else {
+                        newStatus = .fromEntity(records[i].entity)
+                    }
+                    
+                } else {
+                    newStatus = .fromEntity(status.entity)
                 }
 
+                newStatus.isSensitiveToggled = status.isSensitiveToggled
+                newStatus.reblog = isRebloggedByAnyOne ? .fromEntity(status.entity) : nil
+                
+                newRecords[i] = newStatus
             } else if let reblog = record.reblog, reblog.id == status.reblog?.id {
                 // Handle re-reblogged state
                 newRecords[i] = status

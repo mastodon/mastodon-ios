@@ -147,20 +147,21 @@ extension SearchResultViewModel.State {
                     
                     // reset data source when the search is refresh
                     if offset == nil {
-                        await viewModel.statusFetchedResultsController.reset()
                         viewModel.relationships = []
                         viewModel.accounts = []
+                        await viewModel.dataController.reset()
                         viewModel.hashtags = []
                     }
 
-                    await viewModel.statusFetchedResultsController.appendRecords(statuses)
-
                     
+                    // due to combine relationships must be set first
                     var existingRelationships = viewModel.relationships
                     for hashtag in relationships where !existingRelationships.contains(hashtag) {
                         existingRelationships.append(hashtag)
                     }
                     viewModel.relationships = existingRelationships
+
+                    await viewModel.dataController.appendRecords(statuses)
                     
                     var existingHashtags = viewModel.hashtags
                     for hashtag in searchResults.hashtags where !existingHashtags.contains(hashtag) {

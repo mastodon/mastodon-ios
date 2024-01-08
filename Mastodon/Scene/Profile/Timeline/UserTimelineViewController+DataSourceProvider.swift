@@ -29,11 +29,11 @@ extension UserTimelineViewController: DataSourceProvider {
     }
     
     func update(status: MastodonStatus) {
-        viewModel.statusFetchedResultsController.update(status: status)
+        viewModel.dataController.update(status: status)
     }
     
     func delete(status: MastodonStatus) {
-        viewModel.statusFetchedResultsController.deleteRecord(status)
+        viewModel.dataController.deleteRecord(status)
     }
     
     @MainActor

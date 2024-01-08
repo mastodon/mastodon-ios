@@ -74,7 +74,6 @@ extension ThreadViewModel.LoadThreadState {
                                                                                           authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
                     
                     viewModel.mastodonStatusThreadViewModel.appendAncestor(
-                        domain: threadContext.domain,
                         nodes: MastodonStatusThreadViewModel.Node.replyToThread(
                             for: threadContext.replyToID,
                             from: response.value.ancestors
@@ -82,7 +81,6 @@ extension ThreadViewModel.LoadThreadState {
                     )
 
                     viewModel.mastodonStatusThreadViewModel.appendDescendant(
-                        domain: threadContext.domain,
                         nodes: response.value.descendants.map { status in
                             return .init(status: .fromEntity(status), children: [])
                         }

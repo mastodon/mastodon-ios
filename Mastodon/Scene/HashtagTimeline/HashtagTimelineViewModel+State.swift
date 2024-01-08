@@ -146,7 +146,7 @@ extension HashtagTimelineViewModel.State {
                     self.maxID = newMaxID
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = isReloading ? [] : await viewModel.fetchedResultsController.records.map { $0.entity }
+                    var statusIDs = isReloading ? [] : await viewModel.dataController.records.map { $0.entity }
                     for status in response.value {
                         guard !statusIDs.contains(status) else { continue }
                         statusIDs.append(status)
@@ -159,7 +159,7 @@ extension HashtagTimelineViewModel.State {
                         await enter(state: NoMore.self)
                     }
                     
-                    await viewModel.fetchedResultsController.setRecords(statusIDs.map { MastodonStatus.fromEntity($0) })
+                    await viewModel.dataController.setRecords(statusIDs.map { MastodonStatus.fromEntity($0) })
                     viewModel.didLoadLatest.send()
                 } catch {
                     await enter(state: Fail.self)

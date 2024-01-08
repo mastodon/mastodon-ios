@@ -29,12 +29,12 @@ extension BookmarkViewController: DataSourceProvider {
     }
 
     func update(status: MastodonStatus) {
-        viewModel.statusFetchedResultsController.update(status: status)
+        viewModel.dataController.update(status: status)
     }
     
     func delete(status: MastodonStatus) {
-        viewModel.statusFetchedResultsController.setRecords(
-            viewModel.statusFetchedResultsController.records.filter { $0.id != status.id }
+        viewModel.dataController.setRecords(
+            viewModel.dataController.records.filter { $0.id != status.id }
         )
     }
     

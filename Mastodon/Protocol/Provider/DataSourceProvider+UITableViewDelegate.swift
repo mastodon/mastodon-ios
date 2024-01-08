@@ -23,7 +23,7 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
             }
             switch item {
                 case .account(let account, relationship: _):
-                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+                    DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
                 case .status(let status):
                     await DataSourceFacade.coordinateToStatusThreadScene(
                         provider: self,
@@ -36,22 +36,21 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                         tag: tag
                     )
                 case .notification(let notification):
-                    let managedObjectContext = context.managedObjectContext
-                    
                     let _status: MastodonStatus? = notification.status
                     if let status = _status {
                         await DataSourceFacade.coordinateToStatusThreadScene(
                             provider: self,
-                            target: .status,        // remove reblog wrapper
+                            target: .status,    // remove reblog wrapper
                             status: status
                         )
                     } else {
                         await DataSourceFacade.coordinateToProfileScene(
                             provider: self,
-                            account: notification.entity.account)
-                    }
-            }   // end Task
-        }   // end func
+                            account: notification.entity.account
+                        )
+                    }   // end Task
+            }   // end func
+        }
     }
 }
 

@@ -38,11 +38,11 @@ extension NotificationTimelineViewController: DataSourceProvider {
     }
 
     func update(status: MastodonStatus) {
-        viewModel.feedFetchedResultsController.update(status: status)
+        viewModel.dataController.update(status: status)
     }
     
     func delete(status: MastodonStatus) {
-        viewModel.feedFetchedResultsController.delete(status: status)
+        viewModel.dataController.delete(status: status)
     }
     
     @MainActor

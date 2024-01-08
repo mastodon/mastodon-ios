@@ -49,7 +49,7 @@ extension UserTimelineViewModel {
         ).map { $0 || $1 || $2 || $3 }
         
         Publishers.CombineLatest(
-            statusFetchedResultsController.$records,
+            dataController.$records,
             needsTimelineHidden.removeDuplicates()
         )
         .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)

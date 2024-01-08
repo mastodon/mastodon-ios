@@ -24,7 +24,7 @@ final class HashtagTimelineViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let fetchedResultsController: StatusFetchedResultsController
+    let dataController: StatusDataController
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let hashtagEntity = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
@@ -55,7 +55,7 @@ final class HashtagTimelineViewModel {
         self.context  = context
         self.authContext = authContext
         self.hashtag = hashtag
-        self.fetchedResultsController = StatusFetchedResultsController()
+        self.dataController = StatusDataController()
         updateTagInformation()
         // end init
     }

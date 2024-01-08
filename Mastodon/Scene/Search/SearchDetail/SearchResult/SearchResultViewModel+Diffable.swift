@@ -33,7 +33,7 @@ extension SearchResultViewModel {
         diffableDataSource.apply(snapshot, animatingDifferences: false)
 
         Publishers.CombineLatest3(
-            statusFetchedResultsController.$records,
+            dataController.$records,
             $accounts,
             $hashtags
         )

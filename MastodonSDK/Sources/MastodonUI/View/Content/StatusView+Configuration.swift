@@ -107,7 +107,7 @@ extension StatusView {
         } else if status.reblog != nil {
             let name = status.entity.account.displayNameWithFallback
             let emojis = status.entity.account.emojis
-            
+
             viewModel.header = {
                 let text = L10n.Common.Controls.Status.userReblogged(name)
                 let content = MastodonContent(content: text, emojis: emojis.asDictionary)
@@ -201,7 +201,7 @@ extension StatusView {
             // author avatar
             viewModel.authorAvatarImageURL = author.avatarImageURL()
             let emojis = author.emojis.asDictionary
-            
+
             // author name
             viewModel.authorName = {
                 do {
@@ -529,16 +529,4 @@ extension StatusView {
         .store(in: &disposeBag)
     }
 
-}
-
-extension MastodonStatus {
-    func getPoll(in context: NSManagedObjectContext, domain: String) async -> Poll? {
-        guard
-            let pollId = entity.poll?.id
-        else { return nil }
-        return try? await context.perform {
-            let predicate = Poll.predicate(domain: domain, id: pollId)
-            return Poll.findOrFetch(in: context, matching: predicate)
-        }
-    }
 }

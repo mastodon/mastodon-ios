@@ -26,7 +26,7 @@ class ReportStatusViewModel {
     let authContext: AuthContext
     let account: Mastodon.Entity.Account
     let status: MastodonStatus?
-    let statusFetchedResultsController: StatusFetchedResultsController
+    let dataController: StatusDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     @Published var isSkip = false
@@ -59,7 +59,7 @@ class ReportStatusViewModel {
         self.authContext = authContext
         self.account = account
         self.status = status
-        self.statusFetchedResultsController = StatusFetchedResultsController()
+        self.dataController = StatusDataController()
         // end init
         
         if let status = status {

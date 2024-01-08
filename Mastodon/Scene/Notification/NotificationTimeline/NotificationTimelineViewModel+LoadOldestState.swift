@@ -32,7 +32,7 @@ extension NotificationTimelineViewModel.LoadOldestState {
     class Initial: NotificationTimelineViewModel.LoadOldestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
-            guard !viewModel.feedFetchedResultsController.records.isEmpty else { return false }
+            guard !viewModel.dataController.records.isEmpty else { return false }
             return stateClass == Loading.self
         }
     }
@@ -47,7 +47,7 @@ extension NotificationTimelineViewModel.LoadOldestState {
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            guard let lastFeedRecord = viewModel.feedFetchedResultsController.records.last else {
+            guard let lastFeedRecord = viewModel.dataController.records.last else {
                 stateMachine.enter(Fail.self)
                 return
             }
