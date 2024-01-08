@@ -138,7 +138,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         switch (profile, statusID) {
             case (profile, nil):
                 Task {
-                    let domain = authContext.mastodonAuthenticationBox.domain
                     let authenticationBox = authContext.mastodonAuthenticationBox
 
                     guard let me = authenticationBox.authentication.account() else { return }
@@ -285,7 +284,6 @@ extension SceneDelegate {
 
                 Task {
                     do {
-                        let domain = authContext.mastodonAuthenticationBox.domain
                         let authenticationBox = authContext.mastodonAuthenticationBox
 
                         guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return }

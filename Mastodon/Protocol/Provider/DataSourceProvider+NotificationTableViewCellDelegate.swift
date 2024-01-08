@@ -220,7 +220,6 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
                 return
             }
             
-            let managedObjectContext = self.context.managedObjectContext
             let _mediaTransitionContext: NotificationMediaTransitionContext? = {
                 guard let status = record.status?.reblog ?? record.status else { return nil }
                 return NotificationMediaTransitionContext(

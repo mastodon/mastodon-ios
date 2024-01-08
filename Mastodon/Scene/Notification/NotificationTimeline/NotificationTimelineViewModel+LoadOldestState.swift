@@ -54,7 +54,6 @@ extension NotificationTimelineViewModel.LoadOldestState {
             let scope = viewModel.scope
             
             Task {
-                let managedObjectContext = viewModel.context.managedObjectContext
                 let _maxID: Mastodon.Entity.Notification.ID? = lastFeedRecord.notification?.id
                 
                 guard let maxID = _maxID else {

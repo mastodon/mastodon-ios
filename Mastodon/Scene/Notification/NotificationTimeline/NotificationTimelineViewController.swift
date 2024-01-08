@@ -276,7 +276,6 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
         guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return }
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPathForSelectedRow) else { return }
-        let domain = authContext.mastodonAuthenticationBox.domain
         
         Task { @MainActor in
             switch item {

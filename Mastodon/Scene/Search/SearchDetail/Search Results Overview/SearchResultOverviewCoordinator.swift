@@ -69,7 +69,6 @@ extension SearchResultOverviewCoordinator: SearchResultsOverviewTableViewControl
         )
 
         let authContext = self.authContext
-        let managedObjectContext = context.managedObjectContext
 
         Task {
             let searchResult = try await context.apiService.search(

@@ -27,7 +27,6 @@ extension APIService {
         limit: Int? = nil,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
-        let managedObjectContext = backgroundManagedObjectContext
         let response = try await Mastodon.API.Account.blocks(
             session: session,
             domain: authenticationBox.domain,

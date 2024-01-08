@@ -65,7 +65,6 @@ extension DataSourceFacade {
         status: MastodonStatus,
         previewContext: AttachmentPreviewContext
     ) async throws {
-        let managedObjectContext = dependency.context.managedObjectContext
         let status = status.reblog ?? status
         let attachments = status.entity.mastodonAttachments
         
