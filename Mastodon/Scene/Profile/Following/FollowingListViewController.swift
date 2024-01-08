@@ -12,6 +12,7 @@ import MastodonLocalization
 import MastodonCore
 import MastodonUI
 import CoreDataStack
+import MastodonSDK
 
 final class FollowingListViewController: UIViewController, NeedsDependency {
     
@@ -147,6 +148,14 @@ extension FollowingListViewController: DataSourceProvider {
             default:
                 return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Not required")
+    }
+    
+    func delete(status: MastodonStatus) {
+        assertionFailure("Not required")
     }
 
     @MainActor

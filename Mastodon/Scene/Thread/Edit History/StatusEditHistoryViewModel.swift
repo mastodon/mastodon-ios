@@ -8,7 +8,7 @@ import UIKit
 import MastodonSDK
 
 struct StatusEditHistoryViewModel {
-    let status: Status
+    let status: MastodonStatus
     let edits: [Mastodon.Entity.StatusEdit]
     
     let appContext: AppContext

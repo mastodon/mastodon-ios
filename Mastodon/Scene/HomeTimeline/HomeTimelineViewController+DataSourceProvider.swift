@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 extension HomeTimelineViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
@@ -20,21 +21,24 @@ extension HomeTimelineViewController: DataSourceProvider {
         }
         
         switch item {
-        case .feed(let record):
-            let managedObjectContext = context.managedObjectContext
-            let item: DataSourceItem? = try? await managedObjectContext.perform {
-                guard let feed = record.object(in: managedObjectContext) else { return nil }
-                guard feed.kind == .home else { return nil }
-                if let status = feed.status {
-                    return .status(record: .init(objectID: status.objectID))
-                } else {
-                    return nil
-                }
+        case .feed(let feed):
+            guard feed.kind == .home else { return nil }
+            if let status = feed.status {
+                return .status(record: status)
+            } else {
+                return nil
             }
-            return item
         default:
             return nil
         }
+    }
+
+    func update(status: MastodonStatus) {
+        viewModel.dataController.update(status: status)
+    }
+    
+    func delete(status: MastodonStatus) {
+        viewModel.dataController.records = viewModel.dataController.records.filter { $0.id != status.id }
     }
     
     @MainActor

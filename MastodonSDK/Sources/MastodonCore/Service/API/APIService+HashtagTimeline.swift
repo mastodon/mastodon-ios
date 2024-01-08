@@ -42,23 +42,18 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
+        #warning("TODO: Remove this with IOS-181, IOS-182")
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
+           let me = authenticationBox.authentication.user(in: managedObjectContext)
 
-            for entity in response.value {
-                _ = Persistence.Status.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Status.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        me: me,
-                        statusCache: nil,
-                        userCache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }
+           for entity in response.value {
+               guard let poll = entity.poll else { continue }
+               _ = Persistence.Poll.createOrMerge(
+                  in: managedObjectContext,
+                  context: .init(domain: domain, entity: poll, me: me, networkDate: response.networkDate)
+               )
+           }
         }
 
         return response

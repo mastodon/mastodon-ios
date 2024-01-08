@@ -24,7 +24,7 @@ final class HashtagTimelineViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let fetchedResultsController: StatusFetchedResultsController
+    let dataController: StatusDataController
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let hashtagEntity = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
@@ -50,15 +50,12 @@ final class HashtagTimelineViewModel {
         return stateMachine
     }()
     
+    @MainActor
     init(context: AppContext, authContext: AuthContext, hashtag: String) {
         self.context  = context
         self.authContext = authContext
         self.hashtag = hashtag
-        self.fetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+        self.dataController = StatusDataController()
         updateTagInformation()
         // end init
     }

@@ -10,6 +10,7 @@ import Combine
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
+import MastodonSDK
 
 final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
 
@@ -100,6 +101,14 @@ extension FamiliarFollowersViewController: DataSourceProvider {
             default:
                 return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Not required")
+    }
+    
+    func delete(status: MastodonStatus) {
+        assertionFailure("Not required")
     }
 
     @MainActor

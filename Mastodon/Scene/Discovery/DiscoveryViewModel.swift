@@ -27,6 +27,7 @@ final class DiscoveryViewModel {
     
     @Published var viewControllers: [ScrollViewContainer & PageViewController]
     
+    @MainActor
     init(context: AppContext, coordinator: SceneCoordinator, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext

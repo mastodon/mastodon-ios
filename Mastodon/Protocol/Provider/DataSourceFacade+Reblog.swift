@@ -6,21 +6,27 @@
 //
 
 import UIKit
-import CoreDataStack
 import MastodonCore
 import MastodonUI
+import MastodonSDK
 
 extension DataSourceFacade {
     static func responseToStatusReblogAction(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>
+        status: MastodonStatus
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
         
-        _ = try await provider.context.apiService.reblog(
-            record: status,
+        let updatedStatus = try await provider.context.apiService.reblog(
+            status: status,
             authenticationBox: provider.authContext.mastodonAuthenticationBox
-        )
-    }   // end func
+        ).value
+
+        let newStatus: MastodonStatus = .fromEntity(updatedStatus)
+        newStatus.reblog?.isSensitiveToggled = status.isSensitiveToggled
+        newStatus.isSensitiveToggled = status.isSensitiveToggled
+        
+        provider.update(status: newStatus)
+    }
 }

@@ -50,6 +50,10 @@ public final class StatusView: UIView {
     public weak var delegate: StatusViewDelegate?
     
     public private(set) var style: Style?
+    
+    public var domain: String? {
+        viewModel.authContext?.mastodonAuthenticationBox.domain
+    }
 
     // accessibility actions
     var toolbarActions = [UIAccessibilityCustomAction]()
@@ -404,7 +408,7 @@ extension StatusView {
     }
 
     @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
-        guard let url = viewModel.card?.url else { return }
+        guard let urlString = viewModel.card?.url, let url = URL(string: urlString) else { return }
         delegate?.statusView(self, didTapCardWithURL: url)
     }
     

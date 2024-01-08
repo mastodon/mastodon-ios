@@ -68,8 +68,12 @@ extension FileManager {
     }
 }
 
-extension FileManager {
-    public var documentsDirectory: URL? {
-        return self.urls(for: .documentDirectory, in: .userDomainMask).first
+public extension FileManager {
+    var documentsDirectory: URL? {
+        urls(for: .documentDirectory, in: .userDomainMask).first
+    }
+    
+    var cachesDirectory: URL? {
+        urls(for: .cachesDirectory, in: .userDomainMask).first
     }
 }

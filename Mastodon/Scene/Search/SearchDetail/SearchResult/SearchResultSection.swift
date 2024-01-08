@@ -54,20 +54,16 @@ extension SearchResultSection {
                         relationship: relationship,
                         delegate: configuration.userTableViewCellDelegate
                     )
-
-                    return cell
-            case .status(let record):
+                return cell
+            case .status(let status):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else { return }
-                    configure(
-                        context: context,
-                        tableView: tableView,
-                        cell: cell,
-                        viewModel: StatusTableViewCell.ViewModel(value: .status(status)),
-                        configuration: configuration
-                    )
-                }
+                configure(
+                    context: context,
+                    tableView: tableView,
+                    cell: cell,
+                    viewModel: StatusTableViewCell.ViewModel(value: .status(status)),
+                    configuration: configuration
+                )
                 return cell
             case .hashtag(let tag):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HashtagTableViewCell.self)) as! HashtagTableViewCell

@@ -19,7 +19,7 @@ extension StatusView {
     
     static let statusFilterWorkingQueue = DispatchQueue(label: "StatusFilterWorkingQueue")
     
-    public func configure(feed: Feed) {
+    public func configure(feed: MastodonFeed) {
         switch feed.kind {
         case .home:
             guard let status = feed.status else {
@@ -40,18 +40,12 @@ extension StatusView {
 
 extension StatusView {
 
-    public func configure(status: Status, statusEdit: Mastodon.Entity.StatusEdit) {
-        viewModel.objects.insert(status)
-        if let reblog = status.reblog {
-            viewModel.objects.insert(reblog)
-        }
-
+    public func configure(status: MastodonStatus, statusEdit: Mastodon.Entity.StatusEdit) {
         configureHeader(status: status)
-        let author = (status.reblog ?? status).author
+        let author = (status.reblog ?? status).entity.account
         configureAuthor(author: author)
-        let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
-        configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
-        configureApplicationName(status.application?.name)
+        configureTimestamp(timestamp: (status.reblog ?? status).entity.createdAt)
+        configureApplicationName(status.entity.application?.name)
         configureMedia(status: status)
         configurePollHistory(statusEdit: statusEdit)
         configureCard(status: status)
@@ -66,18 +60,13 @@ extension StatusView {
         viewModel.isContentReveal = true
     }
 
-    public func configure(status: Status) {
-        viewModel.objects.insert(status)
-        if let reblog = status.reblog {
-            viewModel.objects.insert(reblog)
-        }
-
+    public func configure(status: MastodonStatus) {
         configureHeader(status: status)
-        let author = (status.reblog ?? status).author
+        let author = (status.reblog ?? status).entity.account
         configureAuthor(author: author)
-        let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
-        configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
-        configureApplicationName(status.application?.name)
+        let timestamp = (status.reblog ?? status).entity.createdAt
+        configureTimestamp(timestamp: timestamp)
+        configureApplicationName(status.entity.application?.name)
         configureContent(status: status)
         configureMedia(status: status)
         configurePoll(status: status)
@@ -96,14 +85,21 @@ extension StatusView {
 }
 
 extension StatusView {
-    private func configureHeader(status: Status) {
-        if let _ = status.reblog {
-            Publishers.CombineLatest(
-                status.author.publisher(for: \.displayName),
-                status.author.publisher(for: \.emojis)
+    private func configureHeader(status: MastodonStatus) {
+        if status.entity.reblogged == true, 
+            let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox,
+            let managedObjectContext = viewModel.context?.managedObjectContext {
+            
+            let user = MastodonUser.findOrFetch(
+                in: managedObjectContext,
+                matching: MastodonUser.predicate(domain: authenticationBox.domain, id: authenticationBox.userID)
             )
-            .map { name, emojis -> StatusView.ViewModel.Header in
-                let text = L10n.Common.Controls.Status.userReblogged(status.author.displayNameWithFallback)
+
+            let name = user?.displayNameWithFallback ?? authenticationBox.authentication.username
+            let emojis = user?.emojis ?? []
+            
+            viewModel.header = {
+                let text = L10n.Common.Controls.Status.userReblogged(name)
                 let content = MastodonContent(content: text, emojis: emojis.asDictionary)
                 do {
                     let metaContent = try MastodonMetaContent.convert(document: content)
@@ -112,12 +108,25 @@ extension StatusView {
                     let metaContent = PlaintextMetaContent(string: name)
                     return .repost(info: .init(header: metaContent))
                 }
-                
-            }
-            .assign(to: \.header, on: viewModel)
-            .store(in: &disposeBag)
-        } else if let _ = status.inReplyToID,
-                  let inReplyToAccountID = status.inReplyToAccountID
+            }()
+        } else if status.reblog != nil {
+            let name = status.entity.account.displayNameWithFallback
+            let emojis = status.entity.account.emojis ?? []
+            
+            viewModel.header = {
+                let text = L10n.Common.Controls.Status.userReblogged(name)
+                let content = MastodonContent(content: text, emojis: emojis.asDictionary)
+                do {
+                    let metaContent = try MastodonMetaContent.convert(document: content)
+                    return .repost(info: .init(header: metaContent))
+                } catch {
+                    let metaContent = PlaintextMetaContent(string: name)
+                    return .repost(info: .init(header: metaContent))
+                }
+            }()
+
+        } else if let _ = status.entity.inReplyToID,
+                  let inReplyToAccountID = status.entity.inReplyToAccountID
         {
             func createHeader(
                 name: String?,
@@ -139,21 +148,27 @@ extension StatusView {
                 return header
             }
 
-            if let replyTo = status.replyTo {
+            if let inReplyToID = status.entity.inReplyToID {
                 // A. replyTo status exist
-                let header = createHeader(name: replyTo.author.displayNameWithFallback, emojis: replyTo.author.emojis.asDictionary)
-                viewModel.header = header
+                
+                /// we need to initially set an empty header, otherwise the layout gets messed up
+                viewModel.header = createHeader(name: "", emojis: [:])
+                /// finally we can load the status information and display the correct header
+                if let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox {
+                    Task { @MainActor in
+                        if let replyTo = try? await Mastodon.API.Statuses.status(
+                            session: .shared,
+                            domain: authenticationBox.domain,
+                            statusID: inReplyToID,
+                            authorization: authenticationBox.userAuthorization
+                        ).singleOutput().value {
+                            let header = createHeader(name: replyTo.account.displayNameWithFallback, emojis: replyTo.account.emojis?.asDictionary ?? [:])
+                            viewModel.header = header
+                        }
+                    }
+                }
             } else {
                 // B. replyTo status not exist
-                
-                let request = MastodonUser.sortedFetchRequest
-                request.predicate = MastodonUser.predicate(domain: status.domain, id: inReplyToAccountID)
-                if let user = status.managedObjectContext?.safeFetch(request).first {
-                    // B1. replyTo user exist
-                    let header = createHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
-                    viewModel.header = header
-                } else {
-                    // B2. replyTo user not exist
                     let header = createHeader(name: nil, emojis: nil)
                     viewModel.header = header
                     
@@ -178,7 +193,6 @@ extension StatusView {
                             }
                             .store(in: &disposeBag)
                     }   // end if let
-                }   // end else B2.
             }   // end else B.
             
         } else {
@@ -186,90 +200,63 @@ extension StatusView {
         }
     }
     
-    public func configureAuthor(author: MastodonUser) {
-        // author avatar
-        Publishers.CombineLatest(
-            author.publisher(for: \.avatar),
-            UserDefaults.shared.publisher(for: \.preferredStaticAvatar)
-        )
-        .map { _ in author.avatarImageURL() }
-        .assign(to: \.authorAvatarImageURL, on: viewModel)
-        .store(in: &disposeBag)
-        // author name
-        Publishers.CombineLatest(
-            author.publisher(for: \.displayName),
-            author.publisher(for: \.emojis)
-        )
-        .map { _, emojis in
-            do {
-                let content = MastodonContent(content: author.displayNameWithFallback, emojis: emojis.asDictionary)
-                let metaContent = try MastodonMetaContent.convert(document: content)
-                return metaContent
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return PlaintextMetaContent(string: author.displayNameWithFallback)
+    public func configureAuthor(author: Mastodon.Entity.Account) {
+        Task { @MainActor in
+            
+            // author avatar
+            viewModel.authorAvatarImageURL = author.avatarImageURL()
+            let emojis = author.emojis?.asDictionary ?? [:]
+            
+            // author name
+            viewModel.authorName = {
+                do {
+                    let content = MastodonContent(content: author.displayNameWithFallback, emojis: emojis)
+                    let metaContent = try MastodonMetaContent.convert(document: content)
+                    return metaContent
+                } catch {
+                    assertionFailure(error.localizedDescription)
+                    return PlaintextMetaContent(string: author.displayNameWithFallback)
+                }
+            }()
+            
+            // author username
+            viewModel.authorUsername = author.acct
+            
+            // locked
+            viewModel.locked = author.locked
+                        
+            // isMyself
+            viewModel.isMyself = {
+                guard let authContext = viewModel.authContext else { return false }
+                return authContext.mastodonAuthenticationBox.domain == author.domain && authContext.mastodonAuthenticationBox.userID == author.id
+            }()
+            
+            // isMuting, isBlocking, Following
+            guard let auth = viewModel.authContext?.mastodonAuthenticationBox else { return }
+            guard !viewModel.isMyself else {
+                viewModel.isMuting = false
+                viewModel.isBlocking = false
+                viewModel.isFollowed = false
+                return
+            }
+            
+            if let relationship = try? await Mastodon.API.Account.relationships(
+                session: .shared,
+                domain: auth.domain,
+                query: .init(ids: [author.id]),
+                authorization: auth.userAuthorization
+            ).singleOutput().value {
+                guard let rel = relationship.first else { return }
+                DispatchQueue.main.async { [self] in
+                    viewModel.isMuting = rel.muting ?? false
+                    viewModel.isBlocking = rel.blocking
+                    viewModel.isFollowed = rel.followedBy
+                }
             }
         }
-        .assign(to: \.authorName, on: viewModel)
-        .store(in: &disposeBag)
-        // author username
-        author.publisher(for: \.acct)
-            .map { $0 as String? }
-            .assign(to: \.authorUsername, on: viewModel)
-            .store(in: &disposeBag)
-        // locked
-        author.publisher(for: \.locked)
-            .assign(to: \.locked, on: viewModel)
-            .store(in: &disposeBag)
-        // isMuting
-        author.publisher(for: \.mutingBy)
-            .map { [weak viewModel] mutingBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return mutingBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
-            .assign(to: \.isMuting, on: viewModel)
-            .store(in: &disposeBag)
-        // isBlocking
-        author.publisher(for: \.blockingBy)
-            .map { [weak viewModel] blockingBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return blockingBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
-            .assign(to: \.isBlocking, on: viewModel)
-            .store(in: &disposeBag)
-        // isMyself
-        Publishers.CombineLatest(
-            author.publisher(for: \.domain),
-            author.publisher(for: \.id)
-        )
-        .map { [weak viewModel] domain, id in
-            guard let viewModel = viewModel else { return false }
-            guard let authContext = viewModel.authContext else { return false }
-            return authContext.mastodonAuthenticationBox.domain == domain && authContext.mastodonAuthenticationBox.userID == id
-        }
-        .assign(to: \.isMyself, on: viewModel)
-        .store(in: &disposeBag)
-
-        // Following
-        author.publisher(for: \.followingBy)
-            .map { [weak viewModel] followingBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return followingBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
-            .assign(to: \.isFollowed, on: viewModel)
-            .store(in: &disposeBag)
     }
     
-    private func configureTimestamp(timestamp: AnyPublisher<Date, Never>) {
+    private func configureTimestamp(timestamp: Date) {
         // timestamp
         viewModel.timestampFormatter = { (date: Date, isEdited: Bool) in
             if isEdited {
@@ -277,10 +264,7 @@ extension StatusView {
             }
             return date.localizedSlowedTimeAgoSinceNow
         }
-        timestamp
-            .map { $0 as Date? }
-            .assign(to: \.timestamp, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.timestamp = timestamp
     }
 
     private func configureApplicationName(_ applicationName: String?) {
@@ -294,7 +278,7 @@ extension StatusView {
         configure(status: originalStatus)
     }
     
-    func configureTranslated(status: Status) {
+    func configureTranslated(status: MastodonStatus) {
         guard let translation = viewModel.translation,
               let translatedContent = translation.content else {
             viewModel.isCurrentlyTranslating = false
@@ -303,7 +287,7 @@ extension StatusView {
 
         // content
         do {
-            let content = MastodonContent(content: translatedContent, emojis: status.emojis.asDictionary)
+            let content = MastodonContent(content: translatedContent, emojis: status.entity.emojis?.asDictionary ?? [:])
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.isCurrentlyTranslating = false
@@ -313,13 +297,13 @@ extension StatusView {
         }
     }
 
-    private func configureContent(statusEdit: Mastodon.Entity.StatusEdit, status: Status) {
+    private func configureContent(statusEdit: Mastodon.Entity.StatusEdit, status: MastodonStatus) {
         statusEdit.spoilerText.map {
             viewModel.spoilerContent = PlaintextMetaContent(string: $0)
         }
         
         // language
-        viewModel.language = (status.reblog ?? status).language
+        viewModel.language = (status.reblog ?? status).entity.language
         // content
         do {
             let content = MastodonContent(content: statusEdit.content, emojis: statusEdit.emojis?.asDictionary ?? [:])
@@ -332,7 +316,7 @@ extension StatusView {
         }
     }
 
-    private func configureContent(status: Status) {
+    private func configureContent(status: MastodonStatus) {
         guard viewModel.translation == nil else {
             return configureTranslated(status: status)
         }
@@ -340,9 +324,9 @@ extension StatusView {
         let status = status.reblog ?? status
         
         // spoilerText
-        if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
+        if let spoilerText = status.entity.spoilerText, !spoilerText.isEmpty {
             do {
-                let content = MastodonContent(content: spoilerText, emojis: status.emojis.asDictionary)
+                let content = MastodonContent(content: spoilerText, emojis: status.entity.emojis?.asDictionary ?? [:])
                 let metaContent = try MastodonMetaContent.convert(document: content)
                 viewModel.spoilerContent = metaContent
             } catch {
@@ -353,10 +337,10 @@ extension StatusView {
             viewModel.spoilerContent = nil
         }
         // language
-        viewModel.language = (status.reblog ?? status).language
+        viewModel.language = (status.reblog ?? status).entity.language
         // content
         do {
-            let content = MastodonContent(content: status.content, emojis: status.emojis.asDictionary)
+            let content = MastodonContent(content: status.entity.content ?? "", emojis: status.entity.emojis?.asDictionary ?? [:])
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.isCurrentlyTranslating = false
@@ -365,21 +349,18 @@ extension StatusView {
             viewModel.content = PlaintextMetaContent(string: "")
         }
         // visibility
-        status.publisher(for: \.visibilityRaw)
-            .compactMap { MastodonVisibility(rawValue: $0) }
-            .assign(to: \.visibility, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.visibility = status.entity.mastodonVisibility
+
         // sensitive
-        viewModel.isContentSensitive = status.isContentSensitive
-        status.publisher(for: \.isSensitiveToggled)
-            .assign(to: \.isSensitiveToggled, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.isContentSensitive = status.entity.sensitive == true
+        viewModel.isSensitiveToggled = status.isSensitiveToggled
+
     }
     
-    private func configureMedia(status: StatusCompatible) {
+    private func configureMedia(status: MastodonStatus) {
         let status = status.reblog ?? status
         
-        viewModel.isMediaSensitive = status.isMediaSensitive
+        viewModel.isMediaSensitive = status.entity.sensitive == true
         
         let configurations = MediaView.configuration(status: status)
         viewModel.mediaViewConfigurations = configurations
@@ -405,146 +386,105 @@ extension StatusView {
         pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(_snapshot)
     }
 
-    private func configurePoll(status: Status) {
+    private func configurePoll(status: MastodonStatus) {
         let status = status.reblog ?? status
         
-        if let poll = status.poll {
-            viewModel.objects.insert(poll)
+        guard
+            let context = viewModel.context?.managedObjectContext,
+            let domain = viewModel.authContext?.mastodonAuthenticationBox.domain,
+            let pollId = status.entity.poll?.id
+        else {
+            return
         }
 
+        let predicate = Poll.predicate(domain: domain, id: pollId)
+        guard let poll = Poll.findOrFetch(in: context, matching: predicate) else { return }
+        
+        viewModel.managedObjects.insert(poll)
+
         // pollItems
-        status.publisher(for: \.poll)
-            .sink { [weak self] poll in
-                guard let self = self else { return }
-                guard let poll = poll else {
-                    self.viewModel.pollItems = []
-                    return
-                }
-                
-                let options = poll.options.sorted(by: { $0.index < $1.index })
-                let items: [PollItem] = options.map { .option(record: .init(objectID: $0.objectID)) }
-                self.viewModel.pollItems = items
-            }
-            .store(in: &disposeBag)
+        let options = poll.options.sorted(by: { $0.index < $1.index })
+        let items: [PollItem] = options.map { .option(record: .init(objectID: $0.objectID)) }
+        self.viewModel.pollItems = items
+        
         // isVoteButtonEnabled
-        status.poll?.publisher(for: \.updatedAt)
+        poll.publisher(for: \.updatedAt)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                guard let poll = status.poll else { return }
                 let options = poll.options
                 let hasSelectedOption = options.contains(where: { $0.isSelected })
                 self.viewModel.isVoteButtonEnabled = hasSelectedOption
             }
             .store(in: &disposeBag)
         // isVotable
-        if let poll = status.poll {
-            Publishers.CombineLatest(
-                poll.publisher(for: \.votedBy),
-                poll.publisher(for: \.expired)
-            )
-            .map { [weak viewModel] votedBy, expired in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                let domain = authContext.mastodonAuthenticationBox.domain
-                let userID = authContext.mastodonAuthenticationBox.userID
-                let isVoted = votedBy?.contains(where: { $0.domain == domain && $0.id == userID }) ?? false
-                return !isVoted && !expired
-            }
-            .assign(to: &viewModel.$isVotable)
+        Publishers.CombineLatest(
+            poll.publisher(for: \.votedBy),
+            poll.publisher(for: \.expired)
+        )
+        .map { [weak viewModel] votedBy, expired in
+            guard let viewModel = viewModel else { return false }
+            guard let authContext = viewModel.authContext else { return false }
+            let domain = authContext.mastodonAuthenticationBox.domain
+            let userID = authContext.mastodonAuthenticationBox.userID
+            let isVoted = votedBy?.contains(where: { $0.domain == domain && $0.id == userID }) ?? false
+            return !isVoted && !expired
         }
+        .assign(to: &viewModel.$isVotable)
+        
         // votesCount
-        status.poll?.publisher(for: \.votesCount)
+        poll.publisher(for: \.votesCount)
             .map { Int($0) }
             .assign(to: \.voteCount, on: viewModel)
             .store(in: &disposeBag)
         // voterCount
-        status.poll?.publisher(for: \.votersCount)
+        poll.publisher(for: \.votersCount)
             .map { Int($0) }
             .assign(to: \.voterCount, on: viewModel)
             .store(in: &disposeBag)
         // expireAt
-        status.poll?.publisher(for: \.expiresAt)
+        poll.publisher(for: \.expiresAt)
             .assign(to: \.expireAt, on: viewModel)
             .store(in: &disposeBag)
         // expired
-        status.poll?.publisher(for: \.expired)
+        poll.publisher(for: \.expired)
             .assign(to: \.expired, on: viewModel)
             .store(in: &disposeBag)
         // isVoting
-        status.poll?.publisher(for: \.isVoting)
+        poll.publisher(for: \.isVoting)
             .assign(to: \.isVoting, on: viewModel)
             .store(in: &disposeBag)
     }
 
-    private func configureCard(status: Status) {
+    private func configureCard(status: MastodonStatus) {
         let status = status.reblog ?? status
         if viewModel.mediaViewConfigurations.isEmpty {
-            status.publisher(for: \.card)
-                .assign(to: \.card, on: viewModel)
-                .store(in: &disposeBag)
+            viewModel.card = status.entity.card
         } else {
             viewModel.card = nil
         }
     }
     
-    private func configureToolbar(status: Status) {
+    private func configureToolbar(status: MastodonStatus) {
         let status = status.reblog ?? status
 
-        status.publisher(for: \.repliesCount)
-            .map(Int.init)
-            .assign(to: \.replyCount, on: viewModel)
-            .store(in: &disposeBag)
-        status.publisher(for: \.reblogsCount)
-            .map(Int.init)
-            .assign(to: \.reblogCount, on: viewModel)
-            .store(in: &disposeBag)
-        status.publisher(for: \.favouritesCount)
-            .map(Int.init)
-            .assign(to: \.favoriteCount, on: viewModel)
-            .store(in: &disposeBag)
-        status.publisher(for: \.editedAt)
-            .assign(to: \.editedAt, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.replyCount = status.entity.repliesCount ?? 0
+        
+        viewModel.reblogCount = status.entity.reblogsCount
+        
+        viewModel.favoriteCount = status.entity.favouritesCount
+        
+        viewModel.editedAt = status.entity.editedAt
 
         // relationship
-        status.publisher(for: \.rebloggedBy)
-            .map { [weak viewModel] rebloggedBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return rebloggedBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
-            .assign(to: \.isReblog, on: viewModel)
-            .store(in: &disposeBag)
-        
-        status.publisher(for: \.favouritedBy)
-            .map { [weak viewModel]favouritedBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return favouritedBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
-            .assign(to: \.isFavorite, on: viewModel)
-            .store(in: &disposeBag)
-
-        status.publisher(for: \.bookmarkedBy)
-            .map { [weak viewModel] bookmarkedBy in
-                guard let viewModel = viewModel else { return false }
-                guard let authContext = viewModel.authContext else { return false }
-                return bookmarkedBy.contains(where: {
-                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
-                })
-            }
-            .assign(to: \.isBookmark, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.isReblog = status.entity.reblogged == true
+        viewModel.isFavorite = status.entity.favourited == true
+        viewModel.isBookmark = status.entity.bookmarked == true
     }
     
-    private func configureFilter(status: Status) {
+    private func configureFilter(status: MastodonStatus) {
         let status = status.reblog ?? status
         
-        let content = status.content.lowercased()
+        guard let content = status.entity.content?.lowercased() else { return }
         
         Publishers.CombineLatest(
             viewModel.$activeFilters,

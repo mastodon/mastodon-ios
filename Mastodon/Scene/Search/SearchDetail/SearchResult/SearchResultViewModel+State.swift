@@ -123,6 +123,8 @@ extension SearchResultViewModel.State {
                     // discard result when state is not Loading
                     guard stateMachine.currentState is Loading else { return }
 
+                    let statuses = searchResults.statuses.map { MastodonStatus.fromEntity($0) }
+
                     let accounts = searchResults.accounts
 
                     let relationships: [Mastodon.Entity.Relationship]
@@ -135,9 +137,7 @@ extension SearchResultViewModel.State {
                         relationships = []
                     }
 
-                    let statusIDs = searchResults.statuses.map { $0.id }
-
-                    let isNoMore = accounts.isEmpty && statusIDs.isEmpty
+                    let isNoMore = accounts.isEmpty && statuses.isEmpty
 
                     if viewModel.searchScope == .all || isNoMore {
                         await enter(state: NoMore.self)
@@ -149,19 +149,18 @@ extension SearchResultViewModel.State {
                     if offset == nil {
                         viewModel.relationships = []
                         viewModel.accounts = []
-                        viewModel.statusFetchedResultsController.statusIDs = []
+                        await viewModel.dataController.reset()
                         viewModel.hashtags = []
                     }
-
-                    // due to combine relationships must be set first
                     
+                    // due to combine relationships must be set first
                     var existingRelationships = viewModel.relationships
                     for hashtag in relationships where !existingRelationships.contains(hashtag) {
                         existingRelationships.append(hashtag)
                     }
                     viewModel.relationships = existingRelationships
-
-                    viewModel.statusFetchedResultsController.append(statusIDs: statusIDs)
+                    
+                    await viewModel.dataController.appendRecords(statuses)
                     
                     var existingHashtags = viewModel.hashtags
                     for hashtag in searchResults.hashtags where !existingHashtags.contains(hashtag) {

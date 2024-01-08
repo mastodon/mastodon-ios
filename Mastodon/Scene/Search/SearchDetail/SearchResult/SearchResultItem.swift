@@ -12,7 +12,7 @@ import MastodonSDK
 
 enum SearchResultItem: Hashable {
     case account(Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)
-    case status(ManagedObjectRecord<Status>)
+    case status(MastodonStatus)
     case hashtag(tag: Mastodon.Entity.Tag)
     case bottomLoader(attribute: BottomLoaderAttribute)
 }

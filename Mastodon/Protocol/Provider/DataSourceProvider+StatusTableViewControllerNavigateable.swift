@@ -8,6 +8,7 @@
 import UIKit
 import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvider & StatusTableViewControllerNavigateableRelay {
 
@@ -55,7 +56,7 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
 extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvider & AuthContextProvider {
     
     @MainActor
-    private func statusRecord() async -> ManagedObjectRecord<Status>? {
+    private func statusRecord() async -> MastodonStatus? {
         guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return nil }
         let source = DataSourceItem.Source(indexPath: indexPathForSelectedRow)
         guard let item = await item(from: source) else { return nil }
@@ -64,15 +65,7 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
         case .status(let record):
             return record
         case .notification(let record):
-            let _statusRecord: ManagedObjectRecord<Status>? = try? await context.managedObjectContext.perform {
-                guard let notification = record.object(in: self.context.managedObjectContext) else { return nil }
-                guard let status = notification.status else { return nil }
-                return .init(objectID: status.objectID)
-            }
-            guard let statusRecord = _statusRecord else {
-                return nil
-            }
-            return statusRecord
+            return record.status
         default:
             return nil
         }

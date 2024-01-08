@@ -30,15 +30,7 @@ final class RemoteThreadViewModel: ThreadViewModel {
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
             
-            let managedObjectContext = context.managedObjectContext
-            let request = Status.sortedFetchRequest
-            request.fetchLimit = 1
-            request.predicate = Status.predicate(domain: domain, id: response.value.id)
-            guard let status = managedObjectContext.safeFetch(request).first else {
-                assertionFailure()
-                return
-            }
-            let threadContext = StatusItem.Thread.Context(status: .init(objectID: status.objectID))
+            let threadContext = StatusItem.Thread.Context(status: .fromEntity(response.value))
             self.root = .root(context: threadContext)
             
         }   // end Task
@@ -62,17 +54,9 @@ final class RemoteThreadViewModel: ThreadViewModel {
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
             
-            guard let statusID = response.value.status?.id else { return }
+            guard let status = response.value.status else { return }
             
-            let managedObjectContext = context.managedObjectContext
-            let request = Status.sortedFetchRequest
-            request.fetchLimit = 1
-            request.predicate = Status.predicate(domain: domain, id: statusID)
-            guard let status = managedObjectContext.safeFetch(request).first else {
-                assertionFailure()
-                return
-            }
-            let threadContext = StatusItem.Thread.Context(status: .init(objectID: status.objectID))
+            let threadContext = StatusItem.Thread.Context(status: .fromEntity(status))
             self.root = .root(context: threadContext)
         }   // end Task
     }

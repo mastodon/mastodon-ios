@@ -10,11 +10,20 @@ import Foundation
 
 public enum Persistence {
     case searchHistory
-
+    case homeTimeline(UserIdentifier)
+    case notificationsMentions(UserIdentifier)
+    case notificationsAll(UserIdentifier)
+    
     private var filename: String {
         switch self {
             case .searchHistory:
-                return "search_history"
+                return "search_history" // todo: @zeitschlag should this be user-scoped as well?
+            case let .homeTimeline(userIdentifier):
+                return "home_timeline_\(userIdentifier.uniqueUserDomainIdentifier)"
+            case let .notificationsMentions(userIdentifier):
+                return "notifications_mentions_\(userIdentifier.uniqueUserDomainIdentifier)"
+            case let .notificationsAll(userIdentifier):
+                return "notifications_all_\(userIdentifier.uniqueUserDomainIdentifier)"
         }
     }
 

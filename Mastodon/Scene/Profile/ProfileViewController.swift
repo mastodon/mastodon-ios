@@ -16,6 +16,7 @@ import MastodonLocalization
 import CoreDataStack
 import TabBarPager
 import XLPagerTabStrip
+import MastodonSDK
 
 protocol ProfileViewModelEditable {
     var isEdited: Bool { get }
@@ -916,6 +917,7 @@ extension ProfileViewController: MastodonMenuDelegate {
                 action: action,
                 menuContext: DataSourceFacade.MenuContext(
                     author: userRecord,
+                    authorEntity: nil,
                     statusViewModel: nil,
                     button: nil,
                     barButtonItem: self.moreMenuBarButtonItem
@@ -960,5 +962,20 @@ extension ProfileViewController: PagerTabStripNavigateable {
 private extension ProfileViewController {
     var currentInstance: Instance? {
         authContext.mastodonAuthenticationBox.authentication.instance(in: context.managedObjectContext)
+    }
+}
+
+extension ProfileViewController: DataSourceProvider {
+    func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
+        assertionFailure("Not required")
+        return nil
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Not required")
+    }
+    
+    func delete(status: MastodonStatus) {
+        assertionFailure("Not required")
     }
 }

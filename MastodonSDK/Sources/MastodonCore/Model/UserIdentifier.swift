@@ -13,6 +13,12 @@ public protocol UserIdentifier {
     var userID: Mastodon.Entity.Account.ID { get }
 }
 
+public extension UserIdentifier {
+    var uniqueUserDomainIdentifier: String {
+        "\(userID)@\(domain)"
+    }
+}
+
 public struct MastodonUserIdentifier: UserIdentifier {
     public let domain: String
     public var userID: Mastodon.Entity.Account.ID

@@ -56,6 +56,7 @@ class ProfileViewModel: NSObject {
     // @Published var protected: Bool? = nil
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
+    @MainActor
     init(context: AppContext, authContext: AuthContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
         self.authContext = authContext

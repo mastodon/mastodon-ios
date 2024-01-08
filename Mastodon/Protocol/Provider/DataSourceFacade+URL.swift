@@ -9,11 +9,11 @@ import Foundation
 import CoreDataStack
 import MetaTextKit
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     static func responseToURLAction(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>,
         url: URL
     ) async {
         let domain = provider.authContext.mastodonAuthenticationBox.domain

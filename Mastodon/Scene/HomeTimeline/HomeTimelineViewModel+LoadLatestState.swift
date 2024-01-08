@@ -11,6 +11,7 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 import MastodonCore
+import MastodonSDK
 
 extension HomeTimelineViewModel {
     class LoadLatestState: GKState {
@@ -83,15 +84,11 @@ extension HomeTimelineViewModel.LoadLatestState {
 
         guard let viewModel else { return }
         
-        let latestFeedRecords = viewModel.fetchedResultsController.records.prefix(APIService.onceRequestStatusMaxCount)
-        let parentManagedObjectContext = viewModel.fetchedResultsController.managedObjectContext
-        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        managedObjectContext.parent = parentManagedObjectContext
+        let latestFeedRecords = viewModel.dataController.records.prefix(APIService.onceRequestStatusMaxCount)
 
         Task {
             let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
-                guard let feed = record.object(in: managedObjectContext) else { return nil }
-                return feed.status?.id
+                return record.status?.id
             }
 
             do {
@@ -114,6 +111,22 @@ extension HomeTimelineViewModel.LoadLatestState {
                     if !latestStatusIDs.isEmpty {
                         viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
                     }
+                    
+                    var newRecords: [MastodonFeed] = newStatuses.map {
+                        MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
+                    }
+                    viewModel.dataController.records = {
+                        var oldRecords = viewModel.dataController.records
+                        for (i, record) in newRecords.enumerated() {
+                            if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {
+                                oldRecords[index] = record
+                                if newRecords.count > index {
+                                    newRecords.remove(at: i)
+                                }
+                            }
+                        }
+                        return (newRecords + oldRecords).removingDuplicates()
+                    }()
                 }
                 viewModel.timelineIsEmpty.value = latestStatusIDs.isEmpty && statuses.isEmpty
                 

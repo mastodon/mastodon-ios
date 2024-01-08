@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 // MARK: - DataSourceProvider
 extension SearchResultViewController: DataSourceProvider {
@@ -30,6 +31,14 @@ extension SearchResultViewController: DataSourceProvider {
         default:
             return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        viewModel.dataController.update(status: status)
+    }
+    
+    func delete(status: MastodonStatus) {
+        viewModel.dataController.deleteRecord(status)
     }
     
     @MainActor

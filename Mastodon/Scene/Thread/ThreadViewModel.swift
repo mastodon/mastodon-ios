@@ -32,6 +32,9 @@ class ThreadViewModel {
     @Published var threadContext: ThreadContext?
     @Published var hasPendingStatusEditReload = false
     
+    let onDismiss = PassthroughSubject<MastodonStatus, Never>()
+    let onEdit = PassthroughSubject<MastodonStatus, Never>()
+    
     private(set) lazy var loadThreadStateMachine: GKStateMachine = {
         let stateMachine = GKStateMachine(states: [
             LoadThreadState.Initial(viewModel: self),
@@ -55,40 +58,24 @@ class ThreadViewModel {
         self.root = optionalRoot
         self.mastodonStatusThreadViewModel = MastodonStatusThreadViewModel(context: context)
         // end init
-        
-        ManagedObjectObserver.observe(context: context.managedObjectContext)
-            .sink(receiveCompletion: { completion in
-                // do nohting
-            }, receiveValue: { [weak self] changes in
-                guard let self = self else { return }
-                
-                let objectIDs: [NSManagedObjectID] = changes.changeTypes.compactMap { changeType in
-                    guard case let .delete(object) = changeType else { return nil }
-                    return object.objectID
-                }
-                
-                self.delete(objectIDs: objectIDs)
-            })
-            .store(in: &disposeBag)
-        
+
         $root
             .receive(on: DispatchQueue.main)
             .sink { [weak self] root in
                 guard let self = self else { return }
                 guard case let .root(threadContext) = root else { return }
-                guard let status = threadContext.status.object(in: self.context.managedObjectContext) else { return }
+                let status = threadContext.status
                 
                 // bind threadContext
                 self.threadContext = .init(
-                    domain: status.domain,
                     statusID: status.id,
-                    replyToID: status.inReplyToID
+                    replyToID: status.entity.inReplyToID
                 )
                 
                 // bind titleView
                 self.navigationBarTitle = {
-                    let title = L10n.Scene.Thread.title(status.author.displayNameWithFallback)
-                    let content = MastodonContent(content: title, emojis: status.author.emojis.asDictionary)
+                    let title = L10n.Scene.Thread.title(status.entity.account.displayNameWithFallback)
+                    let content = MastodonContent(content: title, emojis: status.entity.account.emojis?.asDictionary ?? [:])
                     return try? MastodonMetaContent.convert(document: content)
                 }()
             }
@@ -97,8 +84,21 @@ class ThreadViewModel {
         context.publisherService
             .statusPublishResult
             .sink { [weak self] value in
-                if case let Result.success(result) = value, case StatusPublishResult.edit = result {
-                    self?.hasPendingStatusEditReload = true
+                guard let self else { return }
+                if case let Result.success(result) = value {
+                    switch result {
+                    case let .edit(content):
+                        let status = content.value
+                        let mastodonStatus = MastodonStatus.fromEntity(status)
+                        self.hasPendingStatusEditReload = true
+                        if status.id == root?.record.id {
+                            self.root = .root(context: .init(status: mastodonStatus))
+                        }
+                        self.loadThreadStateMachine.enter(LoadThreadState.Loading.self)
+                        self.onEdit.send(mastodonStatus)
+                    case .post:
+                        self.loadThreadStateMachine.enter(LoadThreadState.Loading.self)
+                    }
                 }
             }
             .store(in: &disposeBag)
@@ -110,22 +110,8 @@ class ThreadViewModel {
 extension ThreadViewModel {
     
     struct ThreadContext {
-        let domain: String
         let statusID: Mastodon.Entity.Status.ID
         let replyToID: Mastodon.Entity.Status.ID?
     }
     
-}
-
-extension ThreadViewModel {
-    func delete(objectIDs: [NSManagedObjectID]) {
-        if let root = self.root,
-           case let .root(threadContext) = root,
-           objectIDs.contains(threadContext.status.objectID)
-        {
-            self.root = nil
-        }
-
-        self.mastodonStatusThreadViewModel.delete(objectIDs: objectIDs)
-    }
 }

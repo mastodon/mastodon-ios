@@ -195,4 +195,38 @@ extension APIService {
 
         return try result.get()
     }
+    
+    public func toggleShowReblogs(
+      for user: Mastodon.Entity.Account,
+      authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
+
+        let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
+        
+        let relationship = try await Mastodon.API.Account.relationships(
+            session: session,
+            domain: authenticationBox.domain,
+            query: .init(ids: [user.id]),
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput().value.first
+
+        let oldShowReblogs = relationship?.showingReblogs == true
+        let newShowReblogs = (oldShowReblogs == false)
+
+        do {
+            let response = try await Mastodon.API.Account.follow(
+                session: session,
+                domain: authenticationBox.domain,
+                accountID: user.id,
+                followQueryType: .follow(query: .init(reblogs: newShowReblogs)),
+                authorization: authenticationBox.userAuthorization
+            ).singleOutput()
+
+            result = .success(response)
+        } catch {
+            result = .failure(error)
+        }
+
+        return try result.get()
+    }
 }

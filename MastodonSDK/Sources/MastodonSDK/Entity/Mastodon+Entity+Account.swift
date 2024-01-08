@@ -104,6 +104,15 @@ extension Mastodon.Entity.Account: Equatable {
 
 //MARK: - Convenience
 extension Mastodon.Entity.Account {
+    public var acctWithDomain: String {
+        if !acct.contains("@") {
+            // Safe concat due to username cannot contains "@"
+            return username + "@" + (domain ?? "")
+        } else {
+            return acct
+        }
+    }
+    
     public func acctWithDomainIfMissing(_ localDomain: String) -> String {
         guard acct.contains("@") else {
             return "\(acct)@\(localDomain)"

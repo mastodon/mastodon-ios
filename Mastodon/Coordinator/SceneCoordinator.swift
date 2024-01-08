@@ -569,7 +569,10 @@ public extension SceneCoordinator {
     @MainActor
     func showLoading(on viewController: UIViewController?) {
         guard let viewController else { return }
-
+        
+        /// Don't add HUD twice
+        guard MBProgressHUD.forView(viewController.view) == nil else { return }
+        
         MBProgressHUD.showAdded(to: viewController.view, animated: true)
     }
 
@@ -626,7 +629,10 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
                 try await self.appContext.authenticationService.signOutMastodonUser(
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
-
+                let userIdentifier = authContext.mastodonAuthenticationBox
+                FileManager.default.invalidateHomeTimelineCache(for: userIdentifier)
+                FileManager.default.invalidateNotificationsAll(for: userIdentifier)
+                FileManager.default.invalidateNotificationsMentions(for: userIdentifier)
                 self.setup()
             }
 

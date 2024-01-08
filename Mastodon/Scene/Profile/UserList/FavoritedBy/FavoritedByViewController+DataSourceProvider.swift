@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 extension FavoritedByViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
@@ -25,6 +26,14 @@ extension FavoritedByViewController: DataSourceProvider {
             case .bottomHeader(_), .bottomLoader:
                 return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Not required")
+    }
+    
+    func delete(status: MastodonStatus) {
+        assertionFailure("Not required")
     }
     
     @MainActor

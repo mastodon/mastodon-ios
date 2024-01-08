@@ -31,7 +31,7 @@ extension HomeTimelineViewModel.LoadOldestState {
     class Initial: HomeTimelineViewModel.LoadOldestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
-            guard !viewModel.fetchedResultsController.records.isEmpty else { return false }
+            guard !viewModel.dataController.records.isEmpty else { return false }
             return stateClass == Loading.self
         }
     }
@@ -46,19 +46,13 @@ extension HomeTimelineViewModel.LoadOldestState {
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            guard let lastFeedRecord = viewModel.fetchedResultsController.records.last else {
+            guard let lastFeedRecord = viewModel.dataController.records.last else {
                 stateMachine.enter(Idle.self)
                 return
             }
             
             Task {
-                let managedObjectContext = viewModel.fetchedResultsController.managedObjectContext
-                let _maxID: Mastodon.Entity.Status.ID? = try await managedObjectContext.perform {
-                    guard let feed = lastFeedRecord.object(in: managedObjectContext),
-                          let status = feed.status
-                    else { return nil }
-                    return status.id
-                }
+                let _maxID = lastFeedRecord.status?.id
                 
                 guard let maxID = _maxID else {
                     await self.enter(state: Fail.self)

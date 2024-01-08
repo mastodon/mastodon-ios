@@ -27,34 +27,31 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
+        #warning("TODO: Remove this with IOS-181, IOS-182")
         let managedObjectContext = self.backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
-            _ = Persistence.Status.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.Status.PersistContext(
-                    domain: domain,
-                    entity: response.value,
-                    me: me,
-                    statusCache: nil,
-                    userCache: nil,
-                    networkDate: response.networkDate
+           let me = authenticationBox.authentication.user(in: managedObjectContext)
+
+            if let poll = response.value.poll {
+                _ = Persistence.Poll.createOrMerge(
+                    in: managedObjectContext,
+                    context: .init(domain: domain, entity: poll, me: me, networkDate: response.networkDate)
                 )
-            )
+           }
         }
-        
+
         return response
     }
     
     public func deleteStatus(
-        status: ManagedObjectRecord<Status>,
+        status: MastodonStatus,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
         let authorization = authenticationBox.userAuthorization
         
         let managedObjectContext = backgroundManagedObjectContext
         let _query: Mastodon.API.Statuses.DeleteStatusQuery? = try? await managedObjectContext.perform {
-            guard let _status = status.object(in: managedObjectContext) else { return nil }
+            let _status = status.entity
             let status = _status.reblog ?? _status
             return Mastodon.API.Statuses.DeleteStatusQuery(id: status.id)
         }
@@ -68,12 +65,7 @@ extension APIService {
             query: query,
             authorization: authorization
         ).singleOutput()
-        
-        try await managedObjectContext.performChanges {
-            guard let status = status.object(in: managedObjectContext) else { return }
-            managedObjectContext.delete(status)
-        }
-        
+
         return response
     }
     

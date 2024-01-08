@@ -74,7 +74,6 @@ extension ThreadViewModel.LoadThreadState {
                                                                                           authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
                     
                     viewModel.mastodonStatusThreadViewModel.appendAncestor(
-                        domain: threadContext.domain,
                         nodes: MastodonStatusThreadViewModel.Node.replyToThread(
                             for: threadContext.replyToID,
                             from: response.value.ancestors
@@ -82,9 +81,8 @@ extension ThreadViewModel.LoadThreadState {
                     )
 
                     viewModel.mastodonStatusThreadViewModel.appendDescendant(
-                        domain: threadContext.domain,
                         nodes: response.value.descendants.map { status in
-                            return .init(statusID: status.id, children: [])
+                            return .init(status: .fromEntity(status), children: [])
                         }
                     )
                 } catch {
@@ -115,8 +113,7 @@ extension ThreadViewModel.LoadThreadState {
     
     class NoMore: ThreadViewModel.LoadThreadState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return false
+            stateClass is Loading.Type
         }
     }
-    
 }

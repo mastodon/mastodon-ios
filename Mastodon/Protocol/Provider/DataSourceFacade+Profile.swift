@@ -12,23 +12,38 @@ import MastodonSDK
 
 extension DataSourceFacade {
     
+    @MainActor
     static func coordinateToProfileScene(
         provider: DataSourceProvider & AuthContextProvider,
         target: StatusTarget,
-        status: ManagedObjectRecord<Status>
+        status: MastodonStatus
     ) async {
-        let _redirectRecord = await DataSourceFacade.author(
-            managedObjectContext: provider.context.managedObjectContext,
-            status: status,
-            target: target
-        )
+        let acct: String
+        switch target {
+        case .status:
+            acct = status.reblog?.entity.account.acct ?? status.entity.account.acct
+        case .reblog:
+            acct = status.entity.account.acct
+        }
+        
+        provider.coordinator.showLoading()
+        
+        let _redirectRecord = try? await Mastodon.API.Account.lookupAccount(
+            session: .shared,
+            domain: provider.authContext.mastodonAuthenticationBox.domain,
+            query: .init(acct: acct),
+            authorization: provider.authContext.mastodonAuthenticationBox.userAuthorization
+        ).singleOutput().value
+        
+        provider.coordinator.hideLoading()
+                
         guard let redirectRecord = _redirectRecord else {
             assertionFailure()
             return
         }
         await coordinateToProfileScene(
             provider: provider,
-            user: redirectRecord
+            account: redirectRecord
         )
     }
     
@@ -83,9 +98,10 @@ extension DataSourceFacade {
 
 extension DataSourceFacade {
 
+    @MainActor
     static func coordinateToProfileScene(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>,
+        status: MastodonStatus,
         mention: String,        // username,
         userInfo: [AnyHashable: Any]?
     ) async {
@@ -98,13 +114,10 @@ extension DataSourceFacade {
             return
         }
     
-        let managedObjectContext = provider.context.managedObjectContext
-        let mentions = try? await managedObjectContext.perform {
-            return status.object(in: managedObjectContext)?.mentions ?? []
-        }
+        let mentions = status.entity.mentions ?? []
         
-        guard let mention = mentions?.first(where: { $0.url == href }) else {
-            _  = await provider.coordinator.present(
+        guard let mention = mentions.first(where: { $0.url == href }) else {
+            _  = provider.coordinator.present(
                 scene: .safari(url: url),
                 from: provider,
                 transition: .safariPresent(animated: true, completion: nil)
@@ -131,7 +144,7 @@ extension DataSourceFacade {
             }
         }()
         
-        _ = await provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .profile(viewModel: profileViewModel),
             from: provider,
             transition: .show
