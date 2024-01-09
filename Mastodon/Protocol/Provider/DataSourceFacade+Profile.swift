@@ -57,10 +57,6 @@ extension DataSourceFacade {
 
         Task {
             do {
-                guard let account = try await provider.context.apiService.fetchUser(username: username,
-                                                                                    domain: domain,
-                                                                                    authenticationBox: provider.authContext.mastodonAuthenticationBox) else {
-                    return provider.coordinator.hideLoading()
                 guard let account = try await provider.context.apiService.fetchUser(
                     username: username,
                     domain: domain,
