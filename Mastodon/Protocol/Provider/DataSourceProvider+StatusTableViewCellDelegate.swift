@@ -122,16 +122,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         didTapCardWithURL url: URL
     ) {
         Task {
-            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
-            guard let item = await item(from: source) else {
-                assertionFailure()
-                return
-            }
-            guard case let .status(status) = item else {
-                assertionFailure("only works for status data provider")
-                return
-            }
-
             await DataSourceFacade.responseToURLAction(
                 provider: self,
                 url: url
@@ -146,16 +136,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         didTapURL url: URL
     ) {
         Task {
-            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
-            guard let item = await item(from: source) else {
-                assertionFailure()
-                return
-            }
-            guard case let .status(status) = item else {
-                assertionFailure("only works for status data provider")
-                return
-            }
-
             await DataSourceFacade.responseToURLAction(
                 provider: self,
                 url: url
@@ -682,21 +662,21 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 return
             }
             switch item {
-                case .status(let status):
-                    await DataSourceFacade.coordinateToStatusThreadScene(
-                        provider: self,
-                        target: .status,    // remove reblog wrapper
-                        status: status
-                    )
-                case .account(let account, _):
-                    await DataSourceFacade.coordinateToProfileScene(
-                        provider: self,
-                        account: account
-                    )
-                case .notification:
-                    assertionFailure("TODO")
-                case .hashtag(_):
-                    assertionFailure("TODO")
+            case .status(let status):
+                await DataSourceFacade.coordinateToStatusThreadScene(
+                    provider: self,
+                    target: .status,    // remove reblog wrapper
+                    status: status
+                )
+            case .account(let account, _):
+                await DataSourceFacade.coordinateToProfileScene(
+                    provider: self,
+                    account: account
+                )
+            case .notification:
+                assertionFailure("TODO")
+            case .hashtag(_):
+                assertionFailure("TODO")
             }
         }
     }

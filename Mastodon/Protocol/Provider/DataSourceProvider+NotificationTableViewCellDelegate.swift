@@ -480,18 +480,18 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
             switch item {
-                case .status(let status):
-                    await DataSourceFacade.coordinateToStatusThreadScene(
-                        provider: self,
-                        target: .status,    // remove reblog wrapper
-                        status: status
-                    )
-                case .account(let account, let relationship):
-                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
-                case .notification:
-                    assertionFailure("TODO")
-                case .hashtag(_):
-                    assertionFailure("TODO")
+            case .status(let status):
+                await DataSourceFacade.coordinateToStatusThreadScene(
+                    provider: self,
+                    target: .status,    // remove reblog wrapper
+                    status: status
+                )
+            case .account(let account, _):
+                await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+            case .notification:
+                assertionFailure("TODO")
+            case .hashtag(_):
+                assertionFailure("TODO")
             }
         }   // end Task
     }
