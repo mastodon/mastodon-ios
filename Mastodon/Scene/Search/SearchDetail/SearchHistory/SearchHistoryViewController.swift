@@ -75,7 +75,7 @@ extension SearchHistoryViewController: UICollectionViewDelegate {
 
             switch item {
                 case .account(account: let account, relationship: _):
-                    DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
 
                 case .hashtag(let tag):
                     await DataSourceFacade.coordinateToHashtagScene(

@@ -41,6 +41,7 @@ extension DataSourceFacade {
             assertionFailure()
             return
         }
+
         await coordinateToProfileScene(
             provider: provider,
             account: redirectRecord
@@ -100,30 +101,26 @@ extension DataSourceFacade {
     }
 
     @MainActor
-    static func coordinateToProfileScene(
+    public static func coordinateToProfileScene(
         provider: ViewControllerWithDependencies & AuthContextProvider,
         account: Mastodon.Entity.Account
-    ) {
+    ) async {
+        guard let me = provider.authContext.mastodonAuthenticationBox.authentication.account(),
+              let relationship = try? await provider.context.apiService.relationship(forAccounts: [account], authenticationBox: provider.authContext.mastodonAuthenticationBox).value.first else { return }
 
-        Task { @MainActor in
+        let profileViewModel = ProfileViewModel(
+            context: provider.context,
+            authContext: provider.authContext,
+            account: account,
+            relationship: relationship,
+            me: me
+        )
 
-            guard let me = provider.authContext.mastodonAuthenticationBox.authentication.account(),
-                  let relationship = try? await provider.context.apiService.relationship(forAccounts: [account], authenticationBox: provider.authContext.mastodonAuthenticationBox).value.first else { return }
-
-            let profileViewModel = ProfileViewModel(
-                context: provider.context,
-                authContext: provider.authContext,
-                account: account,
-                relationship: relationship,
-                me: me
-            )
-
-            _ = provider.coordinator.present(
-                scene: .profile(viewModel: profileViewModel),
-                from: provider,
-                transition: .show
-            )
-        }
+        _ = provider.coordinator.present(
+            scene: .profile(viewModel: profileViewModel),
+            from: provider,
+            transition: .show
+        )
     }
 }
 

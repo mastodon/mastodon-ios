@@ -99,7 +99,9 @@ extension DiscoveryForYouViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
 
-        DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+        Task {
+            await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+        }
     }
 
 }

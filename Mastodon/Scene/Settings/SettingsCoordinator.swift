@@ -216,8 +216,11 @@ extension SettingsCoordinator: ServerDetailsViewControllerDelegate {
 }
 
 extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
-    @MainActor func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account) {
-        DataSourceFacade.coordinateToProfileScene(provider: viewController, account: account)
+    @MainActor
+    func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account) {
+        Task {
+            await DataSourceFacade.coordinateToProfileScene(provider: viewController, account: account)
+        }
     }
     
     func sendEmailToAdmin(_ viewController: AboutInstanceViewController, emailAddress: String) {

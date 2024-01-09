@@ -90,8 +90,10 @@ extension SuggestionAccountViewController: UITableViewDelegate {
         guard let tableViewDiffableDataSource = viewModel.tableViewDiffableDataSource else { return }
         guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
-            case .account(let account, _):
-                DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+        case .account(let account, _):
+            Task {
+                await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+            }
         }
 
         tableView.deselectRow(at: indexPath, animated: true)

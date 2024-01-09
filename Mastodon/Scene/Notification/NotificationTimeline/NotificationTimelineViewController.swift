@@ -295,7 +295,7 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                     )
                 } else {
 
-                    DataSourceFacade.coordinateToProfileScene(provider: self, account: notification.account)
+                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: notification.account)
                 }
             default:
                 break
