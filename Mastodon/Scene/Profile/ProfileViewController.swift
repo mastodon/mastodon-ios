@@ -221,7 +221,7 @@ extension ProfileViewController {
                 }
             }
 
-            if let suspended = self.viewModel.account.suspended, suspended == true {
+            guard self.viewModel.account.suspended == false else {
                 return
             }
 
