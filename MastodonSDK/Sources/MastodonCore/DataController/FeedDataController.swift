@@ -77,6 +77,7 @@ private extension FeedDataController {
     func load(kind: MastodonFeed.Kind, sinceId: MastodonStatus.ID?) async throws -> [MastodonFeed] {
         switch kind {
         case .home:
+            await context.authenticationService.authenticationServiceProvider.fetchAccounts(apiService: context.apiService)
             return try await context.apiService.homeTimeline(sinceID: sinceId, authenticationBox: authContext.mastodonAuthenticationBox)
                 .value.map { .fromStatus(.fromEntity($0), kind: .home) }
         case .notificationAll:
