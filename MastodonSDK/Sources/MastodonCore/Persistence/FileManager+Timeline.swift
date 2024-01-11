@@ -3,24 +3,52 @@
 import Foundation
 import MastodonSDK
 
-extension FileManager {
-    private static let cacheItemsLimit: Int = 100 // max number of items to cache
-    
+public extension FileManager {
+
     // Retrieve
-    public func cachedHomeTimeline(for userId: UserIdentifier) throws -> [MastodonStatus] {
+    func cachedHomeTimeline(for userId: UserIdentifier) throws -> [MastodonStatus] {
         try cached(timeline: .homeTimeline(userId)).map(MastodonStatus.fromEntity)
     }
-    
-    public func cachedNotificationsAll(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
+
+    func cachedNotificationsAll(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
         try cached(timeline: .notificationsAll(userId))
     }
-    
-    public func cachedNotificationsMentions(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
+
+    func cachedNotificationsMentions(for userId: UserIdentifier) throws -> [Mastodon.Entity.Notification] {
         try cached(timeline: .notificationsMentions(userId))
     }
-    
 
-    private func cached<T: Decodable>(timeline: Persistence) throws -> [T] {
+    // Create
+    func cacheHomeTimeline(items: [MastodonStatus], for userIdentifier: UserIdentifier) {
+        cache(items.map { $0.entity }, timeline: .homeTimeline(userIdentifier))
+    }
+
+    func cacheNotificationsAll(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
+        cache(items, timeline: .notificationsAll(userIdentifier))
+    }
+
+    func cacheNotificationsMentions(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
+        cache(items, timeline: .notificationsMentions(userIdentifier))
+    }
+
+    // Delete
+    func invalidateHomeTimelineCache(for userId: UserIdentifier) {
+        invalidate(timeline: .homeTimeline(userId))
+    }
+
+    func invalidateNotificationsAll(for userId: UserIdentifier) {
+        invalidate(timeline: .notificationsAll(userId))
+    }
+
+    func invalidateNotificationsMentions(for userId: UserIdentifier) {
+        invalidate(timeline: .notificationsMentions(userId))
+    }
+}
+
+private extension FileManager {
+    static let cacheItemsLimit: Int = 100 // max number of items to cache
+
+    func cached<T: Decodable>(timeline: Persistence) throws -> [T] {
         guard let cachesDirectory else { return [] }
 
         let filePath = timeline.filepath(baseURL: cachesDirectory)
@@ -36,20 +64,8 @@ extension FileManager {
         }
     }
     
-    // Create
-    public func cacheHomeTimeline(items: [MastodonStatus], for userIdentifier: UserIdentifier) {
-        cache(items.map { $0.entity }, timeline: .homeTimeline(userIdentifier))
-    }
-    
-    public func cacheNotificationsAll(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
-        cache(items, timeline: .notificationsAll(userIdentifier))
-    }
-    
-    public func cacheNotificationsMentions(items: [Mastodon.Entity.Notification], for userIdentifier: UserIdentifier) {
-        cache(items, timeline: .notificationsMentions(userIdentifier))
-    }
-    
-    private func cache<T: Encodable>(_ items: [T], timeline: Persistence) {
+
+    func cache<T: Encodable>(_ items: [T], timeline: Persistence) {
         guard let cachesDirectory else { return }
         
         let processableItems: [T]
@@ -68,21 +84,8 @@ extension FileManager {
             debugPrint(error.localizedDescription)
         }
     }
-    
-    // Delete
-    public func invalidateHomeTimelineCache(for userId: UserIdentifier) {
-        invalidate(timeline: .homeTimeline(userId))
-    }
-    
-    public func invalidateNotificationsAll(for userId: UserIdentifier) {
-        invalidate(timeline: .notificationsAll(userId))
-    }
-    
-    public func invalidateNotificationsMentions(for userId: UserIdentifier) {
-        invalidate(timeline: .notificationsMentions(userId))
-    }
-    
-    private func invalidate(timeline: Persistence) {
+
+    func invalidate(timeline: Persistence) {
         guard let cachesDirectory else { return }
 
         let filePath = timeline.filepath(baseURL: cachesDirectory)
