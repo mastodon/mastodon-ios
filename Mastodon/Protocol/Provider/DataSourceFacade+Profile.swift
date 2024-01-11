@@ -56,22 +56,20 @@ extension DataSourceFacade {
     ) async {
         provider.coordinator.showLoading()
 
-        Task {
-            do {
-                guard let account = try await provider.context.apiService.fetchUser(
-                    username: username,
-                    domain: domain,
-                    authenticationBox: provider.authContext.mastodonAuthenticationBox
-                ) else {
-                    return provider.coordinator.hideLoading()
-                }
-
-                provider.coordinator.hideLoading()
-
-                await coordinateToProfileScene(provider: provider, account: account)
-            } catch {
-                provider.coordinator.hideLoading()
+        do {
+            guard let account = try await provider.context.apiService.fetchUser(
+                username: username,
+                domain: domain,
+                authenticationBox: provider.authContext.mastodonAuthenticationBox
+            ) else {
+                return provider.coordinator.hideLoading()
             }
+
+            provider.coordinator.hideLoading()
+
+            await coordinateToProfileScene(provider: provider, account: account)
+        } catch {
+            provider.coordinator.hideLoading()
         }
     }
 
@@ -83,7 +81,6 @@ extension DataSourceFacade {
     ) async {
         provider.coordinator.showLoading()
 
-        Task {
             do {
                 let account = try await provider.context.apiService.accountInfo(
                     domain: domain,
@@ -96,7 +93,6 @@ extension DataSourceFacade {
                 await coordinateToProfileScene(provider: provider, account: account)
             } catch {
                 provider.coordinator.hideLoading()
-            }
         }
     }
 

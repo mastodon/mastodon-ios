@@ -142,13 +142,12 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
 
         authenticationViewModel
             .authenticated.sink { (domain, account) in
-                Task {
+                Task { @MainActor in
                     do {
                         _ = try await self.context.authenticationService.activeMastodonUser(domain: domain, userID: account.id)
                         FileManager.default.store(account: account, forUserID: MastodonUserIdentifier(domain: domain, userID: account.id))
-                        Task { @MainActor in
-                            self.coordinator.setup()
-                        }
+
+                        self.coordinator.setup()
                     } catch {
                         assertionFailure(error.localizedDescription)
                     }
