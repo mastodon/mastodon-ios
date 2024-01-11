@@ -19,7 +19,6 @@ import CoreDataStack
 extension NotificationView {
     public final class ViewModel: ObservableObject {
         public var disposeBag = Set<AnyCancellable>()
-        public var objects = Set<AnyHashable>()
 
         @Published public var context: AppContext?
         @Published public var authContext: AuthContext?

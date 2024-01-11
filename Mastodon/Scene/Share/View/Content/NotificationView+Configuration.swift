@@ -37,8 +37,6 @@ extension NotificationView {
 
 extension NotificationView {
     public func configure(notification: MastodonNotification) {
-        viewModel.objects.insert(notification)
-
         configureAuthor(notification: notification)
 
         switch notification.entity.type {

@@ -51,33 +51,6 @@ extension Mastodon.Entity {
         public let source: Source?
         public let suspended: Bool?
         public let muteExpiresAt: Date?
-
-        internal init(id: Mastodon.Entity.Account.ID, username: String, acct: String, url: String, displayName: String, note: String, avatar: String, avatarStatic: String? = nil, header: String, headerStatic: String? = nil, locked: Bool, emojis: [Mastodon.Entity.Emoji] = [], discoverable: Bool? = nil, createdAt: Date, lastStatusAt: Date? = nil, statusesCount: Int, followersCount: Int, followingCount: Int, moved: Mastodon.Entity.Account? = nil, fields: [Mastodon.Entity.Field]? = nil, bot: Bool? = nil, source: Mastodon.Entity.Source? = nil, suspended: Bool? = nil, muteExpiresAt: Date? = nil) {
-            self.id = id
-            self.username = username
-            self.acct = acct
-            self.url = url
-            self.displayName = displayName
-            self.note = note
-            self.avatar = avatar
-            self.avatarStatic = avatarStatic
-            self.header = header
-            self.headerStatic = headerStatic
-            self.locked = locked
-            self.emojis = emojis
-            self.discoverable = discoverable
-            self.createdAt = createdAt
-            self.lastStatusAt = lastStatusAt
-            self.statusesCount = statusesCount
-            self.followersCount = followersCount
-            self.followingCount = followingCount
-            self.moved = moved
-            self.fields = fields
-            self.bot = bot
-            self.source = source
-            self.suspended = suspended
-            self.muteExpiresAt = muteExpiresAt
-        }
     }
 }
 
