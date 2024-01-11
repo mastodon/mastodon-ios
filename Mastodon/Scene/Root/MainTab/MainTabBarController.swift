@@ -34,102 +34,13 @@ class MainTabBarController: UITabBarController {
     )
     
     @Published var currentTab: Tab = .home
-        
-    enum Tab: Int, CaseIterable {
-        case home
-        case search
-        case compose
-        case notifications
-        case me
 
-        var tag: Int {
-            return rawValue
-        }
-        
-        var title: String {
-            switch self {
-            case .home:             return L10n.Common.Controls.Tabs.home
-            case .search:           return L10n.Common.Controls.Tabs.searchAndExplore
-            case .compose:          return L10n.Common.Controls.Actions.compose
-            case .notifications:    return L10n.Common.Controls.Tabs.notifications
-            case .me:               return L10n.Common.Controls.Tabs.profile
-            }
-        }
+    let homeTimelineViewController: HomeTimelineViewController
+    let searchViewController: SearchViewController
+    let composeViewController: UIViewController // placeholder
+    let notificationViewController: NotificationViewController
+    let meProfileViewController: ProfileViewController
 
-        var inputLabels: [String]? {
-            switch self {
-            case .home, .compose, .notifications, .me:
-                return nil
-            case .search:
-                return [
-                    L10n.Common.Controls.Tabs.A11Y.search,
-                    L10n.Common.Controls.Tabs.A11Y.explore,
-                    L10n.Common.Controls.Tabs.searchAndExplore
-                ]
-            }
-        }
-        
-        var image: UIImage {
-            switch self {
-                case .home:             return UIImage(systemName: "house")!
-                case .search:           return UIImage(systemName: "magnifyingglass")!
-                case .compose:          return UIImage(systemName: "square.and.pencil")!
-                case .notifications:    return UIImage(systemName: "bell")!
-                case .me:               return UIImage(systemName: "person")!
-            }
-        }
-        
-        var selectedImage: UIImage {
-            return image.withTintColor(Asset.Colors.Brand.blurple.color, renderingMode: .alwaysOriginal)
-        }
-
-        var largeImage: UIImage {
-            return image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
-        }
-
-        @MainActor
-        func viewController(context: AppContext, authContext: AuthContext?, coordinator: SceneCoordinator) -> UIViewController {
-            guard let authContext else { return UITableViewController() }
-
-            let viewController: UIViewController
-            switch self {
-            case .home:
-                let _viewController = HomeTimelineViewController()
-                _viewController.context = context
-                _viewController.coordinator = coordinator
-                _viewController.viewModel = HomeTimelineViewModel(context: context, authContext: authContext)
-                viewController = _viewController
-            case .search:
-                let _viewController = SearchViewController()
-                _viewController.context = context
-                _viewController.coordinator = coordinator
-                _viewController.viewModel = .init(context: context, authContext: authContext)
-                viewController = _viewController
-            case .compose:
-                viewController = UIViewController()
-            case .notifications:
-                let _viewController = NotificationViewController()
-                _viewController.context = context
-                _viewController.coordinator = coordinator
-                _viewController.viewModel = .init(context: context, authContext: authContext)
-                viewController = _viewController
-            case .me:
-                #warning("What happens if there's no me at the beginning? I guess we _do_ need another migration?")
-                guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return UIViewController() }
-                
-                let _viewController = ProfileViewController()
-                _viewController.context = context
-                _viewController.coordinator = coordinator
-                _viewController.viewModel = ProfileViewModel(context: context, authContext: authContext, account: me, relationship: nil, me: me)
-                viewController = _viewController
-            }
-            viewController.title = self.title
-            return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
-        }
-    }
-    
-    var _viewControllers: [UIViewController] = []
-    
     private(set) var isReadyForWizardAvatarButton = false
     
     // output
@@ -146,15 +57,43 @@ class MainTabBarController: UITabBarController {
         self.context = context
         self.coordinator = coordinator
         self.authContext = authContext
+
+        homeTimelineViewController = HomeTimelineViewController()
+        homeTimelineViewController.configureTabBarItem(with: .home)
+        homeTimelineViewController.context = context
+        homeTimelineViewController.coordinator = coordinator
+
+        searchViewController = SearchViewController()
+        searchViewController.configureTabBarItem(with: .search)
+        searchViewController.context = context
+        searchViewController.coordinator = coordinator
+
+        composeViewController = UIViewController()
+        composeViewController.configureTabBarItem(with: .compose)
+
+        notificationViewController = NotificationViewController()
+        notificationViewController.configureTabBarItem(with: .notifications)
+        notificationViewController.context = context
+        notificationViewController.coordinator = coordinator
+
+        meProfileViewController = ProfileViewController()
+        meProfileViewController.context = context
+        meProfileViewController.coordinator = coordinator
+        meProfileViewController.configureTabBarItem(with: .me)
+
+        if let authContext {
+            notificationViewController.viewModel = NotificationViewModel(context: context, authContext: authContext)
+            homeTimelineViewController.viewModel = HomeTimelineViewModel(context: context, authContext: authContext)
+            searchViewController.viewModel = SearchViewModel(context: context, authContext: authContext)
+        }
+
         super.init(nibName: nil, bundle: nil)
+
+        viewControllers = [homeTimelineViewController, searchViewController, composeViewController, notificationViewController, meProfileViewController].map { AdaptiveStatusBarStyleNavigationController(rootViewController: $0) }
         tabBar.addInteraction(largeContentViewerInteraction)
-        
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
 extension MainTabBarController {
@@ -171,25 +110,8 @@ extension MainTabBarController {
         view.backgroundColor = .systemBackground
 
         // seealso: `ThemeService.apply(theme:)`
-        let tabs = Tab.allCases
-        var viewControllers = [UIViewController]()
-        
-        for tab in tabs {
-            let viewController = tab.viewController(context: context, authContext: authContext, coordinator: coordinator)
-            viewController.tabBarItem.tag = tab.tag
-            viewController.tabBarItem.title = tab.title     // needs for acessiblity large content label
-            viewController.tabBarItem.image = tab.image.imageWithoutBaseline()
-            viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
-            viewController.tabBarItem.accessibilityLabel = tab.title
-            viewController.tabBarItem.accessibilityUserInputLabels = tab.inputLabels
-            viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-            viewControllers.append(viewController)
-        }
-        
-        _viewControllers = viewControllers
         setViewControllers(viewControllers, animated: false)
         selectedIndex = 0
-        
         
         // hacky workaround for FB11986255 (Setting accessibilityUserInputLabels on a UITabBarItem has no effect)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
@@ -201,7 +123,7 @@ extension MainTabBarController {
         context.apiService.error
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
-                guard let self = self, let coordinator = self.coordinator else { return }
+                guard let self, let coordinator = self.coordinator else { return }
                 switch error {
                     case .implicit:
                         break
@@ -228,15 +150,14 @@ extension MainTabBarController {
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] authentication, currentTab in
-            guard let self = self else { return }
-            guard let notificationViewController = self.notificationViewController else { return }
-            
+            guard let self else { return }
+
             let authentication = self.authContext?.mastodonAuthenticationBox.userAuthorization
             let hasUnreadPushNotification: Bool = authentication.flatMap { authentication in
                 let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.accessToken)
                 return count > 0
             } ?? false
-            
+
             let image: UIImage
             if hasUnreadPushNotification {
                 let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
@@ -244,17 +165,18 @@ extension MainTabBarController {
             } else {
                 image = Tab.notifications.image
             }
-            
+
             notificationViewController.tabBarItem.image = image.imageWithoutBaseline()
             notificationViewController.navigationController?.tabBarItem.image = image.imageWithoutBaseline()
         }
         .store(in: &disposeBag)
+
         layoutAvatarButton()
-        
+
         $avatarURL
             .receive(on: DispatchQueue.main)
             .sink { [weak self] avatarURL in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.avatarButton.avatarImageView.setImage(
                     url: avatarURL,
                     placeholder: .placeholder(color: .systemFill),
@@ -262,7 +184,7 @@ extension MainTabBarController {
                 )
             }
             .store(in: &disposeBag)
-        
+
         NotificationCenter.default.publisher(for: .userFetched)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -300,11 +222,11 @@ extension MainTabBarController {
         $currentTab
             .receive(on: DispatchQueue.main)
             .sink { [weak self] tab in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.updateAvatarButtonAppearance()
             }
             .store(in: &disposeBag)
-        
+
         updateTabBarDisplay()
     }
     
@@ -358,7 +280,7 @@ extension MainTabBarController {
         case .search:
             assert(Thread.isMainThread)
             // double tapping search tab opens the search bar without additional taps
-            searchViewController?.searchBar.becomeFirstResponder()
+            searchViewController.searchBar.becomeFirstResponder()
         default:
             break
         }
@@ -458,18 +380,6 @@ extension MainTabBarController {
             }
         }
     }
-}
-
-extension MainTabBarController {
-
-    var notificationViewController: NotificationViewController? {
-        return viewController(of: NotificationViewController.self)
-    }
-    
-    var searchViewController: SearchViewController? {
-        return viewController(of: SearchViewController.self)
-    }
-    
 }
 
 // MARK: - UITabBarControllerDelegate

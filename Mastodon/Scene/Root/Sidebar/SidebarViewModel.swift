@@ -23,7 +23,7 @@ final class SidebarViewModel {
     let authContext: AuthContext?
     @Published private var isSidebarDataSourceReady = false
     @Published private var isAvatarButtonDataReady = false
-    @Published var currentTab: MainTabBarController.Tab = .home
+    @Published var currentTab: Tab = .home
 
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
@@ -57,7 +57,7 @@ extension SidebarViewModel {
     }
     
     enum Item: Hashable {
-        case tab(MainTabBarController.Tab)
+        case tab(Tab)
         case setting
         case compose
     }
@@ -69,7 +69,7 @@ extension SidebarViewModel {
         collectionView: UICollectionView,
         secondaryCollectionView: UICollectionView
     ) {
-        let tabCellRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, MainTabBarController.Tab> { [weak self] cell, indexPath, item in
+        let tabCellRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, Tab> { [weak self] cell, indexPath, item in
             guard let self else { return }
 
             let imageURL: URL?
@@ -125,7 +125,7 @@ extension SidebarViewModel {
                             let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
                             image = UIImage(systemName: "bell.badge", withConfiguration: imageConfiguration)!
                         } else {
-                            image = MainTabBarController.Tab.notifications.image
+                            image = Tab.notifications.image
                         }
                         cell.item?.image = image
                         cell.item?.activeImage = image.withTintColor(Asset.Colors.Brand.blurple.color, renderingMode: .alwaysOriginal)

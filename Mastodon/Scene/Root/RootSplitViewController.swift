@@ -127,8 +127,8 @@ extension RootSplitViewController {
 
 // MARK: - ContentSplitViewControllerDelegate
 extension RootSplitViewController: ContentSplitViewControllerDelegate {
-    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab) {
-        guard let _ = MainTabBarController.Tab.allCases.firstIndex(of: tab) else {
+    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didSelectTab tab: Tab) {
+        guard let _ = Tab.allCases.firstIndex(of: tab) else {
             assertionFailure()
             return
         }
@@ -158,8 +158,8 @@ extension RootSplitViewController: ContentSplitViewControllerDelegate {
         }
     }
     
-    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didDoubleTapTab tab: MainTabBarController.Tab) {
-        guard let _ = MainTabBarController.Tab.allCases.firstIndex(of: tab) else {
+    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didDoubleTapTab tab: Tab) {
+        guard let _ = Tab.allCases.firstIndex(of: tab) else {
             assertionFailure()
             return
         }
@@ -170,7 +170,7 @@ extension RootSplitViewController: ContentSplitViewControllerDelegate {
             guard !isPrimaryDisplay else {
                 return
             }
-            contentSplitViewController.mainTabBarController.searchViewController?.searchBar.becomeFirstResponder()
+            contentSplitViewController.mainTabBarController.searchViewController.searchBar.becomeFirstResponder()
         default:
             break
         }

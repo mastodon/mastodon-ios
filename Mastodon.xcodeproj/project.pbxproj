@@ -166,6 +166,7 @@
 		D8B5E4F22A4EBCF90008970C /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B5E4F12A4EBCF90008970C /* NotificationSettings.swift */; };
 		D8B5E4F42A4ED0240008970C /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B5E4F32A4ED0240008970C /* NotificationSettingsViewModel.swift */; };
 		D8BE30B32A179E26006B8270 /* SuggestionAccountTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BE30B22A179E26006B8270 /* SuggestionAccountTableViewFooter.swift */; };
+		D8CF45832B50893900C84D70 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CF45822B50893900C84D70 /* Tab.swift */; };
 		D8D688F62AB869CB000F651A /* SearchResultsProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D688F52AB869CB000F651A /* SearchResultsProfileTableViewCell.swift */; };
 		D8D688F92AB8B970000F651A /* SearchResultOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D688F82AB8B970000F651A /* SearchResultOverviewCoordinator.swift */; };
 		D8E5C346296DAB84007E76A7 /* DataSourceFacade+Status+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */; };
@@ -833,6 +834,7 @@
 		D8B5E4F12A4EBCF90008970C /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
 		D8B5E4F32A4ED0240008970C /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
 		D8BE30B22A179E26006B8270 /* SuggestionAccountTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountTableViewFooter.swift; sourceTree = "<group>"; };
+		D8CF45822B50893900C84D70 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		D8D688F52AB869CB000F651A /* SearchResultsProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsProfileTableViewCell.swift; sourceTree = "<group>"; };
 		D8D688F82AB8B970000F651A /* SearchResultOverviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultOverviewCoordinator.swift; sourceTree = "<group>"; };
 		D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Status+History.swift"; sourceTree = "<group>"; };
@@ -2557,6 +2559,7 @@
 				DB03A794272A981400EE37C5 /* ContentSplitViewController.swift */,
 				DB852D1A26FAED0100FC9D81 /* Sidebar */,
 				DB8AF54E25C13703002E6C99 /* MainTab */,
+				D8CF45822B50893900C84D70 /* Tab.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -3970,6 +3973,7 @@
 				2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */,
 				C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */,
 				DB023D2A27A0FE5C005AC798 /* DataSourceProvider+NotificationTableViewCellDelegate.swift in Sources */,
+				D8CF45832B50893900C84D70 /* Tab.swift in Sources */,
 				D8363B1629469CE200A74079 /* OnboardingNextView.swift in Sources */,
 				DB98EB6027B10E150082E365 /* ReportCommentTableViewCell.swift in Sources */,
 				DB0FCB962797E6C2006C02E2 /* SearchResultViewController+DataSourceProvider.swift in Sources */,

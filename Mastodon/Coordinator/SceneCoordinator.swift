@@ -387,7 +387,7 @@ extension SceneCoordinator {
         return viewController
     }
 
-    func switchToTabBar(tab: MainTabBarController.Tab) {
+    func switchToTabBar(tab: Tab) {
         splitViewController?.contentSplitViewController.currentSupplementaryTab = tab
         
         splitViewController?.compactMainTabBarViewController.selectedIndex = tab.rawValue
