@@ -38,15 +38,15 @@
             },
             "save_photo_failure": {
                 "title": "사진 저장 실패",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "사진을 저장하기 위해 사진 접근 권한을 허용해 주세요."
             },
             "delete_post": {
                 "title": "정말로 이 게시물을 삭제하시겠습니까?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "정말로 이 게시물을 삭제하시겠습니까?"
             },
             "clean_cache": {
                 "title": "캐시 삭제",
-                "message": "Successfully cleaned %s cache."
+                "message": "%s의 캐시를 성공적으로 청소하였습니다."
             },
             "translation_failed": {
                 "title": "노트",
@@ -169,11 +169,11 @@
                     "show_image": "이미지 표시",
                     "show_gif": "GIF 보기",
                     "show_video_player": "비디오 플레이어 보기",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "게시글 안의 링크 공유",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "리블로그",
+                        "unreblog": "리블로그 취소"
                     }
                 },
                 "tag": {
@@ -267,7 +267,7 @@
             "log_in": "로그인",
             "learn_more": "Learn more",
             "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "pick_server": "다른 서버 선택하기",
             "separator": {
                 "or": "또는"
             },
@@ -427,7 +427,7 @@
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "받은 편지함을 확인하세요",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
                 "resend": "재전송"
@@ -445,8 +445,8 @@
             },
             "didnt_get_link": {
                 "prefix": "링크를 못 받으셨나요?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "resend_in": "재전송(%@)",
+                "resend_now": "재전송됨"
             }
         },
         "home_timeline": {
@@ -463,14 +463,14 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "마스토돈 속 인기",
+            "follow_all": "모두 팔로우"
         },
         "compose": {
             "title": {
                 "new_post": "새 게시물",
                 "new_reply": "새 답글",
-                "edit_post": "Edit Post"
+                "edit_post": "게시물 편집"
             },
             "media_selection": {
                 "camera": "사진 촬영",
@@ -490,11 +490,11 @@
                 "upload_failed": "업로드 실패",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "첨부파일이 너무 큽니다",
-                "compressing_state": "Compressing...",
+                "compressing_state": "압축…",
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "투표",
                 "duration_time": "기간: %s",
                 "thirty_minutes": "30분",
                 "one_hour": "1시간",
@@ -544,13 +544,13 @@
             "language": {
                 "title": "게시물 언어",
                 "suggested": "추천",
-                "recent": "Recent",
+                "recent": "최근",
                 "other": "다른 언어"
             }
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "나를 팔로우 합니다"
             },
             "dashboard": {
                 "my_posts": "게시물",
@@ -576,14 +576,14 @@
             "segmented_control": {
                 "posts": "게시물",
                 "replies": "답글",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "게시물과 답장",
                 "media": "미디어",
                 "about": "정보"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "계정 뮤트",
+                    "message": "%s 뮤트 확인"
                 },
                 "confirm_unmute_user": {
                     "title": "계정 뮤트 해제",
@@ -591,11 +591,11 @@
                 },
                 "confirm_block_user": {
                     "title": "계정 차단",
-                    "message": "Confirm to block %s"
+                    "message": "%s 차단 확인"
                 },
                 "confirm_unblock_user": {
                     "title": "계정 차단 해제",
-                    "message": "Confirm to unblock %s"
+                    "message": "%s 차단 해제 확인"
                 },
                 "confirm_show_reblogs": {
                     "title": "리블로그 보기",
@@ -606,8 +606,8 @@
                     "message": "리블로그를 가리기 전 확인"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "도메인 차단",
+                    "message": "%s 도메인 차단 확인"
                 },
                 "confirm_unblock_domain": {
                     "title": "Unblock domain",
