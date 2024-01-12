@@ -71,7 +71,7 @@ extension Mastodon.Entity.V2 {
 }
 
 extension Mastodon.Entity.V2.Instance {
-    public struct Configuration: Codable, StatusesMediaAttachmentsPollsContaining {
+    public struct Configuration: Codable, InstanceConfigLimitingPropertyContaining {
         public let statuses: Mastodon.Entity.Instance.Configuration.Statuses?
         public let mediaAttachments: Mastodon.Entity.Instance.Configuration.MediaAttachments?
         public let polls: Mastodon.Entity.Instance.Configuration.Polls?

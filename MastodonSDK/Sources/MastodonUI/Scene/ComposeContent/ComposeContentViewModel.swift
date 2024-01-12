@@ -228,23 +228,33 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         }
 
         // set limit
-        if let configuration: Mastodon.Entity.V2.Instance.Configuration = {
-            var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
-            context.managedObjectContext.performAndWait {
-                let authentication = authContext.mastodonAuthenticationBox.authentication
-                configuration = authentication.instance(in: context.managedObjectContext)?.configurationV2
+        var configuration: InstanceConfigLimitingPropertyContaining?
+        
+        context.managedObjectContext.performAndWait {
+            let authentication = authContext.mastodonAuthenticationBox.authentication
+            configuration = (authentication.instance(in: context.managedObjectContext)?.configurationV2 ?? authentication.instance(in: context.managedObjectContext)?.configuration)
+        }
+        
+        if let configuration {
+            // set character limit
+            if let maxCharacters = configuration.statuses?.maxCharacters {
+                maxTextInputLimit = maxCharacters
             }
-            return configuration
-        }() { applyInstanceConfiguration(configuration) }
-        else if let configuration: Mastodon.Entity.Instance.Configuration = {
-            var configuration: Mastodon.Entity.Instance.Configuration? = nil
-            context.managedObjectContext.performAndWait {
-                let authentication = authContext.mastodonAuthenticationBox.authentication
-                configuration = authentication.instance(in: context.managedObjectContext)?.configuration
+            // set media limit
+            if let maxMediaAttachments = configuration.statuses?.maxMediaAttachments {
+                maxMediaAttachmentLimit = maxMediaAttachments
             }
-            return configuration
-        }() { applyInstanceConfiguration(configuration) }
-
+            // set poll option limit
+            if let maxOptions = configuration.polls?.maxOptions {
+                maxPollOptionLimit = maxOptions
+            }
+            // set photo attachment limit
+            if let imageSizeLimit = configuration.mediaAttachments?.imageSizeLimit {
+                maxImageMediaSizeLimitInByte = imageSizeLimit
+            }
+            // TODO: more limit
+        }
+        
         switch composeContext {
         case .composeStatus:
             self.isVisibilityButtonEnabled = true
@@ -291,25 +301,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         bind()
     }
     
-    private func applyInstanceConfiguration(_ configuration: StatusesMediaAttachmentsPollsContaining) {
-        // set character limit
-        if let maxCharacters = configuration.statuses?.maxCharacters {
-            maxTextInputLimit = maxCharacters
-        }
-        // set media limit
-        if let maxMediaAttachments = configuration.statuses?.maxMediaAttachments {
-            maxMediaAttachmentLimit = maxMediaAttachments
-        }
-        // set poll option limit
-        if let maxOptions = configuration.polls?.maxOptions {
-            maxPollOptionLimit = maxOptions
-        }
-        // set photo attachment limit
-        if let imageSizeLimit = configuration.mediaAttachments?.imageSizeLimit {
-            maxImageMediaSizeLimitInByte = imageSizeLimit
-        }
-        // TODO: more limit
-    }
+
 }
 
 extension ComposeContentViewModel {
