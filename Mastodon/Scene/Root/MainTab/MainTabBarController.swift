@@ -91,6 +91,8 @@ class MainTabBarController: UITabBarController {
 
         viewControllers = [homeTimelineViewController, searchViewController, composeViewController, notificationViewController, meProfileViewController].map { AdaptiveStatusBarStyleNavigationController(rootViewController: $0) }
         tabBar.addInteraction(largeContentViewerInteraction)
+
+        layoutAvatarButton()
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -171,8 +173,6 @@ extension MainTabBarController {
         }
         .store(in: &disposeBag)
 
-        layoutAvatarButton()
-
         $avatarURL
             .receive(on: DispatchQueue.main)
             .sink { [weak self] avatarURL in
@@ -188,21 +188,24 @@ extension MainTabBarController {
         NotificationCenter.default.publisher(for: .userFetched)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                guard let self else { return }
-                if let account = self.authContext?.mastodonAuthenticationBox.authentication.account() {
-                    self.avatarURL = account.avatarImageURL()
-                    
-                    // a11y
-                    let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
-                    guard let profileTabItem = _profileTabItem else { return }
-                    profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(account.displayNameWithFallback)
-                    
-                    self.context.authenticationService.updateActiveUserAccountPublisher
-                        .sink { [weak self] in
-                            self?.updateUserAccount()
-                        }
-                        .store(in: &self.disposeBag)
-                }
+                guard let self,
+                      let authContext = self.authContext,
+                      let account = authContext.mastodonAuthenticationBox.authentication.account() else { return }
+
+                self.avatarURL = account.avatarImageURL()
+
+                // a11y
+                let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
+                guard let profileTabItem = _profileTabItem else { return }
+                profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(account.displayNameWithFallback)
+
+                self.context.authenticationService.updateActiveUserAccountPublisher
+                    .sink { [weak self] in
+                        self?.updateUserAccount()
+                    }
+                    .store(in: &self.disposeBag)
+
+                self.meProfileViewController.viewModel = ProfileViewModel(context: self.context, authContext: authContext, account: account, relationship: nil, me: account)
             }
             .store(in: &disposeBag)
         
@@ -315,8 +318,7 @@ extension MainTabBarController {
     private func layoutAvatarButton() {
         guard avatarButton.superview == nil else { return }
         
-        let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
-        guard let profileTabItem = _profileTabItem else { return }
+        guard let profileTabItem = meProfileViewController.tabBarItem else { return }
         guard let view = profileTabItem.value(forKey: "view") as? UIView else {
             return
         }
