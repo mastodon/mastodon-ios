@@ -228,15 +228,14 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         }
 
         // set limit
-        let _configuration: Mastodon.Entity.Instance.Configuration? = {
-            var configuration: Mastodon.Entity.Instance.Configuration? = nil
-            context.managedObjectContext.performAndWait {
-                let authentication = authContext.mastodonAuthenticationBox.authentication
-                configuration = authentication.instance(in: context.managedObjectContext)?.configuration
-            }
-            return configuration
-        }()
-        if let configuration = _configuration {
+        var configuration: InstanceConfigLimitingPropertyContaining?
+        
+        context.managedObjectContext.performAndWait {
+            let authentication = authContext.mastodonAuthenticationBox.authentication
+            configuration = (authentication.instance(in: context.managedObjectContext)?.configurationV2 ?? authentication.instance(in: context.managedObjectContext)?.configuration)
+        }
+        
+        if let configuration {
             // set character limit
             if let maxCharacters = configuration.statuses?.maxCharacters {
                 maxTextInputLimit = maxCharacters
