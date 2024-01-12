@@ -114,7 +114,7 @@ extension Mastodon.Entity.Instance {
 }
 
 extension Mastodon.Entity.Instance {
-    public struct Configuration: Codable {
+    public struct Configuration: Codable, StatusesMediaAttachmentsPollsContaining {
         public let statuses: Statuses?
         public let mediaAttachments: MediaAttachments?
         public let polls: Polls?
