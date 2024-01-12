@@ -33,7 +33,7 @@
                 "confirm": "로그아웃"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "정말로 %s 전체를 차단하시겠습니까? 대부분의 경우 개별 차단이나 뮤트로 충분합니다. 모든 공개 타임라인과 알림에서 해당 도메인에서 작성된 콘텐츠를 보지 못합니다. 해당 도메인에 속한 팔로워와의 관계가 사라집니다.",
                 "block_entire_domain": "도메인 차단"
             },
             "save_photo_failure": {
