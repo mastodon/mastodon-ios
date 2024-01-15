@@ -150,16 +150,21 @@ extension HomeTimelineViewModel {
         
         // fetch data
         let maxID = status.id
-        _ = try? await context.apiService.homeTimeline(
+        let missingStatuses = (try? await context.apiService.homeTimeline(
             maxID: maxID,
             authenticationBox: authContext.mastodonAuthenticationBox
-        )
+        ).value) ?? []
         
         record.isLoadingMore = false
         
         // reconfigure item again
         snapshot.reconfigureItems([item])
         await updateSnapshotUsingReloadData(snapshot: snapshot)
+        
+        let newItems: [MastodonFeed] = missingStatuses.map({ MastodonFeed.fromStatus(.fromEntity($0), kind: .home) })
+        var existingItems = Array(dataController.records)
+        existingItems.removeAll(where: { $0.id == status.id }) // Remove loader item
+        dataController.records = (newItems + existingItems).removingDuplicates()
     }
     
 }

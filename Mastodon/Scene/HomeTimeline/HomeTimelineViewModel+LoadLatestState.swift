@@ -108,6 +108,8 @@ extension HomeTimelineViewModel.LoadLatestState {
                 if newStatuses.isEmpty {
                     viewModel.didLoadLatest.send()
                 } else {
+                    var oldRecords = viewModel.dataController.records
+
                     if !latestStatusIDs.isEmpty {
                         viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
                     }
@@ -115,13 +117,20 @@ extension HomeTimelineViewModel.LoadLatestState {
                     var newRecords: [MastodonFeed] = newStatuses.map {
                         MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
                     }
+                    
+                    if let lastNewId = newRecords.last?.status?.id, let firstOld = oldRecords.first?.status, lastNewId != firstOld.id {
+                        // Add "Load more"
+                        newRecords.append(
+                            MastodonFeed(hasMore: true, isLoadingMore: false, status: firstOld, notification: nil, kind: .none)
+                        )
+                    }
+                    
                     viewModel.dataController.records = {
-                        var oldRecords = viewModel.dataController.records
                         for (i, record) in newRecords.enumerated() {
                             if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {
                                 oldRecords[index] = record
                                 if newRecords.count > index {
-                                    newRecords.remove(at: i)
+                                    newRecords.remove(at: index)
                                 }
                             }
                         }
