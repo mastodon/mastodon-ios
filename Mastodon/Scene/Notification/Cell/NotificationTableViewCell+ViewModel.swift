@@ -57,7 +57,7 @@ extension NotificationTableViewCell {
 
             UIView.performWithoutAnimation {
                 tableView.beginUpdates()
-                tableView.endUpdates()                
+                tableView.endUpdates()
             }
         }
         .store(in: &disposeBag)
