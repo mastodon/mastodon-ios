@@ -98,7 +98,7 @@ public final class StatusDataController {
     private func updateEdited(_ status: MastodonStatus) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to update record")
+            assertionFailure("Failed to find suitable record")
             return
         }
         newRecords[index] = status
@@ -109,7 +109,7 @@ public final class StatusDataController {
     private func updateBookmarked(_ status: MastodonStatus, _ isBookmarked: Bool) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to update record")
+            assertionFailure("Failed to find suitable record")
             return
         }
         newRecords[index] = status
@@ -120,7 +120,7 @@ public final class StatusDataController {
     private func updateFavorited(_ status: MastodonStatus, _ isFavorited: Bool) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to update record")
+            assertionFailure("Failed to find suitable record")
             return
         }
         newRecords[index] = status
@@ -138,14 +138,14 @@ public final class StatusDataController {
                 return
             }
             guard let index = newRecords.firstIndex(where: { $0.id == reblog.id }) else {
-                assertionFailure("Failed to update record")
+                assertionFailure("Failed to find suitable record")
                 return
             }
             newRecords[index] = status
             
         case false:
             guard let index = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) else {
-                assertionFailure("Failed to update record")
+                assertionFailure("Failed to find suitable record")
                 return
             }
             let existingRecord = newRecords[index]
@@ -159,7 +159,7 @@ public final class StatusDataController {
     private func updateSensitive(_ status: MastodonStatus, _ isVisible: Bool) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to update record")
+            assertionFailure("Failed to find suitable record")
             return
         }
         newRecords[index] = status
