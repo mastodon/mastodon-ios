@@ -53,44 +53,45 @@ public final class StatusDataController {
         }
         
         return
-        
+      
+        #warning("Remove this code")
 //        if case MastodonStatus.UpdateIntent.delete = intent {
 //            return deleteRecord(status)
 //        }
-        
-        var newRecords = Array(records)
-        for (i, record) in newRecords.enumerated() {
-            if record.id == status.id {
-                newRecords[i] = status
-            } else if let reblog = status.reblog, reblog.id == record.id {
-                newRecords[i] = status
-            } else if let reblog = record.reblog, reblog.id == status.id {
-                // Handle reblogged state
-                let isRebloggedByAnyOne: Bool = records[i].reblog != nil
-
-                let newStatus: MastodonStatus
-                if isRebloggedByAnyOne {
-                    // if status was previously reblogged by me: remove reblogged status
-                    if records[i].entity.reblogged == true && status.entity.reblogged == false {
-                        newStatus = .fromEntity(status.entity)
-                    } else {
-                        newStatus = .fromEntity(records[i].entity)
-                    }
-                    
-                } else {
-                    newStatus = .fromEntity(status.entity)
-                }
-
-                newStatus.isSensitiveToggled = status.isSensitiveToggled
-                newStatus.reblog = isRebloggedByAnyOne ? .fromEntity(status.entity) : nil
-                
-                newRecords[i] = newStatus
-            } else if let reblog = record.reblog, reblog.id == status.reblog?.id {
-                // Handle re-reblogged state
-                newRecords[i] = status
-            }
-        }
-        records = newRecords
+//        
+//        var newRecords = Array(records)
+//        for (i, record) in newRecords.enumerated() {
+//            if record.id == status.id {
+//                newRecords[i] = status
+//            } else if let reblog = status.reblog, reblog.id == record.id {
+//                newRecords[i] = status
+//            } else if let reblog = record.reblog, reblog.id == status.id {
+//                // Handle reblogged state
+//                let isRebloggedByAnyOne: Bool = records[i].reblog != nil
+//
+//                let newStatus: MastodonStatus
+//                if isRebloggedByAnyOne {
+//                    // if status was previously reblogged by me: remove reblogged status
+//                    if records[i].entity.reblogged == true && status.entity.reblogged == false {
+//                        newStatus = .fromEntity(status.entity)
+//                    } else {
+//                        newStatus = .fromEntity(records[i].entity)
+//                    }
+//                    
+//                } else {
+//                    newStatus = .fromEntity(status.entity)
+//                }
+//
+//                newStatus.isSensitiveToggled = status.isSensitiveToggled
+//                newStatus.reblog = isRebloggedByAnyOne ? .fromEntity(status.entity) : nil
+//                
+//                newRecords[i] = newStatus
+//            } else if let reblog = record.reblog, reblog.id == status.reblog?.id {
+//                // Handle re-reblogged state
+//                newRecords[i] = status
+//            }
+//        }
+//        records = newRecords
     }
     
     @MainActor
