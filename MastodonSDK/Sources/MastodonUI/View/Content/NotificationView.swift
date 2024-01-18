@@ -476,6 +476,7 @@ extension NotificationView: AdaptiveContainerView {
 }
 
 extension NotificationView {
+    @available(*, deprecated, message: "Does way too much")
     public typealias AuthorMenuContext = StatusAuthorView.AuthorMenuContext
     
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {

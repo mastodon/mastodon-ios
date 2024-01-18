@@ -31,18 +31,41 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
 
-            //TODO: Update Relationship
-            _ = try await DataSourceFacade.responseToMenuAction(
-                dependency: self,
-                action: action,
-                menuContext: .init(
-                    author: notification.entity.account,
-                    statusViewModel: nil,
-                    button: button,
-                    barButtonItem: nil
+            // we only allow to mute/block and to report users on notification-screen
+            switch action {
+            case .muteUser(_), .blockUser(_):
+                _ = try await DataSourceFacade.responseToMenuAction(
+                    dependency: self,
+                    action: action,
+                    menuContext: .init(
+                        author: notification.entity.account,
+                        statusViewModel: nil,
+                        button: button,
+                        barButtonItem: nil
+                    ),
+                    completion: { (newRelationship: Mastodon.Entity.Relationship) in
+                        //TODO: Update Relationship.
+                        //TODO: Get Relationship into here, first!
+
+                        print(newRelationship)
+                    }
                 )
-            )
-        }   // end Task
+            case .reportUser(_):
+                _ = try await DataSourceFacade.responseToMenuAction(
+                    dependency: self,
+                    action: action,
+                    menuContext: .init(
+                        author: notification.entity.account,
+                        statusViewModel: nil,
+                        button: button,
+                        barButtonItem: nil
+                    )
+                )
+            case .translateStatus(_), .showOriginal, .shareUser(_), .blockDomain(_), .bookmarkStatus(_), .hideReblogs(_), .shareStatus, .deleteStatus, .editStatus, .followUser(_):
+                // Do Nothing
+                break
+            }
+        }
     }
 }
 
