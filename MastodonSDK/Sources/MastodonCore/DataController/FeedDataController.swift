@@ -100,7 +100,9 @@ final public class FeedDataController {
             return
         }
         let existingRecord = newRecords[index]
-        newRecords[index] = .fromStatus(status, kind: existingRecord.kind)
+        let newStatus = status
+        newStatus.isSensitiveToggled = existingRecord.status?.isSensitiveToggled == true
+        newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
         records = newRecords
     }
     

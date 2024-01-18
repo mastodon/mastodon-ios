@@ -88,6 +88,23 @@ extension MastodonStatusThreadViewModel {
         return newRecords
     }
     
+    // Edit
+    func handleEdit(_ status: MastodonStatus) {
+        ancestors = handleEdit(status, items: ancestors)
+        descendants = handleEdit(status, items: descendants)
+    }
+    
+    private func handleEdit(_ status: MastodonStatus, items: [StatusItem]) -> [StatusItem] {
+        var newRecords = Array(items)
+        guard let index = newRecords.firstIndex(where: { $0.mastodonStatus?.id == status.id }) else {
+            return items
+        }
+        var newRecord = newRecords[index]
+        newRecord.mastodonStatus = status
+        newRecords[index] = newRecord
+        return newRecords
+    }
+    
     // Delete
     func handleDelete(_ status: MastodonStatus) {
         ancestors = handleDelete(status, ancestors)

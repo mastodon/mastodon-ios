@@ -81,10 +81,10 @@ extension ThreadViewController: DataSourceProvider {
             viewModel.handleFavorite(status)
         case let .toggleSensitive(isVisible):
             viewModel.handleSensitive(status, isVisible)
+        case .edit:
+            viewModel.handleEdit(status)
         case .delete:
             break // this case has already been handled
-        case .edit:
-            break
         }
     }
 }
