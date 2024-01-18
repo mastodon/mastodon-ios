@@ -758,13 +758,13 @@
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Im Browser öffnen"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Mitteilungen",
                 "policy": {
-                    "title": "Get Notifications from",
+                    "title": "Mitteilungen erhalten von",
                     "anyone": "Jeder",
                     "followers": "People who follow you",
                     "follow": "People you follow",
