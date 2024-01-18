@@ -26,11 +26,39 @@ extension StatusItem {
         case leaf(context: Context)
         
         public var record: MastodonStatus {
-            switch self {
-            case .root(let threadContext),
-                .reply(let threadContext),
-                .leaf(let threadContext):
-                return threadContext.status
+            get {
+                switch self {
+                case .root(let threadContext),
+                    .reply(let threadContext),
+                    .leaf(let threadContext):
+                    return threadContext.status
+                }
+            }
+            
+            set {
+                switch self {
+                case let .root(threadContext):
+                    self = .root(context: .init(
+                        status: newValue,
+                        displayUpperConversationLink: threadContext.displayUpperConversationLink,
+                        displayBottomConversationLink: threadContext.displayBottomConversationLink)
+                    )
+                    
+                case let .reply(threadContext):
+                    self = .reply(context: .init(
+                        status: newValue,
+                        displayUpperConversationLink: threadContext.displayUpperConversationLink,
+                        displayBottomConversationLink: threadContext.displayBottomConversationLink)
+                    )
+                    
+                case let .leaf(threadContext):
+                    self = .leaf(context: .init(
+                        status: newValue,
+                        displayUpperConversationLink: threadContext.displayUpperConversationLink,
+                        displayBottomConversationLink: threadContext.displayBottomConversationLink)
+                    )
+
+                }
             }
         }
     }

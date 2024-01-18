@@ -143,8 +143,12 @@ public final class StatusDataController {
             newRecords[index] = status
             
         case false:
-            break;
-//            newRecords[index] = status.reblog
+            guard let index = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) else {
+                assertionFailure("Failed to update record")
+                return
+            }
+            let existingRecord = newRecords[index]
+            newRecords[index] = status
         }
         
         records = newRecords

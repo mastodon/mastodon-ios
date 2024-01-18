@@ -26,12 +26,8 @@ final public class FeedDataController {
             guard let lastId = records.last?.status?.id else {
                 return loadInitial(kind: kind)
             }
-            
-            let newEntries = try await load(kind: kind, sinceId: lastId)
-            
-            print(newEntries.map { $0.status?.entity.content })
-            
-            records += newEntries
+
+            records += try await load(kind: kind, sinceId: lastId)
         }
     }
     
