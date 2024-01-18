@@ -27,6 +27,6 @@ extension DataSourceFacade {
         let newStatus: MastodonStatus = .fromEntity(updatedStatus)
         newStatus.isSensitiveToggled = status.isSensitiveToggled
         
-        provider.update(status: newStatus)
+        provider.update(status: newStatus, intent: .bookmark(updatedStatus.bookmarked == true))
     }
 }

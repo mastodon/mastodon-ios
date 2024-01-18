@@ -60,6 +60,17 @@ public extension Mastodon.Entity.Status {
 }
 
 public extension MastodonStatus {
+    enum UpdateIntent {
+        case bookmark(Bool)
+        case reblog(Bool)
+        case favorite(Bool)
+        case toggleSensitive(Bool)
+        case delete
+        case edit
+    }
+}
+
+public extension MastodonStatus {
     func getPoll(in context: NSManagedObjectContext, domain: String) async -> Poll? {
         guard
             let pollId = entity.poll?.id

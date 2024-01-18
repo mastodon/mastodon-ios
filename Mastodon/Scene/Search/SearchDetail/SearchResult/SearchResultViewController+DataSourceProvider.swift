@@ -33,12 +33,8 @@ extension SearchResultViewController: DataSourceProvider {
         }
     }
     
-    func update(status: MastodonStatus) {
-        viewModel.dataController.update(status: status)
-    }
-    
-    func delete(status: MastodonStatus) {
-        viewModel.dataController.deleteRecord(status)
+    func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
+        viewModel.dataController.update(status: status, intent: intent)
     }
     
     @MainActor

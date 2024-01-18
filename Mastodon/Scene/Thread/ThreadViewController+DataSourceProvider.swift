@@ -29,7 +29,7 @@ extension ThreadViewController: DataSourceProvider {
         }
     }
     
-    func update(status: MastodonStatus) {
+    func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
         switch viewModel.root {
         case let .root(context):
             if context.status.id == status.id {
@@ -54,12 +54,20 @@ extension ThreadViewController: DataSourceProvider {
         }
     }
     
+    private func handle(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
+        if case MastodonStatus.UpdateIntent.delete = intent {
+            delete(status: status)
+        } else {
+            handle(status: status)
+        }
+    }
+    
     private func handle(status: MastodonStatus) {
         viewModel.mastodonStatusThreadViewModel.ancestors.handleUpdate(status: status, for: viewModel)
         viewModel.mastodonStatusThreadViewModel.descendants.handleUpdate(status: status, for: viewModel)
     }
     
-    func delete(status: MastodonStatus) {
+    private func delete(status: MastodonStatus) {
         if viewModel.root?.record.id == status.id {
             viewModel.root = nil
             viewModel.onDismiss.send(status)

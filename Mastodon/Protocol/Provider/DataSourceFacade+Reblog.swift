@@ -27,6 +27,6 @@ extension DataSourceFacade {
         newStatus.reblog?.isSensitiveToggled = status.isSensitiveToggled
         newStatus.isSensitiveToggled = status.isSensitiveToggled
         
-        provider.update(status: newStatus)
+        provider.update(status: newStatus, intent: .reblog(updatedStatus.reblogged == true))
     }
 }

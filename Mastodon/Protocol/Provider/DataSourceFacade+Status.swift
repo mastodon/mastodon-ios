@@ -28,7 +28,7 @@ extension DataSourceFacade {
             authenticationBox: dependency.authContext.mastodonAuthenticationBox
         ).value.asMastodonStatus
         
-        dependency.delete(status: deletedStatus)
+        dependency.update(status: deletedStatus, intent: .delete)
     }
     
 }
@@ -440,7 +440,7 @@ extension DataSourceFacade {
         let newStatus: MastodonStatus = .fromEntity(_status.entity)
         newStatus.isSensitiveToggled = !_status.isSensitiveToggled
         
-        dependency.update(status: newStatus)
+        dependency.update(status: newStatus, intent: .toggleSensitive(newStatus.isSensitiveToggled))
     }
     
 }

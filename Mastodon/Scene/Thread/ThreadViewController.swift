@@ -82,7 +82,7 @@ extension ThreadViewController {
         viewModel.onEdit
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] status in
-                self?.navigationController?.notifyChildrenAboutStatusUpdate(status)
+                self?.navigationController?.notifyChildrenAboutStatusEdit(status)
             })
             .store(in: &disposeBag)
         
@@ -202,13 +202,13 @@ extension ThreadViewController: StatusTableViewControllerNavigateable {
 extension UINavigationController {
     func notifyChildrenAboutStatusDeletion(_ status: MastodonStatus) {
         viewControllers.compactMap { $0 as? DataSourceProvider }.forEach { provider in
-            provider?.delete(status: status )
+            provider?.update(status: status, intent: .delete)
         }
     }
     
-    func notifyChildrenAboutStatusUpdate(_ status: MastodonStatus) {
+    func notifyChildrenAboutStatusEdit(_ status: MastodonStatus) {
         viewControllers.compactMap { $0 as? DataSourceProvider }.forEach { provider in
-            provider?.update(status: status )
+            provider?.update(status: status, intent: .edit)
         }
     }
 }

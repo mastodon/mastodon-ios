@@ -150,11 +150,7 @@ extension FollowingListViewController: DataSourceProvider {
         }
     }
     
-    func update(status: MastodonStatus) {
-        assertionFailure("Not required")
-    }
-    
-    func delete(status: MastodonStatus) {
+    func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
         assertionFailure("Not required")
     }
 
