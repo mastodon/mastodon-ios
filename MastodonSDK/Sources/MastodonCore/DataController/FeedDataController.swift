@@ -136,11 +136,12 @@ final public class FeedDataController {
 
         switch isReblogged {
         case true:
-            guard let reblog = status.reblog else {
-                assertionFailure("Reblogged entity not found")
-                return
-            }
-            guard let index = newRecords.firstIndex(where: { $0.id == reblog.id }) else {
+            let index: Int
+            if let idx = newRecords.firstIndex(where: { $0.status?.reblog?.id == status.reblog?.id }) {
+                index = idx
+            } else if let idx = newRecords.firstIndex(where: { $0.id == status.reblog?.id }) {
+                index = idx
+            } else {
                 assertionFailure("Failed to find suitable record")
                 return
             }
@@ -148,7 +149,6 @@ final public class FeedDataController {
             newRecords[index] = .fromStatus(status, kind: existingRecord.kind)
         case false:
             let index: Int
-            
             if let idx = newRecords.firstIndex(where: { $0.status?.reblog?.id == status.id }) {
                 index = idx
             } else if let idx = newRecords.firstIndex(where: { $0.status?.id == status.id }) {
