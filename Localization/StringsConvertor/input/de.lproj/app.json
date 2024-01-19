@@ -757,7 +757,7 @@
                 },
                 "links": {
                     "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_mastodon": "In Mastodon öffnen",
                     "open_in_browser": "Im Browser öffnen"
                 }
             },
