@@ -12,6 +12,7 @@ import Meta
 import MastodonCore
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 public protocol NotificationViewDelegate: AnyObject {
     func notificationView(_ notificationView: NotificationView, authorAvatarButtonDidPressed button: AvatarButton)
@@ -476,9 +477,14 @@ extension NotificationView: AdaptiveContainerView {
 }
 
 extension NotificationView {
-    @available(*, deprecated, message: "Does way too much")
-    public typealias AuthorMenuContext = StatusAuthorView.AuthorMenuContext
     
+    public struct AuthorMenuContext {
+        public let name: String
+        public let isMuting: Bool
+        public let isBlocking: Bool
+        public let isMyself: Bool
+    }
+
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
         var actions: [[MastodonMenu.Action]] = []
         var upperActions: [MastodonMenu.Action] = []

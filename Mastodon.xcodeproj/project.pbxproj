@@ -132,6 +132,8 @@
 		D8099078294BC8A30050219F /* PrivacyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099077294BC8A30050219F /* PrivacyTableViewController.swift */; };
 		D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099079294BC9390050219F /* PrivacyTableViewCell.swift */; };
 		D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809907B294D25510050219F /* PrivacyViewModel.swift */; };
+		D80F627C2B5C32C500877059 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F627A2B5C32C500877059 /* NotificationView.swift */; };
+		D80F627D2B5C32C500877059 /* NotificationView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F627B2B5C32C500877059 /* NotificationView+ViewModel.swift */; };
 		D81439862AD415DE0071A88F /* AboutInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81439852AD415DE0071A88F /* AboutInstance.swift */; };
 		D81439882AD450A40071A88F /* AboutInstanceTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81439872AD450A40071A88F /* AboutInstanceTableViewDataSource.swift */; };
 		D81A22752AB4643200905D71 /* SearchResultsOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */; };
@@ -784,6 +786,8 @@
 		D8099077294BC8A30050219F /* PrivacyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewController.swift; sourceTree = "<group>"; };
 		D8099079294BC9390050219F /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
 		D809907B294D25510050219F /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
+		D80F627A2B5C32C500877059 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		D80F627B2B5C32C500877059 /* NotificationView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationView+ViewModel.swift"; sourceTree = "<group>"; };
 		D81439852AD415DE0071A88F /* AboutInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstance.swift; sourceTree = "<group>"; };
 		D81439872AD450A40071A88F /* AboutInstanceTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstanceTableViewDataSource.swift; sourceTree = "<group>"; };
 		D81A22742AB4643200905D71 /* SearchResultsOverviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsOverviewTableViewController.swift; sourceTree = "<group>"; };
@@ -1540,7 +1544,6 @@
 			children = (
 				DB6746EA278ED8B0008A6B94 /* PollOptionView+Configuration.swift */,
 				DB0FCB992797F7AD006C02E2 /* UserView+Configuration.swift */,
-				DB63F776279A9A2A00455B82 /* NotificationView+Configuration.swift */,
 				2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */,
 				2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */,
 				DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */,
@@ -1815,6 +1818,16 @@
 				D809907B294D25510050219F /* PrivacyViewModel.swift */,
 			);
 			path = Privacy;
+			sourceTree = "<group>";
+		};
+		D80F627E2B5C32E400877059 /* NotificationView */ = {
+			isa = PBXGroup;
+			children = (
+				D80F627A2B5C32C500877059 /* NotificationView.swift */,
+				D80F627B2B5C32C500877059 /* NotificationView+ViewModel.swift */,
+				DB63F776279A9A2A00455B82 /* NotificationView+Configuration.swift */,
+			);
+			path = NotificationView;
 			sourceTree = "<group>";
 		};
 		D81A22732AB4641F00905D71 /* Search Results Overview */ = {
@@ -2731,6 +2744,7 @@
 			children = (
 				DB63F765279A5E5600455B82 /* NotificationTimeline */,
 				2D35237F26256F470031AF25 /* Cell */,
+				D80F627E2B5C32E400877059 /* NotificationView */,
 				DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */,
 				2D607AD726242FC500B70763 /* NotificationViewModel.swift */,
 			);
@@ -3782,6 +3796,7 @@
 				DB3E6FEF2806D82600B035AE /* DiscoveryNewsViewModel.swift in Sources */,
 				DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */,
 				DB6B750427300B4000C70B6E /* TimelineFooterTableViewCell.swift in Sources */,
+				D80F627C2B5C32C500877059 /* NotificationView.swift in Sources */,
 				DB98EB4C27B0F2BC0082E365 /* ReportStatusTableViewCell+ViewModel.swift in Sources */,
 				DB852D1F26FB037800FC9D81 /* SidebarViewModel.swift in Sources */,
 				DB63F769279A5EBB00455B82 /* NotificationTimelineViewModel+Diffable.swift in Sources */,
@@ -3866,6 +3881,7 @@
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
 				DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */,
 				D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */,
+				D80F627D2B5C32C500877059 /* NotificationView+ViewModel.swift in Sources */,
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DBEFCD71282A12B200C0ABEA /* ReportReasonViewController.swift in Sources */,
 				DB98EB5627B0FF1B0082E365 /* ReportViewControllerAppearance.swift in Sources */,

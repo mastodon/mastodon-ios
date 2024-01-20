@@ -15,6 +15,7 @@ import MastodonExtension
 import MastodonCore
 import CoreData
 import CoreDataStack
+import MastodonUI
 
 extension NotificationView {
     public final class ViewModel: ObservableObject {
@@ -201,35 +202,15 @@ extension NotificationView.ViewModel {
             $authorName,
             $isMuting,
             $isBlocking,
-            Publishers.CombineLatest3(
-                $isMyself,
-                $isTranslated,
-                $isFollowed
-            )
+            $isMyself
         )
-        .sink { [weak self] authorName, isMuting, isBlocking, isMyselfIsTranslatedIsFollowed in
-            guard let name = authorName?.string, let self, let context = self.context, let authContext = self.authContext else {
+        .sink { [weak self] authorName, isMuting, isBlocking, isMyself in
+            guard let name = authorName?.string else {
                 notificationView.menuButton.menu = nil
                 return
             }
 
-              let (isMyself, isTranslated, isFollowed) = isMyselfIsTranslatedIsFollowed
-
-              let authentication = authContext.mastodonAuthenticationBox.authentication
-              let instance = authentication.instance(in: context.managedObjectContext)
-              let isTranslationEnabled = instance?.isTranslationEnabled ?? false
-
-              let menuContext = NotificationView.AuthorMenuContext(
-                name: name,
-                isMuting: isMuting,
-                isBlocking: isBlocking,
-                isMyself: isMyself,
-                isBookmarking: false,    // no bookmark action display for notification item
-                isFollowed: isFollowed,
-                isTranslationEnabled: isTranslationEnabled,
-                isTranslated: isTranslated,
-                statusLanguage: nil
-            )
+            let menuContext = NotificationView.AuthorMenuContext(name: name, isMuting: isMuting, isBlocking: isBlocking, isMyself: isMyself)
             let (menu, actions) = notificationView.setupAuthorMenu(menuContext: menuContext)
             notificationView.menuButton.menu = menu
             notificationView.authorActions = actions
