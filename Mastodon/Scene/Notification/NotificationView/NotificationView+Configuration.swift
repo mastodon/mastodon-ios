@@ -64,23 +64,32 @@ extension NotificationView {
         let author = notification.account
 
         // author avatar
-        viewModel.authorAvatarImageURL = author.avatarImageURL()
+        let configuration = AvatarImageView.Configuration(url: author.avatarImageURL())
+        avatarButton.avatarImageView.configure(configuration: configuration)
+        avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 12)))
 
         // author name
+        let metaAuthorName: MetaContent
         do {
             let content = MastodonContent(content: author.displayNameWithFallback, emojis: author.emojis.asDictionary)
-            viewModel.authorName = try MastodonMetaContent.convert(document: content)
+            metaAuthorName = try MastodonMetaContent.convert(document: content)
         } catch {
             assertionFailure(error.localizedDescription)
-            viewModel.authorName = PlaintextMetaContent(string: author.displayNameWithFallback)
+            metaAuthorName = PlaintextMetaContent(string: author.displayNameWithFallback)
         }
+        authorNameLabel.configure(content: metaAuthorName)
 
-        viewModel.authorUsername = author.acct
+        // username
+        let metaUsername = PlaintextMetaContent(string: "@\(author.acct)")
+        authorUsernameLabel.configure(content: metaUsername)
+
         viewModel.timestamp = notification.entity.createdAt
 
-        viewModel.visibility = notification.entity.status?.mastodonVisibility ?? ._other("")
+        let visibility = notification.entity.status?.mastodonVisibility ?? ._other("")
+        visibilityIconImageView.image = visibility.image
 
         // notification type indicator
+        let notificationIndicatorText: MetaContent?
         if let type = MastodonNotificationType(rawValue: notification.entity.type.rawValue) {
             self.viewModel.type = type
 
@@ -92,63 +101,80 @@ extension NotificationView {
                 }
                 return metaContent
             }
-            
+
             switch type {
             case .follow:
-                self.viewModel.notificationIndicatorText = createMetaContent(
+                notificationIndicatorText = createMetaContent(
                     text: L10n.Scene.Notification.NotificationDescription.followedYou,
                     emojis: author.emojis.asDictionary
                 )
             case .followRequest:
-                self.viewModel.notificationIndicatorText = createMetaContent(
+                notificationIndicatorText = createMetaContent(
                     text: L10n.Scene.Notification.NotificationDescription.requestToFollowYou,
                     emojis: author.emojis.asDictionary
                 )
             case .mention:
-                self.viewModel.notificationIndicatorText = createMetaContent(
+                notificationIndicatorText = createMetaContent(
                     text: L10n.Scene.Notification.NotificationDescription.mentionedYou,
                     emojis: author.emojis.asDictionary
                 )
             case .reblog:
-                self.viewModel.notificationIndicatorText = createMetaContent(
+                notificationIndicatorText = createMetaContent(
                     text: L10n.Scene.Notification.NotificationDescription.rebloggedYourPost,
                     emojis: author.emojis.asDictionary
                 )
             case .favourite:
-                self.viewModel.notificationIndicatorText = createMetaContent(
+                notificationIndicatorText = createMetaContent(
                     text: L10n.Scene.Notification.NotificationDescription.favoritedYourPost,
                     emojis: author.emojis.asDictionary
                 )
             case .poll:
-                self.viewModel.notificationIndicatorText = createMetaContent(
+                notificationIndicatorText = createMetaContent(
                     text: L10n.Scene.Notification.NotificationDescription.pollHasEnded,
                     emojis: author.emojis.asDictionary
                 )
             case .status:
-                self.viewModel.notificationIndicatorText = createMetaContent(
+                notificationIndicatorText = createMetaContent(
                     text: .empty,
                     emojis: author.emojis.asDictionary
                 )
             case ._other:
-                self.viewModel.notificationIndicatorText = nil
+                notificationIndicatorText = nil
             }
         } else {
-            self.viewModel.notificationIndicatorText = nil
+            notificationIndicatorText = nil
         }
-        
+
+        if let notificationIndicatorText {
+            notificationTypeIndicatorLabel.configure(content: notificationIndicatorText)
+        } else {
+            notificationTypeIndicatorLabel.reset()
+        }
+
         if let me = viewModel.authContext?.mastodonAuthenticationBox.authentication.account() {
-            viewModel.isMyself = (author == me)
-            
+            let isMyself = (author == me)
+            let isMuting: Bool
+            let isBlocking: Bool
+
             if let relationship = notification.relationship {
-                viewModel.isMuting = relationship.muting
-                viewModel.isBlocking = relationship.blocking || relationship.domainBlocking
-                viewModel.isFollowed = relationship.following
+                isMuting = relationship.muting
+                isBlocking = relationship.blocking || relationship.domainBlocking
             } else {
-                viewModel.isMuting = false
-                viewModel.isBlocking = false
-                viewModel.isFollowed = false
+                isMuting = false
+                isBlocking = false
             }
+
+            let menuContext = NotificationView.AuthorMenuContext(name: metaAuthorName.string, isMuting: isMuting, isBlocking: isBlocking, isMyself: isMyself)
+            let (menu, actions) = setupAuthorMenu(menuContext: menuContext)
+            menuButton.menu = menu
+            authorActions = actions
+            menuButton.showsMenuAsPrimaryAction = true
+
+            menuButton.isHidden = menuContext.isMyself
+
         }
+
+
 
         viewModel.followRequestState = notification.followRequestState
         viewModel.transientFollowRequestState = notification.transientFollowRequestState
