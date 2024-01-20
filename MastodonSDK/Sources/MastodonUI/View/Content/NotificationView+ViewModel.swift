@@ -26,7 +26,6 @@ extension NotificationView {
         @Published public var type: MastodonNotificationType?
         @Published public var notificationIndicatorText: MetaContent?
 
-        @Published public var authorAvatarImage: UIImage?
         @Published public var authorAvatarImageURL: URL?
         @Published public var authorName: MetaContent?
         @Published public var authorUsername: String?
@@ -70,22 +69,14 @@ extension NotificationView.ViewModel {
  
     private func bindAuthor(notificationView: NotificationView) {
         // avatar
-        Publishers.CombineLatest(
-            $authorAvatarImage,
-            $authorAvatarImageURL
-        )
-        .sink { image, url in
-            let configuration: AvatarImageView.Configuration = {
-                if let image = image {
-                    return AvatarImageView.Configuration(image: image)
-                } else {
-                    return AvatarImageView.Configuration(url: url)
-                }
-            }()
-            notificationView.avatarButton.avatarImageView.configure(configuration: configuration)
-            notificationView.avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 12)))
-        }
-        .store(in: &disposeBag)
+
+        $authorAvatarImageURL
+            .sink { url in
+                let configuration = AvatarImageView.Configuration(url: url)
+                notificationView.avatarButton.avatarImageView.configure(configuration: configuration)
+                notificationView.avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 12)))
+            }
+            .store(in: &disposeBag)
         // name
         $authorName
             .sink { metaContent in
@@ -158,11 +149,8 @@ extension NotificationView.ViewModel {
         }
         .store(in: &disposeBag)
 
-        Publishers.CombineLatest(
-            $authorAvatarImage,
             $type
-        )
-        .sink { avatarImage, type in
+        .sink { type in
             var actions = [UIAccessibilityCustomAction]()
 
             // these notifications can be directly actioned to view the profile
@@ -170,7 +158,7 @@ extension NotificationView.ViewModel {
                 actions.append(
                     UIAccessibilityCustomAction(
                         name: L10n.Common.Controls.Status.showUserProfile,
-                        image: avatarImage
+                        image: nil
                     ) { [weak notificationView] _ in
                         guard let notificationView = notificationView, let delegate = notificationView.delegate else { return false }
                         delegate.notificationView(notificationView, authorAvatarButtonDidPressed: notificationView.avatarButton)
