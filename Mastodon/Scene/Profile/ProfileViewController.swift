@@ -852,28 +852,11 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 )
 
                 self.viewModel.relationship = newRelationship
-                // update account?
-                // update me?
+                // TODO: update account?
+                // TODO: update me?
             }
 
         }
-
-        //            switch relationshipAction {
-        //            case .none:
-        //                break
-        //            case .follow, .request, .pending, .following:
-        //                guard let user = viewModel.user else { return }
-        //                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-        //                Task {
-        //                    try await DataSourceFacade.responseToUserFollowAction(
-        //                        dependency: self,
-        //                        user: record
-        //                    )
-        //                }
-        //            case .muting:
-        //            case .blocked, .showReblogs, .isMyself,.followingBy, .blockingBy, .suspended, .edit, .editing, .updating:
-        //                break
-        //            }
     }
 
     func profileHeaderViewController(
