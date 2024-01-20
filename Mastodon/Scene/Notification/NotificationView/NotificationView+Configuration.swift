@@ -83,8 +83,6 @@ extension NotificationView {
         let metaUsername = PlaintextMetaContent(string: "@\(author.acct)")
         authorUsernameLabel.configure(content: metaUsername)
 
-        viewModel.timestamp = notification.entity.createdAt
-
         let visibility = notification.entity.status?.mastodonVisibility ?? ._other("")
         visibilityIconImageView.image = visibility.image
 
@@ -174,9 +172,15 @@ extension NotificationView {
 
         }
 
+        timestampUpdatePublisher
+            .prepend(Date())
+            .eraseToAnyPublisher()
+            .sink { [weak self] now in
+                guard let self else { return }
 
-
-        viewModel.followRequestState = notification.followRequestState
-        viewModel.transientFollowRequestState = notification.transientFollowRequestState
+                let timestamp = now.localizedTimeAgo(since: notification.entity.createdAt)
+                dateLabel.configure(content: PlaintextMetaContent(string: timestamp))
+            }
+            .store(in: &disposeBag)
     }
 }

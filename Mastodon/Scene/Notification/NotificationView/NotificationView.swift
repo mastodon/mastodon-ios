@@ -176,7 +176,12 @@ public final class NotificationView: UIView {
     public let quoteStatusViewContainerView = UIView()
     public let quoteBackgroundView = UIView()
     public let quoteStatusView = StatusView()
-    
+
+    let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
+        .autoconnect()
+        .share()
+        .eraseToAnyPublisher()
+
     public func prepareForReuse() {
         disposeBag.removeAll()
 

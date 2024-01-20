@@ -33,19 +33,11 @@ extension NotificationView {
 
         @Published public var followRequestState = MastodonFollowRequestState(state: .none)
         @Published public var transientFollowRequestState = MastodonFollowRequestState(state: .none)
-        
-        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .share()
-            .eraseToAnyPublisher()
     }
 }
 
 extension NotificationView.ViewModel {
     func bind(notificationView: NotificationView) {
-        bindAuthor(notificationView: notificationView)
-        bindFollowRequest(notificationView: notificationView)
-
         $authContext
             .assign(to: \.authContext, on: notificationView.statusView.viewModel)
             .store(in: &disposeBag)
@@ -56,32 +48,19 @@ extension NotificationView.ViewModel {
  
     private func bindAuthor(notificationView: NotificationView) {
         // timestamp
-        let formattedTimestamp = Publishers.CombineLatest(
-            $timestamp,
-            timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
-        )
-        .map { timestamp, _ in
-            timestamp?.localizedTimeAgoSinceNow ?? ""
-        }
-        .removeDuplicates()
-
-        formattedTimestamp
-            .sink { timestamp in
-                notificationView.dateLabel.configure(content: PlaintextMetaContent(string: timestamp))
-            }
-            .store(in: &disposeBag)
-
         Publishers.CombineLatest4(
             $authorName,
             $authorUsername,
             $notificationIndicatorText,
-            formattedTimestamp
+            $timestamp
         )
         .sink { name, username, type, timestamp in
+
+            let formattedTimestamp = timestamp?.localizedSlowedTimeAgoSinceNow ?? ""
             notificationView.accessibilityLabel = [
                 "\(name?.string ?? "") \(type?.string ?? "")",
                 username.map { "@\($0)" } ?? "",
-                timestamp
+                formattedTimestamp
             ].joined(separator: ", ")
             if !notificationView.statusView.isHidden {
                 notificationView.accessibilityLabel! += ", " + (notificationView.statusView.accessibilityLabel ?? "")
@@ -138,7 +117,7 @@ extension NotificationView.ViewModel {
         }
         .store(in: &disposeBag)
     }
-    
+
     private func bindFollowRequest(notificationView: NotificationView) {
         Publishers.CombineLatest(
             $followRequestState,
@@ -159,7 +138,7 @@ extension NotificationView.ViewModel {
             default:
                 break
             }
-            
+
             let state = transientFollowRequestState.state
             if state == .isAccepting {
                 notificationView.acceptFollowRequestActivityIndicatorView.startAnimating()
@@ -179,7 +158,7 @@ extension NotificationView.ViewModel {
                 notificationView.rejectFollowRequestButton.tintColor = .black
                 notificationView.rejectFollowRequestButton.setTitleColor(.black, for: .normal)
             }
-            
+
             UIView.animate(withDuration: 0.3) {
                 if state == .isAccept {
                     notificationView.rejectFollowRequestButtonShadowBackgroundContainer.isHidden = true
@@ -193,3 +172,4 @@ extension NotificationView.ViewModel {
     }
 
 }
+

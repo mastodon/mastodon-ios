@@ -32,10 +32,10 @@ extension Date {
     }
     
     public var localizedTimeAgoSinceNow: String {
-        return self.localizedTimeAgo(since: Date(), isSlowed: false, isAbbreviated: false)
+        return self.localizedTimeAgo(since: Date())
     }
     
-    public func localizedTimeAgo(since date: Date, isSlowed: Bool, isAbbreviated: Bool) -> String {
+    public func localizedTimeAgo(since date: Date, isSlowed: Bool = false, isAbbreviated: Bool = false) -> String {
         let earlierDate = date < self ? date : self
         let latestDate = earlierDate == date ? self : date
         
