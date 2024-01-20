@@ -834,7 +834,7 @@
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "คุณจะไม่เห็นโพสต์หรือการดันของเขาในฟีดหน้าแรกของคุณ เขาจะไม่ทราบว่ามีการซ่อนเขา",
                 "block_user": "ปิดกั้น %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "เขาจะไม่สามารถติดตามหรือเห็นโพสต์ของคุณได้อีกต่อไป แต่เขาสามารถเห็นว่ามีการปิดกั้นเขาหรือไม่",
-                "while_we_review_this_you_can_take_action_against_user": "ขณะที่เราตรวจทานสิ่งนี้ คุณสามารถดำเนินการกับ %s"
+                "while_we_review_this_you_can_take_action_against_user": "ขณะที่เราตรวจทานสิ่งนี้ คุณสามารถใช้การกระทำต่อ %s"
             }
         },
         "preview": {
