@@ -115,8 +115,22 @@ extension MastodonEditStatusPublisher: StatusPublisher {
                     guard case let AttachmentViewModel.Input.mastodonAssetUrl(_, attachmentId) = attachmentViewModel.input else {
                         throw AppError.badRequest
                     }
+
                     attachmentIDs.append(attachmentId)
-                    break
+                    let needsUpdate = (attachmentViewModel.caption != attachmentViewModel.originalCaption)
+                    if needsUpdate {
+                        _ = try await api.updateMedia(
+                            domain: authContext.mastodonAuthenticationBox.domain,
+                            attachmentID: attachmentId,
+                            query: Mastodon.API.Media.UpdateMediaQuery(
+                                file: nil,
+                                thumbnail: nil,
+                                description: attachmentViewModel.caption,
+                                focus: nil
+                            ),
+                            mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
+                        ).singleOutput()
+                    }
                 case let .uploadedMastodonAttachment(attachment):
                     attachmentIDs.append(attachment.id)
 
