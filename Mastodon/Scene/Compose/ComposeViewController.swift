@@ -284,7 +284,8 @@ extension ComposeViewController {
                     authContext: viewModel.authContext,
                     input: .image(image),
                     sizeLimit: composeContentViewModel.sizeLimit,
-                    delegate: composeContentViewModel
+                    delegate: composeContentViewModel,
+                    caption: nil
                 )
             }
             composeContentViewModel.attachmentViewModels += attachmentViewModels

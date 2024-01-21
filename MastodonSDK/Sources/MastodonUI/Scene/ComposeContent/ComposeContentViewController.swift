@@ -473,7 +473,8 @@ extension ComposeContentViewController: PHPickerViewControllerDelegate {
                 authContext: viewModel.authContext,
                 input: .pickerResult(result),
                 sizeLimit: viewModel.sizeLimit,
-                delegate: viewModel
+                delegate: viewModel,
+                caption: nil
             )
         }
         viewModel.attachmentViewModels += attachmentViewModels
@@ -492,7 +493,8 @@ extension ComposeContentViewController: UIImagePickerControllerDelegate & UINavi
             authContext: viewModel.authContext,
             input: .image(image),
             sizeLimit: viewModel.sizeLimit,
-            delegate: viewModel
+            delegate: viewModel,
+            caption: nil
         )
         viewModel.attachmentViewModels += [attachmentViewModel]
     }
@@ -512,7 +514,8 @@ extension ComposeContentViewController: UIDocumentPickerDelegate {
             authContext: viewModel.authContext,
             input: .url(url),
             sizeLimit: viewModel.sizeLimit,
-            delegate: viewModel
+            delegate: viewModel,
+            caption: nil
         )
         viewModel.attachmentViewModels += [attachmentViewModel]
     }
