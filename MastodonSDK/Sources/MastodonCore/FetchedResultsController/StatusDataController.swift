@@ -3,8 +3,12 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import os.log
 
 public final class StatusDataController {
+    private let logger = Logger(subsystem: "StatusDataController", category: "Data")
+    private static let entryNotFoundMessage = "Failed to find suitable record. Depending on the context this might result in errors (data not being updated) or can be discarded (e.g. when there are mixed data sources where an entry might or might not exist)."
+
     @MainActor
     @Published 
     public private(set) var records: [MastodonStatus] = []
@@ -36,7 +40,6 @@ public final class StatusDataController {
     
     @MainActor
     public func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
-        
         switch intent {
         case .delete:
             deleteRecord(status)
@@ -51,57 +54,16 @@ public final class StatusDataController {
         case let .toggleSensitive(isVisible):
             updateSensitive(status, isVisible)
         }
-        
-        return
-      
-        #warning("Remove this code")
-//        if case MastodonStatus.UpdateIntent.delete = intent {
-//            return deleteRecord(status)
-//        }
-//        
-//        var newRecords = Array(records)
-//        for (i, record) in newRecords.enumerated() {
-//            if record.id == status.id {
-//                newRecords[i] = status
-//            } else if let reblog = status.reblog, reblog.id == record.id {
-//                newRecords[i] = status
-//            } else if let reblog = record.reblog, reblog.id == status.id {
-//                // Handle reblogged state
-//                let isRebloggedByAnyOne: Bool = records[i].reblog != nil
-//
-//                let newStatus: MastodonStatus
-//                if isRebloggedByAnyOne {
-//                    // if status was previously reblogged by me: remove reblogged status
-//                    if records[i].entity.reblogged == true && status.entity.reblogged == false {
-//                        newStatus = .fromEntity(status.entity)
-//                    } else {
-//                        newStatus = .fromEntity(records[i].entity)
-//                    }
-//                    
-//                } else {
-//                    newStatus = .fromEntity(status.entity)
-//                }
-//
-//                newStatus.isSensitiveToggled = status.isSensitiveToggled
-//                newStatus.reblog = isRebloggedByAnyOne ? .fromEntity(status.entity) : nil
-//                
-//                newRecords[i] = newStatus
-//            } else if let reblog = record.reblog, reblog.id == status.reblog?.id {
-//                // Handle re-reblogged state
-//                newRecords[i] = status
-//            }
-//        }
-//        records = newRecords
     }
     
     @MainActor
     private func updateEdited(_ status: MastodonStatus) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to find suitable record")
+            logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
-        newRecords[index] = status
+        newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
         records = newRecords
     }
     
@@ -109,10 +71,10 @@ public final class StatusDataController {
     private func updateBookmarked(_ status: MastodonStatus, _ isBookmarked: Bool) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to find suitable record")
+            logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
-        newRecords[index] = status
+        newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
         records = newRecords
     }
     
@@ -120,10 +82,10 @@ public final class StatusDataController {
     private func updateFavorited(_ status: MastodonStatus, _ isFavorited: Bool) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to find suitable record")
+            logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
-        newRecords[index] = status
+        newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
         records = newRecords
     }
     
@@ -134,22 +96,20 @@ public final class StatusDataController {
         switch isReblogged {
         case true:
             guard let reblog = status.reblog else {
-                assertionFailure("Reblogged entity not found")
                 return
             }
             guard let index = newRecords.firstIndex(where: { $0.id == reblog.id }) else {
-                assertionFailure("Failed to find suitable record")
+                logger.warning("\(Self.entryNotFoundMessage)")
                 return
             }
-            newRecords[index] = status
-            
+            newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
+
         case false:
             guard let index = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) else {
-                assertionFailure("Failed to find suitable record")
+                logger.warning("\(Self.entryNotFoundMessage)")
                 return
             }
-            let existingRecord = newRecords[index]
-            newRecords[index] = status
+            newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
         }
         
         records = newRecords
@@ -159,7 +119,7 @@ public final class StatusDataController {
     private func updateSensitive(_ status: MastodonStatus, _ isVisible: Bool) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to find suitable record")
+            logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
         newRecords[index] = status

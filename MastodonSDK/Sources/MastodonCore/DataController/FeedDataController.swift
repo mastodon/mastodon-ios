@@ -2,8 +2,11 @@ import Foundation
 import UIKit
 import Combine
 import MastodonSDK
+import os.log
 
 final public class FeedDataController {
+    private let logger = Logger(subsystem: "FeedDataController", category: "Data")
+    private static let entryNotFoundMessage = "Failed to find suitable record. Depending on the context this might result in errors (data not being updated) or can be discarded (e.g. when there are mixed data sources where an entry might or might not exist)."
 
     @Published public var records: [MastodonFeed] = []
     
@@ -33,7 +36,6 @@ final public class FeedDataController {
     
     @MainActor
     public func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
-        
         switch intent {
         case .delete:
             delete(status)
@@ -48,43 +50,6 @@ final public class FeedDataController {
         case let .toggleSensitive(isVisible):
             updateSensitive(status, isVisible)
         }
-        
-        return
-                
-        var newRecords = Array(records)
-        for (i, record) in newRecords.enumerated() {
-            if record.status?.id == status.id {
-                newRecords[i] = .fromStatus(status, kind: record.kind)
-            } else if let reblog = status.reblog, reblog.id == record.status?.id {
-                newRecords[i] = .fromStatus(status, kind: record.kind)
-            } else if let reblog = record.status?.reblog, reblog.id == status.id {
-                // Handle reblogged state
-                let isRebloggedByAnyOne: Bool = records[i].status!.reblog != nil
-
-                let newStatus: MastodonStatus
-                if isRebloggedByAnyOne {
-                    // if status was previously reblogged by me: remove reblogged status
-                    if records[i].status!.entity.reblogged == true && status.entity.reblogged == false {
-                        newStatus = .fromEntity(status.entity)
-                    } else {
-                        newStatus = .fromEntity(records[i].status!.entity)
-                    }
-                    
-                } else {
-                    newStatus = .fromEntity(status.entity)
-                }
-
-                newStatus.isSensitiveToggled = status.isSensitiveToggled
-                newStatus.reblog = isRebloggedByAnyOne ? .fromEntity(status.entity) : nil
-                
-                newRecords[i] = .fromStatus(newStatus, kind: record.kind)
-   
-            } else if let reblog = record.status?.reblog, reblog.id == status.reblog?.id {
-                // Handle re-reblogged state
-                newRecords[i] = .fromStatus(status, kind: record.kind)
-            }
-        }
-        records = newRecords
     }
     
     @MainActor
@@ -96,12 +61,11 @@ final public class FeedDataController {
     private func updateEdited(_ status: MastodonStatus) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to find suitable record")
+            logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
         let existingRecord = newRecords[index]
-        let newStatus = status
-        newStatus.isSensitiveToggled = existingRecord.status?.isSensitiveToggled == true
+        let newStatus = status.inheritSensitivityToggled(from: existingRecord.status)
         newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
         records = newRecords
     }
@@ -110,11 +74,12 @@ final public class FeedDataController {
     private func updateBookmarked(_ status: MastodonStatus, _ isBookmarked: Bool) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to find suitable record")
+            logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
         let existingRecord = newRecords[index]
-        newRecords[index] = .fromStatus(status, kind: existingRecord.kind)
+        let newStatus = status.inheritSensitivityToggled(from: existingRecord.status)
+        newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
         records = newRecords
     }
     
@@ -122,11 +87,12 @@ final public class FeedDataController {
     private func updateFavorited(_ status: MastodonStatus, _ isFavorited: Bool) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to find suitable record")
+            logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
         let existingRecord = newRecords[index]
-        newRecords[index] = .fromStatus(status, kind: existingRecord.kind)
+        let newStatus = status.inheritSensitivityToggled(from: existingRecord.status)
+        newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
         records = newRecords
     }
     
@@ -142,7 +108,7 @@ final public class FeedDataController {
             } else if let idx = newRecords.firstIndex(where: { $0.id == status.reblog?.id }) {
                 index = idx
             } else {
-                assertionFailure("Failed to find suitable record")
+                logger.warning("\(Self.entryNotFoundMessage)")
                 return
             }
             let existingRecord = newRecords[index]
@@ -154,11 +120,12 @@ final public class FeedDataController {
             } else if let idx = newRecords.firstIndex(where: { $0.status?.id == status.id }) {
                 index = idx
             } else {
-                assertionFailure("Failed to find suitable record")
+                logger.warning("\(Self.entryNotFoundMessage)")
                 return
             }
             let existingRecord = newRecords[index]
-            newRecords[index] = .fromStatus(status, kind: existingRecord.kind)
+            let newStatus = status.inheritSensitivityToggled(from: existingRecord.status)
+            newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
         }
         records = newRecords
     }
@@ -167,7 +134,7 @@ final public class FeedDataController {
     private func updateSensitive(_ status: MastodonStatus, _ isVisible: Bool) {
         var newRecords = Array(records)
         guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
-            assertionFailure("Failed to find suitable record")
+            logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
         let existingRecord = newRecords[index]

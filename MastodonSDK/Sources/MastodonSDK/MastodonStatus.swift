@@ -32,6 +32,11 @@ extension MastodonStatus {
     public static func fromEntity(_ entity: Mastodon.Entity.Status) -> MastodonStatus {
         return MastodonStatus(entity: entity, isSensitiveToggled: false)
     }
+    
+    public func inheritSensitivityToggled(from status: MastodonStatus?) -> MastodonStatus {
+        self.isSensitiveToggled = status?.isSensitiveToggled ?? false
+        return self
+    }
 }
 
 extension MastodonStatus: Hashable {
