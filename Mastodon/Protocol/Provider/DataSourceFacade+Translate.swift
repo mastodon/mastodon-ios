@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 typealias Provider = UIViewController & NeedsDependency & AuthContextProvider
 
@@ -19,27 +20,11 @@ extension DataSourceFacade {
     
     public static func translateStatus(
         provider: Provider,
-        status: ManagedObjectRecord<Status>
-    ) async throws {
+        status: MastodonStatus
+    ) async throws -> Mastodon.Entity.Translation? {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
 
-        guard
-            let status = status.object(in: provider.context.managedObjectContext)
-        else {
-            return
-        }
-        
-        if let reblog = status.reblog {
-            try await translateAndApply(provider: provider, status: reblog)
-        } else {
-            try await translateAndApply(provider: provider, status: status)
-        }
-    }
-}
-
-private extension DataSourceFacade {
-    static func translateStatus(provider: Provider, status: Status) async throws -> Status.TranslatedContent? {
         do {
             let value = try await provider.context
                 .apiService
@@ -48,22 +33,13 @@ private extension DataSourceFacade {
                     authenticationBox: provider.authContext.mastodonAuthenticationBox
                 ).value
 
-            guard let content = value.content else {
-                throw TranslationFailure.emptyOrInvalidResponse
+            if value.content != nil {
+                return value
+            } else {
+                return nil
             }
-            
-            return Status.TranslatedContent(content: content, provider: value.provider)
+
         } catch {
-            throw TranslationFailure.emptyOrInvalidResponse
-        }
-    }
-    
-    static func translateAndApply(provider: Provider, status: Status) async throws {
-        do {
-            let translated = try await translateStatus(provider: provider, status: status)
-            status.update(translatedContent: translated)
-        } catch {
-            status.update(translatedContent: nil)
             throw TranslationFailure.emptyOrInvalidResponse
         }
     }

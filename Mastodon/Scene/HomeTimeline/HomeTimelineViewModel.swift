@@ -15,6 +15,7 @@ import GameplayKit
 import AlamofireImage
 import MastodonCore
 import MastodonUI
+import MastodonSDK
 
 final class HomeTimelineViewModel: NSObject {
     
@@ -24,7 +25,7 @@ final class HomeTimelineViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let fetchedResultsController: FeedFetchedResultsController
+    let dataController: FeedDataController
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
@@ -80,14 +81,12 @@ final class HomeTimelineViewModel: NSObject {
     init(context: AppContext, authContext: AuthContext) {
         self.context  = context
         self.authContext = authContext
-        self.fetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
+        self.dataController = FeedDataController(context: context, authContext: authContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
-        
-        fetchedResultsController.predicate = Feed.predicate(
-            kind: .home,
-            acct: .mastodon(domain: authContext.mastodonAuthenticationBox.domain, userID: authContext.mastodonAuthenticationBox.userID)
-        )
+        self.dataController.records = (try? FileManager.default.cachedHomeTimeline(for: authContext.mastodonAuthenticationBox).map {
+            MastodonFeed.fromStatus($0, kind: .home)
+        }) ?? []
         
         homeTimelineNeedRefresh
             .sink { [weak self] _ in
@@ -103,6 +102,20 @@ final class HomeTimelineViewModel: NSObject {
                 self.homeTimelineNeedRefresh.send()
             }
             .store(in: &disposeBag)
+        
+        self.dataController.$records
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { feeds in
+                let items: [MastodonStatus] = feeds.compactMap { feed -> MastodonStatus? in
+                    guard let status = feed.status else { return nil }
+                    return status
+                }
+                FileManager.default.cacheHomeTimeline(items: items, for: authContext.mastodonAuthenticationBox)
+            })
+            .store(in: &disposeBag)
+        
+        self.dataController.loadInitial(kind: .home)
     }
 }
 
@@ -116,7 +129,7 @@ extension HomeTimelineViewModel {
 
 extension HomeTimelineViewModel {
     func timelineDidReachEnd() {
-        fetchedResultsController.fetchNextBatch()
+        dataController.loadNext(kind: .home)
     }
 }
 
@@ -128,47 +141,21 @@ extension HomeTimelineViewModel {
         guard let diffableDataSource = diffableDataSource else { return }
         var snapshot = diffableDataSource.snapshot()
 
-        let managedObjectContext = context.managedObjectContext
-        let key = "LoadMore@\(record.objectID)"
-        
-        guard let feed = record.object(in: managedObjectContext) else { return }
-        guard let status = feed.status else { return }
-        
-        // keep transient property live
-        managedObjectContext.cache(feed, key: key)
-        defer {
-            managedObjectContext.cache(nil, key: key)
-        }
-        do {
-            // update state
-            try await managedObjectContext.performChanges {
-                feed.update(isLoadingMore: true)
-            }
-        } catch {
-            assertionFailure(error.localizedDescription)
-        }
-        
+        guard let status = record.status else { return }
+        record.isLoadingMore = true
+
         // reconfigure item
         snapshot.reconfigureItems([item])
         await updateSnapshotUsingReloadData(snapshot: snapshot)
         
         // fetch data
-        do {
-            let maxID = status.id
-            _ = try await context.apiService.homeTimeline(
-                maxID: maxID,
-                authenticationBox: authContext.mastodonAuthenticationBox
-            )
-        } catch {
-            do {
-                // restore state
-                try await managedObjectContext.performChanges {
-                    feed.update(isLoadingMore: false)
-                }
-            } catch {
-                assertionFailure(error.localizedDescription)
-            }
-        }
+        let maxID = status.id
+        _ = try? await context.apiService.homeTimeline(
+            maxID: maxID,
+            authenticationBox: authContext.mastodonAuthenticationBox
+        )
+        
+        record.isLoadingMore = false
         
         // reconfigure item again
         snapshot.reconfigureItems([item])

@@ -9,21 +9,20 @@ import UIKit
 import CoreData
 import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     static func coordinateToStatusThreadScene(
         provider: ViewControllerWithDependencies & AuthContextProvider,
         target: StatusTarget,
-        status: ManagedObjectRecord<Status>
+        status: MastodonStatus
     ) async {
-        let _root: StatusItem.Thread? = await {
-            let _redirectRecord = await DataSourceFacade.status(
-                managedObjectContext: provider.context.managedObjectContext,
+        let _root: StatusItem.Thread? = {
+            let redirectRecord = DataSourceFacade.status(
                 status: status,
                 target: target
             )
-            guard let redirectRecord = _redirectRecord else { return nil }
-
+            
             let threadContext = StatusItem.Thread.Context(status: redirectRecord)
             return StatusItem.Thread.root(context: threadContext)
         }()

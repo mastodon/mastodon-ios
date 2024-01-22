@@ -655,6 +655,10 @@
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "无结果"
                 },
@@ -705,59 +709,68 @@
             "title": "来自 %s 的帖子"
         },
         "settings": {
-            "title": "设置",
-            "section": {
-                "appearance": {
-                    "title": "外观",
-                    "automatic": "自动",
-                    "light": "浅色",
-                    "dark": "深色"
-                },
-                "look_and_feel": {
-                    "title": "外观和风格",
-                    "use_system": "跟随系统",
-                    "really_dark": "暗色",
-                    "sorta_dark": "深色",
-                    "light": "浅色"
-                },
-                "notifications": {
-                    "title": "通知",
-                    "favorites": "喜欢我的帖子",
-                    "follows": "关注我",
-                    "boosts": "转发我的帖子",
-                    "mentions": "提及我",
-                    "trigger": {
-                        "anyone": "任何人",
-                        "follower": "关注者",
-                        "follow": "我关注的",
-                        "noone": "没有人",
-                        "title": "提示通知来自"
-                    }
-                },
-                "preference": {
-                    "title": "偏好",
-                    "disable_avatar_animation": "禁用动画头像",
-                    "disable_emoji_animation": "禁用动画表情",
-                    "using_default_browser": "使用默认浏览器打开链接",
-                    "open_links_in_mastodon": "在 Mastodon 中打开链接"
-                },
-                "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "账号设置",
-                    "terms": "服务条款",
-                    "privacy": "隐私政策"
-                },
-                "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "清除图片缓存",
-                    "signout": "退出"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon 是开源软件。欢迎前往 GitHub %s (%s) 贡献代码或反馈问题。"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "关闭设置窗口"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

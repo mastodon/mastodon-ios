@@ -10,17 +10,7 @@ import Foundation
 
 public final class Status: NSManagedObject {
     public typealias ID = String
-    
-    public class TranslatedContent: NSObject {
-        public let content: String
-        public let provider: String?
-        
-        public init(content: String, provider: String?) {
-            self.content = content
-            self.provider = provider
-        }
-    }
-    
+
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var identifier: ID
     // sourcery: autoGenerateProperty
@@ -108,9 +98,6 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var reblogFrom: Set<Status>
     @NSManaged public private(set) var replyFrom: Set<Status>
     @NSManaged public private(set) var notifications: Set<Notification>
-    @NSManaged public private(set) var searchHistories: Set<SearchHistory>
-
-    @NSManaged public private(set) var editHistory: Set<StatusEdit>?
     
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var updatedAt: Date
@@ -118,9 +105,6 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var deletedAt: Date?
     // sourcery: autoUpdatableObject
     @NSManaged public private(set) var revealedAt: Date?
-    
-    // sourcery: autoUpdatableObject
-    @NSManaged public private(set) var translatedContent: TranslatedContent?
 }
 
 extension Status {
@@ -535,11 +519,6 @@ extension Status: AutoUpdatableObject {
     		self.revealedAt = revealedAt
     	}
     }
-    public func update(translatedContent: TranslatedContent?) {
-    	if self.translatedContent != translatedContent {
-    		self.translatedContent = translatedContent
-    	}
-    }
     public func update(attachments: [MastodonAttachment]) {
     	if self.attachments != attachments {
     		self.attachments = attachments
@@ -607,10 +586,6 @@ extension Status: AutoUpdatableObject {
     
     public func update(isReveal: Bool) {
         revealedAt = isReveal ? Date() : nil
-    }
-
-    public func update(editHistory: Set<StatusEdit>) {
-        self.editHistory = editHistory
     }
 }
 

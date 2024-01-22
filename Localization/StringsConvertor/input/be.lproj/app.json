@@ -577,7 +577,7 @@
                 "replies": "Адказы",
                 "posts_and_replies": "Допісы і адказы",
                 "media": "Медыя",
-                "about": "Аб праграме"
+                "about": "Аб"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -650,16 +650,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Супадзенне паведамленняў \"%s\"",
+                "people": "Супадзенне профіляў \"%s\"",
+                "profile": "Перайсці да @%s@%s",
+                "url": "Адкрыць спасылку ў Mastodon",
+                "hashtag": "Перайсці да #%s",
+                "no_user": {
+                    "title": "Уліковы запіс карыстальніка не знойдзены",
+                    "message": "На %s няма ўліковага запісу карыстальніка \"%s\""
+                },
                 "empty_state": {
                     "no_results": "Няма вынікаў"
                 },
                 "recent_search": "Нядаўнія запыты",
-                "clear_all": "Clear all",
+                "clear_all": "Ачысціць усё",
                 "clear": "Ачысціць"
             }
         },
@@ -705,59 +709,68 @@
             "title": "Допіс ад %s"
         },
         "settings": {
-            "title": "Налады",
-            "section": {
-                "appearance": {
-                    "title": "Знешні выгляд",
-                    "automatic": "Аўтаматычна",
-                    "light": "Заўсёды светлы",
-                    "dark": "Заўсёды цёмны"
-                },
-                "look_and_feel": {
-                    "title": "Знешні выгляд",
-                    "use_system": "Выкарыстоўваць сістэмны",
-                    "really_dark": "Сапраўды Цёмны",
-                    "sorta_dark": "Накшталт Цёмны",
-                    "light": "Светлы"
-                },
-                "notifications": {
-                    "title": "Апавяшчэнні",
-                    "favorites": "Дадае мой допіс у абранае",
-                    "follows": "Падпісаўся на мяне",
-                    "boosts": "Пашырае мой допіс",
-                    "mentions": "Згадвае мяне",
-                    "trigger": {
-                        "anyone": "кожны",
-                        "follower": "падпісчык",
-                        "follow": "нехта, на каго я падпісаны",
-                        "noone": "ніхто",
-                        "title": "Апавяшчаць мяне, калі"
-                    }
-                },
-                "preference": {
-                    "title": "Параметры",
-                    "disable_avatar_animation": "Адключыць анімацыю аватараў",
-                    "disable_emoji_animation": "Адключыць анімацыю эмодзі",
-                    "using_default_browser": "Выкарыстоўваць прадвызначаны браўзер для адкрыцця спасылак",
-                    "open_links_in_mastodon": "Адкрываць спасылкі ў Mastodon"
-                },
-                "boring_zone": {
-                    "title": "Нудная зона",
-                    "account_settings": "Налады ўліковага запісу",
-                    "terms": "Умовы выкарыстання",
-                    "privacy": "Палітыка канфідэнцыяльнасці"
-                },
-                "spicy_zone": {
-                    "title": "Вострая зона",
-                    "clear": "Ачысціць кэш медыя",
-                    "signout": "Выйсці"
+            "overview": {
+                "title": "Налады",
+                "general": "Агульныя",
+                "notifications": "Апавяшчэнні",
+                "support_mastodon": "Падтрымаць Mastodon",
+                "about_mastodon": "Пра Mastodon",
+                "server_details": "Інфармацыя аб серверы",
+                "logout": "Выйсці з %@"
+            },
+            "about_mastodon": {
+                "title": "Аб",
+                "more_settings": "Яшчэ больш налад",
+                "contribute_to_mastodon": "Унесці ўклад у Mastodon",
+                "privacy_policy": "Палітыка канфідэнцыяльнасці",
+                "clear_media_storage": "Ачысціце сховішча мультымедыя"
+            },
+            "server_details": {
+                "about": "Пра сервер",
+                "rules": "Правілы",
+                "about_instance": {
+                    "title": "Адміністратар",
+                    "message_admin": "Напісаць адміністратару",
+                    "legal_notice": "Прававая інфармацыя"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon — гэта праграма з адкрытым зыходным кодам. Вы можаце паведаміць аб праблемах на GitHub па адрасе %s (%s)"
+            "general": {
+                "title": "Агульныя",
+                "appearance": {
+                    "section_title": "Знешні выгляд",
+                    "dark": "Цёмная",
+                    "light": "Светлая",
+                    "system": "Выкарыстоўваць сістэмную тэму"
+                },
+                "design": {
+                    "section_title": "Афармленне",
+                    "show_animations": "Прайграваць аніміраваныя аватары і эмодзі"
+                },
+                "links": {
+                    "section_title": "Спасылкі",
+                    "open_in_mastodon": "Адкрываць у Mastodon",
+                    "open_in_browser": "Адкрываць у браўзеры"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Закрыць акно налад"
+            "notifications": {
+                "title": "Апавяшчэнні",
+                "policy": {
+                    "title": "Атрымліваць апавяшчэнні ад",
+                    "anyone": "Усіх",
+                    "followers": "Людзей, якія падпісаны на вас",
+                    "follow": "Людзей, на якіх вы падпісаны",
+                    "noone": "Нікога"
+                },
+                "alert": {
+                    "mentions_and_replies": "Згадванні & Адказы",
+                    "boosts": "Пашырэнні",
+                    "favorites": "Упадабаныя",
+                    "new_followers": "Новыя падпісчыкі"
+                },
+                "disabled": {
+                    "notification_hint": "Уключыце апавяшчэнні ў наладах прылады, каб бачыць абнаўлення на экране блакіроўкі.",
+                    "go_to_settings": "Перайсці ў налады апавяшчэнняў"
+                }
             }
         },
         "report": {

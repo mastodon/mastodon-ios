@@ -655,6 +655,10 @@
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "Dim canlyniadau"
                 },
@@ -705,59 +709,68 @@
             "title": "Tŵt gan %s"
         },
         "settings": {
-            "title": "Gosodiadau",
-            "section": {
-                "appearance": {
-                    "title": "Gwedd",
-                    "automatic": "Awtomatig",
-                    "light": "Golau",
-                    "dark": "Tywyll"
-                },
-                "look_and_feel": {
-                    "title": "Gwedd",
-                    "use_system": "Dull y System",
-                    "really_dark": "Tywyll Iawn",
-                    "sorta_dark": "Eitha' Tywyll",
-                    "light": "Golau"
-                },
-                "notifications": {
-                    "title": "Hysbysiadau",
-                    "favorites": "Yn ffefrynnu fy mhost",
-                    "follows": "Yn fy nilyn",
-                    "boosts": "Yn hybu fy mhost",
-                    "mentions": "Yn sôn amdana i",
-                    "trigger": {
-                        "anyone": "unrhyw un",
-                        "follower": "dilynwr",
-                        "follow": "unrhyw un o'm dilynion",
-                        "noone": "neb",
-                        "title": "Rhowch wybod i mi pan"
-                    }
-                },
-                "preference": {
-                    "title": "Dewisiadau",
-                    "disable_avatar_animation": "Analluogi rhithffurfiau wedi'u hanimeiddio",
-                    "disable_emoji_animation": "Analluogi emoji wedi'u hanimeiddio",
-                    "using_default_browser": "Defnyddio porwr rhagosodedig i agor dolenni",
-                    "open_links_in_mastodon": "Agor dolenni ym Mastodon"
-                },
-                "boring_zone": {
-                    "title": "Yr Ardal Ddiflas",
-                    "account_settings": "Gosodiadau Cyfrif",
-                    "terms": "Telerau Gwasanaeth",
-                    "privacy": "Polisi Preifatrwydd"
-                },
-                "spicy_zone": {
-                    "title": "Yr Ardal Sbeislyd",
-                    "clear": "Clirio Storfa Cyfryngau",
-                    "signout": "Allgofnodi"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mae Mastodon yn feddalwedd cod agored. Gallech roi gwybod am wallau ar GitHub: %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Cau Ffenest Gosodiadau"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

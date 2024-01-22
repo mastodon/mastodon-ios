@@ -133,3 +133,25 @@ extension Mastodon.Entity.Status {
         }
     }
 }
+
+extension Mastodon.Entity.Status: Hashable {
+    public static func == (lhs: Mastodon.Entity.Status, rhs: Mastodon.Entity.Status) -> Bool {
+        lhs.uri == rhs.uri &&
+        lhs.id == rhs.id &&
+        lhs.reblog == rhs.reblog &&
+        lhs.favourited == rhs.favourited &&
+        lhs.reblogged == rhs.reblogged &&
+        lhs.bookmarked == rhs.bookmarked &&
+        lhs.pinned == rhs.pinned
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(uri)
+        hasher.combine(id)
+        hasher.combine(reblog)
+        hasher.combine(favourited)
+        hasher.combine(reblogged)
+        hasher.combine(bookmarked)
+        hasher.combine(pinned)
+    }
+}

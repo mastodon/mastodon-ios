@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 // MARK: - DataSourceProvider
 extension SearchResultViewController: DataSourceProvider {
@@ -21,15 +22,23 @@ extension SearchResultViewController: DataSourceProvider {
         }
         
         switch item {
-        case .user(let record):
-            return .user(record: record)
+        case .account(let account, let relationship):
+            return .account(account: account, relationship: relationship)
         case .status(let record):
             return .status(record: record)
-        case .hashtag(let entity):
-            return .hashtag(tag: .entity(entity))
+        case .hashtag(let tag):
+            return .hashtag(tag: tag)
         default:
             return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        viewModel.dataController.update(status: status)
+    }
+    
+    func delete(status: MastodonStatus) {
+        viewModel.dataController.deleteRecord(status)
     }
     
     @MainActor
@@ -52,6 +61,8 @@ extension SearchResultViewController {
             )
             
             switch item {
+            case .account(let account, relationship: _):
+                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
             case .status(let status):
                 await DataSourceFacade.coordinateToStatusThreadScene(
                     provider: self,

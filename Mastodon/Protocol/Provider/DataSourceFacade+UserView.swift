@@ -64,16 +64,52 @@ extension DataSourceFacade {
             break //no-op
         }
     }
-}
 
-extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextProvider {
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
-        Task {
-            try await DataSourceFacade.responseToUserViewButtonAction(
-                dependency: self,
-                user: user.asRecord,
-                buttonState: state
-            )
+    static func responseToUserViewButtonAction(
+        dependency: NeedsDependency & AuthContextProvider,
+        user: Mastodon.Entity.Account,
+        buttonState: UserView.ButtonState
+    ) async throws {
+        switch buttonState {
+            case .follow:
+                _ = try await DataSourceFacade.responseToUserFollowAction(
+                    dependency: dependency,
+                    user: user
+                )
+
+                dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds.append(user.id)
+
+            case .request:
+                _ = try  await DataSourceFacade.responseToUserFollowAction(
+                    dependency: dependency,
+                    user: user
+                )
+
+                dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followRequestedUserIDs.append(user.id)
+            case .unfollow:
+                _ = try  await DataSourceFacade.responseToUserFollowAction(
+                    dependency: dependency,
+                    user: user
+                )
+
+                dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followingUserIds.removeAll(where: { $0 == user.id })
+            case .blocked:
+                try  await DataSourceFacade.responseToUserBlockAction(
+                    dependency: dependency,
+                    user: user
+                )
+
+                dependency.authContext.mastodonAuthenticationBox.inMemoryCache.blockedUserIds.append(user.id)
+
+            case .pending:
+                _ = try  await DataSourceFacade.responseToUserFollowAction(
+                    dependency: dependency,
+                    user: user
+                )
+
+                dependency.authContext.mastodonAuthenticationBox.inMemoryCache.followRequestedUserIDs.removeAll(where: { $0 == user.id })
+            case .none, .loading:
+                break //no-op
         }
     }
 }

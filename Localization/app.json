@@ -222,10 +222,11 @@
                 "pending": "Pending",
                 "block": "Block",
                 "block_user": "Block %s",
-                "block_domain": "Block %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
                 "unmute": "Unmute",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Hide Reblogs",
                     "message": "Confirm to hide reblogs"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
@@ -658,7 +667,7 @@
                 "no_user": {
                     "title": "No User Account Found",
                     "message": "There's no Useraccount \"%s\" on %s"
-                }
+                },
                 "empty_state": {
                     "no_results": "No results"
                 },
@@ -717,8 +726,7 @@
                 "about_mastodon": "About Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logout %@"
-            }
-
+            },
             "about_mastodon": {
                 "title": "About",
                 "more_settings": "Even More Settings",
@@ -726,12 +734,11 @@
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
             },
-
             "server_details": {
                 "about": "About",
-                "rules": "Rules"
+                "rules": "Rules",
                 "about_instance": {
-                    "title": "Adminstrator"
+                    "title": "Administrator",
                     "message_admin": "Message Admin",
                     "legal_notice": "A legal notice"
                 }

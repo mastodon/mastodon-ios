@@ -13,6 +13,7 @@ import MastodonCore
 
 final class RemoteProfileViewModel: ProfileViewModel {
     
+    @MainActor
     init(context: AppContext, authContext: AuthContext, userID: Mastodon.Entity.Account.ID) {
         super.init(context: context, authContext: authContext, optionalMastodonUser: nil)
         
@@ -51,6 +52,7 @@ final class RemoteProfileViewModel: ProfileViewModel {
             .store(in: &disposeBag)
     }
     
+    @MainActor
     init(context: AppContext, authContext: AuthContext, notificationID: Mastodon.Entity.Notification.ID) {
         super.init(context: context, authContext: authContext, optionalMastodonUser: nil)
 
@@ -89,6 +91,7 @@ final class RemoteProfileViewModel: ProfileViewModel {
         }   // end Task
     }
     
+    @MainActor
     init(context: AppContext, authContext: AuthContext, acct: String){
         super.init(context: context, authContext: authContext, optionalMastodonUser: nil)
 

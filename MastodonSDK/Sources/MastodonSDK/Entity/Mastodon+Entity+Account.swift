@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MastodonCommon
 
 extension Mastodon.Entity {
     
@@ -18,7 +19,7 @@ extension Mastodon.Entity {
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/account/)
     public final class Account: Codable, Sendable {
-        
+
         public typealias ID = String
 
         // Base
@@ -84,18 +85,63 @@ extension Mastodon.Entity {
     }
 }
 
+//MARK: - Hashable
+extension Mastodon.Entity.Account: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        // The URL seems to be the only thing that doesn't change across instances.
+        hasher.combine(url)
+    }
+
+}
+
+//MARK: - Equatable
+extension Mastodon.Entity.Account: Equatable {
+    public static func == (lhs: Mastodon.Entity.Account, rhs: Mastodon.Entity.Account) -> Bool {
+        // The URL seems to be the only thing that doesn't change across instances.
+        return lhs.url == rhs.url
+    }
+}
+
+//MARK: - Convenience
 extension Mastodon.Entity.Account {
+    public var acctWithDomain: String {
+        if !acct.contains("@") {
+            // Safe concat due to username cannot contains "@"
+            return username + "@" + (domain ?? "")
+        } else {
+            return acct
+        }
+    }
+    
     public func acctWithDomainIfMissing(_ localDomain: String) -> String {
         guard acct.contains("@") else {
             return "\(acct)@\(localDomain)"
         }
         return acct
     }
-}
 
-extension Mastodon.Entity.Account {
     public var verifiedLink: Mastodon.Entity.Field? {
         let firstVerified = fields?.first(where: { $0.verifiedAt != nil })
         return firstVerified
+    }
+
+    public var domain: String? {
+        guard let components = URLComponents(string: url) else { return nil }
+
+        return components.host
+    }
+
+    public func avatarImageURL() -> URL? {
+        let string = UserDefaults.shared.preferredStaticAvatar ? avatarStatic ?? avatar : avatar
+        return URL(string: string)
+    }
+
+    public func avatarImageURLWithFallback(domain: String) -> URL {
+        return avatarImageURL() ?? URL(string: "https://\(domain)/avatars/original/missing.png")!
+    }
+
+    public var displayNameWithFallback: String {
+        return !displayName.isEmpty ? displayName : username
+
     }
 }

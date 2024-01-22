@@ -31,7 +31,7 @@ extension ComposeContentViewModel: UITextViewDelegate {
         switch textView {
         case contentMetaText?.textView:
             // update model
-            guard let metaText = self.contentMetaText else {
+            guard self.contentMetaText != nil else {
                 assertionFailure()
                 return
             }

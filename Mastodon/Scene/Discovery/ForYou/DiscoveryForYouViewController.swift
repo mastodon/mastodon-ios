@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import MastodonUI
 import MastodonCore
+import MastodonSDK
 
 final class DiscoveryForYouViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
 
@@ -96,18 +97,11 @@ extension DiscoveryForYouViewController: AuthContextProvider {
 extension DiscoveryForYouViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        guard let user = record.object(in: context.managedObjectContext) else { return }
-        let profileViewModel = CachedProfileViewModel(
-            context: context,
-            authContext: viewModel.authContext,
-            mastodonUser: user
-        )
-        _ = coordinator.present(
-            scene: .profile(viewModel: profileViewModel),
-            from: self,
-            transition: .show
-        )
+        guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+
+        Task {
+            await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+        }
     }
 
 }
@@ -117,17 +111,22 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
     func profileCardTableViewCell(
         _ cell: ProfileCardTableViewCell,
         profileCardView: ProfileCardView,
-        relationshipButtonDidPressed button: ProfileRelationshipActionButton
+        relationshipButtonDidPressed button: UIButton
     ) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        
+        guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+
+        cell.profileCardView.setButtonState(.loading)
+
         Task {
-            try await DataSourceFacade.responseToUserFollowAction(
-                dependency: self,
-                user: record
-            )
-        }   // end Task
+            let newRelationship = try await DataSourceFacade.responseToUserFollowAction(dependency: self, user: account)
+
+            let isMe = (account.id == authContext.mastodonAuthenticationBox.userID)
+
+            await MainActor.run {
+                cell.profileCardView.updateButtonState(with: newRelationship, isMe: isMe)
+            }
+        }
     }
     
     func profileCardTableViewCell(
@@ -136,23 +135,36 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         familiarFollowersDashboardViewDidPressed view: FamiliarFollowersDashboardView
     ) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        guard let user = record.object(in: context.managedObjectContext) else { return }
-        
-        let userID = user.id
-        let _familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })
-        guard let familiarFollowers = _familiarFollowers else {
-            assertionFailure()
-            return
+        guard case let .account(account, _) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+
+        coordinator.showLoading()
+
+        Task { [weak self] in
+
+            guard let self else { return }
+            do {
+                let userID = account.id
+                let familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })?.accounts ?? []
+                let relationships = try await context.apiService.relationship(forAccounts: familiarFollowers, authenticationBox: authContext.mastodonAuthenticationBox).value
+
+                coordinator.hideLoading()
+
+                let familiarFollowersViewModel = FamiliarFollowersViewModel(
+                    context: context,
+                    authContext: authContext,
+                    accounts: familiarFollowers,
+                    relationships: relationships
+                )
+
+                _ = coordinator.present(
+                    scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
+                    from: self,
+                    transition: .show
+                )
+            } catch {
+
+            }
         }
-        
-        let familiarFollowersViewModel = FamiliarFollowersViewModel(context: context, authContext: authContext)
-        familiarFollowersViewModel.familiarFollowers = familiarFollowers
-        _ = coordinator.present(
-            scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
-            from: self,
-            transition: .show
-        )
     }
 }
 
@@ -160,4 +172,3 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
 extension DiscoveryForYouViewController: ScrollViewContainer {
     var scrollView: UIScrollView { tableView }
 }
-

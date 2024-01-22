@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="22G74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23B74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName="CoreDataStack.Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -125,7 +125,6 @@
         <relationship name="privateNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="to" inverseEntity="PrivateNote"/>
         <relationship name="privateNotesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="from" inverseEntity="PrivateNote"/>
         <relationship name="reblogged" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="rebloggedBy" inverseEntity="Status"/>
-        <relationship name="searchHistories" toMany="YES" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="account" inverseEntity="SearchHistory"/>
         <relationship name="showingReblogs" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="showingReblogsBy" inverseEntity="MastodonUser"/>
         <relationship name="showingReblogsBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="showingReblogs" inverseEntity="MastodonUser"/>
         <relationship name="statuses" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="author" inverseEntity="Status"/>
@@ -176,16 +175,6 @@
         <relationship name="from" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="privateNotesTo" inverseEntity="MastodonUser"/>
         <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="privateNotes" inverseEntity="MastodonUser"/>
     </entity>
-    <entity name="SearchHistory" representedClassName="CoreDataStack.SearchHistory" syncable="YES">
-        <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="domain" attributeType="String" defaultValueString=""/>
-        <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="userID" attributeType="String" defaultValueString=""/>
-        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="searchHistories" inverseEntity="MastodonUser"/>
-        <relationship name="hashtag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="searchHistories" inverseEntity="Tag"/>
-        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="searchHistories" inverseEntity="Status"/>
-    </entity>
     <entity name="Setting" representedClassName="CoreDataStack.Setting" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
@@ -225,7 +214,6 @@
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="statuses" inverseEntity="MastodonUser"/>
         <relationship name="bookmarkedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="bookmarked" inverseEntity="MastodonUser"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="status" inverseEntity="Card"/>
-        <relationship name="editHistory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StatusEdit" inverseName="status" inverseEntity="StatusEdit"/>
         <relationship name="favouritedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="favourite" inverseEntity="MastodonUser"/>
         <relationship name="feeds" toMany="YES" deletionRule="Cascade" destinationEntity="Feed" inverseName="status" inverseEntity="Feed"/>
         <relationship name="mutedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
@@ -237,18 +225,6 @@
         <relationship name="rebloggedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="reblogged" inverseEntity="MastodonUser"/>
         <relationship name="replyFrom" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="replyTo" inverseEntity="Status"/>
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="replyFrom" inverseEntity="Status"/>
-        <relationship name="searchHistories" toMany="YES" deletionRule="Cascade" destinationEntity="SearchHistory" inverseName="status" inverseEntity="SearchHistory"/>
-    </entity>
-    <entity name="StatusEdit" representedClassName="CoreDataStack.StatusEdit" syncable="YES">
-        <attribute name="attachments" optional="YES" attributeType="Binary"/>
-        <attribute name="content" optional="YES" attributeType="String"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="emojis" optional="YES" attributeType="Binary"/>
-        <attribute name="poll" optional="YES" attributeType="Binary"/>
-        <attribute name="sensitive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="spoilerText" optional="YES" attributeType="String"/>
-        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
-        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="editHistory" inverseEntity="Status"/>
     </entity>
     <entity name="Subscription" representedClassName="CoreDataStack.Subscription" syncable="YES">
         <attribute name="activedAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -283,6 +259,5 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="url" attributeType="String"/>
         <relationship name="followedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followedTags" inverseEntity="MastodonUser"/>
-        <relationship name="searchHistories" toMany="YES" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="hashtag" inverseEntity="SearchHistory"/>
     </entity>
 </model>

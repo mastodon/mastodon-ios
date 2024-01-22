@@ -655,6 +655,10 @@
                 "profile": "Vés a @%s@%s",
                 "url": "Obre l'enllaç a Mastodon",
                 "hashtag": "Vés a #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "No hi ha resultats"
                 },
@@ -705,59 +709,68 @@
             "title": "Tut de %s"
         },
         "settings": {
-            "title": "Configuració",
-            "section": {
-                "appearance": {
-                    "title": "Aparença",
-                    "automatic": "Automàtic",
-                    "light": "Sempre Clara",
-                    "dark": "Sempre Fosca"
-                },
-                "look_and_feel": {
-                    "title": "Aspecte i Comportament",
-                    "use_system": "Usa el del Sistema",
-                    "really_dark": "Realment Negre",
-                    "sorta_dark": "Una Mena de Fosc",
-                    "light": "Clar"
-                },
-                "notifications": {
-                    "title": "Notificacions",
-                    "favorites": "Ha afavorit el meu tut",
-                    "follows": "Em segueix",
-                    "boosts": "Ha impulsat el meu tut",
-                    "mentions": "M'ha mencionat",
-                    "trigger": {
-                        "anyone": "algú",
-                        "follower": "un seguidor",
-                        "follow": "a qualsevol que segueixi",
-                        "noone": "ningú",
-                        "title": "Notifica'm quan"
-                    }
-                },
-                "preference": {
-                    "title": "Preferències",
-                    "disable_avatar_animation": "Desactiva avatars animats",
-                    "disable_emoji_animation": "Desactiva emojis animats",
-                    "using_default_browser": "Utilitza el navegador predeterminat per a obrir enllaços",
-                    "open_links_in_mastodon": "Obre enllaços a Mastodon"
-                },
-                "boring_zone": {
-                    "title": "La Zona Avorrida",
-                    "account_settings": "Paràmetres del Compte",
-                    "terms": "Termes de Servei",
-                    "privacy": "Política de Privacitat"
-                },
-                "spicy_zone": {
-                    "title": "La Zona Picant",
-                    "clear": "Esborra la memòria cau de Mèdia",
-                    "signout": "Tancar Sessió"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon és un programari de codi obert. Pots informar de problemes a GitHub a %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Tancar la Finestra de Configuració"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

@@ -125,10 +125,10 @@
                     "next_status": "Seuraava julkaisu",
                     "open_status": "Avaa julkaisu",
                     "open_author_profile": "Avaa tekijän profiili",
-                    "open_reblogger_profile": "Avaa edelleen jakajan profiili",
+                    "open_reblogger_profile": "Avaa edelleenjulkaisijan profiili",
                     "reply_status": "Vastaa julkaisuun",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
+                    "toggle_reblog": "Kytke julkaisun jakaminen",
+                    "toggle_favorite": "Kytke julkaisun suosikkivalinta",
                     "toggle_content_warning": "Vaihda sisältövaroitus",
                     "preview_image": "Esikatsele kuvaa"
                 },
@@ -138,7 +138,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s jakoi edelleen",
+                "user_reblogged": "%s julkaisi edelleen",
                 "user_replied_to": "Vastasi %s:lle",
                 "show_post": "Näytä julkaisu",
                 "show_user_profile": "Näytä tili",
@@ -160,8 +160,8 @@
                 },
                 "actions": {
                     "reply": "Vastaa",
-                    "reblog": "Jaa edelleen",
-                    "unreblog": "Peru edelleen jako",
+                    "reblog": "Julkaise uudelleen",
+                    "unreblog": "Peru uudelleenjulkaisu",
                     "favorite": "Merkitse suosikiksi",
                     "unfavorite": "Poista suosikkimerkintä",
                     "menu": "Valikko",
@@ -172,8 +172,8 @@
                     "share_link_in_post": "Jaa linkki julkaisussa",
                     "tap_then_hold_to_show_menu": "Näytä valikko pitkällä painalluksella",
                     "a11y_labels": {
-                        "reblog": "Edelleenjaa",
-                        "unreblog": "Peru edelleenjako"
+                        "reblog": "Edelleenjulkaise",
+                        "unreblog": "Peru edelleenjulkaisu"
                     }
                 },
                 "tag": {
@@ -204,7 +204,7 @@
                 },
                 "posted_via_application": "%s sovelluksella %s",
                 "buttons": {
-                    "reblogs_title": "Edelleenjaot",
+                    "reblogs_title": "Uudelleenjulkaisut",
                     "favorites_title": "Suosikit",
                     "edit_history_title": "Muokkaushistoria",
                     "edit_history_detail": "Muokattiin viimeksi %s"
@@ -232,8 +232,8 @@
                 "unmute_user": "Poista mykistys tililtä %s",
                 "muted": "Mykistetty",
                 "edit_info": "Muokkaa profiilia",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Näytä uudelleenjulkaisut",
+                "hide_reblogs": "Piilota uudelleenjulkaisut"
             },
             "timeline": {
                 "filtered": "Suodatettu",
@@ -597,38 +597,38 @@
                     "message": "Vahvista tilin %s eston poisto"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Näytä uudelleenjulkaisut",
+                    "message": "Vahvista edelleenjulkaisujen näyttö"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Piilota edelleenjulkaisut",
+                    "message": "Vahvista edelleenjulkaisujen piilotus"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
+                "show_avatar_image": "Näytä profiilikuvat",
+                "edit_avatar_image": "Muokkaa profiilikuvaa",
+                "show_banner_image": "Näytä bannerin kuva",
                 "double_tap_to_open_the_list": "Avaa lista napauttamalla kahdesti"
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "seuraajaa",
             "footer": "Seuraajia muilta palvelimilta ei näytetä."
         },
         "following": {
-            "title": "following",
+            "title": "seurataan",
             "footer": "Seurauksia muilta palvelimilta ei näytetä."
         },
         "familiarFollowers": {
             "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "followed_by_names": "%s seuraa"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Lisännyt suosikkeihinsä"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Edelleenjulkaissut"
         },
         "search": {
             "title": "Haku",
@@ -650,11 +650,15 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Julkaisut haulla \"%s\"",
+                "people": "Käyttäjät haulla \"%s\"",
                 "profile": "Avaa profiilii @%s@%s",
                 "url": "Avaa URL Mastodonissa",
                 "hashtag": "Siirry #%s",
+                "no_user": {
+                    "title": "No User Account Found",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "Ei hakutuloksia"
                 },
@@ -665,13 +669,13 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
-                "for_you": "For You"
+                "posts": "Julkaisut",
+                "hashtags": "Aihetunnisteet",
+                "news": "Uutiset",
+                "community": "Yhteisö",
+                "for_you": "Sinulle"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Nämä julkaisut saavat huomiota Mastodonin nurkassasi."
         },
         "favorite": {
             "title": "Suosikit"
@@ -682,22 +686,22 @@
                 "Mentions": "Maininnat"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "seurasi sinua",
+                "favorited_your_post": "lisäsi julkaisusi suosikkeihinsa",
+                "reblogged_your_post": "edelleenjulkaisi julkaisusi",
+                "mentioned_you": "mainitsi sinut",
+                "request_to_follow_you": "haluaa seurata sinua",
+                "poll_has_ended": "kysely on päättynyt"
             },
             "keyobard": {
                 "show_everything": "Näytä kaikki",
                 "show_mentions": "Näytä maininnat"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Hyväksy",
+                "accepted": "Hyväksytty",
+                "reject": "Hylkää",
+                "rejected": "Hylätty"
             }
         },
         "thread": {
@@ -705,63 +709,72 @@
             "title": "Julkaisu tililtä %s"
         },
         "settings": {
-            "title": "Asetukset",
-            "section": {
-                "appearance": {
-                    "title": "Ulkoasu",
-                    "automatic": "Seuraa järjestelmää",
-                    "light": "Vaalea",
-                    "dark": "Tumma"
-                },
-                "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Erittäin tumma",
-                    "sorta_dark": "Tummahko",
-                    "light": "Vaalea"
-                },
-                "notifications": {
-                    "title": "Ilmoitukset",
-                    "favorites": "Lisää julkaisuni suosikkeihinsa",
-                    "follows": "Seuraa minua",
-                    "boosts": "Omien julkaisujen edelleen jaot",
-                    "mentions": "Mainitsee minut",
-                    "trigger": {
-                        "anyone": "kuka tahansa",
-                        "follower": "seuraaja",
-                        "follow": "kuka tahansa, jota seuraan",
-                        "noone": "ei kukaan",
-                        "title": "Ilmoita minulle, kun"
-                    }
-                },
-                "preference": {
-                    "title": "Lisäasetukset",
-                    "disable_avatar_animation": "Poista käytöstä animoidut avatarit",
-                    "disable_emoji_animation": "Poista käytöstä animoidut emojit",
-                    "using_default_browser": "Käytä oletusselainta linkkien avaamiseen",
-                    "open_links_in_mastodon": "Avaa linkit Mastodonissa"
-                },
-                "boring_zone": {
-                    "title": "Tylsä alue",
-                    "account_settings": "Tiliasetukset",
-                    "terms": "Palveluehdot",
-                    "privacy": "Tietosuojakäytäntö"
-                },
-                "spicy_zone": {
-                    "title": "Varovainen alue",
-                    "clear": "Tyhjennä median välimuisti",
-                    "signout": "Kirjaudu ulos"
+            "overview": {
+                "title": "Settings",
+                "general": "General",
+                "notifications": "Notifications",
+                "support_mastodon": "Support Mastodon",
+                "about_mastodon": "About Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logout %@"
+            },
+            "about_mastodon": {
+                "title": "About",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Contribute to Mastodon",
+                "privacy_policy": "Privacy Policy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon on avoimen lähdekoodin ohjelmisto. Voit raportoida ongelmasta GitHubissa osoitteessa %s (%s)"
+            "general": {
+                "title": "General",
+                "appearance": {
+                    "section_title": "Appearance",
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "links": {
+                    "section_title": "Links",
+                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_browser": "Open in Browser"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Sulje asetukset"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Get Notifications from",
+                    "anyone": "Anyone",
+                    "followers": "People who follow you",
+                    "follow": "People you follow",
+                    "noone": "No one"
+                },
+                "alert": {
+                    "mentions_and_replies": "Mentions & Replies",
+                    "boosts": "Boosts",
+                    "favorites": "Favorites",
+                    "new_followers": "New Followers"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {
-            "title_report": "Raportoi",
+            "title_report": "Ilmoita",
             "title": "Ilmianna %s",
             "step1": "Vaihe 1/2",
             "step2": "Vaihe 2/2",
@@ -809,7 +822,7 @@
                 "unfollowed": "Seuraaminen lopetettiin",
                 "unfollow_user": "Lopeta käyttäjän %s seuraaminen",
                 "mute_user": "Mykistä %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Et näe heidän julkaisujaan tai jatkojulkaisujaan kotisyötteessäsi. He eivät tiedä sinun mykistäneen heidät.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Et näe heidän julkaisujaan tai edelleenjulkaisujaan kotisyötteessäsi. He eivät tiedä sinun mykistäneen heidät.",
                 "block_user": "Estä %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "He eivät enää voi seurata tai nähdä julkaisujasi, eivätkä myöskään tiedä sinun estäneen heidät.",
                 "while_we_review_this_you_can_take_action_against_user": "Sillä välin kun tarkistamme tätä, voit ryhtyä toimenpiteisiin käyttäjää %s vastaan"

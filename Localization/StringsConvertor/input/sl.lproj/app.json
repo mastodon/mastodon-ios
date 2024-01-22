@@ -650,16 +650,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Objave, ki se ujemajo s/z »%s«",
+                "people": "Osebe, ki se ujemajo s/z »%s«",
+                "profile": "Pojdi na @%s@%s",
+                "url": "Odpri URL v Mastodonu",
+                "hashtag": "Pojdi na #%s",
+                "no_user": {
+                    "title": "Uporabniškega računa ni mogoče najti",
+                    "message": "Uporabniškega računa %s ni na %s"
+                },
                 "empty_state": {
                     "no_results": "Ni rezultatov"
                 },
                 "recent_search": "Nedavna iskanja",
-                "clear_all": "Clear all",
+                "clear_all": "Počisti vse",
                 "clear": "Počisti"
             }
         },
@@ -705,59 +709,68 @@
             "title": "Objavil/a"
         },
         "settings": {
-            "title": "Nastavitve",
-            "section": {
-                "appearance": {
-                    "title": "Videz",
-                    "automatic": "Samodejno",
-                    "light": "Vedno svetlo",
-                    "dark": "Vedno temno"
-                },
-                "look_and_feel": {
-                    "title": "Videz in občutek",
-                    "use_system": "Uporabi sistemsko",
-                    "really_dark": "Zares temno",
-                    "sorta_dark": "Nekako temno",
-                    "light": "Svetlo"
-                },
-                "notifications": {
-                    "title": "Obvestila",
-                    "favorites": "mojo objavo da med priljubljene",
-                    "follows": "me sledi",
-                    "boosts": "prepošlje mojo objavo",
-                    "mentions": "me omeni",
-                    "trigger": {
-                        "anyone": "kdor koli",
-                        "follower": "sledilec/ka",
-                        "follow": "nekdo, ki mu sledim,",
-                        "noone": "nihče",
-                        "title": "Obvesti me, ko"
-                    }
-                },
-                "preference": {
-                    "title": "Nastavitve",
-                    "disable_avatar_animation": "Onemogoči animirane avatarje",
-                    "disable_emoji_animation": "Onemogoči animirane emotikone",
-                    "using_default_browser": "Uporabi privzeti brskalnik za odpiranje povezav",
-                    "open_links_in_mastodon": "Odpri povezave v Mastodonu"
-                },
-                "boring_zone": {
-                    "title": "Cona dolgočasja",
-                    "account_settings": "Nastavitve računa",
-                    "terms": "Pogoji uporabe",
-                    "privacy": "Pravilnik o zasebnosti"
-                },
-                "spicy_zone": {
-                    "title": "Pikantna cona",
-                    "clear": "Počisti medijski predpomnilnik",
-                    "signout": "Odjava"
+            "overview": {
+                "title": "Nastavitve",
+                "general": "Splošno",
+                "notifications": "Obvestila",
+                "support_mastodon": "Podprite Mastodon",
+                "about_mastodon": "O Mastodonu",
+                "server_details": "Podrobnosti strežnika",
+                "logout": "Odjavi %@"
+            },
+            "about_mastodon": {
+                "title": "O programu",
+                "more_settings": "Še več nastavitev",
+                "contribute_to_mastodon": "Prispevajte Mastodonu",
+                "privacy_policy": "Pravilnik o zasebnosti",
+                "clear_media_storage": "Počisti medijsko shrambo"
+            },
+            "server_details": {
+                "about": "O strežniku",
+                "rules": "Pravila",
+                "about_instance": {
+                    "title": "Skrbnik",
+                    "message_admin": "Pošlji e-pošto skrbniku",
+                    "legal_notice": "Pravno obvestilo"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon je odprtokodna programska oprema. Na GitHubu na %s (%s) lahko poročate o napakah"
+            "general": {
+                "title": "Splošno",
+                "appearance": {
+                    "section_title": "Videz",
+                    "dark": "Temno",
+                    "light": "Svetlo",
+                    "system": "Uporabi videz naprave"
+                },
+                "design": {
+                    "section_title": "Oblikovanje",
+                    "show_animations": "Predvajaj animirane avatarje in emotikone"
+                },
+                "links": {
+                    "section_title": "Povezave",
+                    "open_in_mastodon": "Odpri v Mastodonu",
+                    "open_in_browser": "Odpri v brskalniku"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Zapri okno nastavitev"
+            "notifications": {
+                "title": "Obvestila",
+                "policy": {
+                    "title": "Prejemanje obvestil od",
+                    "anyone": "kogarkoli",
+                    "followers": "oseb, ki vam sledijo",
+                    "follow": "oseb, ki jim sledite",
+                    "noone": "nikogar"
+                },
+                "alert": {
+                    "mentions_and_replies": "Omembe in odgovori",
+                    "boosts": "Izpostavitve",
+                    "favorites": "Priljubljeni",
+                    "new_followers": "Novi sledilci"
+                },
+                "disabled": {
+                    "notification_hint": "Da vidite posodobitve za zaklepu zaslona, omogočite obvestila v nastavitvah naprave.",
+                    "go_to_settings": "Pojdi k nastavitvam obvestil"
+                }
             }
         },
         "report": {

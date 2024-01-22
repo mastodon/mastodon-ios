@@ -50,6 +50,10 @@ public final class StatusView: UIView {
     public weak var delegate: StatusViewDelegate?
     
     public private(set) var style: Style?
+    
+    public var domain: String? {
+        viewModel.authContext?.mastodonAuthenticationBox.domain
+    }
 
     // accessibility actions
     var toolbarActions = [UIAccessibilityCustomAction]()
@@ -398,7 +402,7 @@ extension StatusView {
     }
 
     @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
-        guard let url = viewModel.card?.url else { return }
+        guard let urlString = viewModel.card?.url, let url = URL(string: urlString) else { return }
         delegate?.statusView(self, didTapCardWithURL: url)
     }
     
@@ -671,7 +675,7 @@ extension StatusView {
     }
 
     private var hideTranslationAction: UIAccessibilityCustomAction? {
-        guard viewModel.translatedFromLanguage != nil else { return nil }
+        guard viewModel.translation?.sourceLanguage != nil else { return nil }
         return UIAccessibilityCustomAction(name: L10n.Common.Controls.Status.Translation.showOriginal) { [weak self] _ in
             self?.revertTranslation()
             return true

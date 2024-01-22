@@ -20,7 +20,7 @@ final class DiscoveryPostsViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let statusFetchedResultsController: StatusFetchedResultsController
+    let dataController: StatusDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     
     // output
@@ -41,14 +41,11 @@ final class DiscoveryPostsViewModel {
     let didLoadLatest = PassthroughSubject<Void, Never>()
     @Published var isServerSupportEndpoint = true
     
+    @MainActor
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+        self.dataController = StatusDataController()
         // end init
         
         Task {

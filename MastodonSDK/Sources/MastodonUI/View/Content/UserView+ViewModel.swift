@@ -13,6 +13,7 @@ import MastodonCore
 import MastodonMeta
 import MastodonAsset
 import MastodonLocalization
+import MastodonSDK
 
 extension UserView {
     public final class ViewModel: ObservableObject {
@@ -26,6 +27,8 @@ extension UserView {
         @Published public var authorFollowers: Int?
         @Published public var authorVerifiedLink: String?
         @Published public var user: MastodonUser?
+        @Published public var account: Mastodon.Entity.Account?
+        @Published public var relationship: Mastodon.Entity.Relationship?
     }
 }
 

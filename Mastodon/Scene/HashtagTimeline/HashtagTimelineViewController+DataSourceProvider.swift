@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonSDK
 
 extension HashtagTimelineViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
@@ -25,6 +26,14 @@ extension HashtagTimelineViewController: DataSourceProvider {
         default:
             return nil
         }
+    }
+    
+    func update(status: MastodonStatus) {
+        viewModel.dataController.update(status: status)
+    }
+    
+    func delete(status: MastodonStatus) {
+        viewModel.dataController.deleteRecord(status)
     }
     
     @MainActor

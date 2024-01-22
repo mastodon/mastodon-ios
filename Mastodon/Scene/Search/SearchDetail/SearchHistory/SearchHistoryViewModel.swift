@@ -16,7 +16,7 @@ final class SearchHistoryViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let searchHistoryFetchedResultController: SearchHistoryFetchedResultController
+    @Published public var items: [Persistence.SearchHistory.Item]
 
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<SearchHistorySection, SearchHistoryItem>?
@@ -24,10 +24,7 @@ final class SearchHistoryViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.searchHistoryFetchedResultController = SearchHistoryFetchedResultController(managedObjectContext: context.managedObjectContext)
-
-        searchHistoryFetchedResultController.domain.value = authContext.mastodonAuthenticationBox.domain
-        searchHistoryFetchedResultController.userID.value = authContext.mastodonAuthenticationBox.userID
+        self.items = (try? FileManager.default.searchItems(forUser: authContext.mastodonAuthenticationBox.userID)) ?? []
     }
 
 }

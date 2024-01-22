@@ -158,32 +158,15 @@ extension APIService {
         let domain = authenticationBox.domain
         let authorization = authenticationBox.userAuthorization
         
-        let response = try await Mastodon.API.Account.followedTags(
+        let followedTags = try await Mastodon.API.Account.followedTags(
             session: session,
             domain: domain,
             query: query,
             authorization: authorization
         ).singleOutput()
-        
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
 
-            for entity in response.value {
-                _ = Persistence.Tag.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Tag.PersistContext(
-                        domain: domain,
-                        entity: entity,
-                        me: me,
-                        networkDate: response.networkDate
-                    )
-                )
-            }
-        }
-        
-        return response
-    }   // end func
+        return followedTags
+    }
 }
 
 extension APIService {
@@ -201,8 +184,9 @@ extension APIService {
 
         // user
         let managedObjectContext = self.backgroundManagedObjectContext
+        var result: MastodonUser?
         try await managedObjectContext.performChanges {
-            _ = Persistence.MastodonUser.createOrMerge(
+             result = Persistence.MastodonUser.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.MastodonUser.PersistContext(
                     domain: domain,
@@ -210,18 +194,9 @@ extension APIService {
                     cache: nil,
                     networkDate: response.networkDate
                 )
-            )
+             ).user
         }
-        var result: MastodonUser?
-        try await managedObjectContext.perform {
-            result = Persistence.MastodonUser.fetch(in: managedObjectContext,
-                                                    context: Persistence.MastodonUser.PersistContext(
-                                                        domain: domain,
-                                                        entity: response.value,
-                                                        cache: nil,
-                                                        networkDate: response.networkDate
-                                                    ))
-        }
+
         return result
     }
 }

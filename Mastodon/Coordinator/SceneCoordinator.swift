@@ -13,6 +13,7 @@ import MastodonSDK
 import MastodonCore
 import MastodonAsset
 import MastodonLocalization
+import MBProgressHUD
 
 final public class SceneCoordinator {
     
@@ -28,7 +29,8 @@ final public class SceneCoordinator {
     
     private(set) weak var tabBarController: MainTabBarController!
     private(set) weak var splitViewController: RootSplitViewController?
-    
+    private(set) weak var rootViewController: UIViewController?
+
     private(set) var secondaryStackHashValues = Set<Int>()
     var childCoordinator: Coordinator?
 
@@ -198,7 +200,7 @@ extension SceneCoordinator {
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
-        
+
         var isOnboarding: Bool {
             switch self {
                 case .welcome,
@@ -220,42 +222,35 @@ extension SceneCoordinator {
     
     func setup() {
         let rootViewController: UIViewController
-        
-        do {
-            let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
-            let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
-            self.authContext = _authContext
-            
-            switch UIDevice.current.userInterfaceIdiom {
-                case .phone:
-                    let viewController = MainTabBarController(context: appContext, coordinator: self, authContext: _authContext)
-                    self.splitViewController = nil
-                    self.tabBarController = viewController
-                    rootViewController = viewController
-                default:
-                    let splitViewController = RootSplitViewController(context: appContext, coordinator: self, authContext: _authContext)
-                    self.splitViewController = splitViewController
-                    self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
-                    rootViewController = splitViewController
-            }
-            sceneDelegate.window?.rootViewController = rootViewController                   // base: main
 
-            if _authContext == nil {                                                        // entry #1: welcome
-                DispatchQueue.main.async {
-                    _ = self.present(
-                        scene: .welcome,
-                        from: self.sceneDelegate.window?.rootViewController,
-                        transition: .modal(animated: true, completion: nil)
-                    )
-                }
+        let _authentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
+        let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
+        self.authContext = _authContext
+
+        switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                let viewController = MainTabBarController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = nil
+                self.tabBarController = viewController
+                rootViewController = viewController
+            default:
+                let splitViewController = RootSplitViewController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = splitViewController
+                self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
+                rootViewController = splitViewController
+        }
+        
+        sceneDelegate.window?.rootViewController = rootViewController                   // base: main
+        self.rootViewController = rootViewController
+
+        if _authContext == nil {                                                        // entry #1: welcome
+            DispatchQueue.main.async {
+                _ = self.present(
+                    scene: .welcome,
+                    from: self.sceneDelegate.window?.rootViewController,
+                    transition: .modal(animated: true, completion: nil)
+                )
             }
-            
-        } catch {
-            assertionFailure(error.localizedDescription)
-            Task {
-                try? await Task.sleep(nanoseconds: .second * 2)
-                setup()                                                                     // entry #2: retry
-            }   // end Task
         }
     }
 
@@ -453,25 +448,21 @@ private extension SceneCoordinator {
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .followedTags(let viewModel):
-                let _viewController = FollowedTagsViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                guard let authContext else { return nil }
+                
+                viewController = FollowedTagsViewController(appContext: appContext, sceneCoordinator: self, authContext: authContext, viewModel: viewModel)
             case .favorite(let viewModel):
                 let _viewController = FavoriteViewController()
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .follower(let viewModel):
-                let _viewController = FollowerListViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                let followerListViewController = FollowerListViewController(viewModel: viewModel, coordinator: self, context: appContext)
+                viewController = followerListViewController
             case .following(let viewModel):
-                let _viewController = FollowingListViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                let followingListViewController = FollowingListViewController(viewModel: viewModel, coordinator: self, context: appContext)
+                viewController = followingListViewController
             case .familiarFollowers(let viewModel):
-                let _viewController = FamiliarFollowersViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
+                viewController = FamiliarFollowersViewController(viewModel: viewModel, context: appContext, coordinator: self)
             case .rebloggedBy(let viewModel):
                 let _viewController = RebloggedByViewController()
                 _viewController.viewModel = viewModel
@@ -559,10 +550,42 @@ private extension SceneCoordinator {
 
         return viewController
     }
-    
+
     private func setupDependency(for needs: NeedsDependency?) {
         needs?.context = appContext
         needs?.coordinator = self
+    }
+}
+
+//MARK: - Loading
+
+public extension SceneCoordinator {
+
+    @MainActor
+    func showLoading() {
+        showLoading(on: rootViewController)
+    }
+
+    @MainActor
+    func showLoading(on viewController: UIViewController?) {
+        guard let viewController else { return }
+        
+        /// Don't add HUD twice
+        guard MBProgressHUD.forView(viewController.view) == nil else { return }
+        
+        MBProgressHUD.showAdded(to: viewController.view, animated: true)
+    }
+
+    @MainActor
+    func hideLoading() {
+        hideLoading(on: rootViewController)
+    }
+
+    @MainActor
+    func hideLoading(on viewController: UIViewController?) {
+        guard let viewController else { return }
+
+        MBProgressHUD.hide(for: viewController.view, animated: true)
     }
 }
 
@@ -581,10 +604,19 @@ extension SceneCoordinator: MastodonLoginViewControllerDelegate {
 //MARK: - SettingsCoordinatorDelegate
 extension SceneCoordinator: SettingsCoordinatorDelegate {
     func logout(_ settingsCoordinator: SettingsCoordinator) {
+
+        let preferredStyle: UIAlertController.Style
+
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            preferredStyle = .actionSheet
+        } else {
+            preferredStyle = .alert
+        }
+
         let alertController = UIAlertController(
             title: L10n.Common.Alerts.SignOut.title,
             message: L10n.Common.Alerts.SignOut.message,
-            preferredStyle: .actionSheet
+            preferredStyle: preferredStyle
         )
 
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
@@ -597,7 +629,10 @@ extension SceneCoordinator: SettingsCoordinatorDelegate {
                 try await self.appContext.authenticationService.signOutMastodonUser(
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
-
+                let userIdentifier = authContext.mastodonAuthenticationBox
+                FileManager.default.invalidateHomeTimelineCache(for: userIdentifier)
+                FileManager.default.invalidateNotificationsAll(for: userIdentifier)
+                FileManager.default.invalidateNotificationsMentions(for: userIdentifier)
                 self.setup()
             }
 

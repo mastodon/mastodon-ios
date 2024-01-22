@@ -206,8 +206,8 @@
                 "buttons": {
                     "reblogs_title": "Reblogs",
                     "favorites_title": "Favoriter",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "edit_history_title": "Redigeringshistorik",
+                    "edit_history_detail": "Senast ändrad %s"
                 },
                 "edited_at_timestamp_prefix": "Ändrad %s",
                 "edit_history": {
@@ -336,7 +336,7 @@
                 "manually_reviewed": "Manuell granskning"
             },
             "language": {
-                "all": "All"
+                "all": "Alla"
             },
             "search": {
                 "placeholder": "Sök namn eller URL"
@@ -432,12 +432,12 @@
                 "resend": "Skicka igen"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Kontrollera din e-post",
                 "description": "Kontrollera om din e-postadress är korrekt samt din skräppostmapp om du inte har gjort det.",
                 "resend_email": "Skicka e-postmeddelande igen"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Kolla din inkorg.",
                 "description": "Vi har precis skickat ett e-postmeddelande till dig. Kontrollera din skräpmapp om du inte har gjort det.",
                 "mail": "E-post",
                 "open_email_client": "Öppna e-postklient"
@@ -493,7 +493,7 @@
                 "server_processing_state": "Behandlas av servern..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Omröstning",
                 "duration_time": "Längd: %s",
                 "thirty_minutes": "30 minuter",
                 "one_hour": "1 timme",
@@ -505,7 +505,7 @@
                 "the_poll_is_invalid": "Undersökningen är ogiltig",
                 "the_poll_has_empty_option": "Undersökningen har ett tomt alternativ",
                 "add_option": "Lägg till alternativ",
-                "remove_option": "Remove Option",
+                "remove_option": "Ta bort alternativ",
                 "move_up": "Flytta upp",
                 "move_down": "Flytta ned"
             },
@@ -650,11 +650,15 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Inlägg som matchar \"%s\"",
+                "people": "Profiler som matchar \"%s\"",
                 "profile": "Gå till @%s@%s",
                 "url": "Öppna URL i Mastodon",
                 "hashtag": "Gå till #%s",
+                "no_user": {
+                    "title": "Inget användarkonto hittades",
+                    "message": "There's no Useraccount \"%s\" on %s"
+                },
                 "empty_state": {
                     "no_results": "Inga resultat"
                 },
@@ -705,59 +709,68 @@
             "title": "Inlägg från %s"
         },
         "settings": {
-            "title": "Inställningar",
-            "section": {
-                "appearance": {
-                    "title": "Utseende",
-                    "automatic": "Automatisk",
-                    "light": "Alltid ljus",
-                    "dark": "Alltid mörk"
-                },
-                "look_and_feel": {
-                    "title": "Utseende och känsla",
-                    "use_system": "Följ systeminställningarna",
-                    "really_dark": "Verkligen mörk",
-                    "sorta_dark": "Ganska mörk",
-                    "light": "Ljust"
-                },
-                "notifications": {
-                    "title": "Notiser",
-                    "favorites": "Favoriserar mitt inlägg",
-                    "follows": "Följer mig",
-                    "boosts": "Boostar mitt inlägg",
-                    "mentions": "Nämner mig",
-                    "trigger": {
-                        "anyone": "alla",
-                        "follower": "en följare",
-                        "follow": "någon jag följer",
-                        "noone": "ingen",
-                        "title": "Meddela mig när"
-                    }
-                },
-                "preference": {
-                    "title": "Inställningar",
-                    "disable_avatar_animation": "Inaktivera animerade avatarer",
-                    "disable_emoji_animation": "Inaktivera animerade emojis",
-                    "using_default_browser": "Använd standardwebbläsare för att öppna länkar",
-                    "open_links_in_mastodon": "Öppna länkar i Mastodon"
-                },
-                "boring_zone": {
-                    "title": "Den tråkiga zonen",
-                    "account_settings": "Kontoinställningar",
-                    "terms": "Användarvillkor",
-                    "privacy": "Integritetspolicy"
-                },
-                "spicy_zone": {
-                    "title": "Den spännande zonen",
-                    "clear": "Rensa mediacache",
-                    "signout": "Logga ut"
+            "overview": {
+                "title": "Inställningar",
+                "general": "Allmänt",
+                "notifications": "Aviseringar",
+                "support_mastodon": "Stöd Mastodon",
+                "about_mastodon": "Om Mastodon",
+                "server_details": "Server Details",
+                "logout": "Logga ut %@"
+            },
+            "about_mastodon": {
+                "title": "Om",
+                "more_settings": "Even More Settings",
+                "contribute_to_mastodon": "Bidra till Mastodon",
+                "privacy_policy": "Integritetspolicy",
+                "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "Om",
+                "rules": "Regler",
+                "about_instance": {
+                    "title": "Administratör",
+                    "message_admin": "Meddela administratör",
+                    "legal_notice": "A legal notice"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon är programvara med öppen källkod. Du kan rapportera problem via GitHub på %s (%s)"
+            "general": {
+                "title": "Allmänt",
+                "appearance": {
+                    "section_title": "Utseende",
+                    "dark": "Mörkt",
+                    "light": "Ljust",
+                    "system": "Use Device Appearance"
+                },
+                "design": {
+                    "section_title": "Design",
+                    "show_animations": "Spela animerade avatarer och emojis"
+                },
+                "links": {
+                    "section_title": "Länkar",
+                    "open_in_mastodon": "Öppna i Mastodon",
+                    "open_in_browser": "Öppna i webbläsare"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Stäng inställningsfönstret"
+            "notifications": {
+                "title": "Notifications",
+                "policy": {
+                    "title": "Få aviseringar från",
+                    "anyone": "Anyone",
+                    "followers": "Personer som följer dig",
+                    "follow": "Personer du följer",
+                    "noone": "Ingen"
+                },
+                "alert": {
+                    "mentions_and_replies": "Omnämnanden & Svar",
+                    "boosts": "Boosts",
+                    "favorites": "Favoriter",
+                    "new_followers": "Nya följare"
+                },
+                "disabled": {
+                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "go_to_settings": "Go to Notification Settings"
+                }
             }
         },
         "report": {

@@ -59,7 +59,8 @@ extension MastodonMenu {
         case deleteStatus
         case editStatus
         case followUser(FollowUserActionContext)
-        
+        case blockDomain(BlockDomainActionContext)
+
         func build(delegate: MastodonMenuDelegate) -> LabeledAction {
             switch self {
             case .hideReblogs(let context):
@@ -194,14 +195,29 @@ extension MastodonMenu {
                     image = UIImage(systemName: "person.fill.badge.plus")
                 }
                 let action = LabeledAction(title: title, image: image) { [weak delegate] in
-                    guard let delegate = delegate else { return }
+                    guard let delegate else { return }
                     delegate.menuAction(self)
                 }
                 return action
+            case .blockDomain(let context):
+                    let title: String
+                    let image: UIImage?
+                    if context.isBlocking {
+                        title = L10n.Common.Controls.Actions.unblockDomain(context.domain)
+                        image = UIImage(systemName: "hand.raised.slash.fill")
+                    } else {
+                        title = L10n.Common.Controls.Actions.blockDomain(context.domain)
+                        image = UIImage(systemName: "hand.raised.fill")
+                    }
+                    let action = LabeledAction(title: title, image: image) { [weak delegate] in
+                        guard let delegate else { return }
 
-            }   // end switch
-        }   // end func build
-    }   // end enum Action
+                        delegate.menuAction(self)
+                    }
+                    return action
+            }
+        }
+    }
 }
 
 extension MastodonMenu {
@@ -273,6 +289,16 @@ extension MastodonMenu {
         init(name: String, isFollowing: Bool) {
             self.name = name
             self.isFollowing = isFollowing
+        }
+    }
+
+    public struct BlockDomainActionContext {
+        public let domain: String
+        public let isBlocking: Bool
+
+        public init(domain: String, isBlocking: Bool) {
+            self.domain = domain
+            self.isBlocking = isBlocking
         }
     }
 }

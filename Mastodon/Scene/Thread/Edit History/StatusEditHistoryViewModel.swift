@@ -5,10 +5,11 @@ import CoreDataStack
 import MastodonCore
 import MastodonUI
 import UIKit
+import MastodonSDK
 
 struct StatusEditHistoryViewModel {
-    let status: Status
-    let edits: [StatusEdit]
+    let status: MastodonStatus
+    let edits: [Mastodon.Entity.StatusEdit]
     
     let appContext: AppContext
     let authContext: AuthContext

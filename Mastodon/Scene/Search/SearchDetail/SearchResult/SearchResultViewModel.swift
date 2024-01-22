@@ -22,8 +22,9 @@ final class SearchResultViewModel {
     let searchScope: SearchScope
     let searchText: String
     @Published var hashtags: [Mastodon.Entity.Tag] = []
-    let userFetchedResultsController: UserFetchedResultsController
-    let statusFetchedResultsController: StatusFetchedResultsController
+    @Published var accounts: [Mastodon.Entity.Account] = []
+    var relationships: [Mastodon.Entity.Relationship] = []
+    let dataController: StatusDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     var cellFrameCache = NSCache<NSNumber, NSValue>()
@@ -45,21 +46,15 @@ final class SearchResultViewModel {
     }()
     let didDataSourceUpdate = PassthroughSubject<Void, Never>()
 
+    @MainActor
     init(context: AppContext, authContext: AuthContext, searchScope: SearchScope = .all, searchText: String) {
         self.context = context
         self.authContext = authContext
         self.searchScope = searchScope
         self.searchText = searchText
+        self.accounts = []
+        self.relationships = []
 
-        self.userFetchedResultsController = UserFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalPredicate: nil
-        )
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+        self.dataController = StatusDataController()
     }
 }

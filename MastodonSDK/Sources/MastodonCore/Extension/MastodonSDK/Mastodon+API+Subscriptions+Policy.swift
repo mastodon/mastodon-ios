@@ -13,10 +13,10 @@ import MastodonLocalization
 extension Mastodon.API.Subscriptions.Policy {
     public var title: String {
         switch self {
-        case .all:              return L10n.Scene.Settings.Section.Notifications.Trigger.anyone
-        case .follower:         return L10n.Scene.Settings.Section.Notifications.Trigger.follower
-        case .followed:         return L10n.Scene.Settings.Section.Notifications.Trigger.follow
-        case .none, ._other:    return L10n.Scene.Settings.Section.Notifications.Trigger.noone
+            case .all:              return L10n.Scene.Settings.Notifications.Policy.anyone
+            case .follower:         return L10n.Scene.Settings.Notifications.Policy.followers
+            case .followed:         return L10n.Scene.Settings.Notifications.Policy.follow
+            case .none, ._other:    return L10n.Scene.Settings.Notifications.Policy.noone
         }
     }
 }

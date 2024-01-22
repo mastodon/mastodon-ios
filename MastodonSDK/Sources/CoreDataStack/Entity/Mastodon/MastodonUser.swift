@@ -8,6 +8,7 @@
 import CoreData
 import Foundation
 
+/// See also `CoreDataStack.MastodonUser`, this extension contains several 
 final public class MastodonUser: NSManagedObject {
     
     public typealias ID = String
@@ -67,7 +68,6 @@ final public class MastodonUser: NSManagedObject {
     // one-to-many relationship
     @NSManaged public private(set) var statuses: Set<Status>
     @NSManaged public private(set) var notifications: Set<Notification>
-    @NSManaged public private(set) var searchHistories: Set<SearchHistory>
     
     // many-to-many relationship
     @NSManaged public private(set) var favourite: Set<Status>
@@ -211,28 +211,6 @@ extension MastodonUser {
     
     public static func predicate(followRequestedBy userID: MastodonUser.ID) -> NSPredicate {
         NSPredicate(format: "ANY %K.%K == %@", #keyPath(MastodonUser.followRequestedBy), #keyPath(MastodonUser.id), userID)
-    }
-    
-}
-
-
-extension MastodonUser {
-    
-    public func findSearchHistory(
-        domain: String,
-        userID: MastodonUser.ID
-    ) -> SearchHistory? {
-        return searchHistories.first { searchHistory in
-            return searchHistory.domain == domain
-                && searchHistory.userID == userID
-        }
-    }
-    
-    public func findSearchHistory(for user: MastodonUser) -> SearchHistory? {
-        return searchHistories.first { searchHistory in
-            return searchHistory.domain == user.domain
-                && searchHistory.userID == user.id
-        }
     }
     
 }

@@ -179,7 +179,10 @@ extension StatusAuthorView {
             postActions.append(.editStatus)
         }
 
-        if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled {
+        if menuContext.isTranslationEnabled,
+           let statusLanguage = menuContext.statusLanguage,
+           let deviceLanguage = Bundle.main.preferredLocalizations.first,
+           deviceLanguage != statusLanguage {
             if menuContext.isTranslated == false {
                 postActions.append(.translateStatus(.init(language: statusLanguage)))
             } else {

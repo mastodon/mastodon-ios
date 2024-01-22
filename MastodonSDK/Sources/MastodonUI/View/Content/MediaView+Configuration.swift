@@ -13,6 +13,7 @@ import CoreDataStack
 import Photos
 import AlamofireImage
 import MastodonCore
+import MastodonSDK
 
 extension MediaView {
     public class Configuration: Hashable {
@@ -179,7 +180,7 @@ extension MediaView.Configuration {
 }
 
 extension MediaView {
-    public static func configuration(status: StatusCompatible) -> [MediaView.Configuration] {
+    public static func configuration(status: MastodonStatus) -> [MediaView.Configuration] {
         func videoInfo(from attachment: MastodonAttachment) -> MediaView.Configuration.VideoInfo {
             MediaView.Configuration.VideoInfo(
                 aspectRadio: attachment.size,
@@ -190,8 +191,7 @@ extension MediaView {
             )
         }
         
-        let status: StatusCompatible = status.reblog ?? status
-        let attachments = status.attachments
+        let attachments = status.entity.mastodonAttachments
         let configurations = attachments.enumerated().map { (idx, attachment) -> MediaView.Configuration in
             let configuration: MediaView.Configuration = {
                 switch attachment.kind {
@@ -235,7 +235,90 @@ extension MediaView {
             }()
             
             configuration.load()
-            configuration.isReveal = status.isMediaSensitive ? status.isSensitiveToggled : true
+            configuration.isReveal = status.entity.sensitive == true ? status.isSensitiveToggled : true
+            
+            return configuration
+        }
+        
+        return configurations
+    }
+}
+
+extension MediaView {
+    public static func configuration(status: Mastodon.Entity.StatusEdit) -> [MediaView.Configuration] {
+        func aspectRatio(from attachment: Mastodon.Entity.Attachment) -> CGSize? {
+            if let width = attachment.meta?.original?.width, let height = attachment.meta?.original?.height {
+                return CGSize(width: width, height: height)
+            } else if let width = attachment.meta?.width, let height = attachment.meta?.height {
+                return CGSize(width: width, height: height)
+            }
+            return nil
+        }
+        
+        func videoInfo(from attachment: Mastodon.Entity.Attachment) -> MediaView.Configuration.VideoInfo? {
+            guard let aspectRatio = aspectRatio(from: attachment) else { return nil }
+            return MediaView.Configuration.VideoInfo(
+                aspectRadio: aspectRatio,
+                assetURL: attachment.url,
+                previewURL: attachment.previewURL,
+                altDescription: attachment.description,
+                durationMS: {
+                    guard let duration = attachment.meta?.duration else {
+                        return 0
+                    }
+                    return Int(duration)
+                }()
+            )
+        }
+        
+        let attachments = status.mediaAttachments ?? []
+        let configurations = attachments.enumerated().compactMap { (idx, attachment) -> MediaView.Configuration? in
+            let configuration: MediaView.Configuration? = {
+                switch attachment.attachmentKind {
+                case .image:
+                    guard let aspectRatio = aspectRatio(from: attachment) else { return nil }
+                    let info = MediaView.Configuration.ImageInfo(
+                        aspectRadio: aspectRatio,
+                        assetURL: attachment.url,
+                        altDescription: attachment.description
+                    )
+                    return .init(
+                        info: .image(info: info),
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
+                    )
+                case .video:
+                    guard let info = videoInfo(from: attachment) else { return nil }
+                    return .init(
+                        info: .video(info: info),
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
+                    )
+                case .gifv:
+                    guard let info = videoInfo(from: attachment) else { return nil }
+                    return .init(
+                        info: .gif(info: info),
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
+                    )
+                case .audio:
+                    guard let info = videoInfo(from: attachment) else { return nil }
+                    return .init(
+                        info: .video(info: info),
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
+                    )
+                case .none:
+                    return nil
+                }   // end switch
+            }()
+            
+            configuration?.load()
+            configuration?.isReveal = true
             
             return configuration
         }

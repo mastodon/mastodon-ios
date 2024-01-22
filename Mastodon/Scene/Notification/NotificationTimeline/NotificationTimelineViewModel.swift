@@ -20,7 +20,7 @@ final class NotificationTimelineViewModel {
     let context: AppContext
     let authContext: AuthContext
     let scope: Scope
-    let feedFetchedResultsController: FeedFetchedResultsController
+    let dataController: FeedDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     @Published var isLoadingLatest = false
     @Published var lastAutomaticFetchTimestamp: Date?
@@ -43,6 +43,7 @@ final class NotificationTimelineViewModel {
         return stateMachine
     }()
     
+    @MainActor
     init(
         context: AppContext,
         authContext: AuthContext,
@@ -51,13 +52,35 @@ final class NotificationTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.scope = scope
-        self.feedFetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
-        // end init
+        self.dataController = FeedDataController(context: context, authContext: authContext)
         
-        feedFetchedResultsController.predicate = NotificationTimelineViewModel.feedPredicate(
-            authenticationBox: authContext.mastodonAuthenticationBox,
-            scope: scope
-        )
+        switch scope {
+        case .everything:
+            self.dataController.records = (try? FileManager.default.cachedNotificationsAll(for: authContext.mastodonAuthenticationBox))?.map({ notification in
+                MastodonFeed.fromNotification(notification, kind: .notificationAll)
+            }) ?? []
+        case .mentions:
+            self.dataController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox))?.map({ notification in
+                MastodonFeed.fromNotification(notification, kind: .notificationMentions)
+            }) ?? []
+        }
+        
+        self.dataController.$records
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { feeds in
+                let items: [Mastodon.Entity.Notification] = feeds.compactMap { feed -> Mastodon.Entity.Notification? in
+                    guard let status = feed.notification else { return nil }
+                    return status
+                }
+                switch self.scope {
+                case .everything:
+                    FileManager.default.cacheNotificationsAll(items: items, for: authContext.mastodonAuthenticationBox)
+                case .mentions:
+                    FileManager.default.cacheNotificationsMentions(items: items, for: authContext.mastodonAuthenticationBox)
+                }
+            })
+            .store(in: &disposeBag)
     }
     
     
@@ -66,41 +89,6 @@ final class NotificationTimelineViewModel {
 extension NotificationTimelineViewModel {
 
     typealias Scope = APIService.MastodonNotificationScope
-    
-    static func feedPredicate(
-        authenticationBox: MastodonAuthenticationBox,
-        scope: Scope
-    ) -> NSPredicate {
-        let domain = authenticationBox.domain
-        let userID = authenticationBox.userID
-        let acct = Feed.Acct.mastodon(
-            domain: domain,
-            userID: userID
-        )
-        
-        let predicate: NSPredicate = {
-            switch scope {
-            case .everything:
-                return NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    Feed.hasNotificationPredicate(),
-                    Feed.predicate(
-                        kind: .notificationAll,
-                        acct: acct
-                    )
-                ])
-            case .mentions:
-                return NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    Feed.hasNotificationPredicate(),
-                    Feed.predicate(
-                        kind: .notificationMentions,
-                        acct: acct
-                    ),
-                    Feed.notificationTypePredicate(types: scope.includeTypes ?? [])
-                ])
-            }
-        }()
-        return predicate
-    }
 
 }
 
@@ -111,44 +99,23 @@ extension NotificationTimelineViewModel {
         isLoadingLatest = true
         defer { isLoadingLatest = false }
         
-        do {
-            _ = try await context.apiService.notifications(
-                maxID: nil,
-                scope: scope,
-                authenticationBox: authContext.mastodonAuthenticationBox
-            )
-        } catch {
-            didLoadLatest.send()
+        switch scope {
+        case .everything:
+            dataController.loadInitial(kind: .notificationAll)
+        case .mentions:
+            dataController.loadInitial(kind: .notificationMentions)
         }
+
+        didLoadLatest.send()
     }
     
     // load timeline gap
     func loadMore(item: NotificationItem) async {
-        guard case let .feedLoader(record) = item else { return }
-        
-        let managedObjectContext = context.managedObjectContext
-        let key = "LoadMore@\(record.objectID)"
-        
-        // return when already loading state
-        guard managedObjectContext.cache(froKey: key) == nil else { return }
-
-        guard let feed = record.object(in: managedObjectContext) else { return }
-        guard let maxID = feed.notification?.id else { return }
-        // keep transient property live
-        managedObjectContext.cache(feed, key: key)
-        defer {
-            managedObjectContext.cache(nil, key: key)
-        }
-        
-        // fetch data
-        do {
-            _ = try await context.apiService.notifications(
-                maxID: maxID,
-                scope: scope,
-                authenticationBox: authContext.mastodonAuthenticationBox
-            )
-        } catch {
+        switch scope {
+        case .everything:
+            dataController.loadNext(kind: .notificationAll)
+        case .mentions:
+            dataController.loadNext(kind: .notificationMentions)
         }
     }
-    
 }

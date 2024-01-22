@@ -22,6 +22,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         statusView: StatusView,
         headerDidPressed header: UIView
     ) {
+        let domain = statusView.domain ?? ""
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
             guard let item = await item(from: source) else {
@@ -38,15 +39,15 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 break
             case .reply:
                 let _replyToAuthor: ManagedObjectRecord<MastodonUser>? = try? await context.managedObjectContext.perform {
-                    guard let status = status.object(in: self.context.managedObjectContext) else { return nil }
-                    guard let inReplyToAccountID = status.inReplyToAccountID else { return nil }
+                    guard let inReplyToAccountID = status.entity.inReplyToAccountID else { return nil }
                     let request = MastodonUser.sortedFetchRequest
-                    request.predicate = MastodonUser.predicate(domain: status.author.domain, id: inReplyToAccountID)
+                    request.predicate = MastodonUser.predicate(domain: domain, id: inReplyToAccountID)
                     request.fetchLimit = 1
                     guard let author = self.context.managedObjectContext.safeFetch(request).first else { return nil }
                     return .init(objectID: author.objectID)
                 }
                 guard let replyToAuthor = _replyToAuthor else {
+                    assertionFailure()
                     return
                 }
                 
@@ -147,7 +148,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
             await DataSourceFacade.responseToURLAction(
                 provider: self,
-                status: status,
                 url: url
             )
         }
@@ -172,7 +172,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
             await DataSourceFacade.responseToURLAction(
                 provider: self,
-                status: status,
                 url: url
             )
         }
@@ -184,7 +183,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         cardControlMenu statusCardControl: StatusCardControl
     ) -> [LabeledAction]? {
         guard let card = statusView.viewModel.card,
-              let url = card.url else {
+              let url = URL(string: card.url) else {
             return nil
         }
 
@@ -206,8 +205,8 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                             URLActivityItemWithMetadata(url: url) { metadata in
                                 metadata.title = card.title
 
-                                if let image = card.imageURL {
-                                    metadata.iconProvider = ImageProvider(url: image, filter: nil).itemProvider
+                                if let image = card.image, let url = URL(string: image) {
+                                    metadata.iconProvider = ImageProvider(url: url, filter: nil).itemProvider
                                 }
                             }
                         ],
@@ -440,7 +439,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure("only works for status data provider")
                 return
             }
-            
+
             try await DataSourceFacade.responseToActionToolbar(
                 provider: self,
                 status: status,
@@ -466,13 +465,18 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure()
                 return
             }
-            guard case let .status(status) = item else {
+            guard case let .status(_status) = item else {
                 assertionFailure("only works for status data provider")
                 return
             }
+            
+            let status = _status.reblog ?? _status
+
             let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                guard let _status = status.object(in: self.context.managedObjectContext) else { return nil }
-                let author = (_status.reblog ?? _status).author
+                let request = MastodonUser.sortedFetchRequest
+                request.predicate = MastodonUser.predicate(domain: self.authContext.mastodonAuthenticationBox.domain, id: status.entity.account.id)
+                request.fetchLimit = 1
+                guard let author = self.context.managedObjectContext.safeFetch(request).first else { return nil }
                 return .init(objectID: author.objectID)
             }
             guard let author = _author else {
@@ -498,13 +502,24 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     }
                 }
             }
-                        
+
+            let statusViewModel: StatusView.ViewModel?
+
+            if let cell = cell as? StatusTableViewCell {
+                statusViewModel = await cell.statusView.viewModel
+            } else if let cell = cell as? StatusThreadRootTableViewCell {
+                statusViewModel = await cell.statusView.viewModel
+            } else {
+                statusViewModel = nil
+            }
+
             try await DataSourceFacade.responseToMenuAction(
                 dependency: self,
                 action: action,
                 menuContext: .init(
                     author: author,
-                    status: status,
+                    authorEntity: status.entity.account,
+                    statusViewModel: statusViewModel,
                     button: button,
                     barButtonItem: nil
                 )
@@ -660,19 +675,26 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton) {
         Task {
-
+            
+            await coordinator.showLoading()
+            
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
             guard let item = await self.item(from: source),
                   case let .status(status) = item else {
                 assertionFailure("only works for status data provider")
                 return
             }
+                        
+            do {
+                let edits = try await context.apiService.getHistory(forStatusID: status.id, authenticationBox: authContext.mastodonAuthenticationBox).value
 
-            guard let status = status.object(in: context.managedObjectContext),
-                  let edits = status.editHistory?.sorted(by: { $0.createdAt > $1.createdAt }) else { return }
+                await coordinator.hideLoading()
 
-            let viewModel = StatusEditHistoryViewModel(status: status, edits: edits, appContext: context, authContext: authContext)
-            _ = await coordinator.present(scene: .editHistory(viewModel: viewModel), from: self, transition: .show)
+                let viewModel = StatusEditHistoryViewModel(status: status, edits: edits, appContext: context, authContext: authContext)
+                _ = await coordinator.present(scene: .editHistory(viewModel: viewModel), from: self, transition: .show)
+            } catch {
+                await coordinator.hideLoading()
+            }
         }
     }
 }

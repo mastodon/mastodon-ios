@@ -8,26 +8,42 @@
 import UIKit
 import CoreDataStack
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     
+    @MainActor
     static func coordinateToProfileScene(
         provider: DataSourceProvider & AuthContextProvider,
         target: StatusTarget,
-        status: ManagedObjectRecord<Status>
+        status: MastodonStatus
     ) async {
-        let _redirectRecord = await DataSourceFacade.author(
-            managedObjectContext: provider.context.managedObjectContext,
-            status: status,
-            target: target
-        )
+        let acct: String
+        switch target {
+        case .status:
+            acct = status.reblog?.entity.account.acct ?? status.entity.account.acct
+        case .reblog:
+            acct = status.entity.account.acct
+        }
+        
+        provider.coordinator.showLoading()
+        
+        let _redirectRecord = try? await Mastodon.API.Account.lookupAccount(
+            session: .shared,
+            domain: provider.authContext.mastodonAuthenticationBox.domain,
+            query: .init(acct: acct),
+            authorization: provider.authContext.mastodonAuthenticationBox.userAuthorization
+        ).singleOutput().value
+        
+        provider.coordinator.hideLoading()
+                
         guard let redirectRecord = _redirectRecord else {
             assertionFailure()
             return
         }
         await coordinateToProfileScene(
             provider: provider,
-            user: redirectRecord
+            account: redirectRecord
         )
     }
     
@@ -41,10 +57,10 @@ extension DataSourceFacade {
             return
         }
         
-        let profileViewModel = CachedProfileViewModel(
+        let profileViewModel = ProfileViewModel(
             context: provider.context,
             authContext: provider.authContext,
-            mastodonUser: user
+            optionalMastodonUser: user
         )
         
         _ = provider.coordinator.present(
@@ -53,14 +69,39 @@ extension DataSourceFacade {
             transition: .show
         )
     }
-    
+
+    @MainActor
+    static func coordinateToProfileScene(
+        provider: ViewControllerWithDependencies & AuthContextProvider,
+        account: Mastodon.Entity.Account
+    ) async {
+        provider.coordinator.showLoading()
+        
+        guard let domain = account.domain else { return provider.coordinator.hideLoading() }
+        
+        Task {
+            do {
+                let user = try await provider.context.apiService.fetchUser(username: account.username,
+                                                                           domain: domain,
+                                                                           authenticationBox: provider.authContext.mastodonAuthenticationBox)
+                provider.coordinator.hideLoading()
+                
+                if let user {
+                    await coordinateToProfileScene(provider: provider, user: user.asRecord)
+                }
+            } catch {
+                provider.coordinator.hideLoading()
+            }
+        }
+    }
 }
 
 extension DataSourceFacade {
 
+    @MainActor
     static func coordinateToProfileScene(
         provider: DataSourceProvider & AuthContextProvider,
-        status: ManagedObjectRecord<Status>,
+        status: MastodonStatus,
         mention: String,        // username,
         userInfo: [AnyHashable: Any]?
     ) async {
@@ -73,13 +114,10 @@ extension DataSourceFacade {
             return
         }
     
-        let managedObjectContext = provider.context.managedObjectContext
-        let mentions = try? await managedObjectContext.perform {
-            return status.object(in: managedObjectContext)?.mentions ?? []
-        }
+        let mentions = status.entity.mentions ?? []
         
-        guard let mention = mentions?.first(where: { $0.url == href }) else {
-            _  = await provider.coordinator.present(
+        guard let mention = mentions.first(where: { $0.url == href }) else {
+            _  = provider.coordinator.present(
                 scene: .safari(url: url),
                 from: provider,
                 transition: .safariPresent(animated: true, completion: nil)
@@ -100,13 +138,13 @@ extension DataSourceFacade {
             let _user = provider.context.managedObjectContext.safeFetch(request).first
 
             if let user = _user {
-                return CachedProfileViewModel(context: provider.context, authContext: provider.authContext, mastodonUser: user)
+                return ProfileViewModel(context: provider.context, authContext: provider.authContext, optionalMastodonUser: user)
             } else {
                 return RemoteProfileViewModel(context: provider.context, authContext: provider.authContext, userID: userID)
             }
         }()
         
-        _ = await provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .profile(viewModel: profileViewModel),
             from: provider,
             transition: .show

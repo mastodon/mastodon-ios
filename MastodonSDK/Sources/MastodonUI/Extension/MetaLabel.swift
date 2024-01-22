@@ -78,11 +78,11 @@ extension MetaLabel {
             textColor = Asset.Colors.Label.secondary.color
             
         case .profileFieldName:
-            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 13, weight: .semibold))
+            font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
             textColor = Asset.Colors.Label.secondary.color
             
         case .profileFieldValue:
-            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+            font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
             textColor = Asset.Colors.Label.primary.color
             
         case .profileCardName:

@@ -87,6 +87,7 @@ class MainTabBarController: UITabBarController {
             return image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
         }
 
+        @MainActor
         func viewController(context: AppContext, authContext: AuthContext?, coordinator: SceneCoordinator) -> UIViewController {
             guard let authContext = authContext else {
                 return UITableViewController()
@@ -171,7 +172,9 @@ extension MainTabBarController {
 
         // seealso: `ThemeService.apply(theme:)`
         let tabs = Tab.allCases
-        let viewControllers: [UIViewController] = tabs.map { tab in
+        var viewControllers = [UIViewController]()
+        
+        for tab in tabs {
             let viewController = tab.viewController(context: context, authContext: authContext, coordinator: coordinator)
             viewController.tabBarItem.tag = tab.tag
             viewController.tabBarItem.title = tab.title     // needs for acessiblity large content label
@@ -180,12 +183,14 @@ extension MainTabBarController {
             viewController.tabBarItem.accessibilityLabel = tab.title
             viewController.tabBarItem.accessibilityUserInputLabels = tab.inputLabels
             viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-            return viewController
+            viewControllers.append(viewController)
         }
+        
         _viewControllers = viewControllers
         setViewControllers(viewControllers, animated: false)
         selectedIndex = 0
-
+        
+        
         // hacky workaround for FB11986255 (Setting accessibilityUserInputLabels on a UITabBarItem has no effect)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
             if let searchItem = self.tabBar.subviews.first(where: { $0.accessibilityLabel == Tab.search.title }) {
@@ -214,7 +219,7 @@ extension MainTabBarController {
             .store(in: &disposeBag)
         
         // handle post failure
-
+        
         // handle push notification.
         // toggle entry when finish fetch latest notification
         Publishers.CombineLatest(
@@ -231,7 +236,7 @@ extension MainTabBarController {
                 let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.accessToken)
                 return count > 0
             } ?? false
-
+            
             let image: UIImage
             if hasUnreadPushNotification {
                 let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
@@ -270,12 +275,12 @@ extension MainTabBarController {
                             guard user.managedObjectContext != nil else { return }
                             self.avatarURL = user.avatarImageURL()
                         }
-
+                    
                     // a11y
                     let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
                     guard let profileTabItem = _profileTabItem else { return }
                     profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(user.displayNameWithFallback)
-
+                    
                     self.context.authenticationService.updateActiveUserAccountPublisher
                         .sink { [weak self] in
                             self?.updateUserAccount()
@@ -286,19 +291,18 @@ extension MainTabBarController {
                 }
             }
             .store(in: &disposeBag)
-
+        
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBarLongPressGestureRecognizer.delegate = self
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
-
-        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
-//        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
-//        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
-//        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
-//        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
-//        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
-
+        
+        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
+        
         self.isReadyForWizardAvatarButton = authContext != nil
         
         $currentTab
@@ -359,17 +363,10 @@ extension MainTabBarController {
         guard let tab = touchedTab(by: sender) else { return }
 
         switch tab {
-        case .me:
-            guard let authContext = authContext else { return }
+        case .search:
             assert(Thread.isMainThread)
-
-            guard let nextAccount = context.nextAccount(in: authContext) else { return }
-            
-            Task { @MainActor in
-                let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
-                guard isActive else { return }
-                self.coordinator.setup()
-            }
+            // double tapping search tab opens the search bar without additional taps
+            searchViewController?.searchBar.becomeFirstResponder()
         default:
             break
         }
@@ -498,7 +495,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
 
         // Assert index is as same as the tab rawValue. This check needs to be done `shouldSelect`
         // because the nav controller has already popped in `didSelect`.
-        if currentTab.rawValue == tabBarController.selectedIndex,
+        if currentTab.rawValue == viewController.tabBarItem.tag,
            let navigationController = viewController as? UINavigationController,
            navigationController.viewControllers.count == 1,
            let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer  {

@@ -8,8 +8,9 @@
 import Foundation
 import CoreData
 import CoreDataStack
+import MastodonSDK
 
 public enum PollItem: Hashable {
     case option(record: ManagedObjectRecord<PollOption>)
-    case history(option: StatusEdit.Poll.Option)
+    case history(option: Mastodon.Entity.StatusEdit.Poll.Option)
 }

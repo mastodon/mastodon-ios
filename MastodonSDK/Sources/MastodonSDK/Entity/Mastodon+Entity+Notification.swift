@@ -88,3 +88,13 @@ extension Mastodon.Entity.Notification {
         }
     }
 }
+
+extension Mastodon.Entity.Notification: Hashable {
+    public static func == (lhs: Mastodon.Entity.Notification, rhs: Mastodon.Entity.Notification) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

@@ -34,7 +34,7 @@ extension HashtagTimelineViewModel {
         snapshot.appendSections([.main])
         diffableDataSource?.apply(snapshot)
 
-        fetchedResultsController.$records
+        dataController.$records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }

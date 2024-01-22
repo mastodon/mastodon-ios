@@ -10,16 +10,20 @@ import CoreDataStack
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
+import MastodonSDK
 
 extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvider {
 
     func aspectTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         Task {
             let source = DataSourceItem.Source(tableViewCell: nil, indexPath: indexPath)
             guard let item = await item(from: source) else {
                 return
             }
             switch item {
+                case .account(let account, relationship: _):
+                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
             case .status(let status):
                 await DataSourceFacade.coordinateToStatusThreadScene(
                     provider: self,
@@ -36,14 +40,8 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                     provider: self,
                     tag: tag
                 )
-            case .notification(let notification):
-                let managedObjectContext = context.managedObjectContext
-                
-                let _status: ManagedObjectRecord<Status>? = try await managedObjectContext.perform {
-                    guard let notification = notification.object(in: managedObjectContext) else { return nil }
-                    guard let status = notification.status else { return nil }
-                    return .init(objectID: status.objectID)
-                }
+            case .notification(let notification):                
+                let _status: MastodonStatus? = notification.status
                 if let status = _status {
                     await DataSourceFacade.coordinateToStatusThreadScene(
                         provider: self,
@@ -51,10 +49,7 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                         status: status
                     )
                 } else {
-                    let _author: ManagedObjectRecord<MastodonUser>? = try await managedObjectContext.perform {
-                        guard let notification = notification.object(in: managedObjectContext) else { return nil }
-                        return .init(objectID: notification.account.objectID)
-                    }
+                    let _author: ManagedObjectRecord<MastodonUser>? = notification.account.asRecord
                     if let author = _author {
                         await DataSourceFacade.coordinateToProfileScene(
                             provider: self,

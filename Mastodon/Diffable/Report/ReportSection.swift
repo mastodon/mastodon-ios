@@ -45,18 +45,15 @@ extension ReportSection {
                 cell.primaryLabel.text = headerContext.primaryLabelText
                 cell.secondaryLabel.text = headerContext.secondaryLabelText
                 return cell
-            case .status(let record):
+            case .status(let status):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportStatusTableViewCell.self), for: indexPath) as! ReportStatusTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else { return }
-                    configure(
-                        context: context,
-                        tableView: tableView,
-                        cell: cell,
-                        viewModel: .init(value: status),
-                        configuration: configuration
-                    )
-                }
+                configure(
+                    context: context,
+                    tableView: tableView,
+                    cell: cell,
+                    viewModel: .init(value: status),
+                    configuration: configuration
+                )
                 return cell
             case .comment(let commentContext):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportCommentTableViewCell.self), for: indexPath) as! ReportCommentTableViewCell

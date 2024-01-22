@@ -119,7 +119,6 @@ public enum Asset {
   }
   public enum Editing {
     public static let checkmark20 = ImageAsset(name: "Editing/checkmark.20")
-    public static let checkmark = ImageAsset(name: "Editing/checkmark")
     public static let xmark = ImageAsset(name: "Editing/xmark")
   }
   public enum Human {
@@ -181,8 +180,7 @@ public enum Asset {
     }
     public enum Profile {
       public enum About {
-        public static let bioAboutFieldVerifiedBackground = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.background")
-        public static let bioAboutFieldVerifiedText = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.text")
+        public static let verifiedCheckmark = ImageAsset(name: "Scene/Profile/About/verified_checkmark")
       }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
@@ -190,10 +188,8 @@ public enum Asset {
         public static let usernameGray = ColorAsset(name: "Scene/Profile/Banner/username.gray")
       }
       public enum RelationshipButton {
-        public static let backgroundDark = ColorAsset(name: "Scene/Profile/RelationshipButton/background.dark")
-        public static let backgroundHighlightedDark = ColorAsset(name: "Scene/Profile/RelationshipButton/background.highlighted.dark")
-        public static let backgroundHighlightedLight = ColorAsset(name: "Scene/Profile/RelationshipButton/background.highlighted.light")
-        public static let backgroundLight = ColorAsset(name: "Scene/Profile/RelationshipButton/background.light")
+        public static let background = ColorAsset(name: "Scene/Profile/RelationshipButton/background")
+        public static let backgroundHighlighted = ColorAsset(name: "Scene/Profile/RelationshipButton/background.highlighted")
       }
     }
     public enum Report {

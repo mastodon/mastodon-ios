@@ -16,7 +16,11 @@ extension Mastodon.API.Statuses {
             .appendingPathComponent(statusID)
             .appendingPathComponent("translate")
     }
-    
+
+    public struct TranslateQuery: Codable, PostQuery {
+        public let lang: String
+    }
+
     /// Translate Status
     ///
     /// Translate a given Status.
@@ -31,11 +35,21 @@ extension Mastodon.API.Statuses {
         session: URLSession,
         domain: String,
         statusID: Mastodon.Entity.Status.ID,
-        authorization: Mastodon.API.OAuth.Authorization?
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Translation>, Error>  {
+        authorization: Mastodon.API.OAuth.Authorization?,
+        targetLanguage: String?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Translation>, Error> {
+
+        let query: TranslateQuery?
+
+        if let targetLanguage {
+            query = TranslateQuery(lang: targetLanguage)
+        } else {
+            query = nil
+        }
+
         let request = Mastodon.API.post(
             url: translateEndpointURL(domain: domain, statusID: statusID),
-            query: nil,
+            query: query,
             authorization: authorization
         )
         return session.dataTaskPublisher(for: request)

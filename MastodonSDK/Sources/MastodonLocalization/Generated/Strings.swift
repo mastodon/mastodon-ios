@@ -216,6 +216,8 @@ public enum L10n {
         public static func blockUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Friendship.BlockUser", String(describing: p1), fallback: "Block %@")
         }
+        /// Domain Blocked
+        public static let domainBlocked = L10n.tr("Localizable", "Common.Controls.Friendship.DomainBlocked", fallback: "Domain Blocked")
         /// Edit Info
         public static let editInfo = L10n.tr("Localizable", "Common.Controls.Friendship.EditInfo", fallback: "Edit Info")
         /// Follow
@@ -240,6 +242,10 @@ public enum L10n {
         public static let showReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.ShowReblogs", fallback: "Show Reblogs")
         /// Unblock
         public static let unblock = L10n.tr("Localizable", "Common.Controls.Friendship.Unblock", fallback: "Unblock")
+        /// Unblock %@
+        public static func unblockDomain(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Friendship.UnblockDomain", String(describing: p1), fallback: "Unblock %@")
+        }
         /// Unblock %@
         public static func unblockUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Friendship.UnblockUser", String(describing: p1), fallback: "Unblock %@")
@@ -953,6 +959,10 @@ public enum L10n {
         public static let followsYou = L10n.tr("Localizable", "Scene.Profile.Header.FollowsYou", fallback: "Follows You")
       }
       public enum RelationshipActionAlert {
+        public enum ConfirmBlockDomain {
+          /// Block Domain
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Title", fallback: "Block Domain")
+        }
         public enum ConfirmBlockUser {
           /// Confirm to block %@
           public static func message(_ p1: Any) -> String {
@@ -980,6 +990,14 @@ public enum L10n {
           public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message", fallback: "Confirm to show reblogs")
           /// Show Reblogs
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title", fallback: "Show Reblogs")
+        }
+        public enum ConfirmUnblockDomain {
+          /// Confirm to unblock domain %@
+          public static func message(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Message", String(describing: p1), fallback: "Confirm to unblock domain %@")
+          }
+          /// Unblock Domain
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Title", fallback: "Unblock Domain")
         }
         public enum ConfirmUnblockUser {
           /// Confirm to unblock %@
@@ -1428,12 +1446,6 @@ public enum L10n {
         /// About
         public static let title = L10n.tr("Localizable", "Scene.Settings.AboutMastodon.Title", fallback: "About")
       }
-      public enum Footer {
-        /// Mastodon is open source software. You can report issues on GitHub at %@ (%@)
-        public static func mastodonDescription(_ p1: Any, _ p2: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Settings.Footer.MastodonDescription", String(describing: p1), String(describing: p2), fallback: "Mastodon is open source software. You can report issues on GitHub at %@ (%@)")
-        }
-      }
       public enum General {
         /// General
         public static let title = L10n.tr("Localizable", "Scene.Settings.General.Title", fallback: "General")
@@ -1461,10 +1473,6 @@ public enum L10n {
           /// Links
           public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Links.SectionTitle", fallback: "Links")
         }
-      }
-      public enum Keyboard {
-        /// Close Settings Window
-        public static let closeSettingsWindow = L10n.tr("Localizable", "Scene.Settings.Keyboard.CloseSettingsWindow", fallback: "Close Settings Window")
       }
       public enum Notifications {
         /// Notifications
@@ -1515,84 +1523,6 @@ public enum L10n {
         public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.SupportMastodon", fallback: "Support Mastodon")
         /// Settings
         public static let title = L10n.tr("Localizable", "Scene.Settings.Overview.Title", fallback: "Settings")
-      }
-      public enum Section {
-        public enum Appearance {
-          /// Automatic
-          public static let automatic = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Automatic", fallback: "Automatic")
-          /// Always Dark
-          public static let dark = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Dark", fallback: "Always Dark")
-          /// Always Light
-          public static let light = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Light", fallback: "Always Light")
-          /// Appearance
-          public static let title = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Title", fallback: "Appearance")
-        }
-        public enum BoringZone {
-          /// Account Settings
-          public static let accountSettings = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.AccountSettings", fallback: "Account Settings")
-          /// Privacy Policy
-          public static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Privacy", fallback: "Privacy Policy")
-          /// Terms of Service
-          public static let terms = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Terms", fallback: "Terms of Service")
-          /// The Boring Zone
-          public static let title = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Title", fallback: "The Boring Zone")
-        }
-        public enum LookAndFeel {
-          /// Light
-          public static let light = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.Light", fallback: "Light")
-          /// Really Dark
-          public static let reallyDark = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.ReallyDark", fallback: "Really Dark")
-          /// Sorta Dark
-          public static let sortaDark = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.SortaDark", fallback: "Sorta Dark")
-          /// Look and Feel
-          public static let title = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.Title", fallback: "Look and Feel")
-          /// Use System
-          public static let useSystem = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.UseSystem", fallback: "Use System")
-        }
-        public enum Notifications {
-          /// Reblogs my post
-          public static let boosts = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Boosts", fallback: "Reblogs my post")
-          /// Favorites my post
-          public static let favorites = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Favorites", fallback: "Favorites my post")
-          /// Follows me
-          public static let follows = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Follows", fallback: "Follows me")
-          /// Mentions me
-          public static let mentions = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Mentions", fallback: "Mentions me")
-          /// Notifications
-          public static let title = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Title", fallback: "Notifications")
-          public enum Trigger {
-            /// anyone
-            public static let anyone = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Anyone", fallback: "anyone")
-            /// anyone I follow
-            public static let follow = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Follow", fallback: "anyone I follow")
-            /// a follower
-            public static let follower = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Follower", fallback: "a follower")
-            /// no one
-            public static let noone = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Noone", fallback: "no one")
-            /// Notify me when
-            public static let title = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Title", fallback: "Notify me when")
-          }
-        }
-        public enum Preference {
-          /// Disable animated avatars
-          public static let disableAvatarAnimation = L10n.tr("Localizable", "Scene.Settings.Section.Preference.DisableAvatarAnimation", fallback: "Disable animated avatars")
-          /// Disable animated emojis
-          public static let disableEmojiAnimation = L10n.tr("Localizable", "Scene.Settings.Section.Preference.DisableEmojiAnimation", fallback: "Disable animated emojis")
-          /// Open links in Mastodon
-          public static let openLinksInMastodon = L10n.tr("Localizable", "Scene.Settings.Section.Preference.OpenLinksInMastodon", fallback: "Open links in Mastodon")
-          /// Preferences
-          public static let title = L10n.tr("Localizable", "Scene.Settings.Section.Preference.Title", fallback: "Preferences")
-          /// Use default browser to open links
-          public static let usingDefaultBrowser = L10n.tr("Localizable", "Scene.Settings.Section.Preference.UsingDefaultBrowser", fallback: "Use default browser to open links")
-        }
-        public enum SpicyZone {
-          /// Clear Media Cache
-          public static let clear = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Clear", fallback: "Clear Media Cache")
-          /// Sign Out
-          public static let signout = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Signout", fallback: "Sign Out")
-          /// The Spicy Zone
-          public static let title = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Title", fallback: "The Spicy Zone")
-        }
       }
       public enum ServerDetails {
         /// About

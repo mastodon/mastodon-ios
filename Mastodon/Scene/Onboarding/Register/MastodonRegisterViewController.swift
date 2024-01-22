@@ -150,7 +150,7 @@ extension MastodonRegisterViewController {
                 return "en"
             }
             let fallbackLanguageCode: String = {
-                let code = Locale.current.languageCode ?? "en"
+                let code = Locale.current.language.languageCode?.identifier ?? "en"
                 guard localCode[code] != nil else { return "en" }
                 return code
             }()
@@ -161,7 +161,7 @@ extension MastodonRegisterViewController {
             }
             // prepare languageCode and validate then return fallback if needs
             let local = Locale(identifier: identifier)
-            guard let languageCode = local.languageCode,
+            guard let languageCode = local.language.languageCode?.identifier,
                   localCode[languageCode] != nil
             else {
                 return fallbackLanguageCode
@@ -170,10 +170,10 @@ extension MastodonRegisterViewController {
             let extendCodes: [String] = {
                 let locales = Locale.preferredLanguages.map { Locale(identifier: $0) }
                 return locales.compactMap { locale in
-                    guard let languageCode = locale.languageCode,
-                          let regionCode = locale.regionCode
+                    guard let languageCode = locale.language.languageCode?.identifier,
+                          let regionIdentifier = locale.region?.identifier
                     else { return nil }
-                    return languageCode + "-" + regionCode
+                    return languageCode + "-" + regionIdentifier
                 }
             }()
             let _firstMatchExtendCode = extendCodes.first { code in

@@ -6,9 +6,6 @@
 //
 
 import UIKit
-import Combine
-import CoreData
-import CoreDataStack
 import MastodonSDK
 import MastodonCore
 
@@ -18,7 +15,7 @@ extension FollowedTagsViewModel {
     }
     
     enum Item: Hashable {
-        case hashtag(Tag)
+        case hashtag(Mastodon.Entity.Tag)
     }
     
     func tableViewDiffableDataSource(
@@ -27,7 +24,7 @@ extension FollowedTagsViewModel {
         UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item in
             switch item {
             case let .hashtag(tag):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FollowedTagsTableViewCell.self), for: indexPath) as? FollowedTagsTableViewCell else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FollowedTagsTableViewCell.reuseIdentifier, for: indexPath) as? FollowedTagsTableViewCell else {
                     assertionFailure()
                     return UITableViewCell()
                 }
@@ -39,9 +36,7 @@ extension FollowedTagsViewModel {
         }
     }
     
-    func setupDiffableDataSource(
-        tableView: UITableView
-    ) {
+    func setupDiffableDataSource(tableView: UITableView) {
         diffableDataSource = tableViewDiffableDataSource(for: tableView)
 
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()

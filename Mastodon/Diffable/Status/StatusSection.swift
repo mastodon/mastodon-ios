@@ -44,42 +44,33 @@ extension StatusSection {
 
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .feed(let record):
+            case .feed(let feed):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let feed = record.object(in: context.managedObjectContext) else { return }
-                    configure(
-                        context: context,
-                        tableView: tableView,
-                        cell: cell,
-                        viewModel: StatusTableViewCell.ViewModel(value: .feed(feed)),
-                        configuration: configuration
-                    )
-                }
+                configure(
+                    context: context,
+                    tableView: tableView,
+                    cell: cell,
+                    viewModel: StatusTableViewCell.ViewModel(value: .feed(feed)),
+                    configuration: configuration
+                )
                 return cell
-            case .feedLoader(let record):
+            case .feedLoader(let feed):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let feed = record.object(in: context.managedObjectContext) else { return }
-                    configure(
-                        cell: cell,
-                        feed: feed,
-                        configuration: configuration
-                    )
-                }
+                configure(
+                    cell: cell,
+                    feed: feed,
+                    configuration: configuration
+                )
                 return cell
-            case .status(let record):
+            case .status(let status):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let status = record.object(in: context.managedObjectContext) else { return }
-                    configure(
-                        context: context,
-                        tableView: tableView,
-                        cell: cell,
-                        viewModel: StatusTableViewCell.ViewModel(value: .status(status)),
-                        configuration: configuration
-                    )
-                }
+                configure(
+                    context: context,
+                    tableView: tableView,
+                    cell: cell,
+                    viewModel: StatusTableViewCell.ViewModel(value: .status(status)),
+                    configuration: configuration
+                )
                 return cell
             case .thread(let thread):
                 let cell = dequeueConfiguredReusableCell(
@@ -118,36 +109,28 @@ extension StatusSection {
         tableView: UITableView,
         indexPath: IndexPath,
         configuration: ThreadCellRegistrationConfiguration
-    ) -> UITableViewCell {
-        let managedObjectContext = context.managedObjectContext
-        
+    ) -> UITableViewCell {        
         switch configuration.thread {
         case .root(let threadContext):
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusThreadRootTableViewCell.self), for: indexPath) as! StatusThreadRootTableViewCell
-            managedObjectContext.performAndWait {
-                guard let status = threadContext.status.object(in: managedObjectContext) else { return }
-                StatusSection.configure(
-                    context: context,
-                    tableView: tableView,
-                    cell: cell,
-                    viewModel: StatusThreadRootTableViewCell.ViewModel(value: .status(status)),
-                    configuration: configuration.configuration
-                )
-            }
+            StatusSection.configure(
+                context: context,
+                tableView: tableView,
+                cell: cell,
+                viewModel: StatusThreadRootTableViewCell.ViewModel(value: .status(threadContext.status)),
+                configuration: configuration.configuration
+            )
             return cell
         case .reply(let threadContext),
              .leaf(let threadContext):
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
-            managedObjectContext.performAndWait {
-                guard let status = threadContext.status.object(in: managedObjectContext) else { return }
-                StatusSection.configure(
-                    context: context,
-                    tableView: tableView,
-                    cell: cell,
-                    viewModel: StatusTableViewCell.ViewModel(value: .status(status)),
-                    configuration: configuration.configuration
-                )
-            }
+            StatusSection.configure(
+                context: context,
+                tableView: tableView,
+                cell: cell,
+                viewModel: StatusTableViewCell.ViewModel(value: .status(threadContext.status)),
+                configuration: configuration.configuration
+            )
             return cell
         }
     }
@@ -177,7 +160,7 @@ extension StatusSection {
                         return
                     }
                     
-                    cell.pollOptionView.configure(pollOption: option)
+                    cell.pollOptionView.configure(pollOption: option, status: statusView.viewModel.originalStatus)
                     
                     // trigger update if needs
                     let needsUpdatePoll: Bool = {
@@ -314,7 +297,7 @@ extension StatusSection {
     
     static func configure(
         cell: TimelineMiddleLoaderTableViewCell,
-        feed: Feed,
+        feed: MastodonFeed,
         configuration: Configuration
     ) {
         cell.configure(

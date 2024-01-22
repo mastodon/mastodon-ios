@@ -22,11 +22,22 @@ extension StatusView {
     public final class ViewModel: ObservableObject {
         var disposeBag = Set<AnyCancellable>()
         var observations = Set<NSKeyValueObservation>()
-        public var objects = Set<NSManagedObject>()
+        public var objects = Set<MastodonStatus>()
+        public var managedObjects = Set<NSManagedObject>()
 
         public var context: AppContext?
         public var authContext: AuthContext?
-        public var originalStatus: Status?
+        public var originalStatus: MastodonStatus? {
+            didSet {
+                originalStatus?.$entity
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveValue: { status in
+                        self.isBookmark = status.bookmarked == true
+                        self.isMuting = status.muted == true
+                    })
+                    .store(in: &disposeBag)
+            }
+        }
 
         // Header
         @Published public var header: Header = .none
@@ -46,8 +57,7 @@ extension StatusView {
         
         // Translation
         @Published public var isCurrentlyTranslating = false
-        @Published public var translatedFromLanguage: String?
-        @Published public var translatedUsingProvider: String?
+        @Published public var translation: Mastodon.Entity.Translation? = nil
 
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date, _ isEdited: Bool) -> String)?
@@ -78,7 +88,7 @@ extension StatusView {
         @Published public var expired: Bool = false
 
         // Card
-        @Published public var card: Card?
+        @Published public var card: Mastodon.Entity.Card?
 
         // Visibility
         @Published public var visibility: MastodonVisibility = .public
@@ -100,8 +110,7 @@ extension StatusView {
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
         @Published public var favoriteCount: Int = 0
-
-        @Published public var statusEdits: [StatusEdit] = []
+        
         @Published public var editedAt: Date? = nil
         
         // Filter
@@ -148,10 +157,10 @@ extension StatusView {
             isContentSensitive = false
             isMediaSensitive = false
             isSensitiveToggled = false
-            translatedFromLanguage = nil
-            translatedUsingProvider = nil
             isCurrentlyTranslating = false
-            
+            isBookmark = false
+            translation = nil
+
             activeFilters = []
             filterContext = nil
         }
@@ -656,60 +665,49 @@ extension StatusView.ViewModel {
             $isFollowed
         )
         let publishersThree = Publishers.CombineLatest(
-            $translatedFromLanguage,
+            $translation,
             $language
         )
-        
+
         Publishers.CombineLatest3(
             publisherOne.eraseToAnyPublisher(),
             publishersTwo.eraseToAnyPublisher(),
             publishersThree.eraseToAnyPublisher()
         ).eraseToAnyPublisher()
-        .sink { tupleOne, tupleTwo, tupleThree in
-            let (authorName, isMyself) = tupleOne
-            let (isMuting, isBlocking, isBookmark, isFollowed) = tupleTwo
-            let (translatedFromLanguage, language) = tupleThree
-    
-            guard let name = authorName?.string else {
-                statusView.authorView.menuButton.menu = nil
-                return
-            }
-            
-            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
-                guard
-                    let context = self.context,
-                    let authContext = self.authContext
-                else {
-                    return nil
+            .sink { tupleOne, tupleTwo, tupleThree in
+                let (authorName, isMyself) = tupleOne
+                let (isMuting, isBlocking, isBookmark, isFollowed) = tupleTwo
+                let (translatedFromLanguage, language) = tupleThree
+
+                guard let name = authorName?.string, let context = self.context, let authContext = self.authContext else {
+                    statusView.authorView.menuButton.menu = nil
+                    return
                 }
+
+                let authentication = authContext.mastodonAuthenticationBox.authentication
+                let instance = authentication.instance(in: context.managedObjectContext)
+                let isTranslationEnabled = instance?.isTranslationEnabled ?? false
+
+                let menuContext = StatusAuthorView.AuthorMenuContext(
+                    name: name,
+                    isMuting: isMuting,
+                    isBlocking: isBlocking,
+                    isMyself: isMyself,
+                    isBookmarking: isBookmark,
+                    isFollowed: isFollowed,
+                    isTranslationEnabled: isTranslationEnabled,
+                    isTranslated: translatedFromLanguage != nil,
+                    statusLanguage: language
+                )
                 
-                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
-                context.managedObjectContext.performAndWait {
-                    let authentication = authContext.mastodonAuthenticationBox.authentication
-                    configuration = authentication.instance(in: context.managedObjectContext)?.configurationV2
-                }
-                return configuration
-            }()
-            
-            let menuContext = StatusAuthorView.AuthorMenuContext(
-                name: name,
-                isMuting: isMuting,
-                isBlocking: isBlocking,
-                isMyself: isMyself,
-                isBookmarking: isBookmark,
-                isFollowed: isFollowed,
-                isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
-                isTranslated: translatedFromLanguage != nil,
-                statusLanguage: language
-            )
-            let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
-            authorView.menuButton.menu = menu
-            authorView.authorActions = actions
-            authorView.menuButton.showsMenuAsPrimaryAction = true
-        }
-        .store(in: &disposeBag)
+                let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
+                authorView.menuButton.menu = menu
+                authorView.authorActions = actions
+                authorView.menuButton.showsMenuAsPrimaryAction = true
+            }
+            .store(in: &disposeBag)
     }
-    
+
     private func bindFilter(statusView: StatusView) {
         $isFiltered
             .sink { isFiltered in
@@ -876,15 +874,20 @@ extension StatusView.ViewModel {
             .assign(to: \.toolbarActions, on: statusView)
             .store(in: &disposeBag)
 
-        let translatedFromLabel = Publishers.CombineLatest($translatedFromLanguage, $translatedUsingProvider)
-            .map { (language, provider) -> String? in
-                if let language {
-                    return L10n.Common.Controls.Status.Translation.translatedFrom(
-                        Locale.current.localizedString(forIdentifier: language) ?? L10n.Common.Controls.Status.Translation.unknownLanguage,
-                        provider ?? L10n.Common.Controls.Status.Translation.unknownProvider
-                    )
+        let translatedFromLabel = $translation
+            .map { translation -> String? in
+                guard let translation else { return nil }
+
+                let provider = translation.provider ?? L10n.Common.Controls.Status.Translation.unknownProvider
+                let sourceLanguage: String
+
+                if let language = translation.sourceLanguage {
+                    sourceLanguage = Locale.current.localizedString(forIdentifier: language) ?? L10n.Common.Controls.Status.Translation.unknownLanguage
+                } else {
+                    sourceLanguage = L10n.Common.Controls.Status.Translation.unknownLanguage
                 }
-                return nil
+
+                return L10n.Common.Controls.Status.Translation.translatedFrom(sourceLanguage, provider)
             }
 
         translatedFromLabel

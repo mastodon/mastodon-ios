@@ -348,7 +348,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 sledující</string>
         <key>few</key>
         <string>%ld followers</string>
         <key>many</key>
@@ -408,7 +408,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>zbývá 1 den</string>
         <key>few</key>
         <string>%ld days left</string>
         <key>many</key>
@@ -428,7 +428,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>zbývá 1h</string>
         <key>few</key>
         <string>%ld hours left</string>
         <key>many</key>
@@ -448,7 +448,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>zbývá 1m</string>
         <key>few</key>
         <string>%ld minutes left</string>
         <key>many</key>
@@ -468,7 +468,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>zbývá 1s</string>
         <key>few</key>
         <string>%ld seconds left</string>
         <key>many</key>
@@ -488,7 +488,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>před 1 rokem</string>
         <key>few</key>
         <string>%ldy ago</string>
         <key>many</key>
@@ -508,7 +508,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>před 1 měcícem</string>
         <key>few</key>
         <string>%ldM ago</string>
         <key>many</key>
@@ -528,7 +528,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>před 1 dnem</string>
         <key>few</key>
         <string>%ldd ago</string>
         <key>many</key>
@@ -548,7 +548,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>před 1h</string>
         <key>few</key>
         <string>%ldh ago</string>
         <key>many</key>
@@ -568,7 +568,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>před 1min</string>
         <key>few</key>
         <string>%ldm ago</string>
         <key>many</key>
@@ -588,7 +588,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>před 1s</string>
         <key>few</key>
         <string>%lds ago</string>
         <key>many</key>

@@ -12,17 +12,11 @@ import MastodonSDK
 import class CoreDataStack.Notification
 
 enum DataSourceItem: Hashable {
-    case status(record: ManagedObjectRecord<Status>)
+    case status(record: MastodonStatus)
     case user(record: ManagedObjectRecord<MastodonUser>)
-    case hashtag(tag: TagKind)
-    case notification(record: ManagedObjectRecord<Notification>)
-}
-
-extension DataSourceItem {
-    enum TagKind: Hashable {
-        case entity(Mastodon.Entity.Tag)
-        case record(ManagedObjectRecord<Tag>)
-    }
+    case hashtag(tag: Mastodon.Entity.Tag)
+    case notification(record: MastodonNotification)
+    case account(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)
 }
 
 extension DataSourceItem {
@@ -45,4 +39,6 @@ extension DataSourceItem {
 
 protocol DataSourceProvider: ViewControllerWithDependencies {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem?
+    func update(status: MastodonStatus)
+    func delete(status: MastodonStatus)
 }

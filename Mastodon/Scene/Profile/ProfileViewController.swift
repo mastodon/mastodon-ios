@@ -16,6 +16,7 @@ import MastodonLocalization
 import CoreDataStack
 import TabBarPager
 import XLPagerTabStrip
+import MastodonSDK
 
 protocol ProfileViewModelEditable {
     var isEdited: Bool { get }
@@ -325,6 +326,7 @@ extension ProfileViewController {
             viewModel.relationshipViewModel.$isBlocking.assign(to: \.isBlocking, on: userTimelineViewModel).store(in: &disposeBag)
             viewModel.relationshipViewModel.$isBlockingBy.assign(to: \.isBlockedBy, on: userTimelineViewModel).store(in: &disposeBag)
             viewModel.relationshipViewModel.$isSuspended.assign(to: \.isSuspended, on: userTimelineViewModel).store(in: &disposeBag)
+            viewModel.relationshipViewModel.$isDomainBlocking.assign(to: \.isDomainBlocking, on: userTimelineViewModel).store(in: &disposeBag)
         }
     
         // about
@@ -377,12 +379,12 @@ extension ProfileViewController {
             profileHeaderViewController.profileHeaderView.viewModel.viewDidAppear
         )
         .sink { [weak self] (user, _) in
-            guard let self = self, let user = user else { return }
+            guard let self, let user else { return }
             Task {
-                _ = try await self.context.apiService.accountInfo(
-                    domain: user.domain,
-                    userID: user.id,
-                    authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
+                _ = try await self.context.apiService.fetchUser(
+                    username: user.username,
+                    domain: user.domainFromAcct,
+                    authenticationBox: self.authContext.mastodonAuthenticationBox
                 )
             }
         }
@@ -395,16 +397,16 @@ extension ProfileViewController {
             viewModel.relationshipViewModel.$optionSet
         )
         .asyncMap { [weak self] user, relationshipSet -> UIMenu? in
-            guard let self = self else { return nil }
-            guard let user = user else {
-                return nil
-            }
+            guard let self, let user else { return nil }
+
             let name = user.displayNameWithFallback
+            let domain = user.domainFromAcct 
             let _ = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
 
             var menuActions: [MastodonMenu.Action] = [
                 .muteUser(.init(name: name, isMuting: self.viewModel.relationshipViewModel.isMuting)),
                 .blockUser(.init(name: name, isBlocking: self.viewModel.relationshipViewModel.isBlocking)),
+                .blockDomain(.init(domain: domain, isBlocking: self.viewModel.relationshipViewModel.isDomainBlocking)),
                 .reportUser(.init(name: name)),
                 .shareUser(.init(name: name)),
             ]
@@ -829,6 +831,27 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
                 alertController.addAction(cancelAction)
                 present(alertController, animated: true, completion: nil)
+            case .domainBlocking:
+                    guard let user = viewModel.user else { return }
+                    let domain = user.domainFromAcct
+
+                    let alertController = UIAlertController(
+                        title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.title,
+                        message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.message(domain),
+                        preferredStyle: .alert
+                    )
+                    let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+                    let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblock, style: .default) { [weak self] _ in
+                        guard let self = self else { return }
+                        Task {
+                            try await DataSourceFacade.responseToDomainBlockAction(dependency: self, user: record)
+                        }
+                    }
+                    alertController.addAction(unblockAction)
+                    let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
+                    alertController.addAction(cancelAction)
+                    present(alertController, animated: true, completion: nil)
+
             case .blocking:
                 guard let user = viewModel.user else { return }
                 let name = user.displayNameWithFallback
@@ -894,7 +917,8 @@ extension ProfileViewController: MastodonMenuDelegate {
                 action: action,
                 menuContext: DataSourceFacade.MenuContext(
                     author: userRecord,
-                    status: nil,
+                    authorEntity: nil,
+                    statusViewModel: nil,
                     button: nil,
                     barButtonItem: self.moreMenuBarButtonItem
                 )
@@ -938,5 +962,20 @@ extension ProfileViewController: PagerTabStripNavigateable {
 private extension ProfileViewController {
     var currentInstance: Instance? {
         authContext.mastodonAuthenticationBox.authentication.instance(in: context.managedObjectContext)
+    }
+}
+
+extension ProfileViewController: DataSourceProvider {
+    func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
+        assertionFailure("Not required")
+        return nil
+    }
+    
+    func update(status: MastodonStatus) {
+        assertionFailure("Not required")
+    }
+    
+    func delete(status: MastodonStatus) {
+        assertionFailure("Not required")
     }
 }

@@ -19,40 +19,34 @@ enum UserSection: Hashable {
 }
 
 extension UserSection {
-    struct Configuration {
-        weak var userTableViewCellDelegate: UserTableViewCellDelegate?
-    }
-
     static func diffableDataSource(
         tableView: UITableView,
         context: AppContext,
         authContext: AuthContext,
-        configuration: Configuration
+        userTableViewCellDelegate: UserTableViewCellDelegate?
     ) -> UITableViewDiffableDataSource<UserSection, UserItem> {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.register(TimelineFooterTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineFooterTableViewCell.self))
 
-        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
+        return UITableViewDiffableDataSource(tableView: tableView) {
+            tableView,
+            indexPath,
+            item -> UITableViewCell? in
             switch item {
-                case .user(let record):
+                case .account(let account, let relationship):
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
-                    context.managedObjectContext.performAndWait {
-                        guard let user = record.object(in: context.managedObjectContext) else { return }
-                        configure(
-                            context: context,
-                            authContext: authContext,
-                            tableView: tableView,
-                            cell: cell,
-                            viewModel: UserTableViewCell.ViewModel(
-                                user: user,
-                                followedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followingUserIds.eraseToAnyPublisher(),
-                                blockedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$blockedUserIds.eraseToAnyPublisher(),
-                                followRequestedUsers: authContext.mastodonAuthenticationBox.inMemoryCache.$followRequestedUserIDs.eraseToAnyPublisher()
-                            ),
-                            configuration: configuration
-                        )
-                    }
+
+                    guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return cell }
+
+                    cell.userView.setButtonState(.loading)
+                    cell.configure(
+                        me: me,
+                        tableView: tableView,
+                        account: account,
+                        relationship: relationship,
+                        delegate: userTableViewCellDelegate
+                    )
 
                     return cell
                 case .bottomLoader:
@@ -60,31 +54,10 @@ extension UserSection {
                     cell.startAnimating()
                     return cell
                 case .bottomHeader(let text):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineFooterTableViewCell.self), for: indexPath) as! TimelineFooterTableViewCell
-                cell.messageLabel.text = text
-                return cell
-            }   // end switch
-        }   // end UITableViewDiffableDataSource
-    }   // end static func tableViewDiffableDataSource { … }
-    
-}
-
-extension UserSection {
-
-    static func configure(
-        context: AppContext,
-        authContext: AuthContext,
-        tableView: UITableView,
-        cell: UserTableViewCell,
-        viewModel: UserTableViewCell.ViewModel,
-        configuration: Configuration
-    ) {
-        cell.configure(
-            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
-            tableView: tableView,
-            viewModel: viewModel,
-            delegate: configuration.userTableViewCellDelegate
-        )
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineFooterTableViewCell.self), for: indexPath) as! TimelineFooterTableViewCell
+                    cell.messageLabel.text = text
+                    return cell
+            }
+        }
     }
-
 }

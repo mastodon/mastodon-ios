@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>1 možnost</string>
         <key>few</key>
         <string>%ld options</string>
         <key>many</key>
@@ -33,7 +33,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>1 možnost</string>
         <key>few</key>
         <string>%ld options</string>
         <key>many</key>

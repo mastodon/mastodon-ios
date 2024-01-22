@@ -9,7 +9,6 @@ import Foundation
 import GameplayKit
 import MastodonSDK
 import MastodonCore
-import CoreDataStack
 
 extension FollowerListViewModel {
     class State: GKState {
@@ -61,8 +60,9 @@ extension FollowerListViewModel.State {
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
             // reset
-            viewModel.userFetchedResultsController.userIDs = []
-            
+            viewModel.accounts = []
+            viewModel.relationships = []
+
             stateMachine.enter(Loading.self)
         }
     }
@@ -97,6 +97,12 @@ extension FollowerListViewModel.State {
                 return false
             }
         }
+
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+
+            viewModel?.tableView?.refreshControl?.endRefreshing()
+        }
     }
     
     class Loading: FollowerListViewModel.State {
@@ -123,47 +129,66 @@ extension FollowerListViewModel.State {
                 maxID = nil
             }
             
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel, let stateMachine else { return }
 
-            guard let userID = viewModel.userID, !userID.isEmpty else {
+            guard let userID = viewModel.userID, userID.isEmpty == false else {
                 stateMachine.enter(Fail.self)
                 return
             }
-            
+
             Task {
                 do {
-                    let response = try await viewModel.context.apiService.followers(
+                    let accountResponse = try await viewModel.context.apiService.followers(
                         userID: userID,
                         maxID: maxID,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
-                    
+
+                    if accountResponse.value.isEmpty {
+                        await enter(state: NoMore.self)
+
+                        viewModel.accounts = []
+                        viewModel.relationships = []
+                        return
+                    }
+
                     var hasNewAppend = false
-                    var userIDs = viewModel.userFetchedResultsController.userIDs
-                    for user in response.value {
-                        guard !userIDs.contains(user.id) else { continue }
-                        userIDs.append(user.id)
+
+                    let newRelationships = try await viewModel.context.apiService.relationship(forAccounts: accountResponse.value, authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
+
+                    var accounts = viewModel.accounts
+
+                    for user in accountResponse.value {
+                        guard accounts.contains(user) == false else { continue }
+                        accounts.append(user)
                         hasNewAppend = true
                     }
-                    
-                    let maxID = response.link?.maxID
-                    
-                    if hasNewAppend && maxID != nil {
+
+                    var relationships = viewModel.relationships
+
+                    for relationship in newRelationships.value {
+                        guard relationships.contains(relationship) == false else { continue }
+                        relationships.append(relationship)
+                    }
+
+                    let maxID = accountResponse.link?.maxID
+
+                    if hasNewAppend, maxID != nil {
                         await enter(state: Idle.self)
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    
+
+                    viewModel.accounts = accounts
+                    viewModel.relationships = relationships
                     self.maxID = maxID
-                    viewModel.userFetchedResultsController.userIDs = userIDs
-                    
                 } catch {
                     await enter(state: Fail.self)
                 }
-            }   // end Task
-        }   // end func didEnter
+            }
+        }
     }
-    
+
     class NoMore: FollowerListViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
@@ -176,6 +201,8 @@ extension FollowerListViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
+
+            viewModel?.tableView?.refreshControl?.endRefreshing()
         }
     }
 }

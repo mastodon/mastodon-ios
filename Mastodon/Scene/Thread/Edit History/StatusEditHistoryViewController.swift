@@ -10,7 +10,7 @@ class StatusEditHistoryViewController: UIViewController {
 
     private let tableView: UITableView
 
-    var tableViewDataSource: UITableViewDiffableDataSource<Int, StatusEdit>?
+    var tableViewDataSource: UITableViewDiffableDataSource<Int, Mastodon.Entity.StatusEdit>?
     var viewModel: StatusEditHistoryViewModel
     private let dateFormatter: DateFormatter
 
@@ -28,7 +28,7 @@ class StatusEditHistoryViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        let tableViewDataSource = UITableViewDiffableDataSource<Int, StatusEdit>(tableView: tableView) {tableView, indexPath, itemIdentifier in
+        let tableViewDataSource = UITableViewDiffableDataSource<Int, Mastodon.Entity.StatusEdit>(tableView: tableView) {tableView, indexPath, itemIdentifier in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: StatusEditHistoryTableViewCell.identifier, for: indexPath) as? StatusEditHistoryTableViewCell else {
                 fatalError("Wrong cell")
             }
@@ -71,7 +71,7 @@ class StatusEditHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var snapshot = NSDiffableDataSourceSnapshot<Int, StatusEdit>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Mastodon.Entity.StatusEdit>()
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.edits)
 

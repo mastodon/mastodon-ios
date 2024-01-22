@@ -650,16 +650,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Tút nhắc đến \"%s\"",
+                "people": "Người có tên \"%s\"",
+                "profile": "Đến @%s@%s",
+                "url": "Mở liên kết trong Mastodon",
+                "hashtag": "Đến #%s",
+                "no_user": {
+                    "title": "Không tìm thấy ai",
+                    "message": "Không tìm thấy người tên \"%s\" trên %s"
+                },
                 "empty_state": {
                     "no_results": "Không có kết quả"
                 },
                 "recent_search": "Tìm kiếm gần đây",
-                "clear_all": "Clear all",
+                "clear_all": "Xóa tất cả",
                 "clear": "Xóa"
             }
         },
@@ -705,59 +709,68 @@
             "title": "Tút của %s"
         },
         "settings": {
-            "title": "Cài đặt",
-            "section": {
-                "appearance": {
-                    "title": "Giao diện",
-                    "automatic": "Tự động",
-                    "light": "Sáng",
-                    "dark": "Tối"
-                },
-                "look_and_feel": {
-                    "title": "Giao diện",
-                    "use_system": "Mặc định hệ thống",
-                    "really_dark": "Tối Mạnh",
-                    "sorta_dark": "Tối Nhẹ",
-                    "light": "Sáng"
-                },
-                "notifications": {
-                    "title": "Thông báo",
-                    "favorites": "Thích tút của tôi",
-                    "follows": "Theo dõi tôi",
-                    "boosts": "Đăng lại tút của tôi",
-                    "mentions": "Nhắc đến tôi",
-                    "trigger": {
-                        "anyone": "bất cứ ai",
-                        "follower": "người theo dõi tôi",
-                        "follow": "người tôi theo dõi",
-                        "noone": "không một ai",
-                        "title": "Thông báo khi"
-                    }
-                },
-                "preference": {
-                    "title": "Chung",
-                    "disable_avatar_animation": "Tắt ảnh đại diện GIF",
-                    "disable_emoji_animation": "Tắt emoji dạng GIF",
-                    "using_default_browser": "Dùng trình duyệt mặc định",
-                    "open_links_in_mastodon": "Mở liên kết trong Mastodon"
-                },
-                "boring_zone": {
-                    "title": "Nhàm chán",
-                    "account_settings": "Cài đặt tài khoản",
-                    "terms": "Điều khoản dịch vụ",
-                    "privacy": "Chính sách bảo mật"
-                },
-                "spicy_zone": {
-                    "title": "Thú vị",
-                    "clear": "Xóa bộ nhớ đệm",
-                    "signout": "Đăng xuất"
+            "overview": {
+                "title": "Cài đặt",
+                "general": "Chung",
+                "notifications": "Thông báo",
+                "support_mastodon": "Hỗ trợ Mastodon",
+                "about_mastodon": "Về Mastodon",
+                "server_details": "Thông tin máy chủ",
+                "logout": "Đăng xuất %@"
+            },
+            "about_mastodon": {
+                "title": "Giới thiệu",
+                "more_settings": "Nhiều hơn",
+                "contribute_to_mastodon": "Đóng góp cho Mastodon",
+                "privacy_policy": "Chính sách bảo mật",
+                "clear_media_storage": "Xóa bộ nhớ đệm"
+            },
+            "server_details": {
+                "about": "Giới thiệu",
+                "rules": "Nội quy",
+                "about_instance": {
+                    "title": "Quản trị viên",
+                    "message_admin": "Nhắn cho quản trị viên",
+                    "legal_notice": "Pháp lý"
                 }
             },
-            "footer": {
-                "mastodon_description": "Mastodon là phần mềm mã nguồn mở. Bạn có thể báo lỗi trên GitHub tại %s (%s)"
+            "general": {
+                "title": "Chung",
+                "appearance": {
+                    "section_title": "Giao diện",
+                    "dark": "Tối",
+                    "light": "Sáng",
+                    "system": "Giống thiết bị"
+                },
+                "design": {
+                    "section_title": "Thiết kế",
+                    "show_animations": "Ảnh đại diện và emoji động"
+                },
+                "links": {
+                    "section_title": "Liên kết",
+                    "open_in_mastodon": "Mở liên kết trong Mastodon",
+                    "open_in_browser": "Mở trong trình duyệt"
+                }
             },
-            "keyboard": {
-                "close_settings_window": "Đóng cửa sổ cài đặt"
+            "notifications": {
+                "title": "Thông báo",
+                "policy": {
+                    "title": "Nhận thông báo từ",
+                    "anyone": "Bất cứ ai",
+                    "followers": "Những người theo dõi",
+                    "follow": "Những người tôi theo dõi",
+                    "noone": "Không ai"
+                },
+                "alert": {
+                    "mentions_and_replies": "Lượt nhắc và trả lời",
+                    "boosts": "Lượt đăng lại",
+                    "favorites": "Lượt thích",
+                    "new_followers": "Người theo dõi mới"
+                },
+                "disabled": {
+                    "notification_hint": "Bật thông báo từ cài đặt thiết bị của bạn để xem chúng từ mọi nơi.",
+                    "go_to_settings": "Thiết lập thông báo"
+                }
             }
         },
         "report": {

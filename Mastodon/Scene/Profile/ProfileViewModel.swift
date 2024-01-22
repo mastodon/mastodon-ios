@@ -56,6 +56,7 @@ class ProfileViewModel: NSObject {
     // @Published var protected: Bool? = nil
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
+    @MainActor
     init(context: AppContext, authContext: AuthContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
         self.authContext = authContext
@@ -178,12 +179,11 @@ class ProfileViewModel: NSObject {
 
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        guard let me = me,
-              let mastodonAuthentication = me.mastodonAuthentication
-        else {
+        guard let me else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
 
+        let mastodonAuthentication = authContext.mastodonAuthenticationBox.authentication
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
         return context.apiService.accountVerifyCredentials(domain: me.domain, authorization: authorization)
     }

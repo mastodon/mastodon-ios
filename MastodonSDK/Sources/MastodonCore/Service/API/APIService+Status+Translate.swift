@@ -19,12 +19,14 @@ extension APIService {
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Translation> {
         let domain = authenticationBox.domain
         let authorization = authenticationBox.userAuthorization
+        let targetLanguage = Bundle.main.preferredLocalizations.first
 
         let response = try await Mastodon.API.Statuses.translate(
             session: session,
             domain: domain,
             statusID: statusID,
-            authorization: authorization
+            authorization: authorization,
+            targetLanguage: targetLanguage
         ).singleOutput()
         
         return response

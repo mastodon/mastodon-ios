@@ -21,12 +21,13 @@ final class UserTimelineViewModel {
     let context: AppContext
     let authContext: AuthContext
     let title: String
-    let statusFetchedResultsController: StatusFetchedResultsController
+    let dataController: StatusDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     @Published var userIdentifier: UserIdentifier?
     @Published var queryFilter: QueryFilter
 
     @Published var isBlocking = false
+    @Published var isDomainBlocking = false
     @Published var isBlockedBy = false
     @Published var isSuspended = false
 
@@ -48,6 +49,7 @@ final class UserTimelineViewModel {
         return stateMachine
     }()
 
+    @MainActor
     init(
         context: AppContext,
         authContext: AuthContext,
@@ -57,11 +59,7 @@ final class UserTimelineViewModel {
         self.context = context
         self.authContext = authContext
         self.title = title
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: authContext.mastodonAuthenticationBox.domain,
-            additionalTweetPredicate: nil
-        )
+        self.dataController = StatusDataController()
         self.queryFilter = queryFilter
     }
 }

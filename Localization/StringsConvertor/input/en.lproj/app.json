@@ -658,7 +658,7 @@
                 "no_user": {
                     "title": "No User Account Found",
                     "message": "There's no Useraccount \"%s\" on %s"
-                }
+                },
                 "empty_state": {
                     "no_results": "No results"
                 },
@@ -717,14 +717,22 @@
                 "about_mastodon": "About Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logout %@"
-            }
-
+            },
             "about_mastodon": {
                 "title": "About",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
+            },
+            "server_details": {
+                "about": "About",
+                "rules": "Rules",
+                "about_instance": {
+                    "title": "Administrator",
+                    "message_admin": "Message Admin",
+                    "legal_notice": "A legal notice"
+                }
             },
             "general": {
                 "title": "General",
@@ -763,7 +771,6 @@
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
                     "go_to_settings": "Go to Notification Settings"
                 }
-
             }
         },
         "report": {

@@ -124,45 +124,6 @@ public class CondensedUserView: UIView {
         avatarImageView.prepareForReuse()
     }
 
-    public func configure(with user: MastodonUser) {
-        let displayNameMetaContent: MetaContent
-        do {
-            let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
-            displayNameMetaContent = try MastodonMetaContent.convert(document: content)
-        } catch {
-            displayNameMetaContent = PlaintextMetaContent(string: user.displayNameWithFallback)
-        }
-
-        displayNameLabel.configure(content: displayNameMetaContent)
-        acctLabel.text = user.acct
-        followersLabel.attributedText = NSAttributedString(
-            format: NSAttributedString(string: L10n.Common.UserList.followersCount("%@"), attributes: [.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))]),
-            args: NSAttributedString(string: Self.metricFormatter.string(from: Int(user.followersCount)) ?? user.followersCount.formatted(), attributes: [.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))])
-        )
-
-        avatarImageView.setImage(url: user.avatarImageURL())
-
-        if let verifiedLink = user.verifiedLink?.value {
-            verifiedLinkImageView.image = UIImage(systemName: "checkmark")
-            verifiedLinkImageView.tintColor = Asset.Colors.Brand.blurple.color
-
-            let verifiedLinkMetaContent: MetaContent
-            do {
-                let mastodonContent = MastodonContent(content: verifiedLink, emojis: [:])
-                verifiedLinkMetaContent = try MastodonMetaContent.convert(document: mastodonContent)
-            } catch {
-                verifiedLinkMetaContent = PlaintextMetaContent(string: verifiedLink)
-            }
-
-            verifiedLinkLabel.configure(content: verifiedLinkMetaContent)
-        } else {
-            verifiedLinkImageView.image = UIImage(systemName: "questionmark.circle")
-            verifiedLinkImageView.tintColor = .secondaryLabel
-
-            verifiedLinkLabel.configure(content: PlaintextMetaContent(string: L10n.Common.UserList.noVerifiedLink))
-        }
-    }
-
     public func configure(with account: Mastodon.Entity.Account, showFollowers: Bool = true) {
         let displayNameMetaContent: MetaContent
         do {

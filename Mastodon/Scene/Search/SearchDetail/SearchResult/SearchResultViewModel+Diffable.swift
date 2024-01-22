@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MastodonSDK
 
 extension SearchResultViewModel {
     
@@ -32,14 +33,20 @@ extension SearchResultViewModel {
         diffableDataSource.apply(snapshot, animatingDifferences: false)
 
         Publishers.CombineLatest3(
-            statusFetchedResultsController.$records,
-            userFetchedResultsController.$records,
+            dataController.$records,
+            $accounts,
             $hashtags
         )
-        .map { statusRecords, userRecords, hashtags in
+        .map { statusRecords, accounts, hashtags in
             var items: [SearchResultItem] = []
-            
-            let userItems = userRecords.map { SearchResultItem.user($0) }
+
+            let accountsWithRelationship: [(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)] = accounts.compactMap { account in
+                guard let relationship = self.relationships.first(where: {$0.id == account.id }) else { return (account: account, relationship: nil)}
+
+                return (account: account, relationship: relationship)
+            }
+
+            let userItems = accountsWithRelationship.map { SearchResultItem.account($0.account, relationship: $0.relationship) }
             items.append(contentsOf: userItems)
             
             let hashtagItems = hashtags.map { SearchResultItem.hashtag(tag: $0) }

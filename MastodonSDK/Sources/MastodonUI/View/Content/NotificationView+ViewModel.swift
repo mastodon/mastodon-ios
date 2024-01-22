@@ -19,7 +19,7 @@ import CoreDataStack
 extension NotificationView {
     public final class ViewModel: ObservableObject {
         public var disposeBag = Set<AnyCancellable>()
-        public var objects = Set<NSManagedObject>()
+        public var objects = Set<AnyHashable>()
 
         @Published public var context: AppContext?
         @Published public var authContext: AuthContext?
@@ -221,38 +221,27 @@ extension NotificationView.ViewModel {
             )
         )
         .sink { [weak self] authorName, isMuting, isBlocking, isMyselfIsTranslatedIsFollowed in
-            guard let name = authorName?.string else {
+            guard let name = authorName?.string, let self, let context = self.context, let authContext = self.authContext else {
                 notificationView.menuButton.menu = nil
                 return
             }
-            
-            let (isMyself, isTranslated, isFollowed) = isMyselfIsTranslatedIsFollowed
-            
-            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
-                guard
-                    let self = self,
-                    let context = self.context,
-                    let authContext = self.authContext
-                else { return nil }
-                
-                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
-                context.managedObjectContext.performAndWait {
-                    let authentication = authContext.mastodonAuthenticationBox.authentication
-                    configuration = authentication.instance(in: context.managedObjectContext)?.configurationV2
-                }
-                return configuration
-            }()
-            
-            let menuContext = NotificationView.AuthorMenuContext(
+
+              let (isMyself, isTranslated, isFollowed) = isMyselfIsTranslatedIsFollowed
+
+              let authentication = authContext.mastodonAuthenticationBox.authentication
+              let instance = authentication.instance(in: context.managedObjectContext)
+              let isTranslationEnabled = instance?.isTranslationEnabled ?? false
+
+              let menuContext = NotificationView.AuthorMenuContext(
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
                 isMyself: isMyself,
                 isBookmarking: false,    // no bookmark action display for notification item
                 isFollowed: isFollowed,
-                isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
+                isTranslationEnabled: isTranslationEnabled,
                 isTranslated: isTranslated,
-                statusLanguage: ""
+                statusLanguage: nil
             )
             let (menu, actions) = notificationView.setupAuthorMenu(menuContext: menuContext)
             notificationView.menuButton.menu = menu
