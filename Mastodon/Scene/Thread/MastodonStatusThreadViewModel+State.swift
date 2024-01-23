@@ -46,28 +46,33 @@ extension MastodonStatusThreadViewModel {
     
     private func handleReblog(_ status: MastodonStatus, _ isReblogged: Bool, items: [StatusItem]) -> [StatusItem] {
         var newRecords = Array(items)
-
         switch isReblogged {
         case true:
-            guard let reblog = status.reblog else {
-                return items
-            }
-            guard let index = newRecords.firstIndex(where: { $0.mastodonStatus?.id == reblog.id }) else {
-                return items
+            let index: Int
+            if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.id == status.id }) {
+                index = idx
+            } else if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.reblog?.id == status.reblog?.id }) {
+                index = idx
+            } else {
+                return newRecords
             }
             var newRecord = newRecords[index]
             newRecord.mastodonStatus = status
             newRecords[index] = newRecord
             
         case false:
-            guard let index = newRecords.firstIndex(where: { $0.mastodonStatus?.reblog?.id == status.id }) else {
-                return items
+            let index: Int
+            if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.id == status.id }) {
+                index = idx
+            } else if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.reblog?.id == status.reblog?.id }) {
+                index = idx
+            } else {
+                return newRecords
             }
             var newRecord = newRecords[index]
             newRecord.mastodonStatus = status
             newRecords[index] = newRecord
         }
-        
         return newRecords
     }
     
