@@ -45,7 +45,6 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     public let authContext: AuthContext
     public let input: Input
     public let sizeLimit: SizeLimit
-    let originalCaption: String?
     @Published var caption = ""
     @Published public private(set) var isCaptionEditable = true
     let isEditing: Bool
@@ -79,7 +78,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         sizeLimit: SizeLimit,
         delegate: AttachmentViewModelDelegate,
         isEditing: Bool = false,
-        caption: String?
+        caption: String? = nil
     ) {
         self.api = api
         self.authContext = authContext
@@ -88,7 +87,6 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         self.delegate = delegate
         self.isEditing = isEditing
 
-        self.originalCaption = caption
         self.caption = caption ?? ""
 
         super.init()

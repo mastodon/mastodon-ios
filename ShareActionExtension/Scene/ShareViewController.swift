@@ -260,8 +260,7 @@ extension ShareViewController {
                 authContext: authContext,
                 input: .itemProvider(movieProvider),
                 sizeLimit: .init(image: nil, video: nil),
-                delegate: composeContentViewModel,
-                caption: nil
+                delegate: composeContentViewModel
             )
             composeContentViewModel.attachmentViewModels.append(attachmentViewModel)
         } else if !imageProviders.isEmpty {
@@ -271,8 +270,7 @@ extension ShareViewController {
                     authContext: authContext,
                     input: .itemProvider(provider),
                     sizeLimit: .init(image: nil, video: nil),
-                    delegate: composeContentViewModel,
-                    caption: nil
+                    delegate: composeContentViewModel
                 )
             }
             composeContentViewModel.attachmentViewModels.append(contentsOf: attachmentViewModels)
