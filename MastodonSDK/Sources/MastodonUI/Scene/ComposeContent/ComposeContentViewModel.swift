@@ -265,14 +265,16 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             self.isVisibilityButtonEnabled = false
             self.attachmentViewModels = status.entity.mastodonAttachments.compactMap {
                 guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
+
                 let attachmentViewModel = AttachmentViewModel(
                     api: context.apiService,
                     authContext: authContext,
-                    input: .mastodonAssetUrl(url, $0.id),
+                    input: .mastodonAssetUrl(url: url, attachmentId: $0.id),
                     sizeLimit: sizeLimit,
-                    delegate: self
+                    delegate: self,
+                    isEditing: true,
+                    caption: $0.altDescription
                 )
-                attachmentViewModel.caption = $0.altDescription ?? ""
                 return attachmentViewModel
             }
         }

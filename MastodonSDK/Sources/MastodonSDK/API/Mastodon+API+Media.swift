@@ -179,7 +179,7 @@ extension Mastodon.API.Media {
 extension Mastodon.API.Media {
 
     static func updateMediaEndpointURL(domain: String, attachmentID: Mastodon.Entity.Attachment.ID) -> URL {
-        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("media").appendingPathComponent(attachmentID)
+        Mastodon.API.endpointURL(domain: domain).appendingPathComponent("media").appendingPathComponent(attachmentID)
     }
     
     /// Update attachment
