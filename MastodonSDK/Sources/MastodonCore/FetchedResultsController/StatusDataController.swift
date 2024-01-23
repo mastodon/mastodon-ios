@@ -104,21 +104,29 @@ public final class StatusDataController {
 
         switch isReblogged {
         case true:
-            guard let reblog = status.reblog else {
-                return
-            }
-            guard let index = newRecords.firstIndex(where: { $0.id == reblog.id }) else {
+            let index: Int
+            if let idx = newRecords.firstIndex(where: { $0.reblog?.id == status.reblog?.id }) {
+                index = idx
+            } else if let idx = newRecords.firstIndex(where: { $0.id == status.reblog?.id }) {
+                index = idx
+            } else {
                 logger.warning("\(Self.entryNotFoundMessage)")
                 return
             }
-            newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
-
+            newRecords[index] = status
         case false:
-            guard let index = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) else {
+            let index: Int
+            if let idx = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) {
+                index = idx
+            } else if let idx = newRecords.firstIndex(where: { $0.id == status.id }) {
+                index = idx
+            } else {
                 logger.warning("\(Self.entryNotFoundMessage)")
                 return
             }
-            newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
+            let existingRecord = newRecords[index]
+            let newStatus = status.inheritSensitivityToggled(from: existingRecord)
+            newRecords[index] = newStatus
         }
         
         records = newRecords

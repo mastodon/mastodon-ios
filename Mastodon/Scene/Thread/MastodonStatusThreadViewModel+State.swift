@@ -46,33 +46,36 @@ extension MastodonStatusThreadViewModel {
     
     private func handleReblog(_ status: MastodonStatus, _ isReblogged: Bool, items: [StatusItem]) -> [StatusItem] {
         var newRecords = Array(items)
+
         switch isReblogged {
         case true:
             let index: Int
-            if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.id == status.id }) {
+            if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.reblog?.id == status.reblog?.id }) {
                 index = idx
-            } else if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.reblog?.id == status.reblog?.id }) {
+            } else if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.id == status.reblog?.id }) {
                 index = idx
             } else {
+                logger.warning("\(Self.entryNotFoundMessage)")
                 return newRecords
             }
             var newRecord = newRecords[index]
-            newRecord.mastodonStatus = status
+            newRecord.mastodonStatus = status.inheritSensitivityToggled(from: newRecord.mastodonStatus)
             newRecords[index] = newRecord
-            
         case false:
             let index: Int
-            if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.id == status.id }) {
+            if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.reblog?.id == status.id }) {
                 index = idx
-            } else if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.reblog?.id == status.reblog?.id }) {
+            } else if let idx = newRecords.firstIndex(where: { $0.mastodonStatus?.id == status.id }) {
                 index = idx
             } else {
+                logger.warning("\(Self.entryNotFoundMessage)")
                 return newRecords
             }
             var newRecord = newRecords[index]
-            newRecord.mastodonStatus = status
+            newRecord.mastodonStatus = status.inheritSensitivityToggled(from: newRecord.mastodonStatus)
             newRecords[index] = newRecord
         }
+
         return newRecords
     }
     
