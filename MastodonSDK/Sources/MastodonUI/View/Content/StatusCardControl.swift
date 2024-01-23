@@ -247,6 +247,14 @@ public final class StatusCardControl: UIControl {
         }
         set {}
     }
+
+    public func prepareForReuse() {
+        if let webView {
+            // wipe out current page contents
+            webView.load(URLRequest(url: URL(string: "about:blank")!))
+            webView.removeFromSuperview()
+        }
+    }
 }
 
 // MARK: WKWebView delegates

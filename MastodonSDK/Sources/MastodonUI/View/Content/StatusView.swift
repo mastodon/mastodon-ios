@@ -327,6 +327,7 @@ public final class StatusView: UIView {
         setPollDisplay(isDisplay: false)
         setFilterHintLabelDisplay(isDisplay: false)
         setStatusCardControlDisplay(isDisplay: false)
+        statusCardControl.prepareForReuse()
     }
 
     public override init(frame: CGRect) {
