@@ -47,6 +47,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     public let sizeLimit: SizeLimit
     @Published var caption = ""
     @Published public private(set) var isCaptionEditable = true
+    let isEditing: Bool
 
     // output
     @Published public private(set) var output: Output?
@@ -75,15 +76,20 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         authContext: AuthContext,
         input: Input,
         sizeLimit: SizeLimit,
-        delegate: AttachmentViewModelDelegate
+        delegate: AttachmentViewModelDelegate,
+        isEditing: Bool = false,
+        caption: String? = nil
     ) {
         self.api = api
         self.authContext = authContext
         self.input = input
         self.sizeLimit = sizeLimit
         self.delegate = delegate
+        self.isEditing = isEditing
+
+        self.caption = caption ?? ""
+
         super.init()
-        // end init
         
         Timer.publish(every: 1.0 / 60.0, on: .main, in: .common)        // 60 FPS
             .autoconnect()
@@ -134,7 +140,9 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                 
                 switch input {
                 case .mastodonAssetUrl:
-                    self.isCaptionEditable = false
+                    if self.isEditing == false {
+                        self.isCaptionEditable = false
+                    }
                     self.uploadState = .finish
                     self.output = output
                     self.uploadResult = .exists
@@ -258,7 +266,7 @@ extension AttachmentViewModel {
     public enum Input: Hashable {
         case image(UIImage)
         case url(URL)
-        case mastodonAssetUrl(URL, String)
+        case mastodonAssetUrl(url: URL, attachmentId: String)
         case pickerResult(PHPickerResult)
         case itemProvider(NSItemProvider)
     }
@@ -321,4 +329,5 @@ extension AttachmentViewModel {
     func update(uploadResult: UploadResult) {
         self.uploadResult = uploadResult
     }
+
 }
