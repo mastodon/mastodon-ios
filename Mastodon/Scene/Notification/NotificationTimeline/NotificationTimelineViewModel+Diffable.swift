@@ -44,7 +44,7 @@ extension NotificationTimelineViewModel {
                         }
                         var snapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
                         snapshot.appendSections([.main])
-                        snapshot.appendItems(newItems, toSection: .main)
+                        snapshot.appendItems(newItems.removingDuplicates(), toSection: .main)
                         return snapshot
                     }()
 
