@@ -50,13 +50,6 @@ extension APIService {
                 domain: domain,
                 authorization: authorization).singleOutput()
 
-            _ = try await Mastodon.API.Statuses.editHistory(
-                forStatusID: statusID,
-                session: session,
-                domain: domain,
-                authorization: authorization
-            ).singleOutput()
-
             return response
         }
 }
