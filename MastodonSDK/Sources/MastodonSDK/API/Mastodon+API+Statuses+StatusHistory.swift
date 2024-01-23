@@ -106,12 +106,41 @@ extension Mastodon.API.Statuses {
 }
 
 extension Mastodon.API.Statuses {
+
+    public struct MediaAttributes: Codable {
+        let id: String
+        let description: String?
+        //TODO: Add focus at some point
+
+        public init(id: String, description: String?) {
+            self.id = id
+            self.description = description
+        }
+    }
+
+    public struct Poll: Codable {
+        public let options: [String]?
+        public let expiresIn: Int?
+        public let multipleAnswers: Bool?
+
+        public init(options: [String]?, expiresIn: Int?, multipleAnswers: Bool?) {
+            self.options = options
+            self.expiresIn = expiresIn
+            self.multipleAnswers = multipleAnswers
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case options
+            case expiresIn = "expires_in"
+            case multipleAnswers = "multiple_answers"
+        }
+    }
+
     public struct EditStatusQuery: Codable, PutQuery {
         public let status: String?
         public let mediaIDs: [String]?
-        public let pollOptions: [String]?
-        public let pollExpiresIn: Int?
-        public let pollMultipleAnswers: Bool?
+        public let mediaAttributes: [MediaAttributes]?
+        public let poll: Poll?
         public let sensitive: Bool?
         public let spoilerText: String?
         public let visibility: Mastodon.Entity.Status.Visibility?
@@ -120,9 +149,8 @@ extension Mastodon.API.Statuses {
         public init(
             status: String?,
             mediaIDs: [String]?,
-            pollOptions: [String]?,
-            pollExpiresIn: Int?,
-            pollMultipleAnswers: Bool?,
+            mediaAttributes: [MediaAttributes]? = nil,
+            poll: Poll?,
             sensitive: Bool?,
             spoilerText: String?,
             visibility: Mastodon.Entity.Status.Visibility?,
@@ -130,37 +158,23 @@ extension Mastodon.API.Statuses {
         ) {
             self.status = status
             self.mediaIDs = mediaIDs
-            self.pollOptions = pollOptions
-            self.pollExpiresIn = pollExpiresIn
-            self.pollMultipleAnswers = pollMultipleAnswers
+            self.mediaAttributes = mediaAttributes
+            self.poll = poll
             self.sensitive = sensitive
             self.spoilerText = spoilerText
             self.visibility = visibility
             self.language = language
         }
 
-        var contentType: String? {
-            return Self.multipartContentType()
-        }
-        
-        var body: Data? {
-            var data = Data()
-
-            status.flatMap { data.append(Data.multipart(key: "status", value: $0)) }
-            for mediaID in mediaIDs ?? [] {
-                data.append(Data.multipart(key: "media_ids[]", value: mediaID))
-            }
-            for pollOption in pollOptions ?? [] {
-                data.append(Data.multipart(key: "poll[options][]", value: pollOption))
-            }
-            pollExpiresIn.flatMap { data.append(Data.multipart(key: "poll[expires_in]", value: $0)) }
-            sensitive.flatMap { data.append(Data.multipart(key: "sensitive", value: $0)) }
-            spoilerText.flatMap { data.append(Data.multipart(key: "spoiler_text", value: $0)) }
-            visibility.flatMap { data.append(Data.multipart(key: "visibility", value: $0.rawValue)) }
-            language.flatMap { data.append(Data.multipart(key: "language", value: $0)) }
-
-            data.append(Data.multipartEnd())
-            return data
+        enum CodingKeys: String, CodingKey {
+            case status
+            case mediaIDs = "media_ids"
+            case mediaAttributes = "media_attributes"
+            case poll
+            case sensitive
+            case spoilerText = "spoiler_text"
+            case visibility
+            case language
         }
     }
 }
