@@ -81,11 +81,20 @@ public final class StatusDataController {
     @MainActor
     private func updateFavorited(_ status: MastodonStatus, _ isFavorited: Bool) {
         var newRecords = Array(records)
-        guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
+        if let index = newRecords.firstIndex(where: { $0.id == status.id }) {
+            // Replace old status entity
+            let existingRecord = newRecords[index]
+            let newStatus = status.inheritSensitivityToggled(from: existingRecord)
+            newRecords[index] = newStatus
+        } else if let index = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) {
+            // Replace reblogged entity of old "parent" status
+            let existingRecord = newRecords[index]
+            let newStatus = status.inheritSensitivityToggled(from: existingRecord)
+            newStatus.reblog = status
+            newRecords[index] = newStatus
+        } else {
             logger.warning("\(Self.entryNotFoundMessage)")
-            return
         }
-        newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
         records = newRecords
     }
     
