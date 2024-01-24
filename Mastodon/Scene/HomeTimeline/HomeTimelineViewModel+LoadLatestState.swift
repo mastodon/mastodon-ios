@@ -112,10 +112,10 @@ extension HomeTimelineViewModel.LoadLatestState {
                         viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
                     }
                     
-                    var newRecords: [MastodonFeed] = newStatuses.map {
-                        MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
-                    }
                     viewModel.dataController.records = {
+                        var newRecords: [MastodonFeed] = newStatuses.map {
+                            MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
+                        }
                         var oldRecords = viewModel.dataController.records
                         for (i, record) in newRecords.enumerated() {
                             if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {
