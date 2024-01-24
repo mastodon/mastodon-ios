@@ -176,10 +176,23 @@ extension NotificationView {
             .prepend(Date())
             .eraseToAnyPublisher()
             .sink { [weak self] now in
-                guard let self else { return }
+                guard let self, let type = MastodonNotificationType(rawValue: notification.entity.type.rawValue) else { return }
 
-                let timestamp = now.localizedTimeAgo(since: notification.entity.createdAt)
-                dateLabel.configure(content: PlaintextMetaContent(string: timestamp))
+                let formattedTimestamp = now.localizedTimeAgo(since: notification.entity.createdAt)
+                dateLabel.configure(content: PlaintextMetaContent(string: formattedTimestamp))
+
+                self.accessibilityLabel = [
+                    "\(author.displayNameWithFallback) \(type)",
+                    author.acct,
+                    formattedTimestamp
+                ].joined(separator: ", ")
+                if self.statusView.isHidden == false {
+                    self.accessibilityLabel! += ", " + (self.statusView.accessibilityLabel ?? "")
+                }
+                if self.quoteStatusViewContainerView.isHidden == false {
+                    self.accessibilityLabel! += ", " + (self.quoteStatusView.accessibilityLabel ?? "")
+                }
+
             }
             .store(in: &disposeBag)
     }

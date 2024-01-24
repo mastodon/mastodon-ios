@@ -47,31 +47,7 @@ extension NotificationView.ViewModel {
     }
  
     private func bindAuthor(notificationView: NotificationView) {
-        // timestamp
-        Publishers.CombineLatest4(
-            $authorName,
-            $authorUsername,
-            $notificationIndicatorText,
-            $timestamp
-        )
-        .sink { name, username, type, timestamp in
-
-            let formattedTimestamp = timestamp?.localizedSlowedTimeAgoSinceNow ?? ""
-            notificationView.accessibilityLabel = [
-                "\(name?.string ?? "") \(type?.string ?? "")",
-                username.map { "@\($0)" } ?? "",
-                formattedTimestamp
-            ].joined(separator: ", ")
-            if !notificationView.statusView.isHidden {
-                notificationView.accessibilityLabel! += ", " + (notificationView.statusView.accessibilityLabel ?? "")
-            }
-            if !notificationView.quoteStatusViewContainerView.isHidden {
-                notificationView.accessibilityLabel! += ", " + (notificationView.quoteStatusView.accessibilityLabel ?? "")
-            }
-        }
-        .store(in: &disposeBag)
-
-            $type
+        $type
         .sink { type in
             var actions = [UIAccessibilityCustomAction]()
 
