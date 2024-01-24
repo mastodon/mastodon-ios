@@ -155,17 +155,22 @@ extension StatusView {
                 viewModel.header = createHeader(name: "", emojis: [:])
                 /// finally we can load the status information and display the correct header
                 if let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox {
-                    Task { @MainActor in
-                        if let replyTo = try? await Mastodon.API.Statuses.status(
-                            session: .shared,
-                            domain: authenticationBox.domain,
-                            statusID: inReplyToID,
-                            authorization: authenticationBox.userAuthorization
-                        ).singleOutput().value {
-                            let header = createHeader(name: replyTo.account.displayNameWithFallback, emojis: replyTo.account.emojis?.asDictionary ?? [:])
-                            viewModel.header = header
-                        }
-                    }
+                    Mastodon.API.Statuses.status(
+                        session: .shared,
+                        domain: authenticationBox.domain,
+                        statusID: inReplyToID,
+                        authorization: authenticationBox.userAuthorization
+                    )
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveCompletion: { completion in
+                        // no-op
+                    }, receiveValue: { [weak self] response in
+                        guard let self else { return }
+                        let replyTo = response.value
+                        let header = createHeader(name: replyTo.account.displayNameWithFallback, emojis: replyTo.account.emojis?.asDictionary ?? [:])
+                        self.viewModel.header = header
+                    })
+                    .store(in: &disposeBag)
                 }
             } else {
                 // B. replyTo status not exist
