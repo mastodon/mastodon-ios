@@ -20,7 +20,7 @@ final public class FeedDataController {
     
     public func loadInitial(kind: MastodonFeed.Kind) {
         Task {
-            records = try await load(kind: kind, sinceId: nil)
+            records = try await load(kind: kind, maxID: nil)
         }
     }
     
@@ -30,7 +30,7 @@ final public class FeedDataController {
                 return loadInitial(kind: kind)
             }
 
-            records += try await load(kind: kind, sinceId: lastId)
+            records += try await load(kind: kind, maxID: lastId)
         }
     }
     
@@ -151,10 +151,10 @@ final public class FeedDataController {
 }
 
 private extension FeedDataController {
-    func load(kind: MastodonFeed.Kind, sinceId: MastodonStatus.ID?) async throws -> [MastodonFeed] {
+    func load(kind: MastodonFeed.Kind, maxID: MastodonStatus.ID?) async throws -> [MastodonFeed] {
         switch kind {
         case .home:
-            return try await context.apiService.homeTimeline(sinceID: sinceId, authenticationBox: authContext.mastodonAuthenticationBox)
+            return try await context.apiService.homeTimeline(maxID: maxID, authenticationBox: authContext.mastodonAuthenticationBox)
                 .value.map { .fromStatus(.fromEntity($0), kind: .home) }
         case .notificationAll:
             return try await context.apiService.notifications(maxID: nil, scope: .everything, authenticationBox: authContext.mastodonAuthenticationBox)
