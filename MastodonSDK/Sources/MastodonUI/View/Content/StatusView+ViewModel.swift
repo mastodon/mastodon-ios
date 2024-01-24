@@ -717,9 +717,10 @@ extension StatusView.ViewModel {
                                     
                                     menuElement(menu.children)
                                 }
+                            } else {
+                                menuElement(MastodonMenu.setupMenu(actions: [[.shareStatus]], delegate: statusView).children)
                             }
                         }
-                        
                     })
                 ])
                                 
