@@ -14,7 +14,7 @@ final class ListBatchFetchViewModel {
     var disposeBag = Set<AnyCancellable>()
     
     // timer running on `common` mode
-    let timerPublisher = Timer.publish(every: 1.0, on: .main, in: .common)
+    let timerPublisher = Timer.publish(every: 30.0, on: .main, in: .common)
         .autoconnect()
         .share()
         .eraseToAnyPublisher()

@@ -95,6 +95,7 @@ public final class AuthenticationService: NSObject {
         super.init()
         
         $mastodonAuthenticationBoxes
+            .throttle(for: 3, scheduler: DispatchQueue.main, latest: true)
             .sink { [weak self] boxes in
                 Task { [weak self] in
                     for authBox in boxes {
