@@ -219,6 +219,8 @@ extension StatusView {
                 }
             }()
             
+            viewModel.authorId = author.id
+            
             // author username
             viewModel.authorUsername = author.acct
             
@@ -238,20 +240,6 @@ extension StatusView {
                 viewModel.isBlocking = false
                 viewModel.isFollowed = false
                 return
-            }
-            
-            if let relationship = try? await Mastodon.API.Account.relationships(
-                session: .shared,
-                domain: auth.domain,
-                query: .init(ids: [author.id]),
-                authorization: auth.userAuthorization
-            ).singleOutput().value {
-                guard let rel = relationship.first else { return }
-                DispatchQueue.main.async { [self] in
-                    viewModel.isMuting = rel.muting ?? false
-                    viewModel.isBlocking = rel.blocking
-                    viewModel.isFollowed = rel.followedBy
-                }
             }
         }
     }
