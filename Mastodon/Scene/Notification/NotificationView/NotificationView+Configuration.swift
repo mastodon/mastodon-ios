@@ -139,8 +139,52 @@ extension NotificationView {
             case ._other:
                 notificationIndicatorText = nil
             }
+
+            var actions = [UIAccessibilityCustomAction]()
+
+            // these notifications can be directly actioned to view the profile
+            if type != .follow, type != .followRequest {
+                actions.append(
+                    UIAccessibilityCustomAction(
+                        name: L10n.Common.Controls.Status.showUserProfile,
+                        image: nil
+                    ) { [weak self] _ in
+                        guard let self, let delegate = self.delegate else { return false }
+                        delegate.notificationView(self, authorAvatarButtonDidPressed: self.avatarButton)
+                        return true
+                    }
+                )
+            }
+
+            if type == .followRequest {
+                actions.append(
+                    UIAccessibilityCustomAction(
+                        name: L10n.Common.Controls.Actions.confirm,
+                        image: Asset.Editing.checkmark20.image
+                    ) { [weak self] _ in
+                        guard let self, let delegate = self.delegate else { return false }
+                        delegate.notificationView(self, acceptFollowRequestButtonDidPressed: self.acceptFollowRequestButton)
+                        return true
+                    }
+                )
+
+                actions.append(
+                    UIAccessibilityCustomAction(
+                        name: L10n.Common.Controls.Actions.delete,
+                        image: Asset.Circles.forbidden20.image
+                    ) { [weak self] _ in
+                        guard let self, let delegate = self.delegate else { return false }
+                        delegate.notificationView(self, rejectFollowRequestButtonDidPressed: self.rejectFollowRequestButton)
+                        return true
+                    }
+                )
+            }
+
+            notificationActions = actions
+
         } else {
             notificationIndicatorText = nil
+            notificationActions = []
         }
 
         if let notificationIndicatorText {

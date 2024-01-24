@@ -45,54 +45,6 @@ extension NotificationView.ViewModel {
             .assign(to: \.authContext, on: notificationView.quoteStatusView.viewModel)
             .store(in: &disposeBag)
     }
- 
-    private func bindAuthor(notificationView: NotificationView) {
-        $type
-        .sink { type in
-            var actions = [UIAccessibilityCustomAction]()
-
-            // these notifications can be directly actioned to view the profile
-            if type != .follow, type != .followRequest {
-                actions.append(
-                    UIAccessibilityCustomAction(
-                        name: L10n.Common.Controls.Status.showUserProfile,
-                        image: nil
-                    ) { [weak notificationView] _ in
-                        guard let notificationView = notificationView, let delegate = notificationView.delegate else { return false }
-                        delegate.notificationView(notificationView, authorAvatarButtonDidPressed: notificationView.avatarButton)
-                        return true
-                    }
-                )
-            }
-
-            if type == .followRequest {
-                actions.append(
-                    UIAccessibilityCustomAction(
-                        name: L10n.Common.Controls.Actions.confirm,
-                        image: Asset.Editing.checkmark20.image
-                    ) { [weak notificationView] _ in
-                        guard let notificationView = notificationView, let delegate = notificationView.delegate else { return false }
-                        delegate.notificationView(notificationView, acceptFollowRequestButtonDidPressed: notificationView.acceptFollowRequestButton)
-                        return true
-                    }
-                )
-
-                actions.append(
-                    UIAccessibilityCustomAction(
-                        name: L10n.Common.Controls.Actions.delete,
-                        image: Asset.Circles.forbidden20.image
-                    ) { [weak notificationView] _ in
-                        guard let notificationView = notificationView, let delegate = notificationView.delegate else { return false }
-                        delegate.notificationView(notificationView, rejectFollowRequestButtonDidPressed: notificationView.rejectFollowRequestButton)
-                        return true
-                    }
-                )
-            }
-
-            notificationView.notificationActions = actions
-        }
-        .store(in: &disposeBag)
-    }
 
     private func bindFollowRequest(notificationView: NotificationView) {
         Publishers.CombineLatest(
