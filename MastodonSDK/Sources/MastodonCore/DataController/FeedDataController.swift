@@ -93,10 +93,14 @@ final public class FeedDataController {
             newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
         } else if let index = newRecords.firstIndex(where: { $0.status?.reblog?.id == status.id }) {
             // Replace reblogged entity of old "parent" status
-            let existingRecord = newRecords[index]
-            let newStatus = status.inheritSensitivityToggled(from: existingRecord.status)
-            newStatus.reblog = status
-            newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
+            let newStatus: MastodonStatus
+            if let existingEntity = newRecords[index].status?.entity {
+                newStatus = .fromEntity(existingEntity)
+                newStatus.reblog = status
+            } else {
+                newStatus = status
+            }
+            newRecords[index] = .fromStatus(newStatus, kind: newRecords[index].kind)
         } else {
             logger.warning("\(Self.entryNotFoundMessage)")
         }
