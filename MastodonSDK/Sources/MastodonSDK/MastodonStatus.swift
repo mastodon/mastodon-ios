@@ -35,6 +35,7 @@ extension MastodonStatus {
     
     public func inheritSensitivityToggled(from status: MastodonStatus?) -> MastodonStatus {
         self.isSensitiveToggled = status?.isSensitiveToggled ?? false
+        self.reblog?.isSensitiveToggled = status?.reblog?.isSensitiveToggled ?? false
         return self
     }
 }
