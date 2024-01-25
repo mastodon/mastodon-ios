@@ -430,7 +430,7 @@ extension DataSourceFacade {
 }
 
 extension DataSourceFacade {
-    
+    @MainActor
     static func responseToToggleSensitiveAction(
         dependency: NeedsDependency & DataSourceProvider,
         status: MastodonStatus
