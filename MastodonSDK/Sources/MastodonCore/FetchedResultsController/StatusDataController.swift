@@ -135,11 +135,18 @@ public final class StatusDataController {
     @MainActor
     private func updateSensitive(_ status: MastodonStatus, _ isVisible: Bool) {
         var newRecords = Array(records)
-        guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
+        if let index = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) {
+            let newStatus: MastodonStatus = .fromEntity(newRecords[index].entity)
+            newStatus.reblog = status
+            newRecords[index] = newStatus
+        } else if let index = newRecords.firstIndex(where: { $0.id == status.id }) {
+            let newStatus: MastodonStatus = .fromEntity(newRecords[index].entity)
+                .inheritSensitivityToggled(from: status)
+            newRecords[index] = newStatus
+        } else {
             logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
-        newRecords[index] = status
         records = newRecords
     }
     

@@ -44,13 +44,15 @@ extension MastodonStatus: Hashable {
     public static func == (lhs: MastodonStatus, rhs: MastodonStatus) -> Bool {
         lhs.entity == rhs.entity &&
         lhs.reblog?.entity == rhs.reblog?.entity &&
-        lhs.isSensitiveToggled == rhs.isSensitiveToggled
+        lhs.isSensitiveToggled == rhs.isSensitiveToggled &&
+        lhs.reblog?.isSensitiveToggled == rhs.reblog?.isSensitiveToggled
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(entity)
         hasher.combine(reblog?.entity)
         hasher.combine(isSensitiveToggled)
+        hasher.combine(reblog?.isSensitiveToggled)
     }
 }
 
