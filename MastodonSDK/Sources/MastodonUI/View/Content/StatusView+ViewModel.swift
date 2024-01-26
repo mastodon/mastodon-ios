@@ -278,21 +278,20 @@ extension StatusView.ViewModel {
         // timestamp
         Publishers.CombineLatest3(
             $timestamp,
-            $editedAt,
+            $editedAt.removeDuplicates(),
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
-        .compactMap { [weak self] timestamp, editedAt, _ -> String? in
-            guard let self = self else { return nil }
+        .sink(receiveValue: { [weak self] timestamp, editedAt, _ in
+            guard let self = self else { return }
             if let timestamp = editedAt, let text = self.timestampFormatter?(timestamp, true) {
-                return text
+                self.editedAt = editedAt
+                timestampText = text
             } else if let timestamp = timestamp, let text = self.timestampFormatter?(timestamp, false) {
-                return text
+                timestampText = text
             }
-            return ""
-        }
-        .removeDuplicates()
-        .assign(to: &$timestampText)
-        
+        })
+        .store(in: &disposeBag)
+
         $timestampText
             .sink { [weak self] text in
                 guard let _ = self else { return }
