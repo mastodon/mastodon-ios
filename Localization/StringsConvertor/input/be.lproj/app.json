@@ -222,11 +222,11 @@
                 "pending": "Чакаецца",
                 "block": "Заблакіраваць",
                 "block_user": "Заблакіраваць %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Заблакіраваць дамен %s",
                 "unblock": "Разблакіраваць",
                 "unblock_user": "Разблакіраваць %s",
                 "blocked": "Заблакіраваны",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Дамен заблакіраваны",
                 "mute": "Ігнараваць",
                 "mute_user": "Ігнараваць %s",
                 "unmute": "Не ігнараваць",
@@ -606,12 +606,12 @@
                     "message": "Пацвердзіце, каб схаваць пашырэнні"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Заблакіраваць дамен",
+                    "message": "Заблакіраваць дамен %s?"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Разблакіраваць дамен",
+                    "message": "Разблакіраваць дамен %s?"
                 }
             },
             "accessibility": {
