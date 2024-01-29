@@ -145,12 +145,20 @@ final public class FeedDataController {
     @MainActor
     private func updateSensitive(_ status: MastodonStatus, _ isVisible: Bool) {
         var newRecords = Array(records)
-        guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
+        if let index = newRecords.firstIndex(where: { $0.status?.reblog?.id == status.id }), let existingEntity = newRecords[index].status?.entity {
+            let existingRecord = newRecords[index]
+            let newStatus: MastodonStatus = .fromEntity(existingEntity)
+            newStatus.reblog = status
+            newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
+        } else if let index = newRecords.firstIndex(where: { $0.id == status.id }), let existingEntity = newRecords[index].status?.entity {
+            let existingRecord = newRecords[index]
+            let newStatus: MastodonStatus = .fromEntity(existingEntity)
+                .inheritSensitivityToggled(from: status)
+            newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
+        } else {
             logger.warning("\(Self.entryNotFoundMessage)")
             return
         }
-        let existingRecord = newRecords[index]
-        newRecords[index] = .fromStatus(status, kind: existingRecord.kind)
         records = newRecords
     }
 }
