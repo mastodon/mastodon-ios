@@ -239,7 +239,7 @@ extension StatusView {
             }()
             
             // isMuting, isBlocking, Following
-            guard let auth = viewModel.authContext?.mastodonAuthenticationBox else { return }
+            guard viewModel.authContext?.mastodonAuthenticationBox != nil else { return }
             guard !viewModel.isMyself else {
                 viewModel.isMuting = false
                 viewModel.isBlocking = false
