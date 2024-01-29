@@ -61,7 +61,7 @@ extension MastodonStatus: Hashable {
         hasher.combine(entity)
         hasher.combine(reblog?.entity)
         hasher.combine(isSensitiveToggled)
-        hasher.combine(reblog?.isSensitiveToggled   )
+        hasher.combine(reblog?.isSensitiveToggled)
     }
 }
 

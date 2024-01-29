@@ -88,7 +88,7 @@ extension HomeTimelineViewModel.LoadLatestState {
 
         Task {
             let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
-                return record.status?.id
+                return record.status?.reblog?.id ?? record.status?.id
             }
 
             do {
@@ -102,7 +102,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                 viewModel.context.instanceService.updateMutesAndBlocks()
                 
                 // stop refresher if no new statuses
-                let statuses = response.value
+                let statuses = response.value.map { $0.reblog ?? $0 }
                 let newStatuses = statuses.filter { !latestStatusIDs.contains($0.id) }
 
                 if newStatuses.isEmpty {
