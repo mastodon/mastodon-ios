@@ -85,11 +85,13 @@ public final class StatusDataController {
             // Replace old status entity
             let existingRecord = newRecords[index]
             let newStatus = status.inheritSensitivityToggled(from: existingRecord)
+                .withOriginal(status: existingRecord)
             newRecords[index] = newStatus
         } else if let index = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) {
             // Replace reblogged entity of old "parent" status
             let existingRecord = newRecords[index]
             let newStatus = status.inheritSensitivityToggled(from: existingRecord)
+                .withOriginal(status: existingRecord)
             newStatus.reblog = status
             newRecords[index] = newStatus
         } else {
@@ -113,7 +115,8 @@ public final class StatusDataController {
                 logger.warning("\(Self.entryNotFoundMessage)")
                 return
             }
-            newRecords[index] = status
+            let existingStatus = newRecords[index]
+            newRecords[index] = status.withOriginal(status: existingStatus)
         case false:
             let index: Int
             if let idx = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) {
@@ -125,7 +128,7 @@ public final class StatusDataController {
                 return
             }
             let existingRecord = newRecords[index]
-            let newStatus = status.inheritSensitivityToggled(from: existingRecord)
+            let newStatus = existingRecord.originalStatus ?? status.inheritSensitivityToggled(from: existingRecord)
             newRecords[index] = newStatus
         }
         
