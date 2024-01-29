@@ -89,13 +89,14 @@ final public class FeedDataController {
         if let index = newRecords.firstIndex(where: { $0.id == status.id }) {
             // Replace old status entity
             let existingRecord = newRecords[index]
-            let newStatus = status.inheritSensitivityToggled(from: existingRecord.status)
+            let newStatus = status.inheritSensitivityToggled(from: existingRecord.status).withOriginal(status: existingRecord.status?.originalStatus)
             newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
         } else if let index = newRecords.firstIndex(where: { $0.status?.reblog?.id == status.id }) {
             // Replace reblogged entity of old "parent" status
             let newStatus: MastodonStatus
             if let existingEntity = newRecords[index].status?.entity {
                 newStatus = .fromEntity(existingEntity)
+                newStatus.originalStatus = newRecords[index].status?.originalStatus
                 newStatus.reblog = status
             } else {
                 newStatus = status
@@ -123,7 +124,7 @@ final public class FeedDataController {
                 return
             }
             let existingRecord = newRecords[index]
-            newRecords[index] = .fromStatus(status, kind: existingRecord.kind)
+            newRecords[index] = .fromStatus(status.withOriginal(status: existingRecord.status), kind: existingRecord.kind)
         case false:
             let index: Int
             if let idx = newRecords.firstIndex(where: { $0.status?.reblog?.id == status.id }) {
@@ -135,7 +136,7 @@ final public class FeedDataController {
                 return
             }
             let existingRecord = newRecords[index]
-            let newStatus = status.inheritSensitivityToggled(from: existingRecord.status)
+            let newStatus = existingRecord.status?.originalStatus ?? status.inheritSensitivityToggled(from: existingRecord.status)
             newRecords[index] = .fromStatus(newStatus, kind: existingRecord.kind)
         }
         records = newRecords

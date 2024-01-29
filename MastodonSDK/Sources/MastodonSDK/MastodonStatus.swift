@@ -7,6 +7,10 @@ import CoreDataStack
 public final class MastodonStatus: ObservableObject {
     public typealias ID = Mastodon.Entity.Status.ID
     
+    /// `originalStatus` is used to restore a previously re-blogged state when a status
+    /// has been originally reblogged by another account
+    @Published public var originalStatus: MastodonStatus?
+    
     @Published public var entity: Mastodon.Entity.Status
     @Published public var reblog: MastodonStatus?
     
@@ -38,6 +42,11 @@ extension MastodonStatus {
         self.reblog?.isSensitiveToggled = status?.reblog?.isSensitiveToggled ?? false
         return self
     }
+    
+    public func withOriginal(status: MastodonStatus?) -> MastodonStatus {
+        originalStatus = status
+        return self
+    }
 }
 
 extension MastodonStatus: Hashable {
@@ -52,7 +61,7 @@ extension MastodonStatus: Hashable {
         hasher.combine(entity)
         hasher.combine(reblog?.entity)
         hasher.combine(isSensitiveToggled)
-        hasher.combine(reblog?.isSensitiveToggled)
+        hasher.combine(reblog?.isSensitiveToggled   )
     }
 }
 
