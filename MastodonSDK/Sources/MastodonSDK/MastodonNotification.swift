@@ -11,7 +11,7 @@ public final class MastodonNotification {
     }
     
     public let account: Mastodon.Entity.Account
-    public let relationship: Mastodon.Entity.Relationship?
+    public var relationship: Mastodon.Entity.Relationship?
     public let status: MastodonStatus?
     public let feeds: [MastodonFeed]
     
@@ -28,7 +28,7 @@ public final class MastodonNotification {
 }
 
 public extension MastodonNotification {
-    static func fromEntity(_ entity: Mastodon.Entity.Notification, relationship: Mastodon.Entity.Relationship?, domain: String) -> MastodonNotification? {
+    static func fromEntity(_ entity: Mastodon.Entity.Notification, relationship: Mastodon.Entity.Relationship?) -> MastodonNotification {
         return MastodonNotification(entity: entity, account: entity.account, relationship: relationship, status: entity.status.map(MastodonStatus.fromEntity), feeds: [])
     }
 }

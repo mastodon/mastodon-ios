@@ -18,23 +18,24 @@ import MastodonLocalization
 import MastodonSDK
 
 extension NotificationView {
-    public func configure(feed: MastodonFeed) {
+    public func configure(feed: MastodonFeed, authenticationBox: MastodonAuthenticationBox) {
         guard  let notification = feed.notification else {
             assertionFailure()
             return
         }
 
-        MastodonNotification.fromEntity(
+        let entity = MastodonNotification.fromEntity(
             notification,
-            relationship: feed.relationship,
-            domain: viewModel.authContext?.mastodonAuthenticationBox.domain ?? ""
-        ).map(configure(notification:))
+            relationship: feed.relationship
+        )
+
+        configure(notification: entity, authenticationBox: authenticationBox)
     }
 }
 
 extension NotificationView {
-    public func configure(notification: MastodonNotification) {
-        configureAuthor(notification: notification)
+    public func configure(notification: MastodonNotification, authenticationBox: MastodonAuthenticationBox) {
+        configureAuthor(notification: notification, authenticationBox: authenticationBox)
 
         switch notification.entity.type {
         case .follow:
@@ -57,10 +58,8 @@ extension NotificationView {
         }
         
     }
-}
 
-extension NotificationView {
-    private func configureAuthor(notification: MastodonNotification) {
+    private func configureAuthor(notification: MastodonNotification, authenticationBox: MastodonAuthenticationBox) {
         let author = notification.account
 
         // author avatar
@@ -89,8 +88,6 @@ extension NotificationView {
         // notification type indicator
         let notificationIndicatorText: MetaContent?
         if let type = MastodonNotificationType(rawValue: notification.entity.type.rawValue) {
-            self.viewModel.type = type
-
             // TODO: fix the i18n. The subject should assert place at the string beginning
             func createMetaContent(text: String, emojis: MastodonContent.Emojis) -> MetaContent {
                 let content = MastodonContent(content: text, emojis: emojis)
@@ -193,7 +190,7 @@ extension NotificationView {
             notificationTypeIndicatorLabel.reset()
         }
 
-        if let me = viewModel.authContext?.mastodonAuthenticationBox.authentication.account() {
+        if let me = authenticationBox.authentication.account() {
             let isMyself = (author == me)
             let isMuting: Bool
             let isBlocking: Bool
@@ -213,7 +210,6 @@ extension NotificationView {
             menuButton.showsMenuAsPrimaryAction = true
 
             menuButton.isHidden = menuContext.isMyself
-
         }
 
         timestampUpdatePublisher
@@ -239,5 +235,47 @@ extension NotificationView {
 
             }
             .store(in: &disposeBag)
+
+        switch notification.followRequestState.state {
+            case .isAccept:
+                self.rejectFollowRequestButtonShadowBackgroundContainer.isHidden = true
+                self.acceptFollowRequestButton.isUserInteractionEnabled = false
+                self.acceptFollowRequestButton.setImage(nil, for: .normal)
+                self.acceptFollowRequestButton.setTitle(L10n.Scene.Notification.FollowRequest.accepted, for: .normal)
+            case .isReject:
+                self.acceptFollowRequestButtonShadowBackgroundContainer.isHidden = true
+                self.rejectFollowRequestButton.isUserInteractionEnabled = false
+                self.rejectFollowRequestButton.setImage(nil, for: .normal)
+                self.rejectFollowRequestButton.setTitle(L10n.Scene.Notification.FollowRequest.rejected, for: .normal)
+            default:
+                break
+        }
+
+        let state = notification.transientFollowRequestState.state
+        if state == .isAccepting {
+            self.acceptFollowRequestActivityIndicatorView.startAnimating()
+            self.acceptFollowRequestButton.tintColor = .clear
+            self.acceptFollowRequestButton.setTitleColor(.clear, for: .normal)
+        } else {
+            self.acceptFollowRequestActivityIndicatorView.stopAnimating()
+            self.acceptFollowRequestButton.tintColor = .white
+            self.acceptFollowRequestButton.setTitleColor(.white, for: .normal)
+        }
+        if state == .isRejecting {
+            self.rejectFollowRequestActivityIndicatorView.startAnimating()
+            self.rejectFollowRequestButton.tintColor = .clear
+            self.rejectFollowRequestButton.setTitleColor(.clear, for: .normal)
+        } else {
+            self.rejectFollowRequestActivityIndicatorView.stopAnimating()
+            self.rejectFollowRequestButton.tintColor = .black
+            self.rejectFollowRequestButton.setTitleColor(.black, for: .normal)
+        }
+
+        if state == .isAccept {
+            self.rejectFollowRequestButtonShadowBackgroundContainer.isHidden = true
+        }
+        if state == .isReject {
+            self.acceptFollowRequestButtonShadowBackgroundContainer.isHidden = true
+        }
     }
 }

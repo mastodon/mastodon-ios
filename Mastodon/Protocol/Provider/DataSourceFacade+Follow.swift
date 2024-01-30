@@ -35,44 +35,47 @@ extension DataSourceFacade {
     static func responseToUserFollowRequestAction(
         dependency: NeedsDependency & AuthContextProvider,
         notification: MastodonNotification,
+        notificationView: NotificationView,
         query: Mastodon.API.Account.FollowRequestQuery
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
-        
-        let managedObjectContext = dependency.context.managedObjectContext
-        let _userID: String? = try await managedObjectContext.perform {
-            return notification.account.id
-        }
-        
-        guard let userID = _userID else {
-            assertionFailure()
-            throw APIService.APIError.implicit(.badRequest)
-        }
-        
+
+        let userID = notification.account.id
         let state: MastodonFollowRequestState = notification.followRequestState
         
-        guard state.state == .none else {
-            return
-        }
-        
+        guard state.state == .none else { return }
+
         switch query {
         case .accept:
             notification.transientFollowRequestState = .init(state: .isAccepting)
         case .reject:
             notification.transientFollowRequestState = .init(state: .isRejecting)
         }
-        
+
+        await notificationView.configure(notification: notification, authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+
         do {
-            _ = try await dependency.context.apiService.followRequest(
+            let newRelationship = try await dependency.context.apiService.followRequest(
                 userID: userID,
                 query: query,
                 authenticationBox: dependency.authContext.mastodonAuthenticationBox
-            )
+            ).value
+
+            switch query {
+            case .accept:
+                notification.transientFollowRequestState = .init(state: .isAccept)
+                notification.followRequestState = .init(state: .isAccept)
+            case .reject:
+                break
+            }
+
+            await notificationView.configure(notification: notification, authenticationBox: dependency.authContext.mastodonAuthenticationBox)
         } catch {
             // reset state when failure
             notification.transientFollowRequestState = .init(state: .none)
-            
+            await notificationView.configure(notification: notification, authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+
             if let error = error as? Mastodon.API.Error {
                 switch error.httpResponseStatus {
                 case .notFound:
@@ -88,17 +91,8 @@ extension DataSourceFacade {
                     )
                 }
             }
-            
-            return
         }
         
-        switch query {
-        case .accept:
-            notification.transientFollowRequestState = .init(state: .isAccept)
-            notification.followRequestState = .init(state: .isAccept)
-        case .reject:
-            break
-        }
     }
 }
 

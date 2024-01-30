@@ -38,8 +38,6 @@ final class NotificationTimelineViewController: UIViewController, NeedsDependenc
     }()
     
     let cellFrameCache = NSCache<NSNumber, NSValue>()
-
-    
 }
 
 extension NotificationTimelineViewController {

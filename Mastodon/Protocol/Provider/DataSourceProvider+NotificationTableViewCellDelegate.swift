@@ -44,10 +44,10 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                         barButtonItem: nil
                     ),
                     completion: { (newRelationship: Mastodon.Entity.Relationship) in
-                        //TODO: Update Relationship.
-                        //TODO: Get Relationship into here, first!
-
-                        print(newRelationship)
+                        notification.relationship = newRelationship
+                        Task { @MainActor in
+                            notificationView.configure(notification: notification, authenticationBox: self.authContext.mastodonAuthenticationBox)
+                        }
                     }
                 )
             case .reportUser(_):
@@ -117,9 +117,10 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
             try await DataSourceFacade.responseToUserFollowRequestAction(
                 dependency: self,
                 notification: notification,
+                notificationView: notificationView,
                 query: .accept
             )
-        } // end Task
+        }
     }
     
     func tableViewCell(
@@ -141,9 +142,10 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
             try await DataSourceFacade.responseToUserFollowRequestAction(
                 dependency: self,
                 notification: notification,
+                notificationView: notificationView,
                 query: .reject
             )
-        } // end Task
+        }
     }
     
 }

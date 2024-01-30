@@ -48,12 +48,6 @@ public final class NotificationView: UIView {
     var notificationActions = [UIAccessibilityCustomAction]()
     var authorActions = [UIAccessibilityCustomAction]()
 
-    public private(set) lazy var viewModel: ViewModel = {
-        let viewModel = ViewModel()
-        viewModel.bind(notificationView: self)
-        return viewModel
-    }()
-    
     let containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -185,7 +179,6 @@ public final class NotificationView: UIView {
     public func prepareForReuse() {
         disposeBag.removeAll()
 
-        viewModel.authContext = nil
         avatarButton.avatarImageView.image = nil
         avatarButton.avatarImageView.cancelTask()
         
