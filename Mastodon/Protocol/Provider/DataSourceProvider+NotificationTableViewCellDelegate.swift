@@ -89,6 +89,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
 // MARK: - Follow Request
 extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
  
+    @MainActor
     func tableViewCell(
         _ cell: UITableViewCell,
         notificationView: NotificationView,
@@ -105,14 +106,30 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
             
-            try await DataSourceFacade.responseToUserFollowRequestAction(
-                dependency: self,
-                notification: notification,
-                query: .accept
-            )
+            let originalTransientFollowRequestState = notificationView.viewModel.transientFollowRequestState
+            let originalFollowRequestState = notificationView.viewModel.followRequestState
+            
+            notificationView.viewModel.transientFollowRequestState = .init(state: .isAccepting)
+            notificationView.viewModel.followRequestState = .init(state: .isAccepting)
+            
+            do {
+                try await DataSourceFacade.responseToUserFollowRequestAction(
+                    dependency: self,
+                    notification: notification,
+                    query: .accept
+                )
+                
+                notificationView.viewModel.transientFollowRequestState = .init(state: .isAccept)
+                notificationView.viewModel.followRequestState = .init(state: .isAccept)
+            } catch {
+                notificationView.viewModel.transientFollowRequestState = originalTransientFollowRequestState
+                notificationView.viewModel.followRequestState = originalFollowRequestState
+                throw error
+            }
         } // end Task
     }
     
+    @MainActor
     func tableViewCell(
         _ cell: UITableViewCell,
         notificationView: NotificationView,
@@ -129,11 +146,26 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
             
-            try await DataSourceFacade.responseToUserFollowRequestAction(
-                dependency: self,
-                notification: notification,
-                query: .reject
-            )
+            let originalTransientFollowRequestState = notificationView.viewModel.transientFollowRequestState
+            let originalFollowRequestState = notificationView.viewModel.followRequestState
+            
+            notificationView.viewModel.transientFollowRequestState = .init(state: .isRejecting)
+            notificationView.viewModel.followRequestState = .init(state: .isRejecting)
+            
+            do {
+                try await DataSourceFacade.responseToUserFollowRequestAction(
+                    dependency: self,
+                    notification: notification,
+                    query: .reject
+                )
+                
+                notificationView.viewModel.transientFollowRequestState = .init(state: .isReject)
+                notificationView.viewModel.followRequestState = .init(state: .isReject)
+            } catch {
+                notificationView.viewModel.transientFollowRequestState = originalTransientFollowRequestState
+                notificationView.viewModel.followRequestState = originalFollowRequestState
+                throw error
+            }
         } // end Task
     }
     
