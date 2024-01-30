@@ -254,6 +254,12 @@ extension ProfileViewController {
         }
         .store(in: &disposeBag)
         
+        context.publisherService.statusPublishResult.sink { [weak self] result in
+            if case .success(.edit(let status)) = result {
+                self?.updateViewModelsWithDataControllers(status: .fromEntity(status.value), intent: .edit)
+            }
+        }.store(in: &disposeBag)
+        
         addChild(tabBarPagerController)
         tabBarPagerController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tabBarPagerController.view)
@@ -971,11 +977,13 @@ extension ProfileViewController: DataSourceProvider {
         return nil
     }
     
-    func update(status: MastodonStatus) {
-        assertionFailure("Not required")
+    func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
+        updateViewModelsWithDataControllers(status: status, intent: intent)
     }
     
-    func delete(status: MastodonStatus) {
-        assertionFailure("Not required")
+    func updateViewModelsWithDataControllers(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
+        viewModel.postsUserTimelineViewModel.dataController.update(status: status, intent: intent)
+        viewModel.repliesUserTimelineViewModel.dataController.update(status: status, intent: intent)
+        viewModel.mediaUserTimelineViewModel.dataController.update(status: status, intent: intent)
     }
 }

@@ -327,6 +327,9 @@ public final class StatusView: UIView {
         setPollDisplay(isDisplay: false)
         setFilterHintLabelDisplay(isDisplay: false)
         setStatusCardControlDisplay(isDisplay: false)
+        
+        headerInfoLabel.text = nil
+        headerIconImageView.image = nil
     }
 
     public override init(frame: CGRect) {

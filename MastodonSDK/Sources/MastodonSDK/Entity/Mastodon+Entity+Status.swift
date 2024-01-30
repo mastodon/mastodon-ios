@@ -142,7 +142,8 @@ extension Mastodon.Entity.Status: Hashable {
         lhs.favourited == rhs.favourited &&
         lhs.reblogged == rhs.reblogged &&
         lhs.bookmarked == rhs.bookmarked &&
-        lhs.pinned == rhs.pinned
+        lhs.pinned == rhs.pinned &&
+        lhs.content == rhs.content
     }
     
     public func hash(into hasher: inout Hasher) {
@@ -153,5 +154,6 @@ extension Mastodon.Entity.Status: Hashable {
         hasher.combine(reblogged)
         hasher.combine(bookmarked)
         hasher.combine(pinned)
+        hasher.combine(content)
     }
 }

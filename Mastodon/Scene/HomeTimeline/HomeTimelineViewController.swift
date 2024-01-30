@@ -168,9 +168,10 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
         
-        context.publisherService.statusPublishResult.sink { result in
-            if case .success(.edit) = result {
+        context.publisherService.statusPublishResult.receive(on: DispatchQueue.main).sink { result in
+            if case .success(.edit(let status)) = result {
                 self.viewModel.hasPendingStatusEditReload = true
+                self.viewModel.dataController.update(status: .fromEntity(status.value), intent: .edit)
             }
         }.store(in: &disposeBag)
         

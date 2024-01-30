@@ -3,8 +3,12 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import os.log
 
 public final class StatusDataController {
+    private let logger = Logger(subsystem: "StatusDataController", category: "Data")
+    private static let entryNotFoundMessage = "Failed to find suitable record. Depending on the context this might result in errors (data not being updated) or can be discarded (e.g. when there are mixed data sources where an entry might or might not exist)."
+
     @MainActor
     @Published 
     public private(set) var records: [MastodonStatus] = []
@@ -35,39 +39,118 @@ public final class StatusDataController {
     }
     
     @MainActor
-    public func update(status: MastodonStatus) {
+    public func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
+        switch intent {
+        case .delete:
+            deleteRecord(status)
+        case .edit:
+            updateEdited(status)
+        case let .bookmark(isBookmarked):
+            updateBookmarked(status, isBookmarked)
+        case let .favorite(isFavorited):
+            updateFavorited(status, isFavorited)
+        case let .reblog(isReblogged):
+            updateReblogged(status, isReblogged)
+        case let .toggleSensitive(isVisible):
+            updateSensitive(status, isVisible)
+        }
+    }
+    
+    @MainActor
+    private func updateEdited(_ status: MastodonStatus) {
         var newRecords = Array(records)
-        for (i, record) in newRecords.enumerated() {
-            if record.id == status.id {
-                newRecords[i] = status
-            } else if let reblog = status.reblog, reblog.id == record.id {
-                newRecords[i] = status
-            } else if let reblog = record.reblog, reblog.id == status.id {
-                // Handle reblogged state
-                let isRebloggedByAnyOne: Bool = records[i].reblog != nil
-
-                let newStatus: MastodonStatus
-                if isRebloggedByAnyOne {
-                    // if status was previously reblogged by me: remove reblogged status
-                    if records[i].entity.reblogged == true && status.entity.reblogged == false {
-                        newStatus = .fromEntity(status.entity)
-                    } else {
-                        newStatus = .fromEntity(records[i].entity)
-                    }
-                    
-                } else {
-                    newStatus = .fromEntity(status.entity)
-                }
-
-                newStatus.isSensitiveToggled = status.isSensitiveToggled
-                newStatus.reblog = isRebloggedByAnyOne ? .fromEntity(status.entity) : nil
-                
-                newRecords[i] = newStatus
-            } else if let reblog = record.reblog, reblog.id == status.reblog?.id {
-                // Handle re-reblogged state
-                newRecords[i] = status
-            }
+        guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
+            logger.warning("\(Self.entryNotFoundMessage)")
+            return
+        }
+        newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
+        records = newRecords
+    }
+    
+    @MainActor
+    private func updateBookmarked(_ status: MastodonStatus, _ isBookmarked: Bool) {
+        var newRecords = Array(records)
+        guard let index = newRecords.firstIndex(where: { $0.id == status.id }) else {
+            logger.warning("\(Self.entryNotFoundMessage)")
+            return
+        }
+        newRecords[index] = status.inheritSensitivityToggled(from: newRecords[index])
+        records = newRecords
+    }
+    
+    @MainActor
+    private func updateFavorited(_ status: MastodonStatus, _ isFavorited: Bool) {
+        var newRecords = Array(records)
+        if let index = newRecords.firstIndex(where: { $0.id == status.id }) {
+            // Replace old status entity
+            let existingRecord = newRecords[index]
+            let newStatus = status.inheritSensitivityToggled(from: existingRecord)
+                .withOriginal(status: existingRecord)
+            newRecords[index] = newStatus
+        } else if let index = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) {
+            // Replace reblogged entity of old "parent" status
+            let existingRecord = newRecords[index]
+            let newStatus = status.inheritSensitivityToggled(from: existingRecord)
+                .withOriginal(status: existingRecord)
+            newStatus.reblog = status
+            newRecords[index] = newStatus
+        } else {
+            logger.warning("\(Self.entryNotFoundMessage)")
         }
         records = newRecords
     }
+    
+    @MainActor
+    private func updateReblogged(_ status: MastodonStatus, _ isReblogged: Bool) {
+        var newRecords = Array(records)
+
+        switch isReblogged {
+        case true:
+            let index: Int
+            if let idx = newRecords.firstIndex(where: { $0.reblog?.id == status.reblog?.id }) {
+                index = idx
+            } else if let idx = newRecords.firstIndex(where: { $0.id == status.reblog?.id }) {
+                index = idx
+            } else {
+                logger.warning("\(Self.entryNotFoundMessage)")
+                return
+            }
+            let existingStatus = newRecords[index]
+            newRecords[index] = status.withOriginal(status: existingStatus)
+        case false:
+            let index: Int
+            if let idx = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) {
+                index = idx
+            } else if let idx = newRecords.firstIndex(where: { $0.id == status.id }) {
+                index = idx
+            } else {
+                logger.warning("\(Self.entryNotFoundMessage)")
+                return
+            }
+            let existingRecord = newRecords[index]
+            let newStatus = existingRecord.originalStatus ?? status.inheritSensitivityToggled(from: existingRecord)
+            newRecords[index] = newStatus
+        }
+        
+        records = newRecords
+    }
+    
+    @MainActor
+    private func updateSensitive(_ status: MastodonStatus, _ isVisible: Bool) {
+        var newRecords = Array(records)
+        if let index = newRecords.firstIndex(where: { $0.reblog?.id == status.id }) {
+            let newStatus: MastodonStatus = .fromEntity(newRecords[index].entity)
+            newStatus.reblog = status
+            newRecords[index] = newStatus
+        } else if let index = newRecords.firstIndex(where: { $0.id == status.id }) {
+            let newStatus: MastodonStatus = .fromEntity(newRecords[index].entity)
+                .inheritSensitivityToggled(from: status)
+            newRecords[index] = newStatus
+        } else {
+            logger.warning("\(Self.entryNotFoundMessage)")
+            return
+        }
+        records = newRecords
+    }
+    
 }

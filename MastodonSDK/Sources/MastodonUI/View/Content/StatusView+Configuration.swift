@@ -155,17 +155,22 @@ extension StatusView {
                 viewModel.header = createHeader(name: "", emojis: [:])
                 /// finally we can load the status information and display the correct header
                 if let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox {
-                    Task { @MainActor in
-                        if let replyTo = try? await Mastodon.API.Statuses.status(
-                            session: .shared,
-                            domain: authenticationBox.domain,
-                            statusID: inReplyToID,
-                            authorization: authenticationBox.userAuthorization
-                        ).singleOutput().value {
-                            let header = createHeader(name: replyTo.account.displayNameWithFallback, emojis: replyTo.account.emojis?.asDictionary ?? [:])
-                            viewModel.header = header
-                        }
-                    }
+                    Mastodon.API.Statuses.status(
+                        session: .shared,
+                        domain: authenticationBox.domain,
+                        statusID: inReplyToID,
+                        authorization: authenticationBox.userAuthorization
+                    )
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveCompletion: { completion in
+                        // no-op
+                    }, receiveValue: { [weak self] response in
+                        guard let self else { return }
+                        let replyTo = response.value
+                        let header = createHeader(name: replyTo.account.displayNameWithFallback, emojis: replyTo.account.emojis?.asDictionary ?? [:])
+                        self.viewModel.header = header
+                    })
+                    .store(in: &disposeBag)
                 }
             } else {
                 // B. replyTo status not exist
@@ -219,6 +224,8 @@ extension StatusView {
                 }
             }()
             
+            viewModel.authorId = author.id
+            
             // author username
             viewModel.authorUsername = author.acct
             
@@ -232,26 +239,12 @@ extension StatusView {
             }()
             
             // isMuting, isBlocking, Following
-            guard let auth = viewModel.authContext?.mastodonAuthenticationBox else { return }
+            guard viewModel.authContext?.mastodonAuthenticationBox != nil else { return }
             guard !viewModel.isMyself else {
                 viewModel.isMuting = false
                 viewModel.isBlocking = false
                 viewModel.isFollowed = false
                 return
-            }
-            
-            if let relationship = try? await Mastodon.API.Account.relationships(
-                session: .shared,
-                domain: auth.domain,
-                query: .init(ids: [author.id]),
-                authorization: auth.userAuthorization
-            ).singleOutput().value {
-                guard let rel = relationship.first else { return }
-                DispatchQueue.main.async { [self] in
-                    viewModel.isMuting = rel.muting ?? false
-                    viewModel.isBlocking = rel.blocking
-                    viewModel.isFollowed = rel.followedBy
-                }
             }
         }
     }

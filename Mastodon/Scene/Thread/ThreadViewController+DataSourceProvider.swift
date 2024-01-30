@@ -29,121 +29,63 @@ extension ThreadViewController: DataSourceProvider {
         }
     }
     
-    func update(status: MastodonStatus) {
+    func update(status _status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
+        let status = _status.reblog ?? _status
+        if case MastodonStatus.UpdateIntent.delete = intent {
+            return handleDelete(status)
+        }
+        
         switch viewModel.root {
         case let .root(context):
             if context.status.id == status.id {
                 viewModel.root = .root(context: .init(status: status))
             } else {
-                handle(status: status)
+                handleUpdate(status: status, viewModel: viewModel.mastodonStatusThreadViewModel, intent: intent)
             }
         case let .reply(context):
             if context.status.id == status.id {
                 viewModel.root = .reply(context: .init(status: status))
             } else {
-                handle(status: status)
+                handleUpdate(status: status, viewModel: viewModel.mastodonStatusThreadViewModel, intent: intent)
             }
         case let .leaf(context):
             if context.status.id == status.id {
                 viewModel.root = .leaf(context: .init(status: status))
             } else {
-                handle(status: status)
+                handleUpdate(status: status, viewModel: viewModel.mastodonStatusThreadViewModel, intent: intent)
             }
         case .none:
             assertionFailure("This should not have happened")
         }
     }
-    
-    private func handle(status: MastodonStatus) {
-        viewModel.mastodonStatusThreadViewModel.ancestors.handleUpdate(status: status, for: viewModel)
-        viewModel.mastodonStatusThreadViewModel.descendants.handleUpdate(status: status, for: viewModel)
-    }
-    
-    func delete(status: MastodonStatus) {
+
+    private func handleDelete(_ status: MastodonStatus) {
         if viewModel.root?.record.id == status.id {
             viewModel.root = nil
             viewModel.onDismiss.send(status)
         }
-        viewModel.mastodonStatusThreadViewModel.ancestors.handleDelete(status: status, for: viewModel)
-        viewModel.mastodonStatusThreadViewModel.descendants.handleDelete(status: status, for: viewModel)
+        viewModel.mastodonStatusThreadViewModel.handleDelete(status)
     }
     
     @MainActor
     private func indexPath(for cell: UITableViewCell) async -> IndexPath? {
         return tableView.indexPath(for: cell)
     }
-}
-
-private extension [StatusItem] {
-    mutating func handleUpdate(status: MastodonStatus, for viewModel: ThreadViewModel) {
-        for (index, ancestor) in enumerated() {
-            switch ancestor {
-            case let .feed(record):
-                if record.status?.id == status.id {
-                    self[index] = .feed(record: .fromStatus(status, kind: record.kind))
-                }
-            case let.feedLoader(record):
-                if record.status?.id == status.id {
-                    self[index] = .feedLoader(record: .fromStatus(status, kind: record.kind))
-                }
-            case let .status(record):
-                if record.id == status.id {
-                    self[index] = .status(record: status)
-                }
-            case let .thread(thread):
-                switch thread {
-                case let .root(context):
-                    if context.status.id == status.id {
-                        self[index] = .thread(.root(context: .init(status: status)))
-                    }
-                case let .reply(context):
-                    if context.status.id == status.id {
-                        self[index] = .thread(.reply(context: .init(status: status)))
-                    }
-                case let .leaf(context):
-                    if context.status.id == status.id {
-                        self[index] = .thread(.leaf(context: .init(status: status)))
-                    }
-                }
-            case .bottomLoader, .topLoader:
-                break
-            }
-        }
-    }
     
-    mutating func handleDelete(status: MastodonStatus, for viewModel: ThreadViewModel) {
-        for (index, ancestor) in enumerated() {
-            switch ancestor {
-            case let .feed(record):
-                if record.status?.id == status.id {
-                    self.remove(at: index)
-                }
-            case let.feedLoader(record):
-                if record.status?.id == status.id {
-                    self.remove(at: index)
-                }
-            case let .status(record):
-                if record.id == status.id {
-                    self.remove(at: index)
-                }
-            case let .thread(thread):
-                switch thread {
-                case let .root(context):
-                    if context.status.id == status.id {
-                        self.remove(at: index)
-                    }
-                case let .reply(context):
-                    if context.status.id == status.id {
-                        self.remove(at: index)
-                    }
-                case let .leaf(context):
-                    if context.status.id == status.id {
-                        self.remove(at: index)
-                    }
-                }
-            case .bottomLoader, .topLoader:
-                break
-            }
+    private func handleUpdate(status: MastodonStatus, viewModel: MastodonStatusThreadViewModel, intent: MastodonStatus.UpdateIntent) {
+        switch intent {
+        case .bookmark:
+            viewModel.handleBookmark(status)
+        case let .reblog(isReblogged):
+            viewModel.handleReblog(status, isReblogged)
+        case .favorite:
+            viewModel.handleFavorite(status)
+        case let .toggleSensitive(isVisible):
+            viewModel.handleSensitive(status, isVisible)
+        case .edit:
+            viewModel.handleEdit(status)
+        case .delete:
+            break // this case has already been handled
         }
     }
 }

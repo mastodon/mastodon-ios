@@ -11,12 +11,13 @@ import MastodonSDK
 import MastodonCore
 
 extension DataSourceFacade {
+    @MainActor
     public static func responseToStatusFavoriteAction(
         provider: DataSourceProvider & AuthContextProvider,
         status: MastodonStatus
     ) async throws {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
+        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator.selectionChanged()
         
         let updatedStatus = try await provider.context.apiService.favorite(
             status: status,
@@ -26,6 +27,6 @@ extension DataSourceFacade {
         let newStatus: MastodonStatus = .fromEntity(updatedStatus)
         newStatus.isSensitiveToggled = status.isSensitiveToggled
         
-        provider.update(status: newStatus)
+        provider.update(status: newStatus, intent: .favorite(updatedStatus.favourited == true))
     }
 }

@@ -13,9 +13,12 @@ import CoreDataStack
 import MastodonSDK
 import MastodonCore
 import MastodonMeta
+import os.log
 
 final class MastodonStatusThreadViewModel {
-    
+    let logger = Logger(subsystem: "MastodonStatusThreadViewModel", category: "Data")
+    static let entryNotFoundMessage = "Failed to find suitable record. Depending on the context this might result in errors (data not being updated) or can be discarded (e.g. when there are mixed data sources where an entry might or might not exist)."
+
     var disposeBag = Set<AnyCancellable>()
     
     // input

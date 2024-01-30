@@ -29,14 +29,10 @@ extension SearchHistoryViewController: DataSourceProvider {
         }
     }
     
-    func update(status: MastodonStatus) {
+    func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
         assertionFailure("Not required")
     }
-    
-    func delete(status: MastodonStatus) {
-        assertionFailure("Not required")
-    }
-    
+
     @MainActor
     private func indexPath(for cell: UICollectionViewCell) async -> IndexPath? {
         return collectionView.indexPath(for: cell)
