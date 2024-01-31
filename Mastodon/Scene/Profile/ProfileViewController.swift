@@ -421,13 +421,14 @@ extension ProfileViewController {
             viewModel.$relationship
         )
         .asyncMap { [weak self] user, relationship -> UIMenu? in
-            guard let self, let relationship else { return nil }
+            guard let self, let relationship, let domain = user.domainFromAcct else { return nil }
 
             let name = user.displayNameWithFallback
 
             var menuActions: [MastodonMenu.Action] = [
                 .muteUser(.init(name: name, isMuting: relationship.muting)),
                 .blockUser(.init(name: name, isBlocking: relationship.blocking)),
+                .blockDomain(.init(domain: domain, isBlocking: relationship.domainBlocking)),
                 .reportUser(.init(name: name)),
                 .shareUser(.init(name: name)),
             ]
