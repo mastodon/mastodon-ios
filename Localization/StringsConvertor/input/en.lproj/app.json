@@ -222,11 +222,11 @@
                 "pending": "Pending",
                 "block": "Block",
                 "block_user": "Block %s",
-                "block_domain": "Domain blokkolása: %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
-                "domain_blocked": "Domain blokkolva",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
                 "unmute": "Unmute",
@@ -606,12 +606,12 @@
                     "message": "Confirm to hide reblogs"
                 },
                 "confirm_block_domain": {
-                    "title": "Domain blokkolása",
-                    "message": "Megerősíti a domain blokkolását? %s"
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Domain blokkolás feloldása",
-                    "message": "Megerősíti a domain blokk feloldását? %s"
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
