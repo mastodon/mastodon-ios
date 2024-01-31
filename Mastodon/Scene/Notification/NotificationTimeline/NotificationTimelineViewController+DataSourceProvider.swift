@@ -38,7 +38,9 @@ extension NotificationTimelineViewController: DataSourceProvider {
     }
 
     func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
-        viewModel.dataController.update(status: status, intent: intent)
+        Task {
+            await viewModel.loadLatest()
+        }
     }
 
     @MainActor
