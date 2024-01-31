@@ -66,7 +66,8 @@ extension MastodonFeed: Hashable {
         lhs.id == rhs.id && 
         lhs.status?.entity == rhs.status?.entity &&
         lhs.status?.reblog?.entity == rhs.status?.reblog?.entity &&
-        lhs.status?.isSensitiveToggled == rhs.status?.isSensitiveToggled
+        lhs.status?.isSensitiveToggled == rhs.status?.isSensitiveToggled &&
+        lhs.status?.reblog?.isSensitiveToggled == rhs.status?.reblog?.isSensitiveToggled
     }
     
     public func hash(into hasher: inout Hasher) {
@@ -74,6 +75,7 @@ extension MastodonFeed: Hashable {
         hasher.combine(status?.entity)
         hasher.combine(status?.reblog?.entity)
         hasher.combine(status?.isSensitiveToggled)
+        hasher.combine(status?.reblog?.isSensitiveToggled)
     }
     
 }

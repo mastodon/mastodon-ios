@@ -104,7 +104,7 @@
                 "unfollow": "Bỏ theo dõi %s"
             },
             "tabs": {
-                "home": "Trang chính",
+                "home": "Trang chủ",
                 "search_and_explore": "Tìm và Khám Phá",
                 "notifications": "Thông báo",
                 "profile": "Trang hồ sơ",
@@ -226,6 +226,7 @@
                 "unblock": "Bỏ chặn",
                 "unblock_user": "Bỏ chặn %s",
                 "blocked": "Đã chặn",
+                "domain_blocked": "Máy chủ chặn",
                 "mute": "Ẩn",
                 "mute_user": "Ẩn %s",
                 "unmute": "Bỏ ẩn",
@@ -449,7 +450,7 @@
             }
         },
         "home_timeline": {
-            "title": "Trang chính",
+            "title": "Trang chủ",
             "navigation_bar_state": {
                 "offline": "Ngoại tuyến",
                 "new_posts": "Đọc những tút mới",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Ẩn đăng lại",
                     "message": "Xác nhận ẩn đăng lại"
+                },
+                "confirm_block_domain": {
+                    "title": "Chặn máy chủ",
+                    "message": "Bạn muốn chặn %s?"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Bỏ chặn máy chủ",
+                    "message": "Bạn muốn bỏ chặn %s?"
                 }
             },
             "accessibility": {

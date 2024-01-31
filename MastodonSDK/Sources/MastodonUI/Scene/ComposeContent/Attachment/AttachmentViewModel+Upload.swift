@@ -120,15 +120,12 @@ extension AttachmentViewModel {
         }
         
         let attachment = output.asAttachment
-        
+
         let query = Mastodon.API.Media.UploadMediaQuery(
             file: attachment,
             thumbnail: nil,
-            description: {
-                let caption = caption.trimmingCharacters(in: .whitespacesAndNewlines)
-                return caption.isEmpty ? nil : caption
-            }(),
-            focus: nil              // TODO:
+            description: caption.trimmingCharacters(in: .whitespacesAndNewlines),
+            focus: nil
         )
         
         // upload + N * check upload

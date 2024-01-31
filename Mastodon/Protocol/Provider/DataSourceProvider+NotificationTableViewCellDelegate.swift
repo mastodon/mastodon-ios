@@ -98,6 +98,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
 // MARK: - Follow Request
 extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
  
+    @MainActor
     func tableViewCell(
         _ cell: UITableViewCell,
         notificationView: NotificationView,
@@ -113,7 +114,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            
+
+
             try await DataSourceFacade.responseToUserFollowRequestAction(
                 dependency: self,
                 notification: notification,
@@ -123,6 +125,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
         }
     }
     
+    @MainActor
     func tableViewCell(
         _ cell: UITableViewCell,
         notificationView: NotificationView,
@@ -138,7 +141,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            
+
             try await DataSourceFacade.responseToUserFollowRequestAction(
                 dependency: self,
                 notification: notification,
@@ -147,7 +150,6 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
             )
         }
     }
-    
 }
 
 // MARK: - Status Content

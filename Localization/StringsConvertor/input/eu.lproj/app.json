@@ -222,10 +222,11 @@
                 "pending": "Zain",
                 "block": "Blokeatu",
                 "block_user": "Blokeatu %s",
-                "block_domain": "Blokeatu %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Desblokeatu",
                 "unblock_user": "Desblokeatu %s",
                 "blocked": "Blokeatuta",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Mututu",
                 "mute_user": "Mututu %s",
                 "unmute": "Desmututu",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Ezkutatu bultzadak",
                     "message": "Berretsi birbidalketak ezkutatzea"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

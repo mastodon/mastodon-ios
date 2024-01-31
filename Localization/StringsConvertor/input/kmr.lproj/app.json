@@ -222,10 +222,11 @@
                 "pending": "Tê nirxandin",
                 "block": "Asteng bike",
                 "block_user": "%s asteng bike",
-                "block_domain": "%s asteng bike",
+                "block_domain": "Block domain %s",
                 "unblock": "Astengiyê rake",
                 "unblock_user": "%s asteng neke",
                 "blocked": "Astengkirî",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Bêdeng bike",
                 "mute_user": "%s bêdeng bike",
                 "unmute": "Bêdeng neke",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Bilindkirinan veşêre",
                     "message": "Bo veşartina bilindkirinan bipejirîne"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

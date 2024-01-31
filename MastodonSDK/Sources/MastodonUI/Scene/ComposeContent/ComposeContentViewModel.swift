@@ -227,15 +227,14 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         }
 
         // set limit
-        let _configuration: Mastodon.Entity.Instance.Configuration? = {
-            var configuration: Mastodon.Entity.Instance.Configuration? = nil
-            context.managedObjectContext.performAndWait {
-                let authentication = authContext.mastodonAuthenticationBox.authentication
-                configuration = authentication.instance(in: context.managedObjectContext)?.configuration
-            }
-            return configuration
-        }()
-        if let configuration = _configuration {
+        var configuration: InstanceConfigLimitingPropertyContaining?
+        
+        context.managedObjectContext.performAndWait {
+            let authentication = authContext.mastodonAuthenticationBox.authentication
+            configuration = (authentication.instance(in: context.managedObjectContext)?.configurationV2 ?? authentication.instance(in: context.managedObjectContext)?.configuration)
+        }
+        
+        if let configuration {
             // set character limit
             if let maxCharacters = configuration.statuses?.maxCharacters {
                 maxTextInputLimit = maxCharacters
@@ -265,14 +264,16 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             self.isVisibilityButtonEnabled = false
             self.attachmentViewModels = status.entity.mastodonAttachments.compactMap {
                 guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
+
                 let attachmentViewModel = AttachmentViewModel(
                     api: context.apiService,
                     authContext: authContext,
-                    input: .mastodonAssetUrl(url, $0.id),
+                    input: .mastodonAssetUrl(url: url, attachmentId: $0.id),
                     sizeLimit: sizeLimit,
-                    delegate: self
+                    delegate: self,
+                    isEditing: true,
+                    caption: $0.altDescription
                 )
-                attachmentViewModel.caption = $0.altDescription ?? ""
                 return attachmentViewModel
             }
         }

@@ -222,10 +222,11 @@
                 "pending": "Oczekujący",
                 "block": "Zablokuj",
                 "block_user": "Zablokuj %s",
-                "block_domain": "Zablokuj %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Odblokuj",
                 "unblock_user": "Odblokuj %s",
                 "blocked": "Zablokowany",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Wycisz",
                 "mute_user": "Wycisz %s",
                 "unmute": "Cofnij wyciszenie",
@@ -355,7 +356,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Utwórz konto",
             "input": {
                 "avatar": {
                     "delete": "Usuń"
@@ -419,8 +420,8 @@
             "title": "Some ground rules.",
             "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "terms_of_service": "zasady użytkowania",
+            "privacy_policy": "polityka prywatności",
             "button": {
                 "confirm": "I Agree"
             }
@@ -429,7 +430,7 @@
             "title": "Check Your Inbox",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "resend": "Resend"
+                "resend": "Wyślij ponownie"
             },
             "dont_receive_email": {
                 "title": "Check your Email",
@@ -444,7 +445,7 @@
             },
             "didnt_get_link": {
                 "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
+                "resend_in": "Wyślij ponownie (%@)",
                 "resend_now": "Resend now."
             }
         },
@@ -472,12 +473,12 @@
                 "edit_post": "Edit Post"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
+                "camera": "Zrób zdjęcie",
+                "photo_library": "Biblioteka zdjęć",
                 "browse": "Browse"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
+            "compose_action": "Publikuj",
             "replying_to_user": "odpowiadanie %s",
             "attachment": {
                 "photo": "zdjęcie",
@@ -513,18 +514,18 @@
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
-                "public": "Public",
+                "public": "Publiczny",
                 "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "private": "Tylko dla obserwujących",
+                "direct": "Tylko wspomniane osoby"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
+                "append_attachment": "Dodaj załącznik",
+                "append_poll": "Dodaj ankietę",
+                "remove_poll": "Usuń ankietę",
                 "custom_emoji_picker": "Custom Emoji Picker",
                 "enable_content_warning": "Enable Content Warning",
                 "disable_content_warning": "Disable Content Warning",
@@ -561,11 +562,11 @@
                 "familiar_followers": "mutuals"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Dołączył(a)",
                 "add_row": "Add Row",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Etykieta",
+                    "content": "Zawartość"
                 },
                 "verified": {
                     "short": "Verified on %s",
@@ -574,19 +575,19 @@
             },
             "segmented_control": {
                 "posts": "Posts",
-                "replies": "Replies",
+                "replies": "Odpowiedzi",
                 "posts_and_replies": "Posts and Replies",
                 "media": "Media",
                 "about": "About"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Wycisz konto",
+                    "message": "Potwierdź wyciszenie %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Cofnij wyciszenie konta",
+                    "message": "Potwierdź cofnięcie wyciszenia %s"
                 },
                 "confirm_block_user": {
                     "title": "Block Account",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Hide Reblogs",
                     "message": "Confirm to hide reblogs"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
@@ -634,7 +643,7 @@
             "title": "Search",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "cancel": "Anuluj"
             },
             "recommend": {
                 "button_text": "See All",
@@ -646,23 +655,23 @@
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "Obserwuj"
                 }
             },
             "searching": {
                 "posts": "Posts matching \"%s\"",
                 "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
+                "url": "Otwórz adres URL w Mastodonie",
                 "hashtag": "Go to #%s",
                 "no_user": {
                     "title": "No User Account Found",
                     "message": "There's no Useraccount \"%s\" on %s"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Brak wyników"
                 },
-                "recent_search": "Recent searches",
+                "recent_search": "Ostatnie wyszukiwania",
                 "clear_all": "Clear all",
                 "clear": "Clear"
             }
@@ -678,12 +687,12 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Ulubione"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Wszystko",
+                "Mentions": "Wspomnienia"
             },
             "notification_description": {
                 "followed_you": "followed you",
@@ -698,10 +707,10 @@
                 "show_mentions": "Show Mentions"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Zaakceptuj",
+                "accepted": "Zaakceptowano",
+                "reject": "odrzuć",
+                "rejected": "Odrzucono"
             }
         },
         "thread": {
@@ -737,9 +746,9 @@
             "general": {
                 "title": "General",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
+                    "section_title": "Wygląd",
+                    "dark": "Ciemny",
+                    "light": "Jasny",
                     "system": "Use Device Appearance"
                 },
                 "design": {
@@ -753,7 +762,7 @@
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Powiadomienia",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
@@ -791,13 +800,13 @@
                 "whats_wrong_with_this_account": "What's wrong with this account?",
                 "whats_wrong_with_this_username": "What's wrong with %s?",
                 "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
+                "i_dont_like_it": "Nie lubię tego",
                 "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
+                "its_spam": "To spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
+                "it_violates_server_rules": "To narusza zasady serwera",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
+                "its_something_else": "To coś innego",
                 "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
             },
             "step_two": {
@@ -838,10 +847,10 @@
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "Dodaj konto"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Zakładki"
         },
         "followed_tags": {
             "title": "Followed Tags",
@@ -851,7 +860,7 @@
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
+                "follow": "Obserwuj",
                 "unfollow": "Unfollow"
             }
         }

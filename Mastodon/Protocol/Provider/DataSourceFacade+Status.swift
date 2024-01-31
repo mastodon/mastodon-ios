@@ -28,7 +28,7 @@ extension DataSourceFacade {
             authenticationBox: dependency.authContext.mastodonAuthenticationBox
         ).value.asMastodonStatus
         
-        dependency.delete(status: deletedStatus)
+        dependency.update(status: deletedStatus, intent: .delete)
     }
     
 }
@@ -375,7 +375,7 @@ extension DataSourceFacade {
             if context.isBlocking {
                 title = L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.title
                 message = L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.message(context.domain)
-                actionTitle = L10n.Common.Controls.Friendship.unblockDomain(context.domain)
+                actionTitle = L10n.Common.Controls.Actions.unblockDomain(context.domain)
             } else {
                 title = L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.title
                 message = L10n.Common.Alerts.BlockDomain.title(context.domain)
@@ -406,7 +406,7 @@ extension DataSourceFacade {
 }
 
 extension DataSourceFacade {
-    
+    @MainActor
     static func responseToToggleSensitiveAction(
         dependency: NeedsDependency & DataSourceProvider,
         status: MastodonStatus
@@ -416,7 +416,7 @@ extension DataSourceFacade {
         let newStatus: MastodonStatus = .fromEntity(_status.entity)
         newStatus.isSensitiveToggled = !_status.isSensitiveToggled
         
-        dependency.update(status: newStatus)
+        dependency.update(status: newStatus, intent: .toggleSensitive(newStatus.isSensitiveToggled))
     }
     
 }

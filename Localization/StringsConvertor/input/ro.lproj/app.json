@@ -222,10 +222,11 @@
                 "pending": "Pending",
                 "block": "Block",
                 "block_user": "Block %s",
-                "block_domain": "Block %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
                 "unmute": "Unmute",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Hide Reblogs",
                     "message": "Confirm to hide reblogs"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

@@ -117,17 +117,14 @@ extension MastodonStatusPublisher: StatusPublisher {
                     break
                 case let .uploadedMastodonAttachment(attachment):
                     attachmentIDs.append(attachment.id)
-                    
-                    let caption = attachmentViewModel.caption
-                    guard !caption.isEmpty else { continue }
-                    
+
                     _ = try await api.updateMedia(
                         domain: authContext.mastodonAuthenticationBox.domain,
                         attachmentID: attachment.id,
                         query: .init(
                             file: nil,
                             thumbnail: nil,
-                            description: caption,
+                            description: attachmentViewModel.caption,
                             focus: nil
                         ),
                         mastodonAuthenticationBox: authContext.mastodonAuthenticationBox

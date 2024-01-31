@@ -222,10 +222,11 @@
                 "pending": "In Warteschlange",
                 "block": "Blockieren",
                 "block_user": "%s blockieren",
-                "block_domain": "%s blockieren",
+                "block_domain": "Domain %s sperren",
                 "unblock": "Blockierung aufheben",
                 "unblock_user": "Blockierung von %s aufheben",
                 "blocked": "Blockiert",
+                "domain_blocked": "Domain gesperrt",
                 "mute": "Stummschalten",
                 "mute_user": "%s stummschalten",
                 "unmute": "Nicht mehr stummschalten",
@@ -504,8 +505,8 @@
                 "option_number": "Auswahlmöglichkeit %ld",
                 "the_poll_is_invalid": "Die Umfrage ist ungültig",
                 "the_poll_has_empty_option": "Die Umfrage hat eine leere Option",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
+                "add_option": "Option hinzufügen",
+                "remove_option": "Option entfernen",
                 "move_up": "Nach oben",
                 "move_down": "Nach unten"
             },
@@ -542,7 +543,7 @@
             },
             "language": {
                 "title": "Beitragssprache",
-                "suggested": "Suggested",
+                "suggested": "Empfohlen",
                 "recent": "Kürzlich",
                 "other": "Andere Sprache…"
             }
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Teilen ausblenden",
                     "message": "Bestätigen, um Teilen auszublenden"
+                },
+                "confirm_block_domain": {
+                    "title": "Domain sperren",
+                    "message": "Bestätigen, um die Domain %s zu sperren"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Domain entsperren",
+                    "message": "Bestätigen, um die Sperre der Domäne %s aufzuheben"
                 }
             },
             "accessibility": {
@@ -656,8 +665,8 @@
                 "url": "URL in Mastodon öffnen",
                 "hashtag": "Wechseln zu #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Kein Benutzerkonto gefunden",
+                    "message": "Es gibt kein Benutzerkonto „%s” auf %s"
                 },
                 "empty_state": {
                     "no_results": "Keine Ergebnisse"
@@ -711,17 +720,17 @@
         "settings": {
             "overview": {
                 "title": "Einstellungen",
-                "general": "General",
-                "notifications": "Notifications",
+                "general": "Allgemein",
+                "notifications": "Benachrichtigungen",
                 "support_mastodon": "Mastodon unterstützen",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "about_mastodon": "Über Mastodon",
+                "server_details": "Serverdetails",
+                "logout": "%@ abmelden"
             },
             "about_mastodon": {
                 "title": "Über",
                 "more_settings": "Noch mehr Einstellungen",
-                "contribute_to_mastodon": "Contribute to Mastodon",
+                "contribute_to_mastodon": "Zu Mastodon beitragen",
                 "privacy_policy": "Datenschutzerklärung",
                 "clear_media_storage": "Clear Media Storage"
             },
@@ -735,12 +744,12 @@
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Allgemein",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Farbschema",
+                    "dark": "Dunkel",
+                    "light": "Hell",
+                    "system": "Einstellungen des Geräts übernehmen"
                 },
                 "design": {
                     "section_title": "Design",
@@ -748,18 +757,18 @@
                 },
                 "links": {
                     "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_mastodon": "In Mastodon öffnen",
+                    "open_in_browser": "Im Browser öffnen"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Mitteilungen",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
+                    "title": "Mitteilungen erhalten von",
+                    "anyone": "Jeder",
                     "followers": "People who follow you",
                     "follow": "People you follow",
-                    "noone": "No one"
+                    "noone": "Niemand"
                 },
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",

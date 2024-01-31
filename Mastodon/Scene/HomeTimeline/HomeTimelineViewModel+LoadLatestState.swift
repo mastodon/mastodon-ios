@@ -88,7 +88,7 @@ extension HomeTimelineViewModel.LoadLatestState {
 
         Task {
             let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
-                return record.status?.id
+                return record.status?.reblog?.id ?? record.status?.id
             }
 
             do {
@@ -104,7 +104,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                 
                 // stop refresher if no new statuses
                 let statuses = response.value
-                let newStatuses = statuses.filter { !latestStatusIDs.contains($0.id) }
+                let newStatuses = statuses.filter { status in !latestStatusIDs.contains(where: { $0 == status.reblog?.id || $0 == status.id }) }
 
                 if newStatuses.isEmpty {
                     viewModel.didLoadLatest.send()
@@ -113,10 +113,10 @@ extension HomeTimelineViewModel.LoadLatestState {
                         viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
                     }
                     
-                    var newRecords: [MastodonFeed] = newStatuses.map {
-                        MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
-                    }
                     viewModel.dataController.records = {
+                        var newRecords: [MastodonFeed] = newStatuses.map {
+                            MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
+                        }
                         var oldRecords = viewModel.dataController.records
                         for (i, record) in newRecords.enumerated() {
                             if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {

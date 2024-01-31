@@ -12,15 +12,15 @@
 
 "RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Գրառում";
 
 "WCIR3D" = "Post ${content} on Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Գրառում";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Տեսանելիութիւն";
 
 "Zo4jgJ" = "Post Visibility";
 
@@ -34,7 +34,7 @@
 
 "dUyuGg" = "Post on Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Հրապարակային";
 
 "ehFLjY" = "Followers Only";
 

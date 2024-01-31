@@ -222,10 +222,11 @@
                 "pending": "Gaida",
                 "block": "Bloķēt",
                 "block_user": "Bloķēt %s",
-                "block_domain": "Bloķēt %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Atbloķēt",
                 "unblock_user": "Atbloķēt %s",
                 "blocked": "Bloķēts",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Apklusināt",
                 "mute_user": "Aplusināt %s",
                 "unmute": "Noņemt apklusinājumu",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Paslēpt Reblogus",
                     "message": "Apstiprināt, lai slēptu reblogus"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

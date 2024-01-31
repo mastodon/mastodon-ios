@@ -222,10 +222,11 @@
                 "pending": "Чакаецца",
                 "block": "Заблакіраваць",
                 "block_user": "Заблакіраваць %s",
-                "block_domain": "Заблакіраваць %s",
+                "block_domain": "Заблакіраваць дамен %s",
                 "unblock": "Разблакіраваць",
                 "unblock_user": "Разблакіраваць %s",
                 "blocked": "Заблакіраваны",
+                "domain_blocked": "Дамен заблакіраваны",
                 "mute": "Ігнараваць",
                 "mute_user": "Ігнараваць %s",
                 "unmute": "Не ігнараваць",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Схаваць пашырэнні",
                     "message": "Пацвердзіце, каб схаваць пашырэнні"
+                },
+                "confirm_block_domain": {
+                    "title": "Заблакіраваць дамен",
+                    "message": "Заблакіраваць дамен %s?"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Разблакіраваць дамен",
+                    "message": "Разблакіраваць дамен %s?"
                 }
             },
             "accessibility": {

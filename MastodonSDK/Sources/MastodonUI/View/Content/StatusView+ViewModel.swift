@@ -46,6 +46,7 @@ extension StatusView {
         @Published public var authorAvatarImage: UIImage?
         @Published public var authorAvatarImageURL: URL?
         @Published public var authorName: MetaContent?
+        @Published public var authorId: String?
         @Published public var authorUsername: String?
         
         @Published public var locked = false
@@ -277,21 +278,20 @@ extension StatusView.ViewModel {
         // timestamp
         Publishers.CombineLatest3(
             $timestamp,
-            $editedAt,
+            $editedAt.removeDuplicates(),
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
-        .compactMap { [weak self] timestamp, editedAt, _ -> String? in
-            guard let self = self else { return nil }
+        .sink(receiveValue: { [weak self] timestamp, editedAt, _ in
+            guard let self = self else { return }
             if let timestamp = editedAt, let text = self.timestampFormatter?(timestamp, true) {
-                return text
+                self.editedAt = editedAt
+                timestampText = text
             } else if let timestamp = timestamp, let text = self.timestampFormatter?(timestamp, false) {
-                return text
+                timestampText = text
             }
-            return ""
-        }
-        .removeDuplicates()
-        .assign(to: &$timestampText)
-        
+        })
+        .store(in: &disposeBag)
+
         $timestampText
             .sink { [weak self] text in
                 guard let _ = self else { return }
@@ -655,16 +655,12 @@ extension StatusView.ViewModel {
     
     private func bindMenu(statusView: StatusView) {
         let authorView = statusView.authorView
-        let publisherOne = Publishers.CombineLatest(
+        let publisherOne = Publishers.CombineLatest3(
             $authorName,
+            $authorId,
             $isMyself
         )
-        let publishersTwo = Publishers.CombineLatest4(
-            $isMuting,
-            $isBlocking,
-            $isBookmark,
-            $isFollowed
-        )
+
         let publishersThree = Publishers.CombineLatest(
             $translation,
             $language
@@ -672,15 +668,14 @@ extension StatusView.ViewModel {
 
         Publishers.CombineLatest3(
             publisherOne.eraseToAnyPublisher(),
-            publishersTwo.eraseToAnyPublisher(),
+            $isBookmark,
             publishersThree.eraseToAnyPublisher()
         ).eraseToAnyPublisher()
-            .sink { tupleOne, tupleTwo, tupleThree in
-                let (authorName, isMyself) = tupleOne
-                let (isMuting, isBlocking, isBookmark, isFollowed) = tupleTwo
+            .sink { tupleOne, isBookmark, tupleThree in
+                let (authorName, authorId, isMyself) = tupleOne
                 let (translatedFromLanguage, language) = tupleThree
 
-                guard let name = authorName?.string, let context = self.context, let authContext = self.authContext else {
+                guard let name = authorName?.string, let authorId = authorId, let context = self.context, let authContext = self.authContext else {
                     statusView.authorView.menuButton.menu = nil
                     return
                 }
@@ -689,21 +684,45 @@ extension StatusView.ViewModel {
                 let instance = authentication.instance(in: context.managedObjectContext)
                 let isTranslationEnabled = instance?.isTranslationEnabled ?? false
 
-                let menuContext = StatusAuthorView.AuthorMenuContext(
-                    name: name,
-                    isMuting: isMuting,
-                    isBlocking: isBlocking,
-                    isMyself: isMyself,
-                    isBookmarking: isBookmark,
-                    isFollowed: isFollowed,
-                    isTranslationEnabled: isTranslationEnabled,
-                    isTranslated: translatedFromLanguage != nil,
-                    statusLanguage: language
-                )
-                
-                let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
-                authorView.menuButton.menu = menu
-                authorView.authorActions = actions
+                authorView.menuButton.menu = UIMenu(children: [
+                    UIDeferredMenuElement({ menuElement in
+                        
+                        let domain = authContext.mastodonAuthenticationBox.domain
+
+                        Task { @MainActor in
+                            if let relationship = try? await Mastodon.API.Account.relationships(
+                                session: .shared,
+                                domain: domain,
+                                query: .init(ids: [authorId]),
+                                authorization: authContext.mastodonAuthenticationBox.userAuthorization
+                            ).singleOutput().value {
+                                guard let rel = relationship.first else { return }
+                                DispatchQueue.main.async {
+
+                                    let menuContext = StatusAuthorView.AuthorMenuContext(
+                                        name: name,
+                                        isMuting: rel.muting ?? false,
+                                        isBlocking: rel.blocking,
+                                        isMyself: isMyself,
+                                        isBookmarking: isBookmark,
+                                        isFollowed: rel.followedBy,
+                                        isTranslationEnabled: isTranslationEnabled,
+                                        isTranslated: translatedFromLanguage != nil,
+                                        statusLanguage: language
+                                    )
+                                
+                                    let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
+                                    authorView.authorActions = actions
+                                    
+                                    menuElement(menu.children)
+                                }
+                            } else {
+                                menuElement(MastodonMenu.setupMenu(actions: [[.shareStatus]], delegate: statusView).children)
+                            }
+                        }
+                    })
+                ])
+                                
                 authorView.menuButton.showsMenuAsPrimaryAction = true
             }
             .store(in: &disposeBag)

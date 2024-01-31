@@ -70,9 +70,10 @@
 "Common.Controls.Actions.UnblockDomain" = "%@ ئاستەنگ مەکە";
 "Common.Controls.Actions.Unfollow" = "Unfollow %@";
 "Common.Controls.Friendship.Block" = "ئاستەنگی بکە";
-"Common.Controls.Friendship.BlockDomain" = "%@ ئاستەنگ بکە";
+"Common.Controls.Friendship.BlockDomain" = "Block domain %@";
 "Common.Controls.Friendship.BlockUser" = "%@ ئاستەنگ بکە";
 "Common.Controls.Friendship.Blocked" = "ئاستەنگ کراوە";
+"Common.Controls.Friendship.DomainBlocked" = "Domain Blocked";
 "Common.Controls.Friendship.EditInfo" = "دەستکاری";
 "Common.Controls.Friendship.Follow" = "شوێنی بکەوە";
 "Common.Controls.Friendship.Following" = "شوێنی دەکەویت";
@@ -333,6 +334,8 @@
 "Scene.Profile.Fields.Verified.Long" = "Ownership of this link was checked on %@";
 "Scene.Profile.Fields.Verified.Short" = "Verified on %@";
 "Scene.Profile.Header.FollowsYou" = "Follows You";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Message" = "Confirm to block domain %@";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Title" = "Block domain";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "دڵنیا ببەوە بۆ ئاستەنگکردنی %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ئاستەنگی بکە";
 "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
@@ -341,6 +344,8 @@
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "بێدەنگی بکە";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Message" = "Confirm to unblock domain %@";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Title" = "Unblock domain";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "دڵنیا ببەوە بۆ لابردنی ئاستەنگی %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "ئاستەنگی مەکە";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "دڵنیا ببەوە بۆ بێدەنگنەکردنی %@";

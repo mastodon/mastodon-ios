@@ -19,7 +19,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>글자 입력 제한 초과 %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,7 +33,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>남은 글자 입력 수 %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -61,7 +61,7 @@
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@names@%#@count_mutual@</string>
+      <string>%#@names@ 외 %#@count_mutual@ 명이 팔로우합니다.</string>
       <key>names</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -162,7 +162,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld 개의 리블로그</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>

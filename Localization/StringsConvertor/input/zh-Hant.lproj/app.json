@@ -222,10 +222,11 @@
                 "pending": "等待中",
                 "block": "封鎖",
                 "block_user": "封鎖 %s",
-                "block_domain": "封鎖 %s",
+                "block_domain": "封鎖網域 %s",
                 "unblock": "解除封鎖",
                 "unblock_user": "解除封鎖 %s",
                 "blocked": "已封鎖",
+                "domain_blocked": "已封鎖網域",
                 "mute": "靜音",
                 "mute_user": "靜音 %s",
                 "unmute": "取消靜音",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "隱藏轉嘟",
                     "message": "確認隱藏轉嘟"
+                },
+                "confirm_block_domain": {
+                    "title": "封鎖網域",
+                    "message": "確認將網域 %s 封鎖"
+                },
+                "confirm_unblock_domain": {
+                    "title": "解除封鎖網域",
+                    "message": "確認將網域 %s 解除封鎖"
                 }
             },
             "accessibility": {

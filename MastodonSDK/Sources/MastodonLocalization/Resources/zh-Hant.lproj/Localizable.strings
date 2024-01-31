@@ -70,9 +70,10 @@
 "Common.Controls.Actions.UnblockDomain" = "解除封鎖 %@";
 "Common.Controls.Actions.Unfollow" = "取消跟隨 %@";
 "Common.Controls.Friendship.Block" = "封鎖";
-"Common.Controls.Friendship.BlockDomain" = "封鎖 %@";
+"Common.Controls.Friendship.BlockDomain" = "封鎖網域 %@";
 "Common.Controls.Friendship.BlockUser" = "封鎖 %@";
 "Common.Controls.Friendship.Blocked" = "已封鎖";
+"Common.Controls.Friendship.DomainBlocked" = "已封鎖網域";
 "Common.Controls.Friendship.EditInfo" = "編輯";
 "Common.Controls.Friendship.Follow" = "跟隨";
 "Common.Controls.Friendship.Following" = "跟隨中";
@@ -329,6 +330,8 @@
 "Scene.Profile.Fields.Verified.Long" = "已於 %@ 檢查此連結的擁有者權限";
 "Scene.Profile.Fields.Verified.Short" = "於 %@ 上已驗證";
 "Scene.Profile.Header.FollowsYou" = "已跟隨您";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Message" = "確認將網域 %@ 封鎖";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Title" = "封鎖網域";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "確認將 %@ 封鎖";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "封鎖";
 "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "確認隱藏轉嘟";
@@ -337,6 +340,8 @@
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "靜音";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "確認顯示轉嘟";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "顯示轉嘟";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Message" = "確認將網域 %@ 解除封鎖";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Title" = "解除封鎖網域";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "確認將 %@ 取消封鎖";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "取消封鎖";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "確認將 %@ 取消靜音";

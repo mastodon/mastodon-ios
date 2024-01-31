@@ -222,10 +222,11 @@
                 "pending": "داوات کردووە",
                 "block": "ئاستەنگی بکە",
                 "block_user": "%s ئاستەنگ بکە",
-                "block_domain": "%s ئاستەنگ بکە",
+                "block_domain": "Block domain %s",
                 "unblock": "ئاستەنگی مەکە",
                 "unblock_user": "%s ئاستەنگ مەکە",
                 "blocked": "ئاستەنگ کراوە",
+                "domain_blocked": "Domain Blocked",
                 "mute": "بێدەنگی بکە",
                 "mute_user": "%s بێدەنگە",
                 "unmute": "بێدەنگی مەکە",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Hide Reblogs",
                     "message": "Confirm to hide reblogs"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

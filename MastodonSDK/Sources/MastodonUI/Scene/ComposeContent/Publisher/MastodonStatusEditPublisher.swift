@@ -115,8 +115,8 @@ extension MastodonEditStatusPublisher: StatusPublisher {
                     guard case let AttachmentViewModel.Input.mastodonAssetUrl(_, attachmentId) = attachmentViewModel.input else {
                         throw AppError.badRequest
                     }
+
                     attachmentIDs.append(attachmentId)
-                    break
                 case let .uploadedMastodonAttachment(attachment):
                     attachmentIDs.append(attachment.id)
 
@@ -157,12 +157,21 @@ extension MastodonEditStatusPublisher: StatusPublisher {
             return self.pollExpireConfigurationOption.seconds
         }()
 
+        let poll = Mastodon.API.Statuses.Poll(options: pollOptions, expiresIn: pollExpiresIn, multipleAnswers: self.pollMultipleConfigurationOption)
+
+        let mediaAttributes: [Mastodon.API.Statuses.MediaAttributes] = attachmentViewModels.compactMap {
+            if case let .mastodonAssetUrl(url: _, attachmentId: attachmentId) = $0.input {
+                return Mastodon.API.Statuses.MediaAttributes(id: attachmentId, description: $0.caption)
+            } else {
+                return nil
+            }
+        }
+
         let query = Mastodon.API.Statuses.EditStatusQuery(
             status: content,
             mediaIDs: attachmentIDs.isEmpty ? nil : attachmentIDs,
-            pollOptions: pollOptions,
-            pollExpiresIn: pollExpiresIn,
-            pollMultipleAnswers: pollMultipleConfigurationOption,
+            mediaAttributes: mediaAttributes,
+            poll: poll,
             sensitive: isMediaSensitive,
             spoilerText: isContentWarningComposing ? contentWarning : nil,
             visibility: visibility,

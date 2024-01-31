@@ -222,10 +222,11 @@
                 "pending": "Отправлен",
                 "block": "Заблокировать",
                 "block_user": "Заблокировать %s",
-                "block_domain": "Заблокировать %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Разблокировать",
                 "unblock_user": "Разблокировать %s",
                 "blocked": "В заблокированных",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Игнорировать",
                 "mute_user": "Игнорировать %s",
                 "unmute": "Убрать из игнорируемых",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Hide Reblogs",
                     "message": "Confirm to hide reblogs"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

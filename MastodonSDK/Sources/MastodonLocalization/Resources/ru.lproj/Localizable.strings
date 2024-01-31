@@ -70,9 +70,10 @@
 "Common.Controls.Actions.UnblockDomain" = "Разблокировать %@";
 "Common.Controls.Actions.Unfollow" = "Unfollow %@";
 "Common.Controls.Friendship.Block" = "Заблокировать";
-"Common.Controls.Friendship.BlockDomain" = "Заблокировать %@";
+"Common.Controls.Friendship.BlockDomain" = "Block domain %@";
 "Common.Controls.Friendship.BlockUser" = "Заблокировать %@";
 "Common.Controls.Friendship.Blocked" = "В заблокированных";
+"Common.Controls.Friendship.DomainBlocked" = "Domain Blocked";
 "Common.Controls.Friendship.EditInfo" = "Изменить";
 "Common.Controls.Friendship.Follow" = "Подписаться";
 "Common.Controls.Friendship.Following" = "В подписках";
@@ -342,6 +343,8 @@
 "Scene.Profile.Fields.Verified.Long" = "Ownership of this link was checked on %@";
 "Scene.Profile.Fields.Verified.Short" = "Verified on %@";
 "Scene.Profile.Header.FollowsYou" = "Подписан(а) на вас";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Message" = "Confirm to block domain %@";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Title" = "Block domain";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Confirm to block %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Block Account";
 "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
@@ -350,6 +353,8 @@
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "Mute Account";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Message" = "Confirm to unblock domain %@";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Title" = "Unblock domain";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "Confirm to unblock %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "Unblock Account";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "Убрать %@ из игнорируемых?";

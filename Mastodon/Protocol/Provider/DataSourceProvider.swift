@@ -37,6 +37,5 @@ extension DataSourceItem {
 
 protocol DataSourceProvider: ViewControllerWithDependencies {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem?
-    func update(status: MastodonStatus)
-    func delete(status: MastodonStatus)
+    func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent)
 }
