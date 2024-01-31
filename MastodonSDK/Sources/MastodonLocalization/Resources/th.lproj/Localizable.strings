@@ -58,9 +58,9 @@
 "Common.Controls.Actions.SavePhoto" = "บันทึกรูปภาพ";
 "Common.Controls.Actions.SeeMore" = "ดูเพิ่มเติม";
 "Common.Controls.Actions.Settings" = "การตั้งค่า";
-"Common.Controls.Actions.Share" = "แบ่งปัน";
-"Common.Controls.Actions.SharePost" = "แบ่งปันโพสต์";
-"Common.Controls.Actions.ShareUser" = "แบ่งปัน %@";
+"Common.Controls.Actions.Share" = "แชร์";
+"Common.Controls.Actions.SharePost" = "แชร์โพสต์";
+"Common.Controls.Actions.ShareUser" = "แชร์ %@";
 "Common.Controls.Actions.SignIn" = "เข้าสู่ระบบ";
 "Common.Controls.Actions.Skip" = "ข้าม";
 "Common.Controls.Actions.TakePhoto" = "ถ่ายรูป";
@@ -70,9 +70,10 @@
 "Common.Controls.Actions.UnblockDomain" = "เลิกปิดกั้น %@";
 "Common.Controls.Actions.Unfollow" = "เลิกติดตาม %@";
 "Common.Controls.Friendship.Block" = "ปิดกั้น";
-"Common.Controls.Friendship.BlockDomain" = "ปิดกั้น %@";
+"Common.Controls.Friendship.BlockDomain" = "ปิดกั้นโดเมน %@";
 "Common.Controls.Friendship.BlockUser" = "ปิดกั้น %@";
 "Common.Controls.Friendship.Blocked" = "ปิดกั้นอยู่";
+"Common.Controls.Friendship.DomainBlocked" = "ปิดกั้นโดเมนอยู่";
 "Common.Controls.Friendship.EditInfo" = "แก้ไขข้อมูล";
 "Common.Controls.Friendship.Follow" = "ติดตาม";
 "Common.Controls.Friendship.Following" = "กำลังติดตาม";
@@ -110,7 +111,7 @@
 "Common.Controls.Status.Actions.Menu" = "เมนู";
 "Common.Controls.Status.Actions.Reblog" = "ดัน";
 "Common.Controls.Status.Actions.Reply" = "ตอบกลับ";
-"Common.Controls.Status.Actions.ShareLinkInPost" = "แบ่งปันลิงก์ในโพสต์";
+"Common.Controls.Status.Actions.ShareLinkInPost" = "แชร์ลิงก์ในโพสต์";
 "Common.Controls.Status.Actions.ShowGif" = "แสดง GIF";
 "Common.Controls.Status.Actions.ShowImage" = "แสดงภาพ";
 "Common.Controls.Status.Actions.ShowVideoPlayer" = "แสดงตัวเล่นวิดีโอ";
@@ -292,7 +293,7 @@
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "กำลังเผยแพร่โพสต์...";
 "Scene.HomeTimeline.Title" = "หน้าแรก";
 "Scene.Login.ServerSearchField.Placeholder" = "ป้อน URL หรือค้นหาสำหรับเซิร์ฟเวอร์ของคุณ";
-"Scene.Login.Subtitle" = "นำคุณเข้าสู่ระบบในเซิร์ฟเวอร์ที่คุณได้สร้างบัญชีของคุณไว้ใน";
+"Scene.Login.Subtitle" = "นำคุณเข้าสู่ระบบในเซิร์ฟเวอร์ที่คุณได้สร้างบัญชีของคุณไว้";
 "Scene.Login.Title" = "ยินดีต้อนรับกลับมา";
 "Scene.Notification.FollowRequest.Accept" = "ยอมรับ";
 "Scene.Notification.FollowRequest.Accepted" = "ยอมรับแล้ว";
@@ -334,6 +335,8 @@
 "Scene.Profile.Fields.Verified.Long" = "ตรวจสอบความเป็นเจ้าของของลิงก์นี้เมื่อ %@";
 "Scene.Profile.Fields.Verified.Short" = "ยืนยันเมื่อ %@";
 "Scene.Profile.Header.FollowsYou" = "ติดตามคุณ";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Message" = "ยืนยันเพื่อปิดกั้นโดเมน %@";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Title" = "ปิดกั้นโดเมน";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "ยืนยันเพื่อปิดกั้น %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ปิดกั้นบัญชี";
 "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "ยืนยันเพื่อซ่อนการดัน";
@@ -342,6 +345,8 @@
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "ซ่อนบัญชี";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "ยืนยันเพื่อแสดงการดัน";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "แสดงการดัน";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Message" = "ยืนยันเพื่อเลิกปิดกั้นโดเมน %@";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Title" = "เลิกปิดกั้นโดเมน";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "ยืนยันเพื่อเลิกปิดกั้น %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "เลิกปิดกั้นบัญชี";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "ยืนยันเพื่อเลิกซ่อน %@";
@@ -403,7 +408,7 @@
 "Scene.Report.StepFinal.UnfollowUser" = "เลิกติดตาม %@";
 "Scene.Report.StepFinal.Unfollowed" = "เลิกติดตามแล้ว";
 "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience." = "เมื่อคุณเห็นบางอย่างที่คุณไม่ชอบใน Mastodon คุณสามารถเอาบุคคลออกจากประสบการณ์ของคุณ";
-"Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser" = "ขณะที่เราตรวจทานสิ่งนี้ คุณสามารถดำเนินการกับ %@";
+"Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser" = "ขณะที่เราตรวจทานสิ่งนี้ คุณสามารถใช้การกระทำต่อ %@";
 "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "คุณจะไม่เห็นโพสต์หรือการดันของเขาในฟีดหน้าแรกของคุณ เขาจะไม่ทราบว่ามีการซ่อนเขา";
 "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow" = "มีสิ่งอื่นใดที่เราควรทราบหรือไม่?";
 "Scene.Report.StepFour.Step4Of4" = "ขั้นตอนที่ 4 จาก 4";
@@ -535,7 +540,7 @@
 "Scene.Welcome.Education.A11Y.WhatIsMastodon.Title" = "Mastodon คืออะไร?";
 "Scene.Welcome.Education.Mastodon.Description" = "Mastodon เป็นเครือข่ายสังคมแบบกระจายศูนย์ หมายความว่าไม่มีบริษัทใดควบคุมเครือข่ายสังคม เครือข่ายสังคมประกอบด้วยเซิร์ฟเวอร์ที่ทำงานอย่างอิสระจำนวนมาก ทั้งหมดเชื่อมต่อเข้าด้วยกัน";
 "Scene.Welcome.Education.Mastodon.Title" = "ยินดีต้อนรับสู่ Mastodon";
-"Scene.Welcome.Education.Servers.Description" = "ทุกบัญชี Mastodon ได้รับการโฮสต์ในเซิร์ฟเวอร์ — แต่ละแห่งมีค่า, กฎ และผู้ดูแลของเซิร์ฟเวอร์เอง ไม่ว่าคุณจะเลือกเซิร์ฟเวอร์ใด คุณสามารถติดตามและโต้ตอบกับผู้คนในเซิร์ฟเวอร์ใด ๆ";
+"Scene.Welcome.Education.Servers.Description" = "ทุกบัญชี Mastodon จะถูกโฮสต์ในเซิร์ฟเวอร์ ซึ่งแต่ละแห่งมีค่านิยม, กฎ และผู้ดูแลของเซิร์ฟเวอร์เอง ไม่ว่าคุณจะเลือกเซิร์ฟเวอร์ใด คุณสามารถติดตามและโต้ตอบกับผู้คนในเซิร์ฟเวอร์ใดก็ได้";
 "Scene.Welcome.Education.Servers.Title" = "เซิร์ฟเวอร์คืออะไร?";
 "Scene.Welcome.JoinDefaultServer" = "เข้าร่วม %@";
 "Scene.Welcome.LearnMore" = "เรียนรู้เพิ่มเติม";

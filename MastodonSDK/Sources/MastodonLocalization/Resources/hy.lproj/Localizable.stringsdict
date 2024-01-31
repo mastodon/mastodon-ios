@@ -104,9 +104,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>գրառում</string>
         <key>other</key>
-        <string>posts</string>
+        <string>գրառումներ</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -136,9 +136,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 գրառում</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld գրառում</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
