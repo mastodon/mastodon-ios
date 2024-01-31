@@ -70,9 +70,10 @@
 "Common.Controls.Actions.UnblockDomain" = "Разблакіраваць %@";
 "Common.Controls.Actions.Unfollow" = "Адпісацца ад %@";
 "Common.Controls.Friendship.Block" = "Заблакіраваць";
-"Common.Controls.Friendship.BlockDomain" = "Заблакіраваць %@";
+"Common.Controls.Friendship.BlockDomain" = "Заблакіраваць дамен %@";
 "Common.Controls.Friendship.BlockUser" = "Заблакіраваць %@";
 "Common.Controls.Friendship.Blocked" = "Заблакіраваны";
+"Common.Controls.Friendship.DomainBlocked" = "Дамен заблакіраваны";
 "Common.Controls.Friendship.EditInfo" = "Рэдагаваць інфармацыю";
 "Common.Controls.Friendship.Follow" = "Падпісацца";
 "Common.Controls.Friendship.Following" = "Падпісаны";
@@ -334,6 +335,8 @@
 "Scene.Profile.Fields.Verified.Long" = "Права ўласнасці на гэтую спасылку праверана %@";
 "Scene.Profile.Fields.Verified.Short" = "Спраўджана %@";
 "Scene.Profile.Header.FollowsYou" = "Падпісаны(-а) на вас";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Message" = "Заблакіраваць дамен %@?";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.Title" = "Заблакіраваць дамен";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Заблакіраваць %@?";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Заблакіраваць уліковы запіс";
 "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Пацвердзіце, каб схаваць пашырэнні";
@@ -342,6 +345,8 @@
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "Ігнараваць уліковы запіс";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Пацвердзіце, каб паказаць пашырэнні";
 "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Паказаць пашырэнні";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Message" = "Разблакіраваць дамен %@?";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.Title" = "Разблакіраваць дамен";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "Разблакіраваць %@?";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "Разблакіраваць уліковы запіс";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "Не ігнараваць %@?";
