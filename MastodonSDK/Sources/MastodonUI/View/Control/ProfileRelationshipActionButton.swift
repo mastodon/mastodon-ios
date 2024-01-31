@@ -58,8 +58,6 @@ extension ProfileRelationshipActionButton {
     public func configure(actionOptionSet: RelationshipActionOptionSet) {
         setTitle(actionOptionSet.title, for: .normal)
         
-        configureAppearance()
-        
         titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         
         activityIndicatorView.stopAnimating()
