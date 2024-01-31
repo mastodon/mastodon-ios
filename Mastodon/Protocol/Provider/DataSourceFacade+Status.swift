@@ -393,7 +393,7 @@ extension DataSourceFacade {
             if context.isBlocking {
                 title = L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.title
                 message = L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockDomain.message(context.domain)
-                actionTitle = L10n.Common.Controls.Friendship.unblockDomain(context.domain)
+                actionTitle = L10n.Common.Controls.Actions.unblockDomain(context.domain)
             } else {
                 title = L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockDomain.title
                 message = L10n.Common.Alerts.BlockDomain.title(context.domain)
