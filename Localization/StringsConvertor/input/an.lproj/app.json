@@ -222,10 +222,11 @@
                 "pending": "Pendient",
                 "block": "Blocar",
                 "block_user": "Blocar a %s",
-                "block_domain": "Blocar a %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Desbloquiar",
                 "unblock_user": "Desbloquiar a %s",
                 "blocked": "Blocau",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Silenciar",
                 "mute_user": "Silenciar a %s",
                 "unmute": "Desmutear",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Amagar los reblogs",
                     "message": "Comfirmar pa amagar los reblogs"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

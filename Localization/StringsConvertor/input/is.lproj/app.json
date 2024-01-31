@@ -222,10 +222,11 @@
                 "pending": "Í bið",
                 "block": "Útilokun",
                 "block_user": "Útiloka %s",
-                "block_domain": "Útiloka %s",
+                "block_domain": "Útiloka lénið %s",
                 "unblock": "Aflétta útilokun",
                 "unblock_user": "Opna á %s",
                 "blocked": "Útilokað",
+                "domain_blocked": "Lén útilokað",
                 "mute": "Þagga niður",
                 "mute_user": "Þagga niður í %s",
                 "unmute": "Afþagga",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Fela endurbirtingar",
                     "message": "Staðfestu til að fela endurbirtingar"
+                },
+                "confirm_block_domain": {
+                    "title": "Útiloka lén",
+                    "message": "Staðfestu útilokun lénsins %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Aflétta útilokun léns",
+                    "message": "Staðfestu afléttingu á útilokun lénsins %s"
                 }
             },
             "accessibility": {

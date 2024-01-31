@@ -222,10 +222,11 @@
                 "pending": "قيد المُراجعة",
                 "block": "حظر",
                 "block_user": "حَظرُ %s",
-                "block_domain": "حظر %s",
+                "block_domain": "Block domain %s",
                 "unblock": "رفع الحَظر",
                 "unblock_user": "رفع الحَظر عن %s",
                 "blocked": "محظور",
+                "domain_blocked": "Domain Blocked",
                 "mute": "كَتم",
                 "mute_user": "كَتمُ %s",
                 "unmute": "رفع الكتم",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "إخفاء إعادات التدوين",
                     "message": "التأكيد لِإخفاء إعادات التدوين"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

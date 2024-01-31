@@ -222,10 +222,11 @@
                 "pending": "待确认",
                 "block": "屏蔽",
                 "block_user": "屏蔽 %s",
-                "block_domain": "屏蔽 %s",
+                "block_domain": "Block domain %s",
                 "unblock": "解除屏蔽",
                 "unblock_user": "解除屏蔽 %s",
                 "blocked": "已屏蔽",
+                "domain_blocked": "Domain Blocked",
                 "mute": "静音",
                 "mute_user": "静音 %s",
                 "unmute": "取消静音",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "隐藏转发",
                     "message": "确认隐藏转发"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
@@ -650,20 +659,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "匹配 %s 的嘟文",
+                "people": "匹配 %s 的用户",
+                "profile": "转到 @%s@%s",
+                "url": "在 Mastodon 中打开 URL",
+                "hashtag": "转到 #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "找不到账户",
+                    "message": "找不到用户 %s（在服务器 %s 上）"
                 },
                 "empty_state": {
                     "no_results": "无结果"
                 },
                 "recent_search": "最近搜索",
-                "clear_all": "Clear all",
+                "clear_all": "清除",
                 "clear": "清除"
             }
         },
@@ -710,66 +719,66 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "设置",
+                "general": "通用",
+                "notifications": "通知",
+                "support_mastodon": "支持 Mastodon",
+                "about_mastodon": "关于 Mastodon",
+                "server_details": "服务器详情",
+                "logout": "登出 %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "关于",
+                "more_settings": "更多设置",
+                "contribute_to_mastodon": "贡献给Mastodon",
+                "privacy_policy": "隐私政策",
+                "clear_media_storage": "清楚媒体缓存"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "关于",
+                "rules": "规则",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "管理员",
+                    "message_admin": "联系管理员",
+                    "legal_notice": "法律声明"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "通用",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "外观",
+                    "dark": "深色",
+                    "light": "浅色",
+                    "system": "跟随系统"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "设计",
+                    "show_animations": "播放动态头像和表情"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "链接",
+                    "open_in_mastodon": "在 Mastodon 中打开",
+                    "open_in_browser": "在浏览器中打开"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "通知",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "通知接收范围",
+                    "anyone": "任何人",
+                    "followers": "关注你的人",
+                    "follow": "你关注的人",
+                    "noone": "关闭通知"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "提及与回复",
+                    "boosts": "转嘟",
+                    "favorites": "喜欢",
+                    "new_followers": "新关注者"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "在系统设置中打开通知来随时获取新动态。",
+                    "go_to_settings": "转到通知设置"
                 }
             }
         },

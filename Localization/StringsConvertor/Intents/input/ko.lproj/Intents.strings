@@ -1,14 +1,14 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Mastodon에 게시하기";
 
 "751xkl" = "Text Content";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Mastodon에 게시하기";
 
 "HZSGTr" = "What content to post?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "게시 실패";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "실패 원인";
 
 "RHxKOw" = "Send Post with text content";
 
@@ -16,7 +16,7 @@
 
 "WCIR3D" = "Post ${content} on Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "게시";
 
 "ZS1XaK" = "${content}";
 

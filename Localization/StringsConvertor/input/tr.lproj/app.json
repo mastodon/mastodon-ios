@@ -222,10 +222,11 @@
                 "pending": "Bekliyor",
                 "block": "Engelle",
                 "block_user": "%s kişisini engelle",
-                "block_domain": "%s kişisini engelle",
+                "block_domain": "Block domain %s",
                 "unblock": "Engeli kaldır",
                 "unblock_user": "%s kişisinin engelini kaldır",
                 "blocked": "Engellendi",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Sessize al",
                 "mute_user": "Sustur %s",
                 "unmute": "Susturmayı kaldır",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Yeniden Paylaşımları Gizle",
                     "message": "Yeniden paylaşımları gizlemeyi onayla"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

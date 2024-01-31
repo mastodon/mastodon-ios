@@ -33,24 +33,24 @@
                 "confirm": "로그아웃"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "정말로 %s 전체를 차단하시겠습니까? 대부분의 경우 개별 차단이나 뮤트로 충분합니다. 모든 공개 타임라인과 알림에서 해당 도메인에서 작성된 콘텐츠를 보지 못합니다. 해당 도메인에 속한 팔로워와의 관계가 사라집니다.",
                 "block_entire_domain": "도메인 차단"
             },
             "save_photo_failure": {
                 "title": "사진 저장 실패",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "사진을 저장하기 위해 사진 접근 권한을 허용해 주세요."
             },
             "delete_post": {
                 "title": "정말로 이 게시물을 삭제하시겠습니까?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "정말로 이 게시물을 삭제하시겠습니까?"
             },
             "clean_cache": {
                 "title": "캐시 삭제",
-                "message": "Successfully cleaned %s cache."
+                "message": "%s의 캐시를 성공적으로 청소하였습니다."
             },
             "translation_failed": {
                 "title": "노트",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "message": "번역에 실패했습니다. 관리자가 번역 기능을 활성화시키지 않았거나 번역 기능을 지원하지 않는 Mastodon의 버전을 사용하는 것일 수 있습니다.",
                 "button": "확인"
             }
         },
@@ -98,10 +98,10 @@
                     "unknown_language": "알 수 없음"
                 },
                 "edit_post": "수정",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "북마크",
+                "remove_bookmark": "북마크 삭제",
+                "follow": "%s 팔로우하기",
+                "unfollow": "%s 언팔로우하기"
             },
             "tabs": {
                 "home": "홈",
@@ -169,11 +169,11 @@
                     "show_image": "이미지 표시",
                     "show_gif": "GIF 보기",
                     "show_video_player": "비디오 플레이어 보기",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "게시글 안의 링크 공유",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
+                        "reblog": "리블로그",
+                        "unreblog": "리블로그 취소"
                     }
                 },
                 "tag": {
@@ -194,7 +194,7 @@
                     "translated_from": "%s에서 %s를 사용해 번역됨",
                     "unknown_language": "알 수 없음",
                     "unknown_provider": "알 수 없음",
-                    "show_original": "Show Original"
+                    "show_original": "원본 보기"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -205,7 +205,7 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
+                    "favorites_title": "즐겨찾기",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
@@ -222,10 +222,11 @@
                 "pending": "대기중",
                 "block": "차단",
                 "block_user": "%s 차단",
-                "block_domain": "%s 차단",
+                "block_domain": "Block domain %s",
                 "unblock": "차단 해제",
                 "unblock_user": "%s 차단 해제",
                 "blocked": "차단됨",
+                "domain_blocked": "Domain Blocked",
                 "mute": "뮤트",
                 "mute_user": "%s 뮤트",
                 "unmute": "뮤트 해제",
@@ -258,7 +259,7 @@
         },
         "user_list": {
             "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "followers_count": "%@ 팔로잉"
         }
     },
     "scene": {
@@ -266,22 +267,22 @@
             "log_in": "로그인",
             "learn_more": "Learn more",
             "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "pick_server": "다른 서버 선택하기",
             "separator": {
-                "or": "or"
+                "or": "또는"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Mastodon에 오신 것을 환영합니다",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
-                    "title": "What are servers?",
+                    "title": "서버는 무엇인가요?",
                     "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Mastodon이란?"
                     }
                 }
             }
@@ -294,9 +295,9 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "서버 선택하기",
             "button": {
-                "language": "Language",
+                "language": "언어",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "모두",
@@ -327,28 +328,28 @@
             },
             "empty_state": {
                 "finding_servers": "사용 가능한 서버를 찾는 중입니다...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "bad_network": "데이터를 로딩하는 과정에서 문제가 발생했습니다. 인터넷 연결 상태를 확인해주세요.",
                 "no_results": "결과 없음"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "모두",
+                "instant": "바로 가입",
+                "manually_reviewed": "수동 심사"
             },
             "language": {
-                "all": "All"
+                "all": "모두"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "이름 또는 URL 검색"
             },
             "no_server_selected_hint": "아무 것도 고르지 않은 경우, 당신의 언어에 따라 서버를 골라드립니다."
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "개인 정보",
             "description": "마스토돈 앱은 아무런 데이터도 수집하지 않지만, 가입한 서버의 정책은 다를 수도 있습니다. 잠시 시간을 들여 마스토돈 앱과 서버의 개인정보 정책을 확인한 후 동의해 주세요.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "개인정보처리방침 - Mastodon iOS",
+                "server": "개인정보처리방침 - %s"
             },
             "button": {
                 "confirm": "동의합니다"
@@ -373,7 +374,7 @@
                 },
                 "password": {
                     "placeholder": "암호",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "비밀번호 확인",
                     "require": "암호의 최소 요구사항:",
                     "character_limit": "8글자",
                     "accessibility": {
@@ -420,13 +421,13 @@
             "subtitle": "다음은 %s의 중재자들에 의해 설정되고 적용되는 규칙들입니다.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "이용약관",
-            "privacy_policy": "개인정보 정책",
+            "privacy_policy": "개인정보처리방침",
             "button": {
                 "confirm": "동의합니다"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "받은 편지함을 확인하세요",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
                 "resend": "재전송"
@@ -444,8 +445,8 @@
             },
             "didnt_get_link": {
                 "prefix": "링크를 못 받으셨나요?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "resend_in": "재전송(%@)",
+                "resend_now": "재전송됨"
             }
         },
         "home_timeline": {
@@ -462,14 +463,14 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "마스토돈 속 인기",
+            "follow_all": "모두 팔로우"
         },
         "compose": {
             "title": {
                 "new_post": "새 게시물",
                 "new_reply": "새 답글",
-                "edit_post": "Edit Post"
+                "edit_post": "게시물 편집"
             },
             "media_selection": {
                 "camera": "사진 촬영",
@@ -489,11 +490,11 @@
                 "upload_failed": "업로드 실패",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "첨부파일이 너무 큽니다",
-                "compressing_state": "Compressing...",
+                "compressing_state": "압축…",
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "투표",
                 "duration_time": "기간: %s",
                 "thirty_minutes": "30분",
                 "one_hour": "1시간",
@@ -541,23 +542,23 @@
                 "select_visibility_entry": "Select Visibility - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "게시물 언어",
+                "suggested": "추천",
+                "recent": "최근",
+                "other": "다른 언어"
             }
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "나를 팔로우 합니다"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers",
+                "my_posts": "게시물",
+                "my_following": "팔로잉",
+                "my_followers": "팔로워",
+                "other_posts": "게시물",
+                "other_following": "팔로잉",
+                "other_followers": "팔로워",
                 "familiar_followers": "mutuals"
             },
             "fields": {
@@ -575,14 +576,14 @@
             "segmented_control": {
                 "posts": "게시물",
                 "replies": "답글",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "게시물과 답장",
                 "media": "미디어",
                 "about": "정보"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "계정 뮤트",
+                    "message": "%s 뮤트 확인"
                 },
                 "confirm_unmute_user": {
                     "title": "계정 뮤트 해제",
@@ -590,11 +591,11 @@
                 },
                 "confirm_block_user": {
                     "title": "계정 차단",
-                    "message": "Confirm to block %s"
+                    "message": "%s 차단 확인"
                 },
                 "confirm_unblock_user": {
                     "title": "계정 차단 해제",
-                    "message": "Confirm to unblock %s"
+                    "message": "%s 차단 해제 확인"
                 },
                 "confirm_show_reblogs": {
                     "title": "리블로그 보기",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "리블로그 가리기",
                     "message": "리블로그를 가리기 전 확인"
+                },
+                "confirm_block_domain": {
+                    "title": "도메인 차단",
+                    "message": "%s 도메인 차단 확인"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
@@ -710,7 +719,7 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "설정",
                 "general": "General",
                 "notifications": "Notifications",
                 "support_mastodon": "Support Mastodon",
@@ -722,7 +731,7 @@
                 "title": "About",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
+                "privacy_policy": "개인정보처리방침",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
@@ -748,24 +757,24 @@
                 },
                 "links": {
                     "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_mastodon": "Mastodon으로 열기",
+                    "open_in_browser": "브라우저로 열기"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "알림",
                 "policy": {
                     "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "anyone": "모두",
+                    "followers": "나를 팔로우하는 사람들",
+                    "follow": "내가 팔로우하는 사람들",
+                    "noone": "알림 받지않기"
                 },
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "favorites": "즐겨찾기",
+                    "new_followers": "새 팔로워"
                 },
                 "disabled": {
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
@@ -841,7 +850,7 @@
             "add_account": "계정 추가"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "북마크"
         },
         "followed_tags": {
             "title": "팔로우한 태그",
@@ -867,7 +876,7 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
+            "configuration_display_name": "팔로워",
             "configuration_description": "Show number of followers.",
             "title": "FOLLOWERS",
             "followers_today": "%s followers today"

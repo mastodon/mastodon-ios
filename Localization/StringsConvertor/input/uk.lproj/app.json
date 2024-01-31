@@ -222,10 +222,11 @@
                 "pending": "Очікується",
                 "block": "Заблокувати",
                 "block_user": "Блокувати %s",
-                "block_domain": "Блокувати %s",
+                "block_domain": "Block domain %s",
                 "unblock": "Розблокувати",
                 "unblock_user": "Розблокувати %s",
                 "blocked": "Заблоковано",
+                "domain_blocked": "Domain Blocked",
                 "mute": "Заглушити",
                 "mute_user": "Заглушити %s",
                 "unmute": "Сповіщати",
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "Сховати реблоги",
                     "message": "Підтвердити, щоб приховати реблоги"
+                },
+                "confirm_block_domain": {
+                    "title": "Block domain",
+                    "message": "Confirm to block domain %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "Unblock domain",
+                    "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {

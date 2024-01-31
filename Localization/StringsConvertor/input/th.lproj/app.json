@@ -79,9 +79,9 @@
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
                 "copy": "คัดลอก",
-                "share": "แบ่งปัน",
-                "share_user": "แบ่งปัน %s",
-                "share_post": "แบ่งปันโพสต์",
+                "share": "แชร์",
+                "share_user": "แชร์ %s",
+                "share_post": "แชร์โพสต์",
                 "open_in_safari": "เปิดใน Safari",
                 "open_in_browser": "เปิดในเบราว์เซอร์",
                 "find_people": "ค้นหาผู้คนที่จะติดตาม",
@@ -169,7 +169,7 @@
                     "show_image": "แสดงภาพ",
                     "show_gif": "แสดง GIF",
                     "show_video_player": "แสดงตัวเล่นวิดีโอ",
-                    "share_link_in_post": "แบ่งปันลิงก์ในโพสต์",
+                    "share_link_in_post": "แชร์ลิงก์ในโพสต์",
                     "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู",
                     "a11y_labels": {
                         "reblog": "ดัน",
@@ -222,10 +222,11 @@
                 "pending": "รอดำเนินการ",
                 "block": "ปิดกั้น",
                 "block_user": "ปิดกั้น %s",
-                "block_domain": "ปิดกั้น %s",
+                "block_domain": "ปิดกั้นโดเมน %s",
                 "unblock": "เลิกปิดกั้น",
                 "unblock_user": "เลิกปิดกั้น %s",
                 "blocked": "ปิดกั้นอยู่",
+                "domain_blocked": "ปิดกั้นโดเมนอยู่",
                 "mute": "ซ่อน",
                 "mute_user": "ซ่อน %s",
                 "unmute": "เลิกซ่อน",
@@ -277,7 +278,7 @@
                 },
                 "servers": {
                     "title": "เซิร์ฟเวอร์คืออะไร?",
-                    "description": "ทุกบัญชี Mastodon ได้รับการโฮสต์ในเซิร์ฟเวอร์ — แต่ละแห่งมีค่า, กฎ และผู้ดูแลของเซิร์ฟเวอร์เอง ไม่ว่าคุณจะเลือกเซิร์ฟเวอร์ใด คุณสามารถติดตามและโต้ตอบกับผู้คนในเซิร์ฟเวอร์ใด ๆ"
+                    "description": "ทุกบัญชี Mastodon จะถูกโฮสต์ในเซิร์ฟเวอร์ ซึ่งแต่ละแห่งมีค่านิยม, กฎ และผู้ดูแลของเซิร์ฟเวอร์เอง ไม่ว่าคุณจะเลือกเซิร์ฟเวอร์ใด คุณสามารถติดตามและโต้ตอบกับผู้คนในเซิร์ฟเวอร์ใดก็ได้"
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -288,7 +289,7 @@
         },
         "login": {
             "title": "ยินดีต้อนรับกลับมา",
-            "subtitle": "นำคุณเข้าสู่ระบบในเซิร์ฟเวอร์ที่คุณได้สร้างบัญชีของคุณไว้ใน",
+            "subtitle": "นำคุณเข้าสู่ระบบในเซิร์ฟเวอร์ที่คุณได้สร้างบัญชีของคุณไว้",
             "server_search_field": {
                 "placeholder": "ป้อน URL หรือค้นหาสำหรับเซิร์ฟเวอร์ของคุณ"
             }
@@ -603,6 +604,14 @@
                 "confirm_hide_reblogs": {
                     "title": "ซ่อนการดัน",
                     "message": "ยืนยันเพื่อซ่อนการดัน"
+                },
+                "confirm_block_domain": {
+                    "title": "ปิดกั้นโดเมน",
+                    "message": "ยืนยันเพื่อปิดกั้นโดเมน %s"
+                },
+                "confirm_unblock_domain": {
+                    "title": "เลิกปิดกั้นโดเมน",
+                    "message": "ยืนยันเพื่อเลิกปิดกั้นโดเมน %s"
                 }
             },
             "accessibility": {
@@ -825,7 +834,7 @@
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "คุณจะไม่เห็นโพสต์หรือการดันของเขาในฟีดหน้าแรกของคุณ เขาจะไม่ทราบว่ามีการซ่อนเขา",
                 "block_user": "ปิดกั้น %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "เขาจะไม่สามารถติดตามหรือเห็นโพสต์ของคุณได้อีกต่อไป แต่เขาสามารถเห็นว่ามีการปิดกั้นเขาหรือไม่",
-                "while_we_review_this_you_can_take_action_against_user": "ขณะที่เราตรวจทานสิ่งนี้ คุณสามารถดำเนินการกับ %s"
+                "while_we_review_this_you_can_take_action_against_user": "ขณะที่เราตรวจทานสิ่งนี้ คุณสามารถใช้การกระทำต่อ %s"
             }
         },
         "preview": {
