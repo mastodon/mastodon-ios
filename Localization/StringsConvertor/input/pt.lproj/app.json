@@ -25,7 +25,7 @@
             },
             "edit_profile_failure": {
                 "title": "Erro ao editar o perfil",
-                "message": "Cannot edit profile. Please try again."
+                "message": "Não é possível editar o perfil. Por favor, tente novamente."
             },
             "sign_out": {
                 "title": "Terminar sessão",
