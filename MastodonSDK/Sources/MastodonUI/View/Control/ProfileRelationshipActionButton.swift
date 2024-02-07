@@ -13,26 +13,34 @@ public final class ProfileRelationshipActionButton: UIButton {
     public func configure(actionOptionSet: RelationshipActionOptionSet) {
 
         var configuration = UIButton.Configuration.filled()
+
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
+        configuration.baseBackgroundColor = Asset.Scene.Profile.RelationshipButton.background.color
+        configuration.activityIndicatorColorTransformer = UIConfigurationColorTransformer({ _ in return Asset.Colors.Label.primaryReverse.color })
+        configuration.background.cornerRadius = 10
+
+        let title: String
+        if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked || option == .suspended {
+            isEnabled = false
+            configuration.showsActivityIndicator = false
+            title = actionOptionSet.title
+        } else if actionOptionSet.contains(.updating) {
+            isEnabled = false
+            configuration.showsActivityIndicator = true
+            title = ""
+        } else {
+            isEnabled = true
+            configuration.showsActivityIndicator = false
+            title = actionOptionSet.title
+        }
+
         configuration.attributedTitle = AttributedString(
-            actionOptionSet.title,
+            title,
             attributes: AttributeContainer([
                 .font: UIFont.systemFont(ofSize: 17, weight: .semibold),
                 .foregroundColor: Asset.Colors.Label.primaryReverse.color
             ])
         )
-
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
-        configuration.baseBackgroundColor = Asset.Scene.Profile.RelationshipButton.background.color
-        configuration.background.cornerRadius = 10
-
-        if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked || option == .suspended {
-            isEnabled = false
-        } else if actionOptionSet.contains(.updating) {
-            isEnabled = false
-            configuration.showsActivityIndicator = true
-        } else {
-            isEnabled = true
-        }
 
         self.configuration = configuration
     }
