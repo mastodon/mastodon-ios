@@ -59,6 +59,8 @@ extension FavoritedByViewController {
                 self.viewModel.stateMachine.enter(UserListViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
+
+        viewModel.listBatchFetchViewModel.shouldFetch.send()
     }
     
     override func viewWillAppear(_ animated: Bool) {
