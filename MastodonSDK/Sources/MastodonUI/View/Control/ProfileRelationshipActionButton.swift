@@ -10,57 +10,19 @@ import MastodonAsset
 import MastodonSDK
 import MastodonLocalization
 
-public final class ProfileRelationshipActionButton: RoundedEdgesButton {
-    
-    public let activityIndicatorView: UIActivityIndicatorView = {
-        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
-        activityIndicatorView.color = Asset.Colors.Label.primaryReverse.color
-        return activityIndicatorView
-    }()
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        _init()
-    }
-    
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        _init()
-    }
-    
-}
-
-extension ProfileRelationshipActionButton {
-    private func _init() {
-        cornerRadius = 10
-        titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
-        
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(activityIndicatorView)
-        NSLayoutConstraint.activate([
-            activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            activityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
-        ])
-        
-        activityIndicatorView.hidesWhenStopped = true
-        activityIndicatorView.stopAnimating()
-        
-        configureAppearance()
-    }
-    
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        configureAppearance()
-    }
-}
-
-extension ProfileRelationshipActionButton {
-
+public final class ProfileRelationshipActionButton: UIButton {
     public func configure(relationship: Mastodon.Entity.Relationship, between account: Mastodon.Entity.Account, and me: Mastodon.Entity.Account, isEditing: Bool = false, isUpdating: Bool = false) {
 
         let isMyself = (account == me)
-        let title: String
+
+        var configuration = UIButton.Configuration.filled()
+
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
+        configuration.baseBackgroundColor = Asset.Scene.Profile.RelationshipButton.background.color
+        configuration.activityIndicatorColorTransformer = UIConfigurationColorTransformer({ _ in return Asset.Colors.Label.primaryReverse.color })
+        configuration.background.cornerRadius = 10
+
+        var title: String
 
         if isMyself {
             if isEditing {
@@ -84,20 +46,27 @@ extension ProfileRelationshipActionButton {
             title = L10n.Common.Controls.Friendship.follow
         }
 
-        setTitle(title, for: .normal)
-
         if relationship.blockedBy || account.suspended ?? false {
             isEnabled = false
         } else {
             isEnabled = true
         }
-    }
 
-    private func configureAppearance() {
-        setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
-        setTitleColor(Asset.Colors.Label.primaryReverse.color.withAlphaComponent(0.5), for: .highlighted)
-        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.background.color), for: .normal)
-        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .highlighted)
-        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .disabled)
+        if isUpdating {
+            configuration.showsActivityIndicator = true
+            title = ""
+        } else {
+            configuration.showsActivityIndicator = false
+        }
+
+        configuration.attributedTitle = AttributedString(
+            title,
+            attributes: AttributeContainer([
+                .font: UIFont.systemFont(ofSize: 17, weight: .semibold),
+                .foregroundColor: Asset.Colors.Label.primaryReverse.color
+            ])
+        )
+
+        self.configuration = configuration
     }
 }

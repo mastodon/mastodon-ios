@@ -62,19 +62,12 @@ extension DataSourceFacade {
         status: MastodonStatus
     ) async throws -> UIActivityViewController {
         var activityItems: [Any] = {
-            guard let url = URL(string: status.entity.url ?? status.entity.uri)
-            else { return [] }
+            guard let url = URL(string: status.entity.url ?? status.entity.uri) else { return [] }
             return [
-                URLActivityItemWithMetadata(url: url) { metadata in
-                    metadata.title = "\(status.entity.account.displayName) (@\(status.entity.account.acctWithDomain))"
-                    metadata.iconProvider = ImageProvider(
-                        url: status.entity.account.avatarImageURLWithFallback(domain: status.entity.account.domain ?? ""),
-                        filter: ScaledToSizeFilter(size: CGSize.authorAvatarButtonSize)
-                    ).itemProvider
-                }
-            ] as [Any]
+                URLActivityItem(url: url)
+            ]
         }()
-        
+
         var applicationActivities: [UIActivity] = [
             SafariActivity(sceneCoordinator: dependency.coordinator),     // open URL
         ]

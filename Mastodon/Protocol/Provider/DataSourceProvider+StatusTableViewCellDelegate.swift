@@ -168,13 +168,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 DispatchQueue.main.async {
                     let activityViewController = UIActivityViewController(
                         activityItems: [
-                            URLActivityItemWithMetadata(url: url) { metadata in
-                                metadata.title = card.title
-
-                                if let image = card.image, let url = URL(string: image) {
-                                    metadata.iconProvider = ImageProvider(url: url, filter: nil).itemProvider
-                                }
-                            }
+                            URLActivityItem(url: url)
                         ],
                         applicationActivities: []
                     )

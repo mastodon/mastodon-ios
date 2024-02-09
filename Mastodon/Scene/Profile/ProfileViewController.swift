@@ -775,6 +775,8 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 
         let account = viewModel.account
 
+        viewModel.isUpdating = true
+
         if relationship.blocking {
             let name = account.displayNameWithFallback
 
@@ -791,6 +793,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                         account: account
                     )
 
+                    self.viewModel.isUpdating = false
                     self.viewModel.relationship = newRelationship
                 }
             }
@@ -817,6 +820,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 
                     guard let newRelationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: self.authContext.mastodonAuthenticationBox).value.first else { return }
 
+                    self.viewModel.isUpdating = false
                     self.viewModel.relationship = newRelationship
                 }
             }
@@ -842,6 +846,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                         account: account
                     )
 
+                    self.viewModel.isUpdating = false
                     self.viewModel.relationship = newRelationship
                 }
             }
@@ -858,6 +863,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     account: viewModel.account
                 )
 
+                self.viewModel.isUpdating = false
                 self.viewModel.relationship = newRelationship
                 // TODO: update account?
                 // TODO: update me?
