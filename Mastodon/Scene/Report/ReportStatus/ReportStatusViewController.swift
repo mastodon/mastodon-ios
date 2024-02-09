@@ -117,7 +117,9 @@ extension ReportStatusViewController {
         }
         
         navigationActionView.backButton.addTarget(self, action: #selector(ReportStatusViewController.skipButtonDidPressed(_:)), for: .touchUpInside)
-        navigationActionView.nextButton.addTarget(self, action: #selector(ReportStatusViewController.nextButtonDidPressed(_:)), for: .touchUpInside)        
+        navigationActionView.nextButton.addTarget(self, action: #selector(ReportStatusViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
+
+        viewModel.listBatchFetchViewModel.shouldFetch.send()
     }
     
 }
