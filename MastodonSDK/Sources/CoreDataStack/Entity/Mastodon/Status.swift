@@ -73,20 +73,10 @@ public final class Status: NSManagedObject {
     
     // many-to-one relationship
     // sourcery: autoGenerateRelationship
-    @NSManaged public private(set) var author: MastodonUser
-    // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var reblog: Status?
     // sourcery: autoUpdatableObject
     @NSManaged public private(set) var replyTo: Status?
     
-    // many-to-many relationship
-    @NSManaged public private(set) var favouritedBy: Set<MastodonUser>
-    @NSManaged public private(set) var rebloggedBy: Set<MastodonUser>
-    @NSManaged public private(set) var mutedBy: Set<MastodonUser>
-    @NSManaged public private(set) var bookmarkedBy: Set<MastodonUser>
-
-    // one-to-one relationship
-    @NSManaged public private(set) var pinnedBy: MastodonUser?
     // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var poll: Poll?
     // sourcery: autoGenerateRelationship
@@ -388,20 +378,17 @@ extension Status: AutoGenerateRelationship {
     // DO NOT EDIT
     public struct Relationship {
     	public let application: Application?
-    	public let author: MastodonUser
     	public let reblog: Status?
     	public let poll: Poll?
     	public let card: Card?
 
     	public init(
     		application: Application?,
-    		author: MastodonUser,
     		reblog: Status?,
     		poll: Poll?,
     		card: Card?
     	) {
     		self.application = application
-    		self.author = author
     		self.reblog = reblog
     		self.poll = poll
     		self.card = card
@@ -410,7 +397,6 @@ extension Status: AutoGenerateRelationship {
 
     public func configure(relationship: Relationship) {
     	self.application = relationship.application
-    	self.author = relationship.author
     	self.reblog = relationship.reblog
     	self.poll = relationship.poll
     	self.card = relationship.card
@@ -535,54 +521,6 @@ extension Status: AutoUpdatableObject {
     	}
     }
     // sourcery:end
-    
-    public func update(liked: Bool, by mastodonUser: MastodonUser) {
-        if liked {
-            if !self.favouritedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).add(mastodonUser)
-            }
-        } else {
-            if self.favouritedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).remove(mastodonUser)
-            }
-        }
-    }
-
-    public func update(reblogged: Bool, by mastodonUser: MastodonUser) {
-        if reblogged {
-            if !self.rebloggedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).add(mastodonUser)
-            }
-        } else {
-            if self.rebloggedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).remove(mastodonUser)
-            }
-        }
-    }
-
-    public func update(muted: Bool, by mastodonUser: MastodonUser) {
-        if muted {
-            if !self.mutedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.mutedBy)).add(mastodonUser)
-            }
-        } else {
-            if self.mutedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.mutedBy)).remove(mastodonUser)
-            }
-        }
-    }
-
-    public func update(bookmarked: Bool, by mastodonUser: MastodonUser) {
-        if bookmarked {
-            if !self.bookmarkedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).add(mastodonUser)
-            }
-        } else {
-            if self.bookmarkedBy.contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).remove(mastodonUser)
-            }
-        }
-    }
     
     public func update(isReveal: Bool) {
         revealedAt = isReveal ? Date() : nil

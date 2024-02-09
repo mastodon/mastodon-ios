@@ -112,7 +112,6 @@ extension Persistence.Status {
                 
             let relationship = Status.Relationship(
                 application: application,
-                author: author,
                 reblog: reblog,
                 poll: poll,
                 card: card
@@ -170,7 +169,6 @@ extension Persistence.Status {
             property: property,
             relationship: relationship
         )
-        update(status: status, context: context)
         return status
     }
     
@@ -214,7 +212,6 @@ extension Persistence.Status {
                 relationship:
                     Status.Relationship(
                         application: status.application,
-                        author: status.author,
                         reblog: status.reblog,
                         poll: result.poll,
                         card: status.card
@@ -226,7 +223,6 @@ extension Persistence.Status {
                 relationship:
                     Status.Relationship(
                         application: status.application,
-                        author: status.author,
                         reblog: status.reblog,
                         poll: nil,
                         card: status.card
@@ -239,8 +235,6 @@ extension Persistence.Status {
             let relationship = Card.Relationship(status: status)
             card?.configure(relationship: relationship)
         }
-
-        update(status: status, context: context)
     }
 
     private static func createCard(
@@ -257,17 +251,6 @@ extension Persistence.Status {
             )
         )
         return result.card
-    }
-    
-    private static func update(
-        status: Status,
-        context: PersistContext
-    ) {
-        // update friendships
-        if let user = context.me {
-            context.entity.reblogged.flatMap { status.update(reblogged: $0, by: user) }
-            context.entity.favourited.flatMap { status.update(liked: $0, by: user) }
-        }
     }
 
     private static func createApplication(
