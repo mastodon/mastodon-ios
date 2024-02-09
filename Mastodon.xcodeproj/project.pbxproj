@@ -407,7 +407,6 @@
 		DB98EB6027B10E150082E365 /* ReportCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB5F27B10E150082E365 /* ReportCommentTableViewCell.swift */; };
 		DB98EB6227B215EB0082E365 /* ReportResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6127B215EB0082E365 /* ReportResultViewController.swift */; };
 		DB98EB6527B216500082E365 /* ReportResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6427B216500082E365 /* ReportResultViewModel.swift */; };
-		DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */; };
 		DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BE825E4F5340051B173 /* SearchViewController.swift */; };
 		DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */; };
 		DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */; };
@@ -1132,7 +1131,6 @@
 		DB98EB5F27B10E150082E365 /* ReportCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCommentTableViewCell.swift; sourceTree = "<group>"; };
 		DB98EB6127B215EB0082E365 /* ReportResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultViewController.swift; sourceTree = "<group>"; };
 		DB98EB6427B216500082E365 /* ReportResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultViewModel.swift; sourceTree = "<group>"; };
-		DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultActionTableViewCell.swift; sourceTree = "<group>"; };
 		DB9D6BE825E4F5340051B173 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -2685,7 +2683,6 @@
 				DB98EB4827B0F0CD0082E365 /* ReportStatusTableViewCell.swift */,
 				DB98EB4B27B0F2BC0082E365 /* ReportStatusTableViewCell+ViewModel.swift */,
 				DB98EB5F27B10E150082E365 /* ReportCommentTableViewCell.swift */,
-				DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3891,7 +3888,6 @@
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
 				DBA5A53526F0A36A00CACBAA /* AddAccountTableViewCell.swift in Sources */,
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,
-				DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
 				DB697DDF278F524F004EF2F7 /* DataSourceFacade+Profile.swift in Sources */,
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,

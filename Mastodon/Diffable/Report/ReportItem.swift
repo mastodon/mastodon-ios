@@ -13,7 +13,6 @@ enum ReportItem: Hashable {
     case header(context: HeaderContext)
     case status(record: MastodonStatus)
     case comment(context: CommentContext)
-    case result(record: ManagedObjectRecord<MastodonUser>)
     case bottomLoader
 }
 
