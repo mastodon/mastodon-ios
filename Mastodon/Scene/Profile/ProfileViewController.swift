@@ -863,12 +863,30 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     account: viewModel.account
                 )
 
-                self.viewModel.isUpdating = false
                 self.viewModel.relationship = newRelationship
-                // TODO: update account?
-                // TODO: update me?
-            }
+                let mastodonAuthenticationBox = self.viewModel.authContext.mastodonAuthenticationBox
 
+                let account = self.viewModel.account
+                if let domain = account.domain, let updatedAccount = try await self.viewModel.context.apiService.fetchUser(
+                    username: self.viewModel.account.acct,
+                    domain: domain,
+                    authenticationBox: mastodonAuthenticationBox
+                ) {
+                    self.viewModel.account = updatedAccount
+                }
+
+                let me = self.viewModel.me
+                if let domain = me.domain, let updatedMe = try? await self.viewModel.context.apiService.fetchUser(
+                    username: me.acct,
+                    domain: domain,
+                    authenticationBox: mastodonAuthenticationBox
+                ) {
+                    FileManager.default.store(account: updatedMe, forUserID: self.viewModel.authContext.mastodonAuthenticationBox)
+                    self.viewModel.me = updatedMe
+                }
+
+                self.viewModel.isUpdating = false
+            }
         }
     }
 
