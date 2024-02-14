@@ -366,20 +366,8 @@ extension MainTabBarController {
         guard let authContext = authContext else { return }
         
         Task { @MainActor in
-            let profileResponse = try await context.apiService.authenticatedUserInfo(
-                authenticationBox: authContext.mastodonAuthenticationBox
-            )
-            
-            if let user = authContext.mastodonAuthenticationBox.authentication.user(
-                in: context.managedObjectContext
-            ) {
-                user.update(
-                    property: .init(
-                        entity: profileResponse.value,
-                        domain: authContext.mastodonAuthenticationBox.domain
-                    )
-                )
-            }
+            let profileResponse = try await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox)
+            FileManager.default.store(account: profileResponse.value, forUserID: authContext.mastodonAuthenticationBox.authentication.userIdentifier())
         }
     }
 }
