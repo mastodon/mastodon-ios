@@ -100,8 +100,6 @@ extension HomeTimelineViewModel.LoadLatestState {
                 await enter(state: Idle.self)
                 viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.finished)
 
-                viewModel.context.instanceService.updateMutesAndBlocks()
-                
                 // stop refresher if no new statuses
                 let statuses = response.value
                 let newStatuses = statuses.filter { status in !latestStatusIDs.contains(where: { $0 == status.reblog?.id || $0 == status.id }) }
