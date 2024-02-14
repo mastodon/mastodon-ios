@@ -267,7 +267,7 @@ extension ProfileHeaderView.ViewModel {
             .store(in: &disposeBag)
         // relationship
         $isRelationshipActionButtonHidden
-            .assign(to: \.isHidden, on: view.relationshipActionButtonShadowContainer)
+            .assign(to: \.isHidden, on: view.relationshipActionButton)
             .store(in: &disposeBag)
 
         Publishers.CombineLatest3(

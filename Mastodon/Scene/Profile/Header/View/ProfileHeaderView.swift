@@ -194,7 +194,6 @@ final class ProfileHeaderView: UIView {
     
     let statusDashboardView = ProfileStatusDashboardView()
     
-    let relationshipActionButtonShadowContainer = ShadowBackgroundContainer()
     let relationshipActionButton: ProfileRelationshipActionButton = {
         let button = ProfileRelationshipActionButton()
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
@@ -369,7 +368,7 @@ final class ProfileHeaderView: UIView {
             avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: dashboardContainer.bottomAnchor),
         ])
         
-        // authorContainer: H - [ nameContainer | padding | relationshipActionButtonShadowContainer ]
+        // authorContainer: H - [ nameContainer | padding | relationshipActionButton ]
         let authorContainer = UIStackView()
         authorContainer.axis = .horizontal
         authorContainer.alignment = .top
@@ -420,11 +419,9 @@ final class ProfileHeaderView: UIView {
         
         authorContainer.addArrangedSubview(nameContainerStackView)
         authorContainer.addArrangedSubview(UIView())
-        authorContainer.addArrangedSubview(relationshipActionButtonShadowContainer)
-        
+        authorContainer.addArrangedSubview(relationshipActionButton)
+
         relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
-        relationshipActionButtonShadowContainer.addSubview(relationshipActionButton)
-        relationshipActionButton.pinToParent()
         NSLayoutConstraint.activate([
             relationshipActionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileHeaderView.friendshipActionButtonSize.width).priority(.required - 1),
             relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.height).priority(.defaultHigh),
