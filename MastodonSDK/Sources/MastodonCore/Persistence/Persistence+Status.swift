@@ -41,16 +41,13 @@ extension Persistence.Status {
     public struct PersistResult {
         public let status: Status
         public let isNewInsertion: Bool
-        public let isNewInsertionAuthor: Bool
         
         public init(
             status: Status,
-            isNewInsertion: Bool,
-            isNewInsertionAuthor: Bool
+            isNewInsertion: Bool
         ) {
             self.status = status
             self.isNewInsertion = isNewInsertion
-            self.isNewInsertionAuthor = isNewInsertionAuthor
         }
     }
     
@@ -78,8 +75,7 @@ extension Persistence.Status {
             merge(in: managedObjectContext, mastodonStatus: oldStatus, context: context)
             return PersistResult(
                 status: oldStatus,
-                isNewInsertion: false,
-                isNewInsertionAuthor: false
+                isNewInsertion: false
             )
         } else {
             let poll: Poll? = {
@@ -98,16 +94,6 @@ extension Persistence.Status {
 
             let card = createCard(in: managedObjectContext, context: context)
 
-            let authorResult = Persistence.MastodonUser.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.MastodonUser.PersistContext(
-                    domain: context.domain,
-                    entity: context.entity.account,
-                    cache: context.userCache,
-                    networkDate: context.networkDate
-                )
-            )
-            let author = authorResult.user
             let application: Application? = createApplication(in: managedObjectContext, context: .init(entity: context.entity))
                 
             let relationship = Status.Relationship(
@@ -124,8 +110,7 @@ extension Persistence.Status {
 
             return PersistResult(
                 status: status,
-                isNewInsertion: true,
-                isNewInsertionAuthor: authorResult.isNewInsertion
+                isNewInsertion: true
             )
         }
     }

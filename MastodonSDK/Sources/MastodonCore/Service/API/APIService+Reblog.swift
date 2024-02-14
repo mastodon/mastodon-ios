@@ -62,7 +62,6 @@ extension APIService {
         query: Mastodon.API.Statuses.RebloggedByQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
-        let managedObjectContext = backgroundManagedObjectContext
         let statusID: Status.ID = status.reblog?.id ?? status.id
 
         let response = try await Mastodon.API.Statuses.rebloggedBy(
@@ -72,21 +71,7 @@ extension APIService {
             query: query,
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
-        
-        try await managedObjectContext.performChanges {
-            for entity in response.value {
-                _ = Persistence.MastodonUser.createOrMerge(
-                    in: managedObjectContext,
-                    context: .init(
-                        domain: authenticationBox.domain,
-                        entity: entity,
-                        cache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }   // end for … in
-        }
-        
+
         return response
-    }   // end func
+    }
 }

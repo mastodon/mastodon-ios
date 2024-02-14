@@ -701,7 +701,7 @@ extension StatusView.ViewModel {
 
                                     let menuContext = StatusAuthorView.AuthorMenuContext(
                                         name: name,
-                                        isMuting: rel.muting ?? false,
+                                        isMuting: rel.muting,
                                         isBlocking: rel.blocking,
                                         isMyself: isMyself,
                                         isBookmarking: isBookmark,

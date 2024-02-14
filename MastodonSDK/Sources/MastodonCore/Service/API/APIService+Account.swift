@@ -50,33 +50,6 @@ extension APIService {
             domain: domain,
             authorization: authorization
         )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
-            let account = response.value
-            
-            let managedObjectContext = self.backgroundManagedObjectContext
-            return managedObjectContext.performChanges {
-                _ = Persistence.MastodonUser.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.MastodonUser.PersistContext(
-                        domain: domain,
-                        entity: account,
-                        cache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Account> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
-        }
-        .eraseToAnyPublisher()
     }
     
     public func accountUpdateCredentials(
@@ -91,19 +64,6 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            _ = Persistence.MastodonUser.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.MastodonUser.PersistContext(
-                    domain: domain,
-                    entity: response.value,
-                    cache: nil,
-                    networkDate: response.networkDate
-                )
-            )
-        }
-
         return response
     }
     

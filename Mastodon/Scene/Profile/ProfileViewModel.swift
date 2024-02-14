@@ -182,6 +182,10 @@ class ProfileViewModel: NSObject {
         let mastodonAuthentication = authContext.mastodonAuthenticationBox.authentication
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
         return context.apiService.accountVerifyCredentials(domain: domain, authorization: authorization)
+            .tryMap { response in
+                FileManager.default.store(account: response.value, forUserID: mastodonAuthentication.userIdentifier())
+                return response
+            }.eraseToAnyPublisher()
     }
 }
 
@@ -226,10 +230,14 @@ extension ProfileViewModel {
             source: nil,
             fieldsAttributes: fieldsAttributes
         )
-        return try await context.apiService.accountUpdateCredentials(
+        let response = try await context.apiService.accountUpdateCredentials(
             domain: domain,
             query: query,
             authorization: authorization
         )
+
+        FileManager.default.store(account: response.value, forUserID: authenticationBox.authentication.userIdentifier())
+
+        return response
     }
 }
