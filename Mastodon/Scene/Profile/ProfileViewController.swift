@@ -589,7 +589,7 @@ extension ProfileViewController {
 
             let me = viewModel.me
 
-            if let domain = me.domain, let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
+            if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
                 viewModel.me = updatedMe
                 FileManager.default.store(account: updatedMe, forUserID: authContext.mastodonAuthenticationBox.authentication.userIdentifier())
             }
