@@ -25,8 +25,8 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: HomeTimelineViewModel!
-    
+    var viewModel: HomeTimelineViewModel?
+
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
 
     let friendsAssetImageView: UIImageView = {
@@ -82,7 +82,7 @@ extension HomeTimelineViewController {
         title = L10n.Scene.HomeTimeline.title
         view.backgroundColor = .secondarySystemBackground
 
-        viewModel.$displaySettingBarButtonItem
+        viewModel?.$displaySettingBarButtonItem
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displaySettingBarButtonItem in
                 guard let self = self else { return }
@@ -97,7 +97,7 @@ extension HomeTimelineViewController {
         navigationItem.titleView = titleView
         titleView.delegate = self
         
-        viewModel.homeTimelineNavigationBarTitleViewModel.state
+        viewModel?.homeTimelineNavigationBarTitleViewModel.state
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] state in
@@ -106,7 +106,7 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
         
-        viewModel.homeTimelineNavigationBarTitleViewModel.state
+        viewModel?.homeTimelineNavigationBarTitleViewModel.state
             .removeDuplicates()
             .filter { $0 == .publishedButton }
             .receive(on: DispatchQueue.main)
@@ -137,27 +137,27 @@ extension HomeTimelineViewController {
             publishProgressView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
 
-        viewModel.tableView = tableView
+        viewModel?.tableView = tableView
         tableView.delegate = self
-        viewModel.setupDiffableDataSource(
+        viewModel?.setupDiffableDataSource(
             tableView: tableView,
             statusTableViewCellDelegate: self,
             timelineMiddleLoaderTableViewCellDelegate: self
         )
         
         // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
+        viewModel?.listBatchFetchViewModel.setup(scrollView: tableView)
+        viewModel?.listBatchFetchViewModel.shouldFetch
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 guard self.view.window != nil else { return }
-                self.viewModel.loadOldestStateMachine.enter(HomeTimelineViewModel.LoadOldestState.Loading.self)
+                self.viewModel?.loadOldestStateMachine.enter(HomeTimelineViewModel.LoadOldestState.Loading.self)
             }
             .store(in: &disposeBag)
         
         // bind refresh control
-        viewModel.didLoadLatest
+        viewModel?.didLoadLatest
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -170,8 +170,8 @@ extension HomeTimelineViewController {
         
         context.publisherService.statusPublishResult.receive(on: DispatchQueue.main).sink { result in
             if case .success(.edit(let status)) = result {
-                self.viewModel.hasPendingStatusEditReload = true
-                self.viewModel.dataController.update(status: .fromEntity(status.value), intent: .edit)
+                self.viewModel?.hasPendingStatusEditReload = true
+                self.viewModel?.dataController.update(status: .fromEntity(status.value), intent: .edit)
             }
         }.store(in: &disposeBag)
         
@@ -204,7 +204,7 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
         
-        viewModel.timelineIsEmpty
+        viewModel?.timelineIsEmpty
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isEmpty in
                 if isEmpty {
@@ -218,9 +218,9 @@ extension HomeTimelineViewController {
                         userDoesntFollowPeople = true
                     }
 
-                    if (self?.viewModel.presentedSuggestions == false) && userDoesntFollowPeople {
+                    if (self?.viewModel?.presentedSuggestions == false) && userDoesntFollowPeople {
                         self?.findPeopleButtonPressed(self)
-                        self?.viewModel.presentedSuggestions = true
+                        self?.viewModel?.presentedSuggestions = true
                     }
                 } else {
                     self?.emptyView.removeFromSuperview()
@@ -264,16 +264,16 @@ extension HomeTimelineViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let timestamp = viewModel.lastAutomaticFetchTimestamp {
+        if let timestamp = viewModel?.lastAutomaticFetchTimestamp {
             let now = Date()
             if now.timeIntervalSince(timestamp) > 60 {
-                self.viewModel.lastAutomaticFetchTimestamp = now
-                self.viewModel.homeTimelineNeedRefresh.send()
+                self.viewModel?.lastAutomaticFetchTimestamp = now
+                self.viewModel?.homeTimelineNeedRefresh.send()
             } else {
                 // do nothing
             }
         } else {
-            self.viewModel.homeTimelineNeedRefresh.send()
+            self.viewModel?.homeTimelineNeedRefresh.send()
         }
     }
 
@@ -284,7 +284,7 @@ extension HomeTimelineViewController {
             // do nothing
         } completion: { _ in
             // fix AutoLayout cell height not update after rotate issue
-            self.viewModel.cellFrameCache.removeAllObjects()
+            self.viewModel?.cellFrameCache.removeAllObjects()
             self.tableView.reloadData()
         }
     }
@@ -356,7 +356,9 @@ extension HomeTimelineViewController {
 extension HomeTimelineViewController {
     
     @objc private func findPeopleButtonPressed(_ sender: Any?) {
-        let suggestionAccountViewModel = SuggestionAccountViewModel(context: context, authContext: viewModel.authContext)
+        guard let authContext = viewModel?.authContext else { return }
+
+        let suggestionAccountViewModel = SuggestionAccountViewModel(context: context, authContext: authContext)
         suggestionAccountViewModel.delegate = viewModel
         _ = coordinator.present(
             scene: .suggestionAccount(viewModel: suggestionAccountViewModel),
@@ -366,7 +368,9 @@ extension HomeTimelineViewController {
     }
     
     @objc private func manuallySearchButtonPressed(_ sender: UIButton) {
-        let searchDetailViewModel = SearchDetailViewModel(authContext: viewModel.authContext)
+        guard let authContext = viewModel?.authContext else { return }
+
+        let searchDetailViewModel = SearchDetailViewModel(authContext: authContext)
         _ = coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
@@ -377,16 +381,18 @@ extension HomeTimelineViewController {
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
-        guard viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self) else {
+        guard let viewModel, viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self) else {
             sender.endRefreshing()
             return
         }
     }
     
     @objc func signOutAction(_ sender: UIAction) {
+        guard let authContext = viewModel?.authContext else { return }
+
         Task { @MainActor in
-            try await context.authenticationService.signOutMastodonUser(authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
-            let userIdentifier = viewModel.authContext.mastodonAuthenticationBox
+            try await context.authenticationService.signOutMastodonUser(authenticationBox: authContext.mastodonAuthenticationBox)
+            let userIdentifier = authContext.mastodonAuthenticationBox
             FileManager.default.invalidateHomeTimelineCache(for: userIdentifier)
             FileManager.default.invalidateNotificationsAll(for: userIdentifier)
             FileManager.default.invalidateNotificationsMentions(for: userIdentifier)
@@ -400,7 +406,7 @@ extension HomeTimelineViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         switch scrollView {
         case tableView:
-            viewModel.homeTimelineNavigationBarTitleViewModel.handleScrollViewDidScroll(scrollView)
+            viewModel?.homeTimelineNavigationBarTitleViewModel.handleScrollViewDidScroll(scrollView)
         default:
             break
         }
@@ -411,7 +417,7 @@ extension HomeTimelineViewController {
         case tableView:
             
             let indexPath = IndexPath(row: 0, section: 0)
-            guard viewModel.diffableDataSource?.itemIdentifier(for: indexPath) != nil else {
+            guard viewModel?.diffableDataSource?.itemIdentifier(for: indexPath) != nil else {
                 return true
             }
             // save position
@@ -428,7 +434,7 @@ extension HomeTimelineViewController {
     private func savePositionBeforeScrollToTop() {
         // check save action interval
         // should not fast than 0.5s to prevent save when scrollToTop on-flying
-        if let record = viewModel.scrollPositionRecord {
+        if let record = viewModel?.scrollPositionRecord {
             let now = Date()
             guard now.timeIntervalSince(record.timestamp) > 0.5 else {
                 // skip this save action
@@ -436,7 +442,7 @@ extension HomeTimelineViewController {
             }
         }
         
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let diffableDataSource = viewModel?.diffableDataSource else { return }
         guard let anchorIndexPaths = tableView.indexPathsForVisibleRows?.sorted() else { return }
         guard !anchorIndexPaths.isEmpty else { return }
         let anchorIndexPath = anchorIndexPaths[anchorIndexPaths.count / 2]
@@ -447,7 +453,7 @@ extension HomeTimelineViewController {
             let cellFrameInView = tableView.convert(anchorCell.frame, to: view)
             return cellFrameInView.origin.y
         }()
-        viewModel.scrollPositionRecord = HomeTimelineViewModel.ScrollPositionRecord(
+        viewModel?.scrollPositionRecord = HomeTimelineViewModel.ScrollPositionRecord(
             item: anchorItem,
             offset: offset,
             timestamp: Date()
@@ -462,19 +468,19 @@ extension HomeTimelineViewController {
     }
     
     private func restorePositionWhenScrollToTop() {
-        guard let diffableDataSource = self.viewModel.diffableDataSource else { return }
-        guard let record = self.viewModel.scrollPositionRecord,
+        guard let diffableDataSource = viewModel?.diffableDataSource else { return }
+        guard let record = viewModel?.scrollPositionRecord,
               let indexPath = diffableDataSource.indexPath(for: record.item)
         else { return }
         
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-        viewModel.scrollPositionRecord = nil
+        viewModel?.scrollPositionRecord = nil
     }
 }
 
 // MARK: - AuthContextProvider
 extension HomeTimelineViewController: AuthContextProvider {
-    var authContext: AuthContext { viewModel.authContext }
+    var authContext: AuthContext { viewModel!.authContext }
 }
 
 // MARK: - UITableViewDelegate
@@ -507,7 +513,7 @@ extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableView
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-            viewModel.timelineDidReachEnd()
+            viewModel?.timelineDidReachEnd()
         }
     }
 }
@@ -515,12 +521,12 @@ extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableView
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
 extension HomeTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate {
     func timelineMiddleLoaderTableViewCell(_ cell: TimelineMiddleLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let diffableDataSource = viewModel?.diffableDataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
 
         Task {
-            await viewModel.loadMore(item: item)
+            await viewModel?.loadMore(item: item)
         }
     }
 }
@@ -531,6 +537,8 @@ extension HomeTimelineViewController: ScrollViewContainer {
     var scrollView: UIScrollView { return tableView }
     
     func scrollToTop(animated: Bool) {
+        guard let viewModel else { return }
+
         if scrollView.contentOffset.y < scrollView.frame.height,
            viewModel.loadLatestStateMachine.canEnterState(HomeTimelineViewModel.LoadLatestState.Loading.self),
            (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) == 0.0,
@@ -569,7 +577,7 @@ extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate
     func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, buttonDidPressed sender: UIButton) {
         switch titleView.state {
         case .newPostButton:
-            guard let diffableDataSource = viewModel.diffableDataSource else { return }
+            guard let diffableDataSource = viewModel?.diffableDataSource else { return }
             let indexPath = IndexPath(row: 0, section: 0)
             guard diffableDataSource.itemIdentifier(for: indexPath) != nil else { return }
         

@@ -26,7 +26,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
     var searchTransitionController = SearchTransitionController()
 
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: SearchViewModel!
+    var viewModel: SearchViewModel?
 
     // use AutoLayout could set search bar margin automatically to
     // layout alongside with split mode button (on iPad)
@@ -37,7 +37,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
     let searchBarTapPublisher = PassthroughSubject<String, Never>()
     
     private(set) lazy var discoveryViewController: DiscoveryViewController? = {
-        guard let authContext = viewModel.authContext else { return nil }
+        guard let authContext = viewModel?.authContext else { return nil }
         let viewController = DiscoveryViewController()
         viewController.context = context
         viewController.coordinator = coordinator
@@ -70,7 +70,7 @@ extension SearchViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        viewModel.viewDidAppeared.send()
+        viewModel?.viewDidAppeared.send()
 
         // note:
         // need set alpha because (maybe) SDK forget set alpha back
@@ -110,7 +110,7 @@ extension SearchViewController {
             .sink { [weak self] initialText in
                 guard let self = self else { return }
                 // push to search detail
-                guard let authContext = self.viewModel.authContext else { return }
+                guard let authContext = self.viewModel?.authContext else { return }
                 let searchDetailViewModel = SearchDetailViewModel(authContext: authContext, initialSearchText: initialText)
                 searchDetailViewModel.needsBecomeFirstResponder = true
                 self.navigationController?.delegate = self.searchTransitionController
