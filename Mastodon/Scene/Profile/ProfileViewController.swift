@@ -577,11 +577,26 @@ extension ProfileViewController {
             userTimelineViewController.viewModel.stateMachine.enter(UserTimelineViewModel.State.Reloading.self)
         }
 
-        // trigger authenticated user account update
-        viewModel.context.authenticationService.updateActiveUserAccountPublisher.send()
+        Task {
+            let account = viewModel.account
+            if let domain = account.domain,
+               let updatedAccount = try? await context.apiService.fetchUser(username: account.acct, domain: domain, authenticationBox: authContext.mastodonAuthenticationBox),
+               let updatedRelationship = try? await context.apiService.relationship(forAccounts: [updatedAccount], authenticationBox: authContext.mastodonAuthenticationBox).value.first
+            {
+                viewModel.account = updatedAccount
+                viewModel.relationship = updatedRelationship
+            }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            sender.endRefreshing()
+            let me = viewModel.me
+
+            if let domain = me.domain, let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
+                viewModel.me = updatedMe
+                FileManager.default.store(account: updatedMe, forUserID: authContext.mastodonAuthenticationBox.authentication.userIdentifier())
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                sender.endRefreshing()
+            }
         }
     }
 
