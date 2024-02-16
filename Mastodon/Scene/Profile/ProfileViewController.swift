@@ -1061,21 +1061,20 @@ extension ProfileViewController {
     @objc
     func relationshipChanged(_ notification: Notification) {
 
-        guard let userInfo = notification.userInfo,
-              let account = userInfo["account"] as? Mastodon.Entity.Account,
-              let me = userInfo["me"] as? Mastodon.Entity.Account,
-              let relationship = userInfo["relationship"] as? Mastodon.Entity.Relationship else {
+        guard let userInfo = notification.userInfo else {
             return
         }
 
-        if account == viewModel.account {
+        if let account = userInfo["account"] as? Mastodon.Entity.Account, account == viewModel.account {
             viewModel.account = account
         }
 
-        if me == viewModel.me {
+        if let me = userInfo["me"] as? Mastodon.Entity.Account, me == viewModel.me {
             viewModel.me = me
         }
 
-        viewModel.relationship = relationship
+        if let relationship = userInfo["relationship"] as? Mastodon.Entity.Relationship {
+            viewModel.relationship = relationship
+        }
     }
 }
