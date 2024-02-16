@@ -589,8 +589,6 @@ extension ProfileViewController {
                 viewModel.relationship = updatedRelationship
             }
 
-            let me = viewModel.me
-
             if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
                 viewModel.me = updatedMe
                 FileManager.default.store(account: updatedMe, forUserID: authContext.mastodonAuthenticationBox.authentication.userIdentifier())
