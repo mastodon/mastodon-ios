@@ -810,9 +810,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 
                     self.viewModel.isUpdating = false
                     let userInfo = [
-                        "account": self.viewModel.account,
                         "relationship": newRelationship,
-                        "me": self.viewModel.me
                     ]
 
                     NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
@@ -841,9 +839,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     self.viewModel.isUpdating = false
 
                     let userInfo = [
-                        "account": self.viewModel.account,
                         "relationship": newRelationship,
-                        "me": self.viewModel.me
                     ]
 
                     NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
@@ -871,9 +867,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     
                     self.viewModel.isUpdating = false
                     let userInfo = [
-                        "account": self.viewModel.account,
                         "relationship": newRelationship,
-                        "me": self.viewModel.me
                     ]
 
                     NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
@@ -917,9 +911,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 
                 self.viewModel.isUpdating = false
                 let userInfo = [
-                    "account": self.viewModel.account,
                     "relationship": newRelationship,
-                    "me": self.viewModel.me
                 ]
 
                 NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
@@ -970,9 +962,9 @@ extension ProfileViewController: MastodonMenuDelegate {
                             button: nil,
                             barButtonItem: self.moreMenuBarButtonItem
                         )) { [weak self] newRelationship in
-                            guard let self else { return }
-
-                            self.viewModel.relationship = newRelationship
+                            NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+                                "relationship": newRelationship
+                            ])
                         }
                 }
             case .reportUser(_), .shareUser(_):
@@ -1061,20 +1053,24 @@ extension ProfileViewController {
     @objc
     func relationshipChanged(_ notification: Notification) {
 
-        guard let userInfo = notification.userInfo else {
+        guard let userInfo = notification.userInfo, let relationship = userInfo["relationship"] as? Mastodon.Entity.Relationship, viewModel.account.id == relationship.id else {
             return
         }
 
-        if let account = userInfo["account"] as? Mastodon.Entity.Account, account == viewModel.account {
-            viewModel.account = account
-        }
+        Task {
+            viewModel.isUpdating = true
+            let account = viewModel.account
+            if let domain = account.domain,
+               let updatedAccount = try? await context.apiService.fetchUser(username: account.acct, domain: domain, authenticationBox: authContext.mastodonAuthenticationBox) {
+                viewModel.account = updatedAccount
+            }
 
-        if let me = userInfo["me"] as? Mastodon.Entity.Account, me == viewModel.me {
-            viewModel.me = me
-        }
-
-        if let relationship = userInfo["relationship"] as? Mastodon.Entity.Relationship {
+            if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
+                viewModel.me = updatedMe
+                FileManager.default.store(account: updatedMe, forUserID: authContext.mastodonAuthenticationBox.authentication.userIdentifier())
+            }
             viewModel.relationship = relationship
+            viewModel.isUpdating = false
         }
     }
 }

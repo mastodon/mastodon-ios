@@ -62,10 +62,7 @@ extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextPro
             // Otherwise the relationship might still be `pending`
             try await Task.sleep(for: .seconds(1))
 
-            guard let relationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first,
-                  let updatedAccount = try await context.apiService.fetchUser(username: account.acct, domain: account.domain ?? "", authenticationBox: authContext.mastodonAuthenticationBox) else { return }
-            
-            let updatedMe = try await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value
+            let relationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first
 
             let isMe: Bool
             if let me {
@@ -78,13 +75,13 @@ extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextPro
                 view.viewModel.relationship = relationship
                 view.updateButtonState(with: relationship, isMe: isMe)
 
-                let userInfo = [
-                    "account": updatedAccount,
-                    "relationship": relationship,
-                    "me": updatedMe
-                ]
+                if let relationship {
+                    let userInfo = [
+                        "relationship": relationship,
+                    ]
 
-                NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
+                    NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
+                }
             }
 
         }
