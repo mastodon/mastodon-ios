@@ -166,6 +166,8 @@ extension ProfileViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(ProfileViewController.relationshipChanged(_:)), name: .relationshipChanged, object: nil)
+
         view.backgroundColor = .secondarySystemBackground
         let barAppearance = UINavigationBarAppearance()
         if isModal {
@@ -809,7 +811,13 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     )
 
                     self.viewModel.isUpdating = false
-                    self.viewModel.relationship = newRelationship
+                    let userInfo = [
+                        "account": self.viewModel.account,
+                        "relationship": newRelationship,
+                        "me": self.viewModel.me
+                    ]
+
+                    NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
                 }
             }
             alertController.addAction(unblockAction)
@@ -828,15 +836,19 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
             let unblockAction = UIAlertAction(title: L10n.Common.Controls.Actions.unblockDomain(domain), style: .default) { [weak self] _ in
                 guard let self else { return }
                 Task {
-                    _ = try await DataSourceFacade.responseToDomainBlockAction(
-                        dependency: self,
-                        account: account
-                    )
+                    _ = try await DataSourceFacade.responseToDomainBlockAction(dependency: self, account: account)
 
                     guard let newRelationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: self.authContext.mastodonAuthenticationBox).value.first else { return }
 
                     self.viewModel.isUpdating = false
-                    self.viewModel.relationship = newRelationship
+
+                    let userInfo = [
+                        "account": self.viewModel.account,
+                        "relationship": newRelationship,
+                        "me": self.viewModel.me
+                    ]
+
+                    NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
                 }
             }
             alertController.addAction(unblockAction)
@@ -856,13 +868,18 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
             let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unmute, style: .default) { [weak self] _ in
                 guard let self else { return }
                 Task {
-                    let newRelationship = try await DataSourceFacade.responseToUserMuteAction(
-                        dependency: self,
-                        account: account
-                    )
-
+                    
+                    let newRelationship = try await DataSourceFacade.responseToUserMuteAction(dependency: self, account: account)
+                    
                     self.viewModel.isUpdating = false
-                    self.viewModel.relationship = newRelationship
+                    let userInfo = [
+                        "account": self.viewModel.account,
+                        "relationship": newRelationship,
+                        "me": self.viewModel.me
+                    ]
+
+                    NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
+
                 }
             }
             alertController.addAction(unmuteAction)
@@ -899,6 +916,16 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     FileManager.default.store(account: updatedMe, forUserID: self.viewModel.authContext.mastodonAuthenticationBox)
                     self.viewModel.me = updatedMe
                 }
+
+                self.viewModel.isUpdating = false
+                let userInfo = [
+                    "account": self.viewModel.account,
+                    "relationship": newRelationship,
+                    "me": self.viewModel.me
+                ]
+
+                NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
+
 
                 self.viewModel.isUpdating = false
             }
@@ -1027,5 +1054,30 @@ extension ProfileViewController: DataSourceProvider {
         viewModel.postsUserTimelineViewModel.dataController.update(status: status, intent: intent)
         viewModel.repliesUserTimelineViewModel.dataController.update(status: status, intent: intent)
         viewModel.mediaUserTimelineViewModel.dataController.update(status: status, intent: intent)
+    }
+}
+
+//MARK: - Notifications
+
+extension ProfileViewController {
+    @objc
+    func relationshipChanged(_ notification: Notification) {
+
+        guard let userInfo = notification.userInfo,
+              let account = userInfo["account"] as? Mastodon.Entity.Account,
+              let me = userInfo["me"] as? Mastodon.Entity.Account,
+              let relationship = userInfo["relationship"] as? Mastodon.Entity.Relationship else {
+            return
+        }
+
+        if account == viewModel.account {
+            viewModel.account = account
+        }
+
+        if me == viewModel.me {
+            viewModel.me = me
+        }
+
+        viewModel.relationship = relationship
     }
 }
