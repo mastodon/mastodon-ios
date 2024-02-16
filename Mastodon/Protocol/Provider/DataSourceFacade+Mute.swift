@@ -22,6 +22,12 @@ extension DataSourceFacade {
             account: account
         )
 
+        let userInfo = [
+            "relationship": response.value,
+        ]
+
+        NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
+
         return response.value
     }
 }

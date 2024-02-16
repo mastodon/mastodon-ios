@@ -26,11 +26,11 @@ extension DataSourceFacade {
             authenticationBox: authBox
         )
 
-        try await dependency.context.apiService.getBlocked(
-            authenticationBox: authBox
-        )
+        let userInfo = [
+            "relationship": response.value,
+        ]
 
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+        NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
 
         return response.value
     }

@@ -115,7 +115,6 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
 
-
             try await DataSourceFacade.responseToUserFollowRequestAction(
                 dependency: self,
                 notification: notification,

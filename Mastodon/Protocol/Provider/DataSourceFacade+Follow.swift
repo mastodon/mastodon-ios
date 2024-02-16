@@ -26,6 +26,10 @@ extension DataSourceFacade {
 
         dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
 
+        NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+            "relationship": response
+        ])
+
         return response
     }
 
@@ -70,6 +74,10 @@ extension DataSourceFacade {
                 break
             }
 
+            NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+                "relationship": newRelationship
+            ])
+
             await notificationView.configure(notification: notification, authenticationBox: dependency.authContext.mastodonAuthenticationBox)
         } catch {
             // reset state when failure
@@ -101,8 +109,15 @@ extension DataSourceFacade {
         dependency: NeedsDependency & AuthContextProvider,
         account: Mastodon.Entity.Account
     ) async throws {
-        _ = try await dependency.context.apiService.toggleShowReblogs(
+        let newRelationship = try await dependency.context.apiService.toggleShowReblogs(
             for: account,
-            authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+            authenticationBox: dependency.authContext.mastodonAuthenticationBox
+        )
+
+        let userInfo = [
+            "relationship": newRelationship,
+        ]
+
+        NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
     }
 }

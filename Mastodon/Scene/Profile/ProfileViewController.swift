@@ -807,13 +807,6 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                         dependency: self,
                         account: account
                     )
-
-                    self.viewModel.isUpdating = false
-                    let userInfo = [
-                        "relationship": newRelationship,
-                    ]
-
-                    NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
                 }
             }
             alertController.addAction(unblockAction)
@@ -838,6 +831,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 
                     self.viewModel.isUpdating = false
 
+                    // we need to trigger this here as domain block doesn't return a relationship
                     let userInfo = [
                         "relationship": newRelationship,
                     ]
@@ -862,16 +856,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
             let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unmute, style: .default) { [weak self] _ in
                 guard let self else { return }
                 Task {
-                    
-                    let newRelationship = try await DataSourceFacade.responseToUserMuteAction(dependency: self, account: account)
-                    
-                    self.viewModel.isUpdating = false
-                    let userInfo = [
-                        "relationship": newRelationship,
-                    ]
-
-                    NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
-
+                    _ = try await DataSourceFacade.responseToUserMuteAction(dependency: self, account: account)
                 }
             }
             alertController.addAction(unmuteAction)
@@ -882,42 +867,10 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
             Task { [weak self] in
                 guard let self else { return }
 
-                let newRelationship = try await DataSourceFacade.responseToUserFollowAction(
+                _ = try await DataSourceFacade.responseToUserFollowAction(
                     dependency: self,
                     account: viewModel.account
                 )
-
-                self.viewModel.relationship = newRelationship
-                let mastodonAuthenticationBox = self.viewModel.authContext.mastodonAuthenticationBox
-
-                let account = self.viewModel.account
-                if let domain = account.domain, let updatedAccount = try await self.viewModel.context.apiService.fetchUser(
-                    username: self.viewModel.account.acct,
-                    domain: domain,
-                    authenticationBox: mastodonAuthenticationBox
-                ) {
-                    self.viewModel.account = updatedAccount
-                }
-
-                let me = self.viewModel.me
-                if let domain = me.domain, let updatedMe = try? await self.viewModel.context.apiService.fetchUser(
-                    username: me.acct,
-                    domain: domain,
-                    authenticationBox: mastodonAuthenticationBox
-                ) {
-                    FileManager.default.store(account: updatedMe, forUserID: self.viewModel.authContext.mastodonAuthenticationBox)
-                    self.viewModel.me = updatedMe
-                }
-
-                self.viewModel.isUpdating = false
-                let userInfo = [
-                    "relationship": newRelationship,
-                ]
-
-                NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
-
-
-                self.viewModel.isUpdating = false
             }
         }
     }
@@ -961,11 +914,7 @@ extension ProfileViewController: MastodonMenuDelegate {
                             statusViewModel: nil,
                             button: nil,
                             barButtonItem: self.moreMenuBarButtonItem
-                        )) { [weak self] newRelationship in
-                            NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
-                                "relationship": newRelationship
-                            ])
-                        }
+                        ))
                 }
             case .reportUser(_), .shareUser(_):
                 Task {
@@ -1053,24 +1002,37 @@ extension ProfileViewController {
     @objc
     func relationshipChanged(_ notification: Notification) {
 
-        guard let userInfo = notification.userInfo, let relationship = userInfo["relationship"] as? Mastodon.Entity.Relationship, viewModel.account.id == relationship.id else {
+        guard let userInfo = notification.userInfo, let relationship = userInfo["relationship"] as? Mastodon.Entity.Relationship else {
             return
         }
 
-        Task {
-            viewModel.isUpdating = true
-            let account = viewModel.account
-            if let domain = account.domain,
-               let updatedAccount = try? await context.apiService.fetchUser(username: account.acct, domain: domain, authenticationBox: authContext.mastodonAuthenticationBox) {
-                viewModel.account = updatedAccount
-            }
+        viewModel.isUpdating = true
+        if viewModel.account.id == relationship.id {
+            // if relationship belongs to an other account
+            Task {
+                let account = viewModel.account
+                if let domain = account.domain,
+                   let updatedAccount = try? await context.apiService.fetchUser(username: account.acct, domain: domain, authenticationBox: authContext.mastodonAuthenticationBox) {
+                    viewModel.account = updatedAccount
 
-            if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
-                viewModel.me = updatedMe
-                FileManager.default.store(account: updatedMe, forUserID: authContext.mastodonAuthenticationBox.authentication.userIdentifier())
+                    viewModel.relationship = relationship
+                    self.profileHeaderViewController.viewModel.relationship = relationship
+                    self.profileHeaderViewController.profileHeaderView.viewModel.relationship = relationship
+                }
+
+                viewModel.isUpdating = false
             }
-            viewModel.relationship = relationship
-            viewModel.isUpdating = false
+        } else if viewModel.account == viewModel.me {
+            // update my profile
+            Task {
+                if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
+                    viewModel.me = updatedMe
+                    viewModel.account = updatedMe
+                    FileManager.default.store(account: updatedMe, forUserID: authContext.mastodonAuthenticationBox.authentication.userIdentifier())
+                }
+
+                viewModel.isUpdating = false
+            }
         }
     }
 }

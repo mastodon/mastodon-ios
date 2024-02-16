@@ -74,16 +74,7 @@ extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextPro
             await MainActor.run {
                 view.viewModel.relationship = relationship
                 view.updateButtonState(with: relationship, isMe: isMe)
-
-                if let relationship {
-                    let userInfo = [
-                        "relationship": relationship,
-                    ]
-
-                    NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
-                }
             }
-
         }
     }
 }

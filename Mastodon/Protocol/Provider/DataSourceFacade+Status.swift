@@ -199,8 +199,8 @@ extension DataSourceFacade {
                         account: menuContext.author
                     )
 
-                    if let completion {
-                        completion(newRelationship as! T)
+                    if let completion, let relationship = newRelationship as? T {
+                        completion(relationship)
                     }
                 }
             }
@@ -225,8 +225,8 @@ extension DataSourceFacade {
                         account: menuContext.author
                     )
 
-                    if let completion {
-                        completion(newRelationship as! T)
+                    if let completion, let relationship = newRelationship as? T {
+                        completion(relationship)
                     }
                 }
             }
