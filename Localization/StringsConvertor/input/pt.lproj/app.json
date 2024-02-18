@@ -222,11 +222,11 @@
                 "pending": "Pendente",
                 "block": "Bloquear",
                 "block_user": "Bloquear %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Bloquear o domínio %s",
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Domínio bloqueado",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
                 "unmute": "Unmute",
@@ -606,7 +606,7 @@
                     "message": "Confirm to hide reblogs"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
+                    "title": "Bloquear o domínio",
                     "message": "Confirm to block domain %s"
                 },
                 "confirm_unblock_domain": {
@@ -719,12 +719,12 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
+                "title": "Definições",
+                "general": "Geral",
+                "notifications": "Notificações",
+                "support_mastodon": "Apoie o Mastodon",
+                "about_mastodon": "Acerca do Mastodon",
+                "server_details": "Pormenores do servidor",
                 "logout": "Logout %@"
             },
             "about_mastodon": {
@@ -736,42 +736,42 @@
             },
             "server_details": {
                 "about": "About",
-                "rules": "Rules",
+                "rules": "Regras",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Administrador",
+                    "message_admin": "Contactar administrador(a)",
+                    "legal_notice": "Um aviso jurídico"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Geral",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Aspecto",
+                    "dark": "Escuro",
+                    "light": "Claro",
+                    "system": "Usar tema do dispositivo"
                 },
                 "design": {
                     "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "show_animations": "Reproduzir emojis e avatares animados"
                 },
                 "links": {
-                    "section_title": "Links",
+                    "section_title": "Hiperligações",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Abrir no navegador"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notificações",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Obter notificações de",
+                    "anyone": "Qualquer pessoa",
+                    "followers": "Pessoas que o seguem",
+                    "follow": "Pessoas que segue",
+                    "noone": "Ninguém"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
+                    "mentions_and_replies": "Menções & Respostas",
                     "boosts": "Boosts",
                     "favorites": "Favorites",
                     "new_followers": "New Followers"
