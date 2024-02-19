@@ -55,46 +55,6 @@ enum Tab: Int, CaseIterable {
     var largeImage: UIImage {
         return image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
     }
-
-//    @MainActor
-//    func viewController(context: AppContext, authContext: AuthContext?, coordinator: SceneCoordinator) -> UIViewController {
-//        guard let authContext else { return UITableViewController() }
-//
-//        let viewController: UIViewController
-//        switch self {
-//        case .home:
-//            let _viewController = HomeTimelineViewController()
-//            _viewController.context = context
-//            _viewController.coordinator = coordinator
-//            _viewController.viewModel = HomeTimelineViewModel(context: context, authContext: authContext)
-//            viewController = _viewController
-//        case .search:
-//            let _viewController = SearchViewController()
-//            _viewController.context = context
-//            _viewController.coordinator = coordinator
-//            _viewController.viewModel = SearchViewModel(context: context, authContext: authContext)
-//            viewController = _viewController
-//        case .compose:
-//            viewController = UIViewController()
-//        case .notifications:
-//            let _viewController = NotificationViewController()
-//            _viewController.context = context
-//            _viewController.coordinator = coordinator
-//            _viewController.viewModel = NotificationViewModel(context: context, authContext: authContext)
-//            viewController = _viewController
-//        case .me:
-//            #warning("What happens if there's no me at the beginning? I guess we _do_ need another migration?")
-//            guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return UIViewController() }
-//
-//            let _viewController = ProfileViewController()
-//            _viewController.context = context
-//            _viewController.coordinator = coordinator
-//            _viewController.viewModel = ProfileViewModel(context: context, authContext: authContext, account: me, relationship: nil, me: me)
-//            viewController = _viewController
-//        }
-//        viewController.title = self.title
-//        return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
-//    }
 }
 
 extension UIViewController {
