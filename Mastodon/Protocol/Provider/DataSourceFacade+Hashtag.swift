@@ -13,14 +13,6 @@ import MastodonSDK
 extension DataSourceFacade {
     @MainActor
     static func coordinateToHashtagScene(
-        provider: DataSourceProvider & AuthContextProvider,
-        tag: Mastodon.Entity.Tag
-    ) async {
-        await coordinateToHashtagScene(provider: provider, tag: tag)
-    }
-    
-    @MainActor
-    static func coordinateToHashtagScene(
         provider: ViewControllerWithDependencies & AuthContextProvider,
         tag: Mastodon.Entity.Tag
     ) async {
