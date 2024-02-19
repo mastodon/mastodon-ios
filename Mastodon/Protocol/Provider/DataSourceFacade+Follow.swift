@@ -27,7 +27,7 @@ extension DataSourceFacade {
         dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
 
         NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
-            "relationship": response
+            .relationship: response
         ])
 
         return response
@@ -75,7 +75,7 @@ extension DataSourceFacade {
             }
 
             NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
-                "relationship": newRelationship
+                .relationship: newRelationship
             ])
 
             await notificationView.configure(notification: notification, authenticationBox: dependency.authContext.mastodonAuthenticationBox)
@@ -115,7 +115,7 @@ extension DataSourceFacade {
         )
 
         let userInfo = [
-            "relationship": newRelationship,
+            .relationship: newRelationship,
         ]
 
         NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)

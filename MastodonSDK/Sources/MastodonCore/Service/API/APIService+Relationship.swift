@@ -11,6 +11,14 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 
+extension Notification.Name {
+    public static let relationshipChanged = Notification.Name(rawValue: "org.joinmastodon.app.relationship-changed")
+}
+
+extension AnyHashable {
+    public static let relationship = "relationship"
+}
+
 extension APIService {
     public func relationship(
         forAccounts accounts: [Mastodon.Entity.Account],

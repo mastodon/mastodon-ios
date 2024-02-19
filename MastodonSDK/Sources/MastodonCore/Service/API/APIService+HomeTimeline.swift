@@ -11,9 +11,8 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 
-public extension Foundation.Notification.Name {
+public extension Notification.Name {
     static let userFetched = Notification.Name(rawValue: "org.joinmastodon.app.user-fetched")
-    static let relationshipChanged = Notification.Name(rawValue: "org.joinmastodon.app.relationship-changed")
 }
 
 extension APIService {

@@ -833,7 +833,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 
                     // we need to trigger this here as domain block doesn't return a relationship
                     let userInfo = [
-                        "relationship": newRelationship,
+                        .relationship: newRelationship,
                     ]
 
                     NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
@@ -1002,7 +1002,7 @@ extension ProfileViewController {
     @objc
     func relationshipChanged(_ notification: Notification) {
 
-        guard let userInfo = notification.userInfo, let relationship = userInfo["relationship"] as? Mastodon.Entity.Relationship else {
+        guard let userInfo = notification.userInfo, let relationship = userInfo[.relationship] as? Mastodon.Entity.Relationship else {
             return
         }
 
