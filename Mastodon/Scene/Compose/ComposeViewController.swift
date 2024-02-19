@@ -281,14 +281,14 @@ extension ComposeViewController {
             let cancelAction = UIAlertAction(title: L10n.Common.Alerts.MediaMissingAltText.cancel, style: .default, handler: nil)
             alertController.addAction(cancelAction)
             let confirmAction = UIAlertAction(title: L10n.Common.Alerts.MediaMissingAltText.post, style: .default) { [weak self] action in
-                self?.enqueuePublishStatus()
+                self?.enqueuePublishStatusEdit()
             }
             alertController.addAction(confirmAction)
             _ = coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
             return
         }
         
-        enqueuePublishStatus()
+        enqueuePublishStatusEdit()
     }
     
     private func enqueuePublishStatusEdit() {
