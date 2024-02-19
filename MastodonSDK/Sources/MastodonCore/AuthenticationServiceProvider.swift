@@ -106,7 +106,7 @@ public extension AuthenticationServiceProvider {
         userDefaults.didMigrateAuthentications == false
     }
 
-    func fetchAccounts(apiService: APIService, completion: (() -> Void)? = nil) async {
+    func fetchAccounts(apiService: APIService) async {
         // FIXME: This is a dirty hack to make the performance-stuff work.
         // Problem is, that we don't persist the user on disk anymore. So we have to fetch
         // it when we need it to display on the home timeline.
@@ -120,10 +120,7 @@ public extension AuthenticationServiceProvider {
         }
 
         NotificationCenter.default.post(name: .userFetched, object: nil)
-
-        completion?()
     }
-
 }
 
 // MARK: - Private
