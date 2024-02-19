@@ -23,7 +23,7 @@ extension DataSourceFacade {
         )
 
         let userInfo = [
-            .relationship: response.value,
+            UserInfoKey.relationship: response.value,
         ]
 
         NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)

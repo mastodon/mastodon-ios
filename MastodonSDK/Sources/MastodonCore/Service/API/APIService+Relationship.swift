@@ -15,7 +15,7 @@ extension Notification.Name {
     public static let relationshipChanged = Notification.Name(rawValue: "org.joinmastodon.app.relationship-changed")
 }
 
-extension AnyHashable {
+public enum UserInfoKey {
     public static let relationship = "relationship"
 }
 
