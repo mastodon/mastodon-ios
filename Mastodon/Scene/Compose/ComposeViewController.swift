@@ -195,6 +195,12 @@ extension ComposeViewController {
 
 extension ComposeViewController {
 
+    private var mediaAttachmentViewModelsWithoutCaption: [AttachmentViewModel] {
+        get {
+            composeContentViewModel.attachmentViewModels.filter({ $0.caption.isEmpty })
+        }
+    }
+
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
         guard composeContentViewModel.shouldDismiss else {
             showDismissConfirmAlertController()
@@ -215,7 +221,7 @@ extension ComposeViewController {
             return
         }
         
-        let attachmentsWithoutCaptionCount = composeContentViewModel.attachmentViewModels.filter({ $0.caption.isEmpty }).count
+        let attachmentsWithoutCaptionCount = mediaAttachmentViewModelsWithoutCaption.count
 
         if UserDefaults.shared.askBeforePostingWithoutAltText && attachmentsWithoutCaptionCount > 0 {
             let alertController = UIAlertController(
@@ -264,6 +270,28 @@ extension ComposeViewController {
             return
         }
 
+        let attachmentsWithoutCaptionCount = mediaAttachmentViewModelsWithoutCaption.count
+
+        if UserDefaults.shared.askBeforePostingWithoutAltText && attachmentsWithoutCaptionCount > 0 {
+            let alertController = UIAlertController(
+                title: L10n.Common.Alerts.MediaMissingAltText.title,
+                message: L10n.Common.Alerts.MediaMissingAltText.message(attachmentsWithoutCaptionCount),
+                preferredStyle: .alert
+            )
+            let cancelAction = UIAlertAction(title: L10n.Common.Alerts.MediaMissingAltText.cancel, style: .default, handler: nil)
+            alertController.addAction(cancelAction)
+            let confirmAction = UIAlertAction(title: L10n.Common.Alerts.MediaMissingAltText.post, style: .default) { [weak self] action in
+                self?.enqueuePublishStatus()
+            }
+            alertController.addAction(confirmAction)
+            _ = coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            return
+        }
+        
+        enqueuePublishStatus()
+    }
+    
+    private func enqueuePublishStatusEdit() {
         do {
             guard let editStatusPublisher = try composeContentViewModel.statusEditPublisher() else { return }
             viewModel.context.publisherService.enqueue(
@@ -277,7 +305,6 @@ extension ComposeViewController {
         }
 
         dismiss(animated: true, completion: nil)
-
     }
 }
 
