@@ -105,7 +105,6 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
         view.setContentHuggingPriority(.required - 1, for: .vertical)
 
         view.backgroundColor = .systemBackground

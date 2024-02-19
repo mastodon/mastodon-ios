@@ -144,7 +144,7 @@ extension Mastodon.Entity.Account {
     }
 
     public func avatarImageURLWithFallback(domain: String) -> URL {
-        return avatarImageURL() ?? URL(string: "https://\(domain)/avatars/original/missing.png")!
+        return avatarImageURL() ?? URL(string: "https://\(domain)/avatars/original/\(Self.missingImageName)")!
     }
 
     public var displayNameWithFallback: String {
@@ -162,4 +162,8 @@ extension Mastodon.Entity.Account {
         }
     }
 
+}
+
+extension Mastodon.Entity.Account {
+    public static let missingImageName = "missing.png"
 }
