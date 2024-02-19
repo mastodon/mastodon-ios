@@ -10,7 +10,9 @@ class GeneralSettingSelectionCell: UITableViewCell {
         switch setting {
         case .appearance(let appearanceSetting):
             configureAppearanceSetting(appearanceSetting: appearanceSetting, viewModel: viewModel)
-        case .design(_):
+        case .askBefore:
+            assertionFailure("Not required here")
+        case .design:
             // only for appearance and open links
             assertionFailure("Wrong Setting!")
         case .openLinksIn(let openLinkSetting):

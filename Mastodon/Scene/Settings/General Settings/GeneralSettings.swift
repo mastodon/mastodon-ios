@@ -10,6 +10,7 @@ struct GeneralSettingsSection: Hashable {
 
 enum GeneralSettingsSectionType: Hashable {
     case appearance
+    case askBefore
     case design
     case links
 
@@ -17,6 +18,8 @@ enum GeneralSettingsSectionType: Hashable {
         switch self {
         case .appearance:
             return L10n.Scene.Settings.General.Appearance.sectionTitle
+        case .askBefore:
+            return L10n.Scene.Settings.General.AskBefore.sectionTitle
         case .design:
             return L10n.Scene.Settings.General.Design.sectionTitle
         case .links:
@@ -28,6 +31,7 @@ enum GeneralSettingsSectionType: Hashable {
 enum GeneralSetting: Hashable {
 
     case appearance(Appearance)
+    case askBefore(AskBefore)
     case design(Design)
     case openLinksIn(OpenLinksIn)
 
@@ -49,6 +53,27 @@ enum GeneralSetting: Hashable {
 
         var interfaceStyle: UIUserInterfaceStyle {
             .init(rawValue: rawValue) ?? .unspecified
+        }
+    }
+    
+    enum AskBefore: Hashable {
+        case postingWithoutAltText
+        case unfollowingSomeone
+        case boostingAPost
+        case deletingAPost
+        
+        var title: String {
+            switch self {
+            case .postingWithoutAltText:
+                return L10n.Scene.Settings.General.AskBefore.postingWithoutAltText
+            case .unfollowingSomeone:
+                return L10n.Scene.Settings.General.AskBefore.unfollowingSomeone
+            case .boostingAPost:
+                return L10n.Scene.Settings.General.AskBefore.boostingAPost
+            case .deletingAPost:
+                return L10n.Scene.Settings.General.AskBefore.deletingAPost
+
+            }
         }
     }
 

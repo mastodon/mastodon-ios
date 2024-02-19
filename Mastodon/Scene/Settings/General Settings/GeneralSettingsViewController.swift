@@ -9,6 +9,10 @@ struct GeneralSettingsViewModel {
     var selectedAppearence: GeneralSetting.Appearance
     var playAnimations: Bool
     var selectedOpenLinks: GeneralSetting.OpenLinksIn
+    var askBeforePostingWithoutAltText: Bool
+    var askBeforeUnfollowingSomeone: Bool
+    var askBeforeBoostingAPost: Bool
+    var askBeforeDeletingAPost: Bool
 }
 
 protocol GeneralSettingsViewControllerDelegate: AnyObject {
@@ -39,6 +43,12 @@ class GeneralSettingsViewController: UIViewController {
                 .appearance(.dark),
                 .appearance(.system)
             ]),
+            GeneralSettingsSection(type: .askBefore, entries: [
+                .askBefore(.postingWithoutAltText),
+                .askBefore(.unfollowingSomeone),
+                .askBefore(.boostingAPost),
+                .askBefore(.deletingAPost)
+            ]),
             GeneralSettingsSection(type: .design, entries: [
                 .design(.showAnimations)
             ]),
@@ -58,7 +68,11 @@ class GeneralSettingsViewController: UIViewController {
         viewModel = GeneralSettingsViewModel(
             selectedAppearence: GeneralSetting.Appearance(rawValue: UserDefaults.shared.customUserInterfaceStyle.rawValue) ?? .system,
             playAnimations: playAnimations,
-            selectedOpenLinks: openLinksIn
+            selectedOpenLinks: openLinksIn,
+            askBeforePostingWithoutAltText: UserDefaults.shared.askBeforePostingWithoutAltText,
+            askBeforeUnfollowingSomeone: UserDefaults.shared.askBeforeUnfollowingSomeone,
+            askBeforeBoostingAPost: UserDefaults.shared.askBeforeBoostingAPost,
+            askBeforeDeletingAPost: UserDefaults.shared.askBeforeDeletingAPost
         )
 
         self.setting = setting
@@ -75,6 +89,12 @@ class GeneralSettingsViewController: UIViewController {
 
                 selectionCell.configure(with: .appearance(setting), viewModel: self.viewModel)
                 cell = selectionCell
+            case .askBefore(let setting):
+                guard let toggleCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingToggleTableViewCell.reuseIdentifier, for: indexPath) as? GeneralSettingToggleTableViewCell else { fatalError("WTF? Wrong Cell!") }
+                toggleCell.configure(with: .askBefore(setting), viewModel: self.viewModel)
+                toggleCell.delegate = self
+
+                cell = toggleCell
             case .design(let setting):
                 guard let toggleCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingToggleTableViewCell.reuseIdentifier, for: indexPath) as? GeneralSettingToggleTableViewCell else { fatalError("WTF? Wrong Cell!") }
 
@@ -126,25 +146,33 @@ extension GeneralSettingsViewController: UITableViewDelegate {
         let section = sections[indexPath.section].entries[indexPath.row]
 
         switch section {
-            case .appearance(let appearanceOption):
-                viewModel.selectedAppearence = appearanceOption
+        case .appearance(let appearanceOption):
+            viewModel.selectedAppearence = appearanceOption
 
-                if let snapshot = tableViewDataSource?.snapshot() {
-                    tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
-                }
-            case .design(let design):
-                guard let cell = tableView.cellForRow(at: indexPath) as? GeneralSettingToggleTableViewCell else { return}
+            if let snapshot = tableViewDataSource?.snapshot() {
+                tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
+            }
+        
+        case .askBefore(let askBefore):
+            guard let cell = tableView.cellForRow(at: indexPath) as? GeneralSettingToggleTableViewCell else { return}
 
-                let newValue = (cell.toggle.isOn == false)
-                cell.toggle.setOn(newValue, animated: true)
+            let newValue = (cell.toggle.isOn == false)
+            cell.toggle.setOn(newValue, animated: true)
 
-                toggle(cell, setting: .design(design), isOn: newValue)
-            case .openLinksIn(let openLinksInOption):
-                viewModel.selectedOpenLinks = openLinksInOption
+            toggle(cell, setting: .askBefore(askBefore), isOn: newValue)
+        case .design(let design):
+            guard let cell = tableView.cellForRow(at: indexPath) as? GeneralSettingToggleTableViewCell else { return}
 
-                if let snapshot = tableViewDataSource?.snapshot() {
-                    tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
-                }
+            let newValue = (cell.toggle.isOn == false)
+            cell.toggle.setOn(newValue, animated: true)
+
+            toggle(cell, setting: .design(design), isOn: newValue)
+        case .openLinksIn(let openLinksInOption):
+            viewModel.selectedOpenLinks = openLinksInOption
+
+            if let snapshot = tableViewDataSource?.snapshot() {
+                tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
+            }
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -155,13 +183,24 @@ extension GeneralSettingsViewController: UITableViewDelegate {
 extension GeneralSettingsViewController: GeneralSettingToggleTableViewCellDelegate {
     func toggle(_ cell: GeneralSettingToggleTableViewCell, setting: GeneralSetting, isOn: Bool) {
         switch setting {
-            case .appearance(_), .openLinksIn(_):
-                assertionFailure("No toggle")
-            case .design(let designSetting):
-                switch designSetting {
-                    case .showAnimations:
-                        viewModel.playAnimations = isOn
-                }
+        case .appearance(_), .openLinksIn(_):
+            assertionFailure("No toggle")
+        case let .askBefore(askBefore):
+            switch askBefore {
+            case .postingWithoutAltText:
+                UserDefaults.shared.askBeforePostingWithoutAltText = isOn
+            case .unfollowingSomeone:
+                UserDefaults.shared.askBeforeUnfollowingSomeone = isOn
+            case .boostingAPost:
+                UserDefaults.shared.askBeforeBoostingAPost = isOn
+            case .deletingAPost:
+                UserDefaults.shared.askBeforeDeletingAPost = isOn
+            }
+        case let .design(designSetting):
+            switch designSetting {
+            case .showAnimations:
+                viewModel.playAnimations = isOn
+            }
         }
 
         delegate?.save(self, setting: self.setting, viewModel: viewModel)

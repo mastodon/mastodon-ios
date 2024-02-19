@@ -215,12 +215,30 @@ extension ComposeViewController {
             return
         }
         
+        let attachmentsWithoutCaptionCount = composeContentViewModel.attachmentViewModels.filter({ $0.caption.isEmpty }).count
+
+        if UserDefaults.shared.askBeforePostingWithoutAltText && attachmentsWithoutCaptionCount > 0 {
+            let alertController = UIAlertController(
+                title: L10n.Common.Alerts.MediaMissingAltText.title,
+                message: L10n.Common.Alerts.MediaMissingAltText.message(attachmentsWithoutCaptionCount),
+                preferredStyle: .alert
+            )
+            let cancelAction = UIAlertAction(title: L10n.Common.Alerts.MediaMissingAltText.cancel, style: .default, handler: nil)
+            alertController.addAction(cancelAction)
+            let confirmAction = UIAlertAction(title: L10n.Common.Alerts.MediaMissingAltText.post, style: .default) { [weak self] action in
+                self?.enqueuePublishStatus()
+            }
+            alertController.addAction(confirmAction)
+            _ = coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            return
+        }
+        
+        enqueuePublishStatus()
+    }
+    
+    private func enqueuePublishStatus() {
         do {
             let statusPublisher = try composeContentViewModel.statusPublisher()
-            // let result = try await statusPublisher.publish(api: context.apiService, authContext: viewModel.authContext)
-            // if let reactor = presentingViewController?.topMostNotModal as? StatusPublisherReactor {
-            //     statusPublisher.reactor = reactor
-            // }
             viewModel.context.publisherService.enqueue(
                 statusPublisher: statusPublisher,
                 authContext: viewModel.authContext
@@ -230,10 +248,10 @@ extension ComposeViewController {
             present(alertController, animated: true)
             return
         }
-
+        
         dismiss(animated: true, completion: nil)
     }
-
+    
     @objc
     private func publishStatusEdit(_ sender: Any) {
         do {

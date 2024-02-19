@@ -12,7 +12,7 @@ import MastodonCore
 import MastodonUI
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     let appContext = AppContext()
 

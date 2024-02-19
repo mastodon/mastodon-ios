@@ -46,6 +46,19 @@ public enum L10n {
         /// Edit Profile Error
         public static let title = L10n.tr("Localizable", "Common.Alerts.EditProfileFailure.Title", fallback: "Edit Profile Error")
       }
+      public enum MediaMissingAltText {
+        /// Cancel
+        public static let cancel = L10n.tr("Localizable", "Common.Alerts.MediaMissingAltText.Cancel", fallback: "Cancel")
+        /// %d of your images are missing alt text.
+        /// Post Anyway?
+        public static func message(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.MediaMissingAltText.Message", p1, fallback: "%d of your images are missing alt text.\nPost Anyway?")
+        }
+        /// Post
+        public static let post = L10n.tr("Localizable", "Common.Alerts.MediaMissingAltText.Post", fallback: "Post")
+        /// Media Missing Alt Text
+        public static let title = L10n.tr("Localizable", "Common.Alerts.MediaMissingAltText.Title", fallback: "Media Missing Alt Text")
+      }
       public enum PublishPostFailure {
         /// Failed to publish the post.
         /// Please check your internet connection.
@@ -1458,6 +1471,18 @@ public enum L10n {
           public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Appearance.SectionTitle", fallback: "Appearance")
           /// Use Device Appearance
           public static let system = L10n.tr("Localizable", "Scene.Settings.General.Appearance.System", fallback: "Use Device Appearance")
+        }
+        public enum AskBefore {
+          /// Boosting a Post
+          public static let boostingAPost = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.BoostingAPost", fallback: "Boosting a Post")
+          /// Deleting a Post
+          public static let deletingAPost = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.DeletingAPost", fallback: "Deleting a Post")
+          /// Posting without Alt Text
+          public static let postingWithoutAltText = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.PostingWithoutAltText", fallback: "Posting without Alt Text")
+          /// Ask before…
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.SectionTitle", fallback: "Ask before…")
+          /// Unfollowing Someone
+          public static let unfollowingSomeone = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.UnfollowingSomeone", fallback: "Unfollowing Someone")
         }
         public enum Design {
           /// Design
