@@ -235,25 +235,21 @@ extension DataSourceFacade {
             alertController.addAction(cancelAction)
             dependency.present(alertController, animated: true)
         case .reportUser:
-            Task {
+            guard let relationship = try? await dependency.context.apiService.relationship(forAccounts: [menuContext.author], authenticationBox: dependency.authContext.mastodonAuthenticationBox).value.first else { return }
 
-                guard let relationship = try? await dependency.context.apiService.relationship(forAccounts: [menuContext.author], authenticationBox: dependency.authContext.mastodonAuthenticationBox).value.first else { return }
+            let reportViewModel = ReportViewModel(
+                context: dependency.context,
+                authContext: dependency.authContext,
+                account: menuContext.author,
+                relationship: relationship,
+                status: menuContext.statusViewModel?.originalStatus
+            )
 
-                let reportViewModel = ReportViewModel(
-                    context: dependency.context,
-                    authContext: dependency.authContext,
-                    account: menuContext.author,
-                    relationship: relationship,
-                    status: menuContext.statusViewModel?.originalStatus
-                )
-                
-                _ = dependency.coordinator.present(
-                    scene: .report(viewModel: reportViewModel),
-                    from: dependency,
-                    transition: .modal(animated: true, completion: nil)
-                )
-            }   // end Task
-                
+            _ = dependency.coordinator.present(
+                scene: .report(viewModel: reportViewModel),
+                from: dependency,
+                transition: .modal(animated: true, completion: nil)
+            )
         case .shareUser:
             let activityViewController = DataSourceFacade.createActivityViewController(
                 dependency: dependency,
@@ -270,7 +266,6 @@ extension DataSourceFacade {
                 transition: .activityViewControllerPresent(animated: true, completion: nil)
             )
         case .bookmarkStatus:
-            Task {
                 guard let status = menuContext.statusViewModel?.originalStatus else {
                     assertionFailure()
                     return
@@ -279,29 +274,26 @@ extension DataSourceFacade {
                     provider: dependency,
                     status: status
                 )
-            }   // end Task
         case .shareStatus:
-            Task {
-                guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
-                    assertionFailure()
-                    return
-                }
+            guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
+                assertionFailure()
+                return
+            }
 
-                let activityViewController = try await DataSourceFacade.createActivityViewController(
-                    dependency: dependency,
-                    status: status
-                )
-                
-                _ = dependency.coordinator.present(
-                    scene: .activityViewController(
-                        activityViewController: activityViewController,
-                        sourceView: menuContext.button,
-                        barButtonItem: menuContext.barButtonItem
-                    ),
-                    from: dependency,
-                    transition: .activityViewControllerPresent(animated: true, completion: nil)
-                )
-            }   // end Task
+            let activityViewController = try await DataSourceFacade.createActivityViewController(
+                dependency: dependency,
+                status: status
+            )
+
+            _ = dependency.coordinator.present(
+                scene: .activityViewController(
+                    activityViewController: activityViewController,
+                    sourceView: menuContext.button,
+                    barButtonItem: menuContext.barButtonItem
+                ),
+                from: dependency,
+                transition: .activityViewControllerPresent(animated: true, completion: nil)
+            )
         case .deleteStatus:
             let alertController = UIAlertController(
                 title: L10n.Common.Alerts.DeletePost.title,
@@ -358,7 +350,7 @@ extension DataSourceFacade {
             // do nothing, as the translation is reverted in `StatusTableViewCellDelegate` in `DataSourceProvider+StatusTableViewCellDelegate.swift`.
             break
         case .followUser(_):
-            try await DataSourceFacade.responseToUserFollowAction(dependency: dependency,
+            _ = try await DataSourceFacade.responseToUserFollowAction(dependency: dependency,
                                                                   account: menuContext.author)
         case .blockDomain(let context):
             let title: String
