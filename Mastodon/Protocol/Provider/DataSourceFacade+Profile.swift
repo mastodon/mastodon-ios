@@ -101,8 +101,14 @@ extension DataSourceFacade {
         provider: ViewControllerWithDependencies & AuthContextProvider,
         account: Mastodon.Entity.Account
     ) async {
+        provider.coordinator.showLoading()
+
         guard let me = provider.authContext.mastodonAuthenticationBox.authentication.account(),
-              let relationship = try? await provider.context.apiService.relationship(forAccounts: [account], authenticationBox: provider.authContext.mastodonAuthenticationBox).value.first else { return }
+              let relationship = try? await provider.context.apiService.relationship(forAccounts: [account], authenticationBox: provider.authContext.mastodonAuthenticationBox).value.first else {
+            return provider.coordinator.hideLoading()
+        }
+
+        provider.coordinator.hideLoading()
 
         let profileViewModel = ProfileViewModel(
             context: provider.context,
@@ -155,17 +161,6 @@ extension DataSourceFacade {
 }
 
 extension DataSourceFacade {
-    
-    struct ProfileActionMenuContext {
-        let isMuting: Bool
-        let isBlocking: Bool
-        let isMyself: Bool
-        
-        let cell: UITableViewCell?
-        let sourceView: UIView?
-        let barButtonItem: UIBarButtonItem?
-    }
-    
     static func createActivityViewController(
         dependency: NeedsDependency,
         account: Mastodon.Entity.Account
