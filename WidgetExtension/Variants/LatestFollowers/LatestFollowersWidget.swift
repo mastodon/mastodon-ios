@@ -72,6 +72,7 @@ struct LatestFollowersWidget: Widget {
         .configurationDisplayName(L10n.Widget.LatestFollowers.configurationDisplayName)
         .description(L10n.Widget.LatestFollowers.configurationDescription)
         .supportedFamilies(availableFamilies)
+        .contentMarginsDisabled() // Disable excessive margins (only effective for iOS >= 17.0
     }
 }
 
