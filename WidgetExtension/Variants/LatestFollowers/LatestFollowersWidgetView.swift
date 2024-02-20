@@ -34,6 +34,7 @@ struct LatestFollowersWidgetView: View {
                 .multilineTextAlignment(.center)
                 .font(.caption)
                 .padding(.all, 20)
+                .emptyWidgetBackground()
         }
     }
     
@@ -72,6 +73,7 @@ struct LatestFollowersWidgetView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
+        .emptyWidgetBackground()
     }
     
     private func viewForMediumWidget(_ accounts: [LatestFollowersEntryAccountable], lastUpdate: Date) -> some View {
@@ -119,6 +121,7 @@ struct LatestFollowersWidgetView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
+        .emptyWidgetBackground()
     }
 }
 

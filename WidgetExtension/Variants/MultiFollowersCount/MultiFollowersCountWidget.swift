@@ -65,6 +65,7 @@ struct MultiFollowersCountWidget: Widget {
         .configurationDisplayName(L10n.Widget.MultipleFollowers.configurationDisplayName)
         .description(L10n.Widget.MultipleFollowers.configurationDescription)
         .supportedFamilies(availableFamilies)
+        .contentMarginsDisabled() // Disable excessive margins (only effective for iOS >= 17.0
     }
 }
 
