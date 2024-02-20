@@ -84,13 +84,11 @@ class ProfileViewModel: NSObject {
         self.profileAboutViewModel = ProfileAboutViewModel(context: context, account: account)
         super.init()
 
-        // bind user
-        $account
-            .map { user -> UserIdentifier? in
-                guard let domain = account.domain else { return nil }
-                return MastodonUserIdentifier(domain: domain, userID: account.id)
-            }
-            .assign(to: &$userIdentifier)
+        if let domain = account.domain {
+            userIdentifier = MastodonUserIdentifier(domain: domain, userID: account.id)
+        } else {
+            userIdentifier = nil
+        }
 
         // bind userIdentifier
         $userIdentifier.assign(to: &postsUserTimelineViewModel.$userIdentifier)

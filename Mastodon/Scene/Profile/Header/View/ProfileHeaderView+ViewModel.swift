@@ -56,12 +56,6 @@ extension ProfileHeaderView {
             self.account = account
             self.me = me
             self.relationship = relationship
-
-            #warning("TODO: Implement")
-//            $relationshipActionOptionSet
-//                .compactMap { $0.highPriorityAction(except: []) }
-//                .map { $0 == .none }
-//                .assign(to: &$isRelationshipActionButtonHidden)
         }
     }
 }
