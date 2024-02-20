@@ -25,6 +25,7 @@ struct MultiFollowersCountWidgetView: View {
                 .multilineTextAlignment(.center)
                 .font(.caption)
                 .padding(.all, 20)
+                .emptyWidgetBackground()
         }
     }
     
@@ -55,6 +56,7 @@ struct MultiFollowersCountWidgetView: View {
             Spacer()
         }
         .padding(.vertical, 16)
+        .emptyWidgetBackground()
     }
     
     private func viewForMediumWidget(_ accounts: [MultiFollowersEntryAccountable]) -> some View {
@@ -89,5 +91,6 @@ struct MultiFollowersCountWidgetView: View {
             Spacer()
         }
         .padding(.vertical, 16)
+        .emptyWidgetBackground()
     }
 }

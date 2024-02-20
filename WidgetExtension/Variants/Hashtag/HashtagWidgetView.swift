@@ -65,6 +65,7 @@ struct HashtagWidgetView: View {
             }
         }
         .padding(EdgeInsets(top: 12, leading: 29, bottom: 12, trailing: 29))
+        .emptyWidgetBackground()
     }
 
     private func viewForRectangularAccessory() -> some View {
@@ -86,6 +87,7 @@ struct HashtagWidgetView: View {
             Text(statusWithColorHashtags: entry.hashtag.content, fontSize: 11, fontWeight: .medium)
                 .lineLimit(3)
         }
+        .emptyWidgetBackground()
     }
 }
 

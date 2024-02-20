@@ -34,6 +34,7 @@ struct FollowersCountWidgetView: View {
                 .multilineTextAlignment(.center)
                 .font(.caption)
                 .padding(.all, 20)
+                .emptyWidgetBackground()
         }
     }
     
@@ -66,6 +67,7 @@ struct FollowersCountWidgetView: View {
             .padding(.vertical, 16)
             Spacer()
         }
+        .emptyWidgetBackground()
     }
     
     private func viewForSmallWidgetYesChart(_ account: FollowersEntryAccountable) -> some View {
@@ -125,6 +127,7 @@ struct FollowersCountWidgetView: View {
             }
         }
         .padding(.top, 16)
+        .emptyWidgetBackground()
     }
     
     private func viewForAccessoryRectangular(_ account: FollowersEntryAccountable) -> some View {
@@ -144,11 +147,11 @@ struct FollowersCountWidgetView: View {
             }
             Spacer()
         }
+        .emptyWidgetBackground()
     }
     
     private func viewForAccessoryCircular(_ account :FollowersEntryAccountable) -> some View {
         ZStack {
-            AccessoryWidgetBackground()
             VStack {
                 Image("BrandIcon")
 
@@ -158,5 +161,6 @@ struct FollowersCountWidgetView: View {
                     .truncationMode(.tail)
             }
         }
+        .widgetBackground(AccessoryWidgetBackground())
     }
 }
