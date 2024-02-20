@@ -803,7 +803,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
             let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblock, style: .default) { [weak self] _ in
                 guard let self else { return }
                 Task {
-                    let newRelationship = try await DataSourceFacade.responseToUserBlockAction(
+                    _ = try await DataSourceFacade.responseToUserBlockAction(
                         dependency: self,
                         account: account
                     )
