@@ -27,7 +27,7 @@ class GeneralSettingToggleTableViewCell: ToggleTableViewCell {
         self.setting = setting
 
         switch setting {
-        case .appearance(_), .openLinksIn(_):
+        case .appearance, .openLinksIn, .language:
             assertionFailure("Not required here")
         case let .askBefore(askBefore):
             label.text = askBefore.title

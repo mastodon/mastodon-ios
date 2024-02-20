@@ -1502,6 +1502,12 @@ public enum L10n {
           /// Play Animated Avatars and Emoji
           public static let showAnimations = L10n.tr("Localizable", "Scene.Settings.General.Design.ShowAnimations", fallback: "Play Animated Avatars and Emoji")
         }
+        public enum Language {
+          /// Default Post Language
+          public static let defaultPostLanguage = L10n.tr("Localizable", "Scene.Settings.General.Language.DefaultPostLanguage", fallback: "Default Post Language")
+          /// Language
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Language.SectionTitle", fallback: "Language")
+        }
         public enum Links {
           /// Open in Browser
           public static let openInBrowser = L10n.tr("Localizable", "Scene.Settings.General.Links.OpenInBrowser", fallback: "Open in Browser")

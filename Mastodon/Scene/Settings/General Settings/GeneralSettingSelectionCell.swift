@@ -8,14 +8,16 @@ class GeneralSettingSelectionCell: UITableViewCell {
 
     func configure(with setting: GeneralSetting, viewModel: GeneralSettingsViewModel) {
         switch setting {
-        case .appearance(let appearanceSetting):
+        case let .appearance(appearanceSetting):
             configureAppearanceSetting(appearanceSetting: appearanceSetting, viewModel: viewModel)
         case .askBefore:
             assertionFailure("Not required here")
         case .design:
             // only for appearance and open links
             assertionFailure("Wrong Setting!")
-        case .openLinksIn(let openLinkSetting):
+        case let .language(setting):
+            configureLanguageSetting(setting, viewModel: viewModel)
+        case let .openLinksIn(openLinkSetting):
             configureOpenLinkSetting(openLinkSetting: openLinkSetting, viewModel: viewModel)
         }
     }
@@ -44,6 +46,17 @@ class GeneralSettingSelectionCell: UITableViewCell {
         } else {
             accessoryType = .none
         }
+
+        contentConfiguration = content
+    }
+    
+    private func configureLanguageSetting(_ setting: GeneralSetting.Language, viewModel: GeneralSettingsViewModel) {
+        var content = defaultContentConfiguration()
+        content.text = setting.title
+        tintColor = Asset.Colors.Brand.blurple.color
+
+        content.secondaryText = viewModel.defaultPostLanguage
+        content.prefersSideBySideTextAndSecondaryText = true
 
         contentConfiguration = content
     }

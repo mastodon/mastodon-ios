@@ -13,6 +13,7 @@ struct GeneralSettingsViewModel {
     var askBeforeUnfollowingSomeone: Bool
     var askBeforeBoostingAPost: Bool
     var askBeforeDeletingAPost: Bool
+    var defaultPostLanguage: String
 }
 
 protocol GeneralSettingsViewControllerDelegate: AnyObject {
@@ -52,6 +53,9 @@ class GeneralSettingsViewController: UIViewController {
             GeneralSettingsSection(type: .design, entries: [
                 .design(.showAnimations)
             ]),
+            GeneralSettingsSection(type: .language, entries: [
+                .language(.defaultPostLanguage)
+            ]),
             GeneralSettingsSection(type: .links, entries: [
                 .openLinksIn(.mastodon),
                 .openLinksIn(.browser),
@@ -72,7 +76,8 @@ class GeneralSettingsViewController: UIViewController {
             askBeforePostingWithoutAltText: UserDefaults.shared.askBeforePostingWithoutAltText,
             askBeforeUnfollowingSomeone: UserDefaults.shared.askBeforeUnfollowingSomeone,
             askBeforeBoostingAPost: UserDefaults.shared.askBeforeBoostingAPost,
-            askBeforeDeletingAPost: UserDefaults.shared.askBeforeDeletingAPost
+            askBeforeDeletingAPost: UserDefaults.shared.askBeforeDeletingAPost,
+            defaultPostLanguage: UserDefaults.standard.defaultPostLanguage
         )
 
         self.setting = setting
@@ -102,6 +107,11 @@ class GeneralSettingsViewController: UIViewController {
                 toggleCell.delegate = self
 
                 cell = toggleCell
+            case let .language(setting):
+                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingSelectionCell.reuseIdentifier, for: indexPath) as? GeneralSettingSelectionCell else { fatalError("WTF? Wrong Cell!") }
+
+                selectionCell.configure(with: .language(setting), viewModel: self.viewModel)
+                cell = selectionCell
             case .openLinksIn(let setting):
                 guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingSelectionCell.reuseIdentifier, for: indexPath) as? GeneralSettingSelectionCell else { fatalError("WTF? Wrong Cell!") }
 
@@ -167,6 +177,8 @@ extension GeneralSettingsViewController: UITableViewDelegate {
             cell.toggle.setOn(newValue, animated: true)
 
             toggle(cell, setting: .design(design), isOn: newValue)
+        case let .language(language):
+            assertionFailure("show language picker")
         case .openLinksIn(let openLinksInOption):
             viewModel.selectedOpenLinks = openLinksInOption
 
@@ -183,7 +195,7 @@ extension GeneralSettingsViewController: UITableViewDelegate {
 extension GeneralSettingsViewController: GeneralSettingToggleTableViewCellDelegate {
     func toggle(_ cell: GeneralSettingToggleTableViewCell, setting: GeneralSetting, isOn: Bool) {
         switch setting {
-        case .appearance(_), .openLinksIn(_):
+        case .appearance, .openLinksIn, .language:
             assertionFailure("No toggle")
         case let .askBefore(askBefore):
             switch askBefore {

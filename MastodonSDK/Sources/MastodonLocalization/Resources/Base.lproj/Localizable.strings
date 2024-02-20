@@ -519,6 +519,8 @@ uploaded to Mastodon.";
 "Scene.Settings.General.AskBefore.DeletingAPost" = "Deleting a Post";
 "Scene.Settings.General.Design.SectionTitle" = "Design";
 "Scene.Settings.General.Design.ShowAnimations" = "Play Animated Avatars and Emoji";
+"Scene.Settings.General.Language.SectionTitle" = "Language";
+"Scene.Settings.General.Language.DefaultPostLanguage" = "Default Post Language";
 "Scene.Settings.General.Links.OpenInBrowser" = "Open in Browser";
 "Scene.Settings.General.Links.OpenInMastodon" = "Open in Mastodon";
 "Scene.Settings.General.Links.SectionTitle" = "Links";

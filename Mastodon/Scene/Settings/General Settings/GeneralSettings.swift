@@ -12,6 +12,7 @@ enum GeneralSettingsSectionType: Hashable {
     case appearance
     case askBefore
     case design
+    case language
     case links
 
     var sectionTitle: String {
@@ -22,6 +23,8 @@ enum GeneralSettingsSectionType: Hashable {
             return L10n.Scene.Settings.General.AskBefore.sectionTitle
         case .design:
             return L10n.Scene.Settings.General.Design.sectionTitle
+        case .language:
+            return L10n.Scene.Settings.General.Language.sectionTitle
         case .links:
             return L10n.Scene.Settings.General.Links.sectionTitle
         }
@@ -33,6 +36,7 @@ enum GeneralSetting: Hashable {
     case appearance(Appearance)
     case askBefore(AskBefore)
     case design(Design)
+    case language(Language)
     case openLinksIn(OpenLinksIn)
 
     enum Appearance: Int, CaseIterable {
@@ -84,6 +88,17 @@ enum GeneralSetting: Hashable {
             switch self {
             case .showAnimations:
                 return L10n.Scene.Settings.General.Design.showAnimations
+            }
+        }
+    }
+    
+    enum Language: Hashable {
+        case defaultPostLanguage
+        
+        var title: String {
+            switch self {
+            case .defaultPostLanguage:
+                return L10n.Scene.Settings.General.Language.defaultPostLanguage
             }
         }
     }

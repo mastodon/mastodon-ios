@@ -775,6 +775,10 @@
                     "section_title": "Design",
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
+                "language": {
+                    "section_title": "Language",
+                    "default_post_language": "Default Post Language"
+                },
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
