@@ -409,7 +409,6 @@ extension ProfileViewController {
 
                     guard let relationship else { return }
 
-                    // they don't run as there's not a change, probably?
                     self.viewModel.relationship = relationship
                     self.viewModel.account  = account
                 }

@@ -46,7 +46,6 @@ final class DiscoveryPostsViewModel {
         self.context = context
         self.authContext = authContext
         self.dataController = StatusDataController()
-            // end init
         
         Task {
             await checkServerEndpoint()

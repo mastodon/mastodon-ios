@@ -25,7 +25,6 @@ extension NotificationTimelineViewController: DataSourceProvider {
             let item: DataSourceItem? = {
                 guard feed.kind == .notificationAll || feed.kind == .notificationMentions else { return nil }
                 
-                //TODO: Get relationship
                 if let notification = feed.notification {
                     let mastodonNotification = MastodonNotification.fromEntity(notification, relationship: nil)
                     return .notification(record: mastodonNotification)

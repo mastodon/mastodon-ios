@@ -127,17 +127,17 @@ extension MainTabBarController {
             .sink { [weak self] error in
                 guard let self, let coordinator = self.coordinator else { return }
                 switch error {
-                    case .implicit:
-                        break
-                    case .explicit:
-                        let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alertController.addAction(okAction)
-                        _ = coordinator.present(
-                            scene: .alertController(alertController: alertController),
-                            from: nil,
-                            transition: .alertController(animated: true, completion: nil)
-                        )
+                case .implicit:
+                    break
+                case .explicit:
+                    let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    _ = coordinator.present(
+                        scene: .alertController(alertController: alertController),
+                        from: nil,
+                        transition: .alertController(animated: true, completion: nil)
+                    )
                 }
             }
             .store(in: &disposeBag)

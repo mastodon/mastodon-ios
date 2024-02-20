@@ -74,12 +74,12 @@ extension SidebarViewModel {
 
             let imageURL: URL?
             switch item {
-                case .me:
-                    let account = self.authContext?.mastodonAuthenticationBox.authentication.account()
-                    imageURL = account?.avatarImageURL()
-                case .home, .search, .compose, .notifications:
-                    // no custom avatar for other tabs
-                    imageURL = nil
+            case .me:
+                let account = self.authContext?.mastodonAuthenticationBox.authentication.account()
+                imageURL = account?.avatarImageURL()
+            case .home, .search, .compose, .notifications:
+                // no custom avatar for other tabs
+                imageURL = nil
             }
 
             cell.item = SidebarListContentView.Item(

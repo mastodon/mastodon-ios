@@ -57,7 +57,7 @@ extension ProfileCardView.ViewModel {
     private func bindHeader(view: ProfileCardView) {
         $authorBannerImageURL
             .sink { url in
-                guard let url = url, !url.absoluteString.hasSuffix(Mastodon.Entity.Account.missingImageName) else {
+                guard let url, !url.absoluteString.hasSuffix(Mastodon.Entity.Account.missingImageName) else {
                     view.bannerImageView.image = .placeholder(color: .systemGray3)
                     return
                 }

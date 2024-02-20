@@ -56,7 +56,6 @@ final class NotificationTimelineViewModel {
 
         switch scope {
         case .everything:
-            //TODO: I need the relationship here, too
             self.dataController.records = (try? FileManager.default.cachedNotificationsAll(for: authContext.mastodonAuthenticationBox))?.map({ notification in
                 MastodonFeed.fromNotification(notification, relationship: nil, kind: .notificationAll)
             }) ?? []

@@ -22,7 +22,7 @@ public enum Persistence {
     private var filename: String {
         switch self {
             case .searchHistory(let userIdentifier):
-                return "search_history_\(uniqueUserDomainIdentifier(for: userIdentifier))" // todo: @zeitschlag should this be user-scoped as well?
+                return "search_history_\(uniqueUserDomainIdentifier(for: userIdentifier))"
             case let .homeTimeline(userIdentifier):
                 return "home_timeline_\(uniqueUserDomainIdentifier(for: userIdentifier))"
             case let .notificationsMentions(userIdentifier):
