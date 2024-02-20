@@ -71,7 +71,7 @@ extension ReportStatusTableViewCell {
             statusView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
             statusView.leadingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: ReportStatusTableViewCell.statusViewLeadingSpacing),
             statusView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 24),
+            contentView.bottomAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 24).priority(.defaultHigh),
         ])
         statusView.setup(style: .report)
         

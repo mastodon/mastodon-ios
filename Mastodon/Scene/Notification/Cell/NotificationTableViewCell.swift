@@ -51,7 +51,7 @@ extension NotificationTableViewCell {
             notificationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             containerViewLeadingLayoutConstraint,
             containerViewTrailingLayoutConstraint,
-            contentView.bottomAnchor.constraint(equalTo: notificationView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: notificationView.bottomAnchor).priority(.defaultHigh),
         ])
         updateContainerViewMarginConstraints()
         
@@ -60,8 +60,8 @@ extension NotificationTableViewCell {
         NSLayoutConstraint.activate([
             separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
+            contentView.bottomAnchor.constraint(equalTo: separatorLine.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
         
         notificationView.quoteBackgroundView.backgroundColor = .secondarySystemBackground

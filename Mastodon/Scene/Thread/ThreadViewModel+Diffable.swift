@@ -132,7 +132,9 @@ extension ThreadViewModel {
                     newSnapshot: newSnapshot,
                     difference: difference
                 )
+                
                 self.hasPendingStatusEditReload = false
+                self.didLoadLatest.send()
             }   // end Task
         }
         .store(in: &disposeBag)

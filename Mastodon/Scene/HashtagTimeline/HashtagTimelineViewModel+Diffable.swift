@@ -63,7 +63,7 @@ extension HashtagTimelineViewModel {
                     }
                 }
                 
-                diffableDataSource.apply(snapshot)
+                diffableDataSource.apply(snapshot, animatingDifferences: tableView.window != nil)
             }
             .store(in: &disposeBag)
     }

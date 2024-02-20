@@ -362,7 +362,7 @@ extension NotificationView {
         
         // quoteStatusView
         containerStackView.addArrangedSubview(quoteStatusViewContainerView)
-        quoteStatusViewContainerView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+        quoteStatusViewContainerView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         quoteBackgroundView.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         quoteBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -371,7 +371,7 @@ extension NotificationView {
             quoteBackgroundView.topAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.topAnchor),
             quoteBackgroundView.leadingAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.leadingAnchor),
             quoteBackgroundView.trailingAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.trailingAnchor),
-            quoteBackgroundView.bottomAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.bottomAnchor),
+            quoteStatusViewContainerView.bottomAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.bottomAnchor, constant: 16),
         ])
         quoteBackgroundView.backgroundColor = .secondarySystemBackground
         quoteBackgroundView.layer.masksToBounds = true
@@ -386,7 +386,7 @@ extension NotificationView {
             quoteStatusView.topAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.topAnchor),
             quoteStatusView.leadingAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.leadingAnchor),
             quoteStatusView.trailingAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.trailingAnchor),
-            quoteStatusView.bottomAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.bottomAnchor),
+            quoteBackgroundView.bottomAnchor.constraint(equalTo: quoteStatusView.layoutMarginsGuide.bottomAnchor),
         ])
         quoteStatusView.setup(style: .notificationQuote)
         

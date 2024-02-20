@@ -18,8 +18,8 @@ public struct PollOptionRow: View {
     let moveUp: (() -> Void)?
     let moveDown: (() -> Void)?
     let removeOption: (() -> Void)?
-    let deleteBackwardResponseTextFieldRelayDelegate: DeleteBackwardResponseTextFieldRelayDelegate?
-    let configurationHandler: (DeleteBackwardResponseTextField) -> Void
+    let deleteBackwardResponseTextViewRelayDelegate: DeleteBackwardResponseTextViewRelayDelegate?
+    let configurationHandler: (DeleteBackwardResponseTextView) -> Void
 
     public var body: some View {
         HStack(alignment: .center, spacing: 16) {
@@ -27,24 +27,23 @@ public struct PollOptionRow: View {
                 Image(systemName: "circle")
                     .frame(width: 20, height: 20)
                     .padding(.leading, 16)
-                    .padding(.trailing, 16 - 10)     // 8pt for TextField leading
+                    .padding(.trailing, 16 - 10)     // 8pt for TextView leading
                     .font(.system(size: 17))
                     .accessibilityHidden(true)
-                let field = PollOptionTextField(
+                let textView = PollOptionEditableTextView(
                     text: $viewModel.text,
                     index: index,
-                    delegate: deleteBackwardResponseTextFieldRelayDelegate
-                ) { textField in
-                    viewModel.textField = textField
-                    configurationHandler(textField)
+                    delegate: deleteBackwardResponseTextViewRelayDelegate
+                ) { textView in
+                    viewModel.textView = textView
+                    configurationHandler(textView)
                 }
                 .onReceive(viewModel.$shouldBecomeFirstResponder) { shouldBecomeFirstResponder in
                     guard shouldBecomeFirstResponder else { return }
                     viewModel.shouldBecomeFirstResponder = false
-                    viewModel.textField?.becomeFirstResponder()
+                    viewModel.textView?.becomeFirstResponder()
                 }
-
-                field.accessibilityActions {
+                textView.accessibilityActions {
                     if let moveUp {
                         Button(L10n.Scene.Compose.Poll.moveUp, action: moveUp)
                     }

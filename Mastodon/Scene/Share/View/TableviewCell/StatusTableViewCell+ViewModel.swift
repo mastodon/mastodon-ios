@@ -51,13 +51,10 @@ extension StatusTableViewCell {
             .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak tableView, weak self] _ in
-                guard let tableView = tableView else { return }
-                guard let _ = self else { return }
+                guard let tableView, let _ = self else { return }
 
-                UIView.performWithoutAnimation {
-                    tableView.beginUpdates()
-                    tableView.endUpdates()
-                }
+                tableView.beginUpdates()
+                tableView.endUpdates()
             }
             .store(in: &disposeBag)
 

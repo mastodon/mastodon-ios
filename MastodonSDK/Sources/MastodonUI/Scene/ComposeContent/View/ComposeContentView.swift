@@ -170,7 +170,7 @@ extension ComposeContentView {
     var pollView: some View {
         VStack {
             if viewModel.isPollActive {
-                // poll option TextField
+                // poll option TextView
                 ReorderableForEach(
                     items: $viewModel.pollOptions
                 ) { $pollOption in
@@ -187,9 +187,9 @@ extension ComposeContentView {
                             removeOption: viewModel.pollOptions.count <= 2 ? nil : {
                                 viewModel.pollOptions.remove(at: _index)
                             },
-                            deleteBackwardResponseTextFieldRelayDelegate: viewModel
-                        ) { textField in
-                            viewModel.customEmojiPickerInputViewModel.configure(textInput: textField)
+                            deleteBackwardResponseTextViewRelayDelegate: viewModel
+                        ) { textView in
+                            viewModel.customEmojiPickerInputViewModel.configure(textInput: textView)
                         }
                     }
                 }

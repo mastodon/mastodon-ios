@@ -462,7 +462,6 @@ extension StatusView.ViewModel {
                 snapshot.appendItems(items, toSection: .main)
                 statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
                 
-                statusView.pollTableViewHeightLayoutConstraint.constant = CGFloat(items.count) * PollOptionTableViewCell.height
                 statusView.setPollDisplay()
             }
             .store(in: &disposeBag)

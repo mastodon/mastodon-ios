@@ -709,25 +709,25 @@ extension ComposeContentViewModel {
     
 }
 
-// MARK: - DeleteBackwardResponseTextFieldRelayDelegate
-extension ComposeContentViewModel: DeleteBackwardResponseTextFieldRelayDelegate {
+// MARK: - DeleteBackwardResponseTextViewRelayDelegate
+extension ComposeContentViewModel: DeleteBackwardResponseTextViewRelayDelegate {
 
-    func deleteBackwardResponseTextFieldDidReturn(_ textField: DeleteBackwardResponseTextField) {
-        let index = textField.tag
+    func deleteBackwardResponseTextViewDidReturn(_ textView: DeleteBackwardResponseTextView) {
+        let index = textView.tag
         if index + 1 == pollOptions.count {
             createNewPollOptionIfCould()
         } else if index < pollOptions.count {
-            pollOptions[index + 1].textField?.becomeFirstResponder()
+            pollOptions[index + 1].textView?.becomeFirstResponder()
         }
     }
     
-    func deleteBackwardResponseTextField(_ textField: DeleteBackwardResponseTextField, textBeforeDelete: String?) {
+    func deleteBackwardResponseTextView(_ textView: DeleteBackwardResponseTextView, textBeforeDelete: String?) {
         guard (textBeforeDelete ?? "").isEmpty else {
             // do nothing when not empty
             return
         }
         
-        let index = textField.tag
+        let index = textView.tag
         guard index > 0 else {
             // do nothing at first row
             return
@@ -750,7 +750,7 @@ extension ComposeContentViewModel: DeleteBackwardResponseTextFieldRelayDelegate 
         
         // move first responder
         let _option = optionBeforeRemoved() ?? optionAfterRemoved()
-        _option?.textField?.becomeFirstResponder()
+        _option?.textView?.becomeFirstResponder()
         
         guard pollOptions.count > 2 else {
             // remove item when more then 2 options

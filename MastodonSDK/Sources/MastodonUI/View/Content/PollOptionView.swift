@@ -6,19 +6,17 @@
 //
 
 import UIKit
+import SwiftUI
 import Combine
 import MastodonAsset
 import MastodonLocalization
 
 public final class PollOptionView: UIView {
     
-    public static let height: CGFloat = optionHeight + 2 * verticalMargin
-    public static let optionHeight: CGFloat = 44
+    public static let backgroundViewCornerRadius: CGFloat = 22
     public static let verticalMargin: CGFloat = 5
     public static let checkmarkImageSize = CGSize(width: 26, height: 26)
     public static let checkmarkBackgroundLeadingMargin: CGFloat = 9
-    
-    private var viewStateDisposeBag = Set<AnyCancellable>()
 
     public var disposeBag = Set<AnyCancellable>()
     public private(set) lazy var viewModel: ViewModel = {
@@ -57,13 +55,10 @@ public final class PollOptionView: UIView {
         return imageView
     }()
     
-    public let optionTextField: DeleteBackwardResponseTextField = {
-        let textField = DeleteBackwardResponseTextField()
-        textField.font = .systemFont(ofSize: 15, weight: .medium)
-        textField.textColor = Asset.Colors.Label.primary.color
-        textField.text = "Option"
-        textField.textAlignment = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight ? .left : .right
-        return textField
+    public let optionTextHostingController: UIHostingController = {
+        let hostingController = UIHostingController(rootView: PollOptionTextView(viewModel: PollOptionTextViewModel()))
+        hostingController.view.backgroundColor = .clear
+        return hostingController
     }()
     
     public let optionLabelMiddlePaddingView = UIView()
@@ -101,11 +96,10 @@ extension PollOptionView {
         roundedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(roundedBackgroundView)
         NSLayoutConstraint.activate([
-            roundedBackgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            roundedBackgroundView.topAnchor.constraint(equalTo: topAnchor, constant: PollOptionView.verticalMargin),
             roundedBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             roundedBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottomAnchor.constraint(equalTo: roundedBackgroundView.bottomAnchor, constant: 5),
-            roundedBackgroundView.heightAnchor.constraint(equalToConstant: PollOptionView.optionHeight).priority(.defaultHigh),
+            bottomAnchor.constraint(equalTo: roundedBackgroundView.bottomAnchor, constant: PollOptionView.verticalMargin),
         ])
         
         voteProgressStripView.translatesAutoresizingMaskIntoConstraints = false
@@ -115,11 +109,10 @@ extension PollOptionView {
         checkmarkBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         roundedBackgroundView.addSubview(checkmarkBackgroundView)
         NSLayoutConstraint.activate([
-            checkmarkBackgroundView.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: 9),
             checkmarkBackgroundView.leadingAnchor.constraint(equalTo: roundedBackgroundView.leadingAnchor, constant: PollOptionView.checkmarkBackgroundLeadingMargin),
-            roundedBackgroundView.bottomAnchor.constraint(equalTo: checkmarkBackgroundView.bottomAnchor, constant: 9),
-            checkmarkBackgroundView.widthAnchor.constraint(equalToConstant: PollOptionView.checkmarkImageSize.width).priority(.required - 1),
-            checkmarkBackgroundView.heightAnchor.constraint(equalToConstant: PollOptionView.checkmarkImageSize.height).priority(.required - 1),
+            checkmarkBackgroundView.centerYAnchor.constraint(equalTo: roundedBackgroundView.centerYAnchor),
+            checkmarkBackgroundView.widthAnchor.constraint(equalToConstant: PollOptionView.checkmarkImageSize.width),
+            checkmarkBackgroundView.heightAnchor.constraint(equalToConstant: PollOptionView.checkmarkImageSize.height),
         ])
         
         checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -135,18 +128,19 @@ extension PollOptionView {
         addSubview(plusCircleImageView)
         plusCircleImageView.pinTo(to: checkmarkBackgroundView)
         
-        optionTextField.translatesAutoresizingMaskIntoConstraints = false
-        roundedBackgroundView.addSubview(optionTextField)
+        optionTextHostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        roundedBackgroundView.addSubview(optionTextHostingController.view)
         NSLayoutConstraint.activate([
-            optionTextField.leadingAnchor.constraint(equalTo: checkmarkBackgroundView.trailingAnchor, constant: 14),
-            optionTextField.centerYAnchor.constraint(equalTo: roundedBackgroundView.centerYAnchor),
-            optionTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+            optionTextHostingController.view.leadingAnchor.constraint(equalTo: checkmarkBackgroundView.trailingAnchor, constant: 14),
+            optionTextHostingController.view.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: PollOptionView.verticalMargin),
+            roundedBackgroundView.bottomAnchor.constraint(equalTo: optionTextHostingController.view.bottomAnchor, constant: PollOptionView.verticalMargin),
+            optionTextHostingController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
         
         optionLabelMiddlePaddingView.translatesAutoresizingMaskIntoConstraints = false
         roundedBackgroundView.addSubview(optionLabelMiddlePaddingView)
         NSLayoutConstraint.activate([
-            optionLabelMiddlePaddingView.leadingAnchor.constraint(equalTo: optionTextField.trailingAnchor),
+            optionLabelMiddlePaddingView.leadingAnchor.constraint(equalTo: optionTextHostingController.view.trailingAnchor),
             optionLabelMiddlePaddingView.centerYAnchor.constraint(equalTo: roundedBackgroundView.centerYAnchor),
             optionLabelMiddlePaddingView.heightAnchor.constraint(equalToConstant: 4).priority(.defaultHigh),
             optionLabelMiddlePaddingView.widthAnchor.constraint(greaterThanOrEqualToConstant: 8).priority(.defaultLow),
@@ -176,14 +170,14 @@ extension PollOptionView {
             switch viewModel.voteState {
             case .reveal:
                 return [
-                    optionTextField,
+                    optionTextHostingController.view,
                     optionPercentageLabel
                 ]
                 .compactMap { $0.accessibilityLabel }
                 .joined(separator: ", ")
                 
             case .hidden:
-                return optionTextField.accessibilityLabel
+                return optionTextHostingController.view.accessibilityLabel
             }
         }
         set { }
@@ -224,7 +218,7 @@ extension PollOptionView {
 extension PollOptionView {
     private func updateCornerRadius() {
         roundedBackgroundView.layer.masksToBounds = true
-        roundedBackgroundView.layer.cornerRadius = PollOptionView.optionHeight * 0.5
+        roundedBackgroundView.layer.cornerRadius = PollOptionView.backgroundViewCornerRadius
         roundedBackgroundView.layer.cornerCurve = .circular
         
         checkmarkBackgroundView.layer.masksToBounds = true

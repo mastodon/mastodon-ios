@@ -89,7 +89,7 @@ extension SearchResultViewModel {
                 }
                 
                 diffableDataSource.defaultRowAnimation = .fade
-                diffableDataSource.apply(snapshot) { [weak self] in
+                diffableDataSource.apply(snapshot, animatingDifferences: tableView.window != nil) { [weak self] in
                     guard let self = self else { return }
                     self.didDataSourceUpdate.send()
                 }

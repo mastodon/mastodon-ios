@@ -139,9 +139,10 @@ public final class StatusView: UIView {
         metaText.textView.isEditable = false
         metaText.textView.isSelectable = false
         metaText.textView.isScrollEnabled = false
+        metaText.textView.showsHorizontalScrollIndicator = false
+        metaText.textView.showsVerticalScrollIndicator = false
         metaText.textView.textContainer.lineFragmentPadding = 0
         metaText.textView.textContainerInset = .zero
-        metaText.textView.layer.masksToBounds = false
         metaText.textView.textDragInteraction?.isEnabled = false    // disable drag for link and attachment
 
         metaText.paragraphStyle = {
@@ -175,16 +176,18 @@ public final class StatusView: UIView {
     let pollAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let pollContainerView = UIStackView()
     public let pollTableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let tableView = ContentSizedTableView(frame: .zero)
         tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
         tableView.isScrollEnabled = false
-        tableView.estimatedRowHeight = 36
+        tableView.estimatedRowHeight = 54
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.showsVerticalScrollIndicator = false
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         return tableView
     }()
-    public var pollTableViewHeightLayoutConstraint: NSLayoutConstraint!
     public var pollTableViewDiffableDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
     
     public let pollStatusStackView = UIStackView()
@@ -315,10 +318,6 @@ public final class StatusView: UIView {
         viewModel.prepareForReuse()
         
         authorView.avatarButton.avatarImageView.cancelTask()
-        if var snapshot = pollTableViewDiffableDataSource?.snapshot() {
-            snapshot.deleteAllItems()
-            pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
-        }
         
         setHeaderDisplay(isDisplay: false)
         setContentSensitiveeToggleButtonDisplay(isDisplay: false)
@@ -341,7 +340,6 @@ public final class StatusView: UIView {
         super.init(coder: coder)
         _init()
     }
-    
 }
 
 extension StatusView {
@@ -380,10 +378,6 @@ extension StatusView {
 
         // poll
         pollTableView.translatesAutoresizingMaskIntoConstraints = false
-        pollTableViewHeightLayoutConstraint = pollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
-        NSLayoutConstraint.activate([
-            pollTableViewHeightLayoutConstraint,
-        ])
         pollTableView.delegate = self
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonDidPressed(_:)), for: .touchUpInside)
         
@@ -503,11 +497,14 @@ extension StatusView.Style {
         statusView.contentAdaptiveMarginContainerView.contentView = statusView.contentContainer
         statusView.contentAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.containerStackView.addArrangedSubview(statusView.contentAdaptiveMarginContainerView)
-        statusView.contentContainer.setContentHuggingPriority(.required - 1, for: .vertical)
-        statusView.contentContainer.setContentCompressionResistancePriority(.required - 1, for: .vertical)
 
         // status content
+        statusView.contentMetaText.textView.setContentCompressionResistancePriority(.required, for: .vertical)
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
+
+        statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
+        statusView.spoilerOverlayView.pinTo(to: statusView.contentContainer)
 
         // translated info
         statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
@@ -599,8 +596,14 @@ extension StatusView.Style {
     func notificationQuote(statusView: StatusView) {
         base(statusView: statusView)      // override the base style
         
-        statusView.contentAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16     // fix bottom margin missing issue
-        statusView.pollAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16        // fix bottom margin missing issue
+        // add bottom margin
+        let padding = UIView(frame: .zero)
+        padding.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            padding.heightAnchor.constraint(equalToConstant: 16)
+        ])
+        statusView.containerStackView.addArrangedSubview(padding)
+        
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
         statusView.statusCardControl.removeFromSuperview()
     }

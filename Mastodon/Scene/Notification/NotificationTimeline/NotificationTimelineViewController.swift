@@ -86,10 +86,6 @@ extension NotificationTimelineViewController {
         
         refreshControl.endRefreshing()
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         if !viewModel.isLoadingLatest {
             let now = Date()

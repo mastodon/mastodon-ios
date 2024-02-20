@@ -20,13 +20,13 @@ public struct PollAddOptionRow: View {
                 Image(systemName: "plus.circle")
                     .frame(width: 20, height: 20)
                     .padding(.leading, 16)
-                    .padding(.trailing, 16 - 10)     // 8pt for TextField leading
+                    .padding(.trailing, 16 - 10)     // 8pt for TextView leading
                     .font(.system(size: 17))
-                PollOptionTextField(
+                PollOptionEditableTextView(
                     text: .constant(""),
                     index: 999,
                     delegate: nil
-                ) { textField in
+                ) { textView in
                     // do nothing
                 }
                 .hidden()
