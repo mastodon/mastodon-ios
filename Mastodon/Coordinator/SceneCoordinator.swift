@@ -46,13 +46,13 @@ final public class SceneCoordinator {
         self.appContext = appContext
         
         scene.session.sceneCoordinator = self
-        
+
         appContext.notificationService.requestRevealNotificationPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {
                 [weak self] pushNotification in
-                guard let self = self else { return }
-                Task {
+                guard let self else { return }
+                Task { @MainActor in
                     guard let currentActiveAuthenticationBox = self.authContext?.mastodonAuthenticationBox else { return }
                     let accessToken = pushNotification.accessToken     // use raw accessToken value without normalize
                     if currentActiveAuthenticationBox.userAuthorization.accessToken == accessToken {
@@ -68,82 +68,75 @@ final public class SceneCoordinator {
                             let userID = authentication.userID
                             let isSuccess = try await appContext.authenticationService.activeMastodonUser(domain: domain, userID: userID)
                             guard isSuccess else { return }
-                            
+
                             self.setup()
                             try await Task.sleep(nanoseconds: .second * 1)
-                            
+
                             // redirect to notifications tab
                             self.switchToTabBar(tab: .notifications)
-                            
-                            // Delay in next run loop
-                            DispatchQueue.main.async { [weak self] in
-                                guard let self = self else { return }
-                                
-                                // Note:
-                                // show (push) on phone and pad
-                                let from: UIViewController? = {
-                                    if let splitViewController = self.splitViewController {
-                                        if splitViewController.compactMainTabBarViewController.topMost?.view.window != nil {
-                                            // compact
-                                            return splitViewController.compactMainTabBarViewController.topMost
-                                        } else {
-                                            // expand
-                                            return splitViewController.contentSplitViewController.mainTabBarController.topMost
-                                        }
+
+                            // Note:
+                            // show (push) on phone and pad
+                            let from: UIViewController? = {
+                                if let splitViewController = self.splitViewController {
+                                    if splitViewController.compactMainTabBarViewController.topMost?.view.window != nil {
+                                        // compact
+                                        return splitViewController.compactMainTabBarViewController.topMost
                                     } else {
-                                        return self.tabBarController.topMost
+                                        // expand
+                                        return splitViewController.contentSplitViewController.mainTabBarController.topMost
                                     }
-                                }()
-                                
-                                // show notification related content
-                                guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
-                                guard let authContext = self.authContext else { return }
-                                guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return }
-                                let notificationID = String(pushNotification.notificationID)
-                                
-                                switch type {
-                                    case .follow:
-                                        Task {
-                                            let account = try await appContext.apiService.notification(
-                                                notificationID: notificationID,
-                                                authenticationBox: authContext.mastodonAuthenticationBox
-                                            ).value.account
-
-                                            let relationship = try await appContext.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first
-
-                                            let profileViewModel = ProfileViewModel(
-                                                context: appContext,
-                                                authContext: authContext,
-                                                account: account,
-                                                relationship: relationship,
-                                                me: me
-                                            )
-                                            _ = self.present(
-                                                scene: .profile(viewModel: profileViewModel),
-                                                from: from,
-                                                transition: .show
-                                            )
-                                        }
-                                    case .followRequest:
-                                        // do nothing
-                                        break
-                                    case .mention, .reblog, .favourite, .poll, .status:
-                                        let threadViewModel = RemoteThreadViewModel(
-                                            context: appContext,
-                                            authContext: authContext,
-                                            notificationID: notificationID
-                                        )
-                                        _ = self.present(
-                                            scene: .thread(viewModel: threadViewModel),
-                                            from: from,
-                                            transition: .show
-                                        )
-
-                                    case ._other:
-                                        assertionFailure()
-                                        break
+                                } else {
+                                    return self.tabBarController.topMost
                                 }
-                            }   // end DispatchQueue.main.async
+                            }()
+
+                            // show notification related content
+                            guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
+                            guard let authContext = self.authContext else { return }
+                            guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return }
+                            let notificationID = String(pushNotification.notificationID)
+
+                            switch type {
+                            case .follow:
+                                let account = try await appContext.apiService.notification(
+                                    notificationID: notificationID,
+                                    authenticationBox: authContext.mastodonAuthenticationBox
+                                ).value.account
+
+                                let relationship = try await appContext.apiService.relationship(forAccounts: [account], authenticationBox: authContext.mastodonAuthenticationBox).value.first
+
+                                let profileViewModel = ProfileViewModel(
+                                    context: appContext,
+                                    authContext: authContext,
+                                    account: account,
+                                    relationship: relationship,
+                                    me: me
+                                )
+                                _ = self.present(
+                                    scene: .profile(viewModel: profileViewModel),
+                                    from: from,
+                                    transition: .show
+                                )
+                            case .followRequest:
+                                // do nothing
+                                break
+                            case .mention, .reblog, .favourite, .poll, .status:
+                                let threadViewModel = RemoteThreadViewModel(
+                                    context: appContext,
+                                    authContext: authContext,
+                                    notificationID: notificationID
+                                )
+                                _ = self.present(
+                                    scene: .thread(viewModel: threadViewModel),
+                                    from: from,
+                                    transition: .show
+                                )
+
+                            case ._other:
+                                assertionFailure()
+                                break
+                            }
 
                         } catch {
                             assertionFailure(error.localizedDescription)
@@ -170,7 +163,7 @@ extension SceneCoordinator {
         case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
         case none
     }
-    
+
     enum Scene {
         // onboarding
         case welcome
