@@ -20,6 +20,18 @@ public enum L10n {
           return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Title", String(describing: p1), fallback: "Are you really, really sure you want to block the entire %@? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.")
         }
       }
+      public enum BoostAPost {
+        /// Boost
+        public static let boost = L10n.tr("Localizable", "Common.Alerts.BoostAPost.Boost", fallback: "Boost")
+        /// Cancel
+        public static let cancel = L10n.tr("Localizable", "Common.Alerts.BoostAPost.Cancel", fallback: "Cancel")
+        /// Boost Post?
+        public static let titleBoost = L10n.tr("Localizable", "Common.Alerts.BoostAPost.TitleBoost", fallback: "Boost Post?")
+        /// Unboost Post?
+        public static let titleUnboost = L10n.tr("Localizable", "Common.Alerts.BoostAPost.TitleUnboost", fallback: "Unboost Post?")
+        /// Unboost
+        public static let unboost = L10n.tr("Localizable", "Common.Alerts.BoostAPost.Unboost", fallback: "Unboost")
+      }
       public enum CleanCache {
         /// Successfully cleaned %@ cache.
         public static func message(_ p1: Any) -> String {

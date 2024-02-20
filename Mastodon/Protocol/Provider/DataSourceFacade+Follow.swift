@@ -14,7 +14,7 @@ import MastodonLocalization
 
 extension DataSourceFacade {
     static func responseToUserFollowAction(
-        dependency: NeedsDependency & AuthContextProvider,
+        dependency: ViewControllerWithDependencies & AuthContextProvider,
         user: ManagedObjectRecord<MastodonUser>
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
@@ -28,7 +28,7 @@ extension DataSourceFacade {
     }
 
     static func responseToUserFollowAction(
-        dependency: NeedsDependency & AuthContextProvider,
+        dependency: ViewControllerWithDependencies & AuthContextProvider,
         user: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()

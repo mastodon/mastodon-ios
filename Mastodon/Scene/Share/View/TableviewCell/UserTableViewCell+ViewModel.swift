@@ -91,7 +91,7 @@ extension UserTableViewCell {
     }
 }
 
-extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextProvider {
+extension UserTableViewCellDelegate where Self: ViewControllerWithDependencies & AuthContextProvider {
     func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
         Task {
             try await DataSourceFacade.responseToUserViewButtonAction(
