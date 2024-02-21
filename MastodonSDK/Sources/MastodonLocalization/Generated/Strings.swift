@@ -114,6 +114,16 @@ public enum L10n {
         /// Note
         public static let title = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Title", fallback: "Note")
       }
+      public enum UnfollowUser {
+        /// Cancel
+        public static let cancel = L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Cancel", fallback: "Cancel")
+        /// Unfollow %@
+        public static func title(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Title", String(describing: p1), fallback: "Unfollow %@")
+        }
+        /// Unfollow
+        public static let unfollow = L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Unfollow", fallback: "Unfollow")
+      }
       public enum VoteFailure {
         /// The poll has ended
         public static let pollEnded = L10n.tr("Localizable", "Common.Alerts.VoteFailure.PollEnded", fallback: "The poll has ended")

@@ -65,6 +65,11 @@
                 "cancel": "Cancel",
                 "boost": "Boost",
                 "unboost": "Unboost"
+            },
+            "unfollow_user": {
+                "title": "Unfollow %@?",
+                "cancel": "Cancel",
+                "unfollow": "Unfollow"
             }
         },
         "controls": {

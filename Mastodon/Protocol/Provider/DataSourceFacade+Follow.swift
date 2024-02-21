@@ -13,35 +13,97 @@ import MastodonSDK
 import MastodonLocalization
 
 extension DataSourceFacade {
+    @MainActor
     static func responseToUserFollowAction(
         dependency: ViewControllerWithDependencies & AuthContextProvider,
         user: ManagedObjectRecord<MastodonUser>
     ) async throws {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
-    
-        _ = try await dependency.context.apiService.toggleFollow(
-            user: user,
-            authenticationBox: dependency.authContext.mastodonAuthenticationBox
-        )
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+
+        let authBox = dependency.authContext.mastodonAuthenticationBox
+        guard let userObject = user.object(in: dependency.context.managedObjectContext) else { return }
+        
+        let relationship = try await dependency.context.apiService.relationship(
+            records: [user],
+            authenticationBox: authBox
+        ).value.first
+        
+        let performUnfollow = {
+            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+            selectionFeedbackGenerator.selectionChanged()
+        
+            _ = try await dependency.context.apiService.toggleFollow(
+                user: user,
+                authenticationBox: authBox
+            )
+            dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+        }
+        
+        if relationship?.following == true {
+            let alert = UIAlertController(
+                title: L10n.Common.Alerts.UnfollowUser.title("@\(userObject.username)"),
+                message: nil,
+                preferredStyle: .alert
+            )
+            let cancel = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.cancel, style: .default)
+            alert.addAction(cancel)
+            let unfollow = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.unfollow, style: .destructive) {_ in
+                Task {
+                    try await performUnfollow()
+                }
+            }
+            alert.addAction(unfollow)
+            dependency.present(alert, animated: true)
+        } else {
+            try await performUnfollow()
+        }
     }
 
+    @MainActor
     static func responseToUserFollowAction(
         dependency: ViewControllerWithDependencies & AuthContextProvider,
         user: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
+        let authBox = dependency.authContext.mastodonAuthenticationBox
+        let relationship = try await dependency.context.apiService.relationship(
+            forAccounts: [user], authenticationBox: authBox
+        ).value.first
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            Task { @MainActor in
+                let performAction = {
+                    let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+                    selectionFeedbackGenerator.selectionChanged()
+                    
+                    let response = try await dependency.context.apiService.toggleFollow(
+                        user: user,
+                        authenticationBox: dependency.authContext.mastodonAuthenticationBox
+                    ).value
+                    
+                    dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+                    
+                    continuation.resume(returning: response)
+                }
 
-        let response = try await dependency.context.apiService.toggleFollow(
-            user: user,
-            authenticationBox: dependency.authContext.mastodonAuthenticationBox
-        ).value
-
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
-
-        return response
+                if relationship?.following == true {
+                    let alert = UIAlertController(
+                        title: L10n.Common.Alerts.UnfollowUser.title("@\(user.username)"),
+                        message: nil,
+                        preferredStyle: .alert
+                    )
+                    let cancel = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.cancel, style: .default)
+                    alert.addAction(cancel)
+                    let unfollow = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.unfollow, style: .destructive) {_ in
+                        Task {
+                            try await performAction()
+                        }
+                    }
+                    alert.addAction(unfollow)
+                    dependency.present(alert, animated: true)
+                } else {
+                    try await performAction()
+                }
+            }
+        }
     }
 
 }
