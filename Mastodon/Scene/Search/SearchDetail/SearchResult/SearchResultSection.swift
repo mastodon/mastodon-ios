@@ -44,7 +44,7 @@ extension SearchResultSection {
                 case .account(let account, let relationship):
                     let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as! UserTableViewCell
 
-                    guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return cell }
+                    guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return cell }
 
                     cell.userView.setButtonState(.loading)
                     cell.configure(
@@ -110,21 +110,4 @@ extension SearchResultSection {
             delegate: configuration.statusViewTableViewCellDelegate
         )
     }
-    
-    static func configure(
-        context: AppContext,
-        authContext: AuthContext,
-        tableView: UITableView,
-        cell: UserTableViewCell,
-        viewModel: UserTableViewCell.ViewModel,
-        configuration: Configuration
-    ) {
-        cell.configure(
-            me: authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext),
-            tableView: tableView,
-            viewModel: viewModel,
-            delegate: configuration.userTableViewCellDelegate
-        )
-    }
-    
 }

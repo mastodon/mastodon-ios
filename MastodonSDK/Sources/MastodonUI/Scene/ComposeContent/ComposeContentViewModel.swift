@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import CoreDataStack
 import Meta
 import MetaTextKit
 import MastodonMeta
@@ -156,7 +155,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
-                guard let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else {
+                guard let author = authContext.mastodonAuthenticationBox.authentication.account() else {
                     return .public
                 }
                 return author.locked ? .private : .public
@@ -196,7 +195,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case .reply(let record):
             context.managedObjectContext.performAndWait {
                 let status = record.entity
-                let author = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
+                let author = authContext.mastodonAuthenticationBox.authentication.account()
 
                 var mentionAccts: [String] = []
                 if author?.id != status.account.id {
@@ -311,11 +310,19 @@ extension ComposeContentViewModel {
         // bind author
         $authContext
             .sink { [weak self] authContext in
-                guard let self = self else { return }
-                guard let user = authContext.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else { return }
-                self.avatarURL = user.avatarImageURL()
-                self.name = user.nameMetaContent ?? PlaintextMetaContent(string: user.displayNameWithFallback)
-                self.username = user.acctWithDomain
+                guard let self, let account = authContext.mastodonAuthenticationBox.authentication.account() else { return }
+
+                self.avatarURL = account.avatarImageURL()
+
+                do {
+                    let content = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojis.asDictionary)
+                    let metaContent = try MastodonMetaContent.convert(document: content)
+                    self.name = metaContent
+                } catch {
+                    self.name = PlaintextMetaContent(string: account.displayNameWithFallback)
+                }
+
+                self.username = account.acctWithDomain
             }
             .store(in: &disposeBag)
         
@@ -553,14 +560,8 @@ extension ComposeContentViewModel {
     
     public func statusPublisher() throws -> StatusPublisher {
         let authContext = self.authContext
-        
-        // author
-        let managedObjectContext = self.context.managedObjectContext
-        var _author: ManagedObjectRecord<MastodonUser>?
-        managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
-        }
-        guard let author = _author else {
+
+        guard authContext.mastodonAuthenticationBox.authentication.account() != nil else {
             throw AppError.badAuthentication
         }
         
@@ -583,7 +584,6 @@ extension ComposeContentViewModel {
         }
 
         return MastodonStatusPublisher(
-            author: author,
             replyTo: {
                 if case .reply(let status) = destination {
                     return status
@@ -611,12 +611,7 @@ extension ComposeContentViewModel {
         guard case let .editStatus(status, _) = composeContext else { return nil }
 
         // author
-        let managedObjectContext = self.context.managedObjectContext
-        var _author: ManagedObjectRecord<MastodonUser>?
-        managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authentication.user(in: managedObjectContext)?.asRecord
-        }
-        guard let author = _author else {
+        guard let author = authContext.mastodonAuthenticationBox.authentication.account() else {
             throw AppError.badAuthentication
         }
 

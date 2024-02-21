@@ -30,27 +30,42 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                return .init(objectID: notification.account.objectID)
-            }
-            guard let author = _author else {
-                assertionFailure()
-                return
-            }
-            
-            try await DataSourceFacade.responseToMenuAction(
-                dependency: self,
-                action: action,
-                menuContext: .init(
-                    author: author,
-                    authorEntity: notification.entity.account,
-                    statusViewModel: nil,
-                    button: button,
-                    barButtonItem: nil
+
+            // we only allow to mute/block and to report users on notification-screen
+            switch action {
+            case .muteUser(_), .blockUser(_):
+                _ = try await DataSourceFacade.responseToMenuAction(
+                    dependency: self,
+                    action: action,
+                    menuContext: .init(
+                        author: notification.entity.account,
+                        statusViewModel: nil,
+                        button: button,
+                        barButtonItem: nil
+                    ),
+                    completion: { (newRelationship: Mastodon.Entity.Relationship) in
+                        notification.relationship = newRelationship
+                        Task { @MainActor in
+                            notificationView.configure(notification: notification, authenticationBox: self.authContext.mastodonAuthenticationBox)
+                        }
+                    }
                 )
-            )
-        }   // end Task
+            case .reportUser(_):
+                _ = try await DataSourceFacade.responseToMenuAction(
+                    dependency: self,
+                    action: action,
+                    menuContext: .init(
+                        author: notification.entity.account,
+                        statusViewModel: nil,
+                        button: button,
+                        barButtonItem: nil
+                    )
+                )
+            case .translateStatus(_), .showOriginal, .shareUser(_), .blockDomain(_), .bookmarkStatus(_), .hideReblogs(_), .shareStatus, .deleteStatus, .editStatus, .followUser(_):
+                // Do Nothing
+                break
+            }
+        }
     }
 }
 
@@ -71,16 +86,10 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                return .init(objectID: notification.account.objectID)
-            }
-            guard let author = _author else {
-                assertionFailure()
-                return
-            }
+
             await DataSourceFacade.coordinateToProfileScene(
                 provider: self,
-                user: author
+                account: notification.entity.account
             )
         }   // end Task
     }
@@ -105,28 +114,14 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            
-            let originalTransientFollowRequestState = notificationView.viewModel.transientFollowRequestState
-            let originalFollowRequestState = notificationView.viewModel.followRequestState
-            
-            notificationView.viewModel.transientFollowRequestState = .init(state: .isAccepting)
-            notificationView.viewModel.followRequestState = .init(state: .isAccepting)
-            
-            do {
-                try await DataSourceFacade.responseToUserFollowRequestAction(
-                    dependency: self,
-                    notification: notification,
-                    query: .accept
-                )
-                
-                notificationView.viewModel.transientFollowRequestState = .init(state: .isAccept)
-                notificationView.viewModel.followRequestState = .init(state: .isAccept)
-            } catch {
-                notificationView.viewModel.transientFollowRequestState = originalTransientFollowRequestState
-                notificationView.viewModel.followRequestState = originalFollowRequestState
-                throw error
-            }
-        } // end Task
+
+            try await DataSourceFacade.responseToUserFollowRequestAction(
+                dependency: self,
+                notification: notification,
+                notificationView: notificationView,
+                query: .accept
+            )
+        }
     }
     
     @MainActor
@@ -145,30 +140,15 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 assertionFailure("only works for status data provider")
                 return
             }
-            
-            let originalTransientFollowRequestState = notificationView.viewModel.transientFollowRequestState
-            let originalFollowRequestState = notificationView.viewModel.followRequestState
-            
-            notificationView.viewModel.transientFollowRequestState = .init(state: .isRejecting)
-            notificationView.viewModel.followRequestState = .init(state: .isRejecting)
-            
-            do {
-                try await DataSourceFacade.responseToUserFollowRequestAction(
-                    dependency: self,
-                    notification: notification,
-                    query: .reject
-                )
-                
-                notificationView.viewModel.transientFollowRequestState = .init(state: .isReject)
-                notificationView.viewModel.followRequestState = .init(state: .isReject)
-            } catch {
-                notificationView.viewModel.transientFollowRequestState = originalTransientFollowRequestState
-                notificationView.viewModel.followRequestState = originalFollowRequestState
-                throw error
-            }
-        } // end Task
+
+            try await DataSourceFacade.responseToUserFollowRequestAction(
+                dependency: self,
+                notification: notification,
+                notificationView: notificationView,
+                query: .reject
+            )
+        }
     }
-    
 }
 
 // MARK: - Status Content
@@ -267,7 +247,6 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
                 return
             }
             
-            let managedObjectContext = self.context.managedObjectContext
             let _mediaTransitionContext: NotificationMediaTransitionContext? = {
                 guard let status = record.status?.reblog ?? record.status else { return nil }
                 return NotificationMediaTransitionContext(
@@ -352,9 +331,11 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                 return
             }
 
+            guard let account = notification.status?.entity.account else { return }
+
             await DataSourceFacade.coordinateToProfileScene(
                 provider: self,
-                user: notification.account.asRecord
+                account: account
             )
         }   // end Task
     }
@@ -532,14 +513,11 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                     target: .status,    // remove reblog wrapper
                     status: status
                 )
-            case .user(let user):
-                await DataSourceFacade.coordinateToProfileScene(
-                    provider: self,
-                    user: user
-                )
+            case .account(let account, _):
+                await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
             case .notification:
                 assertionFailure("TODO")
-            default:
+            case .hashtag(_):
                 assertionFailure("TODO")
             }
         }   // end Task

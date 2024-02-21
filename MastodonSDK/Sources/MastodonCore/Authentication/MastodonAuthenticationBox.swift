@@ -12,7 +12,7 @@ import MastodonSDK
 public struct MastodonAuthenticationBox: UserIdentifier {
     public let authentication: MastodonAuthentication
     public let domain: String
-    public let userID: MastodonUser.ID
+    public let userID: String
     public let appAuthorization: Mastodon.API.OAuth.Authorization
     public let userAuthorization: Mastodon.API.OAuth.Authorization
     public let inMemoryCache: MastodonAccountInMemoryCache
@@ -20,7 +20,7 @@ public struct MastodonAuthenticationBox: UserIdentifier {
     public init(
         authentication: MastodonAuthentication,
         domain: String,
-        userID: MastodonUser.ID,
+        userID: String,
         appAuthorization: Mastodon.API.OAuth.Authorization,
         userAuthorization: Mastodon.API.OAuth.Authorization,
         inMemoryCache: MastodonAccountInMemoryCache

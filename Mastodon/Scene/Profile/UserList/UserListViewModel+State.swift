@@ -30,7 +30,7 @@ extension UserListViewModel {
 extension UserListViewModel.State {
     class Initial: UserListViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            guard let _ = viewModel else { return false }
+            guard viewModel != nil else { return false }
             switch stateClass {
             case is Reloading.Type:
                 return true
@@ -75,8 +75,8 @@ extension UserListViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let _ = viewModel, let stateMachine = stateMachine else { return }
-            
+            guard viewModel != nil, let stateMachine else { return }
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 stateMachine.enter(Loading.self)
             }
@@ -118,10 +118,11 @@ extension UserListViewModel.State {
                 maxID = nil
             }
             
-            guard let viewModel = viewModel else { return }
+            guard let viewModel else { return }
             
             let maxID = self.maxID
-            
+            let authenticationBox = viewModel.authContext.mastodonAuthenticationBox
+
             Task {
                 do {
                     let accountResponse: Mastodon.Response.Content<[Mastodon.Entity.Account]>
@@ -130,13 +131,13 @@ extension UserListViewModel.State {
                         accountResponse = try await viewModel.context.apiService.favoritedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
-                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                            authenticationBox: authenticationBox
                         )
                     case .rebloggedBy(let status):
                         accountResponse = try await viewModel.context.apiService.rebloggedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
-                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                            authenticationBox: authenticationBox
                         )
                     }
 

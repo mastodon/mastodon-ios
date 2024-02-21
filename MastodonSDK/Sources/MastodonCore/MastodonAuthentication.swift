@@ -98,7 +98,21 @@ public struct MastodonAuthentication: Codable, Hashable {
         let userPredicate = MastodonUser.predicate(domain: domain, id: userID)
         return MastodonUser.findOrFetch(in: context, matching: userPredicate)
     }
-    
+
+    public func account() -> Mastodon.Entity.Account? {
+
+        let account = FileManager
+            .default
+            .accounts(for: self.userIdentifier())
+            .first(where: { $0.id == userID })
+
+        return account
+    }
+
+    public func userIdentifier() -> MastodonUserIdentifier {
+        MastodonUserIdentifier(domain: domain, userID: userID)
+    }
+
     func updating(instance: Instance) -> Self {
         copy(instanceObjectIdURI: instance.objectID.uriRepresentation())
     }

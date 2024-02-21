@@ -119,7 +119,7 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         cell.profileCardView.setButtonState(.loading)
 
         Task {
-            let newRelationship = try await DataSourceFacade.responseToUserFollowAction(dependency: self, user: account)
+            let newRelationship = try await DataSourceFacade.responseToUserFollowAction(dependency: self, account: account)
 
             let isMe = (account.id == authContext.mastodonAuthenticationBox.userID)
 

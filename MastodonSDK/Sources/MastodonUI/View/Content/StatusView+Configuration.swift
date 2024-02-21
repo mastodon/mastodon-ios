@@ -88,16 +88,11 @@ extension StatusView {
     private func configureHeader(status: MastodonStatus) {
         if status.entity.reblogged == true, 
             let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox,
-            let managedObjectContext = viewModel.context?.managedObjectContext {
-            
-            let user = MastodonUser.findOrFetch(
-                in: managedObjectContext,
-                matching: MastodonUser.predicate(domain: authenticationBox.domain, id: authenticationBox.userID)
-            )
+           let account = authenticationBox.authentication.account() {
 
-            let name = user?.displayNameWithFallback ?? authenticationBox.authentication.username
-            let emojis = user?.emojis ?? []
-            
+            let name = account.displayNameWithFallback
+            let emojis = account.emojis
+
             viewModel.header = {
                 let text = L10n.Common.Controls.Status.userReblogged(name)
                 let content = MastodonContent(content: text, emojis: emojis.asDictionary)
@@ -111,8 +106,8 @@ extension StatusView {
             }()
         } else if status.reblog != nil {
             let name = status.entity.account.displayNameWithFallback
-            let emojis = status.entity.account.emojis ?? []
-            
+            let emojis = status.entity.account.emojis
+
             viewModel.header = {
                 let text = L10n.Common.Controls.Status.userReblogged(name)
                 let content = MastodonContent(content: text, emojis: emojis.asDictionary)
@@ -167,7 +162,7 @@ extension StatusView {
                     }, receiveValue: { [weak self] response in
                         guard let self else { return }
                         let replyTo = response.value
-                        let header = createHeader(name: replyTo.account.displayNameWithFallback, emojis: replyTo.account.emojis?.asDictionary ?? [:])
+                        let header = createHeader(name: replyTo.account.displayNameWithFallback, emojis: replyTo.account.emojis.asDictionary)
                         self.viewModel.header = header
                     })
                     .store(in: &disposeBag)
@@ -210,8 +205,8 @@ extension StatusView {
             
             // author avatar
             viewModel.authorAvatarImageURL = author.avatarImageURL()
-            let emojis = author.emojis?.asDictionary ?? [:]
-            
+            let emojis = author.emojis.asDictionary
+
             // author name
             viewModel.authorName = {
                 do {
@@ -280,7 +275,7 @@ extension StatusView {
 
         // content
         do {
-            let content = MastodonContent(content: translatedContent, emojis: status.entity.emojis?.asDictionary ?? [:])
+            let content = MastodonContent(content: translatedContent, emojis: status.entity.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.isCurrentlyTranslating = false
@@ -299,7 +294,7 @@ extension StatusView {
         viewModel.language = (status.reblog ?? status).entity.language
         // content
         do {
-            let content = MastodonContent(content: statusEdit.content, emojis: statusEdit.emojis?.asDictionary ?? [:])
+            let content = MastodonContent(content: statusEdit.content, emojis: statusEdit.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.isCurrentlyTranslating = false
@@ -319,7 +314,7 @@ extension StatusView {
         // spoilerText
         if let spoilerText = status.entity.spoilerText, !spoilerText.isEmpty {
             do {
-                let content = MastodonContent(content: spoilerText, emojis: status.entity.emojis?.asDictionary ?? [:])
+                let content = MastodonContent(content: spoilerText, emojis: status.entity.emojis.asDictionary)
                 let metaContent = try MastodonMetaContent.convert(document: content)
                 viewModel.spoilerContent = metaContent
             } catch {
@@ -333,7 +328,7 @@ extension StatusView {
         viewModel.language = (status.reblog ?? status).entity.language
         // content
         do {
-            let content = MastodonContent(content: status.entity.content ?? "", emojis: status.entity.emojis?.asDictionary ?? [:])
+            let content = MastodonContent(content: status.entity.content ?? "", emojis: status.entity.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.isCurrentlyTranslating = false

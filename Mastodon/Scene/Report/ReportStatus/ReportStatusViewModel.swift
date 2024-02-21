@@ -24,7 +24,7 @@ class ReportStatusViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let user: ManagedObjectRecord<MastodonUser>
+    let account: Mastodon.Entity.Account
     let status: MastodonStatus?
     let dataController: StatusDataController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
@@ -52,12 +52,12 @@ class ReportStatusViewModel {
     init(
         context: AppContext,
         authContext: AuthContext,
-        user: ManagedObjectRecord<MastodonUser>,
+        account: Mastodon.Entity.Account,
         status: MastodonStatus?
     ) {
         self.context = context
         self.authContext = authContext
-        self.user = user
+        self.account = account
         self.status = status
         self.dataController = StatusDataController()
         // end init

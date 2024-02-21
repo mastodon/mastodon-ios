@@ -18,6 +18,7 @@ import MastodonCore
 import MastodonUI
 import MastodonLocalization
 import TabBarPager
+import MastodonSDK
 
 protocol ProfileHeaderViewControllerDelegate: AnyObject {
     func profileHeaderViewController(_ profileHeaderViewController: ProfileHeaderViewController, profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
@@ -29,12 +30,12 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
     static let segmentedControlHeight: CGFloat = 50
     static let headerMinHeight: CGFloat = segmentedControlHeight
     
-    weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
+    weak var context: AppContext!
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: ProfileHeaderViewModel!
-    
+    let viewModel: ProfileHeaderViewModel
+
     weak var delegate: ProfileHeaderViewControllerDelegate?
     weak var headerDelegate: TabBarPagerHeaderDelegate?
     
@@ -51,7 +52,7 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
         return titleView
     }()
     
-    let profileHeaderView = ProfileHeaderView()
+    let profileHeaderView: ProfileHeaderView
 
 //    private var isBannerPinned = false
 
@@ -81,14 +82,29 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
         return documentPickerController
     }()
 
-    
-}
+    init(context: AppContext, authContext: AuthContext, coordinator: SceneCoordinator, profileViewModel: ProfileViewModel) {
+        self.context = context
+        self.coordinator = coordinator
+        self.viewModel = ProfileHeaderViewModel(context: context, authContext: authContext, account: profileViewModel.account, me: profileViewModel.me, relationship: profileViewModel.relationship)
+        self.profileHeaderView = ProfileHeaderView(account: profileViewModel.account, me: profileViewModel.me, relationship: profileViewModel.relationship)
 
-extension ProfileHeaderViewController {
+        super.init(nibName: nil, bundle: nil)
+
+        viewModel.$account
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] account in
+                guard let self else { return }
+
+                self.profileHeaderView.configuration(account: account)
+            }
+            .store(in: &disposeBag)
+    }
     
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.setContentHuggingPriority(.required - 1, for: .vertical)
 
         view.backgroundColor = .systemBackground
@@ -128,17 +144,11 @@ extension ProfileHeaderViewController {
                 self.titleView.subtitleLabel.alpha = isTitleViewContentOffsetDidSet ? 1 : 0
             }
             .store(in: &disposeBag)
-        viewModel.$user
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] user in
-                guard let self = self else { return }
-                guard let user = user else { return }
-                self.profileHeaderView.prepareForReuse()
-                self.profileHeaderView.configuration(user: user)
-            }
+        viewModel.$relationship
+            .assign(to: \.relationship, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
-        viewModel.$relationshipActionOptionSet
-            .assign(to: \.relationshipActionOptionSet, on: profileHeaderView.viewModel)
+        viewModel.$account
+            .assign(to: \.account, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
         viewModel.$isMyself
             .assign(to: \.isMyself, on: profileHeaderView.viewModel)
@@ -263,41 +273,35 @@ extension ProfileHeaderViewController {
         profileHeaderView.avatarButton.alpha = alpha
         profileHeaderView.editAvatarBackgroundView.alpha = alpha
     }
-    
+
 }
 
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarButtonDidPressed button: AvatarButton) {
-        guard let user = viewModel.user else { return }
-        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
-
         Task {
             try await DataSourceFacade.coordinateToMediaPreviewScene(
                 dependency: self,
-                user: record,
+                account: viewModel.account,
                 previewContext: DataSourceFacade.ImagePreviewContext(
                     imageView: button.avatarImageView,
                     containerView: .profileAvatar(profileHeaderView)
                 )
             )
-        }   // end Task
+        }
     }
 
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView) {
-        guard let user = viewModel.user else { return }
-        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
-
         Task {
             try await DataSourceFacade.coordinateToMediaPreviewScene(
                 dependency: self,
-                user: record,
+                account: viewModel.account,
                 previewContext: DataSourceFacade.ImagePreviewContext(
                     imageView: imageView,
                     containerView: .profileBanner(profileHeaderView)
                 )
             )
-        }   // end Task
+        }
     }
 
     func profileHeaderView(
@@ -329,37 +333,37 @@ extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
         switch meter {
         case .post:
             // do nothing
-            break
-        case .follower:
-            guard let domain = viewModel.user?.domain,
-                  let userID = viewModel.user?.id
-            else { return }
-            let followerListViewModel = FollowerListViewModel(
-                context: context,
-                authContext: viewModel.authContext,
-                domain: domain,
-                userID: userID
-            )
-            _ = coordinator.present(
-                scene: .follower(viewModel: followerListViewModel),
-                from: self,
-                transition: .show
-            )
-        case .following:
-            guard let domain = viewModel.user?.domain,
-                  let userID = viewModel.user?.id
-            else { return }
-            let followingListViewModel = FollowingListViewModel(
-                context: context,
-                authContext: viewModel.authContext,
-                domain: domain,
-                userID: userID
-            )
-            _ = coordinator.present(
-                scene: .following(viewModel: followingListViewModel),
-                from: self,
-                transition: .show
-            )
+                break
+            case .follower:
+                guard let domain = viewModel.account.domain else { return }
+                let userID = viewModel.account.id
+                let followerListViewModel = FollowerListViewModel(
+                    context: context,
+                    authContext: viewModel.authContext,
+                    domain: domain,
+                    userID: userID
+                )
+                _ = coordinator.present(
+                    scene: .follower(viewModel: followerListViewModel),
+                    from: self,
+                    transition: .show
+                )
+                
+            case .following:
+                guard let domain = viewModel.account.domain else { return }
+
+                let userID = viewModel.account.id
+                let followingListViewModel = FollowingListViewModel(
+                    context: context,
+                    authContext: viewModel.authContext,
+                    domain: domain,
+                    userID: userID
+                )
+                _ = coordinator.present(
+                    scene: .following(viewModel: followingListViewModel),
+                    from: self,
+                    transition: .show
+                )
         }
     }
 

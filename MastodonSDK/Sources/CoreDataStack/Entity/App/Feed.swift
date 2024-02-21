@@ -96,19 +96,6 @@ extension Feed {
     public static func hasNotificationPredicate() -> NSPredicate {
         return NSPredicate(format: "%K != nil", #keyPath(Feed.notification))
     }
-    
-    public static func notificationTypePredicate(types: [MastodonNotificationType]) -> NSPredicate {
-        return NSCompoundPredicate(andPredicateWithSubpredicates: [
-            hasNotificationPredicate(),
-            NSPredicate(
-                format: "%K.%K IN %@",
-                #keyPath(Feed.notification),
-                #keyPath(Notification.typeRaw),
-                types.map { $0.rawValue }
-            )
-        ])
-    }
-
 }
 
 // MARK: - AutoGenerateProperty

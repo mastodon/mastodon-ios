@@ -21,7 +21,7 @@ final class NotificationViewController: TabmanViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
 
-    var viewModel: NotificationViewModel!
+    var viewModel: NotificationViewModel?
     
     let pageSegmentedControl = UISegmentedControl()
 
@@ -38,7 +38,7 @@ final class NotificationViewController: TabmanViewController, NeedsDependency {
             animated: animated
         )
         
-        viewModel.currentPageIndex = index
+        viewModel?.currentPageIndex = index
     }
     
 }
@@ -49,7 +49,7 @@ extension NotificationViewController {
 
         view.backgroundColor = .secondarySystemBackground
         
-        setupSegmentedControl(scopes: viewModel.scopes)
+        setupSegmentedControl(scopes: APIService.MastodonNotificationScope.allCases)
         pageSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         navigationItem.titleView = pageSegmentedControl
         NSLayoutConstraint.activate([
@@ -58,7 +58,7 @@ extension NotificationViewController {
         pageSegmentedControl.addTarget(self, action: #selector(NotificationViewController.pageSegmentedControlValueChanged(_:)), for: .valueChanged)
 
         dataSource = viewModel
-        viewModel.$viewControllers
+        viewModel?.$viewControllers
             .receive(on: DispatchQueue.main)
             .sink { [weak self] viewControllers in
                 guard let self = self else { return }
@@ -68,11 +68,11 @@ extension NotificationViewController {
             }
             .store(in: &disposeBag)
         
-        viewModel.viewControllers = viewModel.scopes.map { scope in
+        viewModel?.viewControllers = APIService.MastodonNotificationScope.allCases.map { scope in
             createViewController(for: scope)
         }
         
-        viewModel.$currentPageIndex
+        viewModel?.$currentPageIndex
             .receive(on: DispatchQueue.main)
             .sink { [weak self] currentPageIndex in
                 guard let self = self else { return }
@@ -127,7 +127,7 @@ extension NotificationViewController {
         }
         
         // set initial selection
-        guard !pageSegmentedControl.isSelected else { return }
+        guard let viewModel, !pageSegmentedControl.isSelected else { return }
         if viewModel.currentPageIndex < pageSegmentedControl.numberOfSegments {
             pageSegmentedControl.selectedSegmentIndex = viewModel.currentPageIndex
         } else {
@@ -136,12 +136,13 @@ extension NotificationViewController {
     }
     
     private func createViewController(for scope: NotificationTimelineViewModel.Scope) -> UIViewController {
+        guard let authContext = viewModel?.authContext else { return UITableViewController() }
         let viewController = NotificationTimelineViewController()
         viewController.context = context
         viewController.coordinator = coordinator
         viewController.viewModel = NotificationTimelineViewModel(
             context: context,
-            authContext: viewModel.authContext,
+            authContext: authContext,
             scope: scope
         )
         return viewController

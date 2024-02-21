@@ -14,7 +14,7 @@ extension Mastodon.Entity.Account {
         let isAnimated = !UserDefaults.shared.preferredStaticEmoji
 
         var dict = MastodonContent.Emojis()
-        for emoji in emojis ?? [] {
+        for emoji in emojis {
             dict[emoji.shortcode] = isAnimated ? emoji.url : emoji.staticURL
         }
         return dict

@@ -152,6 +152,7 @@ extension SearchResultViewModel.State {
                         await viewModel.dataController.reset()
                         viewModel.hashtags = []
                     }
+
                     
                     // due to combine relationships must be set first
                     var existingRelationships = viewModel.relationships
@@ -159,7 +160,7 @@ extension SearchResultViewModel.State {
                         existingRelationships.append(hashtag)
                     }
                     viewModel.relationships = existingRelationships
-                    
+
                     await viewModel.dataController.appendRecords(statuses)
                     
                     var existingHashtags = viewModel.hashtags

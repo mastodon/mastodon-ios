@@ -41,6 +41,7 @@ extension UserListViewModel {
                 guard let diffableDataSource = self.diffableDataSource else { return }
             
                 var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
+
                 snapshot.appendSections([.main])
 
                 let accountsWithRelationship: [(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)] = accounts.compactMap { account in

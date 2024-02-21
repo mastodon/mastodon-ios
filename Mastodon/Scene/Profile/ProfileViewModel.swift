@@ -33,18 +33,17 @@ class ProfileViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    @Published var me: MastodonUser?
-    @Published var user: MastodonUser?
-    
+
+    @Published var me: Mastodon.Entity.Account
+    @Published var account: Mastodon.Entity.Account
+    @Published var relationship: Mastodon.Entity.Relationship?
+
     let viewDidAppear = PassthroughSubject<Void, Never>()
     
     @Published var isEditing = false
     @Published var isUpdating = false
     @Published var accountForEdit: Mastodon.Entity.Account?
         
-    // output
-    let relationshipViewModel = RelationshipViewModel()
-    
     @Published var userIdentifier: UserIdentifier? = nil
     
     @Published var isRelationshipActionButtonHidden: Bool = true
@@ -57,10 +56,13 @@ class ProfileViewModel: NSObject {
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
     @MainActor
-    init(context: AppContext, authContext: AuthContext, optionalMastodonUser mastodonUser: MastodonUser?) {
+    init(context: AppContext, authContext: AuthContext, account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?, me: Mastodon.Entity.Account) {
         self.context = context
         self.authContext = authContext
-        self.user = mastodonUser
+        self.account = account
+        self.relationship = relationship
+        self.me = me
+
         self.postsUserTimelineViewModel = UserTimelineViewModel(
             context: context,
             authContext: authContext,
@@ -79,69 +81,65 @@ class ProfileViewModel: NSObject {
             title: L10n.Scene.Profile.SegmentedControl.media,
             queryFilter: .init(onlyMedia: true)
         )
-        self.profileAboutViewModel = ProfileAboutViewModel(context: context)
+        self.profileAboutViewModel = ProfileAboutViewModel(context: context, account: account)
         super.init()
-        
-        // bind me
-        self.me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext)
-        $me
-            .assign(to: \.me, on: relationshipViewModel)
-            .store(in: &disposeBag)
 
-        // bind user
-        $user
-            .map { user -> UserIdentifier? in
-                guard let user = user else { return nil }
-                return MastodonUserIdentifier(domain: user.domain, userID: user.id)
-            }
-            .assign(to: &$userIdentifier)
-        $user
-            .assign(to: \.user, on: relationshipViewModel)
-            .store(in: &disposeBag)
-        
+        if let domain = account.domain {
+            userIdentifier = MastodonUserIdentifier(domain: domain, userID: account.id)
+        } else {
+            userIdentifier = nil
+        }
+
         // bind userIdentifier
         $userIdentifier.assign(to: &postsUserTimelineViewModel.$userIdentifier)
         $userIdentifier.assign(to: &repliesUserTimelineViewModel.$userIdentifier)
         $userIdentifier.assign(to: &mediaUserTimelineViewModel.$userIdentifier)
         
         // bind bar button items
-        relationshipViewModel.$optionSet
-            .sink { [weak self] optionSet in
-                guard let self = self else { return }
-                guard let optionSet = optionSet, !optionSet.contains(.none) else {
-                    self.isReplyBarButtonItemHidden = true
-                    self.isMoreMenuBarButtonItemHidden = true
-                    self.isMeBarButtonItemsHidden = true
+        Publishers.CombineLatest3($account, $me, $relationship)
+            .sink(receiveValue: { [weak self] account, me, relationship in
+                guard let self else {
+                    self?.isReplyBarButtonItemHidden = true
+                    self?.isMoreMenuBarButtonItemHidden = true
+                    self?.isMeBarButtonItemsHidden = true
                     return
                 }
-                
-                let isMyself = optionSet.contains(.isMyself)
+
+                let isMyself = (account == me)
                 self.isReplyBarButtonItemHidden = isMyself
                 self.isMoreMenuBarButtonItemHidden = isMyself
-                self.isMeBarButtonItemsHidden = !isMyself
-            }
+                self.isMeBarButtonItemsHidden = (isMyself == false)
+            })
             .store(in: &disposeBag)
 
+        viewDidAppear
+            .sink { [weak self] _ in
+                guard let self else { return }
+
+                self.isReplyBarButtonItemHidden = self.isReplyBarButtonItemHidden
+                self.isMoreMenuBarButtonItemHidden = self.isMoreMenuBarButtonItemHidden
+                self.isMeBarButtonItemsHidden = self.isMeBarButtonItemsHidden
+            }
+            .store(in: &disposeBag)
         // query relationship
-        let userRecord = $user.map { user -> ManagedObjectRecord<MastodonUser>? in
-            user.flatMap { ManagedObjectRecord<MastodonUser>(objectID: $0.objectID) }
-        }
+
         let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
 
         // observe friendship
         Publishers.CombineLatest(
-            userRecord,
+            $account,
             pendingRetryPublisher
         )
-        .sink { [weak self] userRecord, _ in
-            guard let self = self else { return }
-            guard let userRecord = userRecord else { return }
+        .sink { [weak self] account, _ in
+            guard let self else { return }
+
             Task {
                 do {
-                    let response = try await self.updateRelationship(
-                        record: userRecord,
+                    let response = try await self.context.apiService.relationship(
+                        forAccounts: [account],
                         authenticationBox: self.authContext.mastodonAuthenticationBox
                     )
+
                     // there are seconds delay after request follow before requested -> following. Query again when needs
                     guard let relationship = response.value.first else { return }
                     if relationship.requested == true {
@@ -157,11 +155,12 @@ class ProfileViewModel: NSObject {
         }
         .store(in: &disposeBag)
 
-        let isBlockingOrBlocked = Publishers.CombineLatest(
-            relationshipViewModel.$isBlocking,
-            relationshipViewModel.$isBlockingBy
+        let isBlockingOrBlocked = Publishers.CombineLatest3(
+            (relationship?.blocking ?? false).publisher,
+            (relationship?.blockedBy ?? false).publisher,
+            (relationship?.domainBlocking ?? false).publisher
         )
-        .map { $0 || $1 }
+        .map { $0 || $1 || $2 }
         .share()
         
         Publishers.CombineLatest(
@@ -172,33 +171,20 @@ class ProfileViewModel: NSObject {
         .assign(to: &$isPagingEnabled)
     }
     
-
-    func viewDidLoad() {
-        
-    }
-
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        guard let me else {
+        guard let domain = me.domain else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
 
         let mastodonAuthentication = authContext.mastodonAuthenticationBox.authentication
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
-        return context.apiService.accountVerifyCredentials(domain: me.domain, authorization: authorization)
+        return context.apiService.accountVerifyCredentials(domain: domain, authorization: authorization)
+            .tryMap { response in
+                FileManager.default.store(account: response.value, forUserID: mastodonAuthentication.userIdentifier())
+                return response
+            }.eraseToAnyPublisher()
     }
-    
-    private func updateRelationship(
-        record: ManagedObjectRecord<MastodonUser>,
-        authenticationBox: MastodonAuthenticationBox
-    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
-        let response = try await context.apiService.relationship(
-            records: [record],
-            authenticationBox: authenticationBox
-        )
-        return response
-    }
-
 }
 
 extension ProfileViewModel {
@@ -242,10 +228,14 @@ extension ProfileViewModel {
             source: nil,
             fieldsAttributes: fieldsAttributes
         )
-        return try await context.apiService.accountUpdateCredentials(
+        let response = try await context.apiService.accountUpdateCredentials(
             domain: domain,
             query: query,
             authorization: authorization
         )
+
+        FileManager.default.store(account: response.value, forUserID: authenticationBox.authentication.userIdentifier())
+
+        return response
     }
 }

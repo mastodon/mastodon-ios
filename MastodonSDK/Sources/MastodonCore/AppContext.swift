@@ -122,8 +122,6 @@ public class AppContext: ObservableObject {
             }
             .store(in: &disposeBag)
     }
-    
-    
 }
 
 extension AppContext {

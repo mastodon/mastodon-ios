@@ -70,7 +70,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
 
                 navigationController.pushViewController(notificationViewController, animated: true)
             case .serverDetails(let domain):
-                let serverDetailsViewController = ServerDetailsViewController(domain: domain)
+                let serverDetailsViewController = ServerDetailsViewController(domain: domain, appContext: appContext, authContext: authContext, sceneCoordinator: sceneCoordinator)
                 serverDetailsViewController.delegate = self
 
                 appContext.apiService.instanceV2(domain: domain)
@@ -216,15 +216,10 @@ extension SettingsCoordinator: ServerDetailsViewControllerDelegate {
 }
 
 extension SettingsCoordinator: AboutInstanceViewControllerDelegate {
-    @MainActor func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account) {
+    @MainActor
+    func showAdminAccount(_ viewController: AboutInstanceViewController, account: Mastodon.Entity.Account) {
         Task {
-            let user = try await appContext.apiService.fetchUser(username: account.username, domain: authContext.mastodonAuthenticationBox.domain, authenticationBox: authContext.mastodonAuthenticationBox)
-
-            let profileViewModel = ProfileViewModel(context: appContext, authContext: authContext, optionalMastodonUser: user)
-
-            _ = await MainActor.run {
-                sceneCoordinator.present(scene: .profile(viewModel: profileViewModel), transition: .show)
-            }
+            await DataSourceFacade.coordinateToProfileScene(provider: viewController, account: account)
         }
     }
     

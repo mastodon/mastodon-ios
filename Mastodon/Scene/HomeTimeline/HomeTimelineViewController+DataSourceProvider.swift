@@ -16,7 +16,7 @@ extension HomeTimelineViewController: DataSourceProvider {
         }
         guard let indexPath = _indexPath else { return nil }
         
-        guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
+        guard let item = viewModel?.diffableDataSource?.itemIdentifier(for: indexPath) else {
             return nil
         }
         
@@ -34,7 +34,7 @@ extension HomeTimelineViewController: DataSourceProvider {
     }
 
     func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
-        viewModel.dataController.update(status: status, intent: intent)
+        viewModel?.dataController.update(status: status, intent: intent)
     }
 
     @MainActor

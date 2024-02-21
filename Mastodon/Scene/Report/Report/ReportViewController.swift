@@ -20,19 +20,22 @@ class ReportViewController: UIViewController, NeedsDependency, ReportViewControl
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
-    var viewModel: ReportViewModel!
-    
+    let viewModel: ReportViewModel
+
     lazy var cancelBarButtonItem = UIBarButtonItem(
         barButtonSystemItem: .cancel,
         target: self,
         action: #selector(ReportViewController.cancelBarButtonItemDidPressed(_:))
     )
     
-    
-}
+    init(viewModel: ReportViewModel) {
+        self.viewModel = viewModel
 
-extension ReportViewController {
+        super.init(nibName: nil, bundle: nil)
+    }
     
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -46,21 +49,16 @@ extension ReportViewController {
         viewModel.reportStatusViewModel.delegate = self
         viewModel.reportSupplementaryViewModel.delegate = self
         
-        let reportReasonViewController = ReportReasonViewController()
+        let reportReasonViewController = ReportReasonViewController(viewModel: viewModel.reportReasonViewModel)
         reportReasonViewController.context = context
         reportReasonViewController.coordinator = coordinator
-        reportReasonViewController.viewModel = viewModel.reportReasonViewModel
-        
+
         addChild(reportReasonViewController)
         reportReasonViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(reportReasonViewController.view)
         reportReasonViewController.didMove(toParent: self)
         reportReasonViewController.view.pinToParent()
     }
-    
-}
-
-extension ReportViewController {
     
     @objc private func cancelBarButtonItemDidPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -84,7 +82,8 @@ extension ReportViewController: ReportReasonViewControllerDelegate {
             let reportResultViewModel = ReportResultViewModel(
                 context: context,
                 authContext: viewModel.authContext,
-                user: viewModel.user,
+                account: viewModel.account,
+                relationship: viewModel.relationship,
                 isReported: false
             )
             _ = coordinator.present(
@@ -156,11 +155,12 @@ extension ReportViewController: ReportSupplementaryViewControllerDelegate {
         Task { @MainActor in
             do {
                 let _ = try await viewModel.report()
-                
+
                 let reportResultViewModel = ReportResultViewModel(
                     context: context,
                     authContext: viewModel.authContext,
-                    user: viewModel.user,
+                    account: viewModel.account,
+                    relationship: viewModel.relationship,
                     isReported: true
                 )
                 

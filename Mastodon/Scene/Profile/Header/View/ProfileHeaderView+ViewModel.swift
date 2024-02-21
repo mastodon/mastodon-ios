@@ -14,6 +14,7 @@ import MastodonCore
 import MastodonUI
 import MastodonAsset
 import MastodonLocalization
+import MastodonSDK
 
 extension ProfileHeaderView {
     class ViewModel: ObservableObject {
@@ -45,15 +46,16 @@ extension ProfileHeaderView {
         
         @Published var fields: [MastodonField] = []
         
-        @Published var relationshipActionOptionSet: RelationshipActionOptionSet = .none
+        @Published var me: Mastodon.Entity.Account
+        @Published var account: Mastodon.Entity.Account
+        @Published var relationship: Mastodon.Entity.Relationship?
         @Published var isRelationshipActionButtonHidden = false
         @Published var isMyself = false
         
-        init() {
-            $relationshipActionOptionSet
-                .compactMap { $0.highPriorityAction(except: []) }
-                .map { $0 == .none }
-                .assign(to: &$isRelationshipActionButtonHidden)
+        init(account: Mastodon.Entity.Account, me: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?) {
+            self.account = account
+            self.me = me
+            self.relationship = relationship
         }
     }
 }
@@ -96,13 +98,16 @@ extension ProfileHeaderView.ViewModel {
         }
         .store(in: &disposeBag)
         // follows you
-        $relationshipActionOptionSet
-            .map { $0.contains(.followingBy) && !$0.contains(.isMyself) }
+        Publishers.CombineLatest($relationship, $isMyself)
+            .map { relationship, isMyself in
+                return (relationship?.followedBy ?? false) && (isMyself == false)
+            }
             .receive(on: DispatchQueue.main)
-            .sink { isFollowingBy in
-                view.followsYouBlurEffectView.isHidden = !isFollowingBy
+            .sink { followsYou in
+                view.followsYouBlurEffectView.isHidden = (followsYou == false)
             }
             .store(in: &disposeBag)
+
         // avatar
         Publishers.CombineLatest4(
             $avatarImageURL,
@@ -118,8 +123,12 @@ extension ProfileHeaderView.ViewModel {
         }
         .store(in: &disposeBag)
         // blur for blocking & blockingBy
-        $relationshipActionOptionSet
-            .map { $0.contains(.blocking) || $0.contains(.blockingBy) || $0.contains(.domainBlocking) }
+        $relationship
+            .compactMap { relationship in
+                guard let relationship else { return false }
+
+                return relationship.blocking || relationship.blockedBy || relationship.domainBlocking
+            }
             .sink { needsImageOverlayBlurred in
                 UIView.animate(withDuration: 0.33) {
                     let bannerEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.bannerImageViewOverlayBlurEffect : nil
@@ -182,17 +191,26 @@ extension ProfileHeaderView.ViewModel {
             view.bioMetaText.configure(content: metaContent)
         }
         .store(in: &disposeBag)
-        $relationshipActionOptionSet
-            .receive(on: DispatchQueue.main)
-            .sink { optionSet in
-                let isBlocking = optionSet.contains(.blocking) || optionSet.contains(.domainBlocking)
-                let isBlockedBy = optionSet.contains(.blockingBy)
-                let isSuspended = optionSet.contains(.suspended)
+
+        Publishers.CombineLatest($relationship, $account)
+            .compactMap { relationship, account in
+
+                guard let relationship else { return nil }
+
+                let isBlocking = relationship.blocking || relationship.domainBlocking
+                let isBlockedBy = relationship.blockedBy
+                let isSuspended = account.suspended ?? false
+
                 let isNeedsHidden = isBlocking || isBlockedBy || isSuspended
 
+                return isNeedsHidden
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { isNeedsHidden in
                 view.bioMetaText.textView.isHidden = isNeedsHidden
             }
             .store(in: &disposeBag)
+
         // dashboard
         $isMyself
             .receive(on: DispatchQueue.main)
@@ -243,22 +261,20 @@ extension ProfileHeaderView.ViewModel {
             .store(in: &disposeBag)
         // relationship
         $isRelationshipActionButtonHidden
-            .assign(to: \.isHidden, on: view.relationshipActionButtonShadowContainer)
+            .assign(to: \.isHidden, on: view.relationshipActionButton)
             .store(in: &disposeBag)
+
         Publishers.CombineLatest3(
-            $relationshipActionOptionSet,
+            Publishers.CombineLatest3($me, $account, $relationship).eraseToAnyPublisher(),
             $isEditing,
             $isUpdating
         )
         .receive(on: DispatchQueue.main)
-        .sink { relationshipActionOptionSet, isEditing, isUpdating in
-            if relationshipActionOptionSet.contains(.edit) {
-                // check .edit state and set .editing when isEditing
-                view.relationshipActionButton.configure(actionOptionSet: isUpdating ? .updating : (isEditing ? .editing : .edit))
-                view.configure(state: isEditing ? .editing : .normal)
-            } else {
-                view.relationshipActionButton.configure(actionOptionSet: relationshipActionOptionSet)
-            }
+        .sink { tuple, isEditing, isUpdating in
+            let (me, account, relationship) = tuple
+            guard let relationship else { return }
+
+            view.relationshipActionButton.configure(relationship: relationship, between: account, and: me, isEditing: isEditing, isUpdating: isUpdating)
         }
         .store(in: &disposeBag)
     }

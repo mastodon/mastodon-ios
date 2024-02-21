@@ -11,7 +11,7 @@ import Foundation
 extension Feed {
     public enum Acct: RawRepresentable {
         case none
-        case mastodon(domain: String, userID: MastodonUser.ID)
+        case mastodon(domain: String, userID: String)
         
         public init?(rawValue: String) {
             let components = rawValue.split(separator: "@", maxSplits: 2)

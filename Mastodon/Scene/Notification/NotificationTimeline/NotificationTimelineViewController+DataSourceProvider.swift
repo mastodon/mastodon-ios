@@ -22,10 +22,11 @@ extension NotificationTimelineViewController: DataSourceProvider {
         
         switch item {
         case .feed(let feed):
-            let managedObjectContext = context.managedObjectContext
             let item: DataSourceItem? = {
                 guard feed.kind == .notificationAll || feed.kind == .notificationMentions else { return nil }
-                if let notification = feed.notification, let mastodonNotification = MastodonNotification.fromEntity(notification, using: managedObjectContext, domain: authContext.mastodonAuthenticationBox.domain) {
+                
+                if let notification = feed.notification {
+                    let mastodonNotification = MastodonNotification.fromEntity(notification, relationship: nil)
                     return .notification(record: mastodonNotification)
                 } else {
                     return nil
@@ -36,13 +37,13 @@ extension NotificationTimelineViewController: DataSourceProvider {
             return nil
         }
     }
-
+    
     func update(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
         Task {
             await viewModel.loadLatest()
         }
     }
-
+    
     @MainActor
     private func indexPath(for cell: UITableViewCell) async -> IndexPath? {
         return tableView.indexPath(for: cell)

@@ -117,7 +117,7 @@ extension UserTimelineViewModel.State {
 
             Task {
                 let maxID = await viewModel.dataController.records.last?.id
-                
+
                 guard let userID = viewModel.userIdentifier?.userID, !userID.isEmpty else {
                     stateMachine.enter(Fail.self)
                     return

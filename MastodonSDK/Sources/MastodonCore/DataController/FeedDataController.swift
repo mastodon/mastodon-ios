@@ -167,14 +167,36 @@ private extension FeedDataController {
     func load(kind: MastodonFeed.Kind, maxID: MastodonStatus.ID?) async throws -> [MastodonFeed] {
         switch kind {
         case .home:
+            await context.authenticationService.authenticationServiceProvider.fetchAccounts(apiService: context.apiService)
             return try await context.apiService.homeTimeline(maxID: maxID, authenticationBox: authContext.mastodonAuthenticationBox)
                 .value.map { .fromStatus(.fromEntity($0), kind: .home) }
         case .notificationAll:
-            return try await context.apiService.notifications(maxID: nil, scope: .everything, authenticationBox: authContext.mastodonAuthenticationBox)
-                .value.map { .fromNotification($0, kind: .notificationAll) }
+            return try await getFeeds(with: .everything)
         case .notificationMentions:
-            return try await context.apiService.notifications(maxID: nil, scope: .mentions, authenticationBox: authContext.mastodonAuthenticationBox)
-                .value.map { .fromNotification($0, kind: .notificationMentions) }
+            return try await getFeeds(with: .mentions)
+
         }
     }
+
+    private func getFeeds(with scope: APIService.MastodonNotificationScope) async throws -> [MastodonFeed] {
+
+        let notifications = try await context.apiService.notifications(maxID: nil, scope: scope, authenticationBox: authContext.mastodonAuthenticationBox).value
+
+        let accounts = notifications.map { $0.account }
+        let relationships = try await context.apiService.relationship(forAccounts: accounts, authenticationBox: authContext.mastodonAuthenticationBox).value
+
+        let notificationsWithRelationship: [(notification: Mastodon.Entity.Notification, relationship: Mastodon.Entity.Relationship?)] = notifications.compactMap { notification in
+            guard let relationship = relationships.first(where: {$0.id == notification.account.id }) else { return (notification: notification, relationship: nil)}
+
+            return (notification: notification, relationship: relationship)
+        }
+
+        let feeds = notificationsWithRelationship.compactMap({ (notification: Mastodon.Entity.Notification, relationship: Mastodon.Entity.Relationship?) in
+            MastodonFeed.fromNotification(notification, relationship: relationship, kind: .notificationAll)
+        })
+
+        return feeds
+    }
+
 }
+

@@ -41,58 +41,88 @@ extension DataSourceFacade {
             assertionFailure()
             return
         }
+
         await coordinateToProfileScene(
             provider: provider,
             account: redirectRecord
-        )
-    }
-    
-    @MainActor
-    static func coordinateToProfileScene(
-        provider: ViewControllerWithDependencies & AuthContextProvider,
-        user: ManagedObjectRecord<MastodonUser>
-    ) async {
-        guard let user = user.object(in: provider.context.managedObjectContext) else {
-            assertionFailure()
-            return
-        }
-        
-        let profileViewModel = ProfileViewModel(
-            context: provider.context,
-            authContext: provider.authContext,
-            optionalMastodonUser: user
-        )
-        
-        _ = provider.coordinator.present(
-            scene: .profile(viewModel: profileViewModel),
-            from: provider,
-            transition: .show
         )
     }
 
     @MainActor
     static func coordinateToProfileScene(
         provider: ViewControllerWithDependencies & AuthContextProvider,
+        username: String,
+        domain: String
+    ) async {
+        provider.coordinator.showLoading()
+
+        do {
+            guard let account = try await provider.context.apiService.fetchUser(
+                username: username,
+                domain: domain,
+                authenticationBox: provider.authContext.mastodonAuthenticationBox
+            ) else {
+                return provider.coordinator.hideLoading()
+            }
+
+            provider.coordinator.hideLoading()
+
+            await coordinateToProfileScene(provider: provider, account: account)
+        } catch {
+            provider.coordinator.hideLoading()
+        }
+    }
+
+    @MainActor
+    static func coordinateToProfileScene(
+        provider: ViewControllerWithDependencies & AuthContextProvider,
+        domain: String,
+        accountID: String
+    ) async {
+        provider.coordinator.showLoading()
+
+            do {
+                let account = try await provider.context.apiService.accountInfo(
+                    domain: domain,
+                    userID: accountID,
+                    authorization: provider.authContext.mastodonAuthenticationBox.userAuthorization
+                ).value
+
+                provider.coordinator.hideLoading()
+
+                await coordinateToProfileScene(provider: provider, account: account)
+            } catch {
+                provider.coordinator.hideLoading()
+        }
+    }
+
+    @MainActor
+    public static func coordinateToProfileScene(
+        provider: ViewControllerWithDependencies & AuthContextProvider,
         account: Mastodon.Entity.Account
     ) async {
         provider.coordinator.showLoading()
-        
-        guard let domain = account.domain else { return provider.coordinator.hideLoading() }
-        
-        Task {
-            do {
-                let user = try await provider.context.apiService.fetchUser(username: account.username,
-                                                                           domain: domain,
-                                                                           authenticationBox: provider.authContext.mastodonAuthenticationBox)
-                provider.coordinator.hideLoading()
-                
-                if let user {
-                    await coordinateToProfileScene(provider: provider, user: user.asRecord)
-                }
-            } catch {
-                provider.coordinator.hideLoading()
-            }
+
+        guard let me = provider.authContext.mastodonAuthenticationBox.authentication.account(),
+              let relationship = try? await provider.context.apiService.relationship(forAccounts: [account], authenticationBox: provider.authContext.mastodonAuthenticationBox).value.first else {
+            return provider.coordinator.hideLoading()
         }
+
+        provider.coordinator.hideLoading()
+
+        let profileViewModel = ProfileViewModel(
+            context: provider.context,
+            authContext: provider.authContext,
+            account: account,
+            relationship: relationship,
+            me: me
+        )
+
+        _ = provider.coordinator.present(
+            scene: .profile(viewModel: profileViewModel),
+            from: provider,
+            transition: .show
+        )
     }
 }
 
@@ -113,74 +143,31 @@ extension DataSourceFacade {
         else {
             return
         }
-    
         let mentions = status.entity.mentions ?? []
-        
+
         guard let mention = mentions.first(where: { $0.url == href }) else {
-            _  = provider.coordinator.present(
+            _ = provider.coordinator.present(
                 scene: .safari(url: url),
                 from: provider,
                 transition: .safariPresent(animated: true, completion: nil)
             )
+
             return
         }
-        
-        let userID = mention.id
-        let profileViewModel: ProfileViewModel = {
-            // check if self
-            guard userID != provider.authContext.mastodonAuthenticationBox.userID else {
-                return MeProfileViewModel(context: provider.context, authContext: provider.authContext)
-            }
 
-            let request = MastodonUser.sortedFetchRequest
-            request.fetchLimit = 1
-            request.predicate = MastodonUser.predicate(domain: domain, id: userID)
-            let _user = provider.context.managedObjectContext.safeFetch(request).first
-
-            if let user = _user {
-                return ProfileViewModel(context: provider.context, authContext: provider.authContext, optionalMastodonUser: user)
-            } else {
-                return RemoteProfileViewModel(context: provider.context, authContext: provider.authContext, userID: userID)
-            }
-        }()
-        
-        _ = provider.coordinator.present(
-            scene: .profile(viewModel: profileViewModel),
-            from: provider,
-            transition: .show
-        )
+        await DataSourceFacade.coordinateToProfileScene(provider: provider, domain: domain, accountID: mention.id)
     }
 
 }
 
 extension DataSourceFacade {
-    
-    struct ProfileActionMenuContext {
-        let isMuting: Bool
-        let isBlocking: Bool
-        let isMyself: Bool
-        
-        let cell: UITableViewCell?
-        let sourceView: UIView?
-        let barButtonItem: UIBarButtonItem?
-    }
-    
     static func createActivityViewController(
         dependency: NeedsDependency,
-        user: ManagedObjectRecord<MastodonUser>
-    ) async throws -> UIActivityViewController? {
-        let managedObjectContext = dependency.context.managedObjectContext
-        let activityItems: [Any] = try await managedObjectContext.perform {
-            guard let user = user.object(in: managedObjectContext) else { return [] }
-            return user.activityItems
-        }
-        guard !activityItems.isEmpty else {
-            assertionFailure()
-            return nil
-        }
-        
-        let activityViewController = await UIActivityViewController(
-            activityItems: activityItems,
+        account: Mastodon.Entity.Account
+    ) -> UIActivityViewController {
+
+        let activityViewController = UIActivityViewController(
+            activityItems: [account.url],
             applicationActivities: [SafariActivity(sceneCoordinator: dependency.coordinator)]
         )
         return activityViewController

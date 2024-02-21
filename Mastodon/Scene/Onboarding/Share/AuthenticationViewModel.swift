@@ -187,7 +187,6 @@ extension AuthenticationViewModel {
         userToken: Mastodon.Entity.Token
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: userToken.accessToken)
-        let managedObjectContext = context.backgroundManagedObjectContext
 
         return context.apiService.accountVerifyCredentials(
             domain: info.domain,
@@ -195,23 +194,21 @@ extension AuthenticationViewModel {
         )
         .tryMap { response -> Mastodon.Response.Content<Mastodon.Entity.Account> in
             let account = response.value
-            let mastodonUserRequest = MastodonUser.sortedFetchRequest
-            mastodonUserRequest.predicate = MastodonUser.predicate(domain: info.domain, id: account.id)
-            mastodonUserRequest.fetchLimit = 1
-            guard let mastodonUser = try? managedObjectContext.fetch(mastodonUserRequest).first else {
-                throw AuthenticationError.badCredentials
-            }
-                        
+
+            let authentication = MastodonAuthentication.createFrom(domain: info.domain,
+                                                                      userID: account.id,
+                                                                      username: account.username,
+                                                                      appAccessToken: userToken.accessToken,  // TODO: swap app token
+                                                                      userAccessToken: userToken.accessToken,
+                                                                      clientID: info.clientID,
+                                                                      clientSecret: info.clientSecret)
+
             AuthenticationServiceProvider.shared
                 .authentications
-                .insert(MastodonAuthentication.createFrom(domain: info.domain,
-                                                          userID: mastodonUser.id,
-                                                          username: mastodonUser.username,
-                                                          appAccessToken: userToken.accessToken,  // TODO: swap app token
-                                                          userAccessToken: userToken.accessToken,
-                                                          clientID: info.clientID,
-                                                          clientSecret: info.clientSecret), at: 0)
-            
+                .insert(authentication, at: 0)
+
+            FileManager.default.store(account: account, forUserID: authentication.userIdentifier())
+
             return response
         }
         .eraseToAnyPublisher()

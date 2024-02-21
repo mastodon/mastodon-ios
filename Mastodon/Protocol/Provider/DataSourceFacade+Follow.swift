@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreDataStack
-import class CoreDataStack.Notification
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization
@@ -15,31 +14,21 @@ import MastodonLocalization
 extension DataSourceFacade {
     static func responseToUserFollowAction(
         dependency: NeedsDependency & AuthContextProvider,
-        user: ManagedObjectRecord<MastodonUser>
-    ) async throws {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
-    
-        _ = try await dependency.context.apiService.toggleFollow(
-            user: user,
-            authenticationBox: dependency.authContext.mastodonAuthenticationBox
-        )
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
-    }
-
-    static func responseToUserFollowAction(
-        dependency: NeedsDependency & AuthContextProvider,
-        user: Mastodon.Entity.Account
+        account: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
 
         let response = try await dependency.context.apiService.toggleFollow(
-            user: user,
+            account: account,
             authenticationBox: dependency.authContext.mastodonAuthenticationBox
         ).value
 
         dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+
+        NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+            UserInfoKey.relationship: response
+        ])
 
         return response
     }
@@ -50,44 +39,51 @@ extension DataSourceFacade {
     static func responseToUserFollowRequestAction(
         dependency: NeedsDependency & AuthContextProvider,
         notification: MastodonNotification,
+        notificationView: NotificationView,
         query: Mastodon.API.Account.FollowRequestQuery
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
-        
-        let managedObjectContext = dependency.context.managedObjectContext
-        let _userID: MastodonUser.ID? = try await managedObjectContext.perform {
-            return notification.account.id
-        }
-        
-        guard let userID = _userID else {
-            assertionFailure()
-            throw APIService.APIError.implicit(.badRequest)
-        }
-        
+
+        let userID = notification.account.id
         let state: MastodonFollowRequestState = notification.followRequestState
         
-        guard state.state == .none else {
-            return
-        }
-        
+        guard state.state == .none else { return }
+
         switch query {
         case .accept:
             notification.transientFollowRequestState = .init(state: .isAccepting)
         case .reject:
             notification.transientFollowRequestState = .init(state: .isRejecting)
         }
-        
+
+        await notificationView.configure(notification: notification, authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+
         do {
-            _ = try await dependency.context.apiService.followRequest(
+            let newRelationship = try await dependency.context.apiService.followRequest(
                 userID: userID,
                 query: query,
                 authenticationBox: dependency.authContext.mastodonAuthenticationBox
-            )
+            ).value
+
+            switch query {
+            case .accept:
+                notification.transientFollowRequestState = .init(state: .isAccept)
+                notification.followRequestState = .init(state: .isAccept)
+            case .reject:
+                break
+            }
+
+            NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+                UserInfoKey.relationship: newRelationship
+            ])
+
+            await notificationView.configure(notification: notification, authenticationBox: dependency.authContext.mastodonAuthenticationBox)
         } catch {
             // reset state when failure
             notification.transientFollowRequestState = .init(state: .none)
-            
+            await notificationView.configure(notification: notification, authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+
             if let error = error as? Mastodon.API.Error {
                 switch error.httpResponseStatus {
                 case .notFound:
@@ -103,36 +99,25 @@ extension DataSourceFacade {
                     )
                 }
             }
-            
-            return
         }
         
-        switch query {
-        case .accept:
-            notification.transientFollowRequestState = .init(state: .isAccept)
-            notification.followRequestState = .init(state: .isAccept)
-        case .reject:
-            break
-        }
     }
 }
 
 extension DataSourceFacade {
-  static func responseToShowHideReblogAction(
-    dependency: NeedsDependency & AuthContextProvider,
-    user: ManagedObjectRecord<MastodonUser>
-  ) async throws {
-    _ = try await dependency.context.apiService.toggleShowReblogs(
-      for: user,
-      authenticationBox: dependency.authContext.mastodonAuthenticationBox)
-  }
-    
     static func responseToShowHideReblogAction(
-      dependency: NeedsDependency & AuthContextProvider,
-      user: Mastodon.Entity.Account
+        dependency: NeedsDependency & AuthContextProvider,
+        account: Mastodon.Entity.Account
     ) async throws {
-      _ = try await dependency.context.apiService.toggleShowReblogs(
-        for: user,
-        authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+        let newRelationship = try await dependency.context.apiService.toggleShowReblogs(
+            for: account,
+            authenticationBox: dependency.authContext.mastodonAuthenticationBox
+        )
+
+        let userInfo = [
+            UserInfoKey.relationship: newRelationship,
+        ]
+
+        NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
     }
 }

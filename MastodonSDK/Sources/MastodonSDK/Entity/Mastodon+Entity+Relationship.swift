@@ -17,22 +17,33 @@ extension Mastodon.Entity {
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/relationship/)
     public struct Relationship: Codable, Sendable, Equatable, Hashable {
-        public typealias ID = String
-        
-        public let id: ID
+        /// The account ID
+        public let id: String
+        /// Are you following this user?
         public let following: Bool
-        public let requested: Bool?
-        public let endorsed: Bool?
+        /// Do you have a pending follow request for this user?
+        public let requested: Bool
+        /// Are you featuring this user on your profile?
+        public let endorsed: Bool
+        /// Are you followed by this user?
         public let followedBy: Bool
-        public let muting: Bool?
-        public let mutingNotifications: Bool?
-        public let showingReblogs: Bool?
-        public let notifying: Bool?
+        /// Are you muting this user?
+        public let muting: Bool
+        /// Are you muting notifications from this user?
+        public let mutingNotifications: Bool
+        /// Are you receiving this user’s boosts in your home timeline?
+        public let showingReblogs: Bool
+        /// Have you enabled notifications for this user?
+        public let notifying: Bool
+        /// Are you blocking this user?
         public let blocking: Bool
-        public let domainBlocking: Bool?
-        public let blockedBy: Bool?
+        /// Are you blocking this user’s domain?
+        public let domainBlocking: Bool
+        /// Is this user blocking you?
+        public let blockedBy: Bool
+        /// This user’s profile bio
         public let note: String?
-        
+
         enum CodingKeys: String, CodingKey {
             case id
             case following

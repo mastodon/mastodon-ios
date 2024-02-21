@@ -11,6 +11,7 @@ import CoreData
 import CoreDataStack
 import Pageboy
 import MastodonCore
+import MastodonSDK
 
 protocol MediaPreviewPage: UIViewController {
     func setShowingChrome(_ showingChrome: Bool)
@@ -151,8 +152,8 @@ extension MediaPreviewViewModel {
                 return true     // default valid
             case .profileBanner(let item):
                 guard let assertURL = item.assetURL else { return false }
-                guard !assertURL.hasSuffix("missing.png") else { return false }
-                return true
+
+                return assertURL.hasSuffix(Mastodon.Entity.Account.missingImageName) == false
             }
         }
     }
