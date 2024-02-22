@@ -62,6 +62,7 @@ extension SearchResultViewController {
             .store(in: &disposeBag)
 
         title = viewModel.searchText
+        viewModel.listBatchFetchViewModel.shouldFetch.send()
     }
 
     override func viewDidAppear(_ animated: Bool) {
