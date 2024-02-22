@@ -139,30 +139,22 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
     
     @objc func login() {
         guard let server = viewModel.selectedServer else { return }
-        
+
         authenticationViewModel
-            .authenticated
-            .asyncMap { domain, user -> Result<Bool, Error> in
-                do {
-                    let result = try await self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
-                    return .success(result)
-                } catch {
-                    return .failure(error)
-                }
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .failure(let error):
-                    assertionFailure(error.localizedDescription)
-                case .success(let isActived):
-                    assert(isActived)
-                    self.coordinator.setup()
+            .authenticated.sink { (domain, account) in
+                Task { @MainActor in
+                    do {
+                        _ = try await self.context.authenticationService.activeMastodonUser(domain: domain, userID: account.id)
+                        FileManager.default.store(account: account, forUserID: MastodonUserIdentifier(domain: domain, userID: account.id))
+
+                        self.coordinator.setup()
+                    } catch {
+                        assertionFailure(error.localizedDescription)
+                    }
                 }
             }
             .store(in: &disposeBag)
-        
+
         authenticationViewModel.isAuthenticating.send(true)
         context.apiService.createApplication(domain: server.domain)
             .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in

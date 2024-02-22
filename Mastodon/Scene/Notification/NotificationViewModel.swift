@@ -22,7 +22,6 @@ final class NotificationViewModel {
     let viewDidLoad = PassthroughSubject<Void, Never>()
     
     // output
-    let scopes = NotificationTimelineViewModel.Scope.allCases
     @Published var viewControllers: [UIViewController] = []
     @Published var currentPageIndex = 0 {
         didSet {

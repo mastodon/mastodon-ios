@@ -58,7 +58,7 @@ extension FavoriteViewModel.State {
             Task {
                 // reset
                 await viewModel.dataController.reset()
-                
+
                 stateMachine.enter(Loading.self)
             }
         }

@@ -12,6 +12,7 @@ import Meta
 import MastodonCore
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 public protocol NotificationViewDelegate: AnyObject {
     func notificationView(_ notificationView: NotificationView, authorAvatarButtonDidPressed button: AvatarButton)
@@ -47,12 +48,6 @@ public final class NotificationView: UIView {
     var notificationActions = [UIAccessibilityCustomAction]()
     var authorActions = [UIAccessibilityCustomAction]()
 
-    public private(set) lazy var viewModel: ViewModel = {
-        let viewModel = ViewModel()
-        viewModel.bind(notificationView: self)
-        return viewModel
-    }()
-    
     let containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -175,14 +170,16 @@ public final class NotificationView: UIView {
     public let quoteStatusViewContainerView = UIView()
     public let quoteBackgroundView = UIView()
     public let quoteStatusView = StatusView()
-    
+
+    let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
+        .autoconnect()
+        .share()
+        .eraseToAnyPublisher()
+
     public func prepareForReuse() {
         disposeBag.removeAll()
-        
-        viewModel.objects.removeAll()
 
-        viewModel.authContext = nil
-        viewModel.authorAvatarImageURL = nil
+        avatarButton.avatarImageView.image = nil
         avatarButton.avatarImageView.cancelTask()
         
         authorContainerViewBottomPaddingView.isHidden = true
@@ -478,8 +475,14 @@ extension NotificationView: AdaptiveContainerView {
 }
 
 extension NotificationView {
-    public typealias AuthorMenuContext = StatusAuthorView.AuthorMenuContext
     
+    public struct AuthorMenuContext {
+        public let name: String
+        public let isMuting: Bool
+        public let isBlocking: Bool
+        public let isMyself: Bool
+    }
+
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
         var actions: [[MastodonMenu.Action]] = []
         var upperActions: [MastodonMenu.Action] = []

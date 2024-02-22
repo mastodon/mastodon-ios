@@ -53,18 +53,18 @@ final class NotificationTimelineViewModel {
         self.authContext = authContext
         self.scope = scope
         self.dataController = FeedDataController(context: context, authContext: authContext)
-        
+
         switch scope {
         case .everything:
             self.dataController.records = (try? FileManager.default.cachedNotificationsAll(for: authContext.mastodonAuthenticationBox))?.map({ notification in
-                MastodonFeed.fromNotification(notification, kind: .notificationAll)
+                MastodonFeed.fromNotification(notification, relationship: nil, kind: .notificationAll)
             }) ?? []
         case .mentions:
             self.dataController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox))?.map({ notification in
-                MastodonFeed.fromNotification(notification, kind: .notificationMentions)
+                MastodonFeed.fromNotification(notification, relationship: nil, kind: .notificationMentions)
             }) ?? []
         }
-        
+
         self.dataController.$records
             .removeDuplicates()
             .receive(on: DispatchQueue.main)

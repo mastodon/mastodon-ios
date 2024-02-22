@@ -13,56 +13,40 @@ import MastodonSDK
 extension DataSourceFacade {
     static func responseToUserBlockAction(
         dependency: NeedsDependency & AuthContextProvider,
-        user: ManagedObjectRecord<MastodonUser>
-    ) async throws {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
-
-        let apiService = dependency.context.apiService
-        let authBox = dependency.authContext.mastodonAuthenticationBox
-        
-        _ = try await apiService.toggleBlock(
-            user: user,
-            authenticationBox: authBox
-        )
-        
-        try await dependency.context.apiService.getBlocked(
-            authenticationBox: authBox
-        )
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
-    }
-
-    static func responseToUserBlockAction(
-        dependency: NeedsDependency & AuthContextProvider,
-        user: Mastodon.Entity.Account
-    ) async throws {
+        account: Mastodon.Entity.Account
+    ) async throws -> Mastodon.Entity.Relationship {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
 
         let apiService = dependency.context.apiService
         let authBox = dependency.authContext.mastodonAuthenticationBox
 
-        _ = try await apiService.toggleBlock(
-            user: user,
+        let response = try await apiService.toggleBlock(
+            account: account,
             authenticationBox: authBox
         )
 
-        try await dependency.context.apiService.getBlocked(
-            authenticationBox: authBox
-        )
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+        let userInfo = [
+            UserInfoKey.relationship: response.value,
+        ]
+
+        NotificationCenter.default.post(name: .relationshipChanged, object: self, userInfo: userInfo)
+
+        return response.value
     }
 
     static func responseToDomainBlockAction(
         dependency: NeedsDependency & AuthContextProvider,
-        user: ManagedObjectRecord<MastodonUser>
-    ) async throws {
+        account: Mastodon.Entity.Account
+    ) async throws -> Mastodon.Entity.Empty {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
 
         let apiService = dependency.context.apiService
         let authBox = dependency.authContext.mastodonAuthenticationBox
 
-        _ = try await apiService.toggleDomainBlock(user: user, authenticationBox: authBox)
+        let response = try await apiService.toggleDomainBlock(account: account, authenticationBox: authBox)
+
+        return response.value
     }
 }

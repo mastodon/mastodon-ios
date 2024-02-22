@@ -13,11 +13,6 @@ import MastodonCore
 import MastodonSDK
 
 public final class MastodonStatusPublisher: NSObject, ProgressReporting {
-    
-    // Input
-    
-    // author
-    public let author: ManagedObjectRecord<MastodonUser>
     // refer
     public let replyTo: MastodonStatus?
     // content warning
@@ -47,7 +42,6 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public var reactor: StatusPublisherReactor?
 
     public init(
-        author: ManagedObjectRecord<MastodonUser>,
         replyTo: MastodonStatus?,
         isContentWarningComposing: Bool,
         contentWarning: String,
@@ -61,7 +55,6 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         visibility: Mastodon.Entity.Status.Visibility,
         language: String
     ) {
-        self.author = author
         self.replyTo = replyTo
         self.isContentWarningComposing = isContentWarningComposing
         self.contentWarning = contentWarning

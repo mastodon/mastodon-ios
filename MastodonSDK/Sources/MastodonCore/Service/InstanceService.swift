@@ -121,23 +121,3 @@ extension InstanceService {
         .eraseToAnyPublisher()
     }
 }
-
-public extension InstanceService {
-    func updateMutesAndBlocks() {
-        Task {
-            for authBox in authenticationService?.mastodonAuthenticationBoxes ?? [] {
-                do {
-                    try await apiService?.getMutes(
-                        authenticationBox: authBox
-                    )
-                    
-                    try await apiService?.getBlocked(
-                        authenticationBox: authBox
-                    )
-                    
-                } catch {
-                }
-            }
-        }
-    }
-}

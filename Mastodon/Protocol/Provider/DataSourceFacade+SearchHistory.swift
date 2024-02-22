@@ -27,7 +27,7 @@ extension DataSourceFacade {
                     hashtag: nil
                 )
 
-                try? FileManager.default.addSearchItem(searchEntry)
+                try? FileManager.default.addSearchItem(searchEntry, for: provider.authContext.mastodonAuthenticationBox)
             case .hashtag(let tag):
 
                 let now = Date()
@@ -39,10 +39,8 @@ extension DataSourceFacade {
                     hashtag: tag
                 )
 
-                try? FileManager.default.addSearchItem(searchEntry)
+                try? FileManager.default.addSearchItem(searchEntry, for: provider.authContext.mastodonAuthenticationBox)
             case .status:
-                break
-            case .user(_):
                 break
             case .notification:
                 break

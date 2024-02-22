@@ -11,8 +11,8 @@ import CoreDataStack
 import MastodonCore
 
 protocol ContentSplitViewControllerDelegate: AnyObject {
-    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
-    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didDoubleTapTab tab: MainTabBarController.Tab)
+    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didSelectTab tab: Tab)
+    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didDoubleTapTab tab: Tab)
 }
 
 final class ContentSplitViewController: UIViewController, NeedsDependency {
@@ -37,11 +37,11 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
         return sidebarViewController
     }()
     
-    @Published var currentSupplementaryTab: MainTabBarController.Tab = .home
+    @Published var currentSupplementaryTab: Tab = .home
     private(set) lazy var mainTabBarController: MainTabBarController = {
-        let mainTabBarController = MainTabBarController(context: context, coordinator: coordinator, authContext: authContext)
+        let mainTabBarController = MainTabBarController(context: self.context, coordinator: self.coordinator, authContext: self.authContext)
         if let homeTimelineViewController = mainTabBarController.viewController(of: HomeTimelineViewController.self) {
-            homeTimelineViewController.viewModel.displaySettingBarButtonItem = false
+            homeTimelineViewController.viewModel?.displaySettingBarButtonItem = false
         }
         return mainTabBarController
     }()
@@ -102,7 +102,7 @@ extension ContentSplitViewController {
 // MARK: - SidebarViewControllerDelegate
 extension ContentSplitViewController: SidebarViewControllerDelegate {
     
-    func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab) {
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: Tab) {
         delegate?.contentSplitViewController(self, sidebarViewController: sidebarViewController, didSelectTab: tab)
     }
     

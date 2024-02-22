@@ -9,11 +9,9 @@
 import UIKit
 import CoreDataStack
 import MastodonSDK
-import class CoreDataStack.Notification
 
 enum DataSourceItem: Hashable {
     case status(record: MastodonStatus)
-    case user(record: ManagedObjectRecord<MastodonUser>)
     case hashtag(tag: Mastodon.Entity.Tag)
     case notification(record: MastodonNotification)
     case account(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)

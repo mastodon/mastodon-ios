@@ -37,7 +37,7 @@ extension UserSection {
                 case .account(let account, let relationship):
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
 
-                    guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return cell }
+                    guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return cell }
 
                     cell.userView.setButtonState(.loading)
                     cell.configure(

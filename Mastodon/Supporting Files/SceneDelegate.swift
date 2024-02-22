@@ -92,9 +92,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // trigger authenticated user account update
         AppContext.shared.authenticationService.updateActiveUserAccountPublisher.send()
-        
-        // update mutes and blocks and remove related data
-        AppContext.shared.instanceService.updateMutesAndBlocks()
 
         if let shortcutItem = savedShortCutItem {
             Task {
@@ -137,16 +134,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         switch (profile, statusID) {
             case (profile, nil):
-                let profileViewModel = RemoteProfileViewModel(
-                    context: AppContext.shared,
-                    authContext: authContext,
-                    acct: incomingURL.absoluteString
-                )
-                self.coordinator?.present(
-                    scene: .profile(viewModel: profileViewModel),
-                    from: nil,
-                    transition: .show
-                )
+                Task {
+                    let authenticationBox = authContext.mastodonAuthenticationBox
+
+                    guard let me = authenticationBox.authentication.account() else { return }
+
+                    guard let account = try await AppContext.shared.apiService.search(
+                        query: .init(q: incomingURL.absoluteString, type: .accounts, resolve: true),
+                        authenticationBox: authenticationBox
+                    ).value.accounts.first else { return }
+
+                    guard let relationship = try await AppContext.shared.apiService.relationship(
+                        forAccounts: [account],
+                        authenticationBox: authenticationBox
+                    ).value.first else { return }
+
+                    let profileViewModel = ProfileViewModel(
+                        context: AppContext.shared,
+                        authContext: authContext,
+                        account: account,
+                        relationship: relationship,
+                        me: me
+                    )
+                    _ = self.coordinator?.present(
+                        scene: .profile(viewModel: profileViewModel),
+                        from: nil,
+                        transition: .show
+                    )
+                }
 
             case (profile, statusID):
                 Task {
@@ -248,10 +263,10 @@ extension SceneDelegate {
 
         if !UIApplication.shared.canOpenURL(url) { return }
 
-        #if DEBUG
+#if DEBUG
         print("source application = \(sendingAppID ?? "Unknown")")
         print("url = \(url)")
-        #endif
+#endif
         
         switch url.host {
         case "post":
@@ -264,16 +279,39 @@ extension SceneDelegate {
                 let authContext = coordinator?.authContext
             else { return }
             
-            let profileViewModel = RemoteProfileViewModel(
-                context: AppContext.shared,
-                authContext: authContext,
-                acct: components[1]
-            )
-            self.coordinator?.present(
-                scene: .profile(viewModel: profileViewModel),
-                from: nil,
-                transition: .show
-            )
+            Task {
+                do {
+                    let authenticationBox = authContext.mastodonAuthenticationBox
+                    
+                    guard let me = authContext.mastodonAuthenticationBox.authentication.account() else { return }
+                    
+                    guard let account = try await AppContext.shared.apiService.search(
+                        query: .init(q: components[1], type: .accounts, resolve: true),
+                        authenticationBox: authenticationBox
+                    ).value.accounts.first else { return }
+                    
+                    guard let relationship = try await AppContext.shared.apiService.relationship(
+                        forAccounts: [account],
+                        authenticationBox: authenticationBox
+                    ).value.first else { return }
+                    
+                    let profileViewModel = ProfileViewModel(
+                        context: AppContext.shared,
+                        authContext: authContext,
+                        account: account,
+                        relationship: relationship,
+                        me: me
+                    )
+                    
+                    self.coordinator?.present(
+                        scene: .profile(viewModel: profileViewModel),
+                        from: nil,
+                        transition: .show
+                    )
+                } catch {
+                    // fail silently
+                }
+            }
         case "status":
             let components = url.pathComponents
             guard

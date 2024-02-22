@@ -14,14 +14,14 @@ import MastodonSDK
 
 extension UserTableViewCell {
     final class ViewModel {
-        let user: MastodonUser
-        
+        let account: Mastodon.Entity.Account
+
         let followedUsers: AnyPublisher<[String], Never>
         let blockedUsers: AnyPublisher<[String], Never>
         let followRequestedUsers: AnyPublisher<[String], Never>
         
-        init(user: MastodonUser, followedUsers: AnyPublisher<[String], Never>, blockedUsers: AnyPublisher<[String], Never>, followRequestedUsers: AnyPublisher<[String], Never>) {
-            self.user = user
+        init(account: Mastodon.Entity.Account, followedUsers: AnyPublisher<[String], Never>, blockedUsers: AnyPublisher<[String], Never>, followRequestedUsers: AnyPublisher<[String], Never>) {
+            self.account = account
             self.followedUsers = followedUsers
             self.followRequestedUsers = followRequestedUsers
             self.blockedUsers =  blockedUsers
@@ -32,7 +32,7 @@ extension UserTableViewCell {
 extension UserTableViewCell {
 
     func configure(
-        me: MastodonUser,
+        me: Mastodon.Entity.Account,
         tableView: UITableView,
         account: Mastodon.Entity.Account,
         relationship: Mastodon.Entity.Relationship?,
@@ -45,69 +45,16 @@ extension UserTableViewCell {
 
         self.delegate = delegate
     }
-
-    func configure(
-        me: MastodonUser? = nil,
-        tableView: UITableView,
-        viewModel: ViewModel,
-        delegate: UserTableViewCellDelegate?
-    ) {
-        userView.configure(user: viewModel.user, delegate: delegate)
-
-        guard let me = me else {
-            return userView.setButtonState(.none)
-        }
-
-        if viewModel.user == me {
-            userView.setButtonState(.none)
-        } else {
-            userView.setButtonState(.loading)
-        }
-
-        Publishers.CombineLatest3(
-            viewModel.followedUsers,
-            viewModel.followRequestedUsers,
-            viewModel.blockedUsers
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] followed, requested, blocked in
-            if viewModel.user == me {
-                self?.userView.setButtonState(.none)
-            } else if blocked.contains(viewModel.user.id) {
-                self?.userView.setButtonState(.blocked)
-            } else if followed.contains(viewModel.user.id) {
-                self?.userView.setButtonState(.unfollow)
-            } else if requested.contains(viewModel.user.id) {
-                self?.userView.setButtonState(.pending)
-            } else if viewModel.user.locked {
-                self?.userView.setButtonState(.request)
-            } else if viewModel.user != me {
-                self?.userView.setButtonState(.follow)
-            }
-        }
-        .store(in: &disposeBag)
-
-        self.delegate = delegate
-    }
 }
 
 extension UserTableViewCellDelegate where Self: ViewControllerWithDependencies & AuthContextProvider {
     func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for user: MastodonUser) {
         Task {
-            try await DataSourceFacade.responseToUserViewButtonAction(
-                dependency: self,
-                user: user.asRecord,
-                buttonState: state
-            )
-        }
-    }
-    func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for account: Mastodon.Entity.Account, me: MastodonUser?) {
-        Task {
             await MainActor.run { view.setButtonState(.loading) }
 
             try await DataSourceFacade.responseToUserViewButtonAction(
                 dependency: self,
-                user: account,
+                account: account,
                 buttonState: state
             )
 
@@ -128,7 +75,6 @@ extension UserTableViewCellDelegate where Self: ViewControllerWithDependencies &
                 view.viewModel.relationship = relationship
                 view.updateButtonState(with: relationship, isMe: isMe)
             }
-
         }
     }
 }

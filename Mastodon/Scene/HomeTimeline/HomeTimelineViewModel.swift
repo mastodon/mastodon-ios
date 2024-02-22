@@ -147,7 +147,9 @@ extension HomeTimelineViewModel {
         // reconfigure item
         snapshot.reconfigureItems([item])
         await updateSnapshotUsingReloadData(snapshot: snapshot)
-        
+
+        await AuthenticationServiceProvider.shared.fetchAccounts(apiService: context.apiService)
+
         // fetch data
         let maxID = status.id
         _ = try? await context.apiService.homeTimeline(

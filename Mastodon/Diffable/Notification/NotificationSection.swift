@@ -73,9 +73,6 @@ extension NotificationSection {
         viewModel: NotificationTableViewCell.ViewModel,
         configuration: Configuration
     ) {
-        cell.notificationView.viewModel.context = context
-        cell.notificationView.viewModel.authContext = configuration.authContext
-        
         StatusSection.setupStatusPollDataSource(
             context: context,
             authContext: configuration.authContext,
@@ -91,7 +88,8 @@ extension NotificationSection {
         cell.configure(
             tableView: tableView,
             viewModel: viewModel,
-            delegate: configuration.notificationTableViewCellDelegate
+            delegate: configuration.notificationTableViewCellDelegate,
+            authenticationBox: configuration.authContext.mastodonAuthenticationBox
         )
         
         cell.notificationView.statusView.viewModel.filterContext = configuration.filterContext

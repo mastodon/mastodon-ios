@@ -28,30 +28,4 @@ extension DataSourceFacade {
             transition: .show
         )
     }
-    
-    @MainActor
-    static func coordinateToHashtagScene(
-        provider: DataSourceProvider & AuthContextProvider,
-        tag: ManagedObjectRecord<Tag>
-    ) async {
-        let managedObjectContext = provider.context.managedObjectContext
-        let _name: String? = try? await managedObjectContext.perform {
-            guard let tag = tag.object(in: managedObjectContext) else { return nil }
-            return tag.name
-        }
-        
-        guard let name = _name else { return }
-        
-        let hashtagTimelineViewModel = HashtagTimelineViewModel(
-            context: provider.context,
-            authContext: provider.authContext,
-            hashtag: name
-        )
-        
-        _ = provider.coordinator.present(
-            scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
-            from: provider,
-            transition: .show
-        )
-    }
 }

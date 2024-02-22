@@ -103,25 +103,25 @@ extension AccountListViewModel {
         authentication: MastodonAuthentication,
         activeAuthentication: MastodonAuthentication
     ) {
-        guard let user = authentication.user(in: context) else { return }
-        
+        guard let account = authentication.account() else { return }
+
         // avatar
         cell.avatarButton.avatarImageView.configure(
-            configuration: .init(url: user.avatarImageURL())
+            configuration: .init(url: account.avatarImageURL())
         )
 
         // name
         do {
-            let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
+            let content = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             cell.nameLabel.configure(content: metaContent)
         } catch {
             assertionFailure()
-            cell.nameLabel.configure(content: PlaintextMetaContent(string: user.displayNameWithFallback))
+            cell.nameLabel.configure(content: PlaintextMetaContent(string: account.displayNameWithFallback))
         }
 
         // username
-        let usernameMetaContent = PlaintextMetaContent(string: "@" + user.acctWithDomain)
+        let usernameMetaContent = PlaintextMetaContent(string: "@" + account.acctWithDomain)
         cell.usernameLabel.configure(content: usernameMetaContent)
         
         // badge

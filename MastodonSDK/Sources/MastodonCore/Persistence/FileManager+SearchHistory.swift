@@ -1,17 +1,12 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
-import MastodonCore
 
-extension FileManager {
-    func searchItems(forUser userID: String) throws -> [Persistence.SearchHistory.Item] {
-        return try searchItems().filter { $0.userID == userID }
-    }
-
-    func searchItems() throws -> [Persistence.SearchHistory.Item] {
+public extension FileManager {
+    func searchItems(for userId: UserIdentifier) throws -> [Persistence.SearchHistory.Item] {
         guard let documentsDirectory else { return [] }
 
-        let searchHistoryPath = Persistence.searchHistory.filepath(baseURL: documentsDirectory)
+        let searchHistoryPath = Persistence.searchHistory(userId).filepath(baseURL: documentsDirectory)
 
         guard let data = try? Data(contentsOf: searchHistoryPath) else { return [] }
 
@@ -28,18 +23,23 @@ extension FileManager {
         }
     }
 
-    func addSearchItem(_ newSearchItem: Persistence.SearchHistory.Item) throws {
-        guard let documentsDirectory else { return }
-
-        var searchItems = (try? searchItems()) ?? []
+    func addSearchItem(_ newSearchItem: Persistence.SearchHistory.Item, for userId: UserIdentifier) throws {
+        var searchItems = (try? searchItems(for: userId)) ?? []
 
         if let index = searchItems.firstIndex(of: newSearchItem) {
             searchItems.remove(at: index)
         }
-        
+
         searchItems.append(newSearchItem)
 
-        storeJSON(searchItems, .searchHistory)
+        storeJSON(searchItems, .searchHistory(userId))
+    }
+
+    func removeSearchHistory(for userId: UserIdentifier) {
+        let searchItems = (try? searchItems(for: userId)) ?? []
+        let newSearchItems = searchItems.filter { $0.userID != userId.userID }
+
+        storeJSON(newSearchItems, .searchHistory(userId))
     }
 
     private func storeJSON(_ encodable: Encodable, _ persistence: Persistence) {
@@ -55,25 +55,5 @@ extension FileManager {
         } catch {
             debugPrint(error.localizedDescription)
         }
-
-    }
-
-    func removeSearchHistory(forUser userID: String) {
-        guard let documentsDirectory else { return }
-
-        var searchItems = (try? searchItems()) ?? []
-        let newSearchItems = searchItems.filter { $0.userID != userID }
-
-        storeJSON(newSearchItems, .searchHistory)
-    }
-}
-
-public extension FileManager {
-    var documentsDirectory: URL? {
-        urls(for: .documentDirectory, in: .userDomainMask).first
-    }
-    
-    var cachesDirectory: URL? {
-        urls(for: .cachesDirectory, in: .userDomainMask).first
     }
 }

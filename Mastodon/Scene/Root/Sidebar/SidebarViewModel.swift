@@ -23,7 +23,7 @@ final class SidebarViewModel {
     let authContext: AuthContext?
     @Published private var isSidebarDataSourceReady = false
     @Published private var isAvatarButtonDataReady = false
-    @Published var currentTab: MainTabBarController.Tab = .home
+    @Published var currentTab: Tab = .home
 
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
@@ -57,7 +57,7 @@ extension SidebarViewModel {
     }
     
     enum Item: Hashable {
-        case tab(MainTabBarController.Tab)
+        case tab(Tab)
         case setting
         case compose
     }
@@ -69,18 +69,19 @@ extension SidebarViewModel {
         collectionView: UICollectionView,
         secondaryCollectionView: UICollectionView
     ) {
-        let tabCellRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, MainTabBarController.Tab> { [weak self] cell, indexPath, item in
-            guard let self = self else { return }
-            
-            let imageURL: URL? = {
-                switch item {
-                case .me:
-                    let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext)
-                    return user?.avatarImageURL()
-                default:
-                    return nil
-                }
-            }()
+        let tabCellRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, Tab> { [weak self] cell, indexPath, item in
+            guard let self else { return }
+
+            let imageURL: URL?
+            switch item {
+            case .me:
+                let account = self.authContext?.mastodonAuthenticationBox.authentication.account()
+                imageURL = account?.avatarImageURL()
+            case .home, .search, .compose, .notifications:
+                // no custom avatar for other tabs
+                imageURL = nil
+            }
+
             cell.item = SidebarListContentView.Item(
                 isActive: false,
                 accessoryImage: item == .me ? self.chevronImage : nil,
@@ -104,39 +105,40 @@ extension SidebarViewModel {
                 .store(in: &cell.disposeBag)
             
             switch item {
-            case .notifications:
-                Publishers.CombineLatest(
-                    self.context.notificationService.unreadNotificationCountDidUpdate,
-                    self.$currentTab
-                )
-                .receive(on: DispatchQueue.main)
-                .sink { [weak cell] authentication, currentTab in
-                    guard let cell = cell else { return }
-                    
-                    let hasUnreadPushNotification: Bool = {
-                        guard let accessToken = self.authContext?.mastodonAuthenticationBox.userAuthorization.accessToken else { return false }
-                        let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: accessToken)
-                        return count > 0
-                    }()
-                    
-                    let image: UIImage
-                    if hasUnreadPushNotification {
-                        let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
-                        image = UIImage(systemName: "bell.badge", withConfiguration: imageConfiguration)!
-                    } else {
-                        image = MainTabBarController.Tab.notifications.image
+                case .notifications:
+                    Publishers.CombineLatest(
+                        self.context.notificationService.unreadNotificationCountDidUpdate,
+                        self.$currentTab
+                    )
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak cell] authentication, currentTab in
+                        guard let cell = cell else { return }
+
+                        let hasUnreadPushNotification: Bool = {
+                            guard let accessToken = self.authContext?.mastodonAuthenticationBox.userAuthorization.accessToken else { return false }
+                            let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: accessToken)
+                            return count > 0
+                        }()
+
+                        let image: UIImage
+                        if hasUnreadPushNotification {
+                            let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.red, SystemTheme.tabBarItemNormalIconColor])
+                            image = UIImage(systemName: "bell.badge", withConfiguration: imageConfiguration)!
+                        } else {
+                            image = Tab.notifications.image
+                        }
+                        cell.item?.image = image
+                        cell.item?.activeImage = image.withTintColor(Asset.Colors.Brand.blurple.color, renderingMode: .alwaysOriginal)
+                        cell.setNeedsUpdateConfiguration()
                     }
-                    cell.item?.image = image
-                    cell.item?.activeImage = image.withTintColor(Asset.Colors.Brand.blurple.color, renderingMode: .alwaysOriginal)
-                    cell.setNeedsUpdateConfiguration()
-                }
-                .store(in: &cell.disposeBag)
-            case .me:
-                guard let user = self.authContext?.mastodonAuthenticationBox.authentication.user(in: self.context.managedObjectContext) else { return }
-                let currentUserDisplayName = user.displayNameWithFallback
-                cell.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
-            default:
-                break
+                    .store(in: &cell.disposeBag)
+                case .me:
+                    guard let account = self.authContext?.mastodonAuthenticationBox.authentication.account() else { return }
+
+                    let currentUserDisplayName = account.displayNameWithFallback
+                    cell.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
+                case .compose, .home, .search:
+                    break
             }
         }
         

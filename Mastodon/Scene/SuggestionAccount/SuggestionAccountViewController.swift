@@ -91,7 +91,9 @@ extension SuggestionAccountViewController: UITableViewDelegate {
         guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
         case .account(let account, _):
-                Task { await DataSourceFacade.coordinateToProfileScene(provider: self, account: account) }
+            Task {
+                await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+            }
         }
 
         tableView.deselectRow(at: indexPath, animated: true)

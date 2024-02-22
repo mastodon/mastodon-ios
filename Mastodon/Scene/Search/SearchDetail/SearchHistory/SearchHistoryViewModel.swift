@@ -24,7 +24,7 @@ final class SearchHistoryViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
-        self.items = (try? FileManager.default.searchItems(forUser: authContext.mastodonAuthenticationBox.userID)) ?? []
+        self.items = (try? FileManager.default.searchItems(for: authContext.mastodonAuthenticationBox)) ?? []
     }
 
 }

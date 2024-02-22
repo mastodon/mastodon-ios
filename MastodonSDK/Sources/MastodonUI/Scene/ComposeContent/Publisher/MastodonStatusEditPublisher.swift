@@ -11,7 +11,7 @@ public final class MastodonEditStatusPublisher: NSObject, ProgressReporting {
 
     // Input
     public let statusID: Status.ID
-    public let author: ManagedObjectRecord<MastodonUser>
+    public let author: Mastodon.Entity.Account
 
     // content warning
     public let isContentWarningComposing: Bool
@@ -41,7 +41,7 @@ public final class MastodonEditStatusPublisher: NSObject, ProgressReporting {
 
     public init(
         statusID: Status.ID,
-        author: ManagedObjectRecord<MastodonUser>,
+        author: Mastodon.Entity.Account,
         isContentWarningComposing: Bool,
         contentWarning: String,
         content: String,

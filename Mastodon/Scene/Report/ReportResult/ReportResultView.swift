@@ -75,7 +75,7 @@ struct ReportResultView: View {
                         action: {
                             viewModel.followActionPublisher.send()
                         },
-                        title: viewModel.relationshipViewModel.isFollowing ? L10n.Scene.Report.StepFinal.unfollow : L10n.Scene.Report.StepFinal.unfollowed,
+                        title: viewModel.relationship.following ? L10n.Scene.Report.StepFinal.unfollow : L10n.Scene.Report.StepFinal.unfollowed,
                         isBusy: viewModel.isRequestFollow
                     )
                 }
@@ -92,7 +92,7 @@ struct ReportResultView: View {
                         action: {
                             viewModel.muteActionPublisher.send()
                         },
-                        title: viewModel.relationshipViewModel.isMuting ? L10n.Common.Controls.Friendship.muted : L10n.Common.Controls.Friendship.mute,
+                        title: viewModel.relationship.muting ? L10n.Common.Controls.Friendship.muted : L10n.Common.Controls.Friendship.mute,
                         isBusy: viewModel.isRequestMute
                     )
                 }
@@ -109,7 +109,7 @@ struct ReportResultView: View {
                         action: {
                             viewModel.blockActionPublisher.send()
                         },
-                        title: viewModel.relationshipViewModel.isBlocking ? L10n.Common.Controls.Friendship.blocked : L10n.Common.Controls.Friendship.block,
+                        title: viewModel.relationship.blocking ? L10n.Common.Controls.Friendship.blocked : L10n.Common.Controls.Friendship.block,
                         isBusy: viewModel.isRequestBlock
                     )
                 }

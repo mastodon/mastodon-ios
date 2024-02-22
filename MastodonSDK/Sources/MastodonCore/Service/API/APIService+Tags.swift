@@ -27,8 +27,8 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
-        return try await persistTag(from: response, domain: domain, authenticationBox: authenticationBox)
-    }   // end func
+        return response
+    }
     
     public func followTag(
         for tag: String,
@@ -44,8 +44,8 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
         
-        return try await persistTag(from: response, domain: domain, authenticationBox: authenticationBox)
-    }   // end func
+        return response
+    }
     
     public func unfollowTag(
         for tag: String,
@@ -61,32 +61,6 @@ extension APIService {
             authorization: authorization
         ).singleOutput()
 
-        return try await persistTag(from: response, domain: domain, authenticationBox: authenticationBox)
-    }   // end func
-}
-
-fileprivate extension APIService {
-    @available(*, deprecated, message: "We don't persist tags anymore")
-    func persistTag(
-        from response: Mastodon.Response.Content<Mastodon.Entity.Tag>,
-        domain: String,
-        authenticationBox: MastodonAuthenticationBox
-    ) async throws ->  Mastodon.Response.Content<Mastodon.Entity.Tag> {
-        let managedObjectContext = self.backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            let me = authenticationBox.authentication.user(in: managedObjectContext)
-
-            _ = Persistence.Tag.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.Tag.PersistContext(
-                    domain: domain,
-                    entity: response.value,
-                    me: me,
-                    networkDate: response.networkDate
-                )
-            )
-        }
-        
         return response
     }
 }

@@ -59,7 +59,7 @@ extension SendPostIntentHandler: SendPostIntentHandling {
                 }
                 mastodonAuthentications = [authentication]
             } else {
-                mastodonAuthentications = try accounts.mastodonAuthentication(in: managedObjectContext)
+                mastodonAuthentications = try accounts.mastodonAuthentication()
             }
 
             let authenticationBoxes = mastodonAuthentications.map { authentication in
@@ -149,7 +149,7 @@ extension SendPostIntentHandler: SendPostIntentHandling {
     }
     
     func provideAccountsOptionsCollection(for intent: SendPostIntent) async throws -> INObjectCollection<Account> {
-        let accounts = try await Account.fetch(in: managedObjectContext)
+        let accounts = try await Account.fetch()
         return .init(items: accounts)
     }
 

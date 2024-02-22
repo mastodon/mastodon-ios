@@ -26,21 +26,6 @@ extension APIService {
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
         
-        let managedObjectContext = backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            for entity in response.value {
-                _ = Persistence.MastodonUser.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.MastodonUser.PersistContext(
-                        domain: authenticationBox.domain,
-                        entity: entity,
-                        cache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }   // end for … in
-        }
-        
         return response
     }
 
@@ -55,24 +40,8 @@ extension APIService {
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
 
-        let managedObjectContext = backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            for entity in response.value {
-                _ = Persistence.MastodonUser.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.MastodonUser.PersistContext(
-                        domain: authenticationBox.domain,
-                        entity: entity.account,
-                        cache: nil,
-                        networkDate: response.networkDate
-                    )
-                )
-            }   // end for … in
-        }
-
         return response
     }
-
 }
 
 extension APIService {
@@ -87,24 +56,6 @@ extension APIService {
             query: query,
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
-
-        let managedObjectContext = backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            for entity in response.value {
-                for account in entity.accounts {
-                    _ = Persistence.MastodonUser.createOrMerge(
-                        in: managedObjectContext,
-                        context: Persistence.MastodonUser.PersistContext(
-                            domain: authenticationBox.domain,
-                            entity: account,
-                            cache: nil,
-                            networkDate: response.networkDate
-                        )
-                    )
-                    
-                }   // end for account in
-            }   // end for entity in
-        }
 
         return response
     }

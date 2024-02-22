@@ -11,14 +11,12 @@ import MastodonSDK
 import CoreDataStack
 
 public protocol MastodonEmojiContainer {
-    var emojis: [Mastodon.Entity.Emoji]? { get }
+    var emojis: [Mastodon.Entity.Emoji] { get }
 }
 
 extension MastodonEmojiContainer {
     public var mastodonEmojis: [MastodonEmoji] {
-        return emojis.flatMap { emojis in
-            emojis.map { MastodonEmoji(emoji: $0) }
-        } ?? []
+        return emojis.map { MastodonEmoji(emoji: $0) }
     }
 }
 

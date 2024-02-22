@@ -38,8 +38,6 @@ final class NotificationTimelineViewController: UIViewController, NeedsDependenc
     }()
     
     let cellFrameCache = NSCache<NSNumber, NSValue>()
-
-    
 }
 
 extension NotificationTimelineViewController {
@@ -276,7 +274,6 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
         guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return }
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPathForSelectedRow) else { return }
-        let domain = authContext.mastodonAuthenticationBox.domain
         
         Task { @MainActor in
             switch item {
@@ -295,25 +292,8 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                         transition: .show
                     )
                 } else {
-                    context.managedObjectContext.perform {
-                        let mastodonUserRequest = MastodonUser.sortedFetchRequest
-                        mastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: notification.account.id)
-                        mastodonUserRequest.fetchLimit = 1
-                        guard let mastodonUser = try? self.context.managedObjectContext.fetch(mastodonUserRequest).first else {
-                            return
-                        }
-                        
-                        let profileViewModel = ProfileViewModel(
-                            context: self.context,
-                            authContext: self.viewModel.authContext,
-                            optionalMastodonUser: mastodonUser
-                        )
-                        _ = self.coordinator.present(
-                            scene: .profile(viewModel: profileViewModel),
-                            from: self,
-                            transition: .show
-                        )
-                    }
+
+                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: notification.account)
                 }
             default:
                 break

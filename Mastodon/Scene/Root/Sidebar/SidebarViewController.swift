@@ -12,7 +12,7 @@ import MastodonCore
 import MastodonUI
 
 protocol SidebarViewControllerDelegate: AnyObject {
-    func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: Tab)
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didLongPressItem item: SidebarViewModel.Item, sourceView: UIView)
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didDoubleTapItem item: SidebarViewModel.Item, sourceView: UIView)
 }

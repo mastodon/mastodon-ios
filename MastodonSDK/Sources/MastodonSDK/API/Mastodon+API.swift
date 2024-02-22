@@ -211,7 +211,7 @@ extension Mastodon.API {
             return try Mastodon.API.decoder.decode(type, from: data)
         } catch let decodeError {
             #if DEBUG
-            debugPrint(decodeError)
+            debugPrint("\(response.url), Data: \(String(data: data, encoding: .utf8)), \(decodeError)")
             #endif
             
             guard let httpURLResponse = response as? HTTPURLResponse else {

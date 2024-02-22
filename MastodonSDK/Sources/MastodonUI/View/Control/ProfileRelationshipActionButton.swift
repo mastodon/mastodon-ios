@@ -7,10 +7,13 @@
 
 import UIKit
 import MastodonAsset
+import MastodonSDK
 import MastodonLocalization
 
 public final class ProfileRelationshipActionButton: UIButton {
-    public func configure(actionOptionSet: RelationshipActionOptionSet) {
+    public func configure(relationship: Mastodon.Entity.Relationship, between account: Mastodon.Entity.Account, and me: Mastodon.Entity.Account, isEditing: Bool = false, isUpdating: Bool = false) {
+
+        let isMyself = (account == me)
 
         var configuration = UIButton.Configuration.filled()
 
@@ -19,19 +22,41 @@ public final class ProfileRelationshipActionButton: UIButton {
         configuration.activityIndicatorColorTransformer = UIConfigurationColorTransformer({ _ in return Asset.Colors.Label.primaryReverse.color })
         configuration.background.cornerRadius = 10
 
-        let title: String
-        if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked || option == .suspended {
+        var title: String
+
+        if isMyself {
+            if isEditing {
+                title = L10n.Common.Controls.Actions.save
+            } else {
+                title = L10n.Common.Controls.Friendship.editInfo
+            }
+        } else if relationship.blocking {
+            title = L10n.Common.Controls.Friendship.blocked
+        } else if relationship.domainBlocking {
+            title = L10n.Common.Controls.Friendship.domainBlocked
+        } else if relationship.requested {
+            title = L10n.Common.Controls.Friendship.pending
+        } else if relationship.muting {
+            title = L10n.Common.Controls.Friendship.muted
+        } else if relationship.following {
+            title = L10n.Common.Controls.Friendship.following
+        } else if account.locked {
+            title = L10n.Common.Controls.Friendship.request
+        } else {
+            title = L10n.Common.Controls.Friendship.follow
+        }
+
+        if relationship.blockedBy || account.suspended ?? false {
             isEnabled = false
-            configuration.showsActivityIndicator = false
-            title = actionOptionSet.title
-        } else if actionOptionSet.contains(.updating) {
-            isEnabled = false
+        } else {
+            isEnabled = true
+        }
+
+        if isUpdating {
             configuration.showsActivityIndicator = true
             title = ""
         } else {
-            isEnabled = true
             configuration.showsActivityIndicator = false
-            title = actionOptionSet.title
         }
 
         configuration.attributedTitle = AttributedString(

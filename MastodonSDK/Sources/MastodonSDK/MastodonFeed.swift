@@ -16,16 +16,18 @@ public final class MastodonFeed {
     public var isLoadingMore: Bool = false
     
     public let status: MastodonStatus?
+    public let relationship: Mastodon.Entity.Relationship?
     public let notification: Mastodon.Entity.Notification?
     
     public let kind: Feed.Kind
     
-    init(hasMore: Bool, isLoadingMore: Bool, status: MastodonStatus?, notification: Mastodon.Entity.Notification?, kind: Feed.Kind) {
+    init(hasMore: Bool, isLoadingMore: Bool, status: MastodonStatus?, notification: Mastodon.Entity.Notification?, relationship: Mastodon.Entity.Relationship?, kind: Feed.Kind) {
         self.id = notification?.id ?? status?.id ?? UUID().uuidString
         self.hasMore = hasMore
         self.isLoadingMore = isLoadingMore
         self.status = status
         self.notification = notification
+        self.relationship = relationship
         self.kind = kind
     }
 }
@@ -37,11 +39,12 @@ public extension MastodonFeed {
             isLoadingMore: false,
             status: status,
             notification: nil,
+            relationship: nil,
             kind: kind
         )
     }
     
-    static func fromNotification(_ notification: Mastodon.Entity.Notification, kind: Feed.Kind) -> MastodonFeed {
+    static func fromNotification(_ notification: Mastodon.Entity.Notification, relationship: Mastodon.Entity.Relationship?, kind: Feed.Kind) -> MastodonFeed {
         MastodonFeed(
             hasMore: false,
             isLoadingMore: false,
@@ -52,6 +55,7 @@ public extension MastodonFeed {
                 return .fromEntity(status)
             }(),
             notification: notification,
+            relationship: relationship,
             kind: kind
         )
     }

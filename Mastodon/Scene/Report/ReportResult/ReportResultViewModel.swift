@@ -23,7 +23,8 @@ class ReportResultViewModel: ObservableObject {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let user: ManagedObjectRecord<MastodonUser>
+    let account: Mastodon.Entity.Account
+    var relationship: Mastodon.Entity.Relationship
     let isReported: Bool
     
     var headline: String {
@@ -39,8 +40,7 @@ class ReportResultViewModel: ObservableObject {
     // output
     @Published var avatarURL: URL?
     @Published var username: String = ""
-    
-    let relationshipViewModel = RelationshipViewModel()
+
     let muteActionPublisher = PassthroughSubject<Void, Never>()
     let followActionPublisher = PassthroughSubject<Void, Never>()
     let blockActionPublisher = PassthroughSubject<Void, Never>()
@@ -48,24 +48,22 @@ class ReportResultViewModel: ObservableObject {
     init(
         context: AppContext,
         authContext: AuthContext,
-        user: ManagedObjectRecord<MastodonUser>,
+        account: Mastodon.Entity.Account,
+        relationship: Mastodon.Entity.Relationship,
         isReported: Bool
     ) {
         self.context = context
         self.authContext = authContext
-        self.user = user
+        self.account = account
+        self.relationship = relationship
         self.isReported = isReported
         // end init
         
         Task { @MainActor in
-            guard let user = user.object(in: context.managedObjectContext) else { return }
-            guard let me = authContext.mastodonAuthenticationBox.authentication.user(in: context.managedObjectContext) else { return }
-            self.relationshipViewModel.user = user
-            self.relationshipViewModel.me = me
             
-            self.avatarURL = user.avatarImageURL()
-            self.username = user.acctWithDomain
-            
+            self.avatarURL = account.avatarImageURL()
+            self.username = account.username
+
         }   // end Task
     }
 

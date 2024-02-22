@@ -20,7 +20,7 @@ extension RebloggedByViewController: DataSourceProvider {
         guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
             return nil
         }
-        
+
         switch item {
             case .account(let account, let relationship):
                 return .account(account: account, relationship: relationship)

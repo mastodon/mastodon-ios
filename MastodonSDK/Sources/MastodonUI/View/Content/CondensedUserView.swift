@@ -127,7 +127,7 @@ public class CondensedUserView: UIView {
     public func configure(with account: Mastodon.Entity.Account, showFollowers: Bool = true) {
         let displayNameMetaContent: MetaContent
         do {
-            let content = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojis?.asDictionary ?? [:])
+            let content = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojis.asDictionary)
             displayNameMetaContent = try MastodonMetaContent.convert(document: content)
         } catch {
             displayNameMetaContent = PlaintextMetaContent(string: account.displayNameWithFallback)

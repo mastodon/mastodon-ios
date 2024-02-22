@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 
 extension NotificationTableViewCell {
     final class ViewModel {
@@ -29,7 +30,8 @@ extension NotificationTableViewCell {
     func configure(
         tableView: UITableView,
         viewModel: ViewModel,
-        delegate: NotificationTableViewCellDelegate?
+        delegate: NotificationTableViewCellDelegate?,
+        authenticationBox: MastodonAuthenticationBox
     ) {
         if notificationView.frame == .zero {
             // set status view width
@@ -41,7 +43,7 @@ extension NotificationTableViewCell {
 
         switch viewModel.value {
         case .feed(let feed):
-            notificationView.configure(feed: feed)
+            notificationView.configure(feed: feed, authenticationBox: authenticationBox)
         }
         
         self.delegate = delegate
@@ -57,7 +59,7 @@ extension NotificationTableViewCell {
 
             UIView.performWithoutAnimation {
                 tableView.beginUpdates()
-                tableView.endUpdates()                
+                tableView.endUpdates()
             }
         }
         .store(in: &disposeBag)

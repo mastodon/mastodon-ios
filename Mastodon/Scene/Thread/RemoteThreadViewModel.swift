@@ -24,7 +24,6 @@ final class RemoteThreadViewModel: ThreadViewModel {
         )
         
         Task { @MainActor in
-            let domain = authContext.mastodonAuthenticationBox.domain
             let response = try await context.apiService.status(
                 statusID: statusID,
                 authenticationBox: authContext.mastodonAuthenticationBox
@@ -48,7 +47,6 @@ final class RemoteThreadViewModel: ThreadViewModel {
         )
         
         Task { @MainActor in
-            let domain = authContext.mastodonAuthenticationBox.domain
             let response = try await context.apiService.notification(
                 notificationID: notificationID,
                 authenticationBox: authContext.mastodonAuthenticationBox

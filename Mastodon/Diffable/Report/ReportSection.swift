@@ -35,7 +35,6 @@ extension ReportSection {
         tableView.register(ReportHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: ReportHeadlineTableViewCell.self))
         tableView.register(ReportStatusTableViewCell.self, forCellReuseIdentifier: String(describing: ReportStatusTableViewCell.self))
         tableView.register(ReportCommentTableViewCell.self, forCellReuseIdentifier: String(describing: ReportCommentTableViewCell.self))
-        tableView.register(ReportResultActionTableViewCell.self, forCellReuseIdentifier: String(describing: ReportResultActionTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
 
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
@@ -71,13 +70,6 @@ extension ReportSection {
                         }
                     }
                     .store(in: &cell.disposeBag)
-                return cell
-            case .result(let record):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportResultActionTableViewCell.self), for: indexPath) as! ReportResultActionTableViewCell
-                context.managedObjectContext.performAndWait {
-                    guard let user = record.object(in: context.managedObjectContext) else { return }
-                    cell.avatarImageView.configure(configuration: .init(url: user.avatarImageURL()))
-                }
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell

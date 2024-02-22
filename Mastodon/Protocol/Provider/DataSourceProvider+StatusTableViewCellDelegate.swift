@@ -35,37 +35,23 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             }
             
             switch await statusView.viewModel.header {
-            case .none:
-                break
-            case .reply:
-                let _replyToAuthor: ManagedObjectRecord<MastodonUser>? = try? await context.managedObjectContext.perform {
-                    guard let inReplyToAccountID = status.entity.inReplyToAccountID else { return nil }
-                    let request = MastodonUser.sortedFetchRequest
-                    request.predicate = MastodonUser.predicate(domain: domain, id: inReplyToAccountID)
-                    request.fetchLimit = 1
-                    guard let author = self.context.managedObjectContext.safeFetch(request).first else { return nil }
-                    return .init(objectID: author.objectID)
-                }
-                guard let replyToAuthor = _replyToAuthor else {
-                    assertionFailure()
-                    return
-                }
-                
-                await DataSourceFacade.coordinateToProfileScene(
-                    provider: self,
-                    user: replyToAuthor
-                )
+                case .none:
+                    break
+                case .reply:
+                    guard let replyToAccountID = status.entity.inReplyToAccountID else { return }
+                    await DataSourceFacade.coordinateToProfileScene(provider: self,
+                                                                    domain: domain,
+                                                                    accountID: replyToAccountID)
 
-            case .repost:
-                await DataSourceFacade.coordinateToProfileScene(
-                    provider: self,
-                    target: .reblog,      // keep the wrapper for header author
-                    status: status
-                )
+                case .repost:
+                    await DataSourceFacade.coordinateToProfileScene(
+                        provider: self,
+                        target: .reblog,      // keep the wrapper for header author
+                        status: status
+                    )
             }
         }
     }
-
 }
 
 // MARK: - avatar button
@@ -136,16 +122,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         didTapCardWithURL url: URL
     ) {
         Task {
-            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
-            guard let item = await item(from: source) else {
-                assertionFailure()
-                return
-            }
-            guard case let .status(status) = item else {
-                assertionFailure("only works for status data provider")
-                return
-            }
-
             await DataSourceFacade.responseToURLAction(
                 provider: self,
                 url: url
@@ -160,16 +136,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         didTapURL url: URL
     ) {
         Task {
-            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
-            guard let item = await item(from: source) else {
-                assertionFailure()
-                return
-            }
-            guard case let .status(status) = item else {
-                assertionFailure("only works for status data provider")
-                return
-            }
-
             await DataSourceFacade.responseToURLAction(
                 provider: self,
                 url: url
@@ -463,21 +429,9 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 assertionFailure("only works for status data provider")
                 return
             }
-            
+
             let status = _status.reblog ?? _status
 
-            let _author: ManagedObjectRecord<MastodonUser>? = try await self.context.managedObjectContext.perform {
-                let request = MastodonUser.sortedFetchRequest
-                request.predicate = MastodonUser.predicate(domain: self.authContext.mastodonAuthenticationBox.domain, id: status.entity.account.id)
-                request.fetchLimit = 1
-                guard let author = self.context.managedObjectContext.safeFetch(request).first else { return nil }
-                return .init(objectID: author.objectID)
-            }
-            guard let author = _author else {
-                assertionFailure()
-                return
-            }
-            
             if case .translateStatus = action {
                 DispatchQueue.main.async {
                     if let cell = cell as? StatusTableViewCell {
@@ -511,8 +465,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 dependency: self,
                 action: action,
                 menuContext: .init(
-                    author: author,
-                    authorEntity: status.entity.account,
+                    author: status.entity.account,
                     statusViewModel: statusViewModel,
                     button: button,
                     barButtonItem: nil
@@ -709,14 +662,14 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     target: .status,    // remove reblog wrapper
                     status: status
                 )
-            case .user(let user):
+            case .account(let account, _):
                 await DataSourceFacade.coordinateToProfileScene(
                     provider: self,
-                    user: user
+                    account: account
                 )
             case .notification:
                 assertionFailure("TODO")
-            default:
+            case .hashtag(_):
                 assertionFailure("TODO")
             }
         }

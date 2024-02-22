@@ -102,7 +102,7 @@ extension DiscoveryCommunityViewController: AuthContextProvider {
 
 // MARK: - UITableViewDelegate
 extension DiscoveryCommunityViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
-    // sourcery:inline:CommunityViewController.AutoGenerateTableViewDelegate
+    // sourcery:inline:DiscoveryCommunityViewController.AutoGenerateTableViewDelegate
 
     // Generated using Sourcery
     // DO NOT EDIT

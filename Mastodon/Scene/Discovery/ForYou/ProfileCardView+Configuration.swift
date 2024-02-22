@@ -22,7 +22,7 @@ extension ProfileCardView {
         viewModel.followersCount = account.followersCount
         viewModel.authorAvatarImageURL = account.avatarImageURL()
 
-        let emojis = account.emojis?.asDictionary ?? [:]
+        let emojis = account.emojis.asDictionary
 
         do {
             let content = MastodonContent(content: account.displayNameWithFallback, emojis: emojis)
