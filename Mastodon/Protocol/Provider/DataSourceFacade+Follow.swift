@@ -19,31 +19,33 @@ extension DataSourceFacade {
     ) async throws -> Mastodon.Entity.Relationship {
         let authBox = dependency.authContext.mastodonAuthenticationBox
         let relationship = try await dependency.context.apiService.relationship(
-            forAccounts: [user], authenticationBox: authBox
+            forAccounts: [account], authenticationBox: authBox
         ).value.first
         
         return try await withCheckedThrowingContinuation { continuation in
             Task { @MainActor in
                 let performAction = {
                     let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
+                    selectionFeedbackGenerator.selectionChanged()
 
-        let response = try await dependency.context.apiService.toggleFollow(
-            account: account,
-            authenticationBox: dependency.authContext.mastodonAuthenticationBox
-        ).value
+                    let response = try await dependency.context.apiService.toggleFollow(
+                        account: account,
+                        authenticationBox: dependency.authContext.mastodonAuthenticationBox
+                    ).value
 
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+                    dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+                    
+
+                    NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+                        UserInfoKey.relationship: response
+                    ])
+                    
                     continuation.resume(returning: response)
-
-        NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
-            UserInfoKey.relationship: response
-        ])
                 }
 
                 if relationship?.following == true {
                     let alert = UIAlertController(
-                        title: L10n.Common.Alerts.UnfollowUser.title("@\(user.username)"),
+                        title: L10n.Common.Alerts.UnfollowUser.title("@\(account.username)"),
                         message: nil,
                         preferredStyle: .alert
                     )
