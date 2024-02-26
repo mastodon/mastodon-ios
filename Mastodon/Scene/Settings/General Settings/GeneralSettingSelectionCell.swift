@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonAsset
+import MastodonUI
 
 class GeneralSettingSelectionCell: UITableViewCell {
     static let reuseIdentifier = "GeneralSettingSelectionCell"
@@ -51,11 +52,12 @@ class GeneralSettingSelectionCell: UITableViewCell {
     }
     
     private func configureLanguageSetting(_ setting: GeneralSetting.Language, viewModel: GeneralSettingsViewModel) {
+        tintColor = Asset.Colors.Brand.blurple.color
+        accessoryType = .none
+        
         var content = defaultContentConfiguration()
         content.text = setting.title
-        tintColor = Asset.Colors.Brand.blurple.color
-
-        content.secondaryText = viewModel.defaultPostLanguage
+        content.secondaryText = LanguagePicker.availableLanguages().first(where: { $0.localeId == UserDefaults.shared.defaultPostLanguage })?.exonym
         content.prefersSideBySideTextAndSecondaryText = true
 
         contentConfiguration = content

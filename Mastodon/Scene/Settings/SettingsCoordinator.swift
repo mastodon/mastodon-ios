@@ -7,6 +7,7 @@ import CoreDataStack
 import MastodonSDK
 import Combine
 import MetaTextKit
+import MastodonUI
 
 protocol SettingsCoordinatorDelegate: AnyObject {
     func logout(_ settingsCoordinator: SettingsCoordinator)
@@ -57,10 +58,15 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     func didSelect(_ viewController: UIViewController, entry: SettingsEntry) {
         switch entry {
             case .general:
-                let generalSettingsViewController = GeneralSettingsViewController(setting: setting)
+            Task { @ MainActor in
+                sceneCoordinator.showLoading()
+                
+                let generalSettingsViewController = await GeneralSettingsViewController(appContext: appContext, setting: setting)
                 generalSettingsViewController.delegate = self
-
+                
+                sceneCoordinator.hideLoading()
                 navigationController.pushViewController(generalSettingsViewController, animated: true)
+            }
             case .notifications:
 
                 let currentSetting = appContext.settingService.currentSetting.value
@@ -143,6 +149,11 @@ extension SettingsCoordinator: GeneralSettingsViewControllerDelegate {
         UserDefaults.shared.preferredStaticEmoji = viewModel.playAnimations == false
         UserDefaults.shared.preferredStaticAvatar = viewModel.playAnimations == false
         UserDefaults.shared.preferredUsingDefaultBrowser = viewModel.selectedOpenLinks == .browser
+    }
+    
+    func showLanguagePicker(_ viewModel: GeneralSettingsViewModel, onLanguageSelected: @escaping OnLanguageSelected) {
+        let viewController = LanguagePickerViewController(onLanguageSelected: onLanguageSelected)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
 

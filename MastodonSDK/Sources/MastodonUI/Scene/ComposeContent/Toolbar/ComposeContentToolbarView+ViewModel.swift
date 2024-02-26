@@ -32,7 +32,7 @@ extension ComposeContentToolbarView {
         @Published var isAttachmentButtonEnabled = false
         @Published var isPollButtonEnabled = false
         
-        @Published var language = Locale.current.language.languageCode?.identifier ?? "en"
+        @Published var language = UserDefaults.shared.defaultPostLanguage
         @Published var recentLanguages: [String] = []
 
         @Published public var maxTextInputLimit = 500

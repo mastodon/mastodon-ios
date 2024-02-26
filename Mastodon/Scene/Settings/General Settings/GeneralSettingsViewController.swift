@@ -2,8 +2,10 @@
 
 import UIKit
 import MastodonSDK
+import MastodonCore
 import CoreDataStack
 import MastodonLocalization
+import MastodonUI
 
 struct GeneralSettingsViewModel {
     var selectedAppearence: GeneralSetting.Appearance
@@ -18,6 +20,7 @@ struct GeneralSettingsViewModel {
 
 protocol GeneralSettingsViewControllerDelegate: AnyObject {
     func save(_ viewController: UIViewController, setting: Setting, viewModel: GeneralSettingsViewModel)
+    func showLanguagePicker(_ viewModel: GeneralSettingsViewModel, onLanguageSelected: @escaping OnLanguageSelected)
 }
 
 class GeneralSettingsViewController: UIViewController {
@@ -32,7 +35,7 @@ class GeneralSettingsViewController: UIViewController {
 
     let sections: [GeneralSettingsSection]
 
-    init(setting: Setting) {
+    init(appContext: AppContext, setting: Setting) async {
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(GeneralSettingSelectionCell.self, forCellReuseIdentifier: GeneralSettingSelectionCell.reuseIdentifier)
@@ -77,7 +80,7 @@ class GeneralSettingsViewController: UIViewController {
             askBeforeUnfollowingSomeone: UserDefaults.shared.askBeforeUnfollowingSomeone,
             askBeforeBoostingAPost: UserDefaults.shared.askBeforeBoostingAPost,
             askBeforeDeletingAPost: UserDefaults.shared.askBeforeDeletingAPost,
-            defaultPostLanguage: UserDefaults.standard.defaultPostLanguage
+            defaultPostLanguage: UserDefaults.shared.defaultPostLanguage
         )
 
         self.setting = setting
@@ -177,8 +180,15 @@ extension GeneralSettingsViewController: UITableViewDelegate {
             cell.toggle.setOn(newValue, animated: true)
 
             toggle(cell, setting: .design(design), isOn: newValue)
-        case let .language(language):
-            assertionFailure("show language picker")
+        case .language:
+            delegate?.showLanguagePicker(viewModel) { [weak self] language in
+                guard let self else { return }
+                viewModel.defaultPostLanguage = language
+                UserDefaults.shared.defaultPostLanguage = language
+                if let snapshot = tableViewDataSource?.snapshot() {
+                    tableViewDataSource?.applySnapshotUsingReloadData(snapshot)
+                }
+            }
         case .openLinksIn(let openLinksInOption):
             viewModel.selectedOpenLinks = openLinksInOption
 
