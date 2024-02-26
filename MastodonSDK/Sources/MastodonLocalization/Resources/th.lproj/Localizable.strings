@@ -393,7 +393,7 @@
 "Scene.Register.Input.Username.Suggestion" = "amazing_%@";
 "Scene.Register.Title" = "สร้างบัญชี";
 "Scene.Report.Content1" = "มีโพสต์อื่นใดที่คุณต้องการเพิ่มไปยังรายงานหรือไม่?";
-"Scene.Report.Content2" = "มีสิ่งใดที่ผู้ควบคุมควรทราบเกี่ยวกับรายงานนี้หรือไม่?";
+"Scene.Report.Content2" = "มีสิ่งใดที่ผู้กลั่นกรองควรทราบเกี่ยวกับรายงานนี้หรือไม่?";
 "Scene.Report.ReportSentTitle" = "ขอบคุณสำหรับการรายงาน เราจะตรวจสอบสิ่งนี้";
 "Scene.Report.Reported" = "รายงานแล้ว";
 "Scene.Report.Send" = "ส่งรายงาน";
@@ -491,7 +491,7 @@
 "Scene.ServerRules.Button.Confirm" = "ฉันเห็นด้วย";
 "Scene.ServerRules.PrivacyPolicy" = "นโยบายความเป็นส่วนตัว";
 "Scene.ServerRules.Prompt" = "การดำเนินการต่อแสดงว่าคุณอยู่ภายใต้เงื่อนไขการให้บริการและนโยบายความเป็นส่วนตัวสำหรับ %@";
-"Scene.ServerRules.Subtitle" = "มีการตั้งและบังคับใช้กฎเหล่านี้โดยผู้ควบคุมของ %@";
+"Scene.ServerRules.Subtitle" = "มีการตั้งและบังคับใช้กฎเหล่านี้โดยผู้กลั่นกรองของ %@";
 "Scene.ServerRules.TermsOfService" = "เงื่อนไขการให้บริการ";
 "Scene.ServerRules.Title" = "กฎพื้นฐานบางประการ";
 "Scene.Settings.AboutMastodon.ClearMediaStorage" = "ล้างที่เก็บข้อมูลสื่อ";
