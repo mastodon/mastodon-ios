@@ -49,9 +49,19 @@ extension DataSourceFacade {
                         message: nil,
                         preferredStyle: .alert
                     )
-                    let cancel = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.cancel, style: .default)
+                    let cancel = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.cancel, style: .default) { _ in
+                        if let relationship {
+                            NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+                                UserInfoKey.relationship: relationship
+                            ])
+                            
+                            continuation.resume(returning: relationship)
+                        } else {
+                            continuation.resume(throwing: AppError.unexpected)
+                        }
+                    }
                     alert.addAction(cancel)
-                    let unfollow = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.unfollow, style: .destructive) {_ in
+                    let unfollow = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.unfollow, style: .destructive) { _ in
                         Task {
                             try await performAction()
                         }

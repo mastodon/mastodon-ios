@@ -254,10 +254,10 @@ extension ComposeViewController {
             present(alertController, animated: true)
             return
         }
-        
+
         dismiss(animated: true, completion: nil)
     }
-    
+
     @objc
     private func publishStatusEdit(_ sender: Any) {
         do {
