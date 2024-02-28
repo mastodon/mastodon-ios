@@ -56,20 +56,20 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "Hætta við",
+                "post": "Færsla"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
+                "title_boost": "Endurbirta færslu?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "cancel": "Hætta við",
+                "boost": "Endurbirting",
+                "unboost": "Taka úr endurbirtingu"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Hætta að fylgjast með %@?",
+                "cancel": "Hætta við",
+                "unfollow": "Hætta að fylgjast með"
             }
         },
         "controls": {
@@ -770,7 +770,7 @@
                     "system": "Nota útlit tækis"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
+                    "section_title": "Spyrja áður…",
                     "posting_without_alt_text": "Posting without Alt Text",
                     "unfollowing_someone": "Unfollowing Someone",
                     "boosting_a_post": "Boosting a Post",
@@ -781,8 +781,8 @@
                     "show_animations": "Spila auðkennismyndir og tákn með hreyfingu"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Tungumál",
+                    "default_post_language": "Sjálfgefið tungumál færslu"
                 },
                 "links": {
                     "section_title": "Tenglar",
