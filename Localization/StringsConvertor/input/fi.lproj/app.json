@@ -52,6 +52,24 @@
                 "title": "Huomautus",
                 "message": "Käännös epäonnistui. Ehkä palvelimen ylläpito ei ole ottanut käännösominaisuutta käyttöön tai se käyttää Mastodonin vanhempaa versiota, joka ei vielä tue käännöksiä.",
                 "button": "OK"
+            },
+            "media_missing_alt_text": {
+                "title": "Media Missing Alt Text",
+                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "cancel": "Cancel",
+                "post": "Post"
+            },
+            "boost_a_post": {
+                "title_boost": "Boost Post?",
+                "title_unboost": "Unboost Post?",
+                "cancel": "Cancel",
+                "boost": "Boost",
+                "unboost": "Unboost"
+            },
+            "unfollow_user": {
+                "title": "Unfollow %@?",
+                "cancel": "Cancel",
+                "unfollow": "Unfollow"
             }
         },
         "controls": {
@@ -751,9 +769,20 @@
                     "light": "Light",
                     "system": "Use Device Appearance"
                 },
+                "ask_before": {
+                    "section_title": "Ask before…",
+                    "posting_without_alt_text": "Posting without Alt Text",
+                    "unfollowing_someone": "Unfollowing Someone",
+                    "boosting_a_post": "Boosting a Post",
+                    "deleting_a_post": "Deleting a Post"
+                },
                 "design": {
                     "section_title": "Design",
                     "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "language": {
+                    "section_title": "Language",
+                    "default_post_language": "Default Post Language"
                 },
                 "links": {
                     "section_title": "Links",
