@@ -56,15 +56,15 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "ยกเลิก",
+                "post": "โพสต์"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "ดันโพสต์?",
+                "title_unboost": "เลิกดันโพสต์?",
+                "cancel": "ยกเลิก",
+                "boost": "ดัน",
+                "unboost": "เลิกดัน"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
