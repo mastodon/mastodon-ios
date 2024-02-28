@@ -45,7 +45,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     public let authContext: AuthContext
     public let input: Input
     public let sizeLimit: SizeLimit
-    @Published var caption = ""
+    @Published public internal(set) var caption = ""
     @Published public private(set) var isCaptionEditable = true
     let isEditing: Bool
 

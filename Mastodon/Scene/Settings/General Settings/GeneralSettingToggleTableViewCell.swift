@@ -27,8 +27,21 @@ class GeneralSettingToggleTableViewCell: ToggleTableViewCell {
         self.setting = setting
 
         switch setting {
-        case .appearance(_), .openLinksIn(_):
-            assertionFailure("Only for Design")
+        case .appearance, .openLinksIn, .language:
+            assertionFailure("Not required here")
+        case let .askBefore(askBefore):
+            label.text = askBefore.title
+            
+            switch askBefore {
+            case .postingWithoutAltText:
+                toggle.isOn = UserDefaults.shared.askBeforePostingWithoutAltText
+            case .unfollowingSomeone:
+                toggle.isOn = UserDefaults.shared.askBeforeUnfollowingSomeone
+            case .boostingAPost:
+                toggle.isOn = UserDefaults.shared.askBeforeBoostingAPost
+            case .deletingAPost:
+                toggle.isOn = UserDefaults.shared.askBeforeDeletingAPost
+            }
         case .design(let designSetting):
             label.text = designSetting.title
 

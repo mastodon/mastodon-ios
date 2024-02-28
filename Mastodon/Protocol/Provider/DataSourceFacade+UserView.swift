@@ -8,7 +8,7 @@ import MastodonSDK
 
 extension DataSourceFacade {
     static func responseToUserViewButtonAction(
-        dependency: NeedsDependency & AuthContextProvider,
+        dependency: ViewControllerWithDependencies & AuthContextProvider,
         account: Mastodon.Entity.Account,
         buttonState: UserView.ButtonState
     ) async throws {

@@ -12,25 +12,67 @@ import MastodonSDK
 import MastodonLocalization
 
 extension DataSourceFacade {
+    @MainActor
     static func responseToUserFollowAction(
-        dependency: NeedsDependency & AuthContextProvider,
+        dependency: ViewControllerWithDependencies & AuthContextProvider,
         account: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
+        let authBox = dependency.authContext.mastodonAuthenticationBox
+        let relationship = try await dependency.context.apiService.relationship(
+            forAccounts: [account], authenticationBox: authBox
+        ).value.first
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            Task { @MainActor in
+                let performAction = {
+                    let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+                    selectionFeedbackGenerator.selectionChanged()
 
-        let response = try await dependency.context.apiService.toggleFollow(
-            account: account,
-            authenticationBox: dependency.authContext.mastodonAuthenticationBox
-        ).value
+                    let response = try await dependency.context.apiService.toggleFollow(
+                        account: account,
+                        authenticationBox: dependency.authContext.mastodonAuthenticationBox
+                    ).value
 
-        dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+                    dependency.context.authenticationService.fetchFollowingAndBlockedAsync()
+                    
 
-        NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
-            UserInfoKey.relationship: response
-        ])
+                    NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+                        UserInfoKey.relationship: response
+                    ])
+                    
+                    continuation.resume(returning: response)
+                }
 
-        return response
+                if relationship?.following == true {
+                    let alert = UIAlertController(
+                        title: L10n.Common.Alerts.UnfollowUser.title("@\(account.username)"),
+                        message: nil,
+                        preferredStyle: .alert
+                    )
+                    let cancel = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.cancel, style: .default) { _ in
+                        if let relationship {
+                            NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [
+                                UserInfoKey.relationship: relationship
+                            ])
+                            
+                            continuation.resume(returning: relationship)
+                        } else {
+                            continuation.resume(throwing: AppError.unexpected)
+                        }
+                    }
+                    alert.addAction(cancel)
+                    let unfollow = UIAlertAction(title: L10n.Common.Alerts.UnfollowUser.unfollow, style: .destructive) { _ in
+                        Task {
+                            try await performAction()
+                        }
+                    }
+                    alert.addAction(unfollow)
+                    dependency.present(alert, animated: true)
+                } else {
+                    try await performAction()
+                }
+            }
+        }
     }
 
 }

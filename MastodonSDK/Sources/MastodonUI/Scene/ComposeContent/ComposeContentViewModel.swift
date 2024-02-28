@@ -185,7 +185,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 
         let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
         self.recentLanguages = recentLanguages
-        self.language = recentLanguages.first ?? Locale.current.language.languageCode?.identifier ?? "en"
+        self.language = UserDefaults.shared.defaultPostLanguage
         super.init()
         // end init
         

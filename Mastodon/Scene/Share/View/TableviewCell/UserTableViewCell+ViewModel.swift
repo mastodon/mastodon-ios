@@ -47,7 +47,7 @@ extension UserTableViewCell {
     }
 }
 
-extension UserTableViewCellDelegate where Self: NeedsDependency & AuthContextProvider {
+extension UserTableViewCellDelegate where Self: ViewControllerWithDependencies & AuthContextProvider {
     func userView(_ view: UserView, didTapButtonWith state: UserView.ButtonState, for account: Mastodon.Entity.Account, me: Mastodon.Entity.Account?) {
         Task {
             await MainActor.run { view.setButtonState(.loading) }

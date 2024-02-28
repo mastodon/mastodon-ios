@@ -110,7 +110,7 @@ final class SuggestionAccountViewModel: NSObject {
             .store(in: &disposeBag)
     }
 
-    func followAllSuggestedAccounts(_ dependency: NeedsDependency & AuthContextProvider, presentedOn: UIViewController?, completion: (() -> Void)? = nil) {
+    func followAllSuggestedAccounts(_ dependency: ViewControllerWithDependencies & AuthContextProvider, presentedOn: UIViewController?, completion: (() -> Void)? = nil) {
 
         let tmpAccounts = accounts.compactMap { $0.account }
 

@@ -20,6 +20,18 @@ public enum L10n {
           return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Title", String(describing: p1), fallback: "Are you really, really sure you want to block the entire %@? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.")
         }
       }
+      public enum BoostAPost {
+        /// Boost
+        public static let boost = L10n.tr("Localizable", "Common.Alerts.BoostAPost.Boost", fallback: "Boost")
+        /// Cancel
+        public static let cancel = L10n.tr("Localizable", "Common.Alerts.BoostAPost.Cancel", fallback: "Cancel")
+        /// Boost Post?
+        public static let titleBoost = L10n.tr("Localizable", "Common.Alerts.BoostAPost.TitleBoost", fallback: "Boost Post?")
+        /// Unboost Post?
+        public static let titleUnboost = L10n.tr("Localizable", "Common.Alerts.BoostAPost.TitleUnboost", fallback: "Unboost Post?")
+        /// Unboost
+        public static let unboost = L10n.tr("Localizable", "Common.Alerts.BoostAPost.Unboost", fallback: "Unboost")
+      }
       public enum CleanCache {
         /// Successfully cleaned %@ cache.
         public static func message(_ p1: Any) -> String {
@@ -45,6 +57,19 @@ public enum L10n {
         public static let message = L10n.tr("Localizable", "Common.Alerts.EditProfileFailure.Message", fallback: "Cannot edit profile. Please try again.")
         /// Edit Profile Error
         public static let title = L10n.tr("Localizable", "Common.Alerts.EditProfileFailure.Title", fallback: "Edit Profile Error")
+      }
+      public enum MediaMissingAltText {
+        /// Cancel
+        public static let cancel = L10n.tr("Localizable", "Common.Alerts.MediaMissingAltText.Cancel", fallback: "Cancel")
+        /// %d of your images are missing alt text.
+        /// Post Anyway?
+        public static func message(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.MediaMissingAltText.Message", p1, fallback: "%d of your images are missing alt text.\nPost Anyway?")
+        }
+        /// Post
+        public static let post = L10n.tr("Localizable", "Common.Alerts.MediaMissingAltText.Post", fallback: "Post")
+        /// Media Missing Alt Text
+        public static let title = L10n.tr("Localizable", "Common.Alerts.MediaMissingAltText.Title", fallback: "Media Missing Alt Text")
       }
       public enum PublishPostFailure {
         /// Failed to publish the post.
@@ -88,6 +113,16 @@ public enum L10n {
         public static let message = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Message", fallback: "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.")
         /// Note
         public static let title = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Title", fallback: "Note")
+      }
+      public enum UnfollowUser {
+        /// Cancel
+        public static let cancel = L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Cancel", fallback: "Cancel")
+        /// Unfollow %@
+        public static func title(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Title", String(describing: p1), fallback: "Unfollow %@")
+        }
+        /// Unfollow
+        public static let unfollow = L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Unfollow", fallback: "Unfollow")
       }
       public enum VoteFailure {
         /// The poll has ended
@@ -1459,11 +1494,29 @@ public enum L10n {
           /// Use Device Appearance
           public static let system = L10n.tr("Localizable", "Scene.Settings.General.Appearance.System", fallback: "Use Device Appearance")
         }
+        public enum AskBefore {
+          /// Boosting a Post
+          public static let boostingAPost = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.BoostingAPost", fallback: "Boosting a Post")
+          /// Deleting a Post
+          public static let deletingAPost = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.DeletingAPost", fallback: "Deleting a Post")
+          /// Posting without Alt Text
+          public static let postingWithoutAltText = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.PostingWithoutAltText", fallback: "Posting without Alt Text")
+          /// Ask before…
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.SectionTitle", fallback: "Ask before…")
+          /// Unfollowing Someone
+          public static let unfollowingSomeone = L10n.tr("Localizable", "Scene.Settings.General.AskBefore.UnfollowingSomeone", fallback: "Unfollowing Someone")
+        }
         public enum Design {
           /// Design
           public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Design.SectionTitle", fallback: "Design")
           /// Play Animated Avatars and Emoji
           public static let showAnimations = L10n.tr("Localizable", "Scene.Settings.General.Design.ShowAnimations", fallback: "Play Animated Avatars and Emoji")
+        }
+        public enum Language {
+          /// Default Post Language
+          public static let defaultPostLanguage = L10n.tr("Localizable", "Scene.Settings.General.Language.DefaultPostLanguage", fallback: "Default Post Language")
+          /// Language
+          public static let sectionTitle = L10n.tr("Localizable", "Scene.Settings.General.Language.SectionTitle", fallback: "Language")
         }
         public enum Links {
           /// Open in Browser

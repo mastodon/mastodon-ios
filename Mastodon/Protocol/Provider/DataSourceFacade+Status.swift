@@ -295,29 +295,28 @@ extension DataSourceFacade {
                 transition: .activityViewControllerPresent(animated: true, completion: nil)
             )
         case .deleteStatus:
-            let alertController = UIAlertController(
-                title: L10n.Common.Alerts.DeletePost.title,
-                message: L10n.Common.Alerts.DeletePost.message,
-                preferredStyle: .alert
-            )
-            let confirmAction = UIAlertAction(
-                title: L10n.Common.Controls.Actions.delete,
-                style: .destructive
-            ) { [weak dependency] _ in
-                guard let dependency = dependency else { return }
+            if UserDefaults.shared.askBeforeDeletingAPost {
+                let alertController = UIAlertController(
+                    title: L10n.Common.Alerts.DeletePost.title,
+                    message: L10n.Common.Alerts.DeletePost.message,
+                    preferredStyle: .alert
+                )
+                let confirmAction = UIAlertAction(
+                    title: L10n.Common.Controls.Actions.delete,
+                    style: .destructive
+                ) { [weak dependency] _ in
+                    guard let dependency else { return }
+                    guard let status = menuContext.statusViewModel?.originalStatus else { return }
+                    performDeletion(of: status, with: dependency)
+                }
+                alertController.addAction(confirmAction)
+                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
+                alertController.addAction(cancelAction)
+                dependency.present(alertController, animated: true)
+            } else {
                 guard let status = menuContext.statusViewModel?.originalStatus else { return }
-                Task {
-                    try await DataSourceFacade.responseToDeleteStatus(
-                        dependency: dependency,
-                        status: status
-                    )
-                }   // end Task
+                performDeletion(of: status, with: dependency)
             }
-            alertController.addAction(confirmAction)
-            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
-            alertController.addAction(cancelAction)
-            dependency.present(alertController, animated: true)
-            
         case .translateStatus:
             guard let status = menuContext.statusViewModel?.originalStatus else { return }
 
@@ -406,3 +405,13 @@ extension DataSourceFacade {
     
 }
 
+private extension DataSourceFacade {
+    static func performDeletion(of status: MastodonStatus, with dependency: NeedsDependency & AuthContextProvider & DataSourceProvider) {
+        Task {
+            try await DataSourceFacade.responseToDeleteStatus(
+                dependency: dependency,
+                status: status
+            )
+        }
+    }
+}

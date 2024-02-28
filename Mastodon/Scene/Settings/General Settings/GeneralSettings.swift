@@ -10,15 +10,21 @@ struct GeneralSettingsSection: Hashable {
 
 enum GeneralSettingsSectionType: Hashable {
     case appearance
+    case askBefore
     case design
+    case language
     case links
 
     var sectionTitle: String {
         switch self {
         case .appearance:
             return L10n.Scene.Settings.General.Appearance.sectionTitle
+        case .askBefore:
+            return L10n.Scene.Settings.General.AskBefore.sectionTitle
         case .design:
             return L10n.Scene.Settings.General.Design.sectionTitle
+        case .language:
+            return L10n.Scene.Settings.General.Language.sectionTitle
         case .links:
             return L10n.Scene.Settings.General.Links.sectionTitle
         }
@@ -28,7 +34,9 @@ enum GeneralSettingsSectionType: Hashable {
 enum GeneralSetting: Hashable {
 
     case appearance(Appearance)
+    case askBefore(AskBefore)
     case design(Design)
+    case language(Language)
     case openLinksIn(OpenLinksIn)
 
     enum Appearance: Int, CaseIterable {
@@ -51,6 +59,27 @@ enum GeneralSetting: Hashable {
             .init(rawValue: rawValue) ?? .unspecified
         }
     }
+    
+    enum AskBefore: Hashable {
+        case postingWithoutAltText
+        case unfollowingSomeone
+        case boostingAPost
+        case deletingAPost
+        
+        var title: String {
+            switch self {
+            case .postingWithoutAltText:
+                return L10n.Scene.Settings.General.AskBefore.postingWithoutAltText
+            case .unfollowingSomeone:
+                return L10n.Scene.Settings.General.AskBefore.unfollowingSomeone
+            case .boostingAPost:
+                return L10n.Scene.Settings.General.AskBefore.boostingAPost
+            case .deletingAPost:
+                return L10n.Scene.Settings.General.AskBefore.deletingAPost
+
+            }
+        }
+    }
 
     enum Design: Hashable {
         case showAnimations
@@ -59,6 +88,17 @@ enum GeneralSetting: Hashable {
             switch self {
             case .showAnimations:
                 return L10n.Scene.Settings.General.Design.showAnimations
+            }
+        }
+    }
+    
+    enum Language: Hashable {
+        case defaultPostLanguage
+        
+        var title: String {
+            switch self {
+            case .defaultPostLanguage:
+                return L10n.Scene.Settings.General.Language.defaultPostLanguage
             }
         }
     }
