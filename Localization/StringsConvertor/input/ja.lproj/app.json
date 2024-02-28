@@ -52,6 +52,24 @@
                 "title": "注意",
                 "message": "翻訳に失敗しました。管理者がこのサーバーで翻訳を有効にしていないか、このサーバーが翻訳をサポートしていない古いバージョンの Mastodon を実行している可能性があります。",
                 "button": "OK"
+            },
+            "media_missing_alt_text": {
+                "title": "Media Missing Alt Text",
+                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "cancel": "Cancel",
+                "post": "Post"
+            },
+            "boost_a_post": {
+                "title_boost": "Boost Post?",
+                "title_unboost": "Unboost Post?",
+                "cancel": "Cancel",
+                "boost": "Boost",
+                "unboost": "Unboost"
+            },
+            "unfollow_user": {
+                "title": "Unfollow %@?",
+                "cancel": "Cancel",
+                "unfollow": "Unfollow"
             }
         },
         "controls": {
@@ -751,9 +769,20 @@
                     "light": "ライト",
                     "system": "端末の設定に合わせる"
                 },
+                "ask_before": {
+                    "section_title": "Ask before…",
+                    "posting_without_alt_text": "Posting without Alt Text",
+                    "unfollowing_someone": "Unfollowing Someone",
+                    "boosting_a_post": "Boosting a Post",
+                    "deleting_a_post": "Deleting a Post"
+                },
                 "design": {
                     "section_title": "アニメーション",
                     "show_animations": "アニメーションアイコンと絵文字を再生"
+                },
+                "language": {
+                    "section_title": "Language",
+                    "default_post_language": "Default Post Language"
                 },
                 "links": {
                     "section_title": "Webブラウザ",
