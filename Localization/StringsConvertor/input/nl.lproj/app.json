@@ -54,22 +54,22 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "Media zonder alt-tekst",
+                "message": "%d van je afbeeldingen missen alt-tekst. Alsnog plaatsen?",
+                "cancel": "Annuleren",
+                "post": "Alsnog plaatsen"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "title_boost": "Bericht boosten?",
+                "title_unboost": "Bericht niet meer boosten?",
+                "cancel": "Annuleren",
                 "boost": "Boost",
-                "unboost": "Unboost"
+                "unboost": "Niet meer boosten"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "%@ ontvolgen?",
+                "cancel": "Annuleren",
+                "unfollow": "Ontvolgen"
             }
         },
         "controls": {
@@ -240,11 +240,11 @@
                 "pending": "In afwachting",
                 "block": "Blokkeren",
                 "block_user": "%s blokkeren",
-                "block_domain": "Block domain %s",
+                "block_domain": "Server %s blokkeren",
                 "unblock": "Deblokkeren",
                 "unblock_user": "%s deblokkeren",
                 "blocked": "Geblokkeerd",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Server geblokkeerd",
                 "mute": "Negeren",
                 "mute_user": "Negeer %s",
                 "unmute": "Niet langer negeren",
@@ -284,7 +284,7 @@
         "welcome": {
             "log_in": "Inloggen",
             "learn_more": "Meer leren",
-            "join_default_server": "Join %@",
+            "join_default_server": "Registreren op %@",
             "pick_server": "Kies een andere server",
             "separator": {
                 "or": "of"
@@ -624,12 +624,12 @@
                     "message": "Verbergen van boosts bevestigen"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Server blokkeren",
+                    "message": "Blokkeren van de server %s bevestigen"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Server deblokkeren",
+                    "message": "Deblokkeren van de server %s bevestigen"
                 }
             },
             "accessibility": {
@@ -677,8 +677,8 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Berichten die overeenkomen met \"%s\"",
+                "people": "Accounts die overeenkomen met \"%s\"",
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
