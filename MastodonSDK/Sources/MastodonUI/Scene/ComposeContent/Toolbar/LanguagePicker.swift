@@ -63,10 +63,9 @@ public struct LanguagePicker: View {
         return languages.values.sorted(using: KeyPathComparator(\.id))
     }
     
-    @State private var filteredLanguages = [Language]()
-
     public var body: some View {
         ScrollViewReader { proxy in
+            let filteredLanguages = query.isEmpty ? languages : languages.filter { $0.contains(query) }
             List(filteredLanguages) { lang in
                 let endonym = Text(lang.endonym)
                 let exonym: Text = {
@@ -98,7 +97,6 @@ public struct LanguagePicker: View {
             .listStyle(.plain)
             .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
             .onAppear {
-                filteredLanguages = query.isEmpty ? languages : languages.filter { $0.contains(query) }
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) { // when scrolling to quickly it'll overlap with other drawcycles and mess up the position :-(
                     if let selectedIndex = filteredLanguages.first(where: { $0.id == selectedLanguage }) {
                         proxy.scrollTo(selectedIndex.id, anchor: .center)
