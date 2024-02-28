@@ -52,6 +52,24 @@
                 "title": "หมายเหตุ",
                 "message": "การแปลล้มเหลว บางทีผู้ดูแลอาจไม่ได้เปิดใช้งานการแปลในเซิร์ฟเวอร์นี้หรือเซิร์ฟเวอร์นี้กำลังใช้ Mastodon รุ่นเก่ากว่าที่ยังไม่รองรับการแปล",
                 "button": "ตกลง"
+            },
+            "media_missing_alt_text": {
+                "title": "Media Missing Alt Text",
+                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "cancel": "Cancel",
+                "post": "Post"
+            },
+            "boost_a_post": {
+                "title_boost": "Boost Post?",
+                "title_unboost": "Unboost Post?",
+                "cancel": "Cancel",
+                "boost": "Boost",
+                "unboost": "Unboost"
+            },
+            "unfollow_user": {
+                "title": "Unfollow %@?",
+                "cancel": "Cancel",
+                "unfollow": "Unfollow"
             }
         },
         "controls": {
@@ -751,9 +769,20 @@
                     "light": "สว่าง",
                     "system": "ใช้ลักษณะที่ปรากฏของอุปกรณ์"
                 },
+                "ask_before": {
+                    "section_title": "Ask before…",
+                    "posting_without_alt_text": "Posting without Alt Text",
+                    "unfollowing_someone": "Unfollowing Someone",
+                    "boosting_a_post": "Boosting a Post",
+                    "deleting_a_post": "Deleting a Post"
+                },
                 "design": {
                     "section_title": "การออกแบบ",
                     "show_animations": "เล่นภาพประจำตัวและอีโมจิแบบเคลื่อนไหว"
+                },
+                "language": {
+                    "section_title": "Language",
+                    "default_post_language": "Default Post Language"
                 },
                 "links": {
                     "section_title": "ลิงก์",
