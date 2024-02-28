@@ -35,7 +35,7 @@ class GeneralSettingsViewController: UIViewController {
 
     let sections: [GeneralSettingsSection]
 
-    init(appContext: AppContext, setting: Setting) async {
+    init(appContext: AppContext, setting: Setting) {
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(GeneralSettingSelectionCell.self, forCellReuseIdentifier: GeneralSettingSelectionCell.reuseIdentifier)

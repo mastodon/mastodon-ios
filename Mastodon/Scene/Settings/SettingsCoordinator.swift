@@ -58,15 +58,11 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     func didSelect(_ viewController: UIViewController, entry: SettingsEntry) {
         switch entry {
             case .general:
-            Task { @ MainActor in
-                sceneCoordinator.showLoading()
-                
-                let generalSettingsViewController = await GeneralSettingsViewController(appContext: appContext, setting: setting)
+            
+                let generalSettingsViewController = GeneralSettingsViewController(appContext: appContext, setting: setting)
                 generalSettingsViewController.delegate = self
-                
-                sceneCoordinator.hideLoading()
+            
                 navigationController.pushViewController(generalSettingsViewController, animated: true)
-            }
             case .notifications:
 
                 let currentSetting = appContext.settingService.currentSetting.value
