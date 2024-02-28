@@ -56,19 +56,19 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
+                "cancel": "Avbryt",
                 "post": "Post"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Avbryt",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
+                "cancel": "Avbryt",
                 "unfollow": "Unfollow"
             }
         },
@@ -781,7 +781,7 @@
                     "show_animations": "Spela animerade avatarer och emojis"
                 },
                 "language": {
-                    "section_title": "Language",
+                    "section_title": "Språk",
                     "default_post_language": "Default Post Language"
                 },
                 "links": {
