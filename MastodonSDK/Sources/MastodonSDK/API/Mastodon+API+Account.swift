@@ -101,14 +101,16 @@ extension Mastodon.API.Account {
         public let excludeReblogs: Bool?
         public let onlyMedia: Bool?
         public let limit: Int?
-        
+        public let pinned: Bool
+
         public init(
             maxID: Mastodon.Entity.Status.ID?,
             sinceID: Mastodon.Entity.Status.ID?,
             excludeReplies: Bool?,
             excludeReblogs: Bool?,
             onlyMedia: Bool?,
-            limit: Int?
+            limit: Int?,
+            pinned: Bool = false
         ) {
             self.maxID = maxID
             self.sinceID = sinceID
@@ -116,6 +118,7 @@ extension Mastodon.API.Account {
             self.excludeReblogs = excludeReblogs
             self.onlyMedia = onlyMedia
             self.limit = limit
+            self.pinned = pinned
         }
 
         var queryItems: [URLQueryItem]? {
@@ -126,6 +129,7 @@ extension Mastodon.API.Account {
             excludeReblogs.flatMap { items.append(URLQueryItem(name: "exclude_reblogs", value: $0.queryItemValue)) }
             onlyMedia.flatMap { items.append(URLQueryItem(name: "only_media", value: $0.queryItemValue)) }
             limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
+            items.append(URLQueryItem(name: "pinned", value: String(pinned)))
             guard !items.isEmpty else { return nil }
             return items
         }
