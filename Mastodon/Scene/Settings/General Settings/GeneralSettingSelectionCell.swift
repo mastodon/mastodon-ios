@@ -53,12 +53,21 @@ class GeneralSettingSelectionCell: UITableViewCell {
     
     private func configureLanguageSetting(_ setting: GeneralSetting.Language, viewModel: GeneralSettingsViewModel) {
         tintColor = Asset.Colors.Brand.blurple.color
-        accessoryType = .none
+        accessoryType = .disclosureIndicator
         
         var content = defaultContentConfiguration()
-        content.text = setting.title
-        content.secondaryText = LanguagePicker.availableLanguages().first(where: { $0.localeId == UserDefaults.shared.defaultPostLanguage })?.exonym
         content.prefersSideBySideTextAndSecondaryText = true
+        content.text = setting.title
+        
+        if let text = LanguagePicker.availableLanguages().first(where: { $0.localeId == UserDefaults.shared.defaultPostLanguage })?.exonym {
+            content.secondaryAttributedText = NSAttributedString(
+                string: text,
+                attributes: [
+                    .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
+                    .foregroundColor: Asset.Colors.inactive.color
+                ]
+            )
+        }
 
         contentConfiguration = content
     }
