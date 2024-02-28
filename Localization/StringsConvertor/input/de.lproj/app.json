@@ -55,21 +55,21 @@
             },
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
+                "message": "Bei %d Ihrer Bilder fehlt der Alt-Text.\nTrotzdem posten?",
+                "cancel": "Abbrechen",
                 "post": "Post"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Abbrechen",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "cancel": "Abbrechen",
+                "unfollow": "Nicht mehr folgen"
             }
         },
         "controls": {
