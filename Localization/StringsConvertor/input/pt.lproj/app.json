@@ -25,7 +25,7 @@
             },
             "edit_profile_failure": {
                 "title": "Erro ao editar o perfil",
-                "message": "Cannot edit profile. Please try again."
+                "message": "Não é possível editar o perfil. Por favor, tente novamente."
             },
             "sign_out": {
                 "title": "Terminar sessão",
@@ -45,7 +45,7 @@
                 "message": "Tem certeza de que deseja apagar esta mensagem?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "Limpar Cache",
                 "message": "Cache %s correctamente limpo."
             },
             "translation_failed": {
@@ -91,26 +91,26 @@
                 "report_user": "Denunciar %s",
                 "block_domain": "Bloquear %s",
                 "unblock_domain": "Desbloquear @%s",
-                "settings": "Settings",
-                "delete": "Delete",
+                "settings": "Definições ",
+                "delete": "Eliminar",
                 "translate_post": {
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
+                "edit_post": "Editar",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
                 "unfollow": "Unfollow %s"
             },
             "tabs": {
-                "home": "Home",
-                "search_and_explore": "Search and Explore",
+                "home": "Página inicial ",
+                "search_and_explore": "Procurar e explorar",
                 "notifications": "Notificações",
                 "profile": "Perfil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Pesquisar",
+                    "explore": "Explorar"
                 }
             },
             "keyboard": {
@@ -156,7 +156,7 @@
                     "url": "Hiperligação: %s",
                     "hashtag": "Etiqueta: %s",
                     "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "email": "Endereço de e-mail : %@"
                 },
                 "actions": {
                     "reply": "Responder",
@@ -167,8 +167,8 @@
                     "menu": "Menu",
                     "hide": "Ocultar",
                     "show_image": "Mostrar imagem",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
+                    "show_gif": "Exibir GIF",
+                    "show_video_player": "Mostrar reprodutor de vídeo",
                     "share_link_in_post": "Partilhar ligação da publicação",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
@@ -187,14 +187,14 @@
                 "visibility": {
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
                     "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
+                    "private_from_me": "Apenas os meus seguidores podem ver este post. ",
                     "direct": "Só os utilizadores mencionados podem ver esta publicação."
                 },
                 "translation": {
                     "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Show Original"
+                    "unknown_language": "Desconhecido",
+                    "unknown_provider": "Desconhecido",
+                    "show_original": "Mostrar Original"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -205,39 +205,39 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
+                    "favorites_title": "Favoritos",
                     "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "edit_history_detail": "%s última edição "
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "%s Editado ",
                 "edit_history": {
                     "title": "Edit History",
                     "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
+                "follow": "Seguir",
+                "following": "A seguir",
                 "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block domain %s",
+                "pending": "Pendente",
+                "block": "Bloquear",
+                "block_user": "Bloquear %s",
+                "block_domain": "Bloquear o domínio %s",
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Domínio bloqueado",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
                 "unmute": "Unmute",
                 "unmute_user": "Unmute %s",
                 "muted": "Muted",
-                "edit_info": "Edit Info",
+                "edit_info": "Editar Informação",
                 "show_reblogs": "Show Reblogs",
                 "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrado",
                 "timestamp": {
                     "now": "Now"
                 },
@@ -304,65 +304,65 @@
                     "all_accessiblity_description": "Category: All",
                     "academia": "academia",
                     "activism": "activism",
-                    "food": "food",
+                    "food": "comida",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
+                    "games": "jogos",
+                    "general": "geral",
                     "journalism": "journalism",
                     "lgbt": "lgbt",
                     "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "art": "arte",
+                    "music": "música",
+                    "tech": "tecnologia"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Ver Menos",
+                "see_more": "Ver mais"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "Idioma",
+                "users": "UTILIZADORES",
+                "category": "CATEGORIA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Procurar comunidades ou introduzir URL"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
+                "finding_servers": "Procurando servidores disponíveis...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "no_results": "Sem resultados"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Tudo",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "Tudo"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Procurar por nome ou URL"
             },
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "Privacidade",
             "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Política de Privacidade - Mastodon para iOS",
+                "server": "Políticas de Privacidade - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Eu concordo"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Criar conta",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Eliminar"
                 },
                 "username": {
-                    "placeholder": "username",
+                    "placeholder": "nome de utilizador",
                     "duplicate_prompt": "This username is taken.",
                     "suggestion": "amazing_%@"
                 },
@@ -370,10 +370,10 @@
                     "placeholder": "display name"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-mail"
                 },
                 "password": {
-                    "placeholder": "password",
+                    "placeholder": "palavra-passe",
                     "confirmation_placeholder": "Confirm Password",
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
@@ -381,17 +381,17 @@
                         "checked": "checked",
                         "unchecked": "unchecked"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "A sua palavra-passe necessita de, pelo menos, oito (8) caractéres. "
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Porque se quer juntar a nós?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
+                    "username": "Nome de utilizador",
+                    "email": "E-mail",
+                    "password": "Palavra-passe",
                     "agreement": "Agreement",
                     "locale": "Locale",
                     "reason": "Reason"
@@ -606,7 +606,7 @@
                     "message": "Confirm to hide reblogs"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
+                    "title": "Bloquear o domínio",
                     "message": "Confirm to block domain %s"
                 },
                 "confirm_unblock_domain": {
@@ -719,12 +719,12 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
+                "title": "Definições",
+                "general": "Geral",
+                "notifications": "Notificações",
+                "support_mastodon": "Apoie o Mastodon",
+                "about_mastodon": "Acerca do Mastodon",
+                "server_details": "Pormenores do servidor",
                 "logout": "Logout %@"
             },
             "about_mastodon": {
@@ -736,42 +736,42 @@
             },
             "server_details": {
                 "about": "About",
-                "rules": "Rules",
+                "rules": "Regras",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Administrador",
+                    "message_admin": "Contactar administrador(a)",
+                    "legal_notice": "Um aviso jurídico"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Geral",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Aspecto",
+                    "dark": "Escuro",
+                    "light": "Claro",
+                    "system": "Usar tema do dispositivo"
                 },
                 "design": {
                     "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "show_animations": "Reproduzir emojis e avatares animados"
                 },
                 "links": {
-                    "section_title": "Links",
+                    "section_title": "Hiperligações",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Abrir no navegador"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notificações",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Obter notificações de",
+                    "anyone": "Qualquer pessoa",
+                    "followers": "Pessoas que o seguem",
+                    "follow": "Pessoas que segue",
+                    "noone": "Ninguém"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
+                    "mentions_and_replies": "Menções & Respostas",
                     "boosts": "Boosts",
                     "favorites": "Favorites",
                     "new_followers": "New Followers"
