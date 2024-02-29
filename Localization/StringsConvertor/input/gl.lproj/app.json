@@ -54,22 +54,22 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "O multimedia non ten Texto Alt",
+                "message": "%d das imaxes non teñen Alt Text. Publicar?",
+                "cancel": "Desbotar",
+                "post": "Publicar"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "Promover publicación?",
+                "title_unboost": "Retirar promoción?",
+                "cancel": "Desbotar",
+                "boost": "Promover",
+                "unboost": "Retirar promoción"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Deixa de seguir a %@?",
+                "cancel": "Desbotar",
+                "unfollow": "Deixar de seguir"
             }
         },
         "controls": {
@@ -770,19 +770,19 @@
                     "system": "Seguir ao dispositivo"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "section_title": "Preguntar antes…",
+                    "posting_without_alt_text": "Publicar sen Texto Alt",
+                    "unfollowing_someone": "Deixar de seguir a alguén",
+                    "boosting_a_post": "Promover unha publicación",
+                    "deleting_a_post": "Eliminar unha publicación"
                 },
                 "design": {
                     "section_title": "Deseño",
                     "show_animations": "Reproducir avatares e emoji animados"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Idioma",
+                    "default_post_language": "Idioma por defecto ao publicar"
                 },
                 "links": {
                     "section_title": "Ligazóns",
