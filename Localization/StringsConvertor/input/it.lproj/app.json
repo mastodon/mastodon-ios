@@ -54,22 +54,22 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "Testo alternativo mancante nel file",
+                "message": "In %d delle tue immagini manca il testo alternativo. \nPubblicare comunque?",
+                "cancel": "Annulla",
+                "post": "Pubblica"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "Condividere il post?",
+                "title_unboost": "Annullare la condivisione del post?",
+                "cancel": "Annulla",
+                "boost": "Condividi",
+                "unboost": "Annulla la condivisione"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Smettere di seguire %@?",
+                "cancel": "Annulla",
+                "unfollow": "Smetti di seguire"
             }
         },
         "controls": {
@@ -770,19 +770,19 @@
                     "system": "Utilizza l'aspetto del dispositivo"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "section_title": "Chiedi prima di…",
+                    "posting_without_alt_text": "Pubblicare senza il testo alternativo",
+                    "unfollowing_someone": "Smettere di seguire qualcuno",
+                    "boosting_a_post": "Condividere un post",
+                    "deleting_a_post": "Cancellare un post"
                 },
                 "design": {
                     "section_title": "Stile",
                     "show_animations": "Riproduci avatar ed emoji animati"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Lingua",
+                    "default_post_language": "Lingua predefinita dei post"
                 },
                 "links": {
                     "section_title": "Collegamenti",
