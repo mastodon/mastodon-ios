@@ -54,14 +54,14 @@
                 "button": "Í lagi"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "title": "Myndefni vantar hjálpartexta",
+                "message": "%d myndanna þinna vantar hjálpartexta. Birta samt?",
                 "cancel": "Hætta við",
                 "post": "Færsla"
             },
             "boost_a_post": {
                 "title_boost": "Endurbirta færslu?",
-                "title_unboost": "Unboost Post?",
+                "title_unboost": "Taka færslu úr endurbirtingu?",
                 "cancel": "Hætta við",
                 "boost": "Endurbirting",
                 "unboost": "Taka úr endurbirtingu"
@@ -771,10 +771,10 @@
                 },
                 "ask_before": {
                     "section_title": "Spyrja áður…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "posting_without_alt_text": "Birta án hjálpartexta",
+                    "unfollowing_someone": "Hætta að fylgjast með einhverjum",
+                    "boosting_a_post": "Endurbirta færslu",
+                    "deleting_a_post": "Eyða færslu"
                 },
                 "design": {
                     "section_title": "Hönnun",
