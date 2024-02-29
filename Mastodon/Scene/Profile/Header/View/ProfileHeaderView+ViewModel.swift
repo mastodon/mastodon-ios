@@ -275,6 +275,7 @@ extension ProfileHeaderView.ViewModel {
             guard let relationship else { return }
 
             view.relationshipActionButton.configure(relationship: relationship, between: account, and: me, isEditing: isEditing, isUpdating: isUpdating)
+            view.configure(state: isEditing ? .editing : .normal)
         }
         .store(in: &disposeBag)
     }

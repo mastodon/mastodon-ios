@@ -31,6 +31,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
+    //TODO: Replace with something better than !
     var viewModel: ProfileViewModel!
     
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
