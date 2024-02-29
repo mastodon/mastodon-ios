@@ -21,7 +21,6 @@ xcodebuild \
   test \
   -showdestinations \
   -derivedDataPath '~/Downloads/MastodonBuild/Derived' \
-  -workspace Mastodon.xcworkspace \
   -scheme 'Mastodon - Snapshot'
 
 # output
@@ -47,7 +46,6 @@ TEST_RUNNER_login_domain='<Domain>' \
   xcodebuild \
   test \
   -derivedDataPath '~/Downloads/MastodonBuild/Derived' \
-  -workspace Mastodon.xcworkspace \
   -scheme 'Mastodon - Snapshot'  \
   -sdk iphonesimulator \
   -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max' \
@@ -88,7 +86,6 @@ TEST_RUNNER_login_domain='<domain.com>' \
   xcodebuild \
   test \
   -derivedDataPath '~/Downloads/MastodonBuild/Derived' \
-  -workspace Mastodon.xcworkspace \
   -scheme 'Mastodon - Snapshot'  \
   -sdk iphonesimulator \
   -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max' \
