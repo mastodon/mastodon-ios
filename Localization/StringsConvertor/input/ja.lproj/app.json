@@ -54,22 +54,22 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "メディアに代替テキストがありません",
+                "message": "%d 枚の画像に代替テキストがありません。そのまま投稿しますか？",
+                "cancel": "キャンセル",
+                "post": "投稿"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "キャンセル",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "%@ さんのフォローを解除しますか？",
+                "cancel": "キャンセル",
+                "unfollow": "フォロー解除"
             }
         },
         "controls": {
@@ -781,8 +781,8 @@
                     "show_animations": "アニメーションアイコンと絵文字を再生"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "言語",
+                    "default_post_language": "デフォルトの投稿言語"
                 },
                 "links": {
                     "section_title": "Webブラウザ",
