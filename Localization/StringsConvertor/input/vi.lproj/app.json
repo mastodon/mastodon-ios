@@ -54,22 +54,22 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "Thiếu văn bản thay thế",
+                "message": "%d hình thiếu văn bản liên kết.\nVẫn cứ đăng?",
+                "cancel": "Hủy bỏ",
+                "post": "Đăng"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "Đăng lại?",
+                "title_unboost": "Hủy đăng lại?",
+                "cancel": "Hủy bỏ",
+                "boost": "Đăng lại",
+                "unboost": "Hủy đăng lại"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Bỏ theo dõi %@?",
+                "cancel": "Hủy bỏ",
+                "unfollow": "Bỏ theo dõi"
             }
         },
         "controls": {
@@ -770,19 +770,19 @@
                     "system": "Giống thiết bị"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "section_title": "Hỏi trước khi…",
+                    "posting_without_alt_text": "Đăng không cần văn bản thay thế",
+                    "unfollowing_someone": "Bỏ theo dõi ai đó",
+                    "boosting_a_post": "Đăng lại một tút",
+                    "deleting_a_post": "Xóa một tút"
                 },
                 "design": {
                     "section_title": "Thiết kế",
                     "show_animations": "Ảnh đại diện và emoji động"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Ngôn ngữ",
+                    "default_post_language": "Ngôn ngữ đăng mặc định"
                 },
                 "links": {
                     "section_title": "Liên kết",
