@@ -49,7 +49,6 @@ extension ProfileHeaderView {
         @Published var me: Mastodon.Entity.Account
         @Published var account: Mastodon.Entity.Account
         @Published var relationship: Mastodon.Entity.Relationship?
-        @Published var isRelationshipActionButtonHidden = false
         @Published var isMyself = false
         
         init(account: Mastodon.Entity.Account, me: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?) {
@@ -258,10 +257,6 @@ extension ProfileHeaderView.ViewModel {
                 }
                 animator.startAnimation()
             }
-            .store(in: &disposeBag)
-        // relationship
-        $isRelationshipActionButtonHidden
-            .assign(to: \.isHidden, on: view.relationshipActionButton)
             .store(in: &disposeBag)
 
         Publishers.CombineLatest3(
