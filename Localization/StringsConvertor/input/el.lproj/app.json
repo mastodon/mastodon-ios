@@ -54,22 +54,22 @@
                 "button": "ΟΚ"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "Το πολυμέσο Δεν Έχει Εναλλακτικό Κείμενο",
+                "message": "%d από τις εικόνες σου δεν έχει εναλλακτικό κείμενο. Ανάρτηση ούτως ή άλλως;",
+                "cancel": "Άκυρο",
+                "post": "Ανάρτηση"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "Ενίσχυση Ανάρτησης;",
+                "title_unboost": "Αναίρεση Ενίσχυσης Ανάρτησης;",
+                "cancel": "Άκυρο",
+                "boost": "Ενίσχυση",
+                "unboost": "Ακύρωση ενίσχυσης"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Άρση ακολούθησης του %@;",
+                "cancel": "Άκυρο",
+                "unfollow": "Άρση ακολούθησης"
             }
         },
         "controls": {
@@ -770,19 +770,19 @@
                     "system": "Χρήση Εμφάνισης Συσκευής"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "section_title": "Ρώτησε πριν…",
+                    "posting_without_alt_text": "Ανάρτηση χωρίς Εναλλακτικό Κείμενο",
+                    "unfollowing_someone": "Άρση Ακολούθησης Κάποιου",
+                    "boosting_a_post": "Ενίσχυση μιας Ανάρτησης",
+                    "deleting_a_post": "Διαγραφή μιας Ανάρτησης"
                 },
                 "design": {
                     "section_title": "Σχεδίαση",
                     "show_animations": "Αναπαραγωγή κινούμενων Avatars και Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Γλώσσα",
+                    "default_post_language": "Προεπιλεγμένη Γλώσσα Ανάρτησης"
                 },
                 "links": {
                     "section_title": "Σύνδεσμοι",
