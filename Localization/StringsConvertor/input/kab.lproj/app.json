@@ -283,39 +283,39 @@
     "scene": {
         "welcome": {
             "log_in": "Qqen",
-            "learn_more": "Learn more",
+            "learn_more": "Issin ugar",
             "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "pick_server": "Fren aqeddac nniḍen",
             "separator": {
-                "or": "or"
+                "or": "neɣ"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Ansuf ɣer Mastodon",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
-                    "title": "What are servers?",
+                    "title": "D acu-ten yiqeddacen?",
                     "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "D acu-t Mastodon?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Ansuf yes-k·m tikkelt niḍen",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Sekcem URL neɣ nadi ɣef uqeddac-ik·im"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Xtir aqeddac",
             "button": {
-                "language": "Language",
+                "language": "Tutlayt",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Akk",
@@ -737,10 +737,10 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
+                "title": "Iɣewwaṛen",
+                "general": "Amatu",
                 "notifications": "Ilɣa",
-                "support_mastodon": "Support Mastodon",
+                "support_mastodon": "Mudd afus i Mastodon",
                 "about_mastodon": "Ɣef Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logout %@"
@@ -748,7 +748,7 @@
             "about_mastodon": {
                 "title": "Ɣef",
                 "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
+                "contribute_to_mastodon": "Ttekki deg Mastodon",
                 "privacy_policy": "Tasertit tabaḍnit",
                 "clear_media_storage": "Clear Media Storage"
             },
@@ -791,7 +791,7 @@
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Ilɣa",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
