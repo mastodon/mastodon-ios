@@ -113,7 +113,7 @@
                 "delete": "Kkes",
                 "translate_post": {
                     "title": "Yettwasuqel seg %s",
-                    "unknown_language": "Unknown"
+                    "unknown_language": "Arussin"
                 },
                 "edit_post": "Ẓreg",
                 "bookmark": "Creḍ",
@@ -124,7 +124,7 @@
             "tabs": {
                 "home": "Agejdan",
                 "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "notifications": "Ilɣa",
                 "profile": "Amaɣnu",
                 "a11y": {
                     "search": "Anadi",
@@ -210,8 +210,8 @@
                 },
                 "translation": {
                     "translated_from": "Yettwasuqel seg %s s %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
+                    "unknown_language": "Arussin",
+                    "unknown_provider": "Arussin",
                     "show_original": "Show Original"
                 },
                 "media": {
