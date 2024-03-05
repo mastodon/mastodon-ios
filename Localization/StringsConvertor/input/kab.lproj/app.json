@@ -50,25 +50,25 @@
             },
             "translation_failed": {
                 "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "message": "Texṣer tsuqilt. Ahat anedbal ur yermid ara tisuqilin deg uqeddac-a neɣ aqeddac-a yessefrak lqem aqbur n Mastodon anda mazal ur ttwasefrakent ara tsuqilin.",
+                "button": "IH"
             },
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "Sefsex",
+                "post": "Suffeɣ"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Sefsex",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
+                "title": "Ḥbes aḍfar n %@?",
+                "cancel": "Sefsex",
                 "unfollow": "Unfollow"
             }
         },
@@ -96,7 +96,7 @@
                 "sign_in": "Qqen",
                 "see_more": "Wali ugar",
                 "preview": "Taskant",
-                "copy": "Copy",
+                "copy": "Nɣel",
                 "share": "Bḍu",
                 "share_user": "Bḍu %s",
                 "share_post": "Bḍu tasuffeɣt",
@@ -112,14 +112,14 @@
                 "settings": "Iɣewwaṛen",
                 "delete": "Kkes",
                 "translate_post": {
-                    "title": "Translate from %s",
+                    "title": "Yettwasuqel seg %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "edit_post": "Ẓreg",
+                "bookmark": "Creḍ",
+                "remove_bookmark": "Kkes tacreḍt",
+                "follow": "Ḍfer %s",
+                "unfollow": "Ḥbes aḍfar n %s"
             },
             "tabs": {
                 "home": "Agejdan",
@@ -127,7 +127,7 @@
                 "notifications": "Notifications",
                 "profile": "Amaɣnu",
                 "a11y": {
-                    "search": "Search",
+                    "search": "Anadi",
                     "explore": "Explore"
                 }
             },
@@ -165,7 +165,7 @@
                 "media_content_warning": "Sit anida tebɣiḍ i wakken ad twaliḍ",
                 "tap_to_reveal": "Sit i uskan",
                 "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s s ɣur %s",
                 "poll": {
                     "vote": "Dɣeṛ",
                     "closed": "Ifukk"
@@ -209,7 +209,7 @@
                     "direct": "D ineḍfaren-is kan i izemren ad walin tsuffeɣ-a."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Yettwasuqel seg %s s %s",
                     "unknown_language": "Unknown",
                     "unknown_provider": "Unknown",
                     "show_original": "Show Original"
@@ -223,7 +223,7 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
+                    "favorites_title": "Imenyafen",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
@@ -370,11 +370,11 @@
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Qebleɣ"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Asnulfu n umiḍan",
             "input": {
                 "avatar": {
                     "delete": "Kkes"
@@ -441,7 +441,7 @@
             "terms_of_service": "tiwetlin n useqdec",
             "privacy_policy": "tasertit tabaḍnit",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Qebleɣ"
             }
         },
         "confirm_email": {
@@ -560,10 +560,10 @@
                 "select_visibility_entry": "Fren timeẓriwt - %s"
             },
             "language": {
-                "title": "Post Language",
+                "title": "Tutlayt n tira",
                 "suggested": "Suggested",
                 "recent": "Recent",
-                "other": "Other Language…"
+                "other": "Tutlayin nniḍen…"
             }
         },
         "profile": {
@@ -571,7 +571,7 @@
                 "follows_you": "Yeṭṭafaṛ-ik•im"
             },
             "dashboard": {
-                "my_posts": "posts",
+                "my_posts": "tisuffaɣ",
                 "my_following": "following",
                 "my_followers": "followers",
                 "other_posts": "posts",
@@ -681,7 +681,7 @@
                 "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "hashtag": "Ddu ɣer #%s",
                 "no_user": {
                     "title": "No User Account Found",
                     "message": "There's no Useraccount \"%s\" on %s"
@@ -739,24 +739,24 @@
             "overview": {
                 "title": "Settings",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "Ilɣa",
                 "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
+                "about_mastodon": "Ɣef Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Ɣef",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
+                "privacy_policy": "Tasertit tabaḍnit",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
+                "about": "Ɣef",
                 "rules": "Rules",
                 "about_instance": {
-                    "title": "Administrator",
+                    "title": "Anedbal",
                     "message_admin": "Message Admin",
                     "legal_notice": "A legal notice"
                 }
@@ -764,9 +764,9 @@
             "general": {
                 "title": "General",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
+                    "section_title": "Udem",
+                    "dark": "Aberkan",
+                    "light": "Aceɛlal",
                     "system": "Use Device Appearance"
                 },
                 "ask_before": {
@@ -781,7 +781,7 @@
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
+                    "section_title": "Tutlayt",
                     "default_post_language": "Default Post Language"
                 },
                 "links": {
