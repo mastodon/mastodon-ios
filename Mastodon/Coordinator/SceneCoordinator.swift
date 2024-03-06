@@ -409,8 +409,7 @@ private extension SceneCoordinator {
                 _viewController.viewModel = viewModel
                 viewController = _viewController
             case .mastodonServerRules(let viewModel):
-                let _viewController = MastodonServerRulesViewController()
-                _viewController.viewModel = viewModel
+                let _viewController = MastodonServerRulesViewController(viewModel: viewModel)
                 viewController = _viewController
             case .mastodonConfirmEmail(let viewModel):
                 let _viewController = MastodonConfirmEmailViewController()

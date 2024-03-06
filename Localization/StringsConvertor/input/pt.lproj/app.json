@@ -418,7 +418,7 @@
         },
         "server_rules": {
             "title": "Algumas regras básicas.",
-            "subtitle": "These are set and enforced by the %s moderators.",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%@** moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",

@@ -1455,17 +1455,19 @@ public enum L10n {
       public static func prompt(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.ServerRules.Prompt", String(describing: p1), fallback: "By continuing, you’re subject to the terms of service and privacy policy for %@.")
       }
-      /// These are set and enforced by the %@ moderators.
+      /// By continuing, you agree to follow by the following rules set and enforced by the **%@** moderators.
       public static func subtitle(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.ServerRules.Subtitle", String(describing: p1), fallback: "These are set and enforced by the %@ moderators.")
+        return L10n.tr("Localizable", "Scene.ServerRules.Subtitle", String(describing: p1), fallback: "By continuing, you agree to follow by the following rules set and enforced by the **%@** moderators.")
       }
       /// terms of service
       public static let termsOfService = L10n.tr("Localizable", "Scene.ServerRules.TermsOfService", fallback: "terms of service")
-      /// Some ground rules.
-      public static let title = L10n.tr("Localizable", "Scene.ServerRules.Title", fallback: "Some ground rules.")
+      /// Server Rules
+      public static let title = L10n.tr("Localizable", "Scene.ServerRules.Title", fallback: "Server Rules")
       public enum Button {
         /// I Agree
         public static let confirm = L10n.tr("Localizable", "Scene.ServerRules.Button.Confirm", fallback: "I Agree")
+        /// Disagree
+        public static let disagree = L10n.tr("Localizable", "Scene.ServerRules.Button.Disagree", fallback: "Disagree")
       }
     }
     public enum Settings {
