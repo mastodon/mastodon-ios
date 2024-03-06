@@ -2,14 +2,13 @@
 
 set -ev
 
-SRCROOT=`pwd`
-PODS_ROOT='Pods'
+SRCROOT=$(pwd)
 
 echo ${SRCROOT}
 
 # Task 1
 # here we use the template source as input to
-# generate strings so we could use new strings 
+# generate strings so we could use new strings
 # before sync to Crowdin
 
 # clean Base.lproj
@@ -31,11 +30,10 @@ cp -R ${SRCROOT}/Localization/StringsConvertor/Intents/output/ ${SRCROOT}/Mastod
 
 # Task 4 swiftgen
 cd ${SRCROOT}
-echo "${PODS_ROOT}/SwiftGen/bin/swiftgen"
-if [[ -f "${PODS_ROOT}/SwiftGen/bin/swiftgen" ]] then 
-   "${PODS_ROOT}/SwiftGen/bin/swiftgen"
+if which swiftgen >/dev/null; then
+  swiftgen
 else
-	echo "Run 'bundle exec pod install' or update your CocoaPods installation."
+  echo "Run 'brew install swiftgen'."
 fi
 
 # Task 5 clean temp file
