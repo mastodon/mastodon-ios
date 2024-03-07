@@ -38,20 +38,35 @@ struct MastodonServerRulesView: View {
                     .padding(.bottom, 30)
                 }
                 
-                VStack {
-                    MastodonServerRulesButton(text: LocalizedStringKey(L10n.Scene.ServerRules.Button.disagree), action: {
-                        onDisagree?()
-                    })
-                    
-                    MastodonServerRulesButton(text: LocalizedStringKey(L10n.Scene.ServerRules.Button.confirm), action: {
-                        onAgree?()
-                    })
-                    .foregroundStyle(.white)
-                    .background(Asset.Colors.Brand.blurple.swiftUIColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-                }
+
             }
+        }
+        .padding(.horizontal)
+        .safeAreaInset(edge: .bottom) {
+            VStack {
+                Button(role: .cancel) {
+                    onDisagree?()
+                } label: {
+                    Text(L10n.Scene.ServerRules.Button.disagree)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.clear)
+                .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
+                
+                Button {
+                    onAgree?()
+                } label: {
+                    Text(L10n.Scene.ServerRules.Button.confirm)
+                        .frame(maxWidth: .infinity)
+                        .bold()
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            .controlSize(.large)
             .padding()
+            .background(.ultraThinMaterial)
+            .tint(Asset.Colors.Brand.blurple.swiftUIColor)
         }
     }
 }
