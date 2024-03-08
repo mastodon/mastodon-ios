@@ -63,13 +63,13 @@
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
                 "cancel": "Sefsex",
-                "boost": "Boost",
+                "boost": "Beṭṭu",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Ḥbes aḍfar n %@?",
                 "cancel": "Sefsex",
-                "unfollow": "Unfollow"
+                "unfollow": "Ḥbes aḍfar"
             }
         },
         "controls": {
@@ -284,7 +284,7 @@
         "welcome": {
             "log_in": "Qqen",
             "learn_more": "Issin ugar",
-            "join_default_server": "Join %@",
+            "join_default_server": "Da deg ass n %@",
             "pick_server": "Fren aqeddac nniḍen",
             "separator": {
                 "or": "neɣ"
@@ -350,12 +350,12 @@
                 "no_results": "Ulac igemmaḍ"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Akk",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "Akk"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -363,11 +363,11 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "Tabaḍnit",
             "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Tasertit tabaḍnit - Mastodon i iOS",
+                "server": "Tasertit tabaḍnit - %s"
             },
             "button": {
                 "confirm": "Qebleɣ"
@@ -392,7 +392,7 @@
                 },
                 "password": {
                     "placeholder": "awal uffir",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Sentem awal uffir",
                     "require": "Awal-ik uffir yesra ma drus:",
                     "character_limit": "8 n yisekkilen",
                     "accessibility": {
@@ -743,7 +743,7 @@
                 "support_mastodon": "Mudd afus i Mastodon",
                 "about_mastodon": "Ɣef Mastodon",
                 "server_details": "Server Details",
-                "logout": "Logout %@"
+                "logout": "Ffeɣ seg %@"
             },
             "about_mastodon": {
                 "title": "Ɣef",
@@ -762,7 +762,7 @@
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Amatu",
                 "appearance": {
                     "section_title": "Udem",
                     "dark": "Aberkan",
@@ -782,19 +782,19 @@
                 },
                 "language": {
                     "section_title": "Tutlayt",
-                    "default_post_language": "Default Post Language"
+                    "default_post_language": "Tutlayt tamezwarut n tira"
                 },
                 "links": {
                     "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_mastodon": "Ldi deg Mastodon",
+                    "open_in_browser": "Ldi deg yiminig"
                 }
             },
             "notifications": {
                 "title": "Ilɣa",
                 "policy": {
                     "title": "Get Notifications from",
-                    "anyone": "Anyone",
+                    "anyone": "Yal yiwen",
                     "followers": "People who follow you",
                     "follow": "People you follow",
                     "noone": "No one"
@@ -889,8 +889,8 @@
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Ḍfeṛ",
+                "unfollow": "Ḥbes aḍfar"
             }
         }
     },
@@ -905,7 +905,7 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
+            "configuration_display_name": "Imeḍfaren",
             "configuration_description": "Show number of followers.",
             "title": "FOLLOWERS",
             "followers_today": "%s followers today"
@@ -926,7 +926,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Ahacṭag",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
