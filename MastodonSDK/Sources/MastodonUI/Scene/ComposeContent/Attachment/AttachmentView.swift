@@ -58,6 +58,7 @@ public struct AttachmentView: View {
                                         .lineLimit(1)
                                         .textFieldStyle(.plain)
                                         .font(.footnote)
+                                        .tint(Color(UIColor.white.withAlphaComponent(0.8)))
                                         .foregroundColor(Color(UIColor.white.withAlphaComponent(0.8)))
                                         .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
                                         .placeholder(when: viewModel.caption.isEmpty) {
