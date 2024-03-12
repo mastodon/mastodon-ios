@@ -200,7 +200,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             if author?.id != status.account.id {
                 mentionAccts.append("@" + status.account.acct)
             }
-            let mentions = (status.mentions ?? []).filter { author?.id != $0.id }
+            let mentions = status.mentions.filter { author?.id != $0.id }
             for mention in mentions {
                 let acct = "@" + mention.acct
                 guard !mentionAccts.contains(acct) else { continue }

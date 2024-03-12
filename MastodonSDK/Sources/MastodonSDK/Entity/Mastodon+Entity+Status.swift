@@ -36,7 +36,7 @@ extension Mastodon.Entity {
         public let application: Application?
         
         // Rendering
-        public let mentions: [Mention]?
+        public let mentions: [Mention]
         public let tags: [Tag]
         public let emojis: [Emoji]
         
