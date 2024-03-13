@@ -54,10 +54,10 @@
                 "button": "确定"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "媒体缺少替代文本",
+                "message": "你有 %d 张图像缺少替代文本。\n仍要发布吗？",
+                "cancel": "取消",
+                "post": "发布"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
