@@ -38,14 +38,14 @@ extension UserDefaults {
         let count = getNotificationCountWithAccessToken(accessToken: accessToken)
         setNotificationCountWithAccessToken(accessToken: accessToken, value: count + 1)
     }
-    
-    @objc public func getLastSelectedNotificationsTab(accessToken: String) -> Int {
+
+    @objc public func getLastSelectedNotificationsTabName(accessToken: String) -> String? {
         let prefix = UserDefaults.notificationsLastTabIndexKeyPrefix
         let key = UserDefaults.deriveKey(from: accessToken, prefix: prefix)
-        return integer(forKey: key)
+        return object(forKey: key) as? String
     }
     
-    @objc public func setLastSelectedNotificationsTab(accessToken: String, value: Int) {
+    @objc public func setLastSelectedNotificationsTabName(accessToken: String, value: String?) {
         let prefix = UserDefaults.notificationsLastTabIndexKeyPrefix
         let key = UserDefaults.deriveKey(from: accessToken, prefix: prefix)
         setValue(value, forKey: key)

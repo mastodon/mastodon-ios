@@ -31,14 +31,18 @@ final class NotificationViewModel {
     
     private var lastPageIndex: Int {
         get {
-            UserDefaults.shared.getLastSelectedNotificationsTab(
+            guard let selectedTabName = UserDefaults.shared.getLastSelectedNotificationsTabName(
                 accessToken: authContext.mastodonAuthenticationBox.userAuthorization.accessToken
-            )
+            ), let scope = APIService.MastodonNotificationScope(rawValue: selectedTabName) else {
+                return 0
+            }
+            
+            return APIService.MastodonNotificationScope.allCases.firstIndex(of: scope) ?? 0
         }
         set {
-            UserDefaults.shared.setLastSelectedNotificationsTab(
+            UserDefaults.shared.setLastSelectedNotificationsTabName(
                 accessToken: authContext.mastodonAuthenticationBox.userAuthorization.accessToken,
-                value: newValue
+                value: APIService.MastodonNotificationScope.allCases[newValue].rawValue
             )
         }
     }
