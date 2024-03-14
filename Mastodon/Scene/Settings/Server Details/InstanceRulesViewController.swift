@@ -22,6 +22,7 @@ class InstanceRulesViewController: UIHostingController<InstanceRulesView> {
 
     init() {
         super.init(rootView: InstanceRulesView())
+        view.backgroundColor = .systemGroupedBackground
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
