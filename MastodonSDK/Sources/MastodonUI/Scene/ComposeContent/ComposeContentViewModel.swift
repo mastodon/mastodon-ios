@@ -328,8 +328,36 @@ extension ComposeContentViewModel {
         
         // bind text
         $content
-            .map { $0.count }
-            .assign(to: &$contentWeightedLength)
+            .sink { [weak self] _ in
+                DispatchQueue.main.async {
+                    guard let self, let attributedText = self.contentMetaText?.textView.attributedText else {
+                        self?.contentWeightedLength = 0
+                        return
+                    }
+                    let urlCharCount = self.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.instance?.configuration?.statuses?.charactersReservedPerURL ?? 23
+                    // Reference: StatusLengthValidator.countable_text
+                    // not entirely accurate: Ruby code says “To ensure that we only
+                    // give length concessions to entities that will be correctly
+                    // parsed during formatting, we go through full entity extraction”
+                    // but this code doesn’t
+
+                    var length = 0
+                    attributedText.enumerateAttributes(in: NSRange(location: 0, length: attributedText.string.length)) { attributes, range, _ in
+                        // symbol is not public!
+                        let meta = attributes[NSAttributedString.Key("MetaAttributeKey.meta")] as? Meta
+                        switch meta {
+                        case .url:
+                            length += urlCharCount
+                        case .mention(_, mention: let mention, userInfo: _):
+                            length += ("@" + mention.prefix(while: { $0 != "@" })).count
+                        default:
+                            length += range.length
+                        }
+                    }
+                    self.contentWeightedLength = length
+                }
+            }
+            .store(in: &disposeBag)
         
         Publishers.CombineLatest(
             $contentWarning,
