@@ -17,7 +17,7 @@ extension Mastodon.Entity {
     ///   2022/5/16
     /// # Reference
     ///  [Document](TBD)
-    public class FamiliarFollowers: Codable, Sendable {
+    public final class FamiliarFollowers: Codable, Sendable {
         public let id: Mastodon.Entity.Account.ID
         public let accounts: [Mastodon.Entity.Account]
     }
