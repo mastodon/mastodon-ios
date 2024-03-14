@@ -61,7 +61,9 @@ final class MediaPreviewVideoViewModel {
                 case .unknown, .buffering, .readyToPlay:
                     break
                 case .playing:
-                    try? AVAudioSession.sharedInstance().setCategory(.playback)
+                    if case .video = item {
+                        try? AVAudioSession.sharedInstance().setCategory(.playback)
+                    }
                     try? AVAudioSession.sharedInstance().setActive(true)
                 case .paused, .stopped, .failed:
                     try? AVAudioSession.sharedInstance().setCategory(.ambient)  // set to ambient to allow mixed (needed for GIFV)
