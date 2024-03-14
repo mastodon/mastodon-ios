@@ -25,7 +25,6 @@ class ServerDetailsViewController: UIViewController {
     weak var delegate: (ServerDetailsViewControllerDelegate & AboutInstanceViewControllerDelegate & InstanceRulesViewControllerDelegate & MetaLabelDelegate)? {
         didSet {
             aboutInstanceViewController.delegate = delegate
-            instanceRulesViewController.delegate = delegate
             aboutInstanceViewController.footerView.contentLabel.linkDelegate = delegate
         }
     }

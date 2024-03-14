@@ -16,23 +16,40 @@ import MastodonLocalization
 import SwiftUI
 
 struct MastodonServerRulesView: View {
-    let viewModel: MastodonServerRulesViewModel
+    class ViewModel: ObservableObject {
+        let domain: String?
+        let rules: [String]
+        var onAgree: (() -> Void)?
+        var onDisagree: (() -> Void)?
+        
+        init(domain: String?, rules: [String], onAgree: (() -> Void)?, onDisagree: (() -> Void)?) {
+            self.domain = domain
+            self.rules = rules
+            self.onAgree = onAgree
+            self.onDisagree = onDisagree
+        }
+        
+        fileprivate static var empty: ViewModel {
+            return .init(domain: nil, rules: [], onAgree: nil, onDisagree: nil)
+        }
+    }
     
-    var onAgree: (() -> Void)?
-    var onDisagree: (() -> Void)?
-    
+    @ObservedObject var viewModel: ViewModel = .empty
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text(LocalizedStringKey(L10n.Scene.ServerRules.subtitle(viewModel.domain)))
-                    .padding(.bottom, 30)
+                if let domain = viewModel.domain {
+                    Text(LocalizedStringKey(L10n.Scene.ServerRules.subtitle(domain)))
+                        .padding(.bottom, 30)
+                }
 
                 ForEach(Array(viewModel.rules.enumerated()), id: \.offset) { index, rule in
                     ZStack(alignment: .topLeading) {
                         Text("\(index + 1)")
                             .font(.system(size: UIFontMetrics.default.scaledValue(for: 24), weight: .bold))
                             .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
-                        Text(rule.text)
+                        Text(rule)
                             .padding(.leading, 30)
                     }
                     .padding(.bottom, 30)
@@ -43,30 +60,36 @@ struct MastodonServerRulesView: View {
         }
         .padding(.horizontal)
         .safeAreaInset(edge: .bottom) {
-            VStack {
-                Button(role: .cancel) {
-                    onDisagree?()
-                } label: {
-                    Text(L10n.Scene.ServerRules.Button.disagree)
-                        .frame(maxWidth: .infinity)
+            if viewModel.onDisagree != nil || viewModel.onAgree != nil {
+                VStack {
+                    if let onDisagree = viewModel.onDisagree {
+                        Button(role: .cancel) {
+                            onDisagree()
+                        } label: {
+                            Text(L10n.Scene.ServerRules.Button.disagree)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.clear)
+                        .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
+                    }
+                    
+                    if let onAgree = viewModel.onAgree {
+                        Button {
+                            onAgree()
+                        } label: {
+                            Text(L10n.Scene.ServerRules.Button.confirm)
+                                .frame(maxWidth: .infinity)
+                                .bold()
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.clear)
-                .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
-                
-                Button {
-                    onAgree?()
-                } label: {
-                    Text(L10n.Scene.ServerRules.Button.confirm)
-                        .frame(maxWidth: .infinity)
-                        .bold()
-                }
-                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .padding()
+                .background(.ultraThinMaterial)
+                .tint(Asset.Colors.Brand.blurple.swiftUIColor)
             }
-            .controlSize(.large)
-            .padding()
-            .background(.ultraThinMaterial)
-            .tint(Asset.Colors.Brand.blurple.swiftUIColor)
         }
     }
 }
@@ -93,12 +116,13 @@ final class MastodonServerRulesViewController: UIHostingController<MastodonServe
     private var viewModel: MastodonServerRulesViewModel!
     
     init(viewModel: MastodonServerRulesViewModel) {
-        super.init(rootView: MastodonServerRulesView(
-            viewModel: viewModel
-        ))
+        super.init(rootView: MastodonServerRulesView())
         self.viewModel = viewModel
-        self.rootView.onAgree = { self.nextButtonPressed(nil) }
-        self.rootView.onDisagree = { self.backButtonPressed(nil) }
+        self.rootView.viewModel = .init(
+            domain: viewModel.domain,
+            rules: viewModel.rules.map({ $0.text }),
+            onAgree: { self.nextButtonPressed(nil) },
+            onDisagree: { self.backButtonPressed(nil) })
     }
     
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
