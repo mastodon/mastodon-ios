@@ -14,9 +14,9 @@ import OSLog
 
 extension APIService {
     
-    public enum MastodonNotificationScope: Hashable, CaseIterable {
-        case mentions
+    public enum MastodonNotificationScope: String, Hashable, CaseIterable {
         case everything
+        case mentions
         
         public var includeTypes: [MastodonNotificationType]? {
             switch self {
