@@ -28,7 +28,7 @@ class InstanceRulesViewController: UIHostingController<InstanceRulesView> {
 
     func update(with instance: Mastodon.Entity.V2.Instance) {
         self.rootView.rulesView.viewModel = .init(
-            domain: nil,
+            disclaimer: nil,
             rules: instance.rules?.map({ $0.text }) ?? [],
             onAgree: nil,
             onDisagree: nil

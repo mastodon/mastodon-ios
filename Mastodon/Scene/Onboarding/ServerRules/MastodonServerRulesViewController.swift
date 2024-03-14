@@ -17,20 +17,20 @@ import SwiftUI
 
 struct MastodonServerRulesView: View {
     class ViewModel: ObservableObject {
-        let domain: String?
+        let disclaimer: LocalizedStringKey?
         let rules: [String]
         var onAgree: (() -> Void)?
         var onDisagree: (() -> Void)?
         
-        init(domain: String?, rules: [String], onAgree: (() -> Void)?, onDisagree: (() -> Void)?) {
-            self.domain = domain
+        init(disclaimer: LocalizedStringKey?, rules: [String], onAgree: (() -> Void)?, onDisagree: (() -> Void)?) {
+            self.disclaimer = disclaimer
             self.rules = rules
             self.onAgree = onAgree
             self.onDisagree = onDisagree
         }
         
         fileprivate static var empty: ViewModel {
-            return .init(domain: nil, rules: [], onAgree: nil, onDisagree: nil)
+            return .init(disclaimer: nil, rules: [], onAgree: nil, onDisagree: nil)
         }
     }
     
@@ -39,8 +39,8 @@ struct MastodonServerRulesView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                if let domain = viewModel.domain {
-                    Text(LocalizedStringKey(L10n.Scene.ServerRules.subtitle(domain)))
+                if let disclaimer = viewModel.disclaimer {
+                    Text(disclaimer)
                         .padding(.bottom, 30)
                 }
 
@@ -119,7 +119,7 @@ final class MastodonServerRulesViewController: UIHostingController<MastodonServe
         super.init(rootView: MastodonServerRulesView())
         self.viewModel = viewModel
         self.rootView.viewModel = .init(
-            domain: viewModel.domain,
+            disclaimer: LocalizedStringKey(L10n.Scene.ServerRules.subtitle(viewModel.domain)),
             rules: viewModel.rules.map({ $0.text }),
             onAgree: { self.nextButtonPressed(nil) },
             onDisagree: { self.backButtonPressed(nil) })
