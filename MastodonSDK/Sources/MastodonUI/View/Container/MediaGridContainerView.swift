@@ -164,7 +164,7 @@ extension MediaGridContainerView {
             view.addSubview(mediaView)
             NSLayoutConstraint.activate([
                 mediaView.topAnchor.constraint(equalTo: view.topAnchor),
-                mediaView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                mediaView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 mediaView.trailingAnchor.constraint(equalTo: view.trailingAnchor).priority(.defaultLow),
                 mediaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                 mediaView.widthAnchor.constraint(equalToConstant: imageViewSize.width).priority(.required - 1),

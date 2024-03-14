@@ -661,6 +661,13 @@ extension StatusView {
         return frame.width
     }
 
+    public var contentMaxLayoutHeight: CGFloat {
+        if style == .plain {
+            return .greatestFiniteMagnitude
+        }
+        return 512
+    }
+
 }
 
 extension StatusView {
