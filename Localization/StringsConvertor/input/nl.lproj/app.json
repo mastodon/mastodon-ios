@@ -818,7 +818,7 @@
             "step2": "Stap 2 van 2",
             "content1": "Zijn er nog meer berichten die je aan het rapport wilt toevoegen?",
             "content2": "Is er iets anders over deze rapportage dat de moderatoren zouden moeten weten?",
-            "report_sent_title": "Bedankt voor het rapporteren, we zullen hiernaar kijken.",
+            "report_sent_title": "Bedankt voor het rapporteren, we gaan hiernaar kijken.",
             "send": "Rapportage versturen",
             "skip_to_send": "Zonder opmerkingen versturen",
             "text_placeholder": "Schrijf of plak aanvullende opmerkingen",
@@ -860,7 +860,7 @@
                 "unfollowed": "Ontvolgd",
                 "unfollow_user": "Ontvolg %s",
                 "mute_user": "Negeer %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Je ziet hun berichten en boosts niet op je starttijdlijn. Ze zullen niet weten dat ze worden genegeerd.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Je ziet hun berichten en boosts niet op je starttijdlijn. Ze krijgen niet te weten dat ze worden genegeerd.",
                 "block_user": "Blokkeer %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Het is niet meer mogelijk om je te volgen of om je berichten te zien, maar ze kunnen wel zien dat ze geblokkeerd zijn.",
                 "while_we_review_this_you_can_take_action_against_user": "Terwijl we dit onderzoeken kun je deze acties tegen %s nemen"
