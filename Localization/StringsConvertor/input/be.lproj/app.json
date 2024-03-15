@@ -54,22 +54,22 @@
                 "button": "Добра"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "У медыя адсутнічае альтэрнатыўны тэкст",
+                "message": "%d выявы не маюць альтэрнатыўны тэкст. Усё роўна апублікаваць?",
+                "cancel": "Скасаваць",
+                "post": "Допіс"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "Пашырыць допіс?",
+                "title_unboost": "Прыбраць допіс?",
+                "cancel": "Скасаваць",
+                "boost": "Пашырыць",
+                "unboost": "Прыбраць"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Адпісацца ад %@?",
+                "cancel": "Скасаваць",
+                "unfollow": "Адпісацца"
             }
         },
         "controls": {
@@ -770,19 +770,19 @@
                     "system": "Выкарыстоўваць сістэмную тэму"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "section_title": "Спытайце перад…",
+                    "posting_without_alt_text": "Публікацыя без альтэрнатыўнага тэксту",
+                    "unfollowing_someone": "Адмена падпіскі на кагосьці",
+                    "boosting_a_post": "Пашырэнне допісу",
+                    "deleting_a_post": "Выдаленне допісу"
                 },
                 "design": {
                     "section_title": "Афармленне",
                     "show_animations": "Прайграваць аніміраваныя аватары і эмодзі"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Мова",
+                    "default_post_language": "Мова допісаў па змаўчанні"
                 },
                 "links": {
                     "section_title": "Спасылкі",
