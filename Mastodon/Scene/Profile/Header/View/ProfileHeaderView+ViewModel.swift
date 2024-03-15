@@ -267,7 +267,6 @@ extension ProfileHeaderView.ViewModel {
         .receive(on: DispatchQueue.main)
         .sink { tuple, isEditing, isUpdating in
             let (me, account, relationship) = tuple
-            guard let relationship else { return }
 
             view.relationshipActionButton.configure(relationship: relationship, between: account, and: me, isEditing: isEditing, isUpdating: isUpdating)
             view.configure(state: isEditing ? .editing : .normal)
