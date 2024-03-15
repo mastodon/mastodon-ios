@@ -390,31 +390,6 @@ extension ProfileViewController {
                 self.navigationItem.title = name
             }
             .store(in: &disposeBag)
-
-        profileHeaderViewController.profileHeaderView.viewModel.viewDidAppear
-            .sink(receiveValue: { [weak self] _ in
-
-                guard let self else { return }
-                let account = self.viewModel.account
-                guard let domain = account.domainFromAcct else { return }
-                Task {
-                    let account = try await self.context.apiService.fetchUser(
-                        username: account.username,
-                        domain: domain,
-                        authenticationBox: self.authContext.mastodonAuthenticationBox
-                    )
-
-                    guard let account else { return }
-
-                    let relationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: self.authContext.mastodonAuthenticationBox).value.first
-
-                    guard let relationship else { return }
-
-                    self.viewModel.relationship = relationship
-                    self.viewModel.account  = account
-                }
-            })
-            .store(in: &disposeBag)
     }
 
     private func bindMoreBarButtonItem() {
