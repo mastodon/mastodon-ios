@@ -750,7 +750,7 @@
                 "more_settings": "更多设置",
                 "contribute_to_mastodon": "贡献给Mastodon",
                 "privacy_policy": "隐私政策",
-                "clear_media_storage": "清楚媒体缓存"
+                "clear_media_storage": "清除媒体缓存"
             },
             "server_details": {
                 "about": "关于",
