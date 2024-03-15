@@ -761,7 +761,9 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
     }
 
     private func editRelationship() {
-        guard let relationship = viewModel.relationship else { return }
+        guard let relationship = viewModel.relationship, viewModel.isUpdating == false else {
+            return
+        }
 
         let account = viewModel.account
 
