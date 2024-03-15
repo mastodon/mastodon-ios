@@ -330,43 +330,45 @@ extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
         dashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView,
         meter: ProfileStatusDashboardView.Meter
     ) {
+
+        guard profileHeaderView.viewModel.isEditing == false else { return }
+
         switch meter {
         case .post:
             // do nothing
-                break
-            case .follower:
-                guard let domain = viewModel.account.domain else { return }
-                let userID = viewModel.account.id
-                let followerListViewModel = FollowerListViewModel(
-                    context: context,
-                    authContext: viewModel.authContext,
-                    domain: domain,
-                    userID: userID
-                )
-                _ = coordinator.present(
-                    scene: .follower(viewModel: followerListViewModel),
-                    from: self,
-                    transition: .show
-                )
-                
-            case .following:
-                guard let domain = viewModel.account.domain else { return }
+            break
+        case .follower:
+            guard let domain = viewModel.account.domain else { return }
+            let userID = viewModel.account.id
+            let followerListViewModel = FollowerListViewModel(
+                context: context,
+                authContext: viewModel.authContext,
+                domain: domain,
+                userID: userID
+            )
+            _ = coordinator.present(
+                scene: .follower(viewModel: followerListViewModel),
+                from: self,
+                transition: .show
+            )
 
-                let userID = viewModel.account.id
-                let followingListViewModel = FollowingListViewModel(
-                    context: context,
-                    authContext: viewModel.authContext,
-                    domain: domain,
-                    userID: userID
-                )
-                _ = coordinator.present(
-                    scene: .following(viewModel: followingListViewModel),
-                    from: self,
-                    transition: .show
-                )
+        case .following:
+            guard let domain = viewModel.account.domain else { return }
+
+            let userID = viewModel.account.id
+            let followingListViewModel = FollowingListViewModel(
+                context: context,
+                authContext: viewModel.authContext,
+                domain: domain,
+                userID: userID
+            )
+            _ = coordinator.present(
+                scene: .following(viewModel: followingListViewModel),
+                from: self,
+                transition: .show
+            )
         }
     }
-
 }
 
 // MARK: - MetaTextDelegate
