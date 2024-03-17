@@ -496,6 +496,7 @@ extension ProfileViewController {
 
     @objc private func cancelEditingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         viewModel.isEditing = false
+        profileHeaderViewController.viewModel.isEditing = false
     }
 
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -693,7 +694,9 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 
     private func editProfile() {
         // do nothing when updating
-        guard !viewModel.isUpdating else { return }
+        guard viewModel.isUpdating == false else {
+            return
+        }
 
         let profileHeaderViewModel = profileHeaderViewController.viewModel
         guard let profileAboutViewModel = profilePagingViewController.viewModel.profileAboutViewController.viewModel else { return }
@@ -727,30 +730,33 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 // finish updating
                 self.viewModel.isUpdating = false
             }
-        } else {
+        } else if viewModel.isEditing == false {
             // set `updating` then toggle `edit` state
             viewModel.isUpdating = true
+            profileHeaderViewController.viewModel.isUpdating = true
             viewModel.fetchEditProfileInfo()
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] completion in
-                    guard let self = self else { return }
+                    guard let self else { return }
                     defer {
                         // finish updating
                         self.viewModel.isUpdating = false
+                        self.profileHeaderViewController.viewModel.isUpdating = false
                     }
                     switch completion {
-                        case .failure(let error):
-                            let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.EditProfileFailure.title, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default)
-                            alertController.addAction(okAction)
-                            _ = self.coordinator.present(
-                                scene: .alertController(alertController: alertController),
-                                from: nil,
-                                transition: .alertController(animated: true, completion: nil)
-                            )
-                        case .finished:
-                            // enter editing mode
-                            self.viewModel.isEditing.toggle()
+                    case .failure(let error):
+                        let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.EditProfileFailure.title, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default)
+                        alertController.addAction(okAction)
+                        _ = self.coordinator.present(
+                            scene: .alertController(alertController: alertController),
+                            from: nil,
+                            transition: .alertController(animated: true, completion: nil)
+                        )
+                    case .finished:
+                        // enter editing mode
+                        self.viewModel.isEditing = true
+                        self.profileHeaderViewController.viewModel.isEditing = true
                     }
                 } receiveValue: { [weak self] response in
                     guard let self = self else { return }
