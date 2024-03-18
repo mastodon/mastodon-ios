@@ -40,6 +40,7 @@ final class AccountListViewController: UIViewController, NeedsDependency {
         let tableView = UITableView()
         tableView.register(AccountListTableViewCell.self, forCellReuseIdentifier: String(describing: AccountListTableViewCell.self))
         tableView.register(AddAccountTableViewCell.self, forCellReuseIdentifier: String(describing: AddAccountTableViewCell.self))
+        tableView.register(LogoutOfAllAccountsCell.self, forCellReuseIdentifier: LogoutOfAllAccountsCell.reuseIdentifier)
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
@@ -172,6 +173,9 @@ extension AccountListViewController: UITableViewDelegate {
         case .addAccount:
             // TODO: add dismiss entry for welcome scene
             _ = coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
+        case .logoutOfAllAccounts:
+            //TODO: Show alert with "Logout of all Accounts", "Cancel"
+            break
         }
     }
 }
