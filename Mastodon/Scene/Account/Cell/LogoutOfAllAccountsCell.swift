@@ -1,32 +1,40 @@
-// Copyright © 2023 Mastodon gGmbH. All rights reserved.
+//
+//  AddAccountTableViewCell.swift
+//  Mastodon
+//
+//  Created by Cirno MainasuK on 2021-9-14.
+//
 
 import UIKit
+import Combine
 import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
 import MastodonCore
 import MastodonUI
 
-final class AddAccountTableViewCell: UITableViewCell {
-    
+final class LogoutOfAllAccountsCell: UITableViewCell {
+
+    static let reuseIdentifier = "LogoutOfAllAccountsCell"
+
     let iconImageView: UIImageView = {
-        let image = UIImage(systemName: "plus")!
+        let image = UIImage(systemName: "rectangle.portrait.and.arrow.forward")!
         let imageView = UIImageView(image: image)
-        imageView.tintColor = Asset.Colors.Label.primary.color
+        imageView.tintColor = .systemRed
         return imageView
     }()
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
-        label.textColor = Asset.Colors.Label.primary.color
-        label.text = L10n.Scene.AccountList.addAccount
+        label.textColor = .systemRed
+        label.text = "Logout of all accounts"
         return label
     }()
     let separatorLine = UIView.separatorLine
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
         backgroundColor = .secondarySystemGroupedBackground
 
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,16 +83,15 @@ final class AddAccountTableViewCell: UITableViewCell {
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(separatorLine)
         NSLayoutConstraint.activate([
-            separatorLine.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
 
         accessibilityTraits.insert(.button)
-
     }
 
     required init?(coder: NSCoder) { fatalError() }
-
 }
+
