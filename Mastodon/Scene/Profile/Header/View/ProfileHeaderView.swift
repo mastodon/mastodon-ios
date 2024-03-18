@@ -86,6 +86,7 @@ final class ProfileHeaderView: UIView {
         view.layer.cornerRadius = ProfileHeaderView.avatarImageViewCornerRadius
         view.layer.cornerCurve = .continuous
         view.layer.borderWidth = ProfileHeaderView.avatarImageViewBorderWidth
+        view.layer.anchorPoint = CGPointMake(0.5, 1)
         return view
     }()
     
@@ -365,7 +366,7 @@ final class ProfileHeaderView: UIView {
         dashboardContainer.addArrangedSubview(statusDashboardView)
         
         NSLayoutConstraint.activate([
-            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: dashboardContainer.bottomAnchor),
+            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: dashboardContainer.bottomAnchor, constant: ProfileHeaderView.avatarImageViewSize.height / 2),
         ])
         
         // authorContainer: H - [ nameContainer | padding | relationshipActionButton ]

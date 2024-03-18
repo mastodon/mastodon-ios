@@ -269,9 +269,8 @@ extension ProfileHeaderViewController {
     }
 
     private func setProfileAvatar(alpha: CGFloat) {
-        profileHeaderView.avatarImageViewBackgroundView.alpha = alpha
-        profileHeaderView.avatarButton.alpha = alpha
-        profileHeaderView.editAvatarBackgroundView.alpha = alpha
+        let scale = max(0.5, alpha * 0.5 + 0.5)
+        profileHeaderView.avatarImageViewBackgroundView.transform = CGAffineTransform(scaleX: scale, y: scale)
     }
 
 }
