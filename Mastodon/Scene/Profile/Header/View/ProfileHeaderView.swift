@@ -408,7 +408,6 @@ final class ProfileHeaderView: UIView {
             nameTextFieldBackgroundView.trailingAnchor.constraint(equalTo: nameMetaText.textView.trailingAnchor, constant: 5),
             nameMetaText.textView.bottomAnchor.constraint(equalTo: nameTextFieldBackgroundView.bottomAnchor),
         ])
-        // nameMetaText.textView.setContentHuggingPriority(, for: <#T##NSLayoutConstraint.Axis#>)
         
         nameContainerStackView.addArrangedSubview(displayNameStackView)
         nameContainerStackView.addArrangedSubview(usernameButton)

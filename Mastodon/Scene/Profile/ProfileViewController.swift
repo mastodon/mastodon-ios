@@ -31,6 +31,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
+    //TODO: Replace with something better than !
     var viewModel: ProfileViewModel!
     
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
@@ -389,31 +390,6 @@ extension ProfileViewController {
                 self.navigationItem.title = name
             }
             .store(in: &disposeBag)
-
-        profileHeaderViewController.profileHeaderView.viewModel.viewDidAppear
-            .sink(receiveValue: { [weak self] _ in
-
-                guard let self else { return }
-                let account = self.viewModel.account
-                guard let domain = account.domainFromAcct else { return }
-                Task {
-                    let account = try await self.context.apiService.fetchUser(
-                        username: account.username,
-                        domain: domain,
-                        authenticationBox: self.authContext.mastodonAuthenticationBox
-                    )
-
-                    guard let account else { return }
-
-                    let relationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: self.authContext.mastodonAuthenticationBox).value.first
-
-                    guard let relationship else { return }
-
-                    self.viewModel.relationship = relationship
-                    self.viewModel.account  = account
-                }
-            })
-            .store(in: &disposeBag)
     }
 
     private func bindMoreBarButtonItem() {
@@ -520,6 +496,7 @@ extension ProfileViewController {
 
     @objc private func cancelEditingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         viewModel.isEditing = false
+        profileHeaderViewController.viewModel.isEditing = false
     }
 
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -717,7 +694,9 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 
     private func editProfile() {
         // do nothing when updating
-        guard !viewModel.isUpdating else { return }
+        guard viewModel.isUpdating == false else {
+            return
+        }
 
         let profileHeaderViewModel = profileHeaderViewController.viewModel
         guard let profileAboutViewModel = profilePagingViewController.viewModel.profileAboutViewController.viewModel else { return }
@@ -751,30 +730,33 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 // finish updating
                 self.viewModel.isUpdating = false
             }
-        } else {
+        } else if viewModel.isEditing == false {
             // set `updating` then toggle `edit` state
             viewModel.isUpdating = true
+            profileHeaderViewController.viewModel.isUpdating = true
             viewModel.fetchEditProfileInfo()
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] completion in
-                    guard let self = self else { return }
+                    guard let self else { return }
                     defer {
                         // finish updating
                         self.viewModel.isUpdating = false
+                        self.profileHeaderViewController.viewModel.isUpdating = false
                     }
                     switch completion {
-                        case .failure(let error):
-                            let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.EditProfileFailure.title, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default)
-                            alertController.addAction(okAction)
-                            _ = self.coordinator.present(
-                                scene: .alertController(alertController: alertController),
-                                from: nil,
-                                transition: .alertController(animated: true, completion: nil)
-                            )
-                        case .finished:
-                            // enter editing mode
-                            self.viewModel.isEditing.toggle()
+                    case .failure(let error):
+                        let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.EditProfileFailure.title, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default)
+                        alertController.addAction(okAction)
+                        _ = self.coordinator.present(
+                            scene: .alertController(alertController: alertController),
+                            from: nil,
+                            transition: .alertController(animated: true, completion: nil)
+                        )
+                    case .finished:
+                        // enter editing mode
+                        self.viewModel.isEditing = true
+                        self.profileHeaderViewController.viewModel.isEditing = true
                     }
                 } receiveValue: { [weak self] response in
                     guard let self = self else { return }
@@ -785,7 +767,9 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
     }
 
     private func editRelationship() {
-        guard let relationship = viewModel.relationship else { return }
+        guard let relationship = viewModel.relationship, viewModel.isUpdating == false else {
+            return
+        }
 
         let account = viewModel.account
 

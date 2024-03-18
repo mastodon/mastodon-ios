@@ -11,7 +11,7 @@ import MastodonSDK
 import MastodonLocalization
 
 public final class ProfileRelationshipActionButton: UIButton {
-    public func configure(relationship: Mastodon.Entity.Relationship, between account: Mastodon.Entity.Account, and me: Mastodon.Entity.Account, isEditing: Bool = false, isUpdating: Bool = false) {
+    public func configure(relationship: Mastodon.Entity.Relationship?, between account: Mastodon.Entity.Account, and me: Mastodon.Entity.Account, isEditing: Bool = false, isUpdating: Bool = false) {
 
         let isMyself = (account == me)
 
@@ -22,40 +22,39 @@ public final class ProfileRelationshipActionButton: UIButton {
         configuration.activityIndicatorColorTransformer = UIConfigurationColorTransformer({ _ in return Asset.Colors.Label.primaryReverse.color })
         configuration.background.cornerRadius = 10
 
-        var title: String
+        let title: String
 
-        if isMyself {
+        switch (isMyself, isUpdating, relationship) {
+        case (true, _, _):
             if isEditing {
                 title = L10n.Common.Controls.Actions.save
             } else {
                 title = L10n.Common.Controls.Friendship.editInfo
             }
-        } else if relationship.blocking {
-            title = L10n.Common.Controls.Friendship.blocked
-        } else if relationship.domainBlocking {
-            title = L10n.Common.Controls.Friendship.domainBlocked
-        } else if relationship.requested {
-            title = L10n.Common.Controls.Friendship.pending
-        } else if relationship.muting {
-            title = L10n.Common.Controls.Friendship.muted
-        } else if relationship.following {
-            title = L10n.Common.Controls.Friendship.following
-        } else if account.locked {
-            title = L10n.Common.Controls.Friendship.request
-        } else {
-            title = L10n.Common.Controls.Friendship.follow
-        }
-
-        if relationship.blockedBy || account.suspended ?? false {
-            isEnabled = false
-        } else {
-            isEnabled = true
-        }
-
-        if isUpdating {
-            configuration.showsActivityIndicator = true
+            configuration.showsActivityIndicator = false
+        case (_, true, _):
             title = ""
-        } else {
+            configuration.showsActivityIndicator = true
+        case (false, false, .some(let relationship)):
+            configuration.showsActivityIndicator = false
+
+            if relationship.blocking {
+                title = L10n.Common.Controls.Friendship.blocked
+            } else if relationship.domainBlocking {
+                title = L10n.Common.Controls.Friendship.domainBlocked
+            } else if relationship.requested {
+                title = L10n.Common.Controls.Friendship.pending
+            } else if relationship.muting {
+                title = L10n.Common.Controls.Friendship.muted
+            } else if relationship.following {
+                title = L10n.Common.Controls.Friendship.following
+            } else if account.locked {
+                title = L10n.Common.Controls.Friendship.request
+            } else {
+                title = L10n.Common.Controls.Friendship.follow
+            }
+        case (_, _, nil):
+            title = ""
             configuration.showsActivityIndicator = false
         }
 
