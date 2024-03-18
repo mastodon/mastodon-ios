@@ -48,6 +48,7 @@ final class AccountListViewModel: NSObject {
                 }
                 snapshot.appendItems(authenticationItems, toSection: .main)
                 snapshot.appendItems([.addAccount], toSection: .main)
+                snapshot.appendItems([.logoutOfAllAccounts], toSection: .main)
 
                 diffableDataSource.apply(snapshot) {
                     self.dataSourceDidUpdate.send()
@@ -66,6 +67,7 @@ extension AccountListViewModel {
     enum Item: Hashable {
         case authentication(record: MastodonAuthentication)
         case addAccount
+        case logoutOfAllAccounts
     }
 
     func setupDiffableDataSource(
@@ -88,6 +90,9 @@ extension AccountListViewModel {
                 return cell
             case .addAccount:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddAccountTableViewCell.self), for: indexPath) as! AddAccountTableViewCell
+                return cell
+            case .logoutOfAllAccounts:
+                let cell = tableView.dequeueReusableCell(withIdentifier: LogoutOfAllAccountsCell.reuseIdentifier, for: indexPath) as! LogoutOfAllAccountsCell
                 return cell
             }
         }
