@@ -174,8 +174,26 @@ extension AccountListViewController: UITableViewDelegate {
             // TODO: add dismiss entry for welcome scene
             _ = coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
         case .logoutOfAllAccounts:
-            //TODO: Show alert with "Logout of all Accounts", "Cancel"
-            break
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+
+            //TODO: Localization
+            let logoutAction = UIAlertAction(title: "Log Out Of All Accounts", style: .destructive) { _ in
+                Task { @MainActor in
+                    self.coordinator.showLoading()
+                    for authenticationBox in self.context.authenticationService.mastodonAuthenticationBoxes {
+                        try? await self.context.authenticationService.signOutMastodonUser(authenticationBox: authenticationBox)
+                    }
+                    self.coordinator.hideLoading()
+
+                    self.coordinator.setup()
+                }
+            }
+
+            alert.addAction(logoutAction)
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+            alert.addAction(cancelAction)
+            present(alert, animated: true)
         }
     }
 }
