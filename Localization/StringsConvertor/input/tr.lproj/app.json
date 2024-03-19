@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Bazı temel kurallar.",
-            "subtitle": "Bunlar, %s moderatörleri tarafından ayarlanmış ve uygulanmıştır.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Devam ederek, %s için kullanım şartlarını ve gizlilik politikasını kabul etmiş olursunuz.",
             "terms_of_service": "kullanım şartları",
             "privacy_policy": "gizlilik politikası",
             "button": {
-                "confirm": "Kabul Ediyorum"
+                "confirm": "Kabul Ediyorum",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
