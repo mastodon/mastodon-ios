@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Несколько основных правил.",
-            "subtitle": "Эти правила установлены администраторами %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Продолжая, вы соглашаетесь с условиям использования и политикой конфиденциальности %s.",
             "terms_of_service": "условия использования",
             "privacy_policy": "политика конфиденциальности",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I Agree",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
