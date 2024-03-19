@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "一些基本规则。",
-            "subtitle": "这些规则由 %s 的管理员设置。",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "如果继续，你必须遵守 %s 的服务条款和隐私政策。",
             "terms_of_service": "服务条款",
             "privacy_policy": "隐私政策",
             "button": {
-                "confirm": "我同意"
+                "confirm": "我同意",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
