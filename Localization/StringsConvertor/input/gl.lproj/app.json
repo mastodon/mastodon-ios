@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Algunhas regras básicas.",
-            "subtitle": "Son establecidas e aplicadas pola moderación de %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Ao continuar, acatas os termos do servizo e a política de privacidade para %s.",
             "terms_of_service": "termos do servizo",
             "privacy_policy": "polícica de privacidade",
             "button": {
-                "confirm": "Acepto"
+                "confirm": "Acepto",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
