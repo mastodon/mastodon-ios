@@ -106,7 +106,7 @@
         <key>one</key>
         <string>post</string>
         <key>other</key>
-        <string>posts</string>
+        <string>bejegyzés</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -138,7 +138,7 @@
         <key>one</key>
         <string>1 post</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld bejegyzés</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -218,7 +218,7 @@
         <key>one</key>
         <string>1 vote</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld szavazat</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -234,7 +234,7 @@
         <key>one</key>
         <string>1 voter</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld szavazó</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
