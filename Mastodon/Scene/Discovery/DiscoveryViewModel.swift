@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import Tabman
 import Pageboy
 import MastodonCore
 import MastodonLocalization
@@ -24,7 +23,7 @@ final class DiscoveryViewModel {
     let discoveryNewsViewController: DiscoveryNewsViewController
     let discoveryForYouViewController: DiscoveryForYouViewController
     
-    @Published var viewControllers: [ScrollViewContainer & PageViewController]
+    @Published var viewControllers: [ScrollViewContainer]
     
     @MainActor
     init(context: AppContext, coordinator: SceneCoordinator, authContext: AuthContext) {
@@ -109,54 +108,4 @@ extension DiscoveryViewModel: PageboyViewControllerDataSource {
         return .first
     }
     
-}
-
-// MARK: - TMBarDataSource
-extension DiscoveryViewModel: TMBarDataSource {
-    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        guard !viewControllers.isEmpty, index < viewControllers.count else {
-            assertionFailure()
-            return TMBarItem(title: "")
-        }
-        return viewControllers[index].tabItem
-    }
-}
-
-protocol PageViewController: UIViewController {
-    var tabItemTitle: String { get }
-    var tabItem: TMBarItemable { get }
-}
-
-// MARK: - PageViewController
-extension DiscoveryPostsViewController: PageViewController {
-    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.posts }
-    var tabItem: TMBarItemable {
-        return TMBarItem(title: tabItemTitle)
-    }
-}
-
-
-// MARK: - PageViewController
-extension DiscoveryHashtagsViewController: PageViewController {
-    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.hashtags }
-    var tabItem: TMBarItemable {
-
-        return TMBarItem(title: tabItemTitle)
-    }
-}
-
-// MARK: - PageViewController
-extension DiscoveryNewsViewController: PageViewController {
-    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.news }
-    var tabItem: TMBarItemable {
-        return TMBarItem(title: tabItemTitle)
-    }
-}
-
-// MARK: - PageViewController
-extension DiscoveryForYouViewController: PageViewController {
-    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.forYou }
-    var tabItem: TMBarItemable {
-        return TMBarItem(title: tabItemTitle)
-    }
 }
