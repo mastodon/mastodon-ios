@@ -441,7 +441,8 @@
             "terms_of_service": "terms of service",
             "privacy_policy": "գաղտնիութեան քաղաքականութիւն",
             "button": {
-                "confirm": "Համաձայն եմ"
+                "confirm": "Համաձայն եմ",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
