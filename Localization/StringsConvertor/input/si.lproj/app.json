@@ -441,7 +441,8 @@
             "terms_of_service": "සේවාවේ නියම",
             "privacy_policy": "රහස්‍යතා ප්‍රතිපත්තිය",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I Agree",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
