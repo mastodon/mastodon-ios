@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Některá základní pravidla.",
-            "subtitle": "Ty nastavují a prosazují moderátoři %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Pokračováním budete podléhat podmínkám služby a zásad ochrany osobních údajů pro uživatele %s.",
             "terms_of_service": "podmínky služby",
             "privacy_policy": "zásady ochrany osobních údajů",
             "button": {
-                "confirm": "Souhlasím"
+                "confirm": "Souhlasím",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
