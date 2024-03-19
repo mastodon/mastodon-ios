@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Reglur netþjónsins",
+            "subtitle": "Með því að halda áfram, samþykkir þú að fylgja eftirfarandi reglum sem settar eru af umsjónarmönnum **%s**, sem sjá um að þeim sé fylgt.",
             "prompt": "Með því að halda áfram samþykkir þú þjónustuskilmála og persónuverndarstefnu %s.",
             "terms_of_service": "þjónustuskilmálar",
             "privacy_policy": "persónuverndarstefna",
             "button": {
                 "confirm": "Ég samþykki",
-                "disagree": "Disagree"
+                "disagree": "Ósammála"
             }
         },
         "confirm_email": {
