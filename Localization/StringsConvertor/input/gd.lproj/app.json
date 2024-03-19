@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Riaghailtean bunasach.",
-            "subtitle": "Tha na riaghailtean seo ’gan stèidheachadh is a chur an gnìomh leis na maoir aig %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Ma leanas tu air adhart, bidh thu fo bhuaidh teirmichean seirbheise is poileasaidh prìobhaideachd %s.",
             "terms_of_service": "teirmichean na seirbheise",
             "privacy_policy": "poileasaidh prìobhaideachd",
             "button": {
-                "confirm": "Gabhaidh mi ris"
+                "confirm": "Gabhaidh mi ris",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
