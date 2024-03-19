@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Kra n yilugan igejdanen.",
-            "subtitle": "Ilugan-a ttusbadun sɣur inedbalen n %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Mi ara tkemmleḍ, ilaq ad tqebleḍ tiwtilin n yimeẓla d tsertit tabaḍnit n %s.",
             "terms_of_service": "tiwetlin n useqdec",
             "privacy_policy": "tasertit tabaḍnit",
             "button": {
-                "confirm": "Qebleɣ"
+                "confirm": "Qebleɣ",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
