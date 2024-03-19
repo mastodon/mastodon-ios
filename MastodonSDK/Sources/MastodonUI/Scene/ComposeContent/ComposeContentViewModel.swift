@@ -193,34 +193,31 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         let initialContentWithSpace = initialContent.isEmpty ? "" : initialContent + " "
         switch destination {
         case .reply(let record):
-            context.managedObjectContext.performAndWait {
-                let status = record.entity
-                let author = authContext.mastodonAuthenticationBox.authentication.account()
-
-                var mentionAccts: [String] = []
-                if author?.id != status.account.id {
-                    mentionAccts.append("@" + status.account.acct)
-                }
-                let mentions = status.mentions ?? []
-                    .filter { author?.id != $0.id }
-                for mention in mentions {
-                    let acct = "@" + mention.acct
-                    guard !mentionAccts.contains(acct) else { continue }
-                    mentionAccts.append(acct)
-                }
-                for acct in mentionAccts {
-                    UITextChecker.learnWord(acct)
-                }
-                if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
-                    self.isContentWarningActive = true
-                    self.contentWarning = spoilerText
-                }
-
-                let initialComposeContent = mentionAccts.joined(separator: " ")
-                let preInsertedContent = initialComposeContent.isEmpty ? "" : initialComposeContent + " "
-                self.initialContent = preInsertedContent + initialContentWithSpace
-                self.content = preInsertedContent + initialContentWithSpace
+            let status = record.entity
+            let author = authContext.mastodonAuthenticationBox.authentication.account()
+            
+            var mentionAccts: [String] = []
+            if author?.id != status.account.id {
+                mentionAccts.append("@" + status.account.acct)
             }
+            let mentions = status.mentions.filter { author?.id != $0.id }
+            for mention in mentions {
+                let acct = "@" + mention.acct
+                guard !mentionAccts.contains(acct) else { continue }
+                mentionAccts.append(acct)
+            }
+            for acct in mentionAccts {
+                UITextChecker.learnWord(acct)
+            }
+            if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
+                self.isContentWarningActive = true
+                self.contentWarning = spoilerText
+            }
+            
+            let initialComposeContent = mentionAccts.joined(separator: " ")
+            let preInsertedContent = initialComposeContent.isEmpty ? "" : initialComposeContent + " "
+            self.initialContent = preInsertedContent + initialContentWithSpace
+            self.content = preInsertedContent + initialContentWithSpace
         case .topLevel:
             self.initialContent = initialContentWithSpace
             self.content = initialContentWithSpace

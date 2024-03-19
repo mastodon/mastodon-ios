@@ -35,7 +35,7 @@ extension Status.Property {
             deletedAt: nil,
             attachments: entity.mastodonAttachments,
             emojis: entity.mastodonEmojis,
-            mentions: entity.mastodonMentions
+            mentions: []
         )
     }
 }
