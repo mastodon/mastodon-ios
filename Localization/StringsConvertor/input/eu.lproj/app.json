@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Oinarrizko arau batzuk.",
-            "subtitle": "Arau hauek %s instantziako administratzaileek ezarri dituzte.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Jarraituz gero, %s instantziaren zerbitzu-baldintzak eta pribatutasun-gidalerroak onartzen dituzu.",
             "terms_of_service": "zerbitzu-baldintzak",
             "privacy_policy": "pribatutasun-gidalerroak",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I Agree",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
