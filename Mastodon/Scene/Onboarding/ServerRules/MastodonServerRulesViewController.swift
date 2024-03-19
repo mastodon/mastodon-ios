@@ -13,22 +13,121 @@ import MetaTextKit
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
+import SwiftUI
 
-final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
+struct MastodonServerRulesView: View {
+    class ViewModel: ObservableObject {
+        let disclaimer: LocalizedStringKey?
+        let rules: [String]
+        var onAgree: (() -> Void)?
+        var onDisagree: (() -> Void)?
+        
+        init(disclaimer: LocalizedStringKey?, rules: [String], onAgree: (() -> Void)?, onDisagree: (() -> Void)?) {
+            self.disclaimer = disclaimer
+            self.rules = rules
+            self.onAgree = onAgree
+            self.onDisagree = onDisagree
+        }
+        
+        fileprivate static var empty: ViewModel {
+            return .init(disclaimer: nil, rules: [], onAgree: nil, onDisagree: nil)
+        }
+    }
+    
+    @ObservedObject var viewModel: ViewModel = .empty
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                if let disclaimer = viewModel.disclaimer {
+                    Text(disclaimer)
+                        .padding(.bottom, 30)
+                }
+
+                ForEach(Array(viewModel.rules.enumerated()), id: \.offset) { index, rule in
+                    ZStack(alignment: .topLeading) {
+                        Text("\(index + 1)")
+                            .font(.system(size: UIFontMetrics.default.scaledValue(for: 24), weight: .bold))
+                            .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
+                        Text(rule)
+                            .padding(.leading, 30)
+                    }
+                    .padding(.bottom, 30)
+                }
+                
+
+            }
+        }
+        .padding(.horizontal)
+        .safeAreaInset(edge: .bottom) {
+            if viewModel.onDisagree != nil || viewModel.onAgree != nil {
+                VStack {
+                    if let onDisagree = viewModel.onDisagree {
+                        Button(role: .cancel) {
+                            onDisagree()
+                        } label: {
+                            Text(L10n.Scene.ServerRules.Button.disagree)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.clear)
+                        .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
+                    }
+                    
+                    if let onAgree = viewModel.onAgree {
+                        Button {
+                            onAgree()
+                        } label: {
+                            Text(L10n.Scene.ServerRules.Button.confirm)
+                                .frame(maxWidth: .infinity)
+                                .bold()
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                }
+                .controlSize(.large)
+                .padding()
+                .background(.ultraThinMaterial)
+                .tint(Asset.Colors.Brand.blurple.swiftUIColor)
+            }
+        }
+    }
+}
+
+private struct MastodonServerRulesButton: View {
+    let text: LocalizedStringKey
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Text(text)
+                .frame(height: 44)
+                .frame(maxWidth: .infinity)
+        }
+        .font(Font(UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 16, weight: .semibold))))
+    }
+}
+
+final class MastodonServerRulesViewController: UIHostingController<MastodonServerRulesView>, NeedsDependency {
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
-    var viewModel: MastodonServerRulesViewModel!
-
-    let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .insetGrouped)
-        tableView.register(ServerRulesTableViewCell.self, forCellReuseIdentifier: String(describing: ServerRulesTableViewCell.self))
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.keyboardDismissMode = .onDrag
-        tableView.sectionHeaderTopPadding = 0
-        return tableView
-    }()
+    private var viewModel: MastodonServerRulesViewModel!
+    
+    init(viewModel: MastodonServerRulesViewModel) {
+        super.init(rootView: MastodonServerRulesView())
+        self.viewModel = viewModel
+        self.rootView.viewModel = .init(
+            disclaimer: LocalizedStringKey(L10n.Scene.ServerRules.subtitle(viewModel.domain)),
+            rules: viewModel.rules.map({ $0.text }),
+            onAgree: { self.nextButtonPressed(nil) },
+            onDisagree: { self.backButtonPressed(nil) })
+    }
+    
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension MastodonServerRulesViewController {
@@ -38,34 +137,18 @@ extension MastodonServerRulesViewController {
         
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-        tableView.pinToParent()
 
-        tableView.delegate = self
-        viewModel.setupDiffableDataSource(tableView: tableView)
-        
         navigationItem.largeTitleDisplayMode = .always
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Scene.ServerRules.Button.confirm, style: .done, target: self, action: #selector(MastodonServerRulesViewController.nextButtonPressed(_:)))
         title = L10n.Scene.ServerRules.title
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        tableView.flashScrollIndicators()
-    }
-    
 }
 
 extension MastodonServerRulesViewController {
-    @objc private func backButtonPressed(_ sender: UIButton) {
+    @objc private func backButtonPressed(_ sender: UIButton?) {
         navigationController?.popViewController(animated: true)
     }
 
-    @objc private func nextButtonPressed(_ sender: UIButton) {
+    @objc private func nextButtonPressed(_ sender: UIButton?) {
         let domain = viewModel.domain
         let viewModel = PrivacyViewModel(domain: domain, authenticateInfo: viewModel.authenticateInfo, rows: [.iOSApp, .server(domain: domain)], instance: viewModel.instance, applicationToken: viewModel.applicationToken)
 
@@ -75,28 +158,3 @@ extension MastodonServerRulesViewController {
 
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonServerRulesViewController: OnboardingViewControllerAppearance { }
-
-// MARK: - UITableViewDelegate
-extension MastodonServerRulesViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let wrapper = UIView()
-
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = MastodonPickServerViewController.subTitleFont
-        label.textColor = Asset.Colors.Label.primary.color
-        label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 0
-        label.text = L10n.Scene.ServerRules.subtitle(viewModel.domain)
-        wrapper.addSubview(label)
-
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: wrapper.topAnchor, constant: 16),
-            label.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor),
-            wrapper.trailingAnchor.constraint(equalTo: label.trailingAnchor),
-            wrapper.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
-        ])
-
-        return wrapper
-    }
-}
