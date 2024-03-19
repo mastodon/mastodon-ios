@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "အခြေခံမှုအချို့",
-            "subtitle": "ဤစည်းမျဉ်းများကို ထိန်းညှိသူ %s ယောက်က သတ်မှတ်ကွပ်ကဲသည်။",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "ဆက်လက်သွားမည်ဆိုပါက သင်သည် %s အတွက် ဝန်ဆောင်မှုနှင့် ကိုယ်ရေးကိုယ်တာမူဝါဒများကို လိုက်နာရမည်ဖြစ်သည်။",
             "terms_of_service": "ဝန်ဆောင်မှုစည်းကမ်းချက်များ",
             "privacy_policy": "ကိုယ်ရေးကိုယ်တာမူဝါဒ",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I Agree",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
