@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "بعض القواعد الأساسية.",
-            "subtitle": "سُنَّت هذه القواعد من قِبل مشرفي %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "في حال إختيارك للمواصلة، أنت تخضع لشروط الخدمة وسياسة الخصوصية لِـ%s.",
             "terms_of_service": "شُرُوط الخِدمَة",
             "privacy_policy": "سِياسَة الخُصُوصيَّة",
             "button": {
-                "confirm": "أوافق"
+                "confirm": "أوافق",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
