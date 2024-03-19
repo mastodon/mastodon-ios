@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "서버 규칙",
+            "subtitle": "계속 진행하는 것으로 **%s**의 중재자들에 의해 정해지고 관리되는 규칙들에 동의하는 것으로 간주합니다.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "이용약관",
             "privacy_policy": "개인정보처리방침",
             "button": {
                 "confirm": "동의합니다",
-                "disagree": "Disagree"
+                "disagree": "동의 안 함"
             }
         },
         "confirm_email": {
