@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Qualques reglas basicas.",
-            "subtitle": "Estas reglas son establidas per los administradors de %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Si continas serás sucheto a los termins de servicio y la politica de privacidat de %s.",
             "terms_of_service": "termins d'o servicio",
             "privacy_policy": "politica de privacidat",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I Agree",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
