@@ -362,6 +362,19 @@ extension ProfileViewController {
         }
         .store(in: &disposeBag)
 
+        viewModel.$isEditing
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEditing in
+                guard let self else { return }
+
+                if isEditing {
+                    tabBarPagerController.relayScrollView.refreshControl = nil
+                } else {
+                    tabBarPagerController.relayScrollView.refreshControl = refreshControl
+                }
+            }
+            .store(in: &disposeBag)
+
         context.publisherService.statusPublishResult.sink { [weak self] result in
             if case .success(.edit(let status)) = result {
                 self?.updateViewModelsWithDataControllers(status: .fromEntity(status.value), intent: .edit)
