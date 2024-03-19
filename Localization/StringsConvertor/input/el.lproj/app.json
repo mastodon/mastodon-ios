@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Ορισμένοι βασικοί κανόνες.",
-            "subtitle": "Αυτά ορίζονται και επιβάλλονται από τους συντονιστές %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Συνεχίζοντας, υπόκεισαι στους όρους της υπηρεσίας και της πολιτικής απορρήτου για %s.",
             "terms_of_service": "όροι υπηρεσίας",
             "privacy_policy": "πολιτική απορρήτου",
             "button": {
-                "confirm": "Συμφωνώ"
+                "confirm": "Συμφωνώ",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
