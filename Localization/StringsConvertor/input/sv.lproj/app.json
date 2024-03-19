@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Några grundregler.",
-            "subtitle": "Dessa sätts och verkställs av moderatorerna på %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Genom att fortsätta omfattas du av villkoren för tjänsten och sekretesspolicyn för %s.",
             "terms_of_service": "användarvillkor",
             "privacy_policy": "integritetspolicy",
             "button": {
-                "confirm": "Jag godkänner"
+                "confirm": "Jag godkänner",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
