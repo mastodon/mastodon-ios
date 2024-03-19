@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
-            "prompt": "繼續的話，代表您將遵守 %s 的服務條款與隱私權政策。",
+            "title": "伺服器規則",
+            "subtitle": "如果繼續，您將同意以下由 **%s** 之管理員訂定及執行之伺服器規則。",
+            "prompt": "如果繼續，代表您將遵守 %s 的服務條款與隱私權政策。",
             "terms_of_service": "服務條款",
             "privacy_policy": "隱私權政策",
             "button": {
                 "confirm": "我已閱讀並同意",
-                "disagree": "Disagree"
+                "disagree": "不同意"
             }
         },
         "confirm_email": {
