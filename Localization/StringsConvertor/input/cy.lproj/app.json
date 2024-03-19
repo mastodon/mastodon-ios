@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Rhai rheolau sylfaenol.",
-            "subtitle": "Mae'r rhain yn cael eu gosod a'u gorfodi gan gymedrolwyr %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Wrth barhau, rydych yn cytuno â'r Telerau Gwasanaeth a Pholisi Preifatrwydd %s.",
             "terms_of_service": "telerau gwasanaeth",
             "privacy_policy": "polisi preifatrwydd",
             "button": {
-                "confirm": "Rwy'n Cytuno"
+                "confirm": "Rwy'n Cytuno",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
