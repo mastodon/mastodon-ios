@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Joitakin perussääntöjä.",
-            "subtitle": "Nämä säännöt ovat %s -palvelun asettamia.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Jatkamalla, hyväksyt palvelun %s palveluehdot ja tietosuojakäytönnön.",
             "terms_of_service": "käyttöehdot",
             "privacy_policy": "tietosuojakäytäntö",
             "button": {
-                "confirm": "Hyväksyn"
+                "confirm": "Hyväksyn",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
