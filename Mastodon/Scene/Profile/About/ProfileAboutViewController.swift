@@ -48,21 +48,25 @@ extension ProfileAboutViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         collectionView.pinToParent()
-        
-        collectionView.delegate = self
-        viewModel.setupDiffableDataSource(
-            collectionView: collectionView,
-            profileFieldCollectionViewCellDelegate: self,
-            profileFieldEditCollectionViewCellDelegate: self
-        )
-        
+
         let longPressReorderGesture = UILongPressGestureRecognizer(
             target: self,
             action: #selector(ProfileAboutViewController.longPressReorderGestureHandler(_:))
         )
         collectionView.addGestureRecognizer(longPressReorderGesture)
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.delegate = self
+        viewModel.setupDiffableDataSource(
+            collectionView: collectionView,
+            profileFieldCollectionViewCellDelegate: self,
+            profileFieldEditCollectionViewCellDelegate: self
+        )
+
+    }
+
 }
 
 extension ProfileAboutViewController {
