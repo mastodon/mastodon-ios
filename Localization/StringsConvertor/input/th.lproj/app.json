@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "กฎของเซิร์ฟเวอร์",
+            "subtitle": "การดำเนินการต่อแสดงว่าคุณเห็นด้วยที่จะปฏิบัติตามกฎดังต่อไปนี้ที่ได้รับการตั้งและบังคับใช้โดยผู้กลั่นกรองของ **%s**",
             "prompt": "การดำเนินการต่อแสดงว่าคุณอยู่ภายใต้เงื่อนไขการให้บริการและนโยบายความเป็นส่วนตัวสำหรับ %s",
             "terms_of_service": "เงื่อนไขการให้บริการ",
             "privacy_policy": "นโยบายความเป็นส่วนตัว",
             "button": {
                 "confirm": "ฉันเห็นด้วย",
-                "disagree": "Disagree"
+                "disagree": "ไม่เห็นด้วย"
             }
         },
         "confirm_email": {
