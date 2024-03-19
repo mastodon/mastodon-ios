@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Hinek rêzikên bingehîn.",
-            "subtitle": "Ev rêzik ji aliyê çavdêrên %s ve tên sazkirin.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Bi domandinê, tu ji bo %s di bin mercên bikaranînê û polîtîkaya nepenîtiyê dipejirînî.",
             "terms_of_service": "mercên bikaranînê",
             "privacy_policy": "polîtikaya nihêniyê",
             "button": {
-                "confirm": "Ez dipejirînim"
+                "confirm": "Ez dipejirînim",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
