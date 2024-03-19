@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Деякі основні правила.",
-            "subtitle": "Ці призначені для модераторів - %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Продовжуючи, ви піддаєтеся умовам надання послуг та політики конфіденційності для хвороби %s.",
             "terms_of_service": "умови використання",
             "privacy_policy": "політика конфіденційності",
             "button": {
-                "confirm": "Я погоджуюся"
+                "confirm": "Я погоджуюся",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
