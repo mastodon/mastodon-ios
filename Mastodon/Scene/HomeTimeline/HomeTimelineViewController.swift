@@ -46,6 +46,38 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     
     let titleView = HomeTimelineNavigationBarTitleView()
     
+    let timelineSelectorBarButtonItem: UIBarButtonItem = {
+        let menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
+            UIAction(title: "Following", image: .init(systemName: "house")) { action in
+            },
+            UIAction(title: "Local", image: .init(systemName: "building.2")) { action in
+            }
+        ])
+
+        let button = UIButton(type: .custom)
+        button.setTitle("Following", for: .normal)
+        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .medium)
+        button.setImage(.init(systemName: "arrowshape.down.circle", withConfiguration: imageConfiguration), for: .normal)
+        button.configuration = {
+            var config = UIButton.Configuration.plain()
+            config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+            config.imagePadding = 8
+            return config
+        }()
+        
+        button.semanticContentAttribute =
+        UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ?
+            .forceLeftToRight :
+            .forceRightToLeft
+        button.showsMenuAsPrimaryAction = true
+        button.menu = menu
+        
+        let barButtonItem = UIBarButtonItem(customView: button)
+        return barButtonItem
+    }()
+    
     let settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
         barButtonItem.tintColor = SystemTheme.tintColor
@@ -79,7 +111,7 @@ extension HomeTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = L10n.Scene.HomeTimeline.title
+        title = ""
         view.backgroundColor = .secondarySystemBackground
 
         viewModel?.$displaySettingBarButtonItem
@@ -94,8 +126,10 @@ extension HomeTimelineViewController {
         settingBarButtonItem.target = self
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
         
-        navigationItem.titleView = titleView
-        titleView.delegate = self
+        self.navigationItem.leftBarButtonItem = self.timelineSelectorBarButtonItem
+        
+//        navigationItem.titleView = titleView
+//        titleView.delegate = self
         
         viewModel?.homeTimelineNavigationBarTitleViewModel.state
             .removeDuplicates()
