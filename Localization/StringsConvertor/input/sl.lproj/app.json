@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Nekaj osnovnih pravil.",
-            "subtitle": "Slednje določajo in njihovo spoštovanje zagotavljajo moderatorji %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Če boste nadaljevali, za vas veljajo pogoji storitve in pravilnik o zasebnosti za %s.",
             "terms_of_service": "pogoji uporabe",
             "privacy_policy": "pravilnik o zasebnosti",
             "button": {
-                "confirm": "Strinjam se"
+                "confirm": "Strinjam se",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
