@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Enkele basisregels.",
-            "subtitle": "Deze regels zijn ingesteld door de beheerders van %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Als je verder gaat ga je akkoord met de gebruiksvoorwaarden en privacybeleid van %s.",
             "terms_of_service": "gebruiksvoorwaarden",
             "privacy_policy": "privacybeleid",
             "button": {
-                "confirm": "Ik ga akkoord"
+                "confirm": "Ik ga akkoord",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
