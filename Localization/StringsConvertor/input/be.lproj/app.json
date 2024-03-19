@@ -435,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Некаторыя асноўныя правілы.",
-            "subtitle": "Правілы вызначаныя мадэратарамі дамена %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Працягваючы, вы згаджаецеся з умовамі выкарыстання і палітыкай канфідэнцыяльнасці %s.",
             "terms_of_service": "умовы выкарыстання",
             "privacy_policy": "палітыка канфідэнцыяльнасці",
             "button": {
-                "confirm": "Я згодны"
+                "confirm": "Я згодны",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
