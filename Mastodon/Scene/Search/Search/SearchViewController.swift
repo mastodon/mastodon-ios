@@ -6,18 +6,12 @@
 //
 
 import Combine
-import GameplayKit
 import MastodonSDK
 import UIKit
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
-
-final class HeightFixedSearchBar: UISearchBar {
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: CGFloat.greatestFiniteMagnitude, height: 36)
-    }
-}
+import Pageboy
 
 final class SearchViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -30,8 +24,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
 
     // use AutoLayout could set search bar margin automatically to
     // layout alongside with split mode button (on iPad)
-    let titleViewContainer = UIView()
-    let searchBar = HeightFixedSearchBar()
+    let searchBar = UISearchBar()
 
     // value is the initial search text to set
     let searchBarTapPublisher = PassthroughSubject<String, Never>()
@@ -46,11 +39,10 @@ final class SearchViewController: UIViewController, NeedsDependency {
             coordinator: coordinator,
             authContext: authContext
         )
+        viewController.delegate = self
         return viewController
     }()
-}
 
-extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,7 +51,7 @@ extension SearchViewController {
         title = L10n.Scene.Search.title
 
         setupSearchBar()
-        guard let discoveryViewController = self.discoveryViewController else { return }
+        guard let discoveryViewController else { return }
 
         addChild(discoveryViewController)
         discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -67,18 +59,10 @@ extension SearchViewController {
         discoveryViewController.view.pinToParent()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        viewModel?.viewDidAppeared.send()
-
-        // note:
-        // need set alpha because (maybe) SDK forget set alpha back
-        titleViewContainer.alpha = 1
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        searchBar.scopeBarBackgroundImage = .placeholder(color: .systemBackground)
     }
-}
 
-extension SearchViewController {
     private func setupAppearance() {
         view.backgroundColor = .systemGroupedBackground
 
@@ -98,12 +82,18 @@ extension SearchViewController {
         searchBar.placeholder = L10n.Scene.Search.SearchBar.placeholder
         searchBar.delegate = self
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        titleViewContainer.addSubview(searchBar)
-        searchBar.pinToParent()
         searchBar.setContentHuggingPriority(.required, for: .horizontal)
         searchBar.setContentHuggingPriority(.required, for: .vertical)
-        navigationItem.titleView = titleViewContainer
-//        navigationItem.titleView = searchBar
+        searchBar.showsScopeBar = true
+        searchBar.scopeBarBackgroundImage = .placeholder(color: .systemBackground)
+        searchBar.scopeButtonTitles = [
+            L10n.Scene.Discovery.Tabs.posts,
+            L10n.Scene.Discovery.Tabs.hashtags,
+            L10n.Scene.Discovery.Tabs.news,
+            L10n.Scene.Discovery.Tabs.forYou
+        ]
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
 
         searchBarTapPublisher
             .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: false)
@@ -134,6 +124,10 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.text = ""
         searchBarTapPublisher.send(searchText)
     }
+
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        discoveryViewController?.scrollToPage(.at(index: selectedScope), animated: true)
+    }
 }
 
 // MARK: - UISearchControllerDelegate
@@ -150,5 +144,24 @@ extension SearchViewController: ScrollViewContainer {
     }
     func scrollToTop(animated: Bool) {
         discoveryViewController?.scrollToTop(animated: animated)
+    }
+}
+
+//MARK: - PageboyViewControllerDelegate
+extension SearchViewController: PageboyViewControllerDelegate {
+    func pageboyViewController(_ pageboyViewController: Pageboy.PageboyViewController, didReloadWith currentViewController: UIViewController, currentPageIndex: Pageboy.PageboyViewController.PageIndex) {
+        // do nothing
+    }
+    
+    func pageboyViewController(_ pageboyViewController: Pageboy.PageboyViewController, didScrollTo position: CGPoint, direction: Pageboy.PageboyViewController.NavigationDirection, animated: Bool) {
+        // do nothing
+    }
+
+    func pageboyViewController(_ pageboyViewController: PageboyViewController, willScrollToPageAt index: PageboyViewController.PageIndex, direction: PageboyViewController.NavigationDirection, animated: Bool) {
+        // do nothing
+    }
+
+    func pageboyViewController(_ pageboyViewController: PageboyViewController, didScrollToPageAt index: PageboyViewController.PageIndex, direction: PageboyViewController.NavigationDirection, animated: Bool) {
+        searchBar.selectedScopeButtonIndex = index
     }
 }
