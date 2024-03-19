@@ -441,7 +441,8 @@
             "terms_of_service": "zasady użytkowania",
             "privacy_policy": "polityka prywatności",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I Agree",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
