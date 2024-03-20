@@ -435,8 +435,8 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Regras do servidor",
+            "subtitle": "Se continúas, aceptas seguir as regras establecidas e aplicadas pola moderación de **%s**.",
             "prompt": "Ao continuar, acatas os termos do servizo e a política de privacidade para %s.",
             "terms_of_service": "termos do servizo",
             "privacy_policy": "polícica de privacidade",
