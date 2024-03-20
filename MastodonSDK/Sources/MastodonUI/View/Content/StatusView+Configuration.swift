@@ -375,72 +375,85 @@ extension StatusView {
     }
 
     private func configurePoll(status: MastodonStatus) {
-        let status = status.reblog ?? status
-        
-        guard
-            let context = viewModel.context?.managedObjectContext,
-            let domain = viewModel.authContext?.mastodonAuthenticationBox.domain,
-            let pollId = status.entity.poll?.id
-        else {
-            return
-        }
-
-        let predicate = Poll.predicate(domain: domain, id: pollId)
-        guard let poll = Poll.findOrFetch(in: context, matching: predicate) else { return }
-        
-        viewModel.managedObjects.insert(poll)
-
-        // pollItems
-        let options = poll.options.sorted(by: { $0.index < $1.index })
-        let items: [PollItem] = options.map { .option(record: .init(objectID: $0.objectID)) }
-        self.viewModel.pollItems = items
-        
-        // isVoteButtonEnabled
-        poll.publisher(for: \.updatedAt)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                let options = poll.options
-                let hasSelectedOption = options.contains(where: { $0.isSelected })
-                self.viewModel.isVoteButtonEnabled = hasSelectedOption
+        Task { @MainActor in
+            let status = status.reblog ?? status
+            
+            guard
+                let context = viewModel.context,
+                let domain = viewModel.authContext?.mastodonAuthenticationBox.domain,
+                let poll = status.entity.poll
+            else {
+                return
             }
-            .store(in: &disposeBag)
-        // isVotable
-        Publishers.CombineLatest(
-            poll.publisher(for: \.votedBy),
-            poll.publisher(for: \.expired)
-        )
-        .map { [weak viewModel] votedBy, expired in
-            guard let viewModel = viewModel else { return false }
-            guard let authContext = viewModel.authContext else { return false }
-            let domain = authContext.mastodonAuthenticationBox.domain
-            let userID = authContext.mastodonAuthenticationBox.userID
-            let isVoted = votedBy?.contains(where: { $0.domain == domain && $0.id == userID }) ?? false
-            return !isVoted && !expired
+            
+//            guard let poll = context.apiService.poll(poll: <#T##Mastodon.Entity.Poll#>, authenticationBox: <#T##MastodonAuthenticationBox#>)
+            //        let predicate = Poll.predicate(domain: domain, id: pollId)
+            //        guard let poll = Poll.findOrFetch(in: context, matching: predicate) else { return }
+            
+//            viewModel.managedObjects.insert(poll)
+            
+            // pollItems
+            let options = poll.options//.sorted(by: { $0.index < $1.index })
+            let items: [PollItem] = options.map { .option(record: $0) }
+            self.viewModel.pollItems = items
+            
+            // isVoteButtonEnabled
+//            poll.publisher(for: \.updatedAt)
+//                .sink { [weak self] _ in
+//                    guard let self = self else { return }
+//
+//                }
+//                .store(in: &disposeBag)
+//            let options = viewModel.pollItems
+            let hasSelectedOption = options.contains(where: { $0.isSelected == true })
+            viewModel.isVoteButtonEnabled = hasSelectedOption
+            
+            // isVotable
+            viewModel.isVotable = poll.voted == false
+
+//            Publishers.CombineLatest(
+//                poll.publisher(for: \.votedBy),
+//                poll.publisher(for: \.expired)
+//            )
+//            .map { [weak viewModel] votedBy, expired in
+//                guard let viewModel = viewModel else { return false }
+//                guard let authContext = viewModel.authContext else { return false }
+//                let domain = authContext.mastodonAuthenticationBox.domain
+//                let userID = authContext.mastodonAuthenticationBox.userID
+//                let isVoted = votedBy?.contains(where: { $0.domain == domain && $0.id == userID }) ?? false
+//                return !isVoted && !expired
+//            }
+//            .assign(to: &viewModel.$isVotable)
+            
+            
+            // votesCount
+            viewModel.voteCount = poll.votesCount
+//            poll.publisher(for: \.votesCount)
+//                .map { Int($0) }
+//                .assign(to: \.voteCount, on: viewModel)
+//                .store(in: &disposeBag)
+            // voterCount
+            viewModel.voterCount = poll.votersCount
+//            poll.publisher(for: \.votersCount)
+//                .map { Int($0) }
+//                .assign(to: \.voterCount, on: viewModel)
+//                .store(in: &disposeBag)
+            // expireAt
+            viewModel.expireAt = poll.expiresAt
+//            poll.publisher(for: \.expiresAt)
+//                .assign(to: \.expireAt, on: viewModel)
+//                .store(in: &disposeBag)
+            // expired
+            viewModel.expired = poll.expired
+//            poll.publisher(for: \.expired)
+//                .assign(to: \.expired, on: viewModel)
+//                .store(in: &disposeBag)
+            // isVoting
+            viewModel.isVoting = poll.voted ?? false
+//            poll.publisher(for: \.isVoting)
+//                .assign(to: \.isVoting, on: viewModel)
+//                .store(in: &disposeBag)
         }
-        .assign(to: &viewModel.$isVotable)
-        
-        // votesCount
-        poll.publisher(for: \.votesCount)
-            .map { Int($0) }
-            .assign(to: \.voteCount, on: viewModel)
-            .store(in: &disposeBag)
-        // voterCount
-        poll.publisher(for: \.votersCount)
-            .map { Int($0) }
-            .assign(to: \.voterCount, on: viewModel)
-            .store(in: &disposeBag)
-        // expireAt
-        poll.publisher(for: \.expiresAt)
-            .assign(to: \.expireAt, on: viewModel)
-            .store(in: &disposeBag)
-        // expired
-        poll.publisher(for: \.expired)
-            .assign(to: \.expired, on: viewModel)
-            .store(in: &disposeBag)
-        // isVoting
-        poll.publisher(for: \.isVoting)
-            .assign(to: \.isVoting, on: viewModel)
-            .store(in: &disposeBag)
     }
 
     private func configureCard(status: MastodonStatus) {

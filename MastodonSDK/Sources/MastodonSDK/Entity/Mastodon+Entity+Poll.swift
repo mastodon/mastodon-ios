@@ -47,11 +47,14 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Poll {
-    public struct Option: Codable, Sendable {
+    public struct Option: Codable, Sendable, Hashable {
         public let title: String
         /// nil if results are not published yet
         public let votesCount: Int?
         public let emojis: [Mastodon.Entity.Emoji]?
+        
+        /// virtual property for app internal usage only
+        public var isSelected: Bool?
         
         enum CodingKeys: String, CodingKey {
             case title

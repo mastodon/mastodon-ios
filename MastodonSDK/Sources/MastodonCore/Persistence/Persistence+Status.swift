@@ -78,7 +78,7 @@ extension Persistence.Status {
                 isNewInsertion: false
             )
         } else {
-            let poll: Poll? = {
+            let poll: PollLegacy? = {
                 guard let entity = context.entity.poll else { return nil }
                 let result = Persistence.Poll.createOrMerge(
                     in: managedObjectContext,

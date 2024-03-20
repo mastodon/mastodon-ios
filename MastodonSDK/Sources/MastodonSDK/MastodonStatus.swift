@@ -88,13 +88,15 @@ public extension MastodonStatus {
 }
 
 public extension MastodonStatus {
-    func getPoll(in context: NSManagedObjectContext, domain: String) async -> Poll? {
+    func getPoll(in domain: String, authorization: Mastodon.API.OAuth.Authorization) async -> Mastodon.Entity.Poll? {
         guard
             let pollId = entity.poll?.id
         else { return nil }
-        return try? await context.perform {
-            let predicate = Poll.predicate(domain: domain, id: pollId)
-            return Poll.findOrFetch(in: context, matching: predicate)
-        }
+        let poll = try? await Mastodon.API.Polls.poll(session: .shared, domain: domain, pollID: pollId, authorization: authorization).singleOutput().value
+        return poll
+//        return try? await context.perform {
+//            let predicate = Poll.predicate(domain: domain, id: pollId)
+//            return Poll.findOrFetch(in: context, matching: predicate)
+//        }
     }
 }
