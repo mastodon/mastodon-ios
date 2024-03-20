@@ -266,11 +266,6 @@
 		DB3E6FF52807C40300B035AE /* DiscoveryForYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */; };
 		DB3E6FF82807C45300B035AE /* DiscoveryForYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */; };
 		DB3E6FFA2807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */; };
-		DB3EA8E6281B79E200598866 /* DiscoveryCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8E5281B79E200598866 /* DiscoveryCommunityViewController.swift */; };
-		DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8E8281B7A3700598866 /* DiscoveryCommunityViewModel.swift */; };
-		DB3EA8EB281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8EA281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift */; };
-		DB3EA8EF281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */; };
-		DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
 		DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDB25BAA00100D1B89D /* Main.storyboard */; };
@@ -913,11 +908,6 @@
 		DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryForYouViewController.swift; sourceTree = "<group>"; };
 		DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryForYouViewModel.swift; sourceTree = "<group>"; };
 		DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryForYouViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DB3EA8E5281B79E200598866 /* DiscoveryCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryCommunityViewController.swift; sourceTree = "<group>"; };
-		DB3EA8E8281B7A3700598866 /* DiscoveryCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryCommunityViewModel.swift; sourceTree = "<group>"; };
-		DB3EA8EA281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryCommunityViewModel+State.swift"; sourceTree = "<group>"; };
-		DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryCommunityViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
-		DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryCommunityViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DD525BAA00100D1B89D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB427DD725BAA00100D1B89D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -2060,18 +2050,6 @@
 			path = ForYou;
 			sourceTree = "<group>";
 		};
-		DB3EA8E7281B79E500598866 /* Community */ = {
-			isa = PBXGroup;
-			children = (
-				DB3EA8E5281B79E200598866 /* DiscoveryCommunityViewController.swift */,
-				DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */,
-				DB3EA8E8281B7A3700598866 /* DiscoveryCommunityViewModel.swift */,
-				DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */,
-				DB3EA8EA281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift */,
-			);
-			path = Community;
-			sourceTree = "<group>";
-		};
 		DB427DC925BAA00100D1B89D = {
 			isa = PBXGroup;
 			children = (
@@ -2860,7 +2838,6 @@
 				DBDFF19828055A0900557A48 /* Posts */,
 				DB3E6FDE2806A41200B035AE /* Hashtags */,
 				DB3E6FED2806D7FC00B035AE /* News */,
-				DB3EA8E7281B79E500598866 /* Community */,
 				DB3E6FF62807C40500B035AE /* ForYou */,
 				DB3E6FE32806A5B800B035AE /* DiscoverySection.swift */,
 				DB3E6FE62806A7A200B035AE /* DiscoveryItem.swift */,
@@ -3599,7 +3576,6 @@
 				D81A94172B07A1D30067A19D /* ProfileCardView+Configuration.swift in Sources */,
 				DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */,
 				D82BD7552ABC73AF009A374A /* NotificationPolicyTableViewCell.swift in Sources */,
-				DB3EA8EB281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift in Sources */,
 				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
 				DB98EB5327B0F9890082E365 /* ReportHeadlineTableViewCell.swift in Sources */,
 				DB5B729C273113C200081888 /* FollowingListViewModel+Diffable.swift in Sources */,
@@ -3700,7 +3676,6 @@
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
 				DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */,
 				DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */,
-				DB3EA8EF281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift in Sources */,
 				DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */,
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,
 				DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */,
@@ -3746,12 +3721,10 @@
 				D8F9170D2A4B3C6F008A5370 /* AboutMastodonTableViewCell.swift in Sources */,
 				DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */,
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
-				DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */,
 				D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */,
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DBEFCD71282A12B200C0ABEA /* ReportReasonViewController.swift in Sources */,
 				DB98EB5627B0FF1B0082E365 /* ReportViewControllerAppearance.swift in Sources */,
-				DB3EA8E6281B79E200598866 /* DiscoveryCommunityViewController.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
 				2AB5011C299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
 				DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */,
@@ -3831,7 +3804,6 @@
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				D8F917112A4C6B40008A5370 /* GeneralSettingToggleTableViewCell.swift in Sources */,
 				D8B5E4EE2A4EB8930008970C /* NotificationSettingTableViewToggleCell.swift in Sources */,
-				DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */,
 				D8318A8A2A4468DC00C0FB73 /* AboutViewController.swift in Sources */,
 				85BC11B32932414900E191CD /* AltTextViewController.swift in Sources */,
 				DB63F775279A997D00455B82 /* NotificationTableViewCell+ViewModel.swift in Sources */,

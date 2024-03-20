@@ -22,7 +22,6 @@ final class DiscoveryViewModel {
     let discoveryPostsViewController: DiscoveryPostsViewController
     let discoveryHashtagsViewController: DiscoveryHashtagsViewController
     let discoveryNewsViewController: DiscoveryNewsViewController
-    let discoveryCommunityViewController: DiscoveryCommunityViewController
     let discoveryForYouViewController: DiscoveryForYouViewController
     
     @Published var viewControllers: [ScrollViewContainer & PageViewController]
@@ -55,12 +54,6 @@ final class DiscoveryViewModel {
             viewController.viewModel = DiscoveryNewsViewModel(context: context, authContext: authContext)
             return viewController
         }()
-        discoveryCommunityViewController = {
-            let viewController = DiscoveryCommunityViewController()
-            setupDependency(viewController)
-            viewController.viewModel = DiscoveryCommunityViewModel(context: context, authContext: authContext)
-            return viewController
-        }()
         discoveryForYouViewController = {
             let viewController = DiscoveryForYouViewController()
             setupDependency(viewController)
@@ -71,7 +64,6 @@ final class DiscoveryViewModel {
             discoveryPostsViewController,
             discoveryHashtagsViewController,
             discoveryNewsViewController,
-            discoveryCommunityViewController,
             discoveryForYouViewController,
         ]
         // end init
@@ -156,14 +148,6 @@ extension DiscoveryHashtagsViewController: PageViewController {
 // MARK: - PageViewController
 extension DiscoveryNewsViewController: PageViewController {
     var tabItemTitle: String { L10n.Scene.Discovery.Tabs.news }
-    var tabItem: TMBarItemable {
-        return TMBarItem(title: tabItemTitle)
-    }
-}
-
-// MARK: - PageViewController
-extension DiscoveryCommunityViewController: PageViewController {
-    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.community }
     var tabItem: TMBarItemable {
         return TMBarItem(title: tabItemTitle)
     }
