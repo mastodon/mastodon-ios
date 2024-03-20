@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "サーバーのルール",
+            "subtitle": "続行すると、**%s**のモデレータによって設定された以下のルールに従うことに同意します。",
             "prompt": "同意することでお客様は以下のサービスの利用規約とプライバシーポリシーに従うことになります。 %s.",
             "terms_of_service": "利用規約",
             "privacy_policy": "プライバシーポリシー",
             "button": {
                 "confirm": "同意する",
-                "disagree": "Disagree"
+                "disagree": "同意しない"
             }
         },
         "confirm_email": {
