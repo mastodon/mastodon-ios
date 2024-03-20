@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Nội quy máy chủ",
+            "subtitle": "Tiếp tục nghĩa là bạn đồng ý tuân theo các quy tắc sau do kiểm duyệt viên **%s** đặt ra và thực thi.",
             "prompt": "Tiếp tục nghĩa là bạn đồng ý điều khoản dịch vụ và chính sách bảo mật của %s.",
             "terms_of_service": "điều khoản dịch vụ",
             "privacy_policy": "chính sách bảo mật",
             "button": {
                 "confirm": "Tôi đồng ý",
-                "disagree": "Disagree"
+                "disagree": "Không đồng ý"
             }
         },
         "confirm_email": {
