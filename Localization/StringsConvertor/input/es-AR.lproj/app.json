@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Reglas del servidor",
+            "subtitle": "Al continuar, aceptás seguir las siguientes reglas establecidas y aplicadas por los moderadores de **%s**.",
             "prompt": "Al continuar, estás sujeto a los términos de servicio y política de privacidad de %s.",
             "terms_of_service": "términos del servicio",
             "privacy_policy": "política de privacidad",
             "button": {
                 "confirm": "Estoy de acuerdo",
-                "disagree": "Disagree"
+                "disagree": "Rechazar"
             }
         },
         "confirm_email": {
