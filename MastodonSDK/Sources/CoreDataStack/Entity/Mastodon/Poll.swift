@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-public final class Poll: NSManagedObject {
+public final class PollLegacy: NSManagedObject {
     public typealias ID = String
     
     // sourcery: autoGenerateProperty
@@ -41,20 +41,20 @@ public final class Poll: NSManagedObject {
     @NSManaged public private(set) var status: Status?
     
     // one-to-many relationship
-    @NSManaged public private(set) var options: Set<PollOption>
+    @NSManaged public private(set) var options: Set<PollOptionLegacy>
     
     // many-to-many relationship
     @NSManaged public private(set) var votedBy: Set<MastodonUser>?
 }
 
-extension Poll {
+extension PollLegacy {
     
     @discardableResult
     public static func insert(
         into context: NSManagedObjectContext,
         property: Property
-    ) -> Poll {
-        let object: Poll = context.insertObject()
+    ) -> PollLegacy {
+        let object: PollLegacy = context.insertObject()
         
         object.configure(property: property)
         
@@ -63,23 +63,23 @@ extension Poll {
     
 }
 
-extension Poll: Managed {
+extension PollLegacy: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \Poll.createdAt, ascending: false)]
+        return [NSSortDescriptor(keyPath: \PollLegacy.createdAt, ascending: false)]
     }
 }
 
-extension Poll {
+extension PollLegacy {
     static func predicate(domain: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Poll.domain), domain)
+        return NSPredicate(format: "%K == %@", #keyPath(PollLegacy.domain), domain)
     }
     
     static func predicate(id: ID) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Poll.id), id)
+        return NSPredicate(format: "%K == %@", #keyPath(PollLegacy.id), id)
     }
 
     static func predicate(ids: [ID]) -> NSPredicate {
-        return NSPredicate(format: "%K IN %@", #keyPath(Poll.id), ids)
+        return NSPredicate(format: "%K IN %@", #keyPath(PollLegacy.id), ids)
     }
     
     public static func predicate(domain: String, id: ID) -> NSPredicate {
@@ -205,7 +205,7 @@ extension Poll {
 //}
 
 // MARK: - AutoGenerateProperty
-extension Poll: AutoGenerateProperty {
+extension PollLegacy: AutoGenerateProperty {
     // sourcery:inline:Poll.AutoGenerateProperty
 
     // Generated using Sourcery
@@ -268,7 +268,7 @@ extension Poll: AutoGenerateProperty {
 }
 
 // MARK: - AutoUpdatableObject
-extension Poll: AutoUpdatableObject {
+extension PollLegacy: AutoUpdatableObject {
     // sourcery:inline:Poll.AutoUpdatableObject
 
     // Generated using Sourcery
@@ -308,25 +308,25 @@ extension Poll: AutoUpdatableObject {
     public func update(voted: Bool, by: MastodonUser) {
         if voted {
             if !(votedBy ?? Set()).contains(by) {
-                mutableSetValue(forKey: #keyPath(Poll.votedBy)).add(by)
+                mutableSetValue(forKey: #keyPath(PollLegacy.votedBy)).add(by)
             }
         } else {
             if (votedBy ?? Set()).contains(by) {
-                mutableSetValue(forKey: #keyPath(Poll.votedBy)).remove(by)
+                mutableSetValue(forKey: #keyPath(PollLegacy.votedBy)).remove(by)
             }
         }
     }
     
-    public func attach(options: [PollOption]) {
+    public func attach(options: [PollOptionLegacy]) {
         for option in options {
             guard !self.options.contains(option) else { continue }
-            self.mutableSetValue(forKey: #keyPath(Poll.options)).add(option)
+            self.mutableSetValue(forKey: #keyPath(PollLegacy.options)).add(option)
         }
     }
 }
 
-public extension Set<PollOption> {
-    func sortedByIndex() -> [PollOption] {
+public extension Set<PollOptionLegacy> {
+    func sortedByIndex() -> [PollOptionLegacy] {
         sorted(by: { lhs, rhs in lhs.index < rhs.index })
     }
 }

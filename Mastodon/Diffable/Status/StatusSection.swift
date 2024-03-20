@@ -159,53 +159,56 @@ extension StatusSection {
                 
                 cell.pollOptionView.viewModel.authContext = authContext
                 
-                managedObjectContext.performAndWait {
-                    guard let option = record.object(in: managedObjectContext) else {
-                        assertionFailure()
-                        return
-                    }
+//                managedObjectContext.performAndWait {
+//                    guard let option = record.object(in: managedObjectContext) else {
+//                        assertionFailure()
+//                        return
+//                    }
                     
-                    cell.pollOptionView.configure(pollOption: option, status: statusView.viewModel.originalStatus)
+                    cell.pollOptionView.configure(pollOption: record, status: statusView.viewModel.originalStatus)
                     
                     // trigger update if needs
-                    let needsUpdatePoll: Bool = {
-                        // check first option in poll to trigger update poll only once
-                        guard
-                            let poll = option.poll,
-                            option.index == 0
-                        else { return false }
+//                    let needsUpdatePoll: Bool = {
+//                        // check first option in poll to trigger update poll only once
+////                        guard
+////                            let poll = option.poll,
+////                            option.index == 0
+////                        else { return false }
+//
+//                        guard let poll = statusView.viewModel.originalStatus?.entity.poll, !poll.expired else {
+//                            return false
+//                        }
+//
+//                        let now = Date()
+//                        let timeIntervalSinceUpdate = now.timeIntervalSince(poll.)
+//                        #if DEBUG
+//                        let autoRefreshTimeInterval: TimeInterval = 3 // speedup testing
+//                        #else
+//                        let autoRefreshTimeInterval: TimeInterval = 30
+//                        #endif
+//
+//                        guard timeIntervalSinceUpdate > autoRefreshTimeInterval else {
+//                            return false
+//                        }
+//
+//                        return true
+//                    }()
 
-                        guard !poll.expired else {
-                            return false
-                        }
-
-                        let now = Date()
-                        let timeIntervalSinceUpdate = now.timeIntervalSince(poll.updatedAt)
-                        #if DEBUG
-                        let autoRefreshTimeInterval: TimeInterval = 3 // speedup testing
-                        #else
-                        let autoRefreshTimeInterval: TimeInterval = 30
-                        #endif
-
-                        guard timeIntervalSinceUpdate > autoRefreshTimeInterval else {
-                            return false
-                        }
-
-                        return true
-                    }()
-
-                    if needsUpdatePoll {
-                        guard let poll = option.poll else { return }
-                        let pollRecord: ManagedObjectRecord<Poll> = .init(objectID: poll.objectID)
-                        Task { [weak context] in
-                            guard let context = context else { return }
-                            _ = try await context.apiService.poll(
-                                poll: pollRecord,
-                                authenticationBox: authContext.mastodonAuthenticationBox
-                            )
-                        }
-                    }
-                }   // end managedObjectContext.performAndWait
+//                    if needsUpdatePoll {
+//                        guard let poll = statusView.viewModel.originalStatus?.entity.poll else {
+//                            return
+//                        }
+////                        let pollRecord: ManagedObjectRecord<Poll> = .init(objectID: poll.objectID)
+//                        Task { [weak context] in
+//                            guard let context = context else { return }
+//                            _ = try await context.apiService.poll(
+//                                poll: poll,
+//                                authenticationBox: authContext.mastodonAuthenticationBox
+//                            )
+//                        }
+//                        
+//                    }
+//                }    end managedObjectContext.performAndWait
                 return cell
             }
         }

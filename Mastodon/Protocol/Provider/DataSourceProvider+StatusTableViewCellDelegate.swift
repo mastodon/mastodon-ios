@@ -13,6 +13,7 @@ import MastodonUI
 import MastodonLocalization
 import MastodonAsset
 import LinkPresentation
+import MastodonSDK
 
 // MARK: - header
 extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
@@ -258,13 +259,14 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
+        poll: Mastodon.Entity.Poll,
         pollTableView tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
         guard let pollItem = pollTableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
                 
-        let managedObjectContext = context.managedObjectContext
+//        let managedObjectContext = context.managedObjectContext
         
         Task {
             guard case let .option(pollOption) = pollItem else {
@@ -272,38 +274,44 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 return
             }
                      
-            var _poll: ManagedObjectRecord<Poll>?
-            var _isMultiple: Bool?
-            var _choice: Int?
-            
-            try await managedObjectContext.performChanges {
-                guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
-                guard let poll = pollOption.poll else { return }
-                _poll = .init(objectID: poll.objectID)
-
-                _isMultiple = poll.multiple
-                guard !poll.isVoting else { return }
-                
-                if !poll.multiple {
-                    for option in poll.options where option != pollOption {
-                        option.update(isSelected: false)
-                    }
-                    
-                    // mark voting
-                    poll.update(isVoting: true)
-                    // set choice
-                    _choice = Int(pollOption.index)
-                }
-                
-                pollOption.update(isSelected: !pollOption.isSelected)
-                poll.update(updatedAt: Date())
-            }
+//            var _poll: ManagedObjectRecord<Poll>?
+//            var _isMultiple: Bool?
+//            var _choice: Int?
+//            
+//            try await managedObjectContext.performChanges {
+//                guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
+//                guard let poll = pollOption.poll else { return }
+//                _poll = .init(objectID: poll.objectID)
+//
+//                _isMultiple = poll.multiple
+//                guard !poll.isVoting else { return }
+//                
+//                if !poll.multiple {
+//                    for option in poll.options where option != pollOption {
+//                        option.update(isSelected: false)
+//                    }
+//                    
+//                    // mark voting
+//                    poll.update(isVoting: true)
+//                    // set choice
+//                    _choice = Int(pollOption.index)
+//                }
+//                
+//                pollOption.update(isSelected: !pollOption.isSelected)
+//                poll.update(updatedAt: Date())
+//            }
             
             // Trigger vote API request for
-            guard let poll = _poll,
-                  _isMultiple == false,
-                  let choice = _choice
-            else { return }
+//            guard let poll = _poll,
+//                  _isMultiple == false,
+//                  let choice = _choice
+//            else { return }
+            
+//            guard case let PollItem.option(item) = pollItem else {
+//                return
+//            }
+            
+            guard let choice = poll.options.firstIndex(of: pollOption) else { return }
             
             do {
                 _ = try await context.apiService.vote(
@@ -312,14 +320,14 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
             } catch {
-                // restore voting state
-                try await managedObjectContext.performChanges {
-                    guard
-                        let pollOption = pollOption.object(in: managedObjectContext),
-                        let poll = pollOption.poll
-                    else { return }
-                    poll.update(isVoting: false)
-                }
+//                // restore voting state
+//                try await managedObjectContext.performChanges {
+//                    guard
+//                        let pollOption = pollOption.object(in: managedObjectContext),
+//                        let poll = pollOption.poll
+//                    else { return }
+//                    poll.update(isVoting: false)
+//                }
             }
             
         }   // end Task
@@ -328,6 +336,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
+        poll: Mastodon.Entity.Poll,
         pollVoteButtonPressed button: UIButton
     ) {
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
@@ -337,29 +346,29 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         let managedObjectContext = context.managedObjectContext
         
         Task {
-            var _poll: ManagedObjectRecord<Poll>?
-            var _choices: [Int]?
+//            var _poll: ManagedObjectRecord<Poll>?
+//            var _choices: [Int]?
             
-            try await managedObjectContext.performChanges {
-                guard let poll = firstPollOption.object(in: managedObjectContext)?.poll else { return }
-                _poll = .init(objectID: poll.objectID)
+//            try await managedObjectContext.performChanges {
+//                guard let poll = firstPollOption.object(in: managedObjectContext)?.poll else { return }
+//                _poll = .init(objectID: poll.objectID)
                 
                 guard poll.multiple else { return }
                 
                 // mark voting
-                poll.update(isVoting: true)
+//                poll.update(isVoting: true)
                 // set choice
-                _choices = poll.options
-                    .filter { $0.isSelected }
-                    .map { Int($0.index) }
+                let choices = poll.options
+                    .filter { $0.isSelected == true }
+                    .compactMap { poll.options.firstIndex(of: $0) }
                 
-                poll.update(updatedAt: Date())
-            }
+//                poll.update(updatedAt: Date())
+//            }
             
             // Trigger vote API request for
-            guard let poll = _poll,
-                  let choices = _choices
-            else { return }
+//            guard let poll = _poll,
+//                  let choices = _choices
+//            else { return }
             
             do {
                 _ = try await context.apiService.vote(
@@ -369,10 +378,10 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 )
             } catch {
                 // restore voting state
-                try await managedObjectContext.performChanges {
-                    guard let poll = poll.object(in: managedObjectContext) else { return }
-                    poll.update(isVoting: false)
-                }
+//                try await managedObjectContext.performChanges {
+//                    guard let poll = poll.object(in: managedObjectContext) else { return }
+//                    poll.update(isVoting: false)
+//                }
             }
             
         }   // end Task

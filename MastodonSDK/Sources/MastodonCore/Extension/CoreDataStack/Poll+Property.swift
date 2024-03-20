@@ -9,7 +9,7 @@ import Foundation
 import CoreDataStack
 import MastodonSDK
 
-extension Poll.Property {
+extension PollLegacy.Property {
     public init(
         entity: Mastodon.Entity.Poll,
         domain: String,

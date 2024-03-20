@@ -9,9 +9,9 @@ import Foundation
 import MastodonSDK
 import CoreDataStack
 
-extension PollOption.Property {
+extension PollOptionLegacy.Property {
     public init(
-        poll: Poll,
+        poll: PollLegacy,
         index: Int,
         entity: Mastodon.Entity.Poll.Option,
         networkDate: Date

@@ -31,11 +31,11 @@ extension Persistence.Poll {
     }
 
     public struct PersistResult {
-        public let poll: Poll
+        public let poll: PollLegacy
         public let isNewInsertion: Bool
         
         public init(
-            poll: Poll,
+            poll: PollLegacy,
             isNewInsertion: Bool
         ) {
             self.poll = poll
@@ -74,9 +74,9 @@ extension Persistence.Poll {
     public static func fetch(
         in managedObjectContext: NSManagedObjectContext,
         context: PersistContext
-    ) -> Poll? {
-        let request = Poll.sortedFetchRequest
-        request.predicate = Poll.predicate(domain: context.domain, id: context.entity.id)
+    ) -> PollLegacy? {
+        let request = PollLegacy.sortedFetchRequest
+        request.predicate = PollLegacy.predicate(domain: context.domain, id: context.entity.id)
         request.fetchLimit = 1
         do {
             return try managedObjectContext.fetch(request).first
@@ -90,13 +90,13 @@ extension Persistence.Poll {
     public static func create(
         in managedObjectContext: NSManagedObjectContext,
         context: PersistContext
-    ) -> Poll {
-        let property = Poll.Property(
+    ) -> PollLegacy {
+        let property = PollLegacy.Property(
             entity: context.entity,
             domain: context.domain,
             networkDate: context.networkDate
         )
-        let poll = Poll.insert(
+        let poll = PollLegacy.insert(
             into: managedObjectContext,
             property: property
         )
@@ -106,11 +106,11 @@ extension Persistence.Poll {
     
     public static func merge(
         in managedObjectContext: NSManagedObjectContext,
-        poll: Poll,
+        poll: PollLegacy,
         context: PersistContext
     ) {
         guard context.networkDate > poll.updatedAt else { return }
-        let property = Poll.Property(
+        let property = PollLegacy.Property(
             entity: context.entity,
             domain: context.domain,
             networkDate: context.networkDate
@@ -121,7 +121,7 @@ extension Persistence.Poll {
     
     public static func update(
         in managedObjectContext: NSManagedObjectContext,
-        poll: Poll,
+        poll: PollLegacy,
         context: PersistContext
     ) {
         let optionEntities = context.entity.options
@@ -159,7 +159,7 @@ extension Persistence.Poll {
                 option.update(poll: nil)
                 managedObjectContext.delete(option)
             }
-            var attachableOptions = [PollOption]()
+            var attachableOptions = [PollOptionLegacy]()
             for (index, option) in context.entity.options.enumerated() {
                 attachableOptions.append(
                     Persistence.PollOption.create(
@@ -180,7 +180,7 @@ extension Persistence.Poll {
         poll.update(updatedAt: context.networkDate)
     }
     
-    private static func needsPollOptionsUpdate(context: PersistContext, poll: Poll) -> Bool {
+    private static func needsPollOptionsUpdate(context: PersistContext, poll: PollLegacy) -> Bool {
         let entityPollOptions = context.entity.options.map { (title: $0.title, votes: $0.votesCount) }
         let pollOptions = poll.options.sortedByIndex().map { (title: $0.title, votes: Int($0.votesCount)) }
         

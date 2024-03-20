@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-public final class PollOption: NSManagedObject {
+public final class PollOptionLegacy: NSManagedObject {
     
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var index: Int64
@@ -28,21 +28,21 @@ public final class PollOption: NSManagedObject {
     
     // many-to-one relationship
     // sourcery: autoUpdatableObject, autoGenerateProperty
-    @NSManaged public private(set) var poll: Poll?
+    @NSManaged public private(set) var poll: PollLegacy?
     
     // many-to-many relationship
     @NSManaged public private(set) var votedBy: Set<MastodonUser>?
 }
 
 
-extension PollOption {
+extension PollOptionLegacy {
     
     @discardableResult
     public static func insert(
         into context: NSManagedObjectContext,
         property: Property
-    ) -> PollOption {
-        let object: PollOption = context.insertObject()
+    ) -> PollOptionLegacy {
+        let object: PollOptionLegacy = context.insertObject()
         
         object.configure(property: property)
         
@@ -51,9 +51,9 @@ extension PollOption {
     
 }
 
-extension PollOption: Managed {
+extension PollOptionLegacy: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \PollOption.createdAt, ascending: false)]
+        return [NSSortDescriptor(keyPath: \PollOptionLegacy.createdAt, ascending: false)]
     }
 }
 
@@ -115,7 +115,7 @@ extension PollOption: Managed {
 //
 
 // MARK: - AutoGenerateProperty
-extension PollOption: AutoGenerateProperty {
+extension PollOptionLegacy: AutoGenerateProperty {
     // sourcery:inline:PollOption.AutoGenerateProperty
 
     // Generated using Sourcery
@@ -126,7 +126,7 @@ extension PollOption: AutoGenerateProperty {
         public let votesCount: Int64
         public let createdAt: Date
         public let updatedAt: Date
-        public let poll: Poll?
+        public let poll: PollLegacy?
 
     	public init(
     		index: Int64,
@@ -134,7 +134,7 @@ extension PollOption: AutoGenerateProperty {
     		votesCount: Int64,
     		createdAt: Date,
     		updatedAt: Date,
-    		poll: Poll?
+    		poll: PollLegacy?
     	) {
     		self.index = index
     		self.title = title
@@ -164,7 +164,7 @@ extension PollOption: AutoGenerateProperty {
 }
 
 // MARK: - AutoUpdatableObject
-extension PollOption: AutoUpdatableObject {
+extension PollOptionLegacy: AutoUpdatableObject {
     // sourcery:inline:PollOption.AutoUpdatableObject
 
     // Generated using Sourcery
@@ -189,7 +189,7 @@ extension PollOption: AutoUpdatableObject {
     		self.isSelected = isSelected
     	}
     }
-    public func update(poll: Poll?) {
+    public func update(poll: PollLegacy?) {
     	if self.poll != poll {
     		self.poll = poll
     	}
@@ -199,11 +199,11 @@ extension PollOption: AutoUpdatableObject {
     public func update(voted: Bool, by: MastodonUser) {
         if voted {
             if !(self.votedBy ?? Set()).contains(by) {
-                self.mutableSetValue(forKey: #keyPath(PollOption.votedBy)).add(by)
+                self.mutableSetValue(forKey: #keyPath(PollOptionLegacy.votedBy)).add(by)
             }
         } else {
             if (self.votedBy ?? Set()).contains(by) {
-                self.mutableSetValue(forKey: #keyPath(PollOption.votedBy)).remove(by)
+                self.mutableSetValue(forKey: #keyPath(PollOptionLegacy.votedBy)).remove(by)
             }
         }
     }
