@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Правілы сервера",
+            "subtitle": "Працягваючы, вы згаджаецеся выконваць правілы, устаноўленыя мадэратарам **%s**.",
             "prompt": "Працягваючы, вы згаджаецеся з умовамі выкарыстання і палітыкай канфідэнцыяльнасці %s.",
             "terms_of_service": "умовы выкарыстання",
             "privacy_policy": "палітыка канфідэнцыяльнасці",
             "button": {
                 "confirm": "Я згодны",
-                "disagree": "Disagree"
+                "disagree": "Не згодны"
             }
         },
         "confirm_email": {
