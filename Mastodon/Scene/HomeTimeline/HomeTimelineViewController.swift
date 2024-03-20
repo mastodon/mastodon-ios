@@ -55,15 +55,22 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         ])
 
         let button = UIButton(type: .custom)
-        button.setTitle("Following", for: .normal)
-        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
+        button.setAttributedTitle(
+            .init(string: "Following", attributes: [
+                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
+            ]),
+            for: .normal)
         let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .medium)
-        button.setImage(.init(systemName: "arrowshape.down.circle", withConfiguration: imageConfiguration), for: .normal)
+//        button.setImage(
+//            .init(systemName: "chevron.down.circle.fill", withConfiguration: imageConfiguration)?.withRenderingMode(.alwaysTemplate),
+//            for: .normal)
+//        button.tintColor = Asset.Colors.disabled.color
+//        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
         button.configuration = {
             var config = UIButton.Configuration.plain()
             config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
             config.imagePadding = 8
+            config.image = .init(systemName: "chevron.down.circle.fill", withConfiguration: imageConfiguration)?.withRenderingMode(.alwaysTemplate).withTintColor(Asset.Colors.disabled.color)
             return config
         }()
         
