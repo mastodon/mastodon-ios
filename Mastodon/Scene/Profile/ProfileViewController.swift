@@ -519,10 +519,7 @@ extension ProfileViewController {
 extension ProfileViewController {
 
     @objc private func cancelEditingBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        viewModel.isEditing = false
-        profileHeaderViewController.viewModel.isEditing = false
-        profilePagingViewController.viewModel.profileAboutViewController.viewModel.isEditing = false
-        viewModel.profileAboutViewModel.isEditing = false
+        cancelEditing()
     }
 
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -792,7 +789,16 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     self.viewModel.accountForEdit = response.value
                 }
                 .store(in: &disposeBag)
+        } else if isEdited == false {
+            cancelEditing()
         }
+    }
+
+    private func cancelEditing() {
+        viewModel.isEditing = false
+        profileHeaderViewController.viewModel.isEditing = false
+        profilePagingViewController.viewModel.profileAboutViewController.viewModel.isEditing = false
+        viewModel.profileAboutViewModel.isEditing = false
     }
 
     private func editRelationship() {
