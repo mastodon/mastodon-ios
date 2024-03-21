@@ -32,8 +32,19 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     
     var disposeBag = Set<AnyCancellable>()
     //TODO: Replace with something better than !
-    var viewModel: ProfileViewModel!
-    
+    var viewModel: ProfileViewModel! {
+        didSet {
+            if isViewLoaded {
+                bindViewModel()
+
+                viewModel.isEditing = false
+                profileHeaderViewController.viewModel.isEditing = false
+                profilePagingViewController.viewModel.profileAboutViewController.viewModel.isEditing = false
+                viewModel.profileAboutViewModel.isEditing = false
+            }
+        }
+    }
+
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     private(set) lazy var cancelEditingBarButtonItem: UIBarButtonItem = {
@@ -182,89 +193,6 @@ extension ProfileViewController {
 
         navigationItem.titleView = titleView
 
-        let editingAndUpdatingPublisher = Publishers.CombineLatest(
-            viewModel.$isEditing,
-            viewModel.$isUpdating
-        )
-        // note: not add .share() here
-
-        let barButtonItemHiddenPublisher = Publishers.CombineLatest3(
-            viewModel.$isMeBarButtonItemsHidden,
-            viewModel.$isReplyBarButtonItemHidden,
-            viewModel.$isMoreMenuBarButtonItemHidden
-        )
-
-        editingAndUpdatingPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isEditing, isUpdating in
-                guard let self = self else { return }
-                self.cancelEditingBarButtonItem.isEnabled = !isUpdating
-            }
-            .store(in: &disposeBag)
-
-        // build items
-        Publishers.CombineLatest4(
-            viewModel.$relationship,
-            profileHeaderViewController.viewModel.$isTitleViewDisplaying,
-            editingAndUpdatingPublisher,
-            barButtonItemHiddenPublisher
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] account, isTitleViewDisplaying, tuple1, tuple2 in
-            guard let self else { return }
-            let (isEditing, _) = tuple1
-            let (isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden) = tuple2
-
-            var items: [UIBarButtonItem] = []
-            defer {
-                if items.isNotEmpty {
-                    self.navigationItem.rightBarButtonItems = items
-                } else {
-                    self.navigationItem.rightBarButtonItems = nil
-                }
-            }
-
-            if let suspended = self.viewModel.account.suspended, suspended == true {
-                return
-            }
-
-            guard isEditing == false else {
-                items.append(self.cancelEditingBarButtonItem)
-                return
-            }
-
-            guard isTitleViewDisplaying == false else {
-                return
-            }
-
-            guard isMeBarButtonItemsHidden else {
-                items.append(self.settingBarButtonItem)
-                items.append(self.shareBarButtonItem)
-                items.append(self.favoriteBarButtonItem)
-                items.append(self.bookmarkBarButtonItem)
-                
-                if self.currentInstance?.canFollowTags == true {
-                    items.append(self.followedTagsBarButtonItem)
-                }
-                
-                return
-            }
-
-            if !isMoreMenuBarButtonItemHidden {
-                items.append(self.moreMenuBarButtonItem)
-            }
-            if !isReplyBarButtonItemHidden {
-                items.append(self.replyBarButtonItem)
-            }
-        }
-        .store(in: &disposeBag)
-        
-        context.publisherService.statusPublishResult.sink { [weak self] result in
-            if case .success(.edit(let status)) = result {
-                self?.updateViewModelsWithDataControllers(status: .fromEntity(status.value), intent: .edit)
-            }
-        }.store(in: &disposeBag)
-        
         addChild(tabBarPagerController)
         tabBarPagerController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tabBarPagerController.view)
@@ -280,17 +208,17 @@ extension ProfileViewController {
         // setup delegate
         profileHeaderViewController.delegate = self
         profilePagingViewController.viewModel.profileAboutViewController.delegate = self
-                
-        bindViewModel()
-        bindTitleView()
-        bindMoreBarButtonItem()
-        bindPager()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.prefersLargeTitles = false
+
+        bindViewModel()
+        bindTitleView()
+        bindMoreBarButtonItem()
+        bindPager()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -356,6 +284,103 @@ extension ProfileViewController {
         viewModel.$accountForEdit
             .assign(to: \.accountForEdit, on: aboutViewModel)
             .store(in: &disposeBag)
+
+        let editingAndUpdatingPublisher = Publishers.CombineLatest(
+            viewModel.$isEditing,
+            viewModel.$isUpdating
+        )
+        // note: not add .share() here
+
+        let barButtonItemHiddenPublisher = Publishers.CombineLatest3(
+            viewModel.$isMeBarButtonItemsHidden,
+            viewModel.$isReplyBarButtonItemHidden,
+            viewModel.$isMoreMenuBarButtonItemHidden
+        )
+
+        editingAndUpdatingPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEditing, isUpdating in
+                guard let self = self else { return }
+                self.cancelEditingBarButtonItem.isEnabled = !isUpdating
+            }
+            .store(in: &disposeBag)
+
+        // build items
+        Publishers.CombineLatest4(
+            viewModel.$relationship,
+            profileHeaderViewController.viewModel.$isTitleViewDisplaying,
+            editingAndUpdatingPublisher,
+            barButtonItemHiddenPublisher
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] account, isTitleViewDisplaying, tuple1, tuple2 in
+            guard let self else { return }
+            let (isEditing, _) = tuple1
+            let (isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden) = tuple2
+
+            var items: [UIBarButtonItem] = []
+            defer {
+                if items.isNotEmpty {
+                    self.navigationItem.rightBarButtonItems = items
+                } else {
+                    self.navigationItem.rightBarButtonItems = nil
+                }
+            }
+
+            if let suspended = self.viewModel.account.suspended, suspended == true {
+                return
+            }
+
+            guard isEditing == false else {
+                items.append(self.cancelEditingBarButtonItem)
+                return
+            }
+
+            guard isTitleViewDisplaying == false else {
+                return
+            }
+
+            guard isMeBarButtonItemsHidden else {
+                items.append(self.settingBarButtonItem)
+                items.append(self.shareBarButtonItem)
+                items.append(self.favoriteBarButtonItem)
+                items.append(self.bookmarkBarButtonItem)
+
+                if self.currentInstance?.canFollowTags == true {
+                    items.append(self.followedTagsBarButtonItem)
+                }
+
+                return
+            }
+
+            if !isMoreMenuBarButtonItemHidden {
+                items.append(self.moreMenuBarButtonItem)
+            }
+            if !isReplyBarButtonItemHidden {
+                items.append(self.replyBarButtonItem)
+            }
+        }
+        .store(in: &disposeBag)
+
+        viewModel.$isEditing
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEditing in
+                guard let self else { return }
+
+                if isEditing {
+                    tabBarPagerController.relayScrollView.refreshControl = nil
+                } else {
+                    tabBarPagerController.relayScrollView.refreshControl = refreshControl
+                }
+            }
+            .store(in: &disposeBag)
+
+        context.publisherService.statusPublishResult.sink { [weak self] result in
+            if case .success(.edit(let status)) = result {
+                self?.updateViewModelsWithDataControllers(status: .fromEntity(status.value), intent: .edit)
+            }
+        }.store(in: &disposeBag)
+
     }
 
     private func bindTitleView() {
@@ -443,7 +468,7 @@ extension ProfileViewController {
         viewModel.$isPagingEnabled
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isPagingEnabled in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.profilePagingViewController.containerView.isScrollEnabled = isPagingEnabled
                 self.profilePagingViewController.buttonBarView.isUserInteractionEnabled = isPagingEnabled
             }
@@ -458,11 +483,10 @@ extension ProfileViewController {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.profilePagingViewController.becomeFirstResponder()
                     }
+                    // dismiss keyboard if needs
+                    self.view.endEditing(true)
                 }
 
-                // dismiss keyboard if needs
-                if !isEditing { self.view.endEditing(true) }
-                
                 if isEditing,
                    let index = self.profilePagingViewController.viewControllers.firstIndex(where: { type(of: $0) is ProfileAboutViewController.Type }),
                    self.profilePagingViewController.canMoveTo(index: index)
@@ -495,8 +519,7 @@ extension ProfileViewController {
 extension ProfileViewController {
 
     @objc private func cancelEditingBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        viewModel.isEditing = false
-        profileHeaderViewController.viewModel.isEditing = false
+        cancelEditing()
     }
 
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -714,6 +737,8 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                         aboutProfileInfo: profileAboutViewModel.profileInfoEditing
                     ).value
                     self.viewModel.isEditing = false
+                    self.profileHeaderViewController.viewModel.isEditing = false
+                    profileAboutViewModel.isEditing = false
                     self.viewModel.account = updatedAccount
 
                 } catch {
@@ -757,13 +782,23 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                         // enter editing mode
                         self.viewModel.isEditing = true
                         self.profileHeaderViewController.viewModel.isEditing = true
+                        profileAboutViewModel.isEditing = true
                     }
                 } receiveValue: { [weak self] response in
                     guard let self = self else { return }
                     self.viewModel.accountForEdit = response.value
                 }
                 .store(in: &disposeBag)
+        } else if isEdited == false {
+            cancelEditing()
         }
+    }
+
+    private func cancelEditing() {
+        viewModel.isEditing = false
+        profileHeaderViewController.viewModel.isEditing = false
+        profilePagingViewController.viewModel.profileAboutViewController.viewModel.isEditing = false
+        viewModel.profileAboutViewModel.isEditing = false
     }
 
     private func editRelationship() {
