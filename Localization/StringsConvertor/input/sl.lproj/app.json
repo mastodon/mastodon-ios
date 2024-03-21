@@ -52,6 +52,24 @@
                 "title": "Opomba",
                 "message": "Prevod je spodletel. Morda skrbnik ni omogočil prevajanja na tem strežniku ali pa strežnik teče na starejši različici Masotodona, na kateri prevajanje še ni podprto.",
                 "button": "V redu"
+            },
+            "media_missing_alt_text": {
+                "title": "Manjka nadomestno besedilo za večpredstavnostno vsebino",
+                "message": "Manjka nadomestno besedilo za %d slik.\nAli želite vseeno opraviti objavo?",
+                "cancel": "Prekliči",
+                "post": "Objavi"
+            },
+            "boost_a_post": {
+                "title_boost": "Ali želite izpostaviti objavo?",
+                "title_unboost": "Ali želite preklicati izpostavitev objave?",
+                "cancel": "Prekliči",
+                "boost": "Izpostavi",
+                "unboost": "Prekliči izpostavitev"
+            },
+            "unfollow_user": {
+                "title": "Ali želite prenehati slediti %@?",
+                "cancel": "Prekliči",
+                "unfollow": "Ne sledi več"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Nekaj osnovnih pravil.",
-            "subtitle": "Slednje določajo in njihovo spoštovanje zagotavljajo moderatorji %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Če boste nadaljevali, za vas veljajo pogoji storitve in pravilnik o zasebnosti za %s.",
             "terms_of_service": "pogoji uporabe",
             "privacy_policy": "pravilnik o zasebnosti",
             "button": {
-                "confirm": "Strinjam se"
+                "confirm": "Strinjam se",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
@@ -751,9 +770,20 @@
                     "light": "Svetlo",
                     "system": "Uporabi videz naprave"
                 },
+                "ask_before": {
+                    "section_title": "Vprašaj, preden ...",
+                    "posting_without_alt_text": "Objavljanje brez nadomestnega besedila",
+                    "unfollowing_someone": "Prenehanje sledenja uporabniku",
+                    "boosting_a_post": "Izpostavljanje določene objave",
+                    "deleting_a_post": "Brisanje objave"
+                },
                 "design": {
                     "section_title": "Oblikovanje",
                     "show_animations": "Predvajaj animirane avatarje in emotikone"
+                },
+                "language": {
+                    "section_title": "Jezik",
+                    "default_post_language": "Privzeti jezik objav"
                 },
                 "links": {
                     "section_title": "Povezave",

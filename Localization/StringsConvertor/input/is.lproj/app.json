@@ -52,6 +52,24 @@
                 "title": "Athugasemd",
                 "message": "Þýðing mistókst. Mögulega hefur kerfisstjórinn ekki virkjað þýðingar á þessum netþjóni, eða að netþjónninn sé keyrður á eldri útgáfu Mastodon þar sem þýðingar séu ekki studdar.",
                 "button": "Í lagi"
+            },
+            "media_missing_alt_text": {
+                "title": "Myndefni vantar hjálpartexta",
+                "message": "%d myndanna þinna vantar hjálpartexta. Birta samt?",
+                "cancel": "Hætta við",
+                "post": "Færsla"
+            },
+            "boost_a_post": {
+                "title_boost": "Endurbirta færslu?",
+                "title_unboost": "Taka færslu úr endurbirtingu?",
+                "cancel": "Hætta við",
+                "boost": "Endurbirting",
+                "unboost": "Taka úr endurbirtingu"
+            },
+            "unfollow_user": {
+                "title": "Hætta að fylgjast með %@?",
+                "cancel": "Hætta við",
+                "unfollow": "Hætta að fylgjast með"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Nokkrar grunnreglur.",
-            "subtitle": "Þær eru settar og séð um að þeim sé fylgt af umsjónarmönnum %s.",
+            "title": "Reglur netþjónsins",
+            "subtitle": "Með því að halda áfram, samþykkir þú að fylgja eftirfarandi reglum sem settar eru af umsjónarmönnum **%s**, sem sjá um að þeim sé fylgt.",
             "prompt": "Með því að halda áfram samþykkir þú þjónustuskilmála og persónuverndarstefnu %s.",
             "terms_of_service": "þjónustuskilmálar",
             "privacy_policy": "persónuverndarstefna",
             "button": {
-                "confirm": "Ég samþykki"
+                "confirm": "Ég samþykki",
+                "disagree": "Ósammála"
             }
         },
         "confirm_email": {
@@ -751,9 +770,20 @@
                     "light": "Ljóst",
                     "system": "Nota útlit tækis"
                 },
+                "ask_before": {
+                    "section_title": "Spyrja áður…",
+                    "posting_without_alt_text": "Birta án hjálpartexta",
+                    "unfollowing_someone": "Hætta að fylgjast með einhverjum",
+                    "boosting_a_post": "Endurbirta færslu",
+                    "deleting_a_post": "Eyða færslu"
+                },
                 "design": {
                     "section_title": "Hönnun",
                     "show_animations": "Spila auðkennismyndir og tákn með hreyfingu"
+                },
+                "language": {
+                    "section_title": "Tungumál",
+                    "default_post_language": "Sjálfgefið tungumál færslu"
                 },
                 "links": {
                     "section_title": "Tenglar",

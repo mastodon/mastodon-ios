@@ -52,6 +52,24 @@
                 "title": "An aire",
                 "message": "Dh’fhàillig an t-eadar-theangachadh. Dh’fhaoidte nach do chuir an rianaire na h-eadar-theangachaidhean an comas air an fhrithealaiche seo no gu bheil am frithealaiche a’ ruith seann-tionndadh de Mhastodon far nach eil taic ri eadar-theangachadh fhathast.",
                 "button": "Ceart ma-thà"
+            },
+            "media_missing_alt_text": {
+                "title": "Tha roghainn teacsa a dhìth air meadhan",
+                "message": "Tha roghainn teacsa a dhìth air %d dhe na dealbhan agad.\nA bheil thu airson a phostadh co-dhiù?",
+                "cancel": "Sguir dheth",
+                "post": "Postaich"
+            },
+            "boost_a_post": {
+                "title_boost": "Am brosnaich thu am post?",
+                "title_unboost": "An dì-bhrosnaich thu am post?",
+                "cancel": "Sguir dheth",
+                "boost": "Brosnaich",
+                "unboost": "Na brosnaich tuilleadh"
+            },
+            "unfollow_user": {
+                "title": "An sguir thu de %@ a leantainn?",
+                "cancel": "Sguir dheth",
+                "unfollow": "Na lean tuilleadh"
             }
         },
         "controls": {
@@ -222,11 +240,11 @@
                 "pending": "Ri dhèiligeadh",
                 "block": "Bac",
                 "block_user": "Bac %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Bac an àrainn %s",
                 "unblock": "Dì-bhac",
                 "unblock_user": "Dì-bhac %s",
                 "blocked": "’Ga bhacadh",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Chaidh an àrainn a bhacadh",
                 "mute": "Mùch",
                 "mute_user": "Mùch %s",
                 "unmute": "Dì-mhùch",
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Riaghailtean bunasach.",
-            "subtitle": "Tha na riaghailtean seo ’gan stèidheachadh is a chur an gnìomh leis na maoir aig %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Ma leanas tu air adhart, bidh thu fo bhuaidh teirmichean seirbheise is poileasaidh prìobhaideachd %s.",
             "terms_of_service": "teirmichean na seirbheise",
             "privacy_policy": "poileasaidh prìobhaideachd",
             "button": {
-                "confirm": "Gabhaidh mi ris"
+                "confirm": "Gabhaidh mi ris",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
@@ -606,12 +625,12 @@
                     "message": "Dearbh falach nam brosnachaidhean"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Bac an àrainn",
+                    "message": "Dearbh bacadh na h-àrainne %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Dì-bhac an àrainn",
+                    "message": "Dearbh dì-bhacadh na h-àrainne %s"
                 }
             },
             "accessibility": {
@@ -659,20 +678,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Postaichean a fhreagras ri “%s”",
+                "people": "Daoine a fhreagras ri “%s”",
+                "profile": "Tadhail air @%s@%s",
+                "url": "Fosgail an t-URL ann am Mastodon",
+                "hashtag": "Tadhail air #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Cha deach cunntas cleachdaiche a lorg",
+                    "message": "Chan eil cunntas cleachdaiche “%s” air %s"
                 },
                 "empty_state": {
                     "no_results": "Gun toradh"
                 },
                 "recent_search": "Na lorg thu o chionn goirid",
-                "clear_all": "Clear all",
+                "clear_all": "Falamhaich na h-uile",
                 "clear": "Falamhaich"
             }
         },
@@ -719,66 +738,77 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "Roghainnean",
+                "general": "Coitcheann",
+                "notifications": "Brathan",
+                "support_mastodon": "Thoir taic do Mhastodon",
+                "about_mastodon": "Mu Mhastodon",
+                "server_details": "Fiosrachadh mun fhrithealaiche",
+                "logout": "Clàraich a-mach %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Mu dhèidhinn",
+                "more_settings": "Fiù ’s a bharrachd roghainnean",
+                "contribute_to_mastodon": "Cuidich le leasachadh Mastodon",
+                "privacy_policy": "Poileasaidh prìobhaideachd",
+                "clear_media_storage": "Falamhaich stòras nam meadhanan"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Mu dhèidhinn",
+                "rules": "Riaghailtean",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Rianaire",
+                    "message_admin": "Cuir teachdaireachd dhan rianaire",
+                    "legal_notice": "Sanas laghail"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Coitcheann",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Coltas",
+                    "dark": "Dorcha",
+                    "light": "Soilleir",
+                    "system": "Cleachd coltas an uidheim"
+                },
+                "ask_before": {
+                    "section_title": "Faighnich ro…",
+                    "posting_without_alt_text": "Postadh às aonais roghainn teacsa",
+                    "unfollowing_someone": "Sgur de leantainn",
+                    "boosting_a_post": "Brosnachadh puist",
+                    "deleting_a_post": "Sguabadh às puist"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Co-dhealbhachd",
+                    "show_animations": "Cluich beothachadh nan avataran ’s nan emoji"
+                },
+                "language": {
+                    "section_title": "Cànan",
+                    "default_post_language": "Cànan bunaiteach nam post"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Ceanglaichean",
+                    "open_in_mastodon": "Fosgail ann am Mastodon",
+                    "open_in_browser": "Fosgail ann am brabhsair"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Brathan",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Faigh brathan o",
+                    "anyone": "Duine sam bith",
+                    "followers": "Daoine a tha ’gad leantainn",
+                    "follow": "Daoine a tha thu gan leantainn",
+                    "noone": "Na seall idir"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Iomraidhean ⁊ freagairtean",
+                    "boosts": "Brosnachaidhean",
+                    "favorites": "Annsachdan",
+                    "new_followers": "Luchd-leantainn ùr"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Cuir air na brathan o roghainnean an uidheim agad a dh’fhaicinn naidheachdan air an sgrìn-ghlasaidh agad.",
+                    "go_to_settings": "Tadhail air roghainnean nam brathan"
                 }
             }
         },

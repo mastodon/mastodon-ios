@@ -52,6 +52,24 @@
                 "title": "Σημείωση",
                 "message": "Η μετάφραση απέτυχε. Ίσως ο διαχειριστής δεν έχει ενεργοποιήσει μεταφράσεις σε αυτόν τον διακομιστή ή αυτός ο διακομιστής εκτελεί μια παλαιότερη έκδοση του Mastodon όπου οι μεταφράσεις δεν υποστηρίζονται ακόμα.",
                 "button": "ΟΚ"
+            },
+            "media_missing_alt_text": {
+                "title": "Το πολυμέσο Δεν Έχει Εναλλακτικό Κείμενο",
+                "message": "%d από τις εικόνες σου δεν έχει εναλλακτικό κείμενο. Ανάρτηση ούτως ή άλλως;",
+                "cancel": "Άκυρο",
+                "post": "Ανάρτηση"
+            },
+            "boost_a_post": {
+                "title_boost": "Ενίσχυση Ανάρτησης;",
+                "title_unboost": "Αναίρεση Ενίσχυσης Ανάρτησης;",
+                "cancel": "Άκυρο",
+                "boost": "Ενίσχυση",
+                "unboost": "Ακύρωση ενίσχυσης"
+            },
+            "unfollow_user": {
+                "title": "Άρση ακολούθησης του %@;",
+                "cancel": "Άκυρο",
+                "unfollow": "Άρση ακολούθησης"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Ορισμένοι βασικοί κανόνες.",
-            "subtitle": "Αυτά ορίζονται και επιβάλλονται από τους συντονιστές %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Συνεχίζοντας, υπόκεισαι στους όρους της υπηρεσίας και της πολιτικής απορρήτου για %s.",
             "terms_of_service": "όροι υπηρεσίας",
             "privacy_policy": "πολιτική απορρήτου",
             "button": {
-                "confirm": "Συμφωνώ"
+                "confirm": "Συμφωνώ",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
@@ -751,9 +770,20 @@
                     "light": "Φωτεινό",
                     "system": "Χρήση Εμφάνισης Συσκευής"
                 },
+                "ask_before": {
+                    "section_title": "Ρώτησε πριν…",
+                    "posting_without_alt_text": "Ανάρτηση χωρίς Εναλλακτικό Κείμενο",
+                    "unfollowing_someone": "Άρση Ακολούθησης Κάποιου",
+                    "boosting_a_post": "Ενίσχυση μιας Ανάρτησης",
+                    "deleting_a_post": "Διαγραφή μιας Ανάρτησης"
+                },
                 "design": {
                     "section_title": "Σχεδίαση",
                     "show_animations": "Αναπαραγωγή κινούμενων Avatars και Emoji"
+                },
+                "language": {
+                    "section_title": "Γλώσσα",
+                    "default_post_language": "Προεπιλεγμένη Γλώσσα Ανάρτησης"
                 },
                 "links": {
                     "section_title": "Σύνδεσμοι",

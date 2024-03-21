@@ -52,6 +52,24 @@
                 "title": "備註",
                 "message": "翻譯失敗。也許管理員未於此伺服器啟用翻譯功能，或此伺服器為未支援翻譯功能之舊版本 Mastodon。",
                 "button": "OK"
+            },
+            "media_missing_alt_text": {
+                "title": "媒體沒有 ALT 說明文字",
+                "message": "您的 %d 則圖片沒有 ALT 說明文字。您仍要發嘟嗎？",
+                "cancel": "取消",
+                "post": "發嘟"
+            },
+            "boost_a_post": {
+                "title_boost": "是否要轉嘟？",
+                "title_unboost": "是否要取消轉嘟？",
+                "cancel": "取消",
+                "boost": "轉嘟",
+                "unboost": "取消轉嘟"
+            },
+            "unfollow_user": {
+                "title": "是否要取消跟隨 %@ ？",
+                "cancel": "取消",
+                "unfollow": "取消跟隨"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "一些基本守則。",
-            "subtitle": "這些被 %s 的管管們制定以及實施。",
-            "prompt": "繼續的話，代表您將遵守 %s 的服務條款與隱私權政策。",
+            "title": "伺服器規則",
+            "subtitle": "如果繼續，您將同意以下由 **%s** 之管理員訂定及執行之伺服器規則。",
+            "prompt": "如果繼續，代表您將遵守 %s 的服務條款與隱私權政策。",
             "terms_of_service": "服務條款",
             "privacy_policy": "隱私權政策",
             "button": {
-                "confirm": "我已閱讀並同意"
+                "confirm": "我已閱讀並同意",
+                "disagree": "不同意"
             }
         },
         "confirm_email": {
@@ -751,9 +770,20 @@
                     "light": "淺色",
                     "system": "使用裝置外觀設定"
                 },
+                "ask_before": {
+                    "section_title": "於執行前需確認...",
+                    "posting_without_alt_text": "發表沒有 ALT 說明文字之嘟文",
+                    "unfollowing_someone": "取消跟隨某人",
+                    "boosting_a_post": "轉嘟",
+                    "deleting_a_post": "刪除嘟文"
+                },
                 "design": {
                     "section_title": "設計",
                     "show_animations": "播放動畫大頭貼與表情符號"
+                },
+                "language": {
+                    "section_title": "語言",
+                    "default_post_language": "預設嘟文語言"
                 },
                 "links": {
                     "section_title": "連結",

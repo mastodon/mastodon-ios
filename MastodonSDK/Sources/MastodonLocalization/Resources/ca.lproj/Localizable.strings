@@ -1,5 +1,10 @@
 "Common.Alerts.BlockDomain.BlockEntireDomain" = "Bloca el domini";
 "Common.Alerts.BlockDomain.Title" = "Estàs totalment segur que vols bloquejar per complet %@? En la majoria dels casos bloquejar o silenciar uns pocs objectius és suficient i preferible. No veureu contingut d’aquest domini i se suprimirà qualsevol dels vostres seguidors d’aquest domini.";
+"Common.Alerts.BoostAPost.Boost" = "Boost";
+"Common.Alerts.BoostAPost.Cancel" = "Cancel";
+"Common.Alerts.BoostAPost.TitleBoost" = "Boost Post?";
+"Common.Alerts.BoostAPost.TitleUnboost" = "Unboost Post?";
+"Common.Alerts.BoostAPost.Unboost" = "Unboost";
 "Common.Alerts.CleanCache.Message" = "S'han esborrat %@ de memòria cau.";
 "Common.Alerts.CleanCache.Title" = "Esborra la memòria cau";
 "Common.Alerts.Common.PleaseTryAgain" = "Torna-ho a provar.";
@@ -8,6 +13,11 @@
 "Common.Alerts.DeletePost.Title" = "Eliminar la publicació";
 "Common.Alerts.EditProfileFailure.Message" = "No es pot editar el perfil. Torna-ho a provar.";
 "Common.Alerts.EditProfileFailure.Title" = "Error en editar el perfil";
+"Common.Alerts.MediaMissingAltText.Cancel" = "Cancel";
+"Common.Alerts.MediaMissingAltText.Message" = "%d of your images are missing alt text.
+Post Anyway?";
+"Common.Alerts.MediaMissingAltText.Post" = "Post";
+"Common.Alerts.MediaMissingAltText.Title" = "Media Missing Alt Text";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "No es pot adjuntar més d'un vídeo.";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.VideoAttachWithPhoto" = "No es pot adjuntar un vídeo a un tut que ja contingui imatges.";
 "Common.Alerts.PublishPostFailure.Message" = "No s'ha pogut enviar la publicació.
@@ -23,6 +33,9 @@ Comprova la connexió a Internet.";
 "Common.Alerts.TranslationFailed.Button" = "D'acord";
 "Common.Alerts.TranslationFailed.Message" = "La traducció ha fallat. Potser l'administrador d'aquest servidor no ha activat les traduccions o està executant una versió vella de Mastodon on les traduccions encara no eren suportades.";
 "Common.Alerts.TranslationFailed.Title" = "Nota";
+"Common.Alerts.UnfollowUser.Cancel" = "Cancel";
+"Common.Alerts.UnfollowUser.Title" = "Unfollow %@?";
+"Common.Alerts.UnfollowUser.Unfollow" = "Unfollow";
 "Common.Alerts.VoteFailure.PollEnded" = "L'enquesta ha finalitzat";
 "Common.Alerts.VoteFailure.Title" = "Error en votar";
 "Common.Controls.Actions.Add" = "Afegeix";
@@ -490,11 +503,12 @@ Elegiremos un servidor basado en su idioma si continúa sin hacer una selección
 "Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "Revisió manual";
 "Scene.ServerPicker.Title" = "Tria un Servidor";
 "Scene.ServerRules.Button.Confirm" = "Hi estic d'acord";
+"Scene.ServerRules.Button.Disagree" = "Disagree";
 "Scene.ServerRules.PrivacyPolicy" = "política de privadesa";
 "Scene.ServerRules.Prompt" = "Al continuar, estàs subjecte als termes de servei i a la política de privacitat de %@.";
-"Scene.ServerRules.Subtitle" = "Aquestes regles estan establertes i aplicades per els moderadors de %@.";
+"Scene.ServerRules.Subtitle" = "By continuing, you agree to follow by the following rules set and enforced by the **%@** moderators.";
 "Scene.ServerRules.TermsOfService" = "termes del servei";
-"Scene.ServerRules.Title" = "Algunes regles bàsiques.";
+"Scene.ServerRules.Title" = "Server Rules";
 "Scene.Settings.AboutMastodon.ClearMediaStorage" = "Clear Media Storage";
 "Scene.Settings.AboutMastodon.ContributeToMastodon" = "Contribute to Mastodon";
 "Scene.Settings.AboutMastodon.MoreSettings" = "Even More Settings";
@@ -504,8 +518,15 @@ Elegiremos un servidor basado en su idioma si continúa sin hacer una selección
 "Scene.Settings.General.Appearance.Light" = "Light";
 "Scene.Settings.General.Appearance.SectionTitle" = "Appearance";
 "Scene.Settings.General.Appearance.System" = "Use Device Appearance";
+"Scene.Settings.General.AskBefore.BoostingAPost" = "Boosting a Post";
+"Scene.Settings.General.AskBefore.DeletingAPost" = "Deleting a Post";
+"Scene.Settings.General.AskBefore.PostingWithoutAltText" = "Posting without Alt Text";
+"Scene.Settings.General.AskBefore.SectionTitle" = "Ask before…";
+"Scene.Settings.General.AskBefore.UnfollowingSomeone" = "Unfollowing Someone";
 "Scene.Settings.General.Design.SectionTitle" = "Design";
 "Scene.Settings.General.Design.ShowAnimations" = "Play Animated Avatars and Emoji";
+"Scene.Settings.General.Language.DefaultPostLanguage" = "Default Post Language";
+"Scene.Settings.General.Language.SectionTitle" = "Language";
 "Scene.Settings.General.Links.OpenInBrowser" = "Open in Browser";
 "Scene.Settings.General.Links.OpenInMastodon" = "Open in Mastodon";
 "Scene.Settings.General.Links.SectionTitle" = "Links";

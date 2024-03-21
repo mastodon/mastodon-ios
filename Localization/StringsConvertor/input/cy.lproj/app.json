@@ -52,6 +52,24 @@
                 "title": "Nodyn",
                 "message": "Methwyd cyfieithu. Efallai nad yw'r gweinyddwr wedi galluogi cyfieithiadau ar y gweinydd hwn neu mae'r gweinydd hwn yn rhedeg fersiwn hŷn o Mastodon lle nad yw cyfieithiadau ar gael eto.",
                 "button": "Iawn"
+            },
+            "media_missing_alt_text": {
+                "title": "Media Missing Alt Text",
+                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "cancel": "Cancel",
+                "post": "Post"
+            },
+            "boost_a_post": {
+                "title_boost": "Boost Post?",
+                "title_unboost": "Unboost Post?",
+                "cancel": "Cancel",
+                "boost": "Boost",
+                "unboost": "Unboost"
+            },
+            "unfollow_user": {
+                "title": "Unfollow %@?",
+                "cancel": "Cancel",
+                "unfollow": "Unfollow"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Rhai rheolau sylfaenol.",
-            "subtitle": "Mae'r rhain yn cael eu gosod a'u gorfodi gan gymedrolwyr %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Wrth barhau, rydych yn cytuno â'r Telerau Gwasanaeth a Pholisi Preifatrwydd %s.",
             "terms_of_service": "telerau gwasanaeth",
             "privacy_policy": "polisi preifatrwydd",
             "button": {
-                "confirm": "Rwy'n Cytuno"
+                "confirm": "Rwy'n Cytuno",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
@@ -751,9 +770,20 @@
                     "light": "Light",
                     "system": "Use Device Appearance"
                 },
+                "ask_before": {
+                    "section_title": "Ask before…",
+                    "posting_without_alt_text": "Posting without Alt Text",
+                    "unfollowing_someone": "Unfollowing Someone",
+                    "boosting_a_post": "Boosting a Post",
+                    "deleting_a_post": "Deleting a Post"
+                },
                 "design": {
                     "section_title": "Design",
                     "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "language": {
+                    "section_title": "Language",
+                    "default_post_language": "Default Post Language"
                 },
                 "links": {
                     "section_title": "Links",

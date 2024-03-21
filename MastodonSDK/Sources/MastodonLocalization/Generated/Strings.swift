@@ -117,9 +117,9 @@ public enum L10n {
       public enum UnfollowUser {
         /// Cancel
         public static let cancel = L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Cancel", fallback: "Cancel")
-        /// Unfollow %@
+        /// Unfollow %@?
         public static func title(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Title", String(describing: p1), fallback: "Unfollow %@")
+          return L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Title", String(describing: p1), fallback: "Unfollow %@?")
         }
         /// Unfollow
         public static let unfollow = L10n.tr("Localizable", "Common.Alerts.UnfollowUser.Unfollow", fallback: "Unfollow")

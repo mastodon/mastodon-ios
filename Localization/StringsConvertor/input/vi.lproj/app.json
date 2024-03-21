@@ -52,6 +52,24 @@
                 "title": "Ghi chú",
                 "message": "Dịch không thành công. Có thể quản trị viên chưa bật dịch trên máy chủ này hoặc máy chủ này đang chạy phiên bản cũ hơn của Mastodon chưa hỗ trợ dịch.",
                 "button": "OK"
+            },
+            "media_missing_alt_text": {
+                "title": "Thiếu văn bản thay thế",
+                "message": "%d hình thiếu văn bản liên kết.\nVẫn cứ đăng?",
+                "cancel": "Hủy bỏ",
+                "post": "Đăng"
+            },
+            "boost_a_post": {
+                "title_boost": "Đăng lại?",
+                "title_unboost": "Hủy đăng lại?",
+                "cancel": "Hủy bỏ",
+                "boost": "Đăng lại",
+                "unboost": "Hủy đăng lại"
+            },
+            "unfollow_user": {
+                "title": "Bỏ theo dõi %@?",
+                "cancel": "Hủy bỏ",
+                "unfollow": "Bỏ theo dõi"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Nội quy máy chủ.",
-            "subtitle": "Được ban hành và áp dụng bởi quản trị viên %s",
+            "title": "Nội quy máy chủ",
+            "subtitle": "Tiếp tục nghĩa là bạn đồng ý tuân theo các quy tắc sau do kiểm duyệt viên **%s** đặt ra và thực thi.",
             "prompt": "Tiếp tục nghĩa là bạn đồng ý điều khoản dịch vụ và chính sách bảo mật của %s.",
             "terms_of_service": "điều khoản dịch vụ",
             "privacy_policy": "chính sách bảo mật",
             "button": {
-                "confirm": "Tôi đồng ý"
+                "confirm": "Tôi đồng ý",
+                "disagree": "Không đồng ý"
             }
         },
         "confirm_email": {
@@ -751,9 +770,20 @@
                     "light": "Sáng",
                     "system": "Giống thiết bị"
                 },
+                "ask_before": {
+                    "section_title": "Hỏi trước khi…",
+                    "posting_without_alt_text": "Đăng không cần văn bản thay thế",
+                    "unfollowing_someone": "Bỏ theo dõi ai đó",
+                    "boosting_a_post": "Đăng lại một tút",
+                    "deleting_a_post": "Xóa một tút"
+                },
                 "design": {
                     "section_title": "Thiết kế",
                     "show_animations": "Ảnh đại diện và emoji động"
+                },
+                "language": {
+                    "section_title": "Ngôn ngữ",
+                    "default_post_language": "Ngôn ngữ đăng mặc định"
                 },
                 "links": {
                     "section_title": "Liên kết",

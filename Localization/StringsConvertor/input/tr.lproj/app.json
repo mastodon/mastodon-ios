@@ -52,6 +52,24 @@
                 "title": "Note",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
                 "button": "Tamam"
+            },
+            "media_missing_alt_text": {
+                "title": "Media Missing Alt Text",
+                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "cancel": "Cancel",
+                "post": "Post"
+            },
+            "boost_a_post": {
+                "title_boost": "Boost Post?",
+                "title_unboost": "Unboost Post?",
+                "cancel": "Cancel",
+                "boost": "Boost",
+                "unboost": "Unboost"
+            },
+            "unfollow_user": {
+                "title": "Unfollow %@?",
+                "cancel": "Cancel",
+                "unfollow": "Unfollow"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Bazı temel kurallar.",
-            "subtitle": "Bunlar, %s moderatörleri tarafından ayarlanmış ve uygulanmıştır.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Devam ederek, %s için kullanım şartlarını ve gizlilik politikasını kabul etmiş olursunuz.",
             "terms_of_service": "kullanım şartları",
             "privacy_policy": "gizlilik politikası",
             "button": {
-                "confirm": "Kabul Ediyorum"
+                "confirm": "Kabul Ediyorum",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
@@ -751,9 +770,20 @@
                     "light": "Light",
                     "system": "Use Device Appearance"
                 },
+                "ask_before": {
+                    "section_title": "Ask before…",
+                    "posting_without_alt_text": "Posting without Alt Text",
+                    "unfollowing_someone": "Unfollowing Someone",
+                    "boosting_a_post": "Boosting a Post",
+                    "deleting_a_post": "Deleting a Post"
+                },
                 "design": {
                     "section_title": "Design",
                     "show_animations": "Play Animated Avatars and Emoji"
+                },
+                "language": {
+                    "section_title": "Language",
+                    "default_post_language": "Default Post Language"
                 },
                 "links": {
                     "section_title": "Links",

@@ -52,6 +52,24 @@
                 "title": "Opmerking",
                 "message": "Vertaling mislukt. Mogelijk heeft de serverbeheerder vertalingen niet ingeschakeld op deze server, of draait deze server een oude versie van Mastodon waar vertalingen nog niet ondersteund worden.",
                 "button": "OK"
+            },
+            "media_missing_alt_text": {
+                "title": "Media zonder alt-tekst",
+                "message": "%d van je afbeeldingen missen alt-tekst. Alsnog plaatsen?",
+                "cancel": "Annuleren",
+                "post": "Alsnog plaatsen"
+            },
+            "boost_a_post": {
+                "title_boost": "Bericht boosten?",
+                "title_unboost": "Bericht niet meer boosten?",
+                "cancel": "Annuleren",
+                "boost": "Boost",
+                "unboost": "Niet meer boosten"
+            },
+            "unfollow_user": {
+                "title": "%@ ontvolgen?",
+                "cancel": "Annuleren",
+                "unfollow": "Ontvolgen"
             }
         },
         "controls": {
@@ -222,11 +240,11 @@
                 "pending": "In afwachting",
                 "block": "Blokkeren",
                 "block_user": "%s blokkeren",
-                "block_domain": "Block domain %s",
+                "block_domain": "Server %s blokkeren",
                 "unblock": "Deblokkeren",
                 "unblock_user": "%s deblokkeren",
                 "blocked": "Geblokkeerd",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Server geblokkeerd",
                 "mute": "Negeren",
                 "mute_user": "Negeer %s",
                 "unmute": "Niet langer negeren",
@@ -266,7 +284,7 @@
         "welcome": {
             "log_in": "Inloggen",
             "learn_more": "Meer leren",
-            "join_default_server": "Join %@",
+            "join_default_server": "Registreren op %@",
             "pick_server": "Kies een andere server",
             "separator": {
                 "or": "of"
@@ -333,7 +351,7 @@
             },
             "signup_speed": {
                 "all": "Alles",
-                "instant": "Meteen registreren",
+                "instant": "Je kunt direct registreren",
                 "manually_reviewed": "Handmatige beoordeling nodig"
             },
             "language": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Enkele basisregels.",
-            "subtitle": "Deze regels zijn ingesteld door de beheerders van %s.",
+            "title": "Serverregels",
+            "subtitle": "Door verder te gaan ga je akkoord met het volgen van de regels, die door de moderatoren van **%s** worden gehanteerd.",
             "prompt": "Als je verder gaat ga je akkoord met de gebruiksvoorwaarden en privacybeleid van %s.",
             "terms_of_service": "gebruiksvoorwaarden",
             "privacy_policy": "privacybeleid",
             "button": {
-                "confirm": "Ik ga akkoord"
+                "confirm": "Ik ga akkoord",
+                "disagree": "Ik ga niet akkoord"
             }
         },
         "confirm_email": {
@@ -606,12 +625,12 @@
                     "message": "Verbergen van boosts bevestigen"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Server blokkeren",
+                    "message": "Blokkeren van de server %s bevestigen"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Server deblokkeren",
+                    "message": "Deblokkeren van de server %s bevestigen"
                 }
             },
             "accessibility": {
@@ -659,20 +678,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "posts": "Berichten die overeenkomen met \"%s\"",
+                "people": "Accounts die overeenkomen met \"%s\"",
+                "profile": "Ga naar @%s@%s",
+                "url": "URL in Mastodon openen",
+                "hashtag": "Ga naar #%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Geen gebruikersaccount gevonden",
+                    "message": "Er is geen gebruikersaccount \"%s\" op %s"
                 },
                 "empty_state": {
                     "no_results": "Geen resultaten"
                 },
                 "recent_search": "Recente zoekopdrachten",
-                "clear_all": "Clear all",
+                "clear_all": "Alles wissen",
                 "clear": "Wissen"
             }
         },
@@ -719,66 +738,77 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "Instellingen",
+                "general": "Algemeen",
+                "notifications": "Meldingen",
+                "support_mastodon": "Mastodon ondersteunen",
+                "about_mastodon": "Over Mastodon",
+                "server_details": "Servergegevens",
+                "logout": "%@ uitloggen"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Over",
+                "more_settings": "Nog meer instellingen",
+                "contribute_to_mastodon": "Bijdragen aan Mastodon",
+                "privacy_policy": "Privacybeleid",
+                "clear_media_storage": "Mediaopslag wissen"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Over",
+                "rules": "Regels",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Beheerder",
+                    "message_admin": "Bericht aan beheerder",
+                    "legal_notice": "Een juridische kennisgeving"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Algemeen",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Uiterlijk",
+                    "dark": "Donker",
+                    "light": "Licht",
+                    "system": "Systeemstandaard"
+                },
+                "ask_before": {
+                    "section_title": "Vragen voordat…",
+                    "posting_without_alt_text": "Je een bericht zonder alt-tekst plaatst",
+                    "unfollowing_someone": "Je iemand ontvolgd",
+                    "boosting_a_post": "Je een bericht boost",
+                    "deleting_a_post": "Je een bericht verwijderd"
                 },
                 "design": {
                     "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "show_animations": "Geanimeerde profielfoto's en emoji's afspelen"
+                },
+                "language": {
+                    "section_title": "Taal",
+                    "default_post_language": "Standaardtaal voor berichten"
                 },
                 "links": {
                     "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_mastodon": "In Mastodon openen",
+                    "open_in_browser": "In browser openen"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Meldingen",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Meldingen ontvangen van",
+                    "anyone": "Iedereen",
+                    "followers": "Mensen die jou volgen",
+                    "follow": "Mensen die je volgt",
+                    "noone": "Niemand"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
+                    "mentions_and_replies": "Vermeldingen en antwoorden",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "favorites": "Favorieten",
+                    "new_followers": "Nieuwe volgers"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Meldingen in je apparaatinstellingen inschakelen om updates op je vergrendelscherm te kunnen zien.",
+                    "go_to_settings": "Ga naar de meldingsinstellingen"
                 }
             }
         },
@@ -789,7 +819,7 @@
             "step2": "Stap 2 van 2",
             "content1": "Zijn er nog meer berichten die je aan het rapport wilt toevoegen?",
             "content2": "Is er iets anders over deze rapportage dat de moderatoren zouden moeten weten?",
-            "report_sent_title": "Bedankt voor het rapporteren, we zullen hiernaar kijken.",
+            "report_sent_title": "Bedankt voor het rapporteren, we gaan hiernaar kijken.",
             "send": "Rapportage versturen",
             "skip_to_send": "Zonder opmerkingen versturen",
             "text_placeholder": "Schrijf of plak aanvullende opmerkingen",
@@ -831,7 +861,7 @@
                 "unfollowed": "Ontvolgd",
                 "unfollow_user": "Ontvolg %s",
                 "mute_user": "Negeer %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Je ziet hun berichten en boosts niet op je starttijdlijn. Ze zullen niet weten dat ze worden genegeerd.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Je ziet hun berichten en boosts niet op je starttijdlijn. Ze krijgen niet te weten dat ze worden genegeerd.",
                 "block_user": "Blokkeer %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Het is niet meer mogelijk om je te volgen of om je berichten te zien, maar ze kunnen wel zien dat ze geblokkeerd zijn.",
                 "while_we_review_this_you_can_take_action_against_user": "Terwijl we dit onderzoeken kun je deze acties tegen %s nemen"

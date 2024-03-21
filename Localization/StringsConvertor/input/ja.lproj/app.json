@@ -52,6 +52,24 @@
                 "title": "注意",
                 "message": "翻訳に失敗しました。管理者がこのサーバーで翻訳を有効にしていないか、このサーバーが翻訳をサポートしていない古いバージョンの Mastodon を実行している可能性があります。",
                 "button": "OK"
+            },
+            "media_missing_alt_text": {
+                "title": "メディアに代替テキストがありません",
+                "message": "%d 枚の画像に代替テキストがありません。そのまま投稿しますか？",
+                "cancel": "キャンセル",
+                "post": "投稿"
+            },
+            "boost_a_post": {
+                "title_boost": "ブーストしますか？",
+                "title_unboost": "ブーストを解除しますか？",
+                "cancel": "キャンセル",
+                "boost": "ブースト",
+                "unboost": "ブースト解除"
+            },
+            "unfollow_user": {
+                "title": "%@ さんのフォローを解除しますか？",
+                "cancel": "キャンセル",
+                "unfollow": "フォロー解除"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "いくつかのルールがあります。",
-            "subtitle": "これらのルールは、%sの管理者によって設定されています。",
+            "title": "サーバーのルール",
+            "subtitle": "続行すると、**%s**のモデレータによって設定された以下のルールに従うことに同意します。",
             "prompt": "同意することでお客様は以下のサービスの利用規約とプライバシーポリシーに従うことになります。 %s.",
             "terms_of_service": "利用規約",
             "privacy_policy": "プライバシーポリシー",
             "button": {
-                "confirm": "同意する"
+                "confirm": "同意する",
+                "disagree": "同意しない"
             }
         },
         "confirm_email": {
@@ -751,13 +770,24 @@
                     "light": "ライト",
                     "system": "端末の設定に合わせる"
                 },
+                "ask_before": {
+                    "section_title": "事前の確認",
+                    "posting_without_alt_text": "代替テキストのない投稿",
+                    "unfollowing_someone": "フォローの解除",
+                    "boosting_a_post": "投稿のブースト",
+                    "deleting_a_post": "投稿の削除"
+                },
                 "design": {
                     "section_title": "アニメーション",
                     "show_animations": "アニメーションアイコンと絵文字を再生"
                 },
+                "language": {
+                    "section_title": "言語",
+                    "default_post_language": "デフォルトの投稿言語"
+                },
                 "links": {
                     "section_title": "Webブラウザ",
-                    "open_in_mastodon": "アプリ内ブラウザアプリで開く",
+                    "open_in_mastodon": "アプリ内ブラウザで開く",
                     "open_in_browser": "ブラウザアプリで開く"
                 }
             },

@@ -52,6 +52,24 @@
                 "title": "Hinweis",
                 "message": "Übersetzung fehlgeschlagen. Möglicherweise haben die Administrator*innen die Übersetzungen auf diesem Server nicht aktiviert oder dieser Server läuft mit einer älteren Version von Mastodon, in der Übersetzungen noch nicht unterstützt wurden.",
                 "button": "OK"
+            },
+            "media_missing_alt_text": {
+                "title": "Medien haben keinen Alt-Text",
+                "message": "Bei %d Ihrer Bilder fehlt der Alt-Text.\nTrotzdem posten?",
+                "cancel": "Abbrechen",
+                "post": "Veröffentlichen"
+            },
+            "boost_a_post": {
+                "title_boost": "Beitrag teilen?",
+                "title_unboost": "Beitrag nicht mehr teilen?",
+                "cancel": "Abbrechen",
+                "boost": "Teilen",
+                "unboost": "Beitrag nicht mehr teilen"
+            },
+            "unfollow_user": {
+                "title": "%@ entfolgen?",
+                "cancel": "Abbrechen",
+                "unfollow": "Nicht mehr folgen"
             }
         },
         "controls": {
@@ -259,7 +277,7 @@
         },
         "user_list": {
             "no_verified_link": "Kein bestätigter Link",
-            "followers_count": "%@ followers"
+            "followers_count": "%@ Follower"
         }
     },
     "scene": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Einige Grundregeln.",
-            "subtitle": "Diese Regeln werden von den Administratoren von %s festgelegt.",
+            "title": "Server-Regeln",
+            "subtitle": "Solltest du fortfahren, erklärst du dich mit den Serverregeln, die die Moderator*innen von **%s** aufgestellt haben und durchsetzen werden, einverstanden.",
             "prompt": "Wenn du fortfährst, unterliegst du den Nutzungsbedingungen und den Datenschutzrichtlinien für %s.",
             "terms_of_service": "Nutzungsbedingungen",
             "privacy_policy": "Datenschutzerklärung",
             "button": {
-                "confirm": "Ich stimme zu"
+                "confirm": "Ich stimme zu",
+                "disagree": "Ablehnen"
             }
         },
         "confirm_email": {
@@ -659,9 +678,9 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
+                "posts": "Beiträge passend zu \"%s\"",
+                "people": "Profile passend zu \"%s\"",
+                "profile": "Gehe zu @%s@%s",
                 "url": "URL in Mastodon öffnen",
                 "hashtag": "Wechseln zu #%s",
                 "no_user": {
@@ -732,15 +751,15 @@
                 "more_settings": "Noch mehr Einstellungen",
                 "contribute_to_mastodon": "Zu Mastodon beitragen",
                 "privacy_policy": "Datenschutzerklärung",
-                "clear_media_storage": "Clear Media Storage"
+                "clear_media_storage": "Medienspeicher löschen"
             },
             "server_details": {
                 "about": "Über",
                 "rules": "Regeln",
                 "about_instance": {
                     "title": "Administrator*in",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "message_admin": "Administrator anschreiben",
+                    "legal_notice": "Rechtliches"
                 }
             },
             "general": {
@@ -751,9 +770,20 @@
                     "light": "Hell",
                     "system": "Einstellungen des Geräts übernehmen"
                 },
+                "ask_before": {
+                    "section_title": "Aktionen abfragen…",
+                    "posting_without_alt_text": "Posten ohne Alt-Text",
+                    "unfollowing_someone": "Jemanden nicht mehr folgen",
+                    "boosting_a_post": "Einen Beitrag teilen",
+                    "deleting_a_post": "Einen Beitrag löschen"
+                },
                 "design": {
                     "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "show_animations": "Animierte Profilbilder und Emoji abspielen"
+                },
+                "language": {
+                    "section_title": "Sprache",
+                    "default_post_language": "Standard-Beitragssprache"
                 },
                 "links": {
                     "section_title": "Links",
@@ -766,19 +796,19 @@
                 "policy": {
                     "title": "Mitteilungen erhalten von",
                     "anyone": "Jeder",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
+                    "followers": "Leute, die dir folgen",
+                    "follow": "Leute, denen ich folge",
                     "noone": "Niemand"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Erwähnungen und Antworten",
+                    "boosts": "Geteilte Beiträge",
+                    "favorites": "Favoriten",
+                    "new_followers": "Neue Follower"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Schalte Benachrichtigungen in den Geräteeinstellungen ein, um Aktualisierungen von deinem Sperrbildschirm aus zu sehen.",
+                    "go_to_settings": "Gehe zu den Benachrichtigungseinstellungen"
                 }
             }
         },
@@ -876,32 +906,32 @@
             "user_not_logged_in": "Bitte öffne Mastodon und melde dich mit einem Konto an."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Follower",
+            "configuration_description": "Anzahl der Follower anzeigen.",
+            "title": "FOLLOWER",
+            "followers_today": "%s Follower heute"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Mehrere Follower",
+            "configuration_description": "Anzahl der Follower für mehrere Konten anzeigen.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Ein weiterer Follower",
+                "account_name": "weiterer@follower.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Neueste Follower",
+            "configuration_description": "Aktuelle Follower anzeigen.",
+            "title": "Neueste Follower",
+            "last_update": "Letzte Aktualisierung: %s"
         },
         "hashtag": {
             "configuration": {
                 "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Zeigt einen aktuellen Beitrag mit dem ausgewählten Hashtag."
             },
             "not_found": {
-                "account_name": "John Mastodon",
+                "account_name": "Eugen Rochko",
                 "account": "@johnMastodon@no-such.account",
                 "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
             },

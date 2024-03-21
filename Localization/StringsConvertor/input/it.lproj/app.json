@@ -52,6 +52,24 @@
                 "title": "Nota",
                 "message": "Traduzione fallita. Forse l'amministratore non ha abilitato le traduzioni su questo server o questo server sta eseguendo una versione precedente di Mastodon in cui le traduzioni non sono ancora supportate.",
                 "button": "OK"
+            },
+            "media_missing_alt_text": {
+                "title": "Testo alternativo mancante nel file",
+                "message": "In %d delle tue immagini manca il testo alternativo. \nPubblicare comunque?",
+                "cancel": "Annulla",
+                "post": "Pubblica"
+            },
+            "boost_a_post": {
+                "title_boost": "Condividere il post?",
+                "title_unboost": "Annullare la condivisione del post?",
+                "cancel": "Annulla",
+                "boost": "Condividi",
+                "unboost": "Annulla la condivisione"
+            },
+            "unfollow_user": {
+                "title": "Smettere di seguire %@?",
+                "cancel": "Annulla",
+                "unfollow": "Smetti di seguire"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Alcune regole di base.",
-            "subtitle": "Questi sono impostati e applicati dai moderatori %s.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Continuando, sei soggetto alle condizioni di servizio e all'informativa sulla privacy per %s.",
             "terms_of_service": "condizioni del servizio",
             "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "Sono d'accordo"
+                "confirm": "Sono d'accordo",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
@@ -751,9 +770,20 @@
                     "light": "Chiaro",
                     "system": "Utilizza l'aspetto del dispositivo"
                 },
+                "ask_before": {
+                    "section_title": "Chiedi prima di…",
+                    "posting_without_alt_text": "Pubblicare senza il testo alternativo",
+                    "unfollowing_someone": "Smettere di seguire qualcuno",
+                    "boosting_a_post": "Condividere un post",
+                    "deleting_a_post": "Cancellare un post"
+                },
                 "design": {
                     "section_title": "Stile",
                     "show_animations": "Riproduci avatar ed emoji animati"
+                },
+                "language": {
+                    "section_title": "Lingua",
+                    "default_post_language": "Lingua predefinita dei post"
                 },
                 "links": {
                     "section_title": "Collegamenti",

@@ -52,6 +52,24 @@
                 "title": "Nota",
                 "message": "Falló la traducción. Tal vez el administrador no habilitó las traducciones en este servidor, o este servidor está ejecutando una versión antigua de Mastodon en donde las traducciones aún no estaban disponibles.",
                 "button": "Aceptar"
+            },
+            "media_missing_alt_text": {
+                "title": "Texto alternativo de medios, ausente",
+                "message": "%d de tus imágenes no tienen texto alternativo. ¿Querés enviar el mensaje de todos modos?",
+                "cancel": "Cancelar",
+                "post": "Enviar"
+            },
+            "boost_a_post": {
+                "title_boost": "¿Adherir al mensaje?",
+                "title_unboost": "¿Dejar de adherir al mensaje?",
+                "cancel": "Cancelar",
+                "boost": "Adherir",
+                "unboost": "Quitar adhesión"
+            },
+            "unfollow_user": {
+                "title": "¿Dejar de seguir a %@?",
+                "cancel": "Cancelar",
+                "unfollow": "Dejar de seguir"
             }
         },
         "controls": {
@@ -417,13 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Algunas reglas básicas.",
-            "subtitle": "Estas reglas son establecidas por los administradores de %s.",
+            "title": "Reglas del servidor",
+            "subtitle": "Al continuar, aceptás seguir las siguientes reglas establecidas y aplicadas por los moderadores de **%s**.",
             "prompt": "Al continuar, estás sujeto a los términos de servicio y política de privacidad de %s.",
             "terms_of_service": "términos del servicio",
             "privacy_policy": "política de privacidad",
             "button": {
-                "confirm": "Estoy de acuerdo"
+                "confirm": "Estoy de acuerdo",
+                "disagree": "Rechazar"
             }
         },
         "confirm_email": {
@@ -751,9 +770,20 @@
                     "light": "Clara",
                     "system": "Usar apariencia del dispositivo"
                 },
+                "ask_before": {
+                    "section_title": "Preguntar antes de…",
+                    "posting_without_alt_text": "Enviar sin texto alternativo",
+                    "unfollowing_someone": "Dejar de seguir a alguien",
+                    "boosting_a_post": "Adherir a un mensaje",
+                    "deleting_a_post": "Eliminar un mensaje"
+                },
                 "design": {
                     "section_title": "Diseño",
                     "show_animations": "Reproducir avatares animados y emojis"
+                },
+                "language": {
+                    "section_title": "Idioma",
+                    "default_post_language": "Idioma predeterminado de mensajes"
                 },
                 "links": {
                     "section_title": "Enlaces",
