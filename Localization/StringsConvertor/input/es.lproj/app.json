@@ -685,7 +685,7 @@
                 "hashtag": "Ir a %s",
                 "no_user": {
                     "title": "Cuenta de usuario no encontrada",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "message": "No existe ninguna cuenta de usuario \"%s\" en %s"
                 },
                 "empty_state": {
                     "no_results": "Sin resultados"
@@ -706,7 +706,7 @@
             "intro": "Estas son las publicaciones que están ganando tracción en tu rincón de Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Favoritos"
         },
         "notification": {
             "title": {
@@ -738,26 +738,26 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Ajustes",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "Notificaciones",
                 "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "about_mastodon": "Acerca de Mastodon",
+                "server_details": "Detalles del servidor",
+                "logout": "Cerrar sesión %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Acerca de",
                 "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "contribute_to_mastodon": "Contribuir a Mastodon",
+                "privacy_policy": "Política de privacidad",
+                "clear_media_storage": "Limpiar almacenamiento multimedia"
             },
             "server_details": {
-                "about": "About",
+                "about": "Acerca de",
                 "rules": "Rules",
                 "about_instance": {
-                    "title": "Administrator",
+                    "title": "Administrador",
                     "message_admin": "Message Admin",
                     "legal_notice": "A legal notice"
                 }
@@ -765,14 +765,14 @@
             "general": {
                 "title": "General",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Apariencia",
+                    "dark": "Oscuro",
+                    "light": "Claro",
+                    "system": "Usar apariencia del dispositivo"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
+                    "section_title": "Preguntar antes de…",
+                    "posting_without_alt_text": "Publicar sin texto Alt",
                     "unfollowing_someone": "Unfollowing Someone",
                     "boosting_a_post": "Boosting a Post",
                     "deleting_a_post": "Deleting a Post"
