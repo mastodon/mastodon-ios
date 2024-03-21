@@ -56,20 +56,20 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
+                "cancel": "Cancelar",
                 "post": "Post"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Cancelar",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "cancel": "Cancelar",
+                "unfollow": "Dejar de seguir"
             }
         },
         "controls": {
@@ -115,11 +115,11 @@
                     "title": "Traducir desde %s",
                     "unknown_language": "Desconocido"
                 },
-                "edit_post": "Edit",
+                "edit_post": "Editar",
                 "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "remove_bookmark": "Eliminar marcador",
+                "follow": "Seguir a %s",
+                "unfollow": "Dejar de seguir a %s"
             },
             "tabs": {
                 "home": "Inicio",
@@ -127,8 +127,8 @@
                 "notifications": "Notificaciones",
                 "profile": "Perfil",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Buscar",
+                    "explore": "Explorar"
                 }
             },
             "keyboard": {
@@ -212,7 +212,7 @@
                     "translated_from": "Traducido desde %s usando %s",
                     "unknown_language": "Desconocido",
                     "unknown_provider": "Desconocido",
-                    "show_original": "Show Original"
+                    "show_original": "Mostrar original"
                 },
                 "media": {
                     "accessibility_label": "%s, adjunto %d de %d",
@@ -223,13 +223,13 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
+                    "favorites_title": "Favoritos",
+                    "edit_history_title": "Editar historial",
                     "edit_history_detail": "Last edit %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Editado %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "Editar historial",
                     "original_post": "Original Post · %s"
                 }
             },
@@ -240,11 +240,11 @@
                 "pending": "Pendiente",
                 "block": "Bloquear",
                 "block_user": "Bloquear a %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Bloquear dominio %s",
                 "unblock": "Desbloquear",
                 "unblock_user": "Desbloquear a %s",
                 "blocked": "Bloqueado",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Dominio bloqueado",
                 "mute": "Silenciar",
                 "mute_user": "Silenciar a %s",
                 "unmute": "Desmutear",
@@ -276,14 +276,14 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Enlace no verificado",
+            "followers_count": "%@ seguidores"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Iniciar sesión",
-            "learn_more": "Learn more",
+            "learn_more": "Saber más",
             "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
@@ -300,7 +300,7 @@
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "¿Qué es Mastodon?"
                     }
                 }
             }
@@ -313,9 +313,9 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Elegir servidor",
             "button": {
-                "language": "Language",
+                "language": "Idioma",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Todas",
@@ -352,7 +352,7 @@
             "signup_speed": {
                 "all": "All",
                 "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "manually_reviewed": "Revisión manual"
             },
             "language": {
                 "all": "All"
@@ -524,8 +524,8 @@
                 "option_number": "Opción %ld",
                 "the_poll_is_invalid": "La encuesta no es válida",
                 "the_poll_has_empty_option": "La encuesta tiene una opción vacía",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
+                "add_option": "Añadir opción",
+                "remove_option": "Eliminar opción",
                 "move_up": "Move Up",
                 "move_down": "Move Down"
             },
@@ -625,11 +625,11 @@
                     "message": "Confirmar para ocultar reblogs"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
+                    "title": "Bloquear dominio",
                     "message": "Confirm to block domain %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
+                    "title": "Desbloquear dominio",
                     "message": "Confirm to unblock domain %s"
                 }
             },
@@ -682,9 +682,9 @@
                 "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "hashtag": "Ir a %s",
                 "no_user": {
-                    "title": "No User Account Found",
+                    "title": "Cuenta de usuario no encontrada",
                     "message": "There's no Useraccount \"%s\" on %s"
                 },
                 "empty_state": {
