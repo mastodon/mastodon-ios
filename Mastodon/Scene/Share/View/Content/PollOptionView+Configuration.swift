@@ -66,35 +66,52 @@ extension PollOptionView {
         let userID = authContext?.mastodonAuthenticationBox.userID ?? ""
         
         let options = poll.options
-        let pollVoteBy = poll.votedBy ?? Set()
-
-        let isMyPoll = authorDomain == domain
-                    && authorID == userID
-
-        let votedOptions = options.filter { option in
-            let votedBy = option.votedBy ?? Set()
-            return votedBy.contains(where: { $0.id == userID && $0.domain == domain })
-        }
-        let isRemoteVotedOption = votedOptions.contains(where: { $0.index == optionIndex })
-        let isRemoteVotedPoll = pollVoteBy.contains(where: { $0.id == userID && $0.domain == domain })
-
-        let isLocalVotedOption = isSelected
-
-        let isSelect: Bool? = {
-            if isLocalVotedOption {
-                return true
-            } else if !votedOptions.isEmpty {
-                return isRemoteVotedOption ? true : false
-            } else if isRemoteVotedPoll, votedOptions.isEmpty {
-                // the poll voted. But server not mark voted options
-                return nil
-            } else {
-                return false
-            }
-        }()
-        self.viewModel.isSelect = isSelect
-        self.viewModel.isPollVoted = isRemoteVotedPoll
-        self.viewModel.isMyPoll = isMyPoll
+//        let pollVoteBy = poll.votedBy ?? Set()
+//
+//        let isMyPoll = authorDomain == domain
+//                    && authorID == userID
+//
+//        let votedOptions = options.filter { option in
+//            let votedBy = option.votedBy ?? Set()
+//            return votedBy.contains(where: { $0.id == userID && $0.domain == domain })
+//        }
+//        let isRemoteVotedOption = votedOptions.contains(where: { $0.index == optionIndex })
+//        let isRemoteVotedPoll = pollVoteBy.contains(where: { $0.id == userID && $0.domain == domain })
+//
+//        let isLocalVotedOption = isSelected
+//
+//        let isSelect: Bool? = {
+//            if isLocalVotedOption {
+//                return true
+//            } else if !votedOptions.isEmpty {
+//                return isRemoteVotedOption ? true : false
+//            } else if isRemoteVotedPoll, votedOptions.isEmpty {
+//                // the poll voted. But server not mark voted options
+//                return nil
+//            } else {
+//                return false
+//            }
+//        }()
+        self.viewModel.isSelect = false
+        self.viewModel.isPollVoted = poll.voted == true
+        self.viewModel.isMyPoll = poll.ownVotes != nil
+        
+//        viewModel.$authContext
+//            .compactMap { authContext -> AnyPublisher<Mastodon.Response.Content<Mastodon.API.Polls>, Error>? in
+//                guard let authContext else { return nil }
+//                return Mastodon.API.Polls.poll(
+//                    session: .shared,
+//                    domain: authContext.mastodonAuthenticationBox.domain,
+//                    pollID: poll.id,
+//                    authorization: authContext.mastodonAuthenticationBox.userAuthorization
+//                )
+//            }
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveValue: { value in
+//                
+//            })
+//            .store(in: &disposeBag)
+        
 //        Publishers.CombineLatest4(
 //            option.publisher(for: \.poll),
 //            option.publisher(for: \.votedBy),
