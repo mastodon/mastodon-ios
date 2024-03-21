@@ -12,8 +12,8 @@
                 "title": "Server Error"
             },
             "vote_failure": {
-                "title": "Szavazási hiba",
-                "poll_ended": "A szavazás véget ért"
+                "title": "Vote Failure",
+                "poll_ended": "The poll has ended"
             },
             "publish_post_failure": {
                 "title": "Publish Failure",
@@ -24,13 +24,13 @@
                 }
             },
             "edit_profile_failure": {
-                "title": "Profil hiba módosítása",
-                "message": "Nem lehet módosítani a profilt. Próbálja újra."
+                "title": "Edit Profile Error",
+                "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Kijelentkezés",
-                "message": "Valóban ki akar jelentkezni?",
-                "confirm": "Kijelentkezés"
+                "title": "Sign Out",
+                "message": "Are you sure you want to sign out?",
+                "confirm": "Sign Out"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -41,7 +41,7 @@
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Bejegyzés törlése",
+                "title": "Delete Post",
                 "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
@@ -56,52 +56,52 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Mégsem",
-                "post": "Bejegyzés"
+                "cancel": "Cancel",
+                "post": "Post"
             },
             "boost_a_post": {
-                "title_boost": "Bejegyzés megtolása?",
+                "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Mégsem",
-                "boost": "Megtolás",
+                "cancel": "Cancel",
+                "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Mégsem",
-                "unfollow": "Kikövetés"
+                "cancel": "Cancel",
+                "unfollow": "Unfollow"
             }
         },
         "controls": {
             "actions": {
-                "back": "Vissza",
-                "next": "Következő",
-                "previous": "Előző",
+                "back": "Back",
+                "next": "Next",
+                "previous": "Previous",
                 "open": "Open",
                 "add": "Add",
                 "remove": "Remove",
-                "edit": "Módosítás",
+                "edit": "Edit",
                 "save": "Save",
                 "ok": "OK",
                 "done": "Done",
                 "confirm": "Confirm",
-                "continue": "Folytatás",
+                "continue": "Continue",
                 "compose": "Compose",
-                "cancel": "Mégsem",
+                "cancel": "Cancel",
                 "discard": "Discard",
                 "try_again": "Try Again",
                 "take_photo": "Take Photo",
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
-                "sign_in": "Bejelentkezés",
+                "sign_in": "Log in",
                 "see_more": "See More",
                 "preview": "Preview",
                 "copy": "Copy",
                 "share": "Share",
                 "share_user": "Share %s",
-                "share_post": "Bejegyzés megosztása",
-                "open_in_safari": "Megnyitás Safariban",
-                "open_in_browser": "Megnyitás böngészőben",
+                "share_post": "Share Post",
+                "open_in_safari": "Open in Safari",
+                "open_in_browser": "Open in Browser",
                 "find_people": "Find people to follow",
                 "manually_search": "Manually search instead",
                 "skip": "Skip",
@@ -109,26 +109,26 @@
                 "report_user": "Report %s",
                 "block_domain": "Block %s",
                 "unblock_domain": "Unblock %s",
-                "settings": "Beállítások",
-                "delete": "Törlés",
+                "settings": "Settings",
+                "delete": "Delete",
                 "translate_post": {
                     "title": "Translate from %s",
-                    "unknown_language": "Ismeretlen"
+                    "unknown_language": "Unknown"
                 },
-                "edit_post": "Módosítás",
+                "edit_post": "Edit",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
                 "unfollow": "Unfollow %s"
             },
             "tabs": {
-                "home": "Főoldal",
-                "search_and_explore": "Keresés és felfedezés",
-                "notifications": "Értesítések",
-                "profile": "Profil",
+                "home": "Home",
+                "search_and_explore": "Search and Explore",
+                "notifications": "Notifications",
+                "profile": "Profile",
                 "a11y": {
-                    "search": "Keresés",
-                    "explore": "Felfedezés"
+                    "search": "Search",
+                    "explore": "Explore"
                 }
             },
             "keyboard": {
@@ -136,15 +136,15 @@
                     "switch_to_tab": "Switch to %s",
                     "compose_new_post": "Compose New Post",
                     "show_favorites": "Show Favorites",
-                    "open_settings": "Beállítások megnyitása"
+                    "open_settings": "Open Settings"
                 },
                 "timeline": {
-                    "previous_status": "Előző bejegyzés",
-                    "next_status": "Következő bejegyzés",
-                    "open_status": "Bejegyzés megnyitása",
+                    "previous_status": "Previous Post",
+                    "next_status": "Következő bejegyzések",
+                    "open_status": "Open Post",
                     "open_author_profile": "Open Author's Profile",
                     "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Válasz a bejegyzésre",
+                    "reply_status": "Reply to Post",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
@@ -167,7 +167,7 @@
                 "load_embed": "Load Embed",
                 "link_via_user": "%s via %s",
                 "poll": {
-                    "vote": "Szavazás",
+                    "vote": "Vote",
                     "closed": "Closed"
                 },
                 "meta_entity": {
@@ -224,18 +224,18 @@
                 "buttons": {
                     "reblogs_title": "Reblogs",
                     "favorites_title": "Favorites",
-                    "edit_history_title": "Szerkesztési előzmények",
-                    "edit_history_detail": "Utoljára módosítva %s"
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
                 },
-                "edited_at_timestamp_prefix": "Módosítva %s",
+                "edited_at_timestamp_prefix": "Edited %s",
                 "edit_history": {
-                    "title": "Szerkesztési előzmények",
-                    "original_post": "Eredeti bejegyzés · %s"
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
             },
             "friendship": {
-                "follow": "Követés",
-                "following": "Követve",
+                "follow": "Follow",
+                "following": "Following",
                 "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
@@ -282,7 +282,7 @@
     },
     "scene": {
         "welcome": {
-            "log_in": "Bejelentkezés",
+            "log_in": "Log In",
             "learn_more": "Learn more",
             "join_default_server": "Join %@",
             "pick_server": "Pick another server",
@@ -306,7 +306,7 @@
             }
         },
         "login": {
-            "title": "Üdv ismét",
+            "title": "Welcome back",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
@@ -315,7 +315,7 @@
         "server_picker": {
             "title": "Pick Server",
             "button": {
-                "language": "Nyelv",
+                "language": "Language",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "All",
@@ -337,9 +337,9 @@
                 "see_more": "See More"
             },
             "label": {
-                "language": "NYELV",
-                "users": "FELHASZNÁLÓK",
-                "category": "KATEGÓRIA"
+                "language": "LANGUAGE",
+                "users": "USERS",
+                "category": "CATEGORY"
             },
             "input": {
                 "search_servers_or_enter_url": "Search communities or enter URL"
@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Szerver szabályok",
-            "subtitle": "A folytatással beleegyezik, hogy betartja a következő szabályokat, amelyeket a **%@** moderátorok állítanak fel és tartatnak be.",
+            "title": "Server Rules",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%@** moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
-            "privacy_policy": "adatvédelmi szabályzat",
+            "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "Elfogadom",
-                "disagree": "Nem értek egyet vele"
+                "confirm": "I Agree",
+                "disagree": "Disagree"
             }
         },
         "confirm_email": {
@@ -469,7 +469,7 @@
             }
         },
         "home_timeline": {
-            "title": "Főoldal",
+            "title": "Home",
             "navigation_bar_state": {
                 "offline": "Offline",
                 "new_posts": "See new posts",
@@ -487,9 +487,9 @@
         },
         "compose": {
             "title": {
-                "new_post": "Új bejegyzés",
+                "new_post": "New Post",
                 "new_reply": "New Reply",
-                "edit_post": "Bejegyzés módosítása"
+                "edit_post": "Bejegyzés szerkesztése"
             },
             "media_selection": {
                 "camera": "Take Photo",
@@ -572,12 +572,12 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "my_posts": "bejegyzések",
-                "my_following": "követve",
-                "my_followers": "követők",
-                "other_posts": "bejegyzések",
-                "other_following": "követve",
-                "other_followers": "követők",
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers",
                 "familiar_followers": "mutuals"
             },
             "fields": {
@@ -593,7 +593,7 @@
                 }
             },
             "segmented_control": {
-                "posts": "Bejegyzések",
+                "posts": "Posts",
                 "replies": "Replies",
                 "posts_and_replies": "Posts and Replies",
                 "media": "Media",
@@ -635,17 +635,17 @@
             },
             "accessibility": {
                 "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Avatar kép módosítása",
+                "edit_avatar_image": "Edit avatar image",
                 "show_banner_image": "Show banner image",
                 "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
-            "title": "követő",
+            "title": "follower",
             "footer": "Followers from other servers are not displayed."
         },
         "following": {
-            "title": "követve",
+            "title": "following",
             "footer": "Follows from other servers are not displayed."
         },
         "familiarFollowers": {
@@ -697,7 +697,7 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Bejegyzések",
+                "posts": "Posts",
                 "hashtags": "Hashtags",
                 "news": "News",
                 "community": "Community",
@@ -733,7 +733,7 @@
             }
         },
         "thread": {
-            "back_title": "Bejegyzés",
+            "back_title": "Post",
             "title": "Post from %s"
         },
         "settings": {
@@ -744,7 +744,7 @@
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
                 "server_details": "Server Details",
-                "logout": "Kijelentkezés %@"
+                "logout": "Logout %@"
             },
             "about_mastodon": {
                 "title": "About",
@@ -755,7 +755,7 @@
             },
             "server_details": {
                 "about": "About",
-                "rules": "Szabályok",
+                "rules": "Rules",
                 "about_instance": {
                     "title": "Administrator",
                     "message_admin": "Message Admin",
@@ -885,13 +885,13 @@
         "followed_tags": {
             "title": "Followed Tags",
             "header": {
-                "posts": "bejegyzések",
+                "posts": "posts",
                 "participants": "participants",
-                "posts_today": "mai bejegyzések"
+                "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Követés",
-                "unfollow": "Kikövetés"
+                "follow": "Follow",
+                "unfollow": "Unfollow"
             }
         }
     },
