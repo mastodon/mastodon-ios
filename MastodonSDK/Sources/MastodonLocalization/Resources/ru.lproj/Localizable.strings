@@ -1,5 +1,10 @@
 "Common.Alerts.BlockDomain.BlockEntireDomain" = "Заблокировать узел";
 "Common.Alerts.BlockDomain.Title" = "Вы очень точно уверены, что хотите полностью заблокировать %@? В большинстве случаев пары блокировок и добавлений в игнорируемые вполне достаточно. Вы перестанете видеть содержимое с этого узла и все ваши подписчики оттуда будут убраны.";
+"Common.Alerts.BoostAPost.Boost" = "Boost";
+"Common.Alerts.BoostAPost.Cancel" = "Cancel";
+"Common.Alerts.BoostAPost.TitleBoost" = "Boost Post?";
+"Common.Alerts.BoostAPost.TitleUnboost" = "Unboost Post?";
+"Common.Alerts.BoostAPost.Unboost" = "Unboost";
 "Common.Alerts.CleanCache.Message" = "Успешно очищено %@ кэша.";
 "Common.Alerts.CleanCache.Title" = "Очистка кэша";
 "Common.Alerts.Common.PleaseTryAgain" = "Пожалуйста, попробуйте ещё раз.";
@@ -8,6 +13,11 @@
 "Common.Alerts.DeletePost.Title" = "Вы уверены, что хотите удалить этот пост?";
 "Common.Alerts.EditProfileFailure.Message" = "Не удаётся изменить профиль. Пожалуйста, попробуйте ещё раз.";
 "Common.Alerts.EditProfileFailure.Title" = "Ошибка изменения профиля";
+"Common.Alerts.MediaMissingAltText.Cancel" = "Cancel";
+"Common.Alerts.MediaMissingAltText.Message" = "%d of your images are missing alt text.
+Post Anyway?";
+"Common.Alerts.MediaMissingAltText.Post" = "Post";
+"Common.Alerts.MediaMissingAltText.Title" = "Media Missing Alt Text";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Невозможно прикрепить более одного видео.";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.VideoAttachWithPhoto" = "Невозможно прикрепить видео к посту, содержащему изображения.";
 "Common.Alerts.PublishPostFailure.Message" = "Не удалось опубликовать пост.
@@ -23,6 +33,9 @@
 "Common.Alerts.TranslationFailed.Button" = "OK";
 "Common.Alerts.TranslationFailed.Message" = "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.";
 "Common.Alerts.TranslationFailed.Title" = "Note";
+"Common.Alerts.UnfollowUser.Cancel" = "Cancel";
+"Common.Alerts.UnfollowUser.Title" = "Unfollow %@?";
+"Common.Alerts.UnfollowUser.Unfollow" = "Unfollow";
 "Common.Alerts.VoteFailure.PollEnded" = "Опрос уже завершился";
 "Common.Alerts.VoteFailure.Title" = "Не удалось проголосовать";
 "Common.Controls.Actions.Add" = "Добавить";
@@ -497,11 +510,12 @@
 "Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "Manual Review";
 "Scene.ServerPicker.Title" = "Pick Server";
 "Scene.ServerRules.Button.Confirm" = "I Agree";
+"Scene.ServerRules.Button.Disagree" = "Disagree";
 "Scene.ServerRules.PrivacyPolicy" = "политика конфиденциальности";
 "Scene.ServerRules.Prompt" = "Продолжая, вы соглашаетесь с условиям использования и политикой конфиденциальности %@.";
-"Scene.ServerRules.Subtitle" = "Эти правила установлены администраторами %@.";
+"Scene.ServerRules.Subtitle" = "By continuing, you agree to follow by the following rules set and enforced by the **%@** moderators.";
 "Scene.ServerRules.TermsOfService" = "условия использования";
-"Scene.ServerRules.Title" = "Несколько основных правил.";
+"Scene.ServerRules.Title" = "Server Rules";
 "Scene.Settings.AboutMastodon.ClearMediaStorage" = "Clear Media Storage";
 "Scene.Settings.AboutMastodon.ContributeToMastodon" = "Contribute to Mastodon";
 "Scene.Settings.AboutMastodon.MoreSettings" = "Even More Settings";
@@ -511,8 +525,15 @@
 "Scene.Settings.General.Appearance.Light" = "Light";
 "Scene.Settings.General.Appearance.SectionTitle" = "Appearance";
 "Scene.Settings.General.Appearance.System" = "Use Device Appearance";
+"Scene.Settings.General.AskBefore.BoostingAPost" = "Boosting a Post";
+"Scene.Settings.General.AskBefore.DeletingAPost" = "Deleting a Post";
+"Scene.Settings.General.AskBefore.PostingWithoutAltText" = "Posting without Alt Text";
+"Scene.Settings.General.AskBefore.SectionTitle" = "Ask before…";
+"Scene.Settings.General.AskBefore.UnfollowingSomeone" = "Unfollowing Someone";
 "Scene.Settings.General.Design.SectionTitle" = "Design";
 "Scene.Settings.General.Design.ShowAnimations" = "Play Animated Avatars and Emoji";
+"Scene.Settings.General.Language.DefaultPostLanguage" = "Default Post Language";
+"Scene.Settings.General.Language.SectionTitle" = "Language";
 "Scene.Settings.General.Links.OpenInBrowser" = "Open in Browser";
 "Scene.Settings.General.Links.OpenInMastodon" = "Open in Mastodon";
 "Scene.Settings.General.Links.SectionTitle" = "Links";
