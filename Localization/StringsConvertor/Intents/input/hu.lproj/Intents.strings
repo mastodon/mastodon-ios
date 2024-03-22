@@ -26,11 +26,11 @@
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "A 'Csak követőknek' opciónak megfelelő ${count} opció van.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, nyilvános";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Csak követőknek";
 
 "dUyuGg" = "Post on Mastodon";
 
@@ -42,9 +42,9 @@
 
 "k7dbKQ" = "Post was sent successfully.";
 
-"oGiqmY-dYQ5NN" = "Csak megerősítésként, a \"Public\"-ot akarta?";
+"oGiqmY-dYQ5NN" = "Csak megerősítésként, a \"Nyilvános\"-t akarta?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Csak megerősítésként, a \"Csak követőknek\" opciót akarta?";
 
 "rM6dvp" = "Webcím";
 
