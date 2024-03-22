@@ -1,6 +1,6 @@
 "16wxgf" = "Post on Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Szöveges tartalom";
 
 "CsR7G2" = "Post on Mastodon";
 
@@ -12,17 +12,17 @@
 
 "RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Bejegyzés";
 
 "WCIR3D" = "Post ${content} on Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Bejegyzés";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Láthatóság";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Bejegyzés láthatósága";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
@@ -34,9 +34,9 @@
 
 "dUyuGg" = "Post on Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Nyilvános";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Csak követőknek";
 
 "gfePDu" = "Posting failed. ${failureReason}";
 
@@ -46,6 +46,6 @@
 
 "oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
 
-"rM6dvp" = "URL";
+"rM6dvp" = "Webcím";
 
 "ryJLwG" = "Post was sent successfully. ";
