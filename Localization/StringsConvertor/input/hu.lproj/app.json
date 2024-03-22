@@ -6,7 +6,7 @@
                 "please_try_again_later": "Próbálja meg később."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Bejelentkezési hiba"
             },
             "server_error": {
                 "title": "Szerverhiba"
@@ -20,7 +20,7 @@
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "more_than_one_video": "Nem lehet egynél több videót csatolni."
                 }
             },
             "edit_profile_failure": {
@@ -33,7 +33,7 @@
                 "confirm": "Kijelentkezés"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "Biztos benne, hogy az egész %s-t blokkolni akarja? A legtöbb esetben néhány célzott blokkolás vagy némítás elegendő és előnyösebb. Nem fogja látni az adott tartomány tartalmát, és az adott tartományból származó követőit is eltávolítjuk.",
                 "block_entire_domain": "Domain letiltása"
             },
             "save_photo_failure": {
@@ -94,16 +94,16 @@
                 "save_photo": "Fotó mentése",
                 "copy_photo": "Fotó másolása",
                 "sign_in": "Bejelentkezés",
-                "see_more": "See More",
+                "see_more": "Még több",
                 "preview": "Előnézet",
                 "copy": "Másolás",
                 "share": "Megosztás",
-                "share_user": "Share %s",
+                "share_user": "%s megosztása",
                 "share_post": "Bejegyzés megosztása",
                 "open_in_safari": "Megnyitás Safariban",
                 "open_in_browser": "Megnyitás böngészőben",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
+                "find_people": "Követhetők keresése",
+                "manually_search": "Manuális keresés helyette",
                 "skip": "Átugrás",
                 "reply": "Válasz",
                 "report_user": "%s jelentése",
@@ -147,7 +147,7 @@
                     "reply_status": "Válasz a bejegyzésre",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_content_warning": "Tartalmi figyelmeztetés ki/be",
                     "preview_image": "Kép előnézete"
                 },
                 "segmented_control": {
@@ -204,12 +204,12 @@
                 },
                 "visibility": {
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "private": "Ezt a bejegyzést csak az ő követőik láthatják.",
+                    "private_from_me": "Csak az ön követői láthatják ezt a bejegyzést.",
+                    "direct": "Csak az említett felhasználó láthatja ezt a hozzászólást."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "%s nyelvről fordítva %s szolgáltatással",
                     "unknown_language": "Ismeretlen",
                     "unknown_provider": "Ismeretlen",
                     "show_original": "Eredeti megtekintése"
@@ -218,7 +218,7 @@
                     "accessibility_label": "%s, attachment %d of %d",
                     "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_video_hint": "Megjeleníti a videólejátszót. Kettős koppintás és nyomva tartás a lehetőségek megjelenítéséhez"
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
@@ -266,12 +266,12 @@
                 },
                 "header": {
                     "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "blocking_warning": "Nem láthatja ennek a felhasználónak a profilját,\namíg fel nem oldja a blokkolását.\nAz ön profilja így néz ki számukra.",
+                    "user_blocking_warning": "Nem láthatja %s profilját,\namíg fel nem oldja a blokkolását.\nAz ön profilja így néz ki számukra.",
+                    "blocked_warning": "Nem tekintheti meg a felhasználó profilját,\namíg fel nem oldja az ön blokkolását.",
+                    "user_blocked_warning": "Nem láthatja %s profilját,\namíg fel nem oldják az ön blokkolását.",
+                    "suspended_warning": "Ez a felhasználó fel van függesztve.",
+                    "user_suspended_warning": "%s fiókját felfüggesztették."
                 }
             }
         },
@@ -285,7 +285,7 @@
             "log_in": "Bejelentkezés",
             "learn_more": "Learn more",
             "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "pick_server": "Másik kiszolgáló választása",
             "separator": {
                 "or": "vagy"
             },
@@ -307,9 +307,9 @@
         },
         "login": {
             "title": "Üdv újra itt",
-            "subtitle": "Log you in on the server you created your account on.",
+            "subtitle": "Jelentkezzen be azon a szerveren, amelyen a fiókját létrehozta.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Adja meg az URL-t vagy keresse meg a szervert"
             }
         },
         "server_picker": {
@@ -318,7 +318,7 @@
                 "language": "Nyelv",
                 "signup_speed": "Sign-up Speed",
                 "category": {
-                    "all": "All",
+                    "all": "Összes",
                     "all_accessiblity_description": "Kategória: összes",
                     "academia": "egyetem/felsőoktatás",
                     "activism": "aktivizmus",
@@ -350,12 +350,12 @@
                 "no_results": "Nincs találat"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Összes",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Kézi ellenőrzés"
             },
             "language": {
-                "all": "All"
+                "all": "Összes"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -420,8 +420,8 @@
                     "taken": "%s is already taken. How about:",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
+                    "blank": "%s megadása kötelező",
+                    "invalid": "%s érvénytelen",
                     "too_long": "%s túl hosszú",
                     "too_short": "%s túl rövid",
                     "inclusion": "%s nem támogatott érték"
@@ -447,9 +447,9 @@
         },
         "confirm_email": {
             "title": "Nézze meg a bejövő e-maileket",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Kattintson a hivatkozásra, melyet a %@ ellenőrzése céljából küldtünk önnek. Mi addig itt várunk.",
             "button": {
-                "resend": "Resend"
+                "resend": "Újraküldés"
             },
             "dont_receive_email": {
                 "title": "Ellenőrizze az e-mailjeit",
@@ -483,7 +483,7 @@
         },
         "suggestion_account": {
             "title": "Népszerű a Mastodonon",
-            "follow_all": "Follow all"
+            "follow_all": "Összes követése"
         },
         "compose": {
             "title": {
@@ -496,7 +496,7 @@
                 "photo_library": "Fotókönyvtár",
                 "browse": "Tallózás"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
+            "content_input_placeholder": "Írja vagy illessze be, ami a fejében van",
             "compose_action": "Közzététel",
             "replying_to_user": "replying to %s",
             "attachment": {
@@ -508,9 +508,9 @@
                 "load_failed": "Load Failed",
                 "upload_failed": "Sikertelen feltöltés",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "attachment_too_large": "A melléklet túl nagy",
+                "compressing_state": "Tömörítés...",
+                "server_processing_state": "Szerver feldolgozás..."
             },
             "poll": {
                 "title": "Szavazás",
@@ -546,8 +546,8 @@
                 "append_poll": "Szavazás létrehozása",
                 "remove_poll": "Szavazás eltávolítása",
                 "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
+                "enable_content_warning": "Tartalmi figyelmeztetés engedélyezése",
+                "disable_content_warning": "Tartalmi figyelmeztetés kikapcsolása",
                 "post_visibility_menu": "Bejegyzés láthatósági menü",
                 "post_options": "Bejegyzés opciók",
                 "posting_as": "Posting as %s"
@@ -556,7 +556,7 @@
                 "discard_post": "Discard Post",
                 "publish_post": "Bejegyzés közzététele",
                 "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "Tartalmi figyelmeztetés ki/be",
                 "append_attachment_entry": "Melléklet hozzáadása - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             },
@@ -588,8 +588,8 @@
                     "content": "Tartalom"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Ellenőrive %s",
+                    "long": "E link tulajdonjogát %s-en ellenőrizték"
                 }
             },
             "segmented_control": {
@@ -672,8 +672,8 @@
                     "people_talking": "%s ember beszél róla"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
+                    "title": "Fiókok, amelyek érdekelhetik Önt",
+                    "description": "Ezeket a fiókokat érdemes követni",
                     "follow": "Követés"
                 }
             },
@@ -710,20 +710,20 @@
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
+                "Everything": "Összes",
                 "Mentions": "Említések"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "követi önt",
+                "favorited_your_post": "kedvencnek jelölte a bejegyzését",
+                "reblogged_your_post": "megtolta a bejegyzését",
+                "mentioned_you": "megemlítette Önt",
+                "request_to_follow_you": "kérte, hogy követhessen",
+                "poll_has_ended": "a szavazás véget ért"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Minden mutatása",
+                "show_mentions": "Megemlítések mutatása"
             },
             "follow_request": {
                 "accept": "Elfogadás",
@@ -734,7 +734,7 @@
         },
         "thread": {
             "back_title": "Bejegyzés",
-            "title": "Post from %s"
+            "title": "Bejegyzés tőle: %s"
         },
         "settings": {
             "overview": {
@@ -751,7 +751,7 @@
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "Adatvédelmi szabályzat",
-                "clear_media_storage": "Clear Media Storage"
+                "clear_media_storage": "Mediatároló törlése"
             },
             "server_details": {
                 "about": "Névjegy",
@@ -773,7 +773,7 @@
                 "ask_before": {
                     "section_title": "Kérdezzen, mielőtt…",
                     "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
+                    "unfollowing_someone": "Valaki követésének törlése",
                     "boosting_a_post": "Boosting a Post",
                     "deleting_a_post": "Deleting a Post"
                 },
@@ -808,7 +808,7 @@
                 },
                 "disabled": {
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "go_to_settings": "Ugrás az Értesítések beállításaihoz"
                 }
             }
         },
@@ -821,27 +821,27 @@
             "content2": "Is there anything the moderators should know about this report?",
             "report_sent_title": "Thanks for reporting, we’ll look into this.",
             "send": "Jelentés küldése",
-            "skip_to_send": "Send without comment",
+            "skip_to_send": "Küldés megjegyzés nélkül",
             "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED",
+            "reported": "JELENTETT",
             "step_one": {
                 "step_1_of_4": "1/4. lépés",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
+                "whats_wrong_with_this_post": "Mi a probléma ezzel a bejegyzéssel?",
+                "whats_wrong_with_this_account": "Mi a probléma ezzel a fiókkal?",
+                "whats_wrong_with_this_username": "Mi a probléma ezzel: %s?",
+                "select_the_best_match": "Válassza ki a legjobb találatot",
+                "i_dont_like_it": "Nem tetszik",
+                "it_is_not_something_you_want_to_see": "Ez nem olyan, amit látni akarok",
                 "its_spam": "Ez spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Rosszindulatú linkek, hamis elkötelezettség vagy ismétlődő válaszok",
                 "it_violates_server_rules": "Megsérti a szerver szabályait",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "its_something_else": "Valami más",
+                "the_issue_does_not_fit_into_other_categories": "Az eset nem illik egyik kategóriába sem"
             },
             "step_two": {
                 "step_2_of_4": "2/4. lépés",
-                "which_rules_are_being_violated": "Which rules are being violated?",
+                "which_rules_are_being_violated": "Mely szabályok lettek megsértve?",
                 "select_all_that_apply": "Select all that apply",
                 "i_just_don’t_like_it": "I just don’t like it"
             },
@@ -855,7 +855,7 @@
                 "is_there_anything_else_we_should_know": "Is there anything else we should know?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
+                "dont_want_to_see_this": "Nem szeretné ezt látni?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
                 "unfollow": "Követés megszüntetése",
                 "unfollowed": "Nem követett",
@@ -875,7 +875,7 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "Jelenleg kiválasztott profil: %s. Dupla koppintás, majd lenyomva tartva megjelenik a fiókváltó",
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Fiók hozzáadása"
         },
