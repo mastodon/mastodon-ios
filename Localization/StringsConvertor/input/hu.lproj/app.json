@@ -61,7 +61,7 @@
             },
             "boost_a_post": {
                 "title_boost": "Megtolja a bejegyzést?",
-                "title_unboost": "Unboost Post?",
+                "title_unboost": "Megtolás visszavonása?",
                 "cancel": "Mégsem",
                 "boost": "Megtolás",
                 "unboost": "Megtolás visszavonása"
@@ -774,7 +774,7 @@
                     "section_title": "Kérdezzen, mielőtt…",
                     "posting_without_alt_text": "Posting without Alt Text",
                     "unfollowing_someone": "Valaki követésének törlése",
-                    "boosting_a_post": "Boosting a Post",
+                    "boosting_a_post": "Bejegyzés megtolása",
                     "deleting_a_post": "Deleting a Post"
                 },
                 "design": {
