@@ -38,7 +38,7 @@
             },
             "save_photo_failure": {
                 "title": "Kép mentési hiba",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "A fénykép mentéséhez engedélyezze a Fotókönyvtár hozzáférési jogosultságát."
             },
             "delete_post": {
                 "title": "Bejegyzés törlése",
@@ -90,10 +90,10 @@
                 "cancel": "Mégsem",
                 "discard": "Elvetés",
                 "try_again": "Újrapróbálkozás",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Log in",
+                "take_photo": "Fotó készítése",
+                "save_photo": "Fotó mentése",
+                "copy_photo": "Fotó másolása",
+                "sign_in": "Bejelentkezés",
                 "see_more": "See More",
                 "preview": "Előnézet",
                 "copy": "Másolás",
@@ -112,7 +112,7 @@
                 "settings": "Beállítások",
                 "delete": "Törlés",
                 "translate_post": {
-                    "title": "Translate from %s",
+                    "title": "Fordítás %s nyelvről",
                     "unknown_language": "Ismeretlen"
                 },
                 "edit_post": "Módosítás",
@@ -158,10 +158,10 @@
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
+                "show_post": "Bejegyzés megjelenítése",
+                "show_user_profile": "Felhasználói profil megjelenítése",
+                "content_warning": "Tartalmi figyelmeztetés",
+                "sensitive_content": "Kényes tartalom",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "load_embed": "Load Embed",
@@ -174,19 +174,19 @@
                     "url": "Link: %s",
                     "hashtag": "Hashtag: %s",
                     "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "email": "E-mail cím: %s"
                 },
                 "actions": {
                     "reply": "Válasz",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "favorite": "Kedvenc",
+                    "unfavorite": "Eltávolítás a Kedvencek közül",
                     "menu": "Menü",
                     "hide": "Elrejtés",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
+                    "show_image": "Kép megjelenítése",
+                    "show_gif": "GIF megjelenítése",
+                    "show_video_player": "Videólejátszó megjelenítése",
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
@@ -198,7 +198,7 @@
                     "url": "Webcím",
                     "mention": "Megemlítés",
                     "link": "Hivatkozás",
-                    "hashtag": "Címke",
+                    "hashtag": "Hashtag",
                     "email": "E-mail",
                     "emoji": "Hangulatjel"
                 },
@@ -212,7 +212,7 @@
                     "translated_from": "Translated from %s using %s",
                     "unknown_language": "Ismeretlen",
                     "unknown_provider": "Ismeretlen",
-                    "show_original": "Show Original"
+                    "show_original": "Eredeti megtekintése"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -225,12 +225,12 @@
                     "reblogs_title": "Reblogs",
                     "favorites_title": "Kedvencek",
                     "edit_history_title": "Előzmények módosítása",
-                    "edit_history_detail": "Last edit %s"
+                    "edit_history_detail": "Utoljára módosítva: %s"
                 },
                 "edited_at_timestamp_prefix": "Módosítva %s",
                 "edit_history": {
                     "title": "Előzmények módosítása",
-                    "original_post": "Original Post · %s"
+                    "original_post": "Eredeti bejegyzés · %s"
                 }
             },
             "friendship": {
@@ -276,7 +276,7 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
+            "no_verified_link": "Nem ellenőrzött link",
             "followers_count": "%@ követő"
         }
     },
@@ -291,16 +291,16 @@
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Üdvözlünk a Mastodon-on",
+                    "description": "A Mastodon egy decentralizált közösségi hálózat, ami azt jelenti, hogy nem egyetlen vállalat irányítja. Sok, egymástól függetlenül működtetett szerverből áll, amelyek össze vannak egymással kötve."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Mik azok a szerverek?",
+                    "description": "Minden Mastodon fiók egy szerveren van elhelyezve - mindegyiknek saját értékei, szabályai és adminisztrátorai vannak. Nem számít, melyiket választod, bármelyik szerveren lévő embereket követheted és kapcsolatba léphetsz velük."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Mi az a Mastodon?"
                     }
                 }
             }
@@ -313,7 +313,7 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Kiszolgáló választása",
             "button": {
                 "language": "Nyelv",
                 "signup_speed": "Sign-up Speed",
@@ -345,14 +345,14 @@
                 "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
+                "finding_servers": "Elérhető szerverek keresése...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "no_results": "Nincs találat"
             },
             "signup_speed": {
                 "all": "All",
                 "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "manually_reviewed": "Kézi ellenőrzés"
             },
             "language": {
                 "all": "All"
@@ -363,11 +363,11 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Privacy",
+            "title": "Adatvédelem",
             "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Adatvédelmi szabályzat - Mastodon for iOS",
+                "server": "Adatvédelmi szabályzat - %s"
             },
             "button": {
                 "confirm": "Elfogadom"
@@ -410,8 +410,8 @@
                     "username": "Felhasználónév",
                     "email": "E-mail",
                     "password": "Jelszó",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
+                    "agreement": "Megállapodás",
+                    "locale": "Régió",
                     "reason": "Indok"
                 },
                 "reason": {
@@ -422,59 +422,59 @@
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",
                     "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "too_long": "%s túl hosszú",
+                    "too_short": "%s túl rövid",
+                    "inclusion": "%s nem támogatott érték"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "A felhasználónév csak alfanumerikus karaktereket és alulvonásokat tartalmazhat",
+                    "username_too_long": "A felhasználónév túl hosszú (nem lehet hosszabb 30 karakternél)",
+                    "email_invalid": "Nem érvényes e-mail cím",
+                    "password_too_short": "A jelszó túl rövid (legalább 8 karakteresnek kell lennie)"
                 }
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Kiszolgáló szabályai",
+            "subtitle": "A folytatással beleegyezik, hogy követi a következő szabályokat, melyeket a **%s** moderátorai alkottak és tartatnak be.",
+            "prompt": "A folytatással Ön elfogadja a %s szolgáltatási feltételeit és adatvédelmi irányelveit.",
+            "terms_of_service": "felhasználási feltételek",
+            "privacy_policy": "adatvédelmi szabályzat",
             "button": {
-                "confirm": "I Agree",
-                "disagree": "Disagree"
+                "confirm": "Elfogadom",
+                "disagree": "Nem fogadom el"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "Nézze meg a bejövő e-maileket",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
                 "resend": "Resend"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Ellenőrizze az e-mailjeit",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "E-mail újraküldése"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Nézze meg a bejövő e-maileket.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "Levelezés",
-                "open_email_client": "Open Email Client"
+                "open_email_client": "E-mail kliens megnyitása"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Nem kapta meg a hivatkozást?",
+                "resend_in": "Újraküldés (%@)",
+                "resend_now": "Küldje újra most."
             }
         },
         "home_timeline": {
             "title": "Főoldal",
             "navigation_bar_state": {
                 "offline": "Nem elérhető",
-                "new_posts": "See new posts",
+                "new_posts": "Új bejegyzések",
                 "published": "Közzétéve!",
-                "Publishing": "Publishing post...",
+                "Publishing": "Bejegyzés közzététele...",
                 "accessibility": {
                     "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
@@ -482,7 +482,7 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
+            "title": "Népszerű a Mastodonon",
             "follow_all": "Follow all"
         },
         "compose": {
@@ -492,8 +492,8 @@
                 "edit_post": "Bejegyzés szerkesztése"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
+                "camera": "Fotó készítése",
+                "photo_library": "Fotókönyvtár",
                 "browse": "Tallózás"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
@@ -506,7 +506,7 @@
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired...",
                 "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
+                "upload_failed": "Sikertelen feltöltés",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "Attachment too large",
                 "compressing_state": "Compressing...",
@@ -522,10 +522,10 @@
                 "three_days": "3 nap",
                 "seven_days": "7 nap",
                 "option_number": "Option %ld",
-                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_is_invalid": "A szavazás érvénytelen",
                 "the_poll_has_empty_option": "The poll has empty option",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
+                "add_option": "Opció hozzáadása",
+                "remove_option": "Opció eltávolítása",
                 "move_up": "Mozgatás fel",
                 "move_down": "Mozgatás le"
             },
@@ -535,21 +535,21 @@
             "visibility": {
                 "public": "Nyilvános",
                 "unlisted": "Nem listázott",
-                "private": "Followers only",
+                "private": "Csak követőknek",
                 "direct": "Only people I mention"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
+                "append_attachment": "Melléklet hozzáadása",
                 "append_poll": "Szavazás létrehozása",
                 "remove_poll": "Szavazás eltávolítása",
                 "custom_emoji_picker": "Custom Emoji Picker",
                 "enable_content_warning": "Enable Content Warning",
                 "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu",
-                "post_options": "Post Options",
+                "post_visibility_menu": "Bejegyzés láthatósági menü",
+                "post_options": "Bejegyzés opciók",
                 "posting_as": "Posting as %s"
             },
             "keyboard": {
@@ -557,19 +557,19 @@
                 "publish_post": "Bejegyzés közzététele",
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
+                "append_attachment_entry": "Melléklet hozzáadása - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
+                "title": "Bejegyzés nyelve",
+                "suggested": "Ajánlott",
+                "recent": "Legutóbbiak",
                 "other": "Egyéb nyelv…"
             }
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Követi önt"
             },
             "dashboard": {
                 "my_posts": "bejegyzések",
@@ -578,11 +578,11 @@
                 "other_posts": "bejegyzések",
                 "other_following": "követett",
                 "other_followers": "követők",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "kölcsönös"
             },
             "fields": {
                 "joined": "Csatlakozott",
-                "add_row": "Add Row",
+                "add_row": "Sor hozzáadása",
                 "placeholder": {
                     "label": "Címke",
                     "content": "Tartalom"
@@ -629,13 +629,13 @@
                     "message": "Valóban tiltani szeretné %s domaint"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
+                    "title": "Domain tiltásának feloldása",
                     "message": "Confirm to unblock domain %s"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
+                "show_avatar_image": "Profilkép megjelenítése",
+                "edit_avatar_image": "Profilkép módosítása",
                 "show_banner_image": "Show banner image",
                 "double_tap_to_open_the_list": "Double tap to open the list"
             }
@@ -661,15 +661,15 @@
         "search": {
             "title": "Keresés",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
+                "placeholder": "Hashtagek és felhasználók keresése",
                 "cancel": "Mégsem"
             },
             "recommend": {
                 "button_text": "Összes megtekintése",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Felkapott a Mastodon-on",
+                    "description": "Hashtagek, amelyek eléggé nagy figyelmet kapnak",
+                    "people_talking": "%s ember beszél róla"
                 },
                 "accounts": {
                     "title": "Accounts you might like",
@@ -682,26 +682,26 @@
                 "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
                 "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "hashtag": "Ugrás #%s",
                 "no_user": {
                     "title": "No User Account Found",
                     "message": "There's no Useraccount \"%s\" on %s"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Nincs találat"
                 },
-                "recent_search": "Recent searches",
-                "clear_all": "Clear all",
-                "clear": "Clear"
+                "recent_search": "Legutóbbi keresések",
+                "clear_all": "Összes törlése",
+                "clear": "Törlés"
             }
         },
         "discovery": {
             "tabs": {
                 "posts": "Bejegyzések",
-                "hashtags": "Hashtags",
+                "hashtags": "Hashtagek",
                 "news": "Hírek",
                 "community": "Közösség",
-                "for_you": "For You"
+                "for_you": "Önnek"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
@@ -738,40 +738,40 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
+                "title": "Beállítások",
+                "general": "Általános",
+                "notifications": "Értesítések",
                 "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
+                "about_mastodon": "A Mastodonról",
+                "server_details": "Kiszolgáló részletei",
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Névjegy",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
+                "privacy_policy": "Adatvédelmi szabályzat",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Névjegy",
+                "rules": "Szabályok",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
+                    "title": "Adminisztrátor",
+                    "message_admin": "Üzenet admin",
                     "legal_notice": "A legal notice"
                 }
             },
             "general": {
                 "title": "Általános",
                 "appearance": {
-                    "section_title": "Appearance",
+                    "section_title": "Megjelenés",
                     "dark": "Sötét",
                     "light": "Világos",
-                    "system": "Use Device Appearance"
+                    "system": "Rendszertéma követése"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
+                    "section_title": "Kérdezzen, mielőtt…",
                     "posting_without_alt_text": "Posting without Alt Text",
                     "unfollowing_someone": "Unfollowing Someone",
                     "boosting_a_post": "Boosting a Post",
@@ -788,23 +788,23 @@
                 "links": {
                     "section_title": "Hivatkozások",
                     "open_in_mastodon": "Megnyitás a Mastodonban",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Megnyitás böngészőben"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Értesítések",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Értesítések fogadása",
+                    "anyone": "Bárkitől",
+                    "followers": "A követőktől",
+                    "follow": "A követettektől",
+                    "noone": "Senkitől"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Említések és válaszok",
+                    "boosts": "Megtolások",
+                    "favorites": "Kedvencek",
+                    "new_followers": "Új követők"
                 },
                 "disabled": {
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
@@ -813,85 +813,85 @@
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
+            "title_report": "Jelentés",
+            "title": "%s jelentése",
+            "step1": "1/2. lépés",
+            "step2": "2/2. lépés",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
             "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
+            "send": "Jelentés küldése",
             "skip_to_send": "Send without comment",
             "text_placeholder": "Type or paste additional comments",
             "reported": "REPORTED",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
+                "step_1_of_4": "1/4. lépés",
                 "whats_wrong_with_this_post": "What's wrong with this post?",
                 "whats_wrong_with_this_account": "What's wrong with this account?",
                 "whats_wrong_with_this_username": "What's wrong with %s?",
                 "select_the_best_match": "Select the best match",
                 "i_dont_like_it": "I don’t like it",
                 "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
+                "its_spam": "Ez spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Rosszindulatú linkek, hamis elkötelezettség vagy ismétlődő válaszok",
+                "it_violates_server_rules": "Megsérti a szerver szabályait",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
                 "its_something_else": "It’s something else",
                 "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
+                "step_2_of_4": "2/4. lépés",
                 "which_rules_are_being_violated": "Which rules are being violated?",
                 "select_all_that_apply": "Select all that apply",
                 "i_just_don’t_like_it": "I just don’t like it"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
+                "step_3_of_4": "3/4. lépés",
                 "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
                 "select_all_that_apply": "Select all that apply"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
+                "step_4_of_4": "4/4. lépés",
                 "is_there_anything_else_we_should_know": "Is there anything else we should know?"
             },
             "step_final": {
                 "dont_want_to_see_this": "Don’t want to see this?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "unfollow": "Követés megszüntetése",
+                "unfollowed": "Nem követett",
+                "unfollow_user": "%s követésének kikapcsolása",
+                "mute_user": "%s némítása",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "%s letiltása",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Előnézet bezárása",
+                "show_next": "Következő megjelenítése",
+                "show_previous": "Előző megjelenítése"
             }
         },
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "Fiók hozzáadása"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Könyvjelzők"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Követett hashtag-ek",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "bejegyzések",
+                "participants": "résztvevők",
+                "posts_today": "mai bejegyzések"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Követés",
+                "unfollow": "Követés megszüntetése"
             }
         }
     },
@@ -906,10 +906,10 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Követők",
+            "configuration_description": "A követők számának megjelenítése.",
+            "title": "KÖVETŐK",
+            "followers_today": "%s mai követő"
         },
         "multiple_followers": {
             "configuration_display_name": "Multiple followers",
@@ -920,25 +920,25 @@
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Legújabb követők",
+            "configuration_description": "Legújabb követők megjelenítése.",
+            "title": "Legújabb követők",
+            "last_update": "Legutóbbi frissítés: %s"
         },
         "hashtag": {
             "configuration": {
                 "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Megjeleníti a kiválasztott hashtaggel ellátott legutóbbi bejegyzéseket."
             },
             "not_found": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "Sajnáljuk, de nem találtunk olyan bejegyzéseket, melyek <a>#%@</a> hashtaggel rendelkeznek. Próbálkozzon egy <a>#MasikHashtag</a> használatával, vagy ellenőrizze a widget beállításait."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-such.account",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Így nézne ki egy <a>#hashtag</a>-gel ellátott bejegyzés. Válassza ki a kívánt <a>#hashtag</a>-et a widget beállításaiban."
             }
         }
     }
