@@ -43,6 +43,30 @@ final class SearchViewController: UIViewController, NeedsDependency {
         return viewController
     }()
 
+    let segmentedControl: UISegmentedControl
+    let segmentedControlBackground: UIView
+
+    init() {
+        segmentedControl = UISegmentedControl(items: [
+            L10n.Scene.Discovery.Tabs.posts,
+            L10n.Scene.Discovery.Tabs.hashtags,
+            L10n.Scene.Discovery.Tabs.news,
+            L10n.Scene.Discovery.Tabs.forYou
+        ])
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.selectedSegmentIndex = 0
+
+        segmentedControlBackground = UIView()
+        segmentedControlBackground.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControlBackground.backgroundColor = .systemBackground
+
+        super.init(nibName: nil, bundle: nil)
+
+        segmentedControl.addTarget(self, action: #selector(SearchViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
+    }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,10 +77,32 @@ final class SearchViewController: UIViewController, NeedsDependency {
         setupSearchBar()
         guard let discoveryViewController else { return }
 
+        segmentedControlBackground.addSubview(segmentedControl)
+        view.addSubview(segmentedControlBackground)
+
+
         addChild(discoveryViewController)
         discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(discoveryViewController.view)
-        discoveryViewController.view.pinToParent()
+        discoveryViewController.didMove(toParent: self)
+
+        let constraints = [
+            segmentedControl.topAnchor.constraint(equalTo: segmentedControlBackground.topAnchor, constant: 8),
+            segmentedControl.leadingAnchor.constraint(equalTo: segmentedControlBackground.leadingAnchor, constant: 8),
+            segmentedControlBackground.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 8),
+            segmentedControlBackground.bottomAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
+
+            segmentedControlBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            segmentedControlBackground.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: segmentedControlBackground.trailingAnchor),
+
+            discoveryViewController.view.topAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor),
+            discoveryViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: discoveryViewController.view.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: discoveryViewController.view.bottomAnchor),
+        ]
+
+        NSLayoutConstraint.activate(constraints)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -81,17 +127,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
     private func setupSearchBar() {
         searchBar.placeholder = L10n.Scene.Search.SearchBar.placeholder
         searchBar.delegate = self
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.setContentHuggingPriority(.required, for: .horizontal)
-        searchBar.setContentHuggingPriority(.required, for: .vertical)
-        searchBar.showsScopeBar = true
-        searchBar.scopeBarBackgroundImage = .placeholder(color: .systemBackground)
-        searchBar.scopeButtonTitles = [
-            L10n.Scene.Discovery.Tabs.posts,
-            L10n.Scene.Discovery.Tabs.hashtags,
-            L10n.Scene.Discovery.Tabs.news,
-            L10n.Scene.Discovery.Tabs.forYou
-        ]
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
 
@@ -112,6 +147,11 @@ final class SearchViewController: UIViewController, NeedsDependency {
             .store(in: &disposeBag)
     }
 
+    @objc
+    private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        discoveryViewController?.scrollToPage(.at(index: sender.selectedSegmentIndex), animated: true)
+    }
+
 }
 
 // MARK: - UISearchBarDelegate
@@ -123,10 +163,6 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchBar.text = ""
         searchBarTapPublisher.send(searchText)
-    }
-
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        discoveryViewController?.scrollToPage(.at(index: selectedScope), animated: true)
     }
 }
 
@@ -162,6 +198,6 @@ extension SearchViewController: PageboyViewControllerDelegate {
     }
 
     func pageboyViewController(_ pageboyViewController: PageboyViewController, didScrollToPageAt index: PageboyViewController.PageIndex, direction: PageboyViewController.NavigationDirection, animated: Bool) {
-        searchBar.selectedScopeButtonIndex = index
+        segmentedControl.selectedSegmentIndex = index
     }
 }
