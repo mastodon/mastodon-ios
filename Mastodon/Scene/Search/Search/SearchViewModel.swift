@@ -21,7 +21,6 @@ final class SearchViewModel: NSObject {
     // input
     let context: AppContext
     let authContext: AuthContext?
-    let viewDidAppeared = PassthroughSubject<Void, Never>()
     
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<SearchSection, SearchItem>?
