@@ -778,16 +778,16 @@
                     "deleting_a_post": "Deleting a Post"
                 },
                 "design": {
-                    "section_title": "Design",
+                    "section_title": "Megjelenés",
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Nyelv",
+                    "default_post_language": "Bejegyzések alapértelmezett nyelve"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
+                    "section_title": "Hivatkozások",
+                    "open_in_mastodon": "Megnyitás a Mastodonban",
                     "open_in_browser": "Open in Browser"
                 }
             },
