@@ -203,7 +203,7 @@
                     "emoji": "Hangulatjel"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "unlisted": "Ezt a bejegyzést mindenki láthatja, de nem jelenik meg a nyilvános idővonalon.",
                     "private": "Ezt a bejegyzést csak az ő követőik láthatják.",
                     "private_from_me": "Csak az ön követői láthatják ezt a bejegyzést.",
                     "direct": "Csak az említett felhasználó láthatja ezt a hozzászólást."
@@ -681,7 +681,7 @@
                 "posts": "Posts matching \"%s\"",
                 "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
+                "url": "URL megnyitása a Mastodonon",
                 "hashtag": "Ugrás #%s",
                 "no_user": {
                     "title": "No User Account Found",
@@ -759,7 +759,7 @@
                 "about_instance": {
                     "title": "Adminisztrátor",
                     "message_admin": "Üzenet admin",
-                    "legal_notice": "A legal notice"
+                    "legal_notice": "Jogi közlemény"
                 }
             },
             "general": {
@@ -775,7 +775,7 @@
                     "posting_without_alt_text": "Posting without Alt Text",
                     "unfollowing_someone": "Valaki követésének törlése",
                     "boosting_a_post": "Bejegyzés megtolása",
-                    "deleting_a_post": "Deleting a Post"
+                    "deleting_a_post": "Bejegyzés törlése"
                 },
                 "design": {
                     "section_title": "Megjelenés",
@@ -819,7 +819,7 @@
             "step2": "2/2. lépés",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Köszönjük, hogy jelentette, meg fogjuk nézni.",
             "send": "Jelentés küldése",
             "skip_to_send": "Küldés megjegyzés nélkül",
             "text_placeholder": "Type or paste additional comments",
