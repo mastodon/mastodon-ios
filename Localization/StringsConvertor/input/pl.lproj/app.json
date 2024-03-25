@@ -68,7 +68,7 @@
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
+                "cancel": "Anuluj",
                 "unfollow": "Unfollow"
             }
         },
@@ -370,7 +370,7 @@
                 "server": "Polityka Prywatności - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Akceptuję"
             }
         },
         "register": {
@@ -436,7 +436,7 @@
         },
         "server_rules": {
             "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%@** moderators.",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "zasady użytkowania",
             "privacy_policy": "polityka prywatności",
