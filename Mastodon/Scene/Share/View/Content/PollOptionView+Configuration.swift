@@ -14,8 +14,8 @@ import MastodonUI
 import MastodonSDK
 
 extension PollOptionView {
-    public func configure(pollOption option: Mastodon.Entity.Poll.Option, status: MastodonStatus?) {
-        guard let poll = status?.entity.poll else {
+    public func configure(pollOption option: MastodonPollOption, status: MastodonStatus?) {
+        guard let poll = status?.poll else {
             assertionFailure("PollOption to be configured is expected to be part of Poll with Status")
             return
         }
@@ -23,36 +23,30 @@ extension PollOptionView {
 //        viewModel.objects.insert(option)
         
         // metaContent
-        viewModel.metaContent = PlaintextMetaContent(string: option.title)
-//        option.publisher(for: \.title)
-//            .map { title -> MetaContent? in
-//                return PlaintextMetaContent(string: title)
-//            }
-//            .assign(to: \.metaContent, on: viewModel)
-//            .store(in: &disposeBag)
+        option.$title
+            .map { title -> MetaContent? in
+                return PlaintextMetaContent(string: title)
+            }
+            .assign(to: \.metaContent, on: viewModel)
+            .store(in: &disposeBag)
         
         // percentage
-        viewModel.percentage = {
-            let pollVotersCount = poll.votersCount ?? 0
-            let optionVotesCount = option.votesCount ?? 0
-            guard pollVotersCount > 0, optionVotesCount >= 0 else { return 0 }
+        Publishers.CombineLatest(
+            poll.$votersCount,
+            option.$votesCount
+        )
+        .map { pollVotersCount, optionVotesCount -> Double? in
+            guard let pollVotersCount, pollVotersCount > 0, let optionVotesCount, optionVotesCount >= 0 else { return 0 }
             return Double(optionVotesCount) / Double(pollVotersCount)
-        }()
-//        Publishers.CombineLatest(
-//            poll.publisher(for: \.votersCount),
-//            option.publisher(for: \.votesCount)
-//        )
-//        .map { pollVotersCount, optionVotesCount -> Double? in
-//            guard pollVotersCount > 0, optionVotesCount >= 0 else { return 0 }
-//            return Double(optionVotesCount) / Double(pollVotersCount)
-//        }
-//        .assign(to: \.percentage, on: viewModel)
-//        .store(in: &disposeBag)
+        }
+        .assign(to: \.percentage, on: viewModel)
+        .store(in: &disposeBag)
+        
         // $isExpire
-        viewModel.isExpire = poll.expired
-//        poll.publisher(for: \.expired)
-//            .assign(to: \.isExpire, on: viewModel)
-//            .store(in: &disposeBag)
+        poll.$expired
+            .assign(to: \.isExpire, on: viewModel)
+            .store(in: &disposeBag)
+        
         // isMultiple
         viewModel.isMultiple = poll.multiple
         
@@ -66,51 +60,49 @@ extension PollOptionView {
         let userID = authContext?.mastodonAuthenticationBox.userID ?? ""
         
         let options = poll.options
-//        let pollVoteBy = poll.votedBy ?? Set()
-//
-//        let isMyPoll = authorDomain == domain
-//                    && authorID == userID
-//
+        let pollVoteBy = poll.poll.voted == true //poll.votedBy ?? Set()
+
+        let isMyPoll = authorDomain == domain
+                    && authorID == userID
+
 //        let votedOptions = options.filter { option in
 //            let votedBy = option.votedBy ?? Set()
 //            return votedBy.contains(where: { $0.id == userID && $0.domain == domain })
 //        }
+        let votedOptions = poll.options.filter { $0.voted == true }
 //        let isRemoteVotedOption = votedOptions.contains(where: { $0.index == optionIndex })
 //        let isRemoteVotedPoll = pollVoteBy.contains(where: { $0.id == userID && $0.domain == domain })
-//
-//        let isLocalVotedOption = isSelected
-//
-//        let isSelect: Bool? = {
-//            if isLocalVotedOption {
-//                return true
-//            } else if !votedOptions.isEmpty {
-//                return isRemoteVotedOption ? true : false
-//            } else if isRemoteVotedPoll, votedOptions.isEmpty {
-//                // the poll voted. But server not mark voted options
-//                return nil
-//            } else {
-//                return false
-//            }
-//        }()
-        self.viewModel.isSelect = false
-        self.viewModel.isPollVoted = poll.voted == true
-        self.viewModel.isMyPoll = poll.ownVotes != nil
-        
-//        viewModel.$authContext
-//            .compactMap { authContext -> AnyPublisher<Mastodon.Response.Content<Mastodon.API.Polls>, Error>? in
-//                guard let authContext else { return nil }
-//                return Mastodon.API.Polls.poll(
-//                    session: .shared,
-//                    domain: authContext.mastodonAuthenticationBox.domain,
-//                    pollID: poll.id,
-//                    authorization: authContext.mastodonAuthenticationBox.userAuthorization
-//                )
-//            }
+
+//        let isLocalVotedOption = option.isSelected
+
+        self.viewModel.isSelect = option.isSelected
+//        self.viewModel.isPollVoted = poll.voted == true
+//        self.viewModel.isMyPoll = poll.ownVotes != nil
+//        
+
+        viewModel.$authContext
+//            .compactMap({ $0 })
+            .flatMap({ authContext -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Poll>, Error> in
+                return Mastodon.API.Polls.poll(
+                    session: .shared,
+                    domain: authContext!.mastodonAuthenticationBox.domain,
+                    pollID: poll.id,
+                    authorization: authContext!.mastodonAuthenticationBox.userAuthorization
+                )
+            })
+            .receive(on: DispatchQueue.main)
+            .sink { _ in } receiveValue: { [weak self] response in
+                let poll = response.value
+                self?.viewModel.isPollVoted = poll.voted == true
+                self?.viewModel.isMyPoll = poll.voted != nil
+            }
+            .store(in: &disposeBag)
+
+
 //            .receive(on: DispatchQueue.main)
 //            .sink(receiveValue: { value in
-//                
+//                value.value
 //            })
-//            .store(in: &disposeBag)
         
 //        Publishers.CombineLatest4(
 //            option.publisher(for: \.poll),

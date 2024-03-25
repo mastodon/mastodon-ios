@@ -571,11 +571,11 @@ extension NotificationView: StatusViewDelegate {
         }
     }
     
-    public func statusView(_ statusView: StatusView, poll: Mastodon.Entity.Poll, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         assertionFailure()
     }
     
-    public func statusView(_ statusView: StatusView, poll: Mastodon.Entity.Poll, pollVoteButtonPressed button: UIButton) {
+    public func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
         assertionFailure()
     }
     

@@ -381,7 +381,7 @@ extension StatusView {
             guard
                 let context = viewModel.context,
                 let domain = viewModel.authContext?.mastodonAuthenticationBox.domain,
-                let poll = status.entity.poll
+                let poll = status.poll
             else {
                 return
             }
@@ -409,21 +409,16 @@ extension StatusView {
             viewModel.isVoteButtonEnabled = hasSelectedOption
             
             // isVotable
-            viewModel.isVotable = poll.voted == false
+//            viewModel.isVotable = poll.voted == false
 
-//            Publishers.CombineLatest(
-//                poll.publisher(for: \.votedBy),
-//                poll.publisher(for: \.expired)
-//            )
-//            .map { [weak viewModel] votedBy, expired in
-//                guard let viewModel = viewModel else { return false }
-//                guard let authContext = viewModel.authContext else { return false }
-//                let domain = authContext.mastodonAuthenticationBox.domain
-//                let userID = authContext.mastodonAuthenticationBox.userID
-//                let isVoted = votedBy?.contains(where: { $0.domain == domain && $0.id == userID }) ?? false
-//                return !isVoted && !expired
-//            }
-//            .assign(to: &viewModel.$isVotable)
+            Publishers.CombineLatest(
+                poll.$voted,
+                poll.$expired
+            )
+            .map { voted, expired in
+                return voted == false && expired == false
+            }
+            .assign(to: &viewModel.$isVotable)
             
             
             // votesCount
@@ -439,7 +434,7 @@ extension StatusView {
 //                .assign(to: \.voterCount, on: viewModel)
 //                .store(in: &disposeBag)
             // expireAt
-            viewModel.expireAt = poll.expiresAt
+            viewModel.expireAt = poll.poll.expiresAt
 //            poll.publisher(for: \.expiresAt)
 //                .assign(to: \.expireAt, on: viewModel)
 //                .store(in: &disposeBag)

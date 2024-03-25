@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/2/24
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/poll/)
-    public struct Poll: Codable, Sendable {
+    public struct Poll: Codable, Sendable, Hashable {
         public typealias ID = String
         
         public let id: ID
@@ -52,10 +52,7 @@ extension Mastodon.Entity.Poll {
         /// nil if results are not published yet
         public let votesCount: Int?
         public let emojis: [Mastodon.Entity.Emoji]?
-        
-        /// virtual property for app internal usage only
-        public var isSelected: Bool?
-        
+
         enum CodingKeys: String, CodingKey {
             case title
             case votesCount = "votes_count"
