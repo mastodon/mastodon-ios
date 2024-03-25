@@ -16,9 +16,15 @@ public final class MastodonStatus: ObservableObject {
     
     @Published public var isSensitiveToggled: Bool = false
     
+    @Published public var poll: MastodonPoll?
+    
     init(entity: Mastodon.Entity.Status, isSensitiveToggled: Bool) {
         self.entity = entity
         self.isSensitiveToggled = isSensitiveToggled
+        
+        if let poll = entity.poll {
+            self.poll = .init(poll: poll)
+        }
         
         if let reblog = entity.reblog {
             self.reblog = MastodonStatus.fromEntity(reblog)

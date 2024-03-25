@@ -25,8 +25,8 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func statusView(_ statusView: StatusView, didTapCardWithURL url: URL)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
-    func statusView(_ statusView: StatusView, poll: Mastodon.Entity.Poll, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    func statusView(_ statusView: StatusView, poll: Mastodon.Entity.Poll, pollVoteButtonPressed button: UIButton)
+    func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusView(_ statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func statusView(_ statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
     func statusView(_ statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
@@ -404,8 +404,7 @@ extension StatusView {
     }
     
     @objc private func pollVoteButtonDidPressed(_ sender: UIButton) {
-        #warning("remove !")
-        delegate?.statusView(self, poll: self.viewModel.originalStatus!.entity.poll!, pollVoteButtonPressed: pollVoteButton)
+        delegate?.statusView(self, pollVoteButtonPressed: pollVoteButton)
     }
     
     @objc private func spoilerOverlayViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
@@ -752,8 +751,7 @@ extension StatusView: UITableViewDelegate {
         
         switch tableView {
         case pollTableView:
-            #warning("remove !")
-            delegate?.statusView(self, poll: self.viewModel.originalStatus!.entity.poll!, pollTableView: tableView, didSelectRowAt: indexPath)
+            delegate?.statusView(self, pollTableView: tableView, didSelectRowAt: indexPath)
         default:
             assertionFailure()
         }

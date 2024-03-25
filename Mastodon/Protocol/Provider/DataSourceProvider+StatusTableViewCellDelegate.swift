@@ -259,7 +259,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
-        poll: Mastodon.Entity.Poll,
         pollTableView tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
@@ -311,11 +310,13 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 //                return
 //            }
             
+            let poll = pollOption.poll
+            
             guard let choice = poll.options.firstIndex(of: pollOption) else { return }
             
             do {
                 _ = try await context.apiService.vote(
-                    poll: poll,
+                    poll: poll.poll,
                     choices: [choice],
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
@@ -336,7 +337,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
-        poll: Mastodon.Entity.Poll,
         pollVoteButtonPressed button: UIButton
     ) {
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
@@ -353,7 +353,8 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 //                guard let poll = firstPollOption.object(in: managedObjectContext)?.poll else { return }
 //                _poll = .init(objectID: poll.objectID)
                 
-                guard poll.multiple else { return }
+            let poll = firstPollOption.poll
+            guard poll.multiple else { return }
                 
                 // mark voting
 //                poll.update(isVoting: true)
@@ -372,7 +373,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             
             do {
                 _ = try await context.apiService.vote(
-                    poll: poll,
+                    poll: poll.poll,
                     choices: choices,
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
