@@ -56,13 +56,13 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "Anuluj",
+                "post": "Opublikuj"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Anuluj",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
@@ -244,7 +244,7 @@
                 "unblock": "Odblokuj",
                 "unblock_user": "Odblokuj %s",
                 "blocked": "Zablokowany",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Domena zablokowana",
                 "mute": "Wycisz",
                 "mute_user": "Wycisz %s",
                 "unmute": "Cofnij wyciszenie",
@@ -392,7 +392,7 @@
                 },
                 "password": {
                     "placeholder": "hasło",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Potwierdź hasło",
                     "require": "Twoje hasło musi mieć co najmniej:",
                     "character_limit": "8 znaków",
                     "accessibility": {
@@ -429,7 +429,7 @@
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
+                    "email_invalid": "To nie jest prawidłowy adres e-mail",
                     "password_too_short": "Password is too short (must be at least 8 characters)"
                 }
             }
@@ -441,7 +441,7 @@
             "terms_of_service": "zasady użytkowania",
             "privacy_policy": "polityka prywatności",
             "button": {
-                "confirm": "I Agree",
+                "confirm": "Zgadzam się",
                 "disagree": "Disagree"
             }
         },
@@ -460,7 +460,7 @@
                 "title": "Check your Inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "open_email_client": "Otwórz klienta e-mail"
             },
             "didnt_get_link": {
                 "prefix": "Didn’t get a link?",
@@ -469,11 +469,11 @@
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Strona główna",
             "navigation_bar_state": {
-                "offline": "Offline",
+                "offline": "Jesteś w trybie offline",
                 "new_posts": "See new posts",
-                "published": "Published!",
+                "published": "Opublikowano!",
                 "Publishing": "Publishing post...",
                 "accessibility": {
                     "logo_label": "Mastodon",
@@ -482,19 +482,19 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
+            "title": "Popularne na Mastodonie",
             "follow_all": "Follow all"
         },
         "compose": {
             "title": {
                 "new_post": "New Post",
-                "new_reply": "New Reply",
-                "edit_post": "Edit Post"
+                "new_reply": "Nowa odpowiedź",
+                "edit_post": "Edytuj wpis"
             },
             "media_selection": {
                 "camera": "Zrób zdjęcie",
                 "photo_library": "Biblioteka zdjęć",
-                "browse": "Browse"
+                "browse": "Przeglądaj"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "Publikuj",
@@ -519,9 +519,9 @@
                 "one_hour": "Godzinie",
                 "six_hours": "6 Godzinach",
                 "one_day": "Dobie",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld",
+                "three_days": "3 dni",
+                "seven_days": "7 dni",
+                "option_number": "Opcja %ld",
                 "the_poll_is_invalid": "The poll is invalid",
                 "the_poll_has_empty_option": "The poll has empty option",
                 "add_option": "Add Option",
@@ -553,7 +553,7 @@
                 "posting_as": "Posting as %s"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
+                "discard_post": "Odrzuć wpis",
                 "publish_post": "Publish Post",
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
@@ -561,9 +561,9 @@
                 "select_visibility_entry": "Select Visibility - %s"
             },
             "language": {
-                "title": "Post Language",
+                "title": "Język wpisu",
                 "suggested": "Suggested",
-                "recent": "Recent",
+                "recent": "Ostatnie",
                 "other": "Other Language…"
             }
         },
@@ -609,12 +609,12 @@
                     "message": "Potwierdź cofnięcie wyciszenia %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Zablokuj konto",
+                    "message": "Potwierdź zablokowanie %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Odblokuj konto",
+                    "message": "Potwierdź odblokowanie %s"
                 },
                 "confirm_show_reblogs": {
                     "title": "Show Reblogs",
@@ -659,7 +659,7 @@
             "title": "Reblogged By"
         },
         "search": {
-            "title": "Search",
+            "title": "Szukaj",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
                 "cancel": "Anuluj"
@@ -667,7 +667,7 @@
             "recommend": {
                 "button_text": "See All",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
+                    "title": "Popularne na Mastodonie",
                     "description": "Hashtags that are getting quite a bit of attention",
                     "people_talking": "%s people are talking"
                 },
@@ -692,7 +692,7 @@
                 },
                 "recent_search": "Ostatnie wyszukiwania",
                 "clear_all": "Clear all",
-                "clear": "Clear"
+                "clear": "Wyczyść"
             }
         },
         "discovery": {
@@ -748,9 +748,9 @@
             },
             "about_mastodon": {
                 "title": "About",
-                "more_settings": "Even More Settings",
+                "more_settings": "Jeszcze więcej ustawień",
                 "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
+                "privacy_policy": "Polityka prywatności",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
@@ -778,7 +778,7 @@
                     "deleting_a_post": "Deleting a Post"
                 },
                 "design": {
-                    "section_title": "Design",
+                    "section_title": "Wygląd",
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
                 "language": {
@@ -787,7 +787,7 @@
                 },
                 "links": {
                     "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
+                    "open_in_mastodon": "Otwórz w Mastodonie",
                     "open_in_browser": "Open in Browser"
                 }
             },
@@ -795,7 +795,7 @@
                 "title": "Powiadomienia",
                 "policy": {
                     "title": "Get Notifications from",
-                    "anyone": "Anyone",
+                    "anyone": "Ktokolwiek",
                     "followers": "People who follow you",
                     "follow": "People you follow",
                     "noone": "No one"
@@ -815,8 +815,8 @@
         "report": {
             "title_report": "Report",
             "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
+            "step1": "Krok 1 z 2",
+            "step2": "Krok 2 z 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
             "report_sent_title": "Thanks for reporting, we’ll look into this.",
@@ -825,7 +825,7 @@
             "text_placeholder": "Type or paste additional comments",
             "reported": "REPORTED",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
+                "step_1_of_4": "Krok 1 z 4",
                 "whats_wrong_with_this_post": "What's wrong with this post?",
                 "whats_wrong_with_this_account": "What's wrong with this account?",
                 "whats_wrong_with_this_username": "What's wrong with %s?",
@@ -843,7 +843,7 @@
                 "step_2_of_4": "Step 2 of 4",
                 "which_rules_are_being_violated": "Which rules are being violated?",
                 "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "i_just_don’t_like_it": "Nie lubię tego"
             },
             "step_three": {
                 "step_3_of_4": "Step 3 of 4",
