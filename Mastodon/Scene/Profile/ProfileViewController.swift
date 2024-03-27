@@ -55,7 +55,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
 
     private(set) lazy var settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(
-            image: Asset.ObjectsAndTools.gear.image.withRenderingMode(.alwaysTemplate),
+            image: UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate),
             style: .plain,
             target: self,
             action: #selector(ProfileViewController.settingBarButtonItemPressed(_:))
