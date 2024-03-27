@@ -18,7 +18,12 @@ import MastodonUI
 import MastodonSDK
 
 final class HomeTimelineViewModel: NSObject {
-    
+
+    enum TimelineContext {
+        case following
+        case community
+    }
+
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     
@@ -35,7 +40,8 @@ final class HomeTimelineViewModel: NSObject {
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil
     @Published var displaySettingBarButtonItem = true
     @Published var hasPendingStatusEditReload = false
-    
+    var timelineContext: TimelineContext = .following
+
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     
