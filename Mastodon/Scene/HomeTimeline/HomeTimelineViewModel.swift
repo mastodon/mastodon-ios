@@ -59,7 +59,6 @@ final class HomeTimelineViewModel: NSObject {
         stateMachine.enter(LoadLatestState.Initial.self)
         return stateMachine
     }()
-    lazy var loadLatestStateMachinePublisher = CurrentValueSubject<LoadLatestState?, Never>(nil)
     
     // bottom loader
     private(set) lazy var loadOldestStateMachine: GKStateMachine = {
@@ -74,10 +73,9 @@ final class HomeTimelineViewModel: NSObject {
         stateMachine.enter(LoadOldestState.Initial.self)
         return stateMachine
     }()
-    lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
 
     var cellFrameCache = NSCache<NSNumber, NSValue>()
-    
+
     init(context: AppContext, authContext: AuthContext) {
         self.context  = context
         self.authContext = authContext
