@@ -55,10 +55,11 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
 
                 viewModel.timelineContext = .following
                 viewModel.dataController.records = []
+
                 viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
                 button.setAttributedTitle(
                     .init(string: "Following", attributes: [
-                        .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
+                        .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
                     ]),
                     for: .normal)
                 button.sizeToFit()
@@ -68,10 +69,11 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
 
                 viewModel.timelineContext = .community
                 viewModel.dataController.records = []
+
                 viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
                 button.setAttributedTitle(
                     .init(string: "Local", attributes: [
-                        .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
+                        .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
                     ]),
                     for: .normal)
                 button.sizeToFit()
@@ -82,23 +84,22 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
 
         button.setAttributedTitle(
             .init(string: "Following", attributes: [
-                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
+                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
             ]),
             for: .normal)
-        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .medium)
-//        button.setImage(
-//            .init(systemName: "chevron.down.circle.fill", withConfiguration: imageConfiguration)?.withRenderingMode(.alwaysTemplate),
-//            for: .normal)
-//        button.tintColor = Asset.Colors.disabled.color
-//        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
+        
+        let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.secondaryLabel, .secondarySystemFill])
+            .applying(UIImage.SymbolConfiguration(textStyle: .subheadline))
+            .applying(UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .medium))
+
         button.configuration = {
             var config = UIButton.Configuration.plain()
             config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
             config.imagePadding = 8
-            config.image = .init(systemName: "chevron.down.circle.fill", withConfiguration: imageConfiguration)?.withRenderingMode(.alwaysTemplate).withTintColor(Asset.Colors.disabled.color)
+            config.image = UIImage(systemName: "chevron.down.circle.fill", withConfiguration: imageConfiguration)
             return config
         }()
-        
+
         button.semanticContentAttribute =
         UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ?
             .forceLeftToRight :
