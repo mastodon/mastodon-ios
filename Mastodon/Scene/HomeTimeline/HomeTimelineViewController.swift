@@ -46,15 +46,40 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     
     let titleView = HomeTimelineNavigationBarTitleView()
     
-    let timelineSelectorBarButtonItem: UIBarButtonItem = {
-        let menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
-            UIAction(title: "Following", image: .init(systemName: "house")) { action in
-            },
-            UIAction(title: "Local", image: .init(systemName: "building.2")) { action in
-            }
-        ])
-
+    lazy var timelineSelectorBarButtonItem: UIBarButtonItem = {
         let button = UIButton(type: .custom)
+
+        let actions = [
+            UIAction(title: "Following", image: .init(systemName: "house")) { [weak self] action in
+                guard let self, let viewModel = self.viewModel else { return }
+
+                viewModel.timelineContext = .following
+                viewModel.dataController.records = []
+                viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
+                button.setAttributedTitle(
+                    .init(string: "Following", attributes: [
+                        .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
+                    ]),
+                    for: .normal)
+                button.sizeToFit()
+            },
+            UIAction(title: "Local", image: .init(systemName: "building.2")) { [weak self] _ in
+                guard let self, let viewModel = self.viewModel else { return }
+
+                viewModel.timelineContext = .community
+                viewModel.dataController.records = []
+                viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
+                button.setAttributedTitle(
+                    .init(string: "Local", attributes: [
+                        .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
+                    ]),
+                    for: .normal)
+                button.sizeToFit()
+            }
+
+        ]
+        let menu = UIMenu(children: actions)
+
         button.setAttributedTitle(
             .init(string: "Following", attributes: [
                 .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
