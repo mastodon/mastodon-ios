@@ -28,11 +28,6 @@ extension HomeTimelineViewModel {
             self.viewModel = viewModel
         }
         
-        override func didEnter(from previousState: GKState?) {
-            super.didEnter(from: previousState)
-            viewModel?.loadLatestStateMachinePublisher.send(self)
-        }
-        
         @MainActor
         func enter(state: LoadLatestState.Type) {
             stateMachine?.enter(state)
