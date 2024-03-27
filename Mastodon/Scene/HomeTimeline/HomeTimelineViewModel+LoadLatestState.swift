@@ -88,10 +88,20 @@ extension HomeTimelineViewModel.LoadLatestState {
 
             do {
                 await AuthenticationServiceProvider.shared.fetchAccounts(apiService: viewModel.context.apiService)
-                let response = try await viewModel.context.apiService.homeTimeline(
-                    authenticationBox: viewModel.authContext.mastodonAuthenticationBox
-                )
-                
+                let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>
+
+                switch viewModel.timelineContext {
+                case .following:
+                    response = try await viewModel.context.apiService.homeTimeline(
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                    )
+                case .community:
+                    response = try await viewModel.context.apiService.publicTimeline(
+                        query: .init(local: true),
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                    )
+                }
+
                 await enter(state: Idle.self)
                 viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.finished)
 
