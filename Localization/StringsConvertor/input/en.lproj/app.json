@@ -140,7 +140,7 @@
                 },
                 "timeline": {
                     "previous_status": "Previous Post",
-                    "next_status": "Következő bejegyzések",
+                    "next_status": "",
                     "open_status": "Open Post",
                     "open_author_profile": "Open Author's Profile",
                     "open_reblogger_profile": "Open Reblogger's Profile",
@@ -436,7 +436,7 @@
         },
         "server_rules": {
             "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%@** moderators.",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
@@ -489,7 +489,7 @@
             "title": {
                 "new_post": "New Post",
                 "new_reply": "New Reply",
-                "edit_post": "Bejegyzés szerkesztése"
+                "edit_post": ""
             },
             "media_selection": {
                 "camera": "Take Photo",
