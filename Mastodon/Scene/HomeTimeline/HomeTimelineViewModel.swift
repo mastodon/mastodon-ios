@@ -18,12 +18,6 @@ import MastodonUI
 import MastodonSDK
 
 final class HomeTimelineViewModel: NSObject {
-
-    enum TimelineContext {
-        case following
-        case community
-    }
-
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     
@@ -40,7 +34,7 @@ final class HomeTimelineViewModel: NSObject {
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil
     @Published var displaySettingBarButtonItem = true
     @Published var hasPendingStatusEditReload = false
-    var timelineContext: TimelineContext = .following
+    var timelineContext: MastodonFeed.Kind.HomeTimeline = .following
 
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
@@ -119,7 +113,7 @@ final class HomeTimelineViewModel: NSObject {
             })
             .store(in: &disposeBag)
         
-        self.dataController.loadInitial(kind: .home)
+        self.dataController.loadInitial(kind: .home(timeline: timelineContext))
     }
 }
 
@@ -133,7 +127,7 @@ extension HomeTimelineViewModel {
 
 extension HomeTimelineViewModel {
     func timelineDidReachEnd() {
-        dataController.loadNext(kind: .home)
+        dataController.loadNext(kind: .home(timeline: timelineContext))
     }
 }
 

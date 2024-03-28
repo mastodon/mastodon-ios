@@ -123,7 +123,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         let showLocalTimelineAction = UIAction(title: "Local", image: .init(systemName: "building.2")) { [weak self] action in
             guard let self, let viewModel = self.viewModel else { return }
 
-            viewModel.timelineContext = .community
+            viewModel.timelineContext = .localCommunity
             viewModel.dataController.records = []
 
             viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
@@ -138,7 +138,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
 
         if let viewModel {
             switch viewModel.timelineContext {
-            case .community:
+            case .localCommunity:
                 showLocalTimelineAction.state = .on
                 showFollowingAction.state = .off
             case .following:

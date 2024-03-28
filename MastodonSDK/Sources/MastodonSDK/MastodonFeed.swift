@@ -6,9 +6,15 @@ import CoreDataStack
 public final class MastodonFeed {
     
     public enum Kind {
-        case home
+
+        case home(timeline: HomeTimeline)
         case notificationAll
         case notificationMentions
+
+        public enum HomeTimeline {
+            case following
+            case localCommunity
+        }
     }
     
     public let id: String

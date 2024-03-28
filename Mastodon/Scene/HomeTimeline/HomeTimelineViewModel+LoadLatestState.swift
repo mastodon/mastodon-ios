@@ -95,7 +95,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                     response = try await viewModel.context.apiService.homeTimeline(
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
-                case .community:
+                case .localCommunity:
                     response = try await viewModel.context.apiService.publicTimeline(
                         query: .init(local: true),
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
