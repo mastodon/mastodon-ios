@@ -43,51 +43,17 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         emptyView.isLayoutMarginsRelativeArrangement = true
         return emptyView
     }()
-    
+
     let titleView = HomeTimelineNavigationBarTitleView()
-    
-    lazy var timelineSelectorBarButtonItem: UIBarButtonItem = {
+
+    lazy var timelineSelectorButton = {
         let button = UIButton(type: .custom)
-
-        let actions = [
-            UIAction(title: "Following", image: .init(systemName: "house")) { [weak self] action in
-                guard let self, let viewModel = self.viewModel else { return }
-
-                viewModel.timelineContext = .following
-                viewModel.dataController.records = []
-
-                viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
-                button.setAttributedTitle(
-                    .init(string: "Following", attributes: [
-                        .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-                    ]),
-                    for: .normal)
-                button.sizeToFit()
-            },
-            UIAction(title: "Local", image: .init(systemName: "building.2")) { [weak self] _ in
-                guard let self, let viewModel = self.viewModel else { return }
-
-                viewModel.timelineContext = .community
-                viewModel.dataController.records = []
-
-                viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
-                button.setAttributedTitle(
-                    .init(string: "Local", attributes: [
-                        .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-                    ]),
-                    for: .normal)
-                button.sizeToFit()
-            }
-
-        ]
-        let menu = UIMenu(children: actions)
-
         button.setAttributedTitle(
             .init(string: "Following", attributes: [
                 .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
             ]),
             for: .normal)
-        
+
         let imageConfiguration = UIImage.SymbolConfiguration(paletteColors: [.secondaryLabel, .secondarySystemFill])
             .applying(UIImage.SymbolConfiguration(textStyle: .subheadline))
             .applying(UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .medium))
@@ -105,12 +71,10 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
             .forceLeftToRight :
             .forceRightToLeft
         button.showsMenuAsPrimaryAction = true
-        button.menu = menu
-        
-        let barButtonItem = UIBarButtonItem(customView: button)
-        return barButtonItem
+        button.menu = generateTimeSelectorMenu()
+        return button
     }()
-    
+
     let settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
         barButtonItem.tintColor = Asset.Colors.Brand.blurple.color
@@ -137,6 +101,54 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     }()
     
     let refreshControl = RefreshControl()
+
+    private func generateTimeSelectorMenu() -> UIMenu {
+        let showFollowingAction = UIAction(title: "Following", image: .init(systemName: "house")) { [weak self] _ in
+            guard let self, let viewModel = self.viewModel else { return }
+
+            viewModel.timelineContext = .following
+            viewModel.dataController.records = []
+
+            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
+            timelineSelectorButton.setAttributedTitle(
+                .init(string: "Following", attributes: [
+                    .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+                ]),
+                for: .normal)
+
+            timelineSelectorButton.sizeToFit()
+            timelineSelectorButton.menu = generateTimeSelectorMenu()
+        }
+
+        let showLocalTimelineAction = UIAction(title: "Local", image: .init(systemName: "building.2")) { [weak self] action in
+            guard let self, let viewModel = self.viewModel else { return }
+
+            viewModel.timelineContext = .community
+            viewModel.dataController.records = []
+
+            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
+            timelineSelectorButton.setAttributedTitle(
+                .init(string: "Local", attributes: [
+                    .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+                ]),
+                for: .normal)
+            timelineSelectorButton.sizeToFit()
+            timelineSelectorButton.menu = generateTimeSelectorMenu()
+        }
+
+        if let viewModel {
+            switch viewModel.timelineContext {
+            case .community:
+                showLocalTimelineAction.state = .on
+                showFollowingAction.state = .off
+            case .following:
+                showLocalTimelineAction.state = .off
+                showFollowingAction.state = .on
+            }
+        }
+
+        return UIMenu(children: [showFollowingAction, showLocalTimelineAction])
+    }
 }
 
 extension HomeTimelineViewController {
@@ -159,8 +171,8 @@ extension HomeTimelineViewController {
         settingBarButtonItem.target = self
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
         
-        self.navigationItem.leftBarButtonItem = self.timelineSelectorBarButtonItem
-        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: timelineSelectorButton)
+
 //        navigationItem.titleView = titleView
 //        titleView.delegate = self
         
