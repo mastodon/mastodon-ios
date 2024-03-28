@@ -69,7 +69,7 @@ extension HomeTimelineViewModel.LoadOldestState {
                             maxID: maxID,
                             authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                         )
-                    case .community:
+                    case .localCommunity:
                         response = try await viewModel.context.apiService.publicTimeline(
                             query: .init(local: true, maxID: maxID),
                             authenticationBox: viewModel.authContext.mastodonAuthenticationBox
