@@ -210,6 +210,7 @@ extension MediaGridContainerView {
             view.addSubview(layoutView)
             layoutView.pinToParent()
             for mediaView in mediaViews {
+                mediaView.translatesAutoresizingMaskIntoConstraints = true
                 layoutView.addSubview(mediaView)
             }
             layoutView.prepare(layout: layout, maxSize: maxSize)
@@ -239,6 +240,7 @@ class GridLayoutView: UIView {
     }
 
     override func layoutSubviews() {
+        super.layoutSubviews()
         guard let layout = layout else { return }
         var width: Int = min(GridLayoutView.maxWidth, Int(frame.width))
         let height: Int = Int(frame.height)
@@ -273,17 +275,25 @@ class GridLayoutView: UIView {
             xOffset = Int((CGFloat(frame.width) / 2.0 - CGFloat(width) / 2.0).rounded())
         }
 
-        for (i, view) in subviews.enumerated() {
-            if i >= layout.tiles.count {
-                break // TODO make sure any additional subviews are only added at the end
+        var i: Int = 0
+        for view in subviews {
+            if let mediaView = view as? MediaView {
+                if i >= layout.tiles.count {
+                    break
+                }
+                let tile = layout.tiles[i]
+                let colSpan = max(1, tile.colSpan) - 1
+                let rowSpan = max(1, tile.rowSpan) - 1
+                let x = columnStarts[tile.startCol]
+                let y = rowStarts[tile.startRow]
+                mediaView.layer.removeAllAnimations()
+                mediaView.container.layer.removeAllAnimations()
+                mediaView.imageView.layer.removeAllAnimations()
+                mediaView.frame = CGRect(x: x + xOffset, y: y, width: columnEnds[tile.startCol + colSpan] - x, height: rowEnds[tile.startRow + rowSpan] - y)
+                mediaView.setNeedsLayout()
+                mediaView.layoutIfNeeded()
+                i = i + 1
             }
-            let tile = layout.tiles[i]
-            let colSpan = max(1, tile.colSpan) - 1
-            let rowSpan = max(1, tile.rowSpan) - 1
-            let x = columnStarts[tile.startCol]
-            let y = rowStarts[tile.startRow]
-            view.frame = CGRect(x: x + xOffset, y: y, width: columnEnds[tile.startCol + colSpan] - x, height: rowEnds[tile.startRow + rowSpan] - y)
-            view.setNeedsLayout()
         }
     }
 }
