@@ -19,9 +19,9 @@ public final class MediaGridContainerView: UIView {
     
     static let sensitiveToggleButtonSize = CGSize(width: 34, height: 34)
     public static let maxCount = 10
-    
+
     let logger = Logger(subsystem: "MediaGridContainerView", category: "UI")
-    
+
     public weak var delegate: MediaGridContainerViewDelegate?
     public private(set) lazy var viewModel: ViewModel = {
         let viewModel = ViewModel()
@@ -83,7 +83,7 @@ extension MediaGridContainerView {
         let mediaView = _mediaViews[index]
         delegate?.mediaGridContainerView(self, didTapMediaView: mediaView, at: index)
     }
-    
+
     @objc private func sensitiveToggleButtonDidPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.mediaGridContainerView(self, mediaSensitiveButtonDidPressed: sender)
@@ -91,7 +91,7 @@ extension MediaGridContainerView {
 }
 
 extension MediaGridContainerView {
-    
+
     public func dequeueMediaView(adaptiveLayout layout: AdaptiveLayout) -> MediaView {
         prepareForReuse()
         
@@ -129,7 +129,7 @@ extension MediaGridContainerView {
         
         removeConstraints(constraints)
     }
-    
+
 }
 
 extension MediaGridContainerView {
