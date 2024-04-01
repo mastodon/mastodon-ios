@@ -103,7 +103,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     let refreshControl = RefreshControl()
 
     private func generateTimeSelectorMenu() -> UIMenu {
-        let showFollowingAction = UIAction(title: "Following", image: .init(systemName: "house")) { [weak self] _ in
+        let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
             guard let self, let viewModel = self.viewModel else { return }
 
             viewModel.timelineContext = .following
@@ -111,7 +111,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
 
             viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
             timelineSelectorButton.setAttributedTitle(
-                .init(string: "Following", attributes: [
+                .init(string: L10n.Scene.HomeTimeline.TimelineMenu.following, attributes: [
                     .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
                 ]),
                 for: .normal)
@@ -120,13 +120,13 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
             timelineSelectorButton.menu = generateTimeSelectorMenu()
         }
 
-        let showLocalTimelineAction = UIAction(title: "Local", image: .init(systemName: "building.2")) { [weak self] action in
+        let showLocalTimelineAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, image: .init(systemName: "building.2")) { [weak self] action in
             guard let self, let viewModel = self.viewModel else { return }
 
             viewModel.timelineContext = .localCommunity
             viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
             timelineSelectorButton.setAttributedTitle(
-                .init(string: "Local", attributes: [
+                .init(string: L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, attributes: [
                     .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
                 ]),
                 for: .normal)
