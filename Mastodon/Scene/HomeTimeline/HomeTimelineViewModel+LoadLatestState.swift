@@ -70,7 +70,33 @@ extension HomeTimelineViewModel.LoadLatestState {
     
     class Idle: HomeTimelineViewModel.LoadLatestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Loading.self || stateClass == LoadingManually.self
+            return stateClass == Loading.self || stateClass == LoadingManually.self || stateClass == ContextSwitch.self
+        }
+    }
+
+    class ContextSwitch: HomeTimelineViewModel.LoadLatestState {
+        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+            return stateClass == Loading.self || stateClass == LoadingManually.self  || stateClass == ContextSwitch.self
+        }
+
+        override func didEnter(from previousState: GKState?) {
+            guard let viewModel else { return }
+            guard let diffableDataSource = viewModel.diffableDataSource else {
+                assertionFailure()
+                return
+            }
+
+            OperationQueue.main.addOperation {
+                viewModel.dataController.records = []
+                var snapshot = NSDiffableDataSourceSnapshot<StatusSection, StatusItem>()
+                snapshot.appendSections([.main])
+                snapshot.appendItems([.topLoader], toSection: .main)
+                diffableDataSource.apply(snapshot) { [weak self] in
+                    guard let self else { return }
+
+                    self.stateMachine?.enter(Loading.self)
+                }
+            }
         }
     }
 
@@ -78,7 +104,7 @@ extension HomeTimelineViewModel.LoadLatestState {
         super.didEnter(from: previousState)
 
         guard let viewModel else { return }
-        
+
         let latestFeedRecords = viewModel.dataController.records.prefix(APIService.onceRequestStatusMaxCount)
 
         Task {

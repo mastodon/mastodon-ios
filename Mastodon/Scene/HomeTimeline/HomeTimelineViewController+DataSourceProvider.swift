@@ -12,7 +12,7 @@ extension HomeTimelineViewController: DataSourceProvider {
     func item(from source: DataSourceItem.Source) async -> DataSourceItem? {
         var _indexPath = source.indexPath
         if _indexPath == nil, let cell = source.tableViewCell {
-            _indexPath = await self.indexPath(for: cell)
+            _indexPath = self.indexPath(for: cell)
         }
         guard let indexPath = _indexPath else { return nil }
         
@@ -37,8 +37,7 @@ extension HomeTimelineViewController: DataSourceProvider {
         viewModel?.dataController.update(status: status, intent: intent)
     }
 
-    @MainActor
-    private func indexPath(for cell: UITableViewCell) async -> IndexPath? {
+    private func indexPath(for cell: UITableViewCell) -> IndexPath? {
         return tableView.indexPath(for: cell)
     }
 }

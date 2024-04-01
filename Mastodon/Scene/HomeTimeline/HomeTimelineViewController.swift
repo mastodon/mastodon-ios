@@ -109,7 +109,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
             viewModel.timelineContext = .following
             viewModel.dataController.records = []
 
-            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
+            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
             timelineSelectorButton.setAttributedTitle(
                 .init(string: "Following", attributes: [
                     .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
@@ -124,9 +124,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
             guard let self, let viewModel = self.viewModel else { return }
 
             viewModel.timelineContext = .localCommunity
-            viewModel.dataController.records = []
-
-            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self)
+            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
             timelineSelectorButton.setAttributedTitle(
                 .init(string: "Local", attributes: [
                     .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
@@ -591,8 +589,12 @@ extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableView
     // sourcery:end
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let viewModel,
+                let currentState = viewModel.loadLatestStateMachine.currentState as? HomeTimelineViewModel.LoadLatestState,
+              (currentState.self is HomeTimelineViewModel.LoadLatestState.ContextSwitch) == false else { return }
+
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-            viewModel?.timelineDidReachEnd()
+            viewModel.timelineDidReachEnd()
         }
     }
 }

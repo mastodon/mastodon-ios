@@ -40,6 +40,9 @@ extension HomeTimelineViewModel {
                 guard let self = self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
 
+                guard let currentState = loadLatestStateMachine.currentState as? HomeTimelineViewModel.LoadLatestState,
+                      (currentState.self is HomeTimelineViewModel.LoadLatestState.ContextSwitch) == false else { return }
+
                 Task { @MainActor in
                     let oldSnapshot = diffableDataSource.snapshot()
                     var newSnapshot: NSDiffableDataSourceSnapshot<StatusSection, StatusItem> = {

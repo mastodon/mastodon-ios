@@ -55,6 +55,7 @@ final class HomeTimelineViewModel: NSObject {
             LoadLatestState.LoadingManually(viewModel: self),
             LoadLatestState.Fail(viewModel: self),
             LoadLatestState.Idle(viewModel: self),
+            LoadLatestState.ContextSwitch(viewModel: self),
         ])
         stateMachine.enter(LoadLatestState.Initial.self)
         return stateMachine
