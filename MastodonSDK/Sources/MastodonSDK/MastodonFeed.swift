@@ -71,7 +71,9 @@ extension MastodonFeed: Hashable {
     public static func == (lhs: MastodonFeed, rhs: MastodonFeed) -> Bool {
         lhs.id == rhs.id && 
         lhs.status?.entity == rhs.status?.entity &&
+        lhs.status?.poll == rhs.status?.poll &&
         lhs.status?.reblog?.entity == rhs.status?.reblog?.entity &&
+        lhs.status?.reblog?.poll == rhs.status?.reblog?.poll &&
         lhs.status?.isSensitiveToggled == rhs.status?.isSensitiveToggled &&
         lhs.status?.reblog?.isSensitiveToggled == rhs.status?.reblog?.isSensitiveToggled
     }
@@ -79,7 +81,9 @@ extension MastodonFeed: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(status?.entity)
+        hasher.combine(status?.poll)
         hasher.combine(status?.reblog?.entity)
+        hasher.combine(status?.reblog?.poll)
         hasher.combine(status?.isSensitiveToggled)
         hasher.combine(status?.reblog?.isSensitiveToggled)
     }

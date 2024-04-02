@@ -14,6 +14,7 @@ public final class MastodonPoll: ObservableObject, Hashable {
     @Published public var options: [MastodonPollOption] = []
     @Published public var multiple: Bool
     @Published public var expired: Bool
+    @Published public var expiresAt: Date?
     @Published public var voted: Bool?
     
     public var id: String {
@@ -21,14 +22,17 @@ public final class MastodonPoll: ObservableObject, Hashable {
     }
     
     public let poll: Mastodon.Entity.Poll
+    public weak var status: MastodonStatus?
     
-    public init(poll: Mastodon.Entity.Poll) {
+    public init(poll: Mastodon.Entity.Poll, status: MastodonStatus?) {
+        self.status = status
         self.poll = poll
         self.votersCount = poll.votersCount
         self.votesCount = poll.votesCount
         self.multiple = poll.multiple
         self.expired = poll.expired
         self.voted = poll.voted
+        self.expiresAt = poll.expiresAt
         self.options = poll.options.map { $0.toMastodonPollOption(with: self) }
     }
     
@@ -42,8 +46,8 @@ public final class MastodonPoll: ObservableObject, Hashable {
 }
 
 public extension Mastodon.Entity.Poll {
-    func toMastodonPoll() -> MastodonPoll {
-        return .init(poll: self)
+    func toMastodonPoll(status: MastodonStatus?) -> MastodonPoll {
+        return .init(poll: self, status: status)
     }
 }
 

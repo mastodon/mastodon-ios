@@ -86,6 +86,8 @@ extension ThreadViewController: DataSourceProvider {
             viewModel.handleEdit(status)
         case .delete:
             break // this case has already been handled
+        case .pollVote:
+            viewModel.handleEdit(status) // technically the data changed so refresh it to reflect the new data
         }
     }
 }

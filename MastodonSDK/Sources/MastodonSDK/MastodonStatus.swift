@@ -23,7 +23,7 @@ public final class MastodonStatus: ObservableObject {
         self.isSensitiveToggled = isSensitiveToggled
         
         if let poll = entity.poll {
-            self.poll = .init(poll: poll)
+            self.poll = .init(poll: poll, status: self)
         }
         
         if let reblog = entity.reblog {
@@ -53,19 +53,30 @@ extension MastodonStatus {
         originalStatus = status
         return self
     }
+    
+    public func withPoll(_ poll: MastodonPoll?) -> MastodonStatus {
+        self.poll = poll
+        return self
+    }
 }
 
 extension MastodonStatus: Hashable {
     public static func == (lhs: MastodonStatus, rhs: MastodonStatus) -> Bool {
         lhs.entity == rhs.entity &&
+        lhs.poll == rhs.poll &&
+        lhs.entity.poll == rhs.entity.poll &&
         lhs.reblog?.entity == rhs.reblog?.entity &&
+        lhs.reblog?.poll == rhs.reblog?.poll &&
+        lhs.reblog?.entity.poll == rhs.reblog?.entity.poll &&
         lhs.isSensitiveToggled == rhs.isSensitiveToggled &&
         lhs.reblog?.isSensitiveToggled == rhs.reblog?.isSensitiveToggled
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(entity)
+        hasher.combine(poll)
         hasher.combine(reblog?.entity)
+        hasher.combine(reblog?.poll)
         hasher.combine(isSensitiveToggled)
         hasher.combine(reblog?.isSensitiveToggled)
     }
@@ -90,6 +101,7 @@ public extension MastodonStatus {
         case toggleSensitive(Bool)
         case delete
         case edit
+        case pollVote
     }
 }
 
