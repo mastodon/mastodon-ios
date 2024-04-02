@@ -57,7 +57,7 @@ class MediaLayoutHelper {
 
         switch attachments.count {
         case 2:
-            if allAreWide && avgRatio > 1.4 * maxRatio && (ratios[1] - ratios[0]) < 0.2 {
+			if allAreWide && avgRatio > 1.4 * maxRatio && abs(ratios[1] - ratios[0]) < 0.2 {
                 // Two wide attachments, one above the other
                 let h = Int(max(min(maxWidth / ratios[0], min(maxWidth / ratios[1], (maxHeight - gap) / 2.0)), minHeight / 2.0).rounded())
 
@@ -69,7 +69,26 @@ class MediaLayoutHelper {
                         MediaLayoutResult.Tile(colSpan: 1, rowSpan: 1, startCol: 0, startRow: 0),
                         MediaLayoutResult.Tile(colSpan: 1, rowSpan: 1, startCol: 0, startRow: 1)
                     ])
-            } else if allAreWide || allAreSquare {
+            } else if allAreWide {
+                // two wide photos, one above the other, different ratios
+                var h0 = maxWidth / ratios[0]
+                var h1 = maxWidth / ratios[1]
+                if h0 + h1 < minHeight {
+                    let prevTotalHeight = h0 + h1
+                    h0 = minHeight * (h0 / prevTotalHeight)
+                    h1 = minHeight * (h1 / prevTotalHeight)
+                }
+                let h0Int = Int(h0.rounded())
+                let h1Int = Int(h1.rounded())
+                return MediaLayoutResult(width: Int(maxWidth),
+                                         height: h0Int + h1Int + Int(gap),
+                                         columnSizes: [Int(maxWidth)],
+                                         rowSizes: [h0Int, h1Int],
+                                         tiles: [
+                                            MediaLayoutResult.Tile(colSpan: 1, rowSpan: 1, startCol: 0, startRow: 0),
+                                            MediaLayoutResult.Tile(colSpan: 1, rowSpan: 1, startCol: 0, startRow: 1)
+                                         ])
+            } else if allAreSquare {
                 // Next to each other, same ratio
                 let w: CGFloat = (maxWidth - gap) / 2.0
                 let h: CGFloat = max(min(w / ratios[0], min(w / ratios[1], maxHeight)), minHeight)
