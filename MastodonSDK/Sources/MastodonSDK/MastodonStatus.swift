@@ -112,9 +112,5 @@ public extension MastodonStatus {
         else { return nil }
         let poll = try? await Mastodon.API.Polls.poll(session: .shared, domain: domain, pollID: pollId, authorization: authorization).singleOutput().value
         return poll
-//        return try? await context.perform {
-//            let predicate = Poll.predicate(domain: domain, id: pollId)
-//            return Poll.findOrFetch(in: context, matching: predicate)
-//        }
     }
 }

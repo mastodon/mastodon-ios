@@ -284,7 +284,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 if let poll = await status.getPoll(
                     in: authContext.mastodonAuthenticationBox.domain, 
                     authorization: authContext.mastodonAuthenticationBox.userAuthorization
-                    
                 ) {
                     isPollActive = !poll.expired
                     pollMultipleConfigurationOption = poll.multiple
