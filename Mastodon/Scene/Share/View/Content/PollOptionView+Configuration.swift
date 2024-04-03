@@ -19,8 +19,6 @@ extension PollOptionView {
             assertionFailure("PollOption to be configured is expected to be part of Poll with Status")
             return
         }
-
-//        viewModel.objects.insert(option)
         
         // metaContent
         option.$title
@@ -52,36 +50,20 @@ extension PollOptionView {
         
         let authContext = viewModel.authContext
         
-        let optionIndex = poll.options.firstIndex(of: option)
         let authorDomain = status?.entity.account.domain ?? ""
         let authorID = status?.entity.account.id ?? ""
         // isSelect, isPollVoted, isMyPoll
         let domain = authContext?.mastodonAuthenticationBox.domain ?? ""
         let userID = authContext?.mastodonAuthenticationBox.userID ?? ""
-        
-        let options = poll.options
-        let pollVoteBy = poll.poll.voted == true //poll.votedBy ?? Set()
 
         let isMyPoll = authorDomain == domain
                     && authorID == userID
 
-//        let votedOptions = options.filter { option in
-//            let votedBy = option.votedBy ?? Set()
-//            return votedBy.contains(where: { $0.id == userID && $0.domain == domain })
-//        }
-        let votedOptions = poll.options.filter { $0.voted == true }
-//        let isRemoteVotedOption = votedOptions.contains(where: { $0.index == optionIndex })
-//        let isRemoteVotedPoll = pollVoteBy.contains(where: { $0.id == userID && $0.domain == domain })
-
-//        let isLocalVotedOption = option.isSelected
-
         self.viewModel.isSelect = option.isSelected
-//        self.viewModel.isPollVoted = poll.voted == true
-//        self.viewModel.isMyPoll = poll.ownVotes != nil
-//        
+        self.viewModel.isPollVoted = poll.voted == true
+        self.viewModel.isMyPoll = isMyPoll
 
         viewModel.$authContext
-//            .compactMap({ $0 })
             .flatMap({ authContext -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Poll>, Error> in
                 return Mastodon.API.Polls.poll(
                     session: .shared,
@@ -94,60 +76,9 @@ extension PollOptionView {
             .sink { _ in } receiveValue: { [weak self] response in
                 let poll = response.value
                 self?.viewModel.isPollVoted = poll.voted == true
-                self?.viewModel.isMyPoll = poll.voted != nil
             }
             .store(in: &disposeBag)
 
-
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveValue: { value in
-//                value.value
-//            })
-        
-//        Publishers.CombineLatest4(
-//            option.publisher(for: \.poll),
-//            option.publisher(for: \.votedBy),
-//            option.publisher(for: \.isSelected),
-//            viewModel.$authContext
-//        )
-//        .sink { [weak self] poll, optionVotedBy, isSelected, authContext in
-//            guard let self = self, let poll = poll else { return }
-//
-//            let domain = authContext?.mastodonAuthenticationBox.domain ?? ""
-//            let userID = authContext?.mastodonAuthenticationBox.userID ?? ""
-//            
-//            let options = poll.options
-//            let pollVoteBy = poll.votedBy ?? Set()
-//
-//            let isMyPoll = authorDomain == domain
-//                        && authorID == userID
-//
-//            let votedOptions = options.filter { option in
-//                let votedBy = option.votedBy ?? Set()
-//                return votedBy.contains(where: { $0.id == userID && $0.domain == domain })
-//            }
-//            let isRemoteVotedOption = votedOptions.contains(where: { $0.index == optionIndex })
-//            let isRemoteVotedPoll = pollVoteBy.contains(where: { $0.id == userID && $0.domain == domain })
-//
-//            let isLocalVotedOption = isSelected
-//
-//            let isSelect: Bool? = {
-//                if isLocalVotedOption {
-//                    return true
-//                } else if !votedOptions.isEmpty {
-//                    return isRemoteVotedOption ? true : false
-//                } else if isRemoteVotedPoll, votedOptions.isEmpty {
-//                    // the poll voted. But server not mark voted options
-//                    return nil
-//                } else {
-//                    return false
-//                }
-//            }()
-//            self.viewModel.isSelect = isSelect
-//            self.viewModel.isPollVoted = isRemoteVotedPoll
-//            self.viewModel.isMyPoll = isMyPoll
-//        }
-//        .store(in: &disposeBag)
         // appearance
         checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
             return trailtCollection.userInterfaceStyle == .light ? .white : SystemTheme.tableViewCellSelectionBackgroundColor
