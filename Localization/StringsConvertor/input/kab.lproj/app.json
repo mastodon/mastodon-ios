@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Agejdan",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Beṛṛa n tuqqna",
                 "new_posts": "Tissufaɣ timaynutin",
