@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Sākums",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Bezsaistē",
                 "new_posts": "Skatīt jaunās ziņas",
