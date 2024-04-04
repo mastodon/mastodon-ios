@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Koti",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Yhteydetön",
                 "new_posts": "Uusia julkaisuja",
