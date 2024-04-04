@@ -34,7 +34,7 @@ final class HomeTimelineViewModel: NSObject {
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil
     @Published var displaySettingBarButtonItem = true
     @Published var hasPendingStatusEditReload = false
-    var timelineContext: MastodonFeed.Kind.HomeTimeline = .following
+    var timelineContext: MastodonFeed.Kind.TimelineContext = .home
 
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?

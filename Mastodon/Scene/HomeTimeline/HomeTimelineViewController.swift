@@ -106,7 +106,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
             guard let self, let viewModel = self.viewModel else { return }
 
-            viewModel.timelineContext = .following
+            viewModel.timelineContext = .home
             viewModel.dataController.records = []
 
             viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
@@ -123,7 +123,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         let showLocalTimelineAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, image: .init(systemName: "building.2")) { [weak self] action in
             guard let self, let viewModel = self.viewModel else { return }
 
-            viewModel.timelineContext = .localCommunity
+            viewModel.timelineContext = .public
             viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
             timelineSelectorButton.setAttributedTitle(
                 .init(string: L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, attributes: [
@@ -136,10 +136,10 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
 
         if let viewModel {
             switch viewModel.timelineContext {
-            case .localCommunity:
+            case .public:
                 showLocalTimelineAction.state = .on
                 showFollowingAction.state = .off
-            case .following:
+            case .home:
                 showLocalTimelineAction.state = .off
                 showFollowingAction.state = .on
             }

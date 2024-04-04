@@ -172,12 +172,12 @@ private extension FeedDataController {
             let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>
 
             switch timeline {
-            case .following:
+            case .home:
                 response = try await context.apiService.homeTimeline(
                     maxID: maxID,
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
-            case .localCommunity:
+            case .public:
                 response = try await context.apiService.publicTimeline(
                     query: .init(local: true, maxID: maxID),
                     authenticationBox: authContext.mastodonAuthenticationBox

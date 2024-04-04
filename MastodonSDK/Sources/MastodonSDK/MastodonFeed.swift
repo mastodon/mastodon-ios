@@ -7,13 +7,13 @@ public final class MastodonFeed {
     
     public enum Kind {
 
-        case home(timeline: HomeTimeline)
+        case home(timeline: TimelineContext)
         case notificationAll
         case notificationMentions
 
-        public enum HomeTimeline {
-            case following
-            case localCommunity
+        public enum TimelineContext {
+            case home
+            case `public`
         }
     }
     

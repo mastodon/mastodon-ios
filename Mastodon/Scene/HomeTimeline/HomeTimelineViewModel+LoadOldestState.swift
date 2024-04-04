@@ -64,12 +64,12 @@ extension HomeTimelineViewModel.LoadOldestState {
                     let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>
 
                     switch viewModel.timelineContext {
-                    case .following:
+                    case .home:
                         response = try await viewModel.context.apiService.homeTimeline(
                             maxID: maxID,
                             authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                         )
-                    case .localCommunity:
+                    case .public:
                         response = try await viewModel.context.apiService.publicTimeline(
                             query: .init(local: true, maxID: maxID),
                             authenticationBox: viewModel.authContext.mastodonAuthenticationBox
