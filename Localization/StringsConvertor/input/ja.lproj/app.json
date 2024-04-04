@@ -471,8 +471,8 @@
         "home_timeline": {
             "title": "ホーム",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "フォロー中",
+                "local_community": "ローカル"
             },
             "navigation_bar_state": {
                 "offline": "オフライン",
