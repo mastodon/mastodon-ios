@@ -471,8 +471,8 @@
         "home_timeline": {
             "title": "Trang chủ",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "Đang theo dõi",
+                "local_community": "Máy chủ"
             },
             "navigation_bar_state": {
                 "offline": "Ngoại tuyến",
