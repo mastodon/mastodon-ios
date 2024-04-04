@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Trang chủ",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Ngoại tuyến",
                 "new_posts": "Đọc những tút mới",
