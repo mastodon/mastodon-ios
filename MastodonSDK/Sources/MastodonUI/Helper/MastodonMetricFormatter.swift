@@ -42,17 +42,17 @@ public final class MastodonMetricFormatter: Formatter {
             numberFormatter.maximumFractionDigits = 0
             let string = numberFormatter.string(from: NSNumber(value: value)) ?? String(value)
             metric = string
-        case DecimalUnit.thousand.asInt..<DecimalUnit.million.asInt: // 1K ~ !M
+        case DecimalUnit.thousand.asInt..<DecimalUnit.million.asInt: // 1K ~ 1M
             numberFormatter.maximumFractionDigits = 1
             let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.thousand.asDouble)) ?? 
             String(value / DecimalUnit.thousand.asInt)
             metric = string + "K"
-        case DecimalUnit.million.asInt..<DecimalUnit.billion.asInt: // 1M ~1B
+        case DecimalUnit.million.asInt..<DecimalUnit.billion.asInt: // 1M ~ 1B
             numberFormatter.maximumFractionDigits = 1
             let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.million.asDouble)) ?? 
             String(value / DecimalUnit.million.asInt)
             metric = string + "M"
-        case DecimalUnit.billion.asInt..<DecimalUnit.trillion.asInt: // 1B ~1T
+        case DecimalUnit.billion.asInt..<DecimalUnit.trillion.asInt: // 1B ~ 1T
             numberFormatter.maximumFractionDigits = 1
             let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.billion.asDouble)) ?? 
             String(value / DecimalUnit.billion.asInt)
