@@ -10,6 +10,34 @@ import XCTest
 
 class MetricFormatterTests: XCTestCase {
     
+    func test_tensFormat() {
+        let formatter = MastodonMetricFormatter()
+        let value = formatter.string(from: 12)
+        
+        XCTAssertEqual(value, "12")
+    }
+    
+    func test_hundredsFormat() {
+        let formatter = MastodonMetricFormatter()
+        let value = formatter.string(from: 123)
+        
+        XCTAssertEqual(value, "123")
+    }
+    
+    func test_thousandsFormat() {
+        let formatter = MastodonMetricFormatter()
+        let value = formatter.string(from: 1234)
+        
+        XCTAssertEqual(value, "1,2K")
+    }
+    
+    func test_sixThousandsFormat() {
+        let formatter = MastodonMetricFormatter()
+        let value = formatter.string(from: 6666)
+        
+        XCTAssertEqual(value, "6,7K")
+    }
+    
     func test_millionsFormat_exactMillion() {
         let formatter = MastodonMetricFormatter()
         let value = formatter.string(from: 10_000_000)
@@ -38,31 +66,31 @@ class MetricFormatterTests: XCTestCase {
         XCTAssertEqual(value, "12,3B")
     }
     
-    func test_tensFormat() {
+    func test_trillionsFormat() {
         let formatter = MastodonMetricFormatter()
-        let value = formatter.string(from: 12)
+        let value = formatter.string(from: 10_000_000_000_000)
         
-        XCTAssertEqual(value, "12")
+        XCTAssertEqual(value, "10T")
     }
     
-    func test_hundredsFormat() {
+    func test_trillionsFormat_oneTwoThreeTrillion() {
         let formatter = MastodonMetricFormatter()
-        let value = formatter.string(from: 123)
+        let value = formatter.string(from: 12_345_678_912_345)
         
-        XCTAssertEqual(value, "123")
+        XCTAssertEqual(value, "12,3T")
     }
     
-    func test_thousandsFormat() {
+    func test_trillionsFormat_oneTwoThree_youGottaBeKiddinMeTrillion() {
         let formatter = MastodonMetricFormatter()
-        let value = formatter.string(from: 1234)
+        let value = formatter.string(from: 12_345_678_912_345_678)
         
-        XCTAssertEqual(value, "1,2K")
+        XCTAssertEqual(value, "12345,7T")
     }
     
-    func test_sixThousandsFormat() {
+    func test_trillionsFormat_oneTwoThree_lastDigitBeforeIntegerOverflowTrillion() {
         let formatter = MastodonMetricFormatter()
-        let value = formatter.string(from: 6666)
+        let value = formatter.string(from: 12_345_678_912_345_678_91)
         
-        XCTAssertEqual(value, "6,7K")
+        XCTAssertEqual(value, "1234567,9T")
     }
 }

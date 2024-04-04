@@ -57,8 +57,11 @@ public final class MastodonMetricFormatter: Formatter {
             let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.billion.asDouble)) ?? 
             String(value / DecimalUnit.billion.asInt)
             metric = string + "B"
-        default:
-            metric = String(value)
+        default: // > 1T
+            numberFormatter.maximumFractionDigits = 1
+            let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.trillion.asDouble)) ??
+            String(value / DecimalUnit.trillion.asInt)
+            metric = string + "T"
         }
         
         return symbol + metric
