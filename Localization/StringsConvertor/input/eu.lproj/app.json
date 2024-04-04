@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Hasiera",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Konexio gabe",
                 "new_posts": "Ikusi bidal. berriak",
