@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Hafan",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "All-lein",
                 "new_posts": "Gweld tŵts newydd",
