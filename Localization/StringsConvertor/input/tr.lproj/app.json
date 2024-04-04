@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Ana Sayfa",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Çevrimdışı",
                 "new_posts": "Yeni gönderiler gör",
