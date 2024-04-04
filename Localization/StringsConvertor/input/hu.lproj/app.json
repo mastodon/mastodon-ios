@@ -67,9 +67,9 @@
                 "unboost": "Megtolás visszavonása"
             },
             "unfollow_user": {
-                "title": "%@ követésének kikapcsolása?",
+                "title": "%@ kikövetése?",
                 "cancel": "Mégsem",
-                "unfollow": "Követés megszüntetése"
+                "unfollow": "Kikövetés"
             }
         },
         "controls": {
@@ -119,7 +119,7 @@
                 "bookmark": "Könyvjelzőzés",
                 "remove_bookmark": "Könyvjelző eltávolítása",
                 "follow": "%s követése",
-                "unfollow": "%s követésének kikapcsolása"
+                "unfollow": "%s kikövetése"
             },
             "tabs": {
                 "home": "Főoldal",
@@ -157,7 +157,7 @@
             },
             "status": {
                 "user_reblogged": "%s megtolta",
-                "user_replied_to": "Replied to %s",
+                "user_replied_to": "Válasz neki: %s",
                 "show_post": "Bejegyzés megjelenítése",
                 "show_user_profile": "Felhasználói profil megjelenítése",
                 "content_warning": "Tartalmi figyelmeztetés",
@@ -223,7 +223,7 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Megtolások",
-                    "favorites_title": "Kedvencek",
+                    "favorites_title": "Kedvelések",
                     "edit_history_title": "Előzmények módosítása",
                     "edit_history_detail": "Utoljára módosítva: %s"
                 },
@@ -283,8 +283,8 @@
     "scene": {
         "welcome": {
             "log_in": "Bejelentkezés",
-            "learn_more": "Learn more",
-            "join_default_server": "Join %@",
+            "learn_more": "További információ",
+            "join_default_server": "Csatlakozás ide: %@",
             "pick_server": "Másik kiszolgáló választása",
             "separator": {
                 "or": "vagy"
@@ -316,7 +316,7 @@
             "title": "Kiszolgáló választása",
             "button": {
                 "language": "Nyelv",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "Kapcsolódási sebesség",
                 "category": {
                     "all": "Összes",
                     "all_accessiblity_description": "Kategória: összes",
@@ -342,7 +342,7 @@
                 "category": "KATEGÓRIA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Közösségek keresése vagy URL megadása"
             },
             "empty_state": {
                 "finding_servers": "Elérhető szerverek keresése...",
@@ -351,20 +351,20 @@
             },
             "signup_speed": {
                 "all": "Összes",
-                "instant": "Instant Sign-up",
+                "instant": "Azonnali regisztráció",
                 "manually_reviewed": "Kézi ellenőrzés"
             },
             "language": {
                 "all": "Összes"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Kiszolgáló neve vagy URL"
             },
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
             "title": "Adatvédelem",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "description": "Bár a Mastodon alkalmazás nem gyűjt adatokat, a szerver, amelyen keresztül regisztrál, eltérő irányelvekkel rendelkezhet. Szánjon egy percet a Mastodon alkalmazás adatvédelmi szabályzatának és a kiszolgáló adatvédelmi szabályzatának áttekintésére és elfogadására.",
             "policy": {
                 "ios": "Adatvédelmi szabályzat - Mastodon for iOS",
                 "server": "Adatvédelmi szabályzat - %s"
@@ -653,7 +653,7 @@
             "followed_by_names": "Followed by %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Kedvelések"
         },
         "reblogged_by": {
             "title": "Megtolta"
@@ -715,7 +715,7 @@
             },
             "notification_description": {
                 "followed_you": "követi önt",
-                "favorited_your_post": "kedvencnek jelölte a bejegyzését",
+                "favorited_your_post": "kedvelte a bejegyzését",
                 "reblogged_your_post": "megtolta a bejegyzését",
                 "mentioned_you": "megemlítette Önt",
                 "request_to_follow_you": "kérte, hogy követhessen",
@@ -744,12 +744,12 @@
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "A Mastodonról",
                 "server_details": "Kiszolgáló részletei",
-                "logout": "Logout %@"
+                "logout": "Kilépés %@"
             },
             "about_mastodon": {
                 "title": "Névjegy",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
+                "more_settings": "Még több beállítás",
+                "contribute_to_mastodon": "Hozzájárulás a Mastodonhoz",
                 "privacy_policy": "Adatvédelmi szabályzat",
                 "clear_media_storage": "Mediatároló törlése"
             },
@@ -772,14 +772,14 @@
                 },
                 "ask_before": {
                     "section_title": "Kérdezzen, mielőtt…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Valaki követésének törlése",
+                    "posting_without_alt_text": "„Alt” szöveg nélküli posztolás",
+                    "unfollowing_someone": "Valaki kikövetése",
                     "boosting_a_post": "Bejegyzés megtolása",
                     "deleting_a_post": "Bejegyzés törlése"
                 },
                 "design": {
-                    "section_title": "Megjelenés",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Design",
+                    "show_animations": "Animált avatarok és emojik lejátszása"
                 },
                 "language": {
                     "section_title": "Nyelv",
@@ -795,7 +795,7 @@
                 "title": "Értesítések",
                 "policy": {
                     "title": "Értesítések fogadása",
-                    "anyone": "Bárkitől",
+                    "anyone": "Mindenkitől",
                     "followers": "A követőktől",
                     "follow": "A követettektől",
                     "noone": "Senkitől"
@@ -822,7 +822,7 @@
             "report_sent_title": "Köszönjük, hogy jelentette, meg fogjuk nézni.",
             "send": "Jelentés küldése",
             "skip_to_send": "Küldés megjegyzés nélkül",
-            "text_placeholder": "Type or paste additional comments",
+            "text_placeholder": "Írja be vagy illessze be további megjegyzéseit",
             "reported": "JELENTETT",
             "step_one": {
                 "step_1_of_4": "1/4. lépés",
@@ -859,7 +859,7 @@
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
                 "unfollow": "Követés megszüntetése",
                 "unfollowed": "Nem követett",
-                "unfollow_user": "%s követésének kikapcsolása",
+                "unfollow_user": "%s kikövetése",
                 "mute_user": "%s némítása",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Nem fogja látni a bejegyzéseiket vagy a megtolásaikat a Kezdőlapon. Nem fogják tudni, hogy elnémították őket.",
                 "block_user": "%s letiltása",
@@ -891,7 +891,7 @@
             },
             "actions": {
                 "follow": "Követés",
-                "unfollow": "Követés megszüntetése"
+                "unfollow": "Kikövetés"
             }
         }
     },
