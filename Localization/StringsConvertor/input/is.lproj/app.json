@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Heim",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Ónettengt",
                 "new_posts": "Skoða nýjar færslur",
