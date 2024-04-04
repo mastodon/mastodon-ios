@@ -471,8 +471,8 @@
         "home_timeline": {
             "title": "Inizio",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "Stai seguendo",
+                "local_community": "Locale"
             },
             "navigation_bar_state": {
                 "offline": "Non in linea",
