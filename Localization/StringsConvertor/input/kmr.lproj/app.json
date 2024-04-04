@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Serrûpel",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Derhêl",
                 "new_posts": "Şandiyên nû bibîne",
