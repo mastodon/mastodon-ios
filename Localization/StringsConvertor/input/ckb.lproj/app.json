@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "ماڵەوە",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "دەرهێڵ",
                 "new_posts": "پۆستە نوێکان ببینە",
