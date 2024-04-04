@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "主页",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "离线",
                 "new_posts": "查看新帖子",
