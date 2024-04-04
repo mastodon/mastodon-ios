@@ -164,12 +164,27 @@ final public class FeedDataController {
 }
 
 private extension FeedDataController {
-    func load(kind: MastodonFeed.Kind, maxID: MastodonStatus.ID?) async throws -> [MastodonFeed] {
+  func load(kind: MastodonFeed.Kind, maxID: MastodonStatus.ID?) async throws -> [MastodonFeed] {
         switch kind {
-        case .home:
+        case .home(let timeline):
             await context.authenticationService.authenticationServiceProvider.fetchAccounts(apiService: context.apiService)
-            return try await context.apiService.homeTimeline(maxID: maxID, authenticationBox: authContext.mastodonAuthenticationBox)
-                .value.map { .fromStatus(.fromEntity($0), kind: .home) }
+
+            let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>
+
+            switch timeline {
+            case .home:
+                response = try await context.apiService.homeTimeline(
+                    maxID: maxID,
+                    authenticationBox: authContext.mastodonAuthenticationBox
+                )
+            case .public:
+                response = try await context.apiService.publicTimeline(
+                    query: .init(local: true, maxID: maxID),
+                    authenticationBox: authContext.mastodonAuthenticationBox
+                )
+            }
+
+            return response.value.map { .fromStatus(.fromEntity($0), kind: .home) }
         case .notificationAll:
             return try await getFeeds(with: .everything)
         case .notificationMentions:

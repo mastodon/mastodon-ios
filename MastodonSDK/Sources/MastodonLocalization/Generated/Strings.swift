@@ -859,6 +859,12 @@ public enum L10n {
           public static let logoLabel = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel", fallback: "Mastodon")
         }
       }
+      public enum TimelineMenu {
+        /// Following
+        public static let following = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Following", fallback: "Following")
+        /// Local
+        public static let localCommunity = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.LocalCommunity", fallback: "Local")
+      }
     }
     public enum Login {
       /// Log you in on the server you created your account on.

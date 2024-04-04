@@ -28,11 +28,6 @@ extension HomeTimelineViewModel {
             self.viewModel = viewModel
         }
         
-        override func didEnter(from previousState: GKState?) {
-            super.didEnter(from: previousState)
-            viewModel?.loadLatestStateMachinePublisher.send(self)
-        }
-        
         @MainActor
         func enter(state: LoadLatestState.Type) {
             stateMachine?.enter(state)
@@ -75,7 +70,33 @@ extension HomeTimelineViewModel.LoadLatestState {
     
     class Idle: HomeTimelineViewModel.LoadLatestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Loading.self || stateClass == LoadingManually.self
+            return stateClass == Loading.self || stateClass == LoadingManually.self || stateClass == ContextSwitch.self
+        }
+    }
+
+    class ContextSwitch: HomeTimelineViewModel.LoadLatestState {
+        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+            return stateClass == Loading.self || stateClass == LoadingManually.self  || stateClass == ContextSwitch.self
+        }
+
+        override func didEnter(from previousState: GKState?) {
+            guard let viewModel else { return }
+            guard let diffableDataSource = viewModel.diffableDataSource else {
+                assertionFailure()
+                return
+            }
+
+            OperationQueue.main.addOperation {
+                viewModel.dataController.records = []
+                var snapshot = NSDiffableDataSourceSnapshot<StatusSection, StatusItem>()
+                snapshot.appendSections([.main])
+                snapshot.appendItems([.topLoader], toSection: .main)
+                diffableDataSource.apply(snapshot) { [weak self] in
+                    guard let self else { return }
+
+                    self.stateMachine?.enter(Loading.self)
+                }
+            }
         }
     }
 
@@ -83,7 +104,7 @@ extension HomeTimelineViewModel.LoadLatestState {
         super.didEnter(from: previousState)
 
         guard let viewModel else { return }
-        
+
         let latestFeedRecords = viewModel.dataController.records.prefix(APIService.onceRequestStatusMaxCount)
 
         Task {
@@ -93,10 +114,20 @@ extension HomeTimelineViewModel.LoadLatestState {
 
             do {
                 await AuthenticationServiceProvider.shared.fetchAccounts(apiService: viewModel.context.apiService)
-                let response = try await viewModel.context.apiService.homeTimeline(
-                    authenticationBox: viewModel.authContext.mastodonAuthenticationBox
-                )
-                
+                let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>
+
+                switch viewModel.timelineContext {
+                case .home:
+                    response = try await viewModel.context.apiService.homeTimeline(
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                    )
+                case .public:
+                    response = try await viewModel.context.apiService.publicTimeline(
+                        query: .init(local: true),
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                    )
+                }
+
                 await enter(state: Idle.self)
                 viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.finished)
 

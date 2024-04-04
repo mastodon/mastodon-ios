@@ -53,9 +53,7 @@ extension HomeTimelineViewModel.LoadOldestState {
             }
             
             Task {
-                let _maxID = lastFeedRecord.status?.id
-                
-                guard let maxID = _maxID else {
+                guard let maxID = lastFeedRecord.status?.id else {
                     await self.enter(state: Fail.self)
                     return
                 }
@@ -63,11 +61,21 @@ extension HomeTimelineViewModel.LoadOldestState {
                 do {
                     await AuthenticationServiceProvider.shared.fetchAccounts(apiService: viewModel.context.apiService)
 
-                    let response = try await viewModel.context.apiService.homeTimeline(
-                        maxID: maxID,
-                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
-                    )
-                    
+                    let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>
+
+                    switch viewModel.timelineContext {
+                    case .home:
+                        response = try await viewModel.context.apiService.homeTimeline(
+                            maxID: maxID,
+                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                        )
+                    case .public:
+                        response = try await viewModel.context.apiService.publicTimeline(
+                            query: .init(local: true, maxID: maxID),
+                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                        )
+                    }
+
                     let statuses = response.value
                     // enter no more state when no new statuses
                     if statuses.isEmpty || (statuses.count == 1 && statuses[0].id == maxID) {

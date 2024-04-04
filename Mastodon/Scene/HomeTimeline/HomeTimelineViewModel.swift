@@ -18,7 +18,6 @@ import MastodonUI
 import MastodonSDK
 
 final class HomeTimelineViewModel: NSObject {
-    
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     
@@ -35,7 +34,8 @@ final class HomeTimelineViewModel: NSObject {
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil
     @Published var displaySettingBarButtonItem = true
     @Published var hasPendingStatusEditReload = false
-    
+    var timelineContext: MastodonFeed.Kind.TimelineContext = .home
+
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     
@@ -55,11 +55,11 @@ final class HomeTimelineViewModel: NSObject {
             LoadLatestState.LoadingManually(viewModel: self),
             LoadLatestState.Fail(viewModel: self),
             LoadLatestState.Idle(viewModel: self),
+            LoadLatestState.ContextSwitch(viewModel: self),
         ])
         stateMachine.enter(LoadLatestState.Initial.self)
         return stateMachine
     }()
-    lazy var loadLatestStateMachinePublisher = CurrentValueSubject<LoadLatestState?, Never>(nil)
     
     // bottom loader
     private(set) lazy var loadOldestStateMachine: GKStateMachine = {
@@ -74,10 +74,9 @@ final class HomeTimelineViewModel: NSObject {
         stateMachine.enter(LoadOldestState.Initial.self)
         return stateMachine
     }()
-    lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
 
     var cellFrameCache = NSCache<NSNumber, NSValue>()
-    
+
     init(context: AppContext, authContext: AuthContext) {
         self.context  = context
         self.authContext = authContext
@@ -115,7 +114,7 @@ final class HomeTimelineViewModel: NSObject {
             })
             .store(in: &disposeBag)
         
-        self.dataController.loadInitial(kind: .home)
+        self.dataController.loadInitial(kind: .home(timeline: timelineContext))
     }
 }
 
@@ -129,7 +128,7 @@ extension HomeTimelineViewModel {
 
 extension HomeTimelineViewModel {
     func timelineDidReachEnd() {
-        dataController.loadNext(kind: .home)
+        dataController.loadNext(kind: .home(timeline: timelineContext))
     }
 }
 
