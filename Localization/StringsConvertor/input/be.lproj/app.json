@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Галоўная",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Па-за сеткай",
                 "new_posts": "Паказаць новыя",
