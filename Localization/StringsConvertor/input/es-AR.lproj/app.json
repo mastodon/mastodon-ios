@@ -471,7 +471,7 @@
         "home_timeline": {
             "title": "Principal",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Seguimientos",
                 "local_community": "Local"
             },
             "navigation_bar_state": {
