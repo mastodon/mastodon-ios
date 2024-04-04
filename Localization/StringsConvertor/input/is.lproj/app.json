@@ -471,8 +471,8 @@
         "home_timeline": {
             "title": "Heim",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "Fylgist með",
+                "local_community": "Staðvært"
             },
             "navigation_bar_state": {
                 "offline": "Ónettengt",
