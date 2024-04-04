@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "홈",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "오프라인",
                 "new_posts": "새 글 보기",
