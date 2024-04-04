@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "首頁",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "離線",
                 "new_posts": "檢視最新嘟文",
