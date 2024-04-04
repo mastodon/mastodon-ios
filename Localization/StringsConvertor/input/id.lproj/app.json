@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Beranda",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Luring",
                 "new_posts": "Lihat postingan baru",
