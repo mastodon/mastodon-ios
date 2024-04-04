@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Հիմնական",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Անցանց",
                 "new_posts": "Տեսնել նորերը",
