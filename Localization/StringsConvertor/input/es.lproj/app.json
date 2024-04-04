@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "Inicio",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "Sin Conexión",
                 "new_posts": "Ver nuevas publicaciones",
