@@ -1,9 +1,4 @@
-//
-//  MetricFormatterTests.swift
-//  MastodonTests
-//
-//  Created by Marcus Kida on 04.04.24.
-//
+// Copyright © 2024 Mastodon gGmbH. All rights reserved.
 
 import XCTest
 @testable import MastodonUI
