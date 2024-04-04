@@ -471,7 +471,7 @@
         "home_timeline": {
             "title": "Inicio",
             "timeline_menu": {
-                "following": "Following",
+                "following": "A Seguir",
                 "local_community": "Local"
             },
             "navigation_bar_state": {
