@@ -7,6 +7,25 @@
 
 import Foundation
 
+enum DecimalUnit: Int {
+    case one = 1
+    case ten = 10
+    case hundred = 100
+    case thousand = 1_000
+    case million = 1_000_000
+    case billion = 1_000_000_000
+    case trillion = 1_000_000_000_000
+    
+    var asInt: Int {
+        self.rawValue
+    }
+    
+    var asDouble: Double {
+        Double(self.rawValue)
+    }
+}
+
+
 public final class MastodonMetricFormatter: Formatter {
 
     public func string(from number: Int) -> String? {
@@ -19,20 +38,27 @@ public final class MastodonMetricFormatter: Formatter {
         let metric: String
         
         switch value {
-        case 0..<1000:          // 0 ~ 1K
-            metric = String(value)
-        case 1000..<10000:      // 1K ~ 10K
+        case 0..<DecimalUnit.thousand.asInt: // 0 ~ 1K
+            numberFormatter.maximumFractionDigits = 0
+            let string = numberFormatter.string(from: NSNumber(value: value)) ?? String(value)
+            metric = string
+        case DecimalUnit.thousand.asInt..<DecimalUnit.million.asInt: // 1K ~ !M
             numberFormatter.maximumFractionDigits = 1
-            let string = numberFormatter.string(from: NSNumber(value: Double(value) / 1000.0)) ?? String(value / 1000)
+            let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.thousand.asDouble)) ?? 
+            String(value / DecimalUnit.thousand.asInt)
             metric = string + "K"
-        case 10000..<1000000:    // 10K ~ 1M
-            numberFormatter.maximumFractionDigits = 0
-            let string = numberFormatter.string(from: NSNumber(value: Double(value) / 1000.0)) ?? String(value / 1000)
-            metric = string + "K"
-        default:
-            numberFormatter.maximumFractionDigits = 0
-            let string = numberFormatter.string(from: NSNumber(value: Double(value) / 1000000.0)) ?? String(value / 1000000)
+        case DecimalUnit.million.asInt..<DecimalUnit.billion.asInt: // 1M ~1B
+            numberFormatter.maximumFractionDigits = 1
+            let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.million.asDouble)) ?? 
+            String(value / DecimalUnit.million.asInt)
             metric = string + "M"
+        case DecimalUnit.billion.asInt..<DecimalUnit.trillion.asInt: // 1B ~1T
+            numberFormatter.maximumFractionDigits = 1
+            let string = numberFormatter.string(from: NSNumber(value: Double(value) / DecimalUnit.billion.asDouble)) ?? 
+            String(value / DecimalUnit.billion.asInt)
+            metric = string + "B"
+        default:
+            metric = String(value)
         }
         
         return symbol + metric

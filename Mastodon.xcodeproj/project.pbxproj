@@ -50,6 +50,7 @@
 		2A86A14629892944007F1062 /* MultiFollowersCountIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86A14529892944007F1062 /* MultiFollowersCountIntentHandler.swift */; };
 		2A86A14929892B3A007F1062 /* MultiFollowersCountWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86A14829892B3A007F1062 /* MultiFollowersCountWidget.swift */; };
 		2A86A14B2989326E007F1062 /* MultiFollowersCountWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86A14A2989326E007F1062 /* MultiFollowersCountWidgetView.swift */; };
+		2A8DCC612BBEA6DE00B2A4EC /* MetricFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8DCC602BBEA6DE00B2A4EC /* MetricFormatterTests.swift */; };
 		2A90A157296EEE500026C155 /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90A156296EEE500026C155 /* MastodonSDKDynamic */; };
 		2A9D0664298C048800BF38CB /* LatestFollowersWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D0663298C048800BF38CB /* LatestFollowersWidget.swift */; };
 		2A9D0666298C05A800BF38CB /* LatestFollowersWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D0665298C05A800BF38CB /* LatestFollowersWidgetView.swift */; };
@@ -652,6 +653,7 @@
 		2A86A14529892944007F1062 /* MultiFollowersCountIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountIntentHandler.swift; sourceTree = "<group>"; };
 		2A86A14829892B3A007F1062 /* MultiFollowersCountWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountWidget.swift; sourceTree = "<group>"; };
 		2A86A14A2989326E007F1062 /* MultiFollowersCountWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountWidgetView.swift; sourceTree = "<group>"; };
+		2A8DCC602BBEA6DE00B2A4EC /* MetricFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricFormatterTests.swift; sourceTree = "<group>"; };
 		2A9D0663298C048800BF38CB /* LatestFollowersWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestFollowersWidget.swift; sourceTree = "<group>"; };
 		2A9D0665298C05A800BF38CB /* LatestFollowersWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestFollowersWidgetView.swift; sourceTree = "<group>"; };
 		2AAAA34D2B04DE21004C6672 /* VisionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VisionKit.framework; path = System/Library/Frameworks/VisionKit.framework; sourceTree = SDKROOT; };
@@ -2115,6 +2117,7 @@
 			isa = PBXGroup;
 			children = (
 				DB427DEC25BAA00100D1B89D /* MastodonTests.swift */,
+				2A8DCC602BBEA6DE00B2A4EC /* MetricFormatterTests.swift */,
 				DB427DEE25BAA00100D1B89D /* Info.plist */,
 			);
 			path = MastodonTests;
@@ -3848,6 +3851,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A8DCC612BBEA6DE00B2A4EC /* MetricFormatterTests.swift in Sources */,
 				DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
