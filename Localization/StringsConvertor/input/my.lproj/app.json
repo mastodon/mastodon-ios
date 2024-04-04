@@ -470,6 +470,10 @@
         },
         "home_timeline": {
             "title": "အိမ်",
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
             "navigation_bar_state": {
                 "offline": "အော့ဖ်လိုင်း",
                 "new_posts": "ပို့စ်အသစ်ကြည့်ရန်",
