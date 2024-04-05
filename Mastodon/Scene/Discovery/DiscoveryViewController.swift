@@ -12,8 +12,6 @@ import MastodonAsset
 import MastodonCore
 import MastodonUI
 
-
-
 public class DiscoveryViewController: PageboyViewController, NeedsDependency {
 
     public static let containerViewMarginForRegularHorizontalSizeClass: CGFloat = 64
