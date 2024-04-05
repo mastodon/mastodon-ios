@@ -44,8 +44,6 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         return emptyView
     }()
 
-    let titleView = HomeTimelineNavigationBarTitleView()
-
     lazy var timelineSelectorButton = {
         let button = UIButton(type: .custom)
         button.setAttributedTitle(
@@ -101,6 +99,8 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     }()
     
     let refreshControl = RefreshControl()
+    let timelinePill = TimelineStatusPill()
+
 
     private func generateTimeSelectorMenu() -> UIMenu {
         let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
@@ -170,33 +170,6 @@ extension HomeTimelineViewController {
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: timelineSelectorButton)
-
-//        navigationItem.titleView = titleView
-//        titleView.delegate = self
-        
-        viewModel?.homeTimelineNavigationBarTitleViewModel.state
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] state in
-                guard let self = self else { return }
-                self.titleView.configure(state: state)
-            }
-            .store(in: &disposeBag)
-        
-        viewModel?.homeTimelineNavigationBarTitleViewModel.state
-            .removeDuplicates()
-            .filter { $0 == .publishedButton }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard UserDefaults.shared.lastVersionPromptedForReview == nil else { return }
-                guard UserDefaults.shared.processCompletedCount > 3 else { return }
-                guard let windowScene = self.view.window?.windowScene else { return }
-                let version = UIApplication.appVersion()
-                UserDefaults.shared.lastVersionPromptedForReview = version
-                SKStoreReviewController.requestReview(in: windowScene)
-            }
-            .store(in: &disposeBag)
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(HomeTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
@@ -326,6 +299,15 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
 
+//        timelinePill.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(timelinePill)
+//
+//        // has to up updated and animated
+//        timelinePill.update(with: .postSent)
+//        NSLayoutConstraint.activate([
+//            timelinePill.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+//            timelinePill.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//        ])
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -480,15 +462,6 @@ extension HomeTimelineViewController {
 }
 // MARK: - UIScrollViewDelegate
 extension HomeTimelineViewController {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        switch scrollView {
-        case tableView:
-            viewModel?.homeTimelineNavigationBarTitleViewModel.handleScrollViewDidScroll(scrollView)
-        default:
-            break
-        }
-    }
-    
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         switch scrollView {
         case tableView:
@@ -643,37 +616,6 @@ extension HomeTimelineViewController: ScrollViewContainer {
 
 // MARK: - StatusTableViewCellDelegate
 extension HomeTimelineViewController: StatusTableViewCellDelegate { }
-
-// MARK: - HomeTimelineNavigationBarTitleViewDelegate
-extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate {
-    func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, logoButtonDidPressed sender: UIButton) {
-        if shouldRestoreScrollPosition() {
-            restorePositionWhenScrollToTop()
-        } else {
-            savePositionBeforeScrollToTop()
-            scrollToTop(animated: true)
-        }
-    }
-    
-    func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, buttonDidPressed sender: UIButton) {
-        switch titleView.state {
-        case .newPostButton:
-            guard let diffableDataSource = viewModel?.diffableDataSource else { return }
-            let indexPath = IndexPath(row: 0, section: 0)
-            guard diffableDataSource.itemIdentifier(for: indexPath) != nil else { return }
-        
-            savePositionBeforeScrollToTop()
-            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        case .offlineButton:
-            // TODO: retry
-            break
-        case .publishedButton:
-            break
-        default:
-            break
-        }
-    }
-}
 
 extension HomeTimelineViewController {
     override var keyCommands: [UIKeyCommand]? {

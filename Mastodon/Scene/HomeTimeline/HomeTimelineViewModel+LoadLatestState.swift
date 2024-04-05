@@ -129,7 +129,6 @@ extension HomeTimelineViewModel.LoadLatestState {
                 }
 
                 await enter(state: Idle.self)
-                viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.finished)
 
                 // stop refresher if no new statuses
                 let statuses = response.value
@@ -137,11 +136,7 @@ extension HomeTimelineViewModel.LoadLatestState {
 
                 if newStatuses.isEmpty {
                     viewModel.didLoadLatest.send()
-                } else {
-                    if !latestStatusIDs.isEmpty {
-                        viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
-                    }
-                    
+                } else {                    
                     viewModel.dataController.records = {
                         var newRecords: [MastodonFeed] = newStatuses.map {
                             MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
@@ -168,7 +163,6 @@ extension HomeTimelineViewModel.LoadLatestState {
             } catch {
                 await enter(state: Idle.self)
                 viewModel.didLoadLatest.send()
-                viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.failure(error))
             }
         }   // end Task
     }

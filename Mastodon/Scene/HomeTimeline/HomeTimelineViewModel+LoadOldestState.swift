@@ -83,12 +83,9 @@ extension HomeTimelineViewModel.LoadOldestState {
                     } else {
                         await self.enter(state: Idle.self)
                     }
-                    
-                    viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.finished)
-                    
+
                 } catch {
                     await self.enter(state: Fail.self)
-                    viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.failure(error))
                 }
             }   // end Task
         }

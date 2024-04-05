@@ -25,7 +25,6 @@ final class HomeTimelineViewModel: NSObject {
     let context: AppContext
     let authContext: AuthContext
     let dataController: FeedDataController
-    let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     var presentedSuggestions = false
@@ -81,7 +80,6 @@ final class HomeTimelineViewModel: NSObject {
         self.context  = context
         self.authContext = authContext
         self.dataController = FeedDataController(context: context, authContext: authContext)
-        self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         self.dataController.records = (try? FileManager.default.cachedHomeTimeline(for: authContext.mastodonAuthenticationBox).map {
             MastodonFeed.fromStatus($0, kind: .home)
@@ -92,16 +90,6 @@ final class HomeTimelineViewModel: NSObject {
                 self?.loadLatestStateMachine.enter(LoadLatestState.Loading.self)
             }
             .store(in: &disposeBag)
-
-        // refresh after publish post
-        homeTimelineNavigationBarTitleViewModel.isPublished
-            .delay(for: 2, scheduler: DispatchQueue.main)
-            .sink { [weak self] isPublished in
-                guard let self = self else { return }
-                self.homeTimelineNeedRefresh.send()
-            }
-            .store(in: &disposeBag)
-        
         self.dataController.$records
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
