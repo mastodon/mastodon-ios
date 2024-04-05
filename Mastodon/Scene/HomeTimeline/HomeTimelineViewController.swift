@@ -486,11 +486,13 @@ extension HomeTimelineViewController {
     private func showTimelinePill() {
         guard let timelinePillHiddenTopAnchor, let timelinePillVisibleTopAnchor else { return }
 
+        timelinePill.alpha = 0
         NSLayoutConstraint.deactivate([timelinePillHiddenTopAnchor])
         NSLayoutConstraint.activate([timelinePillVisibleTopAnchor])
 
-        UIView.animate(withDuration: 0.4) {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.9) { [weak self] in
+            self?.timelinePill.alpha = 1
+            self?.view.layoutIfNeeded()
         }
     }
 
@@ -499,9 +501,10 @@ extension HomeTimelineViewController {
 
         NSLayoutConstraint.deactivate([timelinePillVisibleTopAnchor])
         NSLayoutConstraint.activate([timelinePillHiddenTopAnchor])
-
-        UIView.animate(withDuration: 0.4, animations: {
-            self.view.layoutIfNeeded()
+        timelinePill.alpha = 1
+        UIView.animate(withDuration: 0.5, animations: { [weak self] in
+            self?.timelinePill.alpha = 0
+            self?.view.layoutIfNeeded()
         })
     }
 
