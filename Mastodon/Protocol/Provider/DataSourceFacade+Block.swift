@@ -15,8 +15,7 @@ extension DataSourceFacade {
         dependency: NeedsDependency & AuthContextProvider,
         account: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
+        FeedbackGenerator.shared.generate(.selectionChanged)
 
         let apiService = dependency.context.apiService
         let authBox = dependency.authContext.mastodonAuthenticationBox
@@ -39,8 +38,7 @@ extension DataSourceFacade {
         dependency: NeedsDependency & AuthContextProvider,
         account: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Empty {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
+        FeedbackGenerator.shared.generate(.selectionChanged)
 
         let apiService = dependency.context.apiService
         let authBox = dependency.authContext.mastodonAuthenticationBox

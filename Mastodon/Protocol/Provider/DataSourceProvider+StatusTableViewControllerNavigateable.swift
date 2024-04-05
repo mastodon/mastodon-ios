@@ -85,9 +85,8 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
     private func replyStatus() async {
         guard let status = await statusRecord() else { return }
         
-        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        selectionFeedbackGenerator.selectionChanged()
-        
+        FeedbackGenerator.shared.generate(.selectionChanged)
+
         let composeViewModel = ComposeViewModel(
             context: self.context,
             authContext: authContext,

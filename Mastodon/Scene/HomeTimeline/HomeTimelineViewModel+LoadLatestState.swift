@@ -161,8 +161,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                 viewModel.timelineIsEmpty.value = latestStatusIDs.isEmpty && statuses.isEmpty
                 
                 if !isUserInitiated {
-                    await UIImpactFeedbackGenerator(style: .light)
-                        .impactOccurred()
+                    FeedbackGenerator.shared.generate(.impact(.light))
                 }
                 
             } catch {

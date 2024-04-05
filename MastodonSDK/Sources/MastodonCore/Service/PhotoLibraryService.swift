@@ -32,9 +32,7 @@ extension PhotoLibraryService {
 extension PhotoLibraryService {
 
     public func save(imageSource source: ImageSource) -> AnyPublisher<Void, Error> {
-        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-
+        let feedbackGenerator = FeedbackGenerator.shared
 
         let imageDataPublisher: AnyPublisher<Data, Error> = {
             switch source {
@@ -50,13 +48,13 @@ extension PhotoLibraryService {
                 PhotoLibraryService.save(imageData: data)
             }
             .handleEvents(receiveSubscription: { _ in
-                impactFeedbackGenerator.impactOccurred()
+                feedbackGenerator.generate(.impact(.light))
             }, receiveCompletion: { completion in
                 switch completion {
                 case .failure:
-                    notificationFeedbackGenerator.notificationOccurred(.error)
+                    feedbackGenerator.generate(.notification(.error))
                 case .finished:
-                    notificationFeedbackGenerator.notificationOccurred(.success)
+                    feedbackGenerator.generate(.notification(.success))
                 }
             })
             .eraseToAnyPublisher()
@@ -67,10 +65,8 @@ extension PhotoLibraryService {
 extension PhotoLibraryService {
 
     public func copy(imageSource source: ImageSource) -> AnyPublisher<Void, Error> {
-
-        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-
+        let feedbackGenerator = FeedbackGenerator.shared
+        
         let imageDataPublisher: AnyPublisher<Data, Error> = {
             switch source {
             case .url(let url):
@@ -85,13 +81,13 @@ extension PhotoLibraryService {
                 PhotoLibraryService.copy(imageData: data)
             }
             .handleEvents(receiveSubscription: { _ in
-                impactFeedbackGenerator.impactOccurred()
+                feedbackGenerator.generate(.impact(.light))
             }, receiveCompletion: { completion in
                 switch completion {
                 case .failure:
-                    notificationFeedbackGenerator.notificationOccurred(.error)
+                    feedbackGenerator.generate(.notification(.error))
                 case .finished:
-                    notificationFeedbackGenerator.notificationOccurred(.success)
+                    feedbackGenerator.generate(.notification(.success))
                 }
             })
             .eraseToAnyPublisher()
