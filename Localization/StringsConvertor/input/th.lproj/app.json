@@ -471,8 +471,8 @@
         "home_timeline": {
             "title": "หน้าแรก",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "กำลังติดตาม",
+                "local_community": "ในเซิร์ฟเวอร์"
             },
             "navigation_bar_state": {
                 "offline": "ออฟไลน์",
