@@ -1,9 +1,4 @@
-//
-//  File.swift
-//  
-//
-//  Created by Marcus Kida on 05.04.24.
-//
+// Copyright © 2024 Mastodon gGmbH. All rights reserved.
 
 import UIKit
 
