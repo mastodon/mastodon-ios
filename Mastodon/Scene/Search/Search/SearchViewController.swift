@@ -6,18 +6,12 @@
 //
 
 import Combine
-import GameplayKit
 import MastodonSDK
 import UIKit
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
-
-final class HeightFixedSearchBar: UISearchBar {
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: CGFloat.greatestFiniteMagnitude, height: 36)
-    }
-}
+import Pageboy
 
 final class SearchViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -30,8 +24,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
 
     // use AutoLayout could set search bar margin automatically to
     // layout alongside with split mode button (on iPad)
-    let titleViewContainer = UIView()
-    let searchBar = HeightFixedSearchBar()
+    let searchBar = UISearchBar()
 
     // value is the initial search text to set
     let searchBarTapPublisher = PassthroughSubject<String, Never>()
@@ -46,11 +39,34 @@ final class SearchViewController: UIViewController, NeedsDependency {
             coordinator: coordinator,
             authContext: authContext
         )
+        viewController.delegate = self
         return viewController
     }()
-}
 
-extension SearchViewController {
+    let segmentedControl: UISegmentedControl
+    let segmentedControlBackground: UIView
+
+    init() {
+        segmentedControl = UISegmentedControl(items: [
+            L10n.Scene.Discovery.Tabs.posts,
+            L10n.Scene.Discovery.Tabs.hashtags,
+            L10n.Scene.Discovery.Tabs.news,
+            L10n.Scene.Discovery.Tabs.forYou
+        ])
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.selectedSegmentIndex = 0
+
+        segmentedControlBackground = UIView()
+        segmentedControlBackground.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControlBackground.backgroundColor = .systemBackground
+
+        super.init(nibName: nil, bundle: nil)
+
+        segmentedControl.addTarget(self, action: #selector(SearchViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
+    }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,26 +75,40 @@ extension SearchViewController {
         title = L10n.Scene.Search.title
 
         setupSearchBar()
-        guard let discoveryViewController = self.discoveryViewController else { return }
+        guard let discoveryViewController else { return }
+
+        segmentedControlBackground.addSubview(segmentedControl)
+        view.addSubview(segmentedControlBackground)
+
 
         addChild(discoveryViewController)
         discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(discoveryViewController.view)
-        discoveryViewController.view.pinToParent()
+        discoveryViewController.didMove(toParent: self)
+
+        let constraints = [
+            segmentedControl.topAnchor.constraint(equalTo: segmentedControlBackground.topAnchor, constant: 8),
+            segmentedControl.leadingAnchor.constraint(equalTo: segmentedControlBackground.leadingAnchor, constant: 8),
+            segmentedControlBackground.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 8),
+            segmentedControlBackground.bottomAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
+
+            segmentedControlBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            segmentedControlBackground.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: segmentedControlBackground.trailingAnchor),
+
+            discoveryViewController.view.topAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor),
+            discoveryViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: discoveryViewController.view.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: discoveryViewController.view.bottomAnchor),
+        ]
+
+        NSLayoutConstraint.activate(constraints)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        viewModel?.viewDidAppeared.send()
-
-        // note:
-        // need set alpha because (maybe) SDK forget set alpha back
-        titleViewContainer.alpha = 1
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        searchBar.scopeBarBackgroundImage = .placeholder(color: .systemBackground)
     }
-}
 
-extension SearchViewController {
     private func setupAppearance() {
         view.backgroundColor = .systemGroupedBackground
 
@@ -97,13 +127,8 @@ extension SearchViewController {
     private func setupSearchBar() {
         searchBar.placeholder = L10n.Scene.Search.SearchBar.placeholder
         searchBar.delegate = self
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        titleViewContainer.addSubview(searchBar)
-        searchBar.pinToParent()
-        searchBar.setContentHuggingPriority(.required, for: .horizontal)
-        searchBar.setContentHuggingPriority(.required, for: .vertical)
-        navigationItem.titleView = titleViewContainer
-//        navigationItem.titleView = searchBar
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
 
         searchBarTapPublisher
             .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: false)
@@ -120,6 +145,11 @@ extension SearchViewController {
                 _ = self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush(animated: false))
             }
             .store(in: &disposeBag)
+    }
+
+    @objc
+    private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        discoveryViewController?.scrollToPage(.at(index: sender.selectedSegmentIndex), animated: true)
     }
 
 }
@@ -150,5 +180,24 @@ extension SearchViewController: ScrollViewContainer {
     }
     func scrollToTop(animated: Bool) {
         discoveryViewController?.scrollToTop(animated: animated)
+    }
+}
+
+//MARK: - PageboyViewControllerDelegate
+extension SearchViewController: PageboyViewControllerDelegate {
+    func pageboyViewController(_ pageboyViewController: Pageboy.PageboyViewController, didReloadWith currentViewController: UIViewController, currentPageIndex: Pageboy.PageboyViewController.PageIndex) {
+        // do nothing
+    }
+    
+    func pageboyViewController(_ pageboyViewController: Pageboy.PageboyViewController, didScrollTo position: CGPoint, direction: Pageboy.PageboyViewController.NavigationDirection, animated: Bool) {
+        // do nothing
+    }
+
+    func pageboyViewController(_ pageboyViewController: PageboyViewController, willScrollToPageAt index: PageboyViewController.PageIndex, direction: PageboyViewController.NavigationDirection, animated: Bool) {
+        // do nothing
+    }
+
+    func pageboyViewController(_ pageboyViewController: PageboyViewController, didScrollToPageAt index: PageboyViewController.PageIndex, direction: PageboyViewController.NavigationDirection, animated: Bool) {
+        segmentedControl.selectedSegmentIndex = index
     }
 }

@@ -7,14 +7,13 @@
 
 import UIKit
 import Combine
-import Tabman
 import Pageboy
 import MastodonAsset
 import MastodonCore
 import MastodonUI
 
-public class DiscoveryViewController: TabmanViewController, NeedsDependency {
-    
+public class DiscoveryViewController: PageboyViewController, NeedsDependency {
+
     public static let containerViewMarginForRegularHorizontalSizeClass: CGFloat = 64
     public static let containerViewMarginForCompactHorizontalSizeClass: CGFloat = 16
     
@@ -25,71 +24,12 @@ public class DiscoveryViewController: TabmanViewController, NeedsDependency {
         
     var viewModel: DiscoveryViewModel!
     
-    private(set) lazy var buttonBar: TMBar.ButtonBar = {
-        let buttonBar = TMBar.ButtonBar()
-        buttonBar.backgroundView.style = .custom(view: buttonBarBackgroundView)
-        buttonBar.layout.interButtonSpacing = 0
-        buttonBar.layout.contentInset = .zero
-        buttonBar.indicator.backgroundColor = Asset.Colors.Label.primary.color
-        buttonBar.indicator.weight = .custom(value: 2)
-        return buttonBar
-    }()
-    
-    let buttonBarBackgroundView: UIView = {
-        let view = UIView()
-        let barBottomLine = UIView.separatorLine
-        barBottomLine.backgroundColor = Asset.Colors.Label.secondary.color.withAlphaComponent(0.5)
-        barBottomLine.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(barBottomLine)
-        NSLayoutConstraint.activate([
-            barBottomLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            barBottomLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            barBottomLine.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            barBottomLine.heightAnchor.constraint(equalToConstant: 2).priority(.required - 1),
-        ])
-        return view
-    }()
-    
-    func customizeButtonBarAppearance() {
-        // The implmention use CATextlayer. Adapt for Dark Mode without dynamic colors
-        // Needs trigger update when `userInterfaceStyle` chagnes
-        let userInterfaceStyle = traitCollection.userInterfaceStyle
-        buttonBar.buttons.customize { button in
-            switch userInterfaceStyle {
-            case .dark:
-                // Asset.Colors.Label.primary.color
-                button.selectedTintColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
-                // Asset.Colors.Label.secondary.color
-                button.tintColor = UIColor(red: 151.0/255.0, green: 157.0/255.0, blue: 173.0/255.0, alpha: 1.0)
-            default:
-                // Asset.Colors.Label.primary.color
-                button.selectedTintColor = UIColor(red: 40.0/255.0, green: 44.0/255.0, blue: 55.0/255.0, alpha: 1.0)
-                // Asset.Colors.Label.secondary.color
-                button.tintColor = UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 67.0/255.0, alpha: 0.6)
-            }
-            
-            button.backgroundColor = .clear
-            button.contentInset = UIEdgeInsets(top: 12, left: 26, bottom: 12, right: 26)
-        }
-    }
-    
-}
-
-extension DiscoveryViewController {
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
 
         setupAppearance()
         
         dataSource = viewModel
-        addBar(
-            buttonBar,
-            dataSource: viewModel,
-            at: .top
-        )
-        customizeButtonBarAppearance()
-    
         viewModel.$viewControllers
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -98,22 +38,10 @@ extension DiscoveryViewController {
             }
             .store(in: &disposeBag)
     }
-    
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
 
-        customizeButtonBarAppearance()
-    }
-
-}
-
-extension DiscoveryViewController {
-    
     private func setupAppearance() {
         view.backgroundColor = .secondarySystemBackground
-        buttonBarBackgroundView.backgroundColor = .systemBackground
     }
-    
 }
 
 // MARK: - ScrollViewContainer
@@ -148,5 +76,4 @@ extension DiscoveryViewController: PageboyNavigateable {
     @objc func pageboyNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
         pageboyNavigateKeyCommandHandler(sender)
     }
-    
 }
