@@ -5,32 +5,34 @@ import MastodonAsset
 
 class TimelineStatusPill: UIButton {
 
-    func update(with state: State) {
+    var reason: Reason?
+
+    func update(with reason: Reason) {
+        self.reason = reason
         var configuration = UIButton.Configuration.filled()
 
-
         configuration.attributedTitle = AttributedString(
-            state.title, attributes: AttributeContainer(
+            reason.title, attributes: AttributeContainer(
                 [
                     .font: UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .bold)),
                     .foregroundColor: UIColor.white
                 ]
             ))
 
-        let image = state.image?
+        let image = reason.image?
             .withConfiguration(UIImage.SymbolConfiguration(paletteColors: [.white]))
             .withConfiguration(UIImage.SymbolConfiguration(textStyle: .subheadline))
             .withConfiguration(UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .medium))
 
         configuration.image = image
         configuration.imagePadding = 8
-        configuration.baseBackgroundColor = state.backgroundColor
+        configuration.baseBackgroundColor = reason.backgroundColor
         configuration.cornerStyle = .capsule
 
         self.configuration = configuration
     }
 
-    public enum State {
+    public enum Reason {
         case newPosts
         case postSent
         case offline

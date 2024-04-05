@@ -100,6 +100,9 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     
     let refreshControl = RefreshControl()
     let timelinePill = TimelineStatusPill()
+    var timelinePillCenterXAnchor: NSLayoutConstraint?
+    var timelinePillVisibleTopAnchor: NSLayoutConstraint?
+    var timelinePillHiddenTopAnchor: NSLayoutConstraint?
 
 
     private func generateTimeSelectorMenu() -> UIMenu {
@@ -299,17 +302,24 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
 
-//        timelinePill.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(timelinePill)
-//
-//        // has to up updated and animated
-//        timelinePill.update(with: .postSent)
-//        NSLayoutConstraint.activate([
-//            timelinePill.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-//            timelinePill.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//        ])
+        timelinePill.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(timelinePill)
+
+        let timelinePillCenterXAnchor = timelinePill.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        let timelinePillVisibleTopAnchor = timelinePill.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8)
+        let timelinePillHiddenTopAnchor = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: timelinePill.bottomAnchor, constant: 8)
+
+        NSLayoutConstraint.activate([
+            timelinePillHiddenTopAnchor, timelinePillCenterXAnchor
+        ])
+
+        timelinePill.addTarget(self, action: #selector(HomeTimelineViewController.timelinePillPressed(_:)), for: .touchUpInside)
+
+        self.timelinePillCenterXAnchor = timelinePillCenterXAnchor
+        self.timelinePillVisibleTopAnchor = timelinePillVisibleTopAnchor
+        self.timelinePillHiddenTopAnchor = timelinePillHiddenTopAnchor
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -457,6 +467,42 @@ extension HomeTimelineViewController {
             FileManager.default.invalidateNotificationsMentions(for: userIdentifier)
             self.coordinator.setup()
         }
+    }
+
+    @objc private func timelinePillPressed(_ sender: TimelineStatusPill) {
+        guard let reason = sender.reason else { return }
+        switch reason {
+        case .newPosts:
+            print("Bring me to the new posts and disappear")
+        case .postSent:
+            print("Bring me to my post and disappear")
+        case .offline:
+            print("Just disappear")
+        }
+
+        hideTimelinePill()
+    }
+
+    private func showTimelinePill() {
+        guard let timelinePillHiddenTopAnchor, let timelinePillVisibleTopAnchor else { return }
+
+        NSLayoutConstraint.deactivate([timelinePillHiddenTopAnchor])
+        NSLayoutConstraint.activate([timelinePillVisibleTopAnchor])
+
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func hideTimelinePill() {
+        guard let timelinePillHiddenTopAnchor, let timelinePillVisibleTopAnchor else { return }
+
+        NSLayoutConstraint.deactivate([timelinePillVisibleTopAnchor])
+        NSLayoutConstraint.activate([timelinePillHiddenTopAnchor])
+
+        UIView.animate(withDuration: 0.4, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 
 }
