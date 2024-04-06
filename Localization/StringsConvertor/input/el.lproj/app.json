@@ -471,8 +471,8 @@
         "home_timeline": {
             "title": "Αρχική",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "Ακολουθείς",
+                "local_community": "Τοπική"
             },
             "navigation_bar_state": {
                 "offline": "Εκτός σύνδεσης",
