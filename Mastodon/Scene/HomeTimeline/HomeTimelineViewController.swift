@@ -486,6 +486,8 @@ extension HomeTimelineViewController {
     private func showTimelinePill() {
         guard let timelinePillHiddenTopAnchor, let timelinePillVisibleTopAnchor else { return }
 
+        timelinePill.setNeedsLayout()
+        timelinePill.layoutIfNeeded()
         timelinePill.alpha = 0
         NSLayoutConstraint.deactivate([timelinePillHiddenTopAnchor])
         NSLayoutConstraint.activate([timelinePillVisibleTopAnchor])
