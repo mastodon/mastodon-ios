@@ -71,5 +71,4 @@ class TimelineStatusPill: UIButton {
             }
         }
     }
-
 }

@@ -159,7 +159,11 @@ extension HomeTimelineViewModel.LoadLatestState {
                     await UIImpactFeedbackGenerator(style: .light)
                         .impactOccurred()
                 }
-                
+
+                if newStatuses.isNotEmpty {
+                    viewModel.hasNewPosts.value = true
+                }
+
             } catch {
                 await enter(state: Idle.self)
                 viewModel.didLoadLatest.send()

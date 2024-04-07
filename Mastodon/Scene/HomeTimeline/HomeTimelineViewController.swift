@@ -318,6 +318,20 @@ extension HomeTimelineViewController {
         self.timelinePillCenterXAnchor = timelinePillCenterXAnchor
         self.timelinePillVisibleTopAnchor = timelinePillVisibleTopAnchor
         self.timelinePillHiddenTopAnchor = timelinePillHiddenTopAnchor
+
+        viewModel?.hasNewPosts
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] hasNewPosts in
+                guard let self else { return }
+
+                if hasNewPosts {
+                    self.timelinePill.update(with: .newPosts)
+                    self.showTimelinePill()
+                } else {
+                    self.hideTimelinePill()
+                }
+            })
+            .store(in: &disposeBag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -471,16 +485,18 @@ extension HomeTimelineViewController {
 
     @objc private func timelinePillPressed(_ sender: TimelineStatusPill) {
         guard let reason = sender.reason else { return }
+
         switch reason {
         case .newPosts:
-            print("Bring me to the new posts and disappear")
+            scrollToTop(animated: true)
+            viewModel?.hasNewPosts.value = false
         case .postSent:
             print("Bring me to my post and disappear")
         case .offline:
-            print("Just disappear")
+            hideTimelinePill()
         }
 
-        hideTimelinePill()
+
     }
 
     private func showTimelinePill() {
