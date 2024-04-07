@@ -471,8 +471,8 @@
         "home_timeline": {
             "title": "Галоўная",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "Вы падпісаны",
+                "local_community": "Лакальнае"
             },
             "navigation_bar_state": {
                 "offline": "Па-за сеткай",
