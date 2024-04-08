@@ -332,6 +332,20 @@ extension HomeTimelineViewController {
                 }
             })
             .store(in: &disposeBag)
+
+        context.publisherService.statusPublishResult.prepend(.failure(AppError.badRequest))
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] publishResult in
+            guard let self else { return }
+            switch publishResult {
+            case .success:
+                self.timelinePill.update(with: .postSent)
+                self.showTimelinePill()
+            case .failure:
+                self.hideTimelinePill()
+            }
+        }
+        .store(in: &disposeBag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
