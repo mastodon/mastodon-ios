@@ -333,6 +333,20 @@ extension HomeTimelineViewController {
             })
             .store(in: &disposeBag)
 
+        viewModel?.isOffline
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] isOffline in
+                guard let self else { return }
+
+                if isOffline {
+                    self.timelinePill.update(with: .offline)
+                    self.showTimelinePill()
+                } else {
+                    self.hideTimelinePill()
+                }
+            })
+            .store(in: &disposeBag)
+
         context.publisherService.statusPublishResult.prepend(.failure(AppError.badRequest))
         .receive(on: DispatchQueue.main)
         .sink { [weak self] publishResult in

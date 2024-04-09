@@ -129,6 +129,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                 }
 
                 await enter(state: Idle.self)
+                viewModel.receiveLoadingStateCompletion(.finished)
 
                 // stop refresher if no new statuses
                 let statuses = response.value
@@ -167,6 +168,7 @@ extension HomeTimelineViewModel.LoadLatestState {
             } catch {
                 await enter(state: Idle.self)
                 viewModel.didLoadLatest.send()
+                viewModel.receiveLoadingStateCompletion(.failure(error))
             }
         }   // end Task
     }

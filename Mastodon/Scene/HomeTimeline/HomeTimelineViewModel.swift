@@ -34,6 +34,11 @@ final class HomeTimelineViewModel: NSObject {
     @Published var displaySettingBarButtonItem = true
     @Published var hasPendingStatusEditReload = false
     let hasNewPosts = CurrentValueSubject<Bool, Never>(false)
+
+    /// Becomes `true` if `networkErrorCount` is bigger than 5
+    let isOffline = CurrentValueSubject<Bool, Never>(false)
+    var networkErrorCount = CurrentValueSubject<Int, Never>(0)
+
     var timelineContext: MastodonFeed.Kind.TimelineContext = .home
 
     weak var tableView: UITableView?
@@ -103,7 +108,24 @@ final class HomeTimelineViewModel: NSObject {
             })
             .store(in: &disposeBag)
         
+        networkErrorCount
+            .receive(on: DispatchQueue.main)
+            .map { errorCount in
+                return errorCount >= 5
+            }
+            .assign(to: \.value, on: isOffline)
+            .store(in: &disposeBag)
+
         self.dataController.loadInitial(kind: .home(timeline: timelineContext))
+    }
+
+    func receiveLoadingStateCompletion(_ completion: Subscribers.Completion<Error>) {
+        switch completion {
+        case .failure:
+            networkErrorCount.value = networkErrorCount.value + 1
+        case .finished:
+            networkErrorCount.value = 0
+        }
     }
 }
 
