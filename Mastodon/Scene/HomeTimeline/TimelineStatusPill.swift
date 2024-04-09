@@ -15,7 +15,6 @@ class TimelineStatusPill: UIButton {
             reason.title, attributes: AttributeContainer(
                 [
                     .font: UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .bold)),
-                    .foregroundColor: UIColor.white
                 ]
             ))
 
@@ -26,10 +25,26 @@ class TimelineStatusPill: UIButton {
 
         configuration.image = image
         configuration.imagePadding = 8
-        configuration.baseBackgroundColor = reason.backgroundColor
         configuration.cornerStyle = .capsule
+        configuration.background.backgroundColor = reason.backgroundColor
 
         self.configuration = configuration
+    }
+
+    override func updateConfiguration() {
+        guard let reason, var updatedConfiguration = configuration else {
+            return super.updateConfiguration()
+        }
+
+        switch state {
+        case .selected, .highlighted, .focused:
+            updatedConfiguration.baseForegroundColor = UIColor.white.withAlphaComponent(0.5)
+        default:
+            updatedConfiguration.baseForegroundColor = .white
+        }
+
+        updatedConfiguration.background.backgroundColor = reason.backgroundColor
+        self.configuration = updatedConfiguration
     }
 
     public enum Reason {
