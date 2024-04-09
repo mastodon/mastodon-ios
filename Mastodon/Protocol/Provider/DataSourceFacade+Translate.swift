@@ -22,8 +22,7 @@ extension DataSourceFacade {
         provider: Provider,
         status: MastodonStatus
     ) async throws -> Mastodon.Entity.Translation? {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
+        FeedbackGenerator.shared.generate(.selectionChanged)
 
         do {
             let value = try await provider.context

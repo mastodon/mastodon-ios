@@ -17,8 +17,7 @@ extension DataSourceFacade {
         provider: NeedsDependency & AuthContextProvider & DataSourceProvider,
         status: MastodonStatus
     ) async throws {
-        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        selectionFeedbackGenerator.selectionChanged()
+        FeedbackGenerator.shared.generate(.selectionChanged)
         
         let updatedStatus = try await provider.context.apiService.bookmark(
             record: status,

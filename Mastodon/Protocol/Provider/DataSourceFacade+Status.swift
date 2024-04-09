@@ -98,9 +98,8 @@ extension DataSourceFacade {
 
         switch action {
         case .reply:
-            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-            selectionFeedbackGenerator.selectionChanged()
-            
+            FeedbackGenerator.shared.generate(.selectionChanged)
+
             let composeViewModel = ComposeViewModel(
                 context: provider.context,
                 authContext: provider.authContext,

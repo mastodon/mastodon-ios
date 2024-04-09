@@ -14,9 +14,8 @@ extension DataSourceFacade {
         dependency: NeedsDependency & AuthContextProvider,
         account: Mastodon.Entity.Account
     ) async throws -> Mastodon.Entity.Relationship {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
-    
+        FeedbackGenerator.shared.generate(.selectionChanged)
+
         let response = try await dependency.context.apiService.toggleMute(
             authenticationBox: dependency.authContext.mastodonAuthenticationBox,
             account: account

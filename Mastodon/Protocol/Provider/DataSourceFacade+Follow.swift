@@ -25,8 +25,7 @@ extension DataSourceFacade {
         return try await withCheckedThrowingContinuation { continuation in
             Task { @MainActor in
                 let performAction = {
-                    let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-                    selectionFeedbackGenerator.selectionChanged()
+                    FeedbackGenerator.shared.generate(.selectionChanged)
 
                     let response = try await dependency.context.apiService.toggleFollow(
                         account: account,
@@ -84,8 +83,7 @@ extension DataSourceFacade {
         notificationView: NotificationView,
         query: Mastodon.API.Account.FollowRequestQuery
     ) async throws {
-        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
-        await selectionFeedbackGenerator.selectionChanged()
+        FeedbackGenerator.shared.generate(.selectionChanged)
 
         let userID = notification.account.id
         let state: MastodonFollowRequestState = notification.followRequestState

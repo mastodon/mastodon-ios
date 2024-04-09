@@ -8,6 +8,7 @@
 import UIKit
 import MastodonAsset
 import MastodonLocalization
+import MastodonCore
 
 enum CategoryPickerSection: Equatable, Hashable {
     case main
@@ -36,13 +37,13 @@ extension CategoryPickerSection {
 
                 let allLanguagesAction = UIAction(title: L10n.Scene.ServerPicker.Language.all) { _ in
                     viewModel.selectedLanguage.value = nil
-                    UISelectionFeedbackGenerator().selectionChanged()
+                    FeedbackGenerator.shared.generate(.selectionChanged)
                     cell.titleLabel.text = L10n.Scene.ServerPicker.Button.language
                 }
 
                 let languageActions = viewModel.allLanguages.value.compactMap { language in
                     UIAction(title: language.language ?? language.locale) { action in
-                        UISelectionFeedbackGenerator().selectionChanged()
+                        FeedbackGenerator.shared.generate(.selectionChanged)
                         viewModel.selectedLanguage.value = language.locale
                         cell.titleLabel.text = language.language
                     }
@@ -64,19 +65,19 @@ extension CategoryPickerSection {
                 let doesntMatterAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.all) { _ in
                     viewModel.manualApprovalRequired.value = nil
                     cell.titleLabel.text = L10n.Scene.ServerPicker.Button.signupSpeed
-                    UISelectionFeedbackGenerator().selectionChanged()
+                    FeedbackGenerator.shared.generate(.selectionChanged)
                 }
 
                 let manualApprovalAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.manuallyReviewed) { action in
                     viewModel.manualApprovalRequired.value = true
                     cell.titleLabel.text = action.title
-                    UISelectionFeedbackGenerator().selectionChanged()
+                    FeedbackGenerator.shared.generate(.selectionChanged)
                 }
 
                 let instantSignupAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.instant) { action in
                     viewModel.manualApprovalRequired.value = false
                     cell.titleLabel.text = action.title
-                    UISelectionFeedbackGenerator().selectionChanged()
+                    FeedbackGenerator.shared.generate(.selectionChanged)
                 }
 
                 let signupSpeedMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.signupSpeed,

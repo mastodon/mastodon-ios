@@ -10,6 +10,7 @@ import Tabman
 import MastodonAsset
 import MastodonUI
 import MastodonLocalization
+import MastodonCore
 
 protocol PickServerServerSectionTableHeaderViewDelegate: AnyObject {
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
@@ -97,7 +98,7 @@ extension PickServerServerSectionTableHeaderView {
 extension PickServerServerSectionTableHeaderView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        UISelectionFeedbackGenerator().selectionChanged()
+        FeedbackGenerator.shared.generate(.selectionChanged)
 
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         delegate?.pickServerServerSectionTableHeaderView(self, collectionView: collectionView, didSelectItemAt: indexPath)

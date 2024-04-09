@@ -47,7 +47,7 @@ class MainTabBarController: UITabBarController {
     @Published var avatarURL: URL?
     
     // haptic feedback
-    private let selectionFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    private let feedbackGenerator = FeedbackGenerator.shared
     
     init(
         context: AppContext,
@@ -249,7 +249,7 @@ extension MainTabBarController {
     
     @objc private func composeButtonDidPressed(_ sender: Any) {
 
-        selectionFeedbackGenerator.impactOccurred()
+        feedbackGenerator.generate(.impact(.medium))
         guard let authContext = self.authContext else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
@@ -382,7 +382,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
         
         // Different tab has been selected, send haptic feedback
         if viewController.tabBarItem.tag != tabBarController.selectedIndex {
-            selectionFeedbackGenerator.impactOccurred()
+            feedbackGenerator.generate(.impact(.medium))
         }
 
         // Assert index is as same as the tab rawValue. This check needs to be done `shouldSelect`

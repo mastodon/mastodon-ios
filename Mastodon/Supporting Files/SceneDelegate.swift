@@ -22,9 +22,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var coordinator: SceneCoordinator?
 
     var savedShortCutItem: UIApplicationShortcutItem?
+    
+    let feedbackGenerator = FeedbackGenerator.shared
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
+        
+        feedbackGenerator.isEnabled = false // Disable Haptic Feedback for now
         
         #if DEBUG
         let window = TouchesVisibleWindow(windowScene: windowScene)
