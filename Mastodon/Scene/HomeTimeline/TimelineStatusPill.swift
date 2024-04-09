@@ -29,6 +29,11 @@ class TimelineStatusPill: UIButton {
         configuration.background.backgroundColor = reason.backgroundColor
 
         self.configuration = configuration
+
+        layer.shadowColor = reason.backgroundColor.cgColor
+        layer.shadowOpacity = 0.15
+        layer.shadowOffset = .init(width: 0, height: 8)
+        layer.shadowRadius = 8
     }
 
     override func updateConfiguration() {
