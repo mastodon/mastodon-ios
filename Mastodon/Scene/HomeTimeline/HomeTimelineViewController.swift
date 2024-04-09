@@ -313,7 +313,9 @@ extension HomeTimelineViewController {
             timelinePillHiddenTopAnchor, timelinePillCenterXAnchor
         ])
 
-        timelinePill.addTarget(self, action: #selector(HomeTimelineViewController.timelinePillPressed(_:)), for: .touchUpInside)
+        timelinePill.addTarget(self, action: #selector(HomeTimelineViewController.timelinePillTouched(_:)), for: .touchDown)
+        timelinePill.addTarget(self, action: #selector(HomeTimelineViewController.timelinePillPressedInside(_:)), for: .touchUpInside)
+        timelinePill.addTarget(self, action: #selector(HomeTimelineViewController.timelinePillTouchedOutside(_:)), for: .touchUpOutside)
 
         self.timelinePillCenterXAnchor = timelinePillCenterXAnchor
         self.timelinePillVisibleTopAnchor = timelinePillVisibleTopAnchor
@@ -511,8 +513,24 @@ extension HomeTimelineViewController {
         }
     }
 
-    @objc private func timelinePillPressed(_ sender: TimelineStatusPill) {
+    @objc private func timelinePillTouched(_ sender: TimelineStatusPill) {
+        UIView.animate(withDuration: 0.05) {
+            sender.transform = CGAffineTransform.identity.scaledBy(x: 0.95, y: 0.95)
+        }
+    }
+
+    @objc private func timelinePillTouchedOutside(_ sender: TimelineStatusPill) {
+        UIView.animate(withDuration: 0.05) {
+            sender.transform = CGAffineTransform.identity.scaledBy(x: 100/95.0, y: 100/95.0)
+        }
+    }
+
+    @objc private func timelinePillPressedInside(_ sender: TimelineStatusPill) {
         guard let reason = sender.reason else { return }
+
+        UIView.animate(withDuration: 0.05) {
+            sender.transform = CGAffineTransform.identity.scaledBy(x: 100/95.0, y: 100/95.0)
+        }
 
         switch reason {
         case .newPosts:
@@ -523,8 +541,6 @@ extension HomeTimelineViewController {
         case .offline:
             hideTimelinePill()
         }
-
-
     }
 
     private func showTimelinePill() {
