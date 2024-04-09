@@ -3,8 +3,7 @@
 import UIKit
 
 public class FeedbackGenerator {
-    
-    private init(){}
+
     private let lightImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     private let mediumImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     private let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
