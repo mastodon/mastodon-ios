@@ -474,15 +474,10 @@
                 "following": "Following",
                 "local_community": "Local"
             },
-            "navigation_bar_state": {
-                "offline": "Konexio gabe",
-                "new_posts": "Ikusi bidal. berriak",
-                "published": "Argitaratua!",
-                "Publishing": "Bidalketa argitaratzen...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
