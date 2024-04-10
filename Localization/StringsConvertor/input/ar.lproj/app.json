@@ -474,15 +474,10 @@
                 "following": "Following",
                 "local_community": "Local"
             },
-            "navigation_bar_state": {
-                "offline": "غَير مُتَّصِل",
-                "new_posts": "إظهار منشورات جديدة",
-                "published": "تمَّ النَّشر!",
-                "Publishing": "يَجري نَشر المُشارَكَة...",
-                "accessibility": {
-                    "logo_label": "ماستدون",
-                    "logo_hint": "اُنقُر لِلتمريرِ لأعلى واُنقُر مَرّةً أُخرَى لِلذَّهابِ إلَى المَوقِعِ السَّابِق"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
