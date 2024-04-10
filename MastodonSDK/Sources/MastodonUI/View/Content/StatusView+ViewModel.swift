@@ -467,7 +467,8 @@ extension StatusView.ViewModel {
                 
                 items.forEach({ item in
                     guard case let PollItem.option(record) = item else { return }
-                    record.$isSelected.receive(on: DispatchQueue.main).sink { selected in
+                    record.$isSelected.receive(on: DispatchQueue.main).sink { [weak self] selected in
+                        guard let self else { return }
                         if (selected) {
                             self.isVoteButtonEnabled = true
                         }
