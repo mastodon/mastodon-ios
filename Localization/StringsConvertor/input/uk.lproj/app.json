@@ -474,15 +474,10 @@
                 "following": "Following",
                 "local_community": "Local"
             },
-            "navigation_bar_state": {
-                "offline": "В автономному режимі",
-                "new_posts": "До нових дописів",
-                "published": "Опубліковано!",
-                "Publishing": "Допис публікується...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Торкніться для прокручування вгору і натисніть ще раз на попереднє розташування"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
