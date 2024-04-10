@@ -25,7 +25,6 @@ final class HomeTimelineViewModel: NSObject {
     let context: AppContext
     let authContext: AuthContext
     let dataController: FeedDataController
-    let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     var presentedSuggestions = false
@@ -34,6 +33,12 @@ final class HomeTimelineViewModel: NSObject {
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil
     @Published var displaySettingBarButtonItem = true
     @Published var hasPendingStatusEditReload = false
+    let hasNewPosts = CurrentValueSubject<Bool, Never>(false)
+
+    /// Becomes `true` if `networkErrorCount` is bigger than 5
+    let isOffline = CurrentValueSubject<Bool, Never>(false)
+    var networkErrorCount = CurrentValueSubject<Int, Never>(0)
+
     var timelineContext: MastodonFeed.Kind.TimelineContext = .home
 
     weak var tableView: UITableView?
@@ -81,7 +86,6 @@ final class HomeTimelineViewModel: NSObject {
         self.context  = context
         self.authContext = authContext
         self.dataController = FeedDataController(context: context, authContext: authContext)
-        self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         self.dataController.records = (try? FileManager.default.cachedHomeTimeline(for: authContext.mastodonAuthenticationBox).map {
             MastodonFeed.fromStatus($0, kind: .home)
@@ -92,16 +96,6 @@ final class HomeTimelineViewModel: NSObject {
                 self?.loadLatestStateMachine.enter(LoadLatestState.Loading.self)
             }
             .store(in: &disposeBag)
-
-        // refresh after publish post
-        homeTimelineNavigationBarTitleViewModel.isPublished
-            .delay(for: 2, scheduler: DispatchQueue.main)
-            .sink { [weak self] isPublished in
-                guard let self = self else { return }
-                self.homeTimelineNeedRefresh.send()
-            }
-            .store(in: &disposeBag)
-        
         self.dataController.$records
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
@@ -114,7 +108,24 @@ final class HomeTimelineViewModel: NSObject {
             })
             .store(in: &disposeBag)
         
+        networkErrorCount
+            .receive(on: DispatchQueue.main)
+            .map { errorCount in
+                return errorCount >= 5
+            }
+            .assign(to: \.value, on: isOffline)
+            .store(in: &disposeBag)
+
         self.dataController.loadInitial(kind: .home(timeline: timelineContext))
+    }
+
+    func receiveLoadingStateCompletion(_ completion: Subscribers.Completion<Error>) {
+        switch completion {
+        case .failure:
+            networkErrorCount.value = networkErrorCount.value + 1
+        case .finished:
+            networkErrorCount.value = 0
+        }
     }
 }
 

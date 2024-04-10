@@ -843,27 +843,19 @@ public enum L10n {
     public enum HomeTimeline {
       /// Home
       public static let title = L10n.tr("Localizable", "Scene.HomeTimeline.Title", fallback: "Home")
-      public enum NavigationBarState {
-        /// See new posts
-        public static let newPosts = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.NewPosts", fallback: "See new posts")
-        /// Offline
-        public static let offline = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Offline", fallback: "Offline")
-        /// Published!
-        public static let published = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Published", fallback: "Published!")
-        /// Publishing post...
-        public static let publishing = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Publishing", fallback: "Publishing post...")
-        public enum Accessibility {
-          /// Tap to scroll to top and tap again to previous location
-          public static let logoHint = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint", fallback: "Tap to scroll to top and tap again to previous location")
-          /// Mastodon
-          public static let logoLabel = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel", fallback: "Mastodon")
-        }
-      }
       public enum TimelineMenu {
         /// Following
         public static let following = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Following", fallback: "Following")
         /// Local
         public static let localCommunity = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.LocalCommunity", fallback: "Local")
+      }
+      public enum TimelinePill {
+        /// New Posts
+        public static let newPosts = L10n.tr("Localizable", "Scene.HomeTimeline.TimelinePill.NewPosts", fallback: "New Posts")
+        /// Offline
+        public static let offline = L10n.tr("Localizable", "Scene.HomeTimeline.TimelinePill.Offline", fallback: "Offline")
+        /// Post Sent
+        public static let postSent = L10n.tr("Localizable", "Scene.HomeTimeline.TimelinePill.PostSent", fallback: "Post Sent")
       }
     }
     public enum Login {

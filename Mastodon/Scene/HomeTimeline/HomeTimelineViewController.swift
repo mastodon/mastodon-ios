@@ -44,8 +44,6 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         return emptyView
     }()
 
-    let titleView = HomeTimelineNavigationBarTitleView()
-
     lazy var timelineSelectorButton = {
         let button = UIButton(type: .custom)
         button.setAttributedTitle(
@@ -101,6 +99,11 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     }()
     
     let refreshControl = RefreshControl()
+    let timelinePill = TimelineStatusPill()
+    var timelinePillCenterXAnchor: NSLayoutConstraint?
+    var timelinePillVisibleTopAnchor: NSLayoutConstraint?
+    var timelinePillHiddenTopAnchor: NSLayoutConstraint?
+
 
     private func generateTimeSelectorMenu() -> UIMenu {
         let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
@@ -170,33 +173,6 @@ extension HomeTimelineViewController {
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: timelineSelectorButton)
-
-//        navigationItem.titleView = titleView
-//        titleView.delegate = self
-        
-        viewModel?.homeTimelineNavigationBarTitleViewModel.state
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] state in
-                guard let self = self else { return }
-                self.titleView.configure(state: state)
-            }
-            .store(in: &disposeBag)
-        
-        viewModel?.homeTimelineNavigationBarTitleViewModel.state
-            .removeDuplicates()
-            .filter { $0 == .publishedButton }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard UserDefaults.shared.lastVersionPromptedForReview == nil else { return }
-                guard UserDefaults.shared.processCompletedCount > 3 else { return }
-                guard let windowScene = self.view.window?.windowScene else { return }
-                let version = UIApplication.appVersion()
-                UserDefaults.shared.lastVersionPromptedForReview = version
-                SKStoreReviewController.requestReview(in: windowScene)
-            }
-            .store(in: &disposeBag)
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(HomeTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
@@ -326,8 +302,68 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
 
+        timelinePill.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(timelinePill)
+
+        let timelinePillCenterXAnchor = timelinePill.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        let timelinePillVisibleTopAnchor = timelinePill.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8)
+        let timelinePillHiddenTopAnchor = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: timelinePill.bottomAnchor, constant: 8)
+
+        NSLayoutConstraint.activate([
+            timelinePillHiddenTopAnchor, timelinePillCenterXAnchor
+        ])
+
+        timelinePill.addTarget(self, action: #selector(HomeTimelineViewController.timelinePillTouched(_:)), for: .touchDown)
+        timelinePill.addTarget(self, action: #selector(HomeTimelineViewController.timelinePillPressedInside(_:)), for: .touchUpInside)
+        timelinePill.addTarget(self, action: #selector(HomeTimelineViewController.timelinePillTouchedOutside(_:)), for: .touchUpOutside)
+
+        self.timelinePillCenterXAnchor = timelinePillCenterXAnchor
+        self.timelinePillVisibleTopAnchor = timelinePillVisibleTopAnchor
+        self.timelinePillHiddenTopAnchor = timelinePillHiddenTopAnchor
+
+        viewModel?.hasNewPosts
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] hasNewPosts in
+                guard let self else { return }
+
+                if hasNewPosts {
+                    self.timelinePill.update(with: .newPosts)
+                    self.showTimelinePill()
+                } else {
+                    self.hideTimelinePill()
+                }
+            })
+            .store(in: &disposeBag)
+
+        viewModel?.isOffline
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] isOffline in
+                guard let self else { return }
+
+                if isOffline {
+                    self.timelinePill.update(with: .offline)
+                    self.showTimelinePill()
+                } else {
+                    self.hideTimelinePill()
+                }
+            })
+            .store(in: &disposeBag)
+
+        context.publisherService.statusPublishResult.prepend(.failure(AppError.badRequest))
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] publishResult in
+            guard let self else { return }
+            switch publishResult {
+            case .success:
+                self.timelinePill.update(with: .postSent)
+                self.showTimelinePill()
+            case .failure:
+                self.hideTimelinePill()
+            }
+        }
+        .store(in: &disposeBag)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -477,18 +513,67 @@ extension HomeTimelineViewController {
         }
     }
 
+    @objc private func timelinePillTouched(_ sender: TimelineStatusPill) {
+        UIView.animate(withDuration: 0.05) {
+            sender.transform = CGAffineTransform.identity.scaledBy(x: 0.95, y: 0.95)
+        }
+    }
+
+    @objc private func timelinePillTouchedOutside(_ sender: TimelineStatusPill) {
+        UIView.animate(withDuration: 0.05) {
+            sender.transform = CGAffineTransform.identity.scaledBy(x: 100/95.0, y: 100/95.0)
+        }
+    }
+
+    @objc private func timelinePillPressedInside(_ sender: TimelineStatusPill) {
+        guard let reason = sender.reason else { return }
+
+        UIView.animate(withDuration: 0.05) {
+            sender.transform = CGAffineTransform.identity.scaledBy(x: 100/95.0, y: 100/95.0)
+        }
+
+        switch reason {
+        case .newPosts:
+            scrollToTop(animated: true)
+            viewModel?.hasNewPosts.value = false
+        case .postSent:
+            scrollToTop(animated: true)
+            hideTimelinePill()
+        case .offline:
+            hideTimelinePill()
+        }
+    }
+
+    private func showTimelinePill() {
+        guard let timelinePillHiddenTopAnchor, let timelinePillVisibleTopAnchor else { return }
+
+        timelinePill.setNeedsLayout()
+        timelinePill.layoutIfNeeded()
+        timelinePill.alpha = 0
+        NSLayoutConstraint.deactivate([timelinePillHiddenTopAnchor])
+        NSLayoutConstraint.activate([timelinePillVisibleTopAnchor])
+
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.9) { [weak self] in
+            self?.timelinePill.alpha = 1
+            self?.view.layoutIfNeeded()
+        }
+    }
+
+    private func hideTimelinePill() {
+        guard let timelinePillHiddenTopAnchor, let timelinePillVisibleTopAnchor else { return }
+
+        NSLayoutConstraint.deactivate([timelinePillVisibleTopAnchor])
+        NSLayoutConstraint.activate([timelinePillHiddenTopAnchor])
+        timelinePill.alpha = 1
+        UIView.animate(withDuration: 0.5, animations: { [weak self] in
+            self?.timelinePill.alpha = 0
+            self?.view.layoutIfNeeded()
+        })
+    }
+
 }
 // MARK: - UIScrollViewDelegate
 extension HomeTimelineViewController {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        switch scrollView {
-        case tableView:
-            viewModel?.homeTimelineNavigationBarTitleViewModel.handleScrollViewDidScroll(scrollView)
-        default:
-            break
-        }
-    }
-    
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         switch scrollView {
         case tableView:
@@ -643,37 +728,6 @@ extension HomeTimelineViewController: ScrollViewContainer {
 
 // MARK: - StatusTableViewCellDelegate
 extension HomeTimelineViewController: StatusTableViewCellDelegate { }
-
-// MARK: - HomeTimelineNavigationBarTitleViewDelegate
-extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate {
-    func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, logoButtonDidPressed sender: UIButton) {
-        if shouldRestoreScrollPosition() {
-            restorePositionWhenScrollToTop()
-        } else {
-            savePositionBeforeScrollToTop()
-            scrollToTop(animated: true)
-        }
-    }
-    
-    func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, buttonDidPressed sender: UIButton) {
-        switch titleView.state {
-        case .newPostButton:
-            guard let diffableDataSource = viewModel?.diffableDataSource else { return }
-            let indexPath = IndexPath(row: 0, section: 0)
-            guard diffableDataSource.itemIdentifier(for: indexPath) != nil else { return }
-        
-            savePositionBeforeScrollToTop()
-            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        case .offlineButton:
-            // TODO: retry
-            break
-        case .publishedButton:
-            break
-        default:
-            break
-        }
-    }
-}
 
 extension HomeTimelineViewController {
     override var keyCommands: [UIKeyCommand]? {
