@@ -77,12 +77,13 @@ public final class MastodonPollOption: ObservableObject, Hashable {
     }
     
     public static func == (lhs: MastodonPollOption, rhs: MastodonPollOption) -> Bool {
-        lhs.poll == rhs.poll && lhs.option == rhs.option
+        lhs.poll == rhs.poll && lhs.option == rhs.option && lhs.isSelected == rhs.isSelected
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(poll)
         hasher.combine(option)
+        hasher.combine(isSelected)
     }
 }
 

@@ -14,11 +14,9 @@ import MastodonUI
 import MastodonSDK
 
 extension PollOptionView {
-    public func configure(pollOption option: MastodonPollOption, status: MastodonStatus?) {
-        guard let poll = status?.poll else {
-            assertionFailure("PollOption to be configured is expected to be part of Poll with Status")
-            return
-        }
+    public func configure(pollOption option: MastodonPollOption) {
+        let poll = option.poll
+        let status = option.poll.status
         
         // metaContent
         option.$title
@@ -62,22 +60,6 @@ extension PollOptionView {
         self.viewModel.isSelect = option.isSelected
         self.viewModel.isPollVoted = poll.voted == true
         self.viewModel.isMyPoll = isMyPoll
-
-        viewModel.$authContext
-            .flatMap({ authContext -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Poll>, Error> in
-                return Mastodon.API.Polls.poll(
-                    session: .shared,
-                    domain: authContext!.mastodonAuthenticationBox.domain,
-                    pollID: poll.id,
-                    authorization: authContext!.mastodonAuthenticationBox.userAuthorization
-                )
-            })
-            .receive(on: DispatchQueue.main)
-            .sink { _ in } receiveValue: { [weak self] response in
-                let poll = response.value
-                self?.viewModel.isPollVoted = poll.voted == true
-            }
-            .store(in: &disposeBag)
 
         // appearance
         checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in

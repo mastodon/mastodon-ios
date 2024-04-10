@@ -464,8 +464,20 @@ extension StatusView.ViewModel {
                 
                 statusView.pollTableViewHeightLayoutConstraint.constant = CGFloat(items.count) * PollOptionTableViewCell.height
                 statusView.setPollDisplay()
+                
+                items.forEach({ item in
+                    guard case let PollItem.option(record) = item else { return }
+                    record.$isSelected.receive(on: DispatchQueue.main).sink { selected in
+                        if (selected) {
+                            self.isVoteButtonEnabled = true
+                        }
+                        statusView.pollTableView.reloadData()
+                    }
+                    .store(in: &self.disposeBag)
+                })
             }
             .store(in: &disposeBag)
+
         $isVotable
             .sink { isVotable in
                 statusView.pollTableView.allowsSelection = isVotable

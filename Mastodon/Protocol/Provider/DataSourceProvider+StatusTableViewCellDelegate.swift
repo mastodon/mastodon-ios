@@ -265,27 +265,18 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
         guard let pollItem = pollTableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
 
-        Task {
-            guard case let .option(pollOption) = pollItem else {
-                assertionFailure("only works for status data provider")
-                return
-            }
+        guard case let .option(pollOption) = pollItem else {
+            assertionFailure("only works for status data provider")
+            return
+        }
 
-            let poll = pollOption.poll
-            
-            guard let choice = poll.options.firstIndex(of: pollOption) else { return }
-            
-            do {
-                let newPoll = try await context.apiService.vote(
-                    poll: poll.poll,
-                    choices: [choice],
-                    authenticationBox: authContext.mastodonAuthenticationBox
-                ).value
-                 
-                self.update(status: poll.status!.withPoll(newPoll.toMastodonPoll(status: poll.status!)), intent: .pollVote)
-            } catch {}
-            
-        }   // end Task
+        let poll = pollOption.poll
+        
+        if !poll.multiple {
+            poll.options.forEach { $0.isSelected = false }
+        }
+        
+        pollOption.isSelected = true
     }
     
     func tableViewCell(
@@ -296,12 +287,11 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
         guard let firstPollItem = pollTableViewDiffableDataSource.snapshot().itemIdentifiers.first else { return }
         guard case let .option(firstPollOption) = firstPollItem else { return }
-        
-        let managedObjectContext = context.managedObjectContext
-        
-        Task {
+
+        statusView.viewModel.isVoting = true
+
+        Task { @MainActor in
             let poll = firstPollOption.poll
-            guard poll.multiple else { return }
 
             let choices = poll.options
                 .filter { $0.isSelected == true }
@@ -315,7 +305,9 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 ).value
                 
                 self.update(status: poll.status!.withPoll(newPoll.toMastodonPoll(status: poll.status!)), intent: .pollVote)
-            } catch {}
+            } catch {
+                statusView.viewModel.isVoting = false
+            }
             
         }   // end Task
     }

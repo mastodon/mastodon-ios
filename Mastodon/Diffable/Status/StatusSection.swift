@@ -159,7 +159,7 @@ extension StatusSection {
                 
                 cell.pollOptionView.viewModel.authContext = authContext
 
-                cell.pollOptionView.configure(pollOption: record, status: statusView.viewModel.originalStatus)
+                cell.pollOptionView.configure(pollOption: record)
 
 // TODO: re-implement status refersh after new poll has been fetched
 //                // trigger update if needs
