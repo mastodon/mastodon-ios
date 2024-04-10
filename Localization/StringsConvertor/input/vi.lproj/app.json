@@ -474,15 +474,10 @@
                 "following": "Đang theo dõi",
                 "local_community": "Máy chủ"
             },
-            "navigation_bar_state": {
-                "offline": "Ngoại tuyến",
-                "new_posts": "Đọc những tút mới",
-                "published": "Đã đăng!",
-                "Publishing": "Đang đăng tút...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Nhấn để cuộn lên trên và nhấn lại lần nữa để trở về vị trí cũ"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
