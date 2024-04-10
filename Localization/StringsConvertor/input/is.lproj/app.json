@@ -475,9 +475,9 @@
                 "local_community": "Staðvært"
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "Ónettengt",
+                "new_posts": "Nýjar færslur",
+                "post_sent": "Birtar færslur"
             }
         },
         "suggestion_account": {
