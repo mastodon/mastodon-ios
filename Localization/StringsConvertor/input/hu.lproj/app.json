@@ -16,10 +16,10 @@
                 "poll_ended": "A szavazás véget ért"
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Közzétételi hiba",
+                "message": "Nem sikerült közzétenni a bejegyzést.\nEllenőrizze az internetkapcsolatát.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
+                    "video_attach_with_photo": "Nem lehet videót csatolni egy olyan bejegyzéshez, amely már tartalmaz képeket.",
                     "more_than_one_video": "Nem lehet egynél több videót csatolni."
                 }
             },
@@ -173,7 +173,7 @@
                 "meta_entity": {
                     "url": "Link: %s",
                     "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
+                    "mention": "Profil megjelenítése: %s",
                     "email": "E-mail cím: %s"
                 },
                 "actions": {
@@ -276,7 +276,7 @@
             }
         },
         "user_list": {
-            "no_verified_link": "Nem ellenőrzött link",
+            "no_verified_link": "Nem ellenőrzött hivatkozás",
             "followers_count": "%@ követő"
         }
     },
@@ -472,12 +472,12 @@
             "title": "Főoldal",
             "timeline_menu": {
                 "following": "Following",
-                "local_community": "Local"
+                "local_community": "Helyi"
             },
             "timeline_pill": {
                 "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "new_posts": "Új bejegyzések",
+                "post_sent": "Bejegyzés elküldve"
             }
         },
         "suggestion_account": {
@@ -635,8 +635,8 @@
             "accessibility": {
                 "show_avatar_image": "Profilkép megjelenítése",
                 "edit_avatar_image": "Profilkép módosítása",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_banner_image": "Bannerkép megjelenítése",
+                "double_tap_to_open_the_list": "Dupla koppintással lista megnyitása"
             }
         },
         "follower": {
@@ -740,7 +740,7 @@
                 "title": "Beállítások",
                 "general": "Általános",
                 "notifications": "Értesítések",
-                "support_mastodon": "Support Mastodon",
+                "support_mastodon": "A Mastodon támogatása",
                 "about_mastodon": "A Mastodonról",
                 "server_details": "Kiszolgáló részletei",
                 "logout": "Kilépés %@"
@@ -896,7 +896,7 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Ez nem tűnik érvényes Mastodon linknek."
         }
     },
     "widget": {
