@@ -475,9 +475,9 @@
                 "local_community": "Local"
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "Desconectado",
+                "new_posts": "Nuevos mensajes",
+                "post_sent": "Mensaje enviado"
             }
         },
         "suggestion_account": {
