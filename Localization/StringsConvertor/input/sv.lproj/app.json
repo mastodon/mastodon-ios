@@ -474,15 +474,10 @@
                 "following": "Following",
                 "local_community": "Local"
             },
-            "navigation_bar_state": {
+            "timeline_pill": {
                 "offline": "Offline",
-                "new_posts": "Nya inlägg",
-                "published": "Publicerat!",
-                "Publishing": "Publicerar inlägget...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Tryck för att bläddra till toppen och tryck igen för föregående plats"
-                }
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
