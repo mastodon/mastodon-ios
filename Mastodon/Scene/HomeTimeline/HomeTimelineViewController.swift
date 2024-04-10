@@ -537,7 +537,8 @@ extension HomeTimelineViewController {
             scrollToTop(animated: true)
             viewModel?.hasNewPosts.value = false
         case .postSent:
-            print("Bring me to my post and disappear")
+            scrollToTop(animated: true)
+            hideTimelinePill()
         case .offline:
             hideTimelinePill()
         }
