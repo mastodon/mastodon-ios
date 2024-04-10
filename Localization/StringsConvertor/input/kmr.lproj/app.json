@@ -474,15 +474,10 @@
                 "following": "Following",
                 "local_community": "Local"
             },
-            "navigation_bar_state": {
-                "offline": "Derhêl",
-                "new_posts": "Şandiyên nû bibîne",
-                "published": "Hate weşandin!",
-                "Publishing": "Şandî tê weşandin...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Ji bo şemitandina jor û dîsa li cihê berê vegerî bitikîne"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
