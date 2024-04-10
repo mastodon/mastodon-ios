@@ -474,15 +474,10 @@
                 "following": "A Seguir",
                 "local_community": "Local"
             },
-            "navigation_bar_state": {
-                "offline": "Sen conexión",
-                "new_posts": "Novas publicacións",
-                "published": "Publicado!",
-                "Publishing": "Publicando...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Toca para ir arriba e toca outra vez para volver ao mesmo lugar"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
