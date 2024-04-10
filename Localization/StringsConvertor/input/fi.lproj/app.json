@@ -474,15 +474,10 @@
                 "following": "Following",
                 "local_community": "Local"
             },
-            "navigation_bar_state": {
-                "offline": "Yhteydetön",
-                "new_posts": "Uusia julkaisuja",
-                "published": "Julkaistu!",
-                "Publishing": "Julkaistaan julkaisua...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Siirry ylös napautuksella ja edelliseen napauttamalla uudestaan"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
