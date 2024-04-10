@@ -474,15 +474,10 @@
                 "following": "Ακολουθείς",
                 "local_community": "Τοπική"
             },
-            "navigation_bar_state": {
-                "offline": "Εκτός σύνδεσης",
-                "new_posts": "Δες νέες αναρτήσεις",
-                "published": "Δημοσιεύθηκε!",
-                "Publishing": "Δημοσίευση ανάρτησης...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Πάτα για κύλιση στην κορυφή και πάτα ξανά για προηγούμενη τοποθεσία"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
