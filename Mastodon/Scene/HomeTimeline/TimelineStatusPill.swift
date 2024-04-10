@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonAsset
+import MastodonLocalization
 
 class TimelineStatusPill: UIButton {
 
@@ -80,14 +81,13 @@ class TimelineStatusPill: UIButton {
         }
 
         var title: String {
-            //TODO: Localization
             switch self {
             case .newPosts:
-                return "New Posts"
+                return L10n.Scene.HomeTimeline.TimelinePill.newPosts
             case .postSent:
-                return "Post Sent"
+                return L10n.Scene.HomeTimeline.TimelinePill.postSent
              case .offline:
-                return "Offline"
+                return L10n.Scene.HomeTimeline.TimelinePill.offline
             }
         }
     }
