@@ -474,15 +474,10 @@
                 "following": "Fylgist með",
                 "local_community": "Staðvært"
             },
-            "navigation_bar_state": {
-                "offline": "Ónettengt",
-                "new_posts": "Skoða nýjar færslur",
-                "published": "Birt!",
-                "Publishing": "Birti færslu...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Ýttu til að skruna efst og ýttu aftur til að fara aftur á fyrri staðsetningu"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
