@@ -474,15 +474,10 @@
                 "following": "正在跟隨",
                 "local_community": "本站"
             },
-            "navigation_bar_state": {
-                "offline": "離線",
-                "new_posts": "檢視最新嘟文",
-                "published": "嘟出去！",
-                "Publishing": "發表嘟文...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "輕點一下捲至頂端並且再點ㄧ下回到原先位置"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
