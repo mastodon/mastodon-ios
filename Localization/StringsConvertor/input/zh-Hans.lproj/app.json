@@ -474,15 +474,10 @@
                 "following": "Following",
                 "local_community": "Local"
             },
-            "navigation_bar_state": {
-                "offline": "离线",
-                "new_posts": "查看新帖子",
-                "published": "已发送",
-                "Publishing": "正在发送...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "轻点滚到顶部，再次轻点回到原处"
-                }
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
