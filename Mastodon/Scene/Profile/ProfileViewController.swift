@@ -418,22 +418,31 @@ extension ProfileViewController {
     }
 
     private func bindMoreBarButtonItem() {
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             viewModel.$account,
+            viewModel.$me,
             viewModel.$relationship
         )
-        .asyncMap { [weak self] user, relationship -> UIMenu? in
-            guard let self, let relationship, let domain = user.domainFromAcct else { return nil }
+        .asyncMap { [weak self] user, me, relationship -> UIMenu? in
+            guard let self, let relationship, let domain = user.domainFromAcct, let myDomain = me.domainFromAcct else { return nil }
 
             let name = user.displayNameWithFallback
 
             var menuActions: [MastodonMenu.Action] = [
                 .muteUser(.init(name: name, isMuting: relationship.muting)),
-                .blockUser(.init(name: name, isBlocking: relationship.blocking)),
-                .blockDomain(.init(domain: domain, isBlocking: relationship.domainBlocking)),
+                .blockUser(.init(name: name, isBlocking: relationship.blocking))
+            ]
+
+            if myDomain != domain {
+                menuActions.append(
+                    .blockDomain(.init(domain: domain, isBlocking: relationship.domainBlocking))
+                )
+            }
+
+            menuActions.append(contentsOf: [
                 .reportUser(.init(name: name)),
                 .shareUser(.init(name: name)),
-            ]
+            ])
 
             if relationship.following {
                 let showReblogs = relationship.showingReblogs// me.showingReblogsBy.contains(user)
