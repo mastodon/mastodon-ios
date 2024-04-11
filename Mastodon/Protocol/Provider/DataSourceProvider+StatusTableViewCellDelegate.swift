@@ -274,9 +274,10 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         
         if !poll.multiple {
             poll.options.forEach { $0.isSelected = false }
+            pollOption.isSelected = true
+        } else {
+            pollOption.isSelected.toggle()
         }
-        
-        pollOption.isSelected = true
     }
     
     func tableViewCell(

@@ -471,6 +471,14 @@ extension StatusView.ViewModel {
                         guard let self else { return }
                         if (selected) {
                             self.isVoteButtonEnabled = true
+                        } else {
+                            let records = pollItems.compactMap({ item -> MastodonPollOption? in
+                                guard case let PollItem.option(record) = item else { return nil }
+                                return record
+                            })
+                            .filter({ $0.isSelected })
+                            
+                            self.isVoteButtonEnabled = !records.isEmpty
                         }
                         statusView.pollTableView.reloadData()
                     }
