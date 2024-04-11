@@ -11,10 +11,10 @@ extension MastodonVisibility {
         let asset: UIImage
         switch self {
         case .public: asset = Mastodon.Entity.Status.Visibility.public.image
-        case .unlisted: asset = Asset.Scene.Compose.people.image
-        case .private: asset = Asset.Scene.Compose.peopleAdd.image
-        case .direct: asset = Asset.Scene.Compose.mention.image
-        case ._other: asset = Asset.Scene.Compose.questionmarkCircle.image
+        case .unlisted: asset = Mastodon.Entity.Status.Visibility.unlisted.image
+        case .private: asset = Mastodon.Entity.Status.Visibility.private.image
+        case .direct: asset = Mastodon.Entity.Status.Visibility.direct.image
+        case ._other: asset = Mastodon.Entity.Status.Visibility._other("").image
         }
         return asset.withRenderingMode(.alwaysTemplate)
     }
