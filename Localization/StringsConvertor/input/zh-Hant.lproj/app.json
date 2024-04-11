@@ -475,9 +475,9 @@
                 "local_community": "本站"
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "離線",
+                "new_posts": "新嘟文",
+                "post_sent": "發嘟成功"
             }
         },
         "suggestion_account": {
