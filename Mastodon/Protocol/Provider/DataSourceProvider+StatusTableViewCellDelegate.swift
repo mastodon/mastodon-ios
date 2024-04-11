@@ -300,12 +300,17 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
             do {
                 let newPoll = try await context.apiService.vote(
-                    poll: poll.poll,
+                    poll: poll.entity,
                     choices: choices,
                     authenticationBox: authContext.mastodonAuthenticationBox
                 ).value
                 
-                self.update(status: poll.status!.withPoll(newPoll.toMastodonPoll(status: poll.status!)), intent: .pollVote)
+                guard let entity = poll.status?.entity else { return }
+                
+                let newStatus: MastodonStatus = .fromEntity(entity)
+                newStatus.poll = MastodonPoll(poll: newPoll, status: newStatus)
+                
+                self.update(status: newStatus, intent: .pollVote)
             } catch {
                 statusView.viewModel.isVoting = false
             }

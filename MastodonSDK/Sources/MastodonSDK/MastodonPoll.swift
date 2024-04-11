@@ -18,15 +18,15 @@ public final class MastodonPoll: ObservableObject, Hashable {
     @Published public var voted: Bool?
     
     public var id: String {
-        poll.id
+        entity.id
     }
     
-    public let poll: Mastodon.Entity.Poll
+    public let entity: Mastodon.Entity.Poll
     public weak var status: MastodonStatus?
     
     public init(poll: Mastodon.Entity.Poll, status: MastodonStatus?) {
         self.status = status
-        self.poll = poll
+        self.entity = poll
         self.votersCount = poll.votersCount
         self.votesCount = poll.votesCount
         self.multiple = poll.multiple
@@ -37,11 +37,11 @@ public final class MastodonPoll: ObservableObject, Hashable {
     }
     
     public static func == (lhs: MastodonPoll, rhs: MastodonPoll) -> Bool {
-        lhs.poll == rhs.poll
+        lhs.entity == rhs.entity
     }
     
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(poll)
+        hasher.combine(entity)
     }
 }
 
@@ -70,7 +70,7 @@ public final class MastodonPollOption: ObservableObject, Hashable {
         self.optionIndex = poll.options.firstIndex(of: self)
         
         self.voted = {
-            guard let ownVotes = poll.poll.ownVotes else { return false }
+            guard let ownVotes = poll.entity.ownVotes else { return false }
             guard let optionIndex else { return false }
             return ownVotes.contains(optionIndex)
         }()
