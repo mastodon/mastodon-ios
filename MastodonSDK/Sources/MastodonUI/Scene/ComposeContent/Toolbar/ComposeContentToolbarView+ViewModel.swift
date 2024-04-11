@@ -22,7 +22,7 @@ extension ComposeContentToolbarView {
         @Published var highConfidenceSuggestedLanguage: String?
         @Published var visibility: Mastodon.Entity.Status.Visibility = .public
         var allVisibilities: [Mastodon.Entity.Status.Visibility] {
-            return [.public, .private, .direct]
+            return [.public, .unlisted, .private, .direct]
         }
         @Published var isVisibilityButtonEnabled = false
         @Published var isPollActive = false
