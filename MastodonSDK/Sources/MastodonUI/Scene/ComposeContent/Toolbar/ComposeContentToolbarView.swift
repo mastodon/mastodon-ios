@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import MastodonAsset
 import MastodonLocalization
 import MastodonSDK
@@ -231,11 +232,11 @@ extension Mastodon.Entity.Status.Visibility {
     
     fileprivate var image: UIImage {
         switch self {
-        case .public:       return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
-        case .unlisted:     return Asset.Scene.Compose.people.image.withRenderingMode(.alwaysTemplate)
-        case .private:      return Asset.Scene.Compose.peopleAdd.image.withRenderingMode(.alwaysTemplate)
-        case .direct:       return Asset.Scene.Compose.mention.image.withRenderingMode(.alwaysTemplate)
-        case ._other:       return Asset.Scene.Compose.more.image.withRenderingMode(.alwaysTemplate)
+        case .public:       return UIImage(systemName: "globe.europe.africa")!.withRenderingMode(.alwaysTemplate)
+        case .unlisted:     return UIImage(systemName: "moon")!.withRenderingMode(.alwaysTemplate)
+        case .private:      return UIImage(systemName: "lock")!.withRenderingMode(.alwaysTemplate)
+        case .direct:       return UIImage(systemName: "at")!.withRenderingMode(.alwaysTemplate)
+        case ._other:       return UIImage(systemName: "ellipsis")!.withRenderingMode(.alwaysTemplate)
         }
     }
 }
