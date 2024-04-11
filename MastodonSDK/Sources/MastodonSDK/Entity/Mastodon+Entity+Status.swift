@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import MastodonLocalization
 
 extension Mastodon.Entity {
         
@@ -109,9 +111,9 @@ extension Mastodon.Entity.Status {
         case unlisted
         case `private`
         case direct
-        
+
         case _other(String)
-        
+
         public init?(rawValue: String) {
             switch rawValue {
             case "public":                      self = .public
@@ -121,7 +123,7 @@ extension Mastodon.Entity.Status {
             default:                            self = ._other(rawValue)
             }
         }
-        
+
         public var rawValue: String {
             switch self {
             case .public:                       return "public"
@@ -131,6 +133,27 @@ extension Mastodon.Entity.Status {
             case ._other(let value):            return value
             }
         }
+
+        public var title: String {
+            switch self {
+            case .public:               return L10n.Scene.Compose.Visibility.public
+            case .unlisted:             return L10n.Scene.Compose.Visibility.unlisted
+            case .private:              return L10n.Scene.Compose.Visibility.private
+            case .direct:               return L10n.Scene.Compose.Visibility.direct
+            case ._other(let value):    return value
+            }
+        }
+
+        public var image: UIImage {
+            switch self {
+            case .public:       return UIImage(systemName: "globe.europe.africa")!.withRenderingMode(.alwaysTemplate)
+            case .unlisted:     return UIImage(systemName: "moon")!.withRenderingMode(.alwaysTemplate)
+            case .private:      return UIImage(systemName: "lock")!.withRenderingMode(.alwaysTemplate)
+            case .direct:       return UIImage(systemName: "at")!.withRenderingMode(.alwaysTemplate)
+            case ._other:       return UIImage(systemName: "ellipsis")!.withRenderingMode(.alwaysTemplate)
+            }
+        }
+
     }
 }
 

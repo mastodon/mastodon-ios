@@ -220,23 +220,4 @@ extension ComposeContentToolbarView {
 }
 
 extension Mastodon.Entity.Status.Visibility {
-    fileprivate var title: String {
-        switch self {
-        case .public:               return L10n.Scene.Compose.Visibility.public
-        case .unlisted:             return L10n.Scene.Compose.Visibility.unlisted
-        case .private:              return L10n.Scene.Compose.Visibility.private
-        case .direct:               return L10n.Scene.Compose.Visibility.direct
-        case ._other(let value):    return value
-        }
-    }
-    
-    fileprivate var image: UIImage {
-        switch self {
-        case .public:       return UIImage(systemName: "globe.europe.africa")!.withRenderingMode(.alwaysTemplate)
-        case .unlisted:     return UIImage(systemName: "moon")!.withRenderingMode(.alwaysTemplate)
-        case .private:      return UIImage(systemName: "lock")!.withRenderingMode(.alwaysTemplate)
-        case .direct:       return UIImage(systemName: "at")!.withRenderingMode(.alwaysTemplate)
-        case ._other:       return UIImage(systemName: "ellipsis")!.withRenderingMode(.alwaysTemplate)
-        }
-    }
 }
