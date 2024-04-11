@@ -62,10 +62,7 @@ extension PollOptionView {
         self.viewModel.isMyPoll = isMyPoll
 
         // appearance
-        checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
-            return trailtCollection.userInterfaceStyle == .light ? .white : SystemTheme.tableViewCellSelectionBackgroundColor
-        })
-
+        checkmarkBackgroundView.backgroundColor = SystemTheme.tableViewCellSelectionBackgroundColor
     }
 }
 
@@ -78,8 +75,6 @@ extension PollOptionView {
         // show left-hand-side dots, otherwise view looks "incomplete"
         viewModel.selectState = .off
         // appearance
-        checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
-            return trailtCollection.userInterfaceStyle == .light ? .white : SystemTheme.tableViewCellSelectionBackgroundColor
-        })
+        checkmarkBackgroundView.backgroundColor = SystemTheme.tableViewCellSelectionBackgroundColor
     }
 }
