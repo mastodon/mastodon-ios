@@ -475,9 +475,9 @@
                 "local_community": "ในเซิร์ฟเวอร์"
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "ออฟไลน์",
+                "new_posts": "โพสต์ใหม่",
+                "post_sent": "ส่งโพสต์แล้ว"
             }
         },
         "suggestion_account": {
