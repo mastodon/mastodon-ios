@@ -82,9 +82,6 @@ extension NotificationView {
         let metaUsername = PlaintextMetaContent(string: "@\(author.acct)")
         authorUsernameLabel.configure(content: metaUsername)
 
-        let visibility = notification.entity.status?.mastodonVisibility ?? ._other("")
-        visibilityIconImageView.image = visibility.image
-
         // notification type indicator
         let notificationIndicatorText: MetaContent?
         if let type = MastodonNotificationType(rawValue: notification.entity.type.rawValue) {

@@ -298,12 +298,6 @@ extension StatusView.ViewModel {
                 authorView.dateLabel.configure(content: PlaintextMetaContent(string: text))
             }
             .store(in: &disposeBag)
-
-        $visibility
-            .sink { visibility in
-                authorView.visibilityIconImageView.image = visibility.image
-            }
-            .store(in: &disposeBag)
     }
     
     private func bindContent(statusView: StatusView) {
