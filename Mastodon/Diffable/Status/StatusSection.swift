@@ -161,48 +161,6 @@ extension StatusSection {
 
                 cell.pollOptionView.configure(pollOption: record)
 
-// TODO: re-implement status refersh after new poll has been fetched
-//                // trigger update if needs
-//                let needsUpdatePoll: Bool = {
-//                    // check first option in poll to trigger update poll only once
-//                    guard
-//                        let poll = option.poll,
-//                        option.index == 0
-//                    else { return false }
-//
-//                    guard let poll = statusView.viewModel.originalStatus?.entity.poll, !poll.expired else {
-//                        return false
-//                    }
-//
-//                    let now = Date()
-//                    let timeIntervalSinceUpdate = Date.now
-//                    #if DEBUG
-//                    let autoRefreshTimeInterval: TimeInterval = 3 // speedup testing
-//                    #else
-//                    let autoRefreshTimeInterval: TimeInterval = 30
-//                    #endif
-//
-//                    guard timeIntervalSinceUpdate > autoRefreshTimeInterval else {
-//                        return false
-//                    }
-//
-//                    return true
-//                }()
-//
-//                if needsUpdatePoll {
-//                    guard let poll = statusView.viewModel.originalStatus?.entity.poll else {
-//                        return
-//                    }
-//
-//                    Task { [weak context] in
-//                        guard let context = context else { return }
-//                        let newPoll = try await context.apiService.poll(
-//                            poll: poll,
-//                            authenticationBox: authContext.mastodonAuthenticationBox
-//                        )
-//                    }
-//                    
-//                }
                 return cell
             }
         }
