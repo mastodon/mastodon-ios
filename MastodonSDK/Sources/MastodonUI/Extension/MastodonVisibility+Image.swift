@@ -3,18 +3,19 @@
 import UIKit
 import CoreDataStack
 import MastodonAsset
+import MastodonSDK
 
 extension MastodonVisibility {
 
     public var image: UIImage {
-        let asset: ImageAsset
+        let asset: UIImage
         switch self {
-        case .public: asset = Asset.Scene.Compose.earth
-        case .unlisted: asset = Asset.Scene.Compose.people
-        case .private: asset = Asset.Scene.Compose.peopleAdd
-        case .direct: asset = Asset.Scene.Compose.mention
-        case ._other: asset = Asset.Scene.Compose.questionmarkCircle
+        case .public: asset = Mastodon.Entity.Status.Visibility.public.image
+        case .unlisted: asset = Mastodon.Entity.Status.Visibility.unlisted.image
+        case .private: asset = Mastodon.Entity.Status.Visibility.private.image
+        case .direct: asset = Mastodon.Entity.Status.Visibility.direct.image
+        case ._other: asset = Mastodon.Entity.Status.Visibility._other("").image
         }
-        return asset.image.withRenderingMode(.alwaysTemplate)
+        return asset.withRenderingMode(.alwaysTemplate)
     }
 }

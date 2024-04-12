@@ -21,9 +21,7 @@ extension ComposeContentToolbarView {
         @Published var suggestedLanguages: [String] = []
         @Published var highConfidenceSuggestedLanguage: String?
         @Published var visibility: Mastodon.Entity.Status.Visibility = .public
-        var allVisibilities: [Mastodon.Entity.Status.Visibility] {
-            return [.public, .private, .direct]
-        }
+        let allVisibilities = [Mastodon.Entity.Status.Visibility.public, .unlisted, .private, .direct]
         @Published var isVisibilityButtonEnabled = false
         @Published var isPollActive = false
         @Published var isEmojiActive = false
@@ -67,7 +65,7 @@ extension ComposeContentToolbarView.ViewModel {
             case .contentWarning:
                 return Asset.Scene.Compose.chatWarningFill.image.withRenderingMode(.alwaysTemplate)
             case .visibility:
-                return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
+                return Mastodon.Entity.Status.Visibility.public.image.withRenderingMode(.alwaysTemplate)
             case .language:
                 fatalError("Language’s active image is never accessed")
             }
@@ -84,7 +82,7 @@ extension ComposeContentToolbarView.ViewModel {
             case .contentWarning:
                 return Asset.Scene.Compose.chatWarning.image.withRenderingMode(.alwaysTemplate)
             case .visibility:
-                return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
+                return Mastodon.Entity.Status.Visibility.public.image
             case .language:
                 fatalError("Language’s inactive image is never accessed")
             }

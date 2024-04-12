@@ -12,6 +12,7 @@ import MetaTextKit
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
+import MastodonSDK
 
 public class StatusAuthorView: UIStackView {
     private var _disposeBag = Set<AnyCancellable>() // which lifetime same to view scope
@@ -49,7 +50,7 @@ public class StatusAuthorView: UIStackView {
         let imageView = UIImageView()
         imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFit
-        imageView.image = Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
+        imageView.image = Mastodon.Entity.Status.Visibility.public.image
         return imageView
     }()
 
