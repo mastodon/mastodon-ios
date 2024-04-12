@@ -63,21 +63,9 @@ public final class StatusMetricView: UIView {
         return stackView
     }()
 
-    public let reblogButton: StatusMetricRowView = {
-        let button = StatusMetricRowView(iconImage: Asset.Arrow.repeat.image, text: L10n.Common.Controls.Status.Buttons.reblogsTitle, detailText: "")
-        return button
-    }()
-    
-    // favorite meter
-    public let favoriteButton: StatusMetricRowView = {
-        let button = StatusMetricRowView(iconImage: UIImage(systemName: "star"), text: L10n.Common.Controls.Status.Buttons.favoritesTitle, detailText: "")
-        return button
-    }()
-
-    public let editHistoryButton: StatusMetricRowView = {
-        let button = StatusMetricRowView(iconImage: Asset.Scene.EditHistory.edit.image, text: L10n.Common.Controls.Status.Buttons.editHistoryTitle)
-        return button
-    }()
+    public let reblogButton = StatusMetricRowView(iconImage: UIImage(systemName: "arrow.2.squarepath")!, text: L10n.Common.Controls.Status.Buttons.reblogsTitle, detailText: "")
+    public let favoriteButton = StatusMetricRowView(iconImage: UIImage(systemName: "star"), text: L10n.Common.Controls.Status.Buttons.favoritesTitle, detailText: "")
+    public let editHistoryButton = StatusMetricRowView(iconImage: Asset.Scene.EditHistory.edit.image, text: L10n.Common.Controls.Status.Buttons.editHistoryTitle)
 
     public override init(frame: CGRect) {
         super.init(frame: frame)

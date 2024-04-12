@@ -25,8 +25,6 @@ public typealias AssetImageTypeAlias = ImageAsset.Image
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum Asset {
   public enum Arrow {
-    public static let `repeat` = ImageAsset(name: "Arrow/repeat")
-    public static let repeatSmall = ImageAsset(name: "Arrow/repeat.small")
     public static let squareAndArrowUp = ImageAsset(name: "Arrow/square.and.arrow.up")
   }
   public enum Asset {
@@ -111,7 +109,6 @@ public enum Asset {
     public static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
   public enum Communication {
-    public static let bubbleLeftAndBubbleRight = ImageAsset(name: "Communication/bubble.left.and.bubble.right")
     public static let share = ImageAsset(name: "Communication/share")
   }
   public enum Connectivity {
