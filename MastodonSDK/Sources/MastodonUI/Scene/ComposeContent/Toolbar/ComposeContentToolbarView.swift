@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import MastodonAsset
 import MastodonLocalization
 import MastodonSDK
@@ -219,23 +220,4 @@ extension ComposeContentToolbarView {
 }
 
 extension Mastodon.Entity.Status.Visibility {
-    fileprivate var title: String {
-        switch self {
-        case .public:               return L10n.Scene.Compose.Visibility.public
-        case .unlisted:             return L10n.Scene.Compose.Visibility.unlisted
-        case .private:              return L10n.Scene.Compose.Visibility.private
-        case .direct:               return L10n.Scene.Compose.Visibility.direct
-        case ._other(let value):    return value
-        }
-    }
-    
-    fileprivate var image: UIImage {
-        switch self {
-        case .public:       return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
-        case .unlisted:     return Asset.Scene.Compose.people.image.withRenderingMode(.alwaysTemplate)
-        case .private:      return Asset.Scene.Compose.peopleAdd.image.withRenderingMode(.alwaysTemplate)
-        case .direct:       return Asset.Scene.Compose.mention.image.withRenderingMode(.alwaysTemplate)
-        case ._other:       return Asset.Scene.Compose.more.image.withRenderingMode(.alwaysTemplate)
-        }
-    }
 }

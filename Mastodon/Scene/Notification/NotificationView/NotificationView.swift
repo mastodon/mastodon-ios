@@ -94,7 +94,7 @@ public final class NotificationView: UIView {
         let imageView = UIImageView()
         imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFit
-        imageView.image = Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
+        imageView.image = Mastodon.Entity.Status.Visibility.public.image.withRenderingMode(.alwaysTemplate)
         return imageView
     }()
 
