@@ -155,7 +155,7 @@ extension HomeTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = ""
+        title = nil
         view.backgroundColor = .secondarySystemBackground
 
         viewModel?.$displaySettingBarButtonItem
