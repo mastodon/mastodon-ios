@@ -293,8 +293,7 @@ extension StatusView.ViewModel {
         .store(in: &disposeBag)
 
         $timestampText
-            .sink { [weak self] text in
-                guard let _ = self else { return }
+            .sink { text in
                 authorView.dateLabel.configure(content: PlaintextMetaContent(string: text))
             }
             .store(in: &disposeBag)

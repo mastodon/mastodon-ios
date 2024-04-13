@@ -15,11 +15,12 @@ extension Date {
     
     public static let relativeTimestampFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
+        formatter.locale = Locale.autoupdatingCurrent
         formatter.dateTimeStyle = .numeric
-        formatter.unitsStyle = .full
+        formatter.unitsStyle = .abbreviated
         return formatter
     }()
-    
+
     public static let abbreviatedDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium       // e.g. Nov 23, 1937
@@ -27,39 +28,9 @@ extension Date {
         return formatter
     }()
         
-    public var localizedSlowedTimeAgoSinceNow: String {
-        return self.localizedTimeAgo(since: Date(), isSlowed: true, isAbbreviated: false)
+    public var localizedAbbreviatedSlowedTimeAgoSinceNow: String {
+        return Date.relativeTimestampFormatter.localizedString(for: self, relativeTo: Date())
     }
-    
-    public var localizedTimeAgoSinceNow: String {
-        return self.localizedTimeAgo(since: Date())
-    }
-    
-    public func localizedTimeAgo(since date: Date, isSlowed: Bool = false, isAbbreviated: Bool = false) -> String {
-        let earlierDate = date < self ? date : self
-        let latestDate = earlierDate == date ? self : date
-        
-        if isSlowed, earlierDate.timeIntervalSince(latestDate) >= -60 {
-            return L10n.Common.Controls.Timeline.Timestamp.now
-        } else {
-            if isAbbreviated {
-                return latestDate.localizedShortTimeAgo(since: earlierDate)
-            } else {
-                if earlierDate.timeIntervalSince(latestDate) < -(7 * 24 * 60 * 60) {
-                    let currentYear = Date.calendar.dateComponents([.year], from: Date())
-                    let earlierDateYear = Date.calendar.dateComponents([.year], from: earlierDate)
-                    if currentYear.year! > earlierDateYear.year! {
-                        return earlierDate.formatted(.dateTime.year().month(.abbreviated).day())
-                    } else {
-                        return earlierDate.formatted(.dateTime.month(.abbreviated).day())
-                    }
-                } else {
-                    return Date.relativeTimestampFormatter.localizedString(for: earlierDate, relativeTo: latestDate)
-                }
-            }
-        }
-    }
-    
 }
 
 extension Date {

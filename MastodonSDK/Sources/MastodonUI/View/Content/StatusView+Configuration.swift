@@ -248,9 +248,10 @@ extension StatusView {
         // timestamp
         viewModel.timestampFormatter = { (date: Date, isEdited: Bool) in
             if isEdited {
-                return L10n.Common.Controls.Status.editedAtTimestampPrefix(date.localizedSlowedTimeAgoSinceNow)
+                return L10n.Common.Controls.Status.editedAtTimestampPrefix(date.localizedAbbreviatedSlowedTimeAgoSinceNow)
+            } else {
+                return date.localizedAbbreviatedSlowedTimeAgoSinceNow
             }
-            return date.localizedSlowedTimeAgoSinceNow
         }
         viewModel.timestamp = timestamp
     }

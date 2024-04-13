@@ -290,16 +290,16 @@ extension StatusAuthorView {
         authorSecondaryMetaContainer.spacing = 4
         authorMetaContainer.addArrangedSubview(authorSecondaryMetaContainer)
 
-        authorSecondaryMetaContainer.addArrangedSubview(authorUsernameLabel)
-        authorUsernameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
-        authorUsernameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        authorSecondaryMetaContainer.addArrangedSubview(dateLabel)
+        dateLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
+        dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
 
         authorSecondaryMetaContainer.addArrangedSubview(usernameTrialingDotLabel)
         usernameTrialingDotLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        authorSecondaryMetaContainer.addArrangedSubview(dateLabel)
-        dateLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
-        dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
+        authorSecondaryMetaContainer.addArrangedSubview(authorUsernameLabel)
+        authorUsernameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        authorUsernameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         authorSecondaryMetaContainer.addArrangedSubview(UIView())
     }
