@@ -471,13 +471,13 @@
         "home_timeline": {
             "title": "Start",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "Volgend",
+                "local_community": "Lokaal"
             },
             "timeline_pill": {
                 "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "new_posts": "Nieuwe berichten",
+                "post_sent": "Bericht verzonden"
             }
         },
         "suggestion_account": {
