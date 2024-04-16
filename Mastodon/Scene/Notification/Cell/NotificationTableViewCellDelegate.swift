@@ -30,6 +30,8 @@ protocol NotificationTableViewCellDelegate: AnyObject, AutoGenerateProtocolDeleg
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
+    func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, pollVoteButtonPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, quoteStatusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
@@ -69,6 +71,14 @@ extension NotificationViewDelegate where Self: NotificationViewContainerTableVie
 
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int) {
         delegate?.tableViewCell(self, notificationView: notificationView, statusView: statusView, mediaGridContainerView: mediaGridContainerView, mediaView: mediaView, didSelectMediaViewAt: index)
+    }
+    
+    func notificationView(_ notificationView: NotificationView, statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.tableViewCell(self, notificationView: notificationView, pollTableView: tableView, didSelectRowAt: indexPath)
+    }
+    
+    func notificationView(_ notificationView: NotificationView, statusView: StatusView, pollVoteButtonPressed button: UIButton) {
+        delegate?.tableViewCell(self, notificationView: notificationView, pollVoteButtonPressed: button)
     }
 
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action) {
