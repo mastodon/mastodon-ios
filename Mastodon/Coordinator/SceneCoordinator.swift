@@ -8,7 +8,6 @@ import UIKit
 import Combine
 import SafariServices
 import CoreDataStack
-import PanModal
 import MastodonSDK
 import MastodonCore
 import MastodonAsset
@@ -155,7 +154,6 @@ extension SceneCoordinator {
         case showDetail                     // replace
         case modal(animated: Bool, completion: (() -> Void)? = nil)
         case popover(sourceView: UIView)
-        case panModal
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush(animated: Bool)
         case safariPresent(animated: Bool, completion: (() -> Void)? = nil)
@@ -333,19 +331,6 @@ extension SceneCoordinator {
                 modalNavigationController.presentationController?.delegate = adaptivePresentationControllerDelegate
             }
             presentingViewController.present(modalNavigationController, animated: animated, completion: completion)
-
-        case .panModal:
-            guard let panModalPresentable = viewController as? PanModalPresentable & UIViewController else {
-                assertionFailure()
-                return nil
-            }
-
-            // https://github.com/slackhq/PanModal/issues/74#issuecomment-572426441
-            panModalPresentable.modalPresentationStyle = .custom
-            panModalPresentable.modalPresentationCapturesStatusBarAppearance = true
-            panModalPresentable.transitioningDelegate = PanModalPresentationDelegate.default
-            presentingViewController.present(panModalPresentable, animated: true, completion: nil)
-            //presentingViewController.presentPanModal(panModalPresentable)
         case .popover(let sourceView):
             viewController.modalPresentationStyle = .popover
             viewController.popoverPresentationController?.sourceView = sourceView
