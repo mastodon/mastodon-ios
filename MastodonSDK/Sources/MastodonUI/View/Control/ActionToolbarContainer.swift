@@ -17,13 +17,13 @@ public protocol ActionToolbarContainerDelegate: AnyObject {
 }
 
 public final class ActionToolbarContainer: UIView {
-    
-    static let replyImage = Asset.Communication.bubbleLeftAndBubbleRight.image.withRenderingMode(.alwaysTemplate)
-    static let reblogImage = Asset.Arrow.repeat.image.withRenderingMode(.alwaysTemplate)
-    static let starImage = Asset.ObjectsAndTools.star.image.withRenderingMode(.alwaysTemplate)
-    static let starFillImage = Asset.ObjectsAndTools.starFill.image.withRenderingMode(.alwaysTemplate)
-    static let shareImage = Asset.Arrow.squareAndArrowUp.image.withRenderingMode(.alwaysTemplate)
-        
+
+    static let replyImage = UIImage(systemName: "arrowshape.turn.up.left")!.withRenderingMode(.alwaysTemplate)
+    static let reblogImage = UIImage(systemName: "arrow.2.squarepath")!.withRenderingMode(.alwaysTemplate)
+    static let starImage = UIImage(systemName: "star")!.withRenderingMode(.alwaysTemplate)
+    static let starFillImage = UIImage(systemName: "star.fill")!.withRenderingMode(.alwaysTemplate)
+    static let shareImage = UIImage(systemName: "square.and.arrow.up")!.withRenderingMode(.alwaysTemplate)
+
     public let replyButton     = HighlightDimmableButton()
     public let reblogButton    = HighlightDimmableButton()
     public let favoriteButton  = HighlightDimmableButton()

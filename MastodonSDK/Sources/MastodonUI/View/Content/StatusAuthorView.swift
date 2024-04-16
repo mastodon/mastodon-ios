@@ -40,20 +40,6 @@ public class StatusAuthorView: UIStackView {
     // timestamp
     public let dateLabel = MetaLabel(style: .statusUsername)
 
-    public let dateTrailingDotLabel: MetaLabel = {
-        let label = MetaLabel(style: .statusUsername)
-        label.configure(content: PlaintextMetaContent(string: "·"))
-        return label
-    }()
-
-    let visibilityIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.tintColor = Asset.Colors.Label.secondary.color
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = Mastodon.Entity.Status.Visibility.public.image
-        return imageView
-    }()
-
     public let menuButton: UIButton = {
         let button = HitTestExpandedButton(type: .system)
         button.expandEdgeInsets = UIEdgeInsets(top: -20, left: -10, bottom: -10, right: -10)
@@ -150,8 +136,6 @@ extension StatusAuthorView {
 
         // dateLabel
         dateLabel.isUserInteractionEnabled = false
-
-        visibilityIconImageView.isUserInteractionEnabled = false
     }
 }
 
@@ -306,27 +290,16 @@ extension StatusAuthorView {
         authorSecondaryMetaContainer.spacing = 4
         authorMetaContainer.addArrangedSubview(authorSecondaryMetaContainer)
 
-        authorSecondaryMetaContainer.addArrangedSubview(authorUsernameLabel)
-        authorUsernameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
-        authorUsernameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-
-        authorSecondaryMetaContainer.addArrangedSubview(usernameTrialingDotLabel)
-        usernameTrialingDotLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-
         authorSecondaryMetaContainer.addArrangedSubview(dateLabel)
         dateLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
 
-        authorSecondaryMetaContainer.addArrangedSubview(dateTrailingDotLabel)
-        dateTrailingDotLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        authorSecondaryMetaContainer.addArrangedSubview(usernameTrialingDotLabel)
+        usernameTrialingDotLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        authorSecondaryMetaContainer.addArrangedSubview(visibilityIconImageView)
-        NSLayoutConstraint.activate([
-            visibilityIconImageView.heightAnchor.constraint(equalTo: authorUsernameLabel.heightAnchor),
-            visibilityIconImageView.widthAnchor.constraint(equalTo: visibilityIconImageView.heightAnchor),
-        ])
-
-        authorSecondaryMetaContainer.setCustomSpacing(0, after: visibilityIconImageView)
+        authorSecondaryMetaContainer.addArrangedSubview(authorUsernameLabel)
+        authorUsernameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        authorUsernameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         authorSecondaryMetaContainer.addArrangedSubview(UIView())
     }

@@ -82,9 +82,6 @@ extension NotificationView {
         let metaUsername = PlaintextMetaContent(string: "@\(author.acct)")
         authorUsernameLabel.configure(content: metaUsername)
 
-        let visibility = notification.entity.status?.mastodonVisibility ?? ._other("")
-        visibilityIconImageView.image = visibility.image
-
         // notification type indicator
         let notificationIndicatorText: MetaContent?
         if let type = MastodonNotificationType(rawValue: notification.entity.type.rawValue) {
@@ -218,7 +215,7 @@ extension NotificationView {
             .sink { [weak self] now in
                 guard let self, let type = MastodonNotificationType(rawValue: notification.entity.type.rawValue) else { return }
 
-                let formattedTimestamp = now.localizedTimeAgo(since: notification.entity.createdAt)
+                let formattedTimestamp =  notification.entity.createdAt.localizedAbbreviatedSlowedTimeAgoSinceNow
                 dateLabel.configure(content: PlaintextMetaContent(string: formattedTimestamp))
 
                 self.accessibilityLabel = [

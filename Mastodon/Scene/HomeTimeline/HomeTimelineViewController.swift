@@ -46,8 +46,9 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
 
     lazy var timelineSelectorButton = {
         let button = UIButton(type: .custom)
+
         button.setAttributedTitle(
-            .init(string: "Following", attributes: [
+            .init(string: L10n.Scene.HomeTimeline.TimelineMenu.following, attributes: [
                 .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
             ]),
             for: .normal)
@@ -61,15 +62,12 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
             config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
             config.imagePadding = 8
             config.image = UIImage(systemName: "chevron.down.circle.fill", withConfiguration: imageConfiguration)
+            config.imagePlacement = .trailing
             return config
         }()
 
-        button.semanticContentAttribute =
-        UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ?
-            .forceLeftToRight :
-            .forceRightToLeft
         button.showsMenuAsPrimaryAction = true
-        button.menu = generateTimeSelectorMenu()
+        button.menu = generateTimelineSelectorMenu()
         return button
     }()
 
@@ -105,7 +103,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     var timelinePillHiddenTopAnchor: NSLayoutConstraint?
 
 
-    private func generateTimeSelectorMenu() -> UIMenu {
+    private func generateTimelineSelectorMenu() -> UIMenu {
         let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
             guard let self, let viewModel = self.viewModel else { return }
 
@@ -120,7 +118,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                 for: .normal)
 
             timelineSelectorButton.sizeToFit()
-            timelineSelectorButton.menu = generateTimeSelectorMenu()
+            timelineSelectorButton.menu = generateTimelineSelectorMenu()
         }
 
         let showLocalTimelineAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.localCommunity, image: .init(systemName: "building.2")) { [weak self] action in
@@ -134,7 +132,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                 ]),
                 for: .normal)
             timelineSelectorButton.sizeToFit()
-            timelineSelectorButton.menu = generateTimeSelectorMenu()
+            timelineSelectorButton.menu = generateTimelineSelectorMenu()
         }
 
         if let viewModel {
@@ -157,7 +155,7 @@ extension HomeTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = ""
+        title = nil
         view.backgroundColor = .secondarySystemBackground
 
         viewModel?.$displaySettingBarButtonItem
