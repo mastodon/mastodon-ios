@@ -86,7 +86,7 @@
                 "done": "Kész",
                 "confirm": "Megerősítés",
                 "continue": "Folytatás",
-                "compose": "Compose",
+                "compose": "Létrehozás",
                 "cancel": "Mégsem",
                 "discard": "Elvetés",
                 "try_again": "Újrapróbálkozás",
@@ -262,7 +262,7 @@
                 "loader": {
                     "load_missing_posts": "Load missing posts",
                     "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "show_more_replies": "További válaszok megjelenítése"
                 },
                 "header": {
                     "no_status_found": "No Post Found",
@@ -471,7 +471,7 @@
         "home_timeline": {
             "title": "Főoldal",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Követett",
                 "local_community": "Helyi"
             },
             "timeline_pill": {
@@ -520,7 +520,7 @@
                 "one_day": "1 nap",
                 "three_days": "3 nap",
                 "seven_days": "7 nap",
-                "option_number": "Option %ld",
+                "option_number": "Válasz %ld",
                 "the_poll_is_invalid": "A szavazás érvénytelen",
                 "the_poll_has_empty_option": "The poll has empty option",
                 "add_option": "Opció hozzáadása",
@@ -557,7 +557,7 @@
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Tartalmi figyelmeztetés ki/be",
                 "append_attachment_entry": "Melléklet hozzáadása - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "select_visibility_entry": "Láthatóság kiválasztása - %s"
             },
             "language": {
                 "title": "Bejegyzés nyelve",
