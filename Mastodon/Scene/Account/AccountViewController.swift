@@ -8,7 +8,6 @@
 import UIKit
 import Combine
 import CoreDataStack
-import PanModal
 import MastodonAsset
 import MastodonLocalization
 import MastodonCore
@@ -35,7 +34,6 @@ final class AccountListViewController: UIViewController, NeedsDependency {
         self?.dismiss(animated: true, completion: nil)
     }
 
-    var hasLoaded = false
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(AccountListTableViewCell.self, forCellReuseIdentifier: String(describing: AccountListTableViewCell.self))
@@ -52,38 +50,11 @@ final class AccountListViewController: UIViewController, NeedsDependency {
     }
 }
 
-// MARK: - PanModalPresentable
-extension AccountListViewController: PanModalPresentable {
-    var panScrollable: UIScrollView? { tableView }
-    var showDragIndicator: Bool { false }
-    
-    var shortFormHeight: PanModalHeight {
-        func calculateHeight(of numberOfItems: Int) -> CGFloat {
-            return CGFloat(numberOfItems * 60 + 64)
-        }
-        
-        if hasLoaded {
-            let height = calculateHeight(of: viewModel.diffableDataSource.snapshot().numberOfItems)
-            return .contentHeight(CGFloat(height))
-        }
-        
-        let authenticationCount = AuthenticationServiceProvider.shared.authentications.count
-        
-        let count = authenticationCount + 1
-        let height = calculateHeight(of: count)
-        return .contentHeight(height)
-    }
-
-    var longFormHeight: PanModalHeight {
-        return .maxHeightWithTopInset(0)
-    }
-}
-
 extension AccountListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBackgroundColor()
+        view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = addBarButtonItem
 
         dragIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -126,19 +97,6 @@ extension AccountListViewController {
             }
             .store(in: &disposeBag)
     }
-
-    private func setupBackgroundColor() {
-        let backgroundColor = UIColor { traitCollection in
-            switch traitCollection.userInterfaceLevel {
-            case .elevated where traitCollection.userInterfaceStyle == .dark:
-                return SystemTheme.systemElevatedBackgroundColor
-            default:
-                return .systemBackground.withAlphaComponent(0.9)
-            }
-        }
-        view.backgroundColor = backgroundColor
-    }
-
 }
 
 extension AccountListViewController {
