@@ -225,7 +225,7 @@ extension StatusView.ViewModel {
                 case .none:
                     return
                 case .repost(let info):
-                    statusView.headerIconImageView.image = Asset.Arrow.repeatSmall.image.withRenderingMode(.alwaysTemplate)
+                    statusView.headerIconImageView.image = UIImage(systemName: "repeat")!.withRenderingMode(.alwaysTemplate)
                     statusView.headerInfoLabel.configure(content: info.header)
                     statusView.setHeaderDisplay()
                 case .reply(let info):
@@ -293,15 +293,8 @@ extension StatusView.ViewModel {
         .store(in: &disposeBag)
 
         $timestampText
-            .sink { [weak self] text in
-                guard let _ = self else { return }
+            .sink { text in
                 authorView.dateLabel.configure(content: PlaintextMetaContent(string: text))
-            }
-            .store(in: &disposeBag)
-
-        $visibility
-            .sink { visibility in
-                authorView.visibilityIconImageView.image = visibility.image
             }
             .store(in: &disposeBag)
     }
