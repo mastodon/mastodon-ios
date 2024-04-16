@@ -381,7 +381,7 @@ extension StatusView {
             return
         }
 
-        let options = poll.options//.sorted(by: { $0.index < $1.index })
+        let options = poll.options
         let items: [PollItem] = options.map { .option(record: $0) }
         self.viewModel.pollItems = items
 

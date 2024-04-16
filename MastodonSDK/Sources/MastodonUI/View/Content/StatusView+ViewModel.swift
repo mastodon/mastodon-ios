@@ -470,14 +470,17 @@ extension StatusView.ViewModel {
                     record.$isSelected.receive(on: DispatchQueue.main).sink { [weak self] selected in
                         guard let self else { return }
                         if (selected) {
+                            // as we have just selected an option, the vote button must be enabled
                             self.isVoteButtonEnabled = true
                         } else {
+                            // figure out which buttons are currently selected
                             let records = pollItems.compactMap({ item -> MastodonPollOption? in
                                 guard case let PollItem.option(record) = item else { return nil }
                                 return record
                             })
                             .filter({ $0.isSelected })
                             
+                            // only enable vote button if there are selected options
                             self.isVoteButtonEnabled = !records.isEmpty
                         }
                         statusView.pollTableView.reloadData()
