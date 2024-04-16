@@ -25,7 +25,6 @@ final class AccountListViewModel: NSObject {
     // output
     @Published var items: [Item] = []
     
-    let dataSourceDidUpdate = PassthroughSubject<Void, Never>()
     var diffableDataSource: UITableViewDiffableDataSource<Section, Item>!
 
     init(context: AppContext, authContext: AuthContext) {
@@ -50,9 +49,7 @@ final class AccountListViewModel: NSObject {
                 snapshot.appendItems([.addAccount], toSection: .main)
                 snapshot.appendItems([.logoutOfAllAccounts], toSection: .main)
 
-                diffableDataSource.apply(snapshot) {
-                    self.dataSourceDidUpdate.send()
-                }
+                diffableDataSource.apply(snapshot)
             }
             .store(in: &disposeBag)
     }
@@ -70,10 +67,7 @@ extension AccountListViewModel {
         case logoutOfAllAccounts
     }
 
-    func setupDiffableDataSource(
-        tableView: UITableView,
-        managedObjectContext: NSManagedObjectContext
-    ) {
+    func setupDiffableDataSource(tableView: UITableView) {
         diffableDataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item in
             switch item {
             case .authentication(let record):
@@ -81,7 +75,6 @@ extension AccountListViewModel {
                 if let activeAuthentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
                 {
                     AccountListViewModel.configure(
-                        in: managedObjectContext,
                         cell: cell,
                         authentication: record,
                         activeAuthentication: activeAuthentication
@@ -103,7 +96,6 @@ extension AccountListViewModel {
     }
 
     static func configure(
-        in context: NSManagedObjectContext,
         cell: AccountListTableViewCell,
         authentication: MastodonAuthentication,
         activeAuthentication: MastodonAuthentication

@@ -76,26 +76,7 @@ extension AccountListViewController {
         ])
 
         tableView.delegate = self
-        viewModel.setupDiffableDataSource(
-            tableView: tableView,
-            managedObjectContext: context.managedObjectContext
-        )
-        
-        viewModel.dataSourceDidUpdate
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self, weak presentingViewController] in
-                guard let self = self else { return }
-                
-                // the presentingViewController may deinit.
-                // Hold it and check the window to prevent PanModel crash
-                guard let _ = presentingViewController else { return }
-                guard self.view.window != nil else { return }
-                
-                self.hasLoaded = true
-                self.panModalSetNeedsLayoutUpdate()     // <<< may crash the app
-                self.panModalTransition(to: .shortForm)
-            }
-            .store(in: &disposeBag)
+        viewModel.setupDiffableDataSource(tableView: tableView)
     }
 }
 
@@ -117,8 +98,8 @@ extension AccountListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard let diffableDataSource = viewModel.diffableDataSource,
+              let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
 
         switch item {
         case .authentication(let record):
