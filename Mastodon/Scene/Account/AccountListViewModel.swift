@@ -49,7 +49,7 @@ final class AccountListViewModel: NSObject {
                 snapshot.appendItems([.addAccount], toSection: .main)
                 snapshot.appendItems([.logoutOfAllAccounts], toSection: .main)
 
-                diffableDataSource.apply(snapshot)
+                diffableDataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &disposeBag)
     }
