@@ -14,14 +14,14 @@ extension Persistence.PollOption {
     
     public struct PersistContext {
         public let index: Int
-        public let poll: Poll
+        public let poll: PollLegacy
         public let entity: Mastodon.Entity.Poll.Option
         public let me: MastodonUser?
         public let networkDate: Date
         
         public init(
             index: Int,
-            poll: Poll,
+            poll: PollLegacy,
             entity: Mastodon.Entity.Poll.Option,
             me: MastodonUser?,
             networkDate: Date
@@ -35,11 +35,11 @@ extension Persistence.PollOption {
     }
     
     public struct PersistResult {
-        public let option: PollOption
+        public let option: PollOptionLegacy
         public let isNewInsertion: Bool
         
         public init(
-            option: PollOption,
+            option: PollOptionLegacy,
             isNewInsertion: Bool
         ) {
             self.option = option
@@ -65,24 +65,24 @@ extension Persistence.PollOption {
     public static func create(
         in managedObjectContext: NSManagedObjectContext,
         context: PersistContext
-    ) -> PollOption {
-        let property = PollOption.Property(
+    ) -> PollOptionLegacy {
+        let property = PollOptionLegacy.Property(
             poll: context.poll,
             index: context.index,
             entity: context.entity,
             networkDate: context.networkDate
         )
-        let option = PollOption.insert(into: managedObjectContext, property: property)
+        let option = PollOptionLegacy.insert(into: managedObjectContext, property: property)
         update(option: option, context: context)
         return option
     }
     
     public static func merge(
-        option: PollOption,
+        option: PollOptionLegacy,
         context: PersistContext
     ) {
         guard context.networkDate > option.updatedAt else { return }
-        let property = PollOption.Property(
+        let property = PollOptionLegacy.Property(
             poll: context.poll,
             index: context.index,
             entity: context.entity,
@@ -93,7 +93,7 @@ extension Persistence.PollOption {
     }
     
     private static func update(
-        option: PollOption,
+        option: PollOptionLegacy,
         context: PersistContext
     ) {
         // Do nothing

@@ -13,6 +13,7 @@ import MastodonUI
 import MastodonLocalization
 import MastodonAsset
 import LinkPresentation
+import MastodonSDK
 
 // MARK: - header
 extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
@@ -263,66 +264,20 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     ) {
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
         guard let pollItem = pollTableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
-                
-        let managedObjectContext = context.managedObjectContext
-        
-        Task {
-            guard case let .option(pollOption) = pollItem else {
-                assertionFailure("only works for status data provider")
-                return
-            }
-                     
-            var _poll: ManagedObjectRecord<Poll>?
-            var _isMultiple: Bool?
-            var _choice: Int?
-            
-            try await managedObjectContext.performChanges {
-                guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
-                guard let poll = pollOption.poll else { return }
-                _poll = .init(objectID: poll.objectID)
 
-                _isMultiple = poll.multiple
-                guard !poll.isVoting else { return }
-                
-                if !poll.multiple {
-                    for option in poll.options where option != pollOption {
-                        option.update(isSelected: false)
-                    }
-                    
-                    // mark voting
-                    poll.update(isVoting: true)
-                    // set choice
-                    _choice = Int(pollOption.index)
-                }
-                
-                pollOption.update(isSelected: !pollOption.isSelected)
-                poll.update(updatedAt: Date())
-            }
-            
-            // Trigger vote API request for
-            guard let poll = _poll,
-                  _isMultiple == false,
-                  let choice = _choice
-            else { return }
-            
-            do {
-                _ = try await context.apiService.vote(
-                    poll: poll,
-                    choices: [choice],
-                    authenticationBox: authContext.mastodonAuthenticationBox
-                )
-            } catch {
-                // restore voting state
-                try await managedObjectContext.performChanges {
-                    guard
-                        let pollOption = pollOption.object(in: managedObjectContext),
-                        let poll = pollOption.poll
-                    else { return }
-                    poll.update(isVoting: false)
-                }
-            }
-            
-        }   // end Task
+        guard case let .option(pollOption) = pollItem else {
+            assertionFailure("only works for status data provider")
+            return
+        }
+
+        let poll = pollOption.poll
+        
+        if !poll.multiple {
+            poll.options.forEach { $0.isSelected = false }
+            pollOption.isSelected = true
+        } else {
+            pollOption.isSelected.toggle()
+        }
     }
     
     func tableViewCell(
@@ -333,46 +288,31 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
         guard let firstPollItem = pollTableViewDiffableDataSource.snapshot().itemIdentifiers.first else { return }
         guard case let .option(firstPollOption) = firstPollItem else { return }
-        
-        let managedObjectContext = context.managedObjectContext
-        
-        Task {
-            var _poll: ManagedObjectRecord<Poll>?
-            var _choices: [Int]?
-            
-            try await managedObjectContext.performChanges {
-                guard let poll = firstPollOption.object(in: managedObjectContext)?.poll else { return }
-                _poll = .init(objectID: poll.objectID)
-                
-                guard poll.multiple else { return }
-                
-                // mark voting
-                poll.update(isVoting: true)
-                // set choice
-                _choices = poll.options
-                    .filter { $0.isSelected }
-                    .map { Int($0.index) }
-                
-                poll.update(updatedAt: Date())
-            }
-            
-            // Trigger vote API request for
-            guard let poll = _poll,
-                  let choices = _choices
-            else { return }
-            
+
+        statusView.viewModel.isVoting = true
+
+        Task { @MainActor in
+            let poll = firstPollOption.poll
+
+            let choices = poll.options
+                .filter { $0.isSelected == true }
+                .compactMap { poll.options.firstIndex(of: $0) }
+
             do {
-                _ = try await context.apiService.vote(
-                    poll: poll,
+                let newPoll = try await context.apiService.vote(
+                    poll: poll.entity,
                     choices: choices,
                     authenticationBox: authContext.mastodonAuthenticationBox
-                )
+                ).value
+                
+                guard let entity = poll.status?.entity else { return }
+                
+                let newStatus: MastodonStatus = .fromEntity(entity)
+                newStatus.poll = MastodonPoll(poll: newPoll, status: newStatus)
+                
+                self.update(status: newStatus, intent: .pollVote)
             } catch {
-                // restore voting state
-                try await managedObjectContext.performChanges {
-                    guard let poll = poll.object(in: managedObjectContext) else { return }
-                    poll.update(isVoting: false)
-                }
+                statusView.viewModel.isVoting = false
             }
             
         }   // end Task

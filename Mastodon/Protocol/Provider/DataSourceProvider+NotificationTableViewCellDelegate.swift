@@ -523,3 +523,70 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
         }   // end Task
     }
 }
+
+// MARK: - poll
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
+    
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        pollTableView tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        guard let pollTableViewDiffableDataSource = notificationView.statusView.pollTableViewDiffableDataSource else { return }
+        guard let pollItem = pollTableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
+
+        guard case let .option(pollOption) = pollItem else {
+            assertionFailure("only works for status data provider")
+            return
+        }
+
+        let poll = pollOption.poll
+        
+        if !poll.multiple {
+            poll.options.forEach { $0.isSelected = false }
+            pollOption.isSelected = true
+        } else {
+            pollOption.isSelected.toggle()
+        }
+    }
+    
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        pollVoteButtonPressed button: UIButton
+    ) {
+        guard let pollTableViewDiffableDataSource = notificationView.statusView.pollTableViewDiffableDataSource else { return }
+        guard let firstPollItem = pollTableViewDiffableDataSource.snapshot().itemIdentifiers.first else { return }
+        guard case let .option(firstPollOption) = firstPollItem else { return }
+
+        notificationView.statusView.viewModel.isVoting = true
+
+        Task { @MainActor in
+            let poll = firstPollOption.poll
+
+            let choices = poll.options
+                .filter { $0.isSelected == true }
+                .compactMap { poll.options.firstIndex(of: $0) }
+
+            do {
+                let newPoll = try await context.apiService.vote(
+                    poll: poll.entity,
+                    choices: choices,
+                    authenticationBox: authContext.mastodonAuthenticationBox
+                ).value
+                
+                guard let entity = poll.status?.entity else { return }
+                
+                let newStatus: MastodonStatus = .fromEntity(entity)
+                newStatus.poll = MastodonPoll(poll: newPoll, status: newStatus)
+                
+                self.update(status: newStatus, intent: .pollVote)
+            } catch {
+                notificationView.statusView.viewModel.isVoting = false
+            }
+            
+        }   // end Task
+    }
+
+}

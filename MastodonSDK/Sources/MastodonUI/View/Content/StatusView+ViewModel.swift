@@ -457,8 +457,32 @@ extension StatusView.ViewModel {
                 
                 statusView.pollTableViewHeightLayoutConstraint.constant = CGFloat(items.count) * PollOptionTableViewCell.height
                 statusView.setPollDisplay()
+                
+                items.forEach({ item in
+                    guard case let PollItem.option(record) = item else { return }
+                    record.$isSelected.receive(on: DispatchQueue.main).sink { [weak self] selected in
+                        guard let self else { return }
+                        if (selected) {
+                            // as we have just selected an option, the vote button must be enabled
+                            self.isVoteButtonEnabled = true
+                        } else {
+                            // figure out which buttons are currently selected
+                            let records = pollItems.compactMap({ item -> MastodonPollOption? in
+                                guard case let PollItem.option(record) = item else { return nil }
+                                return record
+                            })
+                            .filter({ $0.isSelected })
+                            
+                            // only enable vote button if there are selected options
+                            self.isVoteButtonEnabled = !records.isEmpty
+                        }
+                        statusView.pollTableView.reloadData()
+                    }
+                    .store(in: &self.disposeBag)
+                })
             }
             .store(in: &disposeBag)
+
         $isVotable
             .sink { isVotable in
                 statusView.pollTableView.allowsSelection = isVotable
@@ -508,14 +532,17 @@ extension StatusView.ViewModel {
             $isVotable,
             $isVoting
         )
+        .receive(on: DispatchQueue.main)
         .sink { isVotable, isVoting in
             guard isVotable else {
                 statusView.pollVoteButton.isHidden = true
                 statusView.pollVoteActivityIndicatorView.isHidden = true
+                statusView.pollTableView.isUserInteractionEnabled = false
                 return
             }
 
             statusView.pollVoteButton.isHidden = isVoting
+            statusView.pollTableView.isUserInteractionEnabled = !isVoting
             statusView.pollVoteActivityIndicatorView.isHidden = !isVoting
             statusView.pollVoteActivityIndicatorView.startAnimating()
         }

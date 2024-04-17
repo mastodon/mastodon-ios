@@ -281,13 +281,16 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 contentWarning = status.entity.spoilerText ?? ""
             }
             Task { @MainActor in
-                if let poll = await status.getPoll(in: context.managedObjectContext, domain: authContext.mastodonAuthenticationBox.domain) {
+                if let poll = await status.getPoll(
+                    in: authContext.mastodonAuthenticationBox.domain, 
+                    authorization: authContext.mastodonAuthenticationBox.userAuthorization
+                ) {
                     isPollActive = !poll.expired
                     pollMultipleConfigurationOption = poll.multiple
                     if let pollExpiresAt = poll.expiresAt {
                         pollExpireConfigurationOption = .init(closestDateToExpiry: pollExpiresAt)
                     }
-                    pollOptions = poll.options.sortedByIndex().map {
+                    pollOptions = poll.options.map {
                         let option = PollComposeItem.Option()
                         option.text = $0.title
                         return option

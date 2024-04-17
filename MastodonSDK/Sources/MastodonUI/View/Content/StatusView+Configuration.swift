@@ -378,68 +378,44 @@ extension StatusView {
     private func configurePoll(status: MastodonStatus) {
         let status = status.reblog ?? status
         
-        guard
-            let context = viewModel.context?.managedObjectContext,
-            let domain = viewModel.authContext?.mastodonAuthenticationBox.domain,
-            let pollId = status.entity.poll?.id
-        else {
+        guard let poll = status.poll else {
             return
         }
 
-        let predicate = Poll.predicate(domain: domain, id: pollId)
-        guard let poll = Poll.findOrFetch(in: context, matching: predicate) else { return }
-        
-        viewModel.managedObjects.insert(poll)
-
-        // pollItems
-        let options = poll.options.sorted(by: { $0.index < $1.index })
-        let items: [PollItem] = options.map { .option(record: .init(objectID: $0.objectID)) }
+        let options = poll.options
+        let items: [PollItem] = options.map { .option(record: $0) }
         self.viewModel.pollItems = items
-        
-        // isVoteButtonEnabled
-        poll.publisher(for: \.updatedAt)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                let options = poll.options
-                let hasSelectedOption = options.contains(where: { $0.isSelected })
-                self.viewModel.isVoteButtonEnabled = hasSelectedOption
-            }
-            .store(in: &disposeBag)
-        // isVotable
+
+        let hasSelectedOption = options.contains(where: { $0.isSelected == true })
+        viewModel.isVoteButtonEnabled = hasSelectedOption
+
         Publishers.CombineLatest(
-            poll.publisher(for: \.votedBy),
-            poll.publisher(for: \.expired)
+            poll.$voted,
+            poll.$expired
         )
-        .map { [weak viewModel] votedBy, expired in
-            guard let viewModel = viewModel else { return false }
-            guard let authContext = viewModel.authContext else { return false }
-            let domain = authContext.mastodonAuthenticationBox.domain
-            let userID = authContext.mastodonAuthenticationBox.userID
-            let isVoted = votedBy?.contains(where: { $0.domain == domain && $0.id == userID }) ?? false
-            return !isVoted && !expired
+        .map { voted, expired in
+            return voted == false && expired == false
         }
         .assign(to: &viewModel.$isVotable)
-        
-        // votesCount
-        poll.publisher(for: \.votesCount)
-            .map { Int($0) }
+
+        poll.$votesCount
             .assign(to: \.voteCount, on: viewModel)
             .store(in: &disposeBag)
-        // voterCount
-        poll.publisher(for: \.votersCount)
-            .map { Int($0) }
+
+        poll.$votersCount
             .assign(to: \.voterCount, on: viewModel)
             .store(in: &disposeBag)
-        // expireAt
-        poll.publisher(for: \.expiresAt)
+
+        poll.$expiresAt
             .assign(to: \.expireAt, on: viewModel)
             .store(in: &disposeBag)
-        // expired
-        poll.publisher(for: \.expired)
+        
+        poll.$expired
             .assign(to: \.expired, on: viewModel)
             .store(in: &disposeBag)
-        // isVoting
-        poll.publisher(for: \.isVoting)
+        
+        poll.$voted
+            .map { $0 == true }
             .assign(to: \.isVoting, on: viewModel)
             .store(in: &disposeBag)
     }

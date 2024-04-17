@@ -78,7 +78,7 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var replyTo: Status?
     
     // sourcery: autoGenerateRelationship
-    @NSManaged public private(set) var poll: Poll?
+    @NSManaged public private(set) var poll: PollLegacy?
     // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var card: Card?
 
@@ -379,13 +379,13 @@ extension Status: AutoGenerateRelationship {
     public struct Relationship {
     	public let application: Application?
     	public let reblog: Status?
-    	public let poll: Poll?
+    	public let poll: PollLegacy?
     	public let card: Card?
 
     	public init(
     		application: Application?,
     		reblog: Status?,
-    		poll: Poll?,
+    		poll: PollLegacy?,
     		card: Card?
     	) {
     		self.application = application

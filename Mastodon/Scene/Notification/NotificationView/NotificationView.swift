@@ -25,7 +25,8 @@ public protocol NotificationViewDelegate: AnyObject {
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
-
+    func notificationView(_ notificationView: NotificationView, statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    func notificationView(_ notificationView: NotificationView, statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
 
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
@@ -547,11 +548,11 @@ extension NotificationView: StatusViewDelegate {
     }
     
     public func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        assertionFailure()
+        delegate?.notificationView(self, statusView: statusView, pollTableView: tableView, didSelectRowAt: indexPath)
     }
     
     public func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
-        assertionFailure()
+        delegate?.notificationView(self, statusView: statusView, pollVoteButtonPressed: button)
     }
     
     public func statusView(_ statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action) {

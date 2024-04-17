@@ -12,6 +12,7 @@ import Meta
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
+import MastodonSDK
 
 public extension CGSize {
     static let authorAvatarButtonSize = CGSize(width: 46, height: 46)

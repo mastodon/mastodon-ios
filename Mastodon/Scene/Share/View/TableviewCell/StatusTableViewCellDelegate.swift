@@ -8,6 +8,7 @@
 import UIKit
 import MetaTextKit
 import MastodonUI
+import MastodonSDK
 
 // sourcery: protocolName = "StatusViewDelegate"
 // sourcery: replaceOf = "statusView(statusView"

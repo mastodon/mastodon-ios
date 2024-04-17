@@ -53,6 +53,8 @@ public final class StatusDataController {
             updateReblogged(status, isReblogged)
         case let .toggleSensitive(isVisible):
             updateSensitive(status, isVisible)
+        case .pollVote:
+            updateEdited(status) // technically the data changed so refresh it to reflect the new data
         }
     }
     
