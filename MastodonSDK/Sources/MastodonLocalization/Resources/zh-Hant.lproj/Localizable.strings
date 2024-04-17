@@ -292,12 +292,11 @@
 "Scene.Follower.Title" = "跟隨者";
 "Scene.Following.Footer" = "來自其他伺服器的跟隨中不會被顯示。";
 "Scene.Following.Title" = "跟隨中";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "輕點一下捲至頂端並且再點ㄧ下回到原先位置";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon";
-"Scene.HomeTimeline.NavigationBarState.NewPosts" = "檢視最新嘟文";
-"Scene.HomeTimeline.NavigationBarState.Offline" = "離線";
-"Scene.HomeTimeline.NavigationBarState.Published" = "嘟出去！";
-"Scene.HomeTimeline.NavigationBarState.Publishing" = "發表嘟文...";
+"Scene.HomeTimeline.TimelineMenu.Following" = "正在跟隨";
+"Scene.HomeTimeline.TimelineMenu.LocalCommunity" = "本站";
+"Scene.HomeTimeline.TimelinePill.NewPosts" = "新嘟文";
+"Scene.HomeTimeline.TimelinePill.Offline" = "離線";
+"Scene.HomeTimeline.TimelinePill.PostSent" = "發嘟成功";
 "Scene.HomeTimeline.Title" = "首頁";
 "Scene.Login.ServerSearchField.Placeholder" = "請輸入 URL 或搜尋您的伺服器";
 "Scene.Login.Subtitle" = "登入您新增帳號之伺服器";

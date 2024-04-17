@@ -298,12 +298,11 @@
 "Scene.Follower.Title" = "ผู้ติดตาม";
 "Scene.Following.Footer" = "ไม่ได้แสดงการติดตามจากเซิร์ฟเวอร์อื่น ๆ";
 "Scene.Following.Title" = "กำลังติดตาม";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "แตะเพื่อเลื่อนไปยังด้านบนสุดและแตะอีกครั้งไปยังตำแหน่งที่ตั้งก่อนหน้า";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon";
-"Scene.HomeTimeline.NavigationBarState.NewPosts" = "ดูโพสต์ใหม่";
-"Scene.HomeTimeline.NavigationBarState.Offline" = "ออฟไลน์";
-"Scene.HomeTimeline.NavigationBarState.Published" = "เผยแพร่แล้ว!";
-"Scene.HomeTimeline.NavigationBarState.Publishing" = "กำลังเผยแพร่โพสต์...";
+"Scene.HomeTimeline.TimelineMenu.Following" = "กำลังติดตาม";
+"Scene.HomeTimeline.TimelineMenu.LocalCommunity" = "ในเซิร์ฟเวอร์";
+"Scene.HomeTimeline.TimelinePill.NewPosts" = "โพสต์ใหม่";
+"Scene.HomeTimeline.TimelinePill.Offline" = "ออฟไลน์";
+"Scene.HomeTimeline.TimelinePill.PostSent" = "ส่งโพสต์แล้ว";
 "Scene.HomeTimeline.Title" = "หน้าแรก";
 "Scene.Login.ServerSearchField.Placeholder" = "ป้อน URL หรือค้นหาสำหรับเซิร์ฟเวอร์ของคุณ";
 "Scene.Login.Subtitle" = "นำคุณเข้าสู่ระบบในเซิร์ฟเวอร์ที่คุณได้สร้างบัญชีของคุณไว้";

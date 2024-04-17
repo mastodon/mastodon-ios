@@ -292,12 +292,11 @@
 "Scene.Follower.Title" = "フォロワー";
 "Scene.Following.Footer" = "他のサーバーにいるフォローは表示されません。";
 "Scene.Following.Title" = "フォロー";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "タップすると一番上までスクロールし、もう一度タップすると元の場所に戻ります";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon";
-"Scene.HomeTimeline.NavigationBarState.NewPosts" = "新しい投稿を見る";
-"Scene.HomeTimeline.NavigationBarState.Offline" = "オフライン";
-"Scene.HomeTimeline.NavigationBarState.Published" = "投稿しました!";
-"Scene.HomeTimeline.NavigationBarState.Publishing" = "投稿中...";
+"Scene.HomeTimeline.TimelineMenu.Following" = "フォロー中";
+"Scene.HomeTimeline.TimelineMenu.LocalCommunity" = "ローカル";
+"Scene.HomeTimeline.TimelinePill.NewPosts" = "New Posts";
+"Scene.HomeTimeline.TimelinePill.Offline" = "Offline";
+"Scene.HomeTimeline.TimelinePill.PostSent" = "Post Sent";
 "Scene.HomeTimeline.Title" = "ホーム";
 "Scene.Login.ServerSearchField.Placeholder" = "URLを入力またはサーバーを検索";
 "Scene.Login.Subtitle" = "アカウントを作成したサーバーにログインします。";
