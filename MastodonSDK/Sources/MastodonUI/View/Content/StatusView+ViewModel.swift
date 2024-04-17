@@ -532,14 +532,17 @@ extension StatusView.ViewModel {
             $isVotable,
             $isVoting
         )
+        .receive(on: DispatchQueue.main)
         .sink { isVotable, isVoting in
             guard isVotable else {
                 statusView.pollVoteButton.isHidden = true
                 statusView.pollVoteActivityIndicatorView.isHidden = true
+                statusView.pollTableView.isUserInteractionEnabled = false
                 return
             }
 
             statusView.pollVoteButton.isHidden = isVoting
+            statusView.pollTableView.isUserInteractionEnabled = !isVoting
             statusView.pollVoteActivityIndicatorView.isHidden = !isVoting
             statusView.pollVoteActivityIndicatorView.startAnimating()
         }
