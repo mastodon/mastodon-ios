@@ -17,7 +17,7 @@ extension Date {
         let formatter = RelativeDateTimeFormatter()
         formatter.locale = Locale.autoupdatingCurrent
         formatter.dateTimeStyle = .numeric
-        formatter.unitsStyle = .abbreviated
+        formatter.unitsStyle = .short
         return formatter
     }()
 
