@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Hem",
-            "navigation_bar_state": {
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
                 "offline": "Offline",
                 "new_posts": "Nya inlägg",
-                "published": "Publicerat!",
-                "Publishing": "Publicerar inlägget...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Tryck för att bläddra till toppen och tryck igen för föregående plats"
-                }
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

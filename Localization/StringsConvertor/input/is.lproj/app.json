@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Heim",
-            "navigation_bar_state": {
+            "timeline_menu": {
+                "following": "Fylgist með",
+                "local_community": "Staðvært"
+            },
+            "timeline_pill": {
                 "offline": "Ónettengt",
-                "new_posts": "Skoða nýjar færslur",
-                "published": "Birt!",
-                "Publishing": "Birti færslu...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Ýttu til að skruna efst og ýttu aftur til að fara aftur á fyrri staðsetningu"
-                }
+                "new_posts": "Nýjar færslur",
+                "post_sent": "Birtar færslur"
             }
         },
         "suggestion_account": {

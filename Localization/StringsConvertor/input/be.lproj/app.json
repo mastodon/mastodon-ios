@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Галоўная",
-            "navigation_bar_state": {
+            "timeline_menu": {
+                "following": "Вы падпісаны",
+                "local_community": "Лакальнае"
+            },
+            "timeline_pill": {
                 "offline": "Па-за сеткай",
-                "new_posts": "Паказаць новыя",
-                "published": "Апублікавана!",
-                "Publishing": "Допіс публікуецца...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Націсніце, каб пракруціць уверх, і зноў націсніце, каб перайсці да папярэдняга месца"
-                }
+                "new_posts": "Новыя допісы",
+                "post_sent": "Допіс адпраўлены"
             }
         },
         "suggestion_account": {

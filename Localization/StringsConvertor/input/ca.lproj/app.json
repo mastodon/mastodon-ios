@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Inici",
-            "navigation_bar_state": {
-                "offline": "Fora de línia",
-                "new_posts": "Veure nous tuts",
-                "published": "Publicat!",
-                "Publishing": "S'està publicant...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Toca per desplaçar-te cap a dalt i torna a toca de nou per tornar a la ubicació anterior"
-                }
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

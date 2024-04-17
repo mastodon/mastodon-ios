@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Κανόνες Διακομιστή",
+            "subtitle": "Συνεχίζοντας, συμφωνείς να τηρείς τους ακόλουθους κανόνες που έχουν οριστεί και επιβάλλονται από τους **%s** συντονιστές.",
             "prompt": "Συνεχίζοντας, υπόκεισαι στους όρους της υπηρεσίας και της πολιτικής απορρήτου για %s.",
             "terms_of_service": "όροι υπηρεσίας",
             "privacy_policy": "πολιτική απορρήτου",
             "button": {
                 "confirm": "Συμφωνώ",
-                "disagree": "Disagree"
+                "disagree": "Διαφωνώ"
             }
         },
         "confirm_email": {
@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Αρχική",
-            "navigation_bar_state": {
-                "offline": "Εκτός σύνδεσης",
-                "new_posts": "Δες νέες αναρτήσεις",
-                "published": "Δημοσιεύθηκε!",
-                "Publishing": "Δημοσίευση ανάρτησης...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Πάτα για κύλιση στην κορυφή και πάτα ξανά για προηγούμενη τοποθεσία"
-                }
+            "timeline_menu": {
+                "following": "Ακολουθείς",
+                "local_community": "Τοπική"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

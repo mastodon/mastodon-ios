@@ -298,12 +298,11 @@
 "Scene.Follower.Title" = "关注者";
 "Scene.Following.Footer" = "不会显示来自其它服务器的关注";
 "Scene.Following.Title" = "正在关注";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "轻点滚到顶部，再次轻点回到原处";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon";
-"Scene.HomeTimeline.NavigationBarState.NewPosts" = "查看新帖子";
-"Scene.HomeTimeline.NavigationBarState.Offline" = "离线";
-"Scene.HomeTimeline.NavigationBarState.Published" = "已发送";
-"Scene.HomeTimeline.NavigationBarState.Publishing" = "正在发送...";
+"Scene.HomeTimeline.TimelineMenu.Following" = "Following";
+"Scene.HomeTimeline.TimelineMenu.LocalCommunity" = "Local";
+"Scene.HomeTimeline.TimelinePill.NewPosts" = "New Posts";
+"Scene.HomeTimeline.TimelinePill.Offline" = "Offline";
+"Scene.HomeTimeline.TimelinePill.PostSent" = "Post Sent";
 "Scene.HomeTimeline.Title" = "主页";
 "Scene.Login.ServerSearchField.Placeholder" = "输入网址或搜索您的服务器";
 "Scene.Login.Subtitle" = "登入您账户所在的服务器。";

@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Domov",
-            "navigation_bar_state": {
-                "offline": "Nepovezan",
-                "new_posts": "Pokaži nove objave",
-                "published": "Objavljeno!",
-                "Publishing": "Objavljanje objave ...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Tapnite, da podrsate na vrh; tapnite znova, da se pomaknete na prejšnji položaj"
-                }
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

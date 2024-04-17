@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Trang chủ",
-            "navigation_bar_state": {
-                "offline": "Ngoại tuyến",
-                "new_posts": "Đọc những tút mới",
-                "published": "Đã đăng!",
-                "Publishing": "Đang đăng tút...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Nhấn để cuộn lên trên và nhấn lại lần nữa để trở về vị trí cũ"
-                }
+            "timeline_menu": {
+                "following": "Đang theo dõi",
+                "local_community": "Máy chủ"
+            },
+            "timeline_pill": {
+                "offline": "Rớt mạng",
+                "new_posts": "Những tút mới",
+                "post_sent": "Đã đăng"
             }
         },
         "suggestion_account": {

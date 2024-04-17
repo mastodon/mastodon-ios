@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Principal",
-            "navigation_bar_state": {
+            "timeline_menu": {
+                "following": "Seguimientos",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
                 "offline": "Desconectado",
-                "new_posts": "Ver nuevos msjs",
-                "published": "¡Enviado!",
-                "Publishing": "Enviando mensaje…",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Tocá para desplazarte hacia arriba y tocá de nuevo para ir a la ubicación anterior"
-                }
+                "new_posts": "Nuevos mensajes",
+                "post_sent": "Mensaje enviado"
             }
         },
         "suggestion_account": {

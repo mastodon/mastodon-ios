@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Главная",
-            "navigation_bar_state": {
-                "offline": "Не в сети",
-                "new_posts": "Показать новые",
-                "published": "Опубликовано!",
-                "Publishing": "Публикуем пост...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
-                }
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

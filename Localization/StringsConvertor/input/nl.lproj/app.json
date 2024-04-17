@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Start",
-            "navigation_bar_state": {
+            "timeline_menu": {
+                "following": "Volgend",
+                "local_community": "Lokaal"
+            },
+            "timeline_pill": {
                 "offline": "Offline",
                 "new_posts": "Nieuwe berichten",
-                "published": "Gepubliceerd!",
-                "Publishing": "Bericht plaatsen...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Tik om naar boven te scrollen en tik nogmaals om terug te keren naar de vorige locatie"
-                }
+                "post_sent": "Bericht verzonden"
             }
         },
         "suggestion_account": {

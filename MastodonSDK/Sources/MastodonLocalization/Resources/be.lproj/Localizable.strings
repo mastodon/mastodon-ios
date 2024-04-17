@@ -297,12 +297,11 @@
 "Scene.Follower.Title" = "падпісчык";
 "Scene.Following.Footer" = "Падпіскі з іншых сервераў не адлюстроўваюцца.";
 "Scene.Following.Title" = "падпісаны";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Націсніце, каб пракруціць уверх, і зноў націсніце, каб перайсці да папярэдняга месца";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon";
-"Scene.HomeTimeline.NavigationBarState.NewPosts" = "Паказаць новыя";
-"Scene.HomeTimeline.NavigationBarState.Offline" = "Па-за сеткай";
-"Scene.HomeTimeline.NavigationBarState.Published" = "Апублікавана!";
-"Scene.HomeTimeline.NavigationBarState.Publishing" = "Допіс публікуецца...";
+"Scene.HomeTimeline.TimelineMenu.Following" = "Вы падпісаны";
+"Scene.HomeTimeline.TimelineMenu.LocalCommunity" = "Лакальнае";
+"Scene.HomeTimeline.TimelinePill.NewPosts" = "Новыя допісы";
+"Scene.HomeTimeline.TimelinePill.Offline" = "Па-за сеткай";
+"Scene.HomeTimeline.TimelinePill.PostSent" = "Допіс адпраўлены";
 "Scene.HomeTimeline.Title" = "Галоўная";
 "Scene.Login.ServerSearchField.Placeholder" = "Увядзіце URL або адрас сервера";
 "Scene.Login.Subtitle" = "Увайдзіце на серверы, дзе вы стварылі свой уліковы запіс.";

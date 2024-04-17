@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "ホーム",
-            "navigation_bar_state": {
-                "offline": "オフライン",
-                "new_posts": "新しい投稿を見る",
-                "published": "投稿しました!",
-                "Publishing": "投稿中...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "タップすると一番上までスクロールし、もう一度タップすると元の場所に戻ります"
-                }
+            "timeline_menu": {
+                "following": "フォロー中",
+                "local_community": "ローカル"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

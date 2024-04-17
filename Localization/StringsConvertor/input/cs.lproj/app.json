@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Domů",
-            "navigation_bar_state": {
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
                 "offline": "Offline",
-                "new_posts": "Nové příspěvky",
-                "published": "Publikováno!",
-                "Publishing": "Publikování příspěvku...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Klepnutím přejdete nahoru a znovu klepněte na předchozí místo"
-                }
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

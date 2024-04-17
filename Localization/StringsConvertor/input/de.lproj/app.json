@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Startseite",
-            "navigation_bar_state": {
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
                 "offline": "Offline",
-                "new_posts": "Neue Beiträge anzeigen",
-                "published": "Veröffentlicht!",
-                "Publishing": "Beitrag wird veröffentlicht …",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Zum Scrollen nach oben tippen und zum vorherigen Ort erneut tippen"
-                }
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

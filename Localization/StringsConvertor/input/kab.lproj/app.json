@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Agejdan",
-            "navigation_bar_state": {
-                "offline": "Beṛṛa n tuqqna",
-                "new_posts": "Tissufaɣ timaynutin",
-                "published": "Tettwasuffeɣ!",
-                "Publishing": "Asuffeɣ n tasuffeɣt...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Sit i wakken ad tɛeddiḍ i usawen, sit tikkelt-nniḍen i wakken ad tɛeddiḍ ɣer wadig yezrin"
-                }
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

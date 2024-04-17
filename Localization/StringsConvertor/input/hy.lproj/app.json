@@ -436,7 +436,7 @@
         },
         "server_rules": {
             "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%@** moderators.",
+            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
             "privacy_policy": "գաղտնիութեան քաղաքականութիւն",
@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Հիմնական",
-            "navigation_bar_state": {
-                "offline": "Անցանց",
-                "new_posts": "Տեսնել նորերը",
-                "published": "Հրատարակուած է",
-                "Publishing": "Publishing post...",
-                "accessibility": {
-                    "logo_label": "Մաստոդոն",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
-                }
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

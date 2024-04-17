@@ -56,20 +56,20 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "Têk bibe",
+                "post": "Şandî"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
+                "title_boost": "Şandiyê bilind bike?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Têk bibe",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Ji şopa %@ derkeve?",
+                "cancel": "Têk bibe",
+                "unfollow": "Neşopîne"
             }
         },
         "controls": {
@@ -116,8 +116,8 @@
                     "unknown_language": "Nenas"
                 },
                 "edit_post": "Serrast bike",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
+                "bookmark": "Şûnpel",
+                "remove_bookmark": "Şûnpêlê rake",
                 "follow": "Follow %s",
                 "unfollow": "Unfollow %s"
             },
@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Serrûpel",
-            "navigation_bar_state": {
-                "offline": "Derhêl",
-                "new_posts": "Şandiyên nû bibîne",
-                "published": "Hate weşandin!",
-                "Publishing": "Şandî tê weşandin...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Ji bo şemitandina jor û dîsa li cihê berê vegerî bitikîne"
-                }
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
@@ -681,17 +680,17 @@
                 "posts": "Posts matching \"%s\"",
                 "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
-                "hashtag": "Go to #%s",
+                "url": "Girêdanê di Mastodon de veke",
+                "hashtag": "Biçe bo #%s",
                 "no_user": {
-                    "title": "No User Account Found",
+                    "title": "Ti ajimêr nehate dîtin",
                     "message": "There's no Useraccount \"%s\" on %s"
                 },
                 "empty_state": {
                     "no_results": "Encam tune"
                 },
                 "recent_search": "Lêgerînên dawî",
-                "clear_all": "Clear all",
+                "clear_all": "Hemûyan pak bike",
                 "clear": "Pak bike"
             }
         },
@@ -738,20 +737,20 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
+                "title": "Sazkarî",
+                "general": "Giştî",
+                "notifications": "Agahdarî",
+                "support_mastodon": "Piştgiriya Mastodon bike",
+                "about_mastodon": "Derbarê Mastodon",
                 "server_details": "Server Details",
-                "logout": "Logout %@"
+                "logout": "Ji %@ derkeve"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Derbar",
+                "more_settings": "Hîn jî bêtir sazkarî",
+                "contribute_to_mastodon": "Beşdariya Mastodon bibe",
+                "privacy_policy": "Politîka taybetiyê",
+                "clear_media_storage": "Bîrdanka medya pak bike"
             },
             "server_details": {
                 "about": "About",
@@ -795,13 +794,13 @@
                 "title": "Notifications",
                 "policy": {
                     "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "anyone": "Her kes",
+                    "followers": "Kesên ku te dişopînin",
+                    "follow": "Kesên ku tu dişopînî",
+                    "noone": "Ne yek"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
+                    "mentions_and_replies": "Qalkirin & Bersiv",
                     "boosts": "Boosts",
                     "favorites": "Favorites",
                     "new_followers": "New Followers"

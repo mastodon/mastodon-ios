@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Beranda",
-            "navigation_bar_state": {
-                "offline": "Luring",
-                "new_posts": "Lihat postingan baru",
-                "published": "Dipublikasikan!",
-                "Publishing": "Mempublikasikan postingan...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Ketuk untuk menggulir ke atas dan ketuk lagi ke lokasi sebelumnya"
-                }
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

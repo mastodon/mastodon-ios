@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Sākums",
-            "navigation_bar_state": {
-                "offline": "Bezsaistē",
-                "new_posts": "Skatīt jaunās ziņas",
-                "published": "Publicēts!",
-                "Publishing": "Publicē ziņu...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Pieskaries, lai ritinātu uz augšu, un vēlreiz pieskaries iepriekšējai atrašanās vietai"
-                }
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {

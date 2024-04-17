@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Regole del server",
+            "subtitle": "Continuando, accetti di seguire le seguenti regole stabilite e applicate dai moderatori di **%s**.",
             "prompt": "Continuando, sei soggetto alle condizioni di servizio e all'informativa sulla privacy per %s.",
             "terms_of_service": "condizioni del servizio",
             "privacy_policy": "privacy policy",
             "button": {
                 "confirm": "Sono d'accordo",
-                "disagree": "Disagree"
+                "disagree": "Non sono d'accordo"
             }
         },
         "confirm_email": {
@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Inizio",
-            "navigation_bar_state": {
+            "timeline_menu": {
+                "following": "Stai seguendo",
+                "local_community": "Locale"
+            },
+            "timeline_pill": {
                 "offline": "Non in linea",
-                "new_posts": "Vedi i nuovi post",
-                "published": "Pubblicato!",
-                "Publishing": "Pubblicazione post...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Tocca per scorrere verso l'alto e tocca di nuovo verso la posizione precedente"
-                }
+                "new_posts": "Nuovi post",
+                "post_sent": "Post inviato"
             }
         },
         "suggestion_account": {

@@ -470,15 +470,14 @@
         },
         "home_timeline": {
             "title": "Hafan",
-            "navigation_bar_state": {
-                "offline": "All-lein",
-                "new_posts": "Gweld tŵts newydd",
-                "published": "Wedi cyhoeddi!",
-                "Publishing": "Wrthi'n cyhoeddi...",
-                "accessibility": {
-                    "logo_label": "Mastodon",
-                    "logo_hint": "Tapiwch i sgrolio i'r frig, a thapiwch eto er mwyn mynd i'r lleoliad blaenorol"
-                }
+            "timeline_menu": {
+                "following": "Following",
+                "local_community": "Local"
+            },
+            "timeline_pill": {
+                "offline": "Offline",
+                "new_posts": "New Posts",
+                "post_sent": "Post Sent"
             }
         },
         "suggestion_account": {
