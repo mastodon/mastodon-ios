@@ -471,8 +471,8 @@
         "home_timeline": {
             "title": "主页",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "关注",
+                "local_community": "本站"
             },
             "timeline_pill": {
                 "offline": "Offline",
