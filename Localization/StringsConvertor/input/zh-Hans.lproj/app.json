@@ -533,7 +533,7 @@
             },
             "visibility": {
                 "public": "公开",
-                "unlisted": "不公开",
+                "unlisted": "静默公开",
                 "private": "仅关注者",
                 "direct": "仅我提到的人"
             },
