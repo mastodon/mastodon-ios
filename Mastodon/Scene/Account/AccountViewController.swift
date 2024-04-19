@@ -40,7 +40,6 @@ final class AccountListViewController: UIViewController, NeedsDependency {
         tableView.register(AddAccountTableViewCell.self, forCellReuseIdentifier: String(describing: AddAccountTableViewCell.self))
         tableView.register(LogoutOfAllAccountsCell.self, forCellReuseIdentifier: LogoutOfAllAccountsCell.reuseIdentifier)
         tableView.backgroundColor = .clear
-        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         return tableView
     }()
@@ -54,7 +53,7 @@ extension AccountListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .secondarySystemGroupedBackground
         navigationItem.rightBarButtonItem = addBarButtonItem
 
         dragIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +112,7 @@ extension AccountListViewController: UITableViewDelegate {
             // TODO: add dismiss entry for welcome scene
             _ = coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
         case .logoutOfAllAccounts:
-            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
             //TODO: Localization
             let logoutAction = UIAlertAction(title: "Log Out Of All Accounts", style: .destructive) { _ in

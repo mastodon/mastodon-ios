@@ -47,7 +47,10 @@ final class AccountListViewModel: NSObject {
                 }
                 snapshot.appendItems(authenticationItems, toSection: .main)
                 snapshot.appendItems([.addAccount], toSection: .main)
-                snapshot.appendItems([.logoutOfAllAccounts], toSection: .main)
+
+                if authentications.count > 1 {
+                    snapshot.appendItems([.logoutOfAllAccounts], toSection: .main)
+                }
 
                 diffableDataSource.apply(snapshot, animatingDifferences: false)
             }
