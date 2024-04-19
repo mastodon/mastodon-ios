@@ -94,6 +94,46 @@ extension AccountListViewController {
 
 // MARK: - UITableViewDelegate
 extension AccountListViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let diffableDataSource = viewModel.diffableDataSource,
+              let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
+
+
+        switch item {
+        case .authentication(let record):
+            let logoutAction = UIContextualAction(style: .destructive, title: "Logout", handler: { [weak self] action, view, completion in
+                guard let self else { return }
+
+                UserDefaults.shared.setNotificationCountWithAccessToken(accessToken: record.userAccessToken, value: 0)
+
+                Task { @MainActor in
+                    do {
+                        try await self.viewModel.context.authenticationService.signOutMastodonUser(authentication: record)
+
+                        let userIdentifier = record
+                        FileManager.default.invalidateHomeTimelineCache(for: userIdentifier)
+                        FileManager.default.invalidateNotificationsAll(for: userIdentifier)
+                        FileManager.default.invalidateNotificationsMentions(for: userIdentifier)
+                        self.coordinator.setup()
+
+                    } catch {
+                        assertionFailure("Failed to delete Authentication: \(error)")
+                    }
+
+                }
+            })
+            logoutAction.image = UIImage(systemName: "rectangle.portrait.and.arrow.forward")
+
+            let swipeConfiguration = UISwipeActionsConfiguration(actions: [logoutAction])
+            swipeConfiguration.performsFirstActionWithFullSwipe = false
+            return swipeConfiguration
+        case .addAccount, .logoutOfAllAccounts:
+            return nil
+        }
+
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
