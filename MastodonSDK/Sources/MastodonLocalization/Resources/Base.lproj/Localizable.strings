@@ -202,6 +202,8 @@ Your profile looks like this to them.";
 "Extension.OpenIn.InvalidLinkError" = "This doesn't seem to be a valid Mastodon link.";
 "Scene.AccountList.AddAccount" = "Add Account";
 "Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
+"Scene.AccountList.Logout" = "Logout";
+"Scene.AccountList.LogoutAllAccounts" = "Log Out Of All Accounts";
 "Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
 "Scene.Bookmark.Title" = "Bookmarks";
 "Scene.Compose.Accessibility.AppendAttachment" = "Add Attachment";

@@ -99,10 +99,9 @@ extension AccountListViewController: UITableViewDelegate {
         guard let diffableDataSource = viewModel.diffableDataSource,
               let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
 
-
         switch item {
         case .authentication(let record):
-            let logoutAction = UIContextualAction(style: .destructive, title: "Logout", handler: { [weak self] action, view, completion in
+            let logoutAction = UIContextualAction(style: .destructive, title: L10n.Scene.AccountList.logout, handler: { [weak self] action, view, completion in
                 guard let self else { return }
 
                 UserDefaults.shared.setNotificationCountWithAccessToken(accessToken: record.userAccessToken, value: 0)
@@ -154,8 +153,7 @@ extension AccountListViewController: UITableViewDelegate {
         case .logoutOfAllAccounts:
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-            //TODO: Localization
-            let logoutAction = UIAlertAction(title: "Log Out Of All Accounts", style: .destructive) { _ in
+            let logoutAction = UIAlertAction(title: L10n.Scene.AccountList.logoutAllAccounts, style: .destructive) { _ in
                 Task { @MainActor in
                     self.coordinator.showLoading()
                     for authenticationBox in self.context.authenticationService.mastodonAuthenticationBoxes {
@@ -169,7 +167,7 @@ extension AccountListViewController: UITableViewDelegate {
 
             alert.addAction(logoutAction)
 
-            let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default)
             alert.addAction(cancelAction)
             present(alert, animated: true)
         }

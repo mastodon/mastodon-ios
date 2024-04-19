@@ -1,11 +1,8 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
-import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
-import MastodonCore
-import MastodonUI
 
 final class AddAccountTableViewCell: UITableViewCell {
 

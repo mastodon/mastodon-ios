@@ -1,10 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
-import MetaTextKit
-import MastodonAsset
 import MastodonLocalization
-import MastodonCore
 
 final class LogoutOfAllAccountsCell: UITableViewCell {
 
@@ -17,7 +14,7 @@ final class LogoutOfAllAccountsCell: UITableViewCell {
         configuration.image = UIImage(systemName: "rectangle.portrait.and.arrow.forward")
         configuration.imageProperties.tintColor = .systemRed
 
-        configuration.text = "Logout of all accounts"
+        configuration.text = L10n.Scene.AccountList.logoutAllAccounts
         configuration.textProperties.color = .systemRed
         configuration.textProperties.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
         backgroundColor = .secondarySystemGroupedBackground
