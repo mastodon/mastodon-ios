@@ -76,7 +76,7 @@
             "actions": {
                 "back": "戻る",
                 "next": "次へ",
-                "previous": "前",
+                "previous": "前へ",
                 "open": "開く",
                 "add": "追加",
                 "remove": "消去",
@@ -475,9 +475,9 @@
                 "local_community": "ローカル"
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "オフライン",
+                "new_posts": "新しい投稿",
+                "post_sent": "投稿しました"
             }
         },
         "suggestion_account": {
