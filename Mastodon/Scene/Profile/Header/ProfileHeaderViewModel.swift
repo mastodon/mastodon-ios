@@ -51,30 +51,24 @@ final class ProfileHeaderViewModel {
         self.account = account
         self.me = me
         self.relationship = relationship
-
-        $accountForEdit
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] account in
-                guard let self = self else { return }
-                guard let account = account else { return }
-                // banner
-                self.profileInfo.header = nil
-                self.profileInfoEditing.header = nil
-                // avatar
-                self.profileInfo.avatar = nil
-                self.profileInfoEditing.avatar = nil
-                // name
-                let name = account.displayNameWithFallback
-                self.profileInfo.name = name
-                self.profileInfoEditing.name = name
-                // bio
-                let note = ProfileHeaderViewModel.normalize(note: account.note)
-                self.profileInfo.note = note
-                self.profileInfoEditing.note = note
-            }
-            .store(in: &disposeBag)
     }
     
+    public func setProfileInfo(accountForEdit: Mastodon.Entity.Account) {
+        // banner
+        profileInfo.header = nil
+        profileInfoEditing.header = nil
+        // avatar
+        profileInfo.avatar = nil
+        profileInfoEditing.avatar = nil
+
+        let name = account.displayNameWithFallback
+        profileInfo.name = name
+        profileInfoEditing.name = name
+        // bio
+        let note = ProfileHeaderViewModel.normalize(note: account.note)
+        profileInfo.note = note
+        profileInfoEditing.note = note
+    }
 }
 
 extension ProfileHeaderViewModel {
