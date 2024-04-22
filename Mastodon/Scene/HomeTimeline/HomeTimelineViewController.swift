@@ -590,7 +590,15 @@ extension HomeTimelineViewController {
             return true
         }
     }
-    
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard (scrollView.safeAreaInsets.top + scrollView.contentOffset.y) == 0 else {
+            return
+        }
+
+        hideTimelinePill()
+    }
+
     private func savePositionBeforeScrollToTop() {
         // check save action interval
         // should not fast than 0.5s to prevent save when scrollToTop on-flying
