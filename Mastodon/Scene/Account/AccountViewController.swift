@@ -167,6 +167,7 @@ extension AccountListViewController: UITableViewDelegate {
             }
 
             alert.addAction(logoutAction)
+            alert.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
 
             let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default)
             alert.addAction(cancelAction)
