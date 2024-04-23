@@ -160,7 +160,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                     FeedbackGenerator.shared.generate(.impact(.light))
                 }
 
-                if newStatuses.isNotEmpty {
+                if newStatuses.isNotEmpty && (previousState is HomeTimelineViewModel.LoadLatestState.ContextSwitch) == false {
                     viewModel.hasNewPosts.value = true
                 }
 
