@@ -17,6 +17,7 @@ final class LogoutOfAllAccountsCell: UITableViewCell {
         configuration.text = L10n.Scene.AccountList.logoutAllAccounts
         configuration.textProperties.color = .systemRed
         configuration.textProperties.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
+        configuration.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 0)
         backgroundColor = .secondarySystemGroupedBackground
 
         self.contentConfiguration = configuration
