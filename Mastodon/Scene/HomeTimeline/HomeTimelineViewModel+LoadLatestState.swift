@@ -105,9 +105,10 @@ extension HomeTimelineViewModel.LoadLatestState {
 
         guard let viewModel else { return }
 
-        let latestFeedRecords = viewModel.dataController.records.prefix(APIService.onceRequestStatusMaxCount)
 
-        Task {
+        Task { @MainActor in
+            let latestFeedRecords = viewModel.dataController.records.prefix(APIService.onceRequestStatusMaxCount)
+
             let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
                 return record.status?.reblog?.id ?? record.status?.id
             }
@@ -128,7 +129,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                     )
                 }
 
-                await enter(state: Idle.self)
+                enter(state: Idle.self)
                 viewModel.receiveLoadingStateCompletion(.finished)
 
                 // stop refresher if no new statuses
@@ -146,7 +147,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                         for (i, record) in newRecords.enumerated() {
                             if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {
                                 oldRecords[index] = record
-                                if newRecords.count > index {
+                                if newRecords.count > i {
                                     newRecords.remove(at: i)
                                 }
                             }
@@ -165,7 +166,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                 }
 
             } catch {
-                await enter(state: Idle.self)
+                enter(state: Idle.self)
                 viewModel.didLoadLatest.send()
                 viewModel.receiveLoadingStateCompletion(.failure(error))
             }
