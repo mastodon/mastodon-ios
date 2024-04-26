@@ -77,14 +77,6 @@ extension NotificationTimelineViewModel {
 }
 
 extension NotificationTimelineViewModel {
-    
-    @MainActor func updateDataSource(
-        snapshot: NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>,
-        animatingDifferences: Bool
-    ) async {
-        await diffableDataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
-    }
-    
     @MainActor func updateSnapshotUsingReloadData(
         snapshot: NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>
     ) async {
