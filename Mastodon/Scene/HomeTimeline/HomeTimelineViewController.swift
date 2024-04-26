@@ -338,8 +338,6 @@ extension HomeTimelineViewController {
                 if isOffline {
                     self.timelinePill.update(with: .offline)
                     self.showTimelinePill()
-                } else {
-                    self.hideTimelinePill()
                 }
             })
             .store(in: &disposeBag)
