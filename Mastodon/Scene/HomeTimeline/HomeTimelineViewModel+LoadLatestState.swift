@@ -140,8 +140,9 @@ extension HomeTimelineViewModel.LoadLatestState {
                     viewModel.didLoadLatest.send()
                 } else {                    
                     viewModel.dataController.records = {
-                        var newRecords: [MastodonFeed] = newStatuses.map {
-                            MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
+                        var newRecords: [MastodonFeed] = newStatuses.map { status in
+                            let hasMore = status == newStatuses.last
+                            return MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: hasMore)
                         }
                         var oldRecords = viewModel.dataController.records
                         for (i, record) in newRecords.enumerated() {

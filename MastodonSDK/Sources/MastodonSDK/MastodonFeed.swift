@@ -39,9 +39,9 @@ public final class MastodonFeed {
 }
 
 public extension MastodonFeed {
-    static func fromStatus(_ status: MastodonStatus, kind: Feed.Kind) -> MastodonFeed {
+    static func fromStatus(_ status: MastodonStatus, kind: Feed.Kind, hasMore: Bool? = nil) -> MastodonFeed {
         MastodonFeed(
-            hasMore: false,
+            hasMore: hasMore ?? false,
             isLoadingMore: false,
             status: status,
             notification: nil,
