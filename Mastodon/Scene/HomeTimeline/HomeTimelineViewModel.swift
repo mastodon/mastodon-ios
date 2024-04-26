@@ -161,17 +161,34 @@ extension HomeTimelineViewModel {
         await AuthenticationServiceProvider.shared.fetchAccounts(apiService: context.apiService)
 
         // fetch data
-        let maxID = status.id
-        _ = try? await context.apiService.homeTimeline(
-            maxID: maxID,
+        let response = try? await context.apiService.homeTimeline(
+            sinceID: status.id,
             authenticationBox: authContext.mastodonAuthenticationBox
         )
         
-        record.isLoadingMore = false
+        // insert missing items
+        if let items = response?.value,
+            let firstNew = items.first,
+            let firstIndex = dataController.records.firstIndex(where: { $0.status?.entity == firstNew })
+        {
+            let feedItems: [MastodonFeed] = items.map { .fromStatus($0.asMastodonStatus, kind: .home, hasMore: false) }
+            dataController.records.insert(contentsOf: feedItems, at: firstIndex)
+            
+            if let firstIndexItem = snapshot.itemIdentifiers.first(where: {
+                if case let StatusItem.feed(record) = $0 {
+                    return record.status?.entity == firstNew
+                }
+                return false
+            }) {
+                snapshot.insertItems(feedItems.map { .feed(record: $0)}, afterItem: firstIndexItem)
+            }
+            
+            await updateSnapshotUsingReloadData(snapshot: snapshot)
+        } else {
+            record.isLoadingMore = false
+            await updateSnapshotUsingReloadData(snapshot: snapshot)
+        }
         
-        // reconfigure item again
-        snapshot.reconfigureItems([item])
-        await updateSnapshotUsingReloadData(snapshot: snapshot)
     }
     
 }
