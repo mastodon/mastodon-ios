@@ -27,22 +27,4 @@ extension UITableView {
             }
         })
     }
-    
-    func blinkRow(at indexPath: IndexPath) {
-        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 1) { [weak self] in
-            guard let self = self else { return }
-            guard let cell = self.cellForRow(at: indexPath) else { return }
-            let backgroundColor = cell.backgroundColor
-            
-            UIView.animate(withDuration: 0.3) {
-                cell.backgroundColor = Asset.Colors.Brand.blurple.color.withAlphaComponent(0.5)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    UIView.animate(withDuration: 0.3) {
-                        cell.backgroundColor = backgroundColor
-                    }
-                }
-            }
-        }
-    }
-    
 }
