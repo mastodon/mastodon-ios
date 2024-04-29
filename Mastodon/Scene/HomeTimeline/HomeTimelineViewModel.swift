@@ -99,7 +99,9 @@ final class HomeTimelineViewModel: NSObject {
         self.dataController.$records
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { feeds in
+            .sink(receiveValue: { [weak self] feeds in
+                guard let self, self.timelineContext == .home else { return }
+
                 let items: [MastodonStatus] = feeds.compactMap { feed -> MastodonStatus? in
                     guard let status = feed.status else { return nil }
                     return status
