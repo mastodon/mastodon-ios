@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Proffil cyfredol: %s. Tapiwch dwywaith a gwasgu i ddefnyddio'r newidiwr cyfrifon",
             "dismiss_account_switcher": "Diddymu Newidiwr Cyfrifon",
-            "add_account": "Ychwanegu Cyfrif"
+            "add_account": "Ychwanegu Cyfrif",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Tudalnodau"
