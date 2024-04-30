@@ -794,8 +794,9 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                         profileAboutViewModel.isEditing = true
                     }
                 } receiveValue: { [weak self] response in
-                    guard let self = self else { return }
-                    self.viewModel.accountForEdit = response.value
+                    guard let self else { return }
+
+                    self.profileHeaderViewController.viewModel.setProfileInfo(accountForEdit: response.value)
                 }
                 .store(in: &disposeBag)
         } else if isEdited == false {
