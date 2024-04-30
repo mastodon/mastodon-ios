@@ -76,7 +76,7 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
         
         let dataSource = UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>(tableView: contentView.tableView) { [weak self] tableView, indexPath, itemIdentifier in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier, for: indexPath) as? MastodonLoginServerTableViewCell,
-                  let self = self else {
+                  let self else {
                 fatalError("Wrong cell")
             }
             
@@ -122,9 +122,7 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
         delegate?.backButtonPressed(self)
     }
     
-    @objc func login() {
-        guard let server = viewModel.selectedServer else { return }
-
+    func login(on server: Mastodon.Entity.Server) {
         authenticationViewModel
             .authenticated.sink { (domain, account) in
                 Task { @MainActor in
@@ -189,10 +187,16 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
 
         if let text = textField.text,
            let domain = AuthenticationViewModel.parseDomain(from: text) {
-            viewModel.selectedServer = .init(domain: domain, instance: .init(domain: domain))
+            let selectedServer = Mastodon.Entity.Server(domain: domain, instance: .init(domain: domain))
+            viewModel.selectedServer = selectedServer
+            if viewModel.filteredServers.contains(where: { $0 == selectedServer }) == false {
+                viewModel.filteredServers.insert(selectedServer, at: 0)
+            }
         } else {
             viewModel.selectedServer = nil
         }
+
+        serversUpdated(viewModel)
     }
     
     // MARK: - Notifications
@@ -226,13 +230,10 @@ extension MastodonLoginViewController: OnboardingViewControllerAppearance { }
 // MARK: - UITableViewDelegate
 extension MastodonLoginViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let server = viewModel.filteredServers[indexPath.row]
-        viewModel.selectedServer = server
-        
-        contentView.searchTextField.text = server.domain
-        viewModel.filterServers(withText: " ")
-        
         tableView.deselectRow(at: indexPath, animated: true)
+
+        let selectedServer = viewModel.filteredServers[indexPath.row]
+        login(on: selectedServer)
     }
 }
 
