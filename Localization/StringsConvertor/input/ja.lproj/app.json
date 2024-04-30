@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "現在のアカウント: %s. ダブルタップしてアカウント切替画面を表示します",
             "dismiss_account_switcher": "アカウント切替画面を閉じます",
-            "add_account": "アカウントを追加"
+            "add_account": "アカウントを追加",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "ブックマーク"
