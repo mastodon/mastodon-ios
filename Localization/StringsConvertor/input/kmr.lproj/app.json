@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Profîla hilbijartî ya niha: %s. Du caran bitikîne û paşê dest bide ser da ku guhêrbara ajimêr were nîşandan",
             "dismiss_account_switcher": "Guherkera ajimêrê paş guh bike",
-            "add_account": "Ajimêr tevlî bike"
+            "add_account": "Ajimêr tevlî bike",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Şûnpel"
