@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Huidige geselecteerde profiel: %s. Dubbel-tik en houd vast om account te wisselen",
             "dismiss_account_switcher": "Annuleer account wisselen",
-            "add_account": "Voeg account toe"
+            "add_account": "Voeg account toe",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Bladwijzers"
