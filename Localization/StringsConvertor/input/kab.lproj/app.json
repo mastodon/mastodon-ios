@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Amaɣnu amiran yettwafernen: %s. Sit berdayen syen teǧǧeḍ aḍad-ik·im i uskan abeddel n umiḍan",
             "dismiss_account_switcher": "Sefsex abeddel n umiḍan",
-            "add_account": "Rnu amiḍan"
+            "add_account": "Rnu amiḍan",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Bookmarks"
