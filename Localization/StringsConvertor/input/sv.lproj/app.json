@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Nuvarande vald profil: %s. Dubbeltryck och håll för att visa kontoväxlare",
             "dismiss_account_switcher": "Stäng kontoväxlare",
-            "add_account": "Lägg till konto"
+            "add_account": "Lägg till konto",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Bokmärken"
