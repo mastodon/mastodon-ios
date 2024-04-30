@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Aktuální vybraný profil: %s. Dvojitým poklepáním zobrazíte přepínač účtů",
             "dismiss_account_switcher": "Zrušit přepínač účtů",
-            "add_account": "Přidat účet"
+            "add_account": "Přidat účet",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Záložky"
