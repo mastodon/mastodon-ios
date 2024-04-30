@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Nykyinen valittu profiili: %s. Kaksoisnapauta ja pidä sitten painettuna näytääksesi tilin vaihtajan",
             "dismiss_account_switcher": "Sulje tilin vaihtaja",
-            "add_account": "Lisää tili"
+            "add_account": "Lisää tili",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Kirjanmerkit"
