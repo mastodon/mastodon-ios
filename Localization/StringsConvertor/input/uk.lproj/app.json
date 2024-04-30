@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Поточний профіль: %s. Двічі торкніться, щоб показати перемикач ваших профілів",
             "dismiss_account_switcher": "Відхилити зміну поточного облікового запису",
-            "add_account": "Додати обліковий запис"
+            "add_account": "Додати обліковий запис",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Закладки"
