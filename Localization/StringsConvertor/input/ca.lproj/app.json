@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Perfil actual seleccionat: %s. Toca dues vegades i manté el dit per a mostrar el commutador de comptes",
             "dismiss_account_switcher": "Descartar el commutador de comptes",
-            "add_account": "Afegir compte"
+            "add_account": "Afegir compte",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Marcadors"
