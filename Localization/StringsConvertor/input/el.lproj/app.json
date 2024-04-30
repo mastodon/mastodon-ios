@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Τρέχον επιλεγμένο προφίλ: %s. Πάτα δύο φορές και κράτησε πατημένο για να εμφανίσεις την εναλλαγή λογαριασμού",
             "dismiss_account_switcher": "Απόρριψη Εναλλαγής Λογαριασμού",
-            "add_account": "Προσθήκη Λογαριασμού"
+            "add_account": "Προσθήκη Λογαριασμού",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Σελιδοδείκτες"
