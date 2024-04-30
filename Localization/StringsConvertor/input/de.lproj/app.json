@@ -877,8 +877,8 @@
             "tab_bar_hint": "Aktuell ausgewähltes Profil: %s. Doppeltippen dann gedrückt halten, um den Kontoschalter anzuzeigen",
             "dismiss_account_switcher": "Dialog zum Wechseln des Kontos schließen",
             "add_account": "Konto hinzufügen",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "Von allen Konten abmelden",
+            "logout": "Abmelden"
         },
         "bookmark": {
             "title": "Lesezeichen"
