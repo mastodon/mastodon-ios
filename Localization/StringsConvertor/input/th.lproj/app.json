@@ -877,8 +877,8 @@
             "tab_bar_hint": "โปรไฟล์ที่เลือกในปัจจุบัน: %s แตะสองครั้งแล้วกดค้างไว้เพื่อแสดงตัวสลับบัญชี",
             "dismiss_account_switcher": "ปิดตัวสลับบัญชี",
             "add_account": "เพิ่มบัญชี",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "ออกจากระบบบัญชีทั้งหมด",
+            "logout": "ออกจากระบบ"
         },
         "bookmark": {
             "title": "ที่คั่นหน้า"
