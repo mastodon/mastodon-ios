@@ -877,8 +877,8 @@
             "tab_bar_hint": "Profilo corrente selezionato: %s. Doppio tocco e tieni premuto per mostrare il cambio account",
             "dismiss_account_switcher": "Ignora il cambio account",
             "add_account": "Aggiungi account",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "Esci da tutti gli account",
+            "logout": "Esci"
         },
         "bookmark": {
             "title": "Segnalibri"
