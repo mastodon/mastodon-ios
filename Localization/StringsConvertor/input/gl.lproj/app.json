@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Perfil seleccionado: %s. Dobre toque e manter para mostrar o intercambiador de contas",
             "dismiss_account_switcher": "Desbotar intercambiador de contas",
-            "add_account": "Engadir conta"
+            "add_account": "Engadir conta",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Marcadores"
