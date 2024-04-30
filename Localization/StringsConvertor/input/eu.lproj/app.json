@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Unean hautatutako profila: %s. Ukitu birritan, ondoren eduki sakatuta kontu-aldatzailea erakusteko",
             "dismiss_account_switcher": "Baztertu kontu-aldatzailea",
-            "add_account": "Gehitu kontua"
+            "add_account": "Gehitu kontua",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Laster-markak"
