@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Perfil selecionado nesse momento: %s. Toque duas vezes e segure para mostrar o alternador de conta",
             "dismiss_account_switcher": "Descartar alternador de conta",
-            "add_account": "Adicionar conta"
+            "add_account": "Adicionar conta",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Marcados"
