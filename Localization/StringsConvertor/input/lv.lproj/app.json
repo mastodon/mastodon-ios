@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Pašreizējais atlasītais profils: %s. Veic dubultskārienu un pēc tam turi, lai parādītu konta pārslēdzēju",
             "dismiss_account_switcher": "Noraidīt Konta Pārslēdzēju",
-            "add_account": "Pievienot kontu"
+            "add_account": "Pievienot kontu",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Grāmatzīmes"
