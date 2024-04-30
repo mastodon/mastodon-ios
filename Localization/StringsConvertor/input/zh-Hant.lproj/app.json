@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "目前已選擇的個人檔案：%s。點兩下然後按住以顯示帳號切換器",
             "dismiss_account_switcher": "關閉帳號切換器",
-            "add_account": "新增帳號"
+            "add_account": "新增帳號",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "書籤"
