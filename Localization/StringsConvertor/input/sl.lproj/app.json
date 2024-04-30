@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Trenutno izbran profil: %s. Dvakrat tapnite, nato držite, da se pojavi preklopnik med računi.",
             "dismiss_account_switcher": "Umakni preklopnik med računi",
-            "add_account": "Dodaj račun"
+            "add_account": "Dodaj račun",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Zaznamki"
