@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Бягучы профіль: %s. Двойчы націсніце і ўтрымлівайце, каб паказаць пераключальнік уліковых запісаў",
             "dismiss_account_switcher": "Закрыць пераключальнік уліковых запісаў",
-            "add_account": "Дадаць уліковы запіс"
+            "add_account": "Дадаць уліковы запіс",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Закладкі"
