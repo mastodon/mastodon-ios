@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Perfil triau actualment: %s. Fe un doble toque y mantiene pretau pa amostrar lo selector de cuentas",
             "dismiss_account_switcher": "Descartar lo selector de cuentas",
-            "add_account": "Anyadir cuenta"
+            "add_account": "Anyadir cuenta",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Marcapachinas"
