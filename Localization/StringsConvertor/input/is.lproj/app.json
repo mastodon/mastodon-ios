@@ -877,8 +877,8 @@
             "tab_bar_hint": "Fyrirliggjandi valið notandasnið: %s. Tvípikkaðu og haltu niðri til að birta aðgangaskiptinn",
             "dismiss_account_switcher": "Loka aðgangaskipti",
             "add_account": "Bæta við notandaaðgangi",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "Skrá út úr öllum aðgöngum",
+            "logout": "Skrá út"
         },
         "bookmark": {
             "title": "Bókamerki"
