@@ -17,7 +17,6 @@ protocol MastodonLoginViewModelDelegate: AnyObject {
 class MastodonLoginViewModel {
 
   private var serverList: [Mastodon.Entity.Server] = []
-  var selectedServer: Mastodon.Entity.Server?
   var filteredServers: [Mastodon.Entity.Server] = []
 
   weak var appContext: AppContext?

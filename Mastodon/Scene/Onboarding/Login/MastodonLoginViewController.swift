@@ -83,10 +83,9 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
             let server = self.viewModel.filteredServers[indexPath.row]
             var configuration = cell.defaultContentConfiguration()
             configuration.text = server.domain
-            
+            configuration.textProperties.color = Asset.Colors.Brand.blurple.color
+
             cell.contentConfiguration = configuration
-            cell.accessoryType = .disclosureIndicator
-            
             cell.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
             
             return cell
@@ -188,12 +187,9 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
         if let text = textField.text,
            let domain = AuthenticationViewModel.parseDomain(from: text) {
             let selectedServer = Mastodon.Entity.Server(domain: domain, instance: .init(domain: domain))
-            viewModel.selectedServer = selectedServer
             if viewModel.filteredServers.contains(where: { $0 == selectedServer }) == false {
                 viewModel.filteredServers.insert(selectedServer, at: 0)
             }
-        } else {
-            viewModel.selectedServer = nil
         }
 
         serversUpdated(viewModel)
