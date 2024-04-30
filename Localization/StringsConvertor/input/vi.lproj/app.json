@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Đang dùng tài khoản: %s. Nhấn hai lần và giữ để đổi sang tài khoản khác",
             "dismiss_account_switcher": "Bỏ qua chuyển đổi tài khoản",
-            "add_account": "Thêm tài khoản"
+            "add_account": "Thêm tài khoản",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Những tút đã lưu"
