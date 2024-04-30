@@ -8,7 +8,6 @@ import UIKit
 import Combine
 import SafariServices
 import CoreDataStack
-import PanModal
 import MastodonSDK
 import MastodonCore
 import MastodonAsset
@@ -155,12 +154,12 @@ extension SceneCoordinator {
         case showDetail                     // replace
         case modal(animated: Bool, completion: (() -> Void)? = nil)
         case popover(sourceView: UIView)
-        case panModal
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush(animated: Bool)
         case safariPresent(animated: Bool, completion: (() -> Void)? = nil)
         case alertController(animated: Bool, completion: (() -> Void)? = nil)
         case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
+        case formSheet
         case none
     }
 
@@ -307,76 +306,70 @@ extension SceneCoordinator {
            let topViewController = navigationController.topViewController {
             presentingViewController = topViewController
         }
-        
+
         switch transition {
-            case .none:
-                // do nothing
-                break
-            case .show:
-                presentingViewController.show(viewController, sender: sender)
-            case .showDetail:
-                secondaryStackHashValues.insert(viewController.hashValue)
-                let navigationController = AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
-                presentingViewController.showDetailViewController(navigationController, sender: sender)
+        case .none:
+            // do nothing
+            break
+        case .show:
+            presentingViewController.show(viewController, sender: sender)
+        case .showDetail:
+            secondaryStackHashValues.insert(viewController.hashValue)
+            let navigationController = AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
+            presentingViewController.showDetailViewController(navigationController, sender: sender)
 
-            case .modal(let animated, let completion):
-                let modalNavigationController: UINavigationController = {
-                    if scene.isOnboarding {
-                        return OnboardingNavigationController(rootViewController: viewController)
-                    } else {
-                        return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
-                    }
-                }()
-                modalNavigationController.modalPresentationCapturesStatusBarAppearance = true
-                if let adaptivePresentationControllerDelegate = viewController as? UIAdaptivePresentationControllerDelegate {
-                    modalNavigationController.presentationController?.delegate = adaptivePresentationControllerDelegate
-                }
-                presentingViewController.present(modalNavigationController, animated: animated, completion: completion)
-
-            case .panModal:
-                guard let panModalPresentable = viewController as? PanModalPresentable & UIViewController else {
-                    assertionFailure()
-                    return nil
-                }
-
-                // https://github.com/slackhq/PanModal/issues/74#issuecomment-572426441
-                panModalPresentable.modalPresentationStyle = .custom
-                panModalPresentable.modalPresentationCapturesStatusBarAppearance = true
-                panModalPresentable.transitioningDelegate = PanModalPresentationDelegate.default
-                presentingViewController.present(panModalPresentable, animated: true, completion: nil)
-                //presentingViewController.presentPanModal(panModalPresentable)
-            case .popover(let sourceView):
-                viewController.modalPresentationStyle = .popover
-                viewController.popoverPresentationController?.sourceView = sourceView
-                (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
-            case .custom(let transitioningDelegate):
-                viewController.modalPresentationStyle = .custom
-                viewController.transitioningDelegate = transitioningDelegate
-                viewController.modalPresentationCapturesStatusBarAppearance = true
-                (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
-
-            case .customPush(let animated):
-                // set delegate in view controller
-                assert(sender?.navigationController?.delegate != nil)
-                sender?.navigationController?.pushViewController(viewController, animated: animated)
-
-            case .safariPresent(let animated, let completion):
-                if UserDefaults.shared.preferredUsingDefaultBrowser, case let .safari(url) = scene {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        case .modal(let animated, let completion):
+            let modalNavigationController: UINavigationController = {
+                if scene.isOnboarding {
+                    return OnboardingNavigationController(rootViewController: viewController)
                 } else {
-                    viewController.modalPresentationCapturesStatusBarAppearance = true
-                    presentingViewController.present(viewController, animated: animated, completion: completion)
+                    return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
                 }
+            }()
+            modalNavigationController.modalPresentationCapturesStatusBarAppearance = true
+            if let adaptivePresentationControllerDelegate = viewController as? UIAdaptivePresentationControllerDelegate {
+                modalNavigationController.presentationController?.delegate = adaptivePresentationControllerDelegate
+            }
+            presentingViewController.present(modalNavigationController, animated: animated, completion: completion)
+        case .popover(let sourceView):
+            viewController.modalPresentationStyle = .popover
+            viewController.popoverPresentationController?.sourceView = sourceView
+            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
+        case .custom(let transitioningDelegate):
+            viewController.modalPresentationStyle = .custom
+            viewController.transitioningDelegate = transitioningDelegate
+            viewController.modalPresentationCapturesStatusBarAppearance = true
+            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
 
-            case .alertController(let animated, let completion):
+        case .customPush(let animated):
+            // set delegate in view controller
+            assert(sender?.navigationController?.delegate != nil)
+            sender?.navigationController?.pushViewController(viewController, animated: animated)
+
+        case .safariPresent(let animated, let completion):
+            if UserDefaults.shared.preferredUsingDefaultBrowser, case let .safari(url) = scene {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
                 viewController.modalPresentationCapturesStatusBarAppearance = true
                 presentingViewController.present(viewController, animated: animated, completion: completion)
+            }
 
-            case .activityViewControllerPresent(let animated, let completion):
-                viewController.modalPresentationCapturesStatusBarAppearance = true
-                presentingViewController.present(viewController, animated: animated, completion: completion)
+        case .alertController(let animated, let completion):
+            viewController.modalPresentationCapturesStatusBarAppearance = true
+            presentingViewController.present(viewController, animated: animated, completion: completion)
+
+        case .activityViewControllerPresent(let animated, let completion):
+            viewController.modalPresentationCapturesStatusBarAppearance = true
+            presentingViewController.present(viewController, animated: animated, completion: completion)
+
+        case .formSheet:
+            viewController.modalPresentationStyle = .formSheet
+            if let sheetPresentation = viewController.sheetPresentationController {
+                sheetPresentation.detents = [.large(), .medium()]
+            }
+            presentingViewController.present(viewController, animated: true)
         }
-        
+
         return viewController
     }
 
@@ -397,175 +390,175 @@ private extension SceneCoordinator {
         let viewController: UIViewController?
         
         switch scene {
-            case .welcome:
-                let _viewController = WelcomeViewController()
-                viewController = _viewController
-            case .mastodonPickServer(let viewModel):
-                let _viewController = MastodonPickServerViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .mastodonRegister(let viewModel):
-                let _viewController = MastodonRegisterViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .mastodonServerRules(let viewModel):
-                let _viewController = MastodonServerRulesViewController(viewModel: viewModel)
-                viewController = _viewController
-            case .mastodonConfirmEmail(let viewModel):
-                let _viewController = MastodonConfirmEmailViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .mastodonLogin:
-                let loginViewController = MastodonLoginViewController(appContext: appContext,
-                                                                      authenticationViewModel: AuthenticationViewModel(context: appContext, coordinator: self, isAuthenticationExist: false),
-                                                                      sceneCoordinator: self)
-                loginViewController.delegate = self
+        case .welcome:
+            let _viewController = WelcomeViewController()
+            viewController = _viewController
+        case .mastodonPickServer(let viewModel):
+            let _viewController = MastodonPickServerViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mastodonRegister(let viewModel):
+            let _viewController = MastodonRegisterViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mastodonServerRules(let viewModel):
+            let _viewController = MastodonServerRulesViewController(viewModel: viewModel)
+            viewController = _viewController
+        case .mastodonConfirmEmail(let viewModel):
+            let _viewController = MastodonConfirmEmailViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mastodonLogin:
+            let loginViewController = MastodonLoginViewController(appContext: appContext,
+                                                                  authenticationViewModel: AuthenticationViewModel(context: appContext, coordinator: self, isAuthenticationExist: false),
+                                                                  sceneCoordinator: self)
+            loginViewController.delegate = self
 
-                viewController = loginViewController
-            case .mastodonPrivacyPolicies(let viewModel):
-                let privacyViewController = PrivacyTableViewController(context: appContext, coordinator: self, viewModel: viewModel)
-                viewController = privacyViewController
-            case .mastodonResendEmail(let viewModel):
-                let _viewController = MastodonResendEmailViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .mastodonWebView(let viewModel):
-                let _viewController = WebViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .searchDetail(let viewModel):
-                let _viewController = SearchDetailViewController(appContext: appContext, sceneCoordinator: self, authContext: viewModel.authContext)
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .searchResult(let viewModel):
-                let searchResultViewController = SearchResultViewController()
-                searchResultViewController.context = appContext
-                searchResultViewController.coordinator = self
-                searchResultViewController.viewModel = viewModel
-                viewController = searchResultViewController
-            case .compose(let viewModel):
-                let _viewController = ComposeViewController(viewModel: viewModel)
-                viewController = _viewController
-            case .thread(let viewModel):
-                let _viewController = ThreadViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .editHistory(let viewModel):
-                let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
-                viewController = editHistoryViewController
-            case .hashtagTimeline(let viewModel):
-                let _viewController = HashtagTimelineViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .accountList(let viewModel):
-                let _viewController = AccountListViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .profile(let viewModel):
-                let _viewController = ProfileViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .bookmark(let viewModel):
-                let _viewController = BookmarkViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .followedTags(let viewModel):
-                guard let authContext else { return nil }
-                
-                viewController = FollowedTagsViewController(appContext: appContext, sceneCoordinator: self, authContext: authContext, viewModel: viewModel)
-            case .favorite(let viewModel):
-                let _viewController = FavoriteViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .follower(let viewModel):
-                let followerListViewController = FollowerListViewController(viewModel: viewModel, coordinator: self, context: appContext)
-                viewController = followerListViewController
-            case .following(let viewModel):
-                let followingListViewController = FollowingListViewController(viewModel: viewModel, coordinator: self, context: appContext)
-                viewController = followingListViewController
-            case .familiarFollowers(let viewModel):
-                viewController = FamiliarFollowersViewController(viewModel: viewModel, context: appContext, coordinator: self)
-            case .rebloggedBy(let viewModel):
-                let _viewController = RebloggedByViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .favoritedBy(let viewModel):
-                let _viewController = FavoritedByViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .report(let viewModel):
-                viewController = ReportViewController(viewModel: viewModel)
-            case .reportServerRules(let viewModel):
-                let _viewController = ReportServerRulesViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .reportStatus(let viewModel):
-                let _viewController = ReportStatusViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .reportSupplementary(let viewModel):
-                let _viewController = ReportSupplementaryViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .reportResult(let viewModel):
-                let _viewController = ReportResultViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .suggestionAccount(let viewModel):
-                let _viewController = SuggestionAccountViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .mediaPreview(let viewModel):
-                let _viewController = MediaPreviewViewController()
-                _viewController.viewModel = viewModel
-                viewController = _viewController
-            case .safari(let url):
-                guard let scheme = url.scheme?.lowercased(),
-                      scheme == "http" || scheme == "https" else {
-                    return nil
-                }
-                let _viewController = SFSafariViewController(url: url)
-                _viewController.preferredBarTintColor = SystemTheme.navigationBarBackgroundColor
-                _viewController.preferredControlTintColor = Asset.Colors.Brand.blurple.color
-                viewController = _viewController
-                
-            case .alertController(let alertController):
-                if let popoverPresentationController = alertController.popoverPresentationController {
-                    assert(
-                        popoverPresentationController.sourceView != nil ||
-                        popoverPresentationController.sourceRect != .zero ||
-                        popoverPresentationController.barButtonItem != nil
-                    )
-                }
-                viewController = alertController
-            case .activityViewController(let activityViewController, let sourceView, let barButtonItem):
-                activityViewController.popoverPresentationController?.sourceView = sourceView
-                activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
-                viewController = activityViewController
-            case .settings(let setting):
-                guard let presentedOn = sender,
-                      let accountName = authContext?.mastodonAuthenticationBox.authentication.username,
-                      let authContext
-                else { return nil }
-                
-                let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn,
-                                                              accountName: accountName,
-                                                              setting: setting,
-                                                              appContext: appContext,
-                                                              authContext: authContext,
-                                                              sceneCoordinator: self
+            viewController = loginViewController
+        case .mastodonPrivacyPolicies(let viewModel):
+            let privacyViewController = PrivacyTableViewController(context: appContext, coordinator: self, viewModel: viewModel)
+            viewController = privacyViewController
+        case .mastodonResendEmail(let viewModel):
+            let _viewController = MastodonResendEmailViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mastodonWebView(let viewModel):
+            let _viewController = WebViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .searchDetail(let viewModel):
+            let _viewController = SearchDetailViewController(appContext: appContext, sceneCoordinator: self, authContext: viewModel.authContext)
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .searchResult(let viewModel):
+            let searchResultViewController = SearchResultViewController()
+            searchResultViewController.context = appContext
+            searchResultViewController.coordinator = self
+            searchResultViewController.viewModel = viewModel
+            viewController = searchResultViewController
+        case .compose(let viewModel):
+            let _viewController = ComposeViewController(viewModel: viewModel)
+            viewController = _viewController
+        case .thread(let viewModel):
+            let _viewController = ThreadViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .editHistory(let viewModel):
+            let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
+            viewController = editHistoryViewController
+        case .hashtagTimeline(let viewModel):
+            let _viewController = HashtagTimelineViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .accountList(let viewModel):
+            let accountListViewController = AccountListViewController()
+            accountListViewController.viewModel = viewModel
+            viewController = accountListViewController
+        case .profile(let viewModel):
+            let _viewController = ProfileViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .bookmark(let viewModel):
+            let _viewController = BookmarkViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .followedTags(let viewModel):
+            guard let authContext else { return nil }
+
+            viewController = FollowedTagsViewController(appContext: appContext, sceneCoordinator: self, authContext: authContext, viewModel: viewModel)
+        case .favorite(let viewModel):
+            let _viewController = FavoriteViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .follower(let viewModel):
+            let followerListViewController = FollowerListViewController(viewModel: viewModel, coordinator: self, context: appContext)
+            viewController = followerListViewController
+        case .following(let viewModel):
+            let followingListViewController = FollowingListViewController(viewModel: viewModel, coordinator: self, context: appContext)
+            viewController = followingListViewController
+        case .familiarFollowers(let viewModel):
+            viewController = FamiliarFollowersViewController(viewModel: viewModel, context: appContext, coordinator: self)
+        case .rebloggedBy(let viewModel):
+            let _viewController = RebloggedByViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .favoritedBy(let viewModel):
+            let _viewController = FavoritedByViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .report(let viewModel):
+            viewController = ReportViewController(viewModel: viewModel)
+        case .reportServerRules(let viewModel):
+            let _viewController = ReportServerRulesViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportStatus(let viewModel):
+            let _viewController = ReportStatusViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportSupplementary(let viewModel):
+            let _viewController = ReportSupplementaryViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportResult(let viewModel):
+            let _viewController = ReportResultViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .suggestionAccount(let viewModel):
+            let _viewController = SuggestionAccountViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mediaPreview(let viewModel):
+            let _viewController = MediaPreviewViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .safari(let url):
+            guard let scheme = url.scheme?.lowercased(),
+                  scheme == "http" || scheme == "https" else {
+                return nil
+            }
+            let _viewController = SFSafariViewController(url: url)
+            _viewController.preferredBarTintColor = SystemTheme.navigationBarBackgroundColor
+            _viewController.preferredControlTintColor = Asset.Colors.Brand.blurple.color
+            viewController = _viewController
+
+        case .alertController(let alertController):
+            if let popoverPresentationController = alertController.popoverPresentationController {
+                assert(
+                    popoverPresentationController.sourceView != nil ||
+                    popoverPresentationController.sourceRect != .zero ||
+                    popoverPresentationController.barButtonItem != nil
                 )
-                settingsCoordinator.delegate = self
-                settingsCoordinator.start()
-                
-                viewController = settingsCoordinator.navigationController
-                childCoordinator = settingsCoordinator
-                
-            case .editStatus(let viewModel):
-                let composeViewController = ComposeViewController(viewModel: viewModel)
-                viewController = composeViewController
+            }
+            viewController = alertController
+        case .activityViewController(let activityViewController, let sourceView, let barButtonItem):
+            activityViewController.popoverPresentationController?.sourceView = sourceView
+            activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
+            viewController = activityViewController
+        case .settings(let setting):
+            guard let presentedOn = sender,
+                  let accountName = authContext?.mastodonAuthenticationBox.authentication.username,
+                  let authContext
+            else { return nil }
+
+            let settingsCoordinator = SettingsCoordinator(presentedOn: presentedOn,
+                                                          accountName: accountName,
+                                                          setting: setting,
+                                                          appContext: appContext,
+                                                          authContext: authContext,
+                                                          sceneCoordinator: self
+            )
+            settingsCoordinator.delegate = self
+            settingsCoordinator.start()
+
+            viewController = settingsCoordinator.navigationController
+            childCoordinator = settingsCoordinator
+
+        case .editStatus(let viewModel):
+            let composeViewController = ComposeViewController(viewModel: viewModel)
+            viewController = composeViewController
         }
-        
+
         setupDependency(for: viewController as? NeedsDependency)
 
         return viewController

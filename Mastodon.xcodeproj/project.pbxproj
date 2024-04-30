@@ -173,6 +173,7 @@
 		D8D688F92AB8B970000F651A /* SearchResultOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D688F82AB8B970000F651A /* SearchResultOverviewCoordinator.swift */; };
 		D8E5C346296DAB84007E76A7 /* DataSourceFacade+Status+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */; };
 		D8E5C349296DB8A3007E76A7 /* StatusEditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */; };
+		D8E64F412BA84F80003A4539 /* LogoutOfAllAccountsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E64F402BA84F80003A4539 /* LogoutOfAllAccountsCell.swift */; };
 		D8ECC8102AC31EA400AE0818 /* NotificationSettingsDisabledTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ECC80F2AC31EA400AE0818 /* NotificationSettingsDisabledTableViewCell.swift */; };
 		D8F0372C29D232730027DE2E /* HashtagIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0372B29D232730027DE2E /* HashtagIntentHandler.swift */; };
 		D8F8A03A29CA5C15000195DD /* HashtagWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */; };
@@ -812,6 +813,7 @@
 		D8D688F82AB8B970000F651A /* SearchResultOverviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultOverviewCoordinator.swift; sourceTree = "<group>"; };
 		D8E5C345296DAB84007E76A7 /* DataSourceFacade+Status+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Status+History.swift"; sourceTree = "<group>"; };
 		D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryViewController.swift; sourceTree = "<group>"; };
+		D8E64F402BA84F80003A4539 /* LogoutOfAllAccountsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutOfAllAccountsCell.swift; sourceTree = "<group>"; };
 		D8ECC80F2AC31EA400AE0818 /* NotificationSettingsDisabledTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDisabledTableViewCell.swift; sourceTree = "<group>"; };
 		D8F0372B29D232730027DE2E /* HashtagIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagIntentHandler.swift; sourceTree = "<group>"; };
 		D8F8A03929CA5C15000195DD /* HashtagWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagWidgetView.swift; sourceTree = "<group>"; };
@@ -2709,6 +2711,7 @@
 			children = (
 				DB9F58F026EF512300E7BBE9 /* AccountListTableViewCell.swift */,
 				DBA5A53426F0A36A00CACBAA /* AddAccountTableViewCell.swift */,
+				D8E64F402BA84F80003A4539 /* LogoutOfAllAccountsCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3799,6 +3802,7 @@
 				85BC11B32932414900E191CD /* AltTextViewController.swift in Sources */,
 				DB63F775279A997D00455B82 /* NotificationTableViewCell+ViewModel.swift in Sources */,
 				DB98EB5927B109890082E365 /* ReportSupplementaryViewController.swift in Sources */,
+				D8E64F412BA84F80003A4539 /* LogoutOfAllAccountsCell.swift in Sources */,
 				DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DBEFCD7D282A2A3B00C0ABEA /* ReportServerRulesViewController.swift in Sources */,

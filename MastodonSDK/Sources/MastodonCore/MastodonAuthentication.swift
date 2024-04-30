@@ -4,7 +4,7 @@ import Foundation
 import CoreDataStack
 import MastodonSDK
 
-public struct MastodonAuthentication: Codable, Hashable {
+public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     public typealias ID = UUID
     
     public private(set) var identifier: ID
@@ -23,7 +23,7 @@ public struct MastodonAuthentication: Codable, Hashable {
     public private(set) var userID: String
     public private(set) var instanceObjectIdURI: URL?
     
-    internal var persistenceIdentifier: String {
+    public var persistenceIdentifier: String {
         "\(username)@\(domain)"
     }
     
@@ -119,5 +119,9 @@ public struct MastodonAuthentication: Codable, Hashable {
     
     func updating(activatedAt: Date) -> Self {
         copy(activedAt: activatedAt)
+    }
+
+    var authorization: Mastodon.API.OAuth.Authorization {
+        .init(accessToken: userAccessToken)
     }
 }

@@ -297,7 +297,7 @@ extension MainTabBarController {
         case .me:
             guard let authContext = self.authContext else { return }
             let accountListViewModel = AccountListViewModel(context: context, authContext: authContext)
-            _ = coordinator.present(scene: .accountList(viewModel: accountListViewModel), from: self, transition: .panModal)
+            _ = coordinator.present(scene: .accountList(viewModel: accountListViewModel), from: self, transition: .formSheet)
         default:
             break
         }

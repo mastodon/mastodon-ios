@@ -135,24 +135,13 @@ extension AuthenticationService {
         
         return isActive
     }
-    
+
+    public func signOutMastodonUser(authentication: MastodonAuthentication) async throws {
+        try AuthenticationServiceProvider.shared.delete(authentication: authentication)
+        _ = try await apiService?.cancelSubscription(domain: authentication.domain, authorization: authentication.authorization)
+    }
+
     public func signOutMastodonUser(authenticationBox: MastodonAuthenticationBox) async throws {
-        let managedObjectContext = backgroundManagedObjectContext
-        try await managedObjectContext.performChanges {
-            // remove Feed
-            let request = Feed.sortedFetchRequest
-            request.predicate = Feed.predicate(
-                acct: .mastodon(
-                    domain: authenticationBox.domain,
-                    userID: authenticationBox.userID
-                )
-            )
-            let feeds = managedObjectContext.safeFetch(request)
-            for feed in feeds {
-                managedObjectContext.delete(feed)
-            }
-        }
-        
         do {
             try AuthenticationServiceProvider.shared.delete(authentication: authenticationBox.authentication)
         } catch {

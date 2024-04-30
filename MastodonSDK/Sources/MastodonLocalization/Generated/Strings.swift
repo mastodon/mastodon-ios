@@ -572,6 +572,10 @@ public enum L10n {
       public static let addAccount = L10n.tr("Localizable", "Scene.AccountList.AddAccount", fallback: "Add Account")
       /// Dismiss Account Switcher
       public static let dismissAccountSwitcher = L10n.tr("Localizable", "Scene.AccountList.DismissAccountSwitcher", fallback: "Dismiss Account Switcher")
+      /// Logout
+      public static let logout = L10n.tr("Localizable", "Scene.AccountList.Logout", fallback: "Logout")
+      /// Log Out Of All Accounts
+      public static let logoutAllAccounts = L10n.tr("Localizable", "Scene.AccountList.LogoutAllAccounts", fallback: "Log Out Of All Accounts")
       /// Current selected profile: %@. Double tap then hold to show account switcher
       public static func tabBarHint(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.AccountList.TabBarHint", String(describing: p1), fallback: "Current selected profile: %@. Double tap then hold to show account switcher")

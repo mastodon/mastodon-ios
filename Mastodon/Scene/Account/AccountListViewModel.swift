@@ -25,7 +25,6 @@ final class AccountListViewModel: NSObject {
     // output
     @Published var items: [Item] = []
     
-    let dataSourceDidUpdate = PassthroughSubject<Void, Never>()
     var diffableDataSource: UITableViewDiffableDataSource<Section, Item>!
 
     init(context: AppContext, authContext: AuthContext) {
@@ -49,9 +48,11 @@ final class AccountListViewModel: NSObject {
                 snapshot.appendItems(authenticationItems, toSection: .main)
                 snapshot.appendItems([.addAccount], toSection: .main)
 
-                diffableDataSource.apply(snapshot) {
-                    self.dataSourceDidUpdate.send()
+                if authentications.count > 1 {
+                    snapshot.appendItems([.logoutOfAllAccounts], toSection: .main)
                 }
+
+                diffableDataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &disposeBag)
     }
@@ -66,12 +67,10 @@ extension AccountListViewModel {
     enum Item: Hashable {
         case authentication(record: MastodonAuthentication)
         case addAccount
+        case logoutOfAllAccounts
     }
 
-    func setupDiffableDataSource(
-        tableView: UITableView,
-        managedObjectContext: NSManagedObjectContext
-    ) {
+    func setupDiffableDataSource(tableView: UITableView) {
         diffableDataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item in
             switch item {
             case .authentication(let record):
@@ -79,7 +78,6 @@ extension AccountListViewModel {
                 if let activeAuthentication = AuthenticationServiceProvider.shared.authenticationSortedByActivation().first
                 {
                     AccountListViewModel.configure(
-                        in: managedObjectContext,
                         cell: cell,
                         authentication: record,
                         activeAuthentication: activeAuthentication
@@ -88,6 +86,9 @@ extension AccountListViewModel {
                 return cell
             case .addAccount:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddAccountTableViewCell.self), for: indexPath) as! AddAccountTableViewCell
+                return cell
+            case .logoutOfAllAccounts:
+                let cell = tableView.dequeueReusableCell(withIdentifier: LogoutOfAllAccountsCell.reuseIdentifier, for: indexPath) as! LogoutOfAllAccountsCell
                 return cell
             }
         }
@@ -98,7 +99,6 @@ extension AccountListViewModel {
     }
 
     static func configure(
-        in context: NSManagedObjectContext,
         cell: AccountListTableViewCell,
         authentication: MastodonAuthentication,
         activeAuthentication: MastodonAuthentication
