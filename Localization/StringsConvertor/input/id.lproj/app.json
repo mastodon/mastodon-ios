@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Profil yang dipilih saat ini: %s. Ketuk dua kali kemudian tahan untuk tampilkan ikon beralih akun",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Tambah Akun"
+            "add_account": "Tambah Akun",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Tandai"
