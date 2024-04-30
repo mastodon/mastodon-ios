@@ -23,10 +23,6 @@ enum MastodonLoginViewSection: Hashable {
 
 class MastodonLoginViewController: UIViewController, NeedsDependency {
     
-    enum RightBarButtonState {
-        case normal, disabled, loading
-    }
-    
     weak var delegate: MastodonLoginViewControllerDelegate?
     var dataSource: UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>?
     let viewModel: MastodonLoginViewModel
@@ -81,16 +77,19 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
             }
             
             let server = self.viewModel.filteredServers[indexPath.row]
-            var configuration = cell.defaultContentConfiguration()
-            configuration.text = server.domain
-            configuration.textProperties.color = Asset.Colors.Brand.blurple.color
+            let isLastServer: Bool
 
-            cell.contentConfiguration = configuration
-            cell.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
+            if let lastServer = self.viewModel.filteredServers.last {
+                isLastServer = (lastServer == server)
+            } else {
+                isLastServer = false
+            }
             
+            cell.configure(domain: server.domain, separatorHidden: isLastServer)
+
             return cell
         }
-        
+
         contentView.tableView.dataSource = dataSource
         self.dataSource = dataSource
         
@@ -242,7 +241,7 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
         snapshot.appendItems(viewModel.filteredServers)
 
         DispatchQueue.main.async {
-            self.dataSource?.apply(snapshot, animatingDifferences: false)
+            self.dataSource?.applySnapshotUsingReloadData(snapshot)
             let numberOfResults = viewModel.filteredServers.count
             self.contentView.updateCorners(numberOfResults: numberOfResults)
         }
