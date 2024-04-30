@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Perfil seleccionado actualmente: %s. Haz un doble toque y mantén pulsado para mostrar el selector de cuentas",
             "dismiss_account_switcher": "Descartar el selector de cuentas",
-            "add_account": "Añadir cuenta"
+            "add_account": "Añadir cuenta",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Marcadores"
