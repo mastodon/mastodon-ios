@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Profil sélectionné actuel: %s. Double appui puis maintenez enfoncé pour afficher le changement de compte",
             "dismiss_account_switcher": "Rejeter le commutateur de compte",
-            "add_account": "Ajouter un compte"
+            "add_account": "Ajouter un compte",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Favoris"
