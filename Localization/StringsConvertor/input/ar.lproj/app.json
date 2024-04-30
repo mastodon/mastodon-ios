@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "المِلَفُّ المُحدَّدُ حالِيًّا: %s. اُنقُر نَقرًا مُزدَوَجًا مَعَ الاِستِمرارِ لِإظهارِ مُبدِّلِ الحِساب",
             "dismiss_account_switcher": "تجاهُل مبدِّل الحِساب",
-            "add_account": "إضافَةُ حِساب"
+            "add_account": "إضافَةُ حِساب",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "العَلاماتُ المَرجعيَّة"
