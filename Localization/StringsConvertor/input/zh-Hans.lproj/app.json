@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "当前账户：%s。 双击并按住来打开账户切换页面",
             "dismiss_account_switcher": "关闭账户切换页面",
-            "add_account": "添加账户"
+            "add_account": "添加账户",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "书签"
