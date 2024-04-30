@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Şu anki seçili profil: %s. Hesap değiştiriciyi göstermek için iki kez dokunun ve basılı tutun",
             "dismiss_account_switcher": "Hesap Değiştiriciyi Kapat",
-            "add_account": "Hesap Ekle"
+            "add_account": "Hesap Ekle",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Yer İmleri"
