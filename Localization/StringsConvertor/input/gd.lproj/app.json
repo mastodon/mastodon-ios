@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "A’ phròifil air a taghadh: %s. Thoir gnogag dhùbailte is cùm sìos a ghearradh leum gu cunntas eile",
             "dismiss_account_switcher": "Leig seachad taghadh a’ chunntais",
-            "add_account": "Cuir cunntas ris"
+            "add_account": "Cuir cunntas ris",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Comharran-lìn"
