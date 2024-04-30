@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "Jelenleg kiválasztott profil: %s. Dupla koppintás, majd lenyomva tartva megjelenik a fiókváltó",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Fiók hozzáadása"
+            "add_account": "Fiók hozzáadása",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Könyvjelzők"
