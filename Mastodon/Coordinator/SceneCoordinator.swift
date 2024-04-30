@@ -608,10 +608,6 @@ extension SceneCoordinator: MastodonLoginViewControllerDelegate {
     func backButtonPressed(_ viewController: MastodonLoginViewController) {
         viewController.navigationController?.popViewController(animated: true)
     }
-
-    func nextButtonPressed(_ viewController: MastodonLoginViewController) {
-        viewController.login()
-    }
 }
 
 //MARK: - SettingsCoordinatorDelegate

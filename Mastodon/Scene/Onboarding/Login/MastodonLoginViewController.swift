@@ -15,7 +15,6 @@ import MastodonLocalization
 
 protocol MastodonLoginViewControllerDelegate: AnyObject {
     func backButtonPressed(_ viewController: MastodonLoginViewController)
-    func nextButtonPressed(_ viewController: MastodonLoginViewController)
 }
 
 enum MastodonLoginViewSection: Hashable {
@@ -59,21 +58,13 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
     override func loadView() {
         let loginView = MastodonLoginView()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: L10n.Common.Controls.Actions.next,
-            style: .plain,
-            target: self,
-            action: #selector(nextButtonPressed(_:))
-        )
-        
         navigationItem.leftBarButtonItem?.target = self
         navigationItem.leftBarButtonItem?.action = #selector(backButtonPressed(_:))
         
         loginView.searchTextField.addTarget(self, action: #selector(MastodonLoginViewController.textfieldDidChange(_:)), for: .editingChanged)
         loginView.tableView.delegate = self
         loginView.tableView.register(MastodonLoginServerTableViewCell.self, forCellReuseIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier)
-        setRightBarButtonState(.disabled)
-        
+
         view = loginView
     }
     
@@ -131,12 +122,6 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
         delegate?.backButtonPressed(self)
     }
     
-    @objc func nextButtonPressed(_ sender: Any) {
-        contentView.searchTextField.resignFirstResponder()
-        delegate?.nextButtonPressed(self)
-        setRightBarButtonState(.loading)
-    }
-    
     @objc func login() {
         guard let server = viewModel.selectedServer else { return }
 
@@ -177,9 +162,7 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
                 case .failure(let error):
                     let alert = UIAlertController.standardAlert(of: error)
                     self.present(alert, animated: true)
-                    self.setRightBarButtonState(.normal)
                 case .finished:
-                    self.setRightBarButtonState(.normal)
                     break
                 }
             } receiveValue: { [weak self] info in
@@ -203,16 +186,12 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
     
     @objc func textfieldDidChange(_ textField: UITextField) {
         viewModel.filterServers(withText: textField.text)
-        
-        
+
         if let text = textField.text,
            let domain = AuthenticationViewModel.parseDomain(from: text) {
-            
             viewModel.selectedServer = .init(domain: domain, instance: .init(domain: domain))
-            setRightBarButtonState(.normal)
         } else {
             viewModel.selectedServer = nil
-            setRightBarButtonState(.disabled)
         }
     }
     
@@ -239,25 +218,6 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
             self.view.layoutIfNeeded()
         }
     }
-    
-    private func setRightBarButtonState(_ state: RightBarButtonState) {
-        switch state {
-        case .normal:
-            navigationItem.rightBarButtonItem = UIBarButtonItem(
-                title: L10n.Common.Controls.Actions.next,
-                style: .plain,
-                target: self,
-                action: #selector(nextButtonPressed(_:))
-            )
-        case .disabled:
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        case .loading:
-            let activityIndicator = UIActivityIndicatorView(style: .medium)
-            activityIndicator.startAnimating()
-            let barButtonItem = UIBarButtonItem(customView: activityIndicator)
-            navigationItem.rightBarButtonItem = barButtonItem
-        }
-    }
 }
 
 // MARK: - OnboardingViewControllerAppearance
@@ -272,7 +232,6 @@ extension MastodonLoginViewController: UITableViewDelegate {
         contentView.searchTextField.text = server.domain
         viewModel.filterServers(withText: " ")
         
-        setRightBarButtonState(.normal)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
