@@ -876,7 +876,9 @@
         "account_list": {
             "tab_bar_hint": "هەژماری ئێستا: %s. دوو جا دەستی پیا بنێ بۆ کردنەوەی پێڕستی هەژمارەکان.",
             "dismiss_account_switcher": "پێڕستی هەژمارەکان دابخە",
-            "add_account": "هەژمارێک زیاد بکە"
+            "add_account": "هەژمارێک زیاد بکە",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Bookmarks"
