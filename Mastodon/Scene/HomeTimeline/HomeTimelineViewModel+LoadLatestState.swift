@@ -116,15 +116,20 @@ extension HomeTimelineViewModel.LoadLatestState {
             do {
                 await AuthenticationServiceProvider.shared.fetchAccounts(apiService: viewModel.context.apiService)
                 let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>
-
+                
+                /// To find out wether or not we need to show the "Load More" button
+                /// we have make sure to eventually overlap with the most recent cached item
+                let sinceID = latestFeedRecords.count > 1 ? latestFeedRecords[1].id : "1"
+                
                 switch viewModel.timelineContext {
                 case .home:
                     response = try await viewModel.context.apiService.homeTimeline(
+                        sinceID: sinceID,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                 case .public:
                     response = try await viewModel.context.apiService.publicTimeline(
-                        query: .init(local: true),
+                        query: .init(local: true, sinceID: sinceID),
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                 }
@@ -149,6 +154,8 @@ extension HomeTimelineViewModel.LoadLatestState {
                                 else {
                                     return false
                                 }
+                                /// if the most recent cached item overlaps with the last returned status we know that there
+                                /// is no gap in the timline
                                 return status == newStatuses.last && status != firstOldStatus.entity
                             }()
                             return MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: hasMore)
