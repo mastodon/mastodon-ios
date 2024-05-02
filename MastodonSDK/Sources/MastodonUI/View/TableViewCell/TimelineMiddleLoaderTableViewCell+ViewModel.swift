@@ -37,8 +37,10 @@ extension TimelineMiddleLoaderTableViewCell {
         feed: MastodonFeed,
         delegate: TimelineMiddleLoaderTableViewCellDelegate?
     ) {
-        self.viewModel.isFetching = feed.isLoadingMore
-        
+        feed.$isLoadingMore
+            .assign(to: \.isFetching, on: self.viewModel)
+            .store(in: &disposeBag)
+
         self.delegate = delegate
     }
     

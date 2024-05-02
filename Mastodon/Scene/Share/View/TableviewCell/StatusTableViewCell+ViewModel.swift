@@ -39,6 +39,10 @@ extension StatusTableViewCell {
         case .feed(let feed):
             statusView.configure(feed: feed)
             self.separatorLine.isHidden = feed.hasMore
+            feed.$hasMore.sink(receiveValue: { [weak self] hasMore in
+                self?.separatorLine.isHidden = hasMore
+            })
+            .store(in: &disposeBag)
             
         case .status(let status):
             statusView.configure(status: status)

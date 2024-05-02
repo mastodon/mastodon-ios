@@ -150,20 +150,15 @@ extension HomeTimelineViewModel {
     func loadMore(item: StatusItem, indexPath: IndexPath) async {
         guard case let .feedLoader(record) = item else { return }
         guard let diffableDataSource = diffableDataSource else { return }
-        var snapshot = diffableDataSource.snapshot()
 
         guard let status = record.status else { return }
         record.isLoadingMore = true
-
-        // reconfigure item
-        snapshot.reconfigureItems([item])
-        updateSnapshotUsingReloadData(snapshot: snapshot)
 
         await AuthenticationServiceProvider.shared.fetchAccounts(apiService: context.apiService)
 
         // fetch data
         let response = try? await context.apiService.homeTimeline(
-            sinceID: status.id,
+            maxID: status.id,
             authenticationBox: authContext.mastodonAuthenticationBox
         )
         
@@ -180,10 +175,8 @@ extension HomeTimelineViewModel {
             
             record.isLoadingMore = false
             record.hasMore = false
-            updateSnapshotUsingReloadData(snapshot: snapshot)
         } else {
             record.isLoadingMore = false
-            updateSnapshotUsingReloadData(snapshot: snapshot)
         }
         
     }

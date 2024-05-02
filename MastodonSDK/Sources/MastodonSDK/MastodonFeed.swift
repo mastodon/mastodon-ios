@@ -18,7 +18,11 @@ public final class MastodonFeed {
     }
     
     public let id: String
+    
+    @Published
     public var hasMore: Bool = false
+    
+    @Published
     public var isLoadingMore: Bool = false
     
     public let status: MastodonStatus?
