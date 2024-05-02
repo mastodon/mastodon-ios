@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "站点规则",
+            "subtitle": "继续操作即表示你同意遵守由 %s 的管理员设定并执行的以下规则。",
             "prompt": "如果继续，你必须遵守 %s 的服务条款和隐私政策。",
             "terms_of_service": "服务条款",
             "privacy_policy": "隐私政策",
             "button": {
                 "confirm": "我同意",
-                "disagree": "Disagree"
+                "disagree": "不同意"
             }
         },
         "confirm_email": {
@@ -475,9 +475,9 @@
                 "local_community": "本站"
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "离线",
+                "new_posts": "新嘟文",
+                "post_sent": "已发布"
             }
         },
         "suggestion_account": {
@@ -877,8 +877,8 @@
             "tab_bar_hint": "当前账户：%s。 双击并按住来打开账户切换页面",
             "dismiss_account_switcher": "关闭账户切换页面",
             "add_account": "添加账户",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "登出所有账户",
+            "logout": "登出"
         },
         "bookmark": {
             "title": "书签"
