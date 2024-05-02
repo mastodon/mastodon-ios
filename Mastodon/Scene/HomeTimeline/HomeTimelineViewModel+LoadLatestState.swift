@@ -147,18 +147,20 @@ extension HomeTimelineViewModel.LoadLatestState {
                     viewModel.dataController.records = {
                         var oldRecords = viewModel.dataController.records
 
-                        var newRecords: [MastodonFeed] = newStatuses.map { status in
-                            let hasMore: Bool = {
-                                guard
-                                    let firstOldStatus = oldRecords.first?.status
-                                else {
-                                    return false
-                                }
-                                /// if the most recent cached item overlaps with the last returned status we know that there
-                                /// is no gap in the timline
-                                return status == newStatuses.last && status != firstOldStatus.entity
-                            }()
-                            return MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: hasMore)
+                        var newRecords = [MastodonFeed]()
+                        for (index, status) in newStatuses.enumerated() {
+                            if index < newStatuses.count - 1 {
+                                newRecords.append(
+                                    MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: false)
+                                )
+                                continue
+                            }
+                            
+                            let hasMore = status != oldRecords.first?.status?.entity
+                            
+                            newRecords.append(
+                                MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: hasMore)
+                            )
                         }
                         for (i, record) in newRecords.enumerated() {
                             if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {

@@ -149,7 +149,6 @@ extension HomeTimelineViewModel {
     @MainActor
     func loadMore(item: StatusItem, indexPath: IndexPath) async {
         guard case let .feedLoader(record) = item else { return }
-        guard let diffableDataSource = diffableDataSource else { return }
 
         guard let status = record.status else { return }
         record.isLoadingMore = true
@@ -158,7 +157,7 @@ extension HomeTimelineViewModel {
 
         // fetch data
         let response = try? await context.apiService.homeTimeline(
-            maxID: status.id,
+            sinceID: status.id,
             authenticationBox: authContext.mastodonAuthenticationBox
         )
         
