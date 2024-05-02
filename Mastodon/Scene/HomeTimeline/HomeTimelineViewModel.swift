@@ -146,7 +146,8 @@ extension HomeTimelineViewModel {
 extension HomeTimelineViewModel {
 
     // load timeline gap
-    func loadMore(item: StatusItem) async {
+    @MainActor
+    func loadMore(item: StatusItem, indexPath: IndexPath) async {
         guard case let .feedLoader(record) = item else { return }
         guard let diffableDataSource = diffableDataSource else { return }
         var snapshot = diffableDataSource.snapshot()
@@ -156,7 +157,7 @@ extension HomeTimelineViewModel {
 
         // reconfigure item
         snapshot.reconfigureItems([item])
-        await updateSnapshotUsingReloadData(snapshot: snapshot)
+        updateSnapshotUsingReloadData(snapshot: snapshot)
 
         await AuthenticationServiceProvider.shared.fetchAccounts(apiService: context.apiService)
 
@@ -167,26 +168,22 @@ extension HomeTimelineViewModel {
         )
         
         // insert missing items
-        if let items = response?.value,
-            let firstNew = items.first,
-            let firstIndex = dataController.records.firstIndex(where: { $0.status?.entity == firstNew })
-        {
+        if let items = response?.value {
             let feedItems: [MastodonFeed] = items.map { .fromStatus($0.asMastodonStatus, kind: .home, hasMore: false) }
-            dataController.records.insert(contentsOf: feedItems, at: firstIndex)
+
+            let firstIndex = indexPath.row
+            let count = dataController.records.count
+            let head = dataController.records[..<firstIndex]
+            let tail = dataController.records[firstIndex..<count]
+            let combinedRecords = Array(head + feedItems + tail)
+            dataController.records = combinedRecords
             
-            if let firstIndexItem = snapshot.itemIdentifiers.first(where: {
-                if case let StatusItem.feed(record) = $0 {
-                    return record.status?.entity == firstNew
-                }
-                return false
-            }) {
-                snapshot.insertItems(feedItems.map { .feed(record: $0)}, afterItem: firstIndexItem)
-            }
-            
-            await updateSnapshotUsingReloadData(snapshot: snapshot)
+            record.isLoadingMore = false
+            record.hasMore = false
+            updateSnapshotUsingReloadData(snapshot: snapshot)
         } else {
             record.isLoadingMore = false
-            await updateSnapshotUsingReloadData(snapshot: snapshot)
+            updateSnapshotUsingReloadData(snapshot: snapshot)
         }
         
     }
