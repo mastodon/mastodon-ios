@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Καλωσόρισες και πάλι",
-            "subtitle": "Συνδέσου στο διακομιστή στον οποίο δημιούργησες τον λογαριασμό σου.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Εισαγωγή URL ή αναζήτησε τον διακομιστή σου"
             }
