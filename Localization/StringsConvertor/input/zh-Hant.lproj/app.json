@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "歡迎回來",
-            "subtitle": "登入您新增帳號之伺服器",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "請輸入 URL 或搜尋您的伺服器"
             }
