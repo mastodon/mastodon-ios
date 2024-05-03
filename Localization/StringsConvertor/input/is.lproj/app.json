@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "Velkomin aftur",
+            "subtitle": "Skráðu þig inn á netþjóninn þar sem þú útbjóst notandaaðganginn þinn.",
             "server_search_field": {
                 "placeholder": "Settu inn slóð eða leitaðu að þjóninum þínum"
             }
