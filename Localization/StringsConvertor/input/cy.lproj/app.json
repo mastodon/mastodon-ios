@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Croeso nôl",
-            "subtitle": "Mewngofnodi ar y gweinydd y rydych chi wedi creu cyfrif arno.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Mewnosod URL neu chwilio am eich gweinydd"
             }
