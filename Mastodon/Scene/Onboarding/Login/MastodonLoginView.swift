@@ -61,6 +61,7 @@ class MastodonLoginView: UIView {
     tableView.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
     tableView.keyboardDismissMode = .onDrag
     tableView.layer.cornerRadius = 10
+    tableView.separatorStyle = .none
 
     super.init(frame: frame)
 

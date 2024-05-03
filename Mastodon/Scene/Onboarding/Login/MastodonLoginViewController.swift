@@ -15,7 +15,6 @@ import MastodonLocalization
 
 protocol MastodonLoginViewControllerDelegate: AnyObject {
     func backButtonPressed(_ viewController: MastodonLoginViewController)
-    func nextButtonPressed(_ viewController: MastodonLoginViewController)
 }
 
 enum MastodonLoginViewSection: Hashable {
@@ -23,10 +22,6 @@ enum MastodonLoginViewSection: Hashable {
 }
 
 class MastodonLoginViewController: UIViewController, NeedsDependency {
-    
-    enum RightBarButtonState {
-        case normal, disabled, loading
-    }
     
     weak var delegate: MastodonLoginViewControllerDelegate?
     var dataSource: UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>?
@@ -59,21 +54,13 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
     override func loadView() {
         let loginView = MastodonLoginView()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: L10n.Common.Controls.Actions.next,
-            style: .plain,
-            target: self,
-            action: #selector(nextButtonPressed(_:))
-        )
-        
         navigationItem.leftBarButtonItem?.target = self
         navigationItem.leftBarButtonItem?.action = #selector(backButtonPressed(_:))
         
         loginView.searchTextField.addTarget(self, action: #selector(MastodonLoginViewController.textfieldDidChange(_:)), for: .editingChanged)
         loginView.tableView.delegate = self
         loginView.tableView.register(MastodonLoginServerTableViewCell.self, forCellReuseIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier)
-        setRightBarButtonState(.disabled)
-        
+
         view = loginView
     }
     
@@ -85,22 +72,24 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
         
         let dataSource = UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>(tableView: contentView.tableView) { [weak self] tableView, indexPath, itemIdentifier in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier, for: indexPath) as? MastodonLoginServerTableViewCell,
-                  let self = self else {
+                  let self else {
                 fatalError("Wrong cell")
             }
             
             let server = self.viewModel.filteredServers[indexPath.row]
-            var configuration = cell.defaultContentConfiguration()
-            configuration.text = server.domain
+            let isLastServer: Bool
+
+            if let lastServer = self.viewModel.filteredServers.last {
+                isLastServer = (lastServer == server)
+            } else {
+                isLastServer = false
+            }
             
-            cell.contentConfiguration = configuration
-            cell.accessoryType = .disclosureIndicator
-            
-            cell.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
-            
+            cell.configure(domain: server.domain, separatorHidden: isLastServer)
+
             return cell
         }
-        
+
         contentView.tableView.dataSource = dataSource
         self.dataSource = dataSource
         
@@ -131,15 +120,7 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
         delegate?.backButtonPressed(self)
     }
     
-    @objc func nextButtonPressed(_ sender: Any) {
-        contentView.searchTextField.resignFirstResponder()
-        delegate?.nextButtonPressed(self)
-        setRightBarButtonState(.loading)
-    }
-    
-    @objc func login() {
-        guard let server = viewModel.selectedServer else { return }
-
+    func login(on server: Mastodon.Entity.Server) {
         authenticationViewModel
             .authenticated.sink { (domain, account) in
                 Task { @MainActor in
@@ -177,9 +158,7 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
                 case .failure(let error):
                     let alert = UIAlertController.standardAlert(of: error)
                     self.present(alert, animated: true)
-                    self.setRightBarButtonState(.normal)
                 case .finished:
-                    self.setRightBarButtonState(.normal)
                     break
                 }
             } receiveValue: { [weak self] info in
@@ -203,17 +182,16 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
     
     @objc func textfieldDidChange(_ textField: UITextField) {
         viewModel.filterServers(withText: textField.text)
-        
-        
+
         if let text = textField.text,
            let domain = AuthenticationViewModel.parseDomain(from: text) {
-            
-            viewModel.selectedServer = .init(domain: domain, instance: .init(domain: domain))
-            setRightBarButtonState(.normal)
-        } else {
-            viewModel.selectedServer = nil
-            setRightBarButtonState(.disabled)
+            let selectedServer = Mastodon.Entity.Server(domain: domain, instance: .init(domain: domain))
+            if viewModel.filteredServers.contains(where: { $0 == selectedServer }) == false {
+                viewModel.filteredServers.insert(selectedServer, at: 0)
+            }
         }
+
+        serversUpdated(viewModel)
     }
     
     // MARK: - Notifications
@@ -239,25 +217,6 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
             self.view.layoutIfNeeded()
         }
     }
-    
-    private func setRightBarButtonState(_ state: RightBarButtonState) {
-        switch state {
-        case .normal:
-            navigationItem.rightBarButtonItem = UIBarButtonItem(
-                title: L10n.Common.Controls.Actions.next,
-                style: .plain,
-                target: self,
-                action: #selector(nextButtonPressed(_:))
-            )
-        case .disabled:
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        case .loading:
-            let activityIndicator = UIActivityIndicatorView(style: .medium)
-            activityIndicator.startAnimating()
-            let barButtonItem = UIBarButtonItem(customView: activityIndicator)
-            navigationItem.rightBarButtonItem = barButtonItem
-        }
-    }
 }
 
 // MARK: - OnboardingViewControllerAppearance
@@ -266,14 +225,10 @@ extension MastodonLoginViewController: OnboardingViewControllerAppearance { }
 // MARK: - UITableViewDelegate
 extension MastodonLoginViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let server = viewModel.filteredServers[indexPath.row]
-        viewModel.selectedServer = server
-        
-        contentView.searchTextField.text = server.domain
-        viewModel.filterServers(withText: " ")
-        
-        setRightBarButtonState(.normal)
         tableView.deselectRow(at: indexPath, animated: true)
+
+        let selectedServer = viewModel.filteredServers[indexPath.row]
+        login(on: selectedServer)
     }
 }
 
@@ -286,7 +241,7 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
         snapshot.appendItems(viewModel.filteredServers)
 
         DispatchQueue.main.async {
-            self.dataSource?.apply(snapshot, animatingDifferences: false)
+            self.dataSource?.applySnapshotUsingReloadData(snapshot)
             let numberOfResults = viewModel.filteredServers.count
             self.contentView.updateCorners(numberOfResults: numberOfResults)
         }
