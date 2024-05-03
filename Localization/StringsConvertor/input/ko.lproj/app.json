@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "돌아오신 것을 환영합니다",
-            "subtitle": "계정을 만든 서버에 로그인.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "URL을 입력하거나 서버를 검색"
             }
