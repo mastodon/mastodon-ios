@@ -156,11 +156,21 @@ extension HomeTimelineViewModel {
         await AuthenticationServiceProvider.shared.fetchAccounts(apiService: context.apiService)
 
         // fetch data
-        let response = try? await context.apiService.homeTimeline(
-            maxID: status.id,
-            limit: 20,
-            authenticationBox: authContext.mastodonAuthenticationBox
-        )
+        let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>?
+        
+        switch timelineContext {
+        case .home:
+            response = try? await context.apiService.homeTimeline(
+               maxID: status.id,
+               limit: 20,
+               authenticationBox: authContext.mastodonAuthenticationBox
+           )
+        case .public:
+            response = try? await context.apiService.publicTimeline(
+                query: .init(maxID: status.id, limit: 20),
+                authenticationBox: authContext.mastodonAuthenticationBox
+            )
+        }
         
         // insert missing items
         if let items = response?.value {
