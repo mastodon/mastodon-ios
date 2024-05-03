@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "Dobrodošli nazaj",
+            "subtitle": "Prijavite se na strežniku, na katerem ste ustvarili svoj račun.",
             "server_search_field": {
                 "placeholder": "Vnesite URL ali poiščite svoj strežnik"
             }
@@ -435,14 +435,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Pravila strežnika",
+            "subtitle": "Če nadaljujete, to pomeni, da se strinjate in da boste sledili naslednjim pravilom, ki so jih določili in jih uveljavljajo moderatorji **%s**.",
             "prompt": "Če boste nadaljevali, za vas veljajo pogoji storitve in pravilnik o zasebnosti za %s.",
             "terms_of_service": "pogoji uporabe",
             "privacy_policy": "pravilnik o zasebnosti",
             "button": {
                 "confirm": "Strinjam se",
-                "disagree": "Disagree"
+                "disagree": "Ne strinjam se"
             }
         },
         "confirm_email": {
@@ -471,13 +471,13 @@
         "home_timeline": {
             "title": "Domov",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "Sledi",
+                "local_community": "Krajevno"
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "Nepovezan",
+                "new_posts": "Nove objave",
+                "post_sent": "Objava poslana"
             }
         },
         "suggestion_account": {
@@ -877,8 +877,8 @@
             "tab_bar_hint": "Trenutno izbran profil: %s. Dvakrat tapnite, nato držite, da se pojavi preklopnik med računi.",
             "dismiss_account_switcher": "Umakni preklopnik med računi",
             "add_account": "Dodaj račun",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "Odjava iz vseh računov",
+            "logout": "Odjavi"
         },
         "bookmark": {
             "title": "Zaznamki"
