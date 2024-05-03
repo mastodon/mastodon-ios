@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Benvida!",
-            "subtitle": "Conéctate ao servidor no que creaches a conta.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Escribe o URL ou busca o teu servidor"
             }
