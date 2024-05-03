@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "သင်၏အကောင့်ဖွင့်ခဲ့သော ဆာဗာပေါ်တွင် လော့ခ်အင်ဝင်ရောက်ပါ",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "URL ကို ထည့်သွင်းပါ (သို့) သင်၏ ဆာဗာကို ရှာပါ"
             }
