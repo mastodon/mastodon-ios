@@ -173,22 +173,40 @@ extension HomeTimelineViewModel {
         }
         
         // insert missing items
-        if let items = response?.value {
-            let feedItems: [MastodonFeed] = items.map { .fromStatus($0.asMastodonStatus, kind: .home, hasMore: false) }
-
-            let firstIndex = indexPath.row
-            let count = dataController.records.count
-            let head = dataController.records[..<firstIndex]
-            let tail = dataController.records[firstIndex..<count]
-            let combinedRecords = Array(head + feedItems + tail)
-            dataController.records = combinedRecords
-            
+        guard let items = response?.value else {
             record.isLoadingMore = false
-            record.hasMore = false
-        } else {
-            record.isLoadingMore = false
+            return
         }
         
+        let firstIndex = indexPath.row
+        let oldRecords = dataController.records
+        let count = oldRecords.count
+        let head = oldRecords[..<firstIndex]
+        let tail = oldRecords[firstIndex..<count]
+        
+        var feedItems = [MastodonFeed]()
+        
+        for (index, item) in items.enumerated() {
+            let hasMore: Bool
+            
+            /// there can only be a gap after the last items
+            if index < items.count - 1 {
+                hasMore = false
+            } else {
+                /// if fetched items and first item after gap don't match -> we got another gap
+                hasMore = item != head.first?.status?.entity
+            }
+
+            feedItems.append(
+                .fromStatus(item.asMastodonStatus, kind: .home, hasMore: hasMore)
+            )
+        }
+
+        let combinedRecords = Array(head + feedItems + tail)
+        dataController.records = combinedRecords
+        
+        record.isLoadingMore = false
+        record.hasMore = false
     }
     
 }
