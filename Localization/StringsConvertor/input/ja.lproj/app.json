@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "アカウントでログイン",
-            "subtitle": "アカウントを作成したサーバーにログインします。",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "URLを入力またはサーバーを検索"
             }
