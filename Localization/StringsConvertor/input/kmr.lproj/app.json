@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Dîsa bi xêr hatî",
-            "subtitle": "Têketinê bike ser rajekarê ku te ajimêrê xwe tê de çê kiriye.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Girêdanê têxe an jî li rajekarê xwe bigere"
             }
