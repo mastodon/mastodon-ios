@@ -157,7 +157,8 @@ extension HomeTimelineViewModel {
 
         // fetch data
         let response = try? await context.apiService.homeTimeline(
-            sinceID: status.id,
+            maxID: status.id,
+            limit: 20,
             authenticationBox: authContext.mastodonAuthenticationBox
         )
         
