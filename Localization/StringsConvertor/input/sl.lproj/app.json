@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Dobrodošli nazaj",
-            "subtitle": "Prijavite se na strežniku, na katerem ste ustvarili račun.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Vnesite URL ali poiščite svoj strežnik"
             }
