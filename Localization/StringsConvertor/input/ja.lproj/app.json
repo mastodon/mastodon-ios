@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "アカウントでログイン",
+            "subtitle": "アカウントがあるサーバーの URL を入力してください。",
             "server_search_field": {
                 "placeholder": "URLを入力またはサーバーを検索"
             }
@@ -877,8 +877,8 @@
             "tab_bar_hint": "現在のアカウント: %s. ダブルタップしてアカウント切替画面を表示します",
             "dismiss_account_switcher": "アカウント切替画面を閉じます",
             "add_account": "アカウントを追加",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "すべてのアカウントをログアウト",
+            "logout": "ログアウト"
         },
         "bookmark": {
             "title": "ブックマーク"
