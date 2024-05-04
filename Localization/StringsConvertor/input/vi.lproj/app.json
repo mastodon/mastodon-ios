@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "Chào mừng quay trở lại!",
+            "subtitle": "Đăng nhập với máy chủ nơi bạn tạo tài khoản.",
             "server_search_field": {
                 "placeholder": "Nhập URL hoặc tìm máy chủ"
             }
