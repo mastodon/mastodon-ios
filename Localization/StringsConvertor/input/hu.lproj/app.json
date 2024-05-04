@@ -50,7 +50,7 @@
             },
             "translation_failed": {
                 "title": "Jegyzet",
-                "message": "A fordítás nem sikerült. Lehet, hogy a rendszergazda nem engedélyezte a fordításokat ezen a szerveren, vagy a szerveren a Mastodon egy régebbi verziója fut, ahol a fordítások még nem támogatottak.",
+                "message": "A fordítás nem sikerült. Lehet, hogy a rendszergazda nem engedélyezte a fordításokat ezen a kiszolgálón, vagy a kiszolgálón a Mastodon egy régebbi verziója fut, ahol a fordítások még nem támogatottak.",
                 "button": "OK"
             },
             "media_missing_alt_text": {
@@ -292,7 +292,7 @@
             "education": {
                 "mastodon": {
                     "title": "Üdvözlünk a Mastodon-on",
-                    "description": "A Mastodon egy decentralizált közösségi hálózat, ami azt jelenti, hogy nem egyetlen vállalat irányítja. Sok, egymástól függetlenül működtetett szerverből áll, amelyek össze vannak egymással kötve."
+                    "description": "A Mastodon egy decentralizált közösségi hálózat, ami azt jelenti, hogy nem egyetlen vállalat irányítja. Sok, egymástól függetlenül működtetett kiszolgálóból áll, amelyek össze vannak egymással kötve."
                 },
                 "servers": {
                     "title": "Mik azok a kiszolgálók?",
@@ -307,9 +307,9 @@
         },
         "login": {
             "title": "Üdv újra itt",
-            "subtitle": "Log in with the server where you created your account.",
+            "subtitle": "Azon a kiszolgálón jelentkezzen be, ahol a fiókját létrehozta.",
             "server_search_field": {
-                "placeholder": "Adja meg az URL-t vagy keresse meg a szervert"
+                "placeholder": "Adja meg az URL-t vagy keresse meg a kiszolgálót"
             }
         },
         "server_picker": {
@@ -345,7 +345,7 @@
                 "search_servers_or_enter_url": "Közösségek keresése vagy URL megadása"
             },
             "empty_state": {
-                "finding_servers": "Elérhető szerverek keresése...",
+                "finding_servers": "Elérhető kiszolgálók keresése...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "Nincs találat"
             },
@@ -364,7 +364,7 @@
         },
         "privacy": {
             "title": "Adatvédelem",
-            "description": "Bár a Mastodon alkalmazás nem gyűjt adatokat, a szerver, amelyen keresztül regisztrál, eltérő irányelvekkel rendelkezhet. Szánjon egy percet a Mastodon alkalmazás adatvédelmi szabályzatának és a kiszolgáló adatvédelmi szabályzatának áttekintésére és elfogadására.",
+            "description": "Bár a Mastodon alkalmazás nem gyűjt adatokat, a kiszolgáló, amelyen keresztül regisztrál, eltérő irányelvekkel rendelkezhet. Szánjon egy percet a Mastodon alkalmazás adatvédelmi szabályzatának és a kiszolgáló adatvédelmi szabályzatának áttekintésére és elfogadására.",
             "policy": {
                 "ios": "Adatvédelmi szabályzat - Mastodon for iOS",
                 "server": "Adatvédelmi szabályzat - %s"
@@ -509,7 +509,7 @@
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "A melléklet túl nagy",
                 "compressing_state": "Tömörítés...",
-                "server_processing_state": "Szerver feldolgozás..."
+                "server_processing_state": "Kiszolgáló feldolgozás..."
             },
             "poll": {
                 "title": "Szavazás",
@@ -833,7 +833,7 @@
                 "it_is_not_something_you_want_to_see": "Ez nem olyan, amit látni akarok",
                 "its_spam": "Ez spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Rosszindulatú linkek, hamis elkötelezettség vagy ismétlődő válaszok",
-                "it_violates_server_rules": "Megsérti a szerver szabályait",
+                "it_violates_server_rules": "Megsérti a kiszolgáló szabályait",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
                 "its_something_else": "Valami más",
                 "the_issue_does_not_fit_into_other_categories": "Az eset nem illik egyik kategóriába sem"
