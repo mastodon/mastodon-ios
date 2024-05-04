@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "Вітаем зноў",
+            "subtitle": "Увайдзіце з дапамогай сервера, на якім вы стварылі свой уліковы запіс.",
             "server_search_field": {
                 "placeholder": "Увядзіце URL або адрас сервера"
             }
