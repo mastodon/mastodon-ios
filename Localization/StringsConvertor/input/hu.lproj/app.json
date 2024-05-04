@@ -9,7 +9,7 @@
                 "title": "Bejelentkezési hiba"
             },
             "server_error": {
-                "title": "Szerverhiba"
+                "title": "Kiszolgálóhiba"
             },
             "vote_failure": {
                 "title": "Szavazási hiba",
@@ -295,8 +295,8 @@
                     "description": "A Mastodon egy decentralizált közösségi hálózat, ami azt jelenti, hogy nem egyetlen vállalat irányítja. Sok, egymástól függetlenül működtetett szerverből áll, amelyek össze vannak egymással kötve."
                 },
                 "servers": {
-                    "title": "Mik azok a szerverek?",
-                    "description": "Minden Mastodon fiók egy szerveren van elhelyezve - mindegyiknek saját értékei, szabályai és adminisztrátorai vannak. Nem számít, melyiket választod, bármelyik szerveren lévő embereket követheted és kapcsolatba léphetsz velük."
+                    "title": "Mik azok a kiszolgálók?",
+                    "description": "Minden Mastodon fiók egy kiszolgálón van elhelyezve - mindegyiknek saját értékei, szabályai és adminisztrátorai vannak. Nem számít, melyiket választod, bármelyik kiszolgálón lévő embereket követheted és kapcsolatba léphetsz velük."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -306,7 +306,7 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
+            "title": "Üdv újra itt",
             "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Adja meg az URL-t vagy keresse meg a szervert"
