@@ -306,8 +306,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "ยินดีต้อนรับกลับมา",
+            "subtitle": "เข้าสู่ระบบด้วยเซิร์ฟเวอร์ที่ซึ่งคุณได้สร้างบัญชีของคุณ",
             "server_search_field": {
                 "placeholder": "ป้อน URL หรือค้นหาสำหรับเซิร์ฟเวอร์ของคุณ"
             }
