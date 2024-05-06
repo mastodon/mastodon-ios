@@ -147,7 +147,7 @@ extension HomeTimelineViewModel {
 
     // load timeline gap
     @MainActor
-    func loadMore(item: StatusItem, indexPath: IndexPath) async {
+    func loadMore(item: StatusItem, at indexPath: IndexPath) async {
         guard case let .feedLoader(record) = item else { return }
 
         guard let status = record.status else { return }
