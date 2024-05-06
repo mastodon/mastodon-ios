@@ -50,7 +50,7 @@ extension ReportSection {
                     context: context,
                     tableView: tableView,
                     cell: cell,
-                    viewModel: .init(value: status),
+                    status: status,
                     configuration: configuration
                 )
                 return cell
@@ -86,7 +86,7 @@ extension ReportSection {
         context: AppContext,
         tableView: UITableView,
         cell: ReportStatusTableViewCell,
-        viewModel: ReportStatusTableViewCell.ViewModel,
+        status: MastodonStatus,
         configuration: Configuration
     ) {
         StatusSection.setupStatusPollDataSource(
@@ -100,7 +100,7 @@ extension ReportSection {
         
         cell.configure(
             tableView: tableView,
-            viewModel: viewModel
+            status: status
         )
     }
     
