@@ -54,7 +54,7 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
+                "title": "У медіа відсутній альтернативний текст",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
                 "cancel": "Cancel",
                 "post": "Post"
