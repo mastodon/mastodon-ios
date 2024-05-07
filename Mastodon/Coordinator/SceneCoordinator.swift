@@ -131,7 +131,8 @@ final public class SceneCoordinator {
                                     from: from,
                                     transition: .show
                                 )
-
+                            case .moderationWarning:
+                                break
                             case ._other:
                                 assertionFailure()
                                 break
