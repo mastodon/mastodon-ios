@@ -23,15 +23,69 @@ extension Mastodon.Entity {
         public let type: Type
         public let createdAt: Date
         public let account: Account
-        
         public let status: Status?
-        
+        public let accountWarning: AccountWarning?
+
         enum CodingKeys: String, CodingKey {
             case id
             case type
             case createdAt = "created_at"
             case account
             case status
+            case accountWarning = "moderation_warning"
+        }
+    }
+}
+
+extension Mastodon.Entity {
+    public struct AccountWarning: Codable {
+        public typealias ID = String
+
+        public let id: ID
+        public let action: Action
+        public let text: String?
+        public let targetAccount: Account
+        public let appeal: Appeal?
+        public let statusIds: [Mastodon.Entity.Status.ID]?
+
+        public enum CodingKeys: String, CodingKey {
+            case id
+            case action
+            case text
+            case targetAccount = "target_account"
+            case appeal
+            case statusIds = "status_ids"
+        }
+
+        public enum Action: String, Codable {
+            case none
+            case disable
+            case markStatusesAsSensitive
+            case deleteStatuses
+            case sensitive
+            case silence
+            case suspend
+
+            public enum CodingKeys: String, CodingKey {
+                case none
+                case disable
+                case markStatusesAsSensitive = "mark_statuses_as_sensitive"
+                case deleteStatuses = "delete_statuses"
+                case sensitive
+                case silence
+                case suspend
+            }
+        }
+
+        public struct Appeal: Codable {
+            public let text: String
+            public let state: State
+
+            public enum State: String, Codable {
+                case approved
+                case rejected
+                case pending
+            }
         }
     }
 }
