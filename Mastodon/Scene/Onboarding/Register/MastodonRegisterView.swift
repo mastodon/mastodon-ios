@@ -117,6 +117,7 @@ struct MastodonRegisterView: View {
                     viewModel.endEditing.send()
                 }
         )
+        .scrollDismissesKeyboard(.interactively)
     }
     
     struct FormTextFieldModifier: ViewModifier {
