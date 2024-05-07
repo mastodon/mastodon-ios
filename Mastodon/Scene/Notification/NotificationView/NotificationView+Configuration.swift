@@ -52,6 +52,8 @@ extension NotificationView {
                 quoteStatusView.configure(status: status)
                 setQuoteStatusViewDisplay()
             }
+        case .moderationWarning:
+            setAuthorContainerBottomPaddingViewDisplay()
         case ._other:
             setAuthorContainerBottomPaddingViewDisplay()
             assertionFailure()

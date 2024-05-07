@@ -46,20 +46,9 @@ extension Mastodon.Entity.Notification {
         case favourite
         case poll
         case status
-        
+        case moderationWarning
+
         case _other(String)
-        
-        public static var knownCases: [NotificationType] {
-            return [
-                .follow,
-                .followRequest,
-                .mention,
-                .reblog,
-                .favourite,
-                .poll,
-                .status
-            ]
-        }
         
         public init?(rawValue: String) {
             switch rawValue {
@@ -70,6 +59,7 @@ extension Mastodon.Entity.Notification {
             case "favourite":           self = .favourite
             case "poll":                self = .poll
             case "status":              self = .status
+            case "moderation_warning":  self = .moderationWarning
             default:                    self = ._other(rawValue)
             }
         }
@@ -83,6 +73,7 @@ extension Mastodon.Entity.Notification {
             case .favourite:                    return "favourite"
             case .poll:                         return "poll"
             case .status:                       return "status"
+            case .moderationWarning:            return "moderation_warning"
             case ._other(let value):            return value
             }
         }
