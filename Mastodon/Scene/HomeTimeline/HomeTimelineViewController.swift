@@ -693,7 +693,7 @@ extension HomeTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate 
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
 
         Task {
-            await viewModel?.loadMore(item: item)
+            await viewModel?.loadMore(item: item, at: indexPath)
         }
     }
 }

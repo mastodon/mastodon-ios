@@ -116,15 +116,20 @@ extension HomeTimelineViewModel.LoadLatestState {
             do {
                 await AuthenticationServiceProvider.shared.fetchAccounts(apiService: viewModel.context.apiService)
                 let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>
-
+                
+                /// To find out wether or not we need to show the "Load More" button
+                /// we have make sure to eventually overlap with the most recent cached item
+                let sinceID = latestFeedRecords.count > 1 ? latestFeedRecords[1].id : "1"
+                
                 switch viewModel.timelineContext {
                 case .home:
                     response = try await viewModel.context.apiService.homeTimeline(
+                        sinceID: sinceID,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                 case .public:
                     response = try await viewModel.context.apiService.publicTimeline(
-                        query: .init(local: true),
+                        query: .init(local: true, sinceID: sinceID),
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                 }
@@ -140,10 +145,25 @@ extension HomeTimelineViewModel.LoadLatestState {
                     viewModel.didLoadLatest.send()
                 } else {                    
                     viewModel.dataController.records = {
-                        var newRecords: [MastodonFeed] = newStatuses.map {
-                            MastodonFeed.fromStatus(.fromEntity($0), kind: .home)
-                        }
                         var oldRecords = viewModel.dataController.records
+
+                        var newRecords = [MastodonFeed]()
+                        
+                        /// See HomeTimelineViewModel.swift for the "Load More"-counterpart when fetching new timeline items
+                        for (index, status) in newStatuses.enumerated() {
+                            if index < newStatuses.count - 1 {
+                                newRecords.append(
+                                    MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: false)
+                                )
+                                continue
+                            }
+                            
+                            let hasMore = status != oldRecords.first?.status?.entity
+                            
+                            newRecords.append(
+                                MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: hasMore)
+                            )
+                        }
                         for (i, record) in newRecords.enumerated() {
                             if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {
                                 oldRecords[index] = record

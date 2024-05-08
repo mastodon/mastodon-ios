@@ -18,7 +18,11 @@ public final class MastodonFeed {
     }
     
     public let id: String
+    
+    @Published
     public var hasMore: Bool = false
+    
+    @Published
     public var isLoadingMore: Bool = false
     
     public let status: MastodonStatus?
@@ -39,9 +43,9 @@ public final class MastodonFeed {
 }
 
 public extension MastodonFeed {
-    static func fromStatus(_ status: MastodonStatus, kind: Feed.Kind) -> MastodonFeed {
+    static func fromStatus(_ status: MastodonStatus, kind: Feed.Kind, hasMore: Bool? = nil) -> MastodonFeed {
         MastodonFeed(
-            hasMore: false,
+            hasMore: hasMore ?? false,
             isLoadingMore: false,
             status: status,
             notification: nil,
@@ -79,7 +83,8 @@ extension MastodonFeed: Hashable {
         lhs.status?.poll == rhs.status?.poll &&
         lhs.status?.reblog?.poll == rhs.status?.reblog?.poll &&
         lhs.status?.poll?.entity == rhs.status?.poll?.entity &&
-        lhs.status?.reblog?.poll?.entity == rhs.status?.reblog?.poll?.entity
+        lhs.status?.reblog?.poll?.entity == rhs.status?.reblog?.poll?.entity &&
+        lhs.isLoadingMore == rhs.isLoadingMore
     }
     
     public func hash(into hasher: inout Hasher) {
@@ -94,6 +99,7 @@ extension MastodonFeed: Hashable {
         hasher.combine(status?.reblog?.poll)
         hasher.combine(status?.poll?.entity)
         hasher.combine(status?.reblog?.poll?.entity)
+        hasher.combine(isLoadingMore)
     }
     
 }

@@ -148,32 +148,68 @@ extension HomeTimelineViewModel {
 extension HomeTimelineViewModel {
 
     // load timeline gap
-    func loadMore(item: StatusItem) async {
+    @MainActor
+    func loadMore(item: StatusItem, at indexPath: IndexPath) async {
         guard case let .feedLoader(record) = item else { return }
-        guard let diffableDataSource = diffableDataSource else { return }
-        var snapshot = diffableDataSource.snapshot()
 
         guard let status = record.status else { return }
         record.isLoadingMore = true
 
-        // reconfigure item
-        snapshot.reconfigureItems([item])
-        await updateSnapshotUsingReloadData(snapshot: snapshot)
-
         await AuthenticationServiceProvider.shared.fetchAccounts(apiService: context.apiService)
 
         // fetch data
-        let maxID = status.id
-        _ = try? await context.apiService.homeTimeline(
-            maxID: maxID,
-            authenticationBox: authContext.mastodonAuthenticationBox
-        )
+        let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>?
+        
+        switch timelineContext {
+        case .home:
+            response = try? await context.apiService.homeTimeline(
+               maxID: status.id,
+               limit: 20,
+               authenticationBox: authContext.mastodonAuthenticationBox
+           )
+        case .public:
+            response = try? await context.apiService.publicTimeline(
+                query: .init(maxID: status.id, limit: 20),
+                authenticationBox: authContext.mastodonAuthenticationBox
+            )
+        }
+        
+        // insert missing items
+        guard let items = response?.value else {
+            record.isLoadingMore = false
+            return
+        }
+        
+        let firstIndex = indexPath.row
+        let oldRecords = dataController.records
+        let count = oldRecords.count
+        let head = oldRecords[..<firstIndex]
+        let tail = oldRecords[firstIndex..<count]
+        
+        var feedItems = [MastodonFeed]()
+        
+        /// See HomeTimelineViewModel+LoadLatestState.swift for the "Load More"-counterpart when fetching new timeline items
+        for (index, item) in items.enumerated() {
+            let hasMore: Bool
+            
+            /// there can only be a gap after the last items
+            if index < items.count - 1 {
+                hasMore = false
+            } else {
+                /// if fetched items and first item after gap don't match -> we got another gap
+                hasMore = item != head.first?.status?.entity
+            }
+
+            feedItems.append(
+                .fromStatus(item.asMastodonStatus, kind: .home, hasMore: hasMore)
+            )
+        }
+
+        let combinedRecords = Array(head + feedItems + tail)
+        dataController.records = combinedRecords
         
         record.isLoadingMore = false
-        
-        // reconfigure item again
-        snapshot.reconfigureItems([item])
-        await updateSnapshotUsingReloadData(snapshot: snapshot)
+        record.hasMore = false
     }
     
 }
