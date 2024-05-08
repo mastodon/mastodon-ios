@@ -148,6 +148,8 @@ extension HomeTimelineViewModel.LoadLatestState {
                         var oldRecords = viewModel.dataController.records
 
                         var newRecords = [MastodonFeed]()
+                        
+                        /// See HomeTimelineViewModel.swift for the "Load More"-counterpart when fetching new timeline items
                         for (index, status) in newStatuses.enumerated() {
                             if index < newStatuses.count - 1 {
                                 newRecords.append(

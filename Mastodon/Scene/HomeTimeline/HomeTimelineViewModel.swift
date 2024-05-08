@@ -186,6 +186,7 @@ extension HomeTimelineViewModel {
         
         var feedItems = [MastodonFeed]()
         
+        /// See HomeTimelineViewModel+LoadLatestState.swift for the "Load More"-counterpart when fetching new timeline items
         for (index, item) in items.enumerated() {
             let hasMore: Bool
             
