@@ -43,6 +43,8 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                             target: .status,    // remove reblog wrapper
                             status: status
                         )
+                    } else if let accountWarning = notification.entity.accountWarning {
+                        print("// show account warning \(accountWarning.id) in safari")
                     } else {
                         await DataSourceFacade.coordinateToProfileScene(
                             provider: self,
