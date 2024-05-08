@@ -45,11 +45,11 @@ public final class InstanceService {
 
 extension InstanceService {
     func updateInstance(domain: String) {
-        guard let apiService = self.apiService else { return }
-        apiService.instance(domain: domain)
+        guard let apiService else { return }
+        apiService.instance(domain: domain, authenticationBox: authenticationService?.mastodonAuthenticationBoxes.first)
             .flatMap { [unowned self] response -> AnyPublisher<Void, Error> in
                 if response.value.version?.majorServerVersion(greaterThanOrEquals: 4) == true {
-                    return apiService.instanceV2(domain: domain)
+                    return apiService.instanceV2(domain: domain, authenticationBox: authenticationService?.mastodonAuthenticationBoxes.first)
                         .flatMap { return self.updateInstanceV2(domain: domain, response: $0) }
                         .eraseToAnyPublisher()
                 } else {

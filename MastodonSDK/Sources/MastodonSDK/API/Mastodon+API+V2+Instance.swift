@@ -21,12 +21,13 @@ extension Mastodon.API.V2.Instance {
     /// - Returns: `AnyPublisher` contains `Instance` nested in the response
     public static func instance(
         session: URLSession,
+        authorization: Mastodon.API.OAuth.Authorization?,
         domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.V2.Instance>, Error>  {
         let request = Mastodon.API.get(
             url: instanceEndpointURL(domain: domain),
             query: nil,
-            authorization: nil
+            authorization: authorization
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in

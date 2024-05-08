@@ -67,7 +67,7 @@ class ReportViewModel {
         // bind server rules
         Task { @MainActor in
             do {
-                let response = try await context.apiService.instance(domain: authContext.mastodonAuthenticationBox.domain)
+                let response = try await context.apiService.instance(domain: authContext.mastodonAuthenticationBox.domain, authenticationBox: authContext.mastodonAuthenticationBox)
                     .timeout(3, scheduler: DispatchQueue.main)
                     .singleOutput()
                 let rules = response.value.rules ?? []
