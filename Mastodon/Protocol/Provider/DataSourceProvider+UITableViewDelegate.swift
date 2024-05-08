@@ -44,7 +44,13 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                             status: status
                         )
                     } else if let accountWarning = notification.entity.accountWarning {
-                        print("// show account warning \(accountWarning.id) in safari")
+                        let url = Mastodon.API.disputesEndpoint(domain: authContext.mastodonAuthenticationBox.domain, strikeId: accountWarning.id)
+                        _ = coordinator.present(
+                            scene: .safari(url: url),
+                            from: self,
+                            transition: .safariPresent(animated: true, completion: nil)
+                        )
+
                     } else {
                         await DataSourceFacade.coordinateToProfileScene(
                             provider: self,

@@ -99,6 +99,10 @@ extension Mastodon.API {
     public static func profileSettingsURL(domain: String) -> URL {
         return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/auth/edit")!
     }
+
+    public static func webURL(domain: String) -> URL {
+        return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/")!
+    }
 }
 
 extension Mastodon.API {
