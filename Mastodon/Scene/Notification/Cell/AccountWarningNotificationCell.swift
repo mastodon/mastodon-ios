@@ -3,6 +3,7 @@
 import UIKit
 import MastodonSDK
 import MastodonAsset
+import MastodonLocalization
 
 class AccountWarningNotificationCell: UITableViewCell {
     public static let reuseIdentifier = "AccountWarningNotificationCell"
@@ -69,19 +70,19 @@ extension Mastodon.Entity.AccountWarning.Action {
     var description: String {
         switch self {
         case .none:
-            return "Your account has received a moderation warning."
+            return L10n.Scene.Notification.Warning.none
         case .disable:
-            return "Your account has been disabled."
+            return L10n.Scene.Notification.Warning.disable
         case .markStatusesAsSensitive:
-            return "Some of your posts have been marked as sensitive."
+            return L10n.Scene.Notification.Warning.markStatusesAsSensitive
         case .deleteStatuses:
-            return "Some of your posts have been removed."
+            return L10n.Scene.Notification.Warning.deleteStatuses
         case .sensitive:
-            return "Your posts will be marked as sensitive from now on."
+            return L10n.Scene.Notification.Warning.sensitive
         case .silence:
-            return "Your account has been limited."
+            return L10n.Scene.Notification.Warning.silence
         case .suspend:
-            return "Your account has been suspended."
+            return L10n.Scene.Notification.Warning.suspend
         }
     }
 }
