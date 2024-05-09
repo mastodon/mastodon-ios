@@ -26,7 +26,7 @@ class AccountWarningNotificationCell: UITableViewCell {
         warningLabel.numberOfLines = 0
 
         learnMoreLabel = UILabel()
-        learnMoreLabel.text = "Learn more"
+        learnMoreLabel.text = L10n.Scene.Notification.Warning.learnMore
         learnMoreLabel.textColor = Asset.Colors.Brand.blurple.color
         learnMoreLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17))
         learnMoreLabel.numberOfLines = 0

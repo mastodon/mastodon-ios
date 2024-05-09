@@ -914,6 +914,8 @@ public enum L10n {
         public static let deleteStatuses = L10n.tr("Localizable", "Scene.Notification.Warning.DeleteStatuses", fallback: "Some of your posts have been removed.")
         /// Your account has been disabled.
         public static let disable = L10n.tr("Localizable", "Scene.Notification.Warning.Disable", fallback: "Your account has been disabled.")
+        /// Learn More
+        public static let learnMore = L10n.tr("Localizable", "Scene.Notification.Warning.LearnMore", fallback: "Learn More")
         /// Some of your posts have been marked as sensitive.
         public static let markStatusesAsSensitive = L10n.tr("Localizable", "Scene.Notification.Warning.MarkStatusesAsSensitive", fallback: "Some of your posts have been marked as sensitive.")
         /// Your account has received a moderation warning.
