@@ -1568,7 +1568,6 @@
 				DB0617F927855B460030EE79 /* Profile */,
 				DB4F097926A039C400D62E92 /* Status */,
 				DB65C63527A2AF52008BAC2E /* Report */,
-				DB0617F727855B010030EE79 /* Notification */,
 				DB4F097726A039A200D62E92 /* Search */,
 			);
 			path = Diffable;
@@ -1922,15 +1921,6 @@
 				2D59819925E4A55C000FB903 /* ConfirmEmail */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		DB0617F727855B010030EE79 /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				2D35237926256D920031AF25 /* NotificationSection.swift */,
-				2D7867182625B77500211898 /* NotificationItem.swift */,
-			);
-			path = Notification;
 			sourceTree = "<group>";
 		};
 		DB0617F827855B170030EE79 /* User */ = {
@@ -2657,6 +2647,8 @@
 				D80F627E2B5C32E400877059 /* NotificationView */,
 				DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */,
 				2D607AD726242FC500B70763 /* NotificationViewModel.swift */,
+				2D35237926256D920031AF25 /* NotificationSection.swift */,
+				2D7867182625B77500211898 /* NotificationItem.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
