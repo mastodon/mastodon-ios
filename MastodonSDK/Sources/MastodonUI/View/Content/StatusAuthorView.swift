@@ -147,7 +147,7 @@ extension StatusAuthorView {
         public let isMuting: Bool
         public let isBlocking: Bool
         public let isMyself: Bool
-        public let isBookmarking: Bool
+        public let isBookmarked: Bool
         public let isFollowed: Bool
         
         public let isTranslationEnabled: Bool
@@ -159,59 +159,53 @@ extension StatusAuthorView {
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
         var items: [(actions: [MastodonMenu.Action], options: UIMenu.Options)] = []
-        var postActions: [MastodonMenu.Action] = []
-        var userActions: [MastodonMenu.Action] = []
+
+        items.append((
+            actions: [
+                .boostStatus(.init(isBoosted: menuContext.isBoosted)),
+                .favoriteStatus(.init(isFavorited: menuContext.isFavorited)),
+                .bookmarkStatus(.init(isBookmarked: menuContext.isBookmarked)),
+            ],
+            options: .displayInline
+        ))
 
         if menuContext.isMyself {
-            postActions.append(.editStatus)
-        }
-
-        if menuContext.isTranslationEnabled,
-           let statusLanguage = menuContext.statusLanguage,
-           let deviceLanguage = Bundle.main.preferredLocalizations.first,
-           deviceLanguage != statusLanguage {
-            if menuContext.isTranslated == false {
-                postActions.append(.translateStatus(.init(language: statusLanguage)))
-            } else {
-                postActions.append(.showOriginal)
-            }
-        }
-
-
-        postActions.append(.shareStatus)
-
-        if menuContext.isMyself == false {
-
-            userActions.append(.followUser(.init(
-                name: menuContext.name,
-                isFollowing: menuContext.isFollowed
-            )))
-
-            userActions.append(.muteUser(.init(
-                name: menuContext.name,
-                isMuting: menuContext.isMuting
-            )))
-
-            userActions.append(.blockUser(.init(
-                name: menuContext.name,
-                isBlocking: menuContext.isBlocking
-            )))
-
-            userActions.append(.reportUser(
-                .init(name: menuContext.name)
+            items.append((
+                actions: [.editStatus],
+                options: .displayInline
             ))
+        } else if menuContext.isTranslationEnabled,
+                  let statusLanguage = menuContext.statusLanguage,
+                  let deviceLanguage = Bundle.main.preferredLocalizations.first,
+                  deviceLanguage != statusLanguage {
+            let action: MastodonMenu.Action
+
+            if menuContext.isTranslated == false {
+                action = .translateStatus(.init(language: statusLanguage))
+            } else {
+                action = .showOriginal
+            }
+
+            items.append((actions: [action], options: .displayInline))
         }
 
-        items.append((actions: postActions, options: .displayInline))
-        items.append((actions: userActions, options: .displayInline))
+        items.append((
+            actions: [ .shareStatus, .openInBrowser, .copyLink ],
+            options: .displayInline
+        ))
 
         if menuContext.isMyself {
-            items.append(
-                (
-                    actions: [.deleteStatus],
-                    options: .displayInline
-                )
-            )
+            items.append((actions: [.deleteStatus], options: .displayInline))
+        } else {
+            items.append((actions: [
+                .followUser(.init(name: menuContext.name, isFollowing: menuContext.isFollowed)),
+                .muteUser(.init( name: menuContext.name, isMuting: menuContext.isMuting))
+            ], options: .displayInline))
+
+            items.append((actions: [
+                .blockUser(.init(name: menuContext.name, isBlocking: menuContext.isBlocking)),
+                .reportUser(.init(name: menuContext.name))
+            ], options: .displayInline))
         }
 
         let menu = MastodonMenu.setupMenu(

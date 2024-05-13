@@ -729,7 +729,7 @@ extension StatusView.ViewModel {
                                         isMuting: rel.muting,
                                         isBlocking: rel.blocking,
                                         isMyself: isMyself,
-                                        isBookmarking: isBookmark,
+                                        isBookmarked: isBookmark,
                                         isFollowed: rel.followedBy,
                                         isTranslationEnabled: isTranslationEnabled,
                                         isTranslated: translatedFromLanguage != nil,

@@ -126,7 +126,7 @@ extension MastodonMenu {
             case .bookmarkStatus(let context):
                 let title: String
                 let image: UIImage?
-                if context.isBookmarking {
+                if context.isBookmarked {
                     title = L10n.Common.Controls.Actions.removeBookmark
                     image = UIImage(systemName: "bookmark.slash.fill")
                 } else {
@@ -284,10 +284,10 @@ extension MastodonMenu {
     }
     
     public struct BookmarkStatusActionContext {
-        public let isBookmarking: Bool
+        public let isBookmarked: Bool
         
-        public init(isBookmarking: Bool) {
-            self.isBookmarking = isBookmarking
+        public init(isBookmarked: Bool) {
+            self.isBookmarked = isBookmarked
         }
     }
     
