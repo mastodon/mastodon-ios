@@ -461,37 +461,41 @@ extension NotificationView {
     }
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
-        var actions: [[MastodonMenu.Action]] = []
-        var upperActions: [MastodonMenu.Action] = []
+        var actions: [(actions: [MastodonMenu.Action], options: UIMenu.Options)] = []
+        var upperActions: [(actions: [MastodonMenu.Action], options: UIMenu.Options)] = []
 
         upperActions = [
-            .muteUser(.init(
-                name: menuContext.name,
-                isMuting: menuContext.isMuting
-            )),
-            .blockUser(.init(
-                name: menuContext.name,
-                isBlocking: menuContext.isBlocking
-            )),
-            .reportUser(
-                .init(name: menuContext.name)
+            (actions:
+                [
+                    .muteUser(.init(
+                        name: menuContext.name,
+                        isMuting: menuContext.isMuting
+                    )),
+                    .blockUser(.init(
+                        name: menuContext.name,
+                        isBlocking: menuContext.isBlocking
+                    )),
+                    .reportUser(
+                        .init(name: menuContext.name)
+                    )
+                ], options: .displayInline
             )
         ]
 
-        actions.append(upperActions)
-        
+        actions.append(contentsOf: upperActions)
+
         if menuContext.isMyself {
-            actions.append([.deleteStatus])
+            actions.append((actions: [.deleteStatus], options: .displayInline))
         }
         
         
         let menu = MastodonMenu.setupMenu(
-            actions: actions,
+            items: actions,
             delegate: self
         )
 
         let accessibilityActions = MastodonMenu.setupAccessibilityActions(
-            actions: actions,
+            actions: actions.compactMap { $0.actions } ,
             delegate: self
         )
 

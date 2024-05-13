@@ -14,18 +14,18 @@ public protocol MastodonMenuDelegate: AnyObject {
 
 public enum MastodonMenu {
     public static func setupMenu(
-        actions: [[Action]],
+        items: [(actions: [Action], options: UIMenu.Options)],
         delegate: MastodonMenuDelegate
     ) -> UIMenu {
         var children: [UIMenuElement] = []
 
-        for actionGroup in actions {
+        for (actionGroup, options) in items {
             var submenuChildren: [UIMenuElement] = []
             for action in actionGroup {
                 let element = action.build(delegate: delegate).menuElement
                 submenuChildren.append(element)
             }
-            let submenu = UIMenu(options: .displayInline, children: submenuChildren)
+            let submenu = UIMenu(options: options, children: submenuChildren)
             children.append(submenu)
         }
         
@@ -60,6 +60,10 @@ extension MastodonMenu {
         case editStatus
         case followUser(FollowUserActionContext)
         case blockDomain(BlockDomainActionContext)
+        case boostStatus(BoostStatusActionContext)
+        case favoriteStatus(FavoriteStatusActionContext)
+        case copyLink
+        case openInBrowser
 
         func build(delegate: MastodonMenuDelegate) -> LabeledAction {
             switch self {
@@ -215,6 +219,44 @@ extension MastodonMenu {
                         delegate.menuAction(self)
                     }
                     return action
+
+            case .boostStatus(let context):
+                let title: String
+
+                if context.isBoosted {
+                    title = "Unboost"
+                } else {
+                    title = "Boost"
+                }
+
+                return LabeledAction(title: title, image: UIImage(systemName: "arrow.2.squarepath")) { [weak delegate] in
+                    delegate?.menuAction(self)
+                }
+            case .favoriteStatus(let context):
+                let title: String
+                let image: UIImage?
+
+                if context.isFavorited {
+                    title = "Unfavorite"
+                    image = UIImage(systemName: "star.slash")
+                } else {
+                    title = "Favorite"
+                    image = UIImage(systemName: "star")
+                }
+
+                return LabeledAction(title: title, image: image) { [weak delegate] in
+                    delegate?.menuAction(self)
+                }
+
+            case .copyLink:
+                return LabeledAction(title: "Copy Link", image: UIImage(systemName: "doc.on.doc")) { [weak delegate] in
+                    delegate?.menuAction(self)
+                }
+
+            case .openInBrowser:
+                return LabeledAction(title: "Open In Browser", image: UIImage(systemName: "safari")) { [weak delegate] in
+                    delegate?.menuAction(self)
+                }
             }
         }
     }
@@ -301,4 +343,21 @@ extension MastodonMenu {
             self.isBlocking = isBlocking
         }
     }
+
+    public struct BoostStatusActionContext {
+        public let isBoosted: Bool
+
+        public init(isBoosted: Bool) {
+            self.isBoosted = isBoosted
+        }
+    }
+
+    public struct FavoriteStatusActionContext {
+        public let isFavorited: Bool
+
+        public init(isFavorited: Bool) {
+            self.isFavorited = isFavorited
+        }
+    }
+
 }

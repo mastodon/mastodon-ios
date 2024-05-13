@@ -384,6 +384,18 @@ extension DataSourceFacade {
             let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
             alertController.addAction(cancelAction)
             dependency.present(alertController, animated: true)
+        case .boostStatus(_):
+            //TODO: Boost/Unboost including alert
+            break
+        case .favoriteStatus(_):
+            //TODO: Favorite
+            break
+        case .copyLink:
+            //TODO: Copy Link
+            break
+        case .openInBrowser:
+            //TODO: Copy Link In Browser
+            break
         }
     }
 }

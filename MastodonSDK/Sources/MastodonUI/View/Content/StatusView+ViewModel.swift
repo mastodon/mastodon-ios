@@ -686,13 +686,18 @@ extension StatusView.ViewModel {
             $language
         )
 
+        let publisherTwo = Publishers.CombineLatest3(
+            $isBookmark, $isFavorite, $isReblog
+        )
+
         Publishers.CombineLatest3(
             publisherOne.eraseToAnyPublisher(),
-            $isBookmark,
+            publisherTwo.eraseToAnyPublisher(),
             publishersThree.eraseToAnyPublisher()
         ).eraseToAnyPublisher()
-            .sink { tupleOne, isBookmark, tupleThree in
+            .sink { tupleOne, tupleTwo, tupleThree in
                 let (authorName, authorId, isMyself) = tupleOne
+                let (isBookmark, isFavorite, isBoosted) = tupleTwo
                 let (translatedFromLanguage, language) = tupleThree
 
                 guard let name = authorName?.string, let authorId = authorId, let context = self.context, let authContext = self.authContext else {
@@ -728,7 +733,9 @@ extension StatusView.ViewModel {
                                         isFollowed: rel.followedBy,
                                         isTranslationEnabled: isTranslationEnabled,
                                         isTranslated: translatedFromLanguage != nil,
-                                        statusLanguage: language
+                                        statusLanguage: language,
+                                        isFavorited: isFavorite,
+                                        isBoosted: isBoosted
                                     )
                                 
                                     let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
@@ -737,7 +744,11 @@ extension StatusView.ViewModel {
                                     menuElement(menu.children)
                                 }
                             } else {
-                                menuElement(MastodonMenu.setupMenu(actions: [[.shareStatus]], delegate: statusView).children)
+                                menuElement(
+                                    MastodonMenu.setupMenu(
+                                        items: [(actions: [.shareStatus], options: .displayInline)],
+                                        delegate: statusView).children
+                                )
                             }
                         }
                     })
