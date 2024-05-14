@@ -14,23 +14,18 @@ import MastodonSDK
 extension APIService {
     
     public func instance(
-        domain: String,
-        authenticationBox: MastodonAuthenticationBox?
+        domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Instance>, Error> {
-        return Mastodon.API.Instance.instance(session: session, authorization: authenticationBox?.userAuthorization, domain: domain)
+        return Mastodon.API.Instance.instance(session: session, domain: domain)
     }
     
     public func instanceV2(
-        domain: String,
-        authenticationBox: MastodonAuthenticationBox?
+        domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.V2.Instance>, Error> {
-        return Mastodon.API.V2.Instance.instance(session: session, authorization: authenticationBox?.userAuthorization, domain: domain)
+        return Mastodon.API.V2.Instance.instance(session: session, domain: domain)
     }
 
-    public func extendedDescription(
-        domain: String,
-        authenticationBox: MastodonAuthenticationBox?
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.ExtendedDescription>, Error> {
-        return Mastodon.API.Instance.extendedDescription(session: session, authorization: authenticationBox?.userAuthorization, domain: domain)
+    public func extendedDescription(domain: String) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.ExtendedDescription>, Error> {
+        return Mastodon.API.Instance.extendedDescription(session: session, domain: domain)
     }
 }

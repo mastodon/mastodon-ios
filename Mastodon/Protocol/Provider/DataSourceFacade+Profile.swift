@@ -143,7 +143,7 @@ extension DataSourceFacade {
         else {
             return
         }
-        let mentions = status.entity.mentions
+        let mentions = status.entity.mentions ?? []
 
         guard let mention = mentions.first(where: { $0.url == href }) else {
             _ = provider.coordinator.present(

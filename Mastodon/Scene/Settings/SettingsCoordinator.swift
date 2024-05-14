@@ -75,7 +75,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 let serverDetailsViewController = ServerDetailsViewController(domain: domain, appContext: appContext, authContext: authContext, sceneCoordinator: sceneCoordinator)
                 serverDetailsViewController.delegate = self
 
-                appContext.apiService.instanceV2(domain: domain, authenticationBox: authContext.mastodonAuthenticationBox)
+                appContext.apiService.instanceV2(domain: domain)
                     .sink { _ in
 
                     } receiveValue: { content in
@@ -83,7 +83,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                     }
                     .store(in: &disposeBag)
 
-                appContext.apiService.extendedDescription(domain: domain, authenticationBox: authContext.mastodonAuthenticationBox)
+                appContext.apiService.extendedDescription(domain: domain)
                     .sink { _ in
 
                     } receiveValue: { content in
