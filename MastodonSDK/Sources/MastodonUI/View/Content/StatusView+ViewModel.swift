@@ -710,8 +710,8 @@ extension StatusView.ViewModel {
                 let isTranslationEnabled = instance?.isTranslationEnabled ?? false
 
                 authorView.menuButton.menu = UIMenu(children: [
-                    UIDeferredMenuElement({ menuElement in
-                        
+                    UIDeferredMenuElement.uncached({ menuElement in
+
                         let domain = authContext.mastodonAuthenticationBox.domain
 
                         Task { @MainActor in
@@ -730,7 +730,7 @@ extension StatusView.ViewModel {
                                         isBlocking: rel.blocking,
                                         isMyself: isMyself,
                                         isBookmarked: isBookmark,
-                                        isFollowed: rel.followedBy,
+                                        isFollowed: rel.following,
                                         isTranslationEnabled: isTranslationEnabled,
                                         isTranslated: translatedFromLanguage != nil,
                                         statusLanguage: language,
