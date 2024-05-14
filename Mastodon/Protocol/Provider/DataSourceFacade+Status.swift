@@ -391,8 +391,13 @@ extension DataSourceFacade {
             //TODO: Favorite
             break
         case .copyLink:
-            //TODO: Copy Link
-            break
+            guard 
+                let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
+                assertionFailure()
+                return
+            }
+
+            UIPasteboard.general.string = status.entity.url
         case .openInBrowser:
             //TODO: Copy Link In Browser
             break
