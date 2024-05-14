@@ -731,14 +731,14 @@
                 "rejected": "Đã từ chối"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Bạn vừa nhận một cảnh báo kiểm duyệt.",
+                "disable": "Tài khoản của bạn đã bị vô hiệu hóa.",
+                "mark_statuses_as_sensitive": "Vài tút bạn bị đánh dấu nhạy cảm.",
+                "delete_statuses": "Một vài tút của bạn bị gỡ.",
+                "sensitive": "Tút của bạn sẽ bị đánh dấu nhạy cảm kể từ bây giờ.",
+                "silence": "Tài khoản của bạn đã bị hạn chế.",
+                "suspend": "Tài khoản của bạn đã bị vô hiệu hóa.",
+                "learn_more": "Tìm hiểu thêm"
             }
         },
         "thread": {
