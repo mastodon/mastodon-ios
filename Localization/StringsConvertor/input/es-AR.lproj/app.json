@@ -731,14 +731,14 @@
                 "rejected": "Rechazada"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Tu cuenta recibió una advertencia de moderación.",
+                "disable": "Se deshabilitó tu cuenta.",
+                "mark_statuses_as_sensitive": "Se marcaron como sensibles a algunos de tus mensajes.",
+                "delete_statuses": "Se eliminaron algunos de tus mensajes.",
+                "sensitive": "A partir de ahora, tus mensajes serán marcados como sensibles.",
+                "silence": "Tu cuenta fue limitada.",
+                "suspend": "Tu cuenta fue suspendida.",
+                "learn_more": "Aprendé más"
             }
         },
         "thread": {
