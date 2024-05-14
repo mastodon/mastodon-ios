@@ -102,7 +102,7 @@ extension MastodonMenu {
                     title = L10n.Common.Controls.Friendship.blockUser(context.name)
                     image = UIImage(systemName: "hand.raised")
                 }
-                let blockAction = LabeledAction(title: title, image: image) { [weak delegate] in
+                let blockAction = LabeledAction(title: title, image: image, attributes: .destructive) { [weak delegate] in
                     guard let delegate = delegate else { return }
                     delegate.menuAction(self)
                 }
@@ -110,7 +110,8 @@ extension MastodonMenu {
             case .reportUser(let context):
                 let reportAction = LabeledAction(
                     title: L10n.Common.Controls.Actions.reportUser(context.name),
-                    image: UIImage(systemName: "flag")
+                    image: UIImage(systemName: "flag"),
+                    attributes: .destructive
                 ) { [weak delegate] in
                     guard let delegate = delegate else { return }
                     delegate.menuAction(self)
@@ -226,9 +227,9 @@ extension MastodonMenu {
                 let title: String
 
                 if context.isBoosted {
-                    title = "Unboost"
+                    title = L10n.Common.Controls.Status.Actions.unreblog
                 } else {
-                    title = "Boost"
+                    title = L10n.Common.Controls.Status.Actions.reblog
                 }
 
                 return LabeledAction(title: title, image: UIImage(systemName: "arrow.2.squarepath")) { [weak delegate] in
@@ -239,10 +240,10 @@ extension MastodonMenu {
                 let image: UIImage?
 
                 if context.isFavorited {
-                    title = "Unfavorite"
+                    title = L10n.Common.Controls.Status.Actions.unfavorite
                     image = UIImage(systemName: "star.slash")
                 } else {
-                    title = "Favorite"
+                    title = L10n.Common.Controls.Status.Actions.favorite
                     image = UIImage(systemName: "star")
                 }
 
@@ -251,12 +252,12 @@ extension MastodonMenu {
                 }
 
             case .copyLink:
-                return LabeledAction(title: "Copy Link", image: UIImage(systemName: "doc.on.doc")) { [weak delegate] in
+                return LabeledAction(title: L10n.Common.Controls.Status.Actions.copyLink, image: UIImage(systemName: "doc.on.doc")) { [weak delegate] in
                     delegate?.menuAction(self)
                 }
 
             case .openInBrowser:
-                return LabeledAction(title: "Open In Browser", image: UIImage(systemName: "safari")) { [weak delegate] in
+                return LabeledAction(title: L10n.Common.Controls.Actions.openInBrowser, image: UIImage(systemName: "safari")) { [weak delegate] in
                     delegate?.menuAction(self)
                 }
             }
