@@ -8,7 +8,7 @@ extension Mastodon.Entity {
     /// ## Reference:
     /// [Document](https://docs.joinmastodon.org/entities/ExtendedDescription/)
     public struct ExtendedDescription: Codable {
-        public let updatedAt: Date?
+        public let updatedAt: Date
         public let content: String
 
         enum CodingKeys: String, CodingKey {

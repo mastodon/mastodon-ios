@@ -283,7 +283,7 @@ extension WelcomeViewController {
 
         authenticationViewModel.isAuthenticating.send(true)
 
-        context.apiService.instance(domain: server.domain, authenticationBox: nil)
+        context.apiService.instance(domain: server.domain)
             .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseFirst, Error>? in
                 guard let self = self else { return nil }
                 guard response.value.registrations != false else {

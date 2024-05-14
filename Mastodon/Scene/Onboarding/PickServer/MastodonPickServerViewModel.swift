@@ -167,7 +167,7 @@ extension MastodonPickServerViewModel {
                 self.unindexedServers.value = nil
                 return self.context.apiService.webFinger(domain: domain)
                     .flatMap { domain -> AnyPublisher<Result<Mastodon.Response.Content<[Mastodon.Entity.Server]>, Error>, Never> in
-                        return self.context.apiService.instance(domain: domain, authenticationBox: nil)
+                        return self.context.apiService.instance(domain: domain)
                             .map { response -> Result<Mastodon.Response.Content<[Mastodon.Entity.Server]>, Error>in
                                 let newResponse = response.map { [Mastodon.Entity.Server(domain: domain, instance: $0)] }
                                 return Result.success(newResponse)

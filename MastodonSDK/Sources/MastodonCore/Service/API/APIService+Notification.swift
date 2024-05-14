@@ -60,7 +60,6 @@ extension APIService {
                         .favourite,
                         .poll,
                         .status,
-                        .moderationWarning
                     ]
                 case .mentions:
                     return [

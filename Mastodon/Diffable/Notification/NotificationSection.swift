@@ -37,28 +37,20 @@ extension NotificationSection {
         configuration: Configuration
     ) -> UITableViewDiffableDataSource<NotificationSection, NotificationItem> {
         tableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationTableViewCell.self))
-        tableView.register(AccountWarningNotificationCell.self, forCellReuseIdentifier: AccountWarningNotificationCell.reuseIdentifier)
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
-
+        
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
             case .feed(let feed):
-                if let notification = feed.notification, let accountWarning = notification.accountWarning {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: AccountWarningNotificationCell.reuseIdentifier, for: indexPath) as! AccountWarningNotificationCell
-                    cell.configure(with: accountWarning)
-                    return cell
-                } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
-                    configure(
-                        context: context,
-                        tableView: tableView,
-                        cell: cell,
-                        viewModel: NotificationTableViewCell.ViewModel(value: .feed(feed)),
-                        configuration: configuration
-                    )
-                    return cell
-                }
-
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
+                configure(
+                    context: context,
+                    tableView: tableView,
+                    cell: cell,
+                    viewModel: NotificationTableViewCell.ViewModel(value: .feed(feed)),
+                    configuration: configuration
+                )
+                return cell
             case .feedLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
                 cell.activityIndicatorView.startAnimating()
