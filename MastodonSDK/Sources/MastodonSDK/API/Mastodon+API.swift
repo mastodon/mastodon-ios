@@ -99,6 +99,10 @@ extension Mastodon.API {
     public static func profileSettingsURL(domain: String) -> URL {
         return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/auth/edit")!
     }
+
+    public static func webURL(domain: String) -> URL {
+        return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/")!
+    }
 }
 
 extension Mastodon.API {
@@ -211,7 +215,7 @@ extension Mastodon.API {
             return try Mastodon.API.decoder.decode(type, from: data)
         } catch let decodeError {
             #if DEBUG
-            debugPrint("\(response.url), Data: \(String(data: data, encoding: .utf8)), \(decodeError)")
+            debugPrint("URL: \(String(describing: response.url))\nData: \(String(data: data, encoding: .utf8) ?? "-")\nError:\(decodeError)\n----\n")
             #endif
             
             guard let httpURLResponse = response as? HTTPURLResponse else {

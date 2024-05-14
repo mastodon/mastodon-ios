@@ -52,6 +52,9 @@ extension NotificationView {
                 quoteStatusView.configure(status: status)
                 setQuoteStatusViewDisplay()
             }
+        case .moderationWarning:
+            // case handled in `AccountWarningNotificationCell.swift`
+            break
         case ._other:
             setAuthorContainerBottomPaddingViewDisplay()
             assertionFailure()

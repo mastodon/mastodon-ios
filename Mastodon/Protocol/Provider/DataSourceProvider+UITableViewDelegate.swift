@@ -43,6 +43,14 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                             target: .status,    // remove reblog wrapper
                             status: status
                         )
+                    } else if let accountWarning = notification.entity.accountWarning {
+                        let url = Mastodon.API.disputesEndpoint(domain: authContext.mastodonAuthenticationBox.domain, strikeId: accountWarning.id)
+                        _ = coordinator.present(
+                            scene: .safari(url: url),
+                            from: self,
+                            transition: .safariPresent(animated: true, completion: nil)
+                        )
+
                     } else {
                         await DataSourceFacade.coordinateToProfileScene(
                             provider: self,

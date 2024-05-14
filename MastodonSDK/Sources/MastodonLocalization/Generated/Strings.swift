@@ -909,6 +909,24 @@ public enum L10n {
         /// Mentions
         public static let mentions = L10n.tr("Localizable", "Scene.Notification.Title.Mentions", fallback: "Mentions")
       }
+      public enum Warning {
+        /// Some of your posts have been removed.
+        public static let deleteStatuses = L10n.tr("Localizable", "Scene.Notification.Warning.DeleteStatuses", fallback: "Some of your posts have been removed.")
+        /// Your account has been disabled.
+        public static let disable = L10n.tr("Localizable", "Scene.Notification.Warning.Disable", fallback: "Your account has been disabled.")
+        /// Learn More
+        public static let learnMore = L10n.tr("Localizable", "Scene.Notification.Warning.LearnMore", fallback: "Learn More")
+        /// Some of your posts have been marked as sensitive.
+        public static let markStatusesAsSensitive = L10n.tr("Localizable", "Scene.Notification.Warning.MarkStatusesAsSensitive", fallback: "Some of your posts have been marked as sensitive.")
+        /// Your account has received a moderation warning.
+        public static let `none` = L10n.tr("Localizable", "Scene.Notification.Warning.None", fallback: "Your account has received a moderation warning.")
+        /// Your posts will be marked as sensitive from now on.
+        public static let sensitive = L10n.tr("Localizable", "Scene.Notification.Warning.Sensitive", fallback: "Your posts will be marked as sensitive from now on.")
+        /// Your account has been limited.
+        public static let silence = L10n.tr("Localizable", "Scene.Notification.Warning.Silence", fallback: "Your account has been limited.")
+        /// Your account has been suspended.
+        public static let suspend = L10n.tr("Localizable", "Scene.Notification.Warning.Suspend", fallback: "Your account has been suspended.")
+      }
     }
     public enum Preview {
       public enum Keyboard {

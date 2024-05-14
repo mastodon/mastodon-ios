@@ -28,9 +28,10 @@ extension Mastodon.API.Instance {
     /// - Returns: `AnyPublisher` contains `Instance` nested in the response
     public static func instance(
         session: URLSession,
+        authorization: Mastodon.API.OAuth.Authorization?,
         domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Instance>, Error>  {
-        let request = Mastodon.API.get(url: instanceEndpointURL(domain: domain))
+        let request = Mastodon.API.get(url: instanceEndpointURL(domain: domain), authorization: authorization)
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value: Mastodon.Entity.Instance
@@ -62,9 +63,10 @@ extension Mastodon.API.Instance {
     /// [Document](https://docs.joinmastodon.org/methods/instance/#extended_description)
     public static func extendedDescription(
         session: URLSession,
+        authorization: Mastodon.API.OAuth.Authorization?,
         domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.ExtendedDescription>, Error>  {
-        let request = Mastodon.API.get(url: extendedDescriptionEndpointURL(domain: domain))
+        let request = Mastodon.API.get(url: extendedDescriptionEndpointURL(domain: domain), authorization: authorization)
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.ExtendedDescription.self, from: data, response: response)

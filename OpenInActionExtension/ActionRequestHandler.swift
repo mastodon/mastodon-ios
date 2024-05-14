@@ -110,7 +110,12 @@ private extension ActionRequestHandler {
     func continueWithSearch(_ query: String) {
         guard
             let url = URL(string: query),
-            let host = url.host
+            let host = url.host,
+            let activeAuthenticationBox = Self.appContext
+                .authenticationService
+                .mastodonAuthenticationBoxes
+                .first
+
         else {
             return doneWithInvalidLink()
         }
@@ -119,6 +124,7 @@ private extension ActionRequestHandler {
             .Instance
             .instance(
                 session: .shared,
+                authorization: activeAuthenticationBox.userAuthorization,
                 domain: host
             )
             .receive(on: DispatchQueue.main)
