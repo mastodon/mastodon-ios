@@ -729,6 +729,16 @@
                 "accepted": "Richiesta accettata",
                 "reject": "rifiuta",
                 "rejected": "Richiesta rifiutata"
+            },
+            "warning": {
+                "none": "Il tuo account ha ricevuto un avviso di moderazione.",
+                "disable": "Il tuo account è stato disabilitato.",
+                "mark_statuses_as_sensitive": "Alcuni dei tuoi post sono stati contrassegnati come sensibili.",
+                "delete_statuses": "Alcuni dei tuoi post sono stati rimossi.",
+                "sensitive": "I tuoi post, d'ora in poi, saranno contrassegnati come sensibili.",
+                "silence": "Il tuo account è stato limitato.",
+                "suspend": "Il tuo account è stato sospeso.",
+                "learn_more": "Scopri di più"
             }
         },
         "thread": {
