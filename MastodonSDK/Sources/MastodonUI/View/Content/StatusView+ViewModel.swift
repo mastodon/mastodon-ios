@@ -746,7 +746,7 @@ extension StatusView.ViewModel {
                             } else {
                                 menuElement(
                                     MastodonMenu.setupMenu(
-                                        items: [(actions: [.shareStatus], options: .displayInline)],
+                                        items: [(actions: [.shareStatus], options: .displayInline, preferredElementSize: .large)],
                                         delegate: statusView).children
                                 )
                             }

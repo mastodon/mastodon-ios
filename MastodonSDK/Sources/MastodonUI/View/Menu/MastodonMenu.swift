@@ -14,18 +14,20 @@ public protocol MastodonMenuDelegate: AnyObject {
 
 public enum MastodonMenu {
     public static func setupMenu(
-        items: [(actions: [Action], options: UIMenu.Options)],
+        //TODO: Use dedicated struct instead of tuple
+        items: [(actions: [Action], options: UIMenu.Options, preferredElementSize: UIMenu.ElementSize)],
         delegate: MastodonMenuDelegate
     ) -> UIMenu {
         var children: [UIMenuElement] = []
 
-        for (actionGroup, options) in items {
+        for (actionGroup, options, preferredElementSize) in items {
             var submenuChildren: [UIMenuElement] = []
             for action in actionGroup {
                 let element = action.build(delegate: delegate).menuElement
                 submenuChildren.append(element)
             }
             let submenu = UIMenu(options: options, children: submenuChildren)
+            submenu.preferredElementSize = preferredElementSize
             children.append(submenu)
         }
         

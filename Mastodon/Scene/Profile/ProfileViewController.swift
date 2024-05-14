@@ -451,7 +451,7 @@ extension ProfileViewController {
             }
 
             let menu = MastodonMenu.setupMenu(
-                items: [(actions: menuActions, options: .displayInline)],
+                items: [(actions: menuActions, options: .displayInline, preferredElementSize: .large)],
                 delegate: self
             )
             return menu

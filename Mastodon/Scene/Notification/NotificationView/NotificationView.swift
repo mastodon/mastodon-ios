@@ -461,31 +461,34 @@ extension NotificationView {
     }
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
-        var actions: [(actions: [MastodonMenu.Action], options: UIMenu.Options)] = []
-        var upperActions: [(actions: [MastodonMenu.Action], options: UIMenu.Options)] = []
+        var actions: [(actions: [MastodonMenu.Action], options: UIMenu.Options, preferredElementSize: UIMenu.ElementSize)] = []
+        var upperActions: [(actions: [MastodonMenu.Action], options: UIMenu.Options, preferredElementSize: UIMenu.ElementSize)] = []
 
         upperActions = [
-            (actions:
-                [
-                    .muteUser(.init(
-                        name: menuContext.name,
-                        isMuting: menuContext.isMuting
-                    )),
-                    .blockUser(.init(
-                        name: menuContext.name,
-                        isBlocking: menuContext.isBlocking
-                    )),
-                    .reportUser(
-                        .init(name: menuContext.name)
-                    )
-                ], options: .displayInline
+            (
+                actions:
+                    [
+                        .muteUser(.init(
+                            name: menuContext.name,
+                            isMuting: menuContext.isMuting
+                        )),
+                        .blockUser(.init(
+                            name: menuContext.name,
+                            isBlocking: menuContext.isBlocking
+                        )),
+                        .reportUser(
+                            .init(name: menuContext.name)
+                        )
+                    ],
+                options: .displayInline,
+                preferredElementSize: .large
             )
         ]
 
         actions.append(contentsOf: upperActions)
 
         if menuContext.isMyself {
-            actions.append((actions: [.deleteStatus], options: .displayInline))
+            actions.append((actions: [.deleteStatus], options: .displayInline, preferredElementSize: .large))
         }
         
         
