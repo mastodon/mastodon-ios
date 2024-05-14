@@ -385,8 +385,12 @@ extension DataSourceFacade {
             alertController.addAction(cancelAction)
             dependency.present(alertController, animated: true)
         case .boostStatus(_):
-            //TODO: Boost/Unboost including alert
-            break
+            guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
+                assertionFailure()
+                return
+            }
+
+            try await responseToStatusReblogAction(provider: dependency, status: status)
         case .favoriteStatus(_):
             //TODO: Favorite
             break
