@@ -731,14 +731,14 @@
                 "rejected": "拒否済み"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "あなたのアカウントは管理者からの警告を受けています。",
+                "disable": "あなたのアカウントは無効になりました。",
+                "mark_statuses_as_sensitive": "あなたの投稿のいくつかは閲覧注意として判定されています。",
+                "delete_statuses": "あなたによるいくつかの投稿が削除されました。",
+                "sensitive": "あなたの投稿はこれから閲覧注意としてマークされます。",
+                "silence": "あなたのアカウントは制限されています。",
+                "suspend": "あなたのアカウントは停止されました。",
+                "learn_more": "詳細"
             }
         },
         "thread": {
