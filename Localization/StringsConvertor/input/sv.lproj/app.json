@@ -731,14 +731,14 @@
                 "rejected": "Avvisad"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Ditt konto har mottagit en modereringsvarning.",
+                "disable": "Ditt konto har inaktiverats.",
+                "mark_statuses_as_sensitive": "Några av dina inlägg har markerats som känsliga.",
+                "delete_statuses": "Några av dina inlägg har tagits bort.",
+                "sensitive": "Dina inlägg kommer att markeras som känsliga från och med nu.",
+                "silence": "Ditt konto har begränsats.",
+                "suspend": "Ditt konto har stängts av.",
+                "learn_more": "Läs mer"
             }
         },
         "thread": {
