@@ -391,16 +391,23 @@ extension DataSourceFacade {
             //TODO: Favorite
             break
         case .copyLink:
-            guard 
-                let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
+            guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
                 assertionFailure()
                 return
             }
 
             UIPasteboard.general.string = status.entity.url
         case .openInBrowser:
-            //TODO: Copy Link In Browser
-            break
+            guard
+                let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus,
+                let urlString = status.entity.url,
+                let url = URL(string: urlString)
+            else {
+                assertionFailure()
+                return
+            }
+
+            dependency.coordinator.present(scene: .safari(url: url), transition: .safariPresent(animated: true))
         }
     }
 }
