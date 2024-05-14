@@ -731,14 +731,14 @@
                 "rejected": "已拒絕"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "您的帳號已收到管理員警告。",
+                "disable": "您的帳號已被停用。",
+                "mark_statuses_as_sensitive": "某些您的嘟文已被標記為敏感內容。",
+                "delete_statuses": "某些您的嘟文已被刪除。",
+                "sensitive": "即日起，您的嘟文將會被標記為敏感內容。",
+                "silence": "您的帳號已被限制。",
+                "suspend": "您的帳號已被停權。",
+                "learn_more": "了解更多"
             }
         },
         "thread": {
