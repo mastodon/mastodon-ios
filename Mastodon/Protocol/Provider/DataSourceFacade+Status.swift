@@ -392,8 +392,12 @@ extension DataSourceFacade {
 
             try await responseToStatusReblogAction(provider: dependency, status: status)
         case .favoriteStatus(_):
-            //TODO: Favorite
-            break
+            guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
+                assertionFailure()
+                return
+            }
+
+            try await responseToStatusFavoriteAction(provider: dependency, status: status)
         case .copyLink:
             guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
                 assertionFailure()
