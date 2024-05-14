@@ -158,24 +158,19 @@ extension StatusAuthorView {
     }
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
-        var items: [(actions: [MastodonMenu.Action], options: UIMenu.Options, preferredElementSize: UIMenu.ElementSize)] = []
+        var items: [MastodonMenu.Submenu] = []
 
-        items.append((
+        items.append(MastodonMenu.Submenu(
             actions: [
                 .boostStatus(.init(isBoosted: menuContext.isBoosted)),
                 .favoriteStatus(.init(isFavorited: menuContext.isFavorited)),
                 .bookmarkStatus(.init(isBookmarked: menuContext.isBookmarked)),
             ],
-            options: .displayInline,
             preferredElementSize: .medium
         ))
 
         if menuContext.isMyself {
-            items.append((
-                actions: [.editStatus],
-                options: .displayInline,
-                preferredElementSize: .large
-            ))
+            items.append(MastodonMenu.Submenu(actions: [.editStatus]))
         } else if menuContext.isTranslationEnabled,
                   let statusLanguage = menuContext.statusLanguage,
                   let deviceLanguage = Bundle.main.preferredLocalizations.first,
@@ -188,31 +183,27 @@ extension StatusAuthorView {
                 action = .showOriginal
             }
 
-            items.append((actions: [action], options: .displayInline, preferredElementSize: .large))
+            items.append(MastodonMenu.Submenu(actions: [action]))
         }
 
-        items.append((
-            actions: [ .shareStatus, .openInBrowser, .copyLink ],
-            options: .displayInline,
-            preferredElementSize: .large
-        ))
+        items.append(MastodonMenu.Submenu(actions: [.shareStatus, .openInBrowser, .copyLink]))
 
         if menuContext.isMyself {
-            items.append((actions: [.deleteStatus], options: .displayInline, preferredElementSize: .large))
+            items.append(MastodonMenu.Submenu(actions: [.deleteStatus]))
         } else {
-            items.append((actions: [
+            items.append(MastodonMenu.Submenu(actions: [
                 .followUser(.init(name: menuContext.name, isFollowing: menuContext.isFollowed)),
                 .muteUser(.init( name: menuContext.name, isMuting: menuContext.isMuting))
-            ], options: .displayInline, preferredElementSize: .large))
+            ]))
 
-            items.append((actions: [
+            items.append(MastodonMenu.Submenu(actions: [
                 .blockUser(.init(name: menuContext.name, isBlocking: menuContext.isBlocking)),
                 .reportUser(.init(name: menuContext.name))
-            ], options: [.displayInline, .destructive], preferredElementSize: .large))
+            ]))
         }
 
         let menu = MastodonMenu.setupMenu(
-            items: items,
+            submenus: items,
             delegate: self.statusView!
         )
 

@@ -461,44 +461,26 @@ extension NotificationView {
     }
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
-        var actions: [(actions: [MastodonMenu.Action], options: UIMenu.Options, preferredElementSize: UIMenu.ElementSize)] = []
-        var upperActions: [(actions: [MastodonMenu.Action], options: UIMenu.Options, preferredElementSize: UIMenu.ElementSize)] = []
-
-        upperActions = [
-            (
-                actions:
-                    [
-                        .muteUser(.init(
-                            name: menuContext.name,
-                            isMuting: menuContext.isMuting
-                        )),
-                        .blockUser(.init(
-                            name: menuContext.name,
-                            isBlocking: menuContext.isBlocking
-                        )),
-                        .reportUser(
-                            .init(name: menuContext.name)
-                        )
-                    ],
-                options: .displayInline,
-                preferredElementSize: .large
+        var items = [
+            MastodonMenu.Submenu(actions: [
+                .muteUser(.init(name: menuContext.name,isMuting: menuContext.isMuting)),
+                .blockUser(.init(name: menuContext.name,isBlocking: menuContext.isBlocking)),
+                .reportUser(.init(name: menuContext.name))]
             )
         ]
 
-        actions.append(contentsOf: upperActions)
-
         if menuContext.isMyself {
-            actions.append((actions: [.deleteStatus], options: .displayInline, preferredElementSize: .large))
+            items.append(MastodonMenu.Submenu(actions: [.deleteStatus]))
         }
         
         
         let menu = MastodonMenu.setupMenu(
-            items: actions,
+            submenus: items,
             delegate: self
         )
 
         let accessibilityActions = MastodonMenu.setupAccessibilityActions(
-            actions: actions.compactMap { $0.actions } ,
+            actions: items.compactMap { $0.actions } ,
             delegate: self
         )
 

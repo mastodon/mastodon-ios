@@ -13,21 +13,33 @@ public protocol MastodonMenuDelegate: AnyObject {
 }
 
 public enum MastodonMenu {
+
+    public struct Submenu {
+        public let actions: [Action]
+        public let options: UIMenu.Options
+        public let preferredElementSize: UIMenu.ElementSize
+
+        public init(actions: [Action], options: UIMenu.Options = .displayInline, preferredElementSize: UIMenu.ElementSize = .large) {
+            self.actions = actions
+            self.options = options
+            self.preferredElementSize = preferredElementSize
+        }
+    }
+
     public static func setupMenu(
-        //TODO: Use dedicated struct instead of tuple
-        items: [(actions: [Action], options: UIMenu.Options, preferredElementSize: UIMenu.ElementSize)],
+        submenus: [Submenu],
         delegate: MastodonMenuDelegate
     ) -> UIMenu {
         var children: [UIMenuElement] = []
 
-        for (actionGroup, options, preferredElementSize) in items {
+        for item in submenus {
             var submenuChildren: [UIMenuElement] = []
-            for action in actionGroup {
+            for action in item.actions {
                 let element = action.build(delegate: delegate).menuElement
                 submenuChildren.append(element)
             }
-            let submenu = UIMenu(options: options, children: submenuChildren)
-            submenu.preferredElementSize = preferredElementSize
+            let submenu = UIMenu(options: item.options, children: submenuChildren)
+            submenu.preferredElementSize = item.preferredElementSize
             children.append(submenu)
         }
         
