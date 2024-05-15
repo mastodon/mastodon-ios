@@ -731,14 +731,14 @@
                 "rejected": "Адхілена"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Ваш уліковы запіс атрымаў папярэджанне ад мадэратараў.",
+                "disable": "Ваш уліковы запіс быў адключаны.",
+                "mark_statuses_as_sensitive": "Некаторыя з вашых допісаў былі пазначаныя як далікатныя.",
+                "delete_statuses": "Некаторыя вашыя допісы былі выдаленыя.",
+                "sensitive": "З гэтага моманту вашыя допісы будуць пазначаныя як далікатныя.",
+                "silence": "Ваш уліковы запіс быў абмежаваны.",
+                "suspend": "Ваш уліковы запіс быў прыпынены.",
+                "learn_more": "Даведацца больш"
             }
         },
         "thread": {
