@@ -731,14 +731,14 @@
                 "rejected": "ปฏิเสธแล้ว"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "บัญชีของคุณได้รับคำเตือนการกลั่นกรอง",
+                "disable": "ปิดใช้งานบัญชีของคุณแล้ว",
+                "mark_statuses_as_sensitive": "ทำเครื่องหมายโพสต์บางส่วนของคุณว่าละเอียดอ่อนแล้ว",
+                "delete_statuses": "เอาโพสต์บางส่วนของคุณออกแล้ว",
+                "sensitive": "จะทำเครื่องหมายโพสต์ของคุณว่าละเอียดอ่อนนับจากนี้ไป",
+                "silence": "จำกัดบัญชีของคุณแล้ว",
+                "suspend": "ระงับบัญชีของคุณแล้ว",
+                "learn_more": "เรียนรู้เพิ่มเติม"
             }
         },
         "thread": {
