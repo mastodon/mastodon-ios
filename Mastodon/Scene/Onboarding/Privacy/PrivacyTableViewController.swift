@@ -139,9 +139,15 @@ extension PrivacyTableViewController: UITableViewDelegate {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.text = L10n.Scene.Privacy.description
         label.textColor = Asset.Colors.Label.primary.color
         wrapper.addSubview(label)
+
+        let text = L10n.Scene.Privacy.description(viewModel.domain)
+        if let data = text.data(using: .utf8), let attributedString = try? NSAttributedString(markdown: data) {
+            label.attributedText = attributedString
+        } else {
+            label.text = text
+        }
 
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: wrapper.topAnchor, constant: 16),
