@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization
@@ -135,20 +136,17 @@ extension PrivacyTableViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let wrapper = UIView()
-
-        let label = UILabel()
+        let controller = UIHostingController(
+            rootView: HeaderTextView(
+                text: LocalizedStringKey(L10n.Scene.Privacy.description(viewModel.domain))
+            )
+        )
+        controller.additionalSafeAreaInsets = .zero
+        guard let label = controller.view else { return nil }
+        label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.textColor = Asset.Colors.Label.primary.color
         wrapper.addSubview(label)
-
-        let text = L10n.Scene.Privacy.description(viewModel.domain)
-        if let data = text.data(using: .utf8), let attributedString = try? NSAttributedString(markdown: data) {
-            label.attributedText = attributedString
-        } else {
-            label.text = text
-        }
-
+        
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: wrapper.topAnchor, constant: 16),
             label.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor),
@@ -161,3 +159,12 @@ extension PrivacyTableViewController: UITableViewDelegate {
 }
 
 extension PrivacyTableViewController: OnboardingViewControllerAppearance { }
+
+private struct HeaderTextView: View {
+    let text: LocalizedStringKey
+    
+    var body: some View {
+        Text(text)
+            .foregroundStyle(Asset.Colors.Label.primary.swiftUIColor)
+    }
+}
