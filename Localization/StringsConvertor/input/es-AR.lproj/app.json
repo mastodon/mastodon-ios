@@ -193,7 +193,7 @@
                         "reblog": "Adherir",
                         "unreblog": "Deshacer adhesión"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Copiar enlace"
                 },
                 "tag": {
                     "url": "Dirección web",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s vía %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Adhesiones",
                     "favorites_title": "Favoritos",
                     "edit_history_title": "Editar historial",
                     "edit_history_detail": "Última edición: %s"
@@ -252,8 +252,8 @@
                 "unmute_user": "Dejar de silenciar a %s",
                 "muted": "Silenciado",
                 "edit_info": "Editar",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Mostrar adhesiones",
+                "hide_reblogs": "Ocultar adhesiones"
             },
             "timeline": {
                 "filtered": "Filtrado",
@@ -617,12 +617,12 @@
                     "message": "Confirmá para desbloquear a %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Mostrar adhesiones",
+                    "message": "Confirmá para mostrar adhesiones"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Ocultar adhesiones",
+                    "message": "Confirmá para ocultar adhesiones"
                 },
                 "confirm_block_domain": {
                     "title": "Bloquear dominio",
@@ -656,7 +656,7 @@
             "title": "Marcado como favorito por"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Adherido por"
         },
         "search": {
             "title": "Buscar",
@@ -716,7 +716,7 @@
             "notification_description": {
                 "followed_you": "te sigue",
                 "favorited_your_post": "marcó como favorito tu mensaje",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "adhirió a tu mensaje",
                 "mentioned_you": "te mencionó",
                 "request_to_follow_you": "solicitó seguirte",
                 "poll_has_ended": "la encuesta terminó"
@@ -871,7 +871,7 @@
                 "unfollowed": "Dejaste de seguir a esta cuenta",
                 "unfollow_user": "Dejar de seguir a %s",
                 "mute_user": "Silenciar a %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No verás sus mensajes o adhesiones en tu línea temporal principal. No sabrán que los silenciaste.",
                 "block_user": "Bloquear a %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "El usuario de esta cuenta ya no podrá seguirte o leer tus mensajes, pero podrá fijarse si fue bloqueado.",
                 "while_we_review_this_you_can_take_action_against_user": "Mientras revisamos esto, podés tomar medidas contra %s"
