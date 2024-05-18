@@ -143,9 +143,9 @@
                     "next_status": "下一則嘟文",
                     "open_status": "開啟嘟文",
                     "open_author_profile": "開啟作者的個人檔案頁面",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "開啟轉嘟者的個人檔案頁面",
                     "reply_status": "回覆嘟文",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "切換轉發嘟文",
                     "toggle_favorite": "切換最愛嘟文",
                     "toggle_content_warning": "切換內容警告",
                     "preview_image": "預覽圖片"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s 已轉嘟",
                 "user_replied_to": "回覆給 %s",
                 "show_post": "顯示嘟文",
                 "show_user_profile": "顯示使用者個人檔案頁面",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "回覆",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "轉嘟",
+                    "unreblog": "取消轉嘟",
                     "favorite": "最愛",
                     "unfavorite": "取消最愛",
                     "menu": "選單",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "於嘟文中分享鏈結",
                     "tap_then_hold_to_show_menu": "輕觸然後按住以顯示選單",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "轉嘟",
+                        "unreblog": "取消轉嘟"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "複製連結"
                 },
                 "tag": {
                     "url": "網址",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s 透過 %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "轉嘟",
                     "favorites_title": "最愛",
                     "edit_history_title": "編輯記錄",
                     "edit_history_detail": "上次編輯於 %s"
@@ -252,8 +252,8 @@
                 "unmute_user": "取消靜音 %s",
                 "muted": "已靜音",
                 "edit_info": "編輯",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "顯示轉嘟",
+                "hide_reblogs": "隱藏轉嘟"
             },
             "timeline": {
                 "filtered": "已過濾",
@@ -617,12 +617,12 @@
                     "message": "確認將 %s 取消封鎖"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "顯示轉嘟",
+                    "message": "確認顯示轉嘟"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "隱藏轉嘟",
+                    "message": "確認隱藏轉嘟"
                 },
                 "confirm_block_domain": {
                     "title": "封鎖網域",
@@ -656,7 +656,7 @@
             "title": "已加入最愛"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "被轉嘟："
         },
         "search": {
             "title": "搜尋",
@@ -716,7 +716,7 @@
             "notification_description": {
                 "followed_you": "已跟隨您",
                 "favorited_your_post": "已將您的嘟文加入最愛",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "已轉嘟您的嘟文",
                 "mentioned_you": "提到了您",
                 "request_to_follow_you": "要求跟隨您",
                 "poll_has_ended": "投票已結束"
@@ -871,7 +871,7 @@
                 "unfollowed": "已取消跟隨",
                 "unfollow_user": "取消跟隨 %s",
                 "mute_user": "靜音 %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "您不會在您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。",
                 "block_user": "封鎖 %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他們將無法跟隨您或是看到您的嘟文。他們能看到他們是否已被封鎖。",
                 "while_we_review_this_you_can_take_action_against_user": "當我們正在審核時，您可以對 %s 採取以下措施"
