@@ -143,9 +143,9 @@
                     "next_status": "Další příspěvek",
                     "open_status": "Otevřít příspěvek",
                     "open_author_profile": "Otevřít profil autora",
-                    "open_reblogger_profile": "Otevřít rebloggerův profil",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Odpovědět na příspěvek",
-                    "toggle_reblog": "Přepnout Reblog na příspěvku",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Přepnout Oblíbené na příspěvku",
                     "toggle_content_warning": "Přepnout varování obsahu",
                     "preview_image": "Náhled obrázku"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boostnul",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Odpověděl %s",
                 "show_post": "Zobrazit příspěvek",
                 "show_user_profile": "Zobrazit profil uživatele",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Odpovědět",
-                    "reblog": "Boostnout",
-                    "unreblog": "Vrátit boost",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Oblíbit",
                     "unfavorite": "Odebrat z oblízených",
                     "menu": "Nabídka",
@@ -191,8 +191,9 @@
                     "tap_then_hold_to_show_menu": "Klepnutím podržte pro zobrazení nabídky",
                     "a11y_labels": {
                         "reblog": "Boost",
-                        "unreblog": "Vrátit boost"
-                    }
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s přes %s",
                 "buttons": {
-                    "reblogs_title": "Boosty",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Oblíbení",
                     "edit_history_title": "Historie úprav",
                     "edit_history_detail": "Poslední úprava %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Odkrýt %s",
                 "muted": "Skrytý",
                 "edit_info": "Upravit informace",
-                "show_reblogs": "Zobrazit Boosty",
-                "hide_reblogs": "Skrýt Boosty"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Filtrováno",
@@ -616,12 +617,12 @@
                     "message": "Potvrďte odblokování %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Zobrazit Reblogy",
-                    "message": "Potvrdit zobrazení reblogů"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Skrýt Reblogy",
-                    "message": "Potvrďte skrytí reblogů"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Oblíben"
         },
         "reblogged_by": {
-            "title": "Boost od"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Hledat",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "vás sleduje",
                 "favorited_your_post": "si oblíbil váš příspěvek",
-                "reblogged_your_post": "boostnul váš příspěvek",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "vás zmínil/a",
                 "request_to_follow_you": "požádat vás o sledování",
                 "poll_has_ended": "anketa skončila"
@@ -870,7 +871,7 @@
                 "unfollowed": "Už nesledujete",
                 "unfollow_user": "Přestat sledovat %s",
                 "mute_user": "Skrýt %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Neuvidíte jejich příspěvky nebo boostnutí v domovském kanálu. Nebudou vědět, že jsou skrytí.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Blokovat %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Už nebudou moci sledovat nebo vidět vaše příspěvky, ale mohou vidět, zda byly zablokovány.",
                 "while_we_review_this_you_can_take_action_against_user": "Zatímco to posuzujeme, můžete podniknout kroky proti %s"
