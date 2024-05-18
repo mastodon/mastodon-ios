@@ -143,9 +143,9 @@
                     "next_status": "An ath-phost",
                     "open_status": "Fosgail am post",
                     "open_author_profile": "Fosgail pròifil an ùghdair",
-                    "open_reblogger_profile": "Fosgail pròifil an neach-brosnachaidh",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Freagair do phost",
-                    "toggle_reblog": "Toglaich brosnachadh a’ phuist",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Toglaich annsachd a’ phuist",
                     "toggle_content_warning": "Toglaich rabhadh susbainte a’ phuist",
                     "preview_image": "Ro-sheall an dealbh"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "Tha %s ’ga bhrosnachadh",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Air %s fhreagairt",
                 "show_post": "Seall am post",
                 "show_user_profile": "Seall pròifil a’ chleachdaiche",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Freagair",
-                    "reblog": "Brosnaich",
-                    "unreblog": "Na brosnaich tuilleadh",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Cuir ris na h-annsachdan",
                     "unfavorite": "Thoir air falbh o na h-annsachdan",
                     "menu": "Clàr-taice",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Co-roinn an ceangal sa phost",
                     "tap_then_hold_to_show_menu": "Thoir gnogag ’s cùm sìos a shealltainn a’ chlàir-thaice",
                     "a11y_labels": {
-                        "reblog": "Brosnaich",
-                        "unreblog": "Na brosnaich tuilleadh"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s slighe %s",
                 "buttons": {
-                    "reblogs_title": "Brosnachaidhean",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Annsachdan",
                     "edit_history_title": "Eachdraidh nan deasachaidhean",
                     "edit_history_detail": "An deasachadh mu dheireadh %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Dì-mhùch %s",
                 "muted": "’Ga mhùchadh",
                 "edit_info": "Deasaich",
-                "show_reblogs": "Seall na brosnachaidhean",
-                "hide_reblogs": "Falaich na brosnachaidhean"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Criathraichte",
@@ -616,12 +617,12 @@
                     "message": "Dearbh dì-bhacadh %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Seall na brosnachaidhean",
-                    "message": "Dearbh sealladh nam brosnachaidhean"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Falaich na brosnachaidhean",
-                    "message": "Dearbh falach nam brosnachaidhean"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Bac an àrainn",
@@ -655,7 +656,7 @@
             "title": "’Na annsachd aig"
         },
         "reblogged_by": {
-            "title": "’Ga bhrosnachadh le"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Lorg",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "– ’s iad ’gad leantainn a-nis",
                 "favorited_your_post": "– is annsa leotha am post agad",
-                "reblogged_your_post": "– ’s iad air am post agad a bhrosnachadh",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "– ’s iad air iomradh a thoirt ort",
                 "request_to_follow_you": "iarrtas leantainn",
                 "poll_has_ended": "thàinig cunntas-bheachd gu crìoch"
@@ -870,7 +871,7 @@
                 "unfollowed": "Chan eil thu ’ga leantainn tuilleadh",
                 "unfollow_user": "Na lean %s tuilleadh",
                 "mute_user": "Mùch %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Chan fhaic thu na postaichean aca is dè a bhrosnaich iad air inbhir na dachaigh agad tuilleadh. Cha bhi fios aca gun do mhùch thu iad.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Bac %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Chan urrainn dhaibh ’gad leantainn is chan fhaic iad na postaichean agad tuilleadh ach chì iad gun deach am bacadh.",
                 "while_we_review_this_you_can_take_action_against_user": "Fhad ’s a bhios sinn a’ toirt sùil air, seo nas urrainn dhut dèanamh an aghaidh %s"
