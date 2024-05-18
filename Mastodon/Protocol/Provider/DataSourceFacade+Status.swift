@@ -384,6 +384,38 @@ extension DataSourceFacade {
             let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
             alertController.addAction(cancelAction)
             dependency.present(alertController, animated: true)
+        case .boostStatus(_):
+            guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
+                assertionFailure()
+                return
+            }
+
+            try await responseToStatusReblogAction(provider: dependency, status: status)
+        case .favoriteStatus(_):
+            guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
+                assertionFailure()
+                return
+            }
+
+            try await responseToStatusFavoriteAction(provider: dependency, status: status)
+        case .copyLink:
+            guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
+                assertionFailure()
+                return
+            }
+
+            UIPasteboard.general.string = status.entity.url
+        case .openInBrowser:
+            guard
+                let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus,
+                let urlString = status.entity.url,
+                let url = URL(string: urlString)
+            else {
+                assertionFailure()
+                return
+            }
+
+            dependency.coordinator.present(scene: .safari(url: url), transition: .safariPresent(animated: true))
         }
     }
 }

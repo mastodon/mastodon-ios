@@ -686,13 +686,18 @@ extension StatusView.ViewModel {
             $language
         )
 
+        let publisherTwo = Publishers.CombineLatest3(
+            $isBookmark, $isFavorite, $isReblog
+        )
+
         Publishers.CombineLatest3(
             publisherOne.eraseToAnyPublisher(),
-            $isBookmark,
+            publisherTwo.eraseToAnyPublisher(),
             publishersThree.eraseToAnyPublisher()
         ).eraseToAnyPublisher()
-            .sink { tupleOne, isBookmark, tupleThree in
+            .sink { tupleOne, tupleTwo, tupleThree in
                 let (authorName, authorId, isMyself) = tupleOne
+                let (isBookmark, isFavorite, isBoosted) = tupleTwo
                 let (translatedFromLanguage, language) = tupleThree
 
                 guard let name = authorName?.string, let authorId = authorId, let context = self.context, let authContext = self.authContext else {
@@ -705,8 +710,8 @@ extension StatusView.ViewModel {
                 let isTranslationEnabled = instance?.isTranslationEnabled ?? false
 
                 authorView.menuButton.menu = UIMenu(children: [
-                    UIDeferredMenuElement({ menuElement in
-                        
+                    UIDeferredMenuElement.uncached({ menuElement in
+
                         let domain = authContext.mastodonAuthenticationBox.domain
 
                         Task { @MainActor in
@@ -724,11 +729,13 @@ extension StatusView.ViewModel {
                                         isMuting: rel.muting,
                                         isBlocking: rel.blocking,
                                         isMyself: isMyself,
-                                        isBookmarking: isBookmark,
-                                        isFollowed: rel.followedBy,
+                                        isBookmarked: isBookmark,
+                                        isFollowed: rel.following,
                                         isTranslationEnabled: isTranslationEnabled,
                                         isTranslated: translatedFromLanguage != nil,
-                                        statusLanguage: language
+                                        statusLanguage: language,
+                                        isFavorited: isFavorite,
+                                        isBoosted: isBoosted
                                     )
                                 
                                     let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
@@ -737,7 +744,11 @@ extension StatusView.ViewModel {
                                     menuElement(menu.children)
                                 }
                             } else {
-                                menuElement(MastodonMenu.setupMenu(actions: [[.shareStatus]], delegate: statusView).children)
+                                menuElement(
+                                    MastodonMenu.setupMenu(
+                                        submenus: [MastodonMenu.Submenu(actions: [.shareStatus])],
+                                        delegate: statusView).children
+                                )
                             }
                         }
                     })

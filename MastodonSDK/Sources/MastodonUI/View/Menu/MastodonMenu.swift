@@ -13,19 +13,33 @@ public protocol MastodonMenuDelegate: AnyObject {
 }
 
 public enum MastodonMenu {
+
+    public struct Submenu {
+        public let actions: [Action]
+        public let options: UIMenu.Options
+        public let preferredElementSize: UIMenu.ElementSize
+
+        public init(actions: [Action], options: UIMenu.Options = .displayInline, preferredElementSize: UIMenu.ElementSize = .large) {
+            self.actions = actions
+            self.options = options
+            self.preferredElementSize = preferredElementSize
+        }
+    }
+
     public static func setupMenu(
-        actions: [[Action]],
+        submenus: [Submenu],
         delegate: MastodonMenuDelegate
     ) -> UIMenu {
         var children: [UIMenuElement] = []
 
-        for actionGroup in actions {
+        for item in submenus {
             var submenuChildren: [UIMenuElement] = []
-            for action in actionGroup {
+            for action in item.actions {
                 let element = action.build(delegate: delegate).menuElement
                 submenuChildren.append(element)
             }
-            let submenu = UIMenu(options: .displayInline, children: submenuChildren)
+            let submenu = UIMenu(options: item.options, children: submenuChildren)
+            submenu.preferredElementSize = item.preferredElementSize
             children.append(submenu)
         }
         
@@ -60,6 +74,10 @@ extension MastodonMenu {
         case editStatus
         case followUser(FollowUserActionContext)
         case blockDomain(BlockDomainActionContext)
+        case boostStatus(BoostStatusActionContext)
+        case favoriteStatus(FavoriteStatusActionContext)
+        case copyLink
+        case openInBrowser
 
         func build(delegate: MastodonMenuDelegate) -> LabeledAction {
             switch self {
@@ -96,7 +114,7 @@ extension MastodonMenu {
                     title = L10n.Common.Controls.Friendship.blockUser(context.name)
                     image = UIImage(systemName: "hand.raised")
                 }
-                let blockAction = LabeledAction(title: title, image: image) { [weak delegate] in
+                let blockAction = LabeledAction(title: title, image: image, attributes: .destructive) { [weak delegate] in
                     guard let delegate = delegate else { return }
                     delegate.menuAction(self)
                 }
@@ -104,7 +122,8 @@ extension MastodonMenu {
             case .reportUser(let context):
                 let reportAction = LabeledAction(
                     title: L10n.Common.Controls.Actions.reportUser(context.name),
-                    image: UIImage(systemName: "flag")
+                    image: UIImage(systemName: "flag"),
+                    attributes: .destructive
                 ) { [weak delegate] in
                     guard let delegate = delegate else { return }
                     delegate.menuAction(self)
@@ -122,7 +141,7 @@ extension MastodonMenu {
             case .bookmarkStatus(let context):
                 let title: String
                 let image: UIImage?
-                if context.isBookmarking {
+                if context.isBookmarked {
                     title = L10n.Common.Controls.Actions.removeBookmark
                     image = UIImage(systemName: "bookmark.slash.fill")
                 } else {
@@ -215,6 +234,44 @@ extension MastodonMenu {
                         delegate.menuAction(self)
                     }
                     return action
+
+            case .boostStatus(let context):
+                let title: String
+
+                if context.isBoosted {
+                    title = L10n.Common.Controls.Status.Actions.unreblog
+                } else {
+                    title = L10n.Common.Controls.Status.Actions.reblog
+                }
+
+                return LabeledAction(title: title, image: UIImage(systemName: "arrow.2.squarepath")) { [weak delegate] in
+                    delegate?.menuAction(self)
+                }
+            case .favoriteStatus(let context):
+                let title: String
+                let image: UIImage?
+
+                if context.isFavorited {
+                    title = L10n.Common.Controls.Status.Actions.unfavorite
+                    image = UIImage(systemName: "star.slash")
+                } else {
+                    title = L10n.Common.Controls.Status.Actions.favorite
+                    image = UIImage(systemName: "star")
+                }
+
+                return LabeledAction(title: title, image: image) { [weak delegate] in
+                    delegate?.menuAction(self)
+                }
+
+            case .copyLink:
+                return LabeledAction(title: L10n.Common.Controls.Status.Actions.copyLink, image: UIImage(systemName: "doc.on.doc")) { [weak delegate] in
+                    delegate?.menuAction(self)
+                }
+
+            case .openInBrowser:
+                return LabeledAction(title: L10n.Common.Controls.Actions.openInBrowser, image: UIImage(systemName: "safari")) { [weak delegate] in
+                    delegate?.menuAction(self)
+                }
             }
         }
     }
@@ -242,10 +299,10 @@ extension MastodonMenu {
     }
     
     public struct BookmarkStatusActionContext {
-        public let isBookmarking: Bool
+        public let isBookmarked: Bool
         
-        public init(isBookmarking: Bool) {
-            self.isBookmarking = isBookmarking
+        public init(isBookmarked: Bool) {
+            self.isBookmarked = isBookmarked
         }
     }
     
@@ -301,4 +358,21 @@ extension MastodonMenu {
             self.isBlocking = isBlocking
         }
     }
+
+    public struct BoostStatusActionContext {
+        public let isBoosted: Bool
+
+        public init(isBoosted: Bool) {
+            self.isBoosted = isBoosted
+        }
+    }
+
+    public struct FavoriteStatusActionContext {
+        public let isFavorited: Bool
+
+        public init(isFavorited: Bool) {
+            self.isFavorited = isFavorited
+        }
+    }
+
 }

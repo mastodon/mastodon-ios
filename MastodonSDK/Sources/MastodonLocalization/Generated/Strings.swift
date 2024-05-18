@@ -259,8 +259,8 @@ public enum L10n {
         public static let follow = L10n.tr("Localizable", "Common.Controls.Friendship.Follow", fallback: "Follow")
         /// Following
         public static let following = L10n.tr("Localizable", "Common.Controls.Friendship.Following", fallback: "Following")
-        /// Hide Reblogs
-        public static let hideReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.HideReblogs", fallback: "Hide Reblogs")
+        /// Hide Boosts
+        public static let hideReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.HideReblogs", fallback: "Hide Boosts")
         /// Mute
         public static let mute = L10n.tr("Localizable", "Common.Controls.Friendship.Mute", fallback: "Mute")
         /// Muted
@@ -273,8 +273,8 @@ public enum L10n {
         public static let pending = L10n.tr("Localizable", "Common.Controls.Friendship.Pending", fallback: "Pending")
         /// Request
         public static let request = L10n.tr("Localizable", "Common.Controls.Friendship.Request", fallback: "Request")
-        /// Show Reblogs
-        public static let showReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.ShowReblogs", fallback: "Show Reblogs")
+        /// Show Boosts
+        public static let showReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.ShowReblogs", fallback: "Show Boosts")
         /// Unblock
         public static let unblock = L10n.tr("Localizable", "Common.Controls.Friendship.Unblock", fallback: "Unblock")
         /// Unblock %@
@@ -312,8 +312,8 @@ public enum L10n {
           public static let nextStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.NextStatus", fallback: "Next Post")
           /// Open Author's Profile
           public static let openAuthorProfile = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenAuthorProfile", fallback: "Open Author's Profile")
-          /// Open Reblogger's Profile
-          public static let openRebloggerProfile = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenRebloggerProfile", fallback: "Open Reblogger's Profile")
+          /// Open Booster's Profile
+          public static let openRebloggerProfile = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenRebloggerProfile", fallback: "Open Booster's Profile")
           /// Open Post
           public static let openStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenStatus", fallback: "Open Post")
           /// Preview Image
@@ -326,8 +326,8 @@ public enum L10n {
           public static let toggleContentWarning = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleContentWarning", fallback: "Toggle Content Warning")
           /// Toggle Favorite on Post
           public static let toggleFavorite = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleFavorite", fallback: "Toggle Favorite on Post")
-          /// Toggle Reblog on Post
-          public static let toggleReblog = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleReblog", fallback: "Toggle Reblog on Post")
+          /// Toggle Boost on Post
+          public static let toggleReblog = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleReblog", fallback: "Toggle Boost on Post")
         }
       }
       public enum Status {
@@ -357,23 +357,25 @@ public enum L10n {
         public static let showUserProfile = L10n.tr("Localizable", "Common.Controls.Status.ShowUserProfile", fallback: "Show user profile")
         /// Tap to reveal
         public static let tapToReveal = L10n.tr("Localizable", "Common.Controls.Status.TapToReveal", fallback: "Tap to reveal")
-        /// %@ reblogged
+        /// %@ boosted
         public static func userReblogged(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Status.UserReblogged", String(describing: p1), fallback: "%@ reblogged")
+          return L10n.tr("Localizable", "Common.Controls.Status.UserReblogged", String(describing: p1), fallback: "%@ boosted")
         }
         /// Replied to %@
         public static func userRepliedTo(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.UserRepliedTo", String(describing: p1), fallback: "Replied to %@")
         }
         public enum Actions {
+          /// Copy Link
+          public static let copyLink = L10n.tr("Localizable", "Common.Controls.Status.Actions.CopyLink", fallback: "Copy Link")
           /// Favorite
           public static let favorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Favorite", fallback: "Favorite")
           /// Hide
           public static let hide = L10n.tr("Localizable", "Common.Controls.Status.Actions.Hide", fallback: "Hide")
           /// Menu
           public static let menu = L10n.tr("Localizable", "Common.Controls.Status.Actions.Menu", fallback: "Menu")
-          /// Reblog
-          public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reblog", fallback: "Reblog")
+          /// Boost
+          public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reblog", fallback: "Boost")
           /// Reply
           public static let reply = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reply", fallback: "Reply")
           /// Share Link in Post
@@ -388,13 +390,13 @@ public enum L10n {
           public static let tapThenHoldToShowMenu = L10n.tr("Localizable", "Common.Controls.Status.Actions.TapThenHoldToShowMenu", fallback: "Tap then hold to show menu")
           /// Unfavorite
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite", fallback: "Unfavorite")
-          /// Undo reblog
-          public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo reblog")
+          /// Undo boost
+          public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo boost")
           public enum A11YLabels {
-            /// Re-blog
-            public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.A11YLabels.Reblog", fallback: "Re-blog")
-            /// Undo re-blog
-            public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.A11YLabels.Unreblog", fallback: "Undo re-blog")
+            /// Boost
+            public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.A11YLabels.Reblog", fallback: "Boost")
+            /// Undo boost
+            public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.A11YLabels.Unreblog", fallback: "Undo boost")
           }
         }
         public enum Buttons {
@@ -406,8 +408,8 @@ public enum L10n {
           public static let editHistoryTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.EditHistoryTitle", fallback: "Edit History")
           /// Favorites
           public static let favoritesTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.FavoritesTitle", fallback: "Favorites")
-          /// Reblogs
-          public static let reblogsTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.ReblogsTitle", fallback: "Reblogs")
+          /// Boosts
+          public static let reblogsTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.ReblogsTitle", fallback: "Boosts")
         }
         public enum EditHistory {
           /// Original Post · %@
@@ -898,8 +900,8 @@ public enum L10n {
         public static let mentionedYou = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.MentionedYou", fallback: "mentioned you")
         /// poll has ended
         public static let pollHasEnded = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.PollHasEnded", fallback: "poll has ended")
-        /// reblogged your post
-        public static let rebloggedYourPost = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.RebloggedYourPost", fallback: "reblogged your post")
+        /// boosted your post
+        public static let rebloggedYourPost = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.RebloggedYourPost", fallback: "boosted your post")
         /// request to follow you
         public static let requestToFollowYou = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.RequestToFollowYou", fallback: "request to follow you")
       }
@@ -1027,10 +1029,10 @@ public enum L10n {
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title", fallback: "Block Account")
         }
         public enum ConfirmHideReblogs {
-          /// Confirm to hide reblogs
-          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message", fallback: "Confirm to hide reblogs")
-          /// Hide Reblogs
-          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title", fallback: "Hide Reblogs")
+          /// Confirm to hide boosts
+          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message", fallback: "Confirm to hide boosts")
+          /// Hide Boosts
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title", fallback: "Hide Boosts")
         }
         public enum ConfirmMuteUser {
           /// Confirm to mute %@
@@ -1041,10 +1043,10 @@ public enum L10n {
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title", fallback: "Mute Account")
         }
         public enum ConfirmShowReblogs {
-          /// Confirm to show reblogs
-          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message", fallback: "Confirm to show reblogs")
-          /// Show Reblogs
-          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title", fallback: "Show Reblogs")
+          /// Confirm to show boosts
+          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message", fallback: "Confirm to show boosts")
+          /// Show Boosts
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title", fallback: "Show Boosts")
         }
         public enum ConfirmUnblockDomain {
           /// Confirm to unblock domain %@
@@ -1085,8 +1087,8 @@ public enum L10n {
       }
     }
     public enum RebloggedBy {
-      /// Reblogged By
-      public static let title = L10n.tr("Localizable", "Scene.RebloggedBy.Title", fallback: "Reblogged By")
+      /// Boosted By
+      public static let title = L10n.tr("Localizable", "Scene.RebloggedBy.Title", fallback: "Boosted By")
     }
     public enum Register {
       /// Create Account
@@ -1258,8 +1260,8 @@ public enum L10n {
         public static func whileWeReviewThisYouCanTakeActionAgainstUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser", String(describing: p1), fallback: "While we review this, you can take action against %@")
         }
-        /// You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.
-        public static let youWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted = L10n.tr("Localizable", "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted", fallback: "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.")
+        /// You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.
+        public static let youWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted = L10n.tr("Localizable", "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted", fallback: "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.")
       }
       public enum StepFour {
         /// Is there anything else we should know?

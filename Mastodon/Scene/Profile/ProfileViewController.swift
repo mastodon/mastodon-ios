@@ -451,7 +451,7 @@ extension ProfileViewController {
             }
 
             let menu = MastodonMenu.setupMenu(
-                actions: [menuActions],
+                submenus: [MastodonMenu.Submenu(actions: menuActions)],
                 delegate: self
             )
             return menu
@@ -929,42 +929,36 @@ extension ProfileViewController: ProfileAboutViewControllerDelegate {
 extension ProfileViewController: MastodonMenuDelegate {
     func menuAction(_ action: MastodonMenu.Action) {
         switch action {
-            case .muteUser(_),
-                    .blockUser(_),
-                    .blockDomain(_),
-                    .hideReblogs(_):
-                Task {
-                    try await DataSourceFacade.responseToMenuAction(
-                        dependency: self,
-                        action: action,
-                        menuContext: DataSourceFacade.MenuContext(
-                            author: viewModel.account,
-                            statusViewModel: nil,
-                            button: nil,
-                            barButtonItem: self.moreMenuBarButtonItem
-                        ))
-                }
-            case .reportUser(_), .shareUser(_):
-                Task {
-                    try await DataSourceFacade.responseToMenuAction(
-                        dependency: self,
-                        action: action,
-                        menuContext: DataSourceFacade.MenuContext(
-                            author: viewModel.account,
-                            statusViewModel: nil,
-                            button: nil,
-                            barButtonItem: self.moreMenuBarButtonItem
-                        ))
-                }
+        case .muteUser(_),
+                .blockUser(_),
+                .blockDomain(_),
+                .hideReblogs(_):
+            Task {
+                try await DataSourceFacade.responseToMenuAction(
+                    dependency: self,
+                    action: action,
+                    menuContext: DataSourceFacade.MenuContext(
+                        author: viewModel.account,
+                        statusViewModel: nil,
+                        button: nil,
+                        barButtonItem: self.moreMenuBarButtonItem
+                    ))
+            }
+        case .reportUser(_), .shareUser(_):
+            Task {
+                try await DataSourceFacade.responseToMenuAction(
+                    dependency: self,
+                    action: action,
+                    menuContext: DataSourceFacade.MenuContext(
+                        author: viewModel.account,
+                        statusViewModel: nil,
+                        button: nil,
+                        barButtonItem: self.moreMenuBarButtonItem
+                    ))
+            }
 
-            case .translateStatus(_),
-                    .showOriginal,
-                    .bookmarkStatus(_),
-                    .shareStatus,
-                    .deleteStatus,
-                    .editStatus,
-                    .followUser(_):
-                break
+        case .translateStatus(_), .showOriginal, .bookmarkStatus(_), .shareStatus, .deleteStatus, .editStatus, .followUser(_), .boostStatus(_), .favoriteStatus(_), .copyLink, .openInBrowser:
+            break
         }
     }
 }

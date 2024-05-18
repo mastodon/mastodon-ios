@@ -61,9 +61,10 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
                         barButtonItem: nil
                     )
                 )
-            case .translateStatus(_), .showOriginal, .shareUser(_), .blockDomain(_), .bookmarkStatus(_), .hideReblogs(_), .shareStatus, .deleteStatus, .editStatus, .followUser(_):
+            case .translateStatus(_), .showOriginal, .shareUser(_), .blockDomain(_), .bookmarkStatus(_), .hideReblogs(_), .shareStatus, .deleteStatus, .editStatus, .followUser(_), .boostStatus(_), .favoriteStatus(_), .copyLink, .openInBrowser:
                 // Do Nothing
                 break
+
             }
         }
     }
