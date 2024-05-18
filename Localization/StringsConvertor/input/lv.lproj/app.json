@@ -143,9 +143,9 @@
                     "next_status": "Nākamā Ziņa",
                     "open_status": "Atvērt Ziņu",
                     "open_author_profile": "Atvērt Autora Profilu",
-                    "open_reblogger_profile": "Atvērt Reblogotāja Profilu",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Atbildēt uz Ziņu",
-                    "toggle_reblog": "Pārslēgt Reblogs uz Ziņu",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Pārslēgt Izlasi uz Ziņas",
                     "toggle_content_warning": "Pārslēgt Satura Brīdinājumu",
                     "preview_image": "Priekšskatīt Attēlu"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogoja",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Atbildēja %s",
                 "show_post": "Parādīt Ziņu",
                 "show_user_profile": "Parādīt lietotāja profilu",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Atbildēt",
-                    "reblog": "Reblogot",
-                    "unreblog": "Atsaukt reblogu",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Izlase",
                     "unfavorite": "Izņemt no izlases",
                     "menu": "Izvēlne",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Kopīgot Saiti Ziņā",
                     "tap_then_hold_to_show_menu": "Pieskaries un turi, lai parādītu izvēlni",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Favorites",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Noņemt apklusinājumu @%s",
                 "muted": "Apklusināts",
                 "edit_info": "Rediģēt",
-                "show_reblogs": "Rādīt Reblogus",
-                "hide_reblogs": "Paslēpt Reblogus"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Filtrēts",
@@ -616,12 +617,12 @@
                     "message": "Apstiprini lai atbloķētu %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Rādīt Reblogus",
-                    "message": "Apstiprināt, lai rādītu reblogus"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Paslēpt Reblogus",
-                    "message": "Apstiprināt, lai slēptu reblogus"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Pievienoja izlasei"
         },
         "reblogged_by": {
-            "title": "Reblogoja"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Meklēt",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "tev sekoja",
                 "favorited_your_post": "izcēla tavu ziņu",
-                "reblogged_your_post": "reblogoja tavu ziņu",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "pieminēja tevi",
                 "request_to_follow_you": "lūgums tev sekot",
                 "poll_has_ended": "balsošana beidzās"
@@ -870,7 +871,7 @@
                 "unfollowed": "Atsekoja",
                 "unfollow_user": "Atsekot %s",
                 "mute_user": "Apklusināt %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Tu neredzēsi viņu ziņas vai reblogus savā mājas plūsmā. Viņi nezinās, ka ir izslēgti.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Bloķēt %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Viņi vairs nevarēs sekot tavām ziņām vai redzēt tās, taču varēs redzēt, vai viņi ir bloķēti.",
                 "while_we_review_this_you_can_take_action_against_user": "Kamēr mēs to izskatām, tu vari veikt darbības pret @%s"
