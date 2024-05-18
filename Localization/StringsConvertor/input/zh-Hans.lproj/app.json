@@ -143,9 +143,9 @@
                     "next_status": "下一篇嘟文",
                     "open_status": "打开嘟文",
                     "open_author_profile": "打开作者的个人资料",
-                    "open_reblogger_profile": "打开转发者的个人资料",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "回复此嘟文",
-                    "toggle_reblog": "转发此嘟文",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "喜欢此嘟文",
                     "toggle_content_warning": "启用或关闭内容警告",
                     "preview_image": "预览照片"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s 转发",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "回复给 %s",
                 "show_post": "显示嘟文",
                 "show_user_profile": "查看用户个人资料",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "回复",
-                    "reblog": "转发",
-                    "unreblog": "取消转发",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "喜欢",
                     "unfavorite": "取消喜欢",
                     "menu": "菜单",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "分享链接到嘟文中",
                     "tap_then_hold_to_show_menu": "长按以显示菜单",
                     "a11y_labels": {
-                        "reblog": "转发",
-                        "unreblog": "撤销转发"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s 通过 %s 发布",
                 "buttons": {
-                    "reblogs_title": "转发",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "喜欢",
                     "edit_history_title": "编辑历史",
                     "edit_history_detail": "编辑于：%s"
@@ -251,8 +252,8 @@
                 "unmute_user": "取消静音 %s",
                 "muted": "已静音",
                 "edit_info": "编辑",
-                "show_reblogs": "显示转发",
-                "hide_reblogs": "隐藏转发"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "已过滤",
@@ -616,12 +617,12 @@
                     "message": "确认取消屏蔽 %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "显示转发",
-                    "message": "确认显示转发"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "隐藏转发",
-                    "message": "确认隐藏转发"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "屏蔽域名",
@@ -655,7 +656,7 @@
             "title": "喜欢者"
         },
         "reblogged_by": {
-            "title": "转发者"
+            "title": "Boosted By"
         },
         "search": {
             "title": "搜索",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "关注了你",
                 "favorited_your_post": "喜欢了你的嘟文",
-                "reblogged_your_post": "转发了你的嘟文",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "提及了你",
                 "request_to_follow_you": "关注请求",
                 "poll_has_ended": "投票已结束"
@@ -870,7 +871,7 @@
                 "unfollowed": "已取消关注",
                 "unfollow_user": "取消关注 %s",
                 "mute_user": "静音 %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "你不会在主页里看到他们的嘟文和转发。他们不会知道被静音了。",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "屏蔽 %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他们将不再能够关注或看到你的嘟文，但他们可以知道他们是否被屏蔽。",
                 "while_we_review_this_you_can_take_action_against_user": "当我们审核这个报告时，你可以对 %s 采取行动。"
