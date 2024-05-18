@@ -143,9 +143,9 @@
                     "next_status": "Tŵt Nesaf",
                     "open_status": "Agor Tŵt",
                     "open_author_profile": "Agor Proffil yr Awdur",
-                    "open_reblogger_profile": "Agor Proffil yr Ailflogwr",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Ymateb i Tŵt",
-                    "toggle_reblog": "Toglo Ailfloggio ar Tŵt",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Toglo Ffefrynnu ar Tŵt",
                     "toggle_content_warning": "Toglo Rhybudd Cynnwys",
                     "preview_image": "Rhagolygu'r Llun"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s wedi ailflogio",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Wedi ymateb i %s",
                 "show_post": "Dangos Tŵt",
                 "show_user_profile": "Dangos proffil y defnyddiwr",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Ymateb",
-                    "reblog": "Hybwch",
-                    "unreblog": "Dadwneud ailfloggiad",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Ffefrynnu",
                     "unfavorite": "Dad-ffefrynnu",
                     "menu": "Dewislen",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Rhannu'r Ddolen yn y Postiad",
                     "tap_then_hold_to_show_menu": "Tapiwch a gwasgu i gael y ddewislen",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Ffefryn",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Dad-anwybyddu %s",
                 "muted": "Wedi anwybyddu",
                 "edit_info": "Golygu",
-                "show_reblogs": "Dangos Ailfloggiau",
-                "hide_reblogs": "Cuddio Ailfloggiau"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Wedi'i hidlo",
@@ -616,12 +617,12 @@
                     "message": "Parhau i ddadflocio %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Dangos Ailfloggiau",
-                    "message": "Cadarnhau i ddangos hybiau"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Cuddio Ailflogiau",
-                    "message": "Cadarnhau i guddio ailflogiau"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Ffefrynnwyd gan"
         },
         "reblogged_by": {
-            "title": "Wedi'i hybu gan"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Chwilio",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "wedi eich dilyn",
                 "favorited_your_post": "wedi ffefrynnu eich tŵt",
-                "reblogged_your_post": "wedi ailfloggio'ch tŵt",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "wedi sôn amdanoch",
                 "request_to_follow_you": "wedi gwneud cais i'ch dilyn",
                 "poll_has_ended": "pôl wedi dod i ben"
@@ -870,7 +871,7 @@
                 "unfollowed": "Dad-ddilynwyd",
                 "unfollow_user": "Dad-ddilyn %s",
                 "mute_user": "Anwybyddu %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ni fyddwch yn gweld eu postiadau neu hybiau yn eich ffrwd hafan. Ni fyddant yn gwybod eich bod wedi eu hanwybyddu.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Blocio %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ni fyddant yn gallu eich dilyn neu weld eich postiadau, ond maen nhw'n gallu gweld eich bod wedi'u blocio.",
                 "while_we_review_this_you_can_take_action_against_user": "Tra byddwn ni'n edrych ar hyn, gallwch gymryd camau yn erbyn %s"
