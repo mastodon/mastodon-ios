@@ -143,9 +143,9 @@
                     "next_status": "Post successivo",
                     "open_status": "Apri il post",
                     "open_author_profile": "Apri il profilo dell'autore",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Apri il profilo di chi ha condiviso",
                     "reply_status": "Rispondi al post",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Attiva/Disattiva la condivisione sul post",
                     "toggle_favorite": "Attiva/Disattiva preferito nel post",
                     "toggle_content_warning": "Attiva/Disattiva avvertimento contenuti",
                     "preview_image": "Anteprima immagine"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s ha condiviso",
                 "user_replied_to": "Risposta a %s",
                 "show_post": "Mostra il post",
                 "show_user_profile": "Mostra il profilo dell'utente",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Rispondi",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Condividi",
+                    "unreblog": "Annulla la condivisione",
                     "favorite": "Preferito",
                     "unfavorite": "Non preferito",
                     "menu": "Menù",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "Condividi il collegamento nel post",
                     "tap_then_hold_to_show_menu": "Tocca quindi tieni premuto per mostrare il menu",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Condividi",
+                        "unreblog": "Annulla la condivisione"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Copia il link"
                 },
                 "tag": {
                     "url": "URL",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s tramite %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Condivisioni",
                     "favorites_title": "Preferiti",
                     "edit_history_title": "Modifica la cronologia",
                     "edit_history_detail": "Ultima modifica: %s"
@@ -252,8 +252,8 @@
                 "unmute_user": "Riattiva %s",
                 "muted": "Silenziato",
                 "edit_info": "Modifica info",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Mostra le condivisioni",
+                "hide_reblogs": "Nascondi le condivisioni"
             },
             "timeline": {
                 "filtered": "Filtrato",
@@ -617,12 +617,12 @@
                     "message": "Conferma per sbloccare %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Mostra le condivisioni",
+                    "message": "Conferma di mostrare le condivisioni"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Nascondi le condivisioni",
+                    "message": "Conferma di mostrare le condivisioni"
                 },
                 "confirm_block_domain": {
                     "title": "Blocca il dominio",
@@ -656,7 +656,7 @@
             "title": "Preferito da"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Condiviso da"
         },
         "search": {
             "title": "Cerca",
@@ -716,7 +716,7 @@
             "notification_description": {
                 "followed_you": "ha iniziato a seguirti",
                 "favorited_your_post": "ha apprezzato il tuo post",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "ha condiviso il tuo post",
                 "mentioned_you": "ti ha menzionato",
                 "request_to_follow_you": "richiesta di seguirti",
                 "poll_has_ended": "sondaggio terminato"
@@ -871,7 +871,7 @@
                 "unfollowed": "Non seguito",
                 "unfollow_user": "Smetti di seguire %s",
                 "mute_user": "Silenzia %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Non vedrai i loro post o le condivisioni nel tuo feed. Non sapranno di essere stati silenziati.",
                 "block_user": "Blocca %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Non saranno più in grado di seguire o vedere i tuoi post, ma possono vedere se sono stati bloccati.",
                 "while_we_review_this_you_can_take_action_against_user": "Mentre controlliamo, puoi agire contro %s"
