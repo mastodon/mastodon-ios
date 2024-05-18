@@ -143,9 +143,9 @@
                     "next_status": "Következő bejegyzés",
                     "open_status": "Bejegyzés megnyitása",
                     "open_author_profile": "Szerző profiljának megnyitása",
-                    "open_reblogger_profile": "A megtoló profiljának megnyitása",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Válasz a bejegyzésre",
-                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Tartalmi figyelmeztetés ki/be",
                     "preview_image": "Kép előnézete"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s megtolta",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Válasz neki: %s",
                 "show_post": "Bejegyzés megjelenítése",
                 "show_user_profile": "Felhasználói profil megjelenítése",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Válasz",
-                    "reblog": "Megtolás",
-                    "unreblog": "Megtolás visszavonása",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Kedvenc",
                     "unfavorite": "Eltávolítás a Kedvencek közül",
                     "menu": "Menü",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Megtolás",
-                        "unreblog": "Megtolás visszavonása"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "Webcím",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Megtolások",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Kedvelések",
                     "edit_history_title": "Előzmények módosítása",
                     "edit_history_detail": "Utoljára módosítva: %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "%s némításának feloldása",
                 "muted": "Némítva",
                 "edit_info": "Adatok szerkesztése",
-                "show_reblogs": "Megtolások megjelenítése",
-                "hide_reblogs": "Megtolások elrejtése"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Megszűrt",
@@ -616,12 +617,12 @@
                     "message": "Valóban feloldja %s tiltását"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Megtolások megjelenítése",
-                    "message": "Megtolások megjelenítésének megerősítése"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Megtolások elrejtése",
-                    "message": "Megtolások elrejtésének megerősítése"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Domain letiltása",
@@ -655,7 +656,7 @@
             "title": "Kedvelések"
         },
         "reblogged_by": {
-            "title": "Megtolta"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Keresés",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "követi önt",
                 "favorited_your_post": "kedvelte a bejegyzését",
-                "reblogged_your_post": "megtolta a bejegyzését",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "megemlítette Önt",
                 "request_to_follow_you": "kérte, hogy követhessen",
                 "poll_has_ended": "a szavazás véget ért"
@@ -870,7 +871,7 @@
                 "unfollowed": "Nem követett",
                 "unfollow_user": "%s kikövetése",
                 "mute_user": "%s némítása",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Nem fogja látni a bejegyzéseiket vagy a megtolásaikat a Kezdőlapon. Nem fogják tudni, hogy elnémították őket.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "%s letiltása",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
