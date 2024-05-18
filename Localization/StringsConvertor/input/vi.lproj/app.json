@@ -143,9 +143,9 @@
                     "next_status": "Tút sau",
                     "open_status": "Mở tút",
                     "open_author_profile": "Mở trang người đăng tút",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Mở trang người đăng lại tút",
                     "reply_status": "Trả lời tút",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Chọn đăng lại tút",
                     "toggle_favorite": "Chọn thích tút",
                     "toggle_content_warning": "Chọn nội dung ẩn",
                     "preview_image": "Xem trước hình ảnh"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s đăng lại",
                 "user_replied_to": "Trả lời đến %s",
                 "show_post": "Xem tút",
                 "show_user_profile": "Xem trang hồ sơ",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Trả lời",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Đăng lại",
+                    "unreblog": "Bỏ đăng lại",
                     "favorite": "Thích",
                     "unfavorite": "Bỏ thích",
                     "menu": "Menu",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "Chia sẻ liên kết trong Tút",
                     "tap_then_hold_to_show_menu": "Nhấn giữ để hiện menu",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Đăng lại",
+                        "unreblog": "Bỏ đăng lại"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Sao chép liên kết"
                 },
                 "tag": {
                     "url": "URL",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s qua %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Lượt đăng lại",
                     "favorites_title": "Lượt thích",
                     "edit_history_title": "Lịch sử chỉnh sửa",
                     "edit_history_detail": "Sửa lần cuối %s"
@@ -252,8 +252,8 @@
                 "unmute_user": "Bỏ ẩn %s",
                 "muted": "Đã ẩn",
                 "edit_info": "Chỉnh sửa",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Hiện lượt đăng lại",
+                "hide_reblogs": "Ẩn lượt đăng lại"
             },
             "timeline": {
                 "filtered": "Bộ lọc",
@@ -617,12 +617,12 @@
                     "message": "Xác nhận bỏ chặn %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Hiện lượt đăng lại",
+                    "message": "Xác nhận hiện đăng lại"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Ẩn lượt đăng lại",
+                    "message": "Xác nhận ẩn đăng lại"
                 },
                 "confirm_block_domain": {
                     "title": "Chặn máy chủ",
@@ -656,7 +656,7 @@
             "title": "Thích bởi"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Đăng lại bởi"
         },
         "search": {
             "title": "Tìm kiếm",
@@ -716,7 +716,7 @@
             "notification_description": {
                 "followed_you": "đã theo dõi bạn",
                 "favorited_your_post": "thích tút của bạn",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "vừa đăng lại tút của bạn",
                 "mentioned_you": "nhắc đến bạn",
                 "request_to_follow_you": "yêu cầu theo dõi bạn",
                 "poll_has_ended": "cuộc bình chọn đã kết thúc"
@@ -871,7 +871,7 @@
                 "unfollowed": "Bỏ theo dõi",
                 "unfollow_user": "Bỏ theo dõi %s",
                 "mute_user": "Ẩn %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Bạn sẽ không thấy tút hoặc lượt đăng lại của họ trên bảng tin. Họ không biết rằng bạn ẩn họ.",
                 "block_user": "Chặn %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Họ sẽ không thể theo dõi hoặc đọc tút của bạn, nhưng họ có thể hiểu bạn đã chặn họ.",
                 "while_we_review_this_you_can_take_action_against_user": "Trong lúc chờ chúng tôi xem xét, bạn có thể áp dụng hành động với @%s"
