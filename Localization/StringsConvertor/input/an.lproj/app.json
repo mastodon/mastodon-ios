@@ -143,9 +143,9 @@
                     "next_status": "Siguient Publicación",
                     "open_status": "Ubrir Publicación",
                     "open_author_profile": "Ubrir Perfil de l'Autor",
-                    "open_reblogger_profile": "Ubrir Perfil d'o Reblogueador",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Responder Publicación",
-                    "toggle_reblog": "Commutar lo Reblogueo en a Publicación",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Commutar la Marca de Favorito en a Publicación",
                     "toggle_content_warning": "Alternar l'Alvertencia de Conteniu",
                     "preview_image": "Previsualizar Imachen"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s lo reblogueó",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "En respuesta a %s",
                 "show_post": "Amostrar Publicación",
                 "show_user_profile": "Amostrar perfil de l'usuario",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Responder",
-                    "reblog": "Rebloguear",
-                    "unreblog": "Desfer reblogueo",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Favorito",
                     "unfavorite": "No favorito",
                     "menu": "Menú",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Toca, dimpués mantiene pa amostrar lo menú",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Favorites",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Desmutear a %s",
                 "muted": "Silenciau",
                 "edit_info": "Editar Info",
-                "show_reblogs": "Amostrar los retuts",
-                "hide_reblogs": "Amagar los reblogs"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Filtrau",
@@ -616,12 +617,12 @@
                     "message": "Confirmar pa desbloquiar a %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Amostrar los reblogs",
-                    "message": "Confimrar pa amostrar los reblogs"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Amagar los reblogs",
-                    "message": "Comfirmar pa amagar los reblogs"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Feito favorito per"
         },
         "reblogged_by": {
-            "title": "Reblogueado per"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Buscar",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "te siguió",
                 "favorited_your_post": "ha marcau como favorita la tuya publicación",
-                "reblogged_your_post": "reblogueó la tuya publicación",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "te mencionó",
                 "request_to_follow_you": "solicitó seguir-te",
                 "poll_has_ended": "enqüesta ha rematau"
@@ -870,7 +871,7 @@
                 "unfollowed": "Ha deixau de seguir-te",
                 "unfollow_user": "Deixar de seguir a %s",
                 "mute_user": "Silenciar a %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No veyerás las suyas publicacions u reblogueos en a tuya linia temporal. No sabrán que han estau silenciaus.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Blocar a %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ya no podrán estar capaces de seguir-te u veyer las tuyas publicacions, pero pueden veyer si han estau blocaus.",
                 "while_we_review_this_you_can_take_action_against_user": "Mientres revisamos esto, puetz prener medidas contra %s"
