@@ -141,17 +141,17 @@ extension PrivacyTableViewController: UITableViewDelegate {
                 text: LocalizedStringKey(L10n.Scene.Privacy.description(viewModel.domain))
             )
         )
-        controller.additionalSafeAreaInsets = .zero
         guard let label = controller.view else { return nil }
+        addChild(controller)
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         wrapper.addSubview(label)
-        
+        controller.didMove(toParent: self)
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: wrapper.topAnchor, constant: 16),
             label.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor),
             wrapper.trailingAnchor.constraint(equalTo: label.trailingAnchor),
-            wrapper.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
+            wrapper.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 16)
         ])
 
         return wrapper
@@ -165,6 +165,8 @@ private struct HeaderTextView: View {
     
     var body: some View {
         Text(text)
+            .fixedSize(horizontal: false, vertical: true)
             .foregroundStyle(Asset.Colors.Label.primary.swiftUIColor)
+            .padding(.bottom, 16)
     }
 }
