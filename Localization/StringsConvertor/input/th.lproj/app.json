@@ -143,9 +143,9 @@
                     "next_status": "โพสต์ถัดไป",
                     "open_status": "เปิดโพสต์",
                     "open_author_profile": "เปิดโปรไฟล์ของผู้สร้าง",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "เปิดโปรไฟล์ของผู้ดัน",
                     "reply_status": "ตอบกลับโพสต์",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "เปิด/ปิดการดันในโพสต์",
                     "toggle_favorite": "เปิด/ปิดรายการโปรดในโพสต์",
                     "toggle_content_warning": "เปิด/ปิดคำเตือนเนื้อหา",
                     "preview_image": "แสดงตัวอย่างภาพ"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s ได้ดัน",
                 "user_replied_to": "ตอบกลับ %s",
                 "show_post": "แสดงโพสต์",
                 "show_user_profile": "แสดงโปรไฟล์ผู้ใช้",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "ตอบกลับ",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "ดัน",
+                    "unreblog": "เลิกทำการดัน",
                     "favorite": "ชื่นชอบ",
                     "unfavorite": "เลิกชื่นชอบ",
                     "menu": "เมนู",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "แชร์ลิงก์ในโพสต์",
                     "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "ดัน",
+                        "unreblog": "เลิกทำการดัน"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "คัดลอกลิงก์"
                 },
                 "tag": {
                     "url": "URL",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s ผ่าน %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "การดัน",
                     "favorites_title": "รายการโปรด",
                     "edit_history_title": "ประวัติการแก้ไข",
                     "edit_history_detail": "การแก้ไขล่าสุดเมื่อ %s"
@@ -252,8 +252,8 @@
                 "unmute_user": "เลิกซ่อน %s",
                 "muted": "ซ่อนอยู่",
                 "edit_info": "แก้ไขข้อมูล",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "แสดงการดัน",
+                "hide_reblogs": "ซ่อนการดัน"
             },
             "timeline": {
                 "filtered": "กรองอยู่",
@@ -617,12 +617,12 @@
                     "message": "ยืนยันเพื่อเลิกปิดกั้น %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "แสดงการดัน",
+                    "message": "ยืนยันเพื่อแสดงการดัน"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "ซ่อนการดัน",
+                    "message": "ยืนยันเพื่อซ่อนการดัน"
                 },
                 "confirm_block_domain": {
                     "title": "ปิดกั้นโดเมน",
@@ -656,7 +656,7 @@
             "title": "ชื่นชอบโดย"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "ดันโดย"
         },
         "search": {
             "title": "ค้นหา",
@@ -716,7 +716,7 @@
             "notification_description": {
                 "followed_you": "ได้ติดตามคุณ",
                 "favorited_your_post": "ได้ชื่นชอบโพสต์ของคุณ",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "ได้ดันโพสต์ของคุณ",
                 "mentioned_you": "ได้กล่าวถึงคุณ",
                 "request_to_follow_you": "ขอติดตามคุณ",
                 "poll_has_ended": "การสำรวจความคิดเห็นได้สิ้นสุดแล้ว"
@@ -871,7 +871,7 @@
                 "unfollowed": "เลิกติดตามแล้ว",
                 "unfollow_user": "เลิกติดตาม %s",
                 "mute_user": "ซ่อน %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "คุณจะไม่เห็นโพสต์หรือการดันของเขาในฟีดหน้าแรกของคุณ เขาจะไม่ทราบว่ามีการซ่อนเขา",
                 "block_user": "ปิดกั้น %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "เขาจะไม่สามารถติดตามหรือเห็นโพสต์ของคุณได้อีกต่อไป แต่เขาสามารถเห็นว่ามีการปิดกั้นเขาหรือไม่",
                 "while_we_review_this_you_can_take_action_against_user": "ขณะที่เราตรวจทานสิ่งนี้ คุณสามารถใช้การกระทำต่อ %s"
