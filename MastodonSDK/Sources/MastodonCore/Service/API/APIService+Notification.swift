@@ -63,10 +63,7 @@ extension APIService {
                         .moderationWarning
                     ]
                 case .mentions:
-                    return [
-                        .mention,
-                        .status,
-                    ]
+                    return [.mention]
                 }
             }(),
             excludeTypes: {
