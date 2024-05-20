@@ -76,16 +76,17 @@ extension MastodonMenu {
         case blockDomain(BlockDomainActionContext)
         case boostStatus(BoostStatusActionContext)
         case favoriteStatus(FavoriteStatusActionContext)
-        case copyLink
-        case openInBrowser
+        case copyStatusLink
+        case openStatusInBrowser
+        case openUserInBrowser(URL?)
+        case copyProfileLink(URL?)
 
         func build(delegate: MastodonMenuDelegate) -> LabeledAction {
             switch self {
             case .hideReblogs(let context):
                 let title = context.showReblogs ? L10n.Common.Controls.Friendship.hideReblogs : L10n.Common.Controls.Friendship.showReblogs
                 let reblogAction = LabeledAction(title: title, image: UIImage(systemName: "arrow.2.squarepath")) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
 
                 return reblogAction
@@ -100,8 +101,7 @@ extension MastodonMenu {
                     image = UIImage(systemName: "speaker.slash")
                 }
                 let muteAction = LabeledAction(title: title, image: image) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
                 return muteAction
             case .blockUser(let context):
@@ -115,8 +115,7 @@ extension MastodonMenu {
                     image = UIImage(systemName: "hand.raised")
                 }
                 let blockAction = LabeledAction(title: title, image: image, attributes: .destructive) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
                 return blockAction
             case .reportUser(let context):
@@ -125,8 +124,7 @@ extension MastodonMenu {
                     image: UIImage(systemName: "flag"),
                     attributes: .destructive
                 ) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
                 return reportAction
             case .shareUser(let context):
@@ -134,8 +132,7 @@ extension MastodonMenu {
                     title: L10n.Common.Controls.Actions.shareUser(context.name),
                     image: UIImage(systemName: "square.and.arrow.up")
                 ) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
                 return shareAction
             case .bookmarkStatus(let context):
@@ -149,8 +146,7 @@ extension MastodonMenu {
                     image = UIImage(systemName: "bookmark")
                 }
                 let action = LabeledAction(title: title, image: image) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
                 return action
             case .shareStatus:
@@ -158,8 +154,7 @@ extension MastodonMenu {
                     title: L10n.Common.Controls.Actions.sharePost,
                     image: UIImage(systemName: "square.and.arrow.up")
                 ) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
                 return action
             case .deleteStatus:
@@ -168,8 +163,7 @@ extension MastodonMenu {
                     image: UIImage(systemName: "minus.circle"),
                     attributes: .destructive
                 ) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
                 return deleteAction
             case let .translateStatus(context):
@@ -178,8 +172,7 @@ extension MastodonMenu {
                     title: L10n.Common.Controls.Actions.TranslatePost.title(language),
                     image: UIImage(systemName: "character.book.closed")
                 ) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
                 return translateAction
             case .showOriginal:
@@ -187,8 +180,7 @@ extension MastodonMenu {
                     title: L10n.Common.Controls.Status.Translation.showOriginal,
                     image: UIImage(systemName: "character.book.closed")
                 ) { [weak delegate] in
-                    guard let delegate = delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
 
                 return action
@@ -198,8 +190,7 @@ extension MastodonMenu {
                     image: UIImage(systemName: "pencil")
                 ) {
                     [weak delegate] in
-                    guard let delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
 
                 return editStatusAction
@@ -214,26 +205,22 @@ extension MastodonMenu {
                     image = UIImage(systemName: "person.fill.badge.plus")
                 }
                 let action = LabeledAction(title: title, image: image) { [weak delegate] in
-                    guard let delegate else { return }
-                    delegate.menuAction(self)
+                    delegate?.menuAction(self)
                 }
                 return action
             case .blockDomain(let context):
-                    let title: String
-                    let image: UIImage?
-                    if context.isBlocking {
-                        title = L10n.Common.Controls.Actions.unblockDomain(context.domain)
-                        image = UIImage(systemName: "hand.raised.slash.fill")
-                    } else {
-                        title = L10n.Common.Controls.Actions.blockDomain(context.domain)
-                        image = UIImage(systemName: "hand.raised.fill")
-                    }
-                    let action = LabeledAction(title: title, image: image) { [weak delegate] in
-                        guard let delegate else { return }
+                let title: String
 
-                        delegate.menuAction(self)
-                    }
-                    return action
+                if context.isBlocking {
+                    title = L10n.Common.Controls.Actions.unblockDomain(context.domain)
+                } else {
+                    title = L10n.Common.Controls.Actions.blockDomain(context.domain)
+                }
+                
+                let action = LabeledAction(title: title, image: UIImage(systemName: "globe"), attributes: .destructive) { [weak delegate] in
+                    delegate?.menuAction(self)
+                }
+                return action
 
             case .boostStatus(let context):
                 let title: String
@@ -263,12 +250,12 @@ extension MastodonMenu {
                     delegate?.menuAction(self)
                 }
 
-            case .copyLink:
+            case .copyStatusLink, .copyProfileLink(_):
                 return LabeledAction(title: L10n.Common.Controls.Status.Actions.copyLink, image: UIImage(systemName: "doc.on.doc")) { [weak delegate] in
                     delegate?.menuAction(self)
                 }
 
-            case .openInBrowser:
+            case .openStatusInBrowser, .openUserInBrowser(_):
                 return LabeledAction(title: L10n.Common.Controls.Actions.openInBrowser, image: UIImage(systemName: "safari")) { [weak delegate] in
                     delegate?.menuAction(self)
                 }
@@ -343,7 +330,7 @@ extension MastodonMenu {
         public let name: String
         public let isFollowing: Bool
 
-        init(name: String, isFollowing: Bool) {
+        public init(name: String, isFollowing: Bool) {
             self.name = name
             self.isFollowing = isFollowing
         }

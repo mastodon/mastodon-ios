@@ -417,6 +417,7 @@ extension ProfileViewController {
             .store(in: &disposeBag)
     }
 
+    // This More-button is only visible for other users, but not myself
     private func bindMoreBarButtonItem() {
         Publishers.CombineLatest3(
             viewModel.$account,
@@ -428,30 +429,41 @@ extension ProfileViewController {
 
             let name = user.displayNameWithFallback
 
-            var menuActions: [MastodonMenu.Action] = [
-                .muteUser(.init(name: name, isMuting: relationship.muting)),
-                .blockUser(.init(name: name, isBlocking: relationship.blocking))
+            var items: [MastodonMenu.Submenu] = []
+
+            items.append(MastodonMenu.Submenu(actions: [
+                .shareUser(.init(name: name)),
+                .openUserInBrowser(URL(string: user.url)),
+                .copyProfileLink(URL(string: user.url))
+            ]))
+
+
+            var relationshipActions: [MastodonMenu.Action] = [
+                .followUser(.init(name: name, isFollowing: relationship.following)),
+                .muteUser(.init(name: name, isMuting: relationship.muting))
+            ]
+
+            if relationship.following {
+                relationshipActions.append(.hideReblogs(.init(showReblogs: relationship.showingReblogs)))
+            }
+
+            items.append(MastodonMenu.Submenu(actions: relationshipActions))
+
+            var destructiveActions: [MastodonMenu.Action] = [
+                .blockUser(.init(name: name, isBlocking: relationship.blocking)),
+                .reportUser(.init(name: name)),
             ]
 
             if myDomain != domain {
-                menuActions.append(
+                destructiveActions.append(
                     .blockDomain(.init(domain: domain, isBlocking: relationship.domainBlocking))
                 )
             }
 
-            menuActions.append(contentsOf: [
-                .reportUser(.init(name: name)),
-                .shareUser(.init(name: name)),
-            ])
-
-            if relationship.following {
-                let showReblogs = relationship.showingReblogs// me.showingReblogsBy.contains(user)
-                let context = MastodonMenu.HideReblogsActionContext(showReblogs: showReblogs)
-                menuActions.insert(.hideReblogs(context), at: 1)
-            }
+            items.append(MastodonMenu.Submenu(actions: destructiveActions))
 
             let menu = MastodonMenu.setupMenu(
-                submenus: [MastodonMenu.Submenu(actions: menuActions)],
+                submenus: items,
                 delegate: self
             )
             return menu
@@ -929,10 +941,7 @@ extension ProfileViewController: ProfileAboutViewControllerDelegate {
 extension ProfileViewController: MastodonMenuDelegate {
     func menuAction(_ action: MastodonMenu.Action) {
         switch action {
-        case .muteUser(_),
-                .blockUser(_),
-                .blockDomain(_),
-                .hideReblogs(_):
+        case .muteUser(_), .blockUser(_), .blockDomain(_), .hideReblogs(_), .reportUser(_), .shareUser(_), .openUserInBrowser(_), .copyProfileLink(_), .followUser(_):
             Task {
                 try await DataSourceFacade.responseToMenuAction(
                     dependency: self,
@@ -944,20 +953,7 @@ extension ProfileViewController: MastodonMenuDelegate {
                         barButtonItem: self.moreMenuBarButtonItem
                     ))
             }
-        case .reportUser(_), .shareUser(_):
-            Task {
-                try await DataSourceFacade.responseToMenuAction(
-                    dependency: self,
-                    action: action,
-                    menuContext: DataSourceFacade.MenuContext(
-                        author: viewModel.account,
-                        statusViewModel: nil,
-                        button: nil,
-                        barButtonItem: self.moreMenuBarButtonItem
-                    ))
-            }
-
-        case .translateStatus(_), .showOriginal, .bookmarkStatus(_), .shareStatus, .deleteStatus, .editStatus, .followUser(_), .boostStatus(_), .favoriteStatus(_), .copyLink, .openInBrowser:
+        case .translateStatus(_), .showOriginal, .bookmarkStatus(_), .shareStatus, .deleteStatus, .editStatus, .boostStatus(_), .favoriteStatus(_), .copyStatusLink, .openStatusInBrowser:
             break
         }
     }

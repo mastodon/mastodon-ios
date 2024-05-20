@@ -186,7 +186,7 @@ extension StatusAuthorView {
             items.append(MastodonMenu.Submenu(actions: [action]))
         }
 
-        items.append(MastodonMenu.Submenu(actions: [.shareStatus, .openInBrowser, .copyLink]))
+        items.append(MastodonMenu.Submenu(actions: [.shareStatus, .openStatusInBrowser, .copyStatusLink]))
 
         if menuContext.isMyself {
             items.append(MastodonMenu.Submenu(actions: [.deleteStatus]))
