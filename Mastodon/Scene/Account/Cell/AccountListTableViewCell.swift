@@ -12,7 +12,7 @@ final class AccountListTableViewCell: UITableViewCell {
     private var _disposeBag = Set<AnyCancellable>()
     var disposeBag = Set<AnyCancellable>()
 
-    let avatarButton = CircleAvatarButton(frame: .zero)
+    let avatarButton = CircleAvatarButton()
     let nameLabel = MetaLabel(style: .accountListName)
     let usernameLabel = MetaLabel(style: .accountListUsername)
     let badgeButton = BadgeButton()

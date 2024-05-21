@@ -247,7 +247,7 @@ extension StatusView.ViewModel {
         )
         .sink { image, url in
             let configuration: AvatarImageView.Configuration = {
-                if let image = image {
+                if let image {
                     return AvatarImageView.Configuration(image: image)
                 } else {
                     return AvatarImageView.Configuration(url: url)
