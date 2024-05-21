@@ -143,9 +143,9 @@
                     "next_status": "Næsta færsla",
                     "open_status": "Opna færslu",
                     "open_author_profile": "Opna notandasnið höfundar",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Opna notandasnið þess sem endurbirti",
                     "reply_status": "Svara færslu",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Víxla endurbirtingum á færslu af/á",
                     "toggle_favorite": "Víxla eftirlæti færslu af/á",
                     "toggle_content_warning": "Víxla af/á viðvörun vegna efnis",
                     "preview_image": "Forskoða mynd"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s endurbirti",
                 "user_replied_to": "Svaraði %s",
                 "show_post": "Sýna færslu",
                 "show_user_profile": "Birta notandasnið",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Svara",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Endurbirting",
+                    "unreblog": "Afturkalla endurbirtingu",
                     "favorite": "Eftirlæti",
                     "unfavorite": "Taka úr eftirlætum",
                     "menu": "Valmynd",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "Deila tengli í færslu",
                     "tap_then_hold_to_show_menu": "Ýttu og haltu til að sýna valmynd",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Endurbirting",
+                        "unreblog": "Afturkalla endurbirtingu"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Afrita tengil"
                 },
                 "tag": {
                     "url": "URL-slóð",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s með %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Endurbirtingar",
                     "favorites_title": "Eftirlæti",
                     "edit_history_title": "Breytingaferill",
                     "edit_history_detail": "Síðasta breyting %s"
@@ -252,8 +252,8 @@
                 "unmute_user": "Afþagga %s",
                 "muted": "Þaggað",
                 "edit_info": "Breyta upplýsingum",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Sýna endurbirtingar",
+                "hide_reblogs": "Fela endurbirtingar"
             },
             "timeline": {
                 "filtered": "Síað",
@@ -617,12 +617,12 @@
                     "message": "Staðfestu til að hætta að útiloka %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Sýna endurbirtingar",
+                    "message": "Staðfestu til að sýna endurbirtingar"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Fela endurbirtingar",
+                    "message": "Staðfestu til að fela endurbirtingar"
                 },
                 "confirm_block_domain": {
                     "title": "Útiloka lén",
@@ -656,7 +656,7 @@
             "title": "Sett í eftirlæti af"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Endurbirt af"
         },
         "search": {
             "title": "Leita",
@@ -716,7 +716,7 @@
             "notification_description": {
                 "followed_you": "fylgdi þér",
                 "favorited_your_post": "setti færslu frá þér í eftirlæti",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "endurbirti færsluna þína",
                 "mentioned_you": "minntist á þig",
                 "request_to_follow_you": "bað um að fylgjast með þér",
                 "poll_has_ended": "könnun er lokið"
@@ -732,14 +732,14 @@
                 "rejected": "Hafnað"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Aðgangurinn þinn hefur fengið aðvörun frá umsjónarmanni.",
+                "disable": "Aðgangurinn þinn hefur verið gerður óvirkur.",
+                "mark_statuses_as_sensitive": "Sumar færslurnar þínar hafa verið merktar sem viðkvæmt efni.",
+                "delete_statuses": "Sumar færslurnar þínar hafa verið fjarlægðar.",
+                "sensitive": "Færslur þínar verða héðan í frá merktar sem viðkvæmar.",
+                "silence": "Notandaaðgangurinn þinn hefur verið takmarkaður.",
+                "suspend": "Notandaaðgangurinn þinn hefur verið settur í frysti.",
+                "learn_more": "Kanna nánar"
             }
         },
         "thread": {
@@ -871,7 +871,7 @@
                 "unfollowed": "Hætti að fylgjast með",
                 "unfollow_user": "Hætta að fylgjast með %s",
                 "mute_user": "Þagga niður í %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Þú munt ekki sjá færslur eða endurbirtingar frá viðkomandi á streyminu þínu. Viðkomandi aðilar munu ekki vita að þaggað hefur verið niður í þeim.",
                 "block_user": "Útiloka %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Viðkomandi mun ekki lengur geta fylgst með eða séð færslurnar þínar, en munu sjá ef viðkomandi hefur verið útilokaður.",
                 "while_we_review_this_you_can_take_action_against_user": "Á meðan við yfirförum þetta, geturðu tekið til aðgerða gegn %s"
