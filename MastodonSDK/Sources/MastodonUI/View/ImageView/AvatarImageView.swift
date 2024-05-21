@@ -57,21 +57,17 @@ extension AvatarImageView {
     
     public struct Configuration {
         public let url: URL?
-        public let placeholder: UIImage?
-        
+
         public init(
-            url: URL?,
-            placeholder: UIImage = AvatarImageView.placeholder
+            url: URL?
         ) {
             self.url = url
-            self.placeholder = placeholder
         }
         
         public init(
             image: UIImage
         ) {
             self.url = nil
-            self.placeholder = image
         }
     }
     
@@ -81,7 +77,6 @@ extension AvatarImageView {
         self.configuration = configuration
         
         guard let url = configuration.url else {
-            image = configuration.placeholder
             return
         }
         
@@ -89,7 +84,6 @@ extension AvatarImageView {
         case "gif":
             setImage(
                 url: configuration.url,
-                placeholder: configuration.placeholder,
                 scaleToSize: imageViewSize
             )
         default:
@@ -105,7 +99,6 @@ extension AvatarImageView {
             
             af.setImage(
                 withURL: url,
-                placeholderImage: configuration.placeholder,
                 filter: filter
             )
         }

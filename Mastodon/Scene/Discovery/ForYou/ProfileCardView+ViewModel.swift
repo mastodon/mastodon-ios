@@ -75,8 +75,7 @@ extension ProfileCardView.ViewModel {
             .sink { url in
                 view.avatarButton.avatarImageView.configure(
                     configuration: .init(
-                        url: url,
-                        placeholder: .placeholder(color: .systemGray3)
+                        url: url
                     )
                 )
                 view.avatarButton.avatarImageView.configure(

@@ -39,19 +39,13 @@ extension FLAnimatedImageView {
     
     public func setImage(
         url: URL?,
-        placeholder: UIImage? = nil,
         scaleToSize: CGSize? = nil
     ) {
         // cancel task
         cancelTask()
         
         // set image
-        guard let url else {
-            DispatchQueue.main.async { [weak self] in
-                self?.image = placeholder
-            }
-            return
-        }
+        guard let url else { return }
 
         activeAvatarRequestURL = url
         let avatarRequest = AF.request(url).publishData()
@@ -81,9 +75,7 @@ extension FLAnimatedImageView {
                         }
                     }
                 case .failure:
-                    DispatchQueue.main.async { [weak self] in
-                        self?.image = placeholder
-                    }
+                    break
                 }
             }
     }

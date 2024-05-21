@@ -45,7 +45,7 @@ extension FamiliarFollowersDashboardView.ViewModel {
             let borderWidth = min(1.5, UIFontMetrics.default.scaledValue(for: 1))
             
             for (i, avatarURL) in avatarURLs.enumerated() {
-                let avatarButton = AvatarButton()
+                let avatarButton = AvatarButton(avatarPlaceholder: .placeholder(color: .systemGray3))
                 let origin = CGPoint(x: offset * CGFloat(i), y: 0)
                 let size = CGSize(width: dimension, height: dimension)
                 avatarButton.size = size
@@ -53,8 +53,7 @@ extension FamiliarFollowersDashboardView.ViewModel {
                 view.avatarContainerView.addSubview(avatarButton)
                 avatarButton.avatarImageView.configure(
                     configuration: .init(
-                        url: avatarURL,
-                        placeholder: .placeholder(color: .systemGray3)
+                        url: avatarURL
                     )
                 )
                 avatarButton.avatarImageView.configure(

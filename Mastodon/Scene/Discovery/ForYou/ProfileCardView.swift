@@ -43,7 +43,7 @@ public final class ProfileCardView: UIView, AXCustomContentProvider {
 
     // avatar
     public let avatarButtonBackgroundView = UIView()
-    public let avatarButton = AvatarButton()
+    public let avatarButton = AvatarButton(avatarPlaceholder: .placeholder(color: .systemGray3))
 
     // author name
     public let authorNameLabel = MetaLabel(style: .profileCardName)
