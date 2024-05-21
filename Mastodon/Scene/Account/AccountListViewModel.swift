@@ -106,9 +106,7 @@ extension AccountListViewModel {
         guard let account = authentication.account() else { return }
 
         // avatar
-        cell.avatarButton.avatarImageView.configure(
-            configuration: .init(url: account.avatarImageURL())
-        )
+        cell.avatarButton.avatarImageView.configure(with: account.avatarImageURL())
 
         // name
         do {

@@ -20,7 +20,6 @@ extension UserView {
         public var disposeBag = Set<AnyCancellable>()
         public var observations = Set<NSKeyValueObservation>()
 
-        @Published public var authorAvatarImage: UIImage?
         @Published public var authorAvatarImageURL: URL?
         @Published public var authorName: MetaContent?
         @Published public var authorUsername: String?
@@ -36,22 +35,13 @@ extension UserView.ViewModel {
     
     func bind(userView: UserView) {
         // avatar
-        Publishers.CombineLatest(
-            $authorAvatarImage,
-            $authorAvatarImageURL
-        )
-        .sink { image, url in
-            let configuration: AvatarImageView.Configuration = {
-                if let image = image {
-                    return AvatarImageView.Configuration(image: image)
-                } else {
-                    return AvatarImageView.Configuration(url: url)
-                }
-            }()
-            userView.avatarButton.avatarImageView.configure(configuration: configuration)
-            userView.avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 7)))
-        }
-        .store(in: &disposeBag)
+        $authorAvatarImageURL
+            .sink { url in
+                userView.avatarButton.avatarImageView.configure(with: url)
+                userView.avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 7)))
+            }
+            .store(in: &disposeBag)
+        
         // name
         $authorName
             .sink { metaContent in

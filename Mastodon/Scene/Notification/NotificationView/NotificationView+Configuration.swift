@@ -66,8 +66,7 @@ extension NotificationView {
         let author = notification.account
 
         // author avatar
-        let configuration = AvatarImageView.Configuration(url: author.avatarImageURL())
-        avatarButton.avatarImageView.configure(configuration: configuration)
+        avatarButton.avatarImageView.configure(with: author.avatarImageURL())
         avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 12)))
 
         // author name

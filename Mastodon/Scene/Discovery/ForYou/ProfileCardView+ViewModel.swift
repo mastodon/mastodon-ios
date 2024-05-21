@@ -73,11 +73,7 @@ extension ProfileCardView.ViewModel {
     private func bindUser(view: ProfileCardView) {
         $authorAvatarImageURL
             .sink { url in
-                view.avatarButton.avatarImageView.configure(
-                    configuration: .init(
-                        url: url
-                    )
-                )
+                view.avatarButton.avatarImageView.configure(with: url)
                 view.avatarButton.avatarImageView.configure(
                     cornerConfiguration: .init(corner: .fixed(radius: 12))
                 )

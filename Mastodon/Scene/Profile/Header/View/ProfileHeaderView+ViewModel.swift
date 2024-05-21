@@ -116,9 +116,7 @@ extension ProfileHeaderView.ViewModel {
         )
         .sink { avatarImageURL, avatarImageEditing, isEditing, _ in
             view.avatarButton.avatarImageView.image = avatarImageEditing
-            view.avatarButton.avatarImageView.configure(configuration: .init(
-                url: (!isEditing || avatarImageEditing == nil) ? avatarImageURL : nil
-            ))
+            view.avatarButton.avatarImageView.configure(with: (!isEditing || avatarImageEditing == nil) ? avatarImageURL : nil)
         }
         .store(in: &disposeBag)
         // blur for blocking & blockingBy

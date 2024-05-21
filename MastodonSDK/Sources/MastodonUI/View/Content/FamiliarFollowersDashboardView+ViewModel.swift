@@ -51,11 +51,7 @@ extension FamiliarFollowersDashboardView.ViewModel {
                 avatarButton.size = size
                 avatarButton.frame = CGRect(origin: origin, size: size)
                 view.avatarContainerView.addSubview(avatarButton)
-                avatarButton.avatarImageView.configure(
-                    configuration: .init(
-                        url: avatarURL
-                    )
-                )
+                avatarButton.avatarImageView.configure(with: avatarURL)
                 avatarButton.avatarImageView.configure(
                     cornerConfiguration: .init(
                         corner: .fixed(radius: 7),

@@ -241,19 +241,9 @@ extension StatusView.ViewModel {
     private func bindAuthor(statusView: StatusView) {
         let authorView = statusView.authorView
         // avatar
-        Publishers.CombineLatest(
-            $authorAvatarImage.removeDuplicates(),
-            $authorAvatarImageURL.removeDuplicates()
-        )
-        .sink { image, url in
-            let configuration: AvatarImageView.Configuration = {
-                if let image {
-                    return AvatarImageView.Configuration(image: image)
-                } else {
-                    return AvatarImageView.Configuration(url: url)
-                }
-            }()
-            authorView.avatarButton.avatarImageView.configure(configuration: configuration)
+        $authorAvatarImageURL.removeDuplicates()
+        .sink { url in
+            authorView.avatarButton.avatarImageView.configure(with: url)
             authorView.avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 12)))
         }
         .store(in: &disposeBag)
