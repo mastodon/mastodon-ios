@@ -115,9 +115,10 @@
 "Common.Controls.Keyboard.Timeline.ReplyStatus" = "Адказаць на допіс";
 "Common.Controls.Keyboard.Timeline.ToggleContentWarning" = "Уключыць/адключыць папярэджанне аб змесціве";
 "Common.Controls.Keyboard.Timeline.ToggleFavorite" = "Дадаць ці прыбраць з абранага";
-"Common.Controls.Keyboard.Timeline.ToggleReblog" = "Пашырыць ці ўбраць пашырэнне";
+"Common.Controls.Keyboard.Timeline.ToggleReblog" = "Пераключыць Пашырэнне на Допіс";
 "Common.Controls.Status.Actions.A11YLabels.Reblog" = "Пашырыць";
-"Common.Controls.Status.Actions.A11YLabels.Unreblog" = "Скасаваць пашырэнне";
+"Common.Controls.Status.Actions.A11YLabels.Unreblog" = "Адмяніць пашырэнне";
+"Common.Controls.Status.Actions.CopyLink" = "Капіраваць спасылку";
 "Common.Controls.Status.Actions.Favorite" = "Абранае";
 "Common.Controls.Status.Actions.Hide" = "Схаваць";
 "Common.Controls.Status.Actions.Menu" = "Меню";
@@ -129,7 +130,7 @@
 "Common.Controls.Status.Actions.ShowVideoPlayer" = "Паказаць відэаплэер";
 "Common.Controls.Status.Actions.TapThenHoldToShowMenu" = "Націсніце і ўтрымлівайце, каб паказаць меню";
 "Common.Controls.Status.Actions.Unfavorite" = "Выдаліць з абраных";
-"Common.Controls.Status.Actions.Unreblog" = "Скасаваць пашырэнне";
+"Common.Controls.Status.Actions.Unreblog" = "Адмяніць пашырэнне";
 "Common.Controls.Status.Buttons.EditHistoryDetail" = "Апошняе рэдагаванне %@";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Гісторыя рэдагавання";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Абраныя";
@@ -166,7 +167,7 @@
 "Common.Controls.Status.Translation.TranslatedFrom" = "Перакладзена з %@ з дапамогай %@";
 "Common.Controls.Status.Translation.UnknownLanguage" = "Невядомая";
 "Common.Controls.Status.Translation.UnknownProvider" = "Невядомы";
-"Common.Controls.Status.UserReblogged" = "%@ пашырыў";
+"Common.Controls.Status.UserReblogged" = "%@ пашырыў(-ла)";
 "Common.Controls.Status.UserRepliedTo" = "Адказаў %@";
 "Common.Controls.Status.Visibility.Direct" = "Толькі згаданы карыстальнік можа бачыць гэты пост.";
 "Common.Controls.Status.Visibility.Private" = "Толькі іх падпісчыкі могуць бачыць гэты допіс.";
@@ -201,6 +202,8 @@
 "Extension.OpenIn.InvalidLinkError" = "Здаецца, гэта несапраўдная спасылка на Mastodon.";
 "Scene.AccountList.AddAccount" = "Дадаць уліковы запіс";
 "Scene.AccountList.DismissAccountSwitcher" = "Закрыць пераключальнік уліковых запісаў";
+"Scene.AccountList.Logout" = "Выйсці";
+"Scene.AccountList.LogoutAllAccounts" = "Выйсці з усіх уліковых запісаў";
 "Scene.AccountList.TabBarHint" = "Бягучы профіль: %@. Двойчы націсніце і ўтрымлівайце, каб паказаць пераключальнік уліковых запісаў";
 "Scene.Bookmark.Title" = "Закладкі";
 "Scene.Compose.Accessibility.AppendAttachment" = "Дадаць далучэнне";
@@ -304,8 +307,8 @@
 "Scene.HomeTimeline.TimelinePill.PostSent" = "Допіс адпраўлены";
 "Scene.HomeTimeline.Title" = "Галоўная";
 "Scene.Login.ServerSearchField.Placeholder" = "Увядзіце URL або адрас сервера";
-"Scene.Login.Subtitle" = "Увайдзіце на серверы, дзе вы стварылі свой уліковы запіс.";
-"Scene.Login.Title" = "З вяртаннем";
+"Scene.Login.Subtitle" = "Увайдзіце з дапамогай сервера, на якім вы стварылі свой уліковы запіс.";
+"Scene.Login.Title" = "Вітаем зноў";
 "Scene.Notification.FollowRequest.Accept" = "Прыняць";
 "Scene.Notification.FollowRequest.Accepted" = "Прынята";
 "Scene.Notification.FollowRequest.Reject" = "адхіліць";
@@ -316,18 +319,28 @@
 "Scene.Notification.NotificationDescription.FollowedYou" = "падпісаўся на вас";
 "Scene.Notification.NotificationDescription.MentionedYou" = "згадаў вас";
 "Scene.Notification.NotificationDescription.PollHasEnded" = "апытанне завяршылася";
-"Scene.Notification.NotificationDescription.RebloggedYourPost" = "пашырыў ваш допіс";
+"Scene.Notification.NotificationDescription.RebloggedYourPost" = "пашырыў(-ла) ваш допіс";
 "Scene.Notification.NotificationDescription.RequestToFollowYou" = "адправіў запыт на падпіску";
 "Scene.Notification.Title.Everything" = "Усе";
 "Scene.Notification.Title.Mentions" = "Згадванні";
+"Scene.Notification.Warning.DeleteStatuses" = "Некаторыя вашыя допісы былі выдаленыя.";
+"Scene.Notification.Warning.Disable" = "Ваш уліковы запіс быў адключаны.";
+"Scene.Notification.Warning.LearnMore" = "Даведацца больш";
+"Scene.Notification.Warning.MarkStatusesAsSensitive" = "Некаторыя з вашых допісаў былі пазначаныя як далікатныя.";
+"Scene.Notification.Warning.None" = "Ваш уліковы запіс атрымаў папярэджанне ад мадэратараў.";
+"Scene.Notification.Warning.Sensitive" = "З гэтага моманту вашыя допісы будуць пазначаныя як далікатныя.";
+"Scene.Notification.Warning.Silence" = "Ваш уліковы запіс быў абмежаваны.";
+"Scene.Notification.Warning.Suspend" = "Ваш уліковы запіс быў прыпынены.";
 "Scene.Preview.Keyboard.ClosePreview" = "Зачыніць перадпрагляд";
 "Scene.Preview.Keyboard.ShowNext" = "Паказаць наступнае";
 "Scene.Preview.Keyboard.ShowPrevious" = "Паказаць папярэдняе";
 "Scene.Privacy.Button.Confirm" = "Я згодны";
-"Scene.Privacy.Description" = "Хоць праграма Mastodon не збірае ніякіх даных, сервер, праз які вы зарэгістраваліся, можа мець іншую палітыку. Знайдзіце хвілінку, каб азнаёміцца і пагадзіцца з палітыкай прыватнасці праграмы Mastodon і палітыкай прыватнасці вашага сервера.";
+"Scene.Privacy.Description" = "Нягледзячы на ​​тое, што праграма Mastodon не збірае даных, сервер, на якім вы рэгіструецеся, можа мець іншую палітыку.
+
+Калі вы адмовіцеся ад палітыкі **%@**, вы можаце вярнуцца і выбраць іншы сервер.";
 "Scene.Privacy.Policy.Ios" = "Палітыка прыватнасці - Mastodon для iOS";
 "Scene.Privacy.Policy.Server" = "Палітыка прыватнасці - %@";
-"Scene.Privacy.Title" = "Прыватнасць";
+"Scene.Privacy.Title" = "Ваша прыватнасць";
 "Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "Двойчы націсніце, каб адкрыць спіс";
 "Scene.Profile.Accessibility.EditAvatarImage" = "Рэдагаваць аватар";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "Паказаць аватар карыстальніка";
@@ -367,7 +380,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "Допісы";
 "Scene.Profile.SegmentedControl.PostsAndReplies" = "Допісы і адказы";
 "Scene.Profile.SegmentedControl.Replies" = "Адказы";
-"Scene.RebloggedBy.Title" = "Пашырана";
+"Scene.RebloggedBy.Title" = "Пашыраны";
 "Scene.Register.Error.Item.Agreement" = "Пагадненне";
 "Scene.Register.Error.Item.Email" = "Электронная пошта";
 "Scene.Register.Error.Item.Locale" = "Мова";

@@ -119,6 +119,7 @@
 "Common.Controls.Keyboard.Timeline.ToggleReblog" = "เปิด/ปิดการดันในโพสต์";
 "Common.Controls.Status.Actions.A11YLabels.Reblog" = "ดัน";
 "Common.Controls.Status.Actions.A11YLabels.Unreblog" = "เลิกทำการดัน";
+"Common.Controls.Status.Actions.CopyLink" = "คัดลอกลิงก์";
 "Common.Controls.Status.Actions.Favorite" = "ชื่นชอบ";
 "Common.Controls.Status.Actions.Hide" = "ซ่อน";
 "Common.Controls.Status.Actions.Menu" = "เมนู";
@@ -202,6 +203,8 @@
 "Extension.OpenIn.InvalidLinkError" = "ดูเหมือนว่าสิ่งนี้จะไม่ใช่ลิงก์ Mastodon ที่ถูกต้อง";
 "Scene.AccountList.AddAccount" = "เพิ่มบัญชี";
 "Scene.AccountList.DismissAccountSwitcher" = "ปิดตัวสลับบัญชี";
+"Scene.AccountList.Logout" = "ออกจากระบบ";
+"Scene.AccountList.LogoutAllAccounts" = "ออกจากระบบบัญชีทั้งหมด";
 "Scene.AccountList.TabBarHint" = "โปรไฟล์ที่เลือกในปัจจุบัน: %@ แตะสองครั้งแล้วกดค้างไว้เพื่อแสดงตัวสลับบัญชี";
 "Scene.Bookmark.Title" = "ที่คั่นหน้า";
 "Scene.Compose.Accessibility.AppendAttachment" = "เพิ่มไฟล์แนบ";
@@ -305,7 +308,7 @@
 "Scene.HomeTimeline.TimelinePill.PostSent" = "ส่งโพสต์แล้ว";
 "Scene.HomeTimeline.Title" = "หน้าแรก";
 "Scene.Login.ServerSearchField.Placeholder" = "ป้อน URL หรือค้นหาสำหรับเซิร์ฟเวอร์ของคุณ";
-"Scene.Login.Subtitle" = "นำคุณเข้าสู่ระบบในเซิร์ฟเวอร์ที่คุณได้สร้างบัญชีของคุณไว้";
+"Scene.Login.Subtitle" = "เข้าสู่ระบบด้วยเซิร์ฟเวอร์ที่ซึ่งคุณได้สร้างบัญชีของคุณ";
 "Scene.Login.Title" = "ยินดีต้อนรับกลับมา";
 "Scene.Notification.FollowRequest.Accept" = "ยอมรับ";
 "Scene.Notification.FollowRequest.Accepted" = "ยอมรับแล้ว";
@@ -321,14 +324,24 @@
 "Scene.Notification.NotificationDescription.RequestToFollowYou" = "ขอติดตามคุณ";
 "Scene.Notification.Title.Everything" = "ทุกอย่าง";
 "Scene.Notification.Title.Mentions" = "การกล่าวถึง";
+"Scene.Notification.Warning.DeleteStatuses" = "เอาโพสต์บางส่วนของคุณออกแล้ว";
+"Scene.Notification.Warning.Disable" = "ปิดใช้งานบัญชีของคุณแล้ว";
+"Scene.Notification.Warning.LearnMore" = "เรียนรู้เพิ่มเติม";
+"Scene.Notification.Warning.MarkStatusesAsSensitive" = "ทำเครื่องหมายโพสต์บางส่วนของคุณว่าละเอียดอ่อนแล้ว";
+"Scene.Notification.Warning.None" = "บัญชีของคุณได้รับคำเตือนการกลั่นกรอง";
+"Scene.Notification.Warning.Sensitive" = "จะทำเครื่องหมายโพสต์ของคุณว่าละเอียดอ่อนนับจากนี้ไป";
+"Scene.Notification.Warning.Silence" = "จำกัดบัญชีของคุณแล้ว";
+"Scene.Notification.Warning.Suspend" = "ระงับบัญชีของคุณแล้ว";
 "Scene.Preview.Keyboard.ClosePreview" = "ปิดตัวอย่าง";
 "Scene.Preview.Keyboard.ShowNext" = "แสดงถัดไป";
 "Scene.Preview.Keyboard.ShowPrevious" = "แสดงก่อนหน้า";
 "Scene.Privacy.Button.Confirm" = "ฉันเห็นด้วย";
-"Scene.Privacy.Description" = "แม้ว่าแอป Mastodon ไม่เก็บรวบรวมข้อมูลใด ๆ เซิร์ฟเวอร์ที่คุณลงทะเบียนผ่านอาจมีนโยบายที่แตกต่างกัน ใช้เวลาสักครู่เพื่อตรวจทานและเห็นด้วยกับนโยบายความเป็นส่วนตัวของแอป Mastodon และนโยบายความเป็นส่วนตัวของเซิร์ฟเวอร์ของคุณ";
+"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.
+
+If you disagree with the policy for **%@**, you can go back and pick a different server.";
 "Scene.Privacy.Policy.Ios" = "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS";
 "Scene.Privacy.Policy.Server" = "นโยบายความเป็นส่วนตัว - %@";
-"Scene.Privacy.Title" = "ความเป็นส่วนตัว";
+"Scene.Privacy.Title" = "Your Privacy";
 "Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "แตะสองครั้งเพื่อเปิดรายการ";
 "Scene.Profile.Accessibility.EditAvatarImage" = "แก้ไขภาพประจำตัว";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "แสดงภาพประจำตัว";

@@ -336,7 +336,9 @@ uploaded to Mastodon.";
 "Scene.Preview.Keyboard.ShowNext" = "Show Next";
 "Scene.Preview.Keyboard.ShowPrevious" = "Show Previous";
 "Scene.Privacy.Button.Confirm" = "I Agree";
-"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%@**, you can go back and pick a different server.";
+"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.
+
+If you disagree with the policy for **%@**, you can go back and pick a different server.";
 "Scene.Privacy.Policy.Ios" = "Privacy Policy - Mastodon for iOS";
 "Scene.Privacy.Policy.Server" = "Privacy Policy - %@";
 "Scene.Privacy.Title" = "Your Privacy";

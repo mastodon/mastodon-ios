@@ -118,6 +118,7 @@
 "Common.Controls.Keyboard.Timeline.ToggleReblog" = "切換轉發嘟文";
 "Common.Controls.Status.Actions.A11YLabels.Reblog" = "轉嘟";
 "Common.Controls.Status.Actions.A11YLabels.Unreblog" = "取消轉嘟";
+"Common.Controls.Status.Actions.CopyLink" = "複製連結";
 "Common.Controls.Status.Actions.Favorite" = "最愛";
 "Common.Controls.Status.Actions.Hide" = "隱藏";
 "Common.Controls.Status.Actions.Menu" = "選單";
@@ -197,6 +198,8 @@
 "Extension.OpenIn.InvalidLinkError" = "這似乎並不是有效的 Mastodon 連結。";
 "Scene.AccountList.AddAccount" = "新增帳號";
 "Scene.AccountList.DismissAccountSwitcher" = "關閉帳號切換器";
+"Scene.AccountList.Logout" = "登出";
+"Scene.AccountList.LogoutAllAccounts" = "登出所有帳號";
 "Scene.AccountList.TabBarHint" = "目前已選擇的個人檔案：%@。點兩下然後按住以顯示帳號切換器";
 "Scene.Bookmark.Title" = "書籤";
 "Scene.Compose.Accessibility.AppendAttachment" = "新增附件";
@@ -299,7 +302,7 @@
 "Scene.HomeTimeline.TimelinePill.PostSent" = "發嘟成功";
 "Scene.HomeTimeline.Title" = "首頁";
 "Scene.Login.ServerSearchField.Placeholder" = "請輸入 URL 或搜尋您的伺服器";
-"Scene.Login.Subtitle" = "登入您新增帳號之伺服器";
+"Scene.Login.Subtitle" = "以您建立帳號之伺服器登入。";
 "Scene.Login.Title" = "歡迎回來";
 "Scene.Notification.FollowRequest.Accept" = "接受";
 "Scene.Notification.FollowRequest.Accepted" = "已接受";
@@ -315,14 +318,24 @@
 "Scene.Notification.NotificationDescription.RequestToFollowYou" = "要求跟隨您";
 "Scene.Notification.Title.Everything" = "全部";
 "Scene.Notification.Title.Mentions" = "提及";
+"Scene.Notification.Warning.DeleteStatuses" = "某些您的嘟文已被刪除。";
+"Scene.Notification.Warning.Disable" = "您的帳號已被停用。";
+"Scene.Notification.Warning.LearnMore" = "了解更多";
+"Scene.Notification.Warning.MarkStatusesAsSensitive" = "某些您的嘟文已被標記為敏感內容。";
+"Scene.Notification.Warning.None" = "您的帳號已收到管理員警告。";
+"Scene.Notification.Warning.Sensitive" = "即日起，您的嘟文將會被標記為敏感內容。";
+"Scene.Notification.Warning.Silence" = "您的帳號已被限制。";
+"Scene.Notification.Warning.Suspend" = "您的帳號已被停權。";
 "Scene.Preview.Keyboard.ClosePreview" = "關閉預覽";
 "Scene.Preview.Keyboard.ShowNext" = "顯示下一筆";
 "Scene.Preview.Keyboard.ShowPrevious" = "顯示上一筆";
 "Scene.Privacy.Button.Confirm" = "我已閱讀並同意";
-"Scene.Privacy.Description" = "儘管 Mastodon 應用程式並不會蒐集任何資料，您所註冊之伺服器可能有不同的隱私權政策。煩請花費些許時間檢閱並同意 Mastodon 應用程式隱私權政策以及您伺服器隻隱私權政策。";
+"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.
+
+If you disagree with the policy for **%@**, you can go back and pick a different server.";
 "Scene.Privacy.Policy.Ios" = "隱私權政策 - Mastodon for iOS";
 "Scene.Privacy.Policy.Server" = "隱私權政策 - %@";
-"Scene.Privacy.Title" = "隱私權";
+"Scene.Privacy.Title" = "Your Privacy";
 "Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "點兩下以開啟列表";
 "Scene.Profile.Accessibility.EditAvatarImage" = "編輯大頭貼";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "顯示大頭貼";
@@ -362,7 +375,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "嘟文";
 "Scene.Profile.SegmentedControl.PostsAndReplies" = "嘟文及回覆";
 "Scene.Profile.SegmentedControl.Replies" = "回覆";
-"Scene.RebloggedBy.Title" = "已轉嘟";
+"Scene.RebloggedBy.Title" = "被轉嘟：";
 "Scene.Register.Error.Item.Agreement" = "條款";
 "Scene.Register.Error.Item.Email" = "電子郵件";
 "Scene.Register.Error.Item.Locale" = "地區";
@@ -415,7 +428,7 @@
 "Scene.Report.StepFinal.Unfollowed" = "已取消跟隨";
 "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience." = "當您看到某些不喜歡的內容時，您可以將該帳號自您的體驗中移除。";
 "Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser" = "當我們正在審核時，您可以對 %@ 採取以下措施";
-"Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "您不會於您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。";
+"Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "您不會在您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。";
 "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow" = "有什麼其他您想讓我們知道的嗎？";
 "Scene.Report.StepFour.Step4Of4" = "四個步驟中的第四步";
 "Scene.Report.StepOne.IDontLikeIt" = "我不喜歡";
