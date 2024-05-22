@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Pokud budete pokračovat bez výběru, vybereme server založený na Vašem jazyce."
         },
         "privacy": {
-            "title": "Soukromí",
-            "description": "Přestože aplikace Mastodon neshromažďuje žádná data, server, který se přihlásíte, může mít jiné zásady. Udělejte si minutu na to, abyste zkontrolovali a souhlasili se zásadami ochrany osobních údajů aplikací Mastodon a se zásadami ochrany osobních údajů vašeho serveru.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Zásady ochrany osobních údajů - Mastodon pro iOS",
                 "server": "Zásady ochrany osobních údajů - %s"
