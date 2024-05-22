@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Við munum velja netþjón út frá tungumálinu þínu, ef þú heldur áfram án þess að velja neitt."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Friðhelgi þín",
+            "description": "Þó svo að Mastodon-forritið safni engum gögnum, þá getur netþjónninn sem þú skráir þig á haft aðra stefnu varðandi þetta.\n\nEf þú samþykkir ekki stefnuna hjá **%s**, geturðu farið til baka og valið annan netþjón.",
             "policy": {
                 "ios": "Persónuverndarstefna - Mastodon fyrir iOS",
                 "server": "Persónuverndarstefna - %s"
