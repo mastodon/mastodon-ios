@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Izbrali bomo strežnik na osnovi vašega jezika, če nadaljujete brez izbire."
         },
         "privacy": {
-            "title": "Zasebnost",
-            "description": "Čeprav program Mastodon ne zbira podatkov, ima lahko strežnik, na katerem ste prijavljeni, drugačno politiko. Vzemite si malo časa in preglejte ter potrdite pravilnik o zasebnosti programa Mastodon ter pravilnik o zasebnosti svojega strežnika.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Pravilnik o zasebnosti - Mastodon za iOS",
                 "server": "Pravilnik o zasebnosti - %s"
