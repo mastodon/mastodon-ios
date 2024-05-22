@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Vi kommer att välja en server baserat på ditt språk om du fortsätter utan att göra ett val."
         },
         "privacy": {
-            "title": "Integritet",
-            "description": "Även om Mastodon-appen inte samlar in någon data kan servern du registrerar dig genom ha en annan policy. Ta en stund till att granska och godkänna Mastodon-appens sekretesspolicy och din servers sekretesspolicy.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Integritetspolicy - Mastodon för iOS",
                 "server": "Integritetspolicy - %s"
