@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Ми підберемо сервер на основі вашої мови, якщо ви продовжите без вибору."
         },
         "privacy": {
-            "title": "Приватність",
-            "description": "Хоча додаток Mastodon не збирає жодних даних, сервер, на якому ви зареєструвались, може мати іншу політику. Витратьте хвилину, щоб переглянути та погодитися з політикою конфіденційності Mastodon і політикою конфіденційності Вашого сервера.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Політика конфіденційності - Mastodon для iOS",
                 "server": "Політика конфіденційності - %s"
