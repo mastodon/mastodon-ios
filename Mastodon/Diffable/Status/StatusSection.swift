@@ -144,7 +144,6 @@ extension StatusSection {
         authContext: AuthContext,
         statusView: StatusView
     ) {
-        let managedObjectContext = context.managedObjectContext
         statusView.pollTableViewDiffableDataSource = UITableViewDiffableDataSource<PollSection, PollItem>(tableView: statusView.pollTableView) { tableView, indexPath, item in
             switch item {
             case .history:
