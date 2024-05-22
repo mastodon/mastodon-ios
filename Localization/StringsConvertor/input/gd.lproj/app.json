@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Taghaidh sinn frithealaiche dhut stèidhichte air a’ chànan agad ma leanas tu air adhart gun taghadh."
         },
         "privacy": {
-            "title": "Prìobhaideachd",
-            "description": "Ged nach cruinnich aplacaid Mastodon fhèin dàta sam bith, dh’fhaoidte gu bheil poileasaidh eadar-dhealaichte aig an fhrithealaiche leis a chlàraicheas tu. Gabh mionaid a’ toirt sùil air ’s ag aontachadh ri poileasaidh prìobhaideachd aplacaid Mastodon agus poileasaidh prìobhaideachd an fhrithealaiche agad.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Poileasaidh prìobhaideachd – Mastodon airson iOS",
                 "server": "Poileasaidh prìobhaideachd – %s"
