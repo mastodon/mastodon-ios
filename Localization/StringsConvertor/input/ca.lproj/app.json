@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Escollirem un servidor basat en la teva llengua si continues sense res seleccionat.\nElegiremos un servidor basado en su idioma si continúa sin hacer una selección."
         },
         "privacy": {
-            "title": "Privacitat",
-            "description": "Tot i que l'aplicació Mastodon no recull cap dada, el servidor mitjançant el qual et registres pot tenir una política diferent. Pren un minut per revisar i acceptar la política de privadesa de l'aplicació Mastodon i la política de privadesa del teu servidor.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Política de Privacitat - Mastodon per a iOS",
                 "server": "Politìca de Privacitat - %s"
