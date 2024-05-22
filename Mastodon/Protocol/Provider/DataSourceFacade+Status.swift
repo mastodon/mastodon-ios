@@ -398,14 +398,14 @@ extension DataSourceFacade {
             }
 
             try await responseToStatusFavoriteAction(provider: dependency, status: status)
-        case .copyLink:
+        case .copyStatusLink:
             guard let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else {
                 assertionFailure()
                 return
             }
 
             UIPasteboard.general.string = status.entity.url
-        case .openInBrowser:
+        case .openStatusInBrowser:
             guard
                 let status: MastodonStatus = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus,
                 let urlString = status.entity.url,
@@ -414,6 +414,12 @@ extension DataSourceFacade {
                 assertionFailure()
                 return
             }
+
+            dependency.coordinator.present(scene: .safari(url: url), transition: .safariPresent(animated: true))
+        case .copyProfileLink(let url):
+            UIPasteboard.general.string = url?.absoluteString
+        case .openUserInBrowser(let url):
+            guard let url else { return }
 
             dependency.coordinator.present(scene: .safari(url: url), transition: .safariPresent(animated: true))
         }
