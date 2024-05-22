@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Se non elixes ti, escolleremos un servidor en función do teu idioma."
         },
         "privacy": {
-            "title": "Privacidade",
-            "description": "Aínda que a app Mastodon non recolle ningún dato, o servidor no que abriches a conta podería ter unha política diferente. Toma un intre para revisar e aceptar a política de privacidade da app Mastodon e a política de privacidade do teu servidor.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Política de Privacidade - Mastodon para iOS",
                 "server": "Política de Privacidade - %s"
