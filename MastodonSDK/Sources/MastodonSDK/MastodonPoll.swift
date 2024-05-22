@@ -56,14 +56,17 @@ public final class MastodonPollOption: ObservableObject, Hashable {
     @Published public var voted: Bool?
     public private(set) var optionIndex: Int? = nil
     
-    public init(poll: MastodonPoll, option: Mastodon.Entity.Poll.Option, isSelected: Bool = false) {
+    public init(poll: MastodonPoll, option: Mastodon.Entity.Poll.Option) {
         self.poll = poll
         self.option = option
-        self.isSelected = isSelected
         self.votesCount = option.votesCount
         self.title = option.title
         self.optionIndex = poll.options.firstIndex(of: self)
-        
+        self.isSelected = {
+            guard let ownVotes = poll.entity.ownVotes else { return false }
+            guard let index = poll.entity.options.firstIndex(of: option) else { return false }
+            return ownVotes.contains(index)
+        }()
         self.voted = {
             guard let ownVotes = poll.entity.ownVotes else { return false }
             guard let optionIndex else { return false }
