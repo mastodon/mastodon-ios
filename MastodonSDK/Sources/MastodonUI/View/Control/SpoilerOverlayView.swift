@@ -69,8 +69,4 @@ extension SpoilerOverlayView {
         isAccessibilityElement = true
         accessibilityTraits.insert(.button)
     }
-    
-    public func setComponentHidden(_ isHidden: Bool) {
-        containerStackView.arrangedSubviews.forEach { $0.isHidden = isHidden }
-    }
 }

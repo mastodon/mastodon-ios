@@ -517,9 +517,10 @@ extension StatusView.Style {
         // link preview card
         statusView.contentContainer.addArrangedSubview(statusView.statusCardControl)
 
-        statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
-        statusView.contentContainer.pinTo(to: statusView.spoilerOverlayView)
+        statusView.containerStackView.addArrangedSubview(statusView.spoilerOverlayView)
+        NSLayoutConstraint.activate([
+            statusView.spoilerOverlayView.heightAnchor.constraint(equalToConstant: 128).priority(.defaultHigh)
+        ])
 
         // media container: V - [ mediaGridContainerView ]
         statusView.mediaContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -616,7 +617,7 @@ extension StatusView.Style {
         base(statusView: statusView)
         
         statusView.contentAdaptiveMarginContainerView.removeFromSuperview()
-        statusView.spoilerOverlayView.removeFromSuperview()
+        statusView.spoilerOverlayView.isHidden = true
         statusView.mediaContainerView.removeFromSuperview()
         statusView.pollAdaptiveMarginContainerView.removeFromSuperview()
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
@@ -638,7 +639,7 @@ extension StatusView {
     
     func setSpoilerOverlayViewHidden(isHidden: Bool) {
         spoilerOverlayView.isHidden = isHidden
-        spoilerOverlayView.setComponentHidden(isHidden)
+        contentAdaptiveMarginContainerView.isHidden = !isHidden
     }
     
     func setMediaDisplay(isDisplay: Bool = true) {
