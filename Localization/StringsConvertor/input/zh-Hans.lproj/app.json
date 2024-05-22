@@ -364,8 +364,8 @@
             "no_server_selected_hint": "如果你不做任何选择，我们会根据你的语言来挑选一个服务器。"
         },
         "privacy": {
-            "title": "隐私",
-            "description": "尽管 Mastodon 应用程序本身不收集任何数据，您所注册使用的服务器可能会采取不同的隐私政策。花一点时间来阅读 Mastodon 应用程序的隐私政策和您选择的服务器的隐私政策。",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "隐私政策 - Mastodon 苹果应用程序",
                 "server": "隐私政策 - %s"
