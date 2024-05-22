@@ -143,9 +143,9 @@
                     "next_status": "Næsta færsla",
                     "open_status": "Opna færslu",
                     "open_author_profile": "Opna notandasnið höfundar",
-                    "open_reblogger_profile": "Opna notandasnið þess sem endurbirtir",
+                    "open_reblogger_profile": "Opna notandasnið þess sem endurbirti",
                     "reply_status": "Svara færslu",
-                    "toggle_reblog": "Víxla endurbirtingu færslu af/á",
+                    "toggle_reblog": "Víxla endurbirtingum á færslu af/á",
                     "toggle_favorite": "Víxla eftirlæti færslu af/á",
                     "toggle_content_warning": "Víxla af/á viðvörun vegna efnis",
                     "preview_image": "Forskoða mynd"
@@ -178,7 +178,7 @@
                 },
                 "actions": {
                     "reply": "Svara",
-                    "reblog": "Endurbirta",
+                    "reblog": "Endurbirting",
                     "unreblog": "Afturkalla endurbirtingu",
                     "favorite": "Eftirlæti",
                     "unfavorite": "Taka úr eftirlætum",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Deila tengli í færslu",
                     "tap_then_hold_to_show_menu": "Ýttu og haltu til að sýna valmynd",
                     "a11y_labels": {
-                        "reblog": "Endurbirta",
+                        "reblog": "Endurbirting",
                         "unreblog": "Afturkalla endurbirtingu"
-                    }
+                    },
+                    "copy_link": "Afrita tengil"
                 },
                 "tag": {
                     "url": "URL-slóð",
@@ -307,7 +308,7 @@
         },
         "login": {
             "title": "Velkomin aftur",
-            "subtitle": "Skráðu þig inn á netþjóninum þar sem þú útbjóst aðganginn þinn.",
+            "subtitle": "Skráðu þig inn á netþjóninn þar sem þú útbjóst notandaaðganginn þinn.",
             "server_search_field": {
                 "placeholder": "Settu inn slóð eða leitaðu að þjóninum þínum"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Við munum velja netþjón út frá tungumálinu þínu, ef þú heldur áfram án þess að velja neitt."
         },
         "privacy": {
-            "title": "Gagnaleynd",
-            "description": "Þó svo að Mastodon-forritið safni ekki neinum gögnum, má samt vera að netþjónninn sem þú skráðir þig á hafi aðra stefnu hvað slíkt varðar. Taktu þér tíma til að yfirfara og samþykkja persónuverndarstefnu Mastodon-forritsins og einnig hjá netþjóninum þínum.",
+            "title": "Friðhelgi þín",
+            "description": "Þó svo að Mastodon-forritið safni engum gögnum, þá getur netþjónninn sem þú skráir þig á haft aðra stefnu varðandi þetta.\n\nEf þú samþykkir ekki stefnuna hjá **%s**, geturðu farið til baka og valið annan netþjón.",
             "policy": {
                 "ios": "Persónuverndarstefna - Mastodon fyrir iOS",
                 "server": "Persónuverndarstefna - %s"
@@ -729,6 +730,16 @@
                 "accepted": "Samþykkt",
                 "reject": "hafna",
                 "rejected": "Hafnað"
+            },
+            "warning": {
+                "none": "Aðgangurinn þinn hefur fengið aðvörun frá umsjónarmanni.",
+                "disable": "Aðgangurinn þinn hefur verið gerður óvirkur.",
+                "mark_statuses_as_sensitive": "Sumar færslurnar þínar hafa verið merktar sem viðkvæmt efni.",
+                "delete_statuses": "Sumar færslurnar þínar hafa verið fjarlægðar.",
+                "sensitive": "Færslur þínar verða héðan í frá merktar sem viðkvæmar.",
+                "silence": "Notandaaðgangurinn þinn hefur verið takmarkaður.",
+                "suspend": "Notandaaðgangurinn þinn hefur verið settur í frysti.",
+                "learn_more": "Kanna nánar"
             }
         },
         "thread": {
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Fyrirliggjandi valið notandasnið: %s. Tvípikkaðu og haltu niðri til að birta aðgangaskiptinn",
             "dismiss_account_switcher": "Loka aðgangaskipti",
-            "add_account": "Bæta við notandaaðgangi"
+            "add_account": "Bæta við notandaaðgangi",
+            "logout_all_accounts": "Skrá út úr öllum aðgöngum",
+            "logout": "Skrá út"
         },
         "bookmark": {
             "title": "Bókamerki"

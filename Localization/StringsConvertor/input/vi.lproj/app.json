@@ -179,7 +179,7 @@
                 "actions": {
                     "reply": "Trả lời",
                     "reblog": "Đăng lại",
-                    "unreblog": "Hủy đăng lại",
+                    "unreblog": "Bỏ đăng lại",
                     "favorite": "Thích",
                     "unfavorite": "Bỏ thích",
                     "menu": "Menu",
@@ -191,8 +191,9 @@
                     "tap_then_hold_to_show_menu": "Nhấn giữ để hiện menu",
                     "a11y_labels": {
                         "reblog": "Đăng lại",
-                        "unreblog": "Hủy đăng lại"
-                    }
+                        "unreblog": "Bỏ đăng lại"
+                    },
+                    "copy_link": "Sao chép liên kết"
                 },
                 "tag": {
                     "url": "URL",
@@ -251,8 +252,8 @@
                 "unmute_user": "Bỏ ẩn %s",
                 "muted": "Đã ẩn",
                 "edit_info": "Chỉnh sửa",
-                "show_reblogs": "Hiện đăng lại",
-                "hide_reblogs": "Ẩn đăng lại"
+                "show_reblogs": "Hiện lượt đăng lại",
+                "hide_reblogs": "Ẩn lượt đăng lại"
             },
             "timeline": {
                 "filtered": "Bộ lọc",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Chào mừng trở lại!",
-            "subtitle": "Đăng nhập vào máy chủ mà bạn đã tạo tài khoản.",
+            "title": "Chào mừng quay trở lại!",
+            "subtitle": "Đăng nhập với máy chủ nơi bạn tạo tài khoản.",
             "server_search_field": {
                 "placeholder": "Nhập URL hoặc tìm máy chủ"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Chúng tôi sẽ chọn một máy chủ dựa trên ngôn ngữ của bạn nếu bạn tiếp tục mà không lựa chọn."
         },
         "privacy": {
-            "title": "Bảo mật",
-            "description": "Mặc dù ứng dụng Mastodon không thu thập thông tin của bạn, máy chủ mà bạn dùng để đăng kí tài khoản có thể có một điều khoản sử dụng khác. Dành một chút thời gian để đọc và chấp nhận điều khoản riêng tư của ứng dụng Mastodon và máy chủ của bạn.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Bảo mật - Mastodon for iOS",
                 "server": "Bảo mật - %s"
@@ -497,7 +498,7 @@
             },
             "content_input_placeholder": "Cho thế giới biết bạn đang nghĩ gì",
             "compose_action": "Đăng",
-            "replying_to_user": "trả lời %s",
+            "replying_to_user": "trả lời đến %s",
             "attachment": {
                 "photo": "ảnh",
                 "video": "video",
@@ -616,11 +617,11 @@
                     "message": "Xác nhận bỏ chặn %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Hiện đăng lại",
+                    "title": "Hiện lượt đăng lại",
                     "message": "Xác nhận hiện đăng lại"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Ẩn đăng lại",
+                    "title": "Ẩn lượt đăng lại",
                     "message": "Xác nhận ẩn đăng lại"
                 },
                 "confirm_block_domain": {
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "đã theo dõi bạn",
                 "favorited_your_post": "thích tút của bạn",
-                "reblogged_your_post": "đăng lại tút của bạn",
+                "reblogged_your_post": "vừa đăng lại tút của bạn",
                 "mentioned_you": "nhắc đến bạn",
                 "request_to_follow_you": "yêu cầu theo dõi bạn",
                 "poll_has_ended": "cuộc bình chọn đã kết thúc"
@@ -729,6 +730,16 @@
                 "accepted": "Đã chấp nhận",
                 "reject": "từ chối",
                 "rejected": "Đã từ chối"
+            },
+            "warning": {
+                "none": "Bạn vừa nhận một cảnh báo kiểm duyệt.",
+                "disable": "Tài khoản của bạn đã bị vô hiệu hóa.",
+                "mark_statuses_as_sensitive": "Vài tút bạn bị đánh dấu nhạy cảm.",
+                "delete_statuses": "Một vài tút của bạn bị gỡ.",
+                "sensitive": "Tút của bạn sẽ bị đánh dấu nhạy cảm kể từ bây giờ.",
+                "silence": "Tài khoản của bạn đã bị hạn chế.",
+                "suspend": "Tài khoản của bạn đã bị vô hiệu hóa.",
+                "learn_more": "Tìm hiểu thêm"
             }
         },
         "thread": {
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Đang dùng tài khoản: %s. Nhấn hai lần và giữ để đổi sang tài khoản khác",
             "dismiss_account_switcher": "Bỏ qua chuyển đổi tài khoản",
-            "add_account": "Thêm tài khoản"
+            "add_account": "Thêm tài khoản",
+            "logout_all_accounts": "Đăng xuất khỏi mọi tài khoản",
+            "logout": "Đăng xuất"
         },
         "bookmark": {
             "title": "Những tút đã lưu"

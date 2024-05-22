@@ -143,9 +143,9 @@
                     "next_status": "Další příspěvek",
                     "open_status": "Otevřít příspěvek",
                     "open_author_profile": "Otevřít profil autora",
-                    "open_reblogger_profile": "Otevřít rebloggerův profil",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Odpovědět na příspěvek",
-                    "toggle_reblog": "Přepnout Reblog na příspěvku",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Přepnout Oblíbené na příspěvku",
                     "toggle_content_warning": "Přepnout varování obsahu",
                     "preview_image": "Náhled obrázku"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boostnul",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Odpověděl %s",
                 "show_post": "Zobrazit příspěvek",
                 "show_user_profile": "Zobrazit profil uživatele",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Odpovědět",
-                    "reblog": "Boostnout",
-                    "unreblog": "Vrátit boost",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Oblíbit",
                     "unfavorite": "Odebrat z oblízených",
                     "menu": "Nabídka",
@@ -191,8 +191,9 @@
                     "tap_then_hold_to_show_menu": "Klepnutím podržte pro zobrazení nabídky",
                     "a11y_labels": {
                         "reblog": "Boost",
-                        "unreblog": "Vrátit boost"
-                    }
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s přes %s",
                 "buttons": {
-                    "reblogs_title": "Boosty",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Oblíbení",
                     "edit_history_title": "Historie úprav",
                     "edit_history_detail": "Poslední úprava %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Odkrýt %s",
                 "muted": "Skrytý",
                 "edit_info": "Upravit informace",
-                "show_reblogs": "Zobrazit Boosty",
-                "hide_reblogs": "Skrýt Boosty"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Filtrováno",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Vítej zpět",
-            "subtitle": "Přihlaste se na serveru, na kterém jste si vytvořili účet.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Zadejte URL nebo vyhledávejte váš server"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Pokud budete pokračovat bez výběru, vybereme server založený na Vašem jazyce."
         },
         "privacy": {
-            "title": "Soukromí",
-            "description": "Přestože aplikace Mastodon neshromažďuje žádná data, server, který se přihlásíte, může mít jiné zásady. Udělejte si minutu na to, abyste zkontrolovali a souhlasili se zásadami ochrany osobních údajů aplikací Mastodon a se zásadami ochrany osobních údajů vašeho serveru.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Zásady ochrany osobních údajů - Mastodon pro iOS",
                 "server": "Zásady ochrany osobních údajů - %s"
@@ -616,12 +617,12 @@
                     "message": "Potvrďte odblokování %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Zobrazit Reblogy",
-                    "message": "Potvrdit zobrazení reblogů"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Skrýt Reblogy",
-                    "message": "Potvrďte skrytí reblogů"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Oblíben"
         },
         "reblogged_by": {
-            "title": "Boost od"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Hledat",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "vás sleduje",
                 "favorited_your_post": "si oblíbil váš příspěvek",
-                "reblogged_your_post": "boostnul váš příspěvek",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "vás zmínil/a",
                 "request_to_follow_you": "požádat vás o sledování",
                 "poll_has_ended": "anketa skončila"
@@ -729,6 +730,16 @@
                 "accepted": "Přijato",
                 "reject": "odmítnout",
                 "rejected": "Zamítnuto"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Už nesledujete",
                 "unfollow_user": "Přestat sledovat %s",
                 "mute_user": "Skrýt %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Neuvidíte jejich příspěvky nebo boostnutí v domovském kanálu. Nebudou vědět, že jsou skrytí.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Blokovat %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Už nebudou moci sledovat nebo vidět vaše příspěvky, ale mohou vidět, zda byly zablokovány.",
                 "while_we_review_this_you_can_take_action_against_user": "Zatímco to posuzujeme, můžete podniknout kroky proti %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Aktuální vybraný profil: %s. Dvojitým poklepáním zobrazíte přepínač účtů",
             "dismiss_account_switcher": "Zrušit přepínač účtů",
-            "add_account": "Přidat účet"
+            "add_account": "Přidat účet",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Záložky"

@@ -143,9 +143,9 @@
                     "next_status": "Hurrengo bidalketa",
                     "open_status": "Ireki bidalketa",
                     "open_author_profile": "Ireki egilearen profila",
-                    "open_reblogger_profile": "Ireki bultzada eman duenaren profila",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Erantzun bidalketari",
-                    "toggle_reblog": "Txandakatu bidalketaren bultzada",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Txandakatu bidalketa gogoko egitea",
                     "toggle_content_warning": "Txandakatu edukiaren abisua",
                     "preview_image": "Aurreikusi irudia"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s erabiltzaileak bultzada eman dio",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "%s(r)i erantzuten",
                 "show_post": "Erakutsi bidalketa",
                 "show_user_profile": "Erakutsi erabiltzailearen profila",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Erantzun",
-                    "reblog": "Bultzada",
-                    "unreblog": "Desegin bultzada",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Gogokoa",
                     "unfavorite": "Kendu gogokoa",
                     "menu": "Menua",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Sakatu eta eutsi menua erakusteko",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URLa",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Favorites",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Desmututu %s",
                 "muted": "Mutututa",
                 "edit_info": "Editatu informazioa",
-                "show_reblogs": "Ikusi bultzadak",
-                "hide_reblogs": "Ezkutatu bultzadak"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Iragazita",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
@@ -616,12 +617,12 @@
                     "message": "Berretsi %s desblokeatzea"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Ikusi bultzadak",
-                    "message": "Berretsi birbidalketak ikustea"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Ezkutatu bultzadak",
-                    "message": "Berretsi birbidalketak ezkutatzea"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Favorited By"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Bilatu",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "zu jarraitzen hasi da",
                 "favorited_your_post": "(e)k zure bidalketa gogoko du",
-                "reblogged_your_post": "(e)k bultzada eman dio zure bidalketari",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "erabiltzaileak aipatu zaitu",
                 "request_to_follow_you": "erabiltzaileak zu jarraitzea eskatu du",
                 "poll_has_ended": "inkesta amaitu da"
@@ -729,6 +730,16 @@
                 "accepted": "Onartuta",
                 "reject": "ukatu",
                 "rejected": "Ukatua"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Unfollowed",
                 "unfollow_user": "%s jarraitzeari utzi",
                 "mute_user": "Mututu %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ez dituzu bere bidalketa eta birbidalketak zure hasierako jarioan ikusiko. Ez dute jakingo isilarazi dituztenik.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Blokeatu %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ezin izango dituzte zure bidalketak jarraitu edo ikusi, baina blokeatuta dauden ikusi ahal izango dute.",
                 "while_we_review_this_you_can_take_action_against_user": "Hau berrikusten dugun bitartean, %s erabiltzailearen aurkako neurriak hartu ditzakezu"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Unean hautatutako profila: %s. Ukitu birritan, ondoren eduki sakatuta kontu-aldatzailea erakusteko",
             "dismiss_account_switcher": "Baztertu kontu-aldatzailea",
-            "add_account": "Gehitu kontua"
+            "add_account": "Gehitu kontua",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Laster-markak"

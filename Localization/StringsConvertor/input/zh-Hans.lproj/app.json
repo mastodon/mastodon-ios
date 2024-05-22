@@ -143,9 +143,9 @@
                     "next_status": "下一篇嘟文",
                     "open_status": "打开嘟文",
                     "open_author_profile": "打开作者的个人资料",
-                    "open_reblogger_profile": "打开转发者的个人资料",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "回复此嘟文",
-                    "toggle_reblog": "转发此嘟文",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "喜欢此嘟文",
                     "toggle_content_warning": "启用或关闭内容警告",
                     "preview_image": "预览照片"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s 转发",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "回复给 %s",
                 "show_post": "显示嘟文",
                 "show_user_profile": "查看用户个人资料",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "回复",
-                    "reblog": "转发",
-                    "unreblog": "取消转发",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "喜欢",
                     "unfavorite": "取消喜欢",
                     "menu": "菜单",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "分享链接到嘟文中",
                     "tap_then_hold_to_show_menu": "长按以显示菜单",
                     "a11y_labels": {
-                        "reblog": "转发",
-                        "unreblog": "撤销转发"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s 通过 %s 发布",
                 "buttons": {
-                    "reblogs_title": "转发",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "喜欢",
                     "edit_history_title": "编辑历史",
                     "edit_history_detail": "编辑于：%s"
@@ -251,8 +252,8 @@
                 "unmute_user": "取消静音 %s",
                 "muted": "已静音",
                 "edit_info": "编辑",
-                "show_reblogs": "显示转发",
-                "hide_reblogs": "隐藏转发"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "已过滤",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "欢迎回来",
-            "subtitle": "登入您账户所在的服务器。",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "输入网址或搜索您的服务器"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "如果你不做任何选择，我们会根据你的语言来挑选一个服务器。"
         },
         "privacy": {
-            "title": "隐私",
-            "description": "尽管 Mastodon 应用程序本身不收集任何数据，您所注册使用的服务器可能会采取不同的隐私政策。花一点时间来阅读 Mastodon 应用程序的隐私政策和您选择的服务器的隐私政策。",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "隐私政策 - Mastodon 苹果应用程序",
                 "server": "隐私政策 - %s"
@@ -435,14 +436,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "站点规则",
+            "subtitle": "继续操作即表示你同意遵守由 %s 的管理员设定并执行的以下规则。",
             "prompt": "如果继续，你必须遵守 %s 的服务条款和隐私政策。",
             "terms_of_service": "服务条款",
             "privacy_policy": "隐私政策",
             "button": {
                 "confirm": "我同意",
-                "disagree": "Disagree"
+                "disagree": "不同意"
             }
         },
         "confirm_email": {
@@ -471,13 +472,13 @@
         "home_timeline": {
             "title": "主页",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local"
+                "following": "关注",
+                "local_community": "本站"
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "离线",
+                "new_posts": "新嘟文",
+                "post_sent": "已发布"
             }
         },
         "suggestion_account": {
@@ -533,7 +534,7 @@
             },
             "visibility": {
                 "public": "公开",
-                "unlisted": "不公开",
+                "unlisted": "静默公开",
                 "private": "仅关注者",
                 "direct": "仅我提到的人"
             },
@@ -616,12 +617,12 @@
                     "message": "确认取消屏蔽 %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "显示转发",
-                    "message": "确认显示转发"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "隐藏转发",
-                    "message": "确认隐藏转发"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "屏蔽域名",
@@ -655,7 +656,7 @@
             "title": "喜欢者"
         },
         "reblogged_by": {
-            "title": "转发者"
+            "title": "Boosted By"
         },
         "search": {
             "title": "搜索",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "关注了你",
                 "favorited_your_post": "喜欢了你的嘟文",
-                "reblogged_your_post": "转发了你的嘟文",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "提及了你",
                 "request_to_follow_you": "关注请求",
                 "poll_has_ended": "投票已结束"
@@ -729,6 +730,16 @@
                 "accepted": "已接受",
                 "reject": "拒绝",
                 "rejected": "已拒绝"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "已取消关注",
                 "unfollow_user": "取消关注 %s",
                 "mute_user": "静音 %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "你不会在主页里看到他们的嘟文和转发。他们不会知道被静音了。",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "屏蔽 %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他们将不再能够关注或看到你的嘟文，但他们可以知道他们是否被屏蔽。",
                 "while_we_review_this_you_can_take_action_against_user": "当我们审核这个报告时，你可以对 %s 采取行动。"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "当前账户：%s。 双击并按住来打开账户切换页面",
             "dismiss_account_switcher": "关闭账户切换页面",
-            "add_account": "添加账户"
+            "add_account": "添加账户",
+            "logout_all_accounts": "登出所有账户",
+            "logout": "登出"
         },
         "bookmark": {
             "title": "书签"

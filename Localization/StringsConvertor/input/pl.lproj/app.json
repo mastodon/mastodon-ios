@@ -143,9 +143,9 @@
                     "next_status": "Następny post",
                     "open_status": "Otwarty post",
                     "open_author_profile": "Wyświetl profil autora",
-                    "open_reblogger_profile": "Otwórz Profil Reblogera",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Odpowiedź na post",
-                    "toggle_reblog": "Przełącz reblog na post",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Przełącz Ulubione na post",
                     "toggle_content_warning": "Dodaj ostrzeżenie o treści",
                     "preview_image": "Podgląd obrazka"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogował",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Odpowiedział na %s",
                 "show_post": "Pokaż post",
                 "show_user_profile": "Pokaż profil użytkownika",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Odpowiedz",
-                    "reblog": "Rebloguj",
-                    "unreblog": "Cofnij reblog",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Dodaj do ulubionych",
                     "unfavorite": "Usuń z ulubionych",
                     "menu": "Menu",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Udostępnij link w poście",
                     "tap_then_hold_to_show_menu": "Naciśnij i przytrzymaj aby wyświetlić menu",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s przez %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Ulubione",
                     "edit_history_title": "Historia edycji",
                     "edit_history_detail": "Ostatnio edytowane: %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Wyłącz wyciszenie %s",
                 "muted": "Wyciszony",
                 "edit_info": "Edytuj informacje",
-                "show_reblogs": "Pokaż podbicia",
-                "hide_reblogs": "Ukryj podbicia"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Filtrowany(-a)",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Witaj ponownie",
-            "subtitle": "Zaloguj się na serwerze, na którym utworzyłeś swoje konto.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Wprowadź adres URL lub wyszukaj swój serwer"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Wybierzemy Tobie instancję opartą na Twoim języku, jeżeli kontynuujesz bez żadnego wyboru."
         },
         "privacy": {
-            "title": "Prywatność",
-            "description": "Choć aplikacja Mastodona nie zbiera żadnych danych na Twój temat, serwer na którym się rejestrujesz może działać zgodnie z inną polityką. Poświęć chwilę na przejrzenie i akceptację polityki prywatności aplikacji Mastodona oraz Twojego serwera.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Polityka prywatności - Mastodon dla iOS",
                 "server": "Polityka Prywatności - %s"
@@ -616,12 +617,12 @@
                     "message": "Potwierdź odblokowanie %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Favorited By"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Szukaj",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "followed you",
                 "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "mentioned you",
                 "request_to_follow_you": "request to follow you",
                 "poll_has_ended": "poll has ended"
@@ -729,6 +730,16 @@
                 "accepted": "Zaakceptowano",
                 "reject": "odrzuć",
                 "rejected": "Odrzucono"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Unfollowed",
                 "unfollow_user": "Unfollow %s",
                 "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Block %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Dodaj konto"
+            "add_account": "Dodaj konto",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Zakładki"

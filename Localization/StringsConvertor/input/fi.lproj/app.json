@@ -143,9 +143,9 @@
                     "next_status": "Seuraava julkaisu",
                     "open_status": "Avaa julkaisu",
                     "open_author_profile": "Avaa tekijän profiili",
-                    "open_reblogger_profile": "Avaa edelleenjulkaisijan profiili",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Vastaa julkaisuun",
-                    "toggle_reblog": "Kytke julkaisun jakaminen",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Kytke julkaisun suosikkivalinta",
                     "toggle_content_warning": "Vaihda sisältövaroitus",
                     "preview_image": "Esikatsele kuvaa"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s julkaisi edelleen",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Vastasi %s:lle",
                 "show_post": "Näytä julkaisu",
                 "show_user_profile": "Näytä tili",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Vastaa",
-                    "reblog": "Julkaise uudelleen",
-                    "unreblog": "Peru uudelleenjulkaisu",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Merkitse suosikiksi",
                     "unfavorite": "Poista suosikkimerkintä",
                     "menu": "Valikko",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Jaa linkki julkaisussa",
                     "tap_then_hold_to_show_menu": "Näytä valikko pitkällä painalluksella",
                     "a11y_labels": {
-                        "reblog": "Edelleenjulkaise",
-                        "unreblog": "Peru edelleenjulkaisu"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL-osoite",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s sovelluksella %s",
                 "buttons": {
-                    "reblogs_title": "Uudelleenjulkaisut",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Suosikit",
                     "edit_history_title": "Muokkaushistoria",
                     "edit_history_detail": "Muokattiin viimeksi %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Poista mykistys tililtä %s",
                 "muted": "Mykistetty",
                 "edit_info": "Muokkaa profiilia",
-                "show_reblogs": "Näytä uudelleenjulkaisut",
-                "hide_reblogs": "Piilota uudelleenjulkaisut"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Suodatettu",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Tervetuloa takaisin",
-            "subtitle": "Kirjaudu palvelimelle, jolla loit tilisi.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Syötä URL-osoite tai etsi palvelintasi"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Palvelin valitaan kielesi perusteella, jos jatkat ilman valintaa."
         },
         "privacy": {
-            "title": "Yksityisyys",
-            "description": "Vaikka Mastodon-sovellus ei kerää mitään tietoja, voi rekisteröitymiseen käyttämälläsi palvelimella olla eri käytäntö. Käytä hetki Mastodon-sovelluksen ja palvelimen tietosuojakäytäntöjen tarkasteluun ja hyväksyntään.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Tietosuojakäytäntö - Mastodon iOS:lle",
                 "server": "Tietosuojakäytäntö - %s"
@@ -616,12 +617,12 @@
                     "message": "Vahvista tilin %s eston poisto"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Näytä uudelleenjulkaisut",
-                    "message": "Vahvista edelleenjulkaisujen näyttö"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Piilota edelleenjulkaisut",
-                    "message": "Vahvista edelleenjulkaisujen piilotus"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Lisännyt suosikkeihinsä"
         },
         "reblogged_by": {
-            "title": "Edelleenjulkaissut"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Haku",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "seurasi sinua",
                 "favorited_your_post": "lisäsi julkaisusi suosikkeihinsa",
-                "reblogged_your_post": "edelleenjulkaisi julkaisusi",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "mainitsi sinut",
                 "request_to_follow_you": "haluaa seurata sinua",
                 "poll_has_ended": "kysely on päättynyt"
@@ -729,6 +730,16 @@
                 "accepted": "Hyväksytty",
                 "reject": "Hylkää",
                 "rejected": "Hylätty"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Seuraaminen lopetettiin",
                 "unfollow_user": "Lopeta käyttäjän %s seuraaminen",
                 "mute_user": "Mykistä %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Et näe heidän julkaisujaan tai edelleenjulkaisujaan kotisyötteessäsi. He eivät tiedä sinun mykistäneen heidät.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Estä %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "He eivät enää voi seurata tai nähdä julkaisujasi, eivätkä myöskään tiedä sinun estäneen heidät.",
                 "while_we_review_this_you_can_take_action_against_user": "Sillä välin kun tarkistamme tätä, voit ryhtyä toimenpiteisiin käyttäjää %s vastaan"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Nykyinen valittu profiili: %s. Kaksoisnapauta ja pidä sitten painettuna näytääksesi tilin vaihtajan",
             "dismiss_account_switcher": "Sulje tilin vaihtaja",
-            "add_account": "Lisää tili"
+            "add_account": "Lisää tili",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Kirjanmerkit"

@@ -143,9 +143,9 @@
                     "next_status": "Şandiya pêş",
                     "open_status": "Şandiyê veke",
                     "open_author_profile": "Profîla nivîskaran veke",
-                    "open_reblogger_profile": "Profîla nivîskaran veke",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Bersivê bide şandiyê",
-                    "toggle_reblog": "Bilindkirinê di şandiyê de biguherîne",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Li ser şandiyê hezkirî biguherîne",
                     "toggle_content_warning": "Hişyariya naverokê biguherîne",
                     "preview_image": "Pêşdîtina wêneyê"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s bilind kir",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Bersiv da %s",
                 "show_post": "Şandiyê nîşan bide",
                 "show_user_profile": "Profîla bikarhêner nîşan bide",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Bersivê bide",
-                    "reblog": "Bilind bike",
-                    "unreblog": "Bilindkirinê rake",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Hez bike",
                     "unfavorite": "Hez neke",
                     "menu": "Kulîn",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Girêdanê di şandiyê de parve bike",
                     "tap_then_hold_to_show_menu": "Ji bo nîşandana menuyê dirêj bitikîne",
                     "a11y_labels": {
-                        "reblog": "Bilindkirin",
-                        "unreblog": "Bilindkirinê rake"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s bi riya %s",
                 "buttons": {
-                    "reblogs_title": "Bilindkirin",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Hezkirî",
                     "edit_history_title": "Dîroka serrastkirinê",
                     "edit_history_detail": "Serrastkirina dawî %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "%s bêdeng neke",
                 "muted": "Bêdengkirî",
                 "edit_info": "Zanyariyan serrast bike",
-                "show_reblogs": "Bilindkirinan nîşan bide",
-                "hide_reblogs": "Bilindkirinan veşêre"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Parzûnkirî",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Dîsa bi xêr hatî",
-            "subtitle": "Têketinê bike ser rajekarê ku te ajimêrê xwe tê de çê kiriye.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Girêdanê têxe an jî li rajekarê xwe bigere"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Ku tu yê bêyî hilbijartinê bidomînî em ê rajekarekî gorî zimanê te hilbijêrin."
         },
         "privacy": {
-            "title": "Taybetî",
-            "description": "Her çend sepana Mastodon tu daneyan berhev nake jî, rajekara ku tu tê de tomar dikî dibe ku xwedî politîkeke cuda be. Xulekekê bide alî ku tu politîkaya taybetiyê ya sepana Mastodon û politîkaya taybetiyê ya rajekara xwe binirxînî û bipejirînî.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Politîka taybetiyê - Mastodon ji bo iOS",
                 "server": "Politîka taybetiyê - %s"
@@ -616,12 +617,12 @@
                     "message": "Ji bo rakirina astengkirinê %s bipejirîne"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Bilindkirinan nîşan bide",
-                    "message": "Bo nîşandana bilindkirinan bipejirîne"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Bilindkirinan veşêre",
-                    "message": "Bo veşartina bilindkirinan bipejirîne"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Hatiye hezkirin ji aliyê"
         },
         "reblogged_by": {
-            "title": "Hatiye bilindkirin ji aliyê"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Bigere",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "te şopand",
                 "favorited_your_post": "şandiya te hez kir",
-                "reblogged_your_post": "şandiya te bilind kir",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "qale te kir",
                 "request_to_follow_you": "dixwazê te bişopîne",
                 "poll_has_ended": "rapirsî qediya"
@@ -729,6 +730,16 @@
                 "accepted": "Pejirandî",
                 "reject": "nepejirîne",
                 "rejected": "Nepejirandî"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Ji şopê hate derketin",
                 "unfollow_user": "%s neşopîne",
                 "mute_user": "%s bêdeng bike",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Tu yê şandî yan jî bilindkirinên wan di rojeva xwe de nebînî. Ew ê nizanibin ku hatine bêdengkirin.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "%s asteng bike",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Êdî nikarin şandiyên te bişopînin an jî bibînin, lê ew dikarin bibînin ka hatine astengkirin an na.",
                 "while_we_review_this_you_can_take_action_against_user": "Dema ku em vê yekê dinirxînin, tu dikarî li dijî %s tedbîran bigirî"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Profîla hilbijartî ya niha: %s. Du caran bitikîne û paşê dest bide ser da ku guhêrbara ajimêr were nîşandan",
             "dismiss_account_switcher": "Guherkera ajimêrê paş guh bike",
-            "add_account": "Ajimêr tevlî bike"
+            "add_account": "Ajimêr tevlî bike",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Şûnpel"

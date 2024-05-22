@@ -143,9 +143,9 @@
                     "next_status": "Publication suivante",
                     "open_status": "Ouvrir la publication",
                     "open_author_profile": "Ouvrir le profil de l’auteur·rice",
-                    "open_reblogger_profile": "Ouvrir le profil du rebloggeur",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Répondre à la publication",
-                    "toggle_reblog": "Basculer le reblogue lors de la publication",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Basculer le favori lors de la publication",
                     "toggle_content_warning": "Basculer l’avertissement de contenu",
                     "preview_image": "Prévisualiser l’image"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s a reblogué",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "À répondu à %s",
                 "show_post": "Montrer la publication",
                 "show_user_profile": "Montrer le profil de l’utilisateur·rice",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Répondre",
-                    "reblog": "Rebloguer",
-                    "unreblog": "Annuler le reblog",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Favori",
                     "unfavorite": "Retirer des favoris",
                     "menu": "Menu",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Partager le lien dans le message",
                     "tap_then_hold_to_show_menu": "Appuyez et maintenez pour afficher le menu",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Annuler le re6blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Favoris",
                     "edit_history_title": "Historique des modifications",
                     "edit_history_detail": "Dernière modification %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Ne plus masquer %s",
                 "muted": "Masqué",
                 "edit_info": "Éditer les infos",
-                "show_reblogs": "Afficher les Reblogs",
-                "hide_reblogs": "Masquer les Reblogs"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Filtré",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Content de vous revoir",
-            "subtitle": "Connectez-vous sur le serveur sur lequel vous avez créé votre compte.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Entrez l'URL ou recherchez votre serveur"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Nous choisirons un serveur basé sur votre langue si vous continuez sans en choisir un."
         },
         "privacy": {
-            "title": "Vie privée",
-            "description": "Bien que l’application Mastodon ne collecte aucune donnée, le serveur auquel vous vous inscrivez peut avoir une politique différente. Prenez une minute pour examiner et accepter la politique de confidentialité de l’application Mastodon ainsi que celle de votre serveur.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Politique de confidentialité - Mastodon pour iOS",
                 "server": "Politique de Confidentialité - %s"
@@ -616,12 +617,12 @@
                     "message": "Confirmer le déblocage de %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Afficher les Reblogs",
-                    "message": "Confirmer pour afficher les reblogs"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Masquer les Reblogs",
-                    "message": "Confirmer pour masquer les reblogs"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Favoris par"
         },
         "reblogged_by": {
-            "title": "Reblogué par"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Rechercher",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "s’est abonné·e à vous",
                 "favorited_your_post": "a ajouté votre message à ses favoris",
-                "reblogged_your_post": "a partagé votre message",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "vous a mentionné",
                 "request_to_follow_you": "vous a envoyé une demande d’abonnement",
                 "poll_has_ended": "le sondage est terminé"
@@ -729,6 +730,16 @@
                 "accepted": "Accepté",
                 "reject": "rejeter",
                 "rejected": "Rejeté"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Non-suivi",
                 "unfollow_user": "Ne plus suivre %s",
                 "mute_user": "Masquer %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Vous ne verrez plus leurs messages ou leurs partages dans votre flux personnel. Iels ne sauront pas qu’iels ont été mis en sourdine.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Bloquer %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ils ne seront plus en mesure de suivre ou de voir vos messages, mais iels peuvent voir s’iels ont été bloqué·e·s.",
                 "while_we_review_this_you_can_take_action_against_user": "Pendant que nous étudions votre requête, vous pouvez prendre des mesures contre %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Profil sélectionné actuel: %s. Double appui puis maintenez enfoncé pour afficher le changement de compte",
             "dismiss_account_switcher": "Rejeter le commutateur de compte",
-            "add_account": "Ajouter un compte"
+            "add_account": "Ajouter un compte",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Favoris"

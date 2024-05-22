@@ -143,9 +143,9 @@
                     "next_status": "Amagrad uḍfir",
                     "open_status": "Ldi tasuffeɣt",
                     "open_author_profile": "Ldi amaɣnu n umeskar",
-                    "open_reblogger_profile": "Ldi amaɣnu n win i yulsen asuffeɣ",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Err ɣef tsuffeɣt",
-                    "toggle_reblog": "Abeddel n unallas n tsuffeɣt",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Abeddel n usmenyaf i tsuffeɣt",
                     "toggle_content_warning": "Beddel alɣu n ugbur",
                     "preview_image": "Asenqed n tugna"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "Tettwasuffeɣ-d %s i tikkelt-nniḍen",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Yerra ɣef %s",
                 "show_post": "Sken-d tasuffeɣt",
                 "show_user_profile": "Ssken-d amaɣnu n useqdac",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Err",
-                    "reblog": "Aɛiwed n usuffeɣ",
-                    "unreblog": "Sefsex allus n usuffeɣ",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Anurif",
                     "unfavorite": "Kkes seg yismenyifen",
                     "menu": "Umuɣ",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Sit teǧǧeḍ aḍad-ik•im i wakken ad d-iffeɣ wumuɣ",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Imenyafen",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Kkes asgugem ɣef %s",
                 "muted": "Yettwasgugem",
                 "edit_info": "Ẓreg talɣut",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Yettwasizdeg",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Ansuf yes-k·m tikkelt niḍen",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Sekcem URL neɣ nadi ɣef uqeddac-ik·im"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Tabaḍnit",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Tasertit tabaḍnit - Mastodon i iOS",
                 "server": "Tasertit tabaḍnit - %s"
@@ -616,12 +617,12 @@
                     "message": "Sentem tukksa n usgugem i %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Ismenyaf-it"
         },
         "reblogged_by": {
-            "title": "Tettwasuffeɣ-d sɣur"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Nadi",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "iṭṭafar-ik·ikem",
                 "favorited_your_post": "yesmenyef tasuffeɣt-ik·im",
-                "reblogged_your_post": "iɛawed-as asuffeɣ i tsuffeɣt-ik·im",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "yebder-ik·ikem-id",
                 "request_to_follow_you": "issuter aḍfar-inek",
                 "poll_has_ended": "asenqed iffuk"
@@ -729,6 +730,16 @@
                 "accepted": "Accepted",
                 "reject": "agi",
                 "rejected": "Rejected"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Y•Teḥbes aḍfar n",
                 "unfollow_user": "Y•Teḥbes aḍfar n %s",
                 "mute_user": "Sgugem %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ur tettwaliḍ ara tisuffaɣ-nsen neɣ iriblugen-nsen deg usuddem-inek•inem agejdan. Ur ẓerren ara belli tesgugmeḍ-ten.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Sewḥel %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ur ttuɣalen ara ad izmiren ad ak•akem-ḍefren neɣ ad walin tisuffaɣ-inek•inem, maca ad walin ma yella ttusweḥlen.",
                 "while_we_review_this_you_can_take_action_against_user": "Ideg nekkni nessenqad tuttra-inek•inem, tzemreḍ ad tḥadreḍ mgal %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Amaɣnu amiran yettwafernen: %s. Sit berdayen syen teǧǧeḍ aḍad-ik·im i uskan abeddel n umiḍan",
             "dismiss_account_switcher": "Sefsex abeddel n umiḍan",
-            "add_account": "Rnu amiḍan"
+            "add_account": "Rnu amiḍan",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Bookmarks"

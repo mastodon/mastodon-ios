@@ -145,7 +145,7 @@
                     "open_author_profile": "Apri il profilo dell'autore",
                     "open_reblogger_profile": "Apri il profilo di chi ha condiviso",
                     "reply_status": "Rispondi al post",
-                    "toggle_reblog": "Attiva/Disattiva condivisione sul post",
+                    "toggle_reblog": "Attiva/Disattiva la condivisione sul post",
                     "toggle_favorite": "Attiva/Disattiva preferito nel post",
                     "toggle_content_warning": "Attiva/Disattiva avvertimento contenuti",
                     "preview_image": "Anteprima immagine"
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Rispondi",
-                    "reblog": "Condivisione",
-                    "unreblog": "Annulla condivisione",
+                    "reblog": "Condividi",
+                    "unreblog": "Annulla la condivisione",
                     "favorite": "Preferito",
                     "unfavorite": "Non preferito",
                     "menu": "Menù",
@@ -192,7 +192,8 @@
                     "a11y_labels": {
                         "reblog": "Condividi",
                         "unreblog": "Annulla la condivisione"
-                    }
+                    },
+                    "copy_link": "Copia il link"
                 },
                 "tag": {
                     "url": "URL",
@@ -307,7 +308,7 @@
         },
         "login": {
             "title": "Bentornato/a",
-            "subtitle": "Accedi al server sul quale hai creato il tuo account.",
+            "subtitle": "Accedi con il server in cui hai creato il tuo account.",
             "server_search_field": {
                 "placeholder": "Inserisci l'URL o cerca il tuo server"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Sceglieremo un server in base alla tua lingua se continui senza effettuare una selezione."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Sebbene l'app Mastodon non raccolga alcun dato, il server tramite il quale ti registri potrebbe avere una politica diversa. Prenditi un minuto per rivedere e accettare l'informativa sulla privacy dell'app Mastodon e l'informativa sulla privacy del tuo server.",
+            "title": "La tua privacy",
+            "description": "Sebbene l'app Mastodon non raccolga alcun dato, il server tramite il quale ti registri potrebbe avere una politica diversa.\n\nSe non sei d'accordo con la politica di **%s**, puoi tornare indietro e scegliere un server diverso.",
             "policy": {
                 "ios": "Informativa sulla privacy - Mastodon per iOS",
                 "server": "Informativa sulla privacy - %s"
@@ -621,7 +622,7 @@
                 },
                 "confirm_hide_reblogs": {
                     "title": "Nascondi le condivisioni",
-                    "message": "Conferma di nascondere le condivisioni"
+                    "message": "Conferma di mostrare le condivisioni"
                 },
                 "confirm_block_domain": {
                     "title": "Blocca il dominio",
@@ -655,7 +656,7 @@
             "title": "Preferito da"
         },
         "reblogged_by": {
-            "title": "Condiviso Da"
+            "title": "Condiviso da"
         },
         "search": {
             "title": "Cerca",
@@ -729,6 +730,16 @@
                 "accepted": "Richiesta accettata",
                 "reject": "rifiuta",
                 "rejected": "Richiesta rifiutata"
+            },
+            "warning": {
+                "none": "Il tuo account ha ricevuto un avviso di moderazione.",
+                "disable": "Il tuo account è stato disabilitato.",
+                "mark_statuses_as_sensitive": "Alcuni dei tuoi post sono stati contrassegnati come sensibili.",
+                "delete_statuses": "Alcuni dei tuoi post sono stati rimossi.",
+                "sensitive": "I tuoi post, d'ora in poi, saranno contrassegnati come sensibili.",
+                "silence": "Il tuo account è stato limitato.",
+                "suspend": "Il tuo account è stato sospeso.",
+                "learn_more": "Scopri di più"
             }
         },
         "thread": {
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Profilo corrente selezionato: %s. Doppio tocco e tieni premuto per mostrare il cambio account",
             "dismiss_account_switcher": "Ignora il cambio account",
-            "add_account": "Aggiungi account"
+            "add_account": "Aggiungi account",
+            "logout_all_accounts": "Esci da tutti gli account",
+            "logout": "Esci"
         },
         "bookmark": {
             "title": "Segnalibri"

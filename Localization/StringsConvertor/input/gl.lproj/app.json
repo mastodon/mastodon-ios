@@ -145,7 +145,7 @@
                     "open_author_profile": "Ver Perfil da autora",
                     "open_reblogger_profile": "Ver perfil de quen promoveu",
                     "reply_status": "Responder á publicación",
-                    "toggle_reblog": "Promover a publicación",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Engadir publicación a Favoritas",
                     "toggle_content_warning": "Marcar con Aviso sobre o contido",
                     "preview_image": "Previsualización da imaxe"
@@ -192,7 +192,8 @@
                     "a11y_labels": {
                         "reblog": "Promover",
                         "unreblog": "Retirar promoción"
-                    }
+                    },
+                    "copy_link": "Copiar ligazón"
                 },
                 "tag": {
                     "url": "URL",
@@ -251,8 +252,8 @@
                 "unmute_user": "Deixar de acalar a @%s",
                 "muted": "Acalada",
                 "edit_info": "Editar info",
-                "show_reblogs": "Mostrar Promocións",
-                "hide_reblogs": "Agochar Promocións"
+                "show_reblogs": "Mostrar promocións",
+                "hide_reblogs": "Agochar promocións"
             },
             "timeline": {
                 "filtered": "Filtrado",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Benvida!",
-            "subtitle": "Conéctate ao servidor no que creaches a conta.",
+            "title": "Benvida outra vez",
+            "subtitle": "Accede co servidor onde creaches a conta.",
             "server_search_field": {
                 "placeholder": "Escribe o URL ou busca o teu servidor"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Se non elixes ti, escolleremos un servidor en función do teu idioma."
         },
         "privacy": {
-            "title": "Privacidade",
-            "description": "Aínda que a app Mastodon non recolle ningún dato, o servidor no que abriches a conta podería ter unha política diferente. Toma un intre para revisar e aceptar a política de privacidade da app Mastodon e a política de privacidade do teu servidor.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Política de Privacidade - Mastodon para iOS",
                 "server": "Política de Privacidade - %s"
@@ -616,11 +617,11 @@
                     "message": "Confirma o desbloqueo de %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Mostrar Promocións",
+                    "title": "Mostrar promocións",
                     "message": "Confirma para ver promocións"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Agochar Promocións",
+                    "title": "Agochar promocións",
                     "message": "Confirma para agochar promocións"
                 },
                 "confirm_block_domain": {
@@ -655,7 +656,7 @@
             "title": "Favorecido por"
         },
         "reblogged_by": {
-            "title": "Promovido por"
+            "title": "Promovida por"
         },
         "search": {
             "title": "Procurar",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "séguete",
                 "favorited_your_post": "marcou a túa publicación como favorita",
-                "reblogged_your_post": "compartiu a túa publicación",
+                "reblogged_your_post": "promoveu a túa publicación",
                 "mentioned_you": "mencionoute",
                 "request_to_follow_you": "solicitou seguirte",
                 "poll_has_ended": "a enquisa rematou"
@@ -729,6 +730,16 @@
                 "accepted": "Aceptada",
                 "reject": "rexeitar",
                 "rejected": "Rexeitada"
+            },
+            "warning": {
+                "none": "A túa conta recibeu unha advertencia da moderación.",
+                "disable": "A túa conta foi desactivada.",
+                "mark_statuses_as_sensitive": "Algunha das túas publicacións foron marcadas como sensibles.",
+                "delete_statuses": "Algunha das túas publicacións foron eliminadas.",
+                "sensitive": "De agora en diante as túas publicacións van ser marcadas como sensibles.",
+                "silence": "A túa conta foi limitada.",
+                "suspend": "A túa conta foi suspendida.",
+                "learn_more": "Saber máis"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Deixaches de seguir",
                 "unfollow_user": "Deixar de seguir a %s",
                 "mute_user": "Acalar a %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Non verás as súas publicacións ou repeticións na túa cronoloxía. Non saberá que foi acalada.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Non verás as súas publicacións ou promocións na túa cronoloxía. Non saberá que foi acalada.",
                 "block_user": "Bloquear a %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Non poderá seguirte nin ver o que publicas, pero pode ver se foi bloqueada.",
                 "while_we_review_this_you_can_take_action_against_user": "Mentras revisamos esto, podes tomar accións contra %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Perfil seleccionado: %s. Dobre toque e manter para mostrar o intercambiador de contas",
             "dismiss_account_switcher": "Desbotar intercambiador de contas",
-            "add_account": "Engadir conta"
+            "add_account": "Engadir conta",
+            "logout_all_accounts": "Pechar sesión de todas as contas",
+            "logout": "Pechar sesión"
         },
         "bookmark": {
             "title": "Marcadores"

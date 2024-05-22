@@ -143,9 +143,9 @@
                     "next_status": "المنشور التالي",
                     "open_status": "فتح المنشور",
                     "open_author_profile": "فتح الملف التعريفي للمؤلف",
-                    "open_reblogger_profile": "فتح الملف التعريفي لمُعيد تدوين المنشور",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "الرَّد على مَنشور",
-                    "toggle_reblog": "تبديل إعادة تدوين مَنشور",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "تبديل المفضلة لِمنشور",
                     "toggle_content_warning": "تبديل تحذير المُحتَوى",
                     "preview_image": "معاينة الصورة"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "أعادَ %s تَدوينَها",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "رَدًا على %s",
                 "show_post": "أظْهِر مَنشور",
                 "show_user_profile": "أظْهِر المِلَفَّ التَّعريفِيَّ لِلمُستَخدِم",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "الرَّد",
-                    "reblog": "إعادة النشر",
-                    "unreblog": "التراجُع عن إعادة النشر",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "التفضيل",
                     "unfavorite": "إزالة التفضيل",
                     "menu": "القائمة",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "مُشارَكَة الرابِط فِي مَنشور",
                     "tap_then_hold_to_show_menu": "اُنقُر مُطَوَّلًا لِإظْهَارِ القائِمَة",
                     "a11y_labels": {
-                        "reblog": "إعادة التدوين",
-                        "unreblog": "التراجع عن إعادة التدوين"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "عنوان URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s عبر %s",
                 "buttons": {
-                    "reblogs_title": "المعاد تدوينها",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "المفضلة",
                     "edit_history_title": "سِجِلّ التعديلات",
                     "edit_history_detail": "آخر تعديل %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "رفع الكتم عن %s",
                 "muted": "مكتوم",
                 "edit_info": "تَحريرُ المَعلُومات",
-                "show_reblogs": "إظهار إعادات التدوين",
-                "hide_reblogs": "إخفاء إعادات التدوين"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "مُصفَّى",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "مرحباً بك مجددًا",
-            "subtitle": "سَجِّل دُخولَكَ إلى الخادِم الَّذي أنشأتَ حِسابَكَ فيه.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "أدخِل عُنوانَ URL أو اِبحَث عَنِ الخادِمِ الخاصّ بِك"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "سوف نختار خادماً بناءً على لغتك إذا قمت بالمتابعة دون إجراء إختيار."
         },
         "privacy": {
-            "title": "الخصوصية",
-            "description": "على الرغم من أن تطبيق ماستدون لا يجمع أي بيانات، فإن الخادم الذي قمت بالتسجيل من خلاله قد تكون له سياسة مختلفة. خذ دقيقة للمراجعة والموافقة على سياسة خصوصية تطبيق ماستدون وسياسة الخصوصية الخاصة بخادمك.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "سياسة الخصوصية - ماستدون لنظام التشغيل iOS",
                 "server": "سياسة الخصوصية - %s"
@@ -616,12 +617,12 @@
                     "message": "تأكيدُ رَفع الحَظرِ عَن %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "إظهار إعادات التدوين",
-                    "message": "التأكيد لِإظهار إعادات التدوين"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "إخفاء إعادات التدوين",
-                    "message": "التأكيد لِإخفاء إعادات التدوين"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "مُفَضَّلٌ مِن قِبَلِ"
         },
         "reblogged_by": {
-            "title": "اُعيدَ تَدوينَهُ بِواسِطَةِ"
+            "title": "Boosted By"
         },
         "search": {
             "title": "البَحث",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "بَدَأ بِمُتابَعَتِك",
                 "favorited_your_post": "فَضَّلَ مَنشُورَك",
-                "reblogged_your_post": "أعادَ تَدوينَ مَنشُورَك",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "أشارَ إليك",
                 "request_to_follow_you": "طَلَبَ مُتابَعتَك",
                 "poll_has_ended": "انتهى استطلاعُ الرأي"
@@ -729,6 +730,16 @@
                 "accepted": "مَقبُول",
                 "reject": "رَفض",
                 "rejected": "مَرفُوض"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "أُلغِيَت المُتابَعَة",
                 "unfollow_user": "إلغاءُ مُتابَعَةِ %s",
                 "mute_user": "كَتمُ %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "لَن تَرى مُشارَكاتِهِ أو إعادَاتِ تَدوينَهِ فِي تغذيَتِكَ الرَّئيسَة. لَن يَعرِفَ أنَّهُ قَد كُتِمَ أيضًا.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "حَظرُ %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "لَن يَتمكَّنَ بَعدَ الآنِ مِن مُتابَعَةِ مَنشوراتِكَ أو رُؤيَتِها، وَلكِن يُمكِنَهُ مَعرِفَةُ مَا إذا حُظَرِت عَنه.",
                 "while_we_review_this_you_can_take_action_against_user": "أثناءُ مُراجَعَتِنا لِذلِك، يُمكِنُكَ اِتِّخاذُ إجراءٍ ضِدَّ %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "المِلَفُّ المُحدَّدُ حالِيًّا: %s. اُنقُر نَقرًا مُزدَوَجًا مَعَ الاِستِمرارِ لِإظهارِ مُبدِّلِ الحِساب",
             "dismiss_account_switcher": "تجاهُل مبدِّل الحِساب",
-            "add_account": "إضافَةُ حِساب"
+            "add_account": "إضافَةُ حِساب",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "العَلاماتُ المَرجعيَّة"

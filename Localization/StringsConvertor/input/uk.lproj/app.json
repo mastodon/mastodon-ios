@@ -54,7 +54,7 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
+                "title": "У медіа відсутній альтернативний текст",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
                 "cancel": "Cancel",
                 "post": "Post"
@@ -143,9 +143,9 @@
                     "next_status": "Новий допис",
                     "open_status": "Відкрити допис",
                     "open_author_profile": "Відкрити профіль автора",
-                    "open_reblogger_profile": "Відкрити профіль реблогера",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Відповісти на допис",
-                    "toggle_reblog": "Додати/прибрати Реблог",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Додати/прибрати з Обраного",
                     "toggle_content_warning": "Додати/прибрати попередження про вміст для дорослих",
                     "preview_image": "Попередній перегляд"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s Зробив репост",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Відповів %s",
                 "show_post": "Показати дописи",
                 "show_user_profile": "Показати профіль користувача",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Відповісти",
-                    "reblog": "Репост",
-                    "unreblog": "Скасувати репост",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Улюблене",
                     "unfavorite": "Вилучити з улюбленого",
                     "menu": "Меню",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Поділіться посиланням у повідомленні",
                     "tap_then_hold_to_show_menu": "Натисніть та утримуйте, щоб показати меню",
                     "a11y_labels": {
-                        "reblog": "Репост",
-                        "unreblog": "Скасувати репост"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "Адреса URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s через %s",
                 "buttons": {
-                    "reblogs_title": "Репости",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Улюблені",
                     "edit_history_title": "Редагувати історію",
                     "edit_history_detail": "Останнє редагування %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Сповіщати %s",
                 "muted": "Зам'ютити",
                 "edit_info": "Редагувати інформацію",
-                "show_reblogs": "Показати реблоги",
-                "hide_reblogs": "Сховати реблоги"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Відфільтровано",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "З поверненням",
-            "subtitle": "Увійдіть на сервері, де ви створили свій обліковий запис.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Введіть URL-адресу або адресу сервера"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Ми підберемо сервер на основі вашої мови, якщо ви продовжите без вибору."
         },
         "privacy": {
-            "title": "Приватність",
-            "description": "Хоча додаток Mastodon не збирає жодних даних, сервер, на якому ви зареєструвались, може мати іншу політику. Витратьте хвилину, щоб переглянути та погодитися з політикою конфіденційності Mastodon і політикою конфіденційності Вашого сервера.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Політика конфіденційності - Mastodon для iOS",
                 "server": "Політика конфіденційності - %s"
@@ -616,12 +617,12 @@
                     "message": "Підтвердити розблокування %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Показати реблоги",
-                    "message": "Підтвердити показ реблогів"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Сховати реблоги",
-                    "message": "Підтвердити, щоб приховати реблоги"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Є в обраних у"
         },
         "reblogged_by": {
-            "title": "Репостнуто"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Пошук",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "підписався(-лась) на вас",
                 "favorited_your_post": "вподобав(-ла) ваш допис",
-                "reblogged_your_post": "поширив(-ла) ваш допис",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "згадав(-ла) вас",
                 "request_to_follow_you": "запит на підписку",
                 "poll_has_ended": "опитування завершено"
@@ -729,6 +730,16 @@
                 "accepted": "Прийнято",
                 "reject": "відхилити",
                 "rejected": "Відхилено"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Відписалися від",
                 "unfollow_user": "Відписатися від %s",
                 "mute_user": "Ігнорувати %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ви не побачите їхні дописи чи репости на вашій домашній стрічці. Вони не знатимуть, що ви ігноруєте їх.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Заблокувати %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Вони більше не зможуть стежити або бачити Ваші пости, але вони зможуть побачити, що вони були заблоковані.",
                 "while_we_review_this_you_can_take_action_against_user": "Поки ми переглядаємо це, ви можете вжити заходів проти %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Поточний профіль: %s. Двічі торкніться, щоб показати перемикач ваших профілів",
             "dismiss_account_switcher": "Відхилити зміну поточного облікового запису",
-            "add_account": "Додати обліковий запис"
+            "add_account": "Додати обліковий запис",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Закладки"

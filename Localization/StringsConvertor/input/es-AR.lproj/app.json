@@ -143,9 +143,9 @@
                     "next_status": "Mensaje siguiente",
                     "open_status": "Abrir mensaje",
                     "open_author_profile": "Abrir perfil del autor",
-                    "open_reblogger_profile": "Abrir perfil del adherente",
+                    "open_reblogger_profile": "Abrir perfil de la cuenta adherente",
                     "reply_status": "Responder al mensaje",
-                    "toggle_reblog": "Cambiar adhesión al mensaje",
+                    "toggle_reblog": "Rotar adhesión en el mensaje",
                     "toggle_favorite": "Cambiar marca de favorito del mensaje",
                     "toggle_content_warning": "Cambiar modo de advertencia de contenido",
                     "preview_image": "Previsualizar imagen"
@@ -192,7 +192,8 @@
                     "a11y_labels": {
                         "reblog": "Adherir",
                         "unreblog": "Deshacer adhesión"
-                    }
+                    },
+                    "copy_link": "Copiar enlace"
                 },
                 "tag": {
                     "url": "Dirección web",
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Seleccionaremos un servidor basado en tu idioma si continuás sin hacer una selección."
         },
         "privacy": {
-            "title": "Privacidad",
-            "description": "Aunque la aplicación de Mastodon no recolecta ningún dato, el servidor al que te registrés puede tener una política diferente. Tomate un minuto para revisar y aceptar las políticas de privacidad de la aplicación de Mastodon y las políticas de privacidad de tu servidor.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Política de privacidad - Mastodon para iOS",
                 "server": "Política de privacidad - %s"
@@ -729,6 +730,16 @@
                 "accepted": "Aceptada",
                 "reject": "rechazar",
                 "rejected": "Rechazada"
+            },
+            "warning": {
+                "none": "Tu cuenta recibió una advertencia de moderación.",
+                "disable": "Se deshabilitó tu cuenta.",
+                "mark_statuses_as_sensitive": "Se marcaron como sensibles a algunos de tus mensajes.",
+                "delete_statuses": "Se eliminaron algunos de tus mensajes.",
+                "sensitive": "A partir de ahora, tus mensajes serán marcados como sensibles.",
+                "silence": "Tu cuenta fue limitada.",
+                "suspend": "Tu cuenta fue suspendida.",
+                "learn_more": "Aprendé más"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Dejaste de seguir a esta cuenta",
                 "unfollow_user": "Dejar de seguir a %s",
                 "mute_user": "Silenciar a %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No verás sus publicaciones ni sus adhesiones en tu línea temporal. El usuario de esta cuenta no sabrá que fue silenciado.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No verás sus mensajes o adhesiones en tu línea temporal principal. No sabrán que los silenciaste.",
                 "block_user": "Bloquear a %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "El usuario de esta cuenta ya no podrá seguirte o leer tus mensajes, pero podrá fijarse si fue bloqueado.",
                 "while_we_review_this_you_can_take_action_against_user": "Mientras revisamos esto, podés tomar medidas contra %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Perfil seleccionado actualmente: %s. Tocá dos veces y mantenelo presionado para cambiar de cuenta",
             "dismiss_account_switcher": "Descartar cambio de cuenta",
-            "add_account": "Agregar cuenta"
+            "add_account": "Agregar cuenta",
+            "logout_all_accounts": "Cerrar sesión en todas las cuentas",
+            "logout": "Cerrar sesión"
         },
         "bookmark": {
             "title": "Marcadores"

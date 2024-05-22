@@ -50,7 +50,7 @@
             },
             "translation_failed": {
                 "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "message": "A tradução falhou. Talvez o administrador não tenha habilitado as traduções neste servidor ou este servidor esteja executando uma versão mais antiga do Mastodon onde as traduções ainda não são suportadas.",
                 "button": "OK"
             },
             "media_missing_alt_text": {
@@ -60,10 +60,10 @@
                 "post": "Post"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
+                "title_boost": "Impulsionar a Postagem?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
+                "cancel": "Cancelar",
+                "boost": "Impulsionar",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
@@ -96,7 +96,7 @@
                 "sign_in": "Entrar",
                 "see_more": "Ver mais",
                 "preview": "Pré-visualização",
-                "copy": "Copy",
+                "copy": "Copiar",
                 "share": "Compartilhar",
                 "share_user": "Compartilhar %s",
                 "share_post": "Compartilhar postagem",
@@ -143,9 +143,9 @@
                     "next_status": "Próxima postagem",
                     "open_status": "Abrir toot",
                     "open_author_profile": "Abrir perfil do autor",
-                    "open_reblogger_profile": "Abrir perfil do reblogger",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Responder toot",
-                    "toggle_reblog": "Ativar/desativar Reblog na postagem",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Ativar/desativar Favorito na postagem",
                     "toggle_content_warning": "Ativar/desativar Aviso de Conteúdo",
                     "preview_image": "Pré-visualizar imagem"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogou",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Em resposta a %s",
                 "show_post": "Mostrar postagem",
                 "show_user_profile": "Mostrar perfil de usuário",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Responder",
-                    "reblog": "Reblogar",
-                    "unreblog": "Desfazer reblog",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Favoritar",
                     "unfavorite": "Remover favorito",
                     "menu": "Menu",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Toque e em seguida segure para exibir o menu",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,9 +223,9 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
+                    "reblogs_title": "Boosts",
+                    "favorites_title": "Favoritos",
+                    "edit_history_title": "Editar histórico",
                     "edit_history_detail": "Last edit %s"
                 },
                 "edited_at_timestamp_prefix": "Edited %s",
@@ -251,8 +252,8 @@
                 "unmute_user": "Remover silenciado %s",
                 "muted": "Silenciado",
                 "edit_info": "Editar informação",
-                "show_reblogs": "Mostrar Reblogs",
-                "hide_reblogs": "Ocultar Reblogs"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Filtrado",
@@ -283,16 +284,16 @@
     "scene": {
         "welcome": {
             "log_in": "Entrar",
-            "learn_more": "Learn more",
+            "learn_more": "Saiba mais",
             "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "pick_server": "Escolha outro servidor",
             "separator": {
                 "or": "or"
             },
             "education": {
                 "mastodon": {
                     "title": "Boas-vindas ao Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "description": "Mastodon é uma rede social descentralizada, o que significa que nenhuma empresa a controla. É composto por muitos servidores administrados de forma independente, todos conectados entre si."
                 },
                 "servers": {
                     "title": "What are servers?",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Logado na instância em que você criou a sua conta.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Insira a URL ou procure pela sua instância"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
@@ -374,7 +375,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Criar Conta",
             "input": {
                 "avatar": {
                     "delete": "Excluir"
@@ -441,18 +442,18 @@
             "terms_of_service": "termos de serviço",
             "privacy_policy": "política de privacidade",
             "button": {
-                "confirm": "I Agree",
+                "confirm": "Aceito",
                 "disagree": "Disagree"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
+            "title": "Cheque sua caixa de entrada",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
                 "resend": "Reenviar"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Cheque seu email",
                 "description": "Verifique se o seu endereço de e-mail está correto, e também a sua pasta de spam caso não tenha verificado.",
                 "resend_email": "Reenviar e-mail"
             },
@@ -465,19 +466,19 @@
             "didnt_get_link": {
                 "prefix": "Didn’t get a link?",
                 "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "resend_now": "Reenviar agora."
             }
         },
         "home_timeline": {
             "title": "Início",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Seguindo",
                 "local_community": "Local"
             },
             "timeline_pill": {
                 "offline": "Offline",
                 "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "post_sent": "Postagem enviada"
             }
         },
         "suggestion_account": {
@@ -488,7 +489,7 @@
             "title": {
                 "new_post": "Novo toot",
                 "new_reply": "Nova resposta",
-                "edit_post": "Edit Post"
+                "edit_post": "Editar Postagem"
             },
             "media_selection": {
                 "camera": "Tirar foto",
@@ -562,7 +563,7 @@
             "language": {
                 "title": "Post Language",
                 "suggested": "Suggested",
-                "recent": "Recent",
+                "recent": "Recente",
                 "other": "Other Language…"
             }
         },
@@ -572,8 +573,8 @@
             },
             "dashboard": {
                 "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
+                "my_following": "seguindo",
+                "my_followers": "seguidores",
                 "other_posts": "posts",
                 "other_following": "following",
                 "other_followers": "followers",
@@ -616,15 +617,15 @@
                     "message": "Confirme para desbloquear %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Mostrar reblogs",
-                    "message": "Confirmar para mostrar reblogs"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Ocultar reblogs",
-                    "message": "Confirmar para ocultar reblogs"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
+                    "title": "Bloquear domínio",
                     "message": "Confirm to block domain %s"
                 },
                 "confirm_unblock_domain": {
@@ -655,7 +656,7 @@
             "title": "Favoritado por"
         },
         "reblogged_by": {
-            "title": "Reblogado por"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Buscar",
@@ -683,7 +684,7 @@
                 "url": "Open URL in Mastodon",
                 "hashtag": "Go to #%s",
                 "no_user": {
-                    "title": "No User Account Found",
+                    "title": "Nenhuma conta de usuário encontrada",
                     "message": "There's no Useraccount \"%s\" on %s"
                 },
                 "empty_state": {
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "seguiu você",
                 "favorited_your_post": "favoritou seu toot",
-                "reblogged_your_post": "reblogou seu toot",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "te mencionou",
                 "request_to_follow_you": "solicitação para te seguir",
                 "poll_has_ended": "enquete encerrada"
@@ -729,6 +730,16 @@
                 "accepted": "Aceito",
                 "reject": "rejeitar",
                 "rejected": "Rejeitado"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -741,22 +752,22 @@
                 "general": "General",
                 "notifications": "Notifications",
                 "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
+                "about_mastodon": "Sobre o Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
+                "title": "Sobre",
+                "more_settings": "Configurações adicionais",
+                "contribute_to_mastodon": "Contribua para o Mastodon",
+                "privacy_policy": "Política de privacidade",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Sobre",
+                "rules": "Regras",
                 "about_instance": {
-                    "title": "Administrator",
+                    "title": "Administrador",
                     "message_admin": "Message Admin",
                     "legal_notice": "A legal notice"
                 }
@@ -765,33 +776,33 @@
                 "title": "General",
                 "appearance": {
                     "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
+                    "dark": "Modo escuro",
+                    "light": "Modo claro",
                     "system": "Use Device Appearance"
                 },
                 "ask_before": {
                     "section_title": "Ask before…",
                     "posting_without_alt_text": "Posting without Alt Text",
                     "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "boosting_a_post": "Impulsione uma postagem",
+                    "deleting_a_post": "Deletando uma postagem"
                 },
                 "design": {
                     "section_title": "Design",
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
+                    "section_title": "Linguagem",
                     "default_post_language": "Default Post Language"
                 },
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Abrir no navegador"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notificações",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
@@ -802,7 +813,7 @@
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
+                    "favorites": "Favoritos",
                     "new_followers": "New Followers"
                 },
                 "disabled": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Deixou de seguir",
                 "unfollow_user": "Deixar de seguir %s",
                 "mute_user": "Silenciar %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Você não verá as postagens ou reblogs dessa conta na sua pagina inicial. Essa pessoa não saberá que foi silenciada.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Bloquear %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Essa conta não poderá mais te seguir ou ver suas postagens, mas ela poderá ver que foi bloqueada.",
                 "while_we_review_this_you_can_take_action_against_user": "Enquanto revisamos isso, você pode tomar medidas contra %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Perfil selecionado nesse momento: %s. Toque duas vezes e segure para mostrar o alternador de conta",
             "dismiss_account_switcher": "Descartar alternador de conta",
-            "add_account": "Adicionar conta"
+            "add_account": "Adicionar conta",
+            "logout_all_accounts": "Sair de todas as contas",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Marcados"
@@ -884,12 +897,12 @@
         "followed_tags": {
             "title": "Followed Tags",
             "header": {
-                "posts": "posts",
+                "posts": "publicações",
                 "participants": "participants",
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
+                "follow": "Seguir",
                 "unfollow": "Unfollow"
             }
         }

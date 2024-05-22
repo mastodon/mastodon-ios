@@ -143,9 +143,9 @@
                     "next_status": "Nästa inlägg",
                     "open_status": "Öppna inlägg",
                     "open_author_profile": "Öppna författarens profil",
-                    "open_reblogger_profile": "Öppna boostarens profil",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Svara på inlägg",
-                    "toggle_reblog": "Växla boost på inlägg",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Växla favorit på inlägg",
                     "toggle_content_warning": "Växla innehållsvarning",
                     "preview_image": "Förhandsgranska bild"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boostade",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Svarade på %s",
                 "show_post": "Visa inlägg",
                 "show_user_profile": "Visa användarprofil",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Svara",
-                    "reblog": "Boosta",
-                    "unreblog": "Ångra boost",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Favorit",
                     "unfavorite": "Ta bort favorit",
                     "menu": "Meny",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Dela länk i inlägg",
                     "tap_then_hold_to_show_menu": "Tryck och håll ned för att visa menyn",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Kopiera länk"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Favoriter",
                     "edit_history_title": "Redigeringshistorik",
                     "edit_history_detail": "Senast ändrad %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Avtysta %s",
                 "muted": "Tystad",
                 "edit_info": "Redigera info",
-                "show_reblogs": "Visa boostar",
-                "hide_reblogs": "Dölj boostar"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Filtrerat",
@@ -307,7 +308,7 @@
         },
         "login": {
             "title": "Välkommen tillbaka",
-            "subtitle": "Logga in på servern där du skapade ditt konto.",
+            "subtitle": "Logga in på den server där du skapade ditt konto.",
             "server_search_field": {
                 "placeholder": "Ange URL eller sök efter din server"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Vi kommer att välja en server baserat på ditt språk om du fortsätter utan att göra ett val."
         },
         "privacy": {
-            "title": "Integritet",
-            "description": "Även om Mastodon-appen inte samlar in någon data kan servern du registrerar dig genom ha en annan policy. Ta en stund till att granska och godkänna Mastodon-appens sekretesspolicy och din servers sekretesspolicy.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Integritetspolicy - Mastodon för iOS",
                 "server": "Integritetspolicy - %s"
@@ -616,12 +617,12 @@
                     "message": "Bekräfta för att avblockera %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Visa boostar",
-                    "message": "Bekräfta för att visa boostar"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Dölj boostar",
-                    "message": "Bekräfta för att dölja boostar"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Blockera domän",
@@ -655,7 +656,7 @@
             "title": "Favoriserad av"
         },
         "reblogged_by": {
-            "title": "Boostat av"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Sök",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "följde dig",
                 "favorited_your_post": "favoriserade ditt inlägg",
-                "reblogged_your_post": "boostade ditt inlägg",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "nämnde dig",
                 "request_to_follow_you": "begär att följa dig",
                 "poll_has_ended": "omröstningen har avslutats"
@@ -729,6 +730,16 @@
                 "accepted": "Godkänd",
                 "reject": "avvisa",
                 "rejected": "Avvisad"
+            },
+            "warning": {
+                "none": "Ditt konto har mottagit en modereringsvarning.",
+                "disable": "Ditt konto har inaktiverats.",
+                "mark_statuses_as_sensitive": "Några av dina inlägg har markerats som känsliga.",
+                "delete_statuses": "Några av dina inlägg har tagits bort.",
+                "sensitive": "Dina inlägg kommer att markeras som känsliga från och med nu.",
+                "silence": "Ditt konto har begränsats.",
+                "suspend": "Ditt konto har stängts av.",
+                "learn_more": "Läs mer"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Slutade följa",
                 "unfollow_user": "Avfölj %s",
                 "mute_user": "Tysta %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du kommer inte att se deras inlägg eller boostar i ditt hemflöde. De kommer inte att veta att de har blivit tystade.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Blockera %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "De kommer inte längre att kunna följa eller se dina inlägg, men de kan se om de har blockerats.",
                 "while_we_review_this_you_can_take_action_against_user": "Medan vi granskar detta kan du vidta åtgärder mot %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Nuvarande vald profil: %s. Dubbeltryck och håll för att visa kontoväxlare",
             "dismiss_account_switcher": "Stäng kontoväxlare",
-            "add_account": "Lägg till konto"
+            "add_account": "Lägg till konto",
+            "logout_all_accounts": "Logga ut från alla konton",
+            "logout": "Logga ut"
         },
         "bookmark": {
             "title": "Bokmärken"

@@ -9,7 +9,7 @@
                 "title": "Bejelentkezési hiba"
             },
             "server_error": {
-                "title": "Szerverhiba"
+                "title": "Kiszolgálóhiba"
             },
             "vote_failure": {
                 "title": "Szavazási hiba",
@@ -50,7 +50,7 @@
             },
             "translation_failed": {
                 "title": "Jegyzet",
-                "message": "A fordítás nem sikerült. Lehet, hogy a rendszergazda nem engedélyezte a fordításokat ezen a szerveren, vagy a szerveren a Mastodon egy régebbi verziója fut, ahol a fordítások még nem támogatottak.",
+                "message": "A fordítás nem sikerült. Lehet, hogy a rendszergazda nem engedélyezte a fordításokat ezen a kiszolgálón, vagy a kiszolgálón a Mastodon egy régebbi verziója fut, ahol a fordítások még nem támogatottak.",
                 "button": "OK"
             },
             "media_missing_alt_text": {
@@ -143,9 +143,9 @@
                     "next_status": "Következő bejegyzés",
                     "open_status": "Bejegyzés megnyitása",
                     "open_author_profile": "Szerző profiljának megnyitása",
-                    "open_reblogger_profile": "A megtoló profiljának megnyitása",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Válasz a bejegyzésre",
-                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Tartalmi figyelmeztetés ki/be",
                     "preview_image": "Kép előnézete"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s megtolta",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Válasz neki: %s",
                 "show_post": "Bejegyzés megjelenítése",
                 "show_user_profile": "Felhasználói profil megjelenítése",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Válasz",
-                    "reblog": "Megtolás",
-                    "unreblog": "Megtolás visszavonása",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Kedvenc",
                     "unfavorite": "Eltávolítás a Kedvencek közül",
                     "menu": "Menü",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Megtolás",
-                        "unreblog": "Megtolás visszavonása"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "Webcím",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Megtolások",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Kedvelések",
                     "edit_history_title": "Előzmények módosítása",
                     "edit_history_detail": "Utoljára módosítva: %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "%s némításának feloldása",
                 "muted": "Némítva",
                 "edit_info": "Adatok szerkesztése",
-                "show_reblogs": "Megtolások megjelenítése",
-                "hide_reblogs": "Megtolások elrejtése"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Megszűrt",
@@ -292,11 +293,11 @@
             "education": {
                 "mastodon": {
                     "title": "Üdvözlünk a Mastodon-on",
-                    "description": "A Mastodon egy decentralizált közösségi hálózat, ami azt jelenti, hogy nem egyetlen vállalat irányítja. Sok, egymástól függetlenül működtetett szerverből áll, amelyek össze vannak egymással kötve."
+                    "description": "A Mastodon egy decentralizált közösségi hálózat, ami azt jelenti, hogy nem egyetlen vállalat irányítja. Sok, egymástól függetlenül működtetett kiszolgálóból áll, amelyek össze vannak egymással kötve."
                 },
                 "servers": {
-                    "title": "Mik azok a szerverek?",
-                    "description": "Minden Mastodon fiók egy szerveren van elhelyezve - mindegyiknek saját értékei, szabályai és adminisztrátorai vannak. Nem számít, melyiket választod, bármelyik szerveren lévő embereket követheted és kapcsolatba léphetsz velük."
+                    "title": "Mik azok a kiszolgálók?",
+                    "description": "Minden Mastodon fiók egy kiszolgálón van elhelyezve - mindegyiknek saját értékei, szabályai és adminisztrátorai vannak. Nem számít, melyiket választod, bármelyik kiszolgálón lévő embereket követheted és kapcsolatba léphetsz velük."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -307,9 +308,9 @@
         },
         "login": {
             "title": "Üdv újra itt",
-            "subtitle": "Jelentkezzen be azon a szerveren, amelyen a fiókját létrehozta.",
+            "subtitle": "Azon a kiszolgálón jelentkezzen be, ahol a fiókját létrehozta.",
             "server_search_field": {
-                "placeholder": "Adja meg az URL-t vagy keresse meg a szervert"
+                "placeholder": "Adja meg az URL-t vagy keresse meg a kiszolgálót"
             }
         },
         "server_picker": {
@@ -345,7 +346,7 @@
                 "search_servers_or_enter_url": "Közösségek keresése vagy URL megadása"
             },
             "empty_state": {
-                "finding_servers": "Elérhető szerverek keresése...",
+                "finding_servers": "Elérhető kiszolgálók keresése...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "Nincs találat"
             },
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Adatvédelem",
-            "description": "Bár a Mastodon alkalmazás nem gyűjt adatokat, a szerver, amelyen keresztül regisztrál, eltérő irányelvekkel rendelkezhet. Szánjon egy percet a Mastodon alkalmazás adatvédelmi szabályzatának és a kiszolgáló adatvédelmi szabályzatának áttekintésére és elfogadására.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Adatvédelmi szabályzat - Mastodon for iOS",
                 "server": "Adatvédelmi szabályzat - %s"
@@ -509,7 +510,7 @@
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "A melléklet túl nagy",
                 "compressing_state": "Tömörítés...",
-                "server_processing_state": "Szerver feldolgozás..."
+                "server_processing_state": "Kiszolgáló feldolgozás..."
             },
             "poll": {
                 "title": "Szavazás",
@@ -616,12 +617,12 @@
                     "message": "Valóban feloldja %s tiltását"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Megtolások megjelenítése",
-                    "message": "Megtolások megjelenítésének megerősítése"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Megtolások elrejtése",
-                    "message": "Megtolások elrejtésének megerősítése"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Domain letiltása",
@@ -655,7 +656,7 @@
             "title": "Kedvelések"
         },
         "reblogged_by": {
-            "title": "Megtolta"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Keresés",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "követi önt",
                 "favorited_your_post": "kedvelte a bejegyzését",
-                "reblogged_your_post": "megtolta a bejegyzését",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "megemlítette Önt",
                 "request_to_follow_you": "kérte, hogy követhessen",
                 "poll_has_ended": "a szavazás véget ért"
@@ -729,6 +730,16 @@
                 "accepted": "Elfogadva",
                 "reject": "elutasítás",
                 "rejected": "Elutasítva"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -833,7 +844,7 @@
                 "it_is_not_something_you_want_to_see": "Ez nem olyan, amit látni akarok",
                 "its_spam": "Ez spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Rosszindulatú linkek, hamis elkötelezettség vagy ismétlődő válaszok",
-                "it_violates_server_rules": "Megsérti a szerver szabályait",
+                "it_violates_server_rules": "Megsérti a kiszolgáló szabályait",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
                 "its_something_else": "Valami más",
                 "the_issue_does_not_fit_into_other_categories": "Az eset nem illik egyik kategóriába sem"
@@ -860,7 +871,7 @@
                 "unfollowed": "Nem követett",
                 "unfollow_user": "%s kikövetése",
                 "mute_user": "%s némítása",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Nem fogja látni a bejegyzéseiket vagy a megtolásaikat a Kezdőlapon. Nem fogják tudni, hogy elnémították őket.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "%s letiltása",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Jelenleg kiválasztott profil: %s. Dupla koppintás, majd lenyomva tartva megjelenik a fiókváltó",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Fiók hozzáadása"
+            "add_account": "Fiók hozzáadása",
+            "logout_all_accounts": "Kilépés az összes fiókból",
+            "logout": "Kilépés"
         },
         "bookmark": {
             "title": "Könyvjelzők"

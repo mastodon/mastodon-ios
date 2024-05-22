@@ -192,7 +192,8 @@
                     "a11y_labels": {
                         "reblog": "轉嘟",
                         "unreblog": "取消轉嘟"
-                    }
+                    },
+                    "copy_link": "複製連結"
                 },
                 "tag": {
                     "url": "網址",
@@ -307,7 +308,7 @@
         },
         "login": {
             "title": "歡迎回來",
-            "subtitle": "登入您新增帳號之伺服器",
+            "subtitle": "以您建立帳號之伺服器登入。",
             "server_search_field": {
                 "placeholder": "請輸入 URL 或搜尋您的伺服器"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "如果您不選擇而繼續的話，我們將透過您的語言設定替您選擇一台伺服器。"
         },
         "privacy": {
-            "title": "隱私權",
-            "description": "儘管 Mastodon 應用程式並不會蒐集任何資料，您所註冊之伺服器可能有不同的隱私權政策。煩請花費些許時間檢閱並同意 Mastodon 應用程式隱私權政策以及您伺服器隻隱私權政策。",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "隱私權政策 - Mastodon for iOS",
                 "server": "隱私權政策 - %s"
@@ -655,7 +656,7 @@
             "title": "已加入最愛"
         },
         "reblogged_by": {
-            "title": "已轉嘟"
+            "title": "被轉嘟："
         },
         "search": {
             "title": "搜尋",
@@ -729,6 +730,16 @@
                 "accepted": "已接受",
                 "reject": "拒絕",
                 "rejected": "已拒絕"
+            },
+            "warning": {
+                "none": "您的帳號已收到管理員警告。",
+                "disable": "您的帳號已被停用。",
+                "mark_statuses_as_sensitive": "某些您的嘟文已被標記為敏感內容。",
+                "delete_statuses": "某些您的嘟文已被刪除。",
+                "sensitive": "即日起，您的嘟文將會被標記為敏感內容。",
+                "silence": "您的帳號已被限制。",
+                "suspend": "您的帳號已被停權。",
+                "learn_more": "了解更多"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "已取消跟隨",
                 "unfollow_user": "取消跟隨 %s",
                 "mute_user": "靜音 %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "您不會於您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "您不會在您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。",
                 "block_user": "封鎖 %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他們將無法跟隨您或是看到您的嘟文。他們能看到他們是否已被封鎖。",
                 "while_we_review_this_you_can_take_action_against_user": "當我們正在審核時，您可以對 %s 採取以下措施"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "目前已選擇的個人檔案：%s。點兩下然後按住以顯示帳號切換器",
             "dismiss_account_switcher": "關閉帳號切換器",
-            "add_account": "新增帳號"
+            "add_account": "新增帳號",
+            "logout_all_accounts": "登出所有帳號",
+            "logout": "登出"
         },
         "bookmark": {
             "title": "書籤"

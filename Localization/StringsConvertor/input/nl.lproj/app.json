@@ -143,9 +143,9 @@
                     "next_status": "Volgend bericht",
                     "open_status": "Bericht openen",
                     "open_author_profile": "Gebruikersprofiel openen",
-                    "open_reblogger_profile": "Profiel van booster openen",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Reageer",
-                    "toggle_reblog": "Bericht wel/niet boosten",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Favoriet in-/uitschakelen bij Post",
                     "toggle_content_warning": "Inhoudswaarschuwing",
                     "preview_image": "Voorvertoning afbeelding"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s heeft geboost",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Reactie op %s",
                 "show_post": "Bericht tonen",
                 "show_user_profile": "Gebruikersprofiel tonen",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Reageren",
-                    "reblog": "Boosten",
-                    "unreblog": "Boosten ongedaan maken",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Als favoriet markeren",
                     "unfavorite": "Uit favorieten verwijderen",
                     "menu": "Menu",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Deel link in bericht",
                     "tap_then_hold_to_show_menu": "Tik en vasthouden om menu te tonen",
                     "a11y_labels": {
-                        "reblog": "Boosten",
-                        "unreblog": "Boosten ongedaan maken"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -251,8 +252,8 @@
                 "unmute_user": "%s niet langer negeren",
                 "muted": "Genegeerd",
                 "edit_info": "Bewerken",
-                "show_reblogs": "Boosts tonen",
-                "hide_reblogs": "Boosts verbergen"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Gefilterd",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Welkom terug",
-            "subtitle": "Op de server waarop je je account hebt aangemaakt inloggen.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Voer een URL in of zoek naar je server"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "Als je doorgaat zonder een selectie te maken, kiezen we een server gebaseerd op jouw taal."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Hoewel de Mastodon-app geen gegevens verzamelt, kan de server die je aanmeldt een ander beleid hebben. Neem even de tijd om het privacybeleid van de Mastodon-app en het privacybeleid van de server te bekijken en hiermee akkoord te gaan.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Privacybeleid - Mastodon voor iOS",
                 "server": "Privacybeleid - %s"
@@ -616,12 +617,12 @@
                     "message": "Het deblokkeren van %s bevestigen"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Boosts tonen",
-                    "message": "Tonen van boosts bevestigen"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Boosts verbergen",
-                    "message": "Verbergen van boosts bevestigen"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Server blokkeren",
@@ -655,7 +656,7 @@
             "title": "Gefavoriet door"
         },
         "reblogged_by": {
-            "title": "Geboost door"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Zoeken",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "volgt je",
                 "favorited_your_post": "markeerde bericht als favoriet",
-                "reblogged_your_post": "boostte je bericht",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "vermeldde jou",
                 "request_to_follow_you": "wil jou graag volgen",
                 "poll_has_ended": "de peiling is beëindigd"
@@ -729,6 +730,16 @@
                 "accepted": "Geaccepteerd",
                 "reject": "afwijzen",
                 "rejected": "Afgewezen"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Ontvolgd",
                 "unfollow_user": "Ontvolg %s",
                 "mute_user": "Negeer %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Je ziet hun berichten en boosts niet op je starttijdlijn. Ze krijgen niet te weten dat ze worden genegeerd.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Blokkeer %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Het is niet meer mogelijk om je te volgen of om je berichten te zien, maar ze kunnen wel zien dat ze geblokkeerd zijn.",
                 "while_we_review_this_you_can_take_action_against_user": "Terwijl we dit onderzoeken kun je deze acties tegen %s nemen"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Huidige geselecteerde profiel: %s. Dubbel-tik en houd vast om account te wisselen",
             "dismiss_account_switcher": "Annuleer account wisselen",
-            "add_account": "Voeg account toe"
+            "add_account": "Voeg account toe",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Bladwijzers"

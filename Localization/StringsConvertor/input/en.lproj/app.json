@@ -143,9 +143,9 @@
                     "next_status": "Next Post",
                     "open_status": "Open Post",
                     "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
                     "preview_image": "Preview Image"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
                 "show_user_profile": "Show user profile",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
                     "menu": "Menu",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Re-blog",
-                        "unreblog": "Undo re-blog"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
@@ -655,7 +656,7 @@
             "title": "Favorited By"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Search",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "followed you",
                 "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "mentioned you",
                 "request_to_follow_you": "request to follow you",
                 "poll_has_ended": "poll has ended"
@@ -729,6 +730,16 @@
                 "accepted": "Accepted",
                 "reject": "reject",
                 "rejected": "Rejected"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "Add Account",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Bookmarks"

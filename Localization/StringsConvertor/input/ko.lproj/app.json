@@ -143,9 +143,9 @@
                     "next_status": "다음 글",
                     "open_status": "게시물 열기",
                     "open_author_profile": "작성자의 프로필 열기",
-                    "open_reblogger_profile": "리블로거의 프로필 열기",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "게시물에 답장",
-                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
                     "preview_image": "이미지 미리보기"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s 님이 리블로그 하였습니다",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "%s 님에게 답장",
                 "show_post": "게시물 보기",
                 "show_user_profile": "사용자 프로필 보기",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "답글",
-                    "reblog": "리블로그",
-                    "unreblog": "리블로그 취소",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "즐겨찾기",
                     "unfavorite": "즐겨찾기 해제",
                     "menu": "메뉴",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "게시글 안의 링크 공유",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "리블로그",
-                        "unreblog": "리블로그 취소"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "URL",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "즐겨찾기",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "%s 뮤트 해제",
                 "muted": "뮤트됨",
                 "edit_info": "정보 편집",
-                "show_reblogs": "리블로그 보기",
-                "hide_reblogs": "리블로그 가리기"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "필터됨",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "돌아오신 것을 환영합니다",
-            "subtitle": "계정을 만든 서버에 로그인.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "URL을 입력하거나 서버를 검색"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "아무 것도 고르지 않은 경우, 당신의 언어에 따라 서버를 골라드립니다."
         },
         "privacy": {
-            "title": "개인 정보",
-            "description": "마스토돈 앱은 아무런 데이터도 수집하지 않지만, 가입한 서버의 정책은 다를 수도 있습니다. 잠시 시간을 들여 마스토돈 앱과 서버의 개인정보 정책을 확인한 후 동의해 주세요.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "개인정보처리방침 - Mastodon iOS",
                 "server": "개인정보처리방침 - %s"
@@ -616,12 +617,12 @@
                     "message": "%s 차단 해제 확인"
                 },
                 "confirm_show_reblogs": {
-                    "title": "리블로그 보기",
-                    "message": "리블로그를 보기 전 확인"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "리블로그 가리기",
-                    "message": "리블로그를 가리기 전 확인"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "도메인 차단",
@@ -655,7 +656,7 @@
             "title": "마음에 들어한 사람들"
         },
         "reblogged_by": {
-            "title": "리블로그한 사람들"
+            "title": "Boosted By"
         },
         "search": {
             "title": "검색",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "나를 팔로우 했습니다",
                 "favorited_your_post": "내 게시물을 마음에 들어했습니다",
-                "reblogged_your_post": "내 게시물을 리블로그 했습니다",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "나를 언급했습니다",
                 "request_to_follow_you": "팔로우를 요청합니다",
                 "poll_has_ended": "투표가 끝났습니다"
@@ -729,6 +730,16 @@
                 "accepted": "수락됨",
                 "reject": "거절",
                 "rejected": "거절됨"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "팔로우 해제함",
                 "unfollow_user": "%s 팔로우 해제",
                 "mute_user": "%s 뮤트",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "그의 게시물이나 리블로그가 내 홈 피드에 보이지 않습니다. 그는 뮤트 당했다는 사실을 알지 못합니다.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "%s 차단",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "그는 나를 팔로우 하거나 내 게시물을 볼 수 없게 됩니다, 하지만 내가 차단한 사실은 알 수 있습니다.",
                 "while_we_review_this_you_can_take_action_against_user": "서버의 중재자들이 이것을 심사하는 동안, 당신은 %s에 대한 행동을 취할 수 있습니다"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "계정 추가"
+            "add_account": "계정 추가",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "북마크"

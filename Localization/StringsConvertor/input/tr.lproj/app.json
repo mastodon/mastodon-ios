@@ -143,9 +143,9 @@
                     "next_status": "Sonraki Gönderi",
                     "open_status": "Gönderiyi Aç",
                     "open_author_profile": "Yazarın Profilini Aç",
-                    "open_reblogger_profile": "Yeniden Paylaşanın Profilini Aç",
+                    "open_reblogger_profile": "Open Booster's Profile",
                     "reply_status": "Gönderiyi Yanıtla",
-                    "toggle_reblog": "Gönderiyi yeniden paylaşma durumunu değiştir",
+                    "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Gönderiyi favorileme durumunu değiştir",
                     "toggle_content_warning": "İçerik Uyarısı durumunu değiştir",
                     "preview_image": "Görseli Önizle"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s yeniden paylaştı",
+                "user_reblogged": "%s boosted",
                 "user_replied_to": "%s kullanıcısına yanıt verdi",
                 "show_post": "Gönderiyi Göster",
                 "show_user_profile": "Kullanıcı profilini göster",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Yanıtla",
-                    "reblog": "Yeniden paylaş",
-                    "unreblog": "Yeniden paylaşımı geri al",
+                    "reblog": "Boost",
+                    "unreblog": "Undo boost",
                     "favorite": "Favorile",
                     "unfavorite": "Favorilerden Çıkar",
                     "menu": "Menü",
@@ -190,9 +190,10 @@
                     "share_link_in_post": "Bağlantıyı Gönderide Paylaş",
                     "tap_then_hold_to_show_menu": "Menüyü göstermek için dokunun ve basılı tutun",
                     "a11y_labels": {
-                        "reblog": "Yeniden paylaş",
-                        "unreblog": "Yeniden paylaşımı geri al"
-                    }
+                        "reblog": "Boost",
+                        "unreblog": "Undo boost"
+                    },
+                    "copy_link": "Copy Link"
                 },
                 "tag": {
                     "url": "Bağlantı",
@@ -222,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Reblogs",
+                    "reblogs_title": "Boosts",
                     "favorites_title": "Favoriler",
                     "edit_history_title": "Düzenleme Geçmişi",
                     "edit_history_detail": "Son güncelleme: %s"
@@ -251,8 +252,8 @@
                 "unmute_user": "Sesini aç %s",
                 "muted": "Susturuldu",
                 "edit_info": "Bilgiyi Düzenle",
-                "show_reblogs": "Yeniden Paylaşımları Göster",
-                "hide_reblogs": "Yeniden Paylaşımları Gizle"
+                "show_reblogs": "Show Boosts",
+                "hide_reblogs": "Hide Boosts"
             },
             "timeline": {
                 "filtered": "Filtrelenmiş",
@@ -306,8 +307,8 @@
             }
         },
         "login": {
-            "title": "Tekrar hoş geldiniz",
-            "subtitle": "Hesabını oluşturduğun sunucuya giriş yap.",
+            "title": "Welcome Back",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Bir URL girin ya da sunucunuzu arayın"
             }
@@ -363,8 +364,8 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Gizlilik",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Gizlilik Politikası - iOS için Mastodon",
                 "server": "Gizlilik Politikası - %s"
@@ -616,12 +617,12 @@
                     "message": "%s engellemeyi kaldırmayı onaylayın"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Yeniden Paylaşımları Göster",
-                    "message": "Yeniden paylaşımları göstermeyi onayla"
+                    "title": "Show Boosts",
+                    "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Yeniden Paylaşımları Gizle",
-                    "message": "Yeniden paylaşımları gizlemeyi onayla"
+                    "title": "Hide Boosts",
+                    "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -655,7 +656,7 @@
             "title": "Favorited By"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Boosted By"
         },
         "search": {
             "title": "Arama",
@@ -715,7 +716,7 @@
             "notification_description": {
                 "followed_you": "seni takip etti",
                 "favorited_your_post": "gönderini favoriledi",
-                "reblogged_your_post": "gönderini yeniden paylaştı",
+                "reblogged_your_post": "boosted your post",
                 "mentioned_you": "senden bahsetti",
                 "request_to_follow_you": "size takip isteği gönderdi",
                 "poll_has_ended": "anket sona erdi"
@@ -729,6 +730,16 @@
                 "accepted": "Kabul Edildi",
                 "reject": "Reddet",
                 "rejected": "Reddedildi"
+            },
+            "warning": {
+                "none": "Your account has received a moderation warning.",
+                "disable": "Your account has been disabled.",
+                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "delete_statuses": "Some of your posts have been removed.",
+                "sensitive": "Your posts will be marked as sensitive from now on.",
+                "silence": "Your account has been limited.",
+                "suspend": "Your account has been suspended.",
+                "learn_more": "Learn More"
             }
         },
         "thread": {
@@ -860,7 +871,7 @@
                 "unfollowed": "Takipten çıkıldı",
                 "unfollow_user": "Takipten çık %s",
                 "mute_user": "Sustur %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "%s kişisini engelle",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Artık sizi takip edemez ve gönderilerinizi göremezler ama engellendiklerini görebilirler.",
                 "while_we_review_this_you_can_take_action_against_user": "Biz bunu incelerken siz %s hesabına karşı önlem alabilirsiniz"
@@ -876,7 +887,9 @@
         "account_list": {
             "tab_bar_hint": "Şu anki seçili profil: %s. Hesap değiştiriciyi göstermek için iki kez dokunun ve basılı tutun",
             "dismiss_account_switcher": "Hesap Değiştiriciyi Kapat",
-            "add_account": "Hesap Ekle"
+            "add_account": "Hesap Ekle",
+            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout": "Logout"
         },
         "bookmark": {
             "title": "Yer İmleri"
