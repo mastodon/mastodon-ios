@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Palvelin valitaan kielesi perusteella, jos jatkat ilman valintaa."
         },
         "privacy": {
-            "title": "Yksityisyys",
-            "description": "Vaikka Mastodon-sovellus ei kerää mitään tietoja, voi rekisteröitymiseen käyttämälläsi palvelimella olla eri käytäntö. Käytä hetki Mastodon-sovelluksen ja palvelimen tietosuojakäytäntöjen tarkasteluun ja hyväksyntään.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Tietosuojakäytäntö - Mastodon iOS:lle",
                 "server": "Tietosuojakäytäntö - %s"
