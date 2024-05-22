@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization
@@ -135,19 +136,22 @@ extension PrivacyTableViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let wrapper = UIView()
-
-        let label = UILabel()
+        let controller = UIHostingController(
+            rootView: HeaderTextView(
+                text: LocalizedStringKey(L10n.Scene.Privacy.description(viewModel.domain))
+            )
+        )
+        guard let label = controller.view else { return nil }
+        addChild(controller)
+        label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.text = L10n.Scene.Privacy.description
-        label.textColor = Asset.Colors.Label.primary.color
         wrapper.addSubview(label)
-
+        controller.didMove(toParent: self)
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: wrapper.topAnchor, constant: 16),
             label.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor),
             wrapper.trailingAnchor.constraint(equalTo: label.trailingAnchor),
-            wrapper.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
+            wrapper.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 16)
         ])
 
         return wrapper
@@ -155,3 +159,14 @@ extension PrivacyTableViewController: UITableViewDelegate {
 }
 
 extension PrivacyTableViewController: OnboardingViewControllerAppearance { }
+
+private struct HeaderTextView: View {
+    let text: LocalizedStringKey
+    
+    var body: some View {
+        Text(text)
+            .fixedSize(horizontal: false, vertical: true)
+            .foregroundStyle(Asset.Colors.Label.primary.swiftUIColor)
+            .padding(.bottom, 16)
+    }
+}

@@ -941,10 +941,14 @@ public enum L10n {
       }
     }
     public enum Privacy {
-      /// Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.
-      public static let description = L10n.tr("Localizable", "Scene.Privacy.Description", fallback: "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.")
-      /// Privacy
-      public static let title = L10n.tr("Localizable", "Scene.Privacy.Title", fallback: "Privacy")
+      /// Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.
+      /// 
+      /// If you disagree with the policy for **%@**, you can go back and pick a different server.
+      public static func description(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Privacy.Description", String(describing: p1), fallback: "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%@**, you can go back and pick a different server.")
+      }
+      /// Your Privacy
+      public static let title = L10n.tr("Localizable", "Scene.Privacy.Title", fallback: "Your Privacy")
       public enum Button {
         /// I Agree
         public static let confirm = L10n.tr("Localizable", "Scene.Privacy.Button.Confirm", fallback: "I Agree")
