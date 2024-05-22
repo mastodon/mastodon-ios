@@ -364,8 +364,8 @@
             "no_server_selected_hint": "سوف نختار خادماً بناءً على لغتك إذا قمت بالمتابعة دون إجراء إختيار."
         },
         "privacy": {
-            "title": "الخصوصية",
-            "description": "على الرغم من أن تطبيق ماستدون لا يجمع أي بيانات، فإن الخادم الذي قمت بالتسجيل من خلاله قد تكون له سياسة مختلفة. خذ دقيقة للمراجعة والموافقة على سياسة خصوصية تطبيق ماستدون وسياسة الخصوصية الخاصة بخادمك.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "سياسة الخصوصية - ماستدون لنظام التشغيل iOS",
                 "server": "سياسة الخصوصية - %s"
