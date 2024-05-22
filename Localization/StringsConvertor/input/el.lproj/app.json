@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Θα επιλέξουμε έναν διακομιστή με βάση τη γλώσσα σου αν συνεχίσεις χωρίς να κάνεις κάποια επιλογή."
         },
         "privacy": {
-            "title": "Απόρρητο",
-            "description": "Αν και η εφαρμογή Mastodon δε συλλέγει δεδομένα, ο διακομιστής που εγγράφεσαι μπορεί να έχει διαφορετική πολιτική. Πάρε ένα λεπτό για να ελέγξεις και να συμφωνήσεις με την πολιτική απορρήτου της εφαρμογής Mastodon και την πολιτική απορρήτου του διακομιστή σου.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Πολιτική Απορρήτου - Mastodon για iOS",
                 "server": "Πολιτική Απορρήτου - %s"
