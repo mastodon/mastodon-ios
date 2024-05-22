@@ -364,8 +364,8 @@
             "no_server_selected_hint": "如果您不選擇而繼續的話，我們將透過您的語言設定替您選擇一台伺服器。"
         },
         "privacy": {
-            "title": "隱私權",
-            "description": "儘管 Mastodon 應用程式並不會蒐集任何資料，您所註冊之伺服器可能有不同的隱私權政策。煩請花費些許時間檢閱並同意 Mastodon 應用程式隱私權政策以及您伺服器隻隱私權政策。",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "隱私權政策 - Mastodon for iOS",
                 "server": "隱私權政策 - %s"
