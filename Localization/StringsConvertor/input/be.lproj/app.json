@@ -143,9 +143,9 @@
                     "next_status": "Наступны допіс",
                     "open_status": "Адкрыць допіс",
                     "open_author_profile": "Адкрыць профіль аўтара",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Адкрыць профіль пашырыўшага",
                     "reply_status": "Адказаць на допіс",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Пераключыць Пашырэнне на Допіс",
                     "toggle_favorite": "Дадаць ці прыбраць з абранага",
                     "toggle_content_warning": "Уключыць/адключыць папярэджанне аб змесціве",
                     "preview_image": "Перадпрагляд відарыса"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s пашырыў(-ла)",
                 "user_replied_to": "Адказаў %s",
                 "show_post": "Паказаць допіс",
                 "show_user_profile": "Паказаць профіль карыстальніка",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Адказаць",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Пашырыць",
+                    "unreblog": "Адмяніць пашырэнне",
                     "favorite": "Абранае",
                     "unfavorite": "Выдаліць з абраных",
                     "menu": "Меню",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "Падзяліцеся спасылкай у допісе",
                     "tap_then_hold_to_show_menu": "Націсніце і ўтрымлівайце, каб паказаць меню",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Пашырыць",
+                        "unreblog": "Адмяніць пашырэнне"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Капіраваць спасылку"
                 },
                 "tag": {
                     "url": "URL",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s праз %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Пашырэнні",
                     "favorites_title": "Абраныя",
                     "edit_history_title": "Гісторыя рэдагавання",
                     "edit_history_detail": "Апошняе рэдагаванне %s"
@@ -252,8 +252,8 @@
                 "unmute_user": "Не ігнараваць %s",
                 "muted": "Ігнаруецца",
                 "edit_info": "Рэдагаваць інфармацыю",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Паказаць пашырэнні",
+                "hide_reblogs": "Схаваць пашырэнні"
             },
             "timeline": {
                 "filtered": "Адфільтравана",
@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Калі вы не выберыце сервер, то мы выберам яго на аснове вашай мовы."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Ваша прыватнасць",
+            "description": "Нягледзячы на ​​тое, што праграма Mastodon не збірае даных, сервер, на якім вы рэгіструецеся, можа мець іншую палітыку.\n\nКалі вы адмовіцеся ад палітыкі **%s**, вы можаце вярнуцца і выбраць іншы сервер.",
             "policy": {
                 "ios": "Палітыка прыватнасці - Mastodon для iOS",
                 "server": "Палітыка прыватнасці - %s"
@@ -617,12 +617,12 @@
                     "message": "Разблакіраваць %s?"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Паказаць пашырэнні",
+                    "message": "Пацвердзіце, каб паказаць пашырэнні"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Схаваць пашырэнні",
+                    "message": "Пацвердзіце, каб схаваць пашырэнні"
                 },
                 "confirm_block_domain": {
                     "title": "Заблакіраваць дамен",
@@ -656,7 +656,7 @@
             "title": "Дадалі ў абранае"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Пашыраны"
         },
         "search": {
             "title": "Пошук",
@@ -716,7 +716,7 @@
             "notification_description": {
                 "followed_you": "падпісаўся на вас",
                 "favorited_your_post": "дадаў ваш допіс у абранае",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "пашырыў(-ла) ваш допіс",
                 "mentioned_you": "згадаў вас",
                 "request_to_follow_you": "адправіў запыт на падпіску",
                 "poll_has_ended": "апытанне завяршылася"
@@ -871,7 +871,7 @@
                 "unfollowed": "Адпісаліся",
                 "unfollow_user": "Адпісацца ад %s",
                 "mute_user": "Ігнараваць %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Вы не ўбачыце іх допісы або пашырэнні ў сваёй хатняй стужцы. Яны не даведаюцца, што вы іх ігнаруеце.",
                 "block_user": "Заблакіраваць %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Яны больш не змогуць падпісвацца на вас або бачыць вашыя допісы, але змогуць бачыць, што яны былі заблакіраваны.",
                 "while_we_review_this_you_can_take_action_against_user": "Пакуль мы разглядаем яе, вы можаце прыняць меры супраць %s"
