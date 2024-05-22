@@ -11,7 +11,7 @@ import AlamofireImage
 
 public class AvatarImageView: FLAnimatedImageView {
     public var imageViewSize: CGSize?
-    public var configuration = Configuration(url: nil)
+    public var url: URL? = nil
     public var cornerConfiguration = CornerConfiguration()
 }
 
@@ -55,41 +55,17 @@ extension AvatarImageView {
     
     public static let placeholder = UIImage.placeholder(color: .systemFill)
     
-    public struct Configuration {
-        public let url: URL?
-        public let placeholder: UIImage?
-        
-        public init(
-            url: URL?,
-            placeholder: UIImage = AvatarImageView.placeholder
-        ) {
-            self.url = url
-            self.placeholder = placeholder
-        }
-        
-        public init(
-            image: UIImage
-        ) {
-            self.url = nil
-            self.placeholder = image
-        }
-    }
-    
-    public func configure(configuration: Configuration) {
+    public func configure(with url: URL?) {
         prepareForReuse()
         
-        self.configuration = configuration
+        self.url = url
         
-        guard let url = configuration.url else {
-            image = configuration.placeholder
-            return
-        }
-        
+        guard let url else { return }
+
         switch url.pathExtension.lowercased() {
         case "gif":
             setImage(
-                url: configuration.url,
-                placeholder: configuration.placeholder,
+                url: url,
                 scaleToSize: imageViewSize
             )
         default:
@@ -105,7 +81,6 @@ extension AvatarImageView {
             
             af.setImage(
                 withURL: url,
-                placeholderImage: configuration.placeholder,
                 filter: filter
             )
         }

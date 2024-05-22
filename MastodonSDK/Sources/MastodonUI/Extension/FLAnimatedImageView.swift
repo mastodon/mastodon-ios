@@ -39,17 +39,14 @@ extension FLAnimatedImageView {
     
     public func setImage(
         url: URL?,
-        placeholder: UIImage? = nil,
         scaleToSize: CGSize? = nil
     ) {
         // cancel task
         cancelTask()
         
-        // set placeholder
-        image = placeholder
-        
         // set image
-        guard let url = url else { return }
+        guard let url else { return }
+
         activeAvatarRequestURL = url
         let avatarRequest = AF.request(url).publishData()
         avatarRequestCancellable = avatarRequest
