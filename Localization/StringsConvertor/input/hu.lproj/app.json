@@ -364,8 +364,8 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Adatvédelem",
-            "description": "Bár a Mastodon alkalmazás nem gyűjt adatokat, a kiszolgáló, amelyen keresztül regisztrál, eltérő irányelvekkel rendelkezhet. Szánjon egy percet a Mastodon alkalmazás adatvédelmi szabályzatának és a kiszolgáló adatvédelmi szabályzatának áttekintésére és elfogadására.",
+            "title": "Your Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Adatvédelmi szabályzat - Mastodon for iOS",
                 "server": "Adatvédelmi szabályzat - %s"
