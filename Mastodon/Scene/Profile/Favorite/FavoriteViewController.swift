@@ -61,16 +61,6 @@ extension FavoriteViewController {
             tableView: tableView,
             statusTableViewCellDelegate: self
         )
-
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.stateMachine.enter(FavoriteViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -139,5 +129,15 @@ extension FavoriteViewController: StatusTableViewControllerNavigateable {
     
     @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
         statusKeyCommandHandler(sender)
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+
+extension FavoriteViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+            viewModel.stateMachine.enter(FavoriteViewModel.State.Loading.self)
+        }
     }
 }
