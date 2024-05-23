@@ -95,17 +95,7 @@ extension HashtagTimelineViewController {
                 self.refreshControl.endRefreshing()
             }
             .store(in: &disposeBag)
-        
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.stateMachine.enter(HashtagTimelineViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
-        
+
         viewModel.hashtagEntity
             .receive(on: DispatchQueue.main)
             .sink { [weak self] tag in
@@ -255,5 +245,15 @@ extension HashtagTimelineViewController: StatusTableViewControllerNavigateable {
     
     @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
         statusKeyCommandHandler(sender)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension HashtagTimelineViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+            viewModel.stateMachine.enter(HashtagTimelineViewModel.State.Loading.self)
+        }
     }
 }
