@@ -71,15 +71,6 @@ extension FollowerListViewController {
             userTableViewCellDelegate: self
         )
         
-        // setup batch fetch
-        viewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.stateMachine.enter(FollowerListViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
-        
         // trigger user timeline loading
         Publishers.CombineLatest(
             viewModel.$domain.removeDuplicates(),
@@ -168,19 +159,8 @@ extension FollowerListViewController: DataSourceProvider {
 
 extension FollowerListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-        if scrollView.isDragging || scrollView.isTracking { return }
-
-        let frame = scrollView.frame
-        let contentOffset = scrollView.contentOffset
-        let contentSize = scrollView.contentSize
-
-        let visibleBottomY = contentOffset.y + frame.height
-        let offset = 2 * frame.height
-        let fetchThrottleOffsetY = contentSize.height - offset
-
-        if visibleBottomY > fetchThrottleOffsetY {
-            viewModel.shouldFetch.send()
+        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+            viewModel.stateMachine.enter(FollowerListViewModel.State.Loading.self)
         }
     }
 }
