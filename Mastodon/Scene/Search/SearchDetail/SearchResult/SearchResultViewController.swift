@@ -50,25 +50,8 @@ extension SearchResultViewController {
             userTableViewCellDelegate: self
         )
         
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard self.view.window != nil else { return }
-                self.viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
-
         title = viewModel.searchText
-        viewModel.listBatchFetchViewModel.shouldFetch.send()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        viewModel.stateMachine.enter(SearchResultViewModel.State.Initial.self)
+        viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
     }
 }
 
@@ -110,3 +93,13 @@ extension SearchResultViewController: StatusTableViewCellDelegate { }
 
 // MARK: - UserTableViewCellDelegate
 extension SearchResultViewController: UserTableViewCellDelegate {}
+
+//MARK: - UIScrollViewDelegate
+
+extension SearchResultViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+            viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
+        }
+    }
+}
