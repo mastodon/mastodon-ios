@@ -10,8 +10,6 @@ import Combine
 
 // ref: Texture.ASBatchFetchingDelegate
 final class ListBatchFetchViewModel {
-    let shouldFetch = PassthroughSubject<Void, Never>()
-    
     init() {}
 
     static func scrollViewDidScrollToEnd(_ scrollView: UIScrollView, action: () -> Void) {
