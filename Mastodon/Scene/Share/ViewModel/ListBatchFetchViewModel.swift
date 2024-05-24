@@ -6,12 +6,8 @@
 //
 
 import UIKit
-import Combine
 
-// ref: Texture.ASBatchFetchingDelegate
 final class ListBatchFetchViewModel {
-    init() {}
-
     static func scrollViewDidScrollToEnd(_ scrollView: UIScrollView, action: () -> Void) {
         if scrollView.isDragging || scrollView.isTracking { return }
 
@@ -27,9 +23,4 @@ final class ListBatchFetchViewModel {
             action()
         }
     }
-}
-
-extension ListBatchFetchViewModel {
-    @available(*, deprecated, message: "Implement `UIScrollViewDelegate` and invoce `scrollViewdidScrollToEnd` for now.")
-    func setup(scrollView: UIScrollView) {}
 }
