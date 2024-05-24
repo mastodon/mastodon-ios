@@ -58,16 +58,6 @@ extension BookmarkViewController {
             tableView: tableView,
             statusTableViewCellDelegate: self
         )
-
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.stateMachine.enter(BookmarkViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,13 +65,6 @@ extension BookmarkViewController {
         
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-//        aspectViewDidDisappear(animated)
-    }
-    
 }
 
 // MARK: - UITableViewDelegate
@@ -136,5 +119,16 @@ extension BookmarkViewController: StatusTableViewControllerNavigateable {
     
     @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
         statusKeyCommandHandler(sender)
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+
+extension BookmarkViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+            print("See me loading \(Date())")
+            viewModel.stateMachine.enter(BookmarkViewModel.State.Loading.self)
+        }
     }
 }
