@@ -19,7 +19,6 @@ final class ListBatchFetchViewModel {
         if contentSize.height < frame.height { return }
 
         if contentOffset.y > (contentSize.height - frame.height) {
-            print("ACTION!")
             action()
         }
     }
