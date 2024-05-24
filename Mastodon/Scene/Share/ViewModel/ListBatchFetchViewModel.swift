@@ -21,14 +21,13 @@ final class ListBatchFetchViewModel {
         let contentOffset = scrollView.contentOffset
         let contentSize = scrollView.contentSize
 
-        let visibleBottomY = contentOffset.y + frame.height
-        let offset = 2 * frame.height
-        let fetchThrottleOffsetY = contentSize.height - offset
+        // if not enough content to fill the screen: don't do anything
+        if contentSize.height < frame.height { return }
 
-        if visibleBottomY > fetchThrottleOffsetY {
+        if contentOffset.y > (contentSize.height - frame.height) {
+            print("ACTION!")
             action()
         }
-
     }
 }
 
@@ -36,5 +35,3 @@ extension ListBatchFetchViewModel {
     @available(*, deprecated, message: "Implement `UIScrollViewDelegate` and invoce `scrollViewdidScrollToEnd` for now.")
     func setup(scrollView: UIScrollView) {}
 }
-
-
