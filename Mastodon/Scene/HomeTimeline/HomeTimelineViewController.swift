@@ -192,18 +192,7 @@ extension HomeTimelineViewController {
             statusTableViewCellDelegate: self,
             timelineMiddleLoaderTableViewCellDelegate: self
         )
-        
-        // setup batch fetch
-        viewModel?.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel?.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard self.view.window != nil else { return }
-                self.viewModel?.loadOldestStateMachine.enter(HomeTimelineViewModel.LoadOldestState.Loading.self)
-            }
-            .store(in: &disposeBag)
-        
+
         // bind refresh control
         viewModel?.didLoadLatest
             .receive(on: DispatchQueue.main)
