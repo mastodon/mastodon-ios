@@ -234,6 +234,7 @@ extension ProfileViewModel {
         )
 
         FileManager.default.store(account: response.value, forUserID: authenticationBox.authentication.userIdentifier())
+        NotificationCenter.default.post(name: .userFetched, object: nil)
 
         return response
     }
