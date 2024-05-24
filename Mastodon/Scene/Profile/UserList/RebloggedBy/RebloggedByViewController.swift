@@ -56,17 +56,8 @@ extension RebloggedByViewController {
             userTableViewCellDelegate: self
         )
         
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.stateMachine.enter(UserListViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
 
-        viewModel.listBatchFetchViewModel.shouldFetch.send()
+        viewModel.stateMachine.enter(UserListViewModel.State.Loading.self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,3 +88,13 @@ extension RebloggedByViewController: UITableViewDelegate, AutoGenerateTableViewD
 
 // MARK: - UserTableViewCellDelegate
 extension RebloggedByViewController: UserTableViewCellDelegate {}
+
+//MARK: - UIScrollViewDelegate
+
+extension RebloggedByViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
+            viewModel.stateMachine.enter(UserListViewModel.State.Loading.self)
+        }
+    }
+}
