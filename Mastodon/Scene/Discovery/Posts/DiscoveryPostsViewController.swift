@@ -165,7 +165,7 @@ extension DiscoveryPostsViewController: StatusTableViewControllerNavigateable {
 
 extension DiscoveryPostsViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
             viewModel.stateMachine.enter(DiscoveryPostsViewModel.State.Loading.self)
         }
     }

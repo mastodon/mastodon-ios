@@ -162,7 +162,7 @@ extension UserTimelineViewController: IndicatorInfoProvider {
 //MARK: - UIScrollViewDelegate
 extension UserTimelineViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
             viewModel.stateMachine.enter(UserTimelineViewModel.State.Loading.self)
         }
     }

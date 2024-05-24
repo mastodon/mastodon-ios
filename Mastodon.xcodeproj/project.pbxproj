@@ -365,7 +365,7 @@
 		DB6D9F3526351B7A008423CD /* NotificationService+Decrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */; };
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
-		DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */; };
+		DB7274F4273BB9B200577D95 /* UIScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7274F3273BB9B200577D95 /* UIScrollViewDelegate.swift */; };
 		DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73B48F261F030A002E9E9F /* SafariActivity.swift */; };
 		DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */; };
 		DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */; };
@@ -1045,7 +1045,7 @@
 		DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationService+Decrypt.swift"; sourceTree = "<group>"; };
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
-		DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBatchFetchViewModel.swift; sourceTree = "<group>"; };
+		DB7274F3273BB9B200577D95 /* UIScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewDelegate.swift; sourceTree = "<group>"; };
 		DB73B48F261F030A002E9E9F /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
 		DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScheduler.swift; sourceTree = "<group>"; };
 		DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
@@ -2524,27 +2524,28 @@
 			children = (
 				2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */,
 				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
+				2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */,
 				2D206B8525F5FB0900143C56 /* Double.swift */,
 				DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */,
 				DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */,
 				2D939AB425EDD8A90076FA61 /* String.swift */,
-				DB68A06225E905E000CFDF14 /* UIApplication.swift */,
 				DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */,
+				DB68A06225E905E000CFDF14 /* UIApplication.swift */,
 				DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */,
+				2D206B9125F60EA700143C56 /* UIControl.swift */,
+				0FAA101B25E10E760017CCDE /* UIFont.swift */,
+				2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */,
+				855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */,
+				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
+				2D84350425FF858100EECE90 /* UIScrollView.swift */,
+				DB7274F3273BB9B200577D95 /* UIScrollViewDelegate.swift */,
+				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				DB4481B825EE289600BEFB67 /* UITableView.swift */,
 				DBD376B1269302A4007FEC24 /* UITableViewCell.swift */,
-				0FAA101B25E10E760017CCDE /* UIFont.swift */,
-				2D206B9125F60EA700143C56 /* UIControl.swift */,
-				5DA732CB2629CEF500A92342 /* UIView+Remove.swift */,
-				2D24E1222626ED9D00A59D4F /* UIView+Gesture.swift */,
-				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
-				2D84350425FF858100EECE90 /* UIScrollView.swift */,
-				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
-				2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */,
-				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
-				2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */,
-				855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */,
+				2D24E1222626ED9D00A59D4F /* UIView+Gesture.swift */,
+				5DA732CB2629CEF500A92342 /* UIView+Remove.swift */,
+				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2676,7 +2677,6 @@
 		DB9D6C2025E502C60051B173 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3663,7 +3663,7 @@
 				DBB45B5927B39FE4002DC5A7 /* MediaPreviewVideoViewModel.swift in Sources */,
 				DB0FCB76279571C5006C02E2 /* ThreadViewController+DataSourceProvider.swift in Sources */,
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
-				DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */,
+				DB7274F4273BB9B200577D95 /* UIScrollViewDelegate.swift in Sources */,
 				DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */,
 				DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */,
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,

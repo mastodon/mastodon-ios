@@ -98,7 +98,7 @@ extension SearchResultViewController: UserTableViewCellDelegate {}
 
 extension SearchResultViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
             viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
         }
     }

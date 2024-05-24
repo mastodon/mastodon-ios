@@ -301,7 +301,7 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
 
 extension NotificationTimelineViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
             viewModel.loadOldestStateMachine.enter(NotificationTimelineViewModel.LoadOldestState.Loading.self)
         }
     }

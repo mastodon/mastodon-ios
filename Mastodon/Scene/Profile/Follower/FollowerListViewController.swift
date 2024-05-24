@@ -159,7 +159,7 @@ extension FollowerListViewController: DataSourceProvider {
 
 extension FollowerListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
             viewModel.stateMachine.enter(FollowerListViewModel.State.Loading.self)
         }
     }

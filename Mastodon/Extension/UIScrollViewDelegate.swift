@@ -1,13 +1,8 @@
-//
-//  ListBatchFetchViewModel.swift
-//  Mastodon
-//
-//  Created by Cirno MainasuK on 2021-11-10.
-//
+// Copyright © 2024 Mastodon gGmbH. All rights reserved.
 
 import UIKit
 
-final class ListBatchFetchViewModel {
+extension UIScrollViewDelegate {
     static func scrollViewDidScrollToEnd(_ scrollView: UIScrollView, action: () -> Void) {
         if scrollView.isDragging || scrollView.isTracking { return }
 

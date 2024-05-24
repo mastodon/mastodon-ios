@@ -27,7 +27,6 @@ class ReportStatusViewModel {
     let account: Mastodon.Entity.Account
     let status: MastodonStatus?
     let dataController: StatusDataController
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     @Published var isSkip = false
     @Published var selectStatuses = OrderedSet<MastodonStatus>()

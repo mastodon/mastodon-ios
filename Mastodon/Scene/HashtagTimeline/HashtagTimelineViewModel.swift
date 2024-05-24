@@ -28,7 +28,6 @@ final class HashtagTimelineViewModel {
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let hashtagEntity = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?

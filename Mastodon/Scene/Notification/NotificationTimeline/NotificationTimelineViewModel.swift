@@ -21,7 +21,6 @@ final class NotificationTimelineViewModel {
     let authContext: AuthContext
     let scope: Scope
     let dataController: FeedDataController
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
     @Published var isLoadingLatest = false
     @Published var lastAutomaticFetchTimestamp: Date?
     
