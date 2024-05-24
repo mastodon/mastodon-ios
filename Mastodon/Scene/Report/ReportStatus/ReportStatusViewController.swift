@@ -191,7 +191,7 @@ extension ReportStatusViewController: UIAdaptivePresentationControllerDelegate {
 
 extension ReportStatusViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
             viewModel.stateMachine.enter(ReportStatusViewModel.State.Loading.self)
         }
     }

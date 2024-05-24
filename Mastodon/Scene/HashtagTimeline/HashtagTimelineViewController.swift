@@ -252,7 +252,7 @@ extension HashtagTimelineViewController: StatusTableViewControllerNavigateable {
 
 extension HashtagTimelineViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
             viewModel.stateMachine.enter(HashtagTimelineViewModel.State.Loading.self)
         }
     }

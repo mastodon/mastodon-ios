@@ -54,7 +54,7 @@ extension NotificationTimelineViewController {
             tableView: tableView,
             notificationTableViewCellDelegate: self
         )
-        
+
         // setup refresh control
         tableView.refreshControl = refreshControl
         viewModel.didLoadLatest
@@ -301,7 +301,7 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
 
 extension NotificationTimelineViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
             viewModel.loadOldestStateMachine.enter(NotificationTimelineViewModel.LoadOldestState.Loading.self)
         }
     }

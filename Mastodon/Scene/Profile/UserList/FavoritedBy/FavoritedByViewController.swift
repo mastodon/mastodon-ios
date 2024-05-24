@@ -86,7 +86,7 @@ extension FavoritedByViewController: UserTableViewCellDelegate {}
 
 extension FavoritedByViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
             viewModel.stateMachine.enter(UserListViewModel.State.Loading.self)
         }
     }

@@ -14,7 +14,7 @@ final class ListBatchFetchViewModel {
     
     init() {}
 
-    static func scrollViewdidScrollToEnd(_ scrollView: UIScrollView, action: () -> Void) {
+    static func scrollViewDidScrollToEnd(_ scrollView: UIScrollView, action: () -> Void) {
         if scrollView.isDragging || scrollView.isTracking { return }
 
         let frame = scrollView.frame

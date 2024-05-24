@@ -136,7 +136,7 @@ extension FavoriteViewController: StatusTableViewControllerNavigateable {
 
 extension FavoriteViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
             viewModel.stateMachine.enter(FavoriteViewModel.State.Loading.self)
         }
     }

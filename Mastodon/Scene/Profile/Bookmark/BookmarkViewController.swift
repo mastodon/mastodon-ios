@@ -126,7 +126,7 @@ extension BookmarkViewController: StatusTableViewControllerNavigateable {
 
 extension BookmarkViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        ListBatchFetchViewModel.scrollViewdidScrollToEnd(scrollView) {
+        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
             print("See me loading \(Date())")
             viewModel.stateMachine.enter(BookmarkViewModel.State.Loading.self)
         }
