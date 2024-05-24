@@ -54,17 +54,6 @@ extension UserTimelineViewController {
             tableView: tableView,
             statusTableViewCellDelegate: self
         )
-        
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard self.view.window != nil else { return }
-                self.viewModel.stateMachine.enter(UserTimelineViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -167,5 +156,14 @@ extension UserTimelineViewController: StatusTableViewControllerNavigateable {
 extension UserTimelineViewController: IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return IndicatorInfo(title: viewModel.title)
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+extension UserTimelineViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        ListBatchFetchViewModel.scrollViewDidScrollToEnd(scrollView) {
+            viewModel.stateMachine.enter(UserTimelineViewModel.State.Loading.self)
+        }
     }
 }
