@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Chúng tôi sẽ chọn một máy chủ dựa trên ngôn ngữ của bạn nếu bạn tiếp tục mà không lựa chọn."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Sự riêng tư của bạn",
+            "description": "Mặc dù ứng dụng Mastodon không thu thập bất kỳ dữ liệu nào, máy chủ mà bạn đăng ký có thể có chính sách khác.\n\nNếu không đồng ý với chính sách của **%s**, bạn có thể quay lại và chọn một máy chủ khác.",
             "policy": {
                 "ios": "Bảo mật - Mastodon for iOS",
                 "server": "Bảo mật - %s"
