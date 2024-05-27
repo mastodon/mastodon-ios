@@ -19,10 +19,10 @@ class SettingsViewController: UIViewController {
     init(accountName: String, domain: String) {
 
         sections = [
-           .init(entries: [.general, .notifications]),
-           .init(entries: [.serverDetails(domain: domain), .aboutMastodon]),
-           .init(entries: [.logout(accountName: accountName)])
-       ]
+            .init(entries: [.general, .notifications, .privacySafety]),
+            .init(entries: [.serverDetails(domain: domain), .aboutMastodon]),
+            .init(entries: [.logout(accountName: accountName)])
+        ]
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false

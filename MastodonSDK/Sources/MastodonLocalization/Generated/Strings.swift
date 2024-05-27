@@ -1598,12 +1598,46 @@ public enum L10n {
         }
         /// Notifications
         public static let notifications = L10n.tr("Localizable", "Scene.Settings.Overview.Notifications", fallback: "Notifications")
+        /// Privacy & Safety
+        public static let privacySafety = L10n.tr("Localizable", "Scene.Settings.Overview.PrivacySafety", fallback: "Privacy & Safety")
         /// Server Details
         public static let serverDetails = L10n.tr("Localizable", "Scene.Settings.Overview.ServerDetails", fallback: "Server Details")
         /// Support Mastodon
         public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.SupportMastodon", fallback: "Support Mastodon")
         /// Settings
         public static let title = L10n.tr("Localizable", "Scene.Settings.Overview.Title", fallback: "Settings")
+      }
+      public enum PrivacySafety {
+        /// Appear in Search Engines
+        public static let appearInSearchEngines = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.AppearInSearchEngines", fallback: "Appear in Search Engines")
+        /// Manually Approve Follow Requests
+        public static let manuallyApproveFollowRequests = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.ManuallyApproveFollowRequests", fallback: "Manually Approve Follow Requests")
+        /// Show Followers & Following
+        public static let showFollowersAndFollowing = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.ShowFollowersAndFollowing", fallback: "Show Followers & Following")
+        /// Suggest My Account to Others
+        public static let suggestMyAccountToOthers = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.SuggestMyAccountToOthers", fallback: "Suggest My Account to Others")
+        /// Privacy & Safety
+        public static let title = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.Title", fallback: "Privacy & Safety")
+        public enum DefaultPostVisibility {
+          /// Followers Only
+          public static let followersOnly = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.DefaultPostVisibility.FollowersOnly", fallback: "Followers Only")
+          /// Only People Mentioned
+          public static let onlyPeopleMentioned = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.DefaultPostVisibility.OnlyPeopleMentioned", fallback: "Only People Mentioned")
+          /// Public
+          public static let `public` = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.DefaultPostVisibility.Public", fallback: "Public")
+          /// Default Post Visibility
+          public static let title = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.DefaultPostVisibility.Title", fallback: "Default Post Visibility")
+        }
+        public enum Preset {
+          /// Custom
+          public static let custom = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.Preset.Custom", fallback: "Custom")
+          /// Open & Public
+          public static let openAndPublic = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.Preset.OpenAndPublic", fallback: "Open & Public")
+          /// Private & Restricted
+          public static let privateAndRestricted = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.Preset.PrivateAndRestricted", fallback: "Private & Restricted")
+          /// Preset
+          public static let title = L10n.tr("Localizable", "Scene.Settings.PrivacySafety.Preset.Title", fallback: "Preset")
+        }
       }
       public enum ServerDetails {
         /// About
