@@ -135,6 +135,14 @@ extension SidebarViewController {
         sidebarDoubleTapGestureRecognizer.cancelsTouchesInView = true
         collectionView.addGestureRecognizer(sidebarDoubleTapGestureRecognizer)
 
+        NotificationCenter.default.publisher(for: .userFetched)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self, let snapshot = self.viewModel.diffableDataSource?.snapshot() else { return }
+
+                self.viewModel.diffableDataSource?.applySnapshotUsingReloadData(snapshot)
+            }
+            .store(in: &disposeBag)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
