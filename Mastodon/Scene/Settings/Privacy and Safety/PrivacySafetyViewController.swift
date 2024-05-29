@@ -39,11 +39,33 @@ struct PrivacySafetyView: View {
                 CheckableButton(text: L10n.Scene.Settings.PrivacySafety.Preset.privateAndRestricted, isChecked: viewModel.preset == .privateRestricted, action: {
                     viewModel.preset = .privateRestricted
                 })
-                CheckableButton(text: L10n.Scene.Settings.PrivacySafety.Preset.custom, isChecked: viewModel.preset == .custom, action: {
-                    viewModel.preset = .custom
-                })
+                
+                if viewModel.preset == .custom {
+                    CheckableButton(text: L10n.Scene.Settings.PrivacySafety.Preset.custom, isChecked: viewModel.preset == .custom, action: {
+                        viewModel.preset = .custom
+                    })
+                }
+            }
+            
+            Section {
+                Picker(selection: $viewModel.visibility) {
+                    ForEach(PrivacySafetyViewModel.Visibility.allCases, id: \.self) {
+                        Text($0.title)
+                    }
+                } label: {
+                    Text(L10n.Scene.Settings.PrivacySafety.DefaultPostVisibility.title)
+                }
+
+            }
+            
+            Section {
+                Toggle(L10n.Scene.Settings.PrivacySafety.manuallyApproveFollowRequests, isOn: $viewModel.manuallyApproveFollowRequests)
+                Toggle(L10n.Scene.Settings.PrivacySafety.showFollowersAndFollowing, isOn: $viewModel.showFollowersAndFollowing)
+                Toggle(L10n.Scene.Settings.PrivacySafety.suggestMyAccountToOthers, isOn: $viewModel.suggestMyAccountToOthers)
+                Toggle(L10n.Scene.Settings.PrivacySafety.appearInSearchEngines, isOn: $viewModel.appearInSearches)
             }
         }
+        .onAppear(perform: viewModel.viewDidAppear)
     }
 }
 
