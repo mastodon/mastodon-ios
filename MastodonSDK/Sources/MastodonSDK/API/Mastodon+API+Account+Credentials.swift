@@ -158,6 +158,7 @@ extension Mastodon.API.Account {
         public let locked: Bool?
         public let source: Mastodon.Entity.Source?
         public let fieldsAttributes: [Mastodon.Entity.Field]?
+        public let indexable: Bool?
 
         enum CodingKeys: String, CodingKey {
             case discoverable
@@ -170,6 +171,7 @@ extension Mastodon.API.Account {
             case locked
             case source
             case fieldsAttributes = "fields_attributes"
+            case indexable
         }
 
         public init(
@@ -181,7 +183,8 @@ extension Mastodon.API.Account {
             header: Mastodon.Query.MediaAttachment? = nil,
             locked: Bool? = nil,
             source: Mastodon.Entity.Source? = nil,
-            fieldsAttributes: [Mastodon.Entity.Field]? = nil
+            fieldsAttributes: [Mastodon.Entity.Field]? = nil,
+            indexable: Bool? = nil
         ) {
             self.discoverable = discoverable
             self.bot = bot
@@ -192,6 +195,7 @@ extension Mastodon.API.Account {
             self.locked = locked
             self.source = source
             self.fieldsAttributes = fieldsAttributes
+            self.indexable = indexable
         }
         
         var contentType: String? {
@@ -212,6 +216,7 @@ extension Mastodon.API.Account {
             avatar.flatMap { data.append(Data.multipart(key: "avatar", value: $0)) }
             header.flatMap { data.append(Data.multipart(key: "header", value: $0)) }
             locked.flatMap { data.append(Data.multipart(key: "locked", value: $0)) }
+            indexable.flatMap { data.append(Data.multipart(key: "indexable", value: $0)) }
             if let source = source {
                 source.privacy.flatMap { data.append(Data.multipart(key: "source[privacy]", value: $0.rawValue)) }
                 source.sensitive.flatMap { data.append(Data.multipart(key: "source[privacy]", value: $0)) }
