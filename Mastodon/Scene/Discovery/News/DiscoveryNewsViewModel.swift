@@ -20,7 +20,6 @@ final class DiscoveryNewsViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     // output
     @Published var links: [Mastodon.Entity.Link] = []

@@ -25,7 +25,6 @@ final class HomeTimelineViewModel: NSObject {
     let context: AppContext
     let authContext: AuthContext
     let dataController: FeedDataController
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     var presentedSuggestions = false
 

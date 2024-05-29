@@ -21,7 +21,6 @@ final class BookmarkViewModel {
     let authContext: AuthContext
     
     let dataController: StatusDataController
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?

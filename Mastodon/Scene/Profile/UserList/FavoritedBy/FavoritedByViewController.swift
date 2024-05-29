@@ -49,18 +49,8 @@ extension FavoritedByViewController {
             tableView: tableView,
             userTableViewCellDelegate: self
         )
-        
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.stateMachine.enter(UserListViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
 
-        viewModel.listBatchFetchViewModel.shouldFetch.send()
+        viewModel.stateMachine.enter(UserListViewModel.State.Loading.self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,3 +81,13 @@ extension FavoritedByViewController: UITableViewDelegate, AutoGenerateTableViewD
 
 // MARK: - UserTableViewCellDelegate
 extension FavoritedByViewController: UserTableViewCellDelegate {}
+
+//MARK: - UIScrollViewDelegate
+
+extension FavoritedByViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
+            viewModel.stateMachine.enter(UserListViewModel.State.Loading.self)
+        }
+    }
+}

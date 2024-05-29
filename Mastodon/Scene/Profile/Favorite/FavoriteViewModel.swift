@@ -20,7 +20,6 @@ final class FavoriteViewModel {
     let context: AppContext
     let authContext: AuthContext
     let dataController: StatusDataController
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?

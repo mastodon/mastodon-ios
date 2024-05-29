@@ -57,17 +57,6 @@ extension DiscoveryNewsViewController {
                 self.refreshControl.endRefreshing()
             }
             .store(in: &disposeBag)
-        
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard self.view.window != nil else { return }
-                self.viewModel.stateMachine.enter(DiscoveryNewsViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -204,4 +193,14 @@ extension DiscoveryNewsViewController: TableViewControllerNavigateable {
         navigateKeyCommandHandler(sender)
     }
 
+}
+
+//MARK: - UIScrollViewDelegate
+
+extension DiscoveryNewsViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
+            viewModel.stateMachine.enter(DiscoveryNewsViewModel.State.Loading.self)
+        }
+    }
 }

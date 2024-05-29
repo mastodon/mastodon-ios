@@ -192,18 +192,7 @@ extension HomeTimelineViewController {
             statusTableViewCellDelegate: self,
             timelineMiddleLoaderTableViewCellDelegate: self
         )
-        
-        // setup batch fetch
-        viewModel?.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel?.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard self.view.window != nil else { return }
-                self.viewModel?.loadOldestStateMachine.enter(HomeTimelineViewModel.LoadOldestState.Loading.self)
-            }
-            .store(in: &disposeBag)
-        
+
         // bind refresh control
         viewModel?.didLoadLatest
             .receive(on: DispatchQueue.main)
@@ -587,11 +576,22 @@ extension HomeTimelineViewController {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
+            guard let viewModel,
+                  let currentState = viewModel.loadLatestStateMachine.currentState as? HomeTimelineViewModel.LoadLatestState,
+                  (currentState.self is HomeTimelineViewModel.LoadLatestState.ContextSwitch) == false else { return }
+
+            viewModel.timelineDidReachEnd()
+        }
+
+        
         guard (scrollView.safeAreaInsets.top + scrollView.contentOffset.y) == 0 else {
             return
         }
 
         hideTimelinePill()
+
+
     }
 
     private func savePositionBeforeScrollToTop() {
@@ -673,16 +673,6 @@ extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableView
     }
 
     // sourcery:end
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let viewModel,
-                let currentState = viewModel.loadLatestStateMachine.currentState as? HomeTimelineViewModel.LoadLatestState,
-              (currentState.self is HomeTimelineViewModel.LoadLatestState.ContextSwitch) == false else { return }
-
-        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-            viewModel.timelineDidReachEnd()
-        }
-    }
 }
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate

@@ -21,7 +21,6 @@ final class UserListViewModel {
     let kind: Kind
     @Published var accounts: [Mastodon.Entity.Account]
     @Published var relationships: [Mastodon.Entity.Relationship]
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>!

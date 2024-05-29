@@ -54,17 +54,7 @@ extension NotificationTimelineViewController {
             tableView: tableView,
             notificationTableViewCellDelegate: self
         )
-        
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.loadOldestStateMachine.enter(NotificationTimelineViewModel.LoadOldestState.Loading.self)
-            }
-            .store(in: &disposeBag)
-        
+
         // setup refresh control
         tableView.refreshControl = refreshControl
         viewModel.didLoadLatest
@@ -305,4 +295,14 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
         navigateKeyCommandHandler(sender)
     }
 
+}
+
+//MARK: - UIScrollViewDelegate
+
+extension NotificationTimelineViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
+            viewModel.loadOldestStateMachine.enter(NotificationTimelineViewModel.LoadOldestState.Loading.self)
+        }
+    }
 }

@@ -22,7 +22,6 @@ final class UserTimelineViewModel {
     let authContext: AuthContext
     let title: String
     let dataController: StatusDataController
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
     @Published var userIdentifier: UserIdentifier?
     @Published var queryFilter: QueryFilter
 

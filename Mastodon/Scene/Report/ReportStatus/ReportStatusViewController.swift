@@ -96,17 +96,6 @@ extension ReportStatusViewController {
             }
             .store(in: &observations)
         
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard self.view.window != nil else { return }
-                self.viewModel.stateMachine.enter(ReportStatusViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
-        
         viewModel.$isNextButtonEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: navigationActionView.nextButton)
@@ -119,7 +108,7 @@ extension ReportStatusViewController {
         navigationActionView.backButton.addTarget(self, action: #selector(ReportStatusViewController.skipButtonDidPressed(_:)), for: .touchUpInside)
         navigationActionView.nextButton.addTarget(self, action: #selector(ReportStatusViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
 
-        viewModel.listBatchFetchViewModel.shouldFetch.send()
+        viewModel.stateMachine.enter(ReportStatusViewModel.State.Loading.self)
     }
     
 }
@@ -195,5 +184,15 @@ extension ReportStatusViewController: UITableViewDelegate {
 extension ReportStatusViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return false
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+
+extension ReportStatusViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        Self.scrollViewDidScrollToEnd(scrollView) {
+            viewModel.stateMachine.enter(ReportStatusViewModel.State.Loading.self)
+        }
     }
 }

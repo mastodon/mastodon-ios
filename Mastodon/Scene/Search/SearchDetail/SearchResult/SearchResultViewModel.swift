@@ -25,7 +25,6 @@ final class SearchResultViewModel {
     @Published var accounts: [Mastodon.Entity.Account] = []
     var relationships: [Mastodon.Entity.Relationship] = []
     let dataController: StatusDataController
-    let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     var cellFrameCache = NSCache<NSNumber, NSValue>()
     var navigationBarFrame = CurrentValueSubject<CGRect, Never>(.zero)
