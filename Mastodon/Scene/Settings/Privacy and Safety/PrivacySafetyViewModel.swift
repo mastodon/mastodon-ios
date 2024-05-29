@@ -2,6 +2,8 @@
 
 import Foundation
 import MastodonLocalization
+import MastodonCore
+import MastodonSDK
 
 class PrivacySafetyViewModel: ObservableObject {
     enum Preset {
@@ -22,6 +24,8 @@ class PrivacySafetyViewModel: ObservableObject {
             }
         }
     }
+    
+    weak var appContext: AppContext?
     
     @Published var preset: Preset = .openPublic {
         didSet { applyPreset(preset) }
@@ -47,9 +51,13 @@ class PrivacySafetyViewModel: ObservableObject {
     }
     
     private var doNotEvaluate = true
+    @Published var isInitialized = false
     
     func viewDidAppear() {
         doNotEvaluate = false
+        if !isInitialized {
+            loadSettings()
+        }
     }
 }
 
@@ -87,8 +95,10 @@ extension PrivacySafetyViewModel {
     }
 
     func loadSettings() {
-        Task {
+        Task { @MainActor in
             
+            
+            isInitialized = true
         }
     }
     
