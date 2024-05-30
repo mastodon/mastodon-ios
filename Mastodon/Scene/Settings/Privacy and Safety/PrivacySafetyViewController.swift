@@ -48,17 +48,29 @@ struct PrivacySafetyView: View {
             } else {
                 Form {
                     Section(L10n.Scene.Settings.PrivacySafety.Preset.title) {
-                        CheckableButton(text: L10n.Scene.Settings.PrivacySafety.Preset.openAndPublic, isChecked: viewModel.preset == .openPublic, action: {
-                            viewModel.preset = .openPublic
-                        })
-                        CheckableButton(text: L10n.Scene.Settings.PrivacySafety.Preset.privateAndRestricted, isChecked: viewModel.preset == .privateRestricted, action: {
-                            viewModel.preset = .privateRestricted
-                        })
+                        CheckableButton(
+                            text: L10n.Scene.Settings.PrivacySafety.Preset.openAndPublic,
+                            isChecked: viewModel.preset == .openPublic,
+                            action: {
+                                viewModel.preset = .openPublic
+                            }
+                        )
+                        CheckableButton(
+                            text: L10n.Scene.Settings.PrivacySafety.Preset.privateAndRestricted,
+                            isChecked: viewModel.preset == .privateRestricted,
+                            action: {
+                                viewModel.preset = .privateRestricted
+                            }
+                        )
                         
                         if viewModel.preset == .custom {
-                            CheckableButton(text: L10n.Scene.Settings.PrivacySafety.Preset.custom, isChecked: viewModel.preset == .custom, action: {
-                                viewModel.preset = .custom
-                            })
+                            CheckableButton(
+                                text: L10n.Scene.Settings.PrivacySafety.Preset.custom,
+                                isChecked: viewModel.preset == .custom,
+                                action: {
+                                    viewModel.preset = .custom
+                                }
+                            )
                         }
                     }
                     
