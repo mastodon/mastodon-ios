@@ -43,7 +43,7 @@ struct PrivacySafetyView: View {
     
     var body: some View {
         Group {
-            if !viewModel.isInitialized {
+            if !viewModel.isUserInteractionEnabled {
                 ProgressView()
             } else {
                 Form {

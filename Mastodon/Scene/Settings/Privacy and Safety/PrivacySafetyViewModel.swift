@@ -84,12 +84,12 @@ class PrivacySafetyViewModel: ObservableObject {
     }
     
     private var doNotEvaluate = true
-    @Published var isInitialized = false
+    @Published var isUserInteractionEnabled = false
     let onDismiss = PassthroughSubject<Void, Never>()
     
     func viewDidAppear() {
         doNotEvaluate = false
-        if !isInitialized {
+        if !isUserInteractionEnabled {
             loadSettings()
         }
     }
@@ -151,7 +151,7 @@ extension PrivacySafetyViewModel {
             suggestMyAccountToOthers = account.discoverable == true
             appearInSearches = account.indexable == true
 
-            isInitialized = true
+            isUserInteractionEnabled = true
         }
     }
     
