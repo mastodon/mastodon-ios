@@ -1,5 +1,6 @@
 // Copyright © 2024 Mastodon gGmbH. All rights reserved.
 
+import Combine
 import Foundation
 import MastodonLocalization
 import MastodonCore
@@ -23,10 +24,42 @@ class PrivacySafetyViewModel: ObservableObject {
                 return L10n.Scene.Settings.PrivacySafety.DefaultPostVisibility.onlyPeopleMentioned
             }
         }
+        
+        static func from(_ privacy: Mastodon.Entity.Source.Privacy) -> Self {
+            switch privacy {
+            case .public:
+                return .public
+            case .unlisted:
+                return .followersOnly
+            case .private, .direct:
+                return .onlyPeopleMentioned
+            case ._other(_):
+                return .public
+            }
+        }
+        
+        func toPrivacy() -> Mastodon.Entity.Source.Privacy {
+            switch self {
+            case .public:
+                return .public
+            case .followersOnly:
+                return .unlisted
+            case .onlyPeopleMentioned:
+                return .private
+            }
+        }
     }
     
-    weak var appContext: AppContext?
-    
+    private var appContext: AppContext?
+    private var authContext: AuthContext?
+    private var coordinator: SceneCoordinator?
+
+    init(appContext: AppContext?, authContext: AuthContext?, coordinator: SceneCoordinator?) {
+        self.appContext = appContext
+        self.authContext = authContext
+        self.coordinator = coordinator
+    }
+
     @Published var preset: Preset = .openPublic {
         didSet { applyPreset(preset) }
     }
@@ -52,6 +85,7 @@ class PrivacySafetyViewModel: ObservableObject {
     
     private var doNotEvaluate = true
     @Published var isInitialized = false
+    let onDismiss = PassthroughSubject<Void, Never>()
     
     func viewDidAppear() {
         doNotEvaluate = false
@@ -96,23 +130,63 @@ extension PrivacySafetyViewModel {
 
     func loadSettings() {
         Task { @MainActor in
+            guard let appContext, let authContext else {
+                return dismiss()
+            }
             
+            let domain = authContext.mastodonAuthenticationBox.domain
+            let userAuthorization = authContext.mastodonAuthenticationBox.userAuthorization
             
+            let account = try await appContext.apiService.accountVerifyCredentials(
+                domain: domain,
+                authorization: userAuthorization
+            ).singleOutput().value
+            
+            if let privacy = account.source?.privacy {
+                visibility = .from(privacy)
+            }
+            
+            manuallyApproveFollowRequests = account.locked == true
+            showFollowersAndFollowing = account.hideCollections == false
+            suggestMyAccountToOthers = account.discoverable == true
+            appearInSearches = account.indexable == true
+
             isInitialized = true
         }
     }
     
     func saveSettings() {
         Task {
+            guard let appContext, let authContext else {
+                return
+            }
+    
+            let domain = authContext.mastodonAuthenticationBox.domain
+            let userAuthorization = authContext.mastodonAuthenticationBox.userAuthorization
             
+            let _ = try await appContext.apiService.accountUpdateCredentials(
+                domain: domain,
+                query: .init(
+                    discoverable: suggestMyAccountToOthers,
+                    locked: manuallyApproveFollowRequests,
+                    source: .withPrivacy(visibility.toPrivacy()),
+                    indexable: appearInSearches,
+                    hideCollections: !showFollowersAndFollowing
+                ),
+                authorization: userAuthorization
+            ).value
         }
+    }
+    
+    func dismiss() {
+        onDismiss.send(())
     }
 }
 
 // Preset Rules Definition
 extension PrivacySafetyViewModel {
     static let openPublic: PrivacySafetyViewModel = {
-        let vm = PrivacySafetyViewModel()
+        let vm = PrivacySafetyViewModel(appContext: nil, authContext: nil, coordinator: nil)
         vm.visibility = .public
         vm.manuallyApproveFollowRequests = false
         vm.showFollowersAndFollowing = true
@@ -122,7 +196,7 @@ extension PrivacySafetyViewModel {
     }()
     
     static let privateRestricted: PrivacySafetyViewModel = {
-        let vm = PrivacySafetyViewModel()
+        let vm = PrivacySafetyViewModel(appContext: nil, authContext: nil, coordinator: nil)
         vm.visibility = .followersOnly
         vm.manuallyApproveFollowRequests = true
         vm.showFollowersAndFollowing = false

@@ -37,6 +37,8 @@ extension Mastodon.Entity {
         public let locked: Bool
         public let emojis: [Emoji]
         public let discoverable: Bool?
+        public let hideCollections: Bool?
+        public let indexable: Bool?
 
         // Statistical
         public let createdAt: Date
@@ -71,6 +73,8 @@ extension Mastodon.Entity.Account: Codable {
         case locked
         case emojis
         case discoverable
+        case hideCollections = "hide_collections"
+        case indexable
         
         case createdAt = "created_at"
         case lastStatusAt = "last_status_at"

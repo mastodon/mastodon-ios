@@ -1,5 +1,6 @@
 // Copyright © 2024 Mastodon gGmbH. All rights reserved.
 
+import Combine
 import UIKit
 import SwiftUI
 import MastodonSDK
@@ -7,14 +8,24 @@ import MastodonCore
 import MastodonLocalization
 import MastodonAsset
 
-final class PrivacySafetyViewController: UIHostingController<PrivacySafetyView>, NeedsDependency {
-    weak var context: AppContext!
-    weak var coordinator: SceneCoordinator!
-        
-    init(context: AppContext, coordinator: SceneCoordinator) {
-        self.context = context
-        self.coordinator = coordinator
-        super.init(rootView: PrivacySafetyView(viewModel: PrivacySafetyViewModel()))
+final class PrivacySafetyViewController: UIHostingController<PrivacySafetyView> {
+    private let viewModel: PrivacySafetyViewModel
+    private var disposeBag = [AnyCancellable]()
+    
+    init(appContext: AppContext, authContext: AuthContext, coordinator: SceneCoordinator) {
+        self.viewModel = PrivacySafetyViewModel(
+            appContext: appContext, authContext: authContext, coordinator: coordinator
+        )
+        super.init(
+            rootView: PrivacySafetyView(
+                viewModel: self.viewModel
+            )
+        )
+        self.viewModel.onDismiss.receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.dismiss(animated: true)
+            }
+            .store(in: &disposeBag)
     }
     
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
@@ -72,6 +83,7 @@ struct PrivacySafetyView: View {
             }
         }
         .onAppear(perform: viewModel.viewDidAppear)
+        .onDisappear(perform: viewModel.saveSettings)
     }
 }
 

@@ -36,6 +36,10 @@ extension Mastodon.Entity {
             case language
             case followRequestsCount = "follow_requests_count"
         }
+        
+        public static func withPrivacy(_ privacy: Privacy) -> Self {
+            Source(note: "", fields: nil, privacy: privacy, sensitive: nil, language: nil, followRequestsCount: nil)
+        }
     }
 }
 
