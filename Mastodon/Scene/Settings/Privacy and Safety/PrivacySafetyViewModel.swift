@@ -147,9 +147,9 @@ extension PrivacySafetyViewModel {
             }
             
             manuallyApproveFollowRequests = account.locked == true
-            showFollowersAndFollowing = account.hideCollections == false
-            suggestMyAccountToOthers = account.discoverable == true
-            appearInSearches = account.indexable == true
+            showFollowersAndFollowing = account.source?.hideCollections == false
+            suggestMyAccountToOthers = account.source?.discoverable == true
+            appearInSearches = account.source?.indexable == true
 
             isUserInteractionEnabled = true
         }
