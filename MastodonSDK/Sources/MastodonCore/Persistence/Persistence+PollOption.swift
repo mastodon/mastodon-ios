@@ -33,30 +33,6 @@ extension Persistence.PollOption {
             self.networkDate = networkDate
         }
     }
-    
-    public struct PersistResult {
-        public let option: PollOptionLegacy
-        public let isNewInsertion: Bool
-        
-        public init(
-            option: PollOptionLegacy,
-            isNewInsertion: Bool
-        ) {
-            self.option = option
-            self.isNewInsertion = isNewInsertion
-        }
-    }
-    
-    // the bare Poll.Option entity not supports merge from entity.
-    // use merge entry on MastodonPoll with exists option objects
-    public static func persist(
-        in managedObjectContext: NSManagedObjectContext,
-        context: PersistContext
-    ) -> PersistResult {
-        let option = create(in: managedObjectContext, context: context)
-        return PersistResult(option: option, isNewInsertion: true)
-    }
-    
 }
 
 extension Persistence.PollOption {
