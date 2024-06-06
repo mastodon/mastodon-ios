@@ -39,10 +39,7 @@ public final class PollLegacy: NSManagedObject {
     
     // one-to-one relationship
     @NSManaged public private(set) var status: Status?
-    
-    // one-to-many relationship
-    @NSManaged public private(set) var options: Set<PollOptionLegacy>
-    
+
     // many-to-many relationship
     @NSManaged public private(set) var votedBy: Set<MastodonUser>?
 }
@@ -315,18 +312,5 @@ extension PollLegacy: AutoUpdatableObject {
                 mutableSetValue(forKey: #keyPath(PollLegacy.votedBy)).remove(by)
             }
         }
-    }
-    
-    public func attach(options: [PollOptionLegacy]) {
-        for option in options {
-            guard !self.options.contains(option) else { continue }
-            self.mutableSetValue(forKey: #keyPath(PollLegacy.options)).add(option)
-        }
-    }
-}
-
-public extension Set<PollOptionLegacy> {
-    func sortedByIndex() -> [PollOptionLegacy] {
-        sorted(by: { lhs, rhs in lhs.index < rhs.index })
     }
 }
