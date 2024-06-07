@@ -123,21 +123,6 @@
         <relationship name="showingReblogs" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="showingReblogsBy" inverseEntity="MastodonUser"/>
         <relationship name="showingReblogsBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="showingReblogs" inverseEntity="MastodonUser"/>
         <relationship name="statuses" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="author" inverseEntity="Status"/>
-        <relationship name="votePolls" toMany="YES" deletionRule="Nullify" destinationEntity="Poll" inverseName="votedBy" inverseEntity="Poll"/>
-    </entity>
-    <entity name="Poll" representedClassName="CoreDataStack.Poll" syncable="YES">
-        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="domain" attributeType="String" defaultValueString=""/>
-        <attribute name="expired" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="expiresAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" attributeType="String"/>
-        <attribute name="isVoting" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="multiple" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="votersCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="votesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="poll" inverseEntity="Status"/>
-        <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePolls" inverseEntity="MastodonUser"/>
     </entity>
     <entity name="Setting" representedClassName="CoreDataStack.Setting" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -182,7 +167,6 @@
         <relationship name="feeds" toMany="YES" deletionRule="Cascade" destinationEntity="Feed" inverseName="status" inverseEntity="Feed"/>
         <relationship name="mutedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
         <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedStatus" inverseEntity="MastodonUser"/>
-        <relationship name="poll" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Poll" inverseName="status" inverseEntity="Poll"/>
         <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="reblogFrom" inverseEntity="Status"/>
         <relationship name="reblogFrom" toMany="YES" deletionRule="Cascade" destinationEntity="Status" inverseName="reblog" inverseEntity="Status"/>
         <relationship name="rebloggedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="reblogged" inverseEntity="MastodonUser"/>

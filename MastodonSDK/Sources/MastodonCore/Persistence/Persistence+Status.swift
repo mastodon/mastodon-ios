@@ -79,7 +79,6 @@ extension Persistence.Status {
                 isNewInsertion: false
             )
         } else {
-            var poll: PollLegacy? = nil
 
             let card = createCard(in: managedObjectContext, context: context)
 
@@ -88,7 +87,6 @@ extension Persistence.Status {
             let relationship = Status.Relationship(
                 application: application,
                 reblog: reblog,
-                poll: poll,
                 card: card
             )
             let status = create(

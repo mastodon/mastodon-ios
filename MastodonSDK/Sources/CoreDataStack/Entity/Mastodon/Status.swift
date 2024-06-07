@@ -78,8 +78,6 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var replyTo: Status?
     
     // sourcery: autoGenerateRelationship
-    @NSManaged public private(set) var poll: PollLegacy?
-    // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var card: Card?
 
     // one-to-many relationship
@@ -379,18 +377,15 @@ extension Status: AutoGenerateRelationship {
     public struct Relationship {
     	public let application: Application?
     	public let reblog: Status?
-    	public let poll: PollLegacy?
     	public let card: Card?
 
     	public init(
     		application: Application?,
     		reblog: Status?,
-    		poll: PollLegacy?,
     		card: Card?
     	) {
     		self.application = application
     		self.reblog = reblog
-    		self.poll = poll
     		self.card = card
     	}
     }
@@ -398,7 +393,6 @@ extension Status: AutoGenerateRelationship {
     public func configure(relationship: Relationship) {
     	self.application = relationship.application
     	self.reblog = relationship.reblog
-    	self.poll = relationship.poll
     	self.card = relationship.card
     }
     // sourcery:end
