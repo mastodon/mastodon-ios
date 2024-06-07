@@ -45,7 +45,6 @@ public enum Persistence {
 extension Persistence {
     public enum MastodonUser { }
     public enum Status { }
-    public enum Poll { }
     public enum Card { }
     public enum SearchHistory { }
     public enum Notification { }
