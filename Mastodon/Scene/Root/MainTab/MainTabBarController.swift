@@ -85,6 +85,10 @@ class MainTabBarController: UITabBarController {
             notificationViewController.viewModel = NotificationViewModel(context: context, authContext: authContext)
             homeTimelineViewController.viewModel = HomeTimelineViewModel(context: context, authContext: authContext)
             searchViewController.viewModel = SearchViewModel(context: context, authContext: authContext)
+
+            if let account = authContext.mastodonAuthenticationBox.authentication.account() {
+                meProfileViewController.viewModel = ProfileViewModel(context: context, authContext: authContext, account: account, relationship: nil, me: account)
+            }
         }
 
         super.init(nibName: nil, bundle: nil)
