@@ -158,8 +158,13 @@ extension HomeTimelineViewModel.LoadLatestState {
                                 continue
                             }
                             
-                            let hasMore = status != oldRecords.first?.status?.entity
-                            
+                            let hasMore: Bool = {
+                                guard let firstOldEntity = oldRecords.first?.status?.entity else {
+                                    return false
+                                }
+                                return status != firstOldEntity
+                            }()
+
                             newRecords.append(
                                 MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: hasMore)
                             )
