@@ -51,6 +51,7 @@ extension Persistence.Status {
         }
     }
     
+    @available(*, deprecated, message: "old")
     public static func createOrMerge(
         in managedObjectContext: NSManagedObjectContext,
         context: PersistContext
@@ -78,19 +79,6 @@ extension Persistence.Status {
                 isNewInsertion: false
             )
         } else {
-            let poll: PollLegacy? = {
-                guard let entity = context.entity.poll else { return nil }
-                let result = Persistence.Poll.createOrMerge(
-                    in: managedObjectContext,
-                    context: Persistence.Poll.PersistContext(
-                        domain: context.domain,
-                        entity: entity,
-                        me: context.me,
-                        networkDate: context.networkDate
-                    )
-                )
-                return result.poll
-            }()
 
             let card = createCard(in: managedObjectContext, context: context)
 
@@ -99,7 +87,6 @@ extension Persistence.Status {
             let relationship = Status.Relationship(
                 application: application,
                 reblog: reblog,
-                poll: poll,
                 card: card
             )
             let status = create(
@@ -169,51 +156,6 @@ extension Persistence.Status {
             networkDate: context.networkDate
         )
         status.update(property: property)
-        if let poll = status.poll, let entity = context.entity.poll {
-            // update poll
-            Persistence.Poll.update(
-                in: managedObjectContext, 
-                poll: poll,
-                context: Persistence.Poll.PersistContext(
-                    domain: context.domain,
-                    entity: entity,
-                    me: context.me,
-                    networkDate: context.networkDate
-                )
-            )
-        } else if let entity = context.entity.poll {
-            // add poll
-            let result = Persistence.Poll.createOrMerge(
-                in: managedObjectContext,
-                context: Persistence.Poll.PersistContext(
-                    domain: context.domain,
-                    entity: entity,
-                    me: context.me,
-                    networkDate: context.networkDate
-                )
-            )
-
-            status.configure(
-                relationship:
-                    Status.Relationship(
-                        application: status.application,
-                        reblog: status.reblog,
-                        poll: result.poll,
-                        card: status.card
-                    )
-            )
-        } else if status.poll != nil, context.entity.poll == nil {
-            // remove poll
-            status.configure(
-                relationship:
-                    Status.Relationship(
-                        application: status.application,
-                        reblog: status.reblog,
-                        poll: nil,
-                        card: status.card
-                    )
-            )
-        }
 
         if status.card == nil, context.entity.card != nil {
             let card = createCard(in: managedObjectContext, context: context)

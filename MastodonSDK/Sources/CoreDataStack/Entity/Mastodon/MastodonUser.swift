@@ -72,8 +72,6 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var reblogged: Set<Status>
     @NSManaged public private(set) var muted: Set<Status>
     @NSManaged public private(set) var bookmarked: Set<Status>
-    @NSManaged public private(set) var votePollOptions: Set<PollOptionLegacy>
-    @NSManaged public private(set) var votePolls: Set<PollLegacy>
     // relationships
     @NSManaged public private(set) var following: Set<MastodonUser>
     @NSManaged public private(set) var followingBy: Set<MastodonUser>
