@@ -48,8 +48,10 @@ platform :ios do
 
   lane :build_only do
     xcodebuild(
+      build: true,
       clean: true,
-      scheme: "Mastodon")
+      scheme: "Mastodon"
+    )
   end
 
   desc " Build and deploy the App to App Store Connect & TestFlight"
