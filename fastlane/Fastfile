@@ -48,8 +48,11 @@ platform :ios do
 
   lane :build_only do
     xcodebuild(
-      build: true,
       clean: true,
+      scheme: "Mastodon"
+    )
+    xcodebuild(
+      build: true,
       scheme: "Mastodon"
     )
   end
