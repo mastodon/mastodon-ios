@@ -77,9 +77,6 @@ public final class Status: NSManagedObject {
     // sourcery: autoUpdatableObject
     @NSManaged public private(set) var replyTo: Status?
     
-    // sourcery: autoGenerateRelationship
-    @NSManaged public private(set) var card: Card?
-
     // one-to-many relationship
     @NSManaged public private(set) var feeds: Set<Feed>
     
@@ -377,23 +374,19 @@ extension Status: AutoGenerateRelationship {
     public struct Relationship {
     	public let application: Application?
     	public let reblog: Status?
-    	public let card: Card?
 
     	public init(
     		application: Application?,
-    		reblog: Status?,
-    		card: Card?
-    	) {
+    		reblog: Status?
+        ) {
     		self.application = application
     		self.reblog = reblog
-    		self.card = card
     	}
     }
 
     public func configure(relationship: Relationship) {
     	self.application = relationship.application
     	self.reblog = relationship.reblog
-    	self.card = relationship.card
     }
     // sourcery:end
 }

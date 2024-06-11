@@ -79,15 +79,11 @@ extension Persistence.Status {
                 isNewInsertion: false
             )
         } else {
-
-            let card = createCard(in: managedObjectContext, context: context)
-
             let application: Application? = createApplication(in: managedObjectContext, context: .init(entity: context.entity))
                 
             let relationship = Status.Relationship(
                 application: application,
-                reblog: reblog,
-                card: card
+                reblog: reblog
             )
             let status = create(
                 in: managedObjectContext,
@@ -156,28 +152,6 @@ extension Persistence.Status {
             networkDate: context.networkDate
         )
         status.update(property: property)
-
-        if status.card == nil, context.entity.card != nil {
-            let card = createCard(in: managedObjectContext, context: context)
-            let relationship = Card.Relationship(status: status)
-            card?.configure(relationship: relationship)
-        }
-    }
-
-    private static func createCard(
-        in managedObjectContext: NSManagedObjectContext,
-        context: PersistContext
-    ) -> Card? {
-        guard let entity = context.entity.card else { return nil }
-        let result = Persistence.Card.create(
-            in: managedObjectContext,
-            context: Persistence.Card.PersistContext(
-                domain: context.domain,
-                entity: entity,
-                me: context.me
-            )
-        )
-        return result.card
     }
 
     private static func createApplication(

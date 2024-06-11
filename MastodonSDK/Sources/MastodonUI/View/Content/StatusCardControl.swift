@@ -326,18 +326,6 @@ private extension StatusCardControl {
     }
 }
 
-private extension Card {
-    var layout: StatusCardControl.Layout {
-        var aspectRatio = CGFloat(width) / CGFloat(height)
-        if !aspectRatio.isFinite {
-            aspectRatio = 1
-        }
-        return (abs(aspectRatio - 1) < 0.05 || image == nil) && html == nil
-        ? .compact
-        : .large(aspectRatio: aspectRatio)
-    }
-}
-
 private extension Mastodon.Entity.Card {
     var layout: StatusCardControl.Layout {
         var aspectRatio = CGFloat(width ?? 1) / CGFloat(height ?? 1)

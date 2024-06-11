@@ -7,23 +7,6 @@
         <attribute name="website" optional="YES" attributeType="String"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="application" inverseEntity="Status"/>
     </entity>
-    <entity name="Card" representedClassName="CoreDataStack.Card" syncable="YES">
-        <attribute name="authorName" optional="YES" attributeType="String"/>
-        <attribute name="authorURLRaw" optional="YES" attributeType="String"/>
-        <attribute name="blurhash" optional="YES" attributeType="String"/>
-        <attribute name="desc" attributeType="String"/>
-        <attribute name="embedURLRaw" optional="YES" attributeType="String"/>
-        <attribute name="height" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="html" optional="YES" attributeType="String"/>
-        <attribute name="image" optional="YES" attributeType="String"/>
-        <attribute name="providerName" optional="YES" attributeType="String"/>
-        <attribute name="providerURLRaw" optional="YES" attributeType="String"/>
-        <attribute name="title" attributeType="String"/>
-        <attribute name="typeRaw" attributeType="String"/>
-        <attribute name="urlRaw" attributeType="String"/>
-        <attribute name="width" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="card" inverseEntity="Status"/>
-    </entity>
     <entity name="DomainBlock" representedClassName="CoreDataStack.DomainBlock" syncable="YES">
         <attribute name="blockedDomain" attributeType="String"/>
         <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -162,7 +145,6 @@
         <relationship name="application" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Application" inverseName="status" inverseEntity="Application"/>
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="statuses" inverseEntity="MastodonUser"/>
         <relationship name="bookmarkedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="bookmarked" inverseEntity="MastodonUser"/>
-        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="status" inverseEntity="Card"/>
         <relationship name="favouritedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="favourite" inverseEntity="MastodonUser"/>
         <relationship name="feeds" toMany="YES" deletionRule="Cascade" destinationEntity="Feed" inverseName="status" inverseEntity="Feed"/>
         <relationship name="mutedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
