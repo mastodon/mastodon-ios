@@ -49,7 +49,13 @@ platform :ios do
   lane :build_only do
     xcodebuild(
       clean: true,
-      scheme: "Mastodon")
+      scheme: "#{$appName}"
+    )
+    xcodebuild(
+      build: true,
+      destination: "platform=iOS Simulator,name=iPhone 14 Pro",
+      scheme: "#{$appName}"
+    )
   end
 
   desc " Build and deploy the App to App Store Connect & TestFlight"
