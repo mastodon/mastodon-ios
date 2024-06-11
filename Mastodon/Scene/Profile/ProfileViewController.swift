@@ -809,6 +809,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     guard let self else { return }
 
                     self.profileHeaderViewController.viewModel.setProfileInfo(accountForEdit: response.value)
+                    self.viewModel.accountForEdit = response.value
                 }
                 .store(in: &disposeBag)
         } else if isEdited == false {
