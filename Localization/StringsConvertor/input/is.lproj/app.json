@@ -751,6 +751,7 @@
                 "title": "Stillingar",
                 "general": "Almennt",
                 "notifications": "Tilkynningar",
+                "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Styddu við Mastodon",
                 "about_mastodon": "Um Mastodon",
                 "server_details": "Nánar um netþjón",
@@ -820,6 +821,25 @@
                     "notification_hint": "Kveiktu á tilkynningum í stillingum tækisins þíns til að sjá uppfærslur á læsiskjánum þínum.",
                     "go_to_settings": "Fara í stillingar á tilkynningum"
                 }
+            },
+            "privacy_safety": {
+                "title": "Privacy & Safety",
+                "preset": {
+                    "title": "Preset",
+                    "open_and_public": "Open & Public",
+                    "private_and_restricted": "Private & Restricted",
+                    "custom": "Custom"
+                },
+                "default_post_visibility": {
+                    "title": "Default Post Visibility",
+                    "public": "Public",
+                    "followers_only": "Followers Only",
+                    "only_people_mentioned": "Only People Mentioned"
+                },
+                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "show_followers_and_following": "Show Followers & Following",
+                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "appear_in_search_engines": "Appear in Search Engines"
             }
         },
         "report": {
