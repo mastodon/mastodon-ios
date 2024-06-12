@@ -828,11 +828,11 @@
                     "title": "Preset",
                     "open_and_public": "Open & Public",
                     "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "custom": "Уласнае"
                 },
                 "default_post_visibility": {
                     "title": "Default Post Visibility",
-                    "public": "Public",
+                    "public": "Публічны",
                     "followers_only": "Followers Only",
                     "only_people_mentioned": "Only People Mentioned"
                 },
