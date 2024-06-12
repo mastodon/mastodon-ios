@@ -607,6 +607,7 @@ extension ProfileViewController {
             {
                 viewModel.account = updatedAccount
                 viewModel.relationship = updatedRelationship
+                viewModel.profileAboutViewModel.fields = updatedAccount.mastodonFields
             }
 
             if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
@@ -761,6 +762,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     self.profileHeaderViewController.viewModel.isEditing = false
                     profileAboutViewModel.isEditing = false
                     self.viewModel.account = updatedAccount
+                    self.viewModel.profileAboutViewModel.fields = updatedAccount.mastodonFields
 
                 } catch {
                     let alertController = UIAlertController(
