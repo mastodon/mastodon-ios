@@ -71,6 +71,13 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 notificationViewController.delegate = self
 
                 navigationController.pushViewController(notificationViewController, animated: true)
+            case .privacySafety:
+                let privacySafetyViewController = PrivacySafetyViewController(
+                    appContext: appContext,
+                    authContext: authContext,
+                    coordinator: sceneCoordinator
+                )
+                navigationController.pushViewController(privacySafetyViewController, animated: true)
             case .serverDetails(let domain):
                 let serverDetailsViewController = ServerDetailsViewController(domain: domain, appContext: appContext, authContext: authContext, sceneCoordinator: sceneCoordinator)
                 serverDetailsViewController.delegate = self

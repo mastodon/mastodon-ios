@@ -71,7 +71,7 @@ extension Mastodon.Entity.Account: Codable {
         case locked
         case emojis
         case discoverable
-        
+
         case createdAt = "created_at"
         case lastStatusAt = "last_status_at"
         case statusesCount = "statuses_count"

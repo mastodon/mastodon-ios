@@ -21,6 +21,8 @@
 		0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D33725E6401400AAD544 /* PickServerCell.swift */; };
 		164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 164F0EBB267D4FE400249499 /* BoopSound.caf */; };
 		27D701F5292FC2D60031BCBB /* DataSourceFacade+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D701F4292FC2D60031BCBB /* DataSourceFacade+URL.swift */; };
+		2A0BF97F2C0622AA004A1E29 /* PrivacySafetyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BF97E2C0622AA004A1E29 /* PrivacySafetyViewController.swift */; };
+		2A0BF9812C06252A004A1E29 /* PrivacySafetyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BF9802C06252A004A1E29 /* PrivacySafetyViewModel.swift */; };
 		2A1BF99529F7E68400FA1BA5 /* DataSourceFacade+UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1BF99429F7E68400FA1BA5 /* DataSourceFacade+UserView.swift */; };
 		2A1FE47C2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */; };
 		2A1FE47E2938C11200784BF1 /* Collection+IsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */; };
@@ -32,6 +34,9 @@
 		2A409F832B5955290044E472 /* MastodonStatusThreadViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A409F822B5955290044E472 /* MastodonStatusThreadViewModel+State.swift */; };
 		2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */; };
 		2A506CF6292D040100059C37 /* HashtagTimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */; };
+		2A5242732C199C96005B9E22 /* PrivacySafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5242722C199C96005B9E22 /* PrivacySafetyView.swift */; };
+		2A5242752C199CBD005B9E22 /* CheckableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5242742C199CBD005B9E22 /* CheckableButton.swift */; };
+		2A5242772C199EC2005B9E22 /* PrivacySafetySettingPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5242762C199EC2005B9E22 /* PrivacySafetySettingPreset.swift */; };
 		2A631AE82B8C9F6600FE0778 /* LanguagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A631AE72B8C9F6600FE0778 /* LanguagePickerViewController.swift */; };
 		2A64515E29642A8A00CD8B8A /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */; };
 		2A64516929642A8B00CD8B8A /* OpenInActionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -622,6 +627,8 @@
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
 		164F0EBB267D4FE400249499 /* BoopSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoopSound.caf; sourceTree = "<group>"; };
 		27D701F4292FC2D60031BCBB /* DataSourceFacade+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+URL.swift"; sourceTree = "<group>"; };
+		2A0BF97E2C0622AA004A1E29 /* PrivacySafetyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySafetyViewController.swift; sourceTree = "<group>"; };
+		2A0BF9802C06252A004A1E29 /* PrivacySafetyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySafetyViewModel.swift; sourceTree = "<group>"; };
 		2A1BF99429F7E68400FA1BA5 /* DataSourceFacade+UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+UserView.swift"; sourceTree = "<group>"; };
 		2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowedTagsViewModel+DiffableDataSource.swift"; sourceTree = "<group>"; };
 		2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IsNotEmpty.swift"; sourceTree = "<group>"; };
@@ -634,6 +641,9 @@
 		2A409F822B5955290044E472 /* MastodonStatusThreadViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonStatusThreadViewModel+State.swift"; sourceTree = "<group>"; };
 		2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewController.swift; sourceTree = "<group>"; };
 		2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderView.swift; sourceTree = "<group>"; };
+		2A5242722C199C96005B9E22 /* PrivacySafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySafetyView.swift; sourceTree = "<group>"; };
+		2A5242742C199CBD005B9E22 /* CheckableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableButton.swift; sourceTree = "<group>"; };
+		2A5242762C199EC2005B9E22 /* PrivacySafetySettingPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySafetySettingPreset.swift; sourceTree = "<group>"; };
 		2A631AE72B8C9F6600FE0778 /* LanguagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePickerViewController.swift; sourceTree = "<group>"; };
 		2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpenInActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1372,6 +1382,18 @@
 			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
+		2A0BF97D2C062278004A1E29 /* Privacy and Safety */ = {
+			isa = PBXGroup;
+			children = (
+				2A0BF97E2C0622AA004A1E29 /* PrivacySafetyViewController.swift */,
+				2A0BF9802C06252A004A1E29 /* PrivacySafetyViewModel.swift */,
+				2A5242722C199C96005B9E22 /* PrivacySafetyView.swift */,
+				2A5242742C199CBD005B9E22 /* CheckableButton.swift */,
+				2A5242762C199EC2005B9E22 /* PrivacySafetySettingPreset.swift */,
+			);
+			path = "Privacy and Safety";
+			sourceTree = "<group>";
+		};
 		2A506CF2292CD83B00059C37 /* FollowedTags */ = {
 			isa = PBXGroup;
 			children = (
@@ -1686,6 +1708,7 @@
 				D8F916FF2A4AD898008A5370 /* Settings Overview */,
 				D8F917042A4B0657008A5370 /* General Settings */,
 				D81D12432A4E181C005009D4 /* Notification Settings */,
+				2A0BF97D2C062278004A1E29 /* Privacy and Safety */,
 				D80911062AC4BFD100EB4D15 /* Server Details */,
 				D8F917092A4B2AFF008A5370 /* About Mastodon */,
 				D8318A7F2A4466D300C0FB73 /* SettingsCoordinator.swift */,
@@ -3437,6 +3460,7 @@
 				DB5B7298273112C800081888 /* FollowingListViewModel.swift in Sources */,
 				27D701F5292FC2D60031BCBB /* DataSourceFacade+URL.swift in Sources */,
 				0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */,
+				2A5242752C199CBD005B9E22 /* CheckableButton.swift in Sources */,
 				DB5B54AE2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift in Sources */,
 				DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */,
 				DB3E6FE02806A4ED00B035AE /* DiscoveryHashtagsViewModel.swift in Sources */,
@@ -3534,6 +3558,7 @@
 				2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */,
 				DB603113279EBEBA00A935FE /* DataSourceFacade+Block.swift in Sources */,
 				DB63F777279A9A2A00455B82 /* NotificationView+Configuration.swift in Sources */,
+				2A0BF9812C06252A004A1E29 /* PrivacySafetyViewModel.swift in Sources */,
 				DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */,
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
@@ -3665,6 +3690,7 @@
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
 				DB7274F4273BB9B200577D95 /* UIScrollViewDelegate.swift in Sources */,
 				DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */,
+				2A5242732C199C96005B9E22 /* PrivacySafetyView.swift in Sources */,
 				DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */,
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,
 				DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */,
@@ -3728,6 +3754,7 @@
 				D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */,
 				D8318A862A4468C700C0FB73 /* SettingsViewController.swift in Sources */,
 				DB5B549A2833A60400DEF8B2 /* FamiliarFollowersViewController.swift in Sources */,
+				2A0BF97F2C0622AA004A1E29 /* PrivacySafetyViewController.swift in Sources */,
 				DB3E6FE22806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB0FCB822796AC78006C02E2 /* UserTimelineViewController+DataSourceProvider.swift in Sources */,
@@ -3755,6 +3782,7 @@
 				DB4F0966269ED52200D62E92 /* SearchResultViewModel.swift in Sources */,
 				D852C23C2AC5D02C00309232 /* AboutInstanceViewController.swift in Sources */,
 				D8F917142A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift in Sources */,
+				2A5242772C199EC2005B9E22 /* PrivacySafetySettingPreset.swift in Sources */,
 				DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */,
 				2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */,
 				DB6B7500272FF73800C70B6E /* UserTableViewCell.swift in Sources */,
