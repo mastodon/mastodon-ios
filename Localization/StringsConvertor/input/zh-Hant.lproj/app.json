@@ -751,6 +751,7 @@
                 "title": "設定",
                 "general": "一般",
                 "notifications": "通知",
+                "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "支援 Mastodon",
                 "about_mastodon": "關於 Mastodon",
                 "server_details": "伺服器詳細資料",
@@ -820,6 +821,25 @@
                     "notification_hint": "自您的裝置啟用通知設定以於鎖定畫面檢視新消息。",
                     "go_to_settings": "前往系統通知設定"
                 }
+            },
+            "privacy_safety": {
+                "title": "Privacy & Safety",
+                "preset": {
+                    "title": "Preset",
+                    "open_and_public": "Open & Public",
+                    "private_and_restricted": "Private & Restricted",
+                    "custom": "Custom"
+                },
+                "default_post_visibility": {
+                    "title": "Default Post Visibility",
+                    "public": "Public",
+                    "followers_only": "Followers Only",
+                    "only_people_mentioned": "Only People Mentioned"
+                },
+                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "show_followers_and_following": "Show Followers & Following",
+                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "appear_in_search_engines": "Appear in Search Engines"
             }
         },
         "report": {
