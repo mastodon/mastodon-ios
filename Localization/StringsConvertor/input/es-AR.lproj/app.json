@@ -751,6 +751,7 @@
                 "title": "Configuración",
                 "general": "General",
                 "notifications": "Notificaciones",
+                "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Apoyá a Mastodon",
                 "about_mastodon": "Acerca de Mastodon",
                 "server_details": "Detalles del servidor",
@@ -820,6 +821,25 @@
                     "notification_hint": "Activá las notificaciones desde la configuración de tu dispositivo para ver actualizaciones en la pantalla de bloqueo.",
                     "go_to_settings": "Ir a la configuración de notificaciones"
                 }
+            },
+            "privacy_safety": {
+                "title": "Privacy & Safety",
+                "preset": {
+                    "title": "Preset",
+                    "open_and_public": "Open & Public",
+                    "private_and_restricted": "Private & Restricted",
+                    "custom": "Custom"
+                },
+                "default_post_visibility": {
+                    "title": "Default Post Visibility",
+                    "public": "Public",
+                    "followers_only": "Followers Only",
+                    "only_people_mentioned": "Only People Mentioned"
+                },
+                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "show_followers_and_following": "Show Followers & Following",
+                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "appear_in_search_engines": "Appear in Search Engines"
             }
         },
         "report": {
