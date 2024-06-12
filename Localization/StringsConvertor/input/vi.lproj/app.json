@@ -751,6 +751,7 @@
                 "title": "Cài đặt",
                 "general": "Chung",
                 "notifications": "Thông báo",
+                "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Hỗ trợ Mastodon",
                 "about_mastodon": "Về Mastodon",
                 "server_details": "Thông tin máy chủ",
@@ -820,6 +821,25 @@
                     "notification_hint": "Bật thông báo từ cài đặt thiết bị của bạn để xem chúng từ mọi nơi.",
                     "go_to_settings": "Thiết lập thông báo"
                 }
+            },
+            "privacy_safety": {
+                "title": "Privacy & Safety",
+                "preset": {
+                    "title": "Preset",
+                    "open_and_public": "Open & Public",
+                    "private_and_restricted": "Private & Restricted",
+                    "custom": "Custom"
+                },
+                "default_post_visibility": {
+                    "title": "Default Post Visibility",
+                    "public": "Public",
+                    "followers_only": "Followers Only",
+                    "only_people_mentioned": "Only People Mentioned"
+                },
+                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "show_followers_and_following": "Show Followers & Following",
+                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "appear_in_search_engines": "Appear in Search Engines"
             }
         },
         "report": {
