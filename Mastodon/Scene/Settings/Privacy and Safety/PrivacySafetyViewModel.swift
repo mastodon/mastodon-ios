@@ -193,26 +193,6 @@ extension PrivacySafetyViewModel {
 
 // Preset Rules Definition
 extension PrivacySafetyViewModel {
-    static let openPublic: PrivacySafetySettingApplicable = {
-        let vm = PrivacySafetyViewModel(appContext: nil, authContext: nil, coordinator: nil)
-        vm.visibility = .public
-        vm.manuallyApproveFollowRequests = false
-        vm.showFollowersAndFollowing = true
-        vm.suggestMyAccountToOthers = true
-        vm.appearInSearches = true
-        return vm
-    }()
-    
-    static let privateRestricted: PrivacySafetyViewModel = {
-        let vm = PrivacySafetyViewModel(appContext: nil, authContext: nil, coordinator: nil)
-        vm.visibility = .followersOnly
-        vm.manuallyApproveFollowRequests = true
-        vm.showFollowersAndFollowing = false
-        vm.suggestMyAccountToOthers = false
-        vm.appearInSearches = false
-        return vm
-    }()
-    
     private func apply(from source: PrivacySafetySettingPreset) {
         doNotEvaluate = true
         visibility = source.visibility
