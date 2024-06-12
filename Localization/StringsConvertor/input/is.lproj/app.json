@@ -751,7 +751,7 @@
                 "title": "Stillingar",
                 "general": "Almennt",
                 "notifications": "Tilkynningar",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "Persónuvernd og öryggi",
                 "support_mastodon": "Styddu við Mastodon",
                 "about_mastodon": "Um Mastodon",
                 "server_details": "Nánar um netþjón",
@@ -823,15 +823,15 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Persónuvernd og öryggi",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "Forstilling",
+                    "open_and_public": "Opið og opinbert",
+                    "private_and_restricted": "Einka og takmarkað",
+                    "custom": "Sérsniðið"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
+                    "title": "Sjálfgefinn sýnileiki færslna",
                     "public": "Public",
                     "followers_only": "Followers Only",
                     "only_people_mentioned": "Only People Mentioned"
