@@ -827,18 +827,18 @@
                 "preset": {
                     "title": "Preset",
                     "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
+                    "private_and_restricted": "Privat & Begränsad",
                     "custom": "Custom"
                 },
                 "default_post_visibility": {
                     "title": "Default Post Visibility",
                     "public": "Public",
-                    "followers_only": "Followers Only",
+                    "followers_only": "Endast följare",
                     "only_people_mentioned": "Only People Mentioned"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "manually_approve_follow_requests": "Godkänn följförfrågningar manuellt",
                 "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "suggest_my_account_to_others": "Föreslå mitt konto för andra",
                 "appear_in_search_engines": "Appear in Search Engines"
             }
         },
