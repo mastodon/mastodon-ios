@@ -751,7 +751,7 @@
                 "title": "Configuración",
                 "general": "General",
                 "notifications": "Notificaciones",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "Privacidad y seguridad",
                 "support_mastodon": "Apoyá a Mastodon",
                 "about_mastodon": "Acerca de Mastodon",
                 "server_details": "Detalles del servidor",
@@ -823,23 +823,23 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Privacidad y seguridad",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "Prestablecido",
+                    "open_and_public": "Abierto y público",
+                    "private_and_restricted": "Privado y restringido",
+                    "custom": "Personalizar"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "Visibilidad predeterminada de mensajes",
+                    "public": "Pública",
+                    "followers_only": "Solo para seguidores",
+                    "only_people_mentioned": "Solo para cuentas mencionadas"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "Aprobar manualmente solicitudes de seguimiento",
+                "show_followers_and_following": "Mostrar seguidores y a quiénes sigo",
+                "suggest_my_account_to_others": "Sugerir mi cuenta a otros",
+                "appear_in_search_engines": "Aparecer en los motores de búsqueda"
             }
         },
         "report": {
