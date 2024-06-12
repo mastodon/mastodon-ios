@@ -163,12 +163,11 @@ extension HomeTimelineViewModel {
         case .home:
             response = try? await context.apiService.homeTimeline(
                maxID: status.id,
-               limit: 20,
                authenticationBox: authContext.mastodonAuthenticationBox
            )
         case .public:
             response = try? await context.apiService.publicTimeline(
-                query: .init(maxID: status.id, limit: 20),
+                query: .init(maxID: status.id),
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
         }
