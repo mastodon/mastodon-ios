@@ -832,14 +832,14 @@
                 },
                 "default_post_visibility": {
                     "title": "Sjálfgefinn sýnileiki færslna",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "public": "Opinbert",
+                    "followers_only": "Einungis fylgjendur",
+                    "only_people_mentioned": "Aðeins fólk sem minnst er á"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "Samþykkja handvirkt beiðnir um að fylgjast með",
+                "show_followers_and_following": "Birta fylgjendur og þá sem fylgst er með",
+                "suggest_my_account_to_others": "Stinga upp á aðgangnum mínum við aðra",
+                "appear_in_search_engines": "Láta birtast í leitarvélum"
             }
         },
         "report": {
