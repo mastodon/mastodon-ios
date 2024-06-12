@@ -34,6 +34,9 @@
 		2A409F832B5955290044E472 /* MastodonStatusThreadViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A409F822B5955290044E472 /* MastodonStatusThreadViewModel+State.swift */; };
 		2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */; };
 		2A506CF6292D040100059C37 /* HashtagTimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */; };
+		2A5242732C199C96005B9E22 /* PrivacySafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5242722C199C96005B9E22 /* PrivacySafetyView.swift */; };
+		2A5242752C199CBD005B9E22 /* CheckableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5242742C199CBD005B9E22 /* CheckableButton.swift */; };
+		2A5242772C199EC2005B9E22 /* PrivacySafetySettingPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5242762C199EC2005B9E22 /* PrivacySafetySettingPreset.swift */; };
 		2A631AE82B8C9F6600FE0778 /* LanguagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A631AE72B8C9F6600FE0778 /* LanguagePickerViewController.swift */; };
 		2A64515E29642A8A00CD8B8A /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */; };
 		2A64516929642A8B00CD8B8A /* OpenInActionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -638,6 +641,9 @@
 		2A409F822B5955290044E472 /* MastodonStatusThreadViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonStatusThreadViewModel+State.swift"; sourceTree = "<group>"; };
 		2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewController.swift; sourceTree = "<group>"; };
 		2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderView.swift; sourceTree = "<group>"; };
+		2A5242722C199C96005B9E22 /* PrivacySafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySafetyView.swift; sourceTree = "<group>"; };
+		2A5242742C199CBD005B9E22 /* CheckableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableButton.swift; sourceTree = "<group>"; };
+		2A5242762C199EC2005B9E22 /* PrivacySafetySettingPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySafetySettingPreset.swift; sourceTree = "<group>"; };
 		2A631AE72B8C9F6600FE0778 /* LanguagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePickerViewController.swift; sourceTree = "<group>"; };
 		2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpenInActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1381,6 +1387,9 @@
 			children = (
 				2A0BF97E2C0622AA004A1E29 /* PrivacySafetyViewController.swift */,
 				2A0BF9802C06252A004A1E29 /* PrivacySafetyViewModel.swift */,
+				2A5242722C199C96005B9E22 /* PrivacySafetyView.swift */,
+				2A5242742C199CBD005B9E22 /* CheckableButton.swift */,
+				2A5242762C199EC2005B9E22 /* PrivacySafetySettingPreset.swift */,
 			);
 			path = "Privacy and Safety";
 			sourceTree = "<group>";
@@ -3451,6 +3460,7 @@
 				DB5B7298273112C800081888 /* FollowingListViewModel.swift in Sources */,
 				27D701F5292FC2D60031BCBB /* DataSourceFacade+URL.swift in Sources */,
 				0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */,
+				2A5242752C199CBD005B9E22 /* CheckableButton.swift in Sources */,
 				DB5B54AE2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift in Sources */,
 				DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */,
 				DB3E6FE02806A4ED00B035AE /* DiscoveryHashtagsViewModel.swift in Sources */,
@@ -3680,6 +3690,7 @@
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
 				DB7274F4273BB9B200577D95 /* UIScrollViewDelegate.swift in Sources */,
 				DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */,
+				2A5242732C199C96005B9E22 /* PrivacySafetyView.swift in Sources */,
 				DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */,
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,
 				DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */,
@@ -3771,6 +3782,7 @@
 				DB4F0966269ED52200D62E92 /* SearchResultViewModel.swift in Sources */,
 				D852C23C2AC5D02C00309232 /* AboutInstanceViewController.swift in Sources */,
 				D8F917142A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift in Sources */,
+				2A5242772C199EC2005B9E22 /* PrivacySafetySettingPreset.swift in Sources */,
 				DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */,
 				2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */,
 				DB6B7500272FF73800C70B6E /* UserTableViewCell.swift in Sources */,

@@ -6,7 +6,15 @@ import MastodonLocalization
 import MastodonCore
 import MastodonSDK
 
-class PrivacySafetyViewModel: ObservableObject {
+protocol PrivacySafetySettingApplicable {
+    var visibility: PrivacySafetyViewModel.Visibility { get }
+    var manuallyApproveFollowRequests: Bool { get }
+    var showFollowersAndFollowing: Bool { get }
+    var suggestMyAccountToOthers: Bool { get }
+    var appearInSearches: Bool { get }
+}
+
+class PrivacySafetyViewModel: ObservableObject, PrivacySafetySettingApplicable {
     enum Preset {
         case openPublic, privateRestricted, custom
     }
@@ -109,9 +117,9 @@ extension PrivacySafetyViewModel {
     func applyPreset(_ preset: Preset) {
         switch preset {
         case .openPublic:
-            PrivacySafetyViewModel.openPublic.apply(to: self)
+            self.apply(from: .openPublic)
         case .privateRestricted:
-            PrivacySafetyViewModel.privateRestricted.apply(to: self)
+            self.apply(from: .privateRestricted)
         case .custom:
             break
         }
@@ -119,16 +127,16 @@ extension PrivacySafetyViewModel {
     
     func evaluatePreset() {
         guard !doNotEvaluate else { return }
-        if self == Self.openPublic {
+        if PrivacySafetySettingPreset.openPublic.equalsSettings(of: self) {
             preset = .openPublic
-        } else if self == Self.privateRestricted {
+        } else if PrivacySafetySettingPreset.privateRestricted.equalsSettings(of: self) {
             preset = .privateRestricted
         } else {
             preset = .custom
         }
     }
 
-    func loadSettings() {
+    private func loadSettings() {
         Task { @MainActor in
             guard let appContext, let authContext else {
                 return dismiss()
@@ -174,7 +182,7 @@ extension PrivacySafetyViewModel {
                     hideCollections: !showFollowersAndFollowing
                 ),
                 authorization: userAuthorization
-            ).value
+            )
         }
     }
     
@@ -185,7 +193,7 @@ extension PrivacySafetyViewModel {
 
 // Preset Rules Definition
 extension PrivacySafetyViewModel {
-    static let openPublic: PrivacySafetyViewModel = {
+    static let openPublic: PrivacySafetySettingApplicable = {
         let vm = PrivacySafetyViewModel(appContext: nil, authContext: nil, coordinator: nil)
         vm.visibility = .public
         vm.manuallyApproveFollowRequests = false
@@ -205,13 +213,13 @@ extension PrivacySafetyViewModel {
         return vm
     }()
     
-    private func apply(to target: PrivacySafetyViewModel) {
-        target.doNotEvaluate = true
-        target.visibility = self.visibility
-        target.manuallyApproveFollowRequests = self.manuallyApproveFollowRequests
-        target.showFollowersAndFollowing = self.showFollowersAndFollowing
-        target.suggestMyAccountToOthers = self.suggestMyAccountToOthers
-        target.appearInSearches = self.appearInSearches
-        target.doNotEvaluate = false
+    private func apply(from source: PrivacySafetySettingPreset) {
+        doNotEvaluate = true
+        visibility = source.visibility
+        manuallyApproveFollowRequests = source.manuallyApproveFollowRequests
+        showFollowersAndFollowing = source.showFollowersAndFollowing
+        suggestMyAccountToOthers = source.suggestMyAccountToOthers
+        appearInSearches = source.appearInSearches
+        doNotEvaluate = false
     }
 }
