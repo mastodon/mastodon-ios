@@ -751,6 +751,7 @@
                 "title": "Налады",
                 "general": "Агульныя",
                 "notifications": "Апавяшчэнні",
+                "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Падтрымаць Mastodon",
                 "about_mastodon": "Пра Mastodon",
                 "server_details": "Інфармацыя аб серверы",
@@ -820,6 +821,25 @@
                     "notification_hint": "Уключыце апавяшчэнні ў наладах прылады, каб бачыць абнаўлення на экране блакіроўкі.",
                     "go_to_settings": "Перайсці ў налады апавяшчэнняў"
                 }
+            },
+            "privacy_safety": {
+                "title": "Privacy & Safety",
+                "preset": {
+                    "title": "Preset",
+                    "open_and_public": "Open & Public",
+                    "private_and_restricted": "Private & Restricted",
+                    "custom": "Custom"
+                },
+                "default_post_visibility": {
+                    "title": "Default Post Visibility",
+                    "public": "Public",
+                    "followers_only": "Followers Only",
+                    "only_people_mentioned": "Only People Mentioned"
+                },
+                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "show_followers_and_following": "Show Followers & Following",
+                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "appear_in_search_engines": "Appear in Search Engines"
             }
         },
         "report": {
