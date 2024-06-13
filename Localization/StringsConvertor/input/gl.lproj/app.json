@@ -751,7 +751,7 @@
                 "title": "Axustes",
                 "general": "Xeral",
                 "notifications": "Notificacións",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "Privacidade e Seguridade",
                 "support_mastodon": "Apoia a Mastodon",
                 "about_mastodon": "Acerca de Mastodon",
                 "server_details": "Detalles do servidor",
@@ -823,23 +823,23 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Privacidade e Seguridade",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "Predefinido",
+                    "open_and_public": "Aberto e Público",
+                    "private_and_restricted": "Privado e Limitado",
+                    "custom": "Personalizado"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "Visibilidade por defecto da Publicación",
+                    "public": "Pública",
+                    "followers_only": "Só para seguidoras",
+                    "only_people_mentioned": "Só para persoas mencionadas"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "Aprobar manualmente as solicitudes de seguimento",
+                "show_followers_and_following": "Mostrar Seguidoras e Seguimentos",
+                "suggest_my_account_to_others": "Suxerir a miña conta a outras persoas",
+                "appear_in_search_engines": "Aparecer nos motores de busca"
             }
         },
         "report": {
