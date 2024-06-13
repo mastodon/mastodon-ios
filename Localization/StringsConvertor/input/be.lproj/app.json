@@ -751,7 +751,7 @@
                 "title": "Налады",
                 "general": "Агульныя",
                 "notifications": "Апавяшчэнні",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "Прыватнасць і бяспека",
                 "support_mastodon": "Падтрымаць Mastodon",
                 "about_mastodon": "Пра Mastodon",
                 "server_details": "Інфармацыя аб серверы",
@@ -823,17 +823,17 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Прыватнасць і бяспека",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
+                    "title": "Шаблон",
+                    "open_and_public": "Адкрыты і грамадскі",
+                    "private_and_restricted": "Прыватны і абмежаваны",
                     "custom": "Уласнае"
                 },
                 "default_post_visibility": {
                     "title": "Default Post Visibility",
                     "public": "Публічны",
-                    "followers_only": "Followers Only",
+                    "followers_only": "Толькі для падпісчыкаў",
                     "only_people_mentioned": "Only People Mentioned"
                 },
                 "manually_approve_follow_requests": "Manually Approve Follow Requests",
