@@ -107,7 +107,7 @@ extension HomeTimelineViewModel.LoadLatestState {
 
 
         Task { @MainActor in
-            let latestFeedRecords = viewModel.dataController.records.prefix(APIService.onceRequestStatusMaxCount)
+            let latestFeedRecords = viewModel.dataController.records
 
             let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
                 return record.status?.reblog?.id ?? record.status?.id
@@ -119,17 +119,18 @@ extension HomeTimelineViewModel.LoadLatestState {
                 
                 /// To find out wether or not we need to show the "Load More" button
                 /// we have make sure to eventually overlap with the most recent cached item
-                let sinceID = latestFeedRecords.count > 1 ? latestFeedRecords[1].id : "1"
+                let sinceID = latestFeedRecords.count > 1 ? latestFeedRecords[1].id : nil
                 
                 switch viewModel.timelineContext {
                 case .home:
                     response = try await viewModel.context.apiService.homeTimeline(
                         sinceID: sinceID,
+                        limit: 20,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                 case .public:
                     response = try await viewModel.context.apiService.publicTimeline(
-                        query: .init(local: true, sinceID: sinceID),
+                        query: .init(local: true, sinceID: sinceID, limit: 20),
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                 }
@@ -137,56 +138,38 @@ extension HomeTimelineViewModel.LoadLatestState {
                 enter(state: Idle.self)
                 viewModel.receiveLoadingStateCompletion(.finished)
 
-                // stop refresher if no new statuses
                 let statuses = response.value
-                let newStatuses = statuses.filter { status in !latestStatusIDs.contains(where: { $0 == status.reblog?.id || $0 == status.id }) }
 
-                if newStatuses.isEmpty {
+                if statuses.isEmpty {
+                    // stop refresher if no new statuses
                     viewModel.didLoadLatest.send()
                 } else {                    
-                    viewModel.dataController.records = {
-                        var oldRecords = viewModel.dataController.records
-
-                        var newRecords = [MastodonFeed]()
-                        
-                        /// See HomeTimelineViewModel.swift for the "Load More"-counterpart when fetching new timeline items
-                        for (index, status) in newStatuses.enumerated() {
-                            if index < newStatuses.count - 1 {
-                                newRecords.append(
-                                    MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: false)
-                                )
-                                continue
-                            }
-                            
-                            let hasMore: Bool = {
-                                guard let firstOldEntity = oldRecords.first?.status?.entity else {
-                                    return false
-                                }
-                                return status != firstOldEntity
-                            }()
-
-                            newRecords.append(
-                                MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: hasMore)
-                            )
-                        }
-                        for (i, record) in newRecords.enumerated() {
-                            if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {
-                                oldRecords[index] = record
-                                if newRecords.count > i {
-                                    newRecords.remove(at: i)
-                                }
-                            }
-                        }
-                        return (newRecords + oldRecords).removingDuplicates()
-                    }()
+                    var toAdd = [MastodonFeed]()
+                    
+                    let last = statuses.last
+                    if let latestFirstId = latestFeedRecords.first?.id, let last, last.id == latestFirstId {
+                        toAdd = statuses.prefix(statuses.count-1).map({ MastodonFeed.fromStatus($0.asMastodonStatus, kind: .home) })
+                    } else {
+                        toAdd = statuses.map({ MastodonFeed.fromStatus($0.asMastodonStatus, kind: .home) })
+                        toAdd.last?.hasMore = true
+                    }
+                    
+                    viewModel.dataController.records = (toAdd + latestFeedRecords).removingDuplicates()
                 }
                 viewModel.timelineIsEmpty.value = latestStatusIDs.isEmpty && statuses.isEmpty
                 
                 if !isUserInitiated {
                     FeedbackGenerator.shared.generate(.impact(.light))
                 }
-
-                if newStatuses.isNotEmpty && (previousState is HomeTimelineViewModel.LoadLatestState.ContextSwitch) == false {
+                
+                let hasNewStatuses: Bool = {
+                    if sinceID != nil {
+                        return statuses.count > 1
+                    }
+                    return statuses.isNotEmpty
+                }()
+                
+                if hasNewStatuses && (previousState is HomeTimelineViewModel.LoadLatestState.ContextSwitch) == false {
                     viewModel.hasNewPosts.value = true
                 }
 
