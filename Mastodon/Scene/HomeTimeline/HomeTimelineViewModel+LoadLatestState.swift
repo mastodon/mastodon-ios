@@ -125,12 +125,11 @@ extension HomeTimelineViewModel.LoadLatestState {
                 case .home:
                     response = try await viewModel.context.apiService.homeTimeline(
                         sinceID: sinceID,
-                        limit: 20,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                 case .public:
                     response = try await viewModel.context.apiService.publicTimeline(
-                        query: .init(local: true, sinceID: sinceID, limit: 20),
+                        query: .init(local: true, sinceID: sinceID),
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                 }
