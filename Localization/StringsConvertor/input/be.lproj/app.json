@@ -831,12 +831,12 @@
                     "custom": "Уласнае"
                 },
                 "default_post_visibility": {
-                    "title": "Бачнасць допісаў па змаўчанні",
+                    "title": "Стандартная бачнасць допісаў",
                     "public": "Публічны",
                     "followers_only": "Толькі для падпісчыкаў",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "only_people_mentioned": "Толькі людзі, якіх згадалі"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "manually_approve_follow_requests": "Уручную ўхваляць запыты на падпіску",
                 "show_followers_and_following": "Паказаць падпісчыкаў і падпіскі",
                 "suggest_my_account_to_others": "Рэкамендаваць уліковы запіс іншым карыстальнікам",
                 "appear_in_search_engines": "З'яўляцца ў Інтэрнэт-пошуку"
