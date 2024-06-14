@@ -65,9 +65,19 @@ extension AuthenticationViewModel {
     static func parseDomain(from input: String) -> String? {
         let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         guard !trimmed.isEmpty else { return nil }
-        
-        let urlString = trimmed.hasPrefix("https://") ? trimmed : "https://" + trimmed
-        guard let url = URL(string: urlString),
+
+        let https = "https://"
+        let http = "http://"
+        var isHTTPS = true
+        let urlString = trimmed.hasPrefix(https) ? String(trimmed.dropFirst(https.count)) : {
+            if trimmed.hasPrefix(http) {
+                isHTTPS = false
+                return String(trimmed.dropFirst(http.count))
+            }
+            return trimmed
+        }()
+        let encodedHost = urlString.split(separator: ".").map(Punycode.encode).joined(separator: ".")
+        guard let url = URL(string: (isHTTPS ? https : http) + encodedHost),
               let host = url.host else {
             return nil
         }
