@@ -168,6 +168,7 @@ extension HomeTimelineViewModel {
         case .public:
             response = try? await context.apiService.publicTimeline(
                 query: .init(maxID: status.id),
+                query: .init(local: true, maxID: status.id),
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
         }
