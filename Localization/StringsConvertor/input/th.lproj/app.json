@@ -825,21 +825,21 @@
             "privacy_safety": {
                 "title": "ความเป็นส่วนตัวและความปลอดภัย",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
+                    "title": "ค่าที่ตั้งไว้ล่วงหน้า",
+                    "open_and_public": "เปิดและสาธารณะ",
+                    "private_and_restricted": "ส่วนตัวและจำกัด",
                     "custom": "กำหนดเอง"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
+                    "title": "การมองเห็นโพสต์เริ่มต้น",
                     "public": "สาธารณะ",
                     "followers_only": "ผู้ติดตามเท่านั้น",
                     "only_people_mentioned": "เฉพาะผู้คนที่ได้รับการกล่าวถึงเท่านั้น"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "อนุมัติคำขอติดตามด้วยตนเอง",
+                "show_followers_and_following": "แสดงผู้ติดตามและกำลังติดตาม",
+                "suggest_my_account_to_others": "เสนอแนะบัญชีของฉันให้ผู้อื่น",
+                "appear_in_search_engines": "ปรากฏในเครื่องมือค้นหา"
             }
         },
         "report": {
