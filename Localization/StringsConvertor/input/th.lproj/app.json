@@ -751,7 +751,7 @@
                 "title": "การตั้งค่า",
                 "general": "ทั่วไป",
                 "notifications": "การแจ้งเตือน",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "ความเป็นส่วนตัวและความปลอดภัย",
                 "support_mastodon": "สนับสนุน Mastodon",
                 "about_mastodon": "เกี่ยวกับ Mastodon",
                 "server_details": "รายละเอียดเซิร์ฟเวอร์",
@@ -823,18 +823,18 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "ความเป็นส่วนตัวและความปลอดภัย",
                 "preset": {
                     "title": "Preset",
                     "open_and_public": "Open & Public",
                     "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "custom": "กำหนดเอง"
                 },
                 "default_post_visibility": {
                     "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "public": "สาธารณะ",
+                    "followers_only": "ผู้ติดตามเท่านั้น",
+                    "only_people_mentioned": "เฉพาะผู้คนที่ได้รับการกล่าวถึงเท่านั้น"
                 },
                 "manually_approve_follow_requests": "Manually Approve Follow Requests",
                 "show_followers_and_following": "Show Followers & Following",
