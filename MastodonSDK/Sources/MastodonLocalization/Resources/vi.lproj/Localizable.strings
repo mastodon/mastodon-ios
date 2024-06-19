@@ -336,12 +336,12 @@ tải lên Mastodon.";
 "Scene.Preview.Keyboard.ShowNext" = "Hiện kế tiếp";
 "Scene.Preview.Keyboard.ShowPrevious" = "Hiện trước đó";
 "Scene.Privacy.Button.Confirm" = "Tôi đồng ý";
-"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.
+"Scene.Privacy.Description" = "Mặc dù ứng dụng Mastodon không thu thập bất kỳ dữ liệu nào, máy chủ mà bạn đăng ký có thể có chính sách khác.
 
-If you disagree with the policy for **%@**, you can go back and pick a different server.";
+Nếu không đồng ý với chính sách của **%@**, bạn có thể quay lại và chọn một máy chủ khác.";
 "Scene.Privacy.Policy.Ios" = "Bảo mật - Mastodon for iOS";
 "Scene.Privacy.Policy.Server" = "Bảo mật - %@";
-"Scene.Privacy.Title" = "Your Privacy";
+"Scene.Privacy.Title" = "Sự riêng tư của bạn";
 "Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "Nhấn hai lần để mở danh sách";
 "Scene.Profile.Accessibility.EditAvatarImage" = "Sửa ảnh đại diện";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "Hiển thị ảnh đại diện";
@@ -558,9 +558,23 @@ If you disagree with the policy for **%@**, you can go back and pick a different
 "Scene.Settings.Overview.General" = "Chung";
 "Scene.Settings.Overview.Logout" = "Đăng xuất %@";
 "Scene.Settings.Overview.Notifications" = "Thông báo";
+"Scene.Settings.Overview.PrivacySafety" = "Riêng tư & Bảo mật";
 "Scene.Settings.Overview.ServerDetails" = "Thông tin máy chủ";
 "Scene.Settings.Overview.SupportMastodon" = "Hỗ trợ Mastodon";
 "Scene.Settings.Overview.Title" = "Cài đặt";
+"Scene.Settings.PrivacySafety.AppearInSearchEngines" = "Xuất hiện trong cỗ máy tìm kiếm";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.FollowersOnly" = "Chỉ người theo dõi";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.OnlyPeopleMentioned" = "Chỉ người nhắc đến";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.Public" = "Công khai";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.Title" = "Kiểu đăng mặc định";
+"Scene.Settings.PrivacySafety.ManuallyApproveFollowRequests" = "Duyệt yêu cầu theo dõi thủ công";
+"Scene.Settings.PrivacySafety.Preset.Custom" = "Tùy chỉnh";
+"Scene.Settings.PrivacySafety.Preset.OpenAndPublic" = "Mở & Công khai";
+"Scene.Settings.PrivacySafety.Preset.PrivateAndRestricted" = "Riêng tư và Giới hạn";
+"Scene.Settings.PrivacySafety.Preset.Title" = "Có sẵn";
+"Scene.Settings.PrivacySafety.ShowFollowersAndFollowing" = "Hiện người theo dõi & đang theo dõi";
+"Scene.Settings.PrivacySafety.SuggestMyAccountToOthers" = "Đề xuất tài khoản";
+"Scene.Settings.PrivacySafety.Title" = "Riêng tư & Bảo mật";
 "Scene.Settings.ServerDetails.About" = "Giới thiệu";
 "Scene.Settings.ServerDetails.AboutInstance.LegalNotice" = "Pháp lý";
 "Scene.Settings.ServerDetails.AboutInstance.MessageAdmin" = "Nhắn cho quản trị viên";

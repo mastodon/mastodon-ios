@@ -143,9 +143,9 @@
                     "next_status": "Naslednja objava",
                     "open_status": "Odpri objavo",
                     "open_author_profile": "Pokaži profil avtorja",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Odpri profil poobjavitelja",
                     "reply_status": "Odgovori",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Preklopi izpostavitev objave",
                     "toggle_favorite": "Preklopi priljubljenost objave",
                     "toggle_content_warning": "Preklopi opozorilo o vsebini",
                     "preview_image": "Predogled slike"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s je izpostavil/a",
                 "user_replied_to": "Odgovarja %s",
                 "show_post": "Pokaži objavo",
                 "show_user_profile": "Prikaži uporabnikov profil",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Odgovori",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Izpostavi",
+                    "unreblog": "Razveljavi izpostavitev",
                     "favorite": "Priljubljen",
                     "unfavorite": "Odstrani iz priljubljenih",
                     "menu": "Meni",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "Deli povezavo v objavi",
                     "tap_then_hold_to_show_menu": "Tapnite, nato držite, da se pojavi meni",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Izpostavi",
+                        "unreblog": "Razveljavi izpostavitev"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Kopiraj povezavo"
                 },
                 "tag": {
                     "url": "URL",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s prek %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Izpostavitve",
                     "favorites_title": "Priljubljeni",
                     "edit_history_title": "Uredi zgodovino",
                     "edit_history_detail": "Zadnjič urejano %s"
@@ -252,8 +252,8 @@
                 "unmute_user": "Odtišaj %s",
                 "muted": "Utišan",
                 "edit_info": "Uredi podatke",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Pokaži izpostavitve",
+                "hide_reblogs": "Skrij izpostavitve"
             },
             "timeline": {
                 "filtered": "Filtrirano",
@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Izbrali bomo strežnik na osnovi vašega jezika, če nadaljujete brez izbire."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Vaša zasebnost",
+            "description": "Čeprav program Mastodon ne zbira nobenih podatkov, ima lahko strežnik, prek katerega se prijavite, drugačno pravila glede zasebnosti.\n\nČe se s pravili za **%s** ne strinjate, se lahko vrnete in izberete drug strežnik.",
             "policy": {
                 "ios": "Pravilnik o zasebnosti - Mastodon za iOS",
                 "server": "Pravilnik o zasebnosti - %s"
@@ -617,12 +617,12 @@
                     "message": "Potrdite za umik blokade %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Pokaži izpostavitve",
+                    "message": "Potrdite, da bodo izpostavitve prikazane"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Skrij poobjave",
+                    "message": "Potrdite, da poobjave ne bodo prikazane"
                 },
                 "confirm_block_domain": {
                     "title": "Blokiraj domeno",
@@ -656,7 +656,7 @@
             "title": "Med priljubljene dal_a"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Poobjavil/a"
         },
         "search": {
             "title": "Iskanje",
@@ -716,7 +716,7 @@
             "notification_description": {
                 "followed_you": "vam sledi",
                 "favorited_your_post": "je vzljubil/a vašo objavo",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "je izpostavil/a vašo objavo",
                 "mentioned_you": "vas je omenil/a",
                 "request_to_follow_you": "vas je zaprosil za sledenje",
                 "poll_has_ended": "anketa je zaključena"
@@ -732,14 +732,14 @@
                 "rejected": "Zavrnjeno"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Vaš račun je prejel opozorilo moderatorjev.",
+                "disable": "Vaš račun je bil onemogočen.",
+                "mark_statuses_as_sensitive": "Nekatere vaše objave so bile označene kot občutljive.",
+                "delete_statuses": "Nekatere vaše objave so odstranjene.",
+                "sensitive": "Vaše objave bodo odslej označene kot občutljive.",
+                "silence": "Vaš račun je bil omejen.",
+                "suspend": "Vaš račun je bil suspendiran.",
+                "learn_more": "Več o tem"
             }
         },
         "thread": {
@@ -751,6 +751,7 @@
                 "title": "Nastavitve",
                 "general": "Splošno",
                 "notifications": "Obvestila",
+                "privacy_safety": "Zasebnost in varnost",
                 "support_mastodon": "Podprite Mastodon",
                 "about_mastodon": "O Mastodonu",
                 "server_details": "Podrobnosti strežnika",
@@ -820,6 +821,25 @@
                     "notification_hint": "Da vidite posodobitve za zaklepu zaslona, omogočite obvestila v nastavitvah naprave.",
                     "go_to_settings": "Pojdi k nastavitvam obvestil"
                 }
+            },
+            "privacy_safety": {
+                "title": "Zasebnost in varnost",
+                "preset": {
+                    "title": "Prednastavitev",
+                    "open_and_public": "Odprto in javno",
+                    "private_and_restricted": "Zasebno in omejeno",
+                    "custom": "Po meri"
+                },
+                "default_post_visibility": {
+                    "title": "Privzeta vidnost objav",
+                    "public": "Javno",
+                    "followers_only": "Samo sledilci",
+                    "only_people_mentioned": "Samo osebe, ki jih omenjam"
+                },
+                "manually_approve_follow_requests": "Ročno odobri prošnje za sledenje",
+                "show_followers_and_following": "Pokaži sledilce in sledene",
+                "suggest_my_account_to_others": "Predlagaj moj račun drugim",
+                "appear_in_search_engines": "Prikaži v iskalnikih"
             }
         },
         "report": {
@@ -871,7 +891,7 @@
                 "unfollowed": "Ne sledi več",
                 "unfollow_user": "Prenehaj slediti %s",
                 "mute_user": "Utišaj %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Njihovih objav ali poobjav ne boste videli v svojem domačem viru. Ne bodo vedeli, da so utišani.",
                 "block_user": "Blokiraj %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Nič več ne bodo mogli slediti ali videti vaše objave, lahko pa vidijo, če so blokirani.",
                 "while_we_review_this_you_can_take_action_against_user": "Medtem, ko to pregledujemo, lahko proti %s ukrepate"

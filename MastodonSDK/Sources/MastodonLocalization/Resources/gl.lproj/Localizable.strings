@@ -335,12 +335,12 @@ ser subido a Mastodon.";
 "Scene.Preview.Keyboard.ShowNext" = "Mostrar Seguinte";
 "Scene.Preview.Keyboard.ShowPrevious" = "Mostar Anterior";
 "Scene.Privacy.Button.Confirm" = "Acepto";
-"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.
+"Scene.Privacy.Description" = "Aínda que a aplicación de Mastodon non recolle ningún dato, o servidor no que te rexistres pode ter unha política diferente.
 
-If you disagree with the policy for **%@**, you can go back and pick a different server.";
+Se non estás de acordo coas condicións de **%@**, podes volver atrás e elixir outro servidor.";
 "Scene.Privacy.Policy.Ios" = "Política de Privacidade - Mastodon para iOS";
 "Scene.Privacy.Policy.Server" = "Política de Privacidade - %@";
-"Scene.Privacy.Title" = "Your Privacy";
+"Scene.Privacy.Title" = "A túa privacidade";
 "Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "Dous toques para abrir a lista";
 "Scene.Profile.Accessibility.EditAvatarImage" = "Editar imaxe de avatar";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "Mostrar imaxe de avatar";
@@ -557,9 +557,23 @@ If you disagree with the policy for **%@**, you can go back and pick a different
 "Scene.Settings.Overview.General" = "Xeral";
 "Scene.Settings.Overview.Logout" = "Pechar sesión %@";
 "Scene.Settings.Overview.Notifications" = "Notificacións";
+"Scene.Settings.Overview.PrivacySafety" = "Privacidade e Seguridade";
 "Scene.Settings.Overview.ServerDetails" = "Detalles do servidor";
 "Scene.Settings.Overview.SupportMastodon" = "Apoia a Mastodon";
 "Scene.Settings.Overview.Title" = "Axustes";
+"Scene.Settings.PrivacySafety.AppearInSearchEngines" = "Aparecer nos motores de busca";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.FollowersOnly" = "Só para seguidoras";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.OnlyPeopleMentioned" = "Só para persoas mencionadas";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.Public" = "Pública";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.Title" = "Visibilidade por defecto da Publicación";
+"Scene.Settings.PrivacySafety.ManuallyApproveFollowRequests" = "Aprobar manualmente as solicitudes de seguimento";
+"Scene.Settings.PrivacySafety.Preset.Custom" = "Personalizado";
+"Scene.Settings.PrivacySafety.Preset.OpenAndPublic" = "Aberto e Público";
+"Scene.Settings.PrivacySafety.Preset.PrivateAndRestricted" = "Privado e Limitado";
+"Scene.Settings.PrivacySafety.Preset.Title" = "Predefinido";
+"Scene.Settings.PrivacySafety.ShowFollowersAndFollowing" = "Mostrar Seguidoras e Seguimentos";
+"Scene.Settings.PrivacySafety.SuggestMyAccountToOthers" = "Suxerir a miña conta a outras persoas";
+"Scene.Settings.PrivacySafety.Title" = "Privacidade e Seguridade";
 "Scene.Settings.ServerDetails.About" = "Acerca de";
 "Scene.Settings.ServerDetails.AboutInstance.LegalNotice" = "Aviso Legal";
 "Scene.Settings.ServerDetails.AboutInstance.MessageAdmin" = "Mensaxe a Admin";

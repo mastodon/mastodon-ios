@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Chúng tôi sẽ chọn một máy chủ dựa trên ngôn ngữ của bạn nếu bạn tiếp tục mà không lựa chọn."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Sự riêng tư của bạn",
+            "description": "Mặc dù ứng dụng Mastodon không thu thập bất kỳ dữ liệu nào, máy chủ mà bạn đăng ký có thể có chính sách khác.\n\nNếu không đồng ý với chính sách của **%s**, bạn có thể quay lại và chọn một máy chủ khác.",
             "policy": {
                 "ios": "Bảo mật - Mastodon for iOS",
                 "server": "Bảo mật - %s"
@@ -751,6 +751,7 @@
                 "title": "Cài đặt",
                 "general": "Chung",
                 "notifications": "Thông báo",
+                "privacy_safety": "Riêng tư & Bảo mật",
                 "support_mastodon": "Hỗ trợ Mastodon",
                 "about_mastodon": "Về Mastodon",
                 "server_details": "Thông tin máy chủ",
@@ -820,6 +821,25 @@
                     "notification_hint": "Bật thông báo từ cài đặt thiết bị của bạn để xem chúng từ mọi nơi.",
                     "go_to_settings": "Thiết lập thông báo"
                 }
+            },
+            "privacy_safety": {
+                "title": "Riêng tư & Bảo mật",
+                "preset": {
+                    "title": "Có sẵn",
+                    "open_and_public": "Mở & Công khai",
+                    "private_and_restricted": "Riêng tư và Giới hạn",
+                    "custom": "Tùy chỉnh"
+                },
+                "default_post_visibility": {
+                    "title": "Kiểu đăng mặc định",
+                    "public": "Công khai",
+                    "followers_only": "Chỉ người theo dõi",
+                    "only_people_mentioned": "Chỉ người nhắc đến"
+                },
+                "manually_approve_follow_requests": "Duyệt yêu cầu theo dõi thủ công",
+                "show_followers_and_following": "Hiện người theo dõi & đang theo dõi",
+                "suggest_my_account_to_others": "Đề xuất tài khoản",
+                "appear_in_search_engines": "Xuất hiện trong cỗ máy tìm kiếm"
             }
         },
         "report": {

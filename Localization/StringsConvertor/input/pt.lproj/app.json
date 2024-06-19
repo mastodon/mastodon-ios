@@ -60,16 +60,16 @@
                 "post": "Post"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
+                "title_boost": "Reforçar a publicação?",
                 "title_unboost": "Unboost Post?",
                 "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "boost": "Reforçar",
+                "unboost": "Deixar de reforçar"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Deixar de seguir %@?",
+                "cancel": "Cancelar",
+                "unfollow": "Deixar de seguir"
             }
         },
         "controls": {
@@ -116,10 +116,10 @@
                     "unknown_language": "Unknown"
                 },
                 "edit_post": "Editar",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "bookmark": "Guardar nos marcadores",
+                "remove_bookmark": "Retirar marcador",
+                "follow": "Seguir %s",
+                "unfollow": "Deixar de seguir %s"
             },
             "tabs": {
                 "home": "Página inicial ",
@@ -193,7 +193,7 @@
                         "reblog": "Boost",
                         "unreblog": "Undo boost"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Copiar hiperligação"
                 },
                 "tag": {
                     "url": "URL",
@@ -231,18 +231,18 @@
                 "edited_at_timestamp_prefix": "%s Editado ",
                 "edit_history": {
                     "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "original_post": "Publicação original %s"
                 }
             },
             "friendship": {
                 "follow": "Seguir",
                 "following": "A seguir",
-                "request": "Request",
+                "request": "Pedido",
                 "pending": "Pendente",
                 "block": "Bloquear",
                 "block_user": "Bloquear %s",
                 "block_domain": "Bloquear o domínio %s",
-                "unblock": "Unblock",
+                "unblock": "Desbloquear",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
                 "domain_blocked": "Domínio bloqueado",
@@ -277,22 +277,22 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
+            "no_verified_link": "Sem hiperligação verificada",
             "followers_count": "%@ followers"
         }
     },
     "scene": {
         "welcome": {
-            "log_in": "Log In",
-            "learn_more": "Learn more",
-            "join_default_server": "Join %@",
+            "log_in": "Iniciar sessão",
+            "learn_more": "Mais informações",
+            "join_default_server": "Inscrever-se em %@",
             "pick_server": "Pick another server",
             "separator": {
                 "or": "or"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
+                    "title": "Bem-vindo ao Mastodon",
                     "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
                 },
                 "servers": {
@@ -301,7 +301,7 @@
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "O que é o Mastodon?"
                     }
                 }
             }
@@ -314,20 +314,20 @@
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Escolha um servidor",
             "button": {
-                "language": "Language",
+                "language": "Língua",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "All",
                     "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
+                    "academia": "académico",
+                    "activism": "activismo",
                     "food": "comida",
                     "furry": "furry",
                     "games": "jogos",
                     "general": "geral",
-                    "journalism": "journalism",
+                    "journalism": "jornalismo",
                     "lgbt": "lgbt",
                     "regional": "regional",
                     "art": "arte",
@@ -393,9 +393,9 @@
                 },
                 "password": {
                     "placeholder": "palavra-passe",
-                    "confirmation_placeholder": "Confirm Password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "confirmation_placeholder": "Confirme a senha",
+                    "require": "A sua senha precisa pelo menos de:",
+                    "character_limit": "8 caracteres",
                     "accessibility": {
                         "checked": "checked",
                         "unchecked": "unchecked"
@@ -751,6 +751,7 @@
                 "title": "Definições",
                 "general": "Geral",
                 "notifications": "Notificações",
+                "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Apoie o Mastodon",
                 "about_mastodon": "Acerca do Mastodon",
                 "server_details": "Pormenores do servidor",
@@ -820,6 +821,25 @@
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
                     "go_to_settings": "Go to Notification Settings"
                 }
+            },
+            "privacy_safety": {
+                "title": "Privacy & Safety",
+                "preset": {
+                    "title": "Preset",
+                    "open_and_public": "Open & Public",
+                    "private_and_restricted": "Private & Restricted",
+                    "custom": "Custom"
+                },
+                "default_post_visibility": {
+                    "title": "Default Post Visibility",
+                    "public": "Public",
+                    "followers_only": "Followers Only",
+                    "only_people_mentioned": "Only People Mentioned"
+                },
+                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "show_followers_and_following": "Show Followers & Following",
+                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "appear_in_search_engines": "Appear in Search Engines"
             }
         },
         "report": {

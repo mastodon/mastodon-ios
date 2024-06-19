@@ -751,6 +751,7 @@
                 "title": "Beállítások",
                 "general": "Általános",
                 "notifications": "Értesítések",
+                "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "A Mastodon támogatása",
                 "about_mastodon": "A Mastodonról",
                 "server_details": "Kiszolgáló részletei",
@@ -820,6 +821,25 @@
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
                     "go_to_settings": "Ugrás az Értesítések beállításaihoz"
                 }
+            },
+            "privacy_safety": {
+                "title": "Privacy & Safety",
+                "preset": {
+                    "title": "Preset",
+                    "open_and_public": "Open & Public",
+                    "private_and_restricted": "Private & Restricted",
+                    "custom": "Custom"
+                },
+                "default_post_visibility": {
+                    "title": "Default Post Visibility",
+                    "public": "Public",
+                    "followers_only": "Followers Only",
+                    "only_people_mentioned": "Only People Mentioned"
+                },
+                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "show_followers_and_following": "Show Followers & Following",
+                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "appear_in_search_engines": "Appear in Search Engines"
             }
         },
         "report": {

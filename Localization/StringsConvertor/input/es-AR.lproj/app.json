@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Seleccionaremos un servidor basado en tu idioma si continuás sin hacer una selección."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Tu privacidad",
+            "description": "Aunque la aplicación Mastodon no recopila ningún dato, el servidor en el cual te registrás puede tener una política diferente.\n\nSi no estás de acuerdo con la política de **%s**, podés volver atrás y elegir un servidor diferente.",
             "policy": {
                 "ios": "Política de privacidad - Mastodon para iOS",
                 "server": "Política de privacidad - %s"
@@ -751,6 +751,7 @@
                 "title": "Configuración",
                 "general": "General",
                 "notifications": "Notificaciones",
+                "privacy_safety": "Privacidad y seguridad",
                 "support_mastodon": "Apoyá a Mastodon",
                 "about_mastodon": "Acerca de Mastodon",
                 "server_details": "Detalles del servidor",
@@ -820,6 +821,25 @@
                     "notification_hint": "Activá las notificaciones desde la configuración de tu dispositivo para ver actualizaciones en la pantalla de bloqueo.",
                     "go_to_settings": "Ir a la configuración de notificaciones"
                 }
+            },
+            "privacy_safety": {
+                "title": "Privacidad y seguridad",
+                "preset": {
+                    "title": "Prestablecido",
+                    "open_and_public": "Abierto y público",
+                    "private_and_restricted": "Privado y restringido",
+                    "custom": "Personalizar"
+                },
+                "default_post_visibility": {
+                    "title": "Visibilidad predeterminada de mensajes",
+                    "public": "Pública",
+                    "followers_only": "Solo para seguidores",
+                    "only_people_mentioned": "Solo para cuentas mencionadas"
+                },
+                "manually_approve_follow_requests": "Aprobar manualmente solicitudes de seguimiento",
+                "show_followers_and_following": "Mostrar seguidores y a quiénes sigo",
+                "suggest_my_account_to_others": "Sugerir mi cuenta a otros",
+                "appear_in_search_engines": "Aparecer en los motores de búsqueda"
             }
         },
         "report": {

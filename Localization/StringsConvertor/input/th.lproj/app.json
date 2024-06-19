@@ -364,8 +364,8 @@
             "no_server_selected_hint": "เราจะเลือกเซิร์ฟเวอร์โดยอิงตามภาษาของคุณหากคุณดำเนินการต่อโดยไม่ได้ทำการเลือก"
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "ความเป็นส่วนตัวของคุณ",
+            "description": "แม้ว่าแอป Mastodon ไม่เก็บรวบรวมข้อมูลใด ๆ เซิร์ฟเวอร์ที่คุณลงทะเบียนผ่านอาจมีนโยบายที่แตกต่างกัน\n\nหากคุณไม่เห็นด้วยกับนโยบายสำหรับ **%s** คุณสามารถย้อนกลับและเลือกเซิร์ฟเวอร์อื่น",
             "policy": {
                 "ios": "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS",
                 "server": "นโยบายความเป็นส่วนตัว - %s"
@@ -751,6 +751,7 @@
                 "title": "การตั้งค่า",
                 "general": "ทั่วไป",
                 "notifications": "การแจ้งเตือน",
+                "privacy_safety": "ความเป็นส่วนตัวและความปลอดภัย",
                 "support_mastodon": "สนับสนุน Mastodon",
                 "about_mastodon": "เกี่ยวกับ Mastodon",
                 "server_details": "รายละเอียดเซิร์ฟเวอร์",
@@ -820,6 +821,25 @@
                     "notification_hint": "เปิดการแจ้งเตือนจากการตั้งค่าอุปกรณ์ของคุณเพื่อดูการอัปเดตในหน้าจอล็อคของคุณ",
                     "go_to_settings": "ไปยังการตั้งค่าการแจ้งเตือน"
                 }
+            },
+            "privacy_safety": {
+                "title": "ความเป็นส่วนตัวและความปลอดภัย",
+                "preset": {
+                    "title": "ค่าที่ตั้งไว้ล่วงหน้า",
+                    "open_and_public": "เปิดและสาธารณะ",
+                    "private_and_restricted": "ส่วนตัวและจำกัด",
+                    "custom": "กำหนดเอง"
+                },
+                "default_post_visibility": {
+                    "title": "การมองเห็นโพสต์เริ่มต้น",
+                    "public": "สาธารณะ",
+                    "followers_only": "ผู้ติดตามเท่านั้น",
+                    "only_people_mentioned": "เฉพาะผู้คนที่ได้รับการกล่าวถึงเท่านั้น"
+                },
+                "manually_approve_follow_requests": "อนุมัติคำขอติดตามด้วยตนเอง",
+                "show_followers_and_following": "แสดงผู้ติดตามและกำลังติดตาม",
+                "suggest_my_account_to_others": "เสนอแนะบัญชีของฉันให้ผู้อื่น",
+                "appear_in_search_engines": "ปรากฏในเครื่องมือค้นหา"
             }
         },
         "report": {

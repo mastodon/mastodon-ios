@@ -364,8 +364,8 @@
             "no_server_selected_hint": "如果您不選擇而繼續的話，我們將透過您的語言設定替您選擇一台伺服器。"
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "您的隱私權",
+            "description": "即使 Mastodon app 本身不會蒐集任何資料，您所註冊之伺服器可能有不一樣的隱私權政策。\n\n若您不同意 **%s** 之隱私權政策，您可以重新挑選另一個不同的伺服器。",
             "policy": {
                 "ios": "隱私權政策 - Mastodon for iOS",
                 "server": "隱私權政策 - %s"
@@ -751,6 +751,7 @@
                 "title": "設定",
                 "general": "一般",
                 "notifications": "通知",
+                "privacy_safety": "隱私權與安全性",
                 "support_mastodon": "支援 Mastodon",
                 "about_mastodon": "關於 Mastodon",
                 "server_details": "伺服器詳細資料",
@@ -820,6 +821,25 @@
                     "notification_hint": "自您的裝置啟用通知設定以於鎖定畫面檢視新消息。",
                     "go_to_settings": "前往系統通知設定"
                 }
+            },
+            "privacy_safety": {
+                "title": "隱私權與安全性",
+                "preset": {
+                    "title": "預設值",
+                    "open_and_public": "開放與公開",
+                    "private_and_restricted": "私人與限制",
+                    "custom": "自訂"
+                },
+                "default_post_visibility": {
+                    "title": "預設嘟文可見性",
+                    "public": "公開",
+                    "followers_only": "僅限跟隨者",
+                    "only_people_mentioned": "僅限提及者"
+                },
+                "manually_approve_follow_requests": "手動審核跟隨請求",
+                "show_followers_and_following": "顯示跟隨者與跟隨中",
+                "suggest_my_account_to_others": "推薦我的帳號給其他使用者",
+                "appear_in_search_engines": "顯示於搜尋引擎結果"
             }
         },
         "report": {

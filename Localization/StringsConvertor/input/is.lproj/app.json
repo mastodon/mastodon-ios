@@ -751,6 +751,7 @@
                 "title": "Stillingar",
                 "general": "Almennt",
                 "notifications": "Tilkynningar",
+                "privacy_safety": "Persónuvernd og öryggi",
                 "support_mastodon": "Styddu við Mastodon",
                 "about_mastodon": "Um Mastodon",
                 "server_details": "Nánar um netþjón",
@@ -820,6 +821,25 @@
                     "notification_hint": "Kveiktu á tilkynningum í stillingum tækisins þíns til að sjá uppfærslur á læsiskjánum þínum.",
                     "go_to_settings": "Fara í stillingar á tilkynningum"
                 }
+            },
+            "privacy_safety": {
+                "title": "Persónuvernd og öryggi",
+                "preset": {
+                    "title": "Forstilling",
+                    "open_and_public": "Opið og opinbert",
+                    "private_and_restricted": "Einka og takmarkað",
+                    "custom": "Sérsniðið"
+                },
+                "default_post_visibility": {
+                    "title": "Sjálfgefinn sýnileiki færslna",
+                    "public": "Opinbert",
+                    "followers_only": "Einungis fylgjendur",
+                    "only_people_mentioned": "Aðeins fólk sem minnst er á"
+                },
+                "manually_approve_follow_requests": "Samþykkja handvirkt beiðnir um að fylgjast með",
+                "show_followers_and_following": "Birta fylgjendur og þá sem fylgst er með",
+                "suggest_my_account_to_others": "Stinga upp á aðgangnum mínum við aðra",
+                "appear_in_search_engines": "Láta birtast í leitarvélum"
             }
         },
         "report": {

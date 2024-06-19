@@ -364,8 +364,8 @@
             "no_server_selected_hint": "Se non elixes ti, escolleremos un servidor en función do teu idioma."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "A túa privacidade",
+            "description": "Aínda que a aplicación de Mastodon non recolle ningún dato, o servidor no que te rexistres pode ter unha política diferente.\n\nSe non estás de acordo coas condicións de **%s**, podes volver atrás e elixir outro servidor.",
             "policy": {
                 "ios": "Política de Privacidade - Mastodon para iOS",
                 "server": "Política de Privacidade - %s"
@@ -751,6 +751,7 @@
                 "title": "Axustes",
                 "general": "Xeral",
                 "notifications": "Notificacións",
+                "privacy_safety": "Privacidade e Seguridade",
                 "support_mastodon": "Apoia a Mastodon",
                 "about_mastodon": "Acerca de Mastodon",
                 "server_details": "Detalles do servidor",
@@ -820,6 +821,25 @@
                     "notification_hint": "Activar notificacións nos axustes do dispositivo para ver novidades na pantalla de bloqueo.",
                     "go_to_settings": "Ir aos axustes das notificacións"
                 }
+            },
+            "privacy_safety": {
+                "title": "Privacidade e Seguridade",
+                "preset": {
+                    "title": "Predefinido",
+                    "open_and_public": "Aberto e Público",
+                    "private_and_restricted": "Privado e Limitado",
+                    "custom": "Personalizado"
+                },
+                "default_post_visibility": {
+                    "title": "Visibilidade por defecto da Publicación",
+                    "public": "Pública",
+                    "followers_only": "Só para seguidoras",
+                    "only_people_mentioned": "Só para persoas mencionadas"
+                },
+                "manually_approve_follow_requests": "Aprobar manualmente as solicitudes de seguimento",
+                "show_followers_and_following": "Mostrar Seguidoras e Seguimentos",
+                "suggest_my_account_to_others": "Suxerir a miña conta a outras persoas",
+                "appear_in_search_engines": "Aparecer nos motores de busca"
             }
         },
         "report": {

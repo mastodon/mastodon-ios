@@ -739,7 +739,7 @@
                 "sensitive": "Your posts will be marked as sensitive from now on.",
                 "silence": "Your account has been limited.",
                 "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "learn_more": "Mehr erfahren"
             }
         },
         "thread": {
@@ -751,6 +751,7 @@
                 "title": "Einstellungen",
                 "general": "Allgemein",
                 "notifications": "Benachrichtigungen",
+                "privacy_safety": "Datenschutz und Sicherheit",
                 "support_mastodon": "Mastodon unterstützen",
                 "about_mastodon": "Über Mastodon",
                 "server_details": "Serverdetails",
@@ -820,6 +821,25 @@
                     "notification_hint": "Schalte Benachrichtigungen in den Geräteeinstellungen ein, um Aktualisierungen von deinem Sperrbildschirm aus zu sehen.",
                     "go_to_settings": "Gehe zu den Benachrichtigungseinstellungen"
                 }
+            },
+            "privacy_safety": {
+                "title": "Datenschutz und Sicherheit",
+                "preset": {
+                    "title": "Voreinstellung",
+                    "open_and_public": "Offen und Öffentlich",
+                    "private_and_restricted": "Privat und Eingeschränkt",
+                    "custom": "Benutzerdefiniert"
+                },
+                "default_post_visibility": {
+                    "title": "Standard-Sichtbarkeit von Beiträgen",
+                    "public": "Öffentlich",
+                    "followers_only": "Followers Only",
+                    "only_people_mentioned": "Nur erwähnte Profile"
+                },
+                "manually_approve_follow_requests": "Manuelles Genehmigen von Folgeanfragen",
+                "show_followers_and_following": "Show Followers & Following",
+                "suggest_my_account_to_others": "Mein Konto anderen vorschlagen",
+                "appear_in_search_engines": "In Suchmaschinen anzeigen"
             }
         },
         "report": {

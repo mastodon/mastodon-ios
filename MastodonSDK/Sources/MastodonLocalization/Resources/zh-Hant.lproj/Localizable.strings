@@ -330,12 +330,12 @@
 "Scene.Preview.Keyboard.ShowNext" = "顯示下一筆";
 "Scene.Preview.Keyboard.ShowPrevious" = "顯示上一筆";
 "Scene.Privacy.Button.Confirm" = "我已閱讀並同意";
-"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.
+"Scene.Privacy.Description" = "即使 Mastodon app 本身不會蒐集任何資料，您所註冊之伺服器可能有不一樣的隱私權政策。
 
-If you disagree with the policy for **%@**, you can go back and pick a different server.";
+若您不同意 **%@** 之隱私權政策，您可以重新挑選另一個不同的伺服器。";
 "Scene.Privacy.Policy.Ios" = "隱私權政策 - Mastodon for iOS";
 "Scene.Privacy.Policy.Server" = "隱私權政策 - %@";
-"Scene.Privacy.Title" = "Your Privacy";
+"Scene.Privacy.Title" = "您的隱私權";
 "Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "點兩下以開啟列表";
 "Scene.Profile.Accessibility.EditAvatarImage" = "編輯大頭貼";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "顯示大頭貼";
@@ -552,9 +552,23 @@ If you disagree with the policy for **%@**, you can go back and pick a different
 "Scene.Settings.Overview.General" = "一般";
 "Scene.Settings.Overview.Logout" = "登出 %@";
 "Scene.Settings.Overview.Notifications" = "通知";
+"Scene.Settings.Overview.PrivacySafety" = "隱私權與安全性";
 "Scene.Settings.Overview.ServerDetails" = "伺服器詳細資料";
 "Scene.Settings.Overview.SupportMastodon" = "支援 Mastodon";
 "Scene.Settings.Overview.Title" = "設定";
+"Scene.Settings.PrivacySafety.AppearInSearchEngines" = "顯示於搜尋引擎結果";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.FollowersOnly" = "僅限跟隨者";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.OnlyPeopleMentioned" = "僅限提及者";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.Public" = "公開";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.Title" = "預設嘟文可見性";
+"Scene.Settings.PrivacySafety.ManuallyApproveFollowRequests" = "手動審核跟隨請求";
+"Scene.Settings.PrivacySafety.Preset.Custom" = "自訂";
+"Scene.Settings.PrivacySafety.Preset.OpenAndPublic" = "開放與公開";
+"Scene.Settings.PrivacySafety.Preset.PrivateAndRestricted" = "私人與限制";
+"Scene.Settings.PrivacySafety.Preset.Title" = "預設值";
+"Scene.Settings.PrivacySafety.ShowFollowersAndFollowing" = "顯示跟隨者與跟隨中";
+"Scene.Settings.PrivacySafety.SuggestMyAccountToOthers" = "推薦我的帳號給其他使用者";
+"Scene.Settings.PrivacySafety.Title" = "隱私權與安全性";
 "Scene.Settings.ServerDetails.About" = "關於";
 "Scene.Settings.ServerDetails.AboutInstance.LegalNotice" = "法律聲明";
 "Scene.Settings.ServerDetails.AboutInstance.MessageAdmin" = "私訊管理員";
