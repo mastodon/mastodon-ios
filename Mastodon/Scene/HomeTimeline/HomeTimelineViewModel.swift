@@ -163,12 +163,11 @@ extension HomeTimelineViewModel {
         case .home:
             response = try? await context.apiService.homeTimeline(
                maxID: status.id,
-               limit: 20,
                authenticationBox: authContext.mastodonAuthenticationBox
            )
         case .public:
             response = try? await context.apiService.publicTimeline(
-                query: .init(maxID: status.id, limit: 20),
+                query: .init(local: true, maxID: status.id),
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
         }
@@ -196,7 +195,11 @@ extension HomeTimelineViewModel {
                 hasMore = false
             } else {
                 /// if fetched items and first item after gap don't match -> we got another gap
-                hasMore = item != head.first?.status?.entity
+                if let entity = head.first?.status?.entity {
+                    hasMore = item.id != entity.id
+                } else {
+                    hasMore = false
+                }
             }
 
             feedItems.append(

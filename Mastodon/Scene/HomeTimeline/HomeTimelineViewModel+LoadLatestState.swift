@@ -107,7 +107,7 @@ extension HomeTimelineViewModel.LoadLatestState {
 
 
         Task { @MainActor in
-            let latestFeedRecords = viewModel.dataController.records.prefix(APIService.onceRequestStatusMaxCount)
+            let latestFeedRecords = viewModel.dataController.records
 
             let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
                 return record.status?.reblog?.id ?? record.status?.id
@@ -119,7 +119,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                 
                 /// To find out wether or not we need to show the "Load More" button
                 /// we have make sure to eventually overlap with the most recent cached item
-                let sinceID = latestFeedRecords.count > 1 ? latestFeedRecords[1].id : "1"
+                let sinceID = latestFeedRecords.count > 1 ? latestFeedRecords[1].id : nil
                 
                 switch viewModel.timelineContext {
                 case .home:
@@ -137,51 +137,41 @@ extension HomeTimelineViewModel.LoadLatestState {
                 enter(state: Idle.self)
                 viewModel.receiveLoadingStateCompletion(.finished)
 
-                // stop refresher if no new statuses
                 let statuses = response.value
-                let newStatuses = statuses.filter { status in !latestStatusIDs.contains(where: { $0 == status.reblog?.id || $0 == status.id }) }
 
-                if newStatuses.isEmpty {
+                if statuses.isEmpty {
+                    // stop refresher if no new statuses
                     viewModel.didLoadLatest.send()
                 } else {                    
-                    viewModel.dataController.records = {
-                        var oldRecords = viewModel.dataController.records
-
-                        var newRecords = [MastodonFeed]()
-                        
-                        /// See HomeTimelineViewModel.swift for the "Load More"-counterpart when fetching new timeline items
-                        for (index, status) in newStatuses.enumerated() {
-                            if index < newStatuses.count - 1 {
-                                newRecords.append(
-                                    MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: false)
-                                )
-                                continue
-                            }
-                            
-                            let hasMore = status != oldRecords.first?.status?.entity
-                            
-                            newRecords.append(
-                                MastodonFeed.fromStatus(.fromEntity(status), kind: .home, hasMore: hasMore)
-                            )
-                        }
-                        for (i, record) in newRecords.enumerated() {
-                            if let index = oldRecords.firstIndex(where: { $0.status?.reblog?.id == record.id || $0.status?.id == record.id }) {
-                                oldRecords[index] = record
-                                if newRecords.count > i {
-                                    newRecords.remove(at: i)
-                                }
-                            }
-                        }
-                        return (newRecords + oldRecords).removingDuplicates()
-                    }()
+                    var toAdd = [MastodonFeed]()
+                    
+                    let last = statuses.last
+                    if let latestFirstId = latestFeedRecords.first?.id, let last, last.id == latestFirstId {
+                        /// We have an overlap with the existing Statuses, thus no _Load More_ required
+                        toAdd = statuses.prefix(statuses.count-1).map({ MastodonFeed.fromStatus($0.asMastodonStatus, kind: .home) })
+                    } else {
+                        /// If we do not have existing items, no _Load More_ is required as there is no gap
+                        /// If our fetched Statuses do **not** overlap with the existing ones, we need a _Load More_ Button
+                        toAdd = statuses.map({ MastodonFeed.fromStatus($0.asMastodonStatus, kind: .home) })
+                        toAdd.last?.hasMore = latestFeedRecords.isNotEmpty
+                    }
+                    
+                    viewModel.dataController.records = (toAdd + latestFeedRecords).removingDuplicates()
                 }
                 viewModel.timelineIsEmpty.value = latestStatusIDs.isEmpty && statuses.isEmpty
                 
                 if !isUserInitiated {
                     FeedbackGenerator.shared.generate(.impact(.light))
                 }
-
-                if newStatuses.isNotEmpty && (previousState is HomeTimelineViewModel.LoadLatestState.ContextSwitch) == false {
+                
+                let hasNewStatuses: Bool = {
+                    if sinceID != nil {
+                        return statuses.count > 1
+                    }
+                    return statuses.isNotEmpty
+                }()
+                
+                if hasNewStatuses && (previousState is HomeTimelineViewModel.LoadLatestState.ContextSwitch) == false {
                     viewModel.hasNewPosts.value = true
                 }
 
