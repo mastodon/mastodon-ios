@@ -154,7 +154,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                         toAdd = statuses.map({ MastodonFeed.fromStatus($0.asMastodonStatus, kind: .home) })
                         toAdd.last?.hasMore = true
                     } else {
-                        /// We do not have existing items, no load more is required as there can't be a gap
+                        /// We do not have existing items, no _Load More_ is required as there is no gap
                         toAdd = statuses.map({ MastodonFeed.fromStatus($0.asMastodonStatus, kind: .home) })
                     }
                     
