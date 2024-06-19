@@ -336,12 +336,12 @@
 "Scene.Preview.Keyboard.ShowNext" = "แสดงถัดไป";
 "Scene.Preview.Keyboard.ShowPrevious" = "แสดงก่อนหน้า";
 "Scene.Privacy.Button.Confirm" = "ฉันเห็นด้วย";
-"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.
+"Scene.Privacy.Description" = "แม้ว่าแอป Mastodon ไม่เก็บรวบรวมข้อมูลใด ๆ เซิร์ฟเวอร์ที่คุณลงทะเบียนผ่านอาจมีนโยบายที่แตกต่างกัน
 
-If you disagree with the policy for **%@**, you can go back and pick a different server.";
+หากคุณไม่เห็นด้วยกับนโยบายสำหรับ **%@** คุณสามารถย้อนกลับและเลือกเซิร์ฟเวอร์อื่น";
 "Scene.Privacy.Policy.Ios" = "นโยบายความเป็นส่วนตัว - Mastodon สำหรับ iOS";
 "Scene.Privacy.Policy.Server" = "นโยบายความเป็นส่วนตัว - %@";
-"Scene.Privacy.Title" = "Your Privacy";
+"Scene.Privacy.Title" = "ความเป็นส่วนตัวของคุณ";
 "Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "แตะสองครั้งเพื่อเปิดรายการ";
 "Scene.Profile.Accessibility.EditAvatarImage" = "แก้ไขภาพประจำตัว";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "แสดงภาพประจำตัว";
@@ -558,9 +558,23 @@ If you disagree with the policy for **%@**, you can go back and pick a different
 "Scene.Settings.Overview.General" = "ทั่วไป";
 "Scene.Settings.Overview.Logout" = "ออกจากระบบ %@";
 "Scene.Settings.Overview.Notifications" = "การแจ้งเตือน";
+"Scene.Settings.Overview.PrivacySafety" = "ความเป็นส่วนตัวและความปลอดภัย";
 "Scene.Settings.Overview.ServerDetails" = "รายละเอียดเซิร์ฟเวอร์";
 "Scene.Settings.Overview.SupportMastodon" = "สนับสนุน Mastodon";
 "Scene.Settings.Overview.Title" = "การตั้งค่า";
+"Scene.Settings.PrivacySafety.AppearInSearchEngines" = "ปรากฏในเครื่องมือค้นหา";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.FollowersOnly" = "ผู้ติดตามเท่านั้น";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.OnlyPeopleMentioned" = "เฉพาะผู้คนที่ได้รับการกล่าวถึงเท่านั้น";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.Public" = "สาธารณะ";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.Title" = "การมองเห็นโพสต์เริ่มต้น";
+"Scene.Settings.PrivacySafety.ManuallyApproveFollowRequests" = "อนุมัติคำขอติดตามด้วยตนเอง";
+"Scene.Settings.PrivacySafety.Preset.Custom" = "กำหนดเอง";
+"Scene.Settings.PrivacySafety.Preset.OpenAndPublic" = "เปิดและสาธารณะ";
+"Scene.Settings.PrivacySafety.Preset.PrivateAndRestricted" = "ส่วนตัวและจำกัด";
+"Scene.Settings.PrivacySafety.Preset.Title" = "ค่าที่ตั้งไว้ล่วงหน้า";
+"Scene.Settings.PrivacySafety.ShowFollowersAndFollowing" = "แสดงผู้ติดตามและกำลังติดตาม";
+"Scene.Settings.PrivacySafety.SuggestMyAccountToOthers" = "เสนอแนะบัญชีของฉันให้ผู้อื่น";
+"Scene.Settings.PrivacySafety.Title" = "ความเป็นส่วนตัวและความปลอดภัย";
 "Scene.Settings.ServerDetails.About" = "เกี่ยวกับ";
 "Scene.Settings.ServerDetails.AboutInstance.LegalNotice" = "ประกาศทางกฎหมาย";
 "Scene.Settings.ServerDetails.AboutInstance.MessageAdmin" = "ส่งข้อความถึงผู้ดูแล";
