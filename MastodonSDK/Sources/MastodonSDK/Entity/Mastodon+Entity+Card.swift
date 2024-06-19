@@ -33,7 +33,8 @@ extension Mastodon.Entity {
         public let image: String?
         public let embedURL: String?
         public let blurhash: String?
-        
+        public let authorAccount: Mastodon.Entity.Account?
+
         enum CodingKeys: String, CodingKey {
             case url
             case title
@@ -49,6 +50,7 @@ extension Mastodon.Entity {
             case image
             case embedURL = "embed_url"
             case blurhash
+            case authorAccount = "author_account"
         }
     }
 }
