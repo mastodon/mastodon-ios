@@ -149,13 +149,11 @@ extension HomeTimelineViewModel.LoadLatestState {
                     if let latestFirstId = latestFeedRecords.first?.id, let last, last.id == latestFirstId {
                         /// We have an overlap with the existing Statuses, thus no _Load More_ required
                         toAdd = statuses.prefix(statuses.count-1).map({ MastodonFeed.fromStatus($0.asMastodonStatus, kind: .home) })
-                    } else if latestFeedRecords.isNotEmpty {
-                        /// Our fetched Statuses do **not** overlap with the existing ones, we need a _Load More_ Button
-                        toAdd = statuses.map({ MastodonFeed.fromStatus($0.asMastodonStatus, kind: .home) })
-                        toAdd.last?.hasMore = true
                     } else {
-                        /// We do not have existing items, no _Load More_ is required as there is no gap
+                        /// If we do not have existing items, no _Load More_ is required as there is no gap
+                        /// If our fetched Statuses do **not** overlap with the existing ones, we need a _Load More_ Button
                         toAdd = statuses.map({ MastodonFeed.fromStatus($0.asMastodonStatus, kind: .home) })
+                        toAdd.last?.hasMore = latestFeedRecords.isNotEmpty
                     }
                     
                     viewModel.dataController.records = (toAdd + latestFeedRecords).removingDuplicates()
