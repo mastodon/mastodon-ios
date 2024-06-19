@@ -48,12 +48,20 @@ public final class StatusCardControl: UIControl {
     }()
     private var html = ""
 
+    private let authorDivider: UIView
+
+    private let mastodonLogoImageView: UIImageView
+    private let byLabel: UILabel
+    private let authorAccountButton: UIButton
+    private let authorStackView: UIStackView
+
     private static let cardContentPool = WKProcessPool()
     private var webView: WKWebView?
 
     private var layout: Layout?
     private var layoutConstraints: [NSLayoutConstraint] = []
     private var dividerConstraint: NSLayoutConstraint?
+    private var authorDividerConstraint: NSLayoutConstraint?
 
     public override var isHighlighted: Bool {
         didSet {
@@ -68,6 +76,31 @@ public final class StatusCardControl: UIControl {
     }
 
     public override init(frame: CGRect) {
+
+        let mastodonLogo = Asset.Scene.Sidebar.logo.image.withRenderingMode(.alwaysTemplate)
+        mastodonLogoImageView = UIImageView(image: mastodonLogo)
+        mastodonLogoImageView.tintColor = .gray
+        mastodonLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        byLabel = UILabel()
+        byLabel.text = "by"
+        byLabel.numberOfLines = 1
+
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.background.cornerRadius = 10
+        buttonConfiguration.background.backgroundColor = Asset.Colors.Button.userFollowing.color
+        buttonConfiguration.baseForegroundColor = Asset.Colors.Brand.blurple.color
+
+        authorAccountButton = UIButton(configuration: buttonConfiguration)
+
+        authorStackView = UIStackView(arrangedSubviews: [mastodonLogoImageView, byLabel, authorAccountButton, UIView()])
+        authorStackView.alignment = .firstBaseline
+        authorStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
+        authorStackView.isLayoutMarginsRelativeArrangement = true
+        authorStackView.spacing = 8
+
+        authorDivider = UIView.separatorLine
+
         super.init(frame: frame)
 
         applyBranding()
@@ -82,7 +115,7 @@ public final class StatusCardControl: UIControl {
 
         titleLabel.numberOfLines = 2
         titleLabel.textColor = Asset.Colors.Label.primary.color
-        titleLabel.font = .preferredFont(forTextStyle: .body)
+        titleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .bold))
 
         linkLabel.numberOfLines = 1
         linkLabel.textColor = Asset.Colors.Label.secondary.color
@@ -106,6 +139,9 @@ public final class StatusCardControl: UIControl {
         containerStackView.addArrangedSubview(imageView)
         containerStackView.addArrangedSubview(dividerView)
         containerStackView.addArrangedSubview(labelStackView)
+        containerStackView.addArrangedSubview(authorDivider)
+        containerStackView.addArrangedSubview(authorStackView)
+        containerStackView.setCustomSpacing(5, after: authorDivider)
         containerStackView.isUserInteractionEnabled = false
         containerStackView.distribution = .fill
 
@@ -143,6 +179,8 @@ public final class StatusCardControl: UIControl {
             accessibilityLabel = title
         }
 
+        authorAccountButton.configuration?.title = card.authorAccount?.displayName
+
         titleLabel.text = title
         linkLabel.text = url?.host
         imageView.contentMode = .center
@@ -178,9 +216,10 @@ public final class StatusCardControl: UIControl {
     public override func didMoveToWindow() {
         super.didMoveToWindow()
 
-        if let window = window {
+        if let window {
             layer.borderWidth = window.screen.pixelSize
             dividerConstraint?.constant = window.screen.pixelSize
+            authorDividerConstraint?.constant = window.screen.pixelSize
         }
     }
 
@@ -190,6 +229,7 @@ public final class StatusCardControl: UIControl {
 
         NSLayoutConstraint.deactivate(layoutConstraints)
         dividerConstraint?.deactivate()
+        authorDividerConstraint?.deactivate()
 
         let pixelSize = (window?.screen.pixelSize ?? 1)
         switch layout {
@@ -209,6 +249,7 @@ public final class StatusCardControl: UIControl {
                     .constraint(lessThanOrEqualToConstant: 400),
             ]
             dividerConstraint = dividerView.heightAnchor.constraint(equalToConstant: pixelSize).activate()
+            authorDividerConstraint = authorDivider.heightAnchor.constraint(equalToConstant: pixelSize).activate()
         case .compact:
             containerStackView.alignment = .center
             containerStackView.axis = .horizontal
@@ -218,9 +259,16 @@ public final class StatusCardControl: UIControl {
                 heightAnchor.constraint(equalToConstant: 85).priority(.defaultLow - 1),
                 heightAnchor.constraint(greaterThanOrEqualToConstant: 85),
                 dividerView.heightAnchor.constraint(equalTo: containerStackView.heightAnchor),
+                authorDivider.heightAnchor.constraint(equalTo: containerStackView.heightAnchor),
             ]
             dividerConstraint = dividerView.widthAnchor.constraint(equalToConstant: pixelSize).activate()
+            authorDividerConstraint = authorDivider.widthAnchor.constraint(equalToConstant: pixelSize).activate()
         }
+
+        layoutConstraints.append(contentsOf: [
+            mastodonLogoImageView.widthAnchor.constraint(equalToConstant: 20),
+            mastodonLogoImageView.heightAnchor.constraint(equalTo: mastodonLogoImageView.widthAnchor),
+        ])
 
         NSLayoutConstraint.activate(layoutConstraints)
     }
