@@ -56,10 +56,13 @@ extension InstanceService {
                     return self.updateInstance(domain: domain, response: response)
                 }
             }
-//            .flatMap { [unowned self] response -> AnyPublisher<Void, Error> in
-//                return
-//            }
-            .sink { _ in
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.updateTranslationLanguages(domain: domain)
+                case .failure:
+                    break
+                }
             } receiveValue: { [weak self] response in
                 guard let _ = self else { return }
                 // do nothing
@@ -67,19 +70,37 @@ extension InstanceService {
             .store(in: &disposeBag)
     }
     
+    func updateTranslationLanguages(domain: String) {
+        apiService?.translationLanguages(domain: domain, authenticationBox: authenticationService?.mastodonAuthenticationBoxes.first)
+            .sink(receiveCompletion: { completion in
+                // no-op
+            }, receiveValue: { [weak self] response in
+                self?.updateTranslationLanguages(domain: domain, response: response)
+            })
+            .store(in: &disposeBag)
+    }
+    
+    private func updateTranslationLanguages(domain: String, response: Mastodon.Response.Content<TranslationLanguages>) {
+        AuthenticationServiceProvider.shared
+            .updating(translationLanguages: response.value, for: domain)
+    }
+    
     private func updateInstance(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.Instance>) -> AnyPublisher<Void, Error> {
         let managedObjectContext = self.backgroundManagedObjectContext
+        let instanceEntity = response.value
         return managedObjectContext.performChanges {
             // get instance
             let (instance, _) = APIService.CoreData.createOrMergeInstance(
                 into: managedObjectContext,
                 domain: domain,
-                entity: response.value,
+                entity: instanceEntity,
                 networkDate: response.networkDate
             )
             
             // update instance
-            AuthenticationServiceProvider.shared.update(instance: instance, where: domain)
+            AuthenticationServiceProvider.shared
+                .updating(instance: instance, where: domain)
+                .updating(instanceV1: instanceEntity, for: domain)
         }
         .setFailureType(to: Error.self)
         .tryMap { result in
@@ -95,19 +116,22 @@ extension InstanceService {
     
     private func updateInstanceV2(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.V2.Instance>) -> AnyPublisher<Void, Error> {
         let managedObjectContext = self.backgroundManagedObjectContext
+        let instanceEntity = response.value
         return managedObjectContext.performChanges {
             // get instance
             let (instance, _) = APIService.CoreData.createOrMergeInstance(
                 in: managedObjectContext,
                 context: .init(
                     domain: domain,
-                    entity: response.value,
+                    entity: instanceEntity,
                     networkDate: response.networkDate
                 )
             )
             
             // update instance
-            AuthenticationServiceProvider.shared.update(instance: instance, where: domain)
+            AuthenticationServiceProvider.shared
+                .updating(instance: instance, where: domain)
+                .updating(instanceV2: instanceEntity, for: domain)
         }
         .setFailureType(to: Error.self)
         .tryMap { result in

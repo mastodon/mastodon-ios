@@ -5,6 +5,11 @@ import CoreDataStack
 import MastodonSDK
 
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
+    public enum InstanceConfiguration: Codable, Hashable {
+        case v1(Mastodon.Entity.Instance, TranslationLanguages)
+        case v2(Mastodon.Entity.V2.Instance, TranslationLanguages)
+    }
+    
     public typealias ID = UUID
     
     public private(set) var identifier: ID
@@ -22,6 +27,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
 
     public private(set) var userID: String
     public private(set) var instanceObjectIdURI: URL?
+    public private(set) var instanceConfiguration: InstanceConfiguration?
     
     public var persistenceIdentifier: String {
         "\(username)@\(domain)"
@@ -49,7 +55,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             updatedAt: now,
             activedAt: now,
             userID: userID,
-            instanceObjectIdURI: nil
+            instanceObjectIdURI: nil,
+            instanceConfiguration: nil
         )
     }
     
@@ -65,7 +72,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         updatedAt: Date? = nil,
         activedAt: Date? = nil,
         userID: String? = nil,
-        instanceObjectIdURI: URL? = nil
+        instanceObjectIdURI: URL? = nil,
+        instanceConfiguration: InstanceConfiguration? = nil
     ) -> Self {
         MastodonAuthentication(
             identifier: identifier ?? self.identifier,
@@ -79,7 +87,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             updatedAt: updatedAt ?? self.updatedAt,
             activedAt: activedAt ?? self.activedAt,
             userID: userID ?? self.userID,
-            instanceObjectIdURI: instanceObjectIdURI ?? self.instanceObjectIdURI
+            instanceObjectIdURI: instanceObjectIdURI ?? self.instanceObjectIdURI,
+            instanceConfiguration: instanceConfiguration ?? self.instanceConfiguration
         )
     }
     
@@ -115,6 +124,37 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
 
     func updating(instance: Instance) -> Self {
         copy(instanceObjectIdURI: instance.objectID.uriRepresentation())
+    }
+    
+    func updating(instanceV1 instance: Mastodon.Entity.Instance) -> Self {
+        guard
+            let instanceConfiguration = self.instanceConfiguration,
+            case let InstanceConfiguration.v1(_, translationLanguages) = instanceConfiguration
+        else {
+            return copy(instanceConfiguration: .v1(instance, [:]))
+        }
+        return copy(instanceConfiguration: .v1(instance, translationLanguages))
+    }
+    
+    func updating(instanceV2 instance: Mastodon.Entity.V2.Instance) -> Self {
+        guard
+            let instanceConfiguration = self.instanceConfiguration,
+            case let InstanceConfiguration.v2(_, translationLanguages) = instanceConfiguration
+        else {
+            return copy(instanceConfiguration: .v2(instance, [:]))
+        }
+        return copy(instanceConfiguration: .v2(instance, translationLanguages))
+    }
+    
+    func updating(translationLanguages: TranslationLanguages) -> Self {
+        switch self.instanceConfiguration {
+        case .v1(let instance, _):
+            return copy(instanceConfiguration: .v1(instance, translationLanguages))
+        case .v2(let instance, _):
+            return copy(instanceConfiguration: .v2(instance, translationLanguages))
+        case .none:
+            return self
+        }
     }
     
     func updating(activatedAt: Date) -> Self {
