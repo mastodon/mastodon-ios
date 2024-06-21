@@ -21,7 +21,7 @@ extension DataSourceFacade {
     public static func translateStatus(
         provider: Provider,
         status: MastodonStatus
-    ) async throws -> Mastodon.Entity.Translation? {
+    ) async throws -> Mastodon.Entity.Translation {
         FeedbackGenerator.shared.generate(.selectionChanged)
 
         do {
@@ -32,10 +32,10 @@ extension DataSourceFacade {
                     authenticationBox: provider.authContext.mastodonAuthenticationBox
                 ).value
 
-            if value.content != nil {
+            if let content = value.content, content.isNotEmpty {
                 return value
             } else {
-                return nil
+                throw TranslationFailure.emptyOrInvalidResponse
             }
 
         } catch {
