@@ -134,3 +134,28 @@ extension Mastodon.API.Notifications {
         }
     }
 }
+
+//MARK: - Notification Policy
+
+extension Mastodon.API.Notifications {
+    internal static func notificationPolicyEndpointURL(domain: String) -> URL {
+        notificationsEndpointURL(domain: domain).appendingPathComponent("policy")
+    }
+
+    public static func getNotificationPolicy(
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.NotificationPolicy>, Error> {
+        let request = Mastodon.API.get(
+            url: notificationPolicyEndpointURL(domain: domain),
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.NotificationPolicy.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
