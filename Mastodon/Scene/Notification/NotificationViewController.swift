@@ -86,14 +86,11 @@ extension NotificationViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        aspectViewWillAppear(animated)
-        
-        // fetch latest notification when scroll position is within half screen height to prevent list reload
-//        if tableView.contentOffset.y < view.frame.height * 0.5 {
-//            viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
-//        }
+        // https://github.com/mastodon/documentation/pull/1447#issuecomment-2149225659
+        if let viewModel, viewModel.notificationPolicy != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease"), style: .plain, target: self, action: #selector(NotificationViewController.showNotificationPolicySettings(_:)))
+        }
 
-        
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -116,6 +113,20 @@ extension NotificationViewController {
         super.viewDidDisappear(animated)
         
 //        aspectViewDidDisappear(animated)
+    }
+
+    //MARK: - Actions
+
+    @objc private func showNotificationPolicySettings(_ sender: Any) {
+        //TODO: Move to SceneCoordinator
+        let notificationPolicyViewController = NotificationPolicyViewController()
+        notificationPolicyViewController.modalPresentationStyle = .formSheet
+
+        if let sheet = notificationPolicyViewController.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+
+        present(UINavigationController(rootViewController: notificationPolicyViewController), animated: true)
     }
 }
 

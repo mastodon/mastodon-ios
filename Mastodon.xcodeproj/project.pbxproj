@@ -137,6 +137,7 @@
 		D8099078294BC8A30050219F /* PrivacyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099077294BC8A30050219F /* PrivacyTableViewController.swift */; };
 		D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099079294BC9390050219F /* PrivacyTableViewCell.swift */; };
 		D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809907B294D25510050219F /* PrivacyViewModel.swift */; };
+		D80EC2632C2978EE009724A5 /* NotificationPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80EC2622C2978EE009724A5 /* NotificationPolicyViewController.swift */; };
 		D80F627C2B5C32C500877059 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F627A2B5C32C500877059 /* NotificationView.swift */; };
 		D81439862AD415DE0071A88F /* AboutInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81439852AD415DE0071A88F /* AboutInstance.swift */; };
 		D81439882AD450A40071A88F /* AboutInstanceTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81439872AD450A40071A88F /* AboutInstanceTableViewDataSource.swift */; };
@@ -761,6 +762,7 @@
 		D8099077294BC8A30050219F /* PrivacyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewController.swift; sourceTree = "<group>"; };
 		D8099079294BC9390050219F /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
 		D809907B294D25510050219F /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
+		D80EC2622C2978EE009724A5 /* NotificationPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyViewController.swift; sourceTree = "<group>"; };
 		D80F627A2B5C32C500877059 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		D81439852AD415DE0071A88F /* AboutInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstance.swift; sourceTree = "<group>"; };
 		D81439872AD450A40071A88F /* AboutInstanceTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstanceTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -1758,6 +1760,14 @@
 			path = Privacy;
 			sourceTree = "<group>";
 		};
+		D80EC2602C2978CB009724A5 /* Notification Filtering */ = {
+			isa = PBXGroup;
+			children = (
+				D80EC2622C2978EE009724A5 /* NotificationPolicyViewController.swift */,
+			);
+			path = "Notification Filtering";
+			sourceTree = "<group>";
+		};
 		D80F627E2B5C32E400877059 /* NotificationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2667,6 +2677,7 @@
 		DB9D6BFD25E4F57B0051B173 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				D80EC2602C2978CB009724A5 /* Notification Filtering */,
 				DB63F765279A5E5600455B82 /* NotificationTimeline */,
 				2D35237F26256F470031AF25 /* Cell */,
 				D80F627E2B5C32E400877059 /* NotificationView */,
@@ -3808,6 +3819,7 @@
 				DB9F58EC26EF435000E7BBE9 /* AccountViewController.swift in Sources */,
 				D8318A802A4466D300C0FB73 /* SettingsCoordinator.swift in Sources */,
 				DB3E6FF12806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift in Sources */,
+				D80EC2632C2978EE009724A5 /* NotificationPolicyViewController.swift in Sources */,
 				DB3E6FF82807C45300B035AE /* DiscoveryForYouViewModel.swift in Sources */,
 				DB0F9D56283EB46200379AF8 /* ProfileHeaderView+Configuration.swift in Sources */,
 				DB6746F0278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift in Sources */,
