@@ -6,8 +6,18 @@ import MastodonSDK
 
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     public enum InstanceConfiguration: Codable, Hashable {
-        case v1(Mastodon.Entity.Instance, TranslationLanguages)
+        case v1(Mastodon.Entity.Instance)
         case v2(Mastodon.Entity.V2.Instance, TranslationLanguages)
+        
+        public func canTranslateFrom(_ sourceLocale: String, to targetLanguage: String) -> Bool {
+            switch self {
+            case .v1:
+                return false
+            case let .v2(instance, translationLanguages):
+                guard instance.configuration?.translation?.enabled == true else { return false }
+                return translationLanguages[sourceLocale]?.contains(targetLanguage) == true
+            }
+        }
     }
     
     public typealias ID = UUID
@@ -127,13 +137,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     }
     
     func updating(instanceV1 instance: Mastodon.Entity.Instance) -> Self {
-        guard
-            let instanceConfiguration = self.instanceConfiguration,
-            case let InstanceConfiguration.v1(_, translationLanguages) = instanceConfiguration
-        else {
-            return copy(instanceConfiguration: .v1(instance, [:]))
-        }
-        return copy(instanceConfiguration: .v1(instance, translationLanguages))
+        return copy(instanceConfiguration: .v1(instance))
     }
     
     func updating(instanceV2 instance: Mastodon.Entity.V2.Instance) -> Self {
@@ -148,8 +152,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     
     func updating(translationLanguages: TranslationLanguages) -> Self {
         switch self.instanceConfiguration {
-        case .v1(let instance, _):
-            return copy(instanceConfiguration: .v1(instance, translationLanguages))
+        case .v1(let instance):
+            return copy(instanceConfiguration: .v1(instance))
         case .v2(let instance, _):
             return copy(instanceConfiguration: .v2(instance, translationLanguages))
         case .none:

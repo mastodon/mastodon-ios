@@ -696,8 +696,13 @@ extension StatusView.ViewModel {
                 }
 
                 let authentication = authContext.mastodonAuthenticationBox.authentication
-                let instance = authentication.instance(in: context.managedObjectContext)
-                let isTranslationEnabled = instance?.isTranslationEnabled ?? false
+                let isTranslationEnabled: Bool = {
+                    guard let language, let targetLanguage = Bundle.main.preferredLocalizations.first else { return false }
+                    return authentication.instanceConfiguration?.canTranslateFrom(
+                        language,
+                        to: targetLanguage
+                    ) ?? false
+                }()
 
                 authorView.menuButton.menu = UIMenu(children: [
                     UIDeferredMenuElement.uncached({ menuElement in
