@@ -1,9 +1,4 @@
-//
-//  File.swift
-//  
-//
-//  Created by Marcus Kida on 20.06.24.
-//
+// Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import Foundation
 import Combine
