@@ -121,12 +121,13 @@ extension NotificationViewController {
         //TODO: Move to SceneCoordinator
         let notificationPolicyViewController = NotificationPolicyViewController()
         notificationPolicyViewController.modalPresentationStyle = .formSheet
+        let navigationController = UINavigationController(rootViewController: notificationPolicyViewController)
 
-        if let sheet = notificationPolicyViewController.sheetPresentationController {
+        if let sheet = navigationController.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
         }
 
-        present(UINavigationController(rootViewController: notificationPolicyViewController), animated: true)
+        present(navigationController, animated: true)
     }
 }
 
