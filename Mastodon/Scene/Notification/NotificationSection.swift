@@ -39,6 +39,7 @@ extension NotificationSection {
         tableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationTableViewCell.self))
         tableView.register(AccountWarningNotificationCell.self, forCellReuseIdentifier: AccountWarningNotificationCell.reuseIdentifier)
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
+        tableView.register(NotificationFilteringBannerTableViewCell.self, forCellReuseIdentifier: NotificationFilteringBannerTableViewCell.reuseIdentifier)
 
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
@@ -66,6 +67,12 @@ extension NotificationSection {
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
                 cell.activityIndicatorView.startAnimating()
+                return cell
+
+            case .filteredNotifications(let policy):
+                let cell = tableView.dequeueReusableCell(withIdentifier: NotificationFilteringBannerTableViewCell.reuseIdentifier, for: indexPath) as! NotificationFilteringBannerTableViewCell
+                cell.configure(with: policy)
+
                 return cell
             }
         }

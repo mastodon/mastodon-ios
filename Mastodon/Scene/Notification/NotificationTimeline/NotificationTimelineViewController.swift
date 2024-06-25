@@ -13,16 +13,16 @@ import MastodonLocalization
 
 final class NotificationTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
-    weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
-    weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
+    weak var context: AppContext!
+    weak var coordinator: SceneCoordinator!
     
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
 
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
 
-    var viewModel: NotificationTimelineViewModel!
-    
+    let viewModel: NotificationTimelineViewModel
+
     private(set) lazy var refreshControl: RefreshControl = {
         let refreshControl = RefreshControl()
         refreshControl.addTarget(self, action: #selector(NotificationTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
@@ -38,6 +38,16 @@ final class NotificationTimelineViewController: UIViewController, NeedsDependenc
     }()
     
     let cellFrameCache = NSCache<NSNumber, NSValue>()
+
+    init(viewModel: NotificationTimelineViewModel, context: AppContext, coordinator: SceneCoordinator) {
+        self.viewModel = viewModel
+        self.context = context
+        self.coordinator = coordinator
+
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
 extension NotificationTimelineViewController {

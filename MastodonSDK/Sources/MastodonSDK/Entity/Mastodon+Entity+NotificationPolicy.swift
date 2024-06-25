@@ -3,12 +3,12 @@
 import Foundation
 
 extension Mastodon.Entity {
-    public struct NotificationPolicy: Codable {
-        let filterNotFollowing: Bool
-        let filterNotFollowers: Bool
-        let filterNewAccounts: Bool
-        let filterPrivateMentions: Bool
-        let summary: Summary
+    public struct NotificationPolicy: Codable, Hashable {
+        public let filterNotFollowing: Bool
+        public let filterNotFollowers: Bool
+        public let filterNewAccounts: Bool
+        public let filterPrivateMentions: Bool
+        public let summary: Summary
 
         enum CodingKeys: String, CodingKey {
             case filterNotFollowing = "filter_not_following"
@@ -18,9 +18,9 @@ extension Mastodon.Entity {
             case summary
         }
 
-        public struct Summary: Codable {
-            let pendingRequestsCount: Int
-            let pendingNotificationsCount: Int
+        public struct Summary: Codable, Hashable {
+            public let pendingRequestsCount: Int
+            public let pendingNotificationsCount: Int
 
             enum CodingKeys: String, CodingKey {
                 case pendingRequestsCount = "pending_requests_count"

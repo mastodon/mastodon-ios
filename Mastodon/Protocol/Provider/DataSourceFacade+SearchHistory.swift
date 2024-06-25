@@ -17,32 +17,30 @@ extension DataSourceFacade {
         item: DataSourceItem
     ) async {
         switch item {
-            case .account(account: let account, relationship: _):
-                let now = Date()
-                let userID = provider.authContext.mastodonAuthenticationBox.userID
-                let searchEntry = Persistence.SearchHistory.Item(
-                    updatedAt: now,
-                    userID: userID,
-                    account: account,
-                    hashtag: nil
-                )
+        case .account(account: let account, relationship: _):
+            let now = Date()
+            let userID = provider.authContext.mastodonAuthenticationBox.userID
+            let searchEntry = Persistence.SearchHistory.Item(
+                updatedAt: now,
+                userID: userID,
+                account: account,
+                hashtag: nil
+            )
 
-                try? FileManager.default.addSearchItem(searchEntry, for: provider.authContext.mastodonAuthenticationBox)
-            case .hashtag(let tag):
+            try? FileManager.default.addSearchItem(searchEntry, for: provider.authContext.mastodonAuthenticationBox)
+        case .hashtag(let tag):
 
-                let now = Date()
-                let userID = provider.authContext.mastodonAuthenticationBox.userID
-                let searchEntry = Persistence.SearchHistory.Item(
-                    updatedAt: now,
-                    userID: userID,
-                    account: nil,
-                    hashtag: tag
-                )
+            let now = Date()
+            let userID = provider.authContext.mastodonAuthenticationBox.userID
+            let searchEntry = Persistence.SearchHistory.Item(
+                updatedAt: now,
+                userID: userID,
+                account: nil,
+                hashtag: tag
+            )
 
-                try? FileManager.default.addSearchItem(searchEntry, for: provider.authContext.mastodonAuthenticationBox)
-            case .status:
-                break
-            case .notification:
+            try? FileManager.default.addSearchItem(searchEntry, for: provider.authContext.mastodonAuthenticationBox)
+        case .status, .notification, .notificationBanner(_):
                 break
 
         }

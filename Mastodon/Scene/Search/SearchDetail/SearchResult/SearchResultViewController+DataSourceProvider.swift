@@ -70,7 +70,7 @@ extension SearchResultViewController {
                     provider: self,
                     tag: tag
                 )
-            case .notification:
+            case .notification, .notificationBanner(_):
                 assertionFailure()
             }   // end switch
 

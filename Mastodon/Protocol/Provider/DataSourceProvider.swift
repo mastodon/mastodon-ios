@@ -14,6 +14,7 @@ enum DataSourceItem: Hashable {
     case status(record: MastodonStatus)
     case hashtag(tag: Mastodon.Entity.Tag)
     case notification(record: MastodonNotification)
+    case notificationBanner(policy: Mastodon.Entity.NotificationPolicy)
     case account(account: Mastodon.Entity.Account, relationship: Mastodon.Entity.Relationship?)
 }
 

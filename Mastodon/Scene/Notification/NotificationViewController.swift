@@ -146,17 +146,20 @@ extension NotificationViewController {
             pageSegmentedControl.selectedSegmentIndex = 0
         }
     }
-    
+
     private func createViewController(for scope: NotificationTimelineViewModel.Scope) -> UIViewController {
-        guard let authContext = viewModel?.authContext else { return UITableViewController() }
-        let viewController = NotificationTimelineViewController()
-        viewController.context = context
-        viewController.coordinator = coordinator
-        viewController.viewModel = NotificationTimelineViewModel(
+        guard let viewModel else { return UITableViewController() }
+
+        let viewController = NotificationTimelineViewController(
+            viewModel: NotificationTimelineViewModel(
+                context: context,
+                authContext: viewModel.authContext,
+                scope: scope, notificationPolicy: viewModel.notificationPolicy
+            ),
             context: context,
-            authContext: authContext,
-            scope: scope
+            coordinator: coordinator
         )
+
         return viewController
     }
 }

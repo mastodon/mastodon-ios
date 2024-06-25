@@ -33,7 +33,7 @@ extension NotificationTimelineViewModel {
         dataController.$records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
-                guard let self = self else { return }
+                guard let self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
 
                 Task {
@@ -44,6 +44,9 @@ extension NotificationTimelineViewModel {
                         }
                         var snapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
                         snapshot.appendSections([.main])
+                        if self.scope == .everything, let notificationPolicy = self.notificationPolicy, notificationPolicy.summary.pendingRequestsCount > 0 {
+                            snapshot.appendItems([.filteredNotifications(policy: notificationPolicy)])
+                        }
                         snapshot.appendItems(newItems.removingDuplicates(), toSection: .main)
                         return snapshot
                     }()

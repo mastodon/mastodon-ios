@@ -22,42 +22,45 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                 return
             }
             switch item {
-                case .account(let account, relationship: _):
-                    await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
-                case .status(let status):
+            case .account(let account, relationship: _):
+                await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
+            case .status(let status):
+                await DataSourceFacade.coordinateToStatusThreadScene(
+                    provider: self,
+                    target: .status,    // remove reblog wrapper
+                    status: status
+                )
+            case .hashtag(let tag):
+                await DataSourceFacade.coordinateToHashtagScene(
+                    provider: self,
+                    tag: tag
+                )
+            case .notification(let notification):
+                let _status: MastodonStatus? = notification.status
+                if let status = _status {
                     await DataSourceFacade.coordinateToStatusThreadScene(
                         provider: self,
                         target: .status,    // remove reblog wrapper
                         status: status
                     )
-                case .hashtag(let tag):
-                    await DataSourceFacade.coordinateToHashtagScene(
-                        provider: self,
-                        tag: tag
+                } else if let accountWarning = notification.entity.accountWarning {
+                    let url = Mastodon.API.disputesEndpoint(domain: authContext.mastodonAuthenticationBox.domain, strikeId: accountWarning.id)
+                    _ = coordinator.present(
+                        scene: .safari(url: url),
+                        from: self,
+                        transition: .safariPresent(animated: true, completion: nil)
                     )
-                case .notification(let notification):
-                    let _status: MastodonStatus? = notification.status
-                    if let status = _status {
-                        await DataSourceFacade.coordinateToStatusThreadScene(
-                            provider: self,
-                            target: .status,    // remove reblog wrapper
-                            status: status
-                        )
-                    } else if let accountWarning = notification.entity.accountWarning {
-                        let url = Mastodon.API.disputesEndpoint(domain: authContext.mastodonAuthenticationBox.domain, strikeId: accountWarning.id)
-                        _ = coordinator.present(
-                            scene: .safari(url: url),
-                            from: self,
-                            transition: .safariPresent(animated: true, completion: nil)
-                        )
 
-                    } else {
-                        await DataSourceFacade.coordinateToProfileScene(
-                            provider: self,
-                            account: notification.entity.account
-                        )
-                    }   // end Task
-            }   // end func
+                } else {
+                    await DataSourceFacade.coordinateToProfileScene(
+                        provider: self,
+                        account: notification.entity.account
+                    )
+                }
+            case .notificationBanner(let policy):
+                //TODO: Coordinate to pending notification-screen
+                break
+            }
         }
     }
 }

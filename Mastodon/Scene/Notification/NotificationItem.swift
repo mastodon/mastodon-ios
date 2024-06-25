@@ -10,6 +10,7 @@ import Foundation
 import MastodonSDK
 
 enum NotificationItem: Hashable {
+    case filteredNotifications(policy: Mastodon.Entity.NotificationPolicy)
     case feed(record: MastodonFeed)
     case feedLoader(record: MastodonFeed)
     case bottomLoader
