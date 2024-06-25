@@ -317,7 +317,7 @@ extension DataSourceFacade {
                 performDeletion(of: status, with: dependency)
             }
         case .translateStatus:
-            guard let status = menuContext.statusViewModel?.originalStatus else { return }
+            guard let status = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else { return }
 
             do {
                 let translation = try await DataSourceFacade.translateStatus(provider: dependency,status: status)
