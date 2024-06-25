@@ -133,10 +133,12 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         MastodonUserIdentifier(domain: domain, userID: userID)
     }
 
+    @MainActor
     func updating(instanceV1 instance: Mastodon.Entity.Instance) -> Self {
         return copy(instanceConfiguration: .v1(instance))
     }
     
+    @MainActor
     func updating(instanceV2 instance: Mastodon.Entity.V2.Instance) -> Self {
         guard
             let instanceConfiguration = self.instanceConfiguration,
@@ -147,6 +149,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         return copy(instanceConfiguration: .v2(instance, translationLanguages))
     }
     
+    @MainActor
     func updating(translationLanguages: TranslationLanguages) -> Self {
         switch self.instanceConfiguration {
         case .v1(let instance):

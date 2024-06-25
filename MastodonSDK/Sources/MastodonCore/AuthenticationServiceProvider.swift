@@ -23,6 +23,7 @@ public class AuthenticationServiceProvider: ObservableObject {
         }
     }
 
+    @MainActor
     @discardableResult
     func updating(instanceV1 instance: Mastodon.Entity.Instance, for domain: String) -> Self {
         authentications = authentications.map { authentication in
@@ -32,6 +33,7 @@ public class AuthenticationServiceProvider: ObservableObject {
         return self
     }
     
+    @MainActor
     @discardableResult
     func updating(instanceV2 instance: Mastodon.Entity.V2.Instance, for domain: String) -> Self {
         authentications = authentications.map { authentication in
@@ -41,6 +43,7 @@ public class AuthenticationServiceProvider: ObservableObject {
         return self
     }
     
+    @MainActor
     @discardableResult
     func updating(translationLanguages: TranslationLanguages, for domain: String) -> Self {
         authentications = authentications.map { authentication in

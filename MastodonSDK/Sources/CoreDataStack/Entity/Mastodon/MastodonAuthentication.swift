@@ -29,11 +29,7 @@ final public class MastodonAuthenticationLegacy: NSManagedObject {
     @NSManaged public private(set) var activedAt: Date
     
     // one-to-one relationship
-    @NSManaged public private(set) var user: MastodonUser
-    
-    // many-to-one relationship
-    @NSManaged public private(set) var instance: Instance?
-    
+    @NSManaged public private(set) var user: MastodonUser    
 }
 
 extension MastodonAuthenticationLegacy {
@@ -98,12 +94,6 @@ extension MastodonAuthenticationLegacy {
     public func update(activedAt: Date) {
         if self.activedAt != activedAt {
             self.activedAt = activedAt
-        }
-    }
-    
-    public func update(instance: Instance) {
-        if self.instance != instance {
-            self.instance = instance
         }
     }
     
