@@ -324,6 +324,7 @@ extension DataSourceFacade {
 
                 menuContext.statusViewModel?.translation = translation
             } catch TranslationFailure.emptyOrInvalidResponse {
+                menuContext.statusViewModel?.isCurrentlyTranslating = false
                 let alertController = UIAlertController(title: L10n.Common.Alerts.TranslationFailed.title, message: L10n.Common.Alerts.TranslationFailed.message, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: L10n.Common.Alerts.TranslationFailed.button, style: .default))
                 dependency.present(alertController, animated: true)
