@@ -44,12 +44,6 @@ extension Instance {
     }
 }
 
-extension Instance {
-    public var canFollowTags: Bool {
-        version?.majorServerVersion(greaterThanOrEquals: 4) ?? false // following Tags is support beginning with Mastodon v4.0.0
-    }
-}
-
 extension String {
     public func majorServerVersion(greaterThanOrEquals comparedVersion: Int) -> Bool {
         guard

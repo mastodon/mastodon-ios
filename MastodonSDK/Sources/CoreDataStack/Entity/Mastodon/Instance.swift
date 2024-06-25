@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 
+@available(*, deprecated, message: "Please use `MastodonAuthentication.InstanceConfiguration` instead.")
 public final class Instance: NSManagedObject {
     @NSManaged public var domain: String
     @NSManaged public var version: String?

@@ -18,6 +18,26 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
                 return translationLanguages[sourceLocale]?.contains(targetLanguage) == true
             }
         }
+        
+        public var instanceConfigLimitingProperties: InstanceConfigLimitingPropertyContaining? {
+            switch self {
+            case let .v1(instance):
+                return instance.configuration
+            case let .v2(instance, _):
+                return instance.configuration
+            }
+        }
+        
+        public var canFollowTags: Bool {
+            let version: String?
+            switch self {
+            case let .v1(instance):
+                version = instance.version
+            case let .v2(instance, _):
+                version = instance.version
+            }
+            return version?.majorServerVersion(greaterThanOrEquals: 4) ?? false // following Tags is support beginning with Mastodon v4.0.0
+        }
     }
     
     public typealias ID = UUID
@@ -36,7 +56,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     public private(set) var activedAt: Date
 
     public private(set) var userID: String
-    public private(set) var instanceObjectIdURI: URL?
+
     public private(set) var instanceConfiguration: InstanceConfiguration?
     
     public var persistenceIdentifier: String {
@@ -65,7 +85,6 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             updatedAt: now,
             activedAt: now,
             userID: userID,
-            instanceObjectIdURI: nil,
             instanceConfiguration: nil
         )
     }
@@ -82,7 +101,6 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         updatedAt: Date? = nil,
         activedAt: Date? = nil,
         userID: String? = nil,
-        instanceObjectIdURI: URL? = nil,
         instanceConfiguration: InstanceConfiguration? = nil
     ) -> Self {
         MastodonAuthentication(
@@ -97,25 +115,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             updatedAt: updatedAt ?? self.updatedAt,
             activedAt: activedAt ?? self.activedAt,
             userID: userID ?? self.userID,
-            instanceObjectIdURI: instanceObjectIdURI ?? self.instanceObjectIdURI,
             instanceConfiguration: instanceConfiguration ?? self.instanceConfiguration
         )
-    }
-    
-    public func instance(in context: NSManagedObjectContext) -> Instance? {
-        guard let instanceObjectIdURI,
-              let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: instanceObjectIdURI)
-        else {
-            return nil
-        }
-
-        let instance = try? context.existingObject(with: objectID) as? Instance
-        return instance
-    }
-    
-    public func user(in context: NSManagedObjectContext) -> MastodonUser? {
-        let userPredicate = MastodonUser.predicate(domain: domain, id: userID)
-        return MastodonUser.findOrFetch(in: context, matching: userPredicate)
     }
 
     public func account() -> Mastodon.Entity.Account? {
@@ -132,10 +133,6 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         MastodonUserIdentifier(domain: domain, userID: userID)
     }
 
-    func updating(instance: Instance) -> Self {
-        copy(instanceObjectIdURI: instance.objectID.uriRepresentation())
-    }
-    
     func updating(instanceV1 instance: Mastodon.Entity.Instance) -> Self {
         return copy(instanceConfiguration: .v1(instance))
     }

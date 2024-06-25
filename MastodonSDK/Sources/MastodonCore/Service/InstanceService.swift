@@ -99,7 +99,6 @@ extension InstanceService {
             
             // update instance
             AuthenticationServiceProvider.shared
-                .updating(instance: instance, where: domain)
                 .updating(instanceV1: instanceEntity, for: domain)
         }
         .setFailureType(to: Error.self)
@@ -130,7 +129,6 @@ extension InstanceService {
             
             // update instance
             AuthenticationServiceProvider.shared
-                .updating(instance: instance, where: domain)
                 .updating(instanceV2: instanceEntity, for: domain)
         }
         .setFailureType(to: Error.self)

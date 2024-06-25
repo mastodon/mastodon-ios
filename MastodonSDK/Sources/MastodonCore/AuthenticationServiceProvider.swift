@@ -22,16 +22,7 @@ public class AuthenticationServiceProvider: ObservableObject {
             persist() // todo: Is this too heavy and too often here???
         }
     }
-        
-    @discardableResult
-    func updating(instance: Instance, where domain: String) -> Self {
-        authentications = authentications.map { authentication in
-            guard authentication.domain == domain else { return authentication }
-            return authentication.updating(instance: instance)
-        }
-        return self
-    }
-    
+
     @discardableResult
     func updating(instanceV1 instance: Mastodon.Entity.Instance, for domain: String) -> Self {
         authentications = authentications.map { authentication in

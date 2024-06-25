@@ -995,8 +995,8 @@ extension ProfileViewController: PagerTabStripNavigateable {
 }
 
 private extension ProfileViewController {
-    var currentInstance: Instance? {
-        authContext.mastodonAuthenticationBox.authentication.instance(in: context.managedObjectContext)
+    var currentInstance: MastodonAuthentication.InstanceConfiguration? {
+        authContext.mastodonAuthenticationBox.authentication.instanceConfiguration
     }
 }
 
