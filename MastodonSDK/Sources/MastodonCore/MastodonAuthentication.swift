@@ -141,7 +141,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     @MainActor
     func updating(instanceV2 instance: Mastodon.Entity.V2.Instance) -> Self {
         guard
-            let instanceConfiguration = self.instanceConfiguration,
+            let instanceConfiguration,
             case let InstanceConfiguration.v2(_, translationLanguages) = instanceConfiguration
         else {
             return copy(instanceConfiguration: .v2(instance, [:]))
