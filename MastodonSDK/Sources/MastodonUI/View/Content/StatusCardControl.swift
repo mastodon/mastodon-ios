@@ -32,7 +32,7 @@ public final class StatusCardControl: UIControl {
     private let dividerView = UIView()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
-    private let linkLabel = UILabel()
+    private let descriptionLabel = UILabel()
     private lazy var showEmbedButton: UIButton = {
         var configuration = UIButton.Configuration.gray()
         configuration.background.visualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
@@ -52,6 +52,7 @@ public final class StatusCardControl: UIControl {
 
     private let mastodonLogoImageView: UIImageView
     private let byLabel: UILabel
+    private let authorLabel: UILabel
     private let authorAccountButton: UIButton
     private let authorStackView: UIStackView
 
@@ -86,6 +87,9 @@ public final class StatusCardControl: UIControl {
         byLabel.text = "by"
         byLabel.numberOfLines = 1
 
+        authorLabel = UILabel()
+        authorLabel.numberOfLines = 1
+
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.background.cornerRadius = 10
         buttonConfiguration.background.backgroundColor = Asset.Colors.Button.userFollowing.color
@@ -93,7 +97,7 @@ public final class StatusCardControl: UIControl {
 
         authorAccountButton = UIButton(configuration: buttonConfiguration)
 
-        authorStackView = UIStackView(arrangedSubviews: [mastodonLogoImageView, byLabel, authorAccountButton, UIView()])
+        authorStackView = UIStackView(arrangedSubviews: [mastodonLogoImageView, byLabel, authorLabel, authorAccountButton, UIView()])
         authorStackView.alignment = .firstBaseline
         authorStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         authorStackView.isLayoutMarginsRelativeArrangement = true
@@ -117,9 +121,9 @@ public final class StatusCardControl: UIControl {
         titleLabel.textColor = Asset.Colors.Label.primary.color
         titleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .bold))
 
-        linkLabel.numberOfLines = 1
-        linkLabel.textColor = Asset.Colors.Label.secondary.color
-        linkLabel.font = .preferredFont(forTextStyle: .subheadline)
+        descriptionLabel.numberOfLines = 2
+        descriptionLabel.textColor = Asset.Colors.Label.secondary.color
+        descriptionLabel.font = .preferredFont(forTextStyle: .subheadline)
 
         imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFill
@@ -130,7 +134,7 @@ public final class StatusCardControl: UIControl {
         imageView.setContentCompressionResistancePriority(.zero, for: .vertical)
 
         labelStackView.addArrangedSubview(titleLabel)
-        labelStackView.addArrangedSubview(linkLabel)
+        labelStackView.addArrangedSubview(descriptionLabel)
         labelStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         labelStackView.isLayoutMarginsRelativeArrangement = true
         labelStackView.axis = .vertical
@@ -164,6 +168,7 @@ public final class StatusCardControl: UIControl {
         addInteraction(UIContextMenuInteraction(delegate: self))
         isAccessibilityElement = true
         accessibilityTraits.insert(.link)
+        backgroundColor = .tertiarySystemFill
     }
     
     required init?(coder: NSCoder) {
@@ -179,10 +184,26 @@ public final class StatusCardControl: UIControl {
             accessibilityLabel = title
         }
 
-        authorAccountButton.configuration?.title = card.authorAccount?.displayName
+        if let authorAccount = card.authorAccount {
+            authorAccountButton.configuration?.title = authorAccount.displayName
+            authorAccountButton.isHidden = false
+            authorLabel.isHidden = true
+            byLabel.isHidden = false
+            mastodonLogoImageView.isHidden = false
+        } else {
+            if let authorName = card.authorName, authorName.isEmpty == false {
+                authorLabel.text = "by \(authorName)"
+            } else {
+                authorLabel.text = url?.host
+            }
+            authorLabel.isHidden = false
+            byLabel.isHidden = true
+            mastodonLogoImageView.isHidden = true
+            authorAccountButton.isHidden = true
+        }
 
         titleLabel.text = title
-        linkLabel.text = url?.host
+        descriptionLabel.text = card.description
         imageView.contentMode = .center
 
         imageView.sd_setImage(
