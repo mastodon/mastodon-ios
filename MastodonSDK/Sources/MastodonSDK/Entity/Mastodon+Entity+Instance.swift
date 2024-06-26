@@ -172,3 +172,13 @@ extension Mastodon.Entity.Instance.Configuration {
         }
     }
 }
+
+extension Mastodon.Entity.Instance: Hashable {
+    public static func == (lhs: Mastodon.Entity.Instance, rhs: Mastodon.Entity.Instance) -> Bool {
+        lhs.uri == rhs.uri
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(uri)
+    }
+}

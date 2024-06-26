@@ -224,12 +224,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         }
 
         // set limit
-        var configuration: InstanceConfigLimitingPropertyContaining?
-        
-        context.managedObjectContext.performAndWait {
-            let authentication = authContext.mastodonAuthenticationBox.authentication
-            configuration = (authentication.instance(in: context.managedObjectContext)?.configurationV2 ?? authentication.instance(in: context.managedObjectContext)?.configuration)
-        }
+        let authentication = authContext.mastodonAuthenticationBox.authentication
+        let configuration = authentication.instanceConfiguration?.instanceConfigLimitingProperties
         
         if let configuration {
             // set character limit

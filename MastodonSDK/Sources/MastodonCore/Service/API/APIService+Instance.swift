@@ -33,4 +33,11 @@ extension APIService {
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.ExtendedDescription>, Error> {
         return Mastodon.API.Instance.extendedDescription(session: session, authorization: authenticationBox?.userAuthorization, domain: domain)
     }
+    
+    public func translationLanguages(
+        domain: String,
+        authenticationBox: MastodonAuthenticationBox?
+    ) -> AnyPublisher<Mastodon.Response.Content<TranslationLanguages>, Error> {
+        return Mastodon.API.Instance.translationLanguages(session: session, authorization: authenticationBox?.userAuthorization, domain: domain)
+    }
 }

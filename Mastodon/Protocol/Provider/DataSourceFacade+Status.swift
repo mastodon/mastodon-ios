@@ -317,13 +317,14 @@ extension DataSourceFacade {
                 performDeletion(of: status, with: dependency)
             }
         case .translateStatus:
-            guard let status = menuContext.statusViewModel?.originalStatus else { return }
+            guard let status = menuContext.statusViewModel?.originalStatus?.reblog ?? menuContext.statusViewModel?.originalStatus else { return }
 
             do {
                 let translation = try await DataSourceFacade.translateStatus(provider: dependency,status: status)
 
                 menuContext.statusViewModel?.translation = translation
             } catch TranslationFailure.emptyOrInvalidResponse {
+                menuContext.statusViewModel?.isCurrentlyTranslating = false
                 let alertController = UIAlertController(title: L10n.Common.Alerts.TranslationFailed.title, message: L10n.Common.Alerts.TranslationFailed.message, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: L10n.Common.Alerts.TranslationFailed.button, style: .default))
                 dependency.present(alertController, animated: true)

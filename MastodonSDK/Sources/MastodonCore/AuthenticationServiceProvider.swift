@@ -22,12 +22,35 @@ public class AuthenticationServiceProvider: ObservableObject {
             persist() // todo: Is this too heavy and too often here???
         }
     }
-        
-    func update(instance: Instance, where domain: String) {
+
+    @MainActor
+    @discardableResult
+    func updating(instanceV1 instance: Mastodon.Entity.Instance, for domain: String) -> Self {
         authentications = authentications.map { authentication in
             guard authentication.domain == domain else { return authentication }
-            return authentication.updating(instance: instance)
+            return authentication.updating(instanceV1: instance)
         }
+        return self
+    }
+    
+    @MainActor
+    @discardableResult
+    func updating(instanceV2 instance: Mastodon.Entity.V2.Instance, for domain: String) -> Self {
+        authentications = authentications.map { authentication in
+            guard authentication.domain == domain else { return authentication }
+            return authentication.updating(instanceV2: instance)
+        }
+        return self
+    }
+    
+    @MainActor
+    @discardableResult
+    func updating(translationLanguages: TranslationLanguages, for domain: String) -> Self {
+        authentications = authentications.map { authentication in
+            guard authentication.domain == domain else { return authentication }
+            return authentication.updating(translationLanguages: translationLanguages)
+        }
+        return self
     }
     
     func delete(authentication: MastodonAuthentication) throws {

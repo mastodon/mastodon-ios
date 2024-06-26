@@ -34,90 +34,62 @@ public final class InstanceService {
             .receive(on: DispatchQueue.main)
             .compactMap { $0.first?.domain }
             .removeDuplicates()     // prevent infinity loop
-            .sink { [weak self] domain in
-                guard let self = self else { return }
-                self.updateInstance(domain: domain)
-            }
+            .asyncMap { [weak self] in await self?.updateInstance(domain: $0) }
+            .sink {}
             .store(in: &disposeBag)
     }
     
 }
 
 extension InstanceService {
-    func updateInstance(domain: String) {
+    
+    @MainActor
+    func updateInstance(domain: String) async {
         guard let apiService else { return }
-        apiService.instance(domain: domain, authenticationBox: authenticationService?.mastodonAuthenticationBoxes.first)
-            .flatMap { [unowned self] response -> AnyPublisher<Void, Error> in
-                if response.value.version?.majorServerVersion(greaterThanOrEquals: 4) == true {
-                    return apiService.instanceV2(domain: domain, authenticationBox: authenticationService?.mastodonAuthenticationBoxes.first)
-                        .flatMap { return self.updateInstanceV2(domain: domain, response: $0) }
-                        .eraseToAnyPublisher()
-                } else {
-                    return self.updateInstance(domain: domain, response: response)
-                }
+        
+       let response = try? await apiService.instance(domain: domain, authenticationBox: authenticationService?.mastodonAuthenticationBoxes.first)
+            .singleOutput()
+            
+        if response?.value.version?.majorServerVersion(greaterThanOrEquals: 4) == true {
+            guard let instanceV2 = try? await apiService.instanceV2(domain: domain, authenticationBox: authenticationService?.mastodonAuthenticationBoxes.first).singleOutput() else {
+                return
             }
-//            .flatMap { [unowned self] response -> AnyPublisher<Void, Error> in
-//                return
-//            }
-            .sink { _ in
-            } receiveValue: { [weak self] response in
-                guard let _ = self else { return }
-                // do nothing
+            
+            self.updateInstanceV2(domain: domain, response: instanceV2)
+            if let translationResponse = try? await apiService.translationLanguages(domain: domain, authenticationBox: authenticationService?.mastodonAuthenticationBoxes.first).singleOutput() {
+                updateTranslationLanguages(domain: domain, response: translationResponse)
             }
-            .store(in: &disposeBag)
+        } else if let response {
+            self.updateInstance(domain: domain, response: response)
+        }
+    }
+
+    @MainActor
+    private func updateTranslationLanguages(domain: String, response: Mastodon.Response.Content<TranslationLanguages>) {
+        AuthenticationServiceProvider.shared
+            .updating(translationLanguages: response.value, for: domain)
     }
     
-    private func updateInstance(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.Instance>) -> AnyPublisher<Void, Error> {
-        let managedObjectContext = self.backgroundManagedObjectContext
-        return managedObjectContext.performChanges {
-            // get instance
-            let (instance, _) = APIService.CoreData.createOrMergeInstance(
-                into: managedObjectContext,
-                domain: domain,
-                entity: response.value,
-                networkDate: response.networkDate
-            )
-            
-            // update instance
-            AuthenticationServiceProvider.shared.update(instance: instance, where: domain)
-        }
-        .setFailureType(to: Error.self)
-        .tryMap { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                throw error
-            }
-        }
-        .eraseToAnyPublisher()
+    @MainActor
+    private func updateInstance(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.Instance>) {
+        AuthenticationServiceProvider.shared
+            .updating(instanceV1: response.value, for: domain)
     }
     
-    private func updateInstanceV2(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.V2.Instance>) -> AnyPublisher<Void, Error> {
-        let managedObjectContext = self.backgroundManagedObjectContext
-        return managedObjectContext.performChanges {
-            // get instance
-            let (instance, _) = APIService.CoreData.createOrMergeInstance(
-                in: managedObjectContext,
-                context: .init(
-                    domain: domain,
-                    entity: response.value,
-                    networkDate: response.networkDate
-                )
-            )
-            
-            // update instance
-            AuthenticationServiceProvider.shared.update(instance: instance, where: domain)
-        }
-        .setFailureType(to: Error.self)
-        .tryMap { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                throw error
-            }
-        }
-        .eraseToAnyPublisher()
+    @MainActor
+    private func updateInstanceV2(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.V2.Instance>) {
+            AuthenticationServiceProvider.shared
+            .updating(instanceV2: response.value, for: domain)
+    }
+}
+
+public extension String {
+    func majorServerVersion(greaterThanOrEquals comparedVersion: Int) -> Bool {
+        guard
+            let majorVersionString = split(separator: ".").first,
+            let majorVersionInt = Int(majorVersionString)
+        else { return false }
+        
+        return majorVersionInt >= comparedVersion
     }
 }

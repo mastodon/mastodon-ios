@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 
+public typealias TranslationLanguages = [String: [String]]
+
 extension Mastodon.API.Instance {
 
     static func instanceEndpointURL(domain: String) -> URL {
