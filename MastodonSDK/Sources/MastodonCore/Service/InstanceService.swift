@@ -35,9 +35,7 @@ public final class InstanceService {
             .compactMap { $0.first?.domain }
             .removeDuplicates()     // prevent infinity loop
             .asyncMap { [weak self] in await self?.updateInstance(domain: $0) }
-            .sink { _ in
-                // no-op
-            }
+            .sink {}
             .store(in: &disposeBag)
     }
     
