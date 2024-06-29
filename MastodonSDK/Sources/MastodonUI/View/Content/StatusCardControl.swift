@@ -420,8 +420,6 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
 // MARK: UIContextMenuInteractionDelegate
 extension StatusCardControl {
     public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-
-        return nil
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             if let elements = self.delegate?.statusCardControlMenu(self)?.map(\.menuElement) {
                 return UIMenu(children: elements)
@@ -431,8 +429,6 @@ extension StatusCardControl {
     }
 
     public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        return nil
-
         UITargetedPreview(view: self)
     }
 }
