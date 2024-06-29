@@ -97,6 +97,8 @@ public final class StatusCardControl: UIControl {
         authorLabel.numberOfLines = 1
 
         publisherLabel.numberOfLines = 1
+        publisherLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        publisherLabel.textColor = .secondaryLabel
 
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.background.cornerRadius = 10
@@ -201,7 +203,14 @@ public final class StatusCardControl: UIControl {
         }
 
         if let providerName = card.providerName {
-            publisherLabel.text = providerName
+            let publisherDateText: String
+            if let formattedPublishedDate = card.publishedAt?.abbreviatedDate {
+                publisherDateText = "\(providerName) · \(formattedPublishedDate)"
+            } else {
+                publisherDateText = providerName
+            }
+
+            publisherLabel.text = publisherDateText
             publisherLabel.isHidden = false
         } else {
             publisherLabel.isHidden = true

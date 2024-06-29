@@ -36,6 +36,7 @@ extension Mastodon.Entity {
         public let embedURL: String?
         public let blurhash: String?
         public let authors: [Mastodon.Entity.Card.Author]?
+        public let publishedAt: Date?
 
         enum CodingKeys: String, CodingKey {
             case url
@@ -53,6 +54,7 @@ extension Mastodon.Entity {
             case embedURL = "embed_url"
             case blurhash
             case authors
+            case publishedAt = "published_at"
         }
     }
 }
