@@ -31,6 +31,7 @@ public final class StatusCardControl: UIControl {
     private let highlightView = UIView()
     private let dividerView = UIView()
     private let imageView = UIImageView()
+    private let publisherDateLabel = UILabel()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private lazy var showEmbedButton: UIButton = {
@@ -90,6 +91,8 @@ public final class StatusCardControl: UIControl {
         authorLabel = UILabel()
         authorLabel.numberOfLines = 1
 
+        publisherLabel.numberOfLines = 1
+
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.background.cornerRadius = 10
         buttonConfiguration.background.backgroundColor = Asset.Colors.Button.userFollowing.color
@@ -133,6 +136,7 @@ public final class StatusCardControl: UIControl {
         imageView.setContentCompressionResistancePriority(.zero, for: .horizontal)
         imageView.setContentCompressionResistancePriority(.zero, for: .vertical)
 
+        labelStackView.addArrangedSubview(publisherLabel)
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(descriptionLabel)
         labelStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
@@ -184,6 +188,12 @@ public final class StatusCardControl: UIControl {
             accessibilityLabel = title
         }
 
+        if let providerName = card.providerName {
+            publisherLabel.text = providerName
+            publisherLabel.isHidden = false
+        } else {
+            publisherLabel.isHidden = true
+        }
 
         if let author = card.authors?.first {
             authorAccountButton.configuration?.title = author.name ?? author.account?.displayName
