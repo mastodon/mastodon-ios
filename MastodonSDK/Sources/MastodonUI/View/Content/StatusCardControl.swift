@@ -17,6 +17,7 @@ import MastodonSDK
 
 public protocol StatusCardControlDelegate: AnyObject {
     func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)
+    func statusCardControl(_ statusCardControl: StatusCardControl, didTapAuthor author: Mastodon.Entity.Card.Author)
     func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]?
 }
 
@@ -26,12 +27,13 @@ public final class StatusCardControl: UIControl {
     private var disposeBag = Set<AnyCancellable>()
 
     private let containerStackView = UIStackView()
+    private let headerContentStackView = UIStackView()
     private let labelStackView = UIStackView()
 
     private let highlightView = UIView()
     private let dividerView = UIView()
     private let imageView = UIImageView()
-    private let publisherDateLabel = UILabel()
+    private let publisherLabel = UILabel()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private lazy var showEmbedButton: UIButton = {
@@ -64,6 +66,9 @@ public final class StatusCardControl: UIControl {
     private var layoutConstraints: [NSLayoutConstraint] = []
     private var dividerConstraint: NSLayoutConstraint?
     private var authorDividerConstraint: NSLayoutConstraint?
+
+    private var author: Mastodon.Entity.Card.Author?
+    private var url: URL?
 
     public override var isHighlighted: Bool {
         didSet {
@@ -105,6 +110,7 @@ public final class StatusCardControl: UIControl {
         authorStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         authorStackView.isLayoutMarginsRelativeArrangement = true
         authorStackView.spacing = 8
+        authorStackView.isUserInteractionEnabled = true
 
         authorDivider = UIView.separatorLine
 
@@ -141,16 +147,21 @@ public final class StatusCardControl: UIControl {
         labelStackView.addArrangedSubview(descriptionLabel)
         labelStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         labelStackView.isLayoutMarginsRelativeArrangement = true
+        labelStackView.isUserInteractionEnabled = false
         labelStackView.axis = .vertical
         labelStackView.spacing = 2
 
-        containerStackView.addArrangedSubview(imageView)
-        containerStackView.addArrangedSubview(dividerView)
-        containerStackView.addArrangedSubview(labelStackView)
+        headerContentStackView.addArrangedSubview(imageView)
+        headerContentStackView.addArrangedSubview(dividerView)
+        headerContentStackView.addArrangedSubview(labelStackView)
+        headerContentStackView.isUserInteractionEnabled = true
+        headerContentStackView.axis = .vertical
+        headerContentStackView.spacing = 2
+
+        containerStackView.addArrangedSubview(headerContentStackView)
         containerStackView.addArrangedSubview(authorDivider)
         containerStackView.addArrangedSubview(authorStackView)
         containerStackView.setCustomSpacing(5, after: authorDivider)
-        containerStackView.isUserInteractionEnabled = false
         containerStackView.distribution = .fill
 
         addSubview(containerStackView)
@@ -182,6 +193,7 @@ public final class StatusCardControl: UIControl {
     public func configure(card: Mastodon.Entity.Card) {
         let title = card.title.trimmingCharacters(in: .whitespacesAndNewlines)
         let url = URL(string: card.url)
+        self.url = url
         if let host = url?.host {
             accessibilityLabel = "\(title) \(host)"
         } else {
@@ -195,22 +207,32 @@ public final class StatusCardControl: UIControl {
             publisherLabel.isHidden = true
         }
 
-        if let author = card.authors?.first {
-            authorAccountButton.configuration?.title = author.name ?? author.account?.displayName
+        if let author = card.authors?.first, author.name?.isEmpty == false, author.url?.isEmpty == false {
+            authorAccountButton.configuration?.title = author.name
             authorAccountButton.isHidden = false
             authorLabel.isHidden = true
             byLabel.isHidden = false
             mastodonLogoImageView.isHidden = (author.account == nil)
+            self.author = author
+
+            authorAccountButton.addTarget(self, action: #selector(StatusCardControl.profileTapped(_:)), for: .touchUpInside)
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(StatusCardControl.contentTapped(_:)))
+            headerContentStackView.addGestureRecognizer(tapGestureRecognizer)
         } else {
             if let authorName = card.authorName, authorName.isEmpty == false {
                 authorLabel.text = "by \(authorName)"
             } else {
                 authorLabel.text = url?.host
             }
+
+            author = nil
             authorLabel.isHidden = false
             byLabel.isHidden = true
             mastodonLogoImageView.isHidden = true
             authorAccountButton.isHidden = true
+
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(StatusCardControl.contentTapped(_:)))
+            addGestureRecognizer(tapGestureRecognizer)
         }
 
         titleLabel.text = title
@@ -327,6 +349,18 @@ public final class StatusCardControl: UIControl {
         }
         set {}
     }
+
+    @objc private func profileTapped(_ sender: UIButton) {
+        guard let author else { return }
+
+        delegate?.statusCardControl(self,didTapAuthor: author)
+    }
+
+    @objc private func contentTapped(_ sender: Any) {
+        guard let url else { return }
+
+        delegate?.statusCardControl(self, didTapURL: url)
+    }
 }
 
 // MARK: WKWebView delegates
@@ -386,6 +420,8 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
 // MARK: UIContextMenuInteractionDelegate
 extension StatusCardControl {
     public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+
+        return nil
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             if let elements = self.delegate?.statusCardControlMenu(self)?.map(\.menuElement) {
                 return UIMenu(children: elements)
@@ -395,6 +431,8 @@ extension StatusCardControl {
     }
 
     public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return nil
+
         UITargetedPreview(view: self)
     }
 }

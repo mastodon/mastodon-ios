@@ -373,7 +373,6 @@ extension StatusView {
         contentMetaText.textView.linkDelegate = self
 
         // card
-        statusCardControl.addTarget(self, action: #selector(statusCardControlPressed), for: .touchUpInside)
         statusCardControl.delegate = self
 
         // media
@@ -410,12 +409,6 @@ extension StatusView {
     @objc private func spoilerOverlayViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         delegate?.statusView(self, spoilerOverlayViewDidPressed: spoilerOverlayView)
     }
-
-    @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
-        guard let urlString = viewModel.card?.url, let url = URL(string: urlString) else { return }
-        delegate?.statusView(self, didTapCardWithURL: url)
-    }
-    
 }
 
 extension StatusView {
@@ -798,6 +791,16 @@ extension StatusView: MastodonMenuDelegate {
 
 // MARK: StatusCardControlDelegate
 extension StatusView: StatusCardControlDelegate {
+    public func statusCardControl(_ statusCardControl: StatusCardControl, didTapAuthor author: MastodonSDK.Mastodon.Entity.Card.Author) {
+        if let authorAccount = author.account {
+            //TODO: Profile to Author-profile
+            print("Show \(authorAccount.displayName)")
+        } else if let authorURLString = author.url, let authorURL = URL(string: authorURLString) {
+            //TODO: Coordinate to url
+            print("open \(authorURLString)")
+        }
+    }
+    
     public func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL) {
         delegate?.statusView(self, cardControl: statusCardControl, didTapURL: url)
     }
