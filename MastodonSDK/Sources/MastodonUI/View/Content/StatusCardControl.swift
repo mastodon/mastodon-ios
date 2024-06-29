@@ -184,12 +184,13 @@ public final class StatusCardControl: UIControl {
             accessibilityLabel = title
         }
 
-        if let authorAccount = card.authorAccount {
-            authorAccountButton.configuration?.title = authorAccount.displayName
+
+        if let author = card.authors?.first {
+            authorAccountButton.configuration?.title = author.name ?? author.account?.displayName
             authorAccountButton.isHidden = false
             authorLabel.isHidden = true
             byLabel.isHidden = false
-            mastodonLogoImageView.isHidden = false
+            mastodonLogoImageView.isHidden = (author.account == nil)
         } else {
             if let authorName = card.authorName, authorName.isEmpty == false {
                 authorLabel.text = "by \(authorName)"
