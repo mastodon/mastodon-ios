@@ -56,7 +56,7 @@ public final class StatusCardControl: UIControl {
     private let mastodonLogoImageView: UIImageView
     private let byLabel: UILabel
     private let authorLabel: UILabel
-    private let authorAccountButton: UIButton
+    private let authorAccountButton: StatusCardAuthorControl
     private let authorStackView: UIStackView
 
     private static let cardContentPool = WKProcessPool()
@@ -90,7 +90,7 @@ public final class StatusCardControl: UIControl {
         mastodonLogoImageView.translatesAutoresizingMaskIntoConstraints = false
 
         byLabel = UILabel()
-        byLabel.text = "by"
+        byLabel.text = "By"
         byLabel.numberOfLines = 1
 
         authorLabel = UILabel()
@@ -100,15 +100,10 @@ public final class StatusCardControl: UIControl {
         publisherLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
         publisherLabel.textColor = .secondaryLabel
 
-        var buttonConfiguration = UIButton.Configuration.filled()
-        buttonConfiguration.background.cornerRadius = 10
-        buttonConfiguration.background.backgroundColor = Asset.Colors.Button.userFollowing.color
-        buttonConfiguration.baseForegroundColor = Asset.Colors.Brand.blurple.color
-
-        authorAccountButton = UIButton(configuration: buttonConfiguration)
+        authorAccountButton = StatusCardAuthorControl()
 
         authorStackView = UIStackView(arrangedSubviews: [mastodonLogoImageView, byLabel, authorLabel, authorAccountButton, UIView()])
-        authorStackView.alignment = .firstBaseline
+        authorStackView.alignment = .center
         authorStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         authorStackView.isLayoutMarginsRelativeArrangement = true
         authorStackView.spacing = 8
@@ -163,7 +158,6 @@ public final class StatusCardControl: UIControl {
         containerStackView.addArrangedSubview(headerContentStackView)
         containerStackView.addArrangedSubview(authorDivider)
         containerStackView.addArrangedSubview(authorStackView)
-        containerStackView.setCustomSpacing(5, after: authorDivider)
         containerStackView.distribution = .fill
 
         addSubview(containerStackView)
@@ -218,7 +212,7 @@ public final class StatusCardControl: UIControl {
 
         if let author = card.authors?.first, let account = author.account {
             //            , , author.url?.isEmpty == false
-            authorAccountButton.configuration?.title = author.name
+            authorAccountButton.configure(with: account)
             authorAccountButton.isHidden = false
             authorLabel.isHidden = true
             byLabel.isHidden = false
