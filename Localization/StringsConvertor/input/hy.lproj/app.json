@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "Խմբագրման պատմութիւնը",
                     "original_post": "Original Post · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
