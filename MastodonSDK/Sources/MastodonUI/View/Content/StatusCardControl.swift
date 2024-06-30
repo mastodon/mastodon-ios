@@ -92,6 +92,8 @@ public final class StatusCardControl: UIControl {
         byLabel = UILabel()
         byLabel.text = "By"
         byLabel.numberOfLines = 1
+        byLabel.textColor = .secondaryLabel
+        byLabel.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
 
         authorLabel = UILabel()
         authorLabel.numberOfLines = 1
@@ -104,7 +106,7 @@ public final class StatusCardControl: UIControl {
 
         authorStackView = UIStackView(arrangedSubviews: [mastodonLogoImageView, byLabel, authorLabel, authorAccountButton, UIView()])
         authorStackView.alignment = .center
-        authorStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
+        authorStackView.layoutMargins = .init(top: 10, left: 16, bottom: 10, right: 16)
         authorStackView.isLayoutMarginsRelativeArrangement = true
         authorStackView.spacing = 8
         authorStackView.isUserInteractionEnabled = true
@@ -142,7 +144,7 @@ public final class StatusCardControl: UIControl {
         labelStackView.addArrangedSubview(publisherLabel)
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(descriptionLabel)
-        labelStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
+        labelStackView.layoutMargins = .init(top: 16, left: 16, bottom: 16, right: 16)
         labelStackView.isLayoutMarginsRelativeArrangement = true
         labelStackView.isUserInteractionEnabled = false
         labelStackView.axis = .vertical
@@ -154,6 +156,7 @@ public final class StatusCardControl: UIControl {
         headerContentStackView.isUserInteractionEnabled = true
         headerContentStackView.axis = .vertical
         headerContentStackView.spacing = 2
+        headerContentStackView.setCustomSpacing(0, after: imageView)
 
         containerStackView.addArrangedSubview(headerContentStackView)
         containerStackView.addArrangedSubview(authorDivider)
@@ -277,7 +280,6 @@ public final class StatusCardControl: UIControl {
         super.didMoveToWindow()
 
         if let window {
-            layer.borderWidth = window.screen.pixelSize
             dividerConstraint?.constant = window.screen.pixelSize
             authorDividerConstraint?.constant = window.screen.pixelSize
         }
@@ -344,7 +346,6 @@ public final class StatusCardControl: UIControl {
     }
 
     private func applyBranding() {
-        layer.borderColor = SystemTheme.separator.cgColor
         dividerView.backgroundColor = SystemTheme.separator
         imageView.backgroundColor = UIColor.tertiarySystemFill
     }

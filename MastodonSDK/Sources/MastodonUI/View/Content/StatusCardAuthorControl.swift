@@ -11,14 +11,19 @@ class StatusCardAuthorControl: UIControl {
         authorLabel = UILabel()
         authorLabel.textAlignment = .center
         authorLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 16, weight: .bold))
+        authorLabel.isUserInteractionEnabled = false
+
         avatarImage = AvatarImageView()
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
         avatarImage.configure(cornerConfiguration: AvatarImageView.CornerConfiguration(corner: .fixed(radius: 4)))
+        avatarImage.isUserInteractionEnabled = false
+
         contentStackView = UIStackView(arrangedSubviews: [avatarImage, authorLabel])
+        contentStackView.alignment = .center
         contentStackView.spacing = 6
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         contentStackView.layoutMargins = UIEdgeInsets(horizontal: 6, vertical: 8)
-        contentStackView.isUserInteractionEnabled = true
+        contentStackView.isUserInteractionEnabled = false
 
         super.init(frame: frame)
 
@@ -39,7 +44,6 @@ class StatusCardAuthorControl: UIControl {
 
             avatarImage.widthAnchor.constraint(equalToConstant: 16),
             avatarImage.widthAnchor.constraint(equalTo: avatarImage.heightAnchor),
-            authorLabel.heightAnchor.constraint(greaterThanOrEqualTo: avatarImage.heightAnchor)
         ]
 
         NSLayoutConstraint.activate(constraints)
