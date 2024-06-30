@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "سِجِلّ التعديلات",
                     "original_post": "المنشور الأصلي · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
