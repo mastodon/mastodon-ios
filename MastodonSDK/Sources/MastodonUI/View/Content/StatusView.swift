@@ -791,14 +791,10 @@ extension StatusView: MastodonMenuDelegate {
 
 // MARK: StatusCardControlDelegate
 extension StatusView: StatusCardControlDelegate {
-    public func statusCardControl(_ statusCardControl: StatusCardControl, didTapAuthor author: MastodonSDK.Mastodon.Entity.Card.Author) {
-        if let authorAccount = author.account {
-            //TODO: Profile to Author-profile
-            print("Show \(authorAccount.displayName)")
-        } else if let authorURLString = author.url, let authorURL = URL(string: authorURLString) {
-            //TODO: Coordinate to url
-            print("open \(authorURLString)")
-        }
+    public func statusCardControl(_ statusCardControl: StatusCardControl, didTapAuthor author: Mastodon.Entity.Account) {
+
+        //TODO: Profile to Author-profile
+        print("Show \(author.displayName)")
     }
     
     public func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL) {

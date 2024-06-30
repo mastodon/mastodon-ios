@@ -17,7 +17,7 @@ import MastodonSDK
 
 public protocol StatusCardControlDelegate: AnyObject {
     func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)
-    func statusCardControl(_ statusCardControl: StatusCardControl, didTapAuthor author: Mastodon.Entity.Card.Author)
+    func statusCardControl(_ statusCardControl: StatusCardControl, didTapAuthor author: Mastodon.Entity.Account)
     func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]?
 }
 
@@ -67,7 +67,7 @@ public final class StatusCardControl: UIControl {
     private var dividerConstraint: NSLayoutConstraint?
     private var authorDividerConstraint: NSLayoutConstraint?
 
-    private var author: Mastodon.Entity.Card.Author?
+    private var author: Mastodon.Entity.Account?
     private var url: URL?
 
     public override var isHighlighted: Bool {
@@ -216,19 +216,22 @@ public final class StatusCardControl: UIControl {
             publisherLabel.isHidden = true
         }
 
-        if let author = card.authors?.first, author.name?.isEmpty == false, author.url?.isEmpty == false {
+        if let author = card.authors?.first, let account = author.account {
+            //            , , author.url?.isEmpty == false
             authorAccountButton.configuration?.title = author.name
             authorAccountButton.isHidden = false
             authorLabel.isHidden = true
             byLabel.isHidden = false
-            mastodonLogoImageView.isHidden = (author.account == nil)
-            self.author = author
+            mastodonLogoImageView.isHidden = false
+            self.author = account
 
             authorAccountButton.addTarget(self, action: #selector(StatusCardControl.profileTapped(_:)), for: .touchUpInside)
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(StatusCardControl.contentTapped(_:)))
             headerContentStackView.addGestureRecognizer(tapGestureRecognizer)
         } else {
-            if let authorName = card.authorName, authorName.isEmpty == false {
+            if let author = card.authors?.first, let authorName = author.name, authorName.isEmpty == false {
+                authorLabel.text = "by \(authorName)"
+            } else if let authorName = card.authorName, authorName.isEmpty == false {
                 authorLabel.text = "by \(authorName)"
             } else {
                 authorLabel.text = url?.host
@@ -362,7 +365,7 @@ public final class StatusCardControl: UIControl {
     @objc private func profileTapped(_ sender: UIButton) {
         guard let author else { return }
 
-        delegate?.statusCardControl(self,didTapAuthor: author)
+        delegate?.statusCardControl(self, didTapAuthor: author)
     }
 
     @objc private func contentTapped(_ sender: Any) {
