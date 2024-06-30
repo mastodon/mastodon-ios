@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "Modifica la cronologia",
                     "original_post": "Post originale · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
