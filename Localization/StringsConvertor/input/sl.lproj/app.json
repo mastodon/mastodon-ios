@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "Zgodovina urejanja",
                     "original_post": "Izvodna objava · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
