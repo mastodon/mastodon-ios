@@ -147,6 +147,17 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
+        cardControl: StatusCardControl,
+        didTapProfile account: Mastodon.Entity.Account
+    ) {
+        Task {
+            await DataSourceFacade.coordinateToProfileScene(provider:self, account: account)
+        }
+    }
+
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        statusView: StatusView,
         cardControlMenu statusCardControl: StatusCardControl
     ) -> [LabeledAction]? {
         guard let card = statusView.viewModel.card,

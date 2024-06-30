@@ -40,6 +40,7 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControl: StatusCardControl, didTapProfile account: Mastodon.Entity.Account)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]?
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, accessibilityActivate: Void)
     // sourcery:end
@@ -112,6 +113,10 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
 
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL) {
         delegate?.tableViewCell(self, statusView: statusView, cardControl: cardControl, didTapURL: url)
+    }
+
+    func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapProfile account: Mastodon.Entity.Account) {
+        delegate?.tableViewCell(self, statusView: statusView, cardControl: cardControl, didTapProfile: account)
     }
 
     func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]? {

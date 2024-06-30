@@ -35,6 +35,7 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
+    func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapProfile account: Mastodon.Entity.Account)
     func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]?
     
     // a11y
@@ -792,9 +793,7 @@ extension StatusView: MastodonMenuDelegate {
 // MARK: StatusCardControlDelegate
 extension StatusView: StatusCardControlDelegate {
     public func statusCardControl(_ statusCardControl: StatusCardControl, didTapAuthor author: Mastodon.Entity.Account) {
-
-        //TODO: Profile to Author-profile
-        print("Show \(author.displayName)")
+        delegate?.statusView(self, cardControl: statusCardControl, didTapProfile: author)
     }
     
     public func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL) {
