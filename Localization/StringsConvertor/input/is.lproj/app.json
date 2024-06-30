@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "Breytingaferill",
                     "original_post": "Upprunaleg færsla · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
