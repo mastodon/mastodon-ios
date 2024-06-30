@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "編輯記錄",
                     "original_post": "原始嘟文 · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
