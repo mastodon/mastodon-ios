@@ -236,7 +236,6 @@ public final class StatusCardControl: UIControl {
         }
 
         if let author = card.authors?.first, let account = author.account {
-            //            , , author.url?.isEmpty == false
             authorAccountButton.configure(with: account)
             authorAccountButton.isHidden = false
             authorLabel.isHidden = true
