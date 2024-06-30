@@ -33,7 +33,12 @@ public final class StatusCardControl: UIControl {
     private let highlightView = UIView()
     private let dividerView = UIView()
     private let imageView = UIImageView()
+
+    private let publisherDateStackView: UIStackView
     private let publisherLabel = UILabel()
+    private let publisherDateSeparaturLabel = UILabel()
+    private let dateLabel = UILabel()
+
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private lazy var showEmbedButton: UIButton = {
@@ -90,7 +95,7 @@ public final class StatusCardControl: UIControl {
         mastodonLogoImageView.translatesAutoresizingMaskIntoConstraints = false
 
         byLabel = UILabel()
-        byLabel.text = "By"
+        byLabel.text = L10n.Common.Controls.Status.Card.by
         byLabel.numberOfLines = 1
         byLabel.textColor = .secondaryLabel
         byLabel.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
@@ -99,8 +104,24 @@ public final class StatusCardControl: UIControl {
         authorLabel.numberOfLines = 1
 
         publisherLabel.numberOfLines = 1
+        publisherLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         publisherLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
         publisherLabel.textColor = .secondaryLabel
+
+        publisherDateSeparaturLabel.numberOfLines = 1
+        publisherDateSeparaturLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        publisherDateSeparaturLabel.textColor = .secondaryLabel
+        publisherDateSeparaturLabel.text = "·"
+
+        dateLabel.numberOfLines = 1
+        dateLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        dateLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        dateLabel.textColor = .secondaryLabel
+
+        publisherDateStackView = UIStackView(arrangedSubviews: [publisherLabel, publisherDateSeparaturLabel, dateLabel, UIView()])
+        publisherDateStackView.axis = .horizontal
+        publisherDateStackView.alignment = .firstBaseline
+        publisherDateStackView.spacing = 3
 
         authorAccountButton = StatusCardAuthorControl()
 
@@ -141,7 +162,7 @@ public final class StatusCardControl: UIControl {
         imageView.setContentCompressionResistancePriority(.zero, for: .horizontal)
         imageView.setContentCompressionResistancePriority(.zero, for: .vertical)
 
-        labelStackView.addArrangedSubview(publisherLabel)
+        labelStackView.addArrangedSubview(publisherDateStackView)
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(descriptionLabel)
         labelStackView.layoutMargins = .init(top: 16, left: 16, bottom: 16, right: 16)
@@ -200,17 +221,18 @@ public final class StatusCardControl: UIControl {
         }
 
         if let providerName = card.providerName {
-            let publisherDateText: String
             if let formattedPublishedDate = card.publishedAt?.abbreviatedDate {
-                publisherDateText = "\(providerName) · \(formattedPublishedDate)"
+                dateLabel.text = formattedPublishedDate
+                publisherDateSeparaturLabel.isHidden = false
             } else {
-                publisherDateText = providerName
+                dateLabel.isHidden = true
+                publisherDateSeparaturLabel.isHidden = true
             }
 
-            publisherLabel.text = publisherDateText
-            publisherLabel.isHidden = false
+            publisherLabel.text = providerName
+            publisherDateStackView.isHidden = false
         } else {
-            publisherLabel.isHidden = true
+            publisherDateStackView.isHidden = true
         }
 
         if let author = card.authors?.first, let account = author.account {

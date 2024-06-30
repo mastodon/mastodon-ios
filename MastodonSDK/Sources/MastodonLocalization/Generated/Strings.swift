@@ -418,10 +418,6 @@ public enum L10n {
           public static func byAuthor(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.Card.ByAuthor", String(describing: p1), fallback: "By %@")
           }
-          /// %@ · %@
-          public static func publisherDate(_ p1: Any, _ p2: Any) -> String {
-            return L10n.tr("Localizable", "Common.Controls.Status.Card.PublisherDate", String(describing: p1), String(describing: p2), fallback: "%@ · %@")
-          }
         }
         public enum EditHistory {
           /// Original Post · %@

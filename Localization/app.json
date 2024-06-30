@@ -234,7 +234,6 @@
                     "original_post": "Original Post · %s"
                 },
                 "card": {
-                    "publisher_date": "%s · %s",
                     "by": "By",
                     "by_author": "By %s"
                 }

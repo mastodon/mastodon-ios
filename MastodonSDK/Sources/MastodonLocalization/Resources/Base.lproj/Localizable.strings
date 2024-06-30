@@ -138,7 +138,6 @@ Please check your internet connection.";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
 "Common.Controls.Status.Card.By" = "By";
 "Common.Controls.Status.Card.ByAuthor" = "By %@";
-"Common.Controls.Status.Card.PublisherDate" = "%@ · %@";
 "Common.Controls.Status.ContentWarning" = "Content Warning";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Original Post · %@";
 "Common.Controls.Status.EditHistory.Title" = "Edit History";
