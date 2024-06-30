@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "Editar historial",
                     "original_post": "Mensaje original · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
