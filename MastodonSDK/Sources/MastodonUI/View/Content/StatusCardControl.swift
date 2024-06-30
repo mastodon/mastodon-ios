@@ -102,6 +102,8 @@ public final class StatusCardControl: UIControl {
 
         authorLabel = UILabel()
         authorLabel.numberOfLines = 1
+        authorLabel.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+        authorLabel.textColor = .secondaryLabel
 
         publisherLabel.numberOfLines = 1
         publisherLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
