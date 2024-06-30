@@ -411,6 +411,18 @@ public enum L10n {
           /// Boosts
           public static let reblogsTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.ReblogsTitle", fallback: "Boosts")
         }
+        public enum Card {
+          /// By
+          public static let by = L10n.tr("Localizable", "Common.Controls.Status.Card.By", fallback: "By")
+          /// By %@
+          public static func byAuthor(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Card.ByAuthor", String(describing: p1), fallback: "By %@")
+          }
+          /// %@ · %@
+          public static func publisherDate(_ p1: Any, _ p2: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Card.PublisherDate", String(describing: p1), String(describing: p2), fallback: "%@ · %@")
+          }
+        }
         public enum EditHistory {
           /// Original Post · %@
           public static func originalPost(_ p1: Any) -> String {

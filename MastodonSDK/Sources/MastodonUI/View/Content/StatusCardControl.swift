@@ -227,9 +227,9 @@ public final class StatusCardControl: UIControl {
             headerContentStackView.addGestureRecognizer(tapGestureRecognizer)
         } else {
             if let author = card.authors?.first, let authorName = author.name, authorName.isEmpty == false {
-                authorLabel.text = "by \(authorName)"
+                authorLabel.text = L10n.Common.Controls.Status.Card.byAuthor(authorName)
             } else if let authorName = card.authorName, authorName.isEmpty == false {
-                authorLabel.text = "by \(authorName)"
+                authorLabel.text = L10n.Common.Controls.Status.Card.byAuthor(authorName)
             } else {
                 authorLabel.text = url?.host
             }
