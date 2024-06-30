@@ -1600,7 +1600,6 @@
 			children = (
 				5D03938E2612D200007FE196 /* Webview */,
 				DB68A04F25E9028800CFDF14 /* NavigationController */,
-				DB9D6C2025E502C60051B173 /* ViewModel */,
 				2D7631A525C1532D00929FB9 /* View */,
 				DBA5E7A6263BD298004598BB /* ContextMenu */,
 			);
@@ -2695,13 +2694,6 @@
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		DB9D6C2025E502C60051B173 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DB9F58ED26EF435800E7BBE9 /* Account */ = {

@@ -35,6 +35,7 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
+    func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapProfile account: Mastodon.Entity.Account)
     func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]?
     
     // a11y
@@ -373,7 +374,6 @@ extension StatusView {
         contentMetaText.textView.linkDelegate = self
 
         // card
-        statusCardControl.addTarget(self, action: #selector(statusCardControlPressed), for: .touchUpInside)
         statusCardControl.delegate = self
 
         // media
@@ -410,12 +410,6 @@ extension StatusView {
     @objc private func spoilerOverlayViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         delegate?.statusView(self, spoilerOverlayViewDidPressed: spoilerOverlayView)
     }
-
-    @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
-        guard let urlString = viewModel.card?.url, let url = URL(string: urlString) else { return }
-        delegate?.statusView(self, didTapCardWithURL: url)
-    }
-    
 }
 
 extension StatusView {
@@ -798,6 +792,10 @@ extension StatusView: MastodonMenuDelegate {
 
 // MARK: StatusCardControlDelegate
 extension StatusView: StatusCardControlDelegate {
+    public func statusCardControl(_ statusCardControl: StatusCardControl, didTapAuthor author: Mastodon.Entity.Account) {
+        delegate?.statusView(self, cardControl: statusCardControl, didTapProfile: author)
+    }
+    
     public func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL) {
         delegate?.statusView(self, cardControl: statusCardControl, didTapURL: url)
     }

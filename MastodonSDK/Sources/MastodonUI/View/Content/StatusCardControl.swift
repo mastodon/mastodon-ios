@@ -17,6 +17,7 @@ import MastodonSDK
 
 public protocol StatusCardControlDelegate: AnyObject {
     func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)
+    func statusCardControl(_ statusCardControl: StatusCardControl, didTapAuthor author: Mastodon.Entity.Account)
     func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]?
 }
 
@@ -26,13 +27,20 @@ public final class StatusCardControl: UIControl {
     private var disposeBag = Set<AnyCancellable>()
 
     private let containerStackView = UIStackView()
+    private let headerContentStackView = UIStackView()
     private let labelStackView = UIStackView()
 
     private let highlightView = UIView()
     private let dividerView = UIView()
     private let imageView = UIImageView()
+
+    private let publisherDateStackView: UIStackView
+    private let publisherLabel = UILabel()
+    private let publisherDateSeparaturLabel = UILabel()
+    private let dateLabel = UILabel()
+
     private let titleLabel = UILabel()
-    private let linkLabel = UILabel()
+    private let descriptionLabel = UILabel()
     private lazy var showEmbedButton: UIButton = {
         var configuration = UIButton.Configuration.gray()
         configuration.background.visualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
@@ -48,12 +56,24 @@ public final class StatusCardControl: UIControl {
     }()
     private var html = ""
 
+    private let authorDivider: UIView
+
+    private let mastodonLogoImageView: UIImageView
+    private let byLabel: UILabel
+    private let authorLabel: UILabel
+    private let authorAccountButton: StatusCardAuthorControl
+    private let authorStackView: UIStackView
+
     private static let cardContentPool = WKProcessPool()
     private var webView: WKWebView?
 
     private var layout: Layout?
     private var layoutConstraints: [NSLayoutConstraint] = []
     private var dividerConstraint: NSLayoutConstraint?
+    private var authorDividerConstraint: NSLayoutConstraint?
+
+    private var author: Mastodon.Entity.Account?
+    private var url: URL?
 
     public override var isHighlighted: Bool {
         didSet {
@@ -68,6 +88,54 @@ public final class StatusCardControl: UIControl {
     }
 
     public override init(frame: CGRect) {
+
+        let mastodonLogo = Asset.Scene.Sidebar.logo.image.withRenderingMode(.alwaysTemplate)
+        mastodonLogoImageView = UIImageView(image: mastodonLogo)
+        mastodonLogoImageView.tintColor = .gray
+        mastodonLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        byLabel = UILabel()
+        byLabel.text = L10n.Common.Controls.Status.Card.by
+        byLabel.numberOfLines = 1
+        byLabel.textColor = .secondaryLabel
+        byLabel.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+
+        authorLabel = UILabel()
+        authorLabel.numberOfLines = 1
+        authorLabel.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+        authorLabel.textColor = .secondaryLabel
+
+        publisherLabel.numberOfLines = 1
+        publisherLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        publisherLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        publisherLabel.textColor = .secondaryLabel
+
+        publisherDateSeparaturLabel.numberOfLines = 1
+        publisherDateSeparaturLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        publisherDateSeparaturLabel.textColor = .secondaryLabel
+        publisherDateSeparaturLabel.text = "·"
+
+        dateLabel.numberOfLines = 1
+        dateLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        dateLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        dateLabel.textColor = .secondaryLabel
+
+        publisherDateStackView = UIStackView(arrangedSubviews: [publisherLabel, publisherDateSeparaturLabel, dateLabel, UIView()])
+        publisherDateStackView.axis = .horizontal
+        publisherDateStackView.alignment = .firstBaseline
+        publisherDateStackView.spacing = 3
+
+        authorAccountButton = StatusCardAuthorControl()
+
+        authorStackView = UIStackView(arrangedSubviews: [mastodonLogoImageView, byLabel, authorLabel, authorAccountButton, UIView()])
+        authorStackView.alignment = .center
+        authorStackView.layoutMargins = .init(top: 10, left: 16, bottom: 10, right: 16)
+        authorStackView.isLayoutMarginsRelativeArrangement = true
+        authorStackView.spacing = 8
+        authorStackView.isUserInteractionEnabled = true
+
+        authorDivider = UIView.separatorLine
+
         super.init(frame: frame)
 
         applyBranding()
@@ -82,11 +150,11 @@ public final class StatusCardControl: UIControl {
 
         titleLabel.numberOfLines = 2
         titleLabel.textColor = Asset.Colors.Label.primary.color
-        titleLabel.font = .preferredFont(forTextStyle: .body)
+        titleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .bold))
 
-        linkLabel.numberOfLines = 1
-        linkLabel.textColor = Asset.Colors.Label.secondary.color
-        linkLabel.font = .preferredFont(forTextStyle: .subheadline)
+        descriptionLabel.numberOfLines = 2
+        descriptionLabel.textColor = Asset.Colors.Label.secondary.color
+        descriptionLabel.font = .preferredFont(forTextStyle: .subheadline)
 
         imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFill
@@ -96,17 +164,26 @@ public final class StatusCardControl: UIControl {
         imageView.setContentCompressionResistancePriority(.zero, for: .horizontal)
         imageView.setContentCompressionResistancePriority(.zero, for: .vertical)
 
+        labelStackView.addArrangedSubview(publisherDateStackView)
         labelStackView.addArrangedSubview(titleLabel)
-        labelStackView.addArrangedSubview(linkLabel)
-        labelStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
+        labelStackView.addArrangedSubview(descriptionLabel)
+        labelStackView.layoutMargins = .init(top: 16, left: 16, bottom: 16, right: 16)
         labelStackView.isLayoutMarginsRelativeArrangement = true
+        labelStackView.isUserInteractionEnabled = false
         labelStackView.axis = .vertical
         labelStackView.spacing = 2
 
-        containerStackView.addArrangedSubview(imageView)
-        containerStackView.addArrangedSubview(dividerView)
-        containerStackView.addArrangedSubview(labelStackView)
-        containerStackView.isUserInteractionEnabled = false
+        headerContentStackView.addArrangedSubview(imageView)
+        headerContentStackView.addArrangedSubview(dividerView)
+        headerContentStackView.addArrangedSubview(labelStackView)
+        headerContentStackView.isUserInteractionEnabled = true
+        headerContentStackView.axis = .vertical
+        headerContentStackView.spacing = 2
+        headerContentStackView.setCustomSpacing(0, after: imageView)
+
+        containerStackView.addArrangedSubview(headerContentStackView)
+        containerStackView.addArrangedSubview(authorDivider)
+        containerStackView.addArrangedSubview(authorStackView)
         containerStackView.distribution = .fill
 
         addSubview(containerStackView)
@@ -128,6 +205,7 @@ public final class StatusCardControl: UIControl {
         addInteraction(UIContextMenuInteraction(delegate: self))
         isAccessibilityElement = true
         accessibilityTraits.insert(.link)
+        backgroundColor = .tertiarySystemFill
     }
     
     required init?(coder: NSCoder) {
@@ -137,14 +215,60 @@ public final class StatusCardControl: UIControl {
     public func configure(card: Mastodon.Entity.Card) {
         let title = card.title.trimmingCharacters(in: .whitespacesAndNewlines)
         let url = URL(string: card.url)
+        self.url = url
         if let host = url?.host {
             accessibilityLabel = "\(title) \(host)"
         } else {
             accessibilityLabel = title
         }
 
+        if let providerName = card.providerName {
+            if let formattedPublishedDate = card.publishedAt?.abbreviatedDate {
+                dateLabel.text = formattedPublishedDate
+                publisherDateSeparaturLabel.isHidden = false
+            } else {
+                dateLabel.isHidden = true
+                publisherDateSeparaturLabel.isHidden = true
+            }
+
+            publisherLabel.text = providerName
+            publisherDateStackView.isHidden = false
+        } else {
+            publisherDateStackView.isHidden = true
+        }
+
+        if let author = card.authors?.first, let account = author.account {
+            authorAccountButton.configure(with: account)
+            authorAccountButton.isHidden = false
+            authorLabel.isHidden = true
+            byLabel.isHidden = false
+            mastodonLogoImageView.isHidden = false
+            self.author = account
+
+            authorAccountButton.addTarget(self, action: #selector(StatusCardControl.profileTapped(_:)), for: .touchUpInside)
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(StatusCardControl.contentTapped(_:)))
+            headerContentStackView.addGestureRecognizer(tapGestureRecognizer)
+        } else {
+            if let author = card.authors?.first, let authorName = author.name, authorName.isEmpty == false {
+                authorLabel.text = L10n.Common.Controls.Status.Card.byAuthor(authorName)
+            } else if let authorName = card.authorName, authorName.isEmpty == false {
+                authorLabel.text = L10n.Common.Controls.Status.Card.byAuthor(authorName)
+            } else {
+                authorLabel.text = url?.host
+            }
+
+            author = nil
+            authorLabel.isHidden = false
+            byLabel.isHidden = true
+            mastodonLogoImageView.isHidden = true
+            authorAccountButton.isHidden = true
+
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(StatusCardControl.contentTapped(_:)))
+            addGestureRecognizer(tapGestureRecognizer)
+        }
+
         titleLabel.text = title
-        linkLabel.text = url?.host
+        descriptionLabel.text = card.description
         imageView.contentMode = .center
 
         imageView.sd_setImage(
@@ -178,9 +302,9 @@ public final class StatusCardControl: UIControl {
     public override func didMoveToWindow() {
         super.didMoveToWindow()
 
-        if let window = window {
-            layer.borderWidth = window.screen.pixelSize
+        if let window {
             dividerConstraint?.constant = window.screen.pixelSize
+            authorDividerConstraint?.constant = window.screen.pixelSize
         }
     }
 
@@ -190,6 +314,7 @@ public final class StatusCardControl: UIControl {
 
         NSLayoutConstraint.deactivate(layoutConstraints)
         dividerConstraint?.deactivate()
+        authorDividerConstraint?.deactivate()
 
         let pixelSize = (window?.screen.pixelSize ?? 1)
         switch layout {
@@ -209,6 +334,7 @@ public final class StatusCardControl: UIControl {
                     .constraint(lessThanOrEqualToConstant: 400),
             ]
             dividerConstraint = dividerView.heightAnchor.constraint(equalToConstant: pixelSize).activate()
+            authorDividerConstraint = authorDivider.heightAnchor.constraint(equalToConstant: pixelSize).activate()
         case .compact:
             containerStackView.alignment = .center
             containerStackView.axis = .horizontal
@@ -218,9 +344,16 @@ public final class StatusCardControl: UIControl {
                 heightAnchor.constraint(equalToConstant: 85).priority(.defaultLow - 1),
                 heightAnchor.constraint(greaterThanOrEqualToConstant: 85),
                 dividerView.heightAnchor.constraint(equalTo: containerStackView.heightAnchor),
+                authorDivider.heightAnchor.constraint(equalTo: containerStackView.heightAnchor),
             ]
             dividerConstraint = dividerView.widthAnchor.constraint(equalToConstant: pixelSize).activate()
+            authorDividerConstraint = authorDivider.widthAnchor.constraint(equalToConstant: pixelSize).activate()
         }
+
+        layoutConstraints.append(contentsOf: [
+            mastodonLogoImageView.widthAnchor.constraint(equalToConstant: 20),
+            mastodonLogoImageView.heightAnchor.constraint(equalTo: mastodonLogoImageView.widthAnchor),
+        ])
 
         NSLayoutConstraint.activate(layoutConstraints)
     }
@@ -236,7 +369,6 @@ public final class StatusCardControl: UIControl {
     }
 
     private func applyBranding() {
-        layer.borderColor = SystemTheme.separator.cgColor
         dividerView.backgroundColor = SystemTheme.separator
         imageView.backgroundColor = UIColor.tertiarySystemFill
     }
@@ -246,6 +378,18 @@ public final class StatusCardControl: UIControl {
             delegate?.statusCardControlMenu(self)?.map(\.accessibilityCustomAction)
         }
         set {}
+    }
+
+    @objc private func profileTapped(_ sender: UIButton) {
+        guard let author else { return }
+
+        delegate?.statusCardControl(self, didTapAuthor: author)
+    }
+
+    @objc private func contentTapped(_ sender: Any) {
+        guard let url else { return }
+
+        delegate?.statusCardControl(self, didTapURL: url)
     }
 }
 

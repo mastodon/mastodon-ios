@@ -22,8 +22,10 @@ extension Mastodon.Entity {
         public let title: String
         public let description: String
         public let type: Type
-        
+
+        @available(*, deprecated, message: "Use authors-array. Kept for compatibility")
         public let authorName: String?
+        @available(*, deprecated, message: "Use authors-array. Kept for compatibility")
         public let authorURL: String?
         public let providerName: String?
         public let providerURL: String?
@@ -33,7 +35,9 @@ extension Mastodon.Entity {
         public let image: String?
         public let embedURL: String?
         public let blurhash: String?
-        
+        public let authors: [Mastodon.Entity.Card.Author]?
+        public let publishedAt: Date?
+
         enum CodingKeys: String, CodingKey {
             case url
             case title
@@ -49,7 +53,17 @@ extension Mastodon.Entity {
             case image
             case embedURL = "embed_url"
             case blurhash
+            case authors
+            case publishedAt = "published_at"
         }
+    }
+}
+
+extension Mastodon.Entity.Card {
+    public struct Author: Codable, Sendable {
+        public let name: String?
+        public let url: String?
+        public let account: Mastodon.Entity.Account?
     }
 }
 

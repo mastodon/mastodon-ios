@@ -27,7 +27,11 @@ extension Date {
         formatter.timeStyle = .none         // none
         return formatter
     }()
-        
+
+    public var abbreviatedDate: String {
+        return Date.abbreviatedDateFormatter.string(from: self)
+    }
+
     public var localizedAbbreviatedSlowedTimeAgoSinceNow: String {
         return Date.relativeTimestampFormatter.localizedString(for: self, relativeTo: Date())
     }

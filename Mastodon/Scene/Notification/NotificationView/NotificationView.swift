@@ -491,8 +491,9 @@ extension NotificationView {
 
 // MARK: - StatusViewDelegate
 extension NotificationView: StatusViewDelegate {
-    public func statusView(_ statusView: StatusView, didTapCardWithURL url: URL) {
-        assertionFailure()
+    public func statusView(_ statusView: StatusView, didTapCardWithURL url: URL) { assertionFailure() }
+    public func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapProfile account: Mastodon.Entity.Account) {
+        // no op
     }
 
     public func statusView(_ statusView: StatusView, headerDidPressed header: UIView) {
