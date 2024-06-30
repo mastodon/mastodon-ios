@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "Επεξεργασία Ιστορικού",
                     "original_post": "Αρχική Ανάρτηση · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
