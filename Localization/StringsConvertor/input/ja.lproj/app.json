@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "編集履歴",
                     "original_post": "オリジナルの投稿 · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
