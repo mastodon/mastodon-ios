@@ -234,8 +234,8 @@
                     "original_post": "Upprunaleg færsla · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Frá",
+                    "by_author": "Frá %s"
                 }
             },
             "friendship": {
