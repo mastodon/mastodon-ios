@@ -234,8 +234,8 @@
                     "original_post": "原始嘟文 · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "來自",
+                    "by_author": "來自 %s"
                 }
             },
             "friendship": {
