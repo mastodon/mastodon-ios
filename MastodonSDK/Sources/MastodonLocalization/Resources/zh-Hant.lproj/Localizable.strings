@@ -135,6 +135,8 @@
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "編輯記錄";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "最愛";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "轉嘟";
+"Common.Controls.Status.Card.By" = "來自";
+"Common.Controls.Status.Card.ByAuthor" = "來自 %@";
 "Common.Controls.Status.ContentWarning" = "內容警告";
 "Common.Controls.Status.EditHistory.OriginalPost" = "原始嘟文 · %@";
 "Common.Controls.Status.EditHistory.Title" = "編輯記錄";

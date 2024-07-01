@@ -136,6 +136,8 @@
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "编辑历史";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "喜欢";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "内容警告";
 "Common.Controls.Status.EditHistory.OriginalPost" = "原始嘟文 · %@";
 "Common.Controls.Status.EditHistory.Title" = "编辑历史";

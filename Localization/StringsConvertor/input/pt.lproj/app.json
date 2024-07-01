@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "Edit History",
                     "original_post": "Publicação original %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {

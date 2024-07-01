@@ -134,6 +134,8 @@
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Bewerkingsgeschiedenis";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Favorieten";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Inhoudswaarschuwing";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Oorspronkelijk bericht · %@";
 "Common.Controls.Status.EditHistory.Title" = "Bewerkingsgeschiedenis";

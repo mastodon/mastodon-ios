@@ -136,6 +136,8 @@ Kontrollera din internetanslutning.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Redigeringshistorik";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Favoriter";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Innehållsvarning";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Original Post · %@";
 "Common.Controls.Status.EditHistory.Title" = "Edit History";

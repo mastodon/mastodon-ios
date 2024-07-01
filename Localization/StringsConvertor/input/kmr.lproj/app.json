@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "Dîroka serrastkirinê",
                     "original_post": "Şandiye resen · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {

@@ -136,6 +136,8 @@ Ma ulac aɣilif, senqed tuqqna-inek internet.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Edit History";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Imenyafen";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Alɣu n ugbur";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Original Post · %@";
 "Common.Controls.Status.EditHistory.Title" = "Edit History";

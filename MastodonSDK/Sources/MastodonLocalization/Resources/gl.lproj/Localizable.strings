@@ -135,6 +135,8 @@ Comproba a conexión a internet.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Editar historial";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Favoritas";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Promocións";
+"Common.Controls.Status.Card.By" = "Por";
+"Common.Controls.Status.Card.ByAuthor" = "Por %@";
 "Common.Controls.Status.ContentWarning" = "Aviso sobre o contido";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Orixinal · %@";
 "Common.Controls.Status.EditHistory.Title" = "Historial de edicións";

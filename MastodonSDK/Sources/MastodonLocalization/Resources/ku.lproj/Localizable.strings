@@ -136,6 +136,8 @@ Jkx girêdana înternetê xwe kontrol bike.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Dîroka serrastkirinê";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Hezkirî";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Hişyariya naverokê";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Şandiye resen · %@";
 "Common.Controls.Status.EditHistory.Title" = "Dîroka serrastkirinê";

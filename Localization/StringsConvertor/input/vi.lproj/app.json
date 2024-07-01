@@ -232,6 +232,10 @@
                 "edit_history": {
                     "title": "Lịch sử chỉnh sửa",
                     "original_post": "Tút gốc · %s"
+                },
+                "card": {
+                    "by": "By",
+                    "by_author": "By %s"
                 }
             },
             "friendship": {
@@ -308,7 +312,7 @@
         },
         "login": {
             "title": "Chào mừng quay trở lại!",
-            "subtitle": "Đăng nhập với máy chủ nơi bạn tạo tài khoản.",
+            "subtitle": "Chọn máy chủ nơi bạn tạo tài khoản.",
             "server_search_field": {
                 "placeholder": "Nhập URL hoặc tìm máy chủ"
             }
