@@ -136,6 +136,8 @@ Bitte überprüfe deine Internetverbindung.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Verlauf";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Gefällt";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Inhaltswarnung";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Originalstatus · %@";
 "Common.Controls.Status.EditHistory.Title" = "Verlauf";

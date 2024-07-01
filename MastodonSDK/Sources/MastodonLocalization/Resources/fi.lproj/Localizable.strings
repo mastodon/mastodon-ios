@@ -136,6 +136,8 @@ Tarkista internet-yhteytesi.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Muokkaushistoria";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Suosikit";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Sisältövaroitus";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Alkuperäinen julkaisu · %@";
 "Common.Controls.Status.EditHistory.Title" = "Muokkaushistoria";

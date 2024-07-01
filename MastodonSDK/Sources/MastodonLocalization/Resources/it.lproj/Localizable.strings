@@ -136,6 +136,8 @@ Per favore verifica la tua connessione internet.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Modifica la cronologia";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Preferiti";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Condivisioni";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Avviso sul contenuto";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Post originale · %@";
 "Common.Controls.Status.EditHistory.Title" = "Modifica la cronologia";

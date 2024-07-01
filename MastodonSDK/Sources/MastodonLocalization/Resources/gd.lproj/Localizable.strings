@@ -136,6 +136,8 @@ Thoir sùil air a’ cheangal agad ris an eadar-lìon.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Eachdraidh nan deasachaidhean";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Annsachdan";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Rabhadh susbainte";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Am post tùsail · %@";
 "Common.Controls.Status.EditHistory.Title" = "Eachdraidh nan deasachaidhean";

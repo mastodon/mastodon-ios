@@ -136,6 +136,8 @@
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "ประวัติการแก้ไข";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "รายการโปรด";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "การดัน";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "คำเตือนเนื้อหา";
 "Common.Controls.Status.EditHistory.OriginalPost" = "โพสต์ดั้งเดิม · %@";
 "Common.Controls.Status.EditHistory.Title" = "ประวัติการแก้ไข";

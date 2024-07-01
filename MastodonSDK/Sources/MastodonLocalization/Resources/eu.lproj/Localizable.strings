@@ -136,6 +136,8 @@ Egiaztatu Interneteko konexioa.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Edit History";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Favorites";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Edukiaren abisua";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Original Post · %@";
 "Common.Controls.Status.EditHistory.Title" = "Edit History";

@@ -135,6 +135,8 @@
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Επεξεργασία Ιστορικού";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Αγαπημένα";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Προειδοποίηση Περιεχομένου";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Αρχική Ανάρτηση · %@";
 "Common.Controls.Status.EditHistory.Title" = "Επεξεργασία Ιστορικού";

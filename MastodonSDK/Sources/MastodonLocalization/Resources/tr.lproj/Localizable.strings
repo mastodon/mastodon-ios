@@ -135,6 +135,8 @@ Post Anyway?";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Düzenleme Geçmişi";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Favoriler";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "İçerik Uyarısı";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Original Post · %@";
 "Common.Controls.Status.EditHistory.Title" = "Düzenleme Geçmişi";

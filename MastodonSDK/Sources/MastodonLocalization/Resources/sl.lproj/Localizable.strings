@@ -136,6 +136,8 @@ Preverite svojo internetno povezavo.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Uredi zgodovino";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Priljubljeni";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Izpostavitve";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Opozorilo o vsebini";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Izvodna objava · %@";
 "Common.Controls.Status.EditHistory.Title" = "Zgodovina urejanja";

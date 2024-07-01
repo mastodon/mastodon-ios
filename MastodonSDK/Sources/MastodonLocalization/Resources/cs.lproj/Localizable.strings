@@ -136,6 +136,8 @@ Zkontrolujte prosím připojení k internetu.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Historie úprav";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Oblíbení";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Varování o obsahu";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Původní příspěvek · %@";
 "Common.Controls.Status.EditHistory.Title" = "Historie úprav";

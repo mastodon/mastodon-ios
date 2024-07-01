@@ -136,6 +136,8 @@ Comprova la connexió a Internet.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Edita l'Historial";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Favorits";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Advertència de Contingut";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Tut Original · %@";
 "Common.Controls.Status.EditHistory.Title" = "Edita l'Historial";

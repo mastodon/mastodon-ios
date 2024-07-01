@@ -135,6 +135,8 @@
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "編集履歴";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "お気に入り";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "コンテンツ警告";
 "Common.Controls.Status.EditHistory.OriginalPost" = "オリジナルの投稿 · %@";
 "Common.Controls.Status.EditHistory.Title" = "編集履歴";

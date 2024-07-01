@@ -136,6 +136,8 @@ Veuillez vérifier votre accès à Internet.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Historique des modifications";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Favoris";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Avertissement de contenu";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Message original · %@";
 "Common.Controls.Status.EditHistory.Title" = "Historique des modifications";

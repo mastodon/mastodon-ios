@@ -136,6 +136,8 @@ Por favor, revise su conexión a internet.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Editar historial";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Favoritos";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Boosts";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Advertencia de Contenido";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Original Post · %@";
 "Common.Controls.Status.EditHistory.Title" = "Editar historial";

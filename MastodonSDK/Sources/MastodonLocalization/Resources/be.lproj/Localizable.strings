@@ -135,6 +135,8 @@
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Гісторыя рэдагавання";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Абраныя";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Пашырэнні";
+"Common.Controls.Status.Card.By" = "By";
+"Common.Controls.Status.Card.ByAuthor" = "By %@";
 "Common.Controls.Status.ContentWarning" = "Папярэджанне аб змесціве";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Арыгінальнае паведамленне · %@";
 "Common.Controls.Status.EditHistory.Title" = "Гісторыя рэдагавання";
