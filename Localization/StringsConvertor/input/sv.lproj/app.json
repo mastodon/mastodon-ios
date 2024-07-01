@@ -234,8 +234,8 @@
                     "original_post": "Original Post · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Av",
+                    "by_author": "Av %s"
                 }
             },
             "friendship": {
