@@ -234,8 +234,8 @@
                     "original_post": "Tút gốc · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Bởi",
+                    "by_author": "Bởi %s"
                 }
             },
             "friendship": {
