@@ -234,8 +234,8 @@
                     "original_post": "Арыгінальнае паведамленне · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Ад",
+                    "by_author": "Ад %s"
                 }
             },
             "friendship": {
