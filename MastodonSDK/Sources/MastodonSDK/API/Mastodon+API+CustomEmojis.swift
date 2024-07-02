@@ -30,12 +30,12 @@ extension Mastodon.API.CustomEmojis {
     /// - Returns: `AnyPublisher` contains [`Emoji`] nested in the response
     public static func customEmojis(
         session: URLSession,
-        domain: String
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Emoji]>, Error> {
         let request = Mastodon.API.get(
             url: customEmojisEndpointURL(domain: domain),
-            query: nil,
-            authorization: nil
+            authorization: authorization
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
