@@ -33,9 +33,13 @@ extension EmojiService.CustomEmojiViewModel.LoadState {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let apiService = viewModel.service?.apiService, let stateMachine = stateMachine else { return }
-            
-            apiService.customEmoji(domain: viewModel.domain)
+            guard let viewModel,
+                  let authenticationBox = viewModel.service.authenticationService.mastodonAuthenticationBoxes.first,
+                  let stateMachine else { return }
+
+            let apiService = viewModel.service.apiService
+
+            apiService.customEmoji(domain: viewModel.domain, authenticationBox: authenticationBox)
                 // .receive(on: DispatchQueue.main)
                 .sink { completion in
                     switch completion {

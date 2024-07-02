@@ -73,7 +73,8 @@ public class AppContext: ObservableObject {
         authenticationService = _authenticationService
         
         emojiService = EmojiService(
-            apiService: apiService
+            apiService: apiService,
+            authenticationService: _authenticationService
         )
         
         publisherService = .init(apiService: _apiService)

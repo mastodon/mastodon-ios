@@ -10,15 +10,15 @@ import Combine
 import MastodonSDK
 
 public final class EmojiService {
-    
-    
-    weak var apiService: APIService?
-    
+    let apiService: APIService
+    let authenticationService: AuthenticationService
+
     let workingQueue = DispatchQueue(label: "org.joinmastodon.app.EmojiService.working-queue")
     private(set) var customEmojiViewModelDict: [String: CustomEmojiViewModel] = [:]
     
-    init(apiService: APIService) {
+    init(apiService: APIService, authenticationService: AuthenticationService) {
         self.apiService = apiService
+        self.authenticationService = authenticationService
     }
     
 }

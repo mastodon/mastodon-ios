@@ -18,7 +18,7 @@ extension EmojiService {
         
         // input
         public let domain: String
-        public weak var service: EmojiService?
+        public let service: EmojiService
         
         // output
         private(set) lazy var stateMachine: GKStateMachine = {
