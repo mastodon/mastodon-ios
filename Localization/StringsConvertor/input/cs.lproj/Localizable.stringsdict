@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>1 znak zbývá</string>
         <key>few</key>
-        <string>%ld characters left</string>
+        <string>%ld znaky zbývají</string>
         <key>many</key>
-        <string>%ld characters left</string>
+        <string>%ld znaků zbývá</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld znaků zbývá</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -190,11 +190,11 @@
         <key>one</key>
         <string>1 oblíbený</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld oblíbení</string>
         <key>many</key>
-        <string>%ld favorites</string>
+        <string>%ld oblíbených</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld oblíbených</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -210,11 +210,11 @@
         <key>one</key>
         <string>1 reblog</string>
         <key>few</key>
-        <string>%ld reblogs</string>
+        <string>%ld reblogy</string>
         <key>many</key>
-        <string>%ld reblogs</string>
+        <string>%ld reblogů</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld reblogů</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -230,11 +230,11 @@
         <key>one</key>
         <string>1 re-blog</string>
         <key>few</key>
-        <string>%ld re-blogs</string>
+        <string>%ld re-blogy</string>
         <key>many</key>
-        <string>%ld re-blogs</string>
+        <string>%ld re-blogů</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld re-blogů</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -350,11 +350,11 @@
         <key>one</key>
         <string>1 sledující</string>
         <key>few</key>
-        <string>%ld followers</string>
+        <string>%ld sledující</string>
         <key>many</key>
-        <string>%ld followers</string>
+        <string>%ld sledujících</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld sledujících</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -590,11 +590,11 @@
         <key>one</key>
         <string>před 1s</string>
         <key>few</key>
-        <string>%lds ago</string>
+        <string>před %lds</string>
         <key>many</key>
-        <string>%lds ago</string>
+        <string>před %lds</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>před %lds</string>
       </dict>
     </dict>
   </dict>
