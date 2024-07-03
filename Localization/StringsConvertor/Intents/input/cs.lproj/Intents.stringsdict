@@ -15,11 +15,11 @@
         <key>one</key>
         <string>1 možnost</string>
         <key>few</key>
-        <string>%ld options</string>
+        <string>%ld možnosti</string>
         <key>many</key>
-        <string>%ld options</string>
+        <string>%ld možností</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld možností</string>
       </dict>
     </dict>
     <key>There are ${count} options matching ‘${visibility}’.</key>
@@ -35,11 +35,11 @@
         <key>one</key>
         <string>1 možnost</string>
         <key>few</key>
-        <string>%ld options</string>
+        <string>%ld možnosti</string>
         <key>many</key>
-        <string>%ld options</string>
+        <string>%ld možností</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld možností</string>
       </dict>
     </dict>
   </dict>
