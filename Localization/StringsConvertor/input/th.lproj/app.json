@@ -234,8 +234,8 @@
                     "original_post": "โพสต์ดั้งเดิม · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "โดย",
+                    "by_author": "โดย %s"
                 }
             },
             "friendship": {
