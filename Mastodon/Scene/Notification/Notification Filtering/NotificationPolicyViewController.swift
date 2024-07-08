@@ -60,12 +60,10 @@ class NotificationPolicyViewController: UIViewController {
     let tableView: UITableView
     var dataSource: UITableViewDiffableDataSource<NotificationFilterSection, NotificationFilterItem>?
     let items: [NotificationFilterItem]
-    let viewModel: NotificationFilterViewModel
+    var viewModel: NotificationFilterViewModel
 
-
-    init() {
-        //TODO: Dependency Inject Policy ViewModel
-        viewModel = NotificationFilterViewModel(notFollowing: false, noFollower: false, newAccount: false, privateMentions: false)
+    init(viewModel: NotificationFilterViewModel) {
+        self.viewModel = viewModel
         items = NotificationFilterItem.allCases
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -128,7 +126,7 @@ class NotificationPolicyViewController: UIViewController {
     // MARK: - Action
 
     @objc private func save(_ sender: UIBarButtonItem) {
-        //TODO: Save
+        //TODO: Save aka PATH viewModel to API and dismiss
     }
 
     @objc private func cancel(_ sender: UIBarButtonItem) {
@@ -137,11 +135,22 @@ class NotificationPolicyViewController: UIViewController {
 }
 
 extension NotificationPolicyViewController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 extension NotificationPolicyViewController: NotificationPolicyFilterTableViewCellDelegate {
     func toggleValueChanged(_ tableViewCell: NotificationPolicyFilterTableViewCell, filterItem: NotificationFilterItem, newValue: Bool) {
-        //TODO: Update ViewModel
+        switch filterItem {
+        case .notFollowing:
+            viewModel.notFollowing = newValue
+        case .noFollower:
+            viewModel.noFollower = newValue
+        case .newAccount:
+            viewModel.newAccount = newValue
+        case .privateMentions:
+            viewModel.privateMentions = newValue
+        }
     }
 }

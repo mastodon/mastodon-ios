@@ -118,8 +118,11 @@ extension NotificationViewController {
     //MARK: - Actions
 
     @objc private func showNotificationPolicySettings(_ sender: Any) {
+        guard let policy = viewModel?.notificationPolicy else { return }
+
+        let policyViewModel = NotificationFilterViewModel(notFollowing: policy.filterNotFollowing, noFollower: policy.filterNotFollowers, newAccount: policy.filterNewAccounts, privateMentions: policy.filterPrivateMentions)
         //TODO: Move to SceneCoordinator
-        let notificationPolicyViewController = NotificationPolicyViewController()
+        let notificationPolicyViewController = NotificationPolicyViewController(viewModel: policyViewModel)
         notificationPolicyViewController.modalPresentationStyle = .formSheet
         let navigationController = UINavigationController(rootViewController: notificationPolicyViewController)
 
