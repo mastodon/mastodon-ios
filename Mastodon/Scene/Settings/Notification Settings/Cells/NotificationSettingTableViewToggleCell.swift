@@ -18,6 +18,7 @@ class NotificationSettingTableViewToggleCell: ToggleTableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        subtitleLabel.isHidden = true
 
         toggle.addTarget(self, action: #selector(NotificationSettingTableViewToggleCell.toggleValueChanged(_:)), for: .valueChanged)
     }

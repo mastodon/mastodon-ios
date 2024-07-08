@@ -17,6 +17,7 @@ class GeneralSettingToggleTableViewCell: ToggleTableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        subtitleLabel.isHidden = true
         toggle.addTarget(self, action: #selector(GeneralSettingToggleTableViewCell.toggleValueChanged(_:)), for: .valueChanged)
     }
 

@@ -24,6 +24,7 @@ class NotificationPolicyFilterTableViewCell: ToggleTableViewCell {
 
     public func configure(with filterItem: NotificationFilterItem, viewModel: NotificationFilterViewModel) {
         label.text = filterItem.title
+        subtitleLabel.text = filterItem.subtitle
         self.filterItem = filterItem
 
         let toggleIsOn: Bool

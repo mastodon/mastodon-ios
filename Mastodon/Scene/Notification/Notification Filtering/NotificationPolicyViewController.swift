@@ -25,6 +25,19 @@ enum NotificationFilterItem: Hashable,  CaseIterable {
             return "Unsolicited private mentions"
         }
     }
+
+    var subtitle: String {
+        switch self {
+        case .notFollowing:
+            return "Until you manually approve them"
+        case .noFollower:
+            return "Including people who have been following you fewer than 3 days"
+        case .newAccount:
+            return "Created within the past 30 days"
+        case .privateMentions:
+            return "Filtered unless it’s in reply to your own mention or if you follow the sender"
+        }
+    }
 }
 
 struct NotificationFilterViewModel {

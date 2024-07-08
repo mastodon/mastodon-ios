@@ -9,22 +9,32 @@ class ToggleTableViewCell: UITableViewCell {
     }
 
     let label: UILabel
+    let subtitleLabel: UILabel
+    private let labelStackView: UIStackView
     let toggle: UISwitch
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
         label.numberOfLines = 0
-        
+
+        subtitleLabel = UILabel()
+        subtitleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+        subtitleLabel.numberOfLines = 0
+
+        labelStackView = UIStackView(arrangedSubviews: [label, subtitleLabel])
+        labelStackView.translatesAutoresizingMaskIntoConstraints = false
+        labelStackView.alignment = .leading
+        labelStackView.axis = .vertical
+
         toggle = UISwitch()
         toggle.translatesAutoresizingMaskIntoConstraints = false
         toggle.onTintColor = Asset.Colors.Brand.blurple.color
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        contentView.addSubview(label)
+        contentView.addSubview(labelStackView)
         contentView.addSubview(toggle)
         setupConstraints()
     }
@@ -33,11 +43,11 @@ class ToggleTableViewCell: UITableViewCell {
     
     private func setupConstraints() {
         let constraints = [
-            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            contentView.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 11),
-            
-            toggle.leadingAnchor.constraint(greaterThanOrEqualTo: label.trailingAnchor, constant: 16),
+            labelStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+            labelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            contentView.bottomAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: 11),
+
+            toggle.leadingAnchor.constraint(greaterThanOrEqualTo: labelStackView.trailingAnchor, constant: 16),
             toggle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             contentView.trailingAnchor.constraint(equalTo: toggle.trailingAnchor, constant: 16)
             
