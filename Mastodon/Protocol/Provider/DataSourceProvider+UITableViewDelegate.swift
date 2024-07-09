@@ -58,8 +58,7 @@ extension UITableViewDelegate where Self: DataSourceProvider & AuthContextProvid
                     )
                 }
             case .notificationBanner(let policy):
-                //TODO: Coordinate to pending notification-screen
-                break
+                await DataSourceFacade.coordinateToNotificationRequests(provider: self)
             }
         }
     }

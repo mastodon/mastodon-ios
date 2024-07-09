@@ -127,7 +127,7 @@ extension NotificationViewController {
             newAccount: policy.filterNewAccounts,
             privateMentions: policy.filterPrivateMentions
         )
-        //TODO: Move to SceneCoordinator
+        //TODO: Move to SceneCoordinator, we'd need a new case for this
         let notificationPolicyViewController = NotificationPolicyViewController(viewModel: policyViewModel)
         notificationPolicyViewController.modalPresentationStyle = .formSheet
         let navigationController = UINavigationController(rootViewController: notificationPolicyViewController)
