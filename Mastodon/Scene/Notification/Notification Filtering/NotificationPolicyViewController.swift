@@ -3,6 +3,7 @@
 import UIKit
 import MastodonLocalization
 import MastodonAsset
+import MastodonCore
 
 enum NotificationFilterSection: Hashable {
     case main
@@ -49,7 +50,10 @@ struct NotificationFilterViewModel {
     var newAccount: Bool
     var privateMentions: Bool
 
-    init(notFollowing: Bool, noFollower: Bool, newAccount: Bool, privateMentions: Bool) {
+    let appContext: AppContext
+
+    init(appContext: AppContext, notFollowing: Bool, noFollower: Bool, newAccount: Bool, privateMentions: Bool) {
+        self.appContext = appContext
         self.notFollowing = notFollowing
         self.noFollower = noFollower
         self.newAccount = newAccount
@@ -60,6 +64,7 @@ struct NotificationFilterViewModel {
 class NotificationPolicyViewController: UIViewController {
 
     let tableView: UITableView
+    var saveItem: UIBarButtonItem?
     var dataSource: UITableViewDiffableDataSource<NotificationFilterSection, NotificationFilterItem>?
     let items: [NotificationFilterItem]
     var viewModel: NotificationFilterViewModel
@@ -96,7 +101,8 @@ class NotificationPolicyViewController: UIViewController {
         view.addSubview(tableView)
         view.backgroundColor = .systemGroupedBackground
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.save, style: .done, target: self, action: #selector(NotificationPolicyViewController.save(_:)))
+        saveItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.save, style: .done, target: self, action: #selector(NotificationPolicyViewController.save(_:)))
+        navigationItem.rightBarButtonItem = saveItem
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .done, target: self, action: #selector(NotificationPolicyViewController.cancel(_:)))
 
         setupConstraints()
@@ -129,7 +135,39 @@ class NotificationPolicyViewController: UIViewController {
     // MARK: - Action
 
     @objc private func save(_ sender: UIBarButtonItem) {
-        //TODO: Save aka PATH viewModel to API and dismiss
+        guard let authenticationBox = viewModel.appContext.authenticationService.mastodonAuthenticationBoxes.first else { return }
+
+        navigationItem.leftBarButtonItem?.isEnabled = false
+
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        navigationItem.rightBarButtonItem?.isEnabled = false
+
+        activityIndicator.startAnimating()
+
+        Task { [weak self] in
+            guard let self else { return }
+
+            do {
+                let result = try await viewModel.appContext.apiService.updateNotificationPolicy(
+                    authenticationBox: authenticationBox,
+                    filterNotFollowing: viewModel.notFollowing,
+                    filterNotFollowers: viewModel.noFollower,
+                    filterNewAccounts: viewModel.newAccount,
+                    filterPrivateMentions: viewModel.privateMentions
+                )
+
+                await MainActor.run {
+                    self.dismiss(animated:true)
+                }
+            } catch {
+                navigationItem.rightBarButtonItem = saveItem
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                navigationItem.leftBarButtonItem?.isEnabled = true
+            }
+        }
+
     }
 
     @objc private func cancel(_ sender: UIBarButtonItem) {

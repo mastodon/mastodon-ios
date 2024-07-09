@@ -142,20 +142,57 @@ extension Mastodon.API.Notifications {
         notificationsEndpointURL(domain: domain).appendingPathComponent("policy")
     }
 
+    public struct UpdateNotificationPolicyQuery: Codable, PatchQuery {
+        public let filterNotFollowing: Bool
+        public let filterNotFollowers: Bool
+        public let filterNewAccounts: Bool
+        public let filterPrivateMentions: Bool
+
+        enum CodingKeys: String, CodingKey {
+            case filterNotFollowing = "filter_not_following"
+            case filterNotFollowers = "filter_not_followers"
+            case filterNewAccounts = "filter_new_accounts"
+            case filterPrivateMentions = "filter_private_mentions"
+        }
+
+        public init(filterNotFollowing: Bool, filterNotFollowers: Bool, filterNewAccounts: Bool, filterPrivateMentions: Bool) {
+            self.filterNotFollowing = filterNotFollowing
+            self.filterNotFollowers = filterNotFollowers
+            self.filterNewAccounts = filterNewAccounts
+            self.filterPrivateMentions = filterPrivateMentions
+        }
+    }
+
     public static func getNotificationPolicy(
         session: URLSession,
         domain: String,
         authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.NotificationPolicy>, Error> {
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.NotificationPolicy> {
         let request = Mastodon.API.get(
             url: notificationPolicyEndpointURL(domain: domain),
             authorization: authorization
         )
-        return session.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: Mastodon.Entity.NotificationPolicy.self, from: data, response: response)
-                return Mastodon.Response.Content(value: value, response: response)
-            }
-            .eraseToAnyPublisher()
+
+        let (data, response) = try await session.data(for: request)
+
+        let value = try Mastodon.API.decode(type: Mastodon.Entity.NotificationPolicy.self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+
+    public static func updateNotificationPolicy(
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization,
+        query: Mastodon.API.Notifications.UpdateNotificationPolicyQuery
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.NotificationPolicy> {
+        let request = Mastodon.API.patch(
+            url: notificationPolicyEndpointURL(domain: domain),
+            query: query,
+            authorization: authorization
+        )
+        let (data, response) = try await session.data(for: request)
+        let value = try Mastodon.API.decode(type: Mastodon.Entity.NotificationPolicy.self, from: data, response: response)
+
+        return Mastodon.Response.Content(value: value, response: response)
     }
 }
