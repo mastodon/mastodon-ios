@@ -196,3 +196,25 @@ extension Mastodon.API.Notifications {
         return Mastodon.Response.Content(value: value, response: response)
     }
 }
+
+extension Mastodon.API.Notifications {
+    internal static func notificationRequestsEndpointURL(domain: String) -> URL {
+        notificationsEndpointURL(domain: domain).appendingPathComponent("requests")
+    }
+
+    public static func getNotificationRequests(
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.NotificationRequest]> {
+        let request = Mastodon.API.get(
+            url: notificationRequestsEndpointURL(domain: domain),
+            authorization: authorization
+        )
+
+        let (data, response) = try await session.data(for: request)
+
+        let value = try Mastodon.API.decode(type: [Mastodon.Entity.NotificationRequest].self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+}

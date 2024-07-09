@@ -108,6 +108,8 @@ extension APIService {
 
 }
 
+//MARK: - Notification Policy
+
 extension APIService {
     public func notificationPolicy(authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Response.Content<Mastodon.Entity.NotificationPolicy> {
         let domain = authenticationBox.domain
@@ -135,6 +137,19 @@ extension APIService {
             authorization: authorization,
             query: query
         )
+
+        return response
+    }
+}
+
+//MARK: - Notification Requests
+
+extension APIService {
+    public func notificationRequests(authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Response.Content<[Mastodon.Entity.NotificationRequest]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+
+        let response = try await Mastodon.API.Notifications.getNotificationRequests(session: session, domain: domain, authorization: authorization)
 
         return response
     }
