@@ -17,8 +17,9 @@ class NotificationPolicyFilterTableViewCell: ToggleTableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
         subtitleLabel.textColor = .secondaryLabel
+        subtitleLabel.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
 
         toggle.addTarget(self, action: #selector(NotificationPolicyFilterTableViewCell.toggleValueChanged(_:)), for: .valueChanged)
     }
