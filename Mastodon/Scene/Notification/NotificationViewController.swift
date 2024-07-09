@@ -88,7 +88,7 @@ extension NotificationViewController {
         
         // https://github.com/mastodon/documentation/pull/1447#issuecomment-2149225659
         if let viewModel, viewModel.notificationPolicy != nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease"), style: .plain, target: self, action: #selector(NotificationViewController.showNotificationPolicySettings(_:)))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(NotificationViewController.showNotificationPolicySettings(_:)))
         }
 
         // needs trigger manually after onboarding dismiss
