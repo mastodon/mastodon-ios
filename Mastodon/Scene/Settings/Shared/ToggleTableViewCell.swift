@@ -27,6 +27,7 @@ class ToggleTableViewCell: UITableViewCell {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         labelStackView.alignment = .leading
         labelStackView.axis = .vertical
+        labelStackView.spacing = 4
 
         toggle = UISwitch()
         toggle.translatesAutoresizingMaskIntoConstraints = false

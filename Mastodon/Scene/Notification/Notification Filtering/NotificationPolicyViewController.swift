@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonLocalization
+import MastodonAsset
 
 enum NotificationFilterSection: Hashable {
     case main
@@ -14,6 +15,7 @@ enum NotificationFilterItem: Hashable,  CaseIterable {
     case privateMentions
 
     var title: String {
+        // TODO: Localization
         switch self {
         case .notFollowing:
             return "People you don't follow"
@@ -27,6 +29,7 @@ enum NotificationFilterItem: Hashable,  CaseIterable {
     }
 
     var subtitle: String {
+        // TODO: Localization
         switch self {
         case .notFollowing:
             return "Until you manually approve them"
@@ -56,7 +59,6 @@ struct NotificationFilterViewModel {
 
 class NotificationPolicyViewController: UIViewController {
 
-    //TODO: DataSource, Source, Items
     let tableView: UITableView
     var dataSource: UITableViewDiffableDataSource<NotificationFilterSection, NotificationFilterItem>?
     let items: [NotificationFilterItem]
@@ -77,14 +79,15 @@ class NotificationPolicyViewController: UIViewController {
                 fatalError("No NotificationPolicyFilterTableViewCell")
             }
 
-            //TODO: Configuration
-
             let item = items[indexPath.row]
             cell.configure(with: item, viewModel: self.viewModel)
             cell.delegate = self
 
             return cell
         }
+
+        // TODO: Localization
+        title = "Filter Notifications from"
 
         tableView.dataSource = dataSource
         tableView.delegate = self
@@ -137,6 +140,22 @@ class NotificationPolicyViewController: UIViewController {
 extension NotificationPolicyViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+
+        let filterItem = items[indexPath.row]
+        switch filterItem {
+        case .notFollowing:
+            viewModel.notFollowing.toggle()
+        case .noFollower:
+            viewModel.noFollower.toggle()
+        case .newAccount:
+            viewModel.newAccount.toggle()
+        case .privateMentions:
+            viewModel.privateMentions.toggle()
+        }
+
+        if let snapshot = dataSource?.snapshot() {
+            dataSource?.applySnapshotUsingReloadData(snapshot)
+        }
     }
 }
 
