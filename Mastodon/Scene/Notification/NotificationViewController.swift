@@ -127,16 +127,8 @@ extension NotificationViewController {
             newAccount: policy.filterNewAccounts,
             privateMentions: policy.filterPrivateMentions
         )
-        //TODO: Move to SceneCoordinator, we'd need a new case for this
-        let notificationPolicyViewController = NotificationPolicyViewController(viewModel: policyViewModel)
-        notificationPolicyViewController.modalPresentationStyle = .formSheet
-        let navigationController = UINavigationController(rootViewController: notificationPolicyViewController)
 
-        if let sheet = navigationController.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-        }
-
-        present(navigationController, animated: true)
+        _ = coordinator.present(scene: .notificationPolicy(viewModel: policyViewModel), transition: .formSheet)
     }
 }
 

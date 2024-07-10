@@ -207,6 +207,7 @@ extension SceneCoordinator {
         case settings(setting: Setting)
 
         // Notifications
+        case notificationPolicy(viewModel: NotificationFilterViewModel)
         case notificationRequests(viewModel: NotificationRequestsViewModel)
 
         // report
@@ -563,6 +564,8 @@ private extension SceneCoordinator {
             viewController = composeViewController
         case .notificationRequests(let viewModel):
             viewController = NotificationRequestsTableViewController(viewModel: viewModel)
+        case .notificationPolicy(let viewModel):
+            viewController = NotificationPolicyViewController(viewModel: viewModel)
         }
 
         setupDependency(for: viewController as? NeedsDependency)
