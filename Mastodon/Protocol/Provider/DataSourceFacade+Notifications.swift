@@ -11,8 +11,8 @@ extension DataSourceFacade {
         provider.coordinator.showLoading()
 
         do {
-            let notificationRequests = try await provider.context.apiService.notificationRequests(authenticationBox: provider.authContext.mastodonAuthenticationBox)
-            let viewModel = NotificationRequestsViewModel()
+            let notificationRequests = try await provider.context.apiService.notificationRequests(authenticationBox: provider.authContext.mastodonAuthenticationBox).value
+            let viewModel = NotificationRequestsViewModel(requests: notificationRequests)
 
             provider.coordinator.hideLoading()
 

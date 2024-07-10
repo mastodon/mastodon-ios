@@ -164,6 +164,7 @@
 		D84BB76D2C3D88B000493718 /* DataSourceFacade+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BB76C2C3D88B000493718 /* DataSourceFacade+Notifications.swift */; };
 		D84BB76F2C3D8DBC00493718 /* NotificationRequestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BB76E2C3D8DBC00493718 /* NotificationRequestsTableViewController.swift */; };
 		D84BB7722C3E566C00493718 /* NotificationPolicyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BB7712C3E566C00493718 /* NotificationPolicyHeaderView.swift */; };
+		D84BB7752C3EB80900493718 /* NotificationRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BB7742C3EB80900493718 /* NotificationRequestTableViewCell.swift */; };
 		D84FA0932AE6915800987F47 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D84FA0922AE6915800987F47 /* MBProgressHUD */; };
 		D852C23C2AC5D02C00309232 /* AboutInstanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852C23B2AC5D02C00309232 /* AboutInstanceViewController.swift */; };
 		D852C23E2AC5D03300309232 /* InstanceRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852C23D2AC5D03300309232 /* InstanceRulesViewController.swift */; };
@@ -802,6 +803,7 @@
 		D84BB76C2C3D88B000493718 /* DataSourceFacade+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Notifications.swift"; sourceTree = "<group>"; };
 		D84BB76E2C3D8DBC00493718 /* NotificationRequestsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestsTableViewController.swift; sourceTree = "<group>"; };
 		D84BB7712C3E566C00493718 /* NotificationPolicyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyHeaderView.swift; sourceTree = "<group>"; };
+		D84BB7742C3EB80900493718 /* NotificationRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestTableViewCell.swift; sourceTree = "<group>"; };
 		D84C099D2B0F9E33009E685E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D84C099F2B0F9E41009E685E /* Setup.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Setup.md; sourceTree = "<group>"; };
 		D84C09A02B0F9E41009E685E /* How-it-works.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "How-it-works.md"; sourceTree = "<group>"; };
@@ -1774,8 +1776,8 @@
 		D80EC2602C2978CB009724A5 /* Notification Filtering */ = {
 			isa = PBXGroup;
 			children = (
+				D84BB7732C3EB7F600493718 /* Requests */,
 				D84BB7702C3E565100493718 /* Policy */,
-				D84BB76E2C3D8DBC00493718 /* NotificationRequestsTableViewController.swift */,
 			);
 			path = "Notification Filtering";
 			sourceTree = "<group>";
@@ -1837,6 +1839,15 @@
 				D84BB7712C3E566C00493718 /* NotificationPolicyHeaderView.swift */,
 			);
 			path = Policy;
+			sourceTree = "<group>";
+		};
+		D84BB7732C3EB7F600493718 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				D84BB76E2C3D8DBC00493718 /* NotificationRequestsTableViewController.swift */,
+				D84BB7742C3EB80900493718 /* NotificationRequestTableViewCell.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		D84C099E2B0F9E41009E685E /* Documentation */ = {
@@ -3620,6 +3631,7 @@
 				D81A94172B07A1D30067A19D /* ProfileCardView+Configuration.swift in Sources */,
 				DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */,
 				D82BD7552ABC73AF009A374A /* NotificationPolicyTableViewCell.swift in Sources */,
+				D84BB7752C3EB80900493718 /* NotificationRequestTableViewCell.swift in Sources */,
 				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
 				DB98EB5327B0F9890082E365 /* ReportHeadlineTableViewCell.swift in Sources */,
 				DB5B729C273113C200081888 /* FollowingListViewModel+Diffable.swift in Sources */,
