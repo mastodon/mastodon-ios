@@ -19,7 +19,9 @@ class NotificationFilteringBannerTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
-        iconImageView = UIImageView(image: UIImage(systemName: "archivebox"))
+        let iconConfiguration = UIImage.SymbolConfiguration(scale: .large)
+        let icon = UIImage(systemName: "archivebox", withConfiguration: iconConfiguration)
+        iconImageView = UIImageView(image: icon)
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
 
         iconImageWrapperView = UIView()
@@ -67,8 +69,6 @@ class NotificationFilteringBannerTableViewCell: UITableViewCell {
             iconImageWrapperView.heightAnchor.constraint(equalToConstant: CGSize.authorAvatarButtonSize.height).priority(.defaultHigh),
             iconImageView.centerXAnchor.constraint(equalTo: iconImageWrapperView.centerXAnchor),
             iconImageView.centerYAnchor.constraint(equalTo: iconImageWrapperView.centerYAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: 27),
-            iconImageView.heightAnchor.constraint(equalToConstant: 24),
 
             contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),

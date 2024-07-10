@@ -14,10 +14,15 @@ class NotificationPolicyHeaderView: UIView {
         // TODO: Localization
         titleLabel.text = "Filter Notifications from..."
 
-        closeButton = UIButton()
-        closeButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+
+        let buttonImageConfiguration = UIImage.SymbolConfiguration(scale: .large)
+        let buttonImage = UIImage(systemName: "xmark.circle.fill", withConfiguration: buttonImageConfiguration)
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.image = buttonImage
+        buttonConfiguration.contentInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
+
+        closeButton = UIButton(configuration: buttonConfiguration)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setInsets(forContentPadding: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), imageTitlePadding: 0)
         closeButton.contentMode = .center
 
         super.init(frame: frame)
