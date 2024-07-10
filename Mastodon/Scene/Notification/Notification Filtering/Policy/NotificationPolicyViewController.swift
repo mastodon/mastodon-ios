@@ -64,6 +64,7 @@ struct NotificationFilterViewModel {
 class NotificationPolicyViewController: UIViewController {
 
     let tableView: UITableView
+    let headerBar: NotificationPolicyHeaderView
     var saveItem: UIBarButtonItem?
     var dataSource: UITableViewDiffableDataSource<NotificationFilterSection, NotificationFilterItem>?
     let items: [NotificationFilterItem]
@@ -72,6 +73,9 @@ class NotificationPolicyViewController: UIViewController {
     init(viewModel: NotificationFilterViewModel) {
         self.viewModel = viewModel
         items = NotificationFilterItem.allCases
+
+        headerBar = NotificationPolicyHeaderView()
+        headerBar.translatesAutoresizingMaskIntoConstraints = false
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,19 +95,14 @@ class NotificationPolicyViewController: UIViewController {
             return cell
         }
 
-        // TODO: Localization
-        title = "Filter Notifications from"
-
         tableView.dataSource = dataSource
         tableView.delegate = self
 
         self.dataSource = dataSource
+        view.addSubview(headerBar)
         view.addSubview(tableView)
         view.backgroundColor = .systemGroupedBackground
-
-        saveItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.save, style: .done, target: self, action: #selector(NotificationPolicyViewController.save(_:)))
-        navigationItem.rightBarButtonItem = saveItem
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .done, target: self, action: #selector(NotificationPolicyViewController.cancel(_:)))
+        headerBar.closeButton.addTarget(self, action: #selector(NotificationPolicyViewController.save(_:)), for: .touchUpInside)
 
         setupConstraints()
     }
@@ -123,7 +122,11 @@ class NotificationPolicyViewController: UIViewController {
 
     private func setupConstraints() {
         let constraints = [
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            headerBar.topAnchor.constraint(equalTo: view.topAnchor),
+            headerBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: headerBar.trailingAnchor),
+
+            tableView.topAnchor.constraint(equalTo: headerBar.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
@@ -134,17 +137,11 @@ class NotificationPolicyViewController: UIViewController {
 
     // MARK: - Action
 
-    @objc private func save(_ sender: UIBarButtonItem) {
+    @objc private func save(_ sender: UIButton) {
         guard let authenticationBox = viewModel.appContext.authenticationService.mastodonAuthenticationBoxes.first else { return }
 
-        navigationItem.leftBarButtonItem?.isEnabled = false
-
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-        navigationItem.rightBarButtonItem?.isEnabled = false
-
-        activityIndicator.startAnimating()
+        //TODO: Check if this really works. Garbage collection and stuff
+        self.dismiss(animated:true)
 
         Task { [weak self] in
             guard let self else { return }
@@ -158,13 +155,9 @@ class NotificationPolicyViewController: UIViewController {
                     filterPrivateMentions: viewModel.privateMentions
                 )
 
-                await MainActor.run {
-                    self.dismiss(animated:true)
-                }
+
             } catch {
-                navigationItem.rightBarButtonItem = saveItem
-                navigationItem.rightBarButtonItem?.isEnabled = true
-                navigationItem.leftBarButtonItem?.isEnabled = true
+                //TODO: Error Handling
             }
         }
 

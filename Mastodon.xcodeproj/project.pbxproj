@@ -163,6 +163,7 @@
 		D84BB76B2C3BE33800493718 /* NotificationPolicyFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BB76A2C3BE33800493718 /* NotificationPolicyFilterTableViewCell.swift */; };
 		D84BB76D2C3D88B000493718 /* DataSourceFacade+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BB76C2C3D88B000493718 /* DataSourceFacade+Notifications.swift */; };
 		D84BB76F2C3D8DBC00493718 /* NotificationRequestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BB76E2C3D8DBC00493718 /* NotificationRequestsTableViewController.swift */; };
+		D84BB7722C3E566C00493718 /* NotificationPolicyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BB7712C3E566C00493718 /* NotificationPolicyHeaderView.swift */; };
 		D84FA0932AE6915800987F47 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D84FA0922AE6915800987F47 /* MBProgressHUD */; };
 		D852C23C2AC5D02C00309232 /* AboutInstanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852C23B2AC5D02C00309232 /* AboutInstanceViewController.swift */; };
 		D852C23E2AC5D03300309232 /* InstanceRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852C23D2AC5D03300309232 /* InstanceRulesViewController.swift */; };
@@ -800,6 +801,7 @@
 		D84BB76A2C3BE33800493718 /* NotificationPolicyFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyFilterTableViewCell.swift; sourceTree = "<group>"; };
 		D84BB76C2C3D88B000493718 /* DataSourceFacade+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Notifications.swift"; sourceTree = "<group>"; };
 		D84BB76E2C3D8DBC00493718 /* NotificationRequestsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestsTableViewController.swift; sourceTree = "<group>"; };
+		D84BB7712C3E566C00493718 /* NotificationPolicyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyHeaderView.swift; sourceTree = "<group>"; };
 		D84C099D2B0F9E33009E685E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D84C099F2B0F9E41009E685E /* Setup.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Setup.md; sourceTree = "<group>"; };
 		D84C09A02B0F9E41009E685E /* How-it-works.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "How-it-works.md"; sourceTree = "<group>"; };
@@ -1772,8 +1774,7 @@
 		D80EC2602C2978CB009724A5 /* Notification Filtering */ = {
 			isa = PBXGroup;
 			children = (
-				D80EC2622C2978EE009724A5 /* NotificationPolicyViewController.swift */,
-				D84BB76A2C3BE33800493718 /* NotificationPolicyFilterTableViewCell.swift */,
+				D84BB7702C3E565100493718 /* Policy */,
 				D84BB76E2C3D8DBC00493718 /* NotificationRequestsTableViewController.swift */,
 			);
 			path = "Notification Filtering";
@@ -1826,6 +1827,16 @@
 				D81D124A2A4E1914005009D4 /* ToggleTableViewCell.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		D84BB7702C3E565100493718 /* Policy */ = {
+			isa = PBXGroup;
+			children = (
+				D80EC2622C2978EE009724A5 /* NotificationPolicyViewController.swift */,
+				D84BB76A2C3BE33800493718 /* NotificationPolicyFilterTableViewCell.swift */,
+				D84BB7712C3E566C00493718 /* NotificationPolicyHeaderView.swift */,
+			);
+			path = Policy;
 			sourceTree = "<group>";
 		};
 		D84C099E2B0F9E41009E685E /* Documentation */ = {
@@ -3779,6 +3790,7 @@
 				DB0FCB822796AC78006C02E2 /* UserTimelineViewController+DataSourceProvider.swift in Sources */,
 				DB0EF72E26FDB24F00347686 /* SidebarListContentView.swift in Sources */,
 				DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */,
+				D84BB7722C3E566C00493718 /* NotificationPolicyHeaderView.swift in Sources */,
 				2D7867192625B77500211898 /* NotificationItem.swift in Sources */,
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
