@@ -80,6 +80,7 @@ class NotificationPolicyViewController: UIViewController {
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(NotificationPolicyFilterTableViewCell.self, forCellReuseIdentifier: NotificationPolicyFilterTableViewCell.reuseIdentifier)
+        tableView.contentInset.top = -20
 
         super.init(nibName: nil, bundle: nil)
 
@@ -167,6 +168,8 @@ class NotificationPolicyViewController: UIViewController {
         dismiss(animated: true)
     }
 }
+
+//MARK: - UITableViewDelegate
 
 extension NotificationPolicyViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
