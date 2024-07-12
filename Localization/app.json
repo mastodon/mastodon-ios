@@ -477,7 +477,11 @@
             "title": "Home",
             "timeline_menu": {
                 "following": "Following",
-                "local_community": "Local"
+                "local_community": "Local",
+                "lists": {
+                    "title": "Lists",
+                    "manage_lists": "Manage Lists"
+                }
             },
             "timeline_pill": {
                 "offline": "Offline",

@@ -305,6 +305,8 @@ uploaded to Mastodon.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.TimelineMenu.Following" = "Following";
 "Scene.HomeTimeline.TimelineMenu.LocalCommunity" = "Local";
+"Scene.HomeTimeline.TimelineMenu.Lists.Title" = "Lists";
+"Scene.HomeTimeline.TimelineMenu.Lists.ManageLists" = "Manage Lists";
 "Scene.HomeTimeline.TimelinePill.NewPosts" = "New Posts";
 "Scene.HomeTimeline.TimelinePill.Offline" = "Offline";
 "Scene.HomeTimeline.TimelinePill.PostSent" = "Post Sent";

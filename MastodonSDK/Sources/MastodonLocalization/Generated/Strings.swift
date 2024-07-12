@@ -862,6 +862,12 @@ public enum L10n {
         public static let following = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Following", fallback: "Following")
         /// Local
         public static let localCommunity = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.LocalCommunity", fallback: "Local")
+        public enum Lists {
+          /// Manage Lists
+          public static let manageLists = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Lists.ManageLists", fallback: "Manage Lists")
+          /// Lists
+          public static let title = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Lists.Title", fallback: "Lists")
+        }
       }
       public enum TimelinePill {
         /// New Posts

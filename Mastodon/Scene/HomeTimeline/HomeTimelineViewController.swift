@@ -142,8 +142,44 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                 showFollowingAction.state = .on
             }
         }
+        
+        let listsSubmenu = UIDeferredMenuElement.uncached { [weak self] callback in
+            guard let self else { return callback([]) }
+            
+            Task { @MainActor in
+                let lists = (try? await Mastodon.API.Lists.getLists(
+                    session: .shared,
+                    domain: self.authContext.mastodonAuthenticationBox.domain,
+                    authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
+                ).singleOutput().value) ?? []
+                
+                var listEntries = lists.map {
+                    return LabeledAction(title: $0.title, image: nil, handler: {
+                        assertionFailure("Not yet implemented!")
+                    }).menuElement
+                }
+                
+                listEntries += [LabeledAction(
+                    title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.manageLists,
+                    image: UIImage(systemName: "pencil"),
+                    handler: {
+                        assertionFailure("Not yet implemented!")
+                    }).menuElement
+                ]
+                
+                callback(listEntries)
+            }
+        }
+        
+        let listsMenu = UIMenu(
+            title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.title,
+            image: UIImage(systemName: "list.bullet.rectangle.portrait"),
+            children: [listsSubmenu]
+        )
+        
+        let listsDivider = UIMenu(title: "", options: .displayInline, children: [listsMenu])
 
-        return UIMenu(children: [showFollowingAction, showLocalTimelineAction])
+        return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])
     }
 }
 
