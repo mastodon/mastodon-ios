@@ -140,6 +140,9 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
             case .home:
                 showLocalTimelineAction.state = .off
                 showFollowingAction.state = .on
+            case .list:
+                showLocalTimelineAction.state = .off
+                showFollowingAction.state = .off
             }
         }
         
@@ -153,9 +156,11 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                     authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
                 ).singleOutput().value) ?? []
                 
-                var listEntries = lists.map {
-                    return LabeledAction(title: $0.title, image: nil, handler: {
-                        assertionFailure("Not yet implemented!")
+                var listEntries = lists.map { entry in
+                    return LabeledAction(title: entry.title, image: nil, handler: { [weak self] in
+                        guard let self, let viewModel = self.viewModel else { return }
+                        viewModel.timelineContext = .list(entry.id)
+                        viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
                     }).menuElement
                 }
                 

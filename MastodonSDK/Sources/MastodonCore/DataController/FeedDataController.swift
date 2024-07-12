@@ -184,6 +184,12 @@ private extension FeedDataController {
                     query: .init(local: true, maxID: maxID),
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
+            case let .list(id):
+                response = try await context.apiService.listTimeline(
+                    id: id,
+                    query: .init(maxID: maxID),
+                    authenticationBox: authContext.mastodonAuthenticationBox
+                )
             }
 
             return response.value.map { .fromStatus(.fromEntity($0), kind: .home) }

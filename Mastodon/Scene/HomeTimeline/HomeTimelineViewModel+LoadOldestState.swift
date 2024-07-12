@@ -74,6 +74,12 @@ extension HomeTimelineViewModel.LoadOldestState {
                             query: .init(local: true, maxID: maxID),
                             authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                         )
+                    case let .list(id):
+                        response = try await viewModel.context.apiService.listTimeline(
+                            id: id, 
+                            query: .init(local: true, maxID: maxID),
+                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                        )
                     }
 
                     let statuses = response.value

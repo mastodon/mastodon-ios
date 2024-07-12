@@ -170,6 +170,12 @@ extension HomeTimelineViewModel {
                 query: .init(local: true, maxID: status.id),
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
+        case let .list(id):
+            response = try? await context.apiService.listTimeline(
+                id: id, 
+                query: .init(local: true, maxID: status.id),
+                authenticationBox: authContext.mastodonAuthenticationBox
+            )
         }
         
         // insert missing items
