@@ -178,7 +178,7 @@
                 },
                 "actions": {
                     "reply": "返信",
-                    "reblog": "Boost",
+                    "reblog": "ブースト",
                     "unreblog": "Undo boost",
                     "favorite": "お気に入り",
                     "unfavorite": "お気に入り登録を取り消す",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "投稿でリンクを共有",
                     "tap_then_hold_to_show_menu": "長押しでメニュー表示",
                     "a11y_labels": {
-                        "reblog": "Boost",
+                        "reblog": "ブースト",
                         "unreblog": "Undo boost"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "リンクをコピー"
                 },
                 "tag": {
                     "url": "URL",
