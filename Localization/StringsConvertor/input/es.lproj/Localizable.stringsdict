@@ -184,9 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>1 reblogueo</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld reblogueos</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
