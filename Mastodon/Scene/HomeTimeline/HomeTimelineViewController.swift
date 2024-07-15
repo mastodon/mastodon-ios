@@ -143,6 +143,9 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
             case .list:
                 showLocalTimelineAction.state = .off
                 showFollowingAction.state = .off
+            case .hashtag:
+                showLocalTimelineAction.state = .off
+                showFollowingAction.state = .off
             }
         }
         
@@ -190,7 +193,43 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
             children: [listsSubmenu]
         )
         
-        let listsDivider = UIMenu(title: "", options: .displayInline, children: [listsMenu])
+        let hashtagsSubmenu = UIDeferredMenuElement.uncached { [weak self] callback in
+            guard let self else { return callback([]) }
+            
+            Task { @MainActor in
+                let lists = (try? await Mastodon.API.Account.followedTags(
+                    session: .shared,
+                    domain: self.authContext.mastodonAuthenticationBox.domain,
+                    query: .init(limit: nil),
+                    authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
+                ).singleOutput().value) ?? []
+                
+                let listEntries = lists.map { entry in
+                    return LabeledAction(title: entry.name, image: nil, handler: { [weak self] in
+                        guard let self, let viewModel = self.viewModel else { return }
+                        viewModel.timelineContext = .hashtag(entry.name)
+                        viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
+                        timelineSelectorButton.setAttributedTitle(
+                            .init(string: entry.name, attributes: [
+                                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+                            ]),
+                            for: .normal)
+                        timelineSelectorButton.sizeToFit()
+                        timelineSelectorButton.menu = generateTimelineSelectorMenu()
+                    }).menuElement
+                }
+
+                callback(listEntries)
+            }
+        }
+
+        let hashtagsMenu = UIMenu(
+            title: L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.title,
+            image: UIImage(systemName: "number"),
+            children: [hashtagsSubmenu]
+        )
+        
+        let listsDivider = UIMenu(title: "", options: .displayInline, children: [listsMenu, hashtagsMenu])
 
         return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])
     }

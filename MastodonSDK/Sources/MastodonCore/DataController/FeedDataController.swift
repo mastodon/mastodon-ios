@@ -190,6 +190,11 @@ private extension FeedDataController {
                     query: .init(maxID: maxID),
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
+            case let .hashtag(tag):
+                response = try await context.apiService.hashtagTimeline(
+                    hashtag: tag,
+                    authenticationBox: authContext.mastodonAuthenticationBox
+                )
             }
 
             return response.value.map { .fromStatus(.fromEntity($0), kind: .home) }

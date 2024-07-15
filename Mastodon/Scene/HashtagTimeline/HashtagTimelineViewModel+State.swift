@@ -127,7 +127,6 @@ extension HashtagTimelineViewModel.State {
             Task {
                 do {
                     let response = try await viewModel.context.apiService.hashtagTimeline(
-                        domain: viewModel.authContext.mastodonAuthenticationBox.domain,
                         maxID: maxID,
                         hashtag: viewModel.hashtag,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox

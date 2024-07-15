@@ -138,6 +138,11 @@ extension HomeTimelineViewModel.LoadLatestState {
                         query: .init(sinceID: sinceID),
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
+                case let .hashtag(tag):
+                    response = try await viewModel.context.apiService.hashtagTimeline(
+                        hashtag: tag,
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                    )
                 }
 
                 enter(state: Idle.self)

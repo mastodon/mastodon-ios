@@ -14,7 +14,6 @@ import MastodonSDK
 extension APIService {
     
     public func hashtagTimeline(
-        domain: String,
         sinceID: Mastodon.Entity.Status.ID? = nil,
         maxID: Mastodon.Entity.Status.ID? = nil,
         limit: Int = onceRequestStatusMaxCount,

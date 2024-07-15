@@ -15,6 +15,7 @@ public final class MastodonFeed {
             case home
             case `public`
             case list(String)
+            case hashtag(String)
         }
     }
     

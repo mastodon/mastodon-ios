@@ -80,6 +80,11 @@ extension HomeTimelineViewModel.LoadOldestState {
                             query: .init(local: true, maxID: maxID),
                             authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                         )
+                    case let .hashtag(tag):
+                        response = try await viewModel.context.apiService.hashtagTimeline(
+                            hashtag: tag,
+                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                        )
                     }
 
                     let statuses = response.value

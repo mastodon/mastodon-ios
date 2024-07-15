@@ -481,6 +481,9 @@
                 "lists": {
                     "title": "Lists",
                     "manage_lists": "Manage Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags"
                 }
             },
             "timeline_pill": {
