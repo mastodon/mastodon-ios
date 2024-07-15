@@ -38,7 +38,11 @@ final class HomeTimelineViewModel: NSObject {
     let isOffline = CurrentValueSubject<Bool, Never>(false)
     var networkErrorCount = CurrentValueSubject<Int, Never>(0)
 
-    var timelineContext: MastodonFeed.Kind.TimelineContext = .home
+    var timelineContext: MastodonFeed.Kind.TimelineContext = .home {
+        didSet {
+            hasNewPosts.send(false)
+        }
+    }
 
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
