@@ -740,7 +740,7 @@
                 "disable": "您的帳號已被停用。",
                 "mark_statuses_as_sensitive": "某些您的嘟文已被標記為敏感內容。",
                 "delete_statuses": "某些您的嘟文已被刪除。",
-                "sensitive": "即日起，您的嘟文將會被標記為敏感內容。",
+                "sensitive": "即日起，您的嘟文將被標記為敏感內容。",
                 "silence": "您的帳號已被限制。",
                 "suspend": "您的帳號已被停權。",
                 "learn_more": "了解更多"
@@ -842,7 +842,7 @@
                 },
                 "manually_approve_follow_requests": "手動審核跟隨請求",
                 "show_followers_and_following": "顯示跟隨者與跟隨中",
-                "suggest_my_account_to_others": "推薦我的帳號給其他使用者",
+                "suggest_my_account_to_others": "向其他使用者推薦我的帳號",
                 "appear_in_search_engines": "顯示於搜尋引擎結果"
             }
         },
@@ -895,7 +895,7 @@
                 "unfollowed": "已取消跟隨",
                 "unfollow_user": "取消跟隨 %s",
                 "mute_user": "靜音 %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "您不會在您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "您不會於您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。",
                 "block_user": "封鎖 %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他們將無法跟隨您或是看到您的嘟文。他們能看到他們是否已被封鎖。",
                 "while_we_review_this_you_can_take_action_against_user": "當我們正在審核時，您可以對 %s 採取以下措施"
