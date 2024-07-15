@@ -156,21 +156,29 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                     authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
                 ).singleOutput().value) ?? []
                 
-                var listEntries = lists.map { entry in
+                let listEntries = lists.map { entry in
                     return LabeledAction(title: entry.title, image: nil, handler: { [weak self] in
                         guard let self, let viewModel = self.viewModel else { return }
                         viewModel.timelineContext = .list(entry.id)
                         viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
+                        timelineSelectorButton.setAttributedTitle(
+                            .init(string: entry.title, attributes: [
+                                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+                            ]),
+                            for: .normal)
+                        timelineSelectorButton.sizeToFit()
+                        timelineSelectorButton.menu = generateTimelineSelectorMenu()
                     }).menuElement
                 }
-                
-                listEntries += [LabeledAction(
-                    title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.manageLists,
-                    image: UIImage(systemName: "pencil"),
-                    handler: {
-                        assertionFailure("Not yet implemented!")
-                    }).menuElement
-                ]
+
+// todo: Implement List Management
+//                listEntries += [LabeledAction(
+//                    title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.manageLists,
+//                    image: UIImage(systemName: "pencil"),
+//                    handler: {
+//                        assertionFailure("Not yet implemented!")
+//                    }).menuElement
+//                ]
                 
                 callback(listEntries)
             }
