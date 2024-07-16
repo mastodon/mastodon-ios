@@ -168,9 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblogueo</string>
+        <string>1 difusión</string>
         <key>other</key>
-        <string>%ld reblogueos</string>
+        <string>%ld difusiones</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -184,9 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblogueo</string>
+        <string>1 difusión</string>
         <key>other</key>
-        <string>%ld reblogueos</string>
+        <string>%ld difusiones</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
