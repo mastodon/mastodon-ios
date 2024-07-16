@@ -479,8 +479,7 @@
                 "following": "Following",
                 "local_community": "Local",
                 "lists": {
-                    "title": "Lists",
-                    "manage_lists": "Manage Lists"
+                    "title": "Lists"
                 },
                 "hashtags": {
                     "title": "Followed Hashtags"

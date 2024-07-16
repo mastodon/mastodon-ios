@@ -174,15 +174,6 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                     }).menuElement
                 }
 
-// todo: Implement List Management
-//                listEntries += [LabeledAction(
-//                    title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.manageLists,
-//                    image: UIImage(systemName: "pencil"),
-//                    handler: {
-//                        assertionFailure("Not yet implemented!")
-//                    }).menuElement
-//                ]
-                
                 callback(listEntries)
             }
         }
