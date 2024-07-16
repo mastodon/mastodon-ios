@@ -787,7 +787,7 @@
                 },
                 "ask_before": {
                     "section_title": "Preguntar antes de…",
-                    "posting_without_alt_text": "Publicar sin texto Alt",
+                    "posting_without_alt_text": "Publicar sin Texto Alternativo",
                     "unfollowing_someone": "Dejar de Seguir a Alguien",
                     "boosting_a_post": "Promocionar una Publicación",
                     "deleting_a_post": "Eliminar una Publicación"
@@ -862,7 +862,7 @@
                 "step_1_of_4": "Paso 1 de 4",
                 "whats_wrong_with_this_post": "¿Qué hay de malo con esta publicación?",
                 "whats_wrong_with_this_account": "¿Qué hay de malo con esta cuenta?",
-                "whats_wrong_with_this_username": "¿Qué hay de malo con %s?",
+                "whats_wrong_with_this_username": "¿Qué problema hay con %s?",
                 "select_the_best_match": "Selecciona la mejor opción",
                 "i_dont_like_it": "No me gusta",
                 "it_is_not_something_you_want_to_see": "No es algo que quieras ver",
@@ -890,7 +890,7 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "¿No quieres ver esto?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Cuando veas algo que no te gusta en Mastodon, puedes quitar a la persona de tu experiencia.",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Cuando veas algo que no te gusta en Mastodon, puedes eliminar a la persona de tu experiencia.",
                 "unfollow": "Dejar de seguir",
                 "unfollowed": "Ha dejado de seguirte",
                 "unfollow_user": "Dejar de seguir a %s",
@@ -903,13 +903,13 @@
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Cerrar Previsualización",
+                "close_preview": "Cerrar Vista Previa",
                 "show_next": "Mostrar Siguiente",
                 "show_previous": "Mostrar Anterior"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Perfil seleccionado actualmente: %s. Haz un doble toque y mantén pulsado para mostrar el selector de cuentas",
+            "tab_bar_hint": "Perfil seleccionado actualmente: %s. Presiona dos veces y mantén pulsado para mostrar el selector de cuentas",
             "dismiss_account_switcher": "Descartar el selector de cuentas",
             "add_account": "Añadir cuenta",
             "logout_all_accounts": "Cerrar Sesión en Todas las Cuentas",
