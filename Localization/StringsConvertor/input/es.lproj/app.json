@@ -54,13 +54,13 @@
                 "button": "Aceptar"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "title": "Falta Texto Alternativo del Medio",
+                "message": "%d De tus imágenes no tienen texto alternativo. ¿Publicar de todos modos?",
                 "cancel": "Cancelar",
-                "post": "Post"
+                "post": "Publicar"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
+                "title_boost": "¿Promocionar Publicación?",
                 "title_unboost": "Unboost Post?",
                 "cancel": "Cancelar",
                 "boost": "Boost",
