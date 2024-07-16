@@ -387,7 +387,7 @@
                 "username": {
                     "placeholder": "nombre de usuario",
                     "duplicate_prompt": "Este nombre de usuario ya está en uso.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "asombroso_%@"
                 },
                 "display_name": {
                     "placeholder": "nombre a mostrar"
@@ -397,7 +397,7 @@
                 },
                 "password": {
                     "placeholder": "contraseña",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Confirmar Contraseña",
                     "require": "Tu contraseña debe contener como mínimo:",
                     "character_limit": "8 caracteres",
                     "accessibility": {
@@ -422,7 +422,7 @@
                 "reason": {
                     "blocked": "%s contiene un proveedor de correo no permitido",
                     "unreachable": "%s parece no existir",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s ya está en uso. Qué tal:",
                     "reserved": "%s es una palabra clave reservada",
                     "accepted": "%s debe ser aceptado",
                     "blank": "Se requiere %s",
@@ -440,60 +440,60 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Reglas del Servidor",
+            "subtitle": "Al continuar, aceptas seguir las siguientes reglas establecidas y aplicas por los moderadores de **%s**.",
             "prompt": "Si continúas estarás sujeto a los términos de servicio y la política de privacidad de %s.",
             "terms_of_service": "términos del servicio",
             "privacy_policy": "política de privacidad",
             "button": {
-                "confirm": "I Agree",
-                "disagree": "Disagree"
+                "confirm": "Estoy de Acuerdo",
+                "disagree": "No estoy de Acuerdo"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Revisa Tu Bandeja De Entrada",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Pulsa en enlace que te enviamos para verificar %@. Esperaremos aquí mismo.",
             "button": {
                 "resend": "Reenviar"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Revisa tu Correo Electrónico",
                 "description": "Comprueba que tu dirección de correo electrónico sea correcta y revisa la carpeta de correo no deseado si no lo has hecho ya.",
                 "resend_email": "Volver a Enviar Correo Electrónico"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Revisa tu Bandeja de Entrada.",
                 "description": "Te acabamos de enviar un correo electrónico. Revisa tu carpeta de correo no deseado si no lo has hecho ya.",
                 "mail": "Correo",
                 "open_email_client": "Abrir Cliente de Correo Electrónico"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "¿No recibiste un enlace?",
+                "resend_in": "Reenviar (%@)",
+                "resend_now": "Reenviar ahora."
             }
         },
         "home_timeline": {
             "title": "Inicio",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Siguiendo",
                 "local_community": "Local"
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "Desconectado",
+                "new_posts": "Nuevas Publicaciones",
+                "post_sent": "Publicación enviada"
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Popular en Mastodon",
+            "follow_all": "Seguir a todos"
         },
         "compose": {
             "title": {
                 "new_post": "Nueva Publicación",
                 "new_reply": "Nueva Respuesta",
-                "edit_post": "Edit Post"
+                "edit_post": "Editar Publicación"
             },
             "media_selection": {
                 "camera": "Hacer Foto",
@@ -517,7 +517,7 @@
                 "server_processing_state": "Procesando en el servidor..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Encuesta",
                 "duration_time": "Duración: %s",
                 "thirty_minutes": "30 minutos",
                 "one_hour": "1 Hora",
@@ -530,8 +530,8 @@
                 "the_poll_has_empty_option": "La encuesta tiene una opción vacía",
                 "add_option": "Añadir opción",
                 "remove_option": "Eliminar opción",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "move_up": "Mover Arriba",
+                "move_down": "Mover Abajo"
             },
             "content_warning": {
                 "placeholder": "Escribe una advertencia precisa aquí..."
@@ -565,10 +565,10 @@
                 "select_visibility_entry": "Seleccionar Visibilidad - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "title": "Idioma de la Publicación",
+                "suggested": "Sugerido",
+                "recent": "Reciente",
+                "other": "Otros Idiomas..."
             }
         },
         "profile": {
@@ -582,7 +582,7 @@
                 "other_posts": "publicaciones",
                 "other_following": "siguiendo",
                 "other_followers": "seguidores",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "mutuos"
             },
             "fields": {
                 "joined": "Se unió",
@@ -621,16 +621,16 @@
                     "message": "Confirmar para desbloquear a %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Mostrar Promociones",
+                    "message": "Confirmar para mostrar promociones"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Ocultar Promociones",
+                    "message": "Confirmar para ocultar promociones"
                 },
                 "confirm_block_domain": {
                     "title": "Bloquear dominio",
-                    "message": "Confirm to block domain %s"
+                    "message": "Confirmar para bloquear el dominio %s"
                 },
                 "confirm_unblock_domain": {
                     "title": "Desbloquear dominio",
@@ -836,14 +836,14 @@
                 },
                 "default_post_visibility": {
                     "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "public": "Público",
+                    "followers_only": "Solo Seguidores",
+                    "only_people_mentioned": "Solo Personas Mencionadas"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "Aprobar Manualmente Solicitudes de Seguimiento",
+                "show_followers_and_following": "Mostrar Seguidores y Seguidos",
+                "suggest_my_account_to_others": "Sugerir Mi Cuenta a Otros",
+                "appear_in_search_engines": "Aparecer en los Motores de Búsqueda"
             }
         },
         "report": {
@@ -895,7 +895,7 @@
                 "unfollowed": "Ha dejado de seguirte",
                 "unfollow_user": "Dejar de seguir a %s",
                 "mute_user": "Silenciar a %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No verás sus publicaciones o promociones en tu feed principal. Ellos no sabrán que han sido silenciados.",
                 "block_user": "Bloquear a %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ya no podrán ser capaces de seguirte o ver tus publicaciones, pero pueden ver si han sido bloqueados.",
                 "while_we_review_this_you_can_take_action_against_user": "Mientras revisamos esto, puedes tomar medidas contra %s"
@@ -912,8 +912,8 @@
             "tab_bar_hint": "Perfil seleccionado actualmente: %s. Haz un doble toque y mantén pulsado para mostrar el selector de cuentas",
             "dismiss_account_switcher": "Descartar el selector de cuentas",
             "add_account": "Añadir cuenta",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "Cerrar Sesión en Todas las Cuentas",
+            "logout": "Cerrar Sesión"
         },
         "bookmark": {
             "title": "Marcadores"
@@ -933,47 +933,47 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Esto no parece ser un enlace de Mastodon válido."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Lo sentimos pero este tipo de Widget no está admitido.",
+            "user_not_logged_in": "Por favor abra Mastodon para iniciar sesión en una Cuenta."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Seguidores",
+            "configuration_description": "Mostrar número de seguidores.",
+            "title": "SEGUIDORES",
+            "followers_today": "%s seguidores hoy"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Múltiples seguidores",
+            "configuration_description": "Mostrar números de seguidores para múltiples cuentas.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Otro seguidor",
+                "account_name": "otro@seguidor.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Últimos seguidores",
+            "configuration_description": "Mostar últimos seguidores.",
+            "title": "Últimos seguidores",
+            "last_update": "Última actualización: %s"
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
-                "description": "Shows a recent post with the selected hashtag."
+                "display_name": "Etiqueta",
+                "description": "Mostrar una publicación reciente con la etiqueta seleccionada."
             },
             "not_found": {
                 "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "account": "@johnMastodon@no-hay-tal.cuenta",
+                "content": "Lo sentimos, no hemos podido encontrar ninguna publicación con la etiqueta <a>#%@</a>. Por favor, prueba una <a>#EtiquetaDiferente</a> o comprueba la configuración del Widget."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
+                "account": "@johnMastodon@no-hay-tal.cuenta",
                 "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
             }
         }
