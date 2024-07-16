@@ -301,7 +301,7 @@
                 },
                 "servers": {
                     "title": "¿Qué son los servidores?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "description": "Cada cuenta de Mastodon está alojada en un servidor — cada uno con sus propios valores, reglas y administradores. No importa cuál elijas, podrás seguir e interactuar con personas en cualquier servidor."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -311,8 +311,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "Bienvenido de vuelta",
+            "subtitle": "Inicia sesión con el servidor donde creaste tu cuenta.",
             "server_search_field": {
                 "placeholder": "Introduzca la URL o busque su servidor"
             }
@@ -321,7 +321,7 @@
             "title": "Elegir servidor",
             "button": {
                 "language": "Idioma",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "Velocidad de registro",
                 "category": {
                     "all": "Todas",
                     "all_accessiblity_description": "Categoría: Todas",
@@ -355,31 +355,31 @@
                 "no_results": "Sin resultados"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
+                "all": "Todos",
+                "instant": "Registro instantáneo",
                 "manually_reviewed": "Revisión manual"
             },
             "language": {
-                "all": "All"
+                "all": "Todos"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Buscar nombre o URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Seleccionaremos un servidor basado en tu idioma si continúas sin hacer una selección."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Tu Privacidad",
+            "description": "Aunque la aplicación Mastodon no recopila ningún dato, el servidor al que se registra puede tener una política diferente.\n\nSi no está de a cuerdo con la política de **%s**, puede volver atrás y elegir un servidor diferente.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Política de Privacidad - Mastodon para iOS",
+                "server": "Política de Privacidad - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Estoy de Acuerdo"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Crear Cuenta",
             "input": {
                 "avatar": {
                     "delete": "Borrar"
