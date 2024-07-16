@@ -2,22 +2,22 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Por favor, vuelve a intentarlo.",
-                "please_try_again_later": "Por favor, vuelve a intentarlo más tarde."
+                "please_try_again": "Por favor, inténtelo de nuevo.",
+                "please_try_again_later": "Por favor, inténtelo de nuevo más tarde."
             },
             "sign_up_failure": {
                 "title": "Error al registrarse"
             },
             "server_error": {
-                "title": "Error del servidor"
+                "title": "Error del Servidor"
             },
             "vote_failure": {
-                "title": "Voto fallido",
+                "title": "Voto Fallido",
                 "poll_ended": "La encuesta ha terminado"
             },
             "publish_post_failure": {
-                "title": "Error de publicación",
-                "message": "No se pudo publicar la publicación.\nPor favor, revise su conexión a internet.",
+                "title": "Error de Publicación",
+                "message": "Error al publicar la publicación.\nPor favor, revise su conexión a internet.",
                 "attachments_message": {
                     "video_attach_with_photo": "No puedes adjuntar un vídeo a una publicación que ya contiene imágenes.",
                     "more_than_one_video": "No puedes adjuntar más de un vídeo."
@@ -29,11 +29,11 @@
             },
             "sign_out": {
                 "title": "Cerrar Sesión",
-                "message": "¿Estás seguro de que deseas cerrar la sesión?",
+                "message": "¿Está seguro de que quiere cerrar sesión?",
                 "confirm": "Cerrar Sesión"
             },
             "block_domain": {
-                "title": "¿Estás realmente seguro, de verdad, de que quieres bloquear %s al completo? En la mayoría de los casos, unos pocos bloqueos o silenciados concretos son suficientes y preferibles. No verás contenido de ese dominio y todos tus seguidores de ese dominio serán eliminados.",
+                "title": "¿Está realmente seguro, de verdad, de que quiere bloquear %s por completo? En la mayoría de los casos unos pocos bloqueos o silenciamientos específicos son suficientes y preferibles. No verás contenido de ese dominio y todos tus seguidores de ese dominio serán eliminados.",
                 "block_entire_domain": "Bloquear Dominio"
             },
             "save_photo_failure": {
@@ -41,7 +41,7 @@
                 "message": "Por favor, activa el permiso de acceso a la biblioteca de fotos para guardar la foto."
             },
             "delete_post": {
-                "title": "¿Estás seguro de que deseas eliminar esta publicación?",
+                "title": "Eliminar Publicación",
                 "message": "¿Estás seguro de que quieres borrar esta publicación?"
             },
             "clean_cache": {
@@ -50,7 +50,7 @@
             },
             "translation_failed": {
                 "title": "Nota",
-                "message": "Error al traducir. Tal vez el administrador no ha habilitado las traducciones en este servidor o este servidor está ejecutando una versión antigua de Mastodon donde las traducciones aún no están soportadas.",
+                "message": "Traducción fallida. Tal vez el administrador no ha habilitado las traducciones en este servidor o este servidor está ejecutando una versión antigua de Mastodon donde las traducciones aún no están soportadas.",
                 "button": "Aceptar"
             },
             "media_missing_alt_text": {
@@ -148,7 +148,7 @@
                     "toggle_reblog": "Alternar Promoción en la Publicación",
                     "toggle_favorite": "Conmutar la Marca de Favorito en la Publicación",
                     "toggle_content_warning": "Alternar la Advertencia de Contenido",
-                    "preview_image": "Previsualizar Imagen"
+                    "preview_image": "Vista Previa de Imagen"
                 },
                 "segmented_control": {
                     "previous_section": "Sección Anterior",
@@ -204,10 +204,10 @@
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Todo el mundo puede ver este post pero no mostrar en la línea de tiempo pública.",
-                    "private": "Sólo sus seguidores pueden ver este mensaje.",
-                    "private_from_me": "Sólo mis seguidores pueden ver este mensaje.",
-                    "direct": "Sólo el usuario mencionado puede ver este mensaje."
+                    "unlisted": "Todos puede ver este post pero no se muestra en la línea del tiempo pública.",
+                    "private": "Solo sus seguidores pueden ver este mensaje.",
+                    "private_from_me": "Solo mis seguidores pueden ver este mensaje.",
+                    "direct": "Solo el usuario mencionado puede ver este mensaje."
                 },
                 "translation": {
                     "translated_from": "Traducido desde %s usando %s",
@@ -252,8 +252,8 @@
                 "domain_blocked": "Dominio bloqueado",
                 "mute": "Silenciar",
                 "mute_user": "Silenciar a %s",
-                "unmute": "Desmutear",
-                "unmute_user": "Desmutear a %s",
+                "unmute": "Dejar de Silenciar",
+                "unmute_user": "Dejar de Silenciar a %s",
                 "muted": "Silenciado",
                 "edit_info": "Editar Info",
                 "show_reblogs": "Mostrar Promociones",
@@ -402,7 +402,7 @@
                     "character_limit": "8 caracteres",
                     "accessibility": {
                         "checked": "marcado",
-                        "unchecked": "sin marcar"
+                        "unchecked": "no comprobado"
                     },
                     "hint": "Tu contraseña necesita tener al menos ocho caracteres"
                 },
@@ -568,7 +568,7 @@
                 "title": "Idioma de la Publicación",
                 "suggested": "Sugerido",
                 "recent": "Reciente",
-                "other": "Otros Idiomas..."
+                "other": "Otros Idiomas…"
             }
         },
         "profile": {
@@ -634,7 +634,7 @@
                 },
                 "confirm_unblock_domain": {
                     "title": "Desbloquear dominio",
-                    "message": "Confirm to unblock domain %s"
+                    "message": "Confirmar para desbloquear el dominio %s"
                 }
             },
             "accessibility": {
@@ -660,7 +660,7 @@
             "title": "Hecho favorito por"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Promocionado por"
         },
         "search": {
             "title": "Buscar",
@@ -682,20 +682,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
+                "posts": "Publicaciones que coinciden con \"%s\"",
+                "people": "Personas que coinciden con \"%s\"",
+                "profile": "Ir a @%s@%s",
+                "url": "Abir URL en Mastodon",
                 "hashtag": "Ir a %s",
                 "no_user": {
                     "title": "Cuenta de usuario no encontrada",
-                    "message": "No existe ninguna cuenta de usuario \"%s\" en %s"
+                    "message": "No existe ninguna Cuenta de Usuario \"%s\" en %s"
                 },
                 "empty_state": {
                     "no_results": "Sin resultados"
                 },
                 "recent_search": "Búsquedas recientes",
-                "clear_all": "Clear all",
+                "clear_all": "Limpiar todo",
                 "clear": "Borrar"
             }
         },
@@ -719,8 +719,8 @@
             },
             "notification_description": {
                 "followed_you": "te siguió",
-                "favorited_your_post": "ha marcado como favorita tu publicación",
-                "reblogged_your_post": "boosted your post",
+                "favorited_your_post": "marcó como favorita tu publicación",
+                "reblogged_your_post": "promocionar tu publicación",
                 "mentioned_you": "te mencionó",
                 "request_to_follow_you": "solicitó seguirte",
                 "poll_has_ended": "encuesta ha terminado"
@@ -736,14 +736,14 @@
                 "rejected": "Rechazado"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Tu cuenta ha recibido un aviso de moderación.",
+                "disable": "Tu cuenta ha sido deshabilitada.",
+                "mark_statuses_as_sensitive": "Algunas de tus publicaciones han sido marcadas como sensibles.",
+                "delete_statuses": "Algunas de tus publicaciones han sido eliminadas.",
+                "sensitive": "Tus publicaciones serán marcados como sensibles a partir de ahora.",
+                "silence": "Tu cuenta ha sido limitada.",
+                "suspend": "Tu cuenta ha sido suspendida.",
+                "learn_more": "Saber Más"
             }
         },
         "thread": {
@@ -755,26 +755,26 @@
                 "title": "Ajustes",
                 "general": "General",
                 "notifications": "Notificaciones",
-                "privacy_safety": "Privacy & Safety",
-                "support_mastodon": "Support Mastodon",
+                "privacy_safety": "Privacidad y Seguridad",
+                "support_mastodon": "Soporte Mastodon",
                 "about_mastodon": "Acerca de Mastodon",
                 "server_details": "Detalles del servidor",
                 "logout": "Cerrar sesión %@"
             },
             "about_mastodon": {
                 "title": "Acerca de",
-                "more_settings": "Even More Settings",
+                "more_settings": "Aún Más Ajustes",
                 "contribute_to_mastodon": "Contribuir a Mastodon",
                 "privacy_policy": "Política de privacidad",
                 "clear_media_storage": "Limpiar almacenamiento multimedia"
             },
             "server_details": {
                 "about": "Acerca de",
-                "rules": "Rules",
+                "rules": "Normas",
                 "about_instance": {
                     "title": "Administrador",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "message_admin": "Contactar a un Administrador",
+                    "legal_notice": "Aviso Legal"
                 }
             },
             "general": {
@@ -788,54 +788,54 @@
                 "ask_before": {
                     "section_title": "Preguntar antes de…",
                     "posting_without_alt_text": "Publicar sin texto Alt",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "unfollowing_someone": "Dejar de Seguir a Alguien",
+                    "boosting_a_post": "Promocionar una Publicación",
+                    "deleting_a_post": "Eliminar una Publicación"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Diseño",
+                    "show_animations": "Reproducir Avatares y Emojis Animados"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Idioma",
+                    "default_post_language": "Idioma Por Defecto de la Publicación"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Enlaces",
+                    "open_in_mastodon": "Abrir en Mastodon",
+                    "open_in_browser": "Abrir en Navegador"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notificaciones",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Recibir Notificaciones de",
+                    "anyone": "Cualquiera",
+                    "followers": "Personas que te siguen",
+                    "follow": "Personas que sigues",
+                    "noone": "Nadie"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Menciones y Respuestas",
+                    "boosts": "Promociones",
+                    "favorites": "Favoritos",
+                    "new_followers": "Nuevos Seguidores"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Active las notificaciones desde la configuración de su dispositivo para ver las actualizaciones en su pantalla de bloqueo.",
+                    "go_to_settings": "Ir a Configuración de Notificaciones"
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Privacidad y Seguridad",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "Predefinido",
+                    "open_and_public": "Abierto & Público",
+                    "private_and_restricted": "Privado y Restringido",
+                    "custom": "Personalizado"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
+                    "title": "Visibilidad Por Defecto de la Publicación",
                     "public": "Público",
                     "followers_only": "Solo Seguidores",
                     "only_people_mentioned": "Solo Personas Mencionadas"
@@ -974,7 +974,7 @@
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@no-hay-tal.cuenta",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Así es como una publicación con una <a>#etiqueta</a> se vería. Elige cualquier <a>#etiqueta</a> que desee en la configuración del widget."
             }
         }
     }
