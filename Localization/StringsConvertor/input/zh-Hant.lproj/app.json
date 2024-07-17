@@ -479,12 +479,12 @@
                 "following": "正在跟隨",
                 "local_community": "本站",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "列表",
+                    "empty_message": "您目前沒有任何列表"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "已跟隨主題標籤",
+                    "empty_message": "您尚未跟隨任何主題標籤"
                 }
             },
             "timeline_pill": {
