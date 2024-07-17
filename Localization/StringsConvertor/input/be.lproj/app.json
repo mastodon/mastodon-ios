@@ -479,12 +479,12 @@
                 "following": "Вы падпісаны",
                 "local_community": "Лакальнае",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Спісы",
+                    "empty_message": "У вас пакуль няма спісаў"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Хэштэгі, на якія вы падпісаліся",
+                    "empty_message": "Вы не сочыце ні за якімі хэштэгамі"
                 }
             },
             "timeline_pill": {
