@@ -140,10 +140,101 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
             case .home:
                 showLocalTimelineAction.state = .off
                 showFollowingAction.state = .on
+            case .list:
+                showLocalTimelineAction.state = .off
+                showFollowingAction.state = .off
+            case .hashtag:
+                showLocalTimelineAction.state = .off
+                showFollowingAction.state = .off
+            }
+        }
+        
+        let listsSubmenu = UIDeferredMenuElement.uncached { [weak self] callback in
+            guard let self else { return callback([]) }
+            
+            Task { @MainActor in
+                let lists = (try? await Mastodon.API.Lists.getLists(
+                    session: .shared,
+                    domain: self.authContext.mastodonAuthenticationBox.domain,
+                    authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
+                ).singleOutput().value) ?? []
+                
+                var listEntries = lists.map { entry in
+                    return LabeledAction(title: entry.title, image: nil, handler: { [weak self] in
+                        guard let self, let viewModel = self.viewModel else { return }
+                        viewModel.timelineContext = .list(entry.id)
+                        viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
+                        timelineSelectorButton.setAttributedTitle(
+                            .init(string: entry.title, attributes: [
+                                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+                            ]),
+                            for: .normal)
+                        timelineSelectorButton.sizeToFit()
+                        timelineSelectorButton.menu = generateTimelineSelectorMenu()
+                    }).menuElement
+                }
+                
+                if listEntries.isEmpty {
+                    listEntries = [
+                        UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.emptyMessage, attributes: [.disabled], handler: {_ in })
+                    ]
+                }
+
+                callback(listEntries)
+            }
+        }
+        
+        let listsMenu = UIMenu(
+            title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.title,
+            image: UIImage(systemName: "list.bullet.rectangle.portrait"),
+            children: [listsSubmenu]
+        )
+        
+        let hashtagsSubmenu = UIDeferredMenuElement.uncached { [weak self] callback in
+            guard let self else { return callback([]) }
+            
+            Task { @MainActor in
+                let lists = (try? await Mastodon.API.Account.followedTags(
+                    session: .shared,
+                    domain: self.authContext.mastodonAuthenticationBox.domain,
+                    query: .init(limit: nil),
+                    authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
+                ).singleOutput().value) ?? []
+                
+                var listEntries = lists.map { entry in
+                    return LabeledAction(title: entry.name, image: nil, handler: { [weak self] in
+                        guard let self, let viewModel = self.viewModel else { return }
+                        viewModel.timelineContext = .hashtag(entry.name)
+                        viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
+                        timelineSelectorButton.setAttributedTitle(
+                            .init(string: entry.name, attributes: [
+                                .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+                            ]),
+                            for: .normal)
+                        timelineSelectorButton.sizeToFit()
+                        timelineSelectorButton.menu = generateTimelineSelectorMenu()
+                    }).menuElement
+                }
+                
+                if listEntries.isEmpty {
+                    listEntries = [
+                        UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.emptyMessage, attributes: [.disabled], handler: {_ in })
+                    ]
+                }
+
+                callback(listEntries)
             }
         }
 
-        return UIMenu(children: [showFollowingAction, showLocalTimelineAction])
+        let hashtagsMenu = UIMenu(
+            title: L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.title,
+            image: UIImage(systemName: "number"),
+            children: [hashtagsSubmenu]
+        )
+        
+        let listsDivider = UIMenu(title: "", options: .displayInline, children: [listsMenu, hashtagsMenu])
+
+        return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])
     }
 }
 

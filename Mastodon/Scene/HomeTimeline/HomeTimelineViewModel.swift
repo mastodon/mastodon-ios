@@ -38,7 +38,11 @@ final class HomeTimelineViewModel: NSObject {
     let isOffline = CurrentValueSubject<Bool, Never>(false)
     var networkErrorCount = CurrentValueSubject<Int, Never>(0)
 
-    var timelineContext: MastodonFeed.Kind.TimelineContext = .home
+    var timelineContext: MastodonFeed.Kind.TimelineContext = .home {
+        didSet {
+            hasNewPosts.send(false)
+        }
+    }
 
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
@@ -168,6 +172,17 @@ extension HomeTimelineViewModel {
         case .public:
             response = try? await context.apiService.publicTimeline(
                 query: .init(local: true, maxID: status.id),
+                authenticationBox: authContext.mastodonAuthenticationBox
+            )
+        case let .list(id):
+            response = try? await context.apiService.listTimeline(
+                id: id, 
+                query: .init(local: true, maxID: status.id),
+                authenticationBox: authContext.mastodonAuthenticationBox
+            )
+        case let .hashtag(tag):
+            response = try? await context.apiService.hashtagTimeline(
+                hashtag: tag,
                 authenticationBox: authContext.mastodonAuthenticationBox
             )
         }

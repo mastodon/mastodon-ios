@@ -862,6 +862,18 @@ public enum L10n {
         public static let following = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Following", fallback: "Following")
         /// Local
         public static let localCommunity = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.LocalCommunity", fallback: "Local")
+        public enum Hashtags {
+          /// You don't follow any Hashtags
+          public static let emptyMessage = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Hashtags.EmptyMessage", fallback: "You don't follow any Hashtags")
+          /// Followed Hashtags
+          public static let title = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Hashtags.Title", fallback: "Followed Hashtags")
+        }
+        public enum Lists {
+          /// You don't have any Lists
+          public static let emptyMessage = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Lists.EmptyMessage", fallback: "You don't have any Lists")
+          /// Lists
+          public static let title = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Lists.Title", fallback: "Lists")
+        }
       }
       public enum TimelinePill {
         /// New Posts

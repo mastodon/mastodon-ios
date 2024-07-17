@@ -11,9 +11,11 @@ public final class MastodonFeed {
         case notificationAll
         case notificationMentions
 
-        public enum TimelineContext {
+        public enum TimelineContext: Equatable {
             case home
             case `public`
+            case list(String)
+            case hashtag(String)
         }
     }
     

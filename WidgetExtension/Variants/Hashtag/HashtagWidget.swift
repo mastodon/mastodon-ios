@@ -53,7 +53,7 @@ extension HashtagWidgetProvider {
             do {
                 let mostRecentStatuses = try await WidgetExtension.appContext
                     .apiService
-                    .hashtagTimeline(domain: authBox.domain, limit: 40, hashtag: desiredHashtag, authenticationBox: authBox)
+                    .hashtagTimeline(limit: 40, hashtag: desiredHashtag, authenticationBox: authBox)
                     .value
 
                 let filteredStatuses: [Mastodon.Entity.Status]
