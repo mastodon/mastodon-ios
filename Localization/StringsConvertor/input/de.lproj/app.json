@@ -479,12 +479,12 @@
                 "following": "Following",
                 "local_community": "Local",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Listen",
+                    "empty_message": "Keine Listen vorhanden"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Hashtags denen gefolgt wird",
+                    "empty_message": "Keine Hashtags denen gefolgt wird"
                 }
             },
             "timeline_pill": {
