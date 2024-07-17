@@ -15,11 +15,13 @@ class NotificationPolicyHeaderView: UIView {
         titleLabel.text = "Filter Notifications from..."
 
 
-        let buttonImageConfiguration = UIImage.SymbolConfiguration(scale: .large)
+        let buttonImageConfiguration = UIImage
+            .SymbolConfiguration(pointSize: 30)
+            .applying(UIImage.SymbolConfiguration(paletteColors: [.secondaryLabel, .quaternarySystemFill]))
         let buttonImage = UIImage(systemName: "xmark.circle.fill", withConfiguration: buttonImageConfiguration)
         var buttonConfiguration = UIButton.Configuration.plain()
         buttonConfiguration.image = buttonImage
-        buttonConfiguration.contentInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
+        buttonConfiguration.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 0)
 
         closeButton = UIButton(configuration: buttonConfiguration)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +39,7 @@ class NotificationPolicyHeaderView: UIView {
     private func setupConstraints() {
         let constraints = [
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             closeButton.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: 8),
             bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
 
