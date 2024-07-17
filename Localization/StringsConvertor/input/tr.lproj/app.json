@@ -477,7 +477,15 @@
             "title": "Ana Sayfa",
             "timeline_menu": {
                 "following": "Following",
-                "local_community": "Local"
+                "local_community": "Local",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Offline",
