@@ -477,7 +477,15 @@
             "title": "Domů",
             "timeline_menu": {
                 "following": "Sledovaní",
-                "local_community": "Místní"
+                "local_community": "Místní",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Offline",
