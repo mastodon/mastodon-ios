@@ -477,7 +477,15 @@
             "title": "Főoldal",
             "timeline_menu": {
                 "following": "Követett",
-                "local_community": "Helyi"
+                "local_community": "Helyi",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Offline",
