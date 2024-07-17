@@ -19,7 +19,7 @@ extension APIService {
             query: query,
             id: id,
             authorization: authorization
-        ).singleOutput()
+        )
 
         return response
     }

@@ -112,18 +112,16 @@ extension Mastodon.API.Timeline {
         query: HashtagTimelineQuery,
         hashtag: String,
         authorization: Mastodon.API.OAuth.Authorization?
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error>  {
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {
         let request = Mastodon.API.get(
             url: hashtagTimelineEndpointURL(domain: domain, hashtag: hashtag),
             query: query,
             authorization: authorization
         )
-        return session.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
-                return Mastodon.Response.Content(value: value, response: response)
-            }
-            .eraseToAnyPublisher()
+        
+        let (data, response) = try await session.data(for: request)
+        let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
     }
     
     public static func list(
@@ -132,18 +130,16 @@ extension Mastodon.API.Timeline {
         query: PublicTimelineQuery,
         id: String,
         authorization: Mastodon.API.OAuth.Authorization?
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error>  {
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {
         let request = Mastodon.API.get(
             url: listTimelineEndpointURL(domain: domain, id: id),
             query: query,
             authorization: authorization
         )
-        return session.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
-                return Mastodon.Response.Content(value: value, response: response)
-            }
-            .eraseToAnyPublisher()
+        let (data, response) = try await session.data(for: request)
+        
+        let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
     }
 }
 

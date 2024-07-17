@@ -39,7 +39,7 @@ extension APIService {
             query: query,
             hashtag: hashtag,
             authorization: authorization
-        ).singleOutput()
+        )
 
         return response
     }
