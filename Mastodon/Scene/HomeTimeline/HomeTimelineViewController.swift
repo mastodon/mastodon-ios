@@ -159,7 +159,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                     authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
                 ).singleOutput().value) ?? []
                 
-                let listEntries = lists.map { entry in
+                var listEntries = lists.map { entry in
                     return LabeledAction(title: entry.title, image: nil, handler: { [weak self] in
                         guard let self, let viewModel = self.viewModel else { return }
                         viewModel.timelineContext = .list(entry.id)
@@ -172,6 +172,12 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                         timelineSelectorButton.sizeToFit()
                         timelineSelectorButton.menu = generateTimelineSelectorMenu()
                     }).menuElement
+                }
+                
+                if listEntries.isEmpty {
+                    listEntries = [
+                        UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.Lists.emptyMessage, attributes: [.disabled], handler: {_ in })
+                    ]
                 }
 
                 callback(listEntries)
@@ -195,7 +201,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                     authorization: self.authContext.mastodonAuthenticationBox.userAuthorization
                 ).singleOutput().value) ?? []
                 
-                let listEntries = lists.map { entry in
+                var listEntries = lists.map { entry in
                     return LabeledAction(title: entry.name, image: nil, handler: { [weak self] in
                         guard let self, let viewModel = self.viewModel else { return }
                         viewModel.timelineContext = .hashtag(entry.name)
@@ -208,6 +214,12 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                         timelineSelectorButton.sizeToFit()
                         timelineSelectorButton.menu = generateTimelineSelectorMenu()
                     }).menuElement
+                }
+                
+                if listEntries.isEmpty {
+                    listEntries = [
+                        UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.Hashtags.emptyMessage, attributes: [.disabled], handler: {_ in })
+                    ]
                 }
 
                 callback(listEntries)
