@@ -479,12 +479,12 @@
                 "following": "Đang theo dõi",
                 "local_community": "Máy chủ",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Danh sách",
+                    "empty_message": "Bạn chưa có danh sách nào"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Hashtag theo dõi",
+                    "empty_message": "Bạn chưa theo dõi hashtag nào"
                 }
             },
             "timeline_pill": {
