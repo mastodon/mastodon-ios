@@ -477,7 +477,15 @@
             "title": "Inizio",
             "timeline_menu": {
                 "following": "Stai seguendo",
-                "local_community": "Locale"
+                "local_community": "Locale",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Non in linea",
