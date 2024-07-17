@@ -477,7 +477,15 @@
             "title": "Trang chủ",
             "timeline_menu": {
                 "following": "Đang theo dõi",
-                "local_community": "Máy chủ"
+                "local_community": "Máy chủ",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Rớt mạng",
