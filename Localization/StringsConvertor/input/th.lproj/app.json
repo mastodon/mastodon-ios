@@ -477,7 +477,15 @@
             "title": "หน้าแรก",
             "timeline_menu": {
                 "following": "กำลังติดตาม",
-                "local_community": "ในเซิร์ฟเวอร์"
+                "local_community": "ในเซิร์ฟเวอร์",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "ออฟไลน์",
