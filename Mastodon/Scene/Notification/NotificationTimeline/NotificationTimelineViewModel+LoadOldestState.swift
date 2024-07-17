@@ -9,6 +9,7 @@ import CoreDataStack
 import Foundation
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 
 extension NotificationTimelineViewModel {
     class LoadOldestState: GKState {
@@ -51,8 +52,22 @@ extension NotificationTimelineViewModel.LoadOldestState {
                 stateMachine.enter(Fail.self)
                 return
             }
-            let scope = viewModel.scope
             
+            let scope: APIService.MastodonNotificationScope?
+            let accountID: String?
+
+            switch viewModel.scope {
+            case .everything:
+                scope = .everything
+                accountID = nil
+            case .mentions:
+                scope = .mentions
+                accountID = nil
+            case .fromAccount(let account):
+                scope = nil
+                accountID = account.id
+            }
+
             Task {
                 let _maxID: Mastodon.Entity.Notification.ID? = lastFeedRecord.notification?.id
                 
@@ -64,8 +79,8 @@ extension NotificationTimelineViewModel.LoadOldestState {
                 do {
                     let response = try await viewModel.context.apiService.notifications(
                         maxID: maxID,
-                        //FIXME: Use correct scope for accounts
-                        scope: .everything,
+                        accountID: accountID,
+                        scope: scope,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     

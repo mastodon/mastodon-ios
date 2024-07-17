@@ -48,7 +48,7 @@ final class NotificationTimelineViewModel {
         context: AppContext,
         authContext: AuthContext,
         scope: Scope,
-        notificationPolicy: Mastodon.Entity.NotificationPolicy?
+        notificationPolicy: Mastodon.Entity.NotificationPolicy? = nil
     ) {
         self.context = context
         self.authContext = authContext
@@ -65,8 +65,7 @@ final class NotificationTimelineViewModel {
             self.dataController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox))?.map({ notification in
                 MastodonFeed.fromNotification(notification, relationship: nil, kind: .notificationMentions)
             }) ?? []
-        case .fromAccount(let account):
-            //TODO: Implement
+        case .fromAccount(_):
             self.dataController.records = []
         }
 
@@ -84,14 +83,12 @@ final class NotificationTimelineViewModel {
                 case .mentions:
                     FileManager.default.cacheNotificationsMentions(items: items, for: authContext.mastodonAuthenticationBox)
                 case .fromAccount(_):
-                    //TODO: Implement
+                    //TODO: we don't persist these
                     break
                 }
             })
             .store(in: &disposeBag)
     }
-    
-    
 }
 
 extension NotificationTimelineViewModel {
@@ -114,9 +111,8 @@ extension NotificationTimelineViewModel {
             dataController.loadInitial(kind: .notificationAll)
         case .mentions:
             dataController.loadInitial(kind: .notificationMentions)
-        case .fromAccount(_):
-            //TODO: Implement
-            break
+        case .fromAccount(let account):
+            dataController.loadInitial(kind: .notificationAccount(account.id))
         }
 
         didLoadLatest.send()
@@ -129,9 +125,8 @@ extension NotificationTimelineViewModel {
             dataController.loadNext(kind: .notificationAll)
         case .mentions:
             dataController.loadNext(kind: .notificationMentions)
-        case .fromAccount(_):
-            //TODO: Implement
-            break
+        case .fromAccount(let account):
+            dataController.loadNext(kind: .notificationAccount(account.id))
         }
     }
 }
