@@ -477,7 +477,15 @@
             "title": "Галоўная",
             "timeline_menu": {
                 "following": "Вы падпісаны",
-                "local_community": "Лакальнае"
+                "local_community": "Лакальнае",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Па-за сеткай",
