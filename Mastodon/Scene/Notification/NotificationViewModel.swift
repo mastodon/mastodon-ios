@@ -72,6 +72,8 @@ extension NotificationTimelineViewModel.Scope {
             return L10n.Scene.Notification.Title.everything
         case .mentions:
             return L10n.Scene.Notification.Title.mentions
+        case .fromAccount(let account):
+            return "Notifications from \(account.displayName)"
         }
     }
 }

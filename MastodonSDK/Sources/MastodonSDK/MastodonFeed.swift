@@ -10,6 +10,7 @@ public final class MastodonFeed {
         case home(timeline: TimelineContext)
         case notificationAll
         case notificationMentions
+        case notificationAccount
 
         public enum TimelineContext: Equatable {
             case home

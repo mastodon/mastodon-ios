@@ -65,6 +65,9 @@ final class NotificationTimelineViewModel {
             self.dataController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox))?.map({ notification in
                 MastodonFeed.fromNotification(notification, relationship: nil, kind: .notificationMentions)
             }) ?? []
+        case .fromAccount(let account):
+            //TODO: Implement
+            self.dataController.records = []
         }
 
         self.dataController.$records
@@ -80,6 +83,9 @@ final class NotificationTimelineViewModel {
                     FileManager.default.cacheNotificationsAll(items: items, for: authContext.mastodonAuthenticationBox)
                 case .mentions:
                     FileManager.default.cacheNotificationsMentions(items: items, for: authContext.mastodonAuthenticationBox)
+                case .fromAccount(_):
+                    //TODO: Implement
+                    break
                 }
             })
             .store(in: &disposeBag)
@@ -89,9 +95,11 @@ final class NotificationTimelineViewModel {
 }
 
 extension NotificationTimelineViewModel {
-
-    typealias Scope = APIService.MastodonNotificationScope
-
+    enum Scope: Hashable {
+        case everything
+        case mentions
+        case fromAccount(Mastodon.Entity.Account)
+    }
 }
 
 extension NotificationTimelineViewModel {
@@ -106,6 +114,9 @@ extension NotificationTimelineViewModel {
             dataController.loadInitial(kind: .notificationAll)
         case .mentions:
             dataController.loadInitial(kind: .notificationMentions)
+        case .fromAccount(_):
+            //TODO: Implement
+            break
         }
 
         didLoadLatest.send()
@@ -118,6 +129,9 @@ extension NotificationTimelineViewModel {
             dataController.loadNext(kind: .notificationAll)
         case .mentions:
             dataController.loadNext(kind: .notificationMentions)
+        case .fromAccount(_):
+            //TODO: Implement
+            break
         }
     }
 }

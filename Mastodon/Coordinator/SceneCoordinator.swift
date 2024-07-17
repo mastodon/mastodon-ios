@@ -209,6 +209,7 @@ extension SceneCoordinator {
         // Notifications
         case notificationPolicy(viewModel: NotificationFilterViewModel)
         case notificationRequests(viewModel: NotificationRequestsViewModel)
+        case notificationtimeline(viewModel: NotificationTimelineViewModel)
 
         // report
         case report(viewModel: ReportViewModel)
@@ -563,9 +564,12 @@ private extension SceneCoordinator {
             let composeViewController = ComposeViewController(viewModel: viewModel)
             viewController = composeViewController
         case .notificationRequests(let viewModel):
-            viewController = NotificationRequestsTableViewController(viewModel: viewModel)
+            //FIXME: Put either AuthContext or Everything in ViewModel
+            viewController = NotificationRequestsTableViewController(viewModel: viewModel, appContext: appContext, coordinator: self)
         case .notificationPolicy(let viewModel):
             viewController = NotificationPolicyViewController(viewModel: viewModel)
+        case .notificationtimeline(let viewModel):
+            viewController = NotificationTimelineViewController(viewModel: viewModel, context: appContext, coordinator: self)
         }
 
         setupDependency(for: viewController as? NeedsDependency)

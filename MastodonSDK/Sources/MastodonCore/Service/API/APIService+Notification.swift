@@ -10,36 +10,14 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import OSLog
 
 extension APIService {
     
     public enum MastodonNotificationScope: String, Hashable, CaseIterable {
         case everything
         case mentions
-        
-        public var includeTypes: [MastodonNotificationType]? {
-            switch self {
-            case .everything:       return nil
-            case .mentions:         return [.mention, .status]
-            }
-        }
-        
-        public var excludeTypes: [MastodonNotificationType]? {
-            switch self {
-            case .everything:       return nil
-            case .mentions:         return [.follow, .followRequest, .reblog, .favourite, .poll]
-            }
-        }
-        
-        public var _excludeTypes: [Mastodon.Entity.Notification.NotificationType]? {
-            switch self {
-            case .everything:       return nil
-            case .mentions:         return [.follow, .followRequest, .reblog, .favourite, .poll]
-            }
-        }
     }
-    
+
     public func notifications(
         maxID: Mastodon.Entity.Status.ID?,
         scope: MastodonNotificationScope,

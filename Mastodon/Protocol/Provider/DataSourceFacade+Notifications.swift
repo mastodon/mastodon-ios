@@ -2,6 +2,7 @@
 
 import Foundation
 import MastodonCore
+import MastodonSDK
 
 extension DataSourceFacade {
     @MainActor
@@ -12,7 +13,7 @@ extension DataSourceFacade {
 
         do {
             let notificationRequests = try await provider.context.apiService.notificationRequests(authenticationBox: provider.authContext.mastodonAuthenticationBox).value
-            let viewModel = NotificationRequestsViewModel(requests: notificationRequests)
+            let viewModel = NotificationRequestsViewModel(requests: notificationRequests, authContext: provider.authContext)
 
             provider.coordinator.hideLoading()
 
@@ -22,4 +23,24 @@ extension DataSourceFacade {
             provider.coordinator.hideLoading()
         }
     }
+
+    @MainActor
+    static func coordinateToNotificationRequest(
+        request: Mastodon.Entity.NotificationRequest,
+        provider: ViewControllerWithDependencies & AuthContextProvider
+    ) async {
+        provider.coordinator.showLoading()
+
+        do {
+
+            // load notifications for request.account
+            // show NotificationTimelineViewController with NotificationTimelineViewModel
+
+            provider.coordinator.hideLoading()
+        } catch {
+            //TODO: Error Handling
+            provider.coordinator.hideLoading()
+        }
+    }
+
 }

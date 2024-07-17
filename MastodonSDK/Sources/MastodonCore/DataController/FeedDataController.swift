@@ -202,7 +202,9 @@ private extension FeedDataController {
             return try await getFeeds(with: .everything)
         case .notificationMentions:
             return try await getFeeds(with: .mentions)
-
+        case .notificationAccount:
+            //TODO: Implement, inject account
+            return []
         }
     }
 

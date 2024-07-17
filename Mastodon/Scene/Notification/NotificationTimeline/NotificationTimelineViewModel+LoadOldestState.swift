@@ -64,7 +64,8 @@ extension NotificationTimelineViewModel.LoadOldestState {
                 do {
                     let response = try await viewModel.context.apiService.notifications(
                         maxID: maxID,
-                        scope: scope,
+                        //FIXME: Use correct scope for accounts
+                        scope: .everything,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     

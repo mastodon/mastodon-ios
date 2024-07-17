@@ -49,7 +49,7 @@ extension NotificationViewController {
 
         view.backgroundColor = .secondarySystemBackground
         
-        setupSegmentedControl(scopes: APIService.MastodonNotificationScope.allCases)
+        setupSegmentedControl(scopes: [.everything, .mentions])
         pageSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         navigationItem.titleView = pageSegmentedControl
         NSLayoutConstraint.activate([
@@ -68,7 +68,7 @@ extension NotificationViewController {
             }
             .store(in: &disposeBag)
         
-        viewModel?.viewControllers = APIService.MastodonNotificationScope.allCases.map { scope in
+        viewModel?.viewControllers = [NotificationTimelineViewModel.Scope.everything, .mentions].map { scope in
             createViewController(for: scope)
         }
         
