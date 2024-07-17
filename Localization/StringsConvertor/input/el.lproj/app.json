@@ -477,7 +477,15 @@
             "title": "Αρχική",
             "timeline_menu": {
                 "following": "Ακολουθείς",
-                "local_community": "Τοπική"
+                "local_community": "Τοπική",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Εκτός σύνδεσης",
