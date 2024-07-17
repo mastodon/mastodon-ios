@@ -6,7 +6,7 @@
                 "please_try_again_later": "Por favor, inténtelo de nuevo más tarde."
             },
             "sign_up_failure": {
-                "title": "Error al registrarse"
+                "title": "Error al Registrarse"
             },
             "server_error": {
                 "title": "Error del Servidor"
@@ -273,8 +273,8 @@
                     "no_status_found": "No se ha encontrado ninguna publicación",
                     "blocking_warning": "No puedes ver el perfil de este usuario\n hasta que lo desbloquees.\nTu perfil se ve así para él.",
                     "user_blocking_warning": "No puedes ver el perfil de %s\n hasta que lo desbloquees.\nTu perfil se ve así para él.",
-                    "blocked_warning": "No puedes ver el perfil de este usuario\n hasta que te desbloquee.",
-                    "user_blocked_warning": "No puedes ver el perfil de %s\n hasta que te desbloquee.",
+                    "blocked_warning": "No puedes ver el perfil de este usuario\nhasta que te desbloquee.",
+                    "user_blocked_warning": "No puedes ver el perfil de %s\nhasta que te desbloquee.",
                     "suspended_warning": "Este usuario ha sido suspendido.",
                     "user_suspended_warning": "La cuenta de %s ha sido suspendida."
                 }
