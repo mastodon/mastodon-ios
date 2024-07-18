@@ -31,7 +31,7 @@ final class NotificationTimelineViewController: UIViewController, NeedsDependenc
     
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .secondarySystemBackground
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         return tableView
@@ -45,6 +45,9 @@ final class NotificationTimelineViewController: UIViewController, NeedsDependenc
         self.coordinator = coordinator
 
         super.init(nibName: nil, bundle: nil)
+
+        title = viewModel.scope.title
+        view.backgroundColor = .secondarySystemBackground
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

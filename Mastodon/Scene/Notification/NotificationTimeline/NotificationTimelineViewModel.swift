@@ -11,6 +11,7 @@ import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import MastodonCore
+import MastodonLocalization
 
 final class NotificationTimelineViewModel {
     
@@ -96,6 +97,17 @@ extension NotificationTimelineViewModel {
         case everything
         case mentions
         case fromAccount(Mastodon.Entity.Account)
+
+        var title: String {
+            switch self {
+            case .everything:
+                return L10n.Scene.Notification.Title.everything
+            case .mentions:
+                return L10n.Scene.Notification.Title.mentions
+            case .fromAccount(let account):
+                return "Notifications from \(account.displayName)"
+            }
+        }
     }
 }
 

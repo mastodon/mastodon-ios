@@ -64,19 +64,6 @@ final class NotificationViewModel {
         }
     }
 }
-    
-extension NotificationTimelineViewModel.Scope {
-    var title: String {
-        switch self {
-        case .everything:
-            return L10n.Scene.Notification.Title.everything
-        case .mentions:
-            return L10n.Scene.Notification.Title.mentions
-        case .fromAccount(let account):
-            return "Notifications from \(account.displayName)"
-        }
-    }
-}
 
 // MARK: - PageboyViewControllerDataSource
 extension NotificationViewModel: PageboyViewControllerDataSource {
