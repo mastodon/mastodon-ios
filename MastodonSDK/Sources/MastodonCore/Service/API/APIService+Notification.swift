@@ -125,4 +125,20 @@ extension APIService {
 
         return response
     }
+
+    public func acceptNotificationRequests(authenticationBox: MastodonAuthenticationBox, id: String) async throws -> Mastodon.Response.Content<[String: String]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+
+        let response = try await Mastodon.API.Notifications.acceptNotificationRequest(id: id, session: session, domain: domain, authorization: authorization)
+        return response
+    }
+
+    public func rejectNotificationRequests(authenticationBox: MastodonAuthenticationBox, id: String) async throws -> Mastodon.Response.Content<[String: String]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+
+        let response = try await Mastodon.API.Notifications.dismissNotificationRequest(id: id, session: session, domain: domain, authorization: authorization)
+        return response
+    }
 }

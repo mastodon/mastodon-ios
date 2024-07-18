@@ -202,6 +202,18 @@ extension Mastodon.API.Notifications {
         notificationsEndpointURL(domain: domain).appendingPathComponent("requests")
     }
 
+    internal static func notificationRequestEndpointURL(domain: String, id: String) -> URL {
+        notificationRequestsEndpointURL(domain: domain).appendingPathComponent(id)
+    }
+
+    internal static func acceptNotificationRequestEndpointURL(domain: String, id: String) -> URL {
+        notificationRequestEndpointURL(domain: domain, id: id).appendingPathExtension("accept")
+    }
+
+    internal static func dismissNotificationRequestEndpointURL(domain: String, id: String) -> URL {
+        notificationRequestEndpointURL(domain: domain, id: id).appendingPathExtension("dismiss")
+    }
+
     public static func getNotificationRequests(
         session: URLSession,
         domain: String,
@@ -215,6 +227,42 @@ extension Mastodon.API.Notifications {
         let (data, response) = try await session.data(for: request)
 
         let value = try Mastodon.API.decode(type: [Mastodon.Entity.NotificationRequest].self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+
+    public static func acceptNotificationRequest(
+        id: String,
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<[String: String]> {
+        let request = Mastodon.API.post(
+            url: acceptNotificationRequestEndpointURL(domain: domain, id: id),
+            authorization: authorization
+        )
+
+        let (data, response) = try await session.data(for: request)
+
+        // we expect an empty dictionary
+        let value = try Mastodon.API.decode(type: [String: String].self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+
+    public static func dismissNotificationRequest(
+        id: String,
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<[String: String]> {
+        let request = Mastodon.API.post(
+            url: dismissNotificationRequestEndpointURL(domain: domain, id: id),
+            authorization: authorization
+        )
+
+        let (data, response) = try await session.data(for: request)
+
+        // we expect an empty dictionary
+        let value = try Mastodon.API.decode(type: [String: String].self, from: data, response: response)
         return Mastodon.Response.Content(value: value, response: response)
     }
 }
