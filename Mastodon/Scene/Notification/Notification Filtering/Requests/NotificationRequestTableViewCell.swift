@@ -55,8 +55,8 @@ class NotificationRequestTableViewCell: UITableViewCell {
         acceptNotificationRequestButton.translatesAutoresizingMaskIntoConstraints = false
         acceptNotificationRequestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         acceptNotificationRequestButton.setTitleColor(.white, for: .normal)
-        acceptNotificationRequestButton.setTitle(L10n.Common.Controls.Actions.confirm, for: .normal)
-        acceptNotificationRequestButton.setImage(Asset.Editing.checkmark20.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        acceptNotificationRequestButton.setTitle("Accept", for: .normal)
+        acceptNotificationRequestButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
         acceptNotificationRequestButton.imageView?.contentMode = .scaleAspectFit
         acceptNotificationRequestButton.setBackgroundImage(.placeholder(color: Asset.Scene.Notification.confirmFollowRequestButtonBackground.color), for: .normal)
         acceptNotificationRequestButton.setInsets(forContentPadding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), imageTitlePadding: 8)
@@ -71,7 +71,7 @@ class NotificationRequestTableViewCell: UITableViewCell {
 
         acceptNotificationRequestActivityIndicatorView = UIActivityIndicatorView(style: .medium)
         acceptNotificationRequestActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        acceptNotificationRequestActivityIndicatorView.color = .black
+        acceptNotificationRequestActivityIndicatorView.color = .white
         acceptNotificationRequestActivityIndicatorView.hidesWhenStopped = true
         acceptNotificationRequestActivityIndicatorView.stopAnimating()
         acceptNotificationRequestButton.addSubview(acceptNotificationRequestActivityIndicatorView)
@@ -80,8 +80,8 @@ class NotificationRequestTableViewCell: UITableViewCell {
         rejectNotificationRequestButton.translatesAutoresizingMaskIntoConstraints = false
         rejectNotificationRequestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         rejectNotificationRequestButton.setTitleColor(.black, for: .normal)
-        rejectNotificationRequestButton.setTitle(L10n.Common.Controls.Actions.delete, for: .normal)
-        rejectNotificationRequestButton.setImage(Asset.Circles.forbidden20.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        rejectNotificationRequestButton.setTitle("Dismiss", for: .normal)
+        rejectNotificationRequestButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
         rejectNotificationRequestButton.imageView?.contentMode = .scaleAspectFit
         rejectNotificationRequestButton.setInsets(forContentPadding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), imageTitlePadding: 8)
         rejectNotificationRequestButton.setBackgroundImage(.placeholder(color: Asset.Scene.Notification.deleteFollowRequestButtonBackground.color), for: .normal)

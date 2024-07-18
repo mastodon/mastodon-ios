@@ -17,11 +17,14 @@ enum NotificationRequestItem: Hashable {
     case item(Mastodon.Entity.NotificationRequest)
 }
 
-class NotificationRequestsTableViewController: UIViewController, NeedsDependency {
+protocol NotificationRequestsTableViewControllerDelegate: AnyObject {
+    func notificationRequestsUpdated(_ viewController: NotificationRequestsTableViewController)
+}
 
+class NotificationRequestsTableViewController: UIViewController, NeedsDependency {
     var context: AppContext!
     var coordinator: SceneCoordinator!
-
+    weak var delegate: NotificationRequestsTableViewControllerDelegate?
 
     let tableView: UITableView
     var viewModel: NotificationRequestsViewModel
@@ -95,24 +98,91 @@ extension NotificationRequestsTableViewController: AuthContextProvider {
 
 extension NotificationRequestsTableViewController: NotificationRequestTableViewCellDelegate {
     func acceptNotificationRequest(_ cell: NotificationRequestTableViewCell, notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) {
-        print("accept \(notificationRequest.id)")
+
         cell.acceptNotificationRequestActivityIndicatorView.isHidden = false
         cell.acceptNotificationRequestActivityIndicatorView.startAnimating()
-
         cell.acceptNotificationRequestButton.tintColor = .clear
         cell.acceptNotificationRequestButton.setTitleColor(.clear, for: .normal)
-
+        cell.rejectNotificationRequestButton.isUserInteractionEnabled = false
+        cell.acceptNotificationRequestButton.isUserInteractionEnabled = false
 
         //TODO: Send request, update cell, reload notification requests AND general notifications
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                _ = try await context.apiService.acceptNotificationRequests(authenticationBox: authContext.mastodonAuthenticationBox,
+                                                                        id: notificationRequest.id)
+
+                let requests = try await context.apiService.notificationRequests(authenticationBox: authContext.mastodonAuthenticationBox).value
+
+                if requests.count > 0 {
+
+                    await MainActor.run { [weak self] in
+                        guard let self else { return }
+                        self.viewModel.requests = requests
+                        var snapshot = NSDiffableDataSourceSnapshot<NotificationRequestsSection, NotificationRequestItem>()
+                        snapshot.appendSections([.main])
+                        snapshot.appendItems(self.viewModel.requests.compactMap { NotificationRequestItem.item($0) } )
+
+                        self.dataSource?.apply(snapshot)
+                    }
+                } else {
+                    await MainActor.run { [weak self] in
+                        _ = self?.navigationController?.popViewController(animated: true)
+                    }
+                }
+
+            } catch {
+                cell.acceptNotificationRequestActivityIndicatorView.stopAnimating()
+                cell.acceptNotificationRequestButton.tintColor = .white
+                cell.acceptNotificationRequestButton.setTitleColor(.white, for: .normal)
+                cell.rejectNotificationRequestButton.isUserInteractionEnabled = true
+                cell.acceptNotificationRequestButton.isUserInteractionEnabled = true
+            }
+        }
     }
     
     func rejectNotificationRequest(_ cell: NotificationRequestTableViewCell, notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) {
-        print("reject \(notificationRequest.id)")
 
         cell.rejectNotificationRequestActivityIndicatorView.isHidden = false
         cell.rejectNotificationRequestActivityIndicatorView.startAnimating()
         cell.rejectNotificationRequestButton.tintColor = .clear
         cell.rejectNotificationRequestButton.setTitleColor(.clear, for: .normal)
+        cell.rejectNotificationRequestButton.isUserInteractionEnabled = false
+        cell.acceptNotificationRequestButton.isUserInteractionEnabled = false
 
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                _ = try await context.apiService.rejectNotificationRequests(authenticationBox: authContext.mastodonAuthenticationBox,
+                                                                            id: notificationRequest.id)
+
+                let requests = try await context.apiService.notificationRequests(authenticationBox: authContext.mastodonAuthenticationBox).value
+
+                if requests.count > 0 {
+
+                    await MainActor.run { [weak self] in
+                        guard let self else { return }
+                        self.viewModel.requests = requests
+                        var snapshot = NSDiffableDataSourceSnapshot<NotificationRequestsSection, NotificationRequestItem>()
+                        snapshot.appendSections([.main])
+                        snapshot.appendItems(self.viewModel.requests.compactMap { NotificationRequestItem.item($0) } )
+
+                        self.dataSource?.apply(snapshot)
+                    }
+                } else {
+                    await MainActor.run { [weak self] in
+                        _ = self?.navigationController?.popViewController(animated: true)
+                    }
+                }
+
+            } catch {
+                cell.rejectNotificationRequestActivityIndicatorView.stopAnimating()
+                cell.rejectNotificationRequestButton.tintColor = .black
+                cell.rejectNotificationRequestButton.setTitleColor(.black, for: .normal)
+                cell.rejectNotificationRequestButton.isUserInteractionEnabled = true
+                cell.acceptNotificationRequestButton.isUserInteractionEnabled = true
+            }
+        }
     }
 }
