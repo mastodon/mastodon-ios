@@ -35,7 +35,7 @@ class NotificationRequestsTableViewController: UIViewController, NeedsDependency
 
         tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = .secondarySystemBackground
         tableView.register(NotificationRequestTableViewCell.self, forCellReuseIdentifier: NotificationRequestTableViewCell.reuseIdentifier)
 
         super.init(nibName: nil, bundle: nil)
@@ -57,6 +57,9 @@ class NotificationRequestsTableViewController: UIViewController, NeedsDependency
         tableView.dataSource = dataSource
         tableView.delegate = self
         self.dataSource = dataSource
+
+        //TODO: Localization
+        title = "Filtered Notifications"
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
