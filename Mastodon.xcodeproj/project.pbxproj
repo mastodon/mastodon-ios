@@ -644,6 +644,7 @@
 		2A5242722C199C96005B9E22 /* PrivacySafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySafetyView.swift; sourceTree = "<group>"; };
 		2A5242742C199CBD005B9E22 /* CheckableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableButton.swift; sourceTree = "<group>"; };
 		2A5242762C199EC2005B9E22 /* PrivacySafetySettingPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySafetySettingPreset.swift; sourceTree = "<group>"; };
+		2A60583E2C491C4A0001194D /* AppVersion.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppVersion.xcconfig; sourceTree = "<group>"; };
 		2A631AE72B8C9F6600FE0778 /* LanguagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePickerViewController.swift; sourceTree = "<group>"; };
 		2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpenInActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2062,6 +2063,7 @@
 			isa = PBXGroup;
 			children = (
 				D84C099D2B0F9E33009E685E /* README.md */,
+				2A60583E2C491C4A0001194D /* AppVersion.xcconfig */,
 				D84C099E2B0F9E41009E685E /* Documentation */,
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
@@ -4126,6 +4128,7 @@
 /* Begin XCBuildConfiguration section */
 		2A64516B29642A8B00CD8B8A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -4143,7 +4146,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.OpenInActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4156,6 +4158,7 @@
 		};
 		2A64516C29642A8B00CD8B8A /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -4170,7 +4173,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.OpenInActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4182,6 +4184,7 @@
 		};
 		2A64516D29642A8B00CD8B8A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -4198,7 +4201,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.OpenInActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore org.joinmastodon.app.OpenInActionExtension";
@@ -4211,6 +4213,7 @@
 		};
 		2A64516E29642A8B00CD8B8A /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -4225,7 +4228,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.OpenInActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4237,6 +4239,7 @@
 		};
 		2A728135297EA9D8004138C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -4255,7 +4258,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4268,6 +4270,7 @@
 		};
 		2A728136297EA9D8004138C5 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -4283,7 +4286,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4295,6 +4297,7 @@
 		};
 		2A728137297EA9D8004138C5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -4312,7 +4315,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore org.joinmastodon.app.WidgetExtension";
@@ -4325,6 +4327,7 @@
 		};
 		2A728138297EA9D8004138C5 /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -4340,7 +4343,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4477,6 +4479,7 @@
 		};
 		DB427DFD25BAA00100D1B89D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4493,7 +4496,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.8;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4507,6 +4509,7 @@
 		};
 		DB427DFE25BAA00100D1B89D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4523,7 +4526,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.8;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4694,6 +4696,7 @@
 		};
 		DB848E2B282B5E6300A302CC /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4708,7 +4711,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.8;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4769,6 +4771,7 @@
 		};
 		DB848E2F282B5E6300A302CC /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
@@ -4790,6 +4793,7 @@
 		};
 		DB848E30282B5E6300A302CC /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
@@ -4811,6 +4815,7 @@
 		};
 		DB848E31282B5E6300A302CC /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
@@ -4832,6 +4837,7 @@
 		};
 		DB8FABD026AEC7B2008E5AF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4856,6 +4862,7 @@
 		};
 		DB8FABD326AEC7B2008E5AF4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -4880,6 +4887,7 @@
 		};
 		DBC6461D26A170AB00B0E31B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4904,6 +4912,7 @@
 		};
 		DBC6462026A170AB00B0E31B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -4987,6 +4996,7 @@
 		};
 		DBEB19E227E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -5001,7 +5011,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.8;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5061,6 +5070,7 @@
 		};
 		DBEB19E627E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
@@ -5082,6 +5092,7 @@
 		};
 		DBEB19E727E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
@@ -5103,6 +5114,7 @@
 		};
 		DBEB19E827E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
@@ -5124,6 +5136,7 @@
 		};
 		DBF8AE1C263293E400C9C23C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
@@ -5148,6 +5161,7 @@
 		};
 		DBF8AE1D263293E400C9C23C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A60583E2C491C4A0001194D /* AppVersion.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
