@@ -207,11 +207,11 @@ extension Mastodon.API.Notifications {
     }
 
     internal static func acceptNotificationRequestEndpointURL(domain: String, id: String) -> URL {
-        notificationRequestEndpointURL(domain: domain, id: id).appendingPathExtension("accept")
+        notificationRequestEndpointURL(domain: domain, id: id).appendingPathComponent("accept")
     }
 
     internal static func dismissNotificationRequestEndpointURL(domain: String, id: String) -> URL {
-        notificationRequestEndpointURL(domain: domain, id: id).appendingPathExtension("dismiss")
+        notificationRequestEndpointURL(domain: domain, id: id).appendingPathComponent("dismiss")
     }
 
     public static func getNotificationRequests(
