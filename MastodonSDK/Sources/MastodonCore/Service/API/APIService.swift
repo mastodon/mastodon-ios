@@ -32,7 +32,7 @@ public final class APIService {
     public init(backgroundManagedObjectContext: NSManagedObjectContext) {
         self.backgroundManagedObjectContext = backgroundManagedObjectContext
 
-        let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["User-Agent" : "mastodon-ios/" + appVersion]
         self.session = URLSession(configuration: configuration)
