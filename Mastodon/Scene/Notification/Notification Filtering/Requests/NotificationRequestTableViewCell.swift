@@ -10,12 +10,15 @@ import MastodonLocalization
 import MastodonAsset
 
 protocol NotificationRequestTableViewCellDelegate: AnyObject {
-    // reject
-    // accept
+    func acceptNotificationRequest(_ cell: NotificationRequestTableViewCell, notificationRequest: Mastodon.Entity.NotificationRequest)
+    func rejectNotificationRequest(_ cell: NotificationRequestTableViewCell, notificationRequest: Mastodon.Entity.NotificationRequest)
 }
 
 class NotificationRequestTableViewCell: UITableViewCell {
     static let reuseIdentifier = "NotificationRequestTableViewCell"
+
+    var notificationRequest: Mastodon.Entity.NotificationRequest?
+    weak var delegate: NotificationRequestTableViewCellDelegate?
 
     let nameLabel: MetaLabel
     let usernameLabel: MetaLabel
@@ -25,15 +28,12 @@ class NotificationRequestTableViewCell: UITableViewCell {
     private let avatarStackView: UIStackView
     private let contentStackView: UIStackView
 
-//    private let stack
-    // accept/deny-button
-
     let acceptNotificationRequestButtonShadowBackgroundContainer = ShadowBackgroundContainer()
     let acceptNotificationRequestButton: HighlightDimmableButton
-    let acceptNotificationRequestActivityIndicatorView = UIActivityIndicatorView(style: .medium)
+    let acceptNotificationRequestActivityIndicatorView: UIActivityIndicatorView
 
     let rejectNotificationRequestButtonShadowBackgroundContainer = ShadowBackgroundContainer()
-    let rejectNotificationRequestActivityIndicatorView = UIActivityIndicatorView(style: .medium)
+    let rejectNotificationRequestActivityIndicatorView: UIActivityIndicatorView
     let rejectNotificationRequestButton: HighlightDimmableButton
 
     private let buttonStackView: UIStackView
@@ -69,6 +69,13 @@ class NotificationRequestTableViewCell: UITableViewCell {
         acceptNotificationRequestButtonShadowBackgroundContainer.shadowAlpha = 0.1
         acceptNotificationRequestButtonShadowBackgroundContainer.addSubview(acceptNotificationRequestButton)
 
+        acceptNotificationRequestActivityIndicatorView = UIActivityIndicatorView(style: .medium)
+        acceptNotificationRequestActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        acceptNotificationRequestActivityIndicatorView.color = .black
+        acceptNotificationRequestActivityIndicatorView.hidesWhenStopped = true
+        acceptNotificationRequestActivityIndicatorView.stopAnimating()
+        acceptNotificationRequestButton.addSubview(acceptNotificationRequestActivityIndicatorView)
+
         rejectNotificationRequestButton = HighlightDimmableButton()
         rejectNotificationRequestButton.translatesAutoresizingMaskIntoConstraints = false
         rejectNotificationRequestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -86,6 +93,13 @@ class NotificationRequestTableViewCell: UITableViewCell {
         rejectNotificationRequestButtonShadowBackgroundContainer.cornerRadius = 10
         rejectNotificationRequestButtonShadowBackgroundContainer.shadowAlpha = 0.1
         rejectNotificationRequestButtonShadowBackgroundContainer.addSubview(rejectNotificationRequestButton)
+
+        rejectNotificationRequestActivityIndicatorView = UIActivityIndicatorView(style: .medium)
+        rejectNotificationRequestActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        rejectNotificationRequestActivityIndicatorView.color = .black
+        rejectNotificationRequestActivityIndicatorView.hidesWhenStopped = true
+        rejectNotificationRequestActivityIndicatorView.stopAnimating()
+        rejectNotificationRequestButton.addSubview(rejectNotificationRequestActivityIndicatorView)
 
         buttonStackView = UIStackView(arrangedSubviews: [acceptNotificationRequestButtonShadowBackgroundContainer, rejectNotificationRequestButtonShadowBackgroundContainer])
         buttonStackView.axis = .horizontal
@@ -106,8 +120,8 @@ class NotificationRequestTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-//        acceptNotificationRequestButton.addTarget(self, action: #selector(NotificationView.acceptNotificationRequestButtonDidPressed(_:)), for: .touchUpInside)
-//        rejectNotificationRequestButton.addTarget(self, action: #selector(NotificationView.rejectNotificationRequestButtonDidPressed(_:)), for: .touchUpInside)
+        acceptNotificationRequestButton.addTarget(self, action: #selector(NotificationRequestTableViewCell.acceptNotificationRequest(_:)), for: .touchUpInside)
+        rejectNotificationRequestButton.addTarget(self, action: #selector(NotificationRequestTableViewCell.rejectNotificationRequest(_:)), for: .touchUpInside)
 
         contentView.addSubview(contentStackView)
         setupConstraints()
@@ -128,6 +142,12 @@ class NotificationRequestTableViewCell: UITableViewCell {
 
             avatarButton.widthAnchor.constraint(equalToConstant: CGSize.authorAvatarButtonSize.width).priority(.required - 1),
             avatarButton.heightAnchor.constraint(equalToConstant: CGSize.authorAvatarButtonSize.height).priority(.required - 1),
+
+            acceptNotificationRequestActivityIndicatorView.centerXAnchor.constraint(equalTo: acceptNotificationRequestButton.centerXAnchor),
+            acceptNotificationRequestActivityIndicatorView.centerYAnchor.constraint(equalTo: acceptNotificationRequestButton.centerYAnchor),
+            rejectNotificationRequestActivityIndicatorView.centerXAnchor.constraint(equalTo: rejectNotificationRequestButton.centerXAnchor),
+            rejectNotificationRequestActivityIndicatorView.centerYAnchor.constraint(equalTo: rejectNotificationRequestButton.centerYAnchor),
+
         ]
         NSLayoutConstraint.activate(constraints)
 
@@ -159,9 +179,20 @@ class NotificationRequestTableViewCell: UITableViewCell {
 
         let metaUsername = PlaintextMetaContent(string: "@\(account.acct)")
         usernameLabel.configure(content: metaUsername)
+
+        self.notificationRequest = request
     }
 
     // MARK: - Actions
-    // reject
-    // accept
+    @objc private func acceptNotificationRequest(_ sender: UIButton) {
+        guard let notificationRequest, let delegate else { return }
+
+        delegate.acceptNotificationRequest(self, notificationRequest: notificationRequest)
+    }
+    @objc private func rejectNotificationRequest(_ sender: UIButton) {
+        guard let notificationRequest, let delegate else { return }
+
+        delegate.rejectNotificationRequest(self, notificationRequest: notificationRequest)
+    }
+
 }

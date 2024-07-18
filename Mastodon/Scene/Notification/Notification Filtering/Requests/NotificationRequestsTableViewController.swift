@@ -28,7 +28,7 @@ class NotificationRequestsTableViewController: UIViewController, NeedsDependency
     var dataSource: UITableViewDiffableDataSource<NotificationRequestsSection, NotificationRequestItem>?
 
     init(viewModel: NotificationRequestsViewModel, appContext: AppContext, coordinator: SceneCoordinator) {
-        //TODO: DataSource, Delegate....
+
         self.viewModel = viewModel
         self.context = appContext
         self.coordinator = coordinator
@@ -50,6 +50,7 @@ class NotificationRequestsTableViewController: UIViewController, NeedsDependency
 
             let request = viewModel.requests[indexPath.row]
             cell.configure(with: request)
+            cell.delegate = self
 
             return cell
         }
@@ -90,4 +91,28 @@ extension NotificationRequestsTableViewController: UITableViewDelegate {
 // MARK: - AuthContextProvider
 extension NotificationRequestsTableViewController: AuthContextProvider {
     var authContext: AuthContext { viewModel.authContext }
+}
+
+extension NotificationRequestsTableViewController: NotificationRequestTableViewCellDelegate {
+    func acceptNotificationRequest(_ cell: NotificationRequestTableViewCell, notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) {
+        print("accept \(notificationRequest.id)")
+        cell.acceptNotificationRequestActivityIndicatorView.isHidden = false
+        cell.acceptNotificationRequestActivityIndicatorView.startAnimating()
+
+        cell.acceptNotificationRequestButton.tintColor = .clear
+        cell.acceptNotificationRequestButton.setTitleColor(.clear, for: .normal)
+
+
+        //TODO: Send request, update cell, reload notification requests AND general notifications
+    }
+    
+    func rejectNotificationRequest(_ cell: NotificationRequestTableViewCell, notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) {
+        print("reject \(notificationRequest.id)")
+
+        cell.rejectNotificationRequestActivityIndicatorView.isHidden = false
+        cell.rejectNotificationRequestActivityIndicatorView.startAnimating()
+        cell.rejectNotificationRequestButton.tintColor = .clear
+        cell.rejectNotificationRequestButton.setTitleColor(.clear, for: .normal)
+
+    }
 }

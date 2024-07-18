@@ -327,7 +327,7 @@ extension NotificationView {
             rejectFollowRequestActivityIndicatorView.centerYAnchor.constraint(equalTo: rejectFollowRequestButton.centerYAnchor),
         ])
         rejectFollowRequestActivityIndicatorView.color = .black
-        acceptFollowRequestActivityIndicatorView.hidesWhenStopped = true
+        rejectFollowRequestActivityIndicatorView.hidesWhenStopped = true
         rejectFollowRequestActivityIndicatorView.stopAnimating()
         
         // statusView
