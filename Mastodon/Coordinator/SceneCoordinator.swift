@@ -564,8 +564,7 @@ private extension SceneCoordinator {
             let composeViewController = ComposeViewController(viewModel: viewModel)
             viewController = composeViewController
         case .notificationRequests(let viewModel):
-            //FIXME: Put either AuthContext or Everything in ViewModel
-            viewController = NotificationRequestsTableViewController(viewModel: viewModel, appContext: appContext, coordinator: self)
+            viewController = NotificationRequestsTableViewController(viewModel: viewModel)
         case .notificationPolicy(let viewModel):
             viewController = NotificationPolicyViewController(viewModel: viewModel)
         case .notificationTimeline(let viewModel):

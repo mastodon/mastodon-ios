@@ -4,11 +4,6 @@ import UIKit
 import MastodonSDK
 import MastodonCore
 
-struct NotificationRequestsViewModel {
-    var requests: [Mastodon.Entity.NotificationRequest]
-    let authContext: AuthContext
-}
-
 enum NotificationRequestsSection: Hashable {
     case main
 }
@@ -30,11 +25,11 @@ class NotificationRequestsTableViewController: UIViewController, NeedsDependency
     var viewModel: NotificationRequestsViewModel
     var dataSource: UITableViewDiffableDataSource<NotificationRequestsSection, NotificationRequestItem>?
 
-    init(viewModel: NotificationRequestsViewModel, appContext: AppContext, coordinator: SceneCoordinator) {
+    init(viewModel: NotificationRequestsViewModel) {
 
         self.viewModel = viewModel
-        self.context = appContext
-        self.coordinator = coordinator
+        self.context = viewModel.appContext
+        self.coordinator = viewModel.coordinator
 
         tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false

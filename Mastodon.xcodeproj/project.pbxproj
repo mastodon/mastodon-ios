@@ -168,6 +168,7 @@
 		D85DF9712C481B1100A01408 /* NotificationRequestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF96E2C481B1100A01408 /* NotificationRequestsTableViewController.swift */; };
 		D85DF9722C481B1100A01408 /* NotificationRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF96F2C481B1100A01408 /* NotificationRequestTableViewCell.swift */; };
 		D85DF9742C481B3500A01408 /* DataSourceFacade+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9732C481B3500A01408 /* DataSourceFacade+Notifications.swift */; };
+		D85DF9762C4965A900A01408 /* NotificationRequestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */; };
 		D87364F92AE28DB500C8F919 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = D87364F82AE28DB500C8F919 /* Kanna */; };
 		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
 		D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */; };
@@ -813,6 +814,7 @@
 		D85DF96E2C481B1100A01408 /* NotificationRequestsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationRequestsTableViewController.swift; sourceTree = "<group>"; };
 		D85DF96F2C481B1100A01408 /* NotificationRequestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationRequestTableViewCell.swift; sourceTree = "<group>"; };
 		D85DF9732C481B3500A01408 /* DataSourceFacade+Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Notifications.swift"; sourceTree = "<group>"; };
+		D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestsViewModel.swift; sourceTree = "<group>"; };
 		D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginView.swift; sourceTree = "<group>"; };
 		D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewModel.swift; sourceTree = "<group>"; };
 		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
@@ -1850,6 +1852,7 @@
 			children = (
 				D85DF96E2C481B1100A01408 /* NotificationRequestsTableViewController.swift */,
 				D85DF96F2C481B1100A01408 /* NotificationRequestTableViewCell.swift */,
+				D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */,
 			);
 			name = Requests;
 			path = "Notification Filtering/Requests";
@@ -3597,6 +3600,7 @@
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
 				DB938EE62623F50700E5B6C1 /* ThreadViewController.swift in Sources */,
+				D85DF9762C4965A900A01408 /* NotificationRequestsViewModel.swift in Sources */,
 				DB6180F426391D110018D199 /* MediaPreviewImageView.swift in Sources */,
 				DBF9814A265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
