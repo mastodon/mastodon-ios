@@ -385,7 +385,7 @@ extension StatusView.ViewModel {
                 
                 let maxSize = CGSize(
                     width: statusView.contentMaxLayoutWidth,
-                    height: 9999        // fulfill the width
+                    height: statusView.contentMaxLayoutHeight
                 )
                 var needsDisplay = true
                 switch configurations.count {
