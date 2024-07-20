@@ -28,7 +28,7 @@ extension RequestQuery {
 // A `Get` query only contains queryItems, it should not be `Encodable`
 extension RequestQuery where Self: Encodable {
     var contentType: String? {
-        return "application/json; charset=utf-8"
+        return "application/json"
     }
     var body: Data? {
         return try? Mastodon.API.encoder.encode(self)
