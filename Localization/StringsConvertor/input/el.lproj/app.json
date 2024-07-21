@@ -2,7 +2,7 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
+                "please_try_again": "Παρακαλώ δοκίμασε πάλι.",
                 "please_try_again_later": "Παρακαλώ δοκίμασε ξανά αργότερα."
             },
             "sign_up_failure": {
