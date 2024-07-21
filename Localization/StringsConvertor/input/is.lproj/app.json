@@ -479,12 +479,12 @@
                 "following": "Fylgist með",
                 "local_community": "Staðvært",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Listar",
+                    "empty_message": "Þú ert ekki með neina lista"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Myllumerki sem fylgst er með",
+                    "empty_message": "Þú fylgist ekki með neinum myllumerkjum"
                 }
             },
             "timeline_pill": {
