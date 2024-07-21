@@ -2,7 +2,7 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Παρακαλώ προσπάθησε ξανά.",
+                "please_try_again": "Please try again.",
                 "please_try_again_later": "Παρακαλώ δοκίμασε ξανά αργότερα."
             },
             "sign_up_failure": {
@@ -479,12 +479,12 @@
                 "following": "Ακολουθείς",
                 "local_community": "Τοπική",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Λίστες",
+                    "empty_message": "Δεν έχεις καμία Λίστα ακόμα"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Ετικέτες που Ακολουθούνται",
+                    "empty_message": "Δεν ακολουθείς καμία Ετικέτα"
                 }
             },
             "timeline_pill": {
