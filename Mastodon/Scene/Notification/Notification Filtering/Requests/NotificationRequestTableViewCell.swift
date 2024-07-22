@@ -36,6 +36,8 @@ class NotificationRequestTableViewCell: UITableViewCell {
     let rejectNotificationRequestActivityIndicatorView: UIActivityIndicatorView
     let rejectNotificationRequestButton: HighlightDimmableButton
 
+    let requestCountView: NotificationRequestCountView
+
     private let buttonStackView: UIStackView
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -118,12 +120,16 @@ class NotificationRequestTableViewCell: UITableViewCell {
         contentStackView.axis = .vertical
         contentStackView.alignment = .leading
 
+        requestCountView = NotificationRequestCountView()
+        requestCountView.translatesAutoresizingMaskIntoConstraints = false
+
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         acceptNotificationRequestButton.addTarget(self, action: #selector(NotificationRequestTableViewCell.acceptNotificationRequest(_:)), for: .touchUpInside)
         rejectNotificationRequestButton.addTarget(self, action: #selector(NotificationRequestTableViewCell.rejectNotificationRequest(_:)), for: .touchUpInside)
 
         contentView.addSubview(contentStackView)
+        contentView.addSubview(requestCountView)
         setupConstraints()
     }
 
@@ -147,6 +153,9 @@ class NotificationRequestTableViewCell: UITableViewCell {
             acceptNotificationRequestActivityIndicatorView.centerYAnchor.constraint(equalTo: acceptNotificationRequestButton.centerYAnchor),
             rejectNotificationRequestActivityIndicatorView.centerXAnchor.constraint(equalTo: rejectNotificationRequestButton.centerXAnchor),
             rejectNotificationRequestActivityIndicatorView.centerYAnchor.constraint(equalTo: rejectNotificationRequestButton.centerYAnchor),
+
+            requestCountView.trailingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 2),
+            requestCountView.bottomAnchor.constraint(equalTo: avatarButton.bottomAnchor, constant: 2),
 
         ]
         NSLayoutConstraint.activate(constraints)
@@ -179,6 +188,10 @@ class NotificationRequestTableViewCell: UITableViewCell {
 
         let metaUsername = PlaintextMetaContent(string: "@\(account.acct)")
         usernameLabel.configure(content: metaUsername)
+
+        requestCountView.countLabel.text = request.notificationsCount
+        requestCountView.setNeedsLayout()
+        requestCountView.layoutIfNeeded()
 
         self.notificationRequest = request
     }
