@@ -2,72 +2,72 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>a11y.plural.count.unread.notification</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@notification_count_unread_notification@</string>
-        <key>notification_count_unread_notification</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>no unread notifications</string>
-            <key>one</key>
-            <string>1 unread notification</string>
-            <key>few</key>
-            <string>%ld unread notifications</string>
-            <key>many</key>
-            <string>%ld unread notifications</string>
-            <key>other</key>
-            <string>%ld unread notifications</string>
-        </dict>
-    </dict>
-    <key>a11y.plural.count.input_limit_exceeds</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>Input limit exceeds %#@character_count@</string>
-        <key>character_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 characters</string>
-            <key>one</key>
-            <string>1 character</string>
-            <key>few</key>
-            <string>%ld characters</string>
-            <key>many</key>
-            <string>%ld characters</string>
-            <key>other</key>
-            <string>%ld characters</string>
-        </dict>
-    </dict>
-    <key>a11y.plural.count.input_limit_remains</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>Input limit remains %#@character_count@</string>
-        <key>character_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 characters</string>
-            <key>one</key>
-            <string>1 character</string>
-            <key>few</key>
-            <string>%ld characters</string>
-            <key>many</key>
-            <string>%ld characters</string>
-            <key>other</key>
-            <string>%ld characters</string>
-        </dict>
-    </dict>
+	<key>a11y.plural.count.unread.notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@notification_count_unread_notification@</string>
+		<key>notification_count_unread_notification</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>no unread notifications</string>
+			<key>one</key>
+			<string>1 unread notification</string>
+			<key>few</key>
+			<string>%ld unread notifications</string>
+			<key>many</key>
+			<string>%ld unread notifications</string>
+			<key>other</key>
+			<string>%ld unread notifications</string>
+		</dict>
+	</dict>
+	<key>a11y.plural.count.input_limit_exceeds</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Input limit exceeds %#@character_count@</string>
+		<key>character_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 characters</string>
+			<key>one</key>
+			<string>1 character</string>
+			<key>few</key>
+			<string>%ld characters</string>
+			<key>many</key>
+			<string>%ld characters</string>
+			<key>other</key>
+			<string>%ld characters</string>
+		</dict>
+	</dict>
+	<key>a11y.plural.count.input_limit_remains</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Input limit remains %#@character_count@</string>
+		<key>character_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 characters</string>
+			<key>one</key>
+			<string>1 character</string>
+			<key>few</key>
+			<string>%ld characters</string>
+			<key>many</key>
+			<string>%ld characters</string>
+			<key>other</key>
+			<string>%ld characters</string>
+		</dict>
+	</dict>
 	<key>a11y.plural.count.characters_left</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -90,125 +90,125 @@
 			<string>%ld characters left</string>
 		</dict>
 	</dict>
-    <key>plural.count.followed_by_and_mutual</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@names@%#@count_mutual@</string>
-        <key>names</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>other</key>
-            <string></string>
-        </dict>
-        <key>count_mutual</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>Followed by %1$@</string>
-            <key>one</key>
-            <string>Followed by %1$@, and another mutual</string>
-            <key>few</key>
-            <string>Followed by %1$@, and %ld mutuals</string>
-            <key>many</key>
-            <string>Followed by %1$@, and %ld mutuals</string>
-            <key>other</key>
-            <string>Followed by %1$@, and %ld mutuals</string>
-        </dict>
-    </dict>
-    <key>plural.count.metric_formatted.post</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%@ %#@post_count@</string>
-        <key>post_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>posts</string>
-            <key>one</key>
-            <string>post</string>
-            <key>few</key>
-            <string>posts</string>
-            <key>many</key>
-            <string>posts</string>
-            <key>other</key>
-            <string>posts</string>
-        </dict>
-    </dict>
-    <key>plural.count.media</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@media_count@</string>
-        <key>media_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 media</string>
-            <key>one</key>
-            <string>1 media</string>
-            <key>few</key>
-            <string>%ld media</string>
-            <key>many</key>
-            <string>%ld media</string>
-            <key>other</key>
-            <string>%ld media</string>
-        </dict>
-    </dict>
-    <key>plural.count.post</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@post_count@</string>
-        <key>post_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 posts</string>
-            <key>one</key>
-            <string>1 post</string>
-            <key>few</key>
-            <string>%ld posts</string>
-            <key>many</key>
-            <string>%ld posts</string>
-            <key>other</key>
-            <string>%ld posts</string>
-        </dict>
-    </dict>
+	<key>plural.count.followed_by_and_mutual</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@names@%#@count_mutual@</string>
+		<key>names</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string></string>
+		</dict>
+		<key>count_mutual</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>Followed by %1$@</string>
+			<key>one</key>
+			<string>Followed by %1$@, and another mutual</string>
+			<key>few</key>
+			<string>Followed by %1$@, and %ld mutuals</string>
+			<key>many</key>
+			<string>Followed by %1$@, and %ld mutuals</string>
+			<key>other</key>
+			<string>Followed by %1$@, and %ld mutuals</string>
+		</dict>
+	</dict>
+	<key>plural.count.metric_formatted.post</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%@ %#@post_count@</string>
+		<key>post_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>posts</string>
+			<key>one</key>
+			<string>post</string>
+			<key>few</key>
+			<string>posts</string>
+			<key>many</key>
+			<string>posts</string>
+			<key>other</key>
+			<string>posts</string>
+		</dict>
+	</dict>
+	<key>plural.count.media</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@media_count@</string>
+		<key>media_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 media</string>
+			<key>one</key>
+			<string>1 media</string>
+			<key>few</key>
+			<string>%ld media</string>
+			<key>many</key>
+			<string>%ld media</string>
+			<key>other</key>
+			<string>%ld media</string>
+		</dict>
+	</dict>
+	<key>plural.count.post</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@post_count@</string>
+		<key>post_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 posts</string>
+			<key>one</key>
+			<string>1 post</string>
+			<key>few</key>
+			<string>%ld posts</string>
+			<key>many</key>
+			<string>%ld posts</string>
+			<key>other</key>
+			<string>%ld posts</string>
+		</dict>
+	</dict>
 	<key>plural.count.favorite</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@favorite_count@</string>
-        <key>favorite_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 favorites</string>
-            <key>one</key>
-            <string>1 favorite</string>
-            <key>few</key>
-            <string>%ld favorites</string>
-            <key>many</key>
-            <string>%ld favorites</string>
-            <key>other</key>
-            <string>%ld favorites</string>
-        </dict>
-    </dict>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@favorite_count@</string>
+		<key>favorite_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 favorites</string>
+			<key>one</key>
+			<string>1 favorite</string>
+			<key>few</key>
+			<string>%ld favorites</string>
+			<key>many</key>
+			<string>%ld favorites</string>
+			<key>other</key>
+			<string>%ld favorites</string>
+		</dict>
+	</dict>
 	<key>plural.count.reblog</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -231,29 +231,29 @@
 			<string>%ld reblogs</string>
 		</dict>
 	</dict>
-		<key>plural.count.reblog_a11y</key>
-    	<dict>
-    		<key>NSStringLocalizedFormatKey</key>
-    		<string>%#@reblog_count@</string>
-    		<key>reblog_count</key>
-    		<dict>
-    			<key>NSStringFormatSpecTypeKey</key>
-    			<string>NSStringPluralRuleType</string>
-    			<key>NSStringFormatValueTypeKey</key>
-    			<string>ld</string>
-    			<key>zero</key>
-    			<string>0 re-blogs</string>
-    			<key>one</key>
-    			<string>1 re-blog</string>
-    			<key>few</key>
-    			<string>%ld re-blogs</string>
-    			<key>many</key>
-    			<string>%ld re-blogs</string>
-    			<key>other</key>
-    			<string>%ld re-blogs</string>
-    		</dict>
-    	</dict>
-    <key>plural.count.reply</key>
+	<key>plural.count.reblog_a11y</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@reblog_count@</string>
+		<key>reblog_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 re-blogs</string>
+			<key>one</key>
+			<string>1 re-blog</string>
+			<key>few</key>
+			<string>%ld re-blogs</string>
+			<key>many</key>
+			<string>%ld re-blogs</string>
+			<key>other</key>
+			<string>%ld re-blogs</string>
+		</dict>
+	</dict>
+	<key>plural.count.reply</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@reply_count@</string>
@@ -275,379 +275,395 @@
 			<string>%ld replies</string>
 		</dict>
 	</dict>
-    <key>plural.count.vote</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@vote_count@</string>
-        <key>vote_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 votes</string>
-            <key>one</key>
-            <string>1 vote</string>
-            <key>few</key>
-            <string>%ld votes</string>
-            <key>many</key>
-            <string>%ld votes</string>
-            <key>other</key>
-            <string>%ld votes</string>
-        </dict>
-    </dict>
-    <key>plural.count.voter</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@voter_count@</string>
-        <key>voter_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 voters</string>
-            <key>one</key>
-            <string>1 voter</string>
-            <key>few</key>
-            <string>%ld voters</string>
-            <key>many</key>
-            <string>%ld voters</string>
-            <key>other</key>
-            <string>%ld voters</string>
-        </dict>
-    </dict>
-    <key>plural.people_talking</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_people_talking@</string>
-        <key>count_people_talking</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 people talking</string>
-            <key>one</key>
-            <string>1 people talking</string>
-            <key>few</key>
-            <string>%ld people talking</string>
-            <key>many</key>
-            <string>%ld people talking</string>
-            <key>other</key>
-            <string>%ld people talking</string>
-        </dict>
-    </dict>
-    <key>plural.count.following</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_following@</string>
-        <key>count_following</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 following</string>
-            <key>one</key>
-            <string>1 following</string>
-            <key>few</key>
-            <string>%ld following</string>
-            <key>many</key>
-            <string>%ld following</string>
-            <key>other</key>
-            <string>%ld following</string>
-        </dict>
-    </dict>
-    <key>plural.count.follower</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_follower@</string>
-        <key>count_follower</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 followers</string>
-            <key>one</key>
-            <string>1 follower</string>
-            <key>few</key>
-            <string>%ld followers</string>
-            <key>many</key>
-            <string>%ld followers</string>
-            <key>other</key>
-            <string>%ld followers</string>
-        </dict>
-    </dict>
-    <key>date.year.left</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_year_left@</string>
-        <key>count_year_left</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 years left</string>
-            <key>one</key>
-            <string>1 year left</string>
-            <key>few</key>
-            <string>%ld years left</string>
-            <key>many</key>
-            <string>%ld years left</string>
-            <key>other</key>
-            <string>%ld years left</string>
-        </dict>
-    </dict>
-    <key>date.month.left</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_month_left@</string>
-        <key>count_month_left</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 months left</string>
-            <key>one</key>
-            <string>1 months left</string>
-            <key>few</key>
-            <string>%ld months left</string>
-            <key>many</key>
-            <string>%ld months left</string>
-            <key>other</key>
-            <string>%ld months left</string>
-        </dict>
-    </dict>
-    <key>date.day.left</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_day_left@</string>
-        <key>count_day_left</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 days left</string>
-            <key>one</key>
-            <string>1 day left</string>
-            <key>few</key>
-            <string>%ld days left</string>
-            <key>many</key>
-            <string>%ld days left</string>
-            <key>other</key>
-            <string>%ld days left</string>
-        </dict>
-    </dict>
-    <key>date.hour.left</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_hour_left@</string>
-        <key>count_hour_left</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 hours left</string>
-            <key>one</key>
-            <string>1 hour left</string>
-            <key>few</key>
-            <string>%ld hours left</string>
-            <key>many</key>
-            <string>%ld hours left</string>
-            <key>other</key>
-            <string>%ld hours left</string>
-        </dict>
-    </dict>
-    <key>date.minute.left</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_minute_left@</string>
-        <key>count_minute_left</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 minutes left</string>
-            <key>one</key>
-            <string>1 minute left</string>
-            <key>few</key>
-            <string>%ld minutes left</string>
-            <key>many</key>
-            <string>%ld minutes left</string>
-            <key>other</key>
-            <string>%ld minutes left</string>
-        </dict>
-    </dict>
-    <key>date.second.left</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_second_left@</string>
-        <key>count_second_left</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 seconds left</string>
-            <key>one</key>
-            <string>1 second left</string>
-            <key>few</key>
-            <string>%ld seconds left</string>
-            <key>many</key>
-            <string>%ld seconds left</string>
-            <key>other</key>
-            <string>%ld seconds left</string>
-        </dict>
-    </dict>
-        <key>date.year.ago.abbr</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_year_ago_abbr@</string>
-        <key>count_year_ago_abbr</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0y ago</string>
-            <key>one</key>
-            <string>1y ago</string>
-            <key>few</key>
-            <string>%ldy ago</string>
-            <key>many</key>
-            <string>%ldy ago</string>
-            <key>other</key>
-            <string>%ldy ago</string>
-        </dict>
-    </dict>
-    <key>date.month.ago.abbr</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_month_ago_abbr@</string>
-        <key>count_month_ago_abbr</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0M ago</string>
-            <key>one</key>
-            <string>1M ago</string>
-            <key>few</key>
-            <string>%ldM ago</string>
-            <key>many</key>
-            <string>%ldM ago</string>
-            <key>other</key>
-            <string>%ldM ago</string>
-        </dict>
-    </dict>
-    <key>date.day.ago.abbr</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_day_ago_abbr@</string>
-        <key>count_day_ago_abbr</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0d ago</string>
-            <key>one</key>
-            <string>1d ago</string>
-            <key>few</key>
-            <string>%ldd ago</string>
-            <key>many</key>
-            <string>%ldd ago</string>
-            <key>other</key>
-            <string>%ldd ago</string>
-        </dict>
-    </dict>
-    <key>date.hour.ago.abbr</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_hour_ago_abbr@</string>
-        <key>count_hour_ago_abbr</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0h ago</string>
-            <key>one</key>
-            <string>1h ago</string>
-            <key>few</key>
-            <string>%ldh ago</string>
-            <key>many</key>
-            <string>%ldh ago</string>
-            <key>other</key>
-            <string>%ldh ago</string>
-        </dict>
-    </dict>
-    <key>date.minute.ago.abbr</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_minute_ago_abbr@</string>
-        <key>count_minute_ago_abbr</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0m ago</string>
-            <key>one</key>
-            <string>1m ago</string>
-            <key>few</key>
-            <string>%ldm ago</string>
-            <key>many</key>
-            <string>%ldm ago</string>
-            <key>other</key>
-            <string>%ldm ago</string>
-        </dict>
-    </dict>
-    <key>date.second.ago.abbr</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_second_ago_abbr@</string>
-        <key>count_second_ago_abbr</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0s ago</string>
-            <key>one</key>
-            <string>1s ago</string>
-            <key>few</key>
-            <string>%lds ago</string>
-            <key>many</key>
-            <string>%lds ago</string>
-            <key>other</key>
-            <string>%lds ago</string>
-        </dict>
-    </dict>
+	<key>plural.count.vote</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@vote_count@</string>
+		<key>vote_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 votes</string>
+			<key>one</key>
+			<string>1 vote</string>
+			<key>few</key>
+			<string>%ld votes</string>
+			<key>many</key>
+			<string>%ld votes</string>
+			<key>other</key>
+			<string>%ld votes</string>
+		</dict>
+	</dict>
+	<key>plural.count.voter</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@voter_count@</string>
+		<key>voter_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 voters</string>
+			<key>one</key>
+			<string>1 voter</string>
+			<key>few</key>
+			<string>%ld voters</string>
+			<key>many</key>
+			<string>%ld voters</string>
+			<key>other</key>
+			<string>%ld voters</string>
+		</dict>
+	</dict>
+	<key>plural.people_talking</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_people_talking@</string>
+		<key>count_people_talking</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 people talking</string>
+			<key>one</key>
+			<string>1 people talking</string>
+			<key>few</key>
+			<string>%ld people talking</string>
+			<key>many</key>
+			<string>%ld people talking</string>
+			<key>other</key>
+			<string>%ld people talking</string>
+		</dict>
+	</dict>
+	<key>plural.count.following</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_following@</string>
+		<key>count_following</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 following</string>
+			<key>one</key>
+			<string>1 following</string>
+			<key>few</key>
+			<string>%ld following</string>
+			<key>many</key>
+			<string>%ld following</string>
+			<key>other</key>
+			<string>%ld following</string>
+		</dict>
+	</dict>
+	<key>plural.count.follower</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_follower@</string>
+		<key>count_follower</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 followers</string>
+			<key>one</key>
+			<string>1 follower</string>
+			<key>few</key>
+			<string>%ld followers</string>
+			<key>many</key>
+			<string>%ld followers</string>
+			<key>other</key>
+			<string>%ld followers</string>
+		</dict>
+	</dict>
+	<key>date.year.left</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_year_left@</string>
+		<key>count_year_left</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 years left</string>
+			<key>one</key>
+			<string>1 year left</string>
+			<key>few</key>
+			<string>%ld years left</string>
+			<key>many</key>
+			<string>%ld years left</string>
+			<key>other</key>
+			<string>%ld years left</string>
+		</dict>
+	</dict>
+	<key>date.month.left</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_month_left@</string>
+		<key>count_month_left</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 months left</string>
+			<key>one</key>
+			<string>1 months left</string>
+			<key>few</key>
+			<string>%ld months left</string>
+			<key>many</key>
+			<string>%ld months left</string>
+			<key>other</key>
+			<string>%ld months left</string>
+		</dict>
+	</dict>
+	<key>date.day.left</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_day_left@</string>
+		<key>count_day_left</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 days left</string>
+			<key>one</key>
+			<string>1 day left</string>
+			<key>few</key>
+			<string>%ld days left</string>
+			<key>many</key>
+			<string>%ld days left</string>
+			<key>other</key>
+			<string>%ld days left</string>
+		</dict>
+	</dict>
+	<key>date.hour.left</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_hour_left@</string>
+		<key>count_hour_left</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 hours left</string>
+			<key>one</key>
+			<string>1 hour left</string>
+			<key>few</key>
+			<string>%ld hours left</string>
+			<key>many</key>
+			<string>%ld hours left</string>
+			<key>other</key>
+			<string>%ld hours left</string>
+		</dict>
+	</dict>
+	<key>date.minute.left</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_minute_left@</string>
+		<key>count_minute_left</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 minutes left</string>
+			<key>one</key>
+			<string>1 minute left</string>
+			<key>few</key>
+			<string>%ld minutes left</string>
+			<key>many</key>
+			<string>%ld minutes left</string>
+			<key>other</key>
+			<string>%ld minutes left</string>
+		</dict>
+	</dict>
+	<key>date.second.left</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_second_left@</string>
+		<key>count_second_left</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 seconds left</string>
+			<key>one</key>
+			<string>1 second left</string>
+			<key>few</key>
+			<string>%ld seconds left</string>
+			<key>many</key>
+			<string>%ld seconds left</string>
+			<key>other</key>
+			<string>%ld seconds left</string>
+		</dict>
+	</dict>
+	<key>date.year.ago.abbr</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_year_ago_abbr@</string>
+		<key>count_year_ago_abbr</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0y ago</string>
+			<key>one</key>
+			<string>1y ago</string>
+			<key>few</key>
+			<string>%ldy ago</string>
+			<key>many</key>
+			<string>%ldy ago</string>
+			<key>other</key>
+			<string>%ldy ago</string>
+		</dict>
+	</dict>
+	<key>date.month.ago.abbr</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_month_ago_abbr@</string>
+		<key>count_month_ago_abbr</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0M ago</string>
+			<key>one</key>
+			<string>1M ago</string>
+			<key>few</key>
+			<string>%ldM ago</string>
+			<key>many</key>
+			<string>%ldM ago</string>
+			<key>other</key>
+			<string>%ldM ago</string>
+		</dict>
+	</dict>
+	<key>date.day.ago.abbr</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_day_ago_abbr@</string>
+		<key>count_day_ago_abbr</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0d ago</string>
+			<key>one</key>
+			<string>1d ago</string>
+			<key>few</key>
+			<string>%ldd ago</string>
+			<key>many</key>
+			<string>%ldd ago</string>
+			<key>other</key>
+			<string>%ldd ago</string>
+		</dict>
+	</dict>
+	<key>date.hour.ago.abbr</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_hour_ago_abbr@</string>
+		<key>count_hour_ago_abbr</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0h ago</string>
+			<key>one</key>
+			<string>1h ago</string>
+			<key>few</key>
+			<string>%ldh ago</string>
+			<key>many</key>
+			<string>%ldh ago</string>
+			<key>other</key>
+			<string>%ldh ago</string>
+		</dict>
+	</dict>
+	<key>date.minute.ago.abbr</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_minute_ago_abbr@</string>
+		<key>count_minute_ago_abbr</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0m ago</string>
+			<key>one</key>
+			<string>1m ago</string>
+			<key>few</key>
+			<string>%ldm ago</string>
+			<key>many</key>
+			<string>%ldm ago</string>
+			<key>other</key>
+			<string>%ldm ago</string>
+		</dict>
+	</dict>
+	<key>date.second.ago.abbr</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_second_ago_abbr@</string>
+		<key>count_second_ago_abbr</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0s ago</string>
+			<key>one</key>
+			<string>1s ago</string>
+			<key>few</key>
+			<string>%lds ago</string>
+			<key>many</key>
+			<string>%lds ago</string>
+			<key>other</key>
+			<string>%lds ago</string>
+		</dict>
+	</dict>
+	<key>plural.filtered_notification_banner.subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@number_of_requests@</string>
+		<key>number_of_requests</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>One person you may know</string>
+			<key>other</key>
+			<string>%ld people you may know</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

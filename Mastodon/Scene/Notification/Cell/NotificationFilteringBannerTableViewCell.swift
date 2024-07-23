@@ -85,6 +85,6 @@ class NotificationFilteringBannerTableViewCell: UITableViewCell {
     }
 
     func configure(with policy: Mastodon.Entity.NotificationPolicy) {
-        subtitleLabel.text = "\(policy.summary.pendingRequestsCount) people you may know"
+        subtitleLabel.text = L10n.Plural.FilteredNotificationBanner.subtitle(policy.summary.pendingRequestsCount)
     }
 }
