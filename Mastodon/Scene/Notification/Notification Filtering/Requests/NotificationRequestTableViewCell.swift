@@ -103,7 +103,7 @@ class NotificationRequestTableViewCell: UITableViewCell {
         rejectNotificationRequestActivityIndicatorView.stopAnimating()
         rejectNotificationRequestButton.addSubview(rejectNotificationRequestActivityIndicatorView)
 
-        buttonStackView = UIStackView(arrangedSubviews: [acceptNotificationRequestButtonShadowBackgroundContainer, rejectNotificationRequestButtonShadowBackgroundContainer])
+        buttonStackView = UIStackView(arrangedSubviews: [rejectNotificationRequestButtonShadowBackgroundContainer, acceptNotificationRequestButtonShadowBackgroundContainer])
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 16
