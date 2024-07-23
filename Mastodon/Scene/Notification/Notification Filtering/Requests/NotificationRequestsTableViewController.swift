@@ -101,7 +101,6 @@ extension NotificationRequestsTableViewController: NotificationRequestTableViewC
         cell.rejectNotificationRequestButton.isUserInteractionEnabled = false
         cell.acceptNotificationRequestButton.isUserInteractionEnabled = false
 
-        //TODO: Send request, update cell, reload notification requests AND general notifications
         Task { [weak self] in
             guard let self else { return }
             do {
@@ -109,6 +108,8 @@ extension NotificationRequestsTableViewController: NotificationRequestTableViewC
                                                                         id: notificationRequest.id)
 
                 let requests = try await context.apiService.notificationRequests(authenticationBox: authContext.mastodonAuthenticationBox).value
+
+                NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
 
                 if requests.count > 0 {
 
@@ -153,6 +154,8 @@ extension NotificationRequestsTableViewController: NotificationRequestTableViewC
                                                                             id: notificationRequest.id)
 
                 let requests = try await context.apiService.notificationRequests(authenticationBox: authContext.mastodonAuthenticationBox).value
+
+                NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
 
                 if requests.count > 0 {
 

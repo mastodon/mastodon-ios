@@ -156,7 +156,7 @@ class NotificationPolicyViewController: UIViewController {
                     filterPrivateMentions: viewModel.privateMentions
                 )
 
-
+                NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
             } catch {
                 //TODO: Error Handling
             }

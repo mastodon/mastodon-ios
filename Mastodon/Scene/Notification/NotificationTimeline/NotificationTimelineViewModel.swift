@@ -89,6 +89,17 @@ final class NotificationTimelineViewModel {
                 }
             })
             .store(in: &disposeBag)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(Self.notificationFilteringChanged(_:)), name: .notificationFilteringChanged, object: nil)
+    }
+
+    //MARK: - Notifications
+
+    @objc func notificationFilteringChanged(_ notification: Notification) {
+        dataController.records = []
+        Task { [weak self] in
+            await self?.loadLatest()
+        }
     }
 }
 
