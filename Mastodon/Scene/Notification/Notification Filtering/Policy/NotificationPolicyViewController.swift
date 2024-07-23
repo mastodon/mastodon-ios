@@ -4,6 +4,7 @@ import UIKit
 import MastodonLocalization
 import MastodonAsset
 import MastodonCore
+import MastodonSDK
 
 enum NotificationFilterSection: Hashable {
     case main
@@ -61,6 +62,10 @@ struct NotificationFilterViewModel {
     }
 }
 
+protocol NotificationPolicyViewControllerDelegate: AnyObject {
+    func policyUpdated(_ viewController: NotificationPolicyViewController, newPolicy: Mastodon.Entity.NotificationPolicy)
+}
+
 class NotificationPolicyViewController: UIViewController {
 
     let tableView: UITableView
@@ -69,6 +74,7 @@ class NotificationPolicyViewController: UIViewController {
     var dataSource: UITableViewDiffableDataSource<NotificationFilterSection, NotificationFilterItem>?
     let items: [NotificationFilterItem]
     var viewModel: NotificationFilterViewModel
+    weak var delegate: NotificationPolicyViewControllerDelegate?
 
     init(viewModel: NotificationFilterViewModel) {
         self.viewModel = viewModel
@@ -148,15 +154,18 @@ class NotificationPolicyViewController: UIViewController {
             guard let self else { return }
 
             do {
-                _ = try await viewModel.appContext.apiService.updateNotificationPolicy(
+                let updatedPolicy = try await viewModel.appContext.apiService.updateNotificationPolicy(
                     authenticationBox: authenticationBox,
                     filterNotFollowing: viewModel.notFollowing,
                     filterNotFollowers: viewModel.noFollower,
                     filterNewAccounts: viewModel.newAccount,
                     filterPrivateMentions: viewModel.privateMentions
-                )
+                ).value
+
+                delegate?.policyUpdated(self, newPolicy: updatedPolicy)
 
                 NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
+
             } catch {
                 //TODO: Error Handling
             }

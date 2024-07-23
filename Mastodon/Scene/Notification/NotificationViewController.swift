@@ -12,6 +12,7 @@ import MastodonLocalization
 import Tabman
 import Pageboy
 import MastodonCore
+import MastodonSDK
 
 final class NotificationViewController: TabmanViewController, NeedsDependency {
     
@@ -128,7 +129,9 @@ extension NotificationViewController {
             privateMentions: policy.filterPrivateMentions
         )
 
-        _ = coordinator.present(scene: .notificationPolicy(viewModel: policyViewModel), transition: .formSheet)
+        guard let policyViewController = coordinator.present(scene: .notificationPolicy(viewModel: policyViewModel), transition: .formSheet) as? NotificationPolicyViewController else { return }
+
+        policyViewController.delegate = self
     }
 }
 
@@ -248,5 +251,14 @@ extension NotificationViewController {
     
     override var keyCommands: [UIKeyCommand]? {
         return categorySwitchKeyCommands
+    }
+}
+
+
+//MARK: - NotificationPolicyViewControllerDelegate
+
+extension NotificationViewController: NotificationPolicyViewControllerDelegate {
+    func policyUpdated(_ viewController: NotificationPolicyViewController, newPolicy: Mastodon.Entity.NotificationPolicy) {
+        viewModel?.notificationPolicy = newPolicy
     }
 }
