@@ -479,12 +479,12 @@
                 "following": "กำลังติดตาม",
                 "local_community": "ในเซิร์ฟเวอร์",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "รายการ",
+                    "empty_message": "คุณไม่มีรายการใด ๆ"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "แฮชแท็กที่ติดตาม",
+                    "empty_message": "คุณไม่ได้ติดตามแฮชแท็กใด ๆ"
                 }
             },
             "timeline_pill": {
