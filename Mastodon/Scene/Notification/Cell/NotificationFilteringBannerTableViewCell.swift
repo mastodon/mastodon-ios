@@ -3,6 +3,7 @@
 import UIKit
 import MastodonSDK
 import MastodonUI
+import MastodonLocalization
 
 class NotificationFilteringBannerTableViewCell: UITableViewCell {
     
@@ -29,8 +30,7 @@ class NotificationFilteringBannerTableViewCell: UITableViewCell {
         iconImageWrapperView.addSubview(iconImageView)
 
         titleLabel = UILabel()
-        //TODO: Add localization
-        titleLabel.text = "Filtered Notifications"
+        titleLabel.text = L10n.Scene.Notification.FilteredNotificationBanner.title
         titleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
 
         subtitleLabel = UILabel()
@@ -85,7 +85,6 @@ class NotificationFilteringBannerTableViewCell: UITableViewCell {
     }
 
     func configure(with policy: Mastodon.Entity.NotificationPolicy) {
-        //TODO: Add localization
         subtitleLabel.text = "\(policy.summary.pendingRequestsCount) people you may know"
     }
 }

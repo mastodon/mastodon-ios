@@ -316,6 +316,7 @@ uploaded to Mastodon.";
 "Scene.Login.ServerSearchField.Placeholder" = "Enter URL or search for your server";
 "Scene.Login.Subtitle" = "Log in with the server where you created your account.";
 "Scene.Login.Title" = "Welcome Back";
+"Scene.Notification.FilteredNotificationBanner.Title" = "Filtered Notifications";
 "Scene.Notification.FollowRequest.Accept" = "Accept";
 "Scene.Notification.FollowRequest.Accepted" = "Accepted";
 "Scene.Notification.FollowRequest.Reject" = "reject";
