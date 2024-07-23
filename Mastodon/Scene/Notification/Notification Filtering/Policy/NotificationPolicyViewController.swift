@@ -17,30 +17,28 @@ enum NotificationFilterItem: Hashable,  CaseIterable {
     case privateMentions
 
     var title: String {
-        // TODO: Localization
         switch self {
         case .notFollowing:
-            return "People you don't follow"
+            return L10n.Scene.Notification.Policy.NotFollowing.title
         case .noFollower:
-            return "People not following you"
+            return L10n.Scene.Notification.Policy.NoFollower.title
         case .newAccount:
-            return "New accounts"
+            return L10n.Scene.Notification.Policy.NewAccount.title
         case .privateMentions:
-            return "Unsolicited private mentions"
+            return L10n.Scene.Notification.Policy.PrivateMentions.title
         }
     }
 
     var subtitle: String {
-        // TODO: Localization
         switch self {
         case .notFollowing:
-            return "Until you manually approve them"
+            return L10n.Scene.Notification.Policy.NotFollowing.subtitle
         case .noFollower:
-            return "Including people who have been following you fewer than 3 days"
+            return L10n.Scene.Notification.Policy.NoFollower.subtitle
         case .newAccount:
-            return "Created within the past 30 days"
+            return L10n.Scene.Notification.Policy.NewAccount.subtitle
         case .privateMentions:
-            return "Filtered unless it’s in reply to your own mention or if you follow the sender"
+            return L10n.Scene.Notification.Policy.PrivateMentions.subtitle
         }
     }
 }
@@ -147,9 +145,6 @@ class NotificationPolicyViewController: UIViewController {
     @objc private func save(_ sender: UIButton) {
         guard let authenticationBox = viewModel.appContext.authenticationService.mastodonAuthenticationBoxes.first else { return }
 
-        //TODO: Check if this really works. Garbage collection and stuff
-        self.dismiss(animated:true)
-
         Task { [weak self] in
             guard let self else { return }
 
@@ -166,11 +161,10 @@ class NotificationPolicyViewController: UIViewController {
 
                 NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
 
-            } catch {
-                //TODO: Error Handling
-            }
+            } catch {}
         }
 
+        dismiss(animated:true)
     }
 
     @objc private func cancel(_ sender: UIBarButtonItem) {

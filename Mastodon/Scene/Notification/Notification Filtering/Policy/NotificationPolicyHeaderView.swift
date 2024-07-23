@@ -1,6 +1,7 @@
 // Copyright © 2024 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonLocalization
 
 class NotificationPolicyHeaderView: UIView {
     let titleLabel: UILabel
@@ -11,8 +12,7 @@ class NotificationPolicyHeaderView: UIView {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFontMetrics(forTextStyle: .title3).scaledFont(for: .systemFont(ofSize: 20, weight: .bold))
-        // TODO: Localization
-        titleLabel.text = "Filter Notifications from..."
+        titleLabel.text = L10n.Scene.Notification.Policy.title
 
 
         let buttonImageConfiguration = UIImage
