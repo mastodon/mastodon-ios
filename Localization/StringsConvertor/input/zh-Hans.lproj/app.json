@@ -491,6 +491,9 @@
                 "offline": "离线",
                 "new_posts": "新嘟文",
                 "post_sent": "已发布"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
