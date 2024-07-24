@@ -21,7 +21,7 @@ final class NotificationTimelineViewModel {
     let context: AppContext
     let authContext: AuthContext
     let scope: Scope
-    let notificationPolicy: Mastodon.Entity.NotificationPolicy?
+    var notificationPolicy: Mastodon.Entity.NotificationPolicy?
     let dataController: FeedDataController
     @Published var isLoadingLatest = false
     @Published var lastAutomaticFetchTimestamp: Date?
@@ -96,8 +96,10 @@ final class NotificationTimelineViewModel {
     //MARK: - Notifications
 
     @objc func notificationFilteringChanged(_ notification: Notification) {
-        dataController.records = []
         Task { [weak self] in
+            let policy = try await context.apiService.notificationPolicy(authenticationBox: authContext.mastodonAuthenticationBox)
+            self?.notificationPolicy = policy.value
+
             await self?.loadLatest()
         }
     }

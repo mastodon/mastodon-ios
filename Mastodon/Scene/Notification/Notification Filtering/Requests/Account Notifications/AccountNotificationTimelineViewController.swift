@@ -33,6 +33,7 @@ class AccountNotificationTimelineViewController: NotificationTimelineViewControl
                 guard let self else { return }
 
                 coordinator.showLoading()
+                self.navigationController?.popViewController(animated: true)
                 self.delegate?.acceptRequest(self, request: request)
                 coordinator.hideLoading()
             },
@@ -40,6 +41,7 @@ class AccountNotificationTimelineViewController: NotificationTimelineViewControl
                 guard let self else { return }
 
                 coordinator.showLoading()
+                self.navigationController?.popViewController(animated: true)
                 self.delegate?.dismissRequest(self, request: request)
                 coordinator.hideLoading()
             }
