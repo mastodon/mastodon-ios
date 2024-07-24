@@ -57,8 +57,7 @@ class NotificationRequestTableViewCell: UITableViewCell {
         acceptNotificationRequestButton.translatesAutoresizingMaskIntoConstraints = false
         acceptNotificationRequestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         acceptNotificationRequestButton.setTitleColor(.white, for: .normal)
-        //TODO: Localization
-        acceptNotificationRequestButton.setTitle("Accept", for: .normal)
+        acceptNotificationRequestButton.setTitle(L10n.Scene.Notification.FilteredNotification.accept, for: .normal)
         acceptNotificationRequestButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
         acceptNotificationRequestButton.imageView?.contentMode = .scaleAspectFit
         acceptNotificationRequestButton.setBackgroundImage(.placeholder(color: Asset.Scene.Notification.confirmFollowRequestButtonBackground.color), for: .normal)
@@ -83,8 +82,7 @@ class NotificationRequestTableViewCell: UITableViewCell {
         rejectNotificationRequestButton.translatesAutoresizingMaskIntoConstraints = false
         rejectNotificationRequestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         rejectNotificationRequestButton.setTitleColor(.black, for: .normal)
-        //TODO: Localization
-        rejectNotificationRequestButton.setTitle("Dismiss", for: .normal)
+        rejectNotificationRequestButton.setTitle(L10n.Scene.Notification.FilteredNotification.dismiss, for: .normal)
         rejectNotificationRequestButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
         rejectNotificationRequestButton.imageView?.contentMode = .scaleAspectFit
         rejectNotificationRequestButton.setInsets(forContentPadding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), imageTitlePadding: 8)

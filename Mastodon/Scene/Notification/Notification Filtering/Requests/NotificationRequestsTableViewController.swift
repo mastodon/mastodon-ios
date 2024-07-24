@@ -59,7 +59,7 @@ class NotificationRequestsTableViewController: UIViewController, NeedsDependency
         tableView.delegate = self
         self.dataSource = dataSource
 
-        title = L10n.Scene.Notification.FilteredNotificationBanner.title
+        title = L10n.Scene.Notification.FilteredNotification.title
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

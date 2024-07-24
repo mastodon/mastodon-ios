@@ -3,6 +3,7 @@
 import UIKit
 import MastodonCore
 import MastodonSDK
+import MastodonLocalization
 
 protocol AccountNotificationTimelineViewControllerDelegate: AnyObject {
     func acceptRequest(_ viewController: AccountNotificationTimelineViewController, request: Mastodon.Entity.NotificationRequest, completion: @escaping (() -> Void))
@@ -29,7 +30,7 @@ class AccountNotificationTimelineViewController: NotificationTimelineViewControl
     //TODO: Localization
     func menu() -> UIMenu {
         let menu = UIMenu(children: [
-            UIAction(title: "Accept", image: UIImage(systemName: "checkmark")) { [weak self] _ in
+            UIAction(title: L10n.Scene.Notification.FilteredNotification.accept, image: UIImage(systemName: "checkmark")) { [weak self] _ in
                 guard let self else { return }
 
                 coordinator.showLoading()
@@ -38,7 +39,7 @@ class AccountNotificationTimelineViewController: NotificationTimelineViewControl
                 }
                 coordinator.hideLoading()
             },
-            UIAction(title: "Dismiss", image: UIImage(systemName: "speaker.slash")) { [weak self] _ in
+            UIAction(title: L10n.Scene.Notification.FilteredNotification.dismiss, image: UIImage(systemName: "speaker.slash")) { [weak self] _ in
                 guard let self else { return }
 
                 coordinator.showLoading()

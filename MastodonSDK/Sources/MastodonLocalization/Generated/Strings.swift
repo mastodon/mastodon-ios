@@ -895,9 +895,13 @@ public enum L10n {
       }
     }
     public enum Notification {
-      public enum FilteredNotificationBanner {
+      public enum FilteredNotification {
+        /// Accept
+        public static let accept = L10n.tr("Localizable", "Scene.Notification.FilteredNotification.Accept", fallback: "Accept")
+        /// Dismiss
+        public static let dismiss = L10n.tr("Localizable", "Scene.Notification.FilteredNotification.Dismiss", fallback: "Dismiss")
         /// Filtered Notifications
-        public static let title = L10n.tr("Localizable", "Scene.Notification.FilteredNotificationBanner.Title", fallback: "Filtered Notifications")
+        public static let title = L10n.tr("Localizable", "Scene.Notification.FilteredNotification.Title", fallback: "Filtered Notifications")
       }
       public enum FollowRequest {
         /// Accept

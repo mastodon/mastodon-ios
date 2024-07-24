@@ -753,8 +753,10 @@
                 "suspend": "Your account has been suspended.",
                 "learn_more": "Learn More"
             },
-            "filtered_notification_banner": {
-                "title": "Filtered Notifications"
+            "filtered_notification": {
+                "title": "Filtered Notifications",
+                "accept": "Accept",
+                "dismiss": "Dismiss",
             },
             "policy": {
                 "title": "Filter Notifications from…",

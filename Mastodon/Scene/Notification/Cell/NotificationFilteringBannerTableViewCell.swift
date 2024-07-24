@@ -30,7 +30,7 @@ class NotificationFilteringBannerTableViewCell: UITableViewCell {
         iconImageWrapperView.addSubview(iconImageView)
 
         titleLabel = UILabel()
-        titleLabel.text = L10n.Scene.Notification.FilteredNotificationBanner.title
+        titleLabel.text = L10n.Scene.Notification.FilteredNotification.title
         titleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
 
         subtitleLabel = UILabel()
