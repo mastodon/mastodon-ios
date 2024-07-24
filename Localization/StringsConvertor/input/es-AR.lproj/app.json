@@ -491,6 +491,9 @@
                 "offline": "Desconectado",
                 "new_posts": "Nuevos mensajes",
                 "post_sent": "Mensaje enviado"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
