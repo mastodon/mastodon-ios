@@ -491,6 +491,9 @@
                 "offline": "Ónettengt",
                 "new_posts": "Nýjar færslur",
                 "post_sent": "Birtar færslur"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
