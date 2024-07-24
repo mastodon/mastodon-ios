@@ -491,6 +491,9 @@
                 "offline": "Offline",
                 "new_posts": "Nya inlägg",
                 "post_sent": "Post Sent"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
