@@ -124,30 +124,7 @@ extension NotificationRequestsTableViewController: NotificationRequestTableViewC
         Task { [weak self] in
             guard let self else { return }
             do {
-                _ = try await context.apiService.acceptNotificationRequests(authenticationBox: authContext.mastodonAuthenticationBox,
-                                                                        id: notificationRequest.id)
-
-                let requests = try await context.apiService.notificationRequests(authenticationBox: authContext.mastodonAuthenticationBox).value
-
-                NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
-
-                if requests.count > 0 {
-
-                    await MainActor.run { [weak self] in
-                        guard let self else { return }
-                        self.viewModel.requests = requests
-                        var snapshot = NSDiffableDataSourceSnapshot<NotificationRequestsSection, NotificationRequestItem>()
-                        snapshot.appendSections([.main])
-                        snapshot.appendItems(self.viewModel.requests.compactMap { NotificationRequestItem.item($0) } )
-
-                        self.dataSource?.apply(snapshot)
-                    }
-                } else {
-                    await MainActor.run { [weak self] in
-                        _ = self?.navigationController?.popViewController(animated: true)
-                    }
-                }
-
+                try await acceptNotificationRequest(notificationRequest)
             } catch {
                 cell.acceptNotificationRequestActivityIndicatorView.stopAnimating()
                 cell.acceptNotificationRequestButton.tintColor = .white
@@ -157,7 +134,33 @@ extension NotificationRequestsTableViewController: NotificationRequestTableViewC
             }
         }
     }
-    
+
+    private func acceptNotificationRequest(_ notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) async throws {
+        _ = try await context.apiService.acceptNotificationRequests(authenticationBox: authContext.mastodonAuthenticationBox,
+                                                                id: notificationRequest.id)
+
+        let requests = try await context.apiService.notificationRequests(authenticationBox: authContext.mastodonAuthenticationBox).value
+
+        NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
+
+        if requests.count > 0 {
+            await MainActor.run { [weak self] in
+                guard let self else { return }
+                self.viewModel.requests = requests
+                var snapshot = NSDiffableDataSourceSnapshot<NotificationRequestsSection, NotificationRequestItem>()
+                snapshot.appendSections([.main])
+                snapshot.appendItems(self.viewModel.requests.compactMap { NotificationRequestItem.item($0) } )
+
+                self.dataSource?.apply(snapshot)
+            }
+        } else {
+            await MainActor.run { [weak self] in
+                _ = self?.navigationController?.popViewController(animated: true)
+            }
+        }
+
+    }
+
     func rejectNotificationRequest(_ cell: NotificationRequestTableViewCell, notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) {
 
         cell.rejectNotificationRequestActivityIndicatorView.isHidden = false
@@ -209,17 +212,15 @@ extension NotificationRequestsTableViewController: NotificationRequestTableViewC
 }
 
 extension NotificationRequestsTableViewController: AccountNotificationTimelineViewControllerDelegate {
-    func acceptRequest(_ viewController: AccountNotificationTimelineViewController, request: MastodonSDK.Mastodon.Entity.NotificationRequest, completion: @escaping (() -> Void)) {
+    func acceptRequest(_ viewController: AccountNotificationTimelineViewController, request: MastodonSDK.Mastodon.Entity.NotificationRequest) {
         Task {
-            try? await rejectNotificationRequest(request)
-            completion()
+            try? await acceptNotificationRequest(request)
         }
     }
     
-    func dismissRequest(_ viewController: AccountNotificationTimelineViewController, request: MastodonSDK.Mastodon.Entity.NotificationRequest, completion: @escaping (() -> Void)) {
+    func dismissRequest(_ viewController: AccountNotificationTimelineViewController, request: MastodonSDK.Mastodon.Entity.NotificationRequest) {
         Task {
             try? await rejectNotificationRequest(request)
-            completion()
         }
     }
 }

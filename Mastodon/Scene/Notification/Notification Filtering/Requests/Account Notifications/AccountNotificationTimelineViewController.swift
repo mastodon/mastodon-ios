@@ -6,8 +6,8 @@ import MastodonSDK
 import MastodonLocalization
 
 protocol AccountNotificationTimelineViewControllerDelegate: AnyObject {
-    func acceptRequest(_ viewController: AccountNotificationTimelineViewController, request: Mastodon.Entity.NotificationRequest, completion: @escaping (() -> Void))
-    func dismissRequest(_ viewController: AccountNotificationTimelineViewController, request: Mastodon.Entity.NotificationRequest, completion: @escaping (() -> Void))
+    func acceptRequest(_ viewController: AccountNotificationTimelineViewController, request: Mastodon.Entity.NotificationRequest)
+    func dismissRequest(_ viewController: AccountNotificationTimelineViewController, request: Mastodon.Entity.NotificationRequest)
 }
 
 class AccountNotificationTimelineViewController: NotificationTimelineViewController {
@@ -27,25 +27,20 @@ class AccountNotificationTimelineViewController: NotificationTimelineViewControl
 
     // MARK: - Actions
 
-    //TODO: Localization
     func menu() -> UIMenu {
         let menu = UIMenu(children: [
             UIAction(title: L10n.Scene.Notification.FilteredNotification.accept, image: UIImage(systemName: "checkmark")) { [weak self] _ in
                 guard let self else { return }
 
                 coordinator.showLoading()
-                self.delegate?.acceptRequest(self, request: request) {
-                    self.navigationController?.popViewController(animated: true)
-                }
+                self.delegate?.acceptRequest(self, request: request)
                 coordinator.hideLoading()
             },
             UIAction(title: L10n.Scene.Notification.FilteredNotification.dismiss, image: UIImage(systemName: "speaker.slash")) { [weak self] _ in
                 guard let self else { return }
 
                 coordinator.showLoading()
-                self.delegate?.dismissRequest(self, request: request) {
-                    self.navigationController?.popViewController(animated: true)
-                }
+                self.delegate?.dismissRequest(self, request: request)
                 coordinator.hideLoading()
             }
         ])

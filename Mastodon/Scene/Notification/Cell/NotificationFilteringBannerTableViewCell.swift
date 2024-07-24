@@ -37,7 +37,6 @@ class NotificationFilteringBannerTableViewCell: UITableViewCell {
         subtitleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         subtitleLabel.textColor = .secondaryLabel
 
-
         labelStackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         labelStackView.alignment = .leading
