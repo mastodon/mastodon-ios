@@ -23,6 +23,7 @@ class NotificationRequestTableViewCell: UITableViewCell {
     let nameLabel: MetaLabel
     let usernameLabel: MetaLabel
     let avatarButton: AvatarButton
+    let chevronImageView: UIImageView
 
     private let labelStackView: UIStackView
     private let avatarStackView: UIStackView
@@ -109,7 +110,10 @@ class NotificationRequestTableViewCell: UITableViewCell {
         buttonStackView.spacing = 16
         buttonStackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)  // set bottom padding
 
-        avatarStackView = UIStackView(arrangedSubviews: [avatarButton, labelStackView])
+        chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+        chevronImageView.tintColor = .tertiaryLabel
+
+        avatarStackView = UIStackView(arrangedSubviews: [avatarButton, labelStackView, UIView(), chevronImageView])
         avatarStackView.axis = .horizontal
         avatarStackView.alignment = .center
         avatarStackView.spacing = 12
