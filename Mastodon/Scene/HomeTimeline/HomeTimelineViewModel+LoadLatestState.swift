@@ -105,7 +105,8 @@ extension HomeTimelineViewModel.LoadLatestState {
 
         guard let viewModel else { return }
 
-
+        viewModel.timelineIsEmpty.send(nil)
+        
         Task { @MainActor in
             let latestFeedRecords = viewModel.dataController.records
 
@@ -152,8 +153,9 @@ extension HomeTimelineViewModel.LoadLatestState {
 
                 if statuses.isEmpty {
                     // stop refresher if no new statuses
+                    viewModel.dataController.records = []
                     viewModel.didLoadLatest.send()
-                } else {                    
+                } else {
                     var toAdd = [MastodonFeed]()
                     
                     let last = statuses.last
@@ -169,8 +171,20 @@ extension HomeTimelineViewModel.LoadLatestState {
                     
                     viewModel.dataController.records = (toAdd + latestFeedRecords).removingDuplicates()
                 }
-                viewModel.timelineIsEmpty.value = latestStatusIDs.isEmpty && statuses.isEmpty
-                
+
+                viewModel.timelineIsEmpty.value = (latestStatusIDs.isEmpty && statuses.isEmpty) ? {
+                    switch viewModel.timelineContext {
+                    case .home:
+                        return .timeline
+                    case .public:
+                        return .timeline
+                    case .list:
+                        return .list
+                    case .hashtag:
+                        return .list
+                    }
+                }() : nil
+
                 if !isUserInitiated {
                     FeedbackGenerator.shared.generate(.impact(.light))
                 }

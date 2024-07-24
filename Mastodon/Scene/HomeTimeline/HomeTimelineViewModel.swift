@@ -43,11 +43,15 @@ final class HomeTimelineViewModel: NSObject {
             hasNewPosts.send(false)
         }
     }
+    
+    enum EmptyViewState {
+        case timeline, list
+    }
 
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     
-    let timelineIsEmpty = CurrentValueSubject<Bool, Never>(false)
+    let timelineIsEmpty = CurrentValueSubject<EmptyViewState?, Never>(nil)
     let homeTimelineNeedRefresh = PassthroughSubject<Void, Never>()
     
     // output

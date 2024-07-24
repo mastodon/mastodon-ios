@@ -43,7 +43,7 @@ extension HashtagWidgetProvider {
         let desiredHashtag: String
 
         if let hashtag = configuration.hashtag {
-            desiredHashtag = hashtag
+            desiredHashtag = hashtag.replacingOccurrences(of: "#", with: "")
         } else {
             return completion(.notFound("hashtag"))
         }

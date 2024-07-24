@@ -857,6 +857,10 @@ public enum L10n {
     public enum HomeTimeline {
       /// Home
       public static let title = L10n.tr("Localizable", "Scene.HomeTimeline.Title", fallback: "Home")
+      public enum EmptyState {
+        /// This list is empty
+        public static let listEmptyMessageTitle = L10n.tr("Localizable", "Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle", fallback: "This list is empty")
+      }
       public enum TimelineMenu {
         /// Following
         public static let following = L10n.tr("Localizable", "Scene.HomeTimeline.TimelineMenu.Following", fallback: "Following")

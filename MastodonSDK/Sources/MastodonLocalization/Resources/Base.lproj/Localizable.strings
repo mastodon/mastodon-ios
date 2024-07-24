@@ -303,6 +303,7 @@ uploaded to Mastodon.";
 "Scene.Follower.Title" = "follower";
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.Following.Title" = "following";
+"Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle" = "This list is empty";
 "Scene.HomeTimeline.TimelineMenu.Following" = "Following";
 "Scene.HomeTimeline.TimelineMenu.LocalCommunity" = "Local";
 "Scene.HomeTimeline.TimelineMenu.Lists.Title" = "Lists";

@@ -23,7 +23,7 @@ class HashtagIntentHandler: INExtension, HashtagIntentHandling {
                 .search(query: .init(q: searchTerm, type: .hashtags), authenticationBox: authenticationBox)
                 .value
                 .hashtags
-                .compactMap { $0.name as NSString }
+                .compactMap { "#\($0.name)" as NSString }
 
             results = searchResults
 
@@ -33,7 +33,7 @@ class HashtagIntentHandler: INExtension, HashtagIntentHandling {
                 query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
                 authenticationBox: authenticationBox)
                 .value
-                .compactMap { $0.name as NSString }
+                .compactMap { "#\($0.name)" as NSString }
 
             results = followedTags
 
