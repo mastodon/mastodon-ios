@@ -493,7 +493,7 @@
                 "post_sent": "Bericht verzonden"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Deze lijst is leeg"
             }
         },
         "suggestion_account": {
