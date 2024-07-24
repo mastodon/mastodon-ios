@@ -28,6 +28,10 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     var viewModel: HomeTimelineViewModel?
 
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
+    
+    enum EmptyViewUseCase {
+        case timeline, list
+    }
 
     let friendsAssetImageView: UIImageView = {
         let imageView = UIImageView()
@@ -335,24 +339,24 @@ extension HomeTimelineViewController {
         
         viewModel?.timelineIsEmpty
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isEmpty in
-                if isEmpty {
-                    self?.showEmptyView()
-
-                    let userDoesntFollowPeople: Bool
-                    if let authContext = self?.authContext,
-                       let me = authContext.mastodonAuthenticationBox.authentication.account() {
-                        userDoesntFollowPeople = me.followersCount == 0
-                    } else {
-                        userDoesntFollowPeople = true
-                    }
-
-                    if (self?.viewModel?.presentedSuggestions == false) && userDoesntFollowPeople {
-                        self?.findPeopleButtonPressed(self)
-                        self?.viewModel?.presentedSuggestions = true
-                    }
-                } else {
+            .sink { [weak self] state in
+                guard let state else {
                     self?.emptyView.removeFromSuperview()
+                    return
+                }
+                self?.showEmptyView(state)
+
+                let userDoesntFollowPeople: Bool
+                if let authContext = self?.authContext,
+                   let me = authContext.mastodonAuthenticationBox.authentication.account() {
+                    userDoesntFollowPeople = me.followersCount == 0
+                } else {
+                    userDoesntFollowPeople = true
+                }
+
+                if (self?.viewModel?.presentedSuggestions == false) && userDoesntFollowPeople {
+                    self?.findPeopleButtonPressed(self)
+                    self?.viewModel?.presentedSuggestions = true
                 }
             }
             .store(in: &disposeBag)
@@ -478,7 +482,7 @@ extension HomeTimelineViewController {
 }
 
 extension HomeTimelineViewController {
-    func showEmptyView() {
+    func showEmptyView(_ state: HomeTimelineViewModel.EmptyViewState) {
         if emptyView.superview != nil {
             return
         }
@@ -494,48 +498,61 @@ extension HomeTimelineViewController {
         if emptyView.arrangedSubviews.count > 0 {
             return
         }
-        let findPeopleButton: PrimaryActionButton = {
-            let button = PrimaryActionButton()
-            button.setTitle(L10n.Common.Controls.Actions.findPeople, for: .normal)
-            button.addTarget(self, action: #selector(HomeTimelineViewController.findPeopleButtonPressed(_:)), for: .touchUpInside)
-            return button
-        }()
-        NSLayoutConstraint.activate([
-            findPeopleButton.heightAnchor.constraint(equalToConstant: 46)
-        ])
-        
-        let manuallySearchButton: HighlightDimmableButton = {
-            let button = HighlightDimmableButton()
-            button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
-            button.setTitle(L10n.Common.Controls.Actions.manuallySearch, for: .normal)
-            button.setTitleColor(Asset.Colors.Brand.blurple.color, for: .normal)
-            button.addTarget(self, action: #selector(HomeTimelineViewController.manuallySearchButtonPressed(_:)), for: .touchUpInside)
-            return button
-        }()
 
-        let topPaddingView = UIView()
-        let bottomPaddingView = UIView()
+        switch state {
+        case .list:
+            let noStatusesLabel: UILabel = {
+                let label = UILabel()
+                label.text = L10n.Scene.HomeTimeline.EmptyState.listEmptyMessageTitle
+                label.textColor = Asset.Colors.Label.secondary.color
+                label.textAlignment = .center
+                return label
+            }()
+            emptyView.addArrangedSubview(noStatusesLabel)
+        case .timeline:
+            let findPeopleButton: PrimaryActionButton = {
+                let button = PrimaryActionButton()
+                button.setTitle(L10n.Common.Controls.Actions.findPeople, for: .normal)
+                button.addTarget(self, action: #selector(HomeTimelineViewController.findPeopleButtonPressed(_:)), for: .touchUpInside)
+                return button
+            }()
+            NSLayoutConstraint.activate([
+                findPeopleButton.heightAnchor.constraint(equalToConstant: 46)
+            ])
+            
+            let manuallySearchButton: HighlightDimmableButton = {
+                let button = HighlightDimmableButton()
+                button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
+                button.setTitle(L10n.Common.Controls.Actions.manuallySearch, for: .normal)
+                button.setTitleColor(Asset.Colors.Brand.blurple.color, for: .normal)
+                button.addTarget(self, action: #selector(HomeTimelineViewController.manuallySearchButtonPressed(_:)), for: .touchUpInside)
+                return button
+            }()
 
-        emptyView.addArrangedSubview(topPaddingView)
-        emptyView.addArrangedSubview(friendsAssetImageView)
-        emptyView.addArrangedSubview(bottomPaddingView)
+            let topPaddingView = UIView()
+            let bottomPaddingView = UIView()
 
-        topPaddingView.translatesAutoresizingMaskIntoConstraints = false
-        bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            topPaddingView.heightAnchor.constraint(equalTo: bottomPaddingView.heightAnchor, multiplier: 0.8),
-            manuallySearchButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
-        ])
+            emptyView.addArrangedSubview(topPaddingView)
+            emptyView.addArrangedSubview(friendsAssetImageView)
+            emptyView.addArrangedSubview(bottomPaddingView)
 
-        let buttonContainerStackView = UIStackView()
-        emptyView.addArrangedSubview(buttonContainerStackView)
-        buttonContainerStackView.isLayoutMarginsRelativeArrangement = true
-        buttonContainerStackView.layoutMargins = UIEdgeInsets(top: 0, left: 32, bottom: 22, right: 32)
-        buttonContainerStackView.axis = .vertical
-        buttonContainerStackView.spacing = 17
+            topPaddingView.translatesAutoresizingMaskIntoConstraints = false
+            bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                topPaddingView.heightAnchor.constraint(equalTo: bottomPaddingView.heightAnchor, multiplier: 0.8),
+                manuallySearchButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
+            ])
 
-        buttonContainerStackView.addArrangedSubview(findPeopleButton)
-        buttonContainerStackView.addArrangedSubview(manuallySearchButton)
+            let buttonContainerStackView = UIStackView()
+            emptyView.addArrangedSubview(buttonContainerStackView)
+            buttonContainerStackView.isLayoutMarginsRelativeArrangement = true
+            buttonContainerStackView.layoutMargins = UIEdgeInsets(top: 0, left: 32, bottom: 22, right: 32)
+            buttonContainerStackView.axis = .vertical
+            buttonContainerStackView.spacing = 17
+
+            buttonContainerStackView.addArrangedSubview(findPeopleButton)
+            buttonContainerStackView.addArrangedSubview(manuallySearchButton)
+        }
     }
 }
 
