@@ -493,7 +493,7 @@
                 "post_sent": "Mensaje enviado"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Esta lista está vacía"
             }
         },
         "suggestion_account": {
