@@ -210,7 +210,7 @@ extension NotificationView {
             containerStackView.topAnchor.constraint(equalTo: topAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor),
+            bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 8),
         ])
         
         // author container: H - [ avatarButton | author meta container ]
@@ -420,12 +420,12 @@ extension NotificationView {
 
 extension NotificationView {
     
-    public func setAuthorContainerBottomPaddingViewDisplay() {
-        authorContainerViewBottomPaddingView.isHidden = false
+    public func setAuthorContainerBottomPaddingViewDisplay(isHidden: Bool = false) {
+        authorContainerViewBottomPaddingView.isHidden = isHidden
     }
     
-    public func setFollowRequestAdaptiveMarginContainerViewDisplay() {
-        followRequestAdaptiveMarginContainerView.isHidden = false
+    public func setFollowRequestAdaptiveMarginContainerViewDisplay(isHidden: Bool = false) {
+        followRequestAdaptiveMarginContainerView.isHidden = isHidden
     }
 
     public func setStatusViewDisplay() {
