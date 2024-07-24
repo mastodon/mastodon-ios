@@ -17,7 +17,15 @@ extension DataSourceFacade {
 
             provider.coordinator.hideLoading()
 
-            provider.coordinator.present(scene: .notificationRequests(viewModel: viewModel), transition: .show)
+            let transition: SceneCoordinator.Transition
+
+            if provider.traitCollection.userInterfaceIdiom == .phone {
+                transition = .show
+            } else {
+                transition = .modal(animated: true)
+            }
+
+            provider.coordinator.present(scene: .notificationRequests(viewModel: viewModel), transition: transition)
         } catch {
             //TODO: Error Handling
             provider.coordinator.hideLoading()
