@@ -152,8 +152,9 @@ extension HomeTimelineViewModel.LoadLatestState {
 
                 if statuses.isEmpty {
                     // stop refresher if no new statuses
+                    viewModel.dataController.records = []
                     viewModel.didLoadLatest.send()
-                } else {                    
+                } else {
                     var toAdd = [MastodonFeed]()
                     
                     let last = statuses.last
