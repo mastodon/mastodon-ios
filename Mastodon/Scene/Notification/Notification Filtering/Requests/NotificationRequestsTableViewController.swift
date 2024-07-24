@@ -3,6 +3,7 @@
 import UIKit
 import MastodonSDK
 import MastodonCore
+import MastodonAsset
 
 enum NotificationRequestsSection: Hashable {
     case main
@@ -83,6 +84,22 @@ extension NotificationRequestsTableViewController: UITableViewDelegate {
         Task {
             await DataSourceFacade.coordinateToNotificationRequest(request: request, provider: self)
         }
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let dismissAction = UIContextualAction(style: .normal, title: "Dismiss") { [weak self] action, view, completion in
+            guard let request = self?.viewModel.requests[indexPath.row], let cell = tableView.cellForRow(at: indexPath) as? NotificationRequestTableViewCell else { return completion(false) }
+
+            self?.rejectNotificationRequest(cell, notificationRequest: request)
+            completion(true)
+        }
+
+        dismissAction.image = UIImage(systemName: "speaker.slash")
+
+        let swipeAction = UISwipeActionsConfiguration(actions: [dismissAction])
+        swipeAction.performsFirstActionWithFullSwipe = true
+        return swipeAction
+
     }
 }
 
