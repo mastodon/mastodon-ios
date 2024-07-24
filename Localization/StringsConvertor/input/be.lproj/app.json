@@ -491,6 +491,9 @@
                 "offline": "Па-за сеткай",
                 "new_posts": "Новыя допісы",
                 "post_sent": "Допіс адпраўлены"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
