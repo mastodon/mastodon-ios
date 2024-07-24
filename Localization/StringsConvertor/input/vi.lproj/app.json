@@ -491,6 +491,9 @@
                 "offline": "Rớt mạng",
                 "new_posts": "Những tút mới",
                 "post_sent": "Đã đăng"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
