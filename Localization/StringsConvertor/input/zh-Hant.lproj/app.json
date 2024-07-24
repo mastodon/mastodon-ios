@@ -493,7 +493,7 @@
                 "post_sent": "發嘟成功"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "此列表為空"
             }
         },
         "suggestion_account": {
