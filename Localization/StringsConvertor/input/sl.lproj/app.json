@@ -491,6 +491,9 @@
                 "offline": "Nepovezan",
                 "new_posts": "Nove objave",
                 "post_sent": "Objava poslana"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
