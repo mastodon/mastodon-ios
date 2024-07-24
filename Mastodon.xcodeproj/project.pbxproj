@@ -170,6 +170,7 @@
 		D85DF9742C481B3500A01408 /* DataSourceFacade+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9732C481B3500A01408 /* DataSourceFacade+Notifications.swift */; };
 		D85DF9762C4965A900A01408 /* NotificationRequestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */; };
 		D85DF97A2C4E49A400A01408 /* NotificationRequestCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9792C4E49A400A01408 /* NotificationRequestCountView.swift */; };
+		D85DF97E2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF97D2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift */; };
 		D87364F92AE28DB500C8F919 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = D87364F82AE28DB500C8F919 /* Kanna */; };
 		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
 		D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */; };
@@ -817,6 +818,7 @@
 		D85DF9732C481B3500A01408 /* DataSourceFacade+Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Notifications.swift"; sourceTree = "<group>"; };
 		D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestsViewModel.swift; sourceTree = "<group>"; };
 		D85DF9792C4E49A400A01408 /* NotificationRequestCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestCountView.swift; sourceTree = "<group>"; };
+		D85DF97D2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotificationTimelineViewController.swift; sourceTree = "<group>"; };
 		D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginView.swift; sourceTree = "<group>"; };
 		D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewModel.swift; sourceTree = "<group>"; };
 		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
@@ -1852,6 +1854,7 @@
 		D85DF9702C481B1100A01408 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				D85DF97C2C50EF8700A01408 /* Account Notifications */,
 				D85DF96E2C481B1100A01408 /* NotificationRequestsTableViewController.swift */,
 				D85DF96F2C481B1100A01408 /* NotificationRequestTableViewCell.swift */,
 				D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */,
@@ -1859,6 +1862,14 @@
 			);
 			name = Requests;
 			path = "Notification Filtering/Requests";
+			sourceTree = "<group>";
+		};
+		D85DF97C2C50EF8700A01408 /* Account Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				D85DF97D2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift */,
+			);
+			path = "Account Notifications";
 			sourceTree = "<group>";
 		};
 		D8A6AB68291C50F3003AB663 /* Login */ = {
@@ -3816,6 +3827,7 @@
 				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
 				DB7A9F932818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift in Sources */,
+				D85DF97E2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB6B74FC272FF55800C70B6E /* UserSection.swift in Sources */,
 				DB0FCB862796BDA1006C02E2 /* SearchSection.swift in Sources */,

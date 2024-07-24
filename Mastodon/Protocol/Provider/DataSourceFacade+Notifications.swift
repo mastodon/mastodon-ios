@@ -28,13 +28,17 @@ extension DataSourceFacade {
     static func coordinateToNotificationRequest(
         request: Mastodon.Entity.NotificationRequest,
         provider: ViewControllerWithDependencies & AuthContextProvider
-    ) async {
+    ) async -> AccountNotificationTimelineViewController? {
         provider.coordinator.showLoading()
 
         let notificationTimelineViewModel = NotificationTimelineViewModel(context: provider.context, authContext: provider.authContext, scope: .fromAccount(request.account))
 
         provider.coordinator.hideLoading()
-        provider.coordinator.present(scene: .notificationTimeline(viewModel: notificationTimelineViewModel), transition: .show)
+        
+        guard let viewController = provider.coordinator.present(scene: .accountNotificationTimeline(viewModel: notificationTimelineViewModel, request: request), transition: .show) as? AccountNotificationTimelineViewController else { return nil }
+
+        return viewController
+
     }
 
 }

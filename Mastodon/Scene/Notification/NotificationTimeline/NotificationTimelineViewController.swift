@@ -11,7 +11,7 @@ import CoreDataStack
 import MastodonCore
 import MastodonLocalization
 
-final class NotificationTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
+class NotificationTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext!
     weak var coordinator: SceneCoordinator!

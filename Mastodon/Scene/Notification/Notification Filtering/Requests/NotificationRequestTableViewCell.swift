@@ -57,6 +57,7 @@ class NotificationRequestTableViewCell: UITableViewCell {
         acceptNotificationRequestButton.translatesAutoresizingMaskIntoConstraints = false
         acceptNotificationRequestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         acceptNotificationRequestButton.setTitleColor(.white, for: .normal)
+        //TODO: Localization
         acceptNotificationRequestButton.setTitle("Accept", for: .normal)
         acceptNotificationRequestButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
         acceptNotificationRequestButton.imageView?.contentMode = .scaleAspectFit
@@ -82,6 +83,7 @@ class NotificationRequestTableViewCell: UITableViewCell {
         rejectNotificationRequestButton.translatesAutoresizingMaskIntoConstraints = false
         rejectNotificationRequestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         rejectNotificationRequestButton.setTitleColor(.black, for: .normal)
+        //TODO: Localization
         rejectNotificationRequestButton.setTitle("Dismiss", for: .normal)
         rejectNotificationRequestButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
         rejectNotificationRequestButton.imageView?.contentMode = .scaleAspectFit
