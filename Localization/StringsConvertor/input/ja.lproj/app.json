@@ -491,6 +491,9 @@
                 "offline": "オフライン",
                 "new_posts": "新しい投稿",
                 "post_sent": "投稿しました"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
