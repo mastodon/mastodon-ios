@@ -202,12 +202,13 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
                 ).singleOutput().value) ?? []
                 
                 var listEntries = lists.map { entry in
-                    return LabeledAction(title: entry.name, image: nil, handler: { [weak self] in
+                    let entryName = "#\(entry.name)"
+                    return LabeledAction(title: entryName, image: nil, handler: { [weak self] in
                         guard let self, let viewModel = self.viewModel else { return }
                         viewModel.timelineContext = .hashtag(entry.name)
                         viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.ContextSwitch.self)
                         timelineSelectorButton.setAttributedTitle(
-                            .init(string: entry.name, attributes: [
+                            .init(string: entryName, attributes: [
                                 .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
                             ]),
                             for: .normal)
