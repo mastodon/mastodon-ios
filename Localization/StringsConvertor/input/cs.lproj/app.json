@@ -491,6 +491,9 @@
                 "offline": "Offline",
                 "new_posts": "Nové příspěvky",
                 "post_sent": "Příspěvek odeslán"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
