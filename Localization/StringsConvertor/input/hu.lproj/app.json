@@ -491,6 +491,9 @@
                 "offline": "Offline",
                 "new_posts": "Új bejegyzések",
                 "post_sent": "Bejegyzés elküldve"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
