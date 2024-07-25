@@ -695,12 +695,28 @@ extension ProfileViewController: TabBarPagerDelegate {
             } else {
                 profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.origin.y = .zero
             }
-            
+
+            let avatarProgress: CGFloat
+            let bottomEdge = tabBarPagerController.containerScrollView.safeAreaInsets.top + ProfileHeaderView.avatarImageViewSize.height / 2
+            if bannerContainerBottomOffset < bottomEdge {
+                let offset = bannerContainerBottomOffset - bottomEdge
+                // the progress for header move from banner bottom to header bottom (from 0 to 1)
+                avatarProgress = height != .zero ? abs(offset) / height : 0
+            } else {
+                avatarProgress = 0
+            }
+
             // setup titleView offset and fade avatar
-            profileHeaderViewController.updateHeaderScrollProgress(progress, throttle: throttle)
+            profileHeaderViewController.updateHeaderScrollProgress(avatarProgress, throttle: throttle)
             
             // setup buttonBar shadow
             profilePagingViewController.updateButtonBarShadow(progress: progress)
+
+            if avatarProgress >= throttle {
+                profileHeaderViewController.profileHeaderView.sendSubviewToBack(profileHeaderViewController.profileHeaderView.avatarImageViewBackgroundView)
+            } else {
+                profileHeaderViewController.profileHeaderView.bringSubviewToFront(profileHeaderViewController.profileHeaderView.avatarImageViewBackgroundView)
+            }
         }
     }
     
