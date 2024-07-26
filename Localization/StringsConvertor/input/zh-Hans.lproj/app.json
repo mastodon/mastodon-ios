@@ -143,7 +143,7 @@
                     "next_status": "下一篇嘟文",
                     "open_status": "打开嘟文",
                     "open_author_profile": "打开作者的个人资料",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "打开转嘟者的个人资料",
                     "reply_status": "回复此嘟文",
                     "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "喜欢此嘟文",
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s 转嘟了",
                 "user_replied_to": "回复给 %s",
                 "show_post": "显示嘟文",
                 "show_user_profile": "查看用户个人资料",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "回复",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "转嘟",
+                    "unreblog": "撤消转嘟",
                     "favorite": "喜欢",
                     "unfavorite": "取消喜欢",
                     "menu": "菜单",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "分享链接到嘟文中",
                     "tap_then_hold_to_show_menu": "长按以显示菜单",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "转嘟",
+                        "unreblog": "撤消转嘟"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "复制链接"
                 },
                 "tag": {
                     "url": "URL",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s 通过 %s 发布",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "转嘟",
                     "favorites_title": "喜欢",
                     "edit_history_title": "编辑历史",
                     "edit_history_detail": "编辑于：%s"
@@ -234,8 +234,8 @@
                     "original_post": "原始嘟文 · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "来自",
+                    "by_author": "来自 %s"
                 }
             },
             "friendship": {
@@ -256,8 +256,8 @@
                 "unmute_user": "取消静音 %s",
                 "muted": "已静音",
                 "edit_info": "编辑",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "显示转嘟",
+                "hide_reblogs": "隐藏转嘟"
             },
             "timeline": {
                 "filtered": "已过滤",
@@ -311,8 +311,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "欢迎回来",
+            "subtitle": "登陆到你创建账户的服务器。",
             "server_search_field": {
                 "placeholder": "输入网址或搜索您的服务器"
             }
@@ -368,8 +368,8 @@
             "no_server_selected_hint": "如果你不做任何选择，我们会根据你的语言来挑选一个服务器。"
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "你的隐私",
+            "description": "尽管 Mastodon 客户端本身不采集任何数据，你注册的服务器实例可能会有不同的隐私政策。\n\n如果你不同意 **%s** 的这些政策，请返回并选择其他实例。",
             "policy": {
                 "ios": "隐私政策 - Mastodon 苹果应用程序",
                 "server": "隐私政策 - %s"
@@ -479,7 +479,7 @@
                 "following": "关注",
                 "local_community": "本站",
                 "lists": {
-                    "title": "Lists",
+                    "title": "列表",
                     "empty_message": "You don't have any Lists"
                 },
                 "hashtags": {
