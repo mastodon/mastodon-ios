@@ -417,5 +417,19 @@
         <string>%lds</string>
       </dict>
     </dict>
+    <key>plural.filtered_notification_banner.subtitle</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@number_of_requests@</string>
+      <key>number_of_requests</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld people you may know</string>
+      </dict>
+    </dict>
   </dict>
 </plist>
