@@ -55,21 +55,21 @@
             },
             "media_missing_alt_text": {
                 "title": "У медіа відсутній альтернативний текст",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "message": "У %d ваших зображень відсутній альтернативний текст.\nУсе одно опублікувати?",
+                "cancel": "Скасувати",
+                "post": "Опублікувати"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "Поширити допис?",
+                "title_unboost": "Не поширювати допис?",
+                "cancel": "Скасувати",
+                "boost": "Поширити",
+                "unboost": "Не поширювати"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Не стежити за %@?",
+                "cancel": "Скасувати",
+                "unfollow": "Не стежити"
             }
         },
         "controls": {
@@ -143,9 +143,9 @@
                     "next_status": "Новий допис",
                     "open_status": "Відкрити допис",
                     "open_author_profile": "Відкрити профіль автора",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Відкрити профіль Booster's",
                     "reply_status": "Відповісти на допис",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Перемкнути поширення на дописі",
                     "toggle_favorite": "Додати/прибрати з Обраного",
                     "toggle_content_warning": "Додати/прибрати попередження про вміст для дорослих",
                     "preview_image": "Попередній перегляд"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s поширено",
                 "user_replied_to": "Відповів %s",
                 "show_post": "Показати дописи",
                 "show_user_profile": "Показати профіль користувача",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Відповісти",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Поширити",
+                    "unreblog": "Скасувати поширення",
                     "favorite": "Улюблене",
                     "unfavorite": "Вилучити з улюбленого",
                     "menu": "Меню",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "Поділіться посиланням у повідомленні",
                     "tap_then_hold_to_show_menu": "Натисніть та утримуйте, щоб показати меню",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Поширити",
+                        "unreblog": "Скасувати поширення"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Копіювати посилання"
                 },
                 "tag": {
                     "url": "Адреса URL",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s через %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Поширення",
                     "favorites_title": "Улюблені",
                     "edit_history_title": "Редагувати історію",
                     "edit_history_detail": "Останнє редагування %s"
@@ -234,8 +234,8 @@
                     "original_post": "Оригінальна публікація · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Від",
+                    "by_author": "Від %s"
                 }
             },
             "friendship": {
@@ -245,19 +245,19 @@
                 "pending": "Очікується",
                 "block": "Заблокувати",
                 "block_user": "Блокувати %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Заблокувати домен %s",
                 "unblock": "Розблокувати",
                 "unblock_user": "Розблокувати %s",
                 "blocked": "Заблоковано",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Домен заблоковано",
                 "mute": "Заглушити",
                 "mute_user": "Заглушити %s",
                 "unmute": "Сповіщати",
                 "unmute_user": "Сповіщати %s",
                 "muted": "Зам'ютити",
                 "edit_info": "Редагувати інформацію",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Показати поширення",
+                "hide_reblogs": "Приховати поширення"
             },
             "timeline": {
                 "filtered": "Відфільтровано",
@@ -311,8 +311,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "Ласкаво просимо назад",
+            "subtitle": "Увійдіть за допомогою сервера, на якому ви створили обліковий запис.",
             "server_search_field": {
                 "placeholder": "Введіть URL-адресу або адресу сервера"
             }
@@ -368,8 +368,8 @@
             "no_server_selected_hint": "Ми підберемо сервер на основі вашої мови, якщо ви продовжите без вибору."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Ваша конфіденційність",
+            "description": "Хоча програма Mastodon не збирає жодних даних, сервер, через який ви реєструєтесь, може мати іншу політику.\n\nЯкщо ви не згодні з політикою для **%s**, ви можете повернутися та вибрати інший сервер.",
             "policy": {
                 "ios": "Політика конфіденційності - Mastodon для iOS",
                 "server": "Політика конфіденційності - %s"
@@ -440,14 +440,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Правила сервера",
+            "subtitle": "Продовжуючи, ви погоджуєтеся дотримуватися наведених нижче правил, встановлених і запроваджених модераторами **%s**.",
             "prompt": "Продовжуючи, ви піддаєтеся умовам надання послуг та політики конфіденційності для хвороби %s.",
             "terms_of_service": "умови використання",
             "privacy_policy": "політика конфіденційності",
             "button": {
                 "confirm": "Я погоджуюся",
-                "disagree": "Disagree"
+                "disagree": "Не згоден"
             }
         },
         "confirm_email": {
@@ -476,24 +476,24 @@
         "home_timeline": {
             "title": "Головна",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local",
+                "following": "Слідкувати",
+                "local_community": "Локальні",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Списки",
+                    "empty_message": "У вас немає списків"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Відстежувані хештеги",
+                    "empty_message": "Ви не стежите за жодними хештегами"
                 }
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "Офлайн",
+                "new_posts": "Новий допис",
+                "post_sent": "Допис надіслано"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Цей список порожній"
             }
         },
         "suggestion_account": {
@@ -632,20 +632,20 @@
                     "message": "Підтвердити розблокування %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Показувати поширення",
+                    "message": "Підтвердити показ поширень"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Приховати поширення",
+                    "message": "Підтвердити приховування поширень"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Заблокувати домен",
+                    "message": "Підтвердити блокування домену %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
-                    "message": "Confirm to unblock domain %s"
+                    "title": "Розблокувати домен",
+                    "message": "Підтвердити розблокування домену %s"
                 }
             },
             "accessibility": {
@@ -671,7 +671,7 @@
             "title": "Є в обраних у"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Поширено"
         },
         "search": {
             "title": "Пошук",
@@ -699,8 +699,8 @@
                 "url": "Відкрити URL-адресу в Mastodon",
                 "hashtag": "Перейти до %s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Обліковий запис користувача не знайдено",
+                    "message": "Немає облікового запису користувача \"%s\" на %s"
                 },
                 "empty_state": {
                     "no_results": "Жодних результатів"
@@ -731,7 +731,7 @@
             "notification_description": {
                 "followed_you": "підписався(-лась) на вас",
                 "favorited_your_post": "вподобав(-ла) ваш допис",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "поширює ваш допис",
                 "mentioned_you": "згадав(-ла) вас",
                 "request_to_follow_you": "запит на підписку",
                 "poll_has_ended": "опитування завершено"
@@ -747,14 +747,14 @@
                 "rejected": "Відхилено"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Ваш обліковий запис отримав попередження про модерацію.",
+                "disable": "Ваш обліковий запис було вимкнено.",
+                "mark_statuses_as_sensitive": "Деякі з ваших дописів були позначені як чутливі.",
+                "delete_statuses": "Деякі з ваших дописів було видалено.",
+                "sensitive": "Відтепер ваші дописи будуть позначені як чутливі.",
+                "silence": "Ваш обліковий запис було обмежено.",
+                "suspend": "Ваш обліковий запис було заблоковано.",
+                "learn_more": "Дізнатися більше"
             }
         },
         "thread": {
@@ -763,78 +763,78 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "privacy_safety": "Privacy & Safety",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "Налаштування",
+                "general": "Загальні",
+                "notifications": "Сповіщення",
+                "privacy_safety": "Конфіденційність і безпека",
+                "support_mastodon": "Підтримка Mastodon",
+                "about_mastodon": "Про Mastodon",
+                "server_details": "Деталі сервера",
+                "logout": "Вийти з %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "Про сайт",
+                "more_settings": "Ще більше налаштувань",
+                "contribute_to_mastodon": "Внести свій внесок у Mastodon",
+                "privacy_policy": "Політика конфіденційності",
+                "clear_media_storage": "Очистити медіа сховище"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Про сайт",
+                "rules": "Правила",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Адміністратор",
+                    "message_admin": "Адміністратор повідомлення",
+                    "legal_notice": "Юридичне повідомлення"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Загальні",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Тема",
+                    "dark": "Темна",
+                    "light": "Світла",
+                    "system": "Використовувати тему пристрою"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "section_title": "Запитувати перед…",
+                    "posting_without_alt_text": "Додавання допису без альтернативного тексту",
+                    "unfollowing_someone": "Скасування підписки на когось",
+                    "boosting_a_post": "Поширення допису",
+                    "deleting_a_post": "Видалення допису"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Дизайн",
+                    "show_animations": "Відтворювати анімовані фото профілю та емодзі"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Мова",
+                    "default_post_language": "Мова ваших дописів за замовчуванням"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Посилання",
+                    "open_in_mastodon": "Відкрити в Mastodon",
+                    "open_in_browser": "Відкрити в браузері"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Сповіщення",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Отримувати сповіщення від",
+                    "anyone": "Хто-небудь",
+                    "followers": "Люди, які слідкують за вами",
+                    "follow": "Люди, за якими ви стежите",
+                    "noone": "Ніхто"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Згадки та відповіді",
+                    "boosts": "Поширення",
+                    "favorites": "Вибране",
+                    "new_followers": "Нові підписники"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Увімкніть сповіщення в налаштуваннях пристрою, щоб бачити оновлення на екрані блокування.",
+                    "go_to_settings": "Перейти до налаштувань сповіщень"
                 }
             },
             "privacy_safety": {
