@@ -84,7 +84,7 @@ final class NotificationTimelineViewModel {
                 case .mentions:
                     FileManager.default.cacheNotificationsMentions(items: items, for: authContext.mastodonAuthenticationBox)
                 case .fromAccount(_):
-                    //TODO: we don't persist these
+                    //NOTE: we don't persist these
                     break
                 }
             })
@@ -97,10 +97,12 @@ final class NotificationTimelineViewModel {
 
     @objc func notificationFilteringChanged(_ notification: Notification) {
         Task { [weak self] in
-            let policy = try await context.apiService.notificationPolicy(authenticationBox: authContext.mastodonAuthenticationBox)
-            self?.notificationPolicy = policy.value
+            guard let self else { return }
 
-            await self?.loadLatest()
+            let policy = try await self.context.apiService.notificationPolicy(authenticationBox: self.authContext.mastodonAuthenticationBox)
+            self.notificationPolicy = policy.value
+
+            await self.loadLatest()
         }
     }
 }

@@ -137,28 +137,26 @@ extension NotificationRequestsTableViewController: NotificationRequestTableViewC
 
     private func acceptNotificationRequest(_ notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) async throws {
         _ = try await context.apiService.acceptNotificationRequests(authenticationBox: authContext.mastodonAuthenticationBox,
-                                                                id: notificationRequest.id)
+                                                                    id: notificationRequest.id)
 
         let requests = try await context.apiService.notificationRequests(authenticationBox: authContext.mastodonAuthenticationBox).value
 
         NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
 
-        if requests.count > 0 {
-            await MainActor.run { [weak self] in
-                guard let self else { return }
+        await MainActor.run { [weak self] in
+            guard let self else { return }
+
+            if requests.count > 0 {
                 self.viewModel.requests = requests
                 var snapshot = NSDiffableDataSourceSnapshot<NotificationRequestsSection, NotificationRequestItem>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(self.viewModel.requests.compactMap { NotificationRequestItem.item($0) } )
 
                 self.dataSource?.apply(snapshot)
-            }
-        } else {
-            await MainActor.run { [weak self] in
-                _ = self?.navigationController?.popViewController(animated: true)
+            } else {
+                _ = self.navigationController?.popViewController(animated: true)
             }
         }
-
     }
 
     func rejectNotificationRequest(_ cell: NotificationRequestTableViewCell, notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) {
@@ -183,31 +181,29 @@ extension NotificationRequestsTableViewController: NotificationRequestTableViewC
             }
         }
     }
-
+    
     private func rejectNotificationRequest(_ notificationRequest: MastodonSDK.Mastodon.Entity.NotificationRequest) async throws {
         _ = try await context.apiService.rejectNotificationRequests(authenticationBox: authContext.mastodonAuthenticationBox,
                                                                     id: notificationRequest.id)
-
+        
         let requests = try await context.apiService.notificationRequests(authenticationBox: authContext.mastodonAuthenticationBox).value
-
+        
         NotificationCenter.default.post(name: .notificationFilteringChanged, object: nil)
-
-        if requests.count > 0 {
-            await MainActor.run { [weak self] in
-                guard let self else { return }
+        
+        await MainActor.run { [weak self] in
+            guard let self else { return }
+            
+            if requests.count > 0 {
                 self.viewModel.requests = requests
                 var snapshot = NSDiffableDataSourceSnapshot<NotificationRequestsSection, NotificationRequestItem>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(self.viewModel.requests.compactMap { NotificationRequestItem.item($0) } )
-
+                
                 self.dataSource?.apply(snapshot)
-            }
-        } else {
-            await MainActor.run { [weak self] in
-                _ = self?.navigationController?.popViewController(animated: true)
+            } else {
+                _ = self.navigationController?.popViewController(animated: true)
             }
         }
-
     }
 }
 

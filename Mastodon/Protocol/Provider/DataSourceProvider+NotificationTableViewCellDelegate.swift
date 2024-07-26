@@ -515,7 +515,8 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
             case .account(let account, _):
                 await DataSourceFacade.coordinateToProfileScene(provider: self, account: account)
             case .notification, .hashtag(_), .notificationBanner(_):
-                print("TODO")
+                // not supposed to happen
+                break
             }
         }   // end Task
     }

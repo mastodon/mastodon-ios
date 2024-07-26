@@ -56,7 +56,7 @@ extension PostQuery {
 protocol PatchQuery: RequestQuery { }
 
 extension PatchQuery {
-    // By default a `PostQuery` does not have query items
+    // By default a `PatchQuery` does not have query items
     var queryItems: [URLQueryItem]? { nil }
 }
 

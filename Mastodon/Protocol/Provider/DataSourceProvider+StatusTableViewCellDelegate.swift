@@ -619,7 +619,8 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     account: account
                 )
             case .notification, .hashtag(_), .notificationBanner(_):
-                assertionFailure("TODO")
+                // not supposed to happen
+                break
             }
         }
     }

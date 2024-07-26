@@ -63,7 +63,6 @@ class NotificationFilteringBannerTableViewCell: UITableViewCell {
 
     private func setupConstraints() {
         let constraints = [
-
             iconImageWrapperView.widthAnchor.constraint(equalToConstant: CGSize.authorAvatarButtonSize.width),
             iconImageWrapperView.heightAnchor.constraint(equalToConstant: CGSize.authorAvatarButtonSize.height).priority(.defaultHigh),
             iconImageView.centerXAnchor.constraint(equalTo: iconImageWrapperView.centerXAnchor),
