@@ -10,70 +10,42 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
-import OSLog
 
 extension APIService {
     
     public enum MastodonNotificationScope: String, Hashable, CaseIterable {
         case everything
         case mentions
-        
-        public var includeTypes: [MastodonNotificationType]? {
-            switch self {
-            case .everything:       return nil
-            case .mentions:         return [.mention, .status]
-            }
-        }
-        
-        public var excludeTypes: [MastodonNotificationType]? {
-            switch self {
-            case .everything:       return nil
-            case .mentions:         return [.follow, .followRequest, .reblog, .favourite, .poll]
-            }
-        }
-        
-        public var _excludeTypes: [Mastodon.Entity.Notification.NotificationType]? {
-            switch self {
-            case .everything:       return nil
-            case .mentions:         return [.follow, .followRequest, .reblog, .favourite, .poll]
-            }
-        }
     }
-    
+
     public func notifications(
         maxID: Mastodon.Entity.Status.ID?,
-        scope: MastodonNotificationScope,
+        accountID: String? = nil,
+        scope: MastodonNotificationScope?,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Notification]> {
         let authorization = authenticationBox.userAuthorization
-        
+
+        let types: [Mastodon.Entity.Notification.NotificationType]?
+        let excludedTypes: [Mastodon.Entity.Notification.NotificationType]?
+
+        switch scope {
+        case .everything:
+            types = [.follow, .followRequest, .mention, .reblog, .favourite, .poll, .status, .moderationWarning]
+            excludedTypes = nil
+        case .mentions:
+            types = [.mention]
+            excludedTypes = [.follow, .followRequest, .reblog, .favourite, .poll]
+        case nil:
+            types = nil
+            excludedTypes = nil
+        }
+
         let query = Mastodon.API.Notifications.Query(
             maxID: maxID,
-            types: {
-                switch scope {
-                case .everything:
-                    return [
-                        .follow,
-                        .followRequest,
-                        .mention,
-                        .reblog,
-                        .favourite,
-                        .poll,
-                        .status,
-                        .moderationWarning
-                    ]
-                case .mentions:
-                    return [.mention]
-                }
-            }(),
-            excludeTypes: {
-                switch scope {
-                case .everything:
-                    return nil
-                case .mentions:
-                    return [.follow, .followRequest, .reblog, .favourite, .poll]
-                }
-            }()
+            types: types,
+            excludeTypes: excludedTypes,
+            accountID: accountID
         )
         
         let response = try await Mastodon.API.Notifications.getNotifications(
@@ -106,4 +78,71 @@ extension APIService {
         return response
     }
 
+}
+
+//MARK: - Notification Policy
+
+extension APIService {
+    public func notificationPolicy(authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Response.Content<Mastodon.Entity.NotificationPolicy> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+
+        let response = try await Mastodon.API.Notifications.getNotificationPolicy(session: session, domain: domain, authorization: authorization)
+
+        return response
+    }
+
+    public func updateNotificationPolicy(
+        authenticationBox: MastodonAuthenticationBox,
+        filterNotFollowing: Bool,
+        filterNotFollowers: Bool,
+        filterNewAccounts: Bool,
+        filterPrivateMentions: Bool
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.NotificationPolicy> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+        let query = Mastodon.API.Notifications.UpdateNotificationPolicyQuery(filterNotFollowing: filterNotFollowing, filterNotFollowers: filterNotFollowers, filterNewAccounts: filterNewAccounts, filterPrivateMentions: filterPrivateMentions)
+
+        let response = try await Mastodon.API.Notifications.updateNotificationPolicy(
+            session: session,
+            domain: domain,
+            authorization: authorization,
+            query: query
+        )
+
+        return response
+    }
+}
+
+//MARK: - Notification Requests
+
+extension APIService {
+    public func notificationRequests(authenticationBox: MastodonAuthenticationBox) async throws -> Mastodon.Response.Content<[Mastodon.Entity.NotificationRequest]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+
+        let response = try await Mastodon.API.Notifications.getNotificationRequests(session: session, domain: domain, authorization: authorization)
+
+        return response
+    }
+
+    public func acceptNotificationRequests(authenticationBox: MastodonAuthenticationBox, id: String) async throws -> Mastodon.Response.Content<[String: String]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+
+        let response = try await Mastodon.API.Notifications.acceptNotificationRequest(id: id, session: session, domain: domain, authorization: authorization)
+        return response
+    }
+
+    public func rejectNotificationRequests(authenticationBox: MastodonAuthenticationBox, id: String) async throws -> Mastodon.Response.Content<[String: String]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+
+        let response = try await Mastodon.API.Notifications.dismissNotificationRequest(id: id, session: session, domain: domain, authorization: authorization)
+        return response
+    }
+}
+
+extension Notification.Name {
+    public static let notificationFilteringChanged = Notification.Name(rawValue: "org.joinmastodon.app.notificationFilteringsChanged")
 }

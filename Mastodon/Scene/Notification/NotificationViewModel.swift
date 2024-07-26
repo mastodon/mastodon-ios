@@ -11,6 +11,7 @@ import Pageboy
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
+import MastodonSDK
 
 final class NotificationViewModel {
     
@@ -19,6 +20,7 @@ final class NotificationViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
+    var notificationPolicy: Mastodon.Entity.NotificationPolicy?
     let viewDidLoad = PassthroughSubject<Void, Never>()
     
     // output
@@ -50,17 +52,15 @@ final class NotificationViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
+
         // end init
-    }
-}
-    
-extension NotificationTimelineViewModel.Scope {
-    var title: String {
-        switch self {
-        case .everything:
-            return L10n.Scene.Notification.Title.everything
-        case .mentions:
-            return L10n.Scene.Notification.Title.mentions
+        Task {
+            do {
+                let policy = try await context.apiService.notificationPolicy(authenticationBox: authContext.mastodonAuthenticationBox)
+                self.notificationPolicy = policy.value
+            } catch {
+                // we won't show the filtering-options.
+            }
         }
     }
 }

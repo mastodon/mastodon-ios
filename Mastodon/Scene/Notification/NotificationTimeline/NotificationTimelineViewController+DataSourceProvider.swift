@@ -33,7 +33,9 @@ extension NotificationTimelineViewController: DataSourceProvider {
                 }
             }()
             return item
-        default:
+        case .filteredNotifications(let policy):
+            return DataSourceItem.notificationBanner(policy: policy)
+        case .bottomLoader, .feedLoader(_):
             return nil
         }
     }

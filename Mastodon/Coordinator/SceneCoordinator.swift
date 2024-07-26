@@ -205,7 +205,12 @@ extension SceneCoordinator {
 
         // setting
         case settings(setting: Setting)
-        
+
+        // Notifications
+        case notificationPolicy(viewModel: NotificationFilterViewModel)
+        case notificationRequests(viewModel: NotificationRequestsViewModel)
+        case accountNotificationTimeline(viewModel: NotificationTimelineViewModel, request: Mastodon.Entity.NotificationRequest)
+
         // report
         case report(viewModel: ReportViewModel)
         case reportServerRules(viewModel: ReportServerRulesViewModel)
@@ -558,6 +563,12 @@ private extension SceneCoordinator {
         case .editStatus(let viewModel):
             let composeViewController = ComposeViewController(viewModel: viewModel)
             viewController = composeViewController
+        case .notificationRequests(let viewModel):
+            viewController = NotificationRequestsTableViewController(viewModel: viewModel)
+        case .notificationPolicy(let viewModel):
+            viewController = NotificationPolicyViewController(viewModel: viewModel)
+        case .accountNotificationTimeline(let viewModel, let request):
+            viewController = AccountNotificationTimelineViewController(viewModel: viewModel, context: appContext, coordinator: self, notificationRequest: request)
         }
 
         setupDependency(for: viewController as? NeedsDependency)

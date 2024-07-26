@@ -202,13 +202,14 @@ private extension FeedDataController {
             return try await getFeeds(with: .everything)
         case .notificationMentions:
             return try await getFeeds(with: .mentions)
-
+        case .notificationAccount(let accountID):
+            return try await getFeeds(with: nil, accountID: accountID)
         }
     }
 
-    private func getFeeds(with scope: APIService.MastodonNotificationScope) async throws -> [MastodonFeed] {
+    private func getFeeds(with scope: APIService.MastodonNotificationScope?, accountID: String? = nil) async throws -> [MastodonFeed] {
 
-        let notifications = try await context.apiService.notifications(maxID: nil, scope: scope, authenticationBox: authContext.mastodonAuthenticationBox).value
+        let notifications = try await context.apiService.notifications(maxID: nil, accountID: accountID, scope: scope, authenticationBox: authContext.mastodonAuthenticationBox).value
 
         let accounts = notifications.map { $0.account }
         let relationships = try await context.apiService.relationship(forAccounts: accounts, authenticationBox: authContext.mastodonAuthenticationBox).value

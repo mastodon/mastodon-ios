@@ -899,6 +899,14 @@ public enum L10n {
       }
     }
     public enum Notification {
+      public enum FilteredNotification {
+        /// Accept
+        public static let accept = L10n.tr("Localizable", "Scene.Notification.FilteredNotification.Accept", fallback: "Accept")
+        /// Dismiss
+        public static let dismiss = L10n.tr("Localizable", "Scene.Notification.FilteredNotification.Dismiss", fallback: "Dismiss")
+        /// Filtered Notifications
+        public static let title = L10n.tr("Localizable", "Scene.Notification.FilteredNotification.Title", fallback: "Filtered Notifications")
+      }
       public enum FollowRequest {
         /// Accept
         public static let accept = L10n.tr("Localizable", "Scene.Notification.FollowRequest.Accept", fallback: "Accept")
@@ -928,6 +936,34 @@ public enum L10n {
         public static let rebloggedYourPost = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.RebloggedYourPost", fallback: "boosted your post")
         /// request to follow you
         public static let requestToFollowYou = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.RequestToFollowYou", fallback: "request to follow you")
+      }
+      public enum Policy {
+        /// Filter Notifications from…
+        public static let title = L10n.tr("Localizable", "Scene.Notification.Policy.Title", fallback: "Filter Notifications from…")
+        public enum NewAccount {
+          /// Created within the past 30 days
+          public static let subtitle = L10n.tr("Localizable", "Scene.Notification.Policy.NewAccount.Subtitle", fallback: "Created within the past 30 days")
+          /// New accounts
+          public static let title = L10n.tr("Localizable", "Scene.Notification.Policy.NewAccount.Title", fallback: "New accounts")
+        }
+        public enum NoFollower {
+          /// Including people who have been following you fewer than 3 days
+          public static let subtitle = L10n.tr("Localizable", "Scene.Notification.Policy.NoFollower.Subtitle", fallback: "Including people who have been following you fewer than 3 days")
+          /// People not following you
+          public static let title = L10n.tr("Localizable", "Scene.Notification.Policy.NoFollower.Title", fallback: "People not following you")
+        }
+        public enum NotFollowing {
+          /// Until you manually approve them
+          public static let subtitle = L10n.tr("Localizable", "Scene.Notification.Policy.NotFollowing.Subtitle", fallback: "Until you manually approve them")
+          /// People you don't follow
+          public static let title = L10n.tr("Localizable", "Scene.Notification.Policy.NotFollowing.Title", fallback: "People you don't follow")
+        }
+        public enum PrivateMentions {
+          /// Filtered unless it’s in reply to your own mention or if you follow the sender
+          public static let subtitle = L10n.tr("Localizable", "Scene.Notification.Policy.PrivateMentions.Subtitle", fallback: "Filtered unless it’s in reply to your own mention or if you follow the sender")
+          /// Unsolicited private mentions
+          public static let title = L10n.tr("Localizable", "Scene.Notification.Policy.PrivateMentions.Title", fallback: "Unsolicited private mentions")
+        }
       }
       public enum Title {
         /// Everything
@@ -1952,6 +1988,12 @@ public enum L10n {
         public static func post(_ p1: Any, _ p2: Int) -> String {
           return L10n.tr("Localizable", "plural.count.metric_formatted.post", String(describing: p1), p2, fallback: "Plural format key: \"%@ %#@post_count@\"")
         }
+      }
+    }
+    public enum FilteredNotificationBanner {
+      /// Plural format key: "%#@number_of_requests@"
+      public static func subtitle(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.filtered_notification_banner.subtitle", p1, fallback: "Plural format key: \"%#@number_of_requests@\"")
       }
     }
   }

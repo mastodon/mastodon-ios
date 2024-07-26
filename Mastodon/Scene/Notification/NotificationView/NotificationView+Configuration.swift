@@ -39,9 +39,9 @@ extension NotificationView {
 
         switch notification.entity.type {
         case .follow:
-            setAuthorContainerBottomPaddingViewDisplay()
+            setAuthorContainerBottomPaddingViewDisplay(isHidden: true)
         case .followRequest:
-            setFollowRequestAdaptiveMarginContainerViewDisplay()
+            setFollowRequestAdaptiveMarginContainerViewDisplay(isHidden: true)
         case .mention, .status:
             if let status = notification.status {
                 statusView.configure(status: status)

@@ -11,6 +11,7 @@ import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import MastodonCore
+import MastodonLocalization
 
 final class NotificationTimelineViewModel {
     
@@ -20,6 +21,7 @@ final class NotificationTimelineViewModel {
     let context: AppContext
     let authContext: AuthContext
     let scope: Scope
+    var notificationPolicy: Mastodon.Entity.NotificationPolicy?
     let dataController: FeedDataController
     @Published var isLoadingLatest = false
     @Published var lastAutomaticFetchTimestamp: Date?
@@ -46,12 +48,14 @@ final class NotificationTimelineViewModel {
     init(
         context: AppContext,
         authContext: AuthContext,
-        scope: Scope
+        scope: Scope,
+        notificationPolicy: Mastodon.Entity.NotificationPolicy? = nil
     ) {
         self.context = context
         self.authContext = authContext
         self.scope = scope
         self.dataController = FeedDataController(context: context, authContext: authContext)
+        self.notificationPolicy = notificationPolicy
 
         switch scope {
         case .everything:
@@ -62,6 +66,8 @@ final class NotificationTimelineViewModel {
             self.dataController.records = (try? FileManager.default.cachedNotificationsMentions(for: authContext.mastodonAuthenticationBox))?.map({ notification in
                 MastodonFeed.fromNotification(notification, relationship: nil, kind: .notificationMentions)
             }) ?? []
+        case .fromAccount(_):
+            self.dataController.records = []
         }
 
         self.dataController.$records
@@ -77,18 +83,47 @@ final class NotificationTimelineViewModel {
                     FileManager.default.cacheNotificationsAll(items: items, for: authContext.mastodonAuthenticationBox)
                 case .mentions:
                     FileManager.default.cacheNotificationsMentions(items: items, for: authContext.mastodonAuthenticationBox)
+                case .fromAccount(_):
+                    //NOTE: we don't persist these
+                    break
                 }
             })
             .store(in: &disposeBag)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(Self.notificationFilteringChanged(_:)), name: .notificationFilteringChanged, object: nil)
     }
-    
-    
+
+    //MARK: - Notifications
+
+    @objc func notificationFilteringChanged(_ notification: Notification) {
+        Task { [weak self] in
+            guard let self else { return }
+
+            let policy = try await self.context.apiService.notificationPolicy(authenticationBox: self.authContext.mastodonAuthenticationBox)
+            self.notificationPolicy = policy.value
+
+            await self.loadLatest()
+        }
+    }
 }
 
 extension NotificationTimelineViewModel {
+    enum Scope: Hashable {
+        case everything
+        case mentions
+        case fromAccount(Mastodon.Entity.Account)
 
-    typealias Scope = APIService.MastodonNotificationScope
-
+        var title: String {
+            switch self {
+            case .everything:
+                return L10n.Scene.Notification.Title.everything
+            case .mentions:
+                return L10n.Scene.Notification.Title.mentions
+            case .fromAccount(let account):
+                return "Notifications from \(account.displayName)"
+            }
+        }
+    }
 }
 
 extension NotificationTimelineViewModel {
@@ -103,6 +138,8 @@ extension NotificationTimelineViewModel {
             dataController.loadInitial(kind: .notificationAll)
         case .mentions:
             dataController.loadInitial(kind: .notificationMentions)
+        case .fromAccount(let account):
+            dataController.loadInitial(kind: .notificationAccount(account.id))
         }
 
         didLoadLatest.send()
@@ -115,6 +152,8 @@ extension NotificationTimelineViewModel {
             dataController.loadNext(kind: .notificationAll)
         case .mentions:
             dataController.loadNext(kind: .notificationMentions)
+        case .fromAccount(let account):
+            dataController.loadNext(kind: .notificationAccount(account.id))
         }
     }
 }

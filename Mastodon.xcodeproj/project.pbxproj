@@ -157,10 +157,20 @@
 		D8318A882A4468D300C0FB73 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */; };
 		D8318A8A2A4468DC00C0FB73 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318A892A4468DC00C0FB73 /* AboutViewController.swift */; };
 		D8363B1629469CE200A74079 /* OnboardingNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8363B1529469CE200A74079 /* OnboardingNextView.swift */; };
+		D83B54F82C2AC2FA00D18A7B /* NotificationFilteringBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B54F72C2AC2FA00D18A7B /* NotificationFilteringBannerTableViewCell.swift */; };
 		D84738D42BBD9ABE00ECD52B /* TimelineStatusPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84738D32BBD9ABE00ECD52B /* TimelineStatusPill.swift */; };
 		D84FA0932AE6915800987F47 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D84FA0922AE6915800987F47 /* MBProgressHUD */; };
 		D852C23C2AC5D02C00309232 /* AboutInstanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852C23B2AC5D02C00309232 /* AboutInstanceViewController.swift */; };
 		D852C23E2AC5D03300309232 /* InstanceRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852C23D2AC5D03300309232 /* InstanceRulesViewController.swift */; };
+		D85DF96B2C481AF700A01408 /* NotificationPolicyFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9682C481AF400A01408 /* NotificationPolicyFilterTableViewCell.swift */; };
+		D85DF96C2C481AF700A01408 /* NotificationPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9692C481AF700A01408 /* NotificationPolicyViewController.swift */; };
+		D85DF96D2C481AF700A01408 /* NotificationPolicyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF96A2C481AF700A01408 /* NotificationPolicyHeaderView.swift */; };
+		D85DF9712C481B1100A01408 /* NotificationRequestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF96E2C481B1100A01408 /* NotificationRequestsTableViewController.swift */; };
+		D85DF9722C481B1100A01408 /* NotificationRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF96F2C481B1100A01408 /* NotificationRequestTableViewCell.swift */; };
+		D85DF9742C481B3500A01408 /* DataSourceFacade+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9732C481B3500A01408 /* DataSourceFacade+Notifications.swift */; };
+		D85DF9762C4965A900A01408 /* NotificationRequestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */; };
+		D85DF97A2C4E49A400A01408 /* NotificationRequestCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF9792C4E49A400A01408 /* NotificationRequestCountView.swift */; };
+		D85DF97E2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DF97D2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift */; };
 		D87364F92AE28DB500C8F919 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = D87364F82AE28DB500C8F919 /* Kanna */; };
 		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
 		D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */; };
@@ -789,6 +799,7 @@
 		D8318A872A4468D300C0FB73 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		D8318A892A4468DC00C0FB73 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		D8363B1529469CE200A74079 /* OnboardingNextView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = OnboardingNextView.swift; sourceTree = "<group>"; tabWidth = 4; };
+		D83B54F72C2AC2FA00D18A7B /* NotificationFilteringBannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFilteringBannerTableViewCell.swift; sourceTree = "<group>"; };
 		D84738D32BBD9ABE00ECD52B /* TimelineStatusPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineStatusPill.swift; sourceTree = "<group>"; };
 		D84C099D2B0F9E33009E685E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D84C099F2B0F9E41009E685E /* Setup.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Setup.md; sourceTree = "<group>"; };
@@ -799,6 +810,15 @@
 		D84C09A42B0F9E41009E685E /* Acknowledgments.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Acknowledgments.md; sourceTree = "<group>"; };
 		D852C23B2AC5D02C00309232 /* AboutInstanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInstanceViewController.swift; sourceTree = "<group>"; };
 		D852C23D2AC5D03300309232 /* InstanceRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceRulesViewController.swift; sourceTree = "<group>"; };
+		D85DF9682C481AF400A01408 /* NotificationPolicyFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationPolicyFilterTableViewCell.swift; path = Policy/NotificationPolicyFilterTableViewCell.swift; sourceTree = "<group>"; };
+		D85DF9692C481AF700A01408 /* NotificationPolicyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationPolicyViewController.swift; path = Policy/NotificationPolicyViewController.swift; sourceTree = "<group>"; };
+		D85DF96A2C481AF700A01408 /* NotificationPolicyHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationPolicyHeaderView.swift; path = Policy/NotificationPolicyHeaderView.swift; sourceTree = "<group>"; };
+		D85DF96E2C481B1100A01408 /* NotificationRequestsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationRequestsTableViewController.swift; sourceTree = "<group>"; };
+		D85DF96F2C481B1100A01408 /* NotificationRequestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationRequestTableViewCell.swift; sourceTree = "<group>"; };
+		D85DF9732C481B3500A01408 /* DataSourceFacade+Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Notifications.swift"; sourceTree = "<group>"; };
+		D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestsViewModel.swift; sourceTree = "<group>"; };
+		D85DF9792C4E49A400A01408 /* NotificationRequestCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestCountView.swift; sourceTree = "<group>"; };
+		D85DF97D2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotificationTimelineViewController.swift; sourceTree = "<group>"; };
 		D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginView.swift; sourceTree = "<group>"; };
 		D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewModel.swift; sourceTree = "<group>"; };
 		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
@@ -1510,6 +1530,7 @@
 				DB63F76E279A7D1100455B82 /* NotificationTableViewCell.swift */,
 				DB63F774279A997D00455B82 /* NotificationTableViewCell+ViewModel.swift */,
 				D8A0729C2BEBA8D7001A4C7C /* AccountWarningNotificationCell.swift */,
+				D83B54F72C2AC2FA00D18A7B /* NotificationFilteringBannerTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1758,6 +1779,16 @@
 			path = Privacy;
 			sourceTree = "<group>";
 		};
+		D80EC2602C2978CB009724A5 /* Notification Filtering */ = {
+			isa = PBXGroup;
+			children = (
+				D85DF9682C481AF400A01408 /* NotificationPolicyFilterTableViewCell.swift */,
+				D85DF96A2C481AF700A01408 /* NotificationPolicyHeaderView.swift */,
+				D85DF9692C481AF700A01408 /* NotificationPolicyViewController.swift */,
+			);
+			path = "Notification Filtering";
+			sourceTree = "<group>";
+		};
 		D80F627E2B5C32E400877059 /* NotificationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1818,6 +1849,27 @@
 				D84C09A42B0F9E41009E685E /* Acknowledgments.md */,
 			);
 			path = Documentation;
+			sourceTree = "<group>";
+		};
+		D85DF9702C481B1100A01408 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				D85DF97C2C50EF8700A01408 /* Account Notifications */,
+				D85DF96E2C481B1100A01408 /* NotificationRequestsTableViewController.swift */,
+				D85DF96F2C481B1100A01408 /* NotificationRequestTableViewCell.swift */,
+				D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */,
+				D85DF9792C4E49A400A01408 /* NotificationRequestCountView.swift */,
+			);
+			name = Requests;
+			path = "Notification Filtering/Requests";
+			sourceTree = "<group>";
+		};
+		D85DF97C2C50EF8700A01408 /* Account Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				D85DF97D2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift */,
+			);
+			path = "Account Notifications";
 			sourceTree = "<group>";
 		};
 		D8A6AB68291C50F3003AB663 /* Login */ = {
@@ -2397,6 +2449,7 @@
 				DB697DDC278F521D004EF2F7 /* DataSourceFacade.swift */,
 				6213AF5D2893A8B200BCADB6 /* DataSourceFacade+Bookmark.swift */,
 				DB697DE0278F5296004EF2F7 /* DataSourceFacade+Model.swift */,
+				D85DF9732C481B3500A01408 /* DataSourceFacade+Notifications.swift */,
 				DB697DDE278F524F004EF2F7 /* DataSourceFacade+Profile.swift */,
 				DB8F7075279E954700E1225B /* DataSourceFacade+Follow.swift */,
 				DB603110279EB38500A935FE /* DataSourceFacade+Mute.swift */,
@@ -2667,6 +2720,8 @@
 		DB9D6BFD25E4F57B0051B173 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				D85DF9702C481B1100A01408 /* Requests */,
+				D80EC2602C2978CB009724A5 /* Notification Filtering */,
 				DB63F765279A5E5600455B82 /* NotificationTimeline */,
 				2D35237F26256F470031AF25 /* Cell */,
 				D80F627E2B5C32E400877059 /* NotificationView */,
@@ -3497,6 +3552,7 @@
 				DBDFF1902805543100557A48 /* DiscoveryPostsViewController.swift in Sources */,
 				DB697DD9278F4CED004EF2F7 /* HomeTimelineViewController+DataSourceProvider.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
+				D85DF9712C481B1100A01408 /* NotificationRequestsTableViewController.swift in Sources */,
 				D8FAAE432AD047B200DC1832 /* AboutInstanceTableFooterView.swift in Sources */,
 				D808B94E296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift in Sources */,
 				D852C23E2AC5D03300309232 /* InstanceRulesViewController.swift in Sources */,
@@ -3535,6 +3591,7 @@
 				DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */,
 				DB5B54A62833BE0000DEF8B2 /* UserListViewModel+State.swift in Sources */,
 				DB0617ED277F02C50030EE79 /* OnboardingNavigationController.swift in Sources */,
+				D85DF9722C481B1100A01408 /* NotificationRequestTableViewCell.swift in Sources */,
 				D808B94C296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift in Sources */,
 				DB0617F527855AB90030EE79 /* ServerRuleSection.swift in Sources */,
 				DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */,
@@ -3557,6 +3614,7 @@
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
 				DB938EE62623F50700E5B6C1 /* ThreadViewController.swift in Sources */,
+				D85DF9762C4965A900A01408 /* NotificationRequestsViewModel.swift in Sources */,
 				DB6180F426391D110018D199 /* MediaPreviewImageView.swift in Sources */,
 				DBF9814A265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
@@ -3581,6 +3639,7 @@
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				DB5B7295273112B100081888 /* FollowingListViewController.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
+				D85DF96C2C481AF700A01408 /* NotificationPolicyViewController.swift in Sources */,
 				D81A94172B07A1D30067A19D /* ProfileCardView+Configuration.swift in Sources */,
 				DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */,
 				D82BD7552ABC73AF009A374A /* NotificationPolicyTableViewCell.swift in Sources */,
@@ -3601,6 +3660,7 @@
 				2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */,
 				DB6180E02639194B0018D199 /* MediaPreviewPagingViewController.swift in Sources */,
 				D8E5C349296DB8A3007E76A7 /* StatusEditHistoryViewController.swift in Sources */,
+				D85DF96B2C481AF700A01408 /* NotificationPolicyFilterTableViewCell.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
 				D8318A882A4468D300C0FB73 /* NotificationSettingsViewController.swift in Sources */,
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
@@ -3753,6 +3813,7 @@
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB0FCB822796AC78006C02E2 /* UserTimelineViewController+DataSourceProvider.swift in Sources */,
 				DB0EF72E26FDB24F00347686 /* SidebarListContentView.swift in Sources */,
+				D85DF96D2C481AF700A01408 /* NotificationPolicyHeaderView.swift in Sources */,
 				DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */,
 				2D7867192625B77500211898 /* NotificationItem.swift in Sources */,
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
@@ -3766,9 +3827,11 @@
 				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
 				DB7A9F932818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift in Sources */,
+				D85DF97E2C50EFA700A01408 /* AccountNotificationTimelineViewController.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB6B74FC272FF55800C70B6E /* UserSection.swift in Sources */,
 				DB0FCB862796BDA1006C02E2 /* SearchSection.swift in Sources */,
+				D83B54F82C2AC2FA00D18A7B /* NotificationFilteringBannerTableViewCell.swift in Sources */,
 				DB1D61CF26F1B33600DA8662 /* WelcomeViewModel.swift in Sources */,
 				D84738D42BBD9ABE00ECD52B /* TimelineStatusPill.swift in Sources */,
 				D8B5E4F42A4ED0240008970C /* NotificationSettingsViewModel.swift in Sources */,
@@ -3777,6 +3840,7 @@
 				D852C23C2AC5D02C00309232 /* AboutInstanceViewController.swift in Sources */,
 				D8F917142A4D74C3008A5370 /* GeneralSettingsDiffableTableViewDataSource.swift in Sources */,
 				2A5242772C199EC2005B9E22 /* PrivacySafetySettingPreset.swift in Sources */,
+				D85DF97A2C4E49A400A01408 /* NotificationRequestCountView.swift in Sources */,
 				DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */,
 				2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */,
 				DB6B7500272FF73800C70B6E /* UserTableViewCell.swift in Sources */,
@@ -3854,6 +3918,7 @@
 				D886FBD329DF710F00272017 /* WelcomeSeparatorView.swift in Sources */,
 				DB0617FD27855BFE0030EE79 /* ServerRuleItem.swift in Sources */,
 				5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */,
+				D85DF9742C481B3500A01408 /* DataSourceFacade+Notifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

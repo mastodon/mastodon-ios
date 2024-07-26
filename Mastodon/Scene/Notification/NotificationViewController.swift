@@ -12,6 +12,7 @@ import MastodonLocalization
 import Tabman
 import Pageboy
 import MastodonCore
+import MastodonSDK
 
 final class NotificationViewController: TabmanViewController, NeedsDependency {
     
@@ -49,7 +50,7 @@ extension NotificationViewController {
 
         view.backgroundColor = .secondarySystemBackground
         
-        setupSegmentedControl(scopes: APIService.MastodonNotificationScope.allCases)
+        setupSegmentedControl(scopes: [.everything, .mentions])
         pageSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         navigationItem.titleView = pageSegmentedControl
         NSLayoutConstraint.activate([
@@ -68,7 +69,7 @@ extension NotificationViewController {
             }
             .store(in: &disposeBag)
         
-        viewModel?.viewControllers = APIService.MastodonNotificationScope.allCases.map { scope in
+        viewModel?.viewControllers = [NotificationTimelineViewModel.Scope.everything, .mentions].map { scope in
             createViewController(for: scope)
         }
         
@@ -86,14 +87,11 @@ extension NotificationViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        aspectViewWillAppear(animated)
-        
-        // fetch latest notification when scroll position is within half screen height to prevent list reload
-//        if tableView.contentOffset.y < view.frame.height * 0.5 {
-//            viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
-//        }
+        // https://github.com/mastodon/documentation/pull/1447#issuecomment-2149225659
+        if let viewModel, viewModel.notificationPolicy != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(NotificationViewController.showNotificationPolicySettings(_:)))
+        }
 
-        
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -117,6 +115,24 @@ extension NotificationViewController {
         
 //        aspectViewDidDisappear(animated)
     }
+
+    //MARK: - Actions
+
+    @objc private func showNotificationPolicySettings(_ sender: Any) {
+        guard let viewModel, let policy = viewModel.notificationPolicy else { return }
+
+        let policyViewModel = NotificationFilterViewModel(
+            appContext: viewModel.context,
+            notFollowing: policy.filterNotFollowing,
+            noFollower: policy.filterNotFollowers,
+            newAccount: policy.filterNewAccounts,
+            privateMentions: policy.filterPrivateMentions
+        )
+
+        guard let policyViewController = coordinator.present(scene: .notificationPolicy(viewModel: policyViewModel), transition: .formSheet) as? NotificationPolicyViewController else { return }
+
+        policyViewController.delegate = self
+    }
 }
 
 extension NotificationViewController {
@@ -134,17 +150,20 @@ extension NotificationViewController {
             pageSegmentedControl.selectedSegmentIndex = 0
         }
     }
-    
+
     private func createViewController(for scope: NotificationTimelineViewModel.Scope) -> UIViewController {
-        guard let authContext = viewModel?.authContext else { return UITableViewController() }
-        let viewController = NotificationTimelineViewController()
-        viewController.context = context
-        viewController.coordinator = coordinator
-        viewController.viewModel = NotificationTimelineViewModel(
+        guard let viewModel else { return UITableViewController() }
+
+        let viewController = NotificationTimelineViewController(
+            viewModel: NotificationTimelineViewModel(
+                context: context,
+                authContext: viewModel.authContext,
+                scope: scope, notificationPolicy: viewModel.notificationPolicy
+            ),
             context: context,
-            authContext: authContext,
-            scope: scope
+            coordinator: coordinator
         )
+
         return viewController
     }
 }
@@ -232,5 +251,14 @@ extension NotificationViewController {
     
     override var keyCommands: [UIKeyCommand]? {
         return categorySwitchKeyCommands
+    }
+}
+
+
+//MARK: - NotificationPolicyViewControllerDelegate
+
+extension NotificationViewController: NotificationPolicyViewControllerDelegate {
+    func policyUpdated(_ viewController: NotificationPolicyViewController, newPolicy: Mastodon.Entity.NotificationPolicy) {
+        viewModel?.notificationPolicy = newPolicy
     }
 }

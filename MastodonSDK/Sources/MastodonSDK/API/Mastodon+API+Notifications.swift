@@ -134,3 +134,135 @@ extension Mastodon.API.Notifications {
         }
     }
 }
+
+//MARK: - Notification Policy
+
+extension Mastodon.API.Notifications {
+    internal static func notificationPolicyEndpointURL(domain: String) -> URL {
+        notificationsEndpointURL(domain: domain).appendingPathComponent("policy")
+    }
+
+    public struct UpdateNotificationPolicyQuery: Codable, PatchQuery {
+        public let filterNotFollowing: Bool
+        public let filterNotFollowers: Bool
+        public let filterNewAccounts: Bool
+        public let filterPrivateMentions: Bool
+
+        enum CodingKeys: String, CodingKey {
+            case filterNotFollowing = "filter_not_following"
+            case filterNotFollowers = "filter_not_followers"
+            case filterNewAccounts = "filter_new_accounts"
+            case filterPrivateMentions = "filter_private_mentions"
+        }
+
+        public init(filterNotFollowing: Bool, filterNotFollowers: Bool, filterNewAccounts: Bool, filterPrivateMentions: Bool) {
+            self.filterNotFollowing = filterNotFollowing
+            self.filterNotFollowers = filterNotFollowers
+            self.filterNewAccounts = filterNewAccounts
+            self.filterPrivateMentions = filterPrivateMentions
+        }
+    }
+
+    public static func getNotificationPolicy(
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.NotificationPolicy> {
+        let request = Mastodon.API.get(
+            url: notificationPolicyEndpointURL(domain: domain),
+            authorization: authorization
+        )
+
+        let (data, response) = try await session.data(for: request)
+
+        let value = try Mastodon.API.decode(type: Mastodon.Entity.NotificationPolicy.self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+
+    public static func updateNotificationPolicy(
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization,
+        query: Mastodon.API.Notifications.UpdateNotificationPolicyQuery
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.NotificationPolicy> {
+        let request = Mastodon.API.patch(
+            url: notificationPolicyEndpointURL(domain: domain),
+            query: query,
+            authorization: authorization
+        )
+        let (data, response) = try await session.data(for: request)
+        let value = try Mastodon.API.decode(type: Mastodon.Entity.NotificationPolicy.self, from: data, response: response)
+
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+}
+
+extension Mastodon.API.Notifications {
+    internal static func notificationRequestsEndpointURL(domain: String) -> URL {
+        notificationsEndpointURL(domain: domain).appendingPathComponent("requests")
+    }
+
+    internal static func notificationRequestEndpointURL(domain: String, id: String) -> URL {
+        notificationRequestsEndpointURL(domain: domain).appendingPathComponent(id)
+    }
+
+    internal static func acceptNotificationRequestEndpointURL(domain: String, id: String) -> URL {
+        notificationRequestEndpointURL(domain: domain, id: id).appendingPathComponent("accept")
+    }
+
+    internal static func dismissNotificationRequestEndpointURL(domain: String, id: String) -> URL {
+        notificationRequestEndpointURL(domain: domain, id: id).appendingPathComponent("dismiss")
+    }
+
+    public static func getNotificationRequests(
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.NotificationRequest]> {
+        let request = Mastodon.API.get(
+            url: notificationRequestsEndpointURL(domain: domain),
+            authorization: authorization
+        )
+
+        let (data, response) = try await session.data(for: request)
+
+        let value = try Mastodon.API.decode(type: [Mastodon.Entity.NotificationRequest].self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+
+    public static func acceptNotificationRequest(
+        id: String,
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<[String: String]> {
+        let request = Mastodon.API.post(
+            url: acceptNotificationRequestEndpointURL(domain: domain, id: id),
+            authorization: authorization
+        )
+
+        let (data, response) = try await session.data(for: request)
+
+        // we expect an empty dictionary
+        let value = try Mastodon.API.decode(type: [String: String].self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+
+    public static func dismissNotificationRequest(
+        id: String,
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<[String: String]> {
+        let request = Mastodon.API.post(
+            url: dismissNotificationRequestEndpointURL(domain: domain, id: id),
+            authorization: authorization
+        )
+
+        let (data, response) = try await session.data(for: request)
+
+        // we expect an empty dictionary
+        let value = try Mastodon.API.decode(type: [String: String].self, from: data, response: response)
+        return Mastodon.Response.Content(value: value, response: response)
+    }
+}

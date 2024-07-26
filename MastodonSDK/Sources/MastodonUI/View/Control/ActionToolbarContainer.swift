@@ -290,19 +290,3 @@ extension ActionToolbarContainer {
         set { }
     }
 }
-
-#if DEBUG
-import SwiftUI
-
-struct ActionToolbarContainer_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            UIViewPreview(width: 300) {
-                ActionToolbarContainer()
-            }
-            .previewLayout(.fixed(width: 300, height: 44))
-            .previewDisplayName("Inline")
-        }
-    }
-}
-#endif
