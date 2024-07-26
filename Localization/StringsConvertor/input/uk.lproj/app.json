@@ -838,23 +838,23 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Конфіденційність і безпека",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "Пресет",
+                    "open_and_public": "Відкритий і публічний",
+                    "private_and_restricted": "Приватний і обмежений",
+                    "custom": "Користувацькі"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "Видимість допису за замовчуванням",
+                    "public": "Загальнодоступний",
+                    "followers_only": "Тільки для підписників",
+                    "only_people_mentioned": "Тільки згадані люди"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "Схвалення запитів на стеження вручну",
+                "show_followers_and_following": "Показати підписників і підписок",
+                "suggest_my_account_to_others": "Запропонуйте мій обліковий запис іншим",
+                "appear_in_search_engines": "З'являтися в пошукових системах"
             }
         },
         "report": {
@@ -906,7 +906,7 @@
                 "unfollowed": "Відписалися від",
                 "unfollow_user": "Відписатися від %s",
                 "mute_user": "Ігнорувати %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ви не побачите їхніх публікацій або поширень у своїй домашній стрічці. Вони не дізнаються, що їх звуки вимкнено.",
                 "block_user": "Заблокувати %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Вони більше не зможуть стежити або бачити Ваші пости, але вони зможуть побачити, що вони були заблоковані.",
                 "while_we_review_this_you_can_take_action_against_user": "Поки ми переглядаємо це, ви можете вжити заходів проти %s"
@@ -923,8 +923,8 @@
             "tab_bar_hint": "Поточний профіль: %s. Двічі торкніться, щоб показати перемикач ваших профілів",
             "dismiss_account_switcher": "Відхилити зміну поточного облікового запису",
             "add_account": "Додати обліковий запис",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "Вийти з усіх облікових записів",
+            "logout": "Вийти"
         },
         "bookmark": {
             "title": "Закладки"
