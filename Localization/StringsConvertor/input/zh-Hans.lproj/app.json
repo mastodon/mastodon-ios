@@ -480,11 +480,11 @@
                 "local_community": "本站",
                 "lists": {
                     "title": "列表",
-                    "empty_message": "You don't have any Lists"
+                    "empty_message": "你当前还没有列表"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "关注的话题标签",
+                    "empty_message": "你当前还没有关注任何标签"
                 }
             },
             "timeline_pill": {
@@ -493,7 +493,7 @@
                 "post_sent": "已发布"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "列表是空的"
             }
         },
         "suggestion_account": {
@@ -632,12 +632,12 @@
                     "message": "确认取消屏蔽 %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "显示转嘟",
+                    "message": "确认显示转嘟"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "隐藏转嘟",
+                    "message": "确认隐藏转嘟"
                 },
                 "confirm_block_domain": {
                     "title": "屏蔽域名",
@@ -671,7 +671,7 @@
             "title": "喜欢者"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "转嘟者"
         },
         "search": {
             "title": "搜索",
@@ -731,7 +731,7 @@
             "notification_description": {
                 "followed_you": "关注了你",
                 "favorited_your_post": "喜欢了你的嘟文",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "转发了你的嘟文",
                 "mentioned_you": "提及了你",
                 "request_to_follow_you": "关注请求",
                 "poll_has_ended": "投票已结束"
@@ -747,14 +747,14 @@
                 "rejected": "已拒绝"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "你的账号收到了管理警告。",
+                "disable": "你的账号已被禁用。",
+                "mark_statuses_as_sensitive": "你的一些嘟文已被标记为敏感内容。",
+                "delete_statuses": "你的一些嘟文已被移除。",
+                "sensitive": "今后你的嘟文都会被标记为敏感内容。",
+                "silence": "你的账号已被限制。",
+                "suspend": "你的账号已被封禁.",
+                "learn_more": "了解更多"
             }
         },
         "thread": {
@@ -766,7 +766,7 @@
                 "title": "设置",
                 "general": "通用",
                 "notifications": "通知",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "隐私与安全",
                 "support_mastodon": "支持 Mastodon",
                 "about_mastodon": "关于 Mastodon",
                 "server_details": "服务器详情",
@@ -838,23 +838,23 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "隐私与安全",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "预设值",
+                    "open_and_public": "开放并公开",
+                    "private_and_restricted": "私密与受限",
+                    "custom": "自定义"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "默认嘟文可见性",
+                    "public": "公开",
+                    "followers_only": "仅关注者",
+                    "only_people_mentioned": "仅提及的用户"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "手动批准关注请求",
+                "show_followers_and_following": "显示关注者和被关注者",
+                "suggest_my_account_to_others": "向他人推荐我的账户",
+                "appear_in_search_engines": "在搜索引擎中显示"
             }
         },
         "report": {
@@ -906,7 +906,7 @@
                 "unfollowed": "已取消关注",
                 "unfollow_user": "取消关注 %s",
                 "mute_user": "静音 %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "你不会在主页里看到他们的嘟文和转发。他们不会知道被静音了。",
                 "block_user": "屏蔽 %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他们将不再能够关注或看到你的嘟文，但他们可以知道他们是否被屏蔽。",
                 "while_we_review_this_you_can_take_action_against_user": "当我们审核这个报告时，你可以对 %s 采取行动。"
