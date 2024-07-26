@@ -608,13 +608,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>One person you may know</string>
+        <string>Одна людина, яку ви можете знати</string>
         <key>few</key>
-        <string>%ld people you may know</string>
+        <string>%ld людей, яких ви можете знати</string>
         <key>many</key>
-        <string>%ld people you may know</string>
+        <string>%ld людей, яких ви можете знати</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>%ld людей, яких ви можете знати</string>
       </dict>
     </dict>
   </dict>
