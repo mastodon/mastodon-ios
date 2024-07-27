@@ -143,9 +143,9 @@
                     "next_status": "次の投稿",
                     "open_status": "投稿を開く",
                     "open_author_profile": "プロフィールを見る",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "ブーストした人のプロフィールを開く",
                     "reply_status": "投稿に返信",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "ブーストを切り替える",
                     "toggle_favorite": "お気に入り登録を切り替える",
                     "toggle_content_warning": "閲覧注意を切り替える",
                     "preview_image": "画像をプレビュー"
@@ -235,7 +235,7 @@
                 },
                 "card": {
                     "by": "By",
-                    "by_author": "By %s"
+                    "by_author": "%s"
                 }
             },
             "friendship": {
@@ -368,7 +368,7 @@
             "no_server_selected_hint": "選択せずに次へ進むと、利用中の言語に基づいてサーバーを自動選択します。"
         },
         "privacy": {
-            "title": "Your Privacy",
+            "title": "プライバシー",
             "description": "Mastodon アプリはいかなるデータも収集しません。一方で、登録するサーバーはそれぞれが異なるポリシーを掲げていることがあります。\n\nもし %s のポリシーに同意できない場合は、戻って別のサーバーを選択できます。",
             "policy": {
                 "ios": "プライバシーポリシー - Mastodon for iOS",
