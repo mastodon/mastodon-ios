@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s がブースト",
                 "user_replied_to": "%sに返信",
                 "show_post": "投稿を見る",
                 "show_user_profile": "プロフィールを見る",
@@ -179,7 +179,7 @@
                 "actions": {
                     "reply": "返信",
                     "reblog": "ブースト",
-                    "unreblog": "Undo boost",
+                    "unreblog": "ブースト解除",
                     "favorite": "お気に入り",
                     "unfavorite": "お気に入り登録を取り消す",
                     "menu": "メニュー",
@@ -191,7 +191,7 @@
                     "tap_then_hold_to_show_menu": "長押しでメニュー表示",
                     "a11y_labels": {
                         "reblog": "ブースト",
-                        "unreblog": "Undo boost"
+                        "unreblog": "ブースト解除"
                     },
                     "copy_link": "リンクをコピー"
                 },
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s に %s から投稿",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "ブースト",
                     "favorites_title": "お気に入り",
                     "edit_history_title": "編集履歴",
                     "edit_history_detail": "最終更新日 %s"
@@ -256,8 +256,8 @@
                 "unmute_user": "%sのミュートを解除",
                 "muted": "ミュート済み",
                 "edit_info": "編集",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "ブーストを表示",
+                "hide_reblogs": "ブーストを非表示"
             },
             "timeline": {
                 "filtered": "フィルター済み",
@@ -633,11 +633,11 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "ブーストを表示",
-                    "message": "Confirm to show boosts"
+                    "message": "ブーストを表示しますか？"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "ブーストを非表示",
+                    "message": "ブーストを非表示にしますか？"
                 },
                 "confirm_block_domain": {
                     "title": "ドメインのブロック",
@@ -671,7 +671,7 @@
             "title": "お気に入り"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "ブーストしたユーザー"
         },
         "search": {
             "title": "検索",
@@ -853,8 +853,8 @@
                 },
                 "manually_approve_follow_requests": "フォローを承認制にする",
                 "show_followers_and_following": "フォローとフォロワーの一覧を開示する",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "suggest_my_account_to_others": "アカウントを見つけやすくする",
+                "appear_in_search_engines": "検索エンジンからアクセスできるようにする"
             }
         },
         "report": {
@@ -906,7 +906,7 @@
                 "unfollowed": "フォロー解除しました",
                 "unfollow_user": "%sをフォロー解除",
                 "mute_user": "%sをミュート",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "ホームに投稿やブーストは表示されなくなりますが、相手にミュートしたことは伝わりません。",
                 "block_user": "%sをブロック",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "相手はあなたの投稿を見たり、フォローしたりできなくなります。あなたにブロックされていることはわかります。",
                 "while_we_review_this_you_can_take_action_against_user": "私たちが確認している間でも、あなたは%sさんに対して対応することができます。"
