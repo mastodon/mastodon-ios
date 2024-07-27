@@ -428,7 +428,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>你可能认识的 %ld 人</string>
       </dict>
     </dict>
   </dict>
