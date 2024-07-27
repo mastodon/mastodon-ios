@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s 转嘟了",
+                "user_reblogged": "%s 转发了",
                 "user_replied_to": "回复给 %s",
                 "show_post": "显示嘟文",
                 "show_user_profile": "查看用户个人资料",
@@ -766,7 +766,7 @@
                 "title": "设置",
                 "general": "通用",
                 "notifications": "通知",
-                "privacy_safety": "隐私与安全",
+                "privacy_safety": "隐私",
                 "support_mastodon": "支持 Mastodon",
                 "about_mastodon": "关于 Mastodon",
                 "server_details": "服务器详情",
@@ -838,23 +838,23 @@
                 }
             },
             "privacy_safety": {
-                "title": "隐私与安全",
+                "title": "隐私",
                 "preset": {
-                    "title": "预设值",
-                    "open_and_public": "开放并公开",
-                    "private_and_restricted": "私密与受限",
-                    "custom": "自定义"
+                    "title": "预设",
+                    "open_and_public": "开放",
+                    "private_and_restricted": "私密",
+                    "custom": "定制"
                 },
                 "default_post_visibility": {
-                    "title": "默认嘟文可见性",
+                    "title": "帖子默认可见性",
                     "public": "公开",
                     "followers_only": "仅关注者",
                     "only_people_mentioned": "仅提及的用户"
                 },
                 "manually_approve_follow_requests": "手动批准关注请求",
-                "show_followers_and_following": "显示关注者和被关注者",
-                "suggest_my_account_to_others": "向他人推荐我的账户",
-                "appear_in_search_engines": "在搜索引擎中显示"
+                "show_followers_and_following": "公开关注者与我关注的",
+                "suggest_my_account_to_others": "向他人推荐我",
+                "appear_in_search_engines": "允许搜索引擎收录"
             }
         },
         "report": {
