@@ -369,7 +369,7 @@
         },
         "privacy": {
             "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "description": "Mastodon アプリはいかなるデータも収集しません。一方で、登録するサーバーはそれぞれが異なるポリシーを掲げていることがあります。\n\nもし %s のポリシーに同意できない場合は、戻って別のサーバーを選択できます。",
             "policy": {
                 "ios": "プライバシーポリシー - Mastodon for iOS",
                 "server": "プライバシーポリシー - %s"
@@ -479,12 +479,12 @@
                 "following": "フォロー中",
                 "local_community": "ローカル",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "リスト",
+                    "empty_message": "まだリストがありません。"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "フォロー中のハッシュタグ",
+                    "empty_message": "ハッシュタグをフォローしていません。"
                 }
             },
             "timeline_pill": {
@@ -493,7 +493,7 @@
                 "post_sent": "投稿しました"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "このリストは空です。"
             }
         },
         "suggestion_account": {
@@ -632,7 +632,7 @@
                     "message": "%sのブロックを解除しますか？"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
+                    "title": "ブーストを表示",
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
@@ -731,7 +731,7 @@
             "notification_description": {
                 "followed_you": "にフォローされました",
                 "favorited_your_post": "がお気に入りに登録",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "にブーストされました",
                 "mentioned_you": "にメンションされました",
                 "request_to_follow_you": "からのフォローリクエスト",
                 "poll_has_ended": "のアンケートが終了"
@@ -766,7 +766,7 @@
                 "title": "設定",
                 "general": "一般",
                 "notifications": "通知",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "プライバシーと安全性",
                 "support_mastodon": "Mastodonを支援する",
                 "about_mastodon": "Mastodonについて",
                 "server_details": "サーバーの詳細",
@@ -838,21 +838,21 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "プライバシーと安全性",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "プリセット",
+                    "open_and_public": "公開",
+                    "private_and_restricted": "制限",
+                    "custom": "カスタム"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "デフォルトの公開範囲",
+                    "public": "公開",
+                    "followers_only": "フォロワーのみ",
+                    "only_people_mentioned": "メンションした相手のみ"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
+                "manually_approve_follow_requests": "フォローを承認制にする",
+                "show_followers_and_following": "フォローとフォロワーの一覧を開示する",
                 "suggest_my_account_to_others": "Suggest My Account to Others",
                 "appear_in_search_engines": "Appear in Search Engines"
             }
