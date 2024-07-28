@@ -488,9 +488,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>One person you may know</string>
+        <string>Einn aðili sem þú gætir þekkt</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>%ld aðilar sem þú gætir þekkt</string>
       </dict>
     </dict>
   </dict>
