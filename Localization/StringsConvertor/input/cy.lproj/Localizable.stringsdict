@@ -95,7 +95,7 @@
         <key>many</key>
         <string>%ld characters left</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -282,7 +282,7 @@
         <key>many</key>
         <string>%ld re-blogs</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -734,11 +734,11 @@
         <key>two</key>
         <string>%ld people you may know</string>
         <key>few</key>
-        <string>%ld people you may know</string>
+        <string>%ld pherson rydych chi'n eu hadnabod</string>
         <key>many</key>
-        <string>%ld people you may know</string>
+        <string>%ld person rydych chi'n eu hadnabod</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>%ld person rydych chi'n eu hadnabod</string>
       </dict>
     </dict>
   </dict>
