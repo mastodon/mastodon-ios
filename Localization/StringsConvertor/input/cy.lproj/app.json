@@ -6,7 +6,7 @@
                 "please_try_again_later": "Ceisiwch eto nes ymlaen."
             },
             "sign_up_failure": {
-                "title": "Gwall Ymgofrestru"
+                "title": "Gwall Cofrestru"
             },
             "server_error": {
                 "title": "Gwall Gweinydd"
@@ -54,8 +54,8 @@
                 "button": "Iawn"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "title": "Cyfryngau heb Destun Amgen",
+                "message": "Nid oes testun amgen ar %d o'ch delweddau.\nPostio beth bynnag?",
                 "cancel": "Canslo",
                 "post": "Postio"
             },
@@ -297,11 +297,11 @@
             "education": {
                 "mastodon": {
                     "title": "Croeso i Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "description": "Mae Mastodon yn rhwydwaith cymdeithasol datganoledig, sy'n golygu nad oes un cwmni yn ei reoli. Mae'n cynnwys llawer o weinyddion annibynnol, gyda phob un wedi'u cysylltu gyda'i gilydd."
                 },
                 "servers": {
                     "title": "Beth yw gweinyddion?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "description": "Mae pob cyfrif Mastodon yn cael ei gynnal ar weinydd — pob un â'i werthoedd, rheolau, a gweinyddwyr ei hun. Ni waeth pa un rydych chi'n ei ddewis, gallwch chi ddilyn a rhyngweithio â phobl ar unrhyw weinydd."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -312,7 +312,7 @@
         },
         "login": {
             "title": "Croeso nôl",
-            "subtitle": "Log in with the server where you created your account.",
+            "subtitle": "Mewngofnodwch gyda'r gweinydd lle gwnaethoch chi greu eich cyfrif.",
             "server_search_field": {
                 "placeholder": "Mewnosod URL neu chwilio am eich gweinydd"
             }
@@ -321,7 +321,7 @@
             "title": "Dewiswch Weinydd",
             "button": {
                 "language": "Iaith",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "Cyflymder Cofrestru",
                 "category": {
                     "all": "Popeth",
                     "all_accessiblity_description": "Categori: Popeth",
@@ -355,23 +355,23 @@
                 "no_results": "Dim canlyniadau"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Popeth",
+                "instant": "Cofrestru ar Unwaith",
+                "manually_reviewed": "Gwiriad â Llaw"
             },
             "language": {
                 "all": "Popeth"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Chwilio am enw neu URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Byddwn yn dewis gweinydd yn eich iaith os byddwch yn parhau heb ddewis."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Eich Preifatrwydd",
+            "description": "Er nad yw'r app Mastodon yn casglu unrhyw ddata, efallai y bydd gan y gweinydd rydych chi'n cofrestru drwyddo bolisi gwahanol.\n\nOs ydych chi'n anghytuno â'r polisi ar gyfer **%s**, gallwch fynd yn ôl a dewis gweinydd gwahanol.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
+                "ios": "Polisi Preifatrwydd - Mastodon ar iOS",
                 "server": "Privacy Policy - %s"
             },
             "button": {
@@ -387,7 +387,7 @@
                 "username": {
                     "placeholder": "enw defnyddiwr",
                     "duplicate_prompt": "Defnyddir yr enw hwn yn barod.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "%@_anhygoel"
                 },
                 "display_name": {
                     "placeholder": "enw arddangos"
@@ -422,7 +422,7 @@
                 "reason": {
                     "blocked": "Mae %s yn defnyddio darparwr e-bost nad yw'n cael ei ganiatáu",
                     "unreachable": "Nid yw %s yn bodoli",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "Nid yw %s ar gael. Beth am:",
                     "reserved": "Mae %s yn air allweddol a chadwyd",
                     "accepted": "Mae angen cytuno â %s",
                     "blank": "Mae angen cael %s",
@@ -440,19 +440,19 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Rheolau'r Gweinydd",
+            "subtitle": "Wrth barhau, rydych yn cytuno i ddilyn y rheolau canlynol a osodir ac a orfodir gan gymedrolwyr **%s**.",
             "prompt": "Wrth barhau, rydych yn cytuno â'r Telerau Gwasanaeth a Pholisi Preifatrwydd %s.",
             "terms_of_service": "telerau gwasanaeth",
             "privacy_policy": "polisi preifatrwydd",
             "button": {
                 "confirm": "Rwy'n Cytuno",
-                "disagree": "Disagree"
+                "disagree": "Anghytuno"
             }
         },
         "confirm_email": {
             "title": "Gwiriwch Eich Bblwch Derbyn",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tapiwch ar y ddolen a anfonwyd atoch i wirio %@. Byddwn yn aros yma amdanoch.",
             "button": {
                 "resend": "Ailanfon"
             },
@@ -462,49 +462,49 @@
                 "resend_email": "Ailanfon E-bost"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Gwiriwch eich Blwch Derbyn.",
                 "description": "Rydym newydd anfon e-bost atoch chi. Gwiriwch eich ffolder 'junk' os nad ydych wedi ei gwneud.",
                 "mail": "Mail",
                 "open_email_client": "Agor Cleient E-byst"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Heb gael dolen?",
+                "resend_in": "Ailanfon (%@)",
+                "resend_now": "Ailanfon nawr."
             }
         },
         "home_timeline": {
             "title": "Hafan",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local",
+                "following": "Yn dilyn",
+                "local_community": "Lleol",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Rhestrau",
+                    "empty_message": "Nid oes gennych unrhyw Restrau"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Hashnodau a Ddilynwyd",
+                    "empty_message": "Nid ydych chi'n dilyn unrhyw hashnodau"
                 }
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "All-lein",
+                "new_posts": "Postiadau Newydd",
+                "post_sent": "Cyhoeddwyd y Post"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Mae'r rhestr hon yn wag"
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Yn boblogaidd ar Mastodon",
+            "follow_all": "Dilyn pawb"
         },
         "compose": {
             "title": {
                 "new_post": "Tŵt Newydd",
                 "new_reply": "Ymateb Newydd",
-                "edit_post": "Edit Post"
+                "edit_post": "Golygu Post"
             },
             "media_selection": {
                 "camera": "Tynnu Llun",
@@ -528,7 +528,7 @@
                 "server_processing_state": "Mae'r gweinydd yn prosesu..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Arolwg",
                 "duration_time": "Hyd: %s",
                 "thirty_minutes": "30 munud",
                 "one_hour": "1 awr",
@@ -539,10 +539,10 @@
                 "option_number": "Opsiwn %ld",
                 "the_poll_is_invalid": "Nid yw'r pôl yn ddilys",
                 "the_poll_has_empty_option": "Mae gan y pôl opsiwn gwag",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Ychwanegu Dewis",
+                "remove_option": "Dileu Dewis",
+                "move_up": "Symud i Fyny",
+                "move_down": "Symud i Lawr"
             },
             "content_warning": {
                 "placeholder": "Ysgrifenwch rybudd manwl yma..."
@@ -576,10 +576,10 @@
                 "select_visibility_entry": "Dewis Preifatrwydd - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
+                "title": "Iaith Bostio",
+                "suggested": "Awgrymiadau",
                 "recent": "Diweddar",
-                "other": "Other Language…"
+                "other": "Iait Arall…"
             }
         },
         "profile": {
@@ -593,7 +593,7 @@
                 "other_posts": "postiadu",
                 "other_following": "yn dilyn",
                 "other_followers": "dilynwyr",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "cydgydnabod"
             },
             "fields": {
                 "joined": "Ymunwyd",
@@ -632,11 +632,11 @@
                     "message": "Parhau i ddadflocio %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Dangos Hybiau",
+                    "message": "Cadarnhau i ddangos hybiau"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
+                    "title": "Cuddio Hybiau",
                     "message": "Cadarnhau i guddio hybiau"
                 },
                 "confirm_block_domain": {
@@ -693,20 +693,20 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Postiadau sy'n cyfateb i %s\"",
+                "people": "Pobl sy'n cyfateb i %s\"",
                 "profile": "Ewch i @%s@%s",
                 "url": "Agor URL yn Mastodon",
                 "hashtag": "Ewch i @@%s",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Heb Ganfod Cyfrif Defnyddiwr",
+                    "message": "Nid oes Cyfrif Defnyddiwr \"%s\" ar %s"
                 },
                 "empty_state": {
                     "no_results": "Dim canlyniadau"
                 },
                 "recent_search": "Chwiliadau diweddar",
-                "clear_all": "Clear all",
+                "clear_all": "Clirio popeth",
                 "clear": "Clirio"
             }
         },
@@ -731,7 +731,7 @@
             "notification_description": {
                 "followed_you": "wedi eich dilyn",
                 "favorited_your_post": "wedi ffefrynnu eich tŵt",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "wedi hybu eich post",
                 "mentioned_you": "wedi sôn amdanoch",
                 "request_to_follow_you": "wedi gwneud cais i'ch dilyn",
                 "poll_has_ended": "pôl wedi dod i ben"
@@ -747,13 +747,13 @@
                 "rejected": "Gwrthodwyd"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
+                "none": "Mae eich cyfrif wedi derbyn rhybudd cymedroli.",
+                "disable": "Mae eich cyfrif wedi'i analluogi.",
+                "mark_statuses_as_sensitive": "Mae rhai o'ch postiadau wedi'u marcio'n sensitif.",
+                "delete_statuses": "Mae rhai o'ch postiadau wedi'u dileu.",
+                "sensitive": "Bydd eich postiadau'n cael eu marcio'n sensitif o hyn ymlaen.",
+                "silence": "Mae eich cyfrif wedi'i gyfyngu.",
+                "suspend": "Mae eich cyfrif wedi'i hatal.",
                 "learn_more": "Dysgu Mwy"
             }
         },
@@ -775,7 +775,7 @@
             "about_mastodon": {
                 "title": "Ynghylch",
                 "more_settings": "Rhagor o Osodiadau",
-                "contribute_to_mastodon": "Contribute to Mastodon",
+                "contribute_to_mastodon": "Cyfrannu at Mastodon",
                 "privacy_policy": "Polisi Preifatrwydd",
                 "clear_media_storage": "Clirio Storfa Cyfryngau"
             },
@@ -784,7 +784,7 @@
                 "rules": "Rheolau",
                 "about_instance": {
                     "title": "Gweinyddwr",
-                    "message_admin": "Message Admin",
+                    "message_admin": "Anfon Neges at y Gweinyddwyr",
                     "legal_notice": "Rhybudd Cyfreithiol"
                 }
             },
@@ -801,59 +801,59 @@
                     "posting_without_alt_text": "Postio heb Destun Amgen",
                     "unfollowing_someone": "Dad-ddilyn Rhywun",
                     "boosting_a_post": "Hybu Postiad",
-                    "deleting_a_post": "Deleting a Post"
+                    "deleting_a_post": "Dileu Post"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Gwedd",
+                    "show_animations": "Chwarae Animeiddiadau Afatars ac Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Iaith",
+                    "default_post_language": "Iaith Ddiofyn Postio"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Dolenni",
+                    "open_in_mastodon": "Agor yn Mastodon",
+                    "open_in_browser": "Agor yn y Porwr"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Hysbysiadau",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Cael Hysbysiadau gan",
+                    "anyone": "Unrhyw un",
+                    "followers": "Pobl sy'n eich dilyn",
+                    "follow": "Pobl rydych chi'n eu dilyn",
+                    "noone": "Neb"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Crybwylliadau & Ymatebion",
+                    "boosts": "Hybiau",
+                    "favorites": "Ffefrynnau",
+                    "new_followers": "Dilynwyr Newydd"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Trowch hysbysiadau ymlaen o'ch gosodiadau dyfais i weld diweddariadau ar eich sgrin clo.",
+                    "go_to_settings": "Mynd i Osodiadau Hysbysiadau"
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Preifatrwydd & Diogelwch",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "Diofyn",
+                    "open_and_public": "Agored & Cyhoeddus",
+                    "private_and_restricted": "Preifat & Cyfyngedig",
+                    "custom": "Addas"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "Gwelededd Post Diofyn",
+                    "public": "Cyhoeddus",
+                    "followers_only": "Dilynwyr yn unig",
+                    "only_people_mentioned": "Dim ond pobl rwy'n eu crybwyll"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "manually_approve_follow_requests": "Cymeradwyo Ceisiadau Dilyn â Llaw",
+                "show_followers_and_following": "Dangos Dilynwyr & Yn Dilyn",
+                "suggest_my_account_to_others": "Awgrymu fy Nghyfrif i Eraill",
                 "appear_in_search_engines": "Ymddangos mewn Peiriannau Chwilio"
             }
         },
@@ -906,7 +906,7 @@
                 "unfollowed": "Dad-ddilynwyd",
                 "unfollow_user": "Dad-ddilyn %s",
                 "mute_user": "Anwybyddu %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ni fyddwch yn gweld eu postiadau na'u hybiau yn eich ffrwd cartref. Ni fyddant yn gwybod eu bod wedi cael eu anwybyddu.",
                 "block_user": "Blocio %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ni fyddant yn gallu eich dilyn neu weld eich postiadau, ond maen nhw'n gallu gweld eich bod wedi'u blocio.",
                 "while_we_review_this_you_can_take_action_against_user": "Tra byddwn ni'n edrych ar hyn, gallwch gymryd camau yn erbyn %s"
@@ -923,7 +923,7 @@
             "tab_bar_hint": "Proffil cyfredol: %s. Tapiwch dwywaith a gwasgu i ddefnyddio'r newidiwr cyfrifon",
             "dismiss_account_switcher": "Diddymu Newidiwr Cyfrifon",
             "add_account": "Ychwanegu Cyfrif",
-            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout_all_accounts": "Allgofnodi o Bob Cyfrif",
             "logout": "Allgofnodi"
         },
         "bookmark": {
@@ -944,30 +944,30 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Nid yw'n ymddangos bod hyn yn ddolen Mastodon ddilys."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Mae'n ddrwg gennym, ond nid yw'r teulu Widget hwn yn cael ei gefnogi.",
+            "user_not_logged_in": "Agorwch Mastodon i fewngofnodi i Gyfrif."
         },
         "followers_count": {
             "configuration_display_name": "Dilynwyr",
-            "configuration_description": "Show number of followers.",
+            "configuration_description": "Dangos nifer y dilynwyr.",
             "title": "DILYNWYR",
             "followers_today": "%s, dilynwr heddiw"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Dilynwyr lluosog",
+            "configuration_description": "Dangos nifer y dilynwyr ar gyfer cyfrifon lluosog.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Dilynwr arall",
+                "account_name": "dilynwr@arall.social"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
+            "configuration_display_name": "Dilynwyr diweddaraf",
             "configuration_description": "Dangos dilynwyr diweddaraf.",
             "title": "Dilynwyr diweddaraf",
             "last_update": "Diweddarwyd ddiwethaf: %s"
@@ -975,17 +975,17 @@
         "hashtag": {
             "configuration": {
                 "display_name": "Hashnod",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Dangos post diweddar gyda'r hashnod a ddewiswyd."
             },
             "not_found": {
                 "account_name": "Ieuan Mastodon",
                 "account": "@ieuanMastodon@dim-cyfrif-or.fath",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "content": "Mae'n ddrwg gennym, methwyd dod o hyd i unrhyw postiadau gyda'r hashnod <a>#%@</a>. Ceisiwch <a>#HashnodGwahanol</a> neu wiriwch y gosodiadau widget."
             },
             "placeholder": {
                 "account_name": "Ieuan Mastodon",
                 "account": "@ieuanMastodon@dim-cyfrif-or.fath",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Dyma sut y byddai post gyda <a>#hashnod</a> yn edrych. Dewiswch unrhyw <a>#hashnod</a> rydych chi ei eisiau gweld yng ngosodiadau'r widget."
             }
         }
     }
