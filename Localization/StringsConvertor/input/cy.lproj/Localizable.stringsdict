@@ -85,15 +85,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>%ld nod ar ôl</string>
         <key>two</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
         <key>few</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
         <key>many</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
         <key>other</key>
         <string>%ld nod ar ôl</string>
       </dict>
@@ -272,15 +272,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>%ld hwb</string>
         <key>two</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
         <key>few</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
         <key>many</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
         <key>other</key>
         <string>%ld hwb</string>
       </dict>
@@ -724,15 +724,15 @@
       <key>number_of_requests</key>
       <dict>
         <key>zero</key>
-        <string>%ld people you may know</string>
+        <string>%ld person rydych chi'n eu hadnabod</string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>One person you may know</string>
+        <string>%ld person rydych chi'n eu hadnabod</string>
         <key>two</key>
-        <string>%ld people you may know</string>
+        <string>%ld berson rydych chi'n eu hadnabod</string>
         <key>few</key>
         <string>%ld pherson rydych chi'n eu hadnabod</string>
         <key>many</key>
