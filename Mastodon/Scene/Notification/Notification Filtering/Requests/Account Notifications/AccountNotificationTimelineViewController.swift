@@ -37,7 +37,7 @@ class AccountNotificationTimelineViewController: NotificationTimelineViewControl
                 self.delegate?.acceptRequest(self, request: request)
                 coordinator.hideLoading()
             },
-            UIAction(title: L10n.Scene.Notification.FilteredNotification.dismiss, image: UIImage(systemName: "speaker.slash")) { [weak self] _ in
+            UIAction(title: L10n.Scene.Notification.FilteredNotification.dismiss, image: NotificationRequestConstants.dismissIcon) { [weak self] _ in
                 guard let self else { return }
 
                 coordinator.showLoading()

@@ -84,7 +84,7 @@ class NotificationRequestTableViewCell: UITableViewCell {
         rejectNotificationRequestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         rejectNotificationRequestButton.setTitleColor(.black, for: .normal)
         rejectNotificationRequestButton.setTitle(L10n.Scene.Notification.FilteredNotification.dismiss, for: .normal)
-        rejectNotificationRequestButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
+        rejectNotificationRequestButton.setImage(NotificationRequestConstants.dismissIcon, for: .normal)
         rejectNotificationRequestButton.imageView?.contentMode = .scaleAspectFit
         rejectNotificationRequestButton.setInsets(forContentPadding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), imageTitlePadding: 8)
         rejectNotificationRequestButton.setBackgroundImage(.placeholder(color: Asset.Scene.Notification.deleteFollowRequestButtonBackground.color), for: .normal)
