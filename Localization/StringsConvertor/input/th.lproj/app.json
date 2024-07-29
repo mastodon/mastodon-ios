@@ -493,7 +493,7 @@
                 "post_sent": "ส่งโพสต์แล้ว"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "รายการนี้ว่างเปล่า"
             }
         },
         "suggestion_account": {
