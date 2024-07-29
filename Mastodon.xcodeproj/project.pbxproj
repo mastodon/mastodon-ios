@@ -32,6 +32,7 @@
 		2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */; };
 		2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */; };
 		2A409F832B5955290044E472 /* MastodonStatusThreadViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A409F822B5955290044E472 /* MastodonStatusThreadViewModel+State.swift */; };
+		2A4C3B5D2C579CFB008DD42B /* NotificationRequestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C3B5C2C579CFB008DD42B /* NotificationRequestConstants.swift */; };
 		2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */; };
 		2A506CF6292D040100059C37 /* HashtagTimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */; };
 		2A5242732C199C96005B9E22 /* PrivacySafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5242722C199C96005B9E22 /* PrivacySafetyView.swift */; };
@@ -649,6 +650,7 @@
 		2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewModel.swift; sourceTree = "<group>"; };
 		2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsTableViewCell.swift; sourceTree = "<group>"; };
 		2A409F822B5955290044E472 /* MastodonStatusThreadViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonStatusThreadViewModel+State.swift"; sourceTree = "<group>"; };
+		2A4C3B5C2C579CFB008DD42B /* NotificationRequestConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestConstants.swift; sourceTree = "<group>"; };
 		2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewController.swift; sourceTree = "<group>"; };
 		2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderView.swift; sourceTree = "<group>"; };
 		2A5242722C199C96005B9E22 /* PrivacySafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySafetyView.swift; sourceTree = "<group>"; };
@@ -1859,6 +1861,7 @@
 				D85DF96F2C481B1100A01408 /* NotificationRequestTableViewCell.swift */,
 				D85DF9752C4965A900A01408 /* NotificationRequestsViewModel.swift */,
 				D85DF9792C4E49A400A01408 /* NotificationRequestCountView.swift */,
+				2A4C3B5C2C579CFB008DD42B /* NotificationRequestConstants.swift */,
 			);
 			name = Requests;
 			path = "Notification Filtering/Requests";
@@ -3746,6 +3749,7 @@
 				DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */,
 				2A5242732C199C96005B9E22 /* PrivacySafetyView.swift in Sources */,
 				DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */,
+				2A4C3B5D2C579CFB008DD42B /* NotificationRequestConstants.swift in Sources */,
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,
 				DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */,
 				DB63F752279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift in Sources */,

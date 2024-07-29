@@ -97,7 +97,7 @@ extension NotificationRequestsTableViewController: UITableViewDelegate {
             completion(true)
         }
 
-        dismissAction.image = UIImage(systemName: "speaker.slash")
+        dismissAction.image = NotificationRequestConstants.dismissIcon
 
         let swipeAction = UISwipeActionsConfiguration(actions: [dismissAction])
         swipeAction.performsFirstActionWithFullSwipe = true
