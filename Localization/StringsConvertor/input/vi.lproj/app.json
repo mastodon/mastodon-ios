@@ -234,8 +234,8 @@
                     "original_post": "Tút gốc · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Bởi",
+                    "by_author": "Bởi %s"
                 }
             },
             "friendship": {
@@ -477,12 +477,23 @@
             "title": "Trang chủ",
             "timeline_menu": {
                 "following": "Đang theo dõi",
-                "local_community": "Máy chủ"
+                "local_community": "Máy chủ",
+                "lists": {
+                    "title": "Danh sách",
+                    "empty_message": "Bạn chưa có danh sách nào"
+                },
+                "hashtags": {
+                    "title": "Hashtag theo dõi",
+                    "empty_message": "Bạn chưa theo dõi hashtag nào"
+                }
             },
             "timeline_pill": {
                 "offline": "Rớt mạng",
                 "new_posts": "Những tút mới",
                 "post_sent": "Đã đăng"
+            },
+            "empty_state": {
+                "list_empty_message_title": "Trống."
             }
         },
         "suggestion_account": {

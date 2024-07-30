@@ -597,5 +597,25 @@
         <string>%ld секунд тому</string>
       </dict>
     </dict>
+    <key>plural.filtered_notification_banner.subtitle</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@number_of_requests@</string>
+      <key>number_of_requests</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Одна людина, яку ви можете знати</string>
+        <key>few</key>
+        <string>%ld людей, яких ви можете знати</string>
+        <key>many</key>
+        <string>%ld людей, яких ви можете знати</string>
+        <key>other</key>
+        <string>%ld людей, яких ви можете знати</string>
+      </dict>
+    </dict>
   </dict>
 </plist>

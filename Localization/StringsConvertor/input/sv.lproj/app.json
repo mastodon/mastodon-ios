@@ -234,8 +234,8 @@
                     "original_post": "Original Post · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Av",
+                    "by_author": "Av %s"
                 }
             },
             "friendship": {
@@ -477,12 +477,23 @@
             "title": "Hem",
             "timeline_menu": {
                 "following": "Following",
-                "local_community": "Local"
+                "local_community": "Local",
+                "lists": {
+                    "title": "Listor",
+                    "empty_message": "Du har inga listor"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Offline",
                 "new_posts": "Nya inlägg",
                 "post_sent": "Post Sent"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {

@@ -477,12 +477,23 @@
             "title": "Serrûpel",
             "timeline_menu": {
                 "following": "Following",
-                "local_community": "Local"
+                "local_community": "Local",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Offline",
                 "new_posts": "New Posts",
                 "post_sent": "Post Sent"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {

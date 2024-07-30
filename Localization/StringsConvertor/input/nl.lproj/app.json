@@ -28,9 +28,9 @@
                 "message": "Je profiel kan niet bewerkt worden. Probeer het opnieuw."
             },
             "sign_out": {
-                "title": "Log-uit",
+                "title": "Log uit",
                 "message": "Weet je zeker dat je wilt uitloggen?",
-                "confirm": "Log-uit"
+                "confirm": "Log uit"
             },
             "block_domain": {
                 "title": "Weet je het echt heel erg zeker dat je alles van %s wilt negeren? In de meeste gevallen is het blokkeren of negeren van een paar specifieke personen voldoende. Je zult geen berichten van deze server op openbare tijdlijnen zien of in jouw meldingen. Jouw volgers van deze server worden verwijderd.",
@@ -311,7 +311,7 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
+            "title": "Welkom terug",
             "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Voer een URL in of zoek naar je server"
@@ -477,12 +477,23 @@
             "title": "Start",
             "timeline_menu": {
                 "following": "Volgend",
-                "local_community": "Lokaal"
+                "local_community": "Lokaal",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Offline",
                 "new_posts": "Nieuwe berichten",
                 "post_sent": "Bericht verzonden"
+            },
+            "empty_state": {
+                "list_empty_message_title": "Deze lijst is leeg"
             }
         },
         "suggestion_account": {
@@ -755,7 +766,7 @@
                 "title": "Instellingen",
                 "general": "Algemeen",
                 "notifications": "Meldingen",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "Privacy en veiligheid",
                 "support_mastodon": "Mastodon ondersteunen",
                 "about_mastodon": "Over Mastodon",
                 "server_details": "Servergegevens",
@@ -788,9 +799,9 @@
                 "ask_before": {
                     "section_title": "Vragen voordat…",
                     "posting_without_alt_text": "Je een bericht zonder alt-tekst plaatst",
-                    "unfollowing_someone": "Je iemand ontvolgd",
+                    "unfollowing_someone": "Je iemand ontvolgt",
                     "boosting_a_post": "Je een bericht boost",
-                    "deleting_a_post": "Je een bericht verwijderd"
+                    "deleting_a_post": "Je een bericht verwijdert"
                 },
                 "design": {
                     "section_title": "Design",
@@ -827,12 +838,12 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Privacy en veiligheid",
                 "preset": {
                     "title": "Preset",
                     "open_and_public": "Open & Public",
                     "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "custom": "Aangepast"
                 },
                 "default_post_visibility": {
                     "title": "Default Post Visibility",
@@ -912,8 +923,8 @@
             "tab_bar_hint": "Huidige geselecteerde profiel: %s. Dubbel-tik en houd vast om account te wisselen",
             "dismiss_account_switcher": "Annuleer account wisselen",
             "add_account": "Voeg account toe",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "Bij alle accounts uitloggen",
+            "logout": "Log uit"
         },
         "bookmark": {
             "title": "Bladwijzers"

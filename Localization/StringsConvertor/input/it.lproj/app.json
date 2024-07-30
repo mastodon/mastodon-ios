@@ -234,8 +234,8 @@
                     "original_post": "Post originale · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Di",
+                    "by_author": "Di %s"
                 }
             },
             "friendship": {
@@ -477,12 +477,23 @@
             "title": "Inizio",
             "timeline_menu": {
                 "following": "Stai seguendo",
-                "local_community": "Locale"
+                "local_community": "Locale",
+                "lists": {
+                    "title": "Liste",
+                    "empty_message": "Non hai nessuna lista"
+                },
+                "hashtags": {
+                    "title": "Hashtag seguiti",
+                    "empty_message": "Non segui alcun hashtag"
+                }
             },
             "timeline_pill": {
                 "offline": "Non in linea",
                 "new_posts": "Nuovi post",
                 "post_sent": "Post inviato"
+            },
+            "empty_state": {
+                "list_empty_message_title": "Questo elenco è vuoto"
             }
         },
         "suggestion_account": {

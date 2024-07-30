@@ -477,12 +477,23 @@
             "title": "Principal",
             "timeline_menu": {
                 "following": "Seguimientos",
-                "local_community": "Local"
+                "local_community": "Local",
+                "lists": {
+                    "title": "Listas",
+                    "empty_message": "No tenés ninguna lista"
+                },
+                "hashtags": {
+                    "title": "Etiquetas seguidas",
+                    "empty_message": "No seguís ninguna etiqueta"
+                }
             },
             "timeline_pill": {
                 "offline": "Desconectado",
                 "new_posts": "Nuevos mensajes",
                 "post_sent": "Mensaje enviado"
+            },
+            "empty_state": {
+                "list_empty_message_title": "Esta lista está vacía"
             }
         },
         "suggestion_account": {

@@ -477,12 +477,23 @@
             "title": "Inicio",
             "timeline_menu": {
                 "following": "A Seguir",
-                "local_community": "Local"
+                "local_community": "Local",
+                "lists": {
+                    "title": "Listas",
+                    "empty_message": "Non tes Listas"
+                },
+                "hashtags": {
+                    "title": "Cancelos seguidos",
+                    "empty_message": "Non segues ningún cancelo"
+                }
             },
             "timeline_pill": {
                 "offline": "Sen conexión",
                 "new_posts": "Novas publicacións",
                 "post_sent": "Publicación Enviada"
+            },
+            "empty_state": {
+                "list_empty_message_title": "A lista está baleira"
             }
         },
         "suggestion_account": {

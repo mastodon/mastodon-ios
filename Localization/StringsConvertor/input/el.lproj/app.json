@@ -2,7 +2,7 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Παρακαλώ προσπάθησε ξανά.",
+                "please_try_again": "Παρακαλώ δοκίμασε πάλι.",
                 "please_try_again_later": "Παρακαλώ δοκίμασε ξανά αργότερα."
             },
             "sign_up_failure": {
@@ -143,9 +143,9 @@
                     "next_status": "Επόμενη Ανάρτηση",
                     "open_status": "Άνοιγμα Ανάρτησης",
                     "open_author_profile": "Άνοιγμα Προφίλ Συντάκτη",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Άνοιγμα Προφίλ Ενισχυτή",
                     "reply_status": "Απάντηση στην Ανάρτηση",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Εναλλαγή Ενίσχυσης στην Δημοσίευση",
                     "toggle_favorite": "Εναλλαγή Αγαπημένου στην Ανάρτηση",
                     "toggle_content_warning": "Εναλλαγή Προειδοποίησης Περιεχομένου",
                     "preview_image": "Προεπισκόπηση Εικόνας"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s ενισχύθηκε",
                 "user_replied_to": "Απάντησε στον χρήστη %s",
                 "show_post": "Εμφάνιση Ανάρτησης",
                 "show_user_profile": "Εμφάνιση προφίλ χρήστη",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Απάντηση",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Ενίσχυση",
+                    "unreblog": "Αναίρεση ενίσχυσης",
                     "favorite": "Αγαπημένο",
                     "unfavorite": "Αφαίρεση από αγαπημένα",
                     "menu": "Μενού",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "Κοινοποίηση Συνδέσμου στην Ανάρτηση",
                     "tap_then_hold_to_show_menu": "Πάτα παρατεταμένα για εμφάνιση μενού",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Ενίσχυση",
+                        "unreblog": "Αναίρεση ενίσχυσης"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Αντιγραφή Συνδέσμου"
                 },
                 "tag": {
                     "url": "URL",
@@ -223,19 +223,19 @@
                 },
                 "posted_via_application": "%s μέσω %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Ενισχύσεις",
                     "favorites_title": "Αγαπημένα",
                     "edit_history_title": "Επεξεργασία Ιστορικού",
                     "edit_history_detail": "Τελευταία επεξεργασία %s"
                 },
-                "edited_at_timestamp_prefix": "Επεξεργάστηκε στις %s",
+                "edited_at_timestamp_prefix": "Επεξεργάστηκε %s",
                 "edit_history": {
                     "title": "Επεξεργασία Ιστορικού",
                     "original_post": "Αρχική Ανάρτηση · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Από",
+                    "by_author": "Από %s"
                 }
             },
             "friendship": {
@@ -256,8 +256,8 @@
                 "unmute_user": "Κατάργηση σίγασης %s",
                 "muted": "Σε Σίγαση",
                 "edit_info": "Επεξεργασία Πληροφοριών",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Εμφάνιση Ενισχύσεων",
+                "hide_reblogs": "Απόκρυψη Ενισχύσεων"
             },
             "timeline": {
                 "filtered": "Φιλτραρισμένα",
@@ -311,8 +311,8 @@
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "Καλωσόρισες Πάλι",
+            "subtitle": "Συνδέσου με τον διακομιστή όπου δημιούργησες τον λογαριασμό σου.",
             "server_search_field": {
                 "placeholder": "Εισαγωγή URL ή αναζήτησε τον διακομιστή σου"
             }
@@ -368,8 +368,8 @@
             "no_server_selected_hint": "Θα επιλέξουμε έναν διακομιστή με βάση τη γλώσσα σου αν συνεχίσεις χωρίς να κάνεις κάποια επιλογή."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Το Απόρρητό σου",
+            "description": "Αν και η εφαρμογή Mastodon δεν συλλέγει δεδομένα, ο διακομιστής που εγγράφεσαι μπορεί να έχει διαφορετική πολιτική.\n\nΕάν διαφωνείς με την πολιτική του **%s**, μπορείς να επιστρέψεις και να επιλέξεις διαφορετικό διακομιστή.",
             "policy": {
                 "ios": "Πολιτική Απορρήτου - Mastodon για iOS",
                 "server": "Πολιτική Απορρήτου - %s"
@@ -477,12 +477,23 @@
             "title": "Αρχική",
             "timeline_menu": {
                 "following": "Ακολουθείς",
-                "local_community": "Τοπική"
+                "local_community": "Τοπική",
+                "lists": {
+                    "title": "Λίστες",
+                    "empty_message": "Δεν έχεις καμία Λίστα ακόμα"
+                },
+                "hashtags": {
+                    "title": "Ετικέτες που Ακολουθούνται",
+                    "empty_message": "Δεν ακολουθείς καμία Ετικέτα"
+                }
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "Εκτός σύνδεσης",
+                "new_posts": "Νέες Αναρτήσεις",
+                "post_sent": "Η Ανάρτηση Εστάλη"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
@@ -621,12 +632,12 @@
                     "message": "Επιβεβαίωση άρσης αποκλεισμού %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Εμφάνιση Ενισχύσεων",
+                    "message": "Επιβεβαίωση για εμφάνιση ενισχύσεων"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Απόκρυψη Ενισχύσεων",
+                    "message": "Επιβεβαίωση για απόκρυψη ενισχύσεων"
                 },
                 "confirm_block_domain": {
                     "title": "Αποκλεισμός τομέα",
@@ -660,7 +671,7 @@
             "title": "Αγαπημένο Από"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Ενισχύθηκε Από"
         },
         "search": {
             "title": "Αναζήτηση",
@@ -720,7 +731,7 @@
             "notification_description": {
                 "followed_you": "σε ακολούθησε",
                 "favorited_your_post": "σημείωσε ως αγαπημένη την ανάρτησή σου",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "ενίσχυσε την ανάρτησή σου",
                 "mentioned_you": "σε επισήμανε",
                 "request_to_follow_you": "ζήτησε να σε ακολουθήσει",
                 "poll_has_ended": "η δημοσκόπηση έληξε"
@@ -736,14 +747,14 @@
                 "rejected": "Απορρίφθηκε"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Ο λογαριασμός σου έχει λάβει προειδοποίηση συντονισμού.",
+                "disable": "Ο λογαριασμός σου έχει απενεργοποιηθεί.",
+                "mark_statuses_as_sensitive": "Μερικές από τις αναρτήσεις σου έχουν επισημανθεί ως ευαίσθητες.",
+                "delete_statuses": "Ορισμένες από τις αναρτήσεις σου έχουν αφαιρεθεί.",
+                "sensitive": "Οι αναρτήσεις σου θα επισημαίνονται, από εδώ και στο εξής, ως ευαίσθητες.",
+                "silence": "Ο λογαριασμός σου έχει περιοριστεί.",
+                "suspend": "Ο λογαριασμός σου έχει ανασταλεί.",
+                "learn_more": "Μάθε Περισσότερα"
             }
         },
         "thread": {
@@ -755,7 +766,7 @@
                 "title": "Ρυθμίσεις",
                 "general": "Γενικά",
                 "notifications": "Ειδοποιήσεις",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "Απόρρητο & Ασφάλεια",
                 "support_mastodon": "Υποστήριξε το Mastodon",
                 "about_mastodon": "Σχετικά με το Mastodon",
                 "server_details": "Λεπτομέρειες Διακομιστή",
@@ -827,23 +838,23 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Απόρρητο & Ασφάλεια",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "Προκαθορισμένο",
+                    "open_and_public": "Ανοιχτό & Δημόσιο",
+                    "private_and_restricted": "Ιδιωτικό & Περιορισμένο",
+                    "custom": "Προσαρμοσμένο"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "Προεπιλεγμένη Ορατότητα Ανάρτησης",
+                    "public": "Δημόσια",
+                    "followers_only": "Μόνο Ακόλουθοι",
+                    "only_people_mentioned": "Μόνο Άτομα που Επισημαίνονται"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "Χειροκίνητη Έγκριση Αιτημάτων Ακολούθησης",
+                "show_followers_and_following": "Εμφάνιση Ακόλουθων & Ακολουθούμενων",
+                "suggest_my_account_to_others": "Πρότεινε τον Λογαριασμό μου σε Άλλους",
+                "appear_in_search_engines": "Εμφάνιση στις Μηχανές Αναζήτησης"
             }
         },
         "report": {
@@ -895,7 +906,7 @@
                 "unfollowed": "Σταμάτησες να ακολουθείς",
                 "unfollow_user": "Άρση ακολούθησης του %s",
                 "mute_user": "Σίγαση %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Δε θα βλέπεις τις αναρτήσεις ή τις ενισχύσεις του στην αρχική σελίδα σου. Δε θα ξέρει ότι βρίσκεται σε σίγαση.",
                 "block_user": "Αποκλεισμός %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Δε θα μπορούν πλέον να σε ακολουθούν ή να βλέπουν τις αναρτήσεις σου, αλλά μπορούν να δουν αν έχουν αποκλειστεί.",
                 "while_we_review_this_you_can_take_action_against_user": "Ενώ το εξετάζουμε, μπορείς να δράσεις εναντίον του %s"
@@ -912,8 +923,8 @@
             "tab_bar_hint": "Τρέχον επιλεγμένο προφίλ: %s. Πάτα δύο φορές και κράτησε πατημένο για να εμφανίσεις την εναλλαγή λογαριασμού",
             "dismiss_account_switcher": "Απόρριψη Εναλλαγής Λογαριασμού",
             "add_account": "Προσθήκη Λογαριασμού",
-            "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout_all_accounts": "Αποσύνδεση Όλων Των Λογαριασμών",
+            "logout": "Αποσύνδεση"
         },
         "bookmark": {
             "title": "Σελιδοδείκτες"

@@ -234,8 +234,8 @@
                     "original_post": "Арыгінальнае паведамленне · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Ад",
+                    "by_author": "Ад %s"
                 }
             },
             "friendship": {
@@ -477,12 +477,23 @@
             "title": "Галоўная",
             "timeline_menu": {
                 "following": "Вы падпісаны",
-                "local_community": "Лакальнае"
+                "local_community": "Лакальнае",
+                "lists": {
+                    "title": "Спісы",
+                    "empty_message": "У вас пакуль няма спісаў"
+                },
+                "hashtags": {
+                    "title": "Хэштэгі, на якія вы падпісаліся",
+                    "empty_message": "Вы не сочыце ні за якімі хэштэгамі"
+                }
             },
             "timeline_pill": {
                 "offline": "Па-за сеткай",
                 "new_posts": "Новыя допісы",
                 "post_sent": "Допіс адпраўлены"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {
@@ -798,7 +809,7 @@
                 },
                 "language": {
                     "section_title": "Мова",
-                    "default_post_language": "Мова допісаў па змаўчанні"
+                    "default_post_language": "Прадвызначана мова допісаў"
                 },
                 "links": {
                     "section_title": "Спасылкі",
@@ -835,7 +846,7 @@
                     "custom": "Уласнае"
                 },
                 "default_post_visibility": {
-                    "title": "Стандартная бачнасць допісаў",
+                    "title": "Прадвызначана бачнасць допісаў",
                     "public": "Публічны",
                     "followers_only": "Толькі для падпісчыкаў",
                     "only_people_mentioned": "Толькі людзі, якіх згадалі"

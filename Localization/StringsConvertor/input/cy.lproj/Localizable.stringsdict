@@ -85,17 +85,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>%ld nod ar ôl</string>
         <key>two</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
         <key>few</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
         <key>many</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld nod ar ôl</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -272,17 +272,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>%ld hwb</string>
         <key>two</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
         <key>few</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
         <key>many</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld hwb</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -715,6 +715,30 @@
         <string>%ld eiliad yn ôl</string>
         <key>other</key>
         <string>%ld eiliad yn ôl</string>
+      </dict>
+    </dict>
+    <key>plural.filtered_notification_banner.subtitle</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@number_of_requests@</string>
+      <key>number_of_requests</key>
+      <dict>
+        <key>zero</key>
+        <string>%ld person rydych chi'n eu hadnabod</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld person rydych chi'n eu hadnabod</string>
+        <key>two</key>
+        <string>%ld berson rydych chi'n eu hadnabod</string>
+        <key>few</key>
+        <string>%ld pherson rydych chi'n eu hadnabod</string>
+        <key>many</key>
+        <string>%ld person rydych chi'n eu hadnabod</string>
+        <key>other</key>
+        <string>%ld person rydych chi'n eu hadnabod</string>
       </dict>
     </dict>
   </dict>

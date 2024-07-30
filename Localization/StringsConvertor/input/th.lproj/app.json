@@ -234,8 +234,8 @@
                     "original_post": "โพสต์ดั้งเดิม · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "โดย",
+                    "by_author": "โดย %s"
                 }
             },
             "friendship": {
@@ -477,12 +477,23 @@
             "title": "หน้าแรก",
             "timeline_menu": {
                 "following": "กำลังติดตาม",
-                "local_community": "ในเซิร์ฟเวอร์"
+                "local_community": "ในเซิร์ฟเวอร์",
+                "lists": {
+                    "title": "รายการ",
+                    "empty_message": "คุณไม่มีรายการใด ๆ"
+                },
+                "hashtags": {
+                    "title": "แฮชแท็กที่ติดตาม",
+                    "empty_message": "คุณไม่ได้ติดตามแฮชแท็กใด ๆ"
+                }
             },
             "timeline_pill": {
                 "offline": "ออฟไลน์",
                 "new_posts": "โพสต์ใหม่",
                 "post_sent": "ส่งโพสต์แล้ว"
+            },
+            "empty_state": {
+                "list_empty_message_title": "รายการนี้ว่างเปล่า"
             }
         },
         "suggestion_account": {

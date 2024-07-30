@@ -143,9 +143,9 @@
                     "next_status": "次の投稿",
                     "open_status": "投稿を開く",
                     "open_author_profile": "プロフィールを見る",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "ブーストした人のプロフィールを開く",
                     "reply_status": "投稿に返信",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "ブーストを切り替える",
                     "toggle_favorite": "お気に入り登録を切り替える",
                     "toggle_content_warning": "閲覧注意を切り替える",
                     "preview_image": "画像をプレビュー"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s がブースト",
                 "user_replied_to": "%sに返信",
                 "show_post": "投稿を見る",
                 "show_user_profile": "プロフィールを見る",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "返信",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "ブースト",
+                    "unreblog": "ブースト解除",
                     "favorite": "お気に入り",
                     "unfavorite": "お気に入り登録を取り消す",
                     "menu": "メニュー",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "投稿でリンクを共有",
                     "tap_then_hold_to_show_menu": "長押しでメニュー表示",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "ブースト",
+                        "unreblog": "ブースト解除"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "リンクをコピー"
                 },
                 "tag": {
                     "url": "URL",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s に %s から投稿",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "ブースト",
                     "favorites_title": "お気に入り",
                     "edit_history_title": "編集履歴",
                     "edit_history_detail": "最終更新日 %s"
@@ -235,7 +235,7 @@
                 },
                 "card": {
                     "by": "By",
-                    "by_author": "By %s"
+                    "by_author": "%s"
                 }
             },
             "friendship": {
@@ -256,8 +256,8 @@
                 "unmute_user": "%sのミュートを解除",
                 "muted": "ミュート済み",
                 "edit_info": "編集",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "ブーストを表示",
+                "hide_reblogs": "ブーストを非表示"
             },
             "timeline": {
                 "filtered": "フィルター済み",
@@ -368,8 +368,8 @@
             "no_server_selected_hint": "選択せずに次へ進むと、利用中の言語に基づいてサーバーを自動選択します。"
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "プライバシー",
+            "description": "Mastodon アプリはいかなるデータも収集しません。一方で、登録するサーバーはそれぞれが異なるポリシーを掲げていることがあります。\n\nもし %s のポリシーに同意できない場合は、戻って別のサーバーを選択できます。",
             "policy": {
                 "ios": "プライバシーポリシー - Mastodon for iOS",
                 "server": "プライバシーポリシー - %s"
@@ -477,12 +477,23 @@
             "title": "ホーム",
             "timeline_menu": {
                 "following": "フォロー中",
-                "local_community": "ローカル"
+                "local_community": "ローカル",
+                "lists": {
+                    "title": "リスト",
+                    "empty_message": "まだリストがありません。"
+                },
+                "hashtags": {
+                    "title": "フォロー中のハッシュタグ",
+                    "empty_message": "ハッシュタグをフォローしていません。"
+                }
             },
             "timeline_pill": {
                 "offline": "オフライン",
                 "new_posts": "新しい投稿",
                 "post_sent": "投稿しました"
+            },
+            "empty_state": {
+                "list_empty_message_title": "このリストは空です。"
             }
         },
         "suggestion_account": {
@@ -621,12 +632,12 @@
                     "message": "%sのブロックを解除しますか？"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "ブーストを表示",
+                    "message": "ブーストを表示しますか？"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "ブーストを非表示",
+                    "message": "ブーストを非表示にしますか？"
                 },
                 "confirm_block_domain": {
                     "title": "ドメインのブロック",
@@ -660,7 +671,7 @@
             "title": "お気に入り"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "ブーストしたユーザー"
         },
         "search": {
             "title": "検索",
@@ -720,7 +731,7 @@
             "notification_description": {
                 "followed_you": "にフォローされました",
                 "favorited_your_post": "がお気に入りに登録",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "にブーストされました",
                 "mentioned_you": "にメンションされました",
                 "request_to_follow_you": "からのフォローリクエスト",
                 "poll_has_ended": "のアンケートが終了"
@@ -755,7 +766,7 @@
                 "title": "設定",
                 "general": "一般",
                 "notifications": "通知",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "プライバシーと安全性",
                 "support_mastodon": "Mastodonを支援する",
                 "about_mastodon": "Mastodonについて",
                 "server_details": "サーバーの詳細",
@@ -827,23 +838,23 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "プライバシーと安全性",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "プリセット",
+                    "open_and_public": "公開",
+                    "private_and_restricted": "制限",
+                    "custom": "カスタム"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "デフォルトの公開範囲",
+                    "public": "公開",
+                    "followers_only": "フォロワーのみ",
+                    "only_people_mentioned": "メンションした相手のみ"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "フォローを承認制にする",
+                "show_followers_and_following": "フォローとフォロワーの一覧を開示する",
+                "suggest_my_account_to_others": "アカウントを見つけやすくする",
+                "appear_in_search_engines": "検索エンジンからアクセスできるようにする"
             }
         },
         "report": {
@@ -895,7 +906,7 @@
                 "unfollowed": "フォロー解除しました",
                 "unfollow_user": "%sをフォロー解除",
                 "mute_user": "%sをミュート",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "ホームに投稿やブーストは表示されなくなりますが、相手にミュートしたことは伝わりません。",
                 "block_user": "%sをブロック",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "相手はあなたの投稿を見たり、フォローしたりできなくなります。あなたにブロックされていることはわかります。",
                 "while_we_review_this_you_can_take_action_against_user": "私たちが確認している間でも、あなたは%sさんに対して対応することができます。"

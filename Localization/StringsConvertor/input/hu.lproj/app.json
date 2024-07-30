@@ -477,12 +477,23 @@
             "title": "Főoldal",
             "timeline_menu": {
                 "following": "Követett",
-                "local_community": "Helyi"
+                "local_community": "Helyi",
+                "lists": {
+                    "title": "Lists",
+                    "empty_message": "You don't have any Lists"
+                },
+                "hashtags": {
+                    "title": "Followed Hashtags",
+                    "empty_message": "You don't follow any Hashtags"
+                }
             },
             "timeline_pill": {
                 "offline": "Offline",
                 "new_posts": "Új bejegyzések",
                 "post_sent": "Bejegyzés elküldve"
+            },
+            "empty_state": {
+                "list_empty_message_title": "This list is empty"
             }
         },
         "suggestion_account": {

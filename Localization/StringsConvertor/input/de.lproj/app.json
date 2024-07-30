@@ -191,9 +191,9 @@
                     "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen",
                     "a11y_labels": {
                         "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "unreblog": "Geteilten Beitrag widerrufen"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Link kopieren"
                 },
                 "tag": {
                     "url": "URL",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Geteilte Beiträge",
                     "favorites_title": "Gefällt",
                     "edit_history_title": "Verlauf",
                     "edit_history_detail": "Letzte Änderung %s"
@@ -234,8 +234,8 @@
                     "original_post": "Originalstatus · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Von",
+                    "by_author": "Von %s"
                 }
             },
             "friendship": {
@@ -256,8 +256,8 @@
                 "unmute_user": "%s nicht mehr stummschalten",
                 "muted": "Stummgeschaltet",
                 "edit_info": "Information bearbeiten",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Geteilte Beiträge anzeigen",
+                "hide_reblogs": "Geteilte Beiträge ausblenden"
             },
             "timeline": {
                 "filtered": "Gefiltert",
@@ -477,12 +477,23 @@
             "title": "Startseite",
             "timeline_menu": {
                 "following": "Following",
-                "local_community": "Local"
+                "local_community": "Local",
+                "lists": {
+                    "title": "Listen",
+                    "empty_message": "Keine Listen vorhanden"
+                },
+                "hashtags": {
+                    "title": "Hashtags denen gefolgt wird",
+                    "empty_message": "Keine Hashtags denen gefolgt wird"
+                }
             },
             "timeline_pill": {
                 "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "new_posts": "Neue Beiträge",
+                "post_sent": "Beitrag gesendet"
+            },
+            "empty_state": {
+                "list_empty_message_title": "Diese Liste ist leer"
             }
         },
         "suggestion_account": {
@@ -582,7 +593,7 @@
                 "other_posts": "Beiträge",
                 "other_following": "folge ich",
                 "other_followers": "Followers",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "gegenseitig"
             },
             "fields": {
                 "joined": "Beigetreten",
@@ -621,12 +632,12 @@
                     "message": "Bestätige %s zu entsperren"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Geteilte Beiträge anzeigen",
+                    "message": "Bestätigen, um geteilte Beiträge anzuzeigen"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Geteilte Beiträge ausblenden",
+                    "message": "Bestätigen, um geteilte Beiträge auszublenden"
                 },
                 "confirm_block_domain": {
                     "title": "Domain sperren",
@@ -660,7 +671,7 @@
             "title": "Favorisiert von"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Geteilt von"
         },
         "search": {
             "title": "Suche",
@@ -720,7 +731,7 @@
             "notification_description": {
                 "followed_you": "folgt dir",
                 "favorited_your_post": "hat deinen Beitrag favorisiert",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "teilte deinen Beitrag",
                 "mentioned_you": "hat dich erwähnt",
                 "request_to_follow_you": "Folgeanfrage",
                 "poll_has_ended": "Umfrage wurde beendet"
