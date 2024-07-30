@@ -53,7 +53,8 @@ class NotificationRequestTableViewCell: UITableViewCell {
         labelStackView.axis = .vertical
         labelStackView.alignment = .leading
         labelStackView.spacing = 4
-
+        labelStackView.isUserInteractionEnabled = false
+        
         acceptNotificationRequestButton = HighlightDimmableButton()
         acceptNotificationRequestButton.translatesAutoresizingMaskIntoConstraints = false
         acceptNotificationRequestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -117,6 +118,7 @@ class NotificationRequestTableViewCell: UITableViewCell {
         avatarStackView.axis = .horizontal
         avatarStackView.alignment = .center
         avatarStackView.spacing = 12
+        avatarStackView.isUserInteractionEnabled = false
 
         contentStackView = UIStackView(arrangedSubviews: [avatarStackView, buttonStackView])
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
