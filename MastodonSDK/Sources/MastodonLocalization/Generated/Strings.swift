@@ -1993,7 +1993,7 @@ public enum L10n {
     public enum FilteredNotificationBanner {
       /// Plural format key: "%#@number_of_requests@"
       public static func subtitle(_ p1: Int) -> String {
-        return L10n.tr("Localizable", "plural.filtered_notification_banner.subtitle", p1, fallback: "%ld people you may know")
+        return L10n.tr("Localizable", "plural.filtered_notification_banner.subtitle", p1, fallback: "Plural format key: \"%#@number_of_requests@\"")
       }
     }
   }
