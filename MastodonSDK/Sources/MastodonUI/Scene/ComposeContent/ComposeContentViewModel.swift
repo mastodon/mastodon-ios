@@ -343,7 +343,7 @@ extension ComposeContentViewModel {
                     .charactersReservedPerURL ?? MastodonAuthentication.fallbackCharactersReservedPerURL
                 return lengthWithoutLinks + (matches.count * charactersReservedPerURL)
             }
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .assign(to: &$contentWeightedLength)
         
         Publishers.CombineLatest(
