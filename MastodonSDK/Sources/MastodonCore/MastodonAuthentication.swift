@@ -5,6 +5,8 @@ import CoreDataStack
 import MastodonSDK
 
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
+    public static let fallbackCharactersReservedPerURL = 23
+
     public enum InstanceConfiguration: Codable, Hashable {
         case v1(Mastodon.Entity.Instance)
         case v2(Mastodon.Entity.V2.Instance, TranslationLanguages)
@@ -37,6 +39,15 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
                 version = instance.version
             }
             return version?.majorServerVersion(greaterThanOrEquals: 4) ?? false // following Tags is support beginning with Mastodon v4.0.0
+        }
+        
+        public var charactersReservedPerURL: Int {
+            switch self {
+            case let .v1(instance):
+                return instance.configuration?.statuses?.charactersReservedPerURL ?? fallbackCharactersReservedPerURL
+            case let .v2(instance, _):
+                return instance.configuration?.statuses?.charactersReservedPerURL ?? fallbackCharactersReservedPerURL
+            }
         }
     }
     
