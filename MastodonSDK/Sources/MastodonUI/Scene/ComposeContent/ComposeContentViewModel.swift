@@ -324,7 +324,26 @@ extension ComposeContentViewModel {
         
         // bind text
         $content
-            .map { $0.count }
+            .receive(on: DispatchQueue.global(qos: .background))
+            .map { [weak self] input in
+                guard let self, let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else {
+                    return input.count
+                }
+                let matches = detector.matches(in: input, options: [], range: NSRange(location: 0, length: input.count))
+                let lengthWithoutLinks = input.count - matches.map({ match in
+                    guard let range = Range(match.range, in: input) else {
+                        return 0
+                    }
+                    let url = input[range]
+                    return url.count
+                }).reduce(0, +)
+                let charactersReservedPerURL = authContext.mastodonAuthenticationBox
+                    .authentication
+                    .instanceConfiguration?
+                    .charactersReservedPerURL ?? MastodonAuthentication.fallbackCharactersReservedPerURL
+                return lengthWithoutLinks + (matches.count * charactersReservedPerURL)
+            }
+            .receive(on: DispatchQueue.main)
             .assign(to: &$contentWeightedLength)
         
         Publishers.CombineLatest(
