@@ -324,6 +324,7 @@ extension ComposeContentViewModel {
         
         // bind text
         $content
+            .receive(on: DispatchQueue.global(qos: .background))
             .map { [weak self] input in
                 guard let self, let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else {
                     return input.count
@@ -342,6 +343,7 @@ extension ComposeContentViewModel {
                     .charactersReservedPerURL ?? MastodonAuthentication.fallbackCharactersReservedPerURL
                 return lengthWithoutLinks + (matches.count * charactersReservedPerURL)
             }
+            .receive(on: RunLoop.main)
             .assign(to: &$contentWeightedLength)
         
         Publishers.CombineLatest(
