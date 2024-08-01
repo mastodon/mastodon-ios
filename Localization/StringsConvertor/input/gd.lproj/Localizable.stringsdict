@@ -608,13 +608,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>One person you may know</string>
+        <string>%ld neach as aithne dhut ’s dòcha</string>
         <key>two</key>
-        <string>%ld people you may know</string>
+        <string>%ld daoine as aithne dhut ’s dòcha</string>
         <key>few</key>
-        <string>%ld people you may know</string>
+        <string>%ld daoine as aithne dhut ’s dòcha</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>%ld daoine as aithne dhut ’s dòcha</string>
       </dict>
     </dict>
   </dict>
