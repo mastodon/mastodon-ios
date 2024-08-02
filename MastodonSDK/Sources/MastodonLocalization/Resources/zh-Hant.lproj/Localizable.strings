@@ -297,7 +297,12 @@
 "Scene.Follower.Title" = "跟隨者";
 "Scene.Following.Footer" = "來自其他伺服器的跟隨中不會被顯示。";
 "Scene.Following.Title" = "跟隨中";
+"Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle" = "此列表為空";
 "Scene.HomeTimeline.TimelineMenu.Following" = "正在跟隨";
+"Scene.HomeTimeline.TimelineMenu.Hashtags.EmptyMessage" = "您尚未跟隨任何主題標籤";
+"Scene.HomeTimeline.TimelineMenu.Hashtags.Title" = "已跟隨主題標籤";
+"Scene.HomeTimeline.TimelineMenu.Lists.EmptyMessage" = "您目前沒有任何列表";
+"Scene.HomeTimeline.TimelineMenu.Lists.Title" = "列表";
 "Scene.HomeTimeline.TimelineMenu.LocalCommunity" = "本站";
 "Scene.HomeTimeline.TimelinePill.NewPosts" = "新嘟文";
 "Scene.HomeTimeline.TimelinePill.Offline" = "離線";
@@ -325,7 +330,7 @@
 "Scene.Notification.Warning.LearnMore" = "了解更多";
 "Scene.Notification.Warning.MarkStatusesAsSensitive" = "某些您的嘟文已被標記為敏感內容。";
 "Scene.Notification.Warning.None" = "您的帳號已收到管理員警告。";
-"Scene.Notification.Warning.Sensitive" = "即日起，您的嘟文將會被標記為敏感內容。";
+"Scene.Notification.Warning.Sensitive" = "即日起，您的嘟文將被標記為敏感內容。";
 "Scene.Notification.Warning.Silence" = "您的帳號已被限制。";
 "Scene.Notification.Warning.Suspend" = "您的帳號已被停權。";
 "Scene.Preview.Keyboard.ClosePreview" = "關閉預覽";
@@ -430,7 +435,7 @@
 "Scene.Report.StepFinal.Unfollowed" = "已取消跟隨";
 "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience." = "當您看到某些不喜歡的內容時，您可以將該帳號自您的體驗中移除。";
 "Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser" = "當我們正在審核時，您可以對 %@ 採取以下措施";
-"Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "您不會在您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。";
+"Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "您不會於您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。";
 "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow" = "有什麼其他您想讓我們知道的嗎？";
 "Scene.Report.StepFour.Step4Of4" = "四個步驟中的第四步";
 "Scene.Report.StepOne.IDontLikeIt" = "我不喜歡";
@@ -569,7 +574,7 @@
 "Scene.Settings.PrivacySafety.Preset.PrivateAndRestricted" = "私人與限制";
 "Scene.Settings.PrivacySafety.Preset.Title" = "預設值";
 "Scene.Settings.PrivacySafety.ShowFollowersAndFollowing" = "顯示跟隨者與跟隨中";
-"Scene.Settings.PrivacySafety.SuggestMyAccountToOthers" = "推薦我的帳號給其他使用者";
+"Scene.Settings.PrivacySafety.SuggestMyAccountToOthers" = "向其他使用者推薦我的帳號";
 "Scene.Settings.PrivacySafety.Title" = "隱私權與安全性";
 "Scene.Settings.ServerDetails.About" = "關於";
 "Scene.Settings.ServerDetails.AboutInstance.LegalNotice" = "法律聲明";

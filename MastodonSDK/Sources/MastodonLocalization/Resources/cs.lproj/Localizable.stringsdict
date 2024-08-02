@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>1 znak zbývá</string>
         <key>few</key>
-        <string>%ld characters left</string>
+        <string>%ld znaky zbývají</string>
         <key>many</key>
-        <string>%ld characters left</string>
+        <string>%ld znaků zbývá</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld znaků zbývá</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -108,13 +108,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Sledován %1$@ a dalším vzájemným sledujícím</string>
         <key>few</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Sledován %1$@ a dalším %ld vzájemnými sledujícími</string>
         <key>many</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Sledován %1$@ a dalším %ld vzájemnými sledujícími</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Sledován %1$@ a dalším %ld vzájemnými sledujícími</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -190,11 +190,11 @@
         <key>one</key>
         <string>1 oblíbený</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld oblíbení</string>
         <key>many</key>
-        <string>%ld favorites</string>
+        <string>%ld oblíbených</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld oblíbených</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -210,11 +210,11 @@
         <key>one</key>
         <string>1 reblog</string>
         <key>few</key>
-        <string>%ld reblogs</string>
+        <string>%ld reblogy</string>
         <key>many</key>
-        <string>%ld reblogs</string>
+        <string>%ld reblogů</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld reblogů</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -230,11 +230,11 @@
         <key>one</key>
         <string>1 re-blog</string>
         <key>few</key>
-        <string>%ld re-blogs</string>
+        <string>%ld re-blogy</string>
         <key>many</key>
-        <string>%ld re-blogs</string>
+        <string>%ld re-blogů</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld re-blogů</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -308,13 +308,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 člověk mluví</string>
         <key>few</key>
-        <string>%ld people talking</string>
+        <string>%ld lidé mluví</string>
         <key>many</key>
-        <string>%ld people talking</string>
+        <string>%ld lidí mluví</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld lidí mluví</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -350,11 +350,11 @@
         <key>one</key>
         <string>1 sledující</string>
         <key>few</key>
-        <string>%ld followers</string>
+        <string>%ld sledující</string>
         <key>many</key>
-        <string>%ld followers</string>
+        <string>%ld sledujících</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld sledujících</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -390,11 +390,11 @@
         <key>one</key>
         <string>Zbývá 1 měsíc</string>
         <key>few</key>
-        <string>%ld months left</string>
+        <string>Zbývají %ld měsíce</string>
         <key>many</key>
-        <string>%ld months left</string>
+        <string>Zbývá %ld měsíců</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>Zbývá %ld měsíců</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -410,11 +410,11 @@
         <key>one</key>
         <string>zbývá 1 den</string>
         <key>few</key>
-        <string>%ld days left</string>
+        <string>zbývá %ld dny</string>
         <key>many</key>
-        <string>%ld days left</string>
+        <string>zbývá %ld dní</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>zbývá %ld dní</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -428,13 +428,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>zbývá 1h</string>
+        <string>zbývá 1 hodina</string>
         <key>few</key>
-        <string>%ld hours left</string>
+        <string>zbývají %ld hodiny</string>
         <key>many</key>
-        <string>%ld hours left</string>
+        <string>zbývá %ld hodin</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>zbývá %ld hodin</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -448,13 +448,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>zbývá 1m</string>
+        <string>zbývá 1 minuta</string>
         <key>few</key>
-        <string>%ld minutes left</string>
+        <string>zbývají %ld minuty</string>
         <key>many</key>
-        <string>%ld minutes left</string>
+        <string>zbývá %ld minut</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>zbývá %ld minut</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -468,13 +468,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>zbývá 1s</string>
+        <string>zbývá 1 sekunda</string>
         <key>few</key>
-        <string>%ld seconds left</string>
+        <string>zbývají %ld sekundy</string>
         <key>many</key>
-        <string>%ld seconds left</string>
+        <string>zbývá %ld sekund</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>zbývá %ld sekund</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -490,11 +490,11 @@
         <key>one</key>
         <string>před 1 rokem</string>
         <key>few</key>
-        <string>%ldy ago</string>
+        <string>před %ld lety</string>
         <key>many</key>
-        <string>%ldy ago</string>
+        <string>před %ld lety</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>před %ld lety</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -508,13 +508,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>před 1 měcícem</string>
+        <string>před 1 měsícem</string>
         <key>few</key>
-        <string>%ldM ago</string>
+        <string>před %ld měsíci</string>
         <key>many</key>
-        <string>%ldM ago</string>
+        <string>před %ld měsíci</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>před %ld měsíci</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -530,11 +530,11 @@
         <key>one</key>
         <string>před 1 dnem</string>
         <key>few</key>
-        <string>%ldd ago</string>
+        <string>před %ld dny</string>
         <key>many</key>
-        <string>%ldd ago</string>
+        <string>před %ld dny</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>před %ld dny</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -548,13 +548,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>před 1h</string>
+        <string>před 1 hodinou</string>
         <key>few</key>
-        <string>%ldh ago</string>
+        <string>před %ld hodinami</string>
         <key>many</key>
-        <string>%ldh ago</string>
+        <string>před %ld hodinami</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>před %ld hodinami</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -568,13 +568,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>před 1min</string>
+        <string>před 1 minutou</string>
         <key>few</key>
-        <string>%ldm ago</string>
+        <string>před %ld minutami</string>
         <key>many</key>
-        <string>%ldm ago</string>
+        <string>před %ld minutami</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>před %ld minutami</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -590,11 +590,31 @@
         <key>one</key>
         <string>před 1s</string>
         <key>few</key>
-        <string>%lds ago</string>
+        <string>před %lds</string>
         <key>many</key>
-        <string>%lds ago</string>
+        <string>před %lds</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>před %lds</string>
+      </dict>
+    </dict>
+    <key>plural.filtered_notification_banner.subtitle</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@number_of_requests@</string>
+      <key>number_of_requests</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>One person you may know</string>
+        <key>few</key>
+        <string>%ld people you may know</string>
+        <key>many</key>
+        <string>%ld people you may know</string>
+        <key>other</key>
+        <string>%ld people you may know</string>
       </dict>
     </dict>
   </dict>

@@ -168,9 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblogueo</string>
+        <string>1 difusión</string>
         <key>other</key>
-        <string>%ld reblogueos</string>
+        <string>%ld difusiones</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -184,9 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>1 difusión</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld difusiones</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -475,6 +475,22 @@
         <string>Hace 1 s</string>
         <key>other</key>
         <string>Hace %ld s</string>
+      </dict>
+    </dict>
+    <key>plural.filtered_notification_banner.subtitle</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@number_of_requests@</string>
+      <key>number_of_requests</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Una persona que tal vez conozcas</string>
+        <key>other</key>
+        <string>%ld personas que tal vez conozcas</string>
       </dict>
     </dict>
   </dict>

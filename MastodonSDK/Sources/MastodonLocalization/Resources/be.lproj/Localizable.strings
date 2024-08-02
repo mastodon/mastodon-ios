@@ -135,8 +135,8 @@
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Гісторыя рэдагавання";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Абраныя";
 "Common.Controls.Status.Buttons.ReblogsTitle" = "Пашырэнні";
-"Common.Controls.Status.Card.By" = "By";
-"Common.Controls.Status.Card.ByAuthor" = "By %@";
+"Common.Controls.Status.Card.By" = "Ад";
+"Common.Controls.Status.Card.ByAuthor" = "Ад %@";
 "Common.Controls.Status.ContentWarning" = "Папярэджанне аб змесціве";
 "Common.Controls.Status.EditHistory.OriginalPost" = "Арыгінальнае паведамленне · %@";
 "Common.Controls.Status.EditHistory.Title" = "Гісторыя рэдагавання";
@@ -302,7 +302,12 @@
 "Scene.Follower.Title" = "падпісчык";
 "Scene.Following.Footer" = "Падпіскі з іншых сервераў не адлюстроўваюцца.";
 "Scene.Following.Title" = "падпісаны";
+"Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle" = "This list is empty";
 "Scene.HomeTimeline.TimelineMenu.Following" = "Вы падпісаны";
+"Scene.HomeTimeline.TimelineMenu.Hashtags.EmptyMessage" = "Вы не сочыце ні за якімі хэштэгамі";
+"Scene.HomeTimeline.TimelineMenu.Hashtags.Title" = "Хэштэгі, на якія вы падпісаліся";
+"Scene.HomeTimeline.TimelineMenu.Lists.EmptyMessage" = "У вас пакуль няма спісаў";
+"Scene.HomeTimeline.TimelineMenu.Lists.Title" = "Спісы";
 "Scene.HomeTimeline.TimelineMenu.LocalCommunity" = "Лакальнае";
 "Scene.HomeTimeline.TimelinePill.NewPosts" = "Новыя допісы";
 "Scene.HomeTimeline.TimelinePill.Offline" = "Па-за сеткай";
@@ -537,7 +542,7 @@
 "Scene.Settings.General.AskBefore.UnfollowingSomeone" = "Адмена падпіскі на кагосьці";
 "Scene.Settings.General.Design.SectionTitle" = "Афармленне";
 "Scene.Settings.General.Design.ShowAnimations" = "Прайграваць аніміраваныя аватары і эмодзі";
-"Scene.Settings.General.Language.DefaultPostLanguage" = "Мова допісаў па змаўчанні";
+"Scene.Settings.General.Language.DefaultPostLanguage" = "Прадвызначана мова допісаў";
 "Scene.Settings.General.Language.SectionTitle" = "Мова";
 "Scene.Settings.General.Links.OpenInBrowser" = "Адкрываць у браўзеры";
 "Scene.Settings.General.Links.OpenInMastodon" = "Адкрываць у Mastodon";
@@ -567,7 +572,7 @@
 "Scene.Settings.PrivacySafety.DefaultPostVisibility.FollowersOnly" = "Толькі для падпісчыкаў";
 "Scene.Settings.PrivacySafety.DefaultPostVisibility.OnlyPeopleMentioned" = "Толькі людзі, якіх згадалі";
 "Scene.Settings.PrivacySafety.DefaultPostVisibility.Public" = "Публічны";
-"Scene.Settings.PrivacySafety.DefaultPostVisibility.Title" = "Стандартная бачнасць допісаў";
+"Scene.Settings.PrivacySafety.DefaultPostVisibility.Title" = "Прадвызначана бачнасць допісаў";
 "Scene.Settings.PrivacySafety.ManuallyApproveFollowRequests" = "Уручную ўхваляць запыты на падпіску";
 "Scene.Settings.PrivacySafety.Preset.Custom" = "Уласнае";
 "Scene.Settings.PrivacySafety.Preset.OpenAndPublic" = "Адкрыты і грамадскі";

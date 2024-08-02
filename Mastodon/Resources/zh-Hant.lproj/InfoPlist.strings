@@ -1,4 +1,4 @@
-"NSCameraUsageDescription" = "用來拍照發嘟文";
-"NSPhotoLibraryAddUsageDescription" = "用來儲存照片到圖片庫";
+"NSCameraUsageDescription" = "用以拍照發嘟文";
+"NSPhotoLibraryAddUsageDescription" = "用以儲存照片至圖片庫";
 "NewPostShortcutItemTitle" = "新增嘟文";
 "SearchShortcutItemTitle" = "搜尋";
