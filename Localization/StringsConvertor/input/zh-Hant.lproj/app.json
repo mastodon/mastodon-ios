@@ -420,7 +420,7 @@
                     "reason": "原因"
                 },
                 "reason": {
-                    "blocked": "%s 包含不被允許的電子郵件供應商",
+                    "blocked": "%s 包含不被允許的電子郵件提供商",
                     "unreachable": "%s 似乎並不存在",
                     "taken": "%s 已被註冊。這個帳號如何：",
                     "reserved": "%s 是一個保留的關鍵字",
