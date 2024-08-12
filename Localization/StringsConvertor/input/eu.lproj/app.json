@@ -49,27 +49,27 @@
                 "message": "Behar bezala garbitu da %s cache-a."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Oharra",
+                "message": "Itzulpenak huts egin du. Agian administratzaileak ez du itzulpenik gaitu zerbitzari honetan, edo zerbitzari hau Mastodon bertsio zaharrago bat exekutatzen ari da, non itzulpenak oraindik onartzen ez diren.",
+                "button": "Ados"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "Multimedien alt testua falta da",
+                "message": "Zure %d argazkik ez dute alt testurik. Nolanahi ere, argitaratu?",
+                "cancel": "Utzi",
+                "post": "Argitaratu"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
+                "title_boost": "Bultzatu bidalketa?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "cancel": "Utzi",
+                "boost": "Bultzada",
+                "unboost": "Kendu bultzada"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "%@ jarraitzeari utzi?",
+                "cancel": "Utzi",
+                "unfollow": "Utzi jarraitzeari"
             }
         },
         "controls": {
@@ -96,7 +96,7 @@
                 "sign_in": "Hasi saioa",
                 "see_more": "Ikusi gehiago",
                 "preview": "Aurrebista",
-                "copy": "Copy",
+                "copy": "Kopiatu",
                 "share": "Partekatu",
                 "share_user": "Partekatu %s",
                 "share_post": "Partekatu bidalketa",
@@ -112,23 +112,23 @@
                 "settings": "Ezarpenak",
                 "delete": "Ezabatu",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "%s-tik itzuli",
+                    "unknown_language": "Ezezaguna"
                 },
-                "edit_post": "Edit",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "edit_post": "Editatu",
+                "bookmark": "Laster-marka",
+                "remove_bookmark": "Ezabatu laster-marka",
+                "follow": "Jarraitu %s",
+                "unfollow": "%s jarraitzeari utzi"
             },
             "tabs": {
                 "home": "Hasiera",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "search_and_explore": "Bilatu eta esploratu",
+                "notifications": "Jakinarazpenak",
                 "profile": "Profila",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Bilatu",
+                    "explore": "Arakatu"
                 }
             },
             "keyboard": {
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s(e)k bultzatu du",
                 "user_replied_to": "%s(r)i erantzuten",
                 "show_post": "Erakutsi bidalketa",
                 "show_user_profile": "Erakutsi erabiltzailearen profila",
@@ -165,7 +165,7 @@
                 "media_content_warning": "Ukitu edonon bistaratzeko",
                 "tap_to_reveal": "Sakatu erakusteko",
                 "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s %s -en bidez",
                 "poll": {
                     "vote": "Bozkatu",
                     "closed": "Itxita"
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Erantzun",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Bultzada",
+                    "unreblog": "Desegin bultzada",
                     "favorite": "Gogokoa",
                     "unfavorite": "Kendu gogokoa",
                     "menu": "Menua",
@@ -190,7 +190,7 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Sakatu eta eutsi menua erakusteko",
                     "a11y_labels": {
-                        "reblog": "Boost",
+                        "reblog": "Bultzada",
                         "unreblog": "Undo boost"
                     },
                     "copy_link": "Copy Link"
