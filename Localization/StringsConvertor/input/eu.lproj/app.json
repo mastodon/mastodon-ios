@@ -191,9 +191,9 @@
                     "tap_then_hold_to_show_menu": "Sakatu eta eutsi menua erakusteko",
                     "a11y_labels": {
                         "reblog": "Bultzada",
-                        "unreblog": "Undo boost"
+                        "unreblog": "Desegin bultzada"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Kopiatu Lotura"
                 },
                 "tag": {
                     "url": "URLa",
@@ -210,10 +210,10 @@
                     "direct": "Aipatutako erabiltzaileek soilik ikus dezakete bidalketa hau."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Show Original"
+                    "translated_from": "%s(e)tik %s erabiliz itzuli",
+                    "unknown_language": "Ezezaguna",
+                    "unknown_provider": "Ezezaguna",
+                    "show_original": "Erakutsi jatorrizkoa"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -221,11 +221,11 @@
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s %s -en bidez",
                 "buttons": {
-                    "reblogs_title": "Boosts",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
+                    "reblogs_title": "Bultzadak",
+                    "favorites_title": "Gogokoak",
+                    "edit_history_title": "Editatu historia",
                     "edit_history_detail": "Last edit %s"
                 },
                 "edited_at_timestamp_prefix": "Edited %s",
@@ -397,7 +397,7 @@
                 },
                 "password": {
                     "placeholder": "pasahitza",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Berretsi pasahitza",
                     "require": "Zure pasahitzak izan behar ditu gutxienez:",
                     "character_limit": "8 karaktere",
                     "accessibility": {
@@ -440,35 +440,35 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Zerbitzariaren arauak",
+            "subtitle": "Aurrera egitean, %s-ko moderatzaileek ezarritako eta aplikatutako arau hauek jarraitzea onartzen duzu.",
             "prompt": "Jarraituz gero, %s instantziaren zerbitzu-baldintzak eta pribatutasun-gidalerroak onartzen dituzu.",
             "terms_of_service": "zerbitzu-baldintzak",
             "privacy_policy": "pribatutasun-gidalerroak",
             "button": {
-                "confirm": "I Agree",
-                "disagree": "Disagree"
+                "confirm": "Ados nago",
+                "disagree": "Ez ados"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Egiaztatu zure sarrerako ontzia",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Sakatu bidali dizugun esteka %@ helbidea egiaztatzeko. Hementxe itxarongo zaitugu.",
             "button": {
                 "resend": "Berbidali"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Zure emailean begiratu",
                 "description": "Egiaztatu zure eposta helbidea zuzena den eta begiratu zaborraren karpeta.",
                 "resend_email": "Birbidali eposta"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Egiaztatu zure sarrerako ontzia.",
                 "description": "Eposta bat bidali dizugu. Egiaztatu zure zaborraren karpeta.",
                 "mail": "Posta",
                 "open_email_client": "Ireki eposta bezeroa"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
+                "prefix": "Ez duzu estekarik jaso?",
                 "resend_in": "Resend (%@)",
                 "resend_now": "Resend now."
             }
@@ -476,35 +476,35 @@
         "home_timeline": {
             "title": "Hasiera",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local",
+                "following": "Jarraitzen",
+                "local_community": "Lokala",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Zerrendak",
+                    "empty_message": "Ez duzu zerrendarik"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
+                    "title": "Jarraitutako traolak",
                     "empty_message": "You don't follow any Hashtags"
                 }
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
+                "offline": "Konexio gabe",
+                "new_posts": "Argitalpen berriak",
                 "post_sent": "Post Sent"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Zerrenda hau hutsik dago"
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "title": "Mastodonen pil-pilean",
+            "follow_all": "Jarraitu denak"
         },
         "compose": {
             "title": {
                 "new_post": "Bidalketa berria",
                 "new_reply": "Erantzun berria",
-                "edit_post": "Edit Post"
+                "edit_post": "Editatu argitalpena"
             },
             "media_selection": {
                 "camera": "Atera argazkia",
@@ -528,7 +528,7 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Inkesta",
                 "duration_time": "Iraupena: %s",
                 "thirty_minutes": "30 minutu",
                 "one_hour": "Ordu 1",
@@ -539,10 +539,10 @@
                 "option_number": "%ld aukera",
                 "the_poll_is_invalid": "Inkesta ez da balekoa",
                 "the_poll_has_empty_option": "The poll has empty option",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Gehitu aukera",
+                "remove_option": "Kendu aukera",
+                "move_up": "Mugitu Gora",
+                "move_down": "Mugitu Behera"
             },
             "content_warning": {
                 "placeholder": "Idatzi abisu zehatz bat hemen..."
@@ -576,10 +576,10 @@
                 "select_visibility_entry": "Hautatu ikusgaitasuna - %s"
             },
             "language": {
-                "title": "Post Language",
+                "title": "Bidalketaren hizkuntza",
                 "suggested": "Suggested",
-                "recent": "Recent",
-                "other": "Other Language…"
+                "recent": "Azkenaldikoak",
+                "other": "Beste hizkuntza..."
             }
         },
         "profile": {
@@ -587,16 +587,16 @@
                 "follows_you": "Jarraitzen zaitu"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers",
-                "familiar_followers": "mutuals"
+                "my_posts": "bidalketak",
+                "my_following": "jarraitzen",
+                "my_followers": "jarraitzaileak",
+                "other_posts": "bidalketa",
+                "other_following": "jarraitzen",
+                "other_followers": "jarraitzaileak",
+                "familiar_followers": "elkarrekikoa"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Elkartuta",
                 "add_row": "Gehitu errenkada",
                 "placeholder": {
                     "label": "Etiketa",
@@ -632,7 +632,7 @@
                     "message": "Berretsi %s desblokeatzea"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
+                    "title": "Erakutsi bultzadak",
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
@@ -774,27 +774,27 @@
             },
             "about_mastodon": {
                 "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
+                "more_settings": "Ezarpen gaehiago",
+                "contribute_to_mastodon": "Lagundu Mastodon",
+                "privacy_policy": "Pribatutasun politika",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "Honi buruz",
+                "rules": "Arauak",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
+                    "title": "Administratzailea",
+                    "message_admin": "Administratzaileari mezua",
                     "legal_notice": "A legal notice"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Orokorra",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Itxura",
+                    "dark": "Iluna",
+                    "light": "Argia",
+                    "system": "Erabili sistemaren diseinua"
                 },
                 "ask_before": {
                     "section_title": "Ask before…",
@@ -804,52 +804,52 @@
                     "deleting_a_post": "Deleting a Post"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Diseinua",
+                    "show_animations": "Erreproduzitu animatutako abatarrak eta emojiak"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Hizkuntza",
+                    "default_post_language": "Lehenetsitako bidalketa hizkuntza"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Loturak",
+                    "open_in_mastodon": "Ireki Mastodonen",
+                    "open_in_browser": "Ireki nabigatzailean"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Jakinarazpenak",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Honen jakinarazpenak jaso",
+                    "anyone": "Edozein",
+                    "followers": "Zu jarraitzen zaituzten pertsonak",
+                    "follow": "Zuk jarraitzen dituzun pertsonak",
+                    "noone": "Bat ere ez"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Aipamenak eta erantzunak",
+                    "boosts": "Bultzadak",
+                    "favorites": "Gogokoak",
+                    "new_followers": "Jarraitzaile berriak"
                 },
                 "disabled": {
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "go_to_settings": "Joan jakinarazpenaren ezarpenetara"
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Pribatutasuna eta segurtasuna",
                 "preset": {
-                    "title": "Preset",
+                    "title": "Aurrezarpena",
                     "open_and_public": "Open & Public",
                     "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "custom": "Pertsonalizatua"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "Ikusgaitasuna, defektuz",
+                    "public": "Publikoa",
+                    "followers_only": "Jarraitzaileak soilik",
+                    "only_people_mentioned": "Aipatzen dudan jendea soilik"
                 },
                 "manually_approve_follow_requests": "Manually Approve Follow Requests",
                 "show_followers_and_following": "Show Followers & Following",
