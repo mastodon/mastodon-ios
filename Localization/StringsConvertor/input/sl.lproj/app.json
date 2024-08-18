@@ -234,8 +234,8 @@
                     "original_post": "Izvodna objava · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Od/avtor_ica",
+                    "by_author": "Avtor_ica %s"
                 }
             },
             "friendship": {
@@ -479,12 +479,12 @@
                 "following": "Sledi",
                 "local_community": "Krajevno",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Seznami",
+                    "empty_message": "Ustvarili niste še nobenega seznama"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Sledeni ključniki",
+                    "empty_message": "Ne sledite še nobenemu ključniku"
                 }
             },
             "timeline_pill": {
@@ -493,7 +493,7 @@
                 "post_sent": "Objava poslana"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Ta seznam je prazen"
             }
         },
         "suggestion_account": {
