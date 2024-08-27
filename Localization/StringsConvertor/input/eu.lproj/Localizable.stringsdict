@@ -122,7 +122,7 @@
         <key>one</key>
         <string>1 media</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld fitxategi</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -490,7 +490,7 @@
         <key>one</key>
         <string>One person you may know</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>Ezagutu ditzakezun %ld pertsona</string>
       </dict>
     </dict>
   </dict>
