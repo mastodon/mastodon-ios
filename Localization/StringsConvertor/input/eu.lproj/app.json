@@ -379,7 +379,7 @@
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Sortu kontua",
             "input": {
                 "avatar": {
                     "delete": "Ezabatu"
