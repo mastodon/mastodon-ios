@@ -143,7 +143,7 @@
                     "next_status": "Hurrengo bidalketa",
                     "open_status": "Ireki bidalketa",
                     "open_author_profile": "Ireki egilearen profila",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Ireki bultzada eman duenaren profila",
                     "reply_status": "Erantzun bidalketari",
                     "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Txandakatu bidalketa gogoko egitea",
@@ -164,7 +164,7 @@
                 "sensitive_content": "Eduki hunkigarria",
                 "media_content_warning": "Ukitu edonon bistaratzeko",
                 "tap_to_reveal": "Sakatu erakusteko",
-                "load_embed": "Load Embed",
+                "load_embed": "Kargatu txertatutakoa",
                 "link_via_user": "%s %s -en bidez",
                 "poll": {
                     "vote": "Bozkatu",
@@ -217,8 +217,8 @@
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_image_hint": "Irudia hedatzen du. Egin tap birritan eta mantendu ekintzak erakusteko",
+                    "expand_gif_hint": "GIFa hedatzen du. Egin tap birritan eta mantendu ekintzak erakusteko",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
                 },
                 "posted_via_application": "%s %s -en bidez",
@@ -245,7 +245,7 @@
                 "pending": "Zain",
                 "block": "Blokeatu",
                 "block_user": "Blokeatu %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Blokeatu %s domeinua",
                 "unblock": "Desblokeatu",
                 "unblock_user": "Desblokeatu %s",
                 "blocked": "Blokeatuta",
@@ -281,46 +281,46 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Lotura ez egiaztatua",
+            "followers_count": "%@ jarraitzaile"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Hasi saioa",
-            "learn_more": "Learn more",
-            "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "learn_more": "Ikasi gehiago",
+            "join_default_server": "Batu %@-(e)ra",
+            "pick_server": "Aukeratu beste zerbitzari bat",
             "separator": {
-                "or": "or"
+                "or": "edo"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Ongi etorri Mastodon-era",
+                    "description": "Mastodon sare sozial deszentralizatua da, eta horrek esan nahi du ez duela konpainia bakar batek kontrolatzen. Zerbitzari independente askok osatzen dute, denak batera konektatuta."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Zer dira zerbitzariak?",
+                    "description": "Mastodonen kontu bakoitza zerbitzari batean dago — bakoitzak bere balore, arau eta administratzaileekin. Ez du axola zein aukeratzen duzun, edozein zerbitzaritako pertsonak jarraitu eta beraiekin elkarreraginean jardun dezakezu."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Zer da Mastodon?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "Ongi etorri berriro ere",
+            "subtitle": "Hasi saioa kontua sortu zenuen zerbitzariarekin.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Sartu URLa edo bilatu zure zerbitzaria"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Aukeratu zerbitzaria",
             "button": {
-                "language": "Language",
+                "language": "Hizkuntza",
                 "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "Guztiak",
@@ -347,7 +347,7 @@
                 "category": "KATEGORIA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Arakatu komunitateak edo sartu URLa"
             },
             "empty_state": {
                 "finding_servers": "Erabilgarri dauden zerbitzariak bilatzen...",
@@ -355,27 +355,27 @@
                 "no_results": "Emaitzarik ez"
             },
             "signup_speed": {
-                "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "all": "Guztiak",
+                "instant": "Berehalako erregistroa",
+                "manually_reviewed": "Eskuzko berrikuspena"
             },
             "language": {
                 "all": "All"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Bilatu izena edo URLa"
             },
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Zure pribatutasuna",
+            "description": "Mastodon aplikazioak daturik biltzen ez duen arren, erregistratzen zaren zerbitzariak beste politika bat izan dezake.\n\nEz bazaude **%s** zerbitzariaren politikarekin ados, atzera egin eta beste zerbitzari bat aukeratu dezakezu.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Pribatutasun politika - Mastodon for iOS",
+                "server": "Pribatutasun politika - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ados nago"
             }
         },
         "register": {
@@ -490,7 +490,7 @@
             "timeline_pill": {
                 "offline": "Konexio gabe",
                 "new_posts": "Argitalpen berriak",
-                "post_sent": "Post Sent"
+                "post_sent": "Bidalita"
             },
             "empty_state": {
                 "list_empty_message_title": "Zerrenda hau hutsik dago"
@@ -520,9 +520,9 @@
                 "attachment_broken": "%s hondatuta dago eta ezin da\nMastodonera igo.",
                 "description_photo": "Deskribatu argazkia ikusmen arazoak dituztenentzat...",
                 "description_video": "Deskribatu bideoa ikusmen arazoak dituztenentzat...",
-                "load_failed": "Load Failed",
+                "load_failed": "Kargatzeak huts egin du",
                 "upload_failed": "Kargatzeak huts egin du",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "Ezin da erantsitako fitxategia antzeman",
                 "attachment_too_large": "Eranskina handiegia da",
                 "compressing_state": "Konprimatzen...",
                 "server_processing_state": "Server Processing..."
@@ -636,7 +636,7 @@
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
+                    "title": "Ezkutatu bultzadak",
                     "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
@@ -644,7 +644,7 @@
                     "message": "Confirm to block domain %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
+                    "title": "Desblokeatu domeinua",
                     "message": "Confirm to unblock domain %s"
                 }
             },
@@ -693,10 +693,10 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "\"%s\"-(r)ekin bat datozen argitalpenak",
+                "people": "\"%s\"-(r)ekin bat datozen profilak",
                 "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
+                "url": "Ireki URLa Mastodonen",
                 "hashtag": "Go to #%s",
                 "no_user": {
                     "title": "No User Account Found",
@@ -721,7 +721,7 @@
             "intro": "Hauek dira zure Mastodon txokoan beraien lekua hartzen ari diren argitalpenak."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Gogokoak"
         },
         "notification": {
             "title": {
@@ -731,7 +731,7 @@
             "notification_description": {
                 "followed_you": "zu jarraitzen hasi da",
                 "favorited_your_post": "(e)k zure bidalketa gogoko du",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "(e)k zure bidalketa bultzatu du",
                 "mentioned_you": "erabiltzaileak aipatu zaitu",
                 "request_to_follow_you": "erabiltzaileak zu jarraitzea eskatu du",
                 "poll_has_ended": "inkesta amaitu da"
@@ -750,11 +750,11 @@
                 "none": "Your account has received a moderation warning.",
                 "disable": "Your account has been disabled.",
                 "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
+                "delete_statuses": "Argitalpen batzuk kendu dira.",
                 "sensitive": "Your posts will be marked as sensitive from now on.",
                 "silence": "Your account has been limited.",
                 "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "learn_more": "Ikasi gehiago"
             }
         },
         "thread": {
@@ -763,17 +763,17 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "privacy_safety": "Privacy & Safety",
+                "title": "Ezarpenak",
+                "general": "Orokorra",
+                "notifications": "Jakinarazpenak",
+                "privacy_safety": "Pribatutasuna eta segurtasuna",
                 "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
+                "about_mastodon": "Mastodoni buruz",
+                "server_details": "Zerbitzariaren xehetasunak",
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Honi buruz",
                 "more_settings": "Ezarpen gaehiago",
                 "contribute_to_mastodon": "Lagundu Mastodon",
                 "privacy_policy": "Pribatutasun politika",
@@ -924,33 +924,33 @@
             "dismiss_account_switcher": "Baztertu kontu-aldatzailea",
             "add_account": "Gehitu kontua",
             "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout": "Amaitu saioa"
         },
         "bookmark": {
             "title": "Laster-markak"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Jarraitutako traolak",
             "header": {
                 "posts": "posts",
                 "participants": "participants",
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Jarraitu",
+                "unfollow": "Utzi jarraitzeari"
             }
         }
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+            "invalid_link_error": "Ez dirudi baliozko Mastodon eskeka bat denik."
         }
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
-            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+            "unsupported_widget_family": "Barka baina Widget familia hau ez da bateragarria.",
+            "user_not_logged_in": "Ireki Mastodon kontu batean saioa hasteko."
         },
         "followers_count": {
             "configuration_display_name": "Followers",
@@ -979,12 +979,12 @@
             },
             "not_found": {
                 "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "account": "@johnMastodon@ez-dago-horrelako.konturik",
+                "content": "Ezin izan dugu <a>#%@</a> traola duen bidalketarik aurkitu. Saiatu <a>#BesteTraolaBatekin</a> edo egiaztatu widgetaren ezarpenak."
             },
             "placeholder": {
                 "account_name": "John Mastodon",
-                "account": "@johnMastodon@no-such.account",
+                "account": "@johnMastodon@ez-dago-horrelako.konturik",
                 "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
             }
         }
