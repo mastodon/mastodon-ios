@@ -61,7 +61,7 @@
             },
             "boost_a_post": {
                 "title_boost": "Bultzatu bidalketa?",
-                "title_unboost": "Unboost Post?",
+                "title_unboost": "Bidalketari bultzada kendu?",
                 "cancel": "Utzi",
                 "boost": "Bultzada",
                 "unboost": "Kendu bultzada"
@@ -187,7 +187,7 @@
                     "show_image": "Erakutsi irudia",
                     "show_gif": "Erakutsi GIFa",
                     "show_video_player": "Erakutsi bideo-erreproduzigailua",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Partekatu bidalketako esteka",
                     "tap_then_hold_to_show_menu": "Sakatu eta eutsi menua erakusteko",
                     "a11y_labels": {
                         "reblog": "Bultzada",
@@ -230,8 +230,8 @@
                 },
                 "edited_at_timestamp_prefix": "Edited %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Edizio-historia",
+                    "original_post": "Jatorrizko bidalketa · %s"
                 },
                 "card": {
                     "by": "By",
@@ -249,15 +249,15 @@
                 "unblock": "Desblokeatu",
                 "unblock_user": "Desblokeatu %s",
                 "blocked": "Blokeatuta",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Blokeatutako domeinua",
                 "mute": "Mututu",
                 "mute_user": "Mututu %s",
                 "unmute": "Desmututu",
                 "unmute_user": "Desmututu %s",
                 "muted": "Mutututa",
                 "edit_info": "Editatu informazioa",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Erakutsi bultzadak",
+                "hide_reblogs": "Ezkutatu bultzadak"
             },
             "timeline": {
                 "filtered": "Iragazita",
