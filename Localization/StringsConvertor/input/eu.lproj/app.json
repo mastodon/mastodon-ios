@@ -145,7 +145,7 @@
                     "open_author_profile": "Ireki egilearen profila",
                     "open_reblogger_profile": "Ireki bultzada eman duenaren profila",
                     "reply_status": "Erantzun bidalketari",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Txandakatu bidalketa bultzatzea",
                     "toggle_favorite": "Txandakatu bidalketa gogoko egitea",
                     "toggle_content_warning": "Txandakatu edukiaren abisua",
                     "preview_image": "Aurreikusi irudia"
@@ -216,10 +216,10 @@
                     "show_original": "Erakutsi jatorrizkoa"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
+                    "accessibility_label": "%s, %2$d tik %1$d garren eranskina",
                     "expand_image_hint": "Irudia hedatzen du. Egin tap birritan eta mantendu ekintzak erakusteko",
                     "expand_gif_hint": "GIFa hedatzen du. Egin tap birritan eta mantendu ekintzak erakusteko",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_video_hint": "Bide-erreproduzigailua erakusten du. Egin tap birritan eta mantendu ekintzak erakusteko"
                 },
                 "posted_via_application": "%s %s -en bidez",
                 "buttons": {
@@ -321,7 +321,7 @@
             "title": "Aukeratu zerbitzaria",
             "button": {
                 "language": "Hizkuntza",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "Erregistro-abiadura",
                 "category": {
                     "all": "Guztiak",
                     "all_accessiblity_description": "Kategoria: Guztiak",
@@ -753,7 +753,7 @@
                 "delete_statuses": "Argitalpen batzuk kendu dira.",
                 "sensitive": "Zure bidalketak hunkigarri gisa markatuko dira aurrerantzean.",
                 "silence": "Zure kontuari mugak jarri zaizkio.",
-                "suspend": "Your account has been suspended.",
+                "suspend": "Zure kontua behin-behinean egotzi da.",
                 "learn_more": "Ikasi gehiago"
             }
         },
@@ -777,7 +777,7 @@
                 "more_settings": "Ezarpen gaehiago",
                 "contribute_to_mastodon": "Lagundu Mastodon",
                 "privacy_policy": "Pribatutasun politika",
-                "clear_media_storage": "Clear Media Storage"
+                "clear_media_storage": "Garbitu multimedia biltegiratzea"
             },
             "server_details": {
                 "about": "Honi buruz",
@@ -854,7 +854,7 @@
                 "manually_approve_follow_requests": "Eskuz baimendu jarraipen-eskaerak",
                 "show_followers_and_following": "Erakutsi jarraitzaileak eta jarraitutakoak",
                 "suggest_my_account_to_others": "Gomendatu nire kontua besteei",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "appear_in_search_engines": "Agertu bilaketa-motoretan"
             }
         },
         "report": {
@@ -975,7 +975,7 @@
         "hashtag": {
             "configuration": {
                 "display_name": "Traola",
-                "description": "Shows a recent post with the selected hashtag."
+                "description": "Hautatutako traola duen post berri bat erakusten du."
             },
             "not_found": {
                 "account_name": "John Mastodon",
@@ -985,7 +985,7 @@
             "placeholder": {
                 "account_name": "John Mastodon",
                 "account": "@johnMastodon@ez-dago-horrelako.konturik",
-                "content": "This is how a post with a <a>#hashtag</a> would look. Pick whichever <a>#hashtag</a> you want in the widget settings."
+                "content": "Horrela ikusiko litzateke <a>#traola</a> bat duen bidalketa bat. Aukeratu nahi duzun <a>#traola</a> widgetaren ezarpenetan."
             }
         }
     }
