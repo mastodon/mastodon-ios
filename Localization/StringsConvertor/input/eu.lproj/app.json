@@ -770,7 +770,7 @@
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "Mastodoni buruz",
                 "server_details": "Zerbitzariaren xehetasunak",
-                "logout": "Logout %@"
+                "logout": "Amaitu %@ saioa"
             },
             "about_mastodon": {
                 "title": "Honi buruz",
