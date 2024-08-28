@@ -226,16 +226,16 @@
                     "reblogs_title": "Bultzadak",
                     "favorites_title": "Gogokoak",
                     "edit_history_title": "Editatu historia",
-                    "edit_history_detail": "Last edit %s"
+                    "edit_history_detail": "Azken edizioa: %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Editatua %s",
                 "edit_history": {
                     "title": "Edizio-historia",
                     "original_post": "Jatorrizko bidalketa · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Egilea",
+                    "by_author": "Egilea: %s"
                 }
             },
             "friendship": {
@@ -360,12 +360,12 @@
                 "manually_reviewed": "Eskuzko berrikuspena"
             },
             "language": {
-                "all": "All"
+                "all": "Guztiak"
             },
             "search": {
                 "placeholder": "Bilatu izena edo URLa"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Hautaketarik egin gabe jarraituz gero, zure hizkuntzaren arabera aukeratuko dugu zerbitzari bat."
         },
         "privacy": {
             "title": "Zure pribatutasuna",
@@ -387,7 +387,7 @@
                 "username": {
                     "placeholder": "erabiltzaile-izena",
                     "duplicate_prompt": "Erabiltzaile-izen hau hartuta dago.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "%@_paregabea"
                 },
                 "display_name": {
                     "placeholder": "pantaila-izena"
@@ -422,7 +422,7 @@
                 "reason": {
                     "blocked": "%s(e)k onartu gabeko eposta hornitzaile bat erabiltzen du",
                     "unreachable": "dirudienez %s ez da existitzen",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s beste norbaitek darabil. Zer iruditzen:",
                     "reserved": "%s gako-hitz erreserbatu bat da",
                     "accepted": "%s onartu behar da",
                     "blank": "%s beharrezkoa da",
@@ -469,8 +469,8 @@
             },
             "didnt_get_link": {
                 "prefix": "Ez duzu estekarik jaso?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "resend_in": "Birbidali (%@)",
+                "resend_now": "Birbidali orain."
             }
         },
         "home_timeline": {
@@ -484,7 +484,7 @@
                 },
                 "hashtags": {
                     "title": "Jarraitutako traolak",
-                    "empty_message": "You don't follow any Hashtags"
+                    "empty_message": "Ez duzu traolarik jarraitzen"
                 }
             },
             "timeline_pill": {
@@ -525,7 +525,7 @@
                 "can_not_recognize_this_media_attachment": "Ezin da erantsitako fitxategia antzeman",
                 "attachment_too_large": "Eranskina handiegia da",
                 "compressing_state": "Konprimatzen...",
-                "server_processing_state": "Server Processing..."
+                "server_processing_state": "Zerbitzaria prozesatzen ari da..."
             },
             "poll": {
                 "title": "Inkesta",
@@ -536,9 +536,9 @@
                 "one_day": "Egun 1",
                 "three_days": "3 egun",
                 "seven_days": "7 egun",
-                "option_number": "%ld aukera",
+                "option_number": "%ld. aukera",
                 "the_poll_is_invalid": "Inkesta ez da balekoa",
-                "the_poll_has_empty_option": "The poll has empty option",
+                "the_poll_has_empty_option": "Inkestak aukera hutsa dauka",
                 "add_option": "Gehitu aukera",
                 "remove_option": "Kendu aukera",
                 "move_up": "Mugitu Gora",
@@ -565,7 +565,7 @@
                 "disable_content_warning": "Desgaitu edukiaren abisua",
                 "post_visibility_menu": "Bidalketaren ikusgaitasunaren menua",
                 "post_options": "Bildalketaren aukerak",
-                "posting_as": "Posting as %s"
+                "posting_as": "%s gisa argitaratzen"
             },
             "keyboard": {
                 "discard_post": "Baztertu bidalketa",
@@ -577,9 +577,9 @@
             },
             "language": {
                 "title": "Bidalketaren hizkuntza",
-                "suggested": "Suggested",
+                "suggested": "Gomendatua",
                 "recent": "Azkenaldikoak",
-                "other": "Beste hizkuntza..."
+                "other": "Beste hizkuntza bat…"
             }
         },
         "profile": {
@@ -603,7 +603,7 @@
                     "content": "Edukia"
                 },
                 "verified": {
-                    "short": "Verified on %s",
+                    "short": "%s(e)n egiaztatua",
                     "long": "Esteka honen jabetzaren egiaztaketa data: %s"
                 }
             },
@@ -633,19 +633,19 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "Erakutsi bultzadak",
-                    "message": "Confirm to show boosts"
+                    "message": "Berretsi bultzadak ikustea"
                 },
                 "confirm_hide_reblogs": {
                     "title": "Ezkutatu bultzadak",
-                    "message": "Confirm to hide boosts"
+                    "message": "Berretsi bultzadak ezkutatzea"
                 },
                 "confirm_block_domain": {
-                    "title": "Block domain",
-                    "message": "Confirm to block domain %s"
+                    "title": "Blokeatu domeinua",
+                    "message": "Berretsi %s blokeatzea"
                 },
                 "confirm_unblock_domain": {
                     "title": "Desblokeatu domeinua",
-                    "message": "Confirm to unblock domain %s"
+                    "message": "Berretsi %s desblokeatzea"
                 }
             },
             "accessibility": {
@@ -664,14 +664,14 @@
             "footer": "Beste zerbitzarietan jarraitutakoak ez dira bistaratzen."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Ezagutzen dituzun jarraitzaileak",
+            "followed_by_names": "%s(e)k jarraitua"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Gogoko dute:"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Bultzatu dute:"
         },
         "search": {
             "title": "Bilatu",
@@ -695,18 +695,18 @@
             "searching": {
                 "posts": "\"%s\"-(r)ekin bat datozen argitalpenak",
                 "people": "\"%s\"-(r)ekin bat datozen profilak",
-                "profile": "Go to @%s@%s",
+                "profile": "Joan @%s@%s(e)ra",
                 "url": "Ireki URLa Mastodonen",
-                "hashtag": "Go to #%s",
+                "hashtag": "Joan #%s(e)ra",
                 "no_user": {
-                    "title": "No User Account Found",
-                    "message": "There's no Useraccount \"%s\" on %s"
+                    "title": "Ez da erabiltzaile konturik aurkitu",
+                    "message": "Ez dago \"%s\" konturik %s(e)n"
                 },
                 "empty_state": {
                     "no_results": "Emaitzarik ez"
                 },
                 "recent_search": "Azken bilaketak",
-                "clear_all": "Clear all",
+                "clear_all": "Garbitu dena",
                 "clear": "Garbitu"
             }
         },
@@ -747,12 +747,12 @@
                 "rejected": "Ukatua"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
+                "none": "Zure kontuak moderazio-abisu bat jaso du.",
+                "disable": "Zure kontua ezgaitu da.",
+                "mark_statuses_as_sensitive": "Zure bidalketa batzuk hunkigarri gisa markatu dira.",
                 "delete_statuses": "Argitalpen batzuk kendu dira.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
+                "sensitive": "Zure bidalketak hunkigarri gisa markatuko dira aurrerantzean.",
+                "silence": "Zure kontuari mugak jarri zaizkio.",
                 "suspend": "Your account has been suspended.",
                 "learn_more": "Ikasi gehiago"
             }
@@ -767,7 +767,7 @@
                 "general": "Orokorra",
                 "notifications": "Jakinarazpenak",
                 "privacy_safety": "Pribatutasuna eta segurtasuna",
-                "support_mastodon": "Support Mastodon",
+                "support_mastodon": "Eman babesa Mastodoni",
                 "about_mastodon": "Mastodoni buruz",
                 "server_details": "Zerbitzariaren xehetasunak",
                 "logout": "Amaitu %@ saioa"
@@ -785,7 +785,7 @@
                 "about_instance": {
                     "title": "Administratzailea",
                     "message_admin": "Administratzaileari mezua",
-                    "legal_notice": "A legal notice"
+                    "legal_notice": "Lege-oharra"
                 }
             },
             "general": {
@@ -797,11 +797,11 @@
                     "system": "Erabili sistemaren diseinua"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "section_title": "Galdetu…",
+                    "posting_without_alt_text": "ALT testurik gabe bidali aurretik",
+                    "unfollowing_someone": "Norbaiti jarraitzeari utzi aurretik",
+                    "boosting_a_post": "Bidalketak bultzatu aurretik",
+                    "deleting_a_post": "Bidalketak ezabatu aurretik"
                 },
                 "design": {
                     "section_title": "Diseinua",
@@ -833,7 +833,7 @@
                     "new_followers": "Jarraitzaile berriak"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "notification_hint": "Piztu jakinarazpenak gailuaren ezarpenetatik, blokeatutako pantailatik eguneratzeak ikusteko.",
                     "go_to_settings": "Joan jakinarazpenaren ezarpenetara"
                 }
             },
@@ -841,8 +841,8 @@
                 "title": "Pribatutasuna eta segurtasuna",
                 "preset": {
                     "title": "Aurrezarpena",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
+                    "open_and_public": "Irekia eta publikoa",
+                    "private_and_restricted": "Pribatua eta murriztua",
                     "custom": "Pertsonalizatua"
                 },
                 "default_post_visibility": {
@@ -851,9 +851,9 @@
                     "followers_only": "Jarraitzaileak soilik",
                     "only_people_mentioned": "Aipatzen dudan jendea soilik"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
+                "manually_approve_follow_requests": "Eskuz baimendu jarraipen-eskaerak",
+                "show_followers_and_following": "Erakutsi jarraitzaileak eta jarraitutakoak",
+                "suggest_my_account_to_others": "Gomendatu nire kontua besteei",
                 "appear_in_search_engines": "Appear in Search Engines"
             }
         },
@@ -888,7 +888,7 @@
                 "step_2_of_4": "2. urratsa 4tik",
                 "which_rules_are_being_violated": "Ze arau hautsi ditu?",
                 "select_all_that_apply": "Hautatu dagozkion guztiak",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "i_just_don’t_like_it": "Ez dut gustukoa"
             },
             "step_three": {
                 "step_3_of_4": "3. urratsa 4tik",
@@ -903,10 +903,10 @@
                 "dont_want_to_see_this": "Ez duzu hau ikusi nahi?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Mastodonen gustuko ez duzun zerbait ikusten duzunean, zure esperientziatik atera dezakezu pertsona hori.",
                 "unfollow": "Utzi jarraitzeari",
-                "unfollowed": "Unfollowed",
+                "unfollowed": "Jarraitzeari utzi zaio",
                 "unfollow_user": "%s jarraitzeari utzi",
                 "mute_user": "Mututu %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ez dituzu bere bidalketa eta bultzadak hasierako jarioan ikusiko. Ez dute jakingo isilarazi dituztenik.",
                 "block_user": "Blokeatu %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ezin izango dituzte zure bidalketak jarraitu edo ikusi, baina blokeatuta dauden ikusi ahal izango dute.",
                 "while_we_review_this_you_can_take_action_against_user": "Hau berrikusten dugun bitartean, %s erabiltzailearen aurkako neurriak hartu ditzakezu"
@@ -923,7 +923,7 @@
             "tab_bar_hint": "Unean hautatutako profila: %s. Ukitu birritan, ondoren eduki sakatuta kontu-aldatzailea erakusteko",
             "dismiss_account_switcher": "Baztertu kontu-aldatzailea",
             "add_account": "Gehitu kontua",
-            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout_all_accounts": "Irten kontu guztietatik",
             "logout": "Amaitu saioa"
         },
         "bookmark": {
@@ -932,9 +932,9 @@
         "followed_tags": {
             "title": "Jarraitutako traolak",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "bidalketa",
+                "participants": "partaideak",
+                "posts_today": "bidalketa gaur"
             },
             "actions": {
                 "follow": "Jarraitu",
@@ -953,28 +953,28 @@
             "user_not_logged_in": "Ireki Mastodon kontu batean saioa hasteko."
         },
         "followers_count": {
-            "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_display_name": "Jarraitzaileak",
+            "configuration_description": "Erakutsi jarraitzaile-kopurua.",
+            "title": "JARRAITZAILEAK",
+            "followers_today": "%s jarraitzaile gaur"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Jarraitzaile ugari",
+            "configuration_description": "Erakutsi jarraitzaile-kopurua kontu bat baino gehiagorako.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Beste jarraitzaile bat",
+                "account_name": "beste@jarraitzaile.bat"
             }
         },
         "latest_followers": {
-            "configuration_display_name": "Latest followers",
-            "configuration_description": "Show latest followers.",
-            "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "configuration_display_name": "Azken jarraitzaileak",
+            "configuration_description": "Erakutsi jarraitzaile berrienak.",
+            "title": "Azken jarraitzaileak",
+            "last_update": "Azken eguneratzea: %s"
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Traola",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
