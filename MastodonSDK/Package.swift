@@ -35,7 +35,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "ArkanaKeys", path: "../dependencies/ArkanaKeys"),
-        .package(url: "https://github.com/will-lumley/FaviconFinder.git", from: "3.2.2"),
+        .package(url: "https://github.com/will-lumley/FaviconFinder.git", from: "4.5.0"),
         .package(url: "https://github.com/MainasuK/UITextView-Placeholder.git", from: "1.4.1"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.1.0"),

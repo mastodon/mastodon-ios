@@ -18,17 +18,13 @@ extension NewsView {
         providerFaviconImageView.image = faviconPlaceholder
         if let url = URL(string: link.url) {
             let token = providerFaviconImageView.tag
-            FaviconFinder(url: url).downloadFavicon { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let favicon):
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-                        guard self.providerFaviconImageView.tag == token else { return }
-                        self.providerFaviconImageView.image = favicon.image
-                    }
-                case .failure:
-                    break
+            Task {
+                do {
+                    let favicon = try await FaviconFinder(url: url).downloadFavicon()
+                    guard self.providerFaviconImageView.tag == token else { return }
+                    self.providerFaviconImageView.image = favicon.image
+                } catch {
+                    // no-op
                 }
             }
         }
