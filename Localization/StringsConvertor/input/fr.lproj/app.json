@@ -62,9 +62,9 @@
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "cancel": "Annuler",
+                "boost": "Partage",
+                "unboost": "Annuler le partage"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
