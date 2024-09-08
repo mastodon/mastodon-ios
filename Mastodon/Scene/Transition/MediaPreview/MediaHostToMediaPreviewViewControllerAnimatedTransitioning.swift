@@ -104,6 +104,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             }
             transitionContext.completeTransition(position == .end)
         }
+        
+        toVC.view.accessibilityViewIsModal = true
 
         return animator
     }
@@ -263,6 +265,15 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             self.transitionItem.transitionView?.isHidden = position == .end
             self.transitionItem.snapshotRaw?.alpha = position == .start ? 1.0 : 0.0
             self.transitionItem.snapshotTransitioning?.removeFromSuperview()
+        }
+        
+        animator.addCompletion { position in
+            if position == .end {
+                UIAccessibility.post(
+                    notification: .screenChanged,
+                    argument: toVC.sourceView(transitionItem: self.transitionItem, index: index)
+                )
+            }
         }
         
         return animator

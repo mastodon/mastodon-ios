@@ -173,7 +173,7 @@ extension MediaPreviewViewController {
 }
 
 extension MediaPreviewViewController {
-    
+
     @objc private func closeButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -183,6 +183,12 @@ extension MediaPreviewViewController {
 
         present(AltTextViewController(alt: alt, sourceView: sender), animated: true)
     }
+
+    override func accessibilityPerformEscape() -> Bool {
+        dismiss(animated: true, completion: nil)
+        return true
+    }
+
 }
 
 // MARK: - MediaPreviewingViewController

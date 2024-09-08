@@ -27,4 +27,18 @@ extension MediaPreviewableViewController {
             return profileHeaderView.bannerImageView.superview?.convert(profileHeaderView.bannerImageView.frame, to: nil)
         }
     }
+    
+    func sourceView(transitionItem: MediaPreviewTransitionItem, index: Int) -> UIView? {
+        switch transitionItem.source {
+        case .attachment(let mediaView):
+            return mediaView
+        case .attachments(let mediaGridContainerView):
+            guard index < mediaGridContainerView.mediaViews.count else { return nil }
+            return mediaGridContainerView.mediaViews[index]
+        case .profileAvatar(let profileHeaderView):
+            return profileHeaderView.avatarButton
+        case .profileBanner(let profileHeaderView):
+            return profileHeaderView.bannerImageView
+        }
+    }
 }
