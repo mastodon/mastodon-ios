@@ -54,10 +54,10 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "Mídia sem texto alternativo",
+                "message": "%d das suas imagens estão sem texto alternativo. Publicar assim mesmo?",
+                "cancel": "Cancelar",
+                "post": "Postar"
             },
             "boost_a_post": {
                 "title_boost": "Impulsionar a Postagem?",
@@ -67,9 +67,9 @@
                 "unboost": "Unboost"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Deixar de seguir %@?",
+                "cancel": "Cancelar",
+                "unfollow": "Deixar de seguir"
             }
         },
         "controls": {
@@ -113,7 +113,7 @@
                 "delete": "Excluir",
                 "translate_post": {
                     "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "unknown_language": "Desconhecido"
                 },
                 "edit_post": "Editar",
                 "bookmark": "Bookmark",
@@ -187,13 +187,13 @@
                     "show_image": "Exibir imagem",
                     "show_gif": "Exibir GIF",
                     "show_video_player": "Mostrar reprodutor de vídeo",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Compartilhar Link na publicação",
                     "tap_then_hold_to_show_menu": "Toque e em seguida segure para exibir o menu",
                     "a11y_labels": {
                         "reblog": "Boost",
                         "unreblog": "Undo boost"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Copiar link"
                 },
                 "tag": {
                     "url": "URL",
@@ -211,9 +211,9 @@
                 },
                 "translation": {
                     "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Show Original"
+                    "unknown_language": "Desconhecido",
+                    "unknown_provider": "Desconhecido",
+                    "show_original": "Mostrar Original"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -226,15 +226,15 @@
                     "reblogs_title": "Boosts",
                     "favorites_title": "Favoritos",
                     "edit_history_title": "Editar histórico",
-                    "edit_history_detail": "Last edit %s"
+                    "edit_history_detail": "Última edição em %s"
                 },
                 "edited_at_timestamp_prefix": "Edited %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "Histórico de edições",
+                    "original_post": "Publicação original · %s"
                 },
                 "card": {
-                    "by": "By",
+                    "by": "Por",
                     "by_author": "By %s"
                 }
             },
@@ -245,11 +245,11 @@
                 "pending": "Pendente",
                 "block": "Bloquear",
                 "block_user": "Bloquear %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Bloquear domínio %s",
                 "unblock": "Desbloquear",
                 "unblock_user": "Desbloquear %s",
                 "blocked": "Bloqueado",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Domínio bloqueado",
                 "mute": "Silenciar",
                 "mute_user": "Silenciar %s",
                 "unmute": "Remover silenciado",
@@ -281,8 +281,8 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Nenhum link verificado",
+            "followers_count": "%@ seguidores"
         }
     },
     "scene": {
@@ -292,7 +292,7 @@
             "join_default_server": "Join %@",
             "pick_server": "Escolha outro servidor",
             "separator": {
-                "or": "or"
+                "or": "ou"
             },
             "education": {
                 "mastodon": {
@@ -397,7 +397,7 @@
                 },
                 "password": {
                     "placeholder": "senha",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Confirmar Senha",
                     "require": "Sua senha deve ter pelo menos:",
                     "character_limit": "8 carácteres",
                     "accessibility": {
@@ -440,14 +440,14 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
+            "title": "Regras do Servidor",
             "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
             "prompt": "Ao continuar, você estará sujeito aos termos de serviço e política de privacidade para %s.",
             "terms_of_service": "termos de serviço",
             "privacy_policy": "política de privacidade",
             "button": {
                 "confirm": "Aceito",
-                "disagree": "Disagree"
+                "disagree": "Discordo"
             }
         },
         "confirm_email": {
@@ -462,14 +462,14 @@
                 "resend_email": "Reenviar e-mail"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Verifique sua caixa de entrada.",
                 "description": "Enviamos um e-mail para você. Verifique sua pasta de spam caso ainda tenha verificado.",
                 "mail": "Correio",
                 "open_email_client": "Abrir Cliente de Email"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
+                "prefix": "Não recebeu um link?",
+                "resend_in": "Reenviar (%@)",
                 "resend_now": "Reenviar agora."
             }
         },
@@ -479,26 +479,26 @@
                 "following": "Seguindo",
                 "local_community": "Local",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Listas",
+                    "empty_message": "Você não tem nenhuma lista"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Hashtags seguidas",
+                    "empty_message": "Você não segue nenhuma hashtag"
                 }
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
+                "offline": "Desconectado",
+                "new_posts": "Novas publicações",
                 "post_sent": "Postagem enviada"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Essa lista está vazia"
             }
         },
         "suggestion_account": {
             "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "follow_all": "Seguir todos"
         },
         "compose": {
             "title": {
@@ -528,7 +528,7 @@
                 "server_processing_state": "Servidor processando..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Enquete",
                 "duration_time": "Duração: %s",
                 "thirty_minutes": "30 minutos",
                 "one_hour": "1 hora",
@@ -539,10 +539,10 @@
                 "option_number": "Opção %ld",
                 "the_poll_is_invalid": "A enquete é inválida",
                 "the_poll_has_empty_option": "A enquete tem uma opção vazia",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Adicionar opção",
+                "remove_option": "Remover Opção",
+                "move_up": "Mover para cima",
+                "move_down": "Mover para baixo"
             },
             "content_warning": {
                 "placeholder": "Escreva um aviso de conteúdo preciso aqui..."
@@ -576,10 +576,10 @@
                 "select_visibility_entry": "Selecionar Visibilidade - %s"
             },
             "language": {
-                "title": "Post Language",
+                "title": "Idioma do post",
                 "suggested": "Suggested",
                 "recent": "Recente",
-                "other": "Other Language…"
+                "other": "Outro Idioma…"
             }
         },
         "profile": {
@@ -591,8 +591,8 @@
                 "my_following": "seguindo",
                 "my_followers": "seguidores",
                 "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers",
+                "other_following": "seguindo",
+                "other_followers": "seguidores",
                 "familiar_followers": "mutuals"
             },
             "fields": {
@@ -696,7 +696,7 @@
                 "posts": "Posts matching \"%s\"",
                 "people": "People matching \"%s\"",
                 "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
+                "url": "Abrir URL no Mastodon",
                 "hashtag": "Go to #%s",
                 "no_user": {
                     "title": "Nenhuma conta de usuário encontrada",
@@ -767,10 +767,10 @@
                 "general": "General",
                 "notifications": "Notifications",
                 "privacy_safety": "Privacy & Safety",
-                "support_mastodon": "Support Mastodon",
+                "support_mastodon": "Apoiar Mastodon",
                 "about_mastodon": "Sobre o Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "server_details": "Detalhes do servidor",
+                "logout": "Desconectar %@"
             },
             "about_mastodon": {
                 "title": "Sobre",
@@ -791,7 +791,7 @@
             "general": {
                 "title": "General",
                 "appearance": {
-                    "section_title": "Appearance",
+                    "section_title": "Aparência",
                     "dark": "Modo escuro",
                     "light": "Modo claro",
                     "system": "Use Device Appearance"
