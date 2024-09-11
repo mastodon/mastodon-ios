@@ -196,12 +196,13 @@ extension AuthenticationViewModel {
             let account = response.value
 
             let authentication = MastodonAuthentication.createFrom(domain: info.domain,
-                                                                      userID: account.id,
-                                                                      username: account.username,
-                                                                      appAccessToken: userToken.accessToken,  // TODO: swap app token
-                                                                      userAccessToken: userToken.accessToken,
-                                                                      clientID: info.clientID,
-                                                                      clientSecret: info.clientSecret)
+                                                                   userID: account.id,
+                                                                   username: account.username,
+                                                                   appAccessToken: userToken.accessToken,  // TODO: swap app token
+                                                                   userAccessToken: userToken.accessToken,
+                                                                   clientID: info.clientID,
+                                                                   clientSecret: info.clientSecret,
+                                                                   accountCreatedAt: account.createdAt)
 
             AuthenticationServiceProvider.shared
                 .authentications

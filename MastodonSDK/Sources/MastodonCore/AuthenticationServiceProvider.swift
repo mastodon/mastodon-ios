@@ -107,7 +107,8 @@ public extension AuthenticationServiceProvider {
                     createdAt: auth.createdAt,
                     updatedAt: auth.updatedAt,
                     activedAt: auth.activedAt,
-                    userID: auth.userID
+                    userID: auth.userID,
+                    accountCreatedAt: auth.createdAt
                 )
             }
 

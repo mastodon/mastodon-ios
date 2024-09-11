@@ -5,6 +5,8 @@ import CoreDataStack
 import MastodonSDK
 
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
+    private static let minDaysAccountAgeForDonations = 28
+    
     public static let fallbackCharactersReservedPerURL = 23
 
     public enum InstanceConfiguration: Codable, Hashable {
@@ -69,6 +71,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
     public private(set) var userID: String
 
     public private(set) var instanceConfiguration: InstanceConfiguration?
+    public private(set) var accountCreatedAt: Date
     
     public var persistenceIdentifier: String {
         "\(username)@\(domain)"
@@ -81,7 +84,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         appAccessToken: String,
         userAccessToken: String,
         clientID: String,
-        clientSecret: String
+        clientSecret: String,
+        accountCreatedAt: Date
     ) -> Self {
         let now = Date()
         return MastodonAuthentication(
@@ -96,7 +100,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             updatedAt: now,
             activedAt: now,
             userID: userID,
-            instanceConfiguration: nil
+            instanceConfiguration: nil,
+            accountCreatedAt: accountCreatedAt
         )
     }
     
@@ -126,7 +131,8 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
             updatedAt: updatedAt ?? self.updatedAt,
             activedAt: activedAt ?? self.activedAt,
             userID: userID ?? self.userID,
-            instanceConfiguration: instanceConfiguration ?? self.instanceConfiguration
+            instanceConfiguration: instanceConfiguration ?? self.instanceConfiguration,
+            accountCreatedAt: self.accountCreatedAt
         )
     }
 
@@ -178,5 +184,18 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
 
     var authorization: Mastodon.API.OAuth.Authorization {
         .init(accessToken: userAccessToken)
+    }
+    
+    public var isEligibleForDonations: Bool {
+        guard
+            let minDateForDonations = Calendar.current.date(byAdding: .day, value: -Self.minDaysAccountAgeForDonations, to: Date())
+        else {
+            return false
+        }
+        return ["mastodon.social", "mastodon.online"].contains(domain) && createdAt < minDateForDonations
+    }
+    
+    public var donationSeed: Int {
+        return abs("@\(username)@\(domain)".hashValue) % 100
     }
 }
