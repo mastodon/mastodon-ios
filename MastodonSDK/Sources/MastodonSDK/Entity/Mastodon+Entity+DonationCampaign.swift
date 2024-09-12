@@ -32,8 +32,8 @@ extension Mastodon.Entity {
             case id
             case bannerMessage = "banner_message"
             case bannerButtonText = "banner_button_text"
-            case donationMessage = "notification_type"
-            case donationButtonText = "preferred_locale"
+            case donationMessage = "donation_message"
+            case donationButtonText = "donation_button_text"
             case defaultCurrency = "default_currency"
             case donationUrl = "donation_url"
             case donationSuccessPost = "donation_success_post"

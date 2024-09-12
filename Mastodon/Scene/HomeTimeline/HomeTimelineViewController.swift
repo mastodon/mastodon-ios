@@ -450,6 +450,8 @@ extension HomeTimelineViewController {
         
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
+        
+        viewModel?.askForDonationIfPossible(source: .menu)
     }
 
     override func viewDidAppear(_ animated: Bool) {

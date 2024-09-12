@@ -41,6 +41,7 @@
 		2A631AE82B8C9F6600FE0778 /* LanguagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A631AE72B8C9F6600FE0778 /* LanguagePickerViewController.swift */; };
 		2A64515E29642A8A00CD8B8A /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */; };
 		2A64516929642A8B00CD8B8A /* OpenInActionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2A64A2912C92EF0C00E5E913 /* HomeTimelineViewModel+Donation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64A2902C92EF0C00E5E913 /* HomeTimelineViewModel+Donation.swift */; };
 		2A71F541296DBDA80049F54A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A71F53D296DBDA80049F54A /* Media.xcassets */; };
 		2A71F542296DBDA80049F54A /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 2A71F53E296DBDA80049F54A /* Action.js */; };
 		2A71F543296DBDA80049F54A /* ActionRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A71F53F296DBDA80049F54A /* ActionRequestHandler.swift */; };
@@ -660,6 +661,7 @@
 		2A631AE72B8C9F6600FE0778 /* LanguagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePickerViewController.swift; sourceTree = "<group>"; };
 		2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpenInActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A64A2902C92EF0C00E5E913 /* HomeTimelineViewModel+Donation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewModel+Donation.swift"; sourceTree = "<group>"; };
 		2A71F53D296DBDA80049F54A /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		2A71F53E296DBDA80049F54A /* Action.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
 		2A71F53F296DBDA80049F54A /* ActionRequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionRequestHandler.swift; sourceTree = "<group>"; };
@@ -1556,6 +1558,7 @@
 				2D5A3D2725CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift */,
 				2D38F1EA25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift */,
 				2D38F1F625CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift */,
+				2A64A2902C92EF0C00E5E913 /* HomeTimelineViewModel+Donation.swift */,
 				D84738D32BBD9ABE00ECD52B /* TimelineStatusPill.swift */,
 			);
 			path = HomeTimeline;
@@ -3654,6 +3657,7 @@
 				DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */,
 				DB5B729E273113F300081888 /* FollowingListViewModel+State.swift in Sources */,
 				D8B5E4F02A4EB8A00008970C /* NotificationSettingTableViewCell.swift in Sources */,
+				2A64A2912C92EF0C00E5E913 /* HomeTimelineViewModel+Donation.swift in Sources */,
 				DBF9814C265E339500E4BA07 /* ProfileFieldAddEntryCollectionViewCell.swift in Sources */,
 				DB63F76227996B6600455B82 /* SearchHistoryViewController+DataSourceProvider.swift in Sources */,
 				DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */,

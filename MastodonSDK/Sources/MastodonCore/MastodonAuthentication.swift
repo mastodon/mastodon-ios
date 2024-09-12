@@ -192,7 +192,7 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
         else {
             return false
         }
-        return ["mastodon.social", "mastodon.online"].contains(domain) && createdAt < minDateForDonations
+        return ["mastodon.social", "mastodon.online"].contains(domain) && accountCreatedAt < minDateForDonations
     }
     
     public var donationSeed: Int {
