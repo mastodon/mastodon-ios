@@ -37,6 +37,7 @@ final class HomeTimelineViewModel: NSObject {
     /// Becomes `true` if `networkErrorCount` is bigger than 5
     let isOffline = CurrentValueSubject<Bool, Never>(false)
     var networkErrorCount = CurrentValueSubject<Int, Never>(0)
+    var onPresentDonationCampaign = PassthroughSubject<Mastodon.Entity.DonationCampaign, Never>()
 
     var timelineContext: MastodonFeed.Kind.TimelineContext = .home {
         didSet {

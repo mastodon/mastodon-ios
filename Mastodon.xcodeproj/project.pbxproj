@@ -42,6 +42,8 @@
 		2A64515E29642A8A00CD8B8A /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */; };
 		2A64516929642A8B00CD8B8A /* OpenInActionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2A64A2912C92EF0C00E5E913 /* HomeTimelineViewModel+Donation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64A2902C92EF0C00E5E913 /* HomeTimelineViewModel+Donation.swift */; };
+		2A64A2942C92F71500E5E913 /* DonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64A2932C92F71500E5E913 /* DonationViewController.swift */; };
+		2A64A2962C92FD5700E5E913 /* DonationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64A2952C92FD5700E5E913 /* DonationBanner.swift */; };
 		2A71F541296DBDA80049F54A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A71F53D296DBDA80049F54A /* Media.xcassets */; };
 		2A71F542296DBDA80049F54A /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 2A71F53E296DBDA80049F54A /* Action.js */; };
 		2A71F543296DBDA80049F54A /* ActionRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A71F53F296DBDA80049F54A /* ActionRequestHandler.swift */; };
@@ -662,6 +664,8 @@
 		2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpenInActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A64A2902C92EF0C00E5E913 /* HomeTimelineViewModel+Donation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewModel+Donation.swift"; sourceTree = "<group>"; };
+		2A64A2932C92F71500E5E913 /* DonationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationViewController.swift; sourceTree = "<group>"; };
+		2A64A2952C92FD5700E5E913 /* DonationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationBanner.swift; sourceTree = "<group>"; };
 		2A71F53D296DBDA80049F54A /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		2A71F53E296DBDA80049F54A /* Action.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
 		2A71F53F296DBDA80049F54A /* ActionRequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionRequestHandler.swift; sourceTree = "<group>"; };
@@ -1436,6 +1440,15 @@
 				2A631AE72B8C9F6600FE0778 /* LanguagePickerViewController.swift */,
 			);
 			path = Language;
+			sourceTree = "<group>";
+		};
+		2A64A2922C92F70700E5E913 /* Donation */ = {
+			isa = PBXGroup;
+			children = (
+				2A64A2932C92F71500E5E913 /* DonationViewController.swift */,
+				2A64A2952C92FD5700E5E913 /* DonationBanner.swift */,
+			);
+			path = Donation;
 			sourceTree = "<group>";
 		};
 		2A71F53C296DBDA80049F54A /* OpenInActionExtension */ = {
@@ -2581,6 +2594,7 @@
 		DB8AF55525C1379F002E6C99 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				2A64A2922C92F70700E5E913 /* Donation */,
 				2D7631A425C1532200929FB9 /* Share */,
 				DB6180E426391A500018D199 /* Transition */,
 				DB852D1D26FB021900FC9D81 /* Root */,
@@ -3566,6 +3580,7 @@
 				DB6180F226391CF40018D199 /* MediaPreviewImageViewModel.swift in Sources */,
 				62FD27D12893707600B205C5 /* BookmarkViewController.swift in Sources */,
 				DB63F767279A5EB300455B82 /* NotificationTimelineViewModel.swift in Sources */,
+				2A64A2942C92F71500E5E913 /* DonationViewController.swift in Sources */,
 				2D607AD826242FC500B70763 /* NotificationViewModel.swift in Sources */,
 				DB5B54AB2833C12A00DEF8B2 /* RebloggedByViewController.swift in Sources */,
 				D81D12462A4E1861005009D4 /* PolicySelectionViewController.swift in Sources */,
@@ -3897,6 +3912,7 @@
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DBEFCD7D282A2A3B00C0ABEA /* ReportServerRulesViewController.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
+				2A64A2962C92FD5700E5E913 /* DonationBanner.swift in Sources */,
 				D8F917122A4C6B67008A5370 /* GeneralSettingsViewController.swift in Sources */,
 				D81A94122B07A1BE0067A19D /* ProfileCardTableViewCell.swift in Sources */,
 				DB98EB4927B0F0CD0082E365 /* ReportStatusTableViewCell.swift in Sources */,

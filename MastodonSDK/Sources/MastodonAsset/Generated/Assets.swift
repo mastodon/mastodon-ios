@@ -31,6 +31,7 @@ public enum Asset {
     public static let email = ImageAsset(name: "Asset/email")
     public static let friends = ImageAsset(name: "Asset/friends")
     public static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
+    public static let scribble = ImageAsset(name: "Asset/scribble")
   }
   public enum Circles {
     public static let forbidden20 = ImageAsset(name: "Circles/forbidden.20")
@@ -81,6 +82,10 @@ public enum Asset {
       public static let _300 = ColorAsset(name: "Colors/Primary/300")
       public static let _700 = ColorAsset(name: "Colors/Primary/700")
     }
+    public enum Secondary {
+      public static let container = ColorAsset(name: "Colors/Secondary/container")
+      public static let onContainer = ColorAsset(name: "Colors/Secondary/on.container")
+    }
     public enum Shadow {
       public static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")
     }
@@ -102,6 +107,7 @@ public enum Asset {
       public static let brandBlueDarken20 = ColorAsset(name: "Colors/deprecated/brand.blue.darken.20")
     }
     public static let disabled = ColorAsset(name: "Colors/disabled")
+    public static let goldenrod = ColorAsset(name: "Colors/goldenrod")
     public static let inactive = ColorAsset(name: "Colors/inactive")
     public static let mediaTypeIndicotor = ColorAsset(name: "Colors/media.type.indicotor")
     public static let selectionHighlight = ColorAsset(name: "Colors/selection.highlight")
