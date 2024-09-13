@@ -49,7 +49,7 @@
                 "message": "%s do cache removidos com sucesso."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "Nota",
                 "message": "A tradução falhou. Talvez o administrador não tenha habilitado as traduções neste servidor ou este servidor esteja executando uma versão mais antiga do Mastodon onde as traduções ainda não são suportadas.",
                 "button": "OK"
             },
@@ -61,10 +61,10 @@
             },
             "boost_a_post": {
                 "title_boost": "Impulsionar a Postagem?",
-                "title_unboost": "Unboost Post?",
+                "title_unboost": "Desfazer boost da publicação?",
                 "cancel": "Cancelar",
                 "boost": "Impulsionar",
-                "unboost": "Unboost"
+                "unboost": "Desfazer boost"
             },
             "unfollow_user": {
                 "title": "Deixar de seguir %@?",
@@ -112,12 +112,12 @@
                 "settings": "Configurações",
                 "delete": "Excluir",
                 "translate_post": {
-                    "title": "Translate from %s",
+                    "title": "Traduzir do %s",
                     "unknown_language": "Desconhecido"
                 },
                 "edit_post": "Editar",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
+                "bookmark": "Salvar",
+                "remove_bookmark": "Remover marcador",
                 "follow": "Seguir %s",
                 "unfollow": "Deixar de seguir %s"
             },
@@ -143,9 +143,9 @@
                     "next_status": "Próxima postagem",
                     "open_status": "Abrir toot",
                     "open_author_profile": "Abrir perfil do autor",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Abrir perfil do booster",
                     "reply_status": "Responder toot",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Alternar boost na publicação",
                     "toggle_favorite": "Ativar/desativar Favorito na postagem",
                     "toggle_content_warning": "Ativar/desativar Aviso de Conteúdo",
                     "preview_image": "Pré-visualizar imagem"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s impulsionou",
                 "user_replied_to": "Em resposta a %s",
                 "show_post": "Mostrar postagem",
                 "show_user_profile": "Mostrar perfil de usuário",
