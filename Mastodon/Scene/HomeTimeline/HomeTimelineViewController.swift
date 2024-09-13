@@ -452,6 +452,9 @@ extension HomeTimelineViewController {
         donationBanner.onClose = { [weak self] in
             self?.hideDonationCampaignBanner()
         }
+        donationBanner.onShowDonationDialog = { [weak self] campaign in
+            self?.showDonationCampaign(campaign)
+        }
         
         let donationBannerCenterXAnchor = donationBanner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         let donationBannerVisibleBottomAnchor = donationBanner.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -726,6 +729,7 @@ extension HomeTimelineViewController {
     }
 
     private func showDonationCampaign(_ campaign: Mastodon.Entity.DonationCampaign) {
+        hideDonationCampaignBanner()
         let viewController = DonationViewController(campaign: campaign)
         viewController.modalPresentationStyle = .pageSheet
 //        let nav = UINavigationController(rootViewController: viewController)

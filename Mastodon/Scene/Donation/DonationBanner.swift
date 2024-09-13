@@ -11,14 +11,17 @@ class DonationBanner: UIView {
     }
     
     private var campaign: Mastodon.Entity.DonationCampaign?
-    private lazy var backgroundImageView: UIImageView = {
-        UIImageView(image: Asset.Asset.scribble.image)
-    }()
+    private lazy var backgroundImageView = UIImageView(image: Asset.Asset.scribble.image)
     private let messageLabel = UILabel()
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(.init(systemName: "xmark"), for: .normal)
         return button
+    }()
+    private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showDonationDialogPressed(_:)))
+        gestureRecognizer.numberOfTapsRequired = 1
+        return gestureRecognizer
     }()
 
     init() {
@@ -27,13 +30,14 @@ class DonationBanner: UIView {
     }
     
     var onClose: (() -> Void)?
-    var onShowDonationDialog: (() -> Void)?
+    var onShowDonationDialog: ((Mastodon.Entity.DonationCampaign) -> Void)?
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func update(campaign: Mastodon.Entity.DonationCampaign) {
+        self.campaign = campaign
         let spacing = " "
         let stringValue = "\(campaign.bannerMessage)\(spacing)\(campaign.bannerButtonText)"
         let attributedString = NSMutableAttributedString(string: stringValue)
@@ -59,6 +63,7 @@ class DonationBanner: UIView {
     }
     
     private func setupViews() {
+        addGestureRecognizer(tapGestureRecognizer)
         backgroundColor = Asset.Colors.Secondary.container.color
         addSubview(backgroundImageView)
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,5 +96,11 @@ class DonationBanner: UIView {
     @objc
     private func closeButtonPressed(_ sender: Any?) {
         onClose?()
+    }
+    
+    @objc
+    private func showDonationDialogPressed(_ sender: Any?) {
+        guard let campaign else { return }
+        onShowDonationDialog?(campaign)
     }
 }
