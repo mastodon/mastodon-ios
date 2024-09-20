@@ -5,7 +5,7 @@
     <key>There are ${count} options matching ‘${content}’. - 2</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>There are %#@count_option@ matching ‘${content}’.</string>
+      <string>Есть %#@count_option@, соответствующие '${content}'.</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,19 +13,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>1 опция</string>
         <key>few</key>
-        <string>%ld options</string>
+        <string>%ld опции</string>
         <key>many</key>
-        <string>%ld options</string>
+        <string>%ld опций</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld опций</string>
       </dict>
     </dict>
     <key>There are ${count} options matching ‘${visibility}’.</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>There are %#@count_option@ matching ‘${visibility}’.</string>
+      <string>Есть %#@count_option@, соответствующие '${visibility}'.</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,13 +33,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>1 опция</string>
         <key>few</key>
-        <string>%ld options</string>
+        <string>%ld опции</string>
         <key>many</key>
-        <string>%ld options</string>
+        <string>%ld опции</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld опции</string>
       </dict>
     </dict>
   </dict>
