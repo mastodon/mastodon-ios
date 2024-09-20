@@ -49,22 +49,22 @@
                 "message": "Успешно очищено %s кэша."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Примечание",
+                "message": "Перевод не удался. Возможно, администратор не включил переводы на этом сервере или на этом сервере установлена старая версия Mastodon, в которой переводы еще не поддерживаются.",
+                "button": "ХОРОШО"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "Отсутствие Alt-текста у медиафайлов",
+                "message": "На %d ваших изображений отсутствует alt-текст.\nОпубликовать все равно?",
+                "cancel": "Отмена",
+                "post": "Пост"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "Увеличить пост?",
+                "title_unboost": "Разгрузить пост?",
+                "cancel": "Отмена",
+                "boost": "Увеличить",
+                "unboost": "Разгрузить"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
