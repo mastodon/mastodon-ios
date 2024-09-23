@@ -434,7 +434,7 @@
                 "special": {
                     "username_invalid": "A felhasználónév csak alfanumerikus karaktereket és alulvonásokat tartalmazhat",
                     "username_too_long": "A felhasználónév túl hosszú (nem lehet hosszabb 30 karakternél)",
-                    "email_invalid": "Nem érvényes e-mail cím",
+                    "email_invalid": "Érvénytelen e-mail cím",
                     "password_too_short": "A jelszó túl rövid (legalább 8 karakteresnek kell lennie)"
                 }
             }
