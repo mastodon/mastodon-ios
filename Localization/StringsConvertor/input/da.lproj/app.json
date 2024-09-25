@@ -29,7 +29,7 @@
             },
             "sign_out": {
                 "title": "Log ud",
-                "message": "Are you sure you want to sign out?",
+                "message": "Er du sikker på, at du vil logge ud?",
                 "confirm": "Log ud"
             },
             "block_domain": {
@@ -45,7 +45,7 @@
                 "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "Ryd cache",
                 "message": "Successfully cleaned %s cache."
             },
             "translation_failed": {
@@ -90,15 +90,15 @@
                 "cancel": "Annuller",
                 "discard": "Kassér",
                 "try_again": "Forsøg igen",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
+                "take_photo": "Tag foto",
+                "save_photo": "Gem foto",
+                "copy_photo": "Kopier foto",
                 "sign_in": "Log ind",
-                "see_more": "See More",
+                "see_more": "Se mere",
                 "preview": "Preview",
                 "copy": "Kopier",
                 "share": "Del",
-                "share_user": "Share %s",
+                "share_user": "Del %s",
                 "share_post": "Del indlæg",
                 "open_in_safari": "Åbn i Safari",
                 "open_in_browser": "Åbn i browser",
@@ -106,7 +106,7 @@
                 "manually_search": "Manually search instead",
                 "skip": "Spring over",
                 "reply": "Svar",
-                "report_user": "Report %s",
+                "report_user": "Anmeld %s",
                 "block_domain": "Bloker %s",
                 "unblock_domain": "Unblock %s",
                 "settings": "Indstillinger",
@@ -162,8 +162,8 @@
                 "show_user_profile": "Vis brugerprofil",
                 "content_warning": "Indholdsadvarsel",
                 "sensitive_content": "Følsomt indhold",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "media_content_warning": "Tryk hvor som helst for at vise",
+                "tap_to_reveal": "Tryk for at vise",
                 "load_embed": "Load Embed",
                 "link_via_user": "%s via %s",
                 "poll": {
@@ -190,7 +190,7 @@
                     "share_link_in_post": "Del link i indlæg",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Boost",
+                        "reblog": "Fremhæv",
                         "unreblog": "Undo boost"
                     },
                     "copy_link": "Kopier link"
@@ -342,9 +342,9 @@
                 "see_more": "See More"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "SPROG",
+                "users": "BRUGERE",
+                "category": "KATEGORI"
             },
             "input": {
                 "search_servers_or_enter_url": "Search communities or enter URL"
@@ -352,12 +352,12 @@
             "empty_state": {
                 "finding_servers": "Finder tilgængelige servere...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "no_results": "Ingen resultater"
             },
             "signup_speed": {
                 "all": "All",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "instant": "Hurtig oprettelse",
+                "manually_reviewed": "Manuel godkendelse"
             },
             "language": {
                 "all": "All"
@@ -365,10 +365,10 @@
             "search": {
                 "placeholder": "Search name or URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Vi vælger en server baseret på dit sprog, hvis du fortsætter uden at foretage et valg."
         },
         "privacy": {
-            "title": "Your Privacy",
+            "title": "Dit privatliv",
             "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
@@ -420,8 +420,8 @@
                     "reason": "Begrundelse"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
+                    "blocked": "%s indeholder en blokeret e-mailudbyder",
+                    "unreachable": "%s ser ikke ud til at eksistere",
                     "taken": "%s is already taken. How about:",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
@@ -513,18 +513,18 @@
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "replying_to_user": "svarer %s",
             "attachment": {
                 "photo": "foto",
                 "video": "video",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
+                "load_failed": "Indlæsning mislykkedes",
+                "upload_failed": "Upload mislykkedes",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
+                "compressing_state": "Komprimerer...",
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
@@ -536,11 +536,11 @@
                 "one_day": "1 dag",
                 "three_days": "3 dage",
                 "seven_days": "7 dage",
-                "option_number": "Option %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
+                "option_number": "Valgmulighed %ld",
+                "the_poll_is_invalid": "Afstemningen er ugyldig",
+                "the_poll_has_empty_option": "Afstemningen har en tom valgmulighed",
+                "add_option": "Tilføj valgmulighed",
+                "remove_option": "Fjern valgmulighed",
                 "move_up": "Flyt op",
                 "move_down": "Flyt ned"
             },
@@ -561,24 +561,24 @@
                 "append_poll": "Tilføj afstemning",
                 "remove_poll": "Fjern afstemning",
                 "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
+                "enable_content_warning": "Aktiver indholdsadvarsel",
+                "disable_content_warning": "Deaktiver indholdsadvarsel",
                 "post_visibility_menu": "Post Visibility Menu",
                 "post_options": "Post Options",
                 "posting_as": "Posting as %s"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
+                "discard_post": "Kassér indlæg",
+                "publish_post": "Offentliggør indlæg",
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
+                "title": "Indlæggets sprog",
+                "suggested": "Foreslået",
+                "recent": "Seneste",
                 "other": "Other Language…"
             }
         },
@@ -587,7 +587,7 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "my_posts": "posts",
+                "my_posts": "indlæg",
                 "my_following": "following",
                 "my_followers": "followers",
                 "other_posts": "posts",
