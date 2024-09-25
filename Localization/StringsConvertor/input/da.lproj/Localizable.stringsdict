@@ -296,9 +296,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>1 år tilbage</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld år tilbage</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -312,9 +312,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>1 måned tilbage</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld måneder tilbage</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -328,9 +328,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>1 dag tilbage</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld dage tilbage</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -346,7 +346,7 @@
         <key>one</key>
         <string>1 hour left</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld timer tilbage</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -362,7 +362,7 @@
         <key>one</key>
         <string>1 minute left</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld minutter tilbage</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -378,7 +378,7 @@
         <key>one</key>
         <string>1 second left</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld sekunder tilbage</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -394,7 +394,7 @@
         <key>one</key>
         <string>1y ago</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ldå siden</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -408,9 +408,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1 md. siden</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld mdr. siden</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -426,7 +426,7 @@
         <key>one</key>
         <string>1d ago</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld dage siden</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -440,9 +440,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1 t. siden</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld t. siden</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -456,7 +456,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1 min. siden</string>
         <key>other</key>
         <string>%ldm ago</string>
       </dict>
@@ -472,9 +472,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1 sek. siden</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld sek. siden</string>
       </dict>
     </dict>
     <key>plural.filtered_notification_banner.subtitle</key>
@@ -488,9 +488,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>One person you may know</string>
+        <string>En person, du måske kender</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>%ld personer, du måske kender</string>
       </dict>
     </dict>
   </dict>
