@@ -210,13 +210,13 @@
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
+                    "translated_from": "Oversat fra %s af %s",
+                    "unknown_language": "Ukendt",
+                    "unknown_provider": "Ukendt",
                     "show_original": "Vis oprindelig"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
+                    "accessibility_label": "%s, vedhæftning %d af %d",
                     "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
@@ -225,10 +225,10 @@
                 "buttons": {
                     "reblogs_title": "Boosts",
                     "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
+                    "edit_history_title": "Redigeringshistorik",
                     "edit_history_detail": "Last edit %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Redigeret %s",
                 "edit_history": {
                     "title": "Redigeringshistorik",
                     "original_post": "Oprindeligt indlæg · %s"
