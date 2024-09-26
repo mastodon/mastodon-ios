@@ -210,7 +210,7 @@
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
-                    "translated_from": "Oversat fra %s af %s",
+                    "translated_from": "Oversat fra %s ved brug af %s",
                     "unknown_language": "Ukendt",
                     "unknown_provider": "Ukendt",
                     "show_original": "Vis oprindelig"
