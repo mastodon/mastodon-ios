@@ -37,6 +37,7 @@ extension ComposeContentViewModel {
         $contentCellFrame
             .map { $0.height }
             .removeDuplicates()
+            .throttle(for: 0.5, scheduler: RunLoop.main, latest: true)
             .sink { [weak self] height in
                 guard let self = self else { return }
                 guard !tableView.visibleCells.isEmpty else { return }
