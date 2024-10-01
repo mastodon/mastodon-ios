@@ -880,6 +880,10 @@
                 "show_followers_and_following": "Show Followers & Following",
                 "suggest_my_account_to_others": "Suggest My Account to Others",
                 "appear_in_search_engines": "Appear in Search Engines"
+            },
+            "donation": {
+                "title": "Donate to Mastodon",
+                "manage": "Manage donations"
             }
         },
         "report": {
@@ -964,6 +968,20 @@
             "actions": {
                 "follow": "Follow",
                 "unfollow": "Unfollow"
+            }
+        },
+        "donation": {
+            "picker": {
+                "once_title": "Just once",
+                "monthly_title": "Monthly",
+                "yearly_title": "Yearly"
+            },
+            "currency": "Currency",
+            "success": {
+                "title": "Thank you for your contribution!",
+                "subtitle": "You should receive an email confirming your donation soon.",
+                "server_error": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
+                "share_button_title": "Spread the word"
             }
         }
     },
