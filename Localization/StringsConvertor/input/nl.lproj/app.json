@@ -143,9 +143,9 @@
                     "next_status": "Volgend bericht",
                     "open_status": "Bericht openen",
                     "open_author_profile": "Gebruikersprofiel openen",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Open het profiel van de booster",
                     "reply_status": "Reageer",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Bericht wel/niet boosten",
                     "toggle_favorite": "Favoriet in-/uitschakelen bij Post",
                     "toggle_content_warning": "Inhoudswaarschuwing",
                     "preview_image": "Voorvertoning afbeelding"
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s boostte",
                 "user_replied_to": "Reactie op %s",
                 "show_post": "Bericht tonen",
                 "show_user_profile": "Gebruikersprofiel tonen",
@@ -179,7 +179,7 @@
                 "actions": {
                     "reply": "Reageren",
                     "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "unreblog": "Boost ongedaan maken",
                     "favorite": "Als favoriet markeren",
                     "unfavorite": "Uit favorieten verwijderen",
                     "menu": "Menu",
@@ -191,9 +191,9 @@
                     "tap_then_hold_to_show_menu": "Tik en vasthouden om menu te tonen",
                     "a11y_labels": {
                         "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "unreblog": "Boost ongedaan maken"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Link kopiëren"
                 },
                 "tag": {
                     "url": "URL",
@@ -234,8 +234,8 @@
                     "original_post": "Oorspronkelijk bericht · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "Door",
+                    "by_author": "Door %s"
                 }
             },
             "friendship": {
@@ -256,8 +256,8 @@
                 "unmute_user": "%s niet langer negeren",
                 "muted": "Genegeerd",
                 "edit_info": "Bewerken",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Boosts tonen",
+                "hide_reblogs": "Boosts verbergen"
             },
             "timeline": {
                 "filtered": "Gefilterd",
@@ -312,7 +312,7 @@
         },
         "login": {
             "title": "Welkom terug",
-            "subtitle": "Log in with the server where you created your account.",
+            "subtitle": "Bij de server waar je je account hebt aangemaakt inloggen.",
             "server_search_field": {
                 "placeholder": "Voer een URL in of zoek naar je server"
             }
@@ -368,8 +368,8 @@
             "no_server_selected_hint": "Als je doorgaat zonder een selectie te maken, kiezen we een server gebaseerd op jouw taal."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Jouw privacy",
+            "description": "Hoewel de Mastodon-app geen gegevens verzamelt, kan de server waar je je aanmeldt een ander beleid hebben.\n\nAls je niet akkoord gaat met het beleid voor **%s**, kun je teruggaan en een andere server kiezen.",
             "policy": {
                 "ios": "Privacybeleid - Mastodon voor iOS",
                 "server": "Privacybeleid - %s"
@@ -479,12 +479,12 @@
                 "following": "Volgend",
                 "local_community": "Lokaal",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Lijsten",
+                    "empty_message": "Je hebt geen lijsten"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Gevolgde hashtags",
+                    "empty_message": "Je volgt geen enkele hashtag"
                 }
             },
             "timeline_pill": {
@@ -632,12 +632,12 @@
                     "message": "Het deblokkeren van %s bevestigen"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Boosts tonen",
+                    "message": "Tonen van boosts bevestigen"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Boosts verbergen",
+                    "message": "Verbergen van boosts bevestigen"
                 },
                 "confirm_block_domain": {
                     "title": "Server blokkeren",
@@ -671,7 +671,7 @@
             "title": "Gefavoriet door"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Geboost door"
         },
         "search": {
             "title": "Zoeken",
@@ -731,7 +731,7 @@
             "notification_description": {
                 "followed_you": "volgt je",
                 "favorited_your_post": "markeerde bericht als favoriet",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "boostte jouw bericht",
                 "mentioned_you": "vermeldde jou",
                 "request_to_follow_you": "wil jou graag volgen",
                 "poll_has_ended": "de peiling is beëindigd"
@@ -747,14 +747,14 @@
                 "rejected": "Afgewezen"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "none": "Jouw account heeft een moderatie-waarschuwing ontvangen.",
+                "disable": "Jouw account is uitgeschakeld.",
+                "mark_statuses_as_sensitive": "Sommige van je berichten zijn gemarkeerd als gevoelig.",
+                "delete_statuses": "Sommige van je berichten zijn verwijderd.",
+                "sensitive": "Je berichten worden vanaf nu als gevoelig gemarkeerd.",
+                "silence": "Jouw account is beperkt.",
+                "suspend": "Jouw account is opgeschort.",
+                "learn_more": "Meer informatie"
             }
         },
         "thread": {
@@ -841,20 +841,20 @@
                 "title": "Privacy en veiligheid",
                 "preset": {
                     "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
+                    "open_and_public": "Open en openbaar",
+                    "private_and_restricted": "Privé en beperkt",
                     "custom": "Aangepast"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "title": "Standaardzichtbaarheid van bericht",
+                    "public": "Openbaar",
+                    "followers_only": "Alleen volgers",
+                    "only_people_mentioned": "Privébericht"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "Handmatig volgverzoeken goedkeuren",
+                "show_followers_and_following": "Volgers en gevolgde accounts tonen",
+                "suggest_my_account_to_others": "Mijn account aan andere accounts aanbevelen",
+                "appear_in_search_engines": "Zoekmachines jouw profielpagina laten vinden"
             }
         },
         "report": {
@@ -906,7 +906,7 @@
                 "unfollowed": "Ontvolgd",
                 "unfollow_user": "Ontvolg %s",
                 "mute_user": "Negeer %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Je ziet hun berichten en boosts niet op je starttijdlijn. Ze zullen niet weten dat ze worden genegeerd.",
                 "block_user": "Blokkeer %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Het is niet meer mogelijk om je te volgen of om je berichten te zien, maar ze kunnen wel zien dat ze geblokkeerd zijn.",
                 "while_we_review_this_you_can_take_action_against_user": "Terwijl we dit onderzoeken kun je deze acties tegen %s nemen"
