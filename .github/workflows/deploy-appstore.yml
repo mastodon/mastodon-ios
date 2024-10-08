@@ -8,7 +8,7 @@ on:
 jobs:
   deploy_appstore:
     name: Deploy App Store
-    runs-on: macos-14-arm64
+    runs-on: macos-14
     steps:
       - name: Install SSH key
         uses: webfactory/ssh-agent@v0.5.3
