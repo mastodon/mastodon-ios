@@ -9,5 +9,7 @@ gem install bundler:2.5.21
 # Install Ruby Gems
 bundle install
 
+git diff | cat
+
 # Setup notification endpoint
 bundle exec arkana
