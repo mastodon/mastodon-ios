@@ -614,7 +614,7 @@
         <key>many</key>
         <string>%ld people you may know</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>%ld osob, které možná znáte</string>
       </dict>
     </dict>
   </dict>

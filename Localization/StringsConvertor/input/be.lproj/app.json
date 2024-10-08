@@ -493,7 +493,7 @@
                 "post_sent": "Допіс адпраўлены"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Гэты ліст пусты"
             }
         },
         "suggestion_account": {

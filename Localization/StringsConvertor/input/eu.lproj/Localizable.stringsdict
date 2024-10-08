@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>Karaktere 1 gehienez</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld karaktere gehienez</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -88,9 +88,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>%1$@(e)k eta ezagutzen duzun beste batek jarraitua</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@(e)k eta ezagutzen duzun beste %ld(e)k jarraitua</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -120,9 +120,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>Multimedia 1</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld multimedia</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -184,9 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>Birbidalketa 1</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld birbidalketa</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -488,9 +488,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>One person you may know</string>
+        <string>Ezagutu dezakezun pertsona %ld</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>Ezagutu ditzakezun %ld pertsona</string>
       </dict>
     </dict>
   </dict>

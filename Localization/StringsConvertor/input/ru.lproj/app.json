@@ -49,27 +49,27 @@
                 "message": "Успешно очищено %s кэша."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Примечание",
+                "message": "Перевод не удался. Возможно, администратор не включил переводы на этом сервере или на этом сервере установлена старая версия Mastodon, в которой переводы еще не поддерживаются.",
+                "button": "ХОРОШО"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "title": "Отсутствие Alt-текста у медиафайлов",
+                "message": "На %d ваших изображений отсутствует alt-текст.\nОпубликовать все равно?",
+                "cancel": "Отмена",
+                "post": "Пост"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "Увеличить пост?",
+                "title_unboost": "Разгрузить пост?",
+                "cancel": "Отмена",
+                "boost": "Увеличить",
+                "unboost": "Разгрузить"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "title": "Отказаться от %@?",
+                "cancel": "Отмена",
+                "unfollow": "Отклонить"
             }
         },
         "controls": {
@@ -93,10 +93,10 @@
                 "take_photo": "Сделать фото",
                 "save_photo": "Сохранить изображение",
                 "copy_photo": "Скопировать изображение",
-                "sign_in": "Log in",
+                "sign_in": "Войти",
                 "see_more": "Ещё",
                 "preview": "Предпросмотр",
-                "copy": "Copy",
+                "copy": "Копировать",
                 "share": "Поделиться",
                 "share_user": "Поделиться %s",
                 "share_post": "Поделиться постом",
@@ -112,23 +112,23 @@
                 "settings": "Настройки",
                 "delete": "Удалить",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Перевести с %s",
+                    "unknown_language": "Неизвестно"
                 },
-                "edit_post": "Edit",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "edit_post": "Редактировать",
+                "bookmark": "Закладка",
+                "remove_bookmark": "Удалить закладку",
+                "follow": "Следовать за %s",
+                "unfollow": "Отказаться от %s"
             },
             "tabs": {
                 "home": "Главная",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "search_and_explore": "Искать и исследовать",
+                "notifications": "Уведомления",
                 "profile": "Профиль",
                 "a11y": {
-                    "search": "Search",
-                    "explore": "Explore"
+                    "search": "Поиск",
+                    "explore": "Изучите сайт"
                 }
             },
             "keyboard": {
@@ -143,9 +143,9 @@
                     "next_status": "Следующий пост",
                     "open_status": "Открыть пост",
                     "open_author_profile": "Открыть профиль автора",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Открыть профиль загрузчика",
                     "reply_status": "Ответить на пост",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Переключить буст на пост",
                     "toggle_favorite": "Добавить или убрать из избранного",
                     "toggle_content_warning": "Раскрыть или спрятать содержимое",
                     "preview_image": "Предпросмотр изображения"
@@ -156,30 +156,30 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s увеличен",
                 "user_replied_to": "Ответил(а) %s",
                 "show_post": "Показать пост",
                 "show_user_profile": "Показать профиль пользователя",
                 "content_warning": "Предупреждение о содержании",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Чувствительный контент",
                 "media_content_warning": "Нажмите в любом месте, чтобы показать",
                 "tap_to_reveal": "Нажмите, чтобы показать",
-                "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "load_embed": "Загрузить Встроить",
+                "link_via_user": "%s через %s",
                 "poll": {
                     "vote": "Проголосовать",
                     "closed": "Завершён"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Ссылка: %s",
+                    "hashtag": "Хэштег: %s",
+                    "mention": "Показать профиль: %s",
+                    "email": "Адрес электронной почты: %s"
                 },
                 "actions": {
                     "reply": "Ответить",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Увеличить",
+                    "unreblog": "Отменить повышение",
                     "favorite": "Добавить в избранное",
                     "unfavorite": "Убрать из избранного",
                     "menu": "Меню",
@@ -187,13 +187,13 @@
                     "show_image": "Показать изображение",
                     "show_gif": "Показать GIF",
                     "show_video_player": "Показать видеопроигрыватель",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Поделиться ссылкой в сообщении",
                     "tap_then_hold_to_show_menu": "Нажмите и удерживайте, чтобы показать меню",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Увеличить",
+                        "unreblog": "Отменить повышение"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Копировать ссылку"
                 },
                 "tag": {
                     "url": "Ссылка",
@@ -204,38 +204,38 @@
                     "emoji": "Эмодзи"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Все могут видеть это сообщение, но оно не отображается в публичной временной шкале.",
+                    "private": "Это сообщение могут увидеть только их подписчики.",
+                    "private_from_me": "Это сообщение могут увидеть только мои подписчики.",
+                    "direct": "Только указанный пользователь может видеть это сообщение."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Show Original"
+                    "translated_from": "Переведено с %s с помощью %s",
+                    "unknown_language": "Неизвестно",
+                    "unknown_provider": "Неизвестный",
+                    "show_original": "Показать оригинал"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, вложение %d из %d",
+                    "expand_image_hint": "Разворачивает изображение. Дважды нажмите и удерживайте для отображения действий",
+                    "expand_gif_hint": "Разворачивает GIF. Дважды нажмите и удерживайте, чтобы показать действия",
+                    "expand_video_hint": "Отображает видеоплеер. Дважды нажмите и удерживайте для отображения действий"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s через %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
-                    "favorites_title": "Favorites",
-                    "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %s"
+                    "reblogs_title": "Повышает",
+                    "favorites_title": "Избранное",
+                    "edit_history_title": "История редактирования",
+                    "edit_history_detail": "Последнее редактирование %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s",
+                "edited_at_timestamp_prefix": "Отредактировано %s",
                 "edit_history": {
-                    "title": "Edit History",
-                    "original_post": "Original Post · %s"
+                    "title": "История редактирования",
+                    "original_post": "Оригинальное сообщение - %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "По",
+                    "by_author": "По %s"
                 }
             },
             "friendship": {
@@ -245,19 +245,19 @@
                 "pending": "Отправлен",
                 "block": "Заблокировать",
                 "block_user": "Заблокировать %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Заблокировать домен %s",
                 "unblock": "Разблокировать",
                 "unblock_user": "Разблокировать %s",
                 "blocked": "В заблокированных",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Домен заблокирован",
                 "mute": "Игнорировать",
                 "mute_user": "Игнорировать %s",
                 "unmute": "Убрать из игнорируемых",
                 "unmute_user": "Убрать %s из игнорируемых",
                 "muted": "В игнорируемых",
                 "edit_info": "Изменить",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Показать повышения",
+                "hide_reblogs": "Скрыть повышения"
             },
             "timeline": {
                 "filtered": "Отфильтровано",
@@ -281,47 +281,47 @@
             }
         },
         "user_list": {
-            "no_verified_link": "No verified link",
-            "followers_count": "%@ followers"
+            "no_verified_link": "Нет проверенной ссылки",
+            "followers_count": "%@ последователи"
         }
     },
     "scene": {
         "welcome": {
             "log_in": "Вход",
-            "learn_more": "Learn more",
-            "join_default_server": "Join %@",
-            "pick_server": "Pick another server",
+            "learn_more": "Узнать больше",
+            "join_default_server": "Присоединяйтесь %@",
+            "pick_server": "Выберите другой сервер",
             "separator": {
-                "or": "or"
+                "or": "или"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Добро пожаловать в Mastodon",
+                    "description": "Mastodon - это децентрализованная социальная сеть, то есть ее не контролирует ни одна компания. Она состоит из множества независимо управляемых серверов, соединенных вместе."
                 },
                 "servers": {
-                    "title": "What are servers?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "title": "Что такое серверы?",
+                    "description": "Каждый аккаунт Mastodon размещается на сервере - каждый со своими ценностями, правилами и администраторами. Независимо от того, какой из них вы выберете, вы сможете следить за людьми на любом сервере и взаимодействовать с ними."
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "What is Mastodon?"
+                        "title": "Что такое Mastodon?"
                     }
                 }
             }
         },
         "login": {
-            "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account.",
+            "title": "С возвращением",
+            "subtitle": "Войдите в систему с сервера, на котором вы создали свою учетную запись.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Введите URL-адрес или найдите свой сервер"
             }
         },
         "server_picker": {
-            "title": "Pick Server",
+            "title": "Выбор сервера",
             "button": {
-                "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "language": "Язык",
+                "signup_speed": "Скорость регистрации",
                 "category": {
                     "all": "Все",
                     "all_accessiblity_description": "Категория: все",
@@ -347,7 +347,7 @@
                 "category": "КАТЕГОРИЯ"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Поиск сообществ или введите URL-адрес"
             },
             "empty_state": {
                 "finding_servers": "Ищем доступные сервера...",
@@ -355,7 +355,7 @@
                 "no_results": "Нет результатов"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Все",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
