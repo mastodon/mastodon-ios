@@ -386,7 +386,7 @@ Nếu không đồng ý với chính sách của **%@**, bạn có thể quay l�
 "Scene.Profile.SegmentedControl.About" = "Giới thiệu";
 "Scene.Profile.SegmentedControl.Media" = "Media";
 "Scene.Profile.SegmentedControl.Posts" = "Tút";
-"Scene.Profile.SegmentedControl.PostsAndReplies" = "Lượt trả lời";
+"Scene.Profile.SegmentedControl.PostsAndReplies" = "Trả lời";
 "Scene.Profile.SegmentedControl.Replies" = "Trả lời";
 "Scene.RebloggedBy.Title" = "Đăng lại bởi";
 "Scene.Register.Error.Item.Agreement" = "Thoả thuận";

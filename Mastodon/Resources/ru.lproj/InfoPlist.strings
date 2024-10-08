@@ -1,4 +1,4 @@
-"NSCameraUsageDescription" = "Used to take photo for post status";
-"NSPhotoLibraryAddUsageDescription" = "Used to save photo into the Photo Library";
-"NewPostShortcutItemTitle" = "New Post";
+"NSCameraUsageDescription" = "Используется для съемки фото для статуса поста";
+"NSPhotoLibraryAddUsageDescription" = "Используется для сохранения фотографии в Фототеке";
+"NewPostShortcutItemTitle" = "Новая почта";
 "SearchShortcutItemTitle" = "Поиск";

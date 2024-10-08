@@ -302,7 +302,7 @@
 "Scene.Follower.Title" = "падпісчык";
 "Scene.Following.Footer" = "Падпіскі з іншых сервераў не адлюстроўваюцца.";
 "Scene.Following.Title" = "падпісаны";
-"Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle" = "This list is empty";
+"Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle" = "Гэты ліст пусты";
 "Scene.HomeTimeline.TimelineMenu.Following" = "Вы падпісаны";
 "Scene.HomeTimeline.TimelineMenu.Hashtags.EmptyMessage" = "Вы не сочыце ні за якімі хэштэгамі";
 "Scene.HomeTimeline.TimelineMenu.Hashtags.Title" = "Хэштэгі, на якія вы падпісаліся";

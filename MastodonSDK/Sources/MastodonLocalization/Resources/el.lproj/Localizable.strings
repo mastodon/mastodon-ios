@@ -302,7 +302,7 @@
 "Scene.Follower.Title" = "ακόλουθος";
 "Scene.Following.Footer" = "Δεν εμφανίζονται ακολουθήσεις από άλλους διακομιστές.";
 "Scene.Following.Title" = "ακολουθεί";
-"Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle" = "This list is empty";
+"Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle" = "Αυτή η λίστα είναι κενή";
 "Scene.HomeTimeline.TimelineMenu.Following" = "Ακολουθείς";
 "Scene.HomeTimeline.TimelineMenu.Hashtags.EmptyMessage" = "Δεν ακολουθείς καμία Ετικέτα";
 "Scene.HomeTimeline.TimelineMenu.Hashtags.Title" = "Ετικέτες που Ακολουθούνται";

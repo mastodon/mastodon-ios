@@ -299,7 +299,7 @@ nahrán do Mastodonu.";
 "Scene.Follower.Title" = "sledující";
 "Scene.Following.Footer" = "Sledování z jiných serverů není zobrazeno.";
 "Scene.Following.Title" = "sledování";
-"Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle" = "This list is empty";
+"Scene.HomeTimeline.EmptyState.ListEmptyMessageTitle" = "Tento seznam je prázdný";
 "Scene.HomeTimeline.TimelineMenu.Following" = "Sledovaní";
 "Scene.HomeTimeline.TimelineMenu.Hashtags.EmptyMessage" = "You don't follow any Hashtags";
 "Scene.HomeTimeline.TimelineMenu.Hashtags.Title" = "Followed Hashtags";
