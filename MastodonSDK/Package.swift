@@ -45,7 +45,7 @@ let package = Package(
         .package(url: "https://github.com/kean/Nuke.git", from: "10.3.1"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.2.2"),
         .package(url: "https://github.com/TimOliver/TOCropViewController.git", from: "2.6.1"),
-        .package(url: "https://github.com/TwidereProject/MetaTextKit.git", exact: "2.2.5"),
+        .package(url: "https://github.com/mastodon/MetaTextKit.git", branch: "2.2.5-xcode16"),
         .package(url: "https://github.com/TwidereProject/TabBarPager.git", from: "0.1.0"),
         .package(url: "https://github.com/uias/Tabman", from: "2.13.0"),
         .package(url: "https://github.com/woxtu/UIHostingConfigurationBackport.git", from: "0.1.0"),
