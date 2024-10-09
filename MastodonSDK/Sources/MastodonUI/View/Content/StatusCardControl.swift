@@ -334,7 +334,7 @@ public final class StatusCardControl: UIControl {
                     .constraint(lessThanOrEqualToConstant: 400),
             ]
             dividerConstraint = dividerView.heightAnchor.constraint(equalToConstant: pixelSize).activate()
-            authorDividerConstraint = authorDivider.heightAnchor.constraint(equalToConstant: pixelSize).activate()
+            authorDividerConstraint = authorDivider.heightAnchor.constraint(equalToConstant: pixelSize).priority(.defaultLow - 1).activate()
         case .compact:
             containerStackView.alignment = .center
             containerStackView.axis = .horizontal
