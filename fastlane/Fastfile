@@ -1,5 +1,6 @@
 opt_out_usage
 default_platform(:ios)
+ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
 
 $appName = "Mastodon"
 
