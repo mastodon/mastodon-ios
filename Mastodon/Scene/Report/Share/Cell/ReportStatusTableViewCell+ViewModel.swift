@@ -9,28 +9,17 @@ import UIKit
 import MastodonSDK
 
 extension ReportStatusTableViewCell {
-    // todo: refactor / remove this
-    final class ViewModel {
-        let value: MastodonStatus
-
-        init(value: MastodonStatus) {
-            self.value = value
-        }
-    }
-}
-
-extension ReportStatusTableViewCell {
 
     func configure(
         tableView: UITableView,
-        viewModel: ViewModel
+        status: MastodonStatus
     ) {
         if statusView.frame == .zero {
             // set status view width
             statusView.frame.size.width = tableView.frame.width - ReportStatusTableViewCell.checkboxLeadingMargin - ReportStatusTableViewCell.checkboxSize.width - ReportStatusTableViewCell.statusViewLeadingSpacing
         }
         
-        statusView.configure(status: viewModel.value)
+        statusView.configure(status: status)
         
         statusView.viewModel.$isContentReveal
             .removeDuplicates()
