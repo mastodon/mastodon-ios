@@ -54,7 +54,7 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
+                "title": "Hiányzik a média alt szövege",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
                 "cancel": "Mégsem",
                 "post": "Bejegyzés"
@@ -143,7 +143,7 @@
                     "next_status": "Következő bejegyzés",
                     "open_status": "Bejegyzés megnyitása",
                     "open_author_profile": "Szerző profiljának megnyitása",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "A megtoló profiljának megnyitása",
                     "reply_status": "Válasz a bejegyzésre",
                     "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
@@ -156,14 +156,14 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s megtolta",
                 "user_replied_to": "Válasz neki: %s",
                 "show_post": "Bejegyzés megjelenítése",
                 "show_user_profile": "Felhasználói profil megjelenítése",
                 "content_warning": "Tartalmi figyelmeztetés",
                 "sensitive_content": "Kényes tartalom",
                 "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "Érintsd meg a megjelenítéshez",
                 "load_embed": "Load Embed",
                 "link_via_user": "%s via %s",
                 "poll": {
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Válasz",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Megtolás",
+                    "unreblog": "Megtolás visszavonása",
                     "favorite": "Kedvenc",
                     "unfavorite": "Eltávolítás a Kedvencek közül",
                     "menu": "Menü",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Megtolás",
+                        "unreblog": "Megtolás visszavonása"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Link másolása"
                 },
                 "tag": {
                     "url": "Webcím",
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Megtolások",
                     "favorites_title": "Kedvelések",
                     "edit_history_title": "Előzmények módosítása",
                     "edit_history_detail": "Utoljára módosítva: %s"
@@ -256,8 +256,8 @@
                 "unmute_user": "%s némításának feloldása",
                 "muted": "Némítva",
                 "edit_info": "Adatok szerkesztése",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Megtolások mutatása",
+                "hide_reblogs": "Megtolások elrejtése"
             },
             "timeline": {
                 "filtered": "Megszűrt",
@@ -265,8 +265,8 @@
                     "now": "Most"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
+                    "load_missing_posts": "Hiányzó bejegyzések betöltése",
+                    "loading_missing_posts": "Hiányzó bejegyzések betöltése...",
                     "show_more_replies": "További válaszok megjelenítése"
                 },
                 "header": {
@@ -368,7 +368,7 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Your Privacy",
+            "title": "Személyes Adatbiztonság",
             "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Adatvédelmi szabályzat - Mastodon for iOS",
@@ -479,12 +479,12 @@
                 "following": "Követett",
                 "local_community": "Helyi",
                 "lists": {
-                    "title": "Lists",
+                    "title": "Listák",
                     "empty_message": "You don't have any Lists"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Követett címkék (hashtag)",
+                    "empty_message": "Nem követsz egy címkét sem"
                 }
             },
             "timeline_pill": {
@@ -632,12 +632,12 @@
                     "message": "Valóban feloldja %s tiltását"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Megtolások mutatása",
+                    "message": "Megtolások megjelenítésének megerősítése"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Megtolások elrejtése",
+                    "message": "Megtolások elrejtésének megerősítése"
                 },
                 "confirm_block_domain": {
                     "title": "Domain letiltása",
@@ -671,7 +671,7 @@
             "title": "Kedvelések"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Megtolta"
         },
         "search": {
             "title": "Keresés",
@@ -693,8 +693,8 @@
                 }
             },
             "searching": {
-                "posts": "Posts matching \"%s\"",
-                "people": "People matching \"%s\"",
+                "posts": "Bejegyzések a következő keresésre: \"%s\"",
+                "people": "Profilok a következő keresésre: \"%s\"",
                 "profile": "Go to @%s@%s",
                 "url": "URL megnyitása a Mastodonon",
                 "hashtag": "Ugrás #%s",
@@ -731,7 +731,7 @@
             "notification_description": {
                 "followed_you": "követi önt",
                 "favorited_your_post": "kedvelte a bejegyzését",
-                "reblogged_your_post": "boosted your post",
+                "reblogged_your_post": "megtolta a bejegyzésedet",
                 "mentioned_you": "megemlítette Önt",
                 "request_to_follow_you": "kérte, hogy követhessen",
                 "poll_has_ended": "a szavazás véget ért"
@@ -748,13 +748,13 @@
             },
             "warning": {
                 "none": "Your account has received a moderation warning.",
-                "disable": "Your account has been disabled.",
-                "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
-                "delete_statuses": "Some of your posts have been removed.",
-                "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "disable": "A fiókod korlátozásra került.",
+                "mark_statuses_as_sensitive": "Néhány bejegyzésedet kényesnek jelölték.",
+                "delete_statuses": "Néhány bejegyzésedet eltávolították.",
+                "sensitive": "A bejegyzéseid mostantól érzékenynek lesznek jelölve.",
+                "silence": "A fiókod korlátozásra került.",
+                "suspend": "A fiókod felfüggesztésre került.",
+                "learn_more": "További információ"
             }
         },
         "thread": {
@@ -840,16 +840,16 @@
             "privacy_safety": {
                 "title": "Privacy & Safety",
                 "preset": {
-                    "title": "Preset",
+                    "title": "Sablon",
                     "open_and_public": "Open & Public",
                     "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "custom": "Egyéni"
                 },
                 "default_post_visibility": {
                     "title": "Default Post Visibility",
-                    "public": "Public",
-                    "followers_only": "Followers Only",
-                    "only_people_mentioned": "Only People Mentioned"
+                    "public": "Nyilvános",
+                    "followers_only": "Csak követőknek",
+                    "only_people_mentioned": "Csak az említetteknek"
                 },
                 "manually_approve_follow_requests": "Manually Approve Follow Requests",
                 "show_followers_and_following": "Show Followers & Following",
