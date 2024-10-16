@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s boosted",
+                "user_reblogged": "%s megtolta",
                 "user_replied_to": "Válasz neki: %s",
                 "show_post": "Bejegyzés megjelenítése",
                 "show_user_profile": "Felhasználói profil megjelenítése",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Válasz",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Megtolás",
+                    "unreblog": "Megtolás visszavonása",
                     "favorite": "Kedvenc",
                     "unfavorite": "Eltávolítás a Kedvencek közül",
                     "menu": "Menü",
@@ -190,10 +190,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Megtolás",
+                        "unreblog": "Megtolás visszavonása"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Link másolása"
                 },
                 "tag": {
                     "url": "Webcím",
