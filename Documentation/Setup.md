@@ -33,8 +33,8 @@ brew install rbenv
 # configure the terminal
 which ruby
 # > /usr/bin/ruby
-echo 'eval "$(rbenv init -)"' >> ~/.zprofile
-source ~/.zprofile
+echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+source ~/.zshrc
 which ruby
 # > /Users/mainasuk/.rbenv/shims/ruby
 
