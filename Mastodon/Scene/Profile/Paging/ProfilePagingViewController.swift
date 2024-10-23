@@ -23,7 +23,7 @@ final class ProfilePagingViewController: ButtonBarPagerTabStripViewController, T
     weak var pagingDelegate: ProfilePagingViewControllerDelegate?
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: ProfilePagingViewModel!
+    var viewModel: ProfilePagingViewModel?
     
     let buttonBarShadowView = UIView()
     private var buttonBarShadowAlpha: CGFloat = 0.0
@@ -31,7 +31,7 @@ final class ProfilePagingViewController: ButtonBarPagerTabStripViewController, T
     // MARK: - TabBarPageViewController
     
     var currentPage: TabBarPage? {
-        return viewModel.viewControllers[currentIndex]
+        return viewModel?.viewControllers[currentIndex]
     }
     
     var currentPageIndex: Int? {
@@ -41,13 +41,13 @@ final class ProfilePagingViewController: ButtonBarPagerTabStripViewController, T
     // MARK: - ButtonBarPagerTabStripViewController
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        return viewModel.viewControllers
+        return viewModel?.viewControllers ?? []
     }
     
     override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
         super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex, withProgressPercentage: progressPercentage, indexWasChanged: indexWasChanged)
         
-        guard indexWasChanged else { return }
+        guard indexWasChanged, let viewModel = viewModel else { return }
         let page = viewModel.viewControllers[toIndex]
         tabBarPageViewDelegate?.pageViewController(self, didPresentingTabBarPage: page, at: toIndex)
     }
@@ -88,7 +88,7 @@ extension ProfilePagingViewController {
             buttonBarView.backgroundColor = .systemBackground
             buttonBarShadowView.pinTo(to: buttonBarView)
             
-            viewModel.$needsSetupBottomShadow
+            viewModel?.$needsSetupBottomShadow
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] needsSetupBottomShadow in
                     guard let self = self else { return }
@@ -145,7 +145,7 @@ extension ProfilePagingViewController {
     }
     
     func setupBottomShadow() {
-        guard viewModel.needsSetupBottomShadow else {
+        guard let viewModel = viewModel, viewModel.needsSetupBottomShadow else {
             buttonBarShadowView.layer.shadowColor = nil
             buttonBarShadowView.layer.shadowRadius = 0
             return
@@ -176,6 +176,7 @@ extension ProfilePagingViewController {
 extension ProfilePagingViewController {
     
     var currentViewController: (UIViewController & TabBarPage)? {
+        guard let viewModel = viewModel else { return nil }
         guard !viewModel.viewControllers.isEmpty,
               currentIndex < viewModel.viewControllers.count
         else { return nil }

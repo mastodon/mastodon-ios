@@ -108,6 +108,16 @@ extension MainTabBarController {
         return selectedViewController
     }
     
+    override var selectedViewController: UIViewController? {
+        willSet {
+            if let profileView = (newValue as? UINavigationController)?.topViewController as? ProfileViewController{
+                guard let authContext = authContext,
+                      let account = authContext.mastodonAuthenticationBox.authentication.account() else { return }
+                profileView.viewModel = ProfileViewModel(context: self.context, authContext: authContext, account: account, relationship: nil, me: account)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

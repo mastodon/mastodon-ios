@@ -17,7 +17,7 @@ public extension FileManager {
     }
 
     func accounts(for userId: UserIdentifier) -> [Mastodon.Entity.Account] {
-        guard let sharedDirectory else { return [] }
+        guard let sharedDirectory else { assert(false); return [] }
 
         let accountPath = Persistence.accounts(userId).filepath(baseURL: sharedDirectory)
 
@@ -28,6 +28,7 @@ public extension FileManager {
 
         do {
             let accounts = try jsonDecoder.decode([Mastodon.Entity.Account].self, from: data)
+            assert(accounts.count > 0)
             return accounts
         } catch {
             return []

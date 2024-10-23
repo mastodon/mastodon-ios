@@ -31,15 +31,21 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    //TODO: Replace with something better than !
-    var viewModel: ProfileViewModel! {
+
+    var viewModel: ProfileViewModel? {
         didSet {
             if isViewLoaded {
-                bindViewModel()
-
+                guard let viewModel = viewModel else { return }
                 viewModel.isEditing = false
+                
+                if profileHeaderViewController == nil {
+                    createSupplementaryViews(withViewModel: viewModel)
+                }
+                bindToViewModel(viewModel)
+                
+                guard let profileHeaderViewController = profileHeaderViewController else { return }
                 profileHeaderViewController.viewModel.isEditing = false
-                profilePagingViewController.viewModel.profileAboutViewController.viewModel.isEditing = false
+                profilePagingViewController?.viewModel?.profileAboutViewController.viewModel?.isEditing = false
                 viewModel.profileAboutViewModel.isEditing = false
             }
         }
@@ -130,12 +136,21 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     
     private(set) lazy var tabBarPagerController = TabBarPagerController()
 
-    private(set) lazy var profileHeaderViewController: ProfileHeaderViewController = {
-        let viewController = ProfileHeaderViewController(context: context, authContext: authContext, coordinator: coordinator, profileViewModel: viewModel)
-        return viewController
-    }()
+    private(set) var profileHeaderViewController: ProfileHeaderViewController?
     
-    private(set) lazy var profilePagingViewController: ProfilePagingViewController = {
+    private func createSupplementaryViews(withViewModel viewModel: ProfileViewModel) {
+        profileHeaderViewController = createProfileHeaderViewController(viewModel: viewModel)
+        profilePagingViewController = createProfilePagingViewController(viewModel: viewModel)
+    }
+    
+    private func createProfileHeaderViewController(viewModel: ProfileViewModel) -> ProfileHeaderViewController {
+        let viewController = ProfileHeaderViewController(context: context, authContext: viewModel.authContext, coordinator: coordinator, profileViewModel: viewModel)
+        return viewController
+    }
+    
+    private(set) var profilePagingViewController: ProfilePagingViewController?
+    
+    private func createProfilePagingViewController(viewModel: ProfileViewModel) -> ProfilePagingViewController {
         let profilePagingViewController = ProfilePagingViewController()
         profilePagingViewController.viewModel = {
             let profilePagingViewModel = ProfilePagingViewModel(
@@ -153,11 +168,11 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
             return profilePagingViewModel
         }()
         return profilePagingViewController
-    }()
+    }
 
     // title view nested in header
-    var titleView: DoubleTitleLabelNavigationBarTitleView {
-        profileHeaderViewController.titleView
+    var titleView: DoubleTitleLabelNavigationBarTitleView? {
+        profileHeaderViewController?.titleView
     }
     
 
@@ -172,7 +187,7 @@ extension ProfileViewController {
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
 
-        profileHeaderViewController.updateHeaderContainerSafeAreaInset(view.safeAreaInsets)
+        profileHeaderViewController?.updateHeaderContainerSafeAreaInset(view.safeAreaInsets)
     }
     
     override func viewDidLoad() {
@@ -198,16 +213,22 @@ extension ProfileViewController {
         view.addSubview(tabBarPagerController.view)
         tabBarPagerController.didMove(toParent: self)
         tabBarPagerController.view.pinToParent()
-
-        tabBarPagerController.delegate = self
-        tabBarPagerController.dataSource = self
         
         tabBarPagerController.relayScrollView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(ProfileViewController.refreshControlValueChanged(_:)), for: .valueChanged)
                 
+        if let viewModel = viewModel {
+            setUpSupplementaryViews(viewModel: viewModel)
+        }
+    }
+    
+    private func setUpSupplementaryViews(viewModel: ProfileViewModel) {
         // setup delegate
-        profileHeaderViewController.delegate = self
-        profilePagingViewController.viewModel.profileAboutViewController.delegate = self
+        if profileHeaderViewController == nil {
+            createSupplementaryViews(withViewModel: viewModel)
+        }
+        profileHeaderViewController?.delegate = self
+        profilePagingViewController?.viewModel?.profileAboutViewController.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -215,15 +236,14 @@ extension ProfileViewController {
 
         navigationController?.navigationBar.prefersLargeTitles = false
 
-        bindViewModel()
-        bindTitleView()
-        bindMoreBarButtonItem()
-        bindPager()
+        if let viewModel = viewModel {
+            bindToViewModel(viewModel)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.viewDidAppear.send()
+        viewModel?.viewDidAppear.send()
 
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -232,9 +252,19 @@ extension ProfileViewController {
 
 extension ProfileViewController {
     
-    private func bindViewModel() {
+    private func bindToViewModel(_ viewModel: ProfileViewModel) {
+        guard let profileHeaderViewController = profileHeaderViewController, let profilePagingViewController = profilePagingViewController else { return }
+        bindViewModel(viewModel, toHeaderViewController: profileHeaderViewController)
+        bindTitleView(profileHeaderViewController.titleView, headerView: profileHeaderViewController.profileHeaderView)
+        bindMoreBarButtonItem(viewModel: viewModel)
+        bindPager(pagingViewController: profilePagingViewController)
+        tabBarPagerController.delegate = self
+        tabBarPagerController.dataSource = self
+    }
+    
+    private func bindViewModel(_ viewModel: ProfileViewModel, toHeaderViewController headerViewController: ProfileHeaderViewController) {
         // header
-        let headerViewModel = profileHeaderViewController.viewModel
+        let headerViewModel = headerViewController.viewModel
         viewModel.$account
             .assign(to: \.account, on: headerViewModel)
             .store(in: &disposeBag)
@@ -308,13 +338,13 @@ extension ProfileViewController {
         // build items
         Publishers.CombineLatest4(
             viewModel.$relationship,
-            profileHeaderViewController.viewModel.$isTitleViewDisplaying,
+            headerViewController.viewModel.$isTitleViewDisplaying,
             editingAndUpdatingPublisher,
             barButtonItemHiddenPublisher
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] account, isTitleViewDisplaying, tuple1, tuple2 in
-            guard let self else { return }
+            guard let self, let viewModel = self.viewModel else { return }
             let (isEditing, _) = tuple1
             let (isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden) = tuple2
 
@@ -327,7 +357,7 @@ extension ProfileViewController {
                 }
             }
 
-            if let suspended = self.viewModel.account.suspended, suspended == true {
+            if let suspended = viewModel.account.suspended, suspended == true {
                 return
             }
 
@@ -383,32 +413,32 @@ extension ProfileViewController {
 
     }
 
-    private func bindTitleView() {
+    private func bindTitleView(_ titleView: DoubleTitleLabelNavigationBarTitleView, headerView: ProfileHeaderView) {
         Publishers.CombineLatest3(
-            profileHeaderViewController.profileHeaderView.viewModel.$name,
-            profileHeaderViewController.profileHeaderView.viewModel.$emojiMeta,
-            profileHeaderViewController.profileHeaderView.viewModel.$statusesCount
+            headerView.viewModel.$name,
+            headerView.viewModel.$emojiMeta,
+            headerView.viewModel.$statusesCount
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] name, emojiMeta, statusesCount in
             guard let self = self else { return }
             guard let title = name, let statusesCount = statusesCount,
                   let formattedStatusCount = MastodonMetricFormatter().string(from: statusesCount) else {
-                self.titleView.isHidden = true
+                titleView.isHidden = true
                 return
             }
-            self.titleView.isHidden = false
+            titleView.isHidden = false
             let subtitle = L10n.Plural.Count.MetricFormatted.post(formattedStatusCount, statusesCount)
             let mastodonContent = MastodonContent(content: title, emojis: emojiMeta)
             do {
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-                self.titleView.update(titleMetaContent: metaContent, subtitle: subtitle)
+                titleView.update(titleMetaContent: metaContent, subtitle: subtitle)
             } catch {
 
             }
         }
         .store(in: &disposeBag)
-        profileHeaderViewController.profileHeaderView.viewModel.$name
+        headerView.viewModel.$name
             .receive(on: DispatchQueue.main)
             .sink { [weak self] name in
                 guard let self = self, self.isModal == false else { return }
@@ -418,7 +448,7 @@ extension ProfileViewController {
     }
 
     // This More-button is only visible for other users, but not myself
-    private func bindMoreBarButtonItem() {
+    private func bindMoreBarButtonItem(viewModel: ProfileViewModel) {
         Publishers.CombineLatest3(
             viewModel.$account,
             viewModel.$me,
@@ -485,13 +515,14 @@ extension ProfileViewController {
         .store(in: &disposeBag)
     }
     
-    private func bindPager() {
+    private func bindPager(pagingViewController: ProfilePagingViewController) {
+        guard let viewModel = viewModel else { return }
         viewModel.$isPagingEnabled
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isPagingEnabled in
                 guard let self else { return }
-                self.profilePagingViewController.containerView.isScrollEnabled = isPagingEnabled
-                self.profilePagingViewController.buttonBarView.isUserInteractionEnabled = isPagingEnabled
+                pagingViewController.containerView.isScrollEnabled = isPagingEnabled
+                pagingViewController.buttonBarView.isUserInteractionEnabled = isPagingEnabled
             }
             .store(in: &disposeBag)
         
@@ -502,17 +533,17 @@ extension ProfileViewController {
                 // set first responder for key command
                 if !isEditing {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.profilePagingViewController.becomeFirstResponder()
+                        pagingViewController.becomeFirstResponder()
                     }
                     // dismiss keyboard if needs
                     self.view.endEditing(true)
                 }
 
                 if isEditing,
-                   let index = self.profilePagingViewController.viewControllers.firstIndex(where: { type(of: $0) is ProfileAboutViewController.Type }),
-                   self.profilePagingViewController.canMoveTo(index: index)
+                   let index = pagingViewController.viewControllers.firstIndex(where: { type(of: $0) is ProfileAboutViewController.Type }),
+                   pagingViewController.canMoveTo(index: index)
                 {
-                    self.profilePagingViewController.moveToViewController(at: index)
+                    pagingViewController.moveToViewController(at: index)
                 }
             }
             .store(in: &disposeBag)
@@ -528,6 +559,7 @@ extension ProfileViewController {
                   let url = URL(string: href) else { return }
             _ = coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
         case .hashtag(_, let hashtag, _):
+            guard let viewModel = viewModel else { break }
             let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, authContext: viewModel.authContext, hashtag: hashtag)
             _ = coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
         case .email, .emoji:
@@ -550,6 +582,8 @@ extension ProfileViewController {
     }
 
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        guard let viewModel = viewModel else { return }
+        
         let activityViewController = DataSourceFacade.createActivityViewController(
             dependency: self,
             account: viewModel.account
@@ -566,17 +600,22 @@ extension ProfileViewController {
     }
 
     @objc private func favoriteBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        guard let viewModel = viewModel else { return }
+        
         let favoriteViewModel = FavoriteViewModel(context: context, authContext: viewModel.authContext)
         _ = coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: self, transition: .show)
     }
     
     @objc private func bookmarkBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        guard let viewModel = viewModel else { return }
+        
         let bookmarkViewModel = BookmarkViewModel(context: context, authContext: viewModel.authContext)
         _ = coordinator.present(scene: .bookmark(viewModel: bookmarkViewModel), from: self, transition: .show)
     }
 
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
-
+        guard let viewModel = viewModel else { return }
+        
         let mention = "@" + viewModel.account.acct
         UITextChecker.learnWord(mention)
         let composeViewModel = ComposeViewModel(
@@ -590,29 +629,33 @@ extension ProfileViewController {
     }
     
     @objc private func followedTagsItemPressed(_ sender: UIBarButtonItem) {
+        guard let viewModel = viewModel else { return }
+        
         let followedTagsViewModel = FollowedTagsViewModel(context: context, authContext: viewModel.authContext)
         _ = coordinator.present(scene: .followedTags(viewModel: followedTagsViewModel), from: self, transition: .show)
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
-        if let userTimelineViewController = profilePagingViewController.currentViewController as? UserTimelineViewController {
+        if let userTimelineViewController = profilePagingViewController?.currentViewController as? UserTimelineViewController {
             userTimelineViewController.viewModel.stateMachine.enter(UserTimelineViewModel.State.Reloading.self)
         }
 
         Task {
+            guard let viewModel = viewModel else { return }
+            
             let account = viewModel.account
             if let domain = account.domain,
-               let updatedAccount = try? await context.apiService.fetchUser(username: account.acct, domain: domain, authenticationBox: authContext.mastodonAuthenticationBox),
-               let updatedRelationship = try? await context.apiService.relationship(forAccounts: [updatedAccount], authenticationBox: authContext.mastodonAuthenticationBox).value.first
+               let updatedAccount = try? await context.apiService.fetchUser(username: account.acct, domain: domain, authenticationBox: viewModel.authContext.mastodonAuthenticationBox),
+               let updatedRelationship = try? await context.apiService.relationship(forAccounts: [updatedAccount], authenticationBox: viewModel.authContext.mastodonAuthenticationBox).value.first
             {
                 viewModel.account = updatedAccount
                 viewModel.relationship = updatedRelationship
                 viewModel.profileAboutViewModel.fields = updatedAccount.mastodonFields
             }
 
-            if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
+            if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: viewModel.authContext.mastodonAuthenticationBox).value {
                 viewModel.me = updatedMe
-                FileManager.default.store(account: updatedMe, forUserID: authContext.mastodonAuthenticationBox.authentication.userIdentifier())
+                FileManager.default.store(account: updatedMe, forUserID: viewModel.authContext.mastodonAuthenticationBox.authentication.userIdentifier())
             }
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -631,7 +674,7 @@ extension ProfileViewController: TabBarPagerDelegate {
     }
     
     func resetPageContentOffset(_ tabBarPagerController: TabBarPagerController) {
-        for viewController in profilePagingViewController.viewModel.viewControllers {
+        for viewController in profilePagingViewController?.viewModel?.viewControllers ?? [] {
             viewController.pageScrollView.contentOffset = .zero
         }
     }
@@ -649,6 +692,7 @@ extension ProfileViewController: TabBarPagerDelegate {
         // """
         // )
 
+        guard let profileHeaderViewController = profileHeaderViewController else { return }
         
         // elastically banner
 
@@ -700,7 +744,7 @@ extension ProfileViewController: TabBarPagerDelegate {
             profileHeaderViewController.updateHeaderScrollProgress(progress, throttle: throttle)
             
             // setup buttonBar shadow
-            profilePagingViewController.updateButtonBarShadow(progress: progress)
+            profilePagingViewController?.updateButtonBarShadow(progress: progress)
         }
     }
     
@@ -709,17 +753,17 @@ extension ProfileViewController: TabBarPagerDelegate {
 // MARK: - TabBarPagerDataSource
 extension ProfileViewController: TabBarPagerDataSource {
     func headerViewController() -> UIViewController & TabBarPagerHeader {
-        return profileHeaderViewController
+        return profileHeaderViewController!  // no good way around this force unwrap given the requirement that the return value be non-optional
     }
     
     func pageViewController() -> UIViewController & TabBarPageViewController {
-        return profilePagingViewController
+        return profilePagingViewController!  // no good way around this force unwrap given the requirement that the return value be non-optional
     }
 }
 
 // MARK: - AuthContextProvider
 extension ProfileViewController: AuthContextProvider {
-    var authContext: AuthContext { viewModel.authContext }
+    var authContext: AuthContext { viewModel!.authContext }
 }
 
 // MARK: - ProfileHeaderViewControllerDelegate
@@ -729,6 +773,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
         profileHeaderView: ProfileHeaderView,
         relationshipButtonDidPressed button: ProfileRelationshipActionButton
     ) {
+        guard let viewModel = viewModel else { return }
         if viewModel.me == viewModel.account {
             editProfile()
         } else {
@@ -739,12 +784,12 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
 
     private func editProfile() {
         // do nothing when updating
+        guard let viewModel = viewModel, let profileHeaderViewModel = profileHeaderViewController?.viewModel else { return }
         guard viewModel.isUpdating == false else {
             return
         }
-
-        let profileHeaderViewModel = profileHeaderViewController.viewModel
-        guard let profileAboutViewModel = profilePagingViewController.viewModel.profileAboutViewController.viewModel else { return }
+        
+        guard let profileAboutViewModel = profilePagingViewController?.viewModel?.profileAboutViewController.viewModel else { return }
 
         let isEdited = profileHeaderViewModel.isEdited || profileAboutViewModel.isEdited
 
@@ -758,11 +803,11 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                         headerProfileInfo: profileHeaderViewModel.profileInfoEditing,
                         aboutProfileInfo: profileAboutViewModel.profileInfoEditing
                     ).value
-                    self.viewModel.isEditing = false
-                    self.profileHeaderViewController.viewModel.isEditing = false
+                    viewModel.isEditing = false
+                    self.profileHeaderViewController?.viewModel.isEditing = false
                     profileAboutViewModel.isEditing = false
-                    self.viewModel.account = updatedAccount
-                    self.viewModel.profileAboutViewModel.fields = updatedAccount.mastodonFields
+                    viewModel.account = updatedAccount
+                    viewModel.profileAboutViewModel.fields = updatedAccount.mastodonFields
 
                 } catch {
                     let alertController = UIAlertController(
@@ -776,20 +821,20 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 }
 
                 // finish updating
-                self.viewModel.isUpdating = false
+                viewModel.isUpdating = false
             }
         } else if viewModel.isEditing == false {
             // set `updating` then toggle `edit` state
             viewModel.isUpdating = true
-            profileHeaderViewController.viewModel.isUpdating = true
+            profileHeaderViewController?.viewModel.isUpdating = true
             viewModel.fetchEditProfileInfo()
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] completion in
                     guard let self else { return }
                     defer {
                         // finish updating
-                        self.viewModel.isUpdating = false
-                        self.profileHeaderViewController.viewModel.isUpdating = false
+                        viewModel.isUpdating = false
+                        self.profileHeaderViewController?.viewModel.isUpdating = false
                     }
                     switch completion {
                     case .failure(let error):
@@ -803,15 +848,15 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                         )
                     case .finished:
                         // enter editing mode
-                        self.viewModel.isEditing = true
-                        self.profileHeaderViewController.viewModel.isEditing = true
+                        viewModel.isEditing = true
+                        self.profileHeaderViewController?.viewModel.isEditing = true
                         profileAboutViewModel.isEditing = true
                     }
                 } receiveValue: { [weak self] response in
                     guard let self else { return }
 
-                    self.profileHeaderViewController.viewModel.setProfileInfo(accountForEdit: response.value)
-                    self.viewModel.accountForEdit = response.value
+                    self.profileHeaderViewController?.viewModel.setProfileInfo(accountForEdit: response.value)
+                    viewModel.accountForEdit = response.value
                 }
                 .store(in: &disposeBag)
         } else if isEdited == false {
@@ -820,14 +865,15 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
     }
 
     private func cancelEditing() {
+        guard let viewModel = viewModel else { return }
         viewModel.isEditing = false
-        profileHeaderViewController.viewModel.isEditing = false
-        profilePagingViewController.viewModel.profileAboutViewController.viewModel.isEditing = false
+        profileHeaderViewController?.viewModel.isEditing = false
+        profilePagingViewController?.viewModel?.profileAboutViewController.viewModel.isEditing = false
         viewModel.profileAboutViewModel.isEditing = false
     }
 
     private func editRelationship() {
-        guard let relationship = viewModel.relationship, viewModel.isUpdating == false else {
+        guard let viewModel = viewModel, let relationship = viewModel.relationship, viewModel.isUpdating == false else {
             return
         }
 
@@ -866,13 +912,13 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
             )
 
             let unblockAction = UIAlertAction(title: L10n.Common.Controls.Actions.unblockDomain(domain), style: .default) { [weak self] _ in
-                guard let self else { return }
+                guard let self, let viewModel = self.viewModel else { return }
                 Task {
                     _ = try await DataSourceFacade.responseToDomainBlockAction(dependency: self, account: account)
 
-                    guard let newRelationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: self.authContext.mastodonAuthenticationBox).value.first else { return }
+                    guard let newRelationship = try await self.context.apiService.relationship(forAccounts: [account], authenticationBox: viewModel.authContext.mastodonAuthenticationBox).value.first else { return }
 
-                    self.viewModel.isUpdating = false
+                    viewModel.isUpdating = false
 
                     // we need to trigger this here as domain block doesn't return a relationship
                     let userInfo = [
@@ -943,6 +989,7 @@ extension ProfileViewController: ProfileAboutViewControllerDelegate {
 // MARK: - MastodonMenuDelegate
 extension ProfileViewController: MastodonMenuDelegate {
     func menuAction(_ action: MastodonMenu.Action) {
+        guard let viewModel = viewModel else { return }
         switch action {
         case .muteUser(_), .blockUser(_), .blockDomain(_), .hideReblogs(_), .reportUser(_), .shareUser(_), .openUserInBrowser(_), .copyProfileLink(_), .followUser(_):
             Task {
@@ -972,6 +1019,7 @@ extension ProfileViewController: ScrollViewContainer {
 extension ProfileViewController {
 
     override var keyCommands: [UIKeyCommand]? {
+        guard let viewModel = viewModel else { return nil }
         if !viewModel.isEditing {
             return pagerTabStripNavigateKeyCommands
         }
@@ -984,7 +1032,7 @@ extension ProfileViewController {
 // MARK: - PagerTabStripNavigateable
 extension ProfileViewController: PagerTabStripNavigateable {
 
-    var navigateablePageViewController: PagerTabStripViewController {
+    var navigateablePageViewController: PagerTabStripViewController? {
         return profilePagingViewController
     }
 
@@ -1011,6 +1059,7 @@ extension ProfileViewController: DataSourceProvider {
     }
     
     func updateViewModelsWithDataControllers(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
+        guard let viewModel = viewModel else { return }
         viewModel.postsUserTimelineViewModel.dataController.update(status: status, intent: intent)
         viewModel.repliesUserTimelineViewModel.dataController.update(status: status, intent: intent)
         viewModel.mediaUserTimelineViewModel.dataController.update(status: status, intent: intent)
@@ -1026,6 +1075,8 @@ extension ProfileViewController {
         guard let userInfo = notification.userInfo, let relationship = userInfo[UserInfoKey.relationship] as? Mastodon.Entity.Relationship else {
             return
         }
+        
+        guard let viewModel = viewModel else { return }
 
         viewModel.isUpdating = true
         if viewModel.account.id == relationship.id {
@@ -1033,12 +1084,12 @@ extension ProfileViewController {
             Task {
                 let account = viewModel.account
                 if let domain = account.domain,
-                   let updatedAccount = try? await context.apiService.fetchUser(username: account.acct, domain: domain, authenticationBox: authContext.mastodonAuthenticationBox) {
+                   let updatedAccount = try? await context.apiService.fetchUser(username: account.acct, domain: domain, authenticationBox: viewModel.authContext.mastodonAuthenticationBox) {
                     viewModel.account = updatedAccount
 
                     viewModel.relationship = relationship
-                    self.profileHeaderViewController.viewModel.relationship = relationship
-                    self.profileHeaderViewController.profileHeaderView.viewModel.relationship = relationship
+                    self.profileHeaderViewController?.viewModel.relationship = relationship
+                    self.profileHeaderViewController?.profileHeaderView.viewModel.relationship = relationship
                 }
 
                 viewModel.isUpdating = false
@@ -1046,10 +1097,10 @@ extension ProfileViewController {
         } else if viewModel.account == viewModel.me {
             // update my profile
             Task {
-                if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: authContext.mastodonAuthenticationBox).value {
+                if let updatedMe = try? await context.apiService.authenticatedUserInfo(authenticationBox: viewModel.authContext.mastodonAuthenticationBox).value {
                     viewModel.me = updatedMe
                     viewModel.account = updatedMe
-                    FileManager.default.store(account: updatedMe, forUserID: authContext.mastodonAuthenticationBox.authentication.userIdentifier())
+                    FileManager.default.store(account: updatedMe, forUserID: viewModel.authContext.mastodonAuthenticationBox.authentication.userIdentifier())
                 }
 
                 viewModel.isUpdating = false

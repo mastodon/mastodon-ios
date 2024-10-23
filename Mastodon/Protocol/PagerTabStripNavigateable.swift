@@ -12,7 +12,7 @@ import MastodonLocalization
 typealias PagerTabStripNavigateable = PagerTabStripNavigateableCore & PagerTabStripNavigateableRelay
 
 protocol PagerTabStripNavigateableCore: AnyObject {
-    var navigateablePageViewController: PagerTabStripViewController { get }
+    var navigateablePageViewController: PagerTabStripViewController? { get }
     var pagerTabStripNavigateKeyCommands: [UIKeyCommand] { get }
 
     func pagerTabStripNavigateKeyCommandHandler(_ sender: UIKeyCommand)
@@ -82,6 +82,7 @@ extension PagerTabStripNavigateableCore where Self: PagerTabStripNavigateableRel
 
 extension PagerTabStripNavigateableCore {
     func navigate(direction: PagerTabStripNavigationDirection) {
+        guard let navigateablePageViewController = navigateablePageViewController else { return }
         let index = navigateablePageViewController.currentIndex
         let targetIndex: Int
         
