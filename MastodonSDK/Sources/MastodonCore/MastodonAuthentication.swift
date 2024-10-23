@@ -5,7 +5,6 @@ import CoreDataStack
 import MastodonSDK
 
 public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
-    private static let minDaysAccountAgeForDonations = 28
     
     public static let fallbackCharactersReservedPerURL = 23
 
@@ -184,18 +183,5 @@ public struct MastodonAuthentication: Codable, Hashable, UserIdentifier {
 
     var authorization: Mastodon.API.OAuth.Authorization {
         .init(accessToken: userAccessToken)
-    }
-    
-    public var isEligibleForDonations: Bool {
-        guard
-            let minDateForDonations = Calendar.current.date(byAdding: .day, value: -Self.minDaysAccountAgeForDonations, to: Date())
-        else {
-            return false
-        }
-        return ["mastodon.social", "mastodon.online"].contains(domain) && accountCreatedAt < minDateForDonations
-    }
-    
-    public var donationSeed: Int {
-        return abs("@\(username)@\(domain)".hashValue) % 100
     }
 }

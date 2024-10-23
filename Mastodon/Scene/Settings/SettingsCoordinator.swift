@@ -20,6 +20,7 @@ class SettingsCoordinator: NSObject, Coordinator {
 
     let navigationController: UINavigationController
     let presentedOn: UIViewController
+    var navigationFlow: NavigationFlow?
 
     weak var delegate: SettingsCoordinatorDelegate?
     private let settingsViewController: SettingsViewController
@@ -100,6 +101,34 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
 
 
                 navigationController.pushViewController(serverDetailsViewController, animated: true)
+            
+            case .makeDonation:
+                Task { [weak self] in
+                    guard let s = self else { return }
+                    let campaign: Mastodon.Entity.DonationCampaign?
+                    let userAuthentication = s.authContext.mastodonAuthenticationBox.authentication
+                    
+                    let seed = Mastodon.Entity.DonationCampaign.donationSeed(username: userAuthentication.username, domain: userAuthentication.domain)
+                    
+                    do {
+                        campaign = try await s.appContext.apiService.getDonationCampaign(seed: seed, source: nil).value
+                    } catch {
+                        campaign = nil
+                    }
+                    await MainActor.run { [weak self] in
+                        guard let s = self else { return }
+                        
+                        let donationFlow = NewDonationNavigationFlow(flowPresenter: viewController, campaign: campaign, appContext: s.appContext, authContext: s.authContext, sceneCoordinator: s.sceneCoordinator)
+                        s.navigationFlow = donationFlow
+                        donationFlow.presentFlow { [weak self] in
+                            self?.navigationFlow = nil
+                        }
+                    }
+                }
+            case .manageDonations:
+                guard let url = URL(string: "https://sponsor.joinmastodon.org/donate/manage") else { return }
+                let webViewController = WebViewController(WebViewModel(url: url))
+                navigationController.pushViewController(webViewController, animated: true)
             case .aboutMastodon:
                 let aboutViewController = AboutViewController()
                 aboutViewController.delegate = self

@@ -1,0 +1,112 @@
+// Copyright © 2024 Mastodon gGmbH. All rights reserved.
+
+import Foundation
+import MastodonCore
+import MastodonLocalization
+import MastodonSDK
+import UIKit
+
+@MainActor
+class NewDonationNavigationFlow: NavigationFlow {
+
+    private let campaign: DonationCampaignViewModel
+    private let appContext: AppContext
+    private let authContext: AuthContext
+    private let sceneCoordinator: SceneCoordinator
+
+    init(
+        flowPresenter: NavigationFlowPresenter,
+        campaign: DonationCampaignViewModel?, appContext: AppContext,
+        authContext: AuthContext, sceneCoordinator: SceneCoordinator
+    ) {
+        self.campaign = campaign ?? DefaultDonationViewModel()
+        self.appContext = appContext
+        self.authContext = authContext
+        self.sceneCoordinator = sceneCoordinator
+        super.init(flowPresenter: flowPresenter)
+    }
+
+    override func startFlow() {
+        showDonationOptionsController()
+    }
+
+    private func showDonationOptionsController() {
+        let optionsController = DonationViewController(campaign: campaign) {
+            [weak self] attemptedDonation in
+            guard let s = self else { return }
+            s.showDonationPaymentWebview(
+                attemptedDonation, campaign: s.campaign)
+        }
+
+        flowPresenter.show(optionsController, preferredDetents: [.medium()])
+    }
+
+    private func showDonationPaymentWebview(
+        _ paymentURL: URL, campaign: DonationCampaignViewModel
+    ) {
+        let model = WebViewModel(url: paymentURL)
+        let viewController = NotifyingWebViewController(model)
+
+        Task { [weak self] in
+            for await url in viewController.navigationEvents.dropFirst(1) {
+                self?.handleDonationCompletion(url, campaign: campaign)
+                break
+            }
+        }
+        flowPresenter.show(viewController, preferredDetents: [.large()])
+    }
+
+    private func handleDonationCompletion(
+        _ response: URL, campaign: DonationCampaignViewModel
+    ) {
+        let result: DonationResult
+        let responseString = response.lastPathComponent
+        switch responseString {
+        case "success":
+            result = .successful(suggestedPost: campaign.donationSuccessPost)
+            showDonationCompletionMessage(result)
+        case "failure":
+            let alert = UIAlertController(
+                title: L10n.Scene.Donation.Failure.title,
+                message: L10n.Scene.Donation.Failure.message,
+                preferredStyle: .actionSheet)
+            flowPresenter.showAlert(alert)
+            result = .failed
+        case "cancel":
+            result = .canceled
+            dismissFlow()
+            break
+        default:
+            return
+        }
+    }
+
+    private func showDonationCompletionMessage(_ result: DonationResult) {
+        let viewController = DonationCompletionViewController(result) {
+            [weak self] completionEvent in
+            switch completionEvent {
+            case .makePost(let suggestedPost):
+                self?.composeDonationSuccessPost(suggestedPost)
+            case .close:
+                self?.dismissFlow()
+            }
+        }
+        flowPresenter.show(viewController, preferredDetents: [.large()])
+    }
+
+    private func composeDonationSuccessPost(_ suggestedText: String) {
+        let composeViewModel = ComposeViewModel(
+            context: appContext,
+            authContext: authContext,
+            composeContext: .composeStatus,
+            destination: .topLevel,
+            initialContent: suggestedText
+        )
+        sceneCoordinator.present(
+            scene: .compose(viewModel: composeViewModel),
+            from: nil,
+            transition: .modal(animated: true, completion: nil)
+        )
+    }
+
+}

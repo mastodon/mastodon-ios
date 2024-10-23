@@ -29,6 +29,8 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
 
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
+    var navigationFlow: NavigationFlow?
+    
     enum EmptyViewUseCase {
         case timeline, list
     }
@@ -488,7 +490,7 @@ extension HomeTimelineViewController {
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
         
-        viewModel?.askForDonationIfPossible(source: .menu)
+        viewModel?.askForDonationIfPossible()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -727,17 +729,13 @@ extension HomeTimelineViewController {
             self?.view.layoutIfNeeded()
         })
     }
-
+    
     private func showDonationCampaign(_ campaign: Mastodon.Entity.DonationCampaign) {
         hideDonationCampaignBanner()
-        let viewController = DonationViewController(campaign: campaign)
-        viewController.modalPresentationStyle = .pageSheet
-//        let nav = UINavigationController(rootViewController: viewController)
-//        nav.modalPresentationStyle = .pageSheet
-        if let sheet = viewController.sheetPresentationController {
-            sheet.detents = [.medium()]
+        navigationFlow = NewDonationNavigationFlow(flowPresenter: self, campaign: campaign, appContext: context, authContext: authContext, sceneCoordinator: coordinator)
+        navigationFlow?.presentFlow { [weak self] in
+            self?.navigationFlow = nil
         }
-        present(viewController, animated: true, completion: nil)
     }
 }
 // MARK: - UIScrollViewDelegate

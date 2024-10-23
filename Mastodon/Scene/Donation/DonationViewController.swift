@@ -1,102 +1,261 @@
 // Copyright © 2024 Mastodon gGmbH. All rights reserved.
 
 import Foundation
+import MastodonAsset
+import MastodonLocalization
+import MastodonSDK
 import SwiftUI
 import UIKit
-import MastodonSDK
-import MastodonLocalization
 
 class DonationViewController: UIHostingController<DonationView> {
-    init(campaign: Mastodon.Entity.DonationCampaign) {
+
+    init(
+        campaign: DonationCampaignViewModel?,
+        completion: @escaping (URL) -> Void
+    ) {
         super.init(
             rootView: DonationView(
-                campaign: campaign,
-                interval: campaign.amounts.monthly,
-                currency: campaign.amounts.monthly.first!.key,
-                amount: {
-                    if let amount = campaign.amounts.monthly.first?.value.last {
-                        return String(amount.asReadableAmount)
-                    }
-                    return ""
-                }()
-            )
-        )
+                campaign ?? DefaultDonationViewModel(), completion: completion))
     }
-    
+
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
+extension DonationFrequency {
+    var pickerLabel: String {
+        switch self {
+        case .monthly:
+            return L10n.Scene.Donation.Picker.monthlyTitle
+        case .yearly:
+            return L10n.Scene.Donation.Picker.yearlyTitle
+        case .oneTime:
+            return L10n.Scene.Donation.Picker.onceTitle
+        }
+    }
+}
+
 struct DonationView: View {
-    let campaign: Mastodon.Entity.DonationCampaign
-    
-    @State var interval: DonationAmount
-    @State var currency: String
-    @State var amount: String
+    let campaign: DonationCampaignViewModel
+    let completion: (URL) -> Void
+
+    @State var selectedFrequency: DonationFrequency
+    @State var selectedCurrency: String
+    @State var selectedAmount: Int
+
+    var urlForCurrentSelections: URL? {
+        campaign.paymentURL(
+            currency: selectedCurrency, source: campaign.source,
+            frequency: selectedFrequency, amount: selectedAmount * 100)  // amount needs to be sent in pennies
+    }
+
+    init(
+        _ campaign: DonationCampaignViewModel,
+        completion: @escaping (URL) -> Void
+    ) {
+        self.campaign = campaign
+        selectedFrequency = campaign.defaultFrequency
+        selectedCurrency = campaign.defaultCurrency
+        selectedAmount = campaign.defaultAmount
+        self.completion = completion
+    }
 
     var body: some View {
+        HStack {
+            Spacer()
+            VStack(spacing: 36) {
+                topMessage
+                frequencyPicker
+                amountEntry
+                donationButton
+            }
+            .frame(maxWidth: 328)
+            Spacer()
+        }
+    }
+
+    @ViewBuilder var topMessage: some View {
+        Text(campaign.donationMessage)
+    }
+
+    @ViewBuilder var frequencyPicker: some View {
+        Picker(selection: $selectedFrequency) {
+            // TODO: if there is only one available frequency, display a message instead of a single-segment picker
+            ForEach(
+                [DonationFrequency.oneTime, .monthly, .yearly].filter {
+                    campaign.availableFrequencies.contains($0)
+                }, id: \.self
+            ) {
+                Text($0.pickerLabel)
+                    .tag($0)
+            }
+        } label: {
+        }
+        .pickerStyle(.segmented)
+        //            .onAppear {
+        //                UISegmentedControl.appearance().selectedSegmentTintColor = Asset.Colors.Secondary.container.color
+        //            }
+    }
+
+    @ViewBuilder var amountEntry: some View {
         VStack {
-            Text(campaign.donationMessage)
-                .padding(.bottom, 16)
-            
-            Picker(selection: $interval) {
-                if let oneTime = campaign.amounts.oneTime {
-                    Text(L10n.Scene.Donation.Picker.onceTitle)
-                        .tag(oneTime)
-                }
-                Text(L10n.Scene.Donation.Picker.monthlyTitle)
-                    .tag(campaign.amounts.monthly)
-                if let yearly = campaign.amounts.yearly {
-                    Text(L10n.Scene.Donation.Picker.yearlyTitle)
-                        .tag(yearly)
-                }
-            } label: {}
-                .pickerStyle(.segmented)
-                .padding(.bottom, 16)
-            
             HStack {
-                Picker(selection: $currency) {
-                    ForEach(interval.map(\.key), id: \.self) {
+                Picker(selection: $selectedCurrency) {
+                    ForEach(
+                        campaign.availableCurrencies(
+                            frequency: selectedFrequency) ?? [], id: \.self
+                    ) {
                         Text($0)
                             .tag($0)
                     }
                 } label: {
-                    Text(currency)
+                    Text(selectedCurrency)
                 }
+                .frame(height: 52)
                 .background(Color.gray.opacity(0.25))
                 .clipShape(.rect(topLeadingRadius: 4, bottomLeadingRadius: 4))
-                
-                TextField(text: $amount) {}
+
+                TextField(
+                    value: $selectedAmount,
+                    format: .currency(code: selectedCurrency)
+                ) {}
                 .keyboardType(.numberPad)
                 .multilineTextAlignment(.trailing)
                 .padding(.trailing, 8)
 
             }
-            .background(RoundedRectangle(cornerRadius: 4.0).stroke(Color.gray.opacity(0.25), lineWidth: 1))
-            .padding(.bottom, 16)
-            
+            .background(
+                RoundedRectangle(cornerRadius: 4.0).stroke(
+                    Color.gray.opacity(0.25), lineWidth: 1))
+
             HStack {
-                if let predefinedAmounts = interval[currency] {
-                    ForEach(predefinedAmounts, id: \.self) { amount in
-                        Button(String(amount.asReadableAmount)) {
-                            
+                if let predefinedAmounts = campaign.suggestedDonations(
+                    frequency: selectedFrequency, currency: selectedCurrency)
+                {
+                    ForEach(predefinedAmounts, id: \.unitAmount) { amount in
+                        Button(action: {
+                            self.selectedAmount = amount.unitAmount
+                        }) {
+                            Text(amount.currencyFormattedString)
+                                .frame(minWidth: 45)
                         }
-                        .frame(minWidth: 100, maxWidth: .infinity)
-                        .buttonStyle(.bordered)
+                        .buttonStyle(
+                            DonationButtonStyle(
+                                type: .amount,
+                                filled: self.selectedAmount == amount.unitAmount
+                            ))
+                        if amount.unitAmount
+                            != predefinedAmounts.last!.unitAmount
+                        {
+                            Spacer()
+                        }
                     }
                 }
             }
-            .padding(.bottom, 16)
-
+            .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, 16)
+    }
+
+    @ViewBuilder var donationButton: some View {
+        Button(action: {
+            if let urlForCurrentSelections = urlForCurrentSelections {
+                completion(urlForCurrentSelections)
+            }
+        }) {
+            HStack {
+                Spacer()
+                Image(systemName: "heart.fill")
+                    .foregroundStyle(.white)
+                Text(L10n.Scene.Donation.donateButtonTitle)
+                    .foregroundStyle(.white)
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(DonationButtonStyle(type: .action, filled: true))
     }
 }
 
-fileprivate extension Int {
-    var asReadableAmount: Int {
-        self / 100
+enum DonationButtonStyleType {
+    case amount
+    case action
+}
+
+struct DonationButtonStyle: ButtonStyle {
+
+    let type: DonationButtonStyleType
+    let filled: Bool
+    let cornerRadius: CGFloat = 8
+
+    func makeBody(configuration: Configuration) -> some View {
+        switch (type, filled) {
+        case (.amount, true):
+            configuration.label
+                .padding()
+                .background(Color(Asset.Colors.Secondary.container.color))
+                .cornerRadius(cornerRadius)
+        case (.amount, false):
+            configuration.label
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius).stroke(
+                        Color(Asset.Colors.outline.color), lineWidth: 1))
+        case (.action, true):
+            configuration.label
+                .foregroundStyle(.white)
+                .padding()
+                .background(Color(Asset.Colors.Primary._300.color))
+                .cornerRadius(cornerRadius)
+        case (.action, false):
+            configuration.label
+                .foregroundStyle(Color(Asset.Colors.Primary._300.color))
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius).stroke(
+                        Color(Asset.Colors.outline.color), lineWidth: 1))
         }
     }
+}
+
+struct DefaultDonationViewModel: DonationCampaignViewModel {
+
+    var paymentBaseURL: URL? {
+        if Mastodon.API.isTestingDonations {
+            URL(string: "https://sponsor.staging.joinmastodon.org/donation/new")
+        } else {
+            URL(string: "https://sponsor.joinmastodon.org/donation/new")
+        }
+    }
+
+    var callbackBaseURL: URL? {
+        return paymentBaseURL?.deletingLastPathComponent()
+    }
+
+    var source = DonationSource.menu
+
+    var donationMessage =
+        "By supporting Mastodon, you help sustain a global network that values people over profit. Will you join us today?"  // TODO: L10 string if this is going to remain hardcoded
+
+    var defaultFrequency = DonationFrequency.monthly
+
+    var defaultCurrency = "EUR"
+
+    var defaultAmount = 5
+
+    var availableFrequencies = [DonationFrequency.monthly, .yearly, .oneTime]
+
+    func suggestedDonations(frequency: DonationFrequency, currency: String)
+        -> [SuggestedDonation]?
+    {
+        return [300, 500, 1000, 2000].map {
+            SuggestedDonation(pennies: $0, currency: currency)
+        }
+    }
+
+    func availableCurrencies(frequency: DonationFrequency) -> [String]? {
+        return ["EUR", "USD"]
+    }
+
+    var donationSuccessPost = "Need default success post text and localized"  // TODO: needs L10 string if remaining hardcoded
 }

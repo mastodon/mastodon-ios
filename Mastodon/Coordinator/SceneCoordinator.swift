@@ -429,8 +429,7 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .mastodonWebView(let viewModel):
-            let _viewController = WebViewController()
-            _viewController.viewModel = viewModel
+            let _viewController = WebViewController(viewModel)
             viewController = _viewController
         case .searchDetail(let viewModel):
             let _viewController = SearchDetailViewController(appContext: appContext, sceneCoordinator: self, authContext: viewModel.authContext)

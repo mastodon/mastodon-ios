@@ -28,6 +28,7 @@ public enum Asset {
     public static let squareAndArrowUp = ImageAsset(name: "Arrow/square.and.arrow.up")
   }
   public enum Asset {
+    public static let donationThankYou = ImageAsset(name: "Asset/donationThankYou")
     public static let email = ImageAsset(name: "Asset/email")
     public static let friends = ImageAsset(name: "Asset/friends")
     public static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
@@ -61,6 +62,18 @@ public enum Asset {
       public static let userFollowing = ColorAsset(name: "Colors/Button/userFollowing")
       public static let userFollowingTitle = ColorAsset(name: "Colors/Button/userFollowingTitle")
     }
+    public enum Primary {
+      public static let _300 = ColorAsset(name: "Colors/Primary/300")
+      public static let _700 = ColorAsset(name: "Colors/Primary/700")
+    }
+    public enum Secondary {
+      public static let container = ColorAsset(name: "Colors/Secondary/container")
+      public static let onContainer = ColorAsset(name: "Colors/Secondary/on.container")
+    }
+    public static let outline = ColorAsset(name: "Colors/outline")
+    public static let outlineVariant = ColorAsset(name: "Colors/outline.variant")
+    public static let surface = ColorAsset(name: "Colors/surface")
+    public static let surfaceContainer = ColorAsset(name: "Colors/surface.container")
     public enum Icon {
       public static let plus = ColorAsset(name: "Colors/Icon/plus")
     }
@@ -77,14 +90,6 @@ public enum Asset {
     }
     public enum Poll {
       public static let disabled = ColorAsset(name: "Colors/Poll/disabled")
-    }
-    public enum Primary {
-      public static let _300 = ColorAsset(name: "Colors/Primary/300")
-      public static let _700 = ColorAsset(name: "Colors/Primary/700")
-    }
-    public enum Secondary {
-      public static let container = ColorAsset(name: "Colors/Secondary/container")
-      public static let onContainer = ColorAsset(name: "Colors/Secondary/on.container")
     }
     public enum Shadow {
       public static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")

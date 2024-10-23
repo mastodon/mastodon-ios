@@ -1,6 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonSDK
 import MastodonLocalization
 
 protocol SettingsViewControllerDelegate: AnyObject {
@@ -18,11 +19,16 @@ class SettingsViewController: UIViewController {
 
     init(accountName: String, domain: String) {
 
-        sections = [
+        var baseSections: [SettingsSection] = [
             .init(entries: [.general, .notifications, .privacySafety]),
             .init(entries: [.serverDetails(domain: domain), .aboutMastodon]),
             .init(entries: [.logout(accountName: accountName)])
         ]
+        
+        if Mastodon.Entity.DonationCampaign.isEligibleForDonationsSettingsSection(domain: domain) {
+            baseSections.insert(.init(entries: [.makeDonation, .manageDonations]), at: baseSections.count - 1)
+        }
+        sections = baseSections
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false

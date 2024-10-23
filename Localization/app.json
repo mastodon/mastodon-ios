@@ -976,6 +976,7 @@
                 "monthly_title": "Monthly",
                 "yearly_title": "Yearly"
             },
+            "donatebuttontitle": "Donate",
             "currency": "Currency",
             "success": {
                 "title": "Thank you for your contribution!",

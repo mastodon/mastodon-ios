@@ -13,6 +13,8 @@ enum SettingsEntry: Hashable {
     case privacySafety
     case serverDetails(domain: String)
     case aboutMastodon
+    case makeDonation
+    case manageDonations
     case logout(accountName: String)
 
     var title: String {
@@ -25,6 +27,10 @@ enum SettingsEntry: Hashable {
                 return L10n.Scene.Settings.Overview.privacySafety
             case .serverDetails(_):
                 return L10n.Scene.Settings.Overview.serverDetails
+            case .makeDonation:
+                return L10n.Scene.Settings.Overview.supportMastodon
+            case .manageDonations:
+                return L10n.Scene.Settings.Overview.manageDonations
             case .aboutMastodon:
                 return L10n.Scene.Settings.Overview.aboutMastodon
             case .logout(let accountName):
@@ -36,14 +42,14 @@ enum SettingsEntry: Hashable {
         switch self {
             case .serverDetails(domain: let domain):
                 return domain
-            case .general, .notifications, .privacySafety, .aboutMastodon, .logout(_):
+        case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon, .logout(_):
                 return nil
         }
     }
 
     var accessoryType: UITableViewCell.AccessoryType {
         switch self {
-            case .general, .notifications, .privacySafety, .serverDetails(_), .aboutMastodon, .logout(_):
+            case .general, .notifications, .privacySafety, .serverDetails(_), .makeDonation, .manageDonations, .aboutMastodon, .logout(_):
                 return .disclosureIndicator
         }
     }
@@ -58,6 +64,10 @@ enum SettingsEntry: Hashable {
                 return UIImage(systemName: "lock.fill")
             case .serverDetails(_):
                 return UIImage(systemName: "server.rack")
+            case .makeDonation:
+                return UIImage(systemName: "heart.fill")
+            case .manageDonations:
+                return UIImage(systemName: "gear")
             case .aboutMastodon:
                 return UIImage(systemName: "info.circle.fill")
             case .logout(_):
@@ -75,6 +85,8 @@ enum SettingsEntry: Hashable {
                 return .systemBlue
             case .serverDetails(_):
                 return .systemTeal
+            case .makeDonation, .manageDonations:
+                return .systemPurple
             case .aboutMastodon:
                 return .systemPurple
             case .logout(_):
@@ -85,7 +97,7 @@ enum SettingsEntry: Hashable {
 
     var textColor: UIColor {
         switch self {
-            case .general, .notifications, .privacySafety, .aboutMastodon, .serverDetails(_):
+        case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon, .serverDetails(_):
                 return .label
             case .logout(_):
                 return .red

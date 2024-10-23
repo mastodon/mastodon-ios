@@ -1,28 +1,30 @@
 // Copyright © 2024 Mastodon gGmbH. All rights reserved.
 
-import Foundation
 import Combine
+import Foundation
 import MastodonSDK
 
 extension HomeTimelineViewModel {
-    enum DonationSource: String {
-        case menu = "menu"
-        case undefined = ""
-    }
 
-    func askForDonationIfPossible(source: DonationSource) {
-        let userAuthentication = authContext.mastodonAuthenticationBox.authentication
-        guard userAuthentication.isEligibleForDonations else { return }
-        
+    func askForDonationIfPossible() {
+        let userAuthentication = authContext.mastodonAuthenticationBox
+            .authentication
+        guard
+            Mastodon.Entity.DonationCampaign.isEligibleForDonationsBanner(
+                domain: userAuthentication.domain,
+                accountCreationDate: userAuthentication.accountCreatedAt)
+        else { return }
+
         Task { @MainActor [weak self] in
             guard let self else { return }
-            let seed = userAuthentication.donationSeed
-            
+
+            let seed = Mastodon.Entity.DonationCampaign.donationSeed(
+                username: userAuthentication.username,
+                domain: userAuthentication.domain)
+
             do {
-                let campaign = try await self.context.apiService.getDonationCampaign(seed: seed, source: source.rawValue).value
-                
-                print("camp", campaign)
-                
+                let campaign = try await self.context.apiService
+                    .getDonationCampaign(seed: seed, source: nil).value
                 onPresentDonationCampaign.send(campaign)
             } catch {
                 // no-op

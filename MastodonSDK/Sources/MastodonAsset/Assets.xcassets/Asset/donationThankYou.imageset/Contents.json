@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "donation_successful_art.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

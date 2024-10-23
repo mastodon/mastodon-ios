@@ -2,22 +2,87 @@
 
 import Foundation
 
-public typealias DonationAmount = [String: [Int]]
-
 extension Mastodon.Entity {
+
+    public enum DonationError: Swift.Error {
+        case campaignInvalid
+    }
+
     public struct DonationCampaign: Codable {
+
+        public enum DonationSource {
+            case campaign(id: String)
+            case menu
+
+            public var queryValue: String {
+                switch self {
+                case .campaign:
+                    return "campaign"
+                case .menu:
+                    return "menu"
+                }
+            }
+        }
+        private static let minDaysAccountAgeForDonations = 28
+        static public func isEligibleForDonationsBanner(
+            domain: String, accountCreationDate: Date
+        ) -> Bool {
+            guard
+                let minDateForDonations = Calendar.current.date(
+                    byAdding: .day, value: -minDaysAccountAgeForDonations,
+                    to: Date())
+            else {
+                return false
+            }
+            let becauseOnOfficialServer =
+                ["mastodon.social", "mastodon.online"].contains(domain)
+                && accountCreationDate < minDateForDonations
+            let becauseTesting = domain == "staging.mastodon.social"
+            return becauseOnOfficialServer || becauseTesting
+        }
+
+        static public func isEligibleForDonationsSettingsSection(domain: String)
+            -> Bool
+        {
+            let becauseOnOfficialServer = [
+                "mastodon.social", "mastodon.online",
+            ].contains(domain)
+            let becauseTesting = domain == "staging.mastodon.social"
+            return becauseOnOfficialServer || becauseTesting
+        }
+
+        static public func donationSeed(username: String, domain: String) -> Int
+        {
+            return abs("@\(username)@\(domain)".hashValue) % 100
+        }
+
+        public enum DonationFrequency {
+            case oneTime, monthly, yearly
+
+            public var queryValue: String {
+                switch self {
+                case .monthly:
+                    return "monthly"
+                case .oneTime:
+                    return "one_time"
+                case .yearly:
+                    return "yearly"
+                }
+            }
+        }
+
         public struct Amounts: Codable {
-            public let oneTime: DonationAmount?
-            public let monthly: DonationAmount
-            public let yearly: DonationAmount?
-            
+            public let oneTime: [String: [Int]]?
+            public let monthly: [String: [Int]]?
+            public let yearly: [String: [Int]]?
+
             enum CodingKeys: String, CodingKey {
                 case oneTime = "one_time"
                 case monthly
                 case yearly
             }
         }
-        
+
         public let id: String
         public let bannerMessage: String
         public let bannerButtonText: String
@@ -27,7 +92,16 @@ extension Mastodon.Entity {
         public let donationUrl: String
         public let donationSuccessPost: String
         public let amounts: Amounts
-        
+
+        public var isValid: Bool {
+            for options in [amounts.oneTime, amounts.monthly, amounts.yearly] {
+                if let options, !options.isEmpty {
+                    return true
+                }
+            }
+            return false
+        }
+
         enum CodingKeys: String, CodingKey {
             case id
             case bannerMessage = "banner_message"

@@ -811,6 +811,8 @@ public enum L10n {
     public enum Donation {
       /// Currency
       public static let currency = L10n.tr("Localizable", "Scene.Donation.Currency", fallback: "Currency")
+      /// Donate
+      public static let donateButtonTitle = L10n.tr("Localizable", "Scene.Donation.DonateButtonTitle", fallback: "Donate")
       public enum Picker {
         /// Monthly
         public static let monthlyTitle = L10n.tr("Localizable", "Scene.Donation.Picker.MonthlyTitle", fallback: "Monthly")
@@ -830,6 +832,12 @@ public enum L10n {
         public static let subtitle = L10n.tr("Localizable", "Scene.Donation.Success.Subtitle", fallback: "You should receive an email confirming your donation soon.")
         /// Thank you for your contribution!
         public static let title = L10n.tr("Localizable", "Scene.Donation.Success.Title", fallback: "Thank you for your contribution!")
+      }
+      public enum Failure {
+        /// Payment failed
+        public static let title = L10n.tr("Localizable", "Scene.Donation.Failure.Title", fallback: "Payment failed")
+        /// Your donation could not be completed. Please try again later. Thank you!
+        public static let message = L10n.tr("Localizable", "Scene.Donation.Failure.Message", fallback: "Your donation could not be completed. Please try again later. Thank you!")
       }
     }
     public enum Familiarfollowers {
@@ -1693,7 +1701,9 @@ public enum L10n {
         /// Server Details
         public static let serverDetails = L10n.tr("Localizable", "Scene.Settings.Overview.ServerDetails", fallback: "Server Details")
         /// Support Mastodon
-        public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.SupportMastodon", fallback: "Support Mastodon")
+        public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.SupportMastodon", fallback: "Donate to Mastodon")
+        /// Manage Donations
+        public static let manageDonations = L10n.tr("Localizable", "Scene.Settings.Overview.ManageDonations", fallback: "Manage donations")
         /// Settings
         public static let title = L10n.tr("Localizable", "Scene.Settings.Overview.Title", fallback: "Settings")
       }

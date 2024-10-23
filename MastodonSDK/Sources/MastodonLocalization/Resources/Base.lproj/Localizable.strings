@@ -302,6 +302,7 @@ uploaded to Mastodon.";
 "Scene.Donation.Picker.OnceTitle" = "Just once";
 "Scene.Donation.Picker.MonthlyTitle" = "Monthly";
 "Scene.Donation.Picker.YearlyTitle" = "Yearly";
+"Scene.Donation.DonateButtonTitle" = "Donate";
 "Scene.Donation.Currency" = "Currency";
 "Scene.Donation.Success.Title" = "Thank you for your contribution!";
 "Scene.Donation.Success.Subtitle" = "You should receive an email confirming your donation soon.";
