@@ -54,11 +54,11 @@ struct DonationView: View {
         _ campaign: DonationCampaignViewModel,
         completion: @escaping (URL) -> Void
     ) {
+        self.completion = completion
         self.campaign = campaign
         selectedFrequency = campaign.defaultFrequency
         selectedCurrency = campaign.defaultCurrency
         selectedAmount = campaign.defaultAmount
-        self.completion = completion
     }
 
     var body: some View {
