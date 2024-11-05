@@ -825,19 +825,15 @@ public enum L10n {
         /// We are sorry, an error occurred and we have not been able to process your donation.
         /// 
         /// Please retry in a few minutes.
-        public static let serverError = L10n.tr("Localizable", "Scene.Donation.Success.ServerError", fallback: "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.")
+        public static let serverErrorMessage = L10n.tr("Localizable", "Scene.Donation.Success.ServerErrorMessage", fallback: "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.")
+        /// Payment failed
+        public static let serverErrorTitle = L10n.tr("Localizable", "Scene.Donation.Success.ServerErrorTitle", fallback: "Payment failed")
         /// Spread the word
         public static let shareButtonTitle = L10n.tr("Localizable", "Scene.Donation.Success.ShareButtonTitle", fallback: "Spread the word")
         /// You should receive an email confirming your donation soon.
         public static let subtitle = L10n.tr("Localizable", "Scene.Donation.Success.Subtitle", fallback: "You should receive an email confirming your donation soon.")
         /// Thank you for your contribution!
         public static let title = L10n.tr("Localizable", "Scene.Donation.Success.Title", fallback: "Thank you for your contribution!")
-      }
-      public enum Failure {
-        /// Payment failed
-        public static let title = L10n.tr("Localizable", "Scene.Donation.Failure.Title", fallback: "Payment failed")
-        /// Your donation could not be completed. Please try again later. Thank you!
-        public static let message = L10n.tr("Localizable", "Scene.Donation.Failure.Message", fallback: "Your donation could not be completed. Please try again later. Thank you!")
       }
     }
     public enum Familiarfollowers {
@@ -1694,16 +1690,16 @@ public enum L10n {
         public static func logout(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Settings.Overview.Logout", String(describing: p1), fallback: "Logout %@")
         }
+        /// Manage donations
+        public static let manageDonations = L10n.tr("Localizable", "Scene.Settings.Overview.ManageDonations", fallback: "Manage donations")
         /// Notifications
         public static let notifications = L10n.tr("Localizable", "Scene.Settings.Overview.Notifications", fallback: "Notifications")
         /// Privacy & Safety
         public static let privacySafety = L10n.tr("Localizable", "Scene.Settings.Overview.PrivacySafety", fallback: "Privacy & Safety")
         /// Server Details
         public static let serverDetails = L10n.tr("Localizable", "Scene.Settings.Overview.ServerDetails", fallback: "Server Details")
-        /// Support Mastodon
+        /// Donate to Mastodon
         public static let supportMastodon = L10n.tr("Localizable", "Scene.Settings.Overview.SupportMastodon", fallback: "Donate to Mastodon")
-        /// Manage Donations
-        public static let manageDonations = L10n.tr("Localizable", "Scene.Settings.Overview.ManageDonations", fallback: "Manage donations")
         /// Settings
         public static let title = L10n.tr("Localizable", "Scene.Settings.Overview.Title", fallback: "Settings")
       }

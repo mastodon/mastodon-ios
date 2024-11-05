@@ -67,8 +67,8 @@ class NewDonationNavigationFlow: NavigationFlow {
             showDonationCompletionMessage(result)
         case "failure":
             let alert = UIAlertController(
-                title: L10n.Scene.Donation.Failure.title,
-                message: L10n.Scene.Donation.Failure.message,
+                title: L10n.Scene.Donation.Success.serverErrorTitle,
+                message: L10n.Scene.Donation.Success.serverErrorMessage,
                 preferredStyle: .actionSheet)
             flowPresenter.showAlert(alert)
             result = .failed
