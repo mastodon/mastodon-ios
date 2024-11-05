@@ -64,8 +64,8 @@ struct DonationCompletionView: View {
                 topMessage
                 subMessage
                 messageImage
-                buttons
                 Spacer()
+                buttons
             }
             .padding([.leading, .trailing], 30)
             .frame(maxWidth: geometry.size.width)
@@ -74,7 +74,8 @@ struct DonationCompletionView: View {
 
     @ViewBuilder var topMessage: some View {
         Text(L10n.Scene.Donation.Success.title)
-            .font(.title)
+            .font(.largeTitle)
+            .bold()
             .multilineTextAlignment(.center)
     }
     @ViewBuilder var subMessage: some View {
@@ -95,7 +96,6 @@ struct DonationCompletionView: View {
             }) {
                 HStack {
                     Spacer()
-                    Image(systemName: "megaphone.fill")
                     Text(L10n.Scene.Donation.Success.shareButtonTitle)
                     Spacer()
                 }

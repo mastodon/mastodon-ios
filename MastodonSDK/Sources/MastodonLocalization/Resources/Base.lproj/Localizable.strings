@@ -299,6 +299,7 @@ uploaded to Mastodon.";
 "Scene.FollowedTags.Header.Posts" = "posts";
 "Scene.FollowedTags.Header.PostsToday" = "posts today";
 "Scene.FollowedTags.Title" = "Followed Tags";
+"Scene.Donation.Title" = "Donate to Mastodon";
 "Scene.Donation.Picker.OnceTitle" = "Just once";
 "Scene.Donation.Picker.MonthlyTitle" = "Monthly";
 "Scene.Donation.Picker.YearlyTitle" = "Yearly";

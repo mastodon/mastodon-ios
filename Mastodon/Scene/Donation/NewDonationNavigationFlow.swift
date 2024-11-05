@@ -34,11 +34,20 @@ class NewDonationNavigationFlow: NavigationFlow {
         let optionsController = DonationViewController(campaign: campaign) {
             [weak self] attemptedDonation in
             guard let s = self else { return }
-            s.showDonationPaymentWebview(
-                attemptedDonation, campaign: s.campaign)
+            if let attemptedDonation {
+                s.showDonationPaymentWebview(
+                    attemptedDonation, campaign: s.campaign)
+            } else {
+                s.dismissFlow()
+            }
         }
-
-        flowPresenter.show(optionsController, preferredDetents: [.medium()])
+        
+        if flowPresenter is UINavigationController {
+            flowPresenter.show(optionsController, preferredDetents: [.medium()])
+        } else {
+            let navController = UINavigationController(rootViewController: optionsController)
+            flowPresenter.show(navController, preferredDetents: [.medium()])
+        }
     }
 
     private func showDonationPaymentWebview(

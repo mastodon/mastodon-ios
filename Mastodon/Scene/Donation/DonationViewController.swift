@@ -11,11 +11,15 @@ class DonationViewController: UIHostingController<DonationView> {
 
     init(
         campaign: DonationCampaignViewModel?,
-        completion: @escaping (URL) -> Void
+        completion: @escaping (URL?) -> Void
     ) {
         super.init(
             rootView: DonationView(
                 campaign ?? DefaultDonationViewModel(), completion: completion))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: UIAction(handler: { _ in
+            completion(nil)
+        }))
+        self.navigationItem.title = L10n.Scene.Donation.title
     }
 
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
@@ -38,7 +42,7 @@ extension DonationFrequency {
 
 struct DonationView: View {
     let campaign: DonationCampaignViewModel
-    let completion: (URL) -> Void
+    let completion: (URL?) -> Void
 
     @State var selectedFrequency: DonationFrequency
     @State var selectedCurrency: String
@@ -52,7 +56,7 @@ struct DonationView: View {
 
     init(
         _ campaign: DonationCampaignViewModel,
-        completion: @escaping (URL) -> Void
+        completion: @escaping (URL?) -> Void
     ) {
         self.completion = completion
         self.campaign = campaign
@@ -64,7 +68,7 @@ struct DonationView: View {
     var body: some View {
         HStack {
             Spacer()
-            VStack(spacing: 36) {
+            VStack(spacing: 30) {
                 topMessage
                 frequencyPicker
                 amountEntry
@@ -73,6 +77,7 @@ struct DonationView: View {
             .frame(maxWidth: 328)
             Spacer()
         }
+        .padding(.top)
     }
 
     @ViewBuilder var topMessage: some View {
@@ -120,9 +125,10 @@ struct DonationView: View {
                     value: $selectedAmount,
                     format: .currency(code: selectedCurrency)
                 ) {}
-                .keyboardType(.numberPad)
-                .multilineTextAlignment(.trailing)
-                .padding(.trailing, 8)
+                    .font(.title3)
+                    .keyboardType(.numberPad)
+                    .multilineTextAlignment(.trailing)
+                    .padding(.trailing, 8)
 
             }
             .background(
@@ -165,10 +171,7 @@ struct DonationView: View {
         }) {
             HStack {
                 Spacer()
-                Image(systemName: "heart.fill")
-                    .foregroundStyle(.white)
                 Text(L10n.Scene.Donation.donateButtonTitle)
-                    .foregroundStyle(.white)
                 Spacer()
             }
             .frame(maxWidth: .infinity)
@@ -192,28 +195,30 @@ struct DonationButtonStyle: ButtonStyle {
         switch (type, filled) {
         case (.amount, true):
             configuration.label
+                .bold()
                 .padding()
-                .background(Color(Asset.Colors.Secondary.container.color))
+                .foregroundStyle(Color.white)
+                .background(Color.indigo)
                 .cornerRadius(cornerRadius)
         case (.amount, false):
             configuration.label
                 .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: cornerRadius).stroke(
-                        Color(Asset.Colors.outline.color), lineWidth: 1))
+                .background(Color.indigo.opacity(0.15))
+                .cornerRadius(cornerRadius)
         case (.action, true):
             configuration.label
+                .bold()
                 .foregroundStyle(.white)
                 .padding()
-                .background(Color(Asset.Colors.Primary._300.color))
+                .background(Color.indigo)
                 .cornerRadius(cornerRadius)
         case (.action, false):
             configuration.label
-                .foregroundStyle(Color(Asset.Colors.Primary._300.color))
+                .foregroundStyle(Color.indigo)
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius).stroke(
-                        Color(Asset.Colors.outline.color), lineWidth: 1))
+                        Color.indigo, lineWidth: 1))
         }
     }
 }
