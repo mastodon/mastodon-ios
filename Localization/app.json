@@ -791,7 +791,7 @@
                 "general": "General",
                 "notifications": "Notifications",
                 "privacy_safety": "Privacy & Safety",
-                "support_mastodon": "Support Mastodon",
+                "support_mastodon": "Donate to Mastodon",
                 "about_mastodon": "About Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logout %@"
@@ -981,7 +981,8 @@
             "success": {
                 "title": "Thank you for your contribution!",
                 "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
+                "server_error_title": "Payment failed",
+                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
                 "share_button_title": "Spread the word"
             }
         }
