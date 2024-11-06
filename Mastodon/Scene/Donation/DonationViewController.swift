@@ -44,9 +44,9 @@ struct DonationView: View {
     let campaign: DonationCampaignViewModel
     let completion: (URL?) -> Void
 
-    @State var selectedFrequency: DonationFrequency
-    @State var selectedCurrency: String
-    @State var selectedAmount: Int
+    @State private var selectedFrequency: DonationFrequency
+    @State private var selectedCurrency: String
+    @State private var selectedAmount: Int
 
     var urlForCurrentSelections: URL? {
         campaign.paymentURL(
@@ -60,9 +60,9 @@ struct DonationView: View {
     ) {
         self.completion = completion
         self.campaign = campaign
-        selectedFrequency = campaign.defaultFrequency
-        selectedCurrency = campaign.defaultCurrency
-        selectedAmount = campaign.defaultAmount
+        _selectedFrequency = State(initialValue: campaign.defaultFrequency)
+        _selectedCurrency = State(initialValue: campaign.defaultCurrency)
+        _selectedAmount = State(initialValue: campaign.defaultAmount)
     }
 
     var body: some View {
