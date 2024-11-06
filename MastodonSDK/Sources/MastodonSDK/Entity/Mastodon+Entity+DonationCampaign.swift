@@ -2,6 +2,10 @@
 
 import Foundation
 
+private let maxCampaignsToRemember = 25
+private let dismissedCampaignsKey = "dismissed_donation_campaigns"
+private let contributedCampaignsKey = "contributed_donation_campaigns"
+
 extension Mastodon.Entity {
 
     public enum DonationError: Swift.Error {
@@ -9,7 +13,7 @@ extension Mastodon.Entity {
     }
 
     public struct DonationCampaign: Codable {
-
+        
         public enum DonationSource {
             case campaign(id: String)
             case menu
@@ -112,6 +116,31 @@ extension Mastodon.Entity {
             case donationUrl = "donation_url"
             case donationSuccessPost = "donation_success_post"
             case amounts
+        }
+        
+        static public func hasPreviouslyDismissed(_ campaign: String) -> Bool {
+            let ids = UserDefaults.standard.array(forKey: dismissedCampaignsKey) as? [String]
+            return ids?.contains(campaign) ?? false
+        }
+        static public func hasPreviouslyContributed(_ campaign: String) -> Bool {
+            let ids = UserDefaults.standard.array(forKey: contributedCampaignsKey) as? [String]
+            return ids?.contains(campaign) ?? false
+        }
+        static public func didDismiss(_ campaign: String) {
+            var ids = UserDefaults.standard.array(forKey: dismissedCampaignsKey) as? [String] ?? []
+            if ids.count == maxCampaignsToRemember {
+                ids.removeFirst()
+            }
+            ids.append(campaign)
+            UserDefaults.standard.setValue(ids, forKey: dismissedCampaignsKey)
+        }
+        static public func didContribute(_ campaign: String) {
+            var ids = UserDefaults.standard.array(forKey: contributedCampaignsKey) as? [String] ?? []
+            if ids.count == maxCampaignsToRemember {
+                ids.removeFirst()
+            }
+            ids.append(campaign)
+            UserDefaults.standard.setValue(ids, forKey: contributedCampaignsKey)
         }
     }
 }

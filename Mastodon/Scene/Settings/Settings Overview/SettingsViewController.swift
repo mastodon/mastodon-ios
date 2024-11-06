@@ -12,6 +12,7 @@ protocol SettingsViewControllerDelegate: AnyObject {
 class SettingsViewController: UIViewController {
 
     let sections: [SettingsSection]
+    var donationCampaign: Mastodon.Entity.DonationCampaign?
 
     weak var delegate: SettingsViewControllerDelegate?
     var tableViewDataSource: UITableViewDiffableDataSource<SettingsSection, SettingsEntry>?

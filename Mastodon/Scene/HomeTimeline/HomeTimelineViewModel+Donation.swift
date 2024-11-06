@@ -25,6 +25,7 @@ extension HomeTimelineViewModel {
             do {
                 let campaign = try await self.context.apiService
                     .getDonationCampaign(seed: seed, source: nil).value
+                guard !Mastodon.Entity.DonationCampaign.hasPreviouslyDismissed(campaign.id) && !Mastodon.Entity.DonationCampaign.hasPreviouslyContributed(campaign.id) else { return }
                 onPresentDonationCampaign.send(campaign)
             } catch {
                 // no-op

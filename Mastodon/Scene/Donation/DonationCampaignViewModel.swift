@@ -20,6 +20,7 @@ typealias DonationFrequency = Mastodon.Entity.DonationCampaign.DonationFrequency
 typealias DonationSource = Mastodon.Entity.DonationCampaign.DonationSource
 
 protocol DonationCampaignViewModel {
+    var id: String { get }
     func paymentURL(
         currency: String, source: DonationSource,
         frequency: Mastodon.Entity.DonationCampaign.DonationFrequency,

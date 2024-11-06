@@ -224,7 +224,7 @@ struct DonationButtonStyle: ButtonStyle {
 }
 
 struct DefaultDonationViewModel: DonationCampaignViewModel {
-
+    var id: String = "default"
     var paymentBaseURL: URL? {
         if Mastodon.API.isTestingDonations {
             URL(string: "https://sponsor.staging.joinmastodon.org/donation/new")

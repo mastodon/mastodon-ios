@@ -74,6 +74,7 @@ class NewDonationNavigationFlow: NavigationFlow {
         case "success":
             result = .successful(suggestedPost: campaign.donationSuccessPost)
             showDonationCompletionMessage(result)
+            Mastodon.Entity.DonationCampaign.didContribute(campaign.id)
         case "failure":
             let alert = UIAlertController(
                 title: L10n.Scene.Donation.Success.serverErrorTitle,

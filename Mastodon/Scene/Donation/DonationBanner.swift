@@ -10,7 +10,7 @@ class DonationBanner: UIView {
         static let textToButtonPadding: CGFloat = 48
     }
 
-    private var campaign: Mastodon.Entity.DonationCampaign?
+    public private(set) var campaign: Mastodon.Entity.DonationCampaign?
     private lazy var backgroundImageView = UIImageView(
         image: Asset.Asset.scribble.image)
     private let messageLabel = UILabel()
@@ -32,7 +32,7 @@ class DonationBanner: UIView {
         setupViews()
     }
 
-    var onClose: (() -> Void)?
+    var onClose: ((String?) -> Void)?
     var onShowDonationDialog: ((Mastodon.Entity.DonationCampaign) -> Void)?
 
     required init?(coder: NSCoder) {
@@ -114,7 +114,7 @@ class DonationBanner: UIView {
 
     @objc
     private func closeButtonPressed(_ sender: Any?) {
-        onClose?()
+        onClose?(campaign?.id)
     }
 
     @objc

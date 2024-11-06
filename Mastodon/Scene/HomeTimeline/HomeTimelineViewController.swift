@@ -451,8 +451,11 @@ extension HomeTimelineViewController {
         view.addSubview(donationBanner)
         donationBanner.alpha = 0
         donationBanner.translatesAutoresizingMaskIntoConstraints = false
-        donationBanner.onClose = { [weak self] in
+        donationBanner.onClose = { [weak self] campaignID in
             self?.hideDonationCampaignBanner()
+            if let campaignID {
+                Mastodon.Entity.DonationCampaign.didDismiss(campaignID)
+            }
         }
         donationBanner.onShowDonationDialog = { [weak self] campaign in
             self?.showDonationCampaign(campaign)
