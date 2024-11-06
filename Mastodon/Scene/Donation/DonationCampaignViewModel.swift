@@ -113,7 +113,7 @@ extension Mastodon.Entity.DonationCampaign: DonationCampaignViewModel {
         return .campaign(id: id)
     }
     var defaultFrequency: DonationFrequency {
-        return .monthly
+        return availableFrequencies.last ?? .monthly
     }
     var defaultCurrency: String {
         let fallback = "EUR"
@@ -135,7 +135,7 @@ extension Mastodon.Entity.DonationCampaign: DonationCampaignViewModel {
     }
 
     var availableFrequencies: [DonationFrequency] {
-        return [.monthly, .oneTime, .yearly].filter {
+        return [.oneTime, .monthly, .yearly].filter {
             suggestedAmounts($0)?.isNotEmpty ?? false
         }
     }
