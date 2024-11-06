@@ -2,6 +2,7 @@
 
 import UIKit
 import MastodonLocalization
+import MastodonSDK
 
 struct SettingsSection: Hashable {
     let entries: [SettingsEntry]
@@ -16,6 +17,8 @@ enum SettingsEntry: Hashable {
     case makeDonation
     case manageDonations
     case logout(accountName: String)
+    case toggleTestDonations
+    case clearPreviousDonationCampaigns
 
     var title: String {
         switch self {
@@ -35,6 +38,10 @@ enum SettingsEntry: Hashable {
                 return L10n.Scene.Settings.Overview.aboutMastodon
             case .logout(let accountName):
                 return L10n.Scene.Settings.Overview.logout(accountName)
+            case .toggleTestDonations:
+                return Mastodon.API.isTestingDonations ? "Donations use staging: ON" : "Donations use staging: OFF"
+            case .clearPreviousDonationCampaigns:
+                return "Clear Donation History"
         }
     }
 
@@ -42,7 +49,9 @@ enum SettingsEntry: Hashable {
         switch self {
             case .serverDetails(domain: let domain):
                 return domain
-        case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon, .logout(_):
+            case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon, .logout(_):
+                return nil
+            case .toggleTestDonations, .clearPreviousDonationCampaigns:
                 return nil
         }
     }
@@ -51,6 +60,8 @@ enum SettingsEntry: Hashable {
         switch self {
             case .general, .notifications, .privacySafety, .serverDetails(_), .makeDonation, .manageDonations, .aboutMastodon, .logout(_):
                 return .disclosureIndicator
+            case .toggleTestDonations, .clearPreviousDonationCampaigns:
+                return .none
         }
     }
 
@@ -72,6 +83,8 @@ enum SettingsEntry: Hashable {
                 return UIImage(systemName: "info.circle.fill")
             case .logout(_):
                 return nil
+            case .toggleTestDonations, .clearPreviousDonationCampaigns:
+                return nil
         }
     }
 
@@ -91,6 +104,8 @@ enum SettingsEntry: Hashable {
                 return .systemPurple
             case .logout(_):
                 return nil
+            case .toggleTestDonations, .clearPreviousDonationCampaigns:
+                return nil
         }
 
     }
@@ -101,6 +116,8 @@ enum SettingsEntry: Hashable {
                 return .label
             case .logout(_):
                 return .red
+            case .toggleTestDonations, .clearPreviousDonationCampaigns:
+                return .systemIndigo
         }
 
     }

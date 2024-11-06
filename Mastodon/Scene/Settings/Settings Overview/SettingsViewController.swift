@@ -29,6 +29,9 @@ class SettingsViewController: UIViewController {
         if Mastodon.Entity.DonationCampaign.isEligibleForDonationsSettingsSection(domain: domain) {
             baseSections.insert(.init(entries: [.makeDonation, .manageDonations]), at: baseSections.count - 1)
         }
+        if isDebugOrTestflightOrSimulator {
+            baseSections.append(.init(entries: [.toggleTestDonations, .clearPreviousDonationCampaigns]))
+        }
         sections = baseSections
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)

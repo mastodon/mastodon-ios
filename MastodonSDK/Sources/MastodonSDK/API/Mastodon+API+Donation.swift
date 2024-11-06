@@ -2,7 +2,7 @@
 
 import Foundation
 
-private var isDebugOrTestflightOrSimulator: Bool {
+public var isDebugOrTestflightOrSimulator: Bool {
     #if DEBUG
         return true
     #else
@@ -15,7 +15,23 @@ private var isDebugOrTestflightOrSimulator: Bool {
 
 extension Mastodon.API {
     public static var isTestingDonations: Bool {
-        return isDebugOrTestflightOrSimulator
+        return isDebugOrTestflightOrSimulator && useStaging
+    }
+    public static func toggleTestingDonations() {
+        useStaging = !useStaging
+    }
+    private static let stagingKey = "use_staging_for_donations_testing"
+    private static var useStaging: Bool {
+        get {
+            if UserDefaults.standard.value(forKey: stagingKey) != nil {
+                return UserDefaults.standard.bool(forKey: stagingKey)
+            } else {
+                return true
+            }
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: stagingKey)
+        }
     }
 
     public static var donationsEndpoint: URL {

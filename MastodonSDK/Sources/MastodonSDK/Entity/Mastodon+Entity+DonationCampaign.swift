@@ -142,5 +142,9 @@ extension Mastodon.Entity {
             ids.append(campaign)
             UserDefaults.standard.setValue(ids, forKey: contributedCampaignsKey)
         }
+        static public func forgetPreviousCampaigns() {
+            UserDefaults.standard.removeObject(forKey: contributedCampaignsKey)
+            UserDefaults.standard.removeObject(forKey: dismissedCampaignsKey)
+        }
     }
 }

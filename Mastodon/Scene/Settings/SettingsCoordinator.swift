@@ -143,6 +143,11 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 navigationController.pushViewController(aboutViewController, animated: true)
             case .logout(_):
                 delegate?.logout(self)
+            case .toggleTestDonations:
+                Mastodon.API.toggleTestingDonations()
+                settingsViewController.tableView.reloadData()
+            case .clearPreviousDonationCampaigns:
+                Mastodon.Entity.DonationCampaign.forgetPreviousCampaigns()
         }
     }
 }
