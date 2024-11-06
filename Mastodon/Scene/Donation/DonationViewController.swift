@@ -137,7 +137,7 @@ struct DonationView: View {
 
             HStack {
                 if let predefinedAmounts = campaign.suggestedDonations(
-                    frequency: selectedFrequency, currency: selectedCurrency)
+                    frequency: selectedFrequency, currency: selectedCurrency, sorted: true)
                 {
                     ForEach(predefinedAmounts, id: \.unitAmount) { amount in
                         Button(action: {
@@ -250,7 +250,7 @@ struct DefaultDonationViewModel: DonationCampaignViewModel {
 
     var availableFrequencies = [DonationFrequency.monthly, .yearly, .oneTime]
 
-    func suggestedDonations(frequency: DonationFrequency, currency: String)
+    func suggestedDonations(frequency: DonationFrequency, currency: String, sorted: Bool)
         -> [SuggestedDonation]?
     {
         return [300, 500, 1000, 2000].map {

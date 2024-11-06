@@ -33,7 +33,7 @@ protocol DonationCampaignViewModel {
     var defaultCurrency: String { get }
     var defaultAmount: Int { get }
     var availableFrequencies: [DonationFrequency] { get }
-    func suggestedDonations(frequency: DonationFrequency, currency: String)
+    func suggestedDonations(frequency: DonationFrequency, currency: String, sorted: Bool)
         -> [SuggestedDonation]?
     func availableCurrencies(frequency: DonationFrequency) -> [String]?
     var donationSuccessPost: String { get }
@@ -129,7 +129,7 @@ extension Mastodon.Entity.DonationCampaign: DonationCampaignViewModel {
     var defaultAmount: Int {
         let least =
             suggestedDonations(
-                frequency: defaultFrequency, currency: defaultCurrency)?.last?
+                frequency: defaultFrequency, currency: defaultCurrency, sorted: false)?.first?
             .unitAmount ?? 1
         return least
     }
@@ -153,7 +153,7 @@ extension Mastodon.Entity.DonationCampaign: DonationCampaignViewModel {
         }
     }
 
-    func suggestedDonations(frequency: DonationFrequency, currency: String)
+    func suggestedDonations(frequency: DonationFrequency, currency: String, sorted: Bool)
         -> [SuggestedDonation]?
     {
         let multiCurrencySuggestions: MulticurrencySuggestedDonationAmounts?
@@ -169,7 +169,9 @@ extension Mastodon.Entity.DonationCampaign: DonationCampaignViewModel {
         guard let rawAmounts = multiCurrencySuggestions?[currency] else {
             return nil
         }
-        return rawAmounts.map {
+        
+        let inOrder = sorted ? rawAmounts.sorted().reversed() : rawAmounts
+        return inOrder.map {
             SuggestedDonation(pennies: $0, currency: currency)
         }
     }
