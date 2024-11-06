@@ -40,6 +40,24 @@ class SettingsCoordinator: NSObject, Coordinator {
         self.sceneCoordinator = sceneCoordinator
 
         settingsViewController = SettingsViewController(accountName: accountName, domain: authContext.mastodonAuthenticationBox.domain)
+        
+        super.init()
+        
+        Task { [weak self] in
+            guard let s = self else { return }
+            let userAuthentication = s.authContext.mastodonAuthenticationBox.authentication
+            let seed = Mastodon.Entity.DonationCampaign.donationSeed(username: userAuthentication.username, domain: userAuthentication.domain)
+            do {
+                let campaign = try await s.appContext.apiService.getDonationCampaign(seed: seed, source: nil).value
+                
+                await MainActor.run {
+                    s.settingsViewController.donationCampaign = campaign
+                    
+                }
+            } catch {
+                // TODO: it would be nice to hide the Make Donation row if there was nothing to configure the donation screen with
+            }
+        }
     }
 
     func start() {
@@ -103,22 +121,11 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 navigationController.pushViewController(serverDetailsViewController, animated: true)
             
             case .makeDonation:
-                Task { [weak self] in
-                    guard let s = self else { return }
-                    let campaign: Mastodon.Entity.DonationCampaign?
-                    let userAuthentication = s.authContext.mastodonAuthenticationBox.authentication
-                    
-                    let seed = Mastodon.Entity.DonationCampaign.donationSeed(username: userAuthentication.username, domain: userAuthentication.domain)
-                    
-                    do {
-                        campaign = try await s.appContext.apiService.getDonationCampaign(seed: seed, source: nil).value
-                    } catch {
-                        campaign = nil
-                    }
+                Task {
                     await MainActor.run { [weak self] in
-                        guard let s = self else { return }
+                        guard let s = self, let donationCampaign = s.settingsViewController.donationCampaign else { return }
                         
-                        let donationFlow = NewDonationNavigationFlow(flowPresenter: viewController, campaign: campaign, appContext: s.appContext, authContext: s.authContext, sceneCoordinator: s.sceneCoordinator)
+                        let donationFlow = NewDonationNavigationFlow(flowPresenter: viewController, campaign: donationCampaign, appContext: s.appContext, authContext: s.authContext, sceneCoordinator: s.sceneCoordinator)
                         s.navigationFlow = donationFlow
                         donationFlow.presentFlow { [weak self] in
                             self?.navigationFlow = nil

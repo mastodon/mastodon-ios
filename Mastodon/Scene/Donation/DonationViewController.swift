@@ -10,12 +10,12 @@ import UIKit
 class DonationViewController: UIHostingController<DonationView> {
 
     init(
-        campaign: DonationCampaignViewModel?,
+        campaign: DonationCampaignViewModel,
         completion: @escaping (URL?) -> Void
     ) {
         super.init(
             rootView: DonationView(
-                campaign ?? DefaultDonationViewModel(), completion: completion))
+                campaign, completion: completion))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: UIAction(handler: { _ in
             completion(nil)
         }))

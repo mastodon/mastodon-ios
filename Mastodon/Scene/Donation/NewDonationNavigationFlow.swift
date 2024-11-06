@@ -16,10 +16,10 @@ class NewDonationNavigationFlow: NavigationFlow {
 
     init(
         flowPresenter: NavigationFlowPresenter,
-        campaign: DonationCampaignViewModel?, appContext: AppContext,
+        campaign: DonationCampaignViewModel, appContext: AppContext,
         authContext: AuthContext, sceneCoordinator: SceneCoordinator
     ) {
-        self.campaign = campaign ?? DefaultDonationViewModel()
+        self.campaign = campaign
         self.appContext = appContext
         self.authContext = authContext
         self.sceneCoordinator = sceneCoordinator
