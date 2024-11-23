@@ -752,8 +752,8 @@
                 "mark_statuses_as_sensitive": "Some of your posts have been marked as sensitive.",
                 "delete_statuses": "Some of your posts have been removed.",
                 "sensitive": "Your posts will be marked as sensitive from now on.",
-                "silence": "Your account has been limited.",
-                "suspend": "Your account has been suspended.",
+                "silence": "Dein Konto wurde eingeschränkt.",
+                "suspend": "Dein Konto wurde gesperrt.",
                 "learn_more": "Mehr erfahren"
             }
         },
@@ -848,7 +848,7 @@
                 "default_post_visibility": {
                     "title": "Standard-Sichtbarkeit von Beiträgen",
                     "public": "Öffentlich",
-                    "followers_only": "Followers Only",
+                    "followers_only": "Nur für Follower",
                     "only_people_mentioned": "Nur erwähnte Profile"
                 },
                 "manually_approve_follow_requests": "Manuelles Genehmigen von Folgeanfragen",
@@ -906,7 +906,7 @@
                 "unfollowed": "Entfolgt",
                 "unfollow_user": "%s entfolgen",
                 "mute_user": "%s stummschalten",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du wirst die Beiträge vom Konto nicht mehr sehen. Das Konto kann dir immer noch folgen, und die Person hinter dem Konto wird deine Beiträge sehen können und nicht wissen, dass du sie stummgeschaltet hast.",
                 "block_user": "%s blockieren",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Du wirst die Beiträge von diesem Konto nicht sehen. Das Konto wird nicht in der Lage sein, deine Beiträge zu sehen oder dir zu folgen. Die Person hinter dem Konto wird wissen, dass du das Konto blockiert hast.",
                 "while_we_review_this_you_can_take_action_against_user": "Während wir dies überprüfen, kannst du gegen %s vorgehen"
