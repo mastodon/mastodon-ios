@@ -169,7 +169,19 @@ extension MediaView {
         playerViewController.showsPlaybackControls = false
         
         // auto play for GIF
-        player.play()
+        if !UIAccessibility.isReduceMotionEnabled {
+            player.play()
+        }
+        NotificationCenter.default
+            .publisher(for: UIAccessibility.reduceMotionStatusDidChangeNotification)
+            .sink { _ in
+                if UIAccessibility.isReduceMotionEnabled {
+                    player.pause()
+                } else {
+                    player.play()
+                }
+            }
+            .store(in: &_disposeBag)
 
         bindAlt(configuration: configuration, altDescription: info.altDescription)
     }
@@ -275,6 +287,7 @@ extension MediaView {
         let playerItem = AVPlayerItem(url: url)
         let player = AVQueuePlayer(playerItem: playerItem)
         player.isMuted = true
+        player.preventsDisplaySleepDuringVideoPlayback = false
         return player
     }
     
