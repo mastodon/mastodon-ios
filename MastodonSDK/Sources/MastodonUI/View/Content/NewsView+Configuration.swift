@@ -36,7 +36,8 @@ extension NewsView {
             info: .image(info: .init(
                 aspectRadio: CGSize(width: link.width, height: link.height),
                 assetURL: link.image,
-                altDescription: nil
+                altDescription: nil,
+                focus: nil
             )),
             blurhash: link.blurhash,
             index: 1,

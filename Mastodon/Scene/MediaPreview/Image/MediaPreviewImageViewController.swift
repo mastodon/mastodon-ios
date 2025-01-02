@@ -180,7 +180,10 @@ extension MediaPreviewImageViewController {
 extension MediaPreviewImageViewController: MediaPreviewTransitionViewController {
     var mediaPreviewTransitionContext: MediaPreviewTransitionContext? {
         let imageView = previewImageView.imageView
-        let _snapshot: UIView? = imageView.snapshotView(afterScreenUpdates: false)
+        // We must hide liveTextInteraction's view from snapshot
+        previewImageView.liveTextInteraction.setSupplementaryInterfaceHidden(true, animated: false)
+        let _snapshot: UIView? = imageView.snapshotView(afterScreenUpdates: true)
+        previewImageView.liveTextInteraction.setSupplementaryInterfaceHidden(false, animated: false)
         
         guard let snapshot = _snapshot else {
             return nil

@@ -61,13 +61,22 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         
         // Set transition image view
         assert(transitionItem.initialFrame != nil)
+        let initialContainerFrame = transitionItem.initialContainerFrame ?? toViewEndFrame
         let initialFrame = transitionItem.initialFrame ?? toViewEndFrame
+        
         let transitionTargetFrame: CGRect = {
-            let aspectRatio = transitionItem.aspectRatio ?? CGSize(width: initialFrame.width, height: initialFrame.height)
+            let aspectRatio = transitionItem.aspectRatio ?? CGSize(width: initialContainerFrame.width, height: initialContainerFrame.height)
             return AVMakeRect(aspectRatio: aspectRatio, insideRect: toView.bounds.inset(by: toView.safeAreaInsets))
         }()
+        
+        // We need an additional clipping container because the image origin can be shifted with the focus point
+        let transitionContainer: UIView = {
+            let view = UIView(frame: transitionContext.containerView.convert(initialContainerFrame, from: nil))
+            view.clipsToBounds = true
+            return view
+        }()
         let transitionImageView: UIImageView = {
-            let imageView = UIImageView(frame: transitionContext.containerView.convert(initialFrame, from: nil))
+            let imageView = UIImageView(frame: initialFrame)
             imageView.clipsToBounds = true
             imageView.contentMode = .scaleAspectFill
             imageView.isUserInteractionEnabled = false
@@ -76,9 +85,10 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             imageView.accessibilityIgnoresInvertColors = true
             return imageView
         }()
+        transitionContainer.addSubview(transitionImageView)
+        transitionContext.containerView.addSubview(transitionContainer)
         transitionItem.targetFrame = transitionTargetFrame
-        transitionItem.transitionView = transitionImageView
-        transitionContext.containerView.addSubview(transitionImageView)
+        transitionItem.transitionView = transitionContainer
         
         toVC.topToolbar.alpha = 0
 
@@ -87,9 +97,10 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         }
 
         let animator = MediaHostToMediaPreviewViewControllerAnimatedTransitioning.animator(initialVelocity: .zero)
-                
+
         animator.addAnimations {
-            transitionImageView.frame = transitionTargetFrame
+            transitionContainer.frame = transitionTargetFrame
+            transitionImageView.frame = CGRect(origin: .zero, size: transitionTargetFrame.size)
             toView.alpha = 1
             if UIAccessibility.isReduceTransparencyEnabled {
                 toVC.visualEffectView.alpha = 1
@@ -98,7 +109,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
 
         animator.addCompletion { position in
             toVC.pagingViewController.view.alpha = 1
-            transitionImageView.removeFromSuperview()
+            transitionContainer.removeFromSuperview()
             UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
                 toVC.topToolbar.alpha = 1
             }
@@ -196,20 +207,31 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         transitionMaskView.layer.mask = maskLayer
         transitionItem.interactiveTransitionMaskLayer = maskLayer
     
-        // attach transitioning snapshot
-        mediaPreviewTransitionContext.snapshot.center = transitionMaskView.center
         mediaPreviewTransitionContext.snapshot.contentMode = .scaleAspectFill
         mediaPreviewTransitionContext.snapshot.clipsToBounds = true
-        transitionMaskView.addSubview(mediaPreviewTransitionContext.snapshot)
+
+        let transitionContainerView = UIView(frame: .zero)
+        transitionContainerView.frame.size = mediaPreviewTransitionContext.snapshot.frame.size
+        transitionContainerView.center = transitionMaskView.center
+        transitionContainerView.clipsToBounds = true
+
+        // attach transitioning snapshot
+        transitionContainerView.addSubview(mediaPreviewTransitionContext.snapshot)
+        transitionMaskView.addSubview(transitionContainerView)
         fromVC.view.bringSubviewToFront(fromVC.topToolbar)
 
         transitionItem.transitionView = mediaPreviewTransitionContext.transitionView
         transitionItem.snapshotTransitioning = mediaPreviewTransitionContext.snapshot
+        transitionItem.initialContainerFrame = transitionContainerView.frame
         transitionItem.initialFrame = mediaPreviewTransitionContext.snapshot.frame
+        transitionItem.containerSnapshotTransitioning = transitionContainerView
 
         // assert view hierarchy not change
         let toVC = transitionItem.previewableViewController
-        let targetFrame = toVC.sourceFrame(transitionItem: transitionItem, index: index)
+        let targetFramesProvider = toVC.sourceFrame(transitionItem: transitionItem, index: index)
+        let containerTargetFrame = targetFramesProvider?.containerSourceFrame
+        let targetFrame = targetFramesProvider?.contentSourceFrame
+        transitionItem.containerTargetFrame = containerTargetFrame
         transitionItem.targetFrame = targetFrame
         
         animator.addAnimations {
@@ -221,13 +243,18 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         
         if !isInteractive {
             animator.addAnimations {
-                if let targetFrame = targetFrame {
+                if let containerTargetFrame {
                     switch self.transitionItem.source {
                     case .profileBanner:
                         fromView.alpha = 0
                         self.transitionItem.snapshotTransitioning?.alpha = 0
                     default:
-                        self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                        self.transitionItem.containerSnapshotTransitioning?.frame = containerTargetFrame
+                        if let targetFrame {
+                            self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                        } else {
+                            self.transitionItem.snapshotTransitioning?.frame.size = containerTargetFrame.size
+                        }
                     }
                 } else {
                     fromView.alpha = 0
@@ -262,7 +289,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         animator.addCompletion { position in
             self.transitionItem.transitionView?.isHidden = position == .end
             self.transitionItem.snapshotRaw?.alpha = position == .start ? 1.0 : 0.0
-            self.transitionItem.snapshotTransitioning?.removeFromSuperview()
+            self.transitionItem.containerSnapshotTransitioning?.removeFromSuperview()
         }
         
         return animator
@@ -389,7 +416,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         var maskLayerToFinalPath: CGPath?
         if toPosition == .end,
            let transitionMaskView = transitionItem.interactiveTransitionMaskView,
-           let snapshot = transitionItem.snapshotTransitioning {
+           let snapshot = transitionItem.containerSnapshotTransitioning {
             let toVC = transitionItem.previewableViewController
             
             var needsMaskWithAnimation = true
@@ -445,20 +472,27 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
                 switch self.transitionItem.source {
                 case .profileBanner where toPosition == .end:
                     // fade transition for banner
-                    self.transitionItem.snapshotTransitioning?.alpha = 0
+                    self.transitionItem.containerSnapshotTransitioning?.alpha = 0
                 default:
-                    if let targetFrame = self.transitionItem.targetFrame {
-                        self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                    if let containerTargetFrame = self.transitionItem.containerTargetFrame {
+                        self.transitionItem.containerSnapshotTransitioning?.frame = containerTargetFrame
+                        if let targetFrame = self.transitionItem.targetFrame {
+                            self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                        } else {
+                            self.transitionItem.snapshotTransitioning?.frame.size = containerTargetFrame.size
+                        }
                     } else {
-                        self.transitionItem.snapshotTransitioning?.alpha = 0
+                        self.transitionItem.containerSnapshotTransitioning?.alpha = 0
                     }
                 }
                 
             } else {
-                if let initialFrame = self.transitionItem.initialFrame {
+                if let initialFrame = self.transitionItem.initialFrame,
+                   let initialContainerFrame = self.transitionItem.initialContainerFrame {
                     self.transitionItem.snapshotTransitioning?.frame = initialFrame
+                    self.transitionItem.containerSnapshotTransitioning?.frame = initialContainerFrame
                 } else {
-                    self.transitionItem.snapshotTransitioning?.alpha = 1
+                    self.transitionItem.containerSnapshotTransitioning?.alpha = 1
                 }
             }
         }
@@ -491,34 +525,47 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         // assert(initialSize != .zero)
 
         guard let transitionView = transitionItem.transitionView,
+              let container = transitionItem.containerSnapshotTransitioning,
               let snapshot = transitionItem.snapshotTransitioning,
-              let finalSize = transitionItem.targetFrame?.size
+              let containerFinalRect = transitionItem.containerTargetFrame
         else {
             return
         }
 
-        if snapshot.frame.size == .zero {
+        let snapshotFinalRect = transitionItem.targetFrame ?? containerFinalRect
+
+        if container.frame.size == .zero && snapshot.frame.size == .zero {
             assertionFailure("divide 0 error")
+            container.frame.size = initialSize
             snapshot.frame.size = initialSize
         }
 
-        let size = transitionView.frame.size
-        if size.width == .zero || size.height == .zero {
-            assertionFailure("divide 0 error")
-            transitionView.frame.size = initialSize
+        func calculateOffset(for view: UIView, finalSize: CGSize, touchOffset: inout CGVector) {
+            let size = transitionView.frame.size
+            if size.width == .zero || size.height == .zero {
+                assertionFailure("divide 0 error")
+                transitionView.frame.size = initialSize
+            }
+
+            let itemPercentComplete = clip(-0.05, 1.05, (size.width - initialSize.width) / (finalSize.width - initialSize.width) + progress)
+            let itemWidth = lerp(initialSize.width, finalSize.width, itemPercentComplete)
+            let itemHeight = lerp(initialSize.height, finalSize.height, itemPercentComplete)
+            let scaleTransform = CGAffineTransform(scaleX: (itemWidth / size.width), y: (itemHeight / size.height))
+            let scaledOffset = touchOffset.apply(transform: scaleTransform)
+
+            let center = transitionView.convert(CGPoint(x: transitionView.bounds.midX, y: transitionView.bounds.midY), to: nil)
+            view.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: itemWidth, height: itemHeight))
+            view.center = (center + (translation + (touchOffset - scaledOffset))).point
+
+            touchOffset = scaledOffset
         }
 
-        let itemPercentComplete = clip(-0.05, 1.05, (size.width - initialSize.width) / (finalSize.width - initialSize.width) + progress)
-        let itemWidth = lerp(initialSize.width, finalSize.width, itemPercentComplete)
-        let itemHeight = lerp(initialSize.height, finalSize.height, itemPercentComplete)
-        let scaleTransform = CGAffineTransform(scaleX: (itemWidth / size.width), y: (itemHeight / size.height))
-        let scaledOffset = transitionItem.touchOffset.apply(transform: scaleTransform)
-
-        let center = transitionView.convert(CGPoint(x: transitionView.bounds.midX, y: transitionView.bounds.midY), to: nil)
-        snapshot.center = (center + (translation + (transitionItem.touchOffset - scaledOffset))).point
-        snapshot.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: itemWidth, height: itemHeight))
-        transitionItem.touchOffset = scaledOffset
+        calculateOffset(for: container, finalSize: containerFinalRect.size, touchOffset: &transitionItem.containerTouchOffset)
+        calculateOffset(for: snapshot, finalSize: snapshotFinalRect.size, touchOffset: &transitionItem.touchOffset)
+        snapshot.frame.origin = snapshotFinalRect == containerFinalRect ? .zero : CGPoint(
+            x: progress * snapshotFinalRect.origin.x,
+            y: progress * snapshotFinalRect.origin.y
+        )
     }
-    
 }
 

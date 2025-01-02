@@ -32,11 +32,17 @@ extension [Mastodon.Entity.Attachment]? {
                 durationMS = nil;
             }
 
+            let focus: CGPoint? = if let focus = media.meta?.focus {
+                CGPoint(x: focus.x, y: focus.y)
+            } else {
+                nil
+            }
+
             return MastodonAttachment(
                 id: media.id,
                 kind: kind,
                 size: CGSize(width: width, height: height),
-                focus: nil,    // TODO:
+                focus: focus,
                 blurhash: media.blurhash,
                 assetURL: media.url,
                 previewURL: media.previewURL,

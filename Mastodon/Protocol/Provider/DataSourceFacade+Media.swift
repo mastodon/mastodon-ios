@@ -92,8 +92,13 @@ extension DataSourceFacade {
             
             let mediaView = previewContext.mediaView
 
-            item.initialFrame = {
+            item.initialContainerFrame = {
                 let initialFrame = mediaView.superview!.convert(mediaView.frame, to: nil)
+                assert(initialFrame != .zero)
+                return initialFrame
+            }()
+            item.initialFrame = {
+                let initialFrame = mediaView.contentView().frame
                 assert(initialFrame != .zero)
                 return initialFrame
             }()

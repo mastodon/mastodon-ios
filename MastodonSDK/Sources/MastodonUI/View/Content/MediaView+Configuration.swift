@@ -109,15 +109,18 @@ extension MediaView.Configuration {
         public let aspectRadio: CGSize
         public let assetURL: String?
         public let altDescription: String?
+        public let focus: CGPoint?
         
         public init(
             aspectRadio: CGSize,
             assetURL: String?,
-            altDescription: String?
+            altDescription: String?,
+            focus: CGPoint?
         ) {
             self.aspectRadio = aspectRadio
             self.assetURL = assetURL
             self.altDescription = altDescription
+            self.focus = focus
         }
     }
     
@@ -199,7 +202,8 @@ extension MediaView {
                     let info = MediaView.Configuration.ImageInfo(
                         aspectRadio: attachment.size,
                         assetURL: attachment.assetURL,
-                        altDescription: attachment.altDescription
+                        altDescription: attachment.altDescription,
+                        focus: attachment.focus
                     )
                     return .init(
                         info: .image(info: info),
@@ -277,10 +281,16 @@ extension MediaView {
                 switch attachment.attachmentKind {
                 case .image:
                     guard let aspectRatio = aspectRatio(from: attachment) else { return nil }
+                    let focus: CGPoint? = if let focus = attachment.meta?.focus {
+                        CGPoint(x: focus.x, y: focus.y)
+                    } else {
+                        nil
+                    }
                     let info = MediaView.Configuration.ImageInfo(
                         aspectRadio: aspectRatio,
                         assetURL: attachment.url,
-                        altDescription: attachment.description
+                        altDescription: attachment.description,
+                        focus: focus
                     )
                     return .init(
                         info: .image(info: info),

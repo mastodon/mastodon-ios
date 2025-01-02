@@ -9,22 +9,50 @@ import UIKit
 
 protocol MediaPreviewableViewController: UIViewController {
     var mediaPreviewTransitionController: MediaPreviewTransitionController { get }
-    func sourceFrame(transitionItem: MediaPreviewTransitionItem, index: Int) -> CGRect?
+    func sourceFrame(transitionItem: MediaPreviewTransitionItem, index: Int) -> SourceFrameProvider?
+}
+
+struct SourceFrameProvider {
+    let containerSourceFrame: CGRect
+    let contentSourceFrame: CGRect?
 }
 
 extension MediaPreviewableViewController {
-    func sourceFrame(transitionItem: MediaPreviewTransitionItem, index: Int) -> CGRect? {
+    func sourceFrame(transitionItem: MediaPreviewTransitionItem, index: Int) -> SourceFrameProvider? {
+        var sourceFrameProvider: SourceFrameProvider?
         switch transitionItem.source {
         case .attachment(let mediaView):
-            return mediaView.superview?.convert(mediaView.frame, to: nil)
+            if let superview = mediaView.superview {
+                sourceFrameProvider = SourceFrameProvider(
+                    containerSourceFrame: superview.convert(mediaView.frame, to: nil),
+                    contentSourceFrame: mediaView.contentView().frame
+                )
+            }
         case .attachments(let mediaGridContainerView):
-            guard index < mediaGridContainerView.mediaViews.count else { return nil }
+            guard index < mediaGridContainerView.mediaViews.count else { break }
             let mediaView = mediaGridContainerView.mediaViews[index]
-            return mediaView.superview?.convert(mediaView.frame, to: nil)
+            if let superview = mediaView.superview {
+                sourceFrameProvider = SourceFrameProvider(
+                    containerSourceFrame: superview.convert(mediaView.frame, to: nil),
+                    contentSourceFrame: mediaView.contentView().frame
+                )
+            }
         case .profileAvatar(let profileHeaderView):
-            return profileHeaderView.avatarButton.superview?.convert(profileHeaderView.avatarButton.frame, to: nil)
+            if let superview = profileHeaderView.avatarButton.superview {
+                let rect = superview.convert(profileHeaderView.avatarButton.frame, to: nil)
+                sourceFrameProvider = SourceFrameProvider(
+                    containerSourceFrame: rect, contentSourceFrame: nil
+                )
+            }
         case .profileBanner(let profileHeaderView):
-            return profileHeaderView.bannerImageView.superview?.convert(profileHeaderView.bannerImageView.frame, to: nil)
+            if let superview = profileHeaderView.bannerImageView.superview {
+                let rect = superview.convert(profileHeaderView.bannerImageView.frame, to: nil)
+                sourceFrameProvider = SourceFrameProvider(
+                    containerSourceFrame: rect, contentSourceFrame: nil
+                )
+            }
         }
+
+        return sourceFrameProvider
     }
 }

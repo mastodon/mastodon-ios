@@ -17,18 +17,23 @@ class MediaPreviewTransitionItem: Identifiable {
     
     // source
     var image: UIImage?
+    var imageFocusPoint: CGPoint?
     var aspectRatio: CGSize?
+    var initialContainerFrame: CGRect? = nil
     var initialFrame: CGRect? = nil
     var sourceImageView: UIImageView?
     var sourceImageViewCornerRadius: CGFloat?
     
     // target
+    var containerTargetFrame: CGRect? = nil
     var targetFrame: CGRect? = nil
     
     // transitioning
     var transitionView: UIView?
     var snapshotRaw: UIView?
+    var containerSnapshotTransitioning: UIView?
     var snapshotTransitioning: UIView?
+    var containerTouchOffset: CGVector = CGVector.zero
     var touchOffset: CGVector = CGVector.zero
     var interactiveTransitionMaskView: UIView?
     var interactiveTransitionMaskLayer: CAShapeLayer?
