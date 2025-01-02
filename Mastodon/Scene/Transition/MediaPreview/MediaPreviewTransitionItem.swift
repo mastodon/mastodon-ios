@@ -17,7 +17,6 @@ class MediaPreviewTransitionItem: Identifiable {
     
     // source
     var image: UIImage?
-    var imageFocusPoint: CGPoint?
     var aspectRatio: CGSize?
     var initialContainerFrame: CGRect? = nil
     var initialFrame: CGRect? = nil
