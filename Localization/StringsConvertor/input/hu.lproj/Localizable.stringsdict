@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 olvasatlan értesítés</string>
         <key>other</key>
         <string>%ld olvasatlan értesítés</string>
       </dict>
@@ -29,7 +29,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 karakter</string>
         <key>other</key>
         <string>%ld karakter</string>
       </dict>
@@ -45,7 +45,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 karakter</string>
         <key>other</key>
         <string>%ld karakter</string>
       </dict>
@@ -61,7 +61,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>még 1 karakter</string>
         <key>other</key>
         <string>még %ld karakter</string>
       </dict>
@@ -104,7 +104,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>bejegyzés</string>
         <key>other</key>
         <string>bejegyzés</string>
       </dict>
@@ -120,7 +120,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 média</string>
         <key>other</key>
         <string>%ld média</string>
       </dict>
@@ -136,7 +136,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 bejegyzés</string>
         <key>other</key>
         <string>%ld bejegyzés</string>
       </dict>
@@ -152,7 +152,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 kedvenc</string>
         <key>other</key>
         <string>%ld kedvenc</string>
       </dict>
@@ -168,7 +168,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 megtolás</string>
         <key>other</key>
         <string>%ld megtolás</string>
       </dict>
@@ -186,7 +186,7 @@
         <key>one</key>
         <string>1 megtolás</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld megtolás</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -200,7 +200,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>1 válasz</string>
         <key>other</key>
         <string>%ld válasz</string>
       </dict>
@@ -216,7 +216,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 szavazat</string>
         <key>other</key>
         <string>%ld szavazat</string>
       </dict>
@@ -232,7 +232,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 szavazó</string>
         <key>other</key>
         <string>%ld szavazó</string>
       </dict>
@@ -248,7 +248,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 ember beszél róla</string>
         <key>other</key>
         <string>%ld ember beszél róla</string>
       </dict>
@@ -264,7 +264,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 követés</string>
         <key>other</key>
         <string>%ld követés</string>
       </dict>
@@ -280,7 +280,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 követő</string>
         <key>other</key>
         <string>%ld követő</string>
       </dict>
@@ -296,7 +296,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>1 év van hátra</string>
         <key>other</key>
         <string>%ld év van hátra</string>
       </dict>
@@ -312,7 +312,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>1 hónap van hátra</string>
         <key>other</key>
         <string>%ld hónap van hátra</string>
       </dict>
@@ -344,7 +344,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>1 óra van hátra</string>
         <key>other</key>
         <string>%ld óra van hátra</string>
       </dict>
@@ -360,7 +360,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>1 perc van hátra</string>
         <key>other</key>
         <string>%ld perc van hátra</string>
       </dict>
@@ -376,7 +376,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>1 másodperc van hátra</string>
         <key>other</key>
         <string>%ld másodperc van hátra</string>
       </dict>
@@ -392,7 +392,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1 éve</string>
         <key>other</key>
         <string>%ldy éve</string>
       </dict>
@@ -408,7 +408,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1 hónapja</string>
         <key>other</key>
         <string>%ldM hónapja</string>
       </dict>
@@ -424,7 +424,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>1 napja</string>
         <key>other</key>
         <string>%ldd napja</string>
       </dict>
@@ -440,7 +440,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1 órája</string>
         <key>other</key>
         <string>%ldh órája</string>
       </dict>
@@ -456,7 +456,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1 perce</string>
         <key>other</key>
         <string>%ldm perce</string>
       </dict>
@@ -472,7 +472,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1 másodperce</string>
         <key>other</key>
         <string>%lds másodperce</string>
       </dict>
@@ -488,9 +488,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>One person you may know</string>
+        <string>Egy személy, akit talán ismer</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>%ld személy, akit talán ismer</string>
       </dict>
     </dict>
   </dict>
