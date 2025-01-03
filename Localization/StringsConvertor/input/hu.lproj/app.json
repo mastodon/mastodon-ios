@@ -270,7 +270,7 @@
                     "show_more_replies": "További válaszok megjelenítése"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "Nem található bejegyzés",
                     "blocking_warning": "Nem láthatja ennek a felhasználónak a profilját,\namíg fel nem oldja a blokkolását.\nAz ön profilja így néz ki számukra.",
                     "user_blocking_warning": "Nem láthatja %s profilját,\namíg fel nem oldja a blokkolását.\nAz ön profilja így néz ki számukra.",
                     "blocked_warning": "Nem tekintheti meg a felhasználó profilját,\namíg fel nem oldja az ön blokkolását.",
@@ -401,8 +401,8 @@
                     "require": "A jelszónak legalább:",
                     "character_limit": "8 karakter",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "ellenőrzött",
+                        "unchecked": "nem ellenőrzött"
                     },
                     "hint": "A jelszónak legalább nyolc karakterből kell állnia"
                 },
@@ -480,7 +480,7 @@
                 "local_community": "Helyi",
                 "lists": {
                     "title": "Listák",
-                    "empty_message": "You don't have any Lists"
+                    "empty_message": "Nincsenek listái"
                 },
                 "hashtags": {
                     "title": "Követett címkék (hashtag)",
@@ -493,7 +493,7 @@
                 "post_sent": "Bejegyzés elküldve"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Ez a lista üres"
             }
         },
         "suggestion_account": {
@@ -520,7 +520,7 @@
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired...",
-                "load_failed": "Load Failed",
+                "load_failed": "Sikertelen beltöltés",
                 "upload_failed": "Sikertelen feltöltés",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "A melléklet túl nagy",
@@ -560,7 +560,7 @@
                 "append_attachment": "Melléklet hozzáadása",
                 "append_poll": "Szavazás létrehozása",
                 "remove_poll": "Szavazás eltávolítása",
-                "custom_emoji_picker": "Custom Emoji Picker",
+                "custom_emoji_picker": "Egyéni Emoji kiválasztó",
                 "enable_content_warning": "Tartalmi figyelmeztetés engedélyezése",
                 "disable_content_warning": "Tartalmi figyelmeztetés kikapcsolása",
                 "post_visibility_menu": "Bejegyzés láthatósági menü",
@@ -699,7 +699,7 @@
                 "url": "URL megnyitása a Mastodonon",
                 "hashtag": "Ugrás #%s",
                 "no_user": {
-                    "title": "No User Account Found",
+                    "title": "Nem található felhasználói fiók",
                     "message": "There's no Useraccount \"%s\" on %s"
                 },
                 "empty_state": {
@@ -718,7 +718,7 @@
                 "community": "Közösség",
                 "for_you": "Önnek"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Ezek a hozzászólások egyre nagyobb teret nyernek a Mastodonon."
         },
         "favorite": {
             "title": "Kedvencek"
@@ -747,7 +747,7 @@
                 "rejected": "Elutasítva"
             },
             "warning": {
-                "none": "Your account has received a moderation warning.",
+                "none": "A fiókja moderációs figyelmeztetést kapott.",
                 "disable": "A fiókod korlátozásra került.",
                 "mark_statuses_as_sensitive": "Néhány bejegyzésedet kényesnek jelölték.",
                 "delete_statuses": "Néhány bejegyzésedet eltávolították.",
@@ -766,7 +766,7 @@
                 "title": "Beállítások",
                 "general": "Általános",
                 "notifications": "Értesítések",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "Adatvédelem és biztonság",
                 "support_mastodon": "A Mastodon támogatása",
                 "about_mastodon": "A Mastodonról",
                 "server_details": "Kiszolgáló részletei",
@@ -833,25 +833,25 @@
                     "new_followers": "Új követők"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
+                    "notification_hint": "Kapcsolja be az értesítéseket a készülék beállításaiban, hogy a frissítéseket a zárolási képernyőn láthassa.",
                     "go_to_settings": "Ugrás az Értesítések beállításaihoz"
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Adatvédelem és biztonság",
                 "preset": {
                     "title": "Sablon",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
+                    "open_and_public": "Nyílt és nyilvános",
+                    "private_and_restricted": "Privát és korlátozott",
                     "custom": "Egyéni"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility",
+                    "title": "Alapértelmezett poszt láthatóság",
                     "public": "Nyilvános",
                     "followers_only": "Csak követőknek",
                     "only_people_mentioned": "Csak az említetteknek"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
+                "manually_approve_follow_requests": "Követési kérelmek kézi jóváhagyása",
                 "show_followers_and_following": "Show Followers & Following",
                 "suggest_my_account_to_others": "Suggest My Account to Others",
                 "appear_in_search_engines": "Appear in Search Engines"
@@ -887,13 +887,13 @@
             "step_two": {
                 "step_2_of_4": "2/4. lépés",
                 "which_rules_are_being_violated": "Mely szabályok lettek megsértve?",
-                "select_all_that_apply": "Select all that apply",
+                "select_all_that_apply": "Válassza ki a megfelelőket",
                 "i_just_don’t_like_it": "I just don’t like it"
             },
             "step_three": {
                 "step_3_of_4": "3/4. lépés",
                 "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "select_all_that_apply": "Válassza ki a megfelelőket"
             },
             "step_four": {
                 "step_4_of_4": "4/4. lépés",
@@ -949,7 +949,7 @@
     },
     "widget": {
         "common": {
-            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "unsupported_widget_family": "Sajnáljuk, de ez a Widget család nem támogatott.",
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
