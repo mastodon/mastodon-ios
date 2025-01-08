@@ -42,8 +42,10 @@ class SettingsViewController: UIViewController {
 
         let tableViewDataSource = UITableViewDiffableDataSource<SettingsSection, SettingsEntry>(tableView: tableView) { [weak self] tableView, indexPath, itemIdentifier in
             guard let self,
-                  let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.reuseIdentifier, for: indexPath) as? SettingsTableViewCell
-            else { fatalError("Wrong cell WTF??") }
+                  let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.reuseIdentifier, for: indexPath) as? SettingsTableViewCell else {
+                assertionFailure("unexpected cell dequeued")
+                return nil
+            }
 
             let entry = self.sections[indexPath.section].entries[indexPath.row]
             cell.update(with: entry)

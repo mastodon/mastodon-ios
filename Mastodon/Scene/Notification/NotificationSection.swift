@@ -43,11 +43,17 @@ extension NotificationSection {
             switch item {
             case .feed(let feed):
                 if let notification = feed.notification, let accountWarning = notification.accountWarning {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: AccountWarningNotificationCell.reuseIdentifier, for: indexPath) as! AccountWarningNotificationCell
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountWarningNotificationCell.reuseIdentifier, for: indexPath) as? AccountWarningNotificationCell else {
+                        assertionFailure("unexpected cell dequeued")
+                        return nil
+                    }
                     cell.configure(with: accountWarning)
                     return cell
                 } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as? NotificationTableViewCell else {
+                        assertionFailure("unexpected cell dequeued")
+                        return nil
+                    }
                     configure(
                         tableView: tableView,
                         cell: cell,
@@ -58,16 +64,24 @@ extension NotificationSection {
                 }
 
             case .feedLoader:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as? TimelineBottomLoaderTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 cell.activityIndicatorView.startAnimating()
                 return cell
             case .bottomLoader:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as? TimelineBottomLoaderTableViewCell else { assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 cell.activityIndicatorView.startAnimating()
                 return cell
 
             case .filteredNotifications(let policy):
-                let cell = tableView.dequeueReusableCell(withIdentifier: NotificationFilteringBannerTableViewCell.reuseIdentifier, for: indexPath) as! NotificationFilteringBannerTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: NotificationFilteringBannerTableViewCell.reuseIdentifier, for: indexPath) as? NotificationFilteringBannerTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 cell.configure(with: policy)
 
                 return cell

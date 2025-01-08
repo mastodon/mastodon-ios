@@ -29,11 +29,17 @@ extension PickServerSection {
             guard let _ = dependency else { return nil }
             switch item {
             case .server(let server, let attribute):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as? PickServerCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 PickServerSection.configure(cell: cell, server: server, attribute: attribute)
                 return cell
             case .loader(let attribute):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerLoaderTableViewCell.self), for: indexPath) as! PickServerLoaderTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerLoaderTableViewCell.self), for: indexPath) as? PickServerLoaderTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 PickServerSection.configure(cell: cell, attribute: attribute)
                 return cell
             }

@@ -31,7 +31,8 @@ class StatusEditHistoryViewController: UIViewController {
 
         let tableViewDataSource = UITableViewDiffableDataSource<Int, Mastodon.Entity.StatusEdit>(tableView: tableView) {tableView, indexPath, itemIdentifier in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: StatusEditHistoryTableViewCell.identifier, for: indexPath) as? StatusEditHistoryTableViewCell else {
-                fatalError("Wrong cell")
+                assertionFailure("unexpected cell dequeued")
+                return nil
             }
 
             let statusEdit = viewModel.edits[indexPath.row]

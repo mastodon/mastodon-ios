@@ -71,7 +71,10 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
         indexPath: IndexPath, point: CGPoint
     ) -> UIContextMenuConfiguration? {
 
-        guard let cell = tableView.cellForRow(at: indexPath) as? StatusViewContainerTableViewCell else { return nil }
+        guard let cell = tableView.cellForRow(at: indexPath) as? StatusViewContainerTableViewCell else {
+            assertionFailure("unexpected cell dequeued")
+            return nil
+        }
 
         let mediaViews = cell.statusView.mediaGridContainerView.mediaViews
         
@@ -218,6 +221,7 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
             parameters.visiblePath = UIBezierPath(roundedRect: mediaView.bounds, cornerRadius: MediaView.cornerRadius)
             return UITargetedPreview(view: mediaView, parameters: parameters)
         } else {
+            assertionFailure("unexpected cell dequeued")
             return nil
         }
     }

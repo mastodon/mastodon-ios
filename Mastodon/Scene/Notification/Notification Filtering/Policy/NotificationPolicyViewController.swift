@@ -90,7 +90,8 @@ class NotificationPolicyViewController: UIViewController {
 
         let dataSource = UITableViewDiffableDataSource<NotificationFilterSection, NotificationFilterItem>(tableView: tableView) { [weak self] tableView, indexPath, itemIdentifier in
             guard let self, let cell = tableView.dequeueReusableCell(withIdentifier: NotificationPolicyFilterTableViewCell.reuseIdentifier, for: indexPath) as? NotificationPolicyFilterTableViewCell else {
-                fatalError("No NotificationPolicyFilterTableViewCell")
+                assertionFailure("unexpected cell dequeued")
+                return nil
             }
 
             let item = items[indexPath.row]

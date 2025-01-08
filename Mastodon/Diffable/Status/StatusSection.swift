@@ -42,7 +42,10 @@ extension StatusSection {
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
             case .feed(let feed):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as? StatusTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 let displayItem = StatusTableViewCell.StatusTableViewCellViewModel.DisplayItem.feed(feed)
                 let contentConcealModel = StatusView.ContentConcealViewModel(status: feed.status, filterBox: StatusFilterService.shared.activeFilterBox, filterContext: configuration.filterContext)
                 configure(
@@ -53,7 +56,10 @@ extension StatusSection {
                 )
                 return cell
             case .feedLoader(let feed):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as? TimelineMiddleLoaderTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 configure(
                     cell: cell,
                     feed: feed,
@@ -61,7 +67,10 @@ extension StatusSection {
                 )
                 return cell
             case .status(let status):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as? StatusTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 let displayItem = StatusTableViewCell.StatusTableViewCellViewModel.DisplayItem.status(status)
                 let contentConcealModel = StatusView.ContentConcealViewModel(status: status, filterBox: StatusFilterService.shared.activeFilterBox, filterContext: configuration.filterContext)
                 configure(
@@ -82,11 +91,15 @@ extension StatusSection {
                 )
                 return cell
             case .topLoader:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as? TimelineBottomLoaderTableViewCell else { assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 cell.activityIndicatorView.startAnimating()
                 return cell
             case .bottomLoader:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as? TimelineBottomLoaderTableViewCell else { assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 cell.activityIndicatorView.startAnimating()
                 return cell
             }
@@ -109,7 +122,10 @@ extension StatusSection {
     ) -> UITableViewCell {        
         switch configuration.thread {
         case .root(let threadContext):
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusThreadRootTableViewCell.self), for: indexPath) as! StatusThreadRootTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusThreadRootTableViewCell.self), for: indexPath) as? StatusThreadRootTableViewCell else {
+                assertionFailure("unexpected cell dequeued")
+                return UITableViewCell()
+            }
             let contentConcealModel = StatusView.ContentConcealViewModel(status: threadContext.status, filterBox: StatusFilterService.shared.activeFilterBox, filterContext: .thread)
             StatusSection.configure(
                 tableView: tableView,
@@ -120,7 +136,10 @@ extension StatusSection {
             return cell
         case .reply(let threadContext),
              .leaf(let threadContext):
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as? StatusTableViewCell else {
+                assertionFailure("unexpected cell dequeued")
+                return UITableViewCell()
+            }
             let displayItem = StatusTableViewCell.StatusTableViewCellViewModel.DisplayItem.status(threadContext.status)
             let contentConcealModel = StatusView.ContentConcealViewModel(status: threadContext.status, filterBox: StatusFilterService.shared.activeFilterBox, filterContext: configuration.configuration.filterContext)
             assert(configuration.configuration.filterContext == .thread)
@@ -147,12 +166,15 @@ extension StatusSection {
                 return nil
             case .option(let record):
                 // Fix cell reuse animation issue
-                let cell: PollOptionTableViewCell = {
+                guard let cell: PollOptionTableViewCell = {
                     let _cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PollOptionTableViewCell.self) + "@\(indexPath.row)#\(indexPath.section)") as? PollOptionTableViewCell
                     _cell?.prepareForReuse()
                     return _cell ?? PollOptionTableViewCell()
-                }()
-                
+                }() else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
+
                 cell.pollOptionView.viewModel.authenticationBox = authenticationBox
 
                 cell.pollOptionView.configure(pollOption: record)
@@ -179,12 +201,15 @@ extension StatusSection {
                 return nil
             case let .history(option):
                 // Fix cell reuse animation issue
-                let cell: PollOptionTableViewCell = {
+                guard let cell: PollOptionTableViewCell = {
                     let _cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PollOptionTableViewCell.self) + "@\(indexPath.row)#\(indexPath.section)") as? PollOptionTableViewCell
                     _cell?.prepareForReuse()
                     return _cell ?? PollOptionTableViewCell()
-                }()
-                
+                }() else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
+
                 cell.pollOptionView.configure(historyPollOption: option)
 
                 return cell

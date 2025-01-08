@@ -56,21 +56,30 @@ class NotificationSettingsViewController: UIViewController {
 
             switch itemIdentifier {
                 case .notificationDisabled:
-                    guard let notificationsDisabledCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingsDisabledTableViewCell.reuseIdentifier, for: indexPath) as? NotificationSettingsDisabledTableViewCell else { fatalError("WTF Wrong cell!?") }
+                guard let notificationsDisabledCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingsDisabledTableViewCell.reuseIdentifier, for: indexPath) as? NotificationSettingsDisabledTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                     cell = notificationsDisabledCell
 
                 case .policy:
                     guard let self,
-                          let notificationCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewCell else { fatalError("WTF Wrong cell!?") }
+                          let notificationCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewCell else {
+                        assertionFailure("unexpected cell dequeued")
+                        return nil
+                    }
 
                     notificationCell.configure(with: .policy, viewModel: self.viewModel, notificationsEnabled: notificationsEnabled)
                     cell = notificationCell
 
                 case .alert(let alert):
                     guard let self,
-                          let toggleCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewToggleCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewToggleCell else { fatalError("WTF Wrong cell!?") }
-                    
+                          let toggleCell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewToggleCell.reuseIdentifier, for: indexPath) as? NotificationSettingTableViewToggleCell else {
+                        assertionFailure("unexpected cell dequeued")
+                        return nil
+                    }
+
                     toggleCell.configure(with: alert, viewModel: self.viewModel, notificationsEnabled: notificationsEnabled)
                 toggleCell.delegate = self
                 cell = toggleCell

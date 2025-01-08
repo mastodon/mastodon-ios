@@ -41,7 +41,10 @@ extension SearchResultSection {
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
                 case .account(let account, let relationship):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as! UserTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                     guard let me = authenticationBox.cachedAccount else { return cell }
 
@@ -55,7 +58,10 @@ extension SearchResultSection {
                     )
                 return cell
             case .status(let status):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as? StatusTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 let displayItem = StatusTableViewCell.StatusTableViewCellViewModel.DisplayItem.status(status)
                 let contentConcealModel = StatusView.ContentConcealViewModel(status: status, filterBox: StatusFilterService.shared.activeFilterBox, filterContext: nil) // no filters in search results
                 configure(
@@ -66,11 +72,17 @@ extension SearchResultSection {
                 )
                 return cell
             case .hashtag(let tag):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HashtagTableViewCell.self)) as! HashtagTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HashtagTableViewCell.self)) as? HashtagTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 cell.primaryLabel.configure(content: PlaintextMetaContent(string: "#" + tag.name))
                 return cell
             case .bottomLoader(let attribute):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self)) as! TimelineBottomLoaderTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self)) as? TimelineBottomLoaderTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 if attribute.isNoResult {
                     cell.stopAnimating()
                     cell.loadMoreLabel.text = L10n.Scene.Search.Searching.EmptyState.noResults

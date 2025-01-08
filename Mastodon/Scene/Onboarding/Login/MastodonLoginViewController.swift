@@ -70,7 +70,8 @@ class MastodonLoginViewController: UIViewController {
         let dataSource = UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>(tableView: contentView.tableView) { [weak self] tableView, indexPath, itemIdentifier in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier, for: indexPath) as? MastodonLoginServerTableViewCell,
                   let self else {
-                fatalError("Wrong cell")
+                assertionFailure("unexpected cell dequeued")
+                return nil
             }
             
             let server = self.viewModel.filteredServers[indexPath.row]

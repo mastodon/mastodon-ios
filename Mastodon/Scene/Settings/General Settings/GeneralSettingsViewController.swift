@@ -93,30 +93,45 @@ class GeneralSettingsViewController: UIViewController {
             let cell: UITableViewCell
             switch itemIdentifier {
             case .appearance(let setting):
-                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingSelectionCell.reuseIdentifier, for: indexPath) as? GeneralSettingSelectionCell else { fatalError("WTF? Wrong Cell!") }
+                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingSelectionCell.reuseIdentifier, for: indexPath) as? GeneralSettingSelectionCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                 selectionCell.configure(with: .appearance(setting), viewModel: self.viewModel)
                 cell = selectionCell
             case .askBefore(let setting):
-                guard let toggleCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingToggleTableViewCell.reuseIdentifier, for: indexPath) as? GeneralSettingToggleTableViewCell else { fatalError("WTF? Wrong Cell!") }
+                guard let toggleCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingToggleTableViewCell.reuseIdentifier, for: indexPath) as? GeneralSettingToggleTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 toggleCell.configure(with: .askBefore(setting), viewModel: self.viewModel)
                 toggleCell.delegate = self
 
                 cell = toggleCell
             case .design(let setting):
-                guard let toggleCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingToggleTableViewCell.reuseIdentifier, for: indexPath) as? GeneralSettingToggleTableViewCell else { fatalError("WTF? Wrong Cell!") }
+                guard let toggleCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingToggleTableViewCell.reuseIdentifier, for: indexPath) as? GeneralSettingToggleTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                 toggleCell.configure(with: .design(setting), viewModel: self.viewModel)
                 toggleCell.delegate = self
 
                 cell = toggleCell
             case let .language(setting):
-                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingSelectionCell.reuseIdentifier, for: indexPath) as? GeneralSettingSelectionCell else { fatalError("WTF? Wrong Cell!") }
+                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingSelectionCell.reuseIdentifier, for: indexPath) as? GeneralSettingSelectionCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                 selectionCell.configure(with: .language(setting), viewModel: self.viewModel)
                 cell = selectionCell
             case .openLinksIn(let setting):
-                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingSelectionCell.reuseIdentifier, for: indexPath) as? GeneralSettingSelectionCell else { fatalError("WTF? Wrong Cell!") }
+                guard let selectionCell = tableView.dequeueReusableCell(withIdentifier: GeneralSettingSelectionCell.reuseIdentifier, for: indexPath) as? GeneralSettingSelectionCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                 selectionCell.configure(with: .openLinksIn(setting), viewModel: self.viewModel)
 

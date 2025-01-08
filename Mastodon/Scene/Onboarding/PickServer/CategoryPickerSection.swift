@@ -22,7 +22,10 @@ extension CategoryPickerSection {
     ) -> UICollectionViewDiffableDataSource<CategoryPickerSection, CategoryPickerItem> {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak dependency] collectionView, indexPath, item -> UICollectionViewCell? in
             guard let _ = dependency else { return nil }
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickServerCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as! PickServerCategoryCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickServerCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as? PickServerCategoryCollectionViewCell else {
+                assertionFailure("unexpected cell dequeued")
+                return nil
+            }
 
             cell.titleLabel.text = item.title
 

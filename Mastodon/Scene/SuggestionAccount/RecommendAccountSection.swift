@@ -31,7 +31,11 @@ extension RecommendAccountSection {
         configuration: Configuration
     ) -> UITableViewDiffableDataSource<RecommendAccountSection, RecommendAccountItem> {
         UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SuggestionAccountTableViewCell.self)) as! SuggestionAccountTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SuggestionAccountTableViewCell.self)) as?
+                    SuggestionAccountTableViewCell else {
+                assertionFailure("unexpected cell dequeued")
+                return nil
+            }
             switch item {
                 case .account(let account, let relationship):
                     cell.delegate = configuration.suggestionAccountTableViewCellDelegate

@@ -29,7 +29,8 @@ class PolicySelectionViewController: UIViewController {
         let dataSource = UITableViewDiffableDataSource<NotificationPolicySection, NotificationPolicy>(tableView: tableView) { [weak self] tableView, indexPath, itemIdentifier in
 
             guard let self, let cell = tableView.dequeueReusableCell(withIdentifier: NotificationPolicyTableViewCell.reuseIdentifier, for: indexPath) as? NotificationPolicyTableViewCell else {
-                fatalError("WTF Wrong cell?!")
+                assertionFailure("unexpected cell dequeued")
+                return nil
             }
 
             let policy = self.sections[indexPath.section].entries[indexPath.row]

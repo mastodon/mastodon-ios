@@ -51,15 +51,25 @@ extension DiscoverySection {
             item in
             switch item {
                 case .hashtag(let tag):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TrendTableViewCell.self), for: indexPath) as! TrendTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TrendTableViewCell.self), for: indexPath) as? TrendTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                     cell.trendView.configure(tag: tag)
                     return cell
                 case .link(let link):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsTableViewCell.self), for: indexPath) as! NewsTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsTableViewCell.self), for: indexPath) as? NewsTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                     cell.newsView.configure(link: link)
                     return cell
                 case .account(let account, relationship: let relationship):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileCardTableViewCell.self), for: indexPath) as! ProfileCardTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileCardTableViewCell.self), for: indexPath) as?
+                        ProfileCardTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                     cell.configure(
                         tableView: tableView,
@@ -80,7 +90,10 @@ extension DiscoverySection {
 
                     return cell
                 case .bottomLoader:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as? TimelineBottomLoaderTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                     cell.activityIndicatorView.startAnimating()
                     return cell
             }

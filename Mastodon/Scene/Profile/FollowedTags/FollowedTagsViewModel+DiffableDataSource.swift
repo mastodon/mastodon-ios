@@ -25,8 +25,8 @@ extension FollowedTagsViewModel {
             switch item {
             case let .hashtag(tag):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FollowedTagsTableViewCell.reuseIdentifier, for: indexPath) as? FollowedTagsTableViewCell else {
-                    assertionFailure()
-                    return UITableViewCell()
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
                 }
 
                 cell.setup(self)

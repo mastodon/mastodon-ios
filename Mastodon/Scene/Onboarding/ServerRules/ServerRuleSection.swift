@@ -20,7 +20,10 @@ extension ServerRuleSection {
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item in
             switch item {
             case .rule(let index, let rule):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ServerRulesTableViewCell.self), for: indexPath) as! ServerRulesTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ServerRulesTableViewCell.self), for: indexPath) as? ServerRulesTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 cell.indexImageView.image = UIImage(systemName: "\(index + 1).circle") ?? UIImage(systemName: "questionmark.circle")
                 cell.indexImageView.tintColor = Asset.Colors.Brand.lightBlurple.color
                 cell.ruleLabel.text = rule.text

@@ -40,14 +40,20 @@ class AboutInstanceViewController: UIViewController, AuthContextProvider {
             switch itemIdentifier {
 
                 case .adminAccount(let account):
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: AdminTableViewCell.reuseIdentifier, for: indexPath) as? AdminTableViewCell else { fatalError("WTF?! Wrong cell.") }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: AdminTableViewCell.reuseIdentifier, for: indexPath) as? AdminTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                     cell.condensedUserView.configure(with: account, showFollowers: false)
 
                     return cell
 
                 case .contactAdmin:
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactAdminTableViewCell.reuseIdentifier, for: indexPath) as? ContactAdminTableViewCell else { fatalError("WTF?! Wrong cell.") }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactAdminTableViewCell.reuseIdentifier, for: indexPath) as? ContactAdminTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                     cell.configure()
 

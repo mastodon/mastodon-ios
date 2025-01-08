@@ -16,7 +16,11 @@ extension CustomEmojiPickerSection {
         let dataSource = UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>(collectionView: collectionView) { collectionView, indexPath, item -> UICollectionViewCell? in
             switch item {
             case .emoji(let attribute):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CustomEmojiPickerItemCollectionViewCell.self), for: indexPath) as! CustomEmojiPickerItemCollectionViewCell
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CustomEmojiPickerItemCollectionViewCell.self), for: indexPath) as? CustomEmojiPickerItemCollectionViewCell
+                else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 let placeholder = UIImage.placeholder(size: CustomEmojiPickerItemCollectionViewCell.itemSize, color: .systemFill)
                     .af.imageRounded(withCornerRadius: 4)
 

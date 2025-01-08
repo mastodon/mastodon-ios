@@ -92,7 +92,10 @@ extension PrivacyTableViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PrivacyTableViewCell.reuseIdentifier, for: indexPath) as? PrivacyTableViewCell else { fatalError("Wrong cell?") }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PrivacyTableViewCell.reuseIdentifier, for: indexPath) as? PrivacyTableViewCell else {
+            assertionFailure("unexpected cell dequeued")
+            return UITableViewCell()
+        }
 
         let row = viewModel.rows[indexPath.row]
 

@@ -46,7 +46,10 @@ class SearchResultsOverviewTableViewController: UIViewController, AuthContextPro
 
             switch itemIdentifier {
                 case .default(let item):
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
 
                     cell.configure(item: item)
 
@@ -55,13 +58,19 @@ class SearchResultsOverviewTableViewController: UIViewController, AuthContextPro
                 case .suggestion(let suggestion):
                     switch suggestion {
                         case .hashtag(let hashtag):
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else { fatalError() }
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultDefaultSectionTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultDefaultSectionTableViewCell else {
+                                assertionFailure("unexpected cell dequeued")
+                                return nil
+                            }
 
                             cell.configure(item: .hashtag(tag: hashtag))
                             return cell
 
                         case .profile(let profile):
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultsProfileTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultsProfileTableViewCell else { fatalError() }
+                        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultsProfileTableViewCell.reuseIdentifier, for: indexPath) as? SearchResultsProfileTableViewCell else {
+                            assertionFailure("unexpected cell dequeued")
+                            return nil
+                        }
 
                             cell.condensedUserView.configure(with: profile)
 

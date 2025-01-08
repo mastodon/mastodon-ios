@@ -73,7 +73,10 @@ extension AccountListViewModel {
         diffableDataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item in
             switch item {
             case .authentication(let record):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountListTableViewCell.self), for: indexPath) as! AccountListTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountListTableViewCell.self), for: indexPath) as? AccountListTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 if let activeAuthentication = AuthenticationServiceProvider.shared.currentActiveUser.value
                 {
                     AccountListViewModel.configure(
@@ -84,10 +87,16 @@ extension AccountListViewModel {
                 }
                 return cell
             case .addAccount:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddAccountTableViewCell.self), for: indexPath) as! AddAccountTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddAccountTableViewCell.self), for: indexPath) as? AddAccountTableViewCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 return cell
             case .logoutOfAllAccounts:
-                let cell = tableView.dequeueReusableCell(withIdentifier: LogoutOfAllAccountsCell.reuseIdentifier, for: indexPath) as! LogoutOfAllAccountsCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: LogoutOfAllAccountsCell.reuseIdentifier, for: indexPath) as? LogoutOfAllAccountsCell else {
+                    assertionFailure("unexpected cell dequeued")
+                    return nil
+                }
                 return cell
             }
         }

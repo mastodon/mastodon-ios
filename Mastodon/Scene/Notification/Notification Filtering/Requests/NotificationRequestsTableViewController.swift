@@ -42,7 +42,8 @@ class NotificationRequestsTableViewController: UIViewController {
 
         let dataSource = UITableViewDiffableDataSource<NotificationRequestsSection, NotificationRequestItem>(tableView: tableView) { tableView, indexPath, itemIdentifier in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: NotificationRequestTableViewCell.reuseIdentifier, for: indexPath) as? NotificationRequestTableViewCell else {
-                fatalError("No NotificationRequestTableViewCell")
+                assertionFailure("unexpected cell dequeued")
+                return nil
             }
 
             let request = viewModel.requests[indexPath.row]
