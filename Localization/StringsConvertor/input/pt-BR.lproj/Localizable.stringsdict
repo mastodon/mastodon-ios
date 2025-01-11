@@ -394,7 +394,7 @@
         <key>one</key>
         <string>1 ano atrás</string>
         <key>other</key>
-        <string>%ldy anos atrás</string>
+        <string>%ld anos atrás</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -410,7 +410,7 @@
         <key>one</key>
         <string>1 mês atrás</string>
         <key>other</key>
-        <string>%ldM meses atrás</string>
+        <string>%ld meses atrás</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -426,7 +426,7 @@
         <key>one</key>
         <string>1 dia atrás</string>
         <key>other</key>
-        <string>%ldd dias atrás</string>
+        <string>%ld dias atrás</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -440,9 +440,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h atrás</string>
+        <string>Há 1 hora</string>
         <key>other</key>
-        <string>%ldh horas atrás</string>
+        <string>Há %ld horas</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -456,9 +456,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Há 1 min</string>
+        <string>Há 1 minuto</string>
         <key>other</key>
-        <string>Há %ldm minutos</string>
+        <string>Há %ld minutos</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -474,7 +474,7 @@
         <key>one</key>
         <string>Há 1 segundo</string>
         <key>other</key>
-        <string>Há %lds segundos</string>
+        <string>Há %ld segundos</string>
       </dict>
     </dict>
     <key>plural.filtered_notification_banner.subtitle</key>
