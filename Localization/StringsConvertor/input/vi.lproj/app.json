@@ -695,9 +695,9 @@
             "searching": {
                 "posts": "Tút nhắc đến \"%s\"",
                 "people": "Người có tên \"%s\"",
-                "profile": "Đến @%s@%s",
+                "profile": "Xem trang @%s@%s",
                 "url": "Mở liên kết trong Mastodon",
-                "hashtag": "Đến #%s",
+                "hashtag": "Hashtag #%s",
                 "no_user": {
                     "title": "Không tìm thấy ai",
                     "message": "Không tìm thấy người tên \"%s\" trên %s"
