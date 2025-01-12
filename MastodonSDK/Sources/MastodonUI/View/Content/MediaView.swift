@@ -71,13 +71,9 @@ public final class MediaView: UIView {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
-        // According to Apple's docs, layoutSubviews calculates the constraints-based layout here.
-        // At this point, the container frame might have a size of zero.
-        // However, since we use pinToParent() to pin the container to the bounds,
-        // we can rely on the frame size of MediaView(self).
-        layoutImageUsingFocus(in: blurhashImageView, container: self)
-        layoutImageUsingFocus(in: imageView, container: self)
+
+        layoutImageUsingFocus(in: blurhashImageView, container: container.bounds)
+        layoutImageUsingFocus(in: imageView, container: container.bounds)
     }
 }
 
@@ -251,37 +247,36 @@ extension MediaView {
         overlayViewController.view.pinToParent()
     }
     
-    private func layoutImageUsingFocus(in imageView: UIImageView, container: UIView) {
+    private func layoutImageUsingFocus(in imageView: UIImageView, container: CGRect) {
         guard let configuration, case let .image(image) = configuration.info,
            let focus = image.focus, let image = imageView.image else {
-            imageView.frame = container.bounds
+            imageView.frame = container
             return
         }
 
-        let containerSize = container.bounds.size
         let imageAspect = image.size.width / image.size.height
-        let containerAspect = containerSize.width / containerSize.height
+        let containerAspect = container.size.width / container.size.height
 
         let scaledSize: CGSize = if imageAspect > containerAspect {
             CGSize(
-                width: image.size.width * containerSize.height / image.size.height,
-                height: containerSize.height
+                width: image.size.width * container.size.height / image.size.height,
+                height: container.size.height
             )
         } else {
             CGSize(
-                width: containerSize.width,
-                height: image.size.height * containerSize.width / image.size.width
+                width: container.size.width,
+                height: image.size.height * container.size.width / image.size.width
             )
         }
 
         let focusOffset = CGPoint(
             x: max(
-                min(0, (containerSize.width / 2 - scaledSize.width / 2) * (1 + focus.x)),
-                containerSize.width - scaledSize.width
+                min(0, (container.size.width / 2 - scaledSize.width / 2) * (1 + focus.x)),
+                container.size.width - scaledSize.width
             ),
             y: max(
-                min(0, (containerSize.height / 2 - scaledSize.height / 2) * (1 + focus.y)),
-                containerSize.height - scaledSize.height
+                min(0, (container.size.height / 2 - scaledSize.height / 2) * (1 + focus.y)),
+                container.size.height - scaledSize.height
             )
         )
 
