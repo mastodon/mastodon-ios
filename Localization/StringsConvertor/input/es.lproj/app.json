@@ -6,17 +6,17 @@
                 "please_try_again_later": "Por favor, inténtelo de nuevo más tarde."
             },
             "sign_up_failure": {
-                "title": "Error al Registrarse"
+                "title": "Error al registrarse"
             },
             "server_error": {
-                "title": "Error del Servidor"
+                "title": "Error del servidor"
             },
             "vote_failure": {
-                "title": "Voto Fallido",
+                "title": "Voto fallido",
                 "poll_ended": "La encuesta ha terminado"
             },
             "publish_post_failure": {
-                "title": "Error de Publicación",
+                "title": "Error de publicación",
                 "message": "Error al publicar la publicación.\nPor favor, revise su conexión a internet.",
                 "attachments_message": {
                     "video_attach_with_photo": "No puedes adjuntar un vídeo a una publicación que ya contiene imágenes.",
@@ -37,15 +37,15 @@
                 "block_entire_domain": "Bloquear Dominio"
             },
             "save_photo_failure": {
-                "title": "Error al Guardar Foto",
+                "title": "Ha habido un error al guardar la foto",
                 "message": "Por favor, activa el permiso de acceso a la biblioteca de fotos para guardar la foto."
             },
             "delete_post": {
-                "title": "Eliminar Publicación",
+                "title": "Eliminar publicación",
                 "message": "¿Estás seguro de que quieres borrar esta publicación?"
             },
             "clean_cache": {
-                "title": "Limpiar Caché",
+                "title": "Limpiar caché",
                 "message": "Se han limpiado con éxito %s de caché."
             },
             "translation_failed": {
@@ -54,17 +54,17 @@
                 "button": "Aceptar"
             },
             "media_missing_alt_text": {
-                "title": "Falta Texto Alternativo del Medio",
-                "message": "%d De tus imágenes no tienen texto alternativo. ¿Publicar de todos modos?",
+                "title": "Falta texto alternativo en los medios",
+                "message": "%d de tus imágenes les falta el texto alternativo. ¿Deseas publicar de todos modos?",
                 "cancel": "Cancelar",
                 "post": "Publicar"
             },
             "boost_a_post": {
-                "title_boost": "¿Promocionar Publicación?",
-                "title_unboost": "¿Dejar de Promocionar Publicación?",
+                "title_boost": "¿Deseas impulsar la publicación?",
+                "title_unboost": "¿Dejar de impulsar la publicación?",
                 "cancel": "Cancelar",
-                "boost": "Promocionar",
-                "unboost": "Dejar de Promocionar"
+                "boost": "Impulsar",
+                "unboost": "Dejar de impulsar"
             },
             "unfollow_user": {
                 "title": "¿Dejar de seguir a %@?",
@@ -134,17 +134,17 @@
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Cambiar a %s",
-                    "compose_new_post": "Escribir Nueva Publicación",
-                    "show_favorites": "Mostrar Favoritos",
-                    "open_settings": "Abrir Configuración"
+                    "compose_new_post": "Redactar nueva publicación",
+                    "show_favorites": "Mostrar favoritos",
+                    "open_settings": "Abrir configuración"
                 },
                 "timeline": {
-                    "previous_status": "Publicación Anterior",
-                    "next_status": "Siguiente Publicación",
-                    "open_status": "Abrir Publicación",
-                    "open_author_profile": "Abrir Perfil del Autor",
-                    "open_reblogger_profile": "Abrir Perfil del Promotor",
-                    "reply_status": "Responder Publicación",
+                    "previous_status": "Publicación anterior",
+                    "next_status": "Siguiente publicación",
+                    "open_status": "Abrir publicación",
+                    "open_author_profile": "Abrir perfil del autor",
+                    "open_reblogger_profile": "Abrir perfil del impulsor",
+                    "reply_status": "Responder publicación",
                     "toggle_reblog": "Alternar Promoción en la Publicación",
                     "toggle_favorite": "Conmutar la Marca de Favorito en la Publicación",
                     "toggle_content_warning": "Alternar la Advertencia de Contenido",
@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s Promocionado",
+                "user_reblogged": "Impulsado por %s",
                 "user_replied_to": "En respuesta a %s",
                 "show_post": "Mostrar Publicación",
                 "show_user_profile": "Mostrar perfil del usuario",
@@ -178,8 +178,8 @@
                 },
                 "actions": {
                     "reply": "Responder",
-                    "reblog": "Promocionar",
-                    "unreblog": "Deshacer promoción",
+                    "reblog": "Impulsar",
+                    "unreblog": "Deshacer impulso",
                     "favorite": "Favorito",
                     "unfavorite": "No favorito",
                     "menu": "Menú",
@@ -190,8 +190,8 @@
                     "share_link_in_post": "Compartir enlace en publicación",
                     "tap_then_hold_to_show_menu": "Toca, después mantén para mostrar el menú",
                     "a11y_labels": {
-                        "reblog": "Promocionar",
-                        "unreblog": "Deshacer promoción"
+                        "reblog": "Impulsar",
+                        "unreblog": "Deshacer impulso"
                     },
                     "copy_link": "Copiar Enlace"
                 },
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s a través de %s",
                 "buttons": {
-                    "reblogs_title": "Promociones",
+                    "reblogs_title": "Impulsos",
                     "favorites_title": "Favoritos",
                     "edit_history_title": "Editar historial",
                     "edit_history_detail": "Última edición %s"
@@ -256,8 +256,8 @@
                 "unmute_user": "Dejar de Silenciar a %s",
                 "muted": "Silenciado",
                 "edit_info": "Editar Info",
-                "show_reblogs": "Mostrar Promociones",
-                "hide_reblogs": "Ocultar Promociones"
+                "show_reblogs": "Mostrar impulsos",
+                "hide_reblogs": "Ocultar impulsos"
             },
             "timeline": {
                 "filtered": "Filtrado",
@@ -632,8 +632,8 @@
                     "message": "Confirmar para desbloquear a %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Mostrar Promociones",
-                    "message": "Confirmar para mostrar promociones"
+                    "title": "Mostrar impulsos",
+                    "message": "Confirmar para mostrar impulsos"
                 },
                 "confirm_hide_reblogs": {
                     "title": "Ocultar Promociones",
