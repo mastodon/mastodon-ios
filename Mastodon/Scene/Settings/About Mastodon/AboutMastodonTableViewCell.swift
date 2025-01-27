@@ -7,12 +7,28 @@ class AboutMastodonTableViewCell: UITableViewCell {
     static let reuseIdentifier = "AboutMastodonTableViewCell"
 
     func configure(with entry: AboutSettingsEntry) {
-        var contentConfiguration = UIListContentConfiguration.valueCell()
+        switch entry.type {
+        case .navigation:
+            var contentConfiguration = UIListContentConfiguration.cell()
 
-        contentConfiguration.text = entry.text
-        contentConfiguration.secondaryText = entry.secondaryText
-        contentConfiguration.textProperties.color = Asset.Colors.Brand.blurple.color
+            contentConfiguration.text = entry.text
+            contentConfiguration.secondaryText = entry.secondaryText
+            contentConfiguration.textProperties.color = .label
 
-        self.contentConfiguration = contentConfiguration
+            accessoryType = .disclosureIndicator
+
+            self.contentConfiguration = contentConfiguration
+
+        case .action:
+            var contentConfiguration = UIListContentConfiguration.valueCell()
+
+            contentConfiguration.text = entry.text
+            contentConfiguration.secondaryText = entry.secondaryText
+            contentConfiguration.textProperties.color = Asset.Colors.Brand.blurple.color
+
+            accessoryType = .none
+
+            self.contentConfiguration = contentConfiguration
+        }
     }
 }

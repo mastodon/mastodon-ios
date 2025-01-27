@@ -9,6 +9,11 @@ struct AboutSettingsSection: Hashable {
 }
 
 enum AboutSettingsEntry: Hashable {
+    enum EntryType {
+        case navigation
+        case action
+    }
+
     case evenMoreSettings
     case contributeToMastodon
     case privacyPolicy
@@ -34,6 +39,15 @@ enum AboutSettingsEntry: Hashable {
             return nil
         case .clearMediaCache(let mediaStorage):
             return AppContext.byteCountFormatter.string(fromByteCount: Int64(mediaStorage))
+        }
+    }
+
+    var type: EntryType {
+        switch self {
+        case .evenMoreSettings, .contributeToMastodon, .privacyPolicy:
+            return .navigation
+        case .clearMediaCache(_):
+            return .action
         }
     }
 }
