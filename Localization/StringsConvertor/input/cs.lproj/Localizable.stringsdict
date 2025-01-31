@@ -608,11 +608,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>One person you may know</string>
+        <string>Jedna osoba, kterou možná znáte</string>
         <key>few</key>
-        <string>%ld people you may know</string>
+        <string>%ld osoby, které možná znáte</string>
         <key>many</key>
-        <string>%ld people you may know</string>
+        <string>%ld osob, které možná znáte</string>
         <key>other</key>
         <string>%ld osob, které možná znáte</string>
       </dict>
