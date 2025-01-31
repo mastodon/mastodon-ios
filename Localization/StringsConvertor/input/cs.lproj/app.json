@@ -3,7 +3,7 @@
         "alerts": {
             "common": {
                 "please_try_again": "Zkuste to prosím znovu.",
-                "please_try_again_later": "Zkuste to prosím znovu později."
+                "please_try_again_later": "Zkuste to prosím později."
             },
             "sign_up_failure": {
                 "title": "Registrace selhala"
@@ -12,7 +12,7 @@
                 "title": "Chyba serveru"
             },
             "vote_failure": {
-                "title": "Selhání hlasování",
+                "title": "Hlasování selhalo",
                 "poll_ended": "Anketa skončila"
             },
             "publish_post_failure": {
@@ -479,12 +479,12 @@
                 "following": "Sledovaní",
                 "local_community": "Místní",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Seznamy",
+                    "empty_message": "Nemáte žádné seznamy"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Sledované hashtagy",
+                    "empty_message": "Nesledujete žádné hashtagy"
                 }
             },
             "timeline_pill": {
