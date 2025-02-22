@@ -127,7 +127,7 @@ extension AccountListViewModel {
         cell.badgeButton.setBadge(number: count)
         
         // checkmark
-        let isActive = activeAuthentication.userID == authentication.userID
+        let isActive = activeAuthentication.identifier == authentication.identifier
         cell.tintColor = .label
         cell.checkmarkImageView.isHidden = !isActive
         if isActive {
