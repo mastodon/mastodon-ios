@@ -123,12 +123,12 @@
             },
             "tabs": {
                 "home": "Agejdan",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "Nadi rnu snirem",
                 "notifications": "Ilɣa",
                 "profile": "Amaɣnu",
                 "a11y": {
                     "search": "Anadi",
-                    "explore": "Explore"
+                    "explore": "Snirem"
                 }
             },
             "keyboard": {
@@ -223,7 +223,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Izuzar",
                     "favorites_title": "Imenyafen",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
@@ -234,8 +234,8 @@
                     "original_post": "Original Post · %s"
                 },
                 "card": {
-                    "by": "By",
-                    "by_author": "By %s"
+                    "by": "S-ɣur",
+                    "by_author": "S-ɣur %s"
                 }
             },
             "friendship": {
@@ -368,7 +368,7 @@
             "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
         },
         "privacy": {
-            "title": "Your Privacy",
+            "title": "Tabaḍnit-nwen",
             "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
             "policy": {
                 "ios": "Tasertit tabaḍnit - Mastodon i iOS",
@@ -479,7 +479,7 @@
                 "following": "Following",
                 "local_community": "Local",
                 "lists": {
-                    "title": "Lists",
+                    "title": "Tibdarin",
                     "empty_message": "You don't have any Lists"
                 },
                 "hashtags": {
@@ -489,7 +489,7 @@
             },
             "timeline_pill": {
                 "offline": "Offline",
-                "new_posts": "New Posts",
+                "new_posts": "Tisuffaɣ timaynutin",
                 "post_sent": "Post Sent"
             },
             "empty_state": {
@@ -498,7 +498,7 @@
         },
         "suggestion_account": {
             "title": "Popular on Mastodon",
-            "follow_all": "Follow all"
+            "follow_all": "Ḍfeṛ-iten akk"
         },
         "compose": {
             "title": {
@@ -695,8 +695,8 @@
             "searching": {
                 "posts": "Posts matching \"%s\"",
                 "people": "People matching \"%s\"",
-                "profile": "Go to @%s@%s",
-                "url": "Open URL in Mastodon",
+                "profile": "Ddu ɣer @%s@%s",
+                "url": "Ldi tansa URL deg Mastodon",
                 "hashtag": "Ddu ɣer #%s",
                 "no_user": {
                     "title": "No User Account Found",
@@ -706,7 +706,7 @@
                     "no_results": "Ulac igemmaḍ"
                 },
                 "recent_search": "Inadiyen imaynuten",
-                "clear_all": "Clear all",
+                "clear_all": "Sfeḍ-iten akk",
                 "clear": "Sfeḍ"
             }
         },
@@ -721,7 +721,7 @@
             "intro": "Tigi d tisuffaɣ i d-ijebbden s waṭas deg tama-inek•inem n Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Imenyafen"
         },
         "notification": {
             "title": {
@@ -754,7 +754,7 @@
                 "sensitive": "Your posts will be marked as sensitive from now on.",
                 "silence": "Your account has been limited.",
                 "suspend": "Your account has been suspended.",
-                "learn_more": "Learn More"
+                "learn_more": "Issin ugar"
             }
         },
         "thread": {
@@ -766,7 +766,7 @@
                 "title": "Iɣewwaṛen",
                 "general": "Amatu",
                 "notifications": "Ilɣa",
-                "privacy_safety": "Privacy & Safety",
+                "privacy_safety": "Tabaḍnit akked tɣellist",
                 "support_mastodon": "Mudd afus i Mastodon",
                 "about_mastodon": "Ɣef Mastodon",
                 "server_details": "Server Details",
@@ -824,7 +824,7 @@
                     "anyone": "Yal yiwen",
                     "followers": "People who follow you",
                     "follow": "People you follow",
-                    "noone": "No one"
+                    "noone": "Ula yiwen"
                 },
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
@@ -838,7 +838,7 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Tabaḍnit akked tɣellist",
                 "preset": {
                     "title": "Preset",
                     "open_and_public": "Open & Public",
@@ -924,10 +924,10 @@
             "dismiss_account_switcher": "Sefsex abeddel n umiḍan",
             "add_account": "Rnu amiḍan",
             "logout_all_accounts": "Log Out Of All Accounts",
-            "logout": "Logout"
+            "logout": "Senser"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Ticraḍ"
         },
         "followed_tags": {
             "title": "Followed Tags",
@@ -970,7 +970,7 @@
             "configuration_display_name": "Latest followers",
             "configuration_description": "Show latest followers.",
             "title": "Latest followers",
-            "last_update": "Last update: %s"
+            "last_update": "Lqem aneggaru: %s"
         },
         "hashtag": {
             "configuration": {
