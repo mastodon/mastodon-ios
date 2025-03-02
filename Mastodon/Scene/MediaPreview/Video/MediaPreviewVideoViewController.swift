@@ -11,13 +11,20 @@ import Combine
 import func AVFoundation.AVMakeRect
 
 final class MediaPreviewVideoViewController: UIViewController {
-
+    
     var disposeBag = Set<AnyCancellable>()
     var viewModel: MediaPreviewVideoViewModel!
     
     let playerViewController = AVPlayerViewController()
-    
     let previewImageView = UIImageView()
+    
+    let doubleTapGestureRecognizer: UITapGestureRecognizer = {
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.numberOfTapsRequired = 2
+        return tapGestureRecognizer
+    }()
+    
+    private let containerView = UIView()
     
     deinit {
         viewModel.playbackState = .paused
@@ -30,12 +37,16 @@ extension MediaPreviewVideoViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(containerView)
+        containerView.pinToParent()
+        
         playerViewController.willMove(toParent: self)
         addChild(playerViewController)
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(playerViewController.view)
-        playerViewController.didMove(toParent: self)
+        containerView.addSubview(playerViewController.view)
         playerViewController.view.pinToParent()
+        playerViewController.didMove(toParent: self)
         
         if let contentOverlayView = playerViewController.contentOverlayView {
             previewImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,10 +64,14 @@ extension MediaPreviewVideoViewController {
             break
         case .gif:
             playerViewController.showsPlaybackControls = false
+            
+            let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchGestureRecognizerHandler(_:)))
+            pinchGesture.delegate = self
+            containerView.addGestureRecognizer(pinchGesture)
         }
         
         viewModel.playbackState = .playing
-     
+        
         if let previewURL = viewModel.item.previewURL {
             previewImageView.contentMode = .scaleAspectFit
             previewImageView.af.setImage(
@@ -73,7 +88,25 @@ extension MediaPreviewVideoViewController {
                 .store(in: &disposeBag)
         }
     }
-    
+}
+
+// MARK: - GestureRecognizerHandler
+extension MediaPreviewVideoViewController {
+    @objc private func pinchGestureRecognizerHandler(_ gesture: UIPinchGestureRecognizer) {
+        guard let gestureView = gesture.view,
+              gesture.state == .began || gesture.state == .changed
+        else { return }
+        
+        gestureView.transform = gestureView.transform.scaledBy(x: gesture.scale, y: gesture.scale)
+        gesture.scale = 1.0
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension MediaPreviewVideoViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }
 
 // MARK: - ShareActivityProvider
@@ -87,7 +120,6 @@ extension MediaPreviewVideoViewController: MediaPreviewPage {
 extension MediaPreviewVideoViewController: AVPlayerViewControllerDelegate {
     
 }
-
 
 // MARK: - MediaPreviewTransitionViewController
 extension MediaPreviewVideoViewController: MediaPreviewTransitionViewController {
@@ -124,4 +156,3 @@ extension MediaPreviewVideoViewController: MediaPreviewTransitionViewController 
         )
     }
 }
-
