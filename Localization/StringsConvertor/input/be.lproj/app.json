@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Вітаем зноў",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Увайдзіце з дапамогай сервера, на якім вы стварылі свой уліковы запіс.",
             "server_search_field": {
                 "placeholder": "Увядзіце URL або адрас сервера"
             }
@@ -829,7 +829,7 @@
                 "general": "Агульныя",
                 "notifications": "Апавяшчэнні",
                 "privacy_safety": "Прыватнасць і бяспека",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Падтрымаць Mastodon",
                 "about_mastodon": "Пра Mastodon",
                 "server_details": "Інфармацыя аб серверы",
                 "logout": "Выйсці з %@"
