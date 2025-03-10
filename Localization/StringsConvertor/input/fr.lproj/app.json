@@ -156,6 +156,10 @@
                 }
             },
             "status": {
+                "reply": "Reply",
+                "private_reply": "Private reply",
+                "mention": "Mention",
+                "private_mention": "Private mention",
                 "user_reblogged": "%s a partagé",
                 "user_replied_to": "À répondu à %s",
                 "show_post": "Montrer la publication",
@@ -240,7 +244,9 @@
             },
             "friendship": {
                 "follow": "Suivre",
+                "follow_back": "Follow back",
                 "following": "Suivi",
+                "mutual": "Mutual",
                 "request": "Requête",
                 "pending": "En attente",
                 "block": "Bloquer",
@@ -312,7 +318,7 @@
         },
         "login": {
             "title": "Content de vous revoir",
-            "subtitle": "Connectez-vous avec le serveur sur lequel vous avez créé votre compte.",
+            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
             "server_search_field": {
                 "placeholder": "Entrez l'URL ou recherchez votre serveur"
             }
@@ -706,6 +712,7 @@
                     "no_results": "Aucun résultat"
                 },
                 "recent_search": "Recherches récentes",
+                "no_recent_searches": "No recent searches.",
                 "clear_all": "Effacer tout",
                 "clear": "Effacer"
             }
@@ -728,13 +735,43 @@
                 "Everything": "Tout",
                 "Mentions": "Mentions"
             },
+            "headers": {
+                "report": "Report",
+                "sign_up": "Signup",
+                "favourite": "Favorite",
+                "follow": "Follow",
+                "follow_request": "Follow request",
+                "moderation_warning": "Warning",
+                "poll": "Poll",
+                "boost": "Boost",
+                "severed_relationships": "Domain block",
+                "status": "Post",
+                "edit": "Edit"
+            },
+            "grouped_notification_description": {
+                "your_poll_has_ended": "Your poll has ended",
+                "single_name_ran_poll": "%@ ran %@",
+                "single_name_mentioned_you": "%@ mentioned you",
+                "single_name_requested_to_follow_you": "%@ requested to follow you",
+                "single_name_posted": "%@ posted:",
+                "single_name_boosted": "%@ boosted:",
+                "single_name_favourited": "%@ favorited:",
+                "single_name_followed_you": "%@ followed you",
+                "multiple_people_boosted": "%@ boosted:",
+                "multiple_people_favourited": "%@ favorited:",
+                "multiple_people_followed_you": "%@ followed you",
+                "single_name_signed_up": "%@ signed up",
+                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
+                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+            },
             "notification_description": {
                 "followed_you": "s’est abonné·e à vous",
                 "favorited_your_post": "a ajouté votre message à ses favoris",
                 "reblogged_your_post": "a partagé votre message",
                 "mentioned_you": "vous a mentionné",
                 "request_to_follow_you": "vous a envoyé une demande d’abonnement",
-                "poll_has_ended": "le sondage est terminé"
+                "poll_has_ended": "le sondage est terminé",
+                "relationship_severance": "An admin from %@ has blocked %@, including %@."
             },
             "keyobard": {
                 "show_everything": "Tout Afficher",
@@ -755,6 +792,31 @@
                 "silence": "Votre compte a été limité.",
                 "suspend": "Votre compte a été suspendu.",
                 "learn_more": "En savoir plus"
+            },
+            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "filtered_notification": {
+                "title": "Filtered Notifications",
+                "accept": "Accept",
+                "dismiss": "Dismiss"
+            },
+            "policy": {
+                "title": "Filter Notifications from…",
+                "not_following": {
+                    "title": "People you don't follow",
+                    "subtitle": "Until you manually approve them"
+                },
+                "no_follower": {
+                    "title": "People not following you",
+                    "subtitle": "Including people who have been following you fewer than 3 days"
+                },
+                "new_account": {
+                    "title": "New accounts",
+                    "subtitle": "Created within the past 30 days"
+                },
+                "private_mentions": {
+                    "title": "Unsolicited private mentions",
+                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                }
             }
         },
         "thread": {
@@ -767,7 +829,7 @@
                 "general": "Général",
                 "notifications": "Notifications",
                 "privacy_safety": "Confidentialité & Sécurité",
-                "support_mastodon": "Soutenir Mastodon",
+                "support_mastodon": "Donate to Mastodon",
                 "about_mastodon": "À propos de Mastodon",
                 "server_details": "Détails du serveur",
                 "logout": "Se déconnecter de %@"
@@ -846,15 +908,16 @@
                     "custom": "Personnalisé"
                 },
                 "default_post_visibility": {
-                    "title": "Visibilité par défaut du message",
-                    "public": "Public",
-                    "followers_only": "Abonné·e·s uniquement",
-                    "only_people_mentioned": "Personnes mentionnées uniquement"
+                    "title": "Visibilité par défaut du message"
                 },
                 "manually_approve_follow_requests": "Approuver manuellement les demandes d'abonnement",
                 "show_followers_and_following": "Afficher les abonné·e·s et les abonnements",
                 "suggest_my_account_to_others": "Suggérer mon compte aux autres",
                 "appear_in_search_engines": "Apparaître dans les moteurs de recherche"
+            },
+            "donation": {
+                "title": "Donate to Mastodon",
+                "manage": "Manage donations"
             }
         },
         "report": {
@@ -939,6 +1002,22 @@
             "actions": {
                 "follow": "Suivre",
                 "unfollow": "Ne plus suivre"
+            }
+        },
+        "donation": {
+            "picker": {
+                "once_title": "Just once",
+                "monthly_title": "Monthly",
+                "yearly_title": "Yearly"
+            },
+            "donatebuttontitle": "Donate",
+            "currency": "Currency",
+            "success": {
+                "title": "Thank you for your contribution!",
+                "subtitle": "You should receive an email confirming your donation soon.",
+                "server_error_title": "Payment failed",
+                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
+                "share_button_title": "Spread the word"
             }
         }
     },
