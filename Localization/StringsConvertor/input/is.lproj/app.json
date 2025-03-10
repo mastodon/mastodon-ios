@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Velkomin aftur",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Skráðu þig inn á netþjóninn þar sem þú útbjóst notandaaðganginn þinn.",
             "server_search_field": {
                 "placeholder": "Settu inn slóð eða leitaðu að þjóninum þínum"
             }
@@ -829,7 +829,7 @@
                 "general": "Almennt",
                 "notifications": "Tilkynningar",
                 "privacy_safety": "Persónuvernd og öryggi",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Styddu við Mastodon",
                 "about_mastodon": "Um Mastodon",
                 "server_details": "Nánar um netþjón",
                 "logout": "Skrá út %@"
