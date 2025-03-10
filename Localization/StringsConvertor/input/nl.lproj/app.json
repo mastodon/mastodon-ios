@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Welkom terug",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Bij de server waar je je account hebt aangemaakt inloggen.",
             "server_search_field": {
                 "placeholder": "Voer een URL in of zoek naar je server"
             }
@@ -829,7 +829,7 @@
                 "general": "Algemeen",
                 "notifications": "Meldingen",
                 "privacy_safety": "Privacy en veiligheid",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Mastodon ondersteunen",
                 "about_mastodon": "Over Mastodon",
                 "server_details": "Servergegevens",
                 "logout": "%@ uitloggen"
