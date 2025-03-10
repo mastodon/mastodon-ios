@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "ยินดีต้อนรับกลับมา",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "เข้าสู่ระบบด้วยเซิร์ฟเวอร์ที่ซึ่งคุณได้สร้างบัญชีของคุณ",
             "server_search_field": {
                 "placeholder": "ป้อน URL หรือค้นหาสำหรับเซิร์ฟเวอร์ของคุณ"
             }
@@ -829,7 +829,7 @@
                 "general": "ทั่วไป",
                 "notifications": "การแจ้งเตือน",
                 "privacy_safety": "ความเป็นส่วนตัวและความปลอดภัย",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "สนับสนุน Mastodon",
                 "about_mastodon": "เกี่ยวกับ Mastodon",
                 "server_details": "รายละเอียดเซิร์ฟเวอร์",
                 "logout": "ออกจากระบบ %@"
