@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Chào mừng quay trở lại!",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Chọn máy chủ nơi bạn tạo tài khoản.",
             "server_search_field": {
                 "placeholder": "Nhập URL hoặc tìm máy chủ"
             }
@@ -829,7 +829,7 @@
                 "general": "Chung",
                 "notifications": "Thông báo",
                 "privacy_safety": "Riêng tư & Bảo mật",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Hỗ trợ Mastodon",
                 "about_mastodon": "Về Mastodon",
                 "server_details": "Thông tin máy chủ",
                 "logout": "Đăng xuất %@"
