@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Benvida outra vez",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Accede co servidor onde creaches a conta.",
             "server_search_field": {
                 "placeholder": "Escribe o URL ou busca o teu servidor"
             }
@@ -829,7 +829,7 @@
                 "general": "Xeral",
                 "notifications": "Notificacións",
                 "privacy_safety": "Privacidade e Seguridade",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Apoia a Mastodon",
                 "about_mastodon": "Acerca de Mastodon",
                 "server_details": "Detalles do servidor",
                 "logout": "Pechar sesión %@"
