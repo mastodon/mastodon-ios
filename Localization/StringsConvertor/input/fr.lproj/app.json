@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
+                "reply": "Réponse",
+                "private_reply": "Réponse privée",
                 "mention": "Mention",
-                "private_mention": "Private mention",
+                "private_mention": "Mention privée",
                 "user_reblogged": "%s a partagé",
                 "user_replied_to": "À répondu à %s",
                 "show_post": "Montrer la publication",
@@ -743,26 +743,26 @@
                 "follow_request": "Demande d'abonnement",
                 "moderation_warning": "Avertissement",
                 "poll": "Sondage",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "boost": "Partage",
+                "severed_relationships": "Blocage de domaine",
+                "status": "Message",
+                "edit": "Modification"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Votre sondage est terminé",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
-                "single_name_signed_up": "%@ signed up",
-                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
-                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+                "single_name_ran_poll": "%@ a réalisé %@",
+                "single_name_mentioned_you": "%@ vous a mentionné·e",
+                "single_name_requested_to_follow_you": "%@ a demandé à vous suivre",
+                "single_name_posted": "%@ a publié :",
+                "single_name_boosted": "%@ a partagé :",
+                "single_name_favourited": "%@ a mis en favori :",
+                "single_name_followed_you": "%@ vous suit",
+                "multiple_people_boosted": "%@ a partagé :",
+                "multiple_people_favourited": "%@ a mis en favori :",
+                "multiple_people_followed_you": "%@ vous suit",
+                "single_name_signed_up": "%@ s'est inscrit·e",
+                "someone_reported_account_for_rule_violation": "Quelqu'un a signalé %@ pour violation des règles.",
+                "someone_reported_posts_from_account_for_rule_violation": "Quelqu'un a signalé %@ de %@ pour violation des règles."
             },
             "notification_description": {
                 "followed_you": "s’est abonné·e à vous",
@@ -771,7 +771,7 @@
                 "mentioned_you": "vous a mentionné",
                 "request_to_follow_you": "vous a envoyé une demande d’abonnement",
                 "poll_has_ended": "le sondage est terminé",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "relationship_severance": "Un administrateur de %@ a bloqué %@, y compris %@."
             },
             "keyobard": {
                 "show_everything": "Tout Afficher",
@@ -793,29 +793,29 @@
                 "suspend": "Votre compte a été suspendu.",
                 "learn_more": "En savoir plus"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "En savoir plus sur les blocages de serveurs",
             "filtered_notification": {
-                "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "title": "Notifications filtrées",
+                "accept": "Accepter",
+                "dismiss": "Rejeter"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "Filtrer les notifications de…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "Personnes que vous ne suivez pas",
+                    "subtitle": "Jusqu'à ce que vous les approuviez manuellement"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "Personnes qui ne vous suivent pas",
+                    "subtitle": "Incluant les personnes qui vous suivent depuis moins de 3 jours"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "Nouveaux comptes",
+                    "subtitle": "Créés au cours des 30 derniers jours"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "Mentions privées non sollicitées",
+                    "subtitle": "Filtrées sauf si c'est en réponse à l'une de vos mentions ou si vous suivez l'expéditeur·ice"
                 }
             }
         },
@@ -916,8 +916,8 @@
                 "appear_in_search_engines": "Apparaître dans les moteurs de recherche"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "Faire un don à Mastodon",
+                "manage": "Gérer les dons"
             }
         },
         "report": {
@@ -1006,18 +1006,18 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "Juste une fois",
+                "monthly_title": "Mensuellement",
+                "yearly_title": "Annuellement"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "Faire un don",
+            "currency": "Devise",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "Merci pour votre contribution !",
+                "subtitle": "Vous devriez recevoir un email de confirmation de votre don bientôt.",
+                "server_error_title": "Échec du paiement",
+                "server_error_message": "Nous sommes désolés, une erreur est survenue et nous n'avons pas pu traiter votre don.\n\nVeuillez réessayer dans quelques minutes.",
+                "share_button_title": "Faites passer le mot"
             }
         }
     },
