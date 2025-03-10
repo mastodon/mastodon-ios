@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Insira a URL ou procure pela sua instância"
             }
@@ -829,7 +829,7 @@
                 "general": "General",
                 "notifications": "Notifications",
                 "privacy_safety": "Privacy & Safety",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Apoiar Mastodon",
                 "about_mastodon": "Sobre o Mastodon",
                 "server_details": "Detalhes do servidor",
                 "logout": "Desconectar %@"
