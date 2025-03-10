@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Suivre",
-                "follow_back": "Follow back",
+                "follow_back": "Suivre en retour",
                 "following": "Suivi",
-                "mutual": "Mutual",
+                "mutual": "Mutuel",
                 "request": "Requête",
                 "pending": "En attente",
                 "block": "Bloquer",
@@ -712,7 +712,7 @@
                     "no_results": "Aucun résultat"
                 },
                 "recent_search": "Recherches récentes",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Aucune recherche récente.",
                 "clear_all": "Effacer tout",
                 "clear": "Effacer"
             }
@@ -736,20 +736,20 @@
                 "Mentions": "Mentions"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
+                "report": "Signalement",
+                "sign_up": "Inscription",
+                "favourite": "Favori",
+                "follow": "Abonnement",
+                "follow_request": "Demande d'abonnement",
+                "moderation_warning": "Avertissement",
+                "poll": "Sondage",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
                 "status": "Post",
                 "edit": "Edit"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
+                "your_poll_has_ended": "Votre sondage est terminé",
                 "single_name_ran_poll": "%@ ran %@",
                 "single_name_mentioned_you": "%@ mentioned you",
                 "single_name_requested_to_follow_you": "%@ requested to follow you",
