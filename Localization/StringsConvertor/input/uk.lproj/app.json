@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Ласкаво просимо назад",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Увійдіть за допомогою сервера, на якому ви створили обліковий запис.",
             "server_search_field": {
                 "placeholder": "Введіть URL-адресу або адресу сервера"
             }
@@ -829,7 +829,7 @@
                 "general": "Загальні",
                 "notifications": "Сповіщення",
                 "privacy_safety": "Конфіденційність і безпека",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Підтримка Mastodon",
                 "about_mastodon": "Про Mastodon",
                 "server_details": "Деталі сервера",
                 "logout": "Вийти з %@"
