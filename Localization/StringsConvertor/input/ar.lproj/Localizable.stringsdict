@@ -98,49 +98,6 @@
         <string>%ld characters left</string>
       </dict>
     </dict>
-    <key>plural.count.followed_by_and_mutual</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@names@%#@count_mutual@</string>
-      <key>names</key>
-      <dict>
-        <key>zero</key>
-        <string></string>
-        <key>one</key>
-        <string></string>
-        <key>two</key>
-        <string></string>
-        <key>few</key>
-        <string></string>
-        <key>many</key>
-        <string></string>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>other</key>
-        <string></string>
-      </dict>
-      <key>count_mutual</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>zero</key>
-        <string>مُتابَعٌ مِن قِبَلِ لَا أحَد</string>
-        <key>one</key>
-        <string>مُتابَعٌ مِن قِبَلِ %1$@، وشَخصٌ آخَرُ مُتبادَل</string>
-        <key>two</key>
-        <string>مُتابَعٌ مِن قِبَلِ %1$@، وشَخصانِ آخَرَانِ مُتبادَلَان</string>
-        <key>few</key>
-        <string>مُتابَعٌ مِن قِبَلِ %1$@، و%ld آخَرينَ مُتبادَلين</string>
-        <key>many</key>
-        <string>مُتابَعٌ مِن قِبَلِ %1$@، و%ld آخَرينَ مُتبادَلين</string>
-        <key>other</key>
-        <string>مُتابَعٌ مِن قِبَلِ %1$@، و%ld آخَرَ مُتبادَل</string>
-      </dict>
-    </dict>
     <key>plural.count.others</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -261,30 +218,6 @@
         <string>a poll that you and %ld others voted in</string>
       </dict>
     </dict>
-    <key>plural.count.metric_formatted.post</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%@ %#@post_count@</string>
-      <key>post_count</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>zero</key>
-        <string>لا منشور</string>
-        <key>one</key>
-        <string>منشور</string>
-        <key>two</key>
-        <string>منشوران</string>
-        <key>few</key>
-        <string>منشورات</string>
-        <key>many</key>
-        <string>منشورًا</string>
-        <key>other</key>
-        <string>منشور</string>
-      </dict>
-    </dict>
     <key>plural.count.media</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -320,17 +253,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld image</string>
+        <string>%ld images</string>
         <key>one</key>
         <string>1 image</string>
         <key>two</key>
-        <string>%ld image</string>
+        <string>%ld images</string>
         <key>few</key>
-        <string>%ld image</string>
+        <string>%ld images</string>
         <key>many</key>
-        <string>%ld image</string>
+        <string>%ld images</string>
         <key>other</key>
-        <string>%ld image</string>
+        <string>%ld images</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -344,17 +277,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld gif</string>
+        <string>%ld gifs</string>
         <key>one</key>
         <string>1 gif</string>
         <key>two</key>
-        <string>%ld gif</string>
+        <string>%ld gifs</string>
         <key>few</key>
-        <string>%ld gif</string>
+        <string>%ld gifs</string>
         <key>many</key>
-        <string>%ld gif</string>
+        <string>%ld gifs</string>
         <key>other</key>
-        <string>%ld gif</string>
+        <string>%ld gifs</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -368,17 +301,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld video</string>
+        <string>%ld videos</string>
         <key>one</key>
         <string>1 video</string>
         <key>two</key>
-        <string>%ld video</string>
+        <string>%ld videos</string>
         <key>few</key>
-        <string>%ld video</string>
+        <string>%ld videos</string>
         <key>many</key>
-        <string>%ld video</string>
+        <string>%ld videos</string>
         <key>other</key>
-        <string>%ld video</string>
+        <string>%ld videos</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -392,17 +325,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld audio</string>
+        <string>%ld audios</string>
         <key>one</key>
         <string>1 audio</string>
         <key>two</key>
-        <string>%ld audio</string>
+        <string>%ld audios</string>
         <key>few</key>
-        <string>%ld audio</string>
+        <string>%ld audios</string>
         <key>many</key>
-        <string>%ld audio</string>
+        <string>%ld audios</string>
         <key>other</key>
-        <string>%ld audio</string>
+        <string>%ld audios</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -416,17 +349,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld attachment</string>
+        <string>%ld attachments</string>
         <key>one</key>
         <string>1 attachment</string>
         <key>two</key>
-        <string>%ld attachment</string>
+        <string>%ld attachments</string>
         <key>few</key>
-        <string>%ld attachment</string>
+        <string>%ld attachments</string>
         <key>many</key>
-        <string>%ld attachment</string>
+        <string>%ld attachments</string>
         <key>other</key>
-        <string>%ld attachment</string>
+        <string>%ld attachments</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -440,17 +373,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld poll</string>
+        <string>%ld polls</string>
         <key>one</key>
         <string>1 poll</string>
         <key>two</key>
-        <string>%ld poll</string>
+        <string>%ld polls</string>
         <key>few</key>
-        <string>%ld poll</string>
+        <string>%ld polls</string>
         <key>many</key>
-        <string>%ld poll</string>
+        <string>%ld polls</string>
         <key>other</key>
-        <string>%ld poll</string>
+        <string>%ld polls</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
