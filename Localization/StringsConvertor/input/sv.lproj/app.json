@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Välkommen tillbaka",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Logga in på den server där du skapade ditt konto.",
             "server_search_field": {
                 "placeholder": "Ange URL eller sök efter din server"
             }
@@ -829,7 +829,7 @@
                 "general": "Allmänt",
                 "notifications": "Aviseringar",
                 "privacy_safety": "Privacy & Safety",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Stöd Mastodon",
                 "about_mastodon": "Om Mastodon",
                 "server_details": "Server Details",
                 "logout": "Logga ut %@"
