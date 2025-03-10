@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Üdv újra itt",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Azon a kiszolgálón jelentkezzen be, ahol a fiókját létrehozta.",
             "server_search_field": {
                 "placeholder": "Adja meg az URL-t vagy keresse meg a kiszolgálót"
             }
@@ -829,7 +829,7 @@
                 "general": "Általános",
                 "notifications": "Értesítések",
                 "privacy_safety": "Adatvédelem és biztonság",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "A Mastodon támogatása",
                 "about_mastodon": "A Mastodonról",
                 "server_details": "Kiszolgáló részletei",
                 "logout": "Kilépés %@"
