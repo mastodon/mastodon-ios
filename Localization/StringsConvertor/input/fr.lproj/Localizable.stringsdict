@@ -237,7 +237,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 attachment</string>
+        <string>1 pièce jointe</string>
         <key>other</key>
         <string>%ld pièces jointes</string>
       </dict>
@@ -253,7 +253,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 poll</string>
+        <string>1 sondage</string>
         <key>other</key>
         <string>%ld sondages</string>
       </dict>
@@ -301,7 +301,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 partage</string>
         <key>other</key>
         <string>%ld partages</string>
       </dict>
@@ -429,7 +429,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 of your followers</string>
+        <string>1 de vos abonné·es</string>
         <key>other</key>
         <string>%ld de vos abonné·es</string>
       </dict>
