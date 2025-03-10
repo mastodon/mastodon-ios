@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "欢迎回来",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "登陆到你创建账户的服务器。",
             "server_search_field": {
                 "placeholder": "输入网址或搜索您的服务器"
             }
@@ -829,7 +829,7 @@
                 "general": "通用",
                 "notifications": "通知",
                 "privacy_safety": "隐私",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "支持 Mastodon",
                 "about_mastodon": "关于 Mastodon",
                 "server_details": "服务器详情",
                 "logout": "登出 %@"
