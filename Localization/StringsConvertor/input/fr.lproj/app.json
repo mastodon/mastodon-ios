@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Content de vous revoir",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Connectez-vous avec le serveur sur lequel vous avez créé votre compte.",
             "server_search_field": {
                 "placeholder": "Entrez l'URL ou recherchez votre serveur"
             }
@@ -829,7 +829,7 @@
                 "general": "Général",
                 "notifications": "Notifications",
                 "privacy_safety": "Confidentialité & Sécurité",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Soutenir Mastodon",
                 "about_mastodon": "À propos de Mastodon",
                 "server_details": "Détails du serveur",
                 "logout": "Se déconnecter de %@"
