@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Croeso nôl",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Mewngofnodwch gyda'r gweinydd lle gwnaethoch chi greu eich cyfrif.",
             "server_search_field": {
                 "placeholder": "Mewnosod URL neu chwilio am eich gweinydd"
             }
@@ -829,7 +829,7 @@
                 "general": "Cyffredinol",
                 "notifications": "Hysbysiadau",
                 "privacy_safety": "Preifatrwydd & Diogelwch",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Cefnogi Mastodon",
                 "about_mastodon": "Ynglŷn â Mastodon",
                 "server_details": "Manylion Gweinydd",
                 "logout": "Allgofnodi %@"
