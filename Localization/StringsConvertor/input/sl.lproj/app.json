@@ -156,6 +156,10 @@
                 }
             },
             "status": {
+                "reply": "Reply",
+                "private_reply": "Private reply",
+                "mention": "Mention",
+                "private_mention": "Private mention",
                 "user_reblogged": "%s je izpostavil/a",
                 "user_replied_to": "Odgovarja %s",
                 "show_post": "Pokaži objavo",
@@ -240,7 +244,9 @@
             },
             "friendship": {
                 "follow": "Sledi",
+                "follow_back": "Follow back",
                 "following": "Sledi",
+                "mutual": "Mutual",
                 "request": "Zahteva",
                 "pending": "Na čakanju",
                 "block": "Blokiraj",
@@ -312,7 +318,7 @@
         },
         "login": {
             "title": "Dobrodošli nazaj",
-            "subtitle": "Prijavite se na strežniku, na katerem ste ustvarili svoj račun.",
+            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
             "server_search_field": {
                 "placeholder": "Vnesite URL ali poiščite svoj strežnik"
             }
@@ -706,6 +712,7 @@
                     "no_results": "Ni rezultatov"
                 },
                 "recent_search": "Nedavna iskanja",
+                "no_recent_searches": "No recent searches.",
                 "clear_all": "Počisti vse",
                 "clear": "Počisti"
             }
@@ -728,13 +735,43 @@
                 "Everything": "Vse",
                 "Mentions": "Omembe"
             },
+            "headers": {
+                "report": "Report",
+                "sign_up": "Signup",
+                "favourite": "Favorite",
+                "follow": "Follow",
+                "follow_request": "Follow request",
+                "moderation_warning": "Warning",
+                "poll": "Poll",
+                "boost": "Boost",
+                "severed_relationships": "Domain block",
+                "status": "Post",
+                "edit": "Edit"
+            },
+            "grouped_notification_description": {
+                "your_poll_has_ended": "Your poll has ended",
+                "single_name_ran_poll": "%@ ran %@",
+                "single_name_mentioned_you": "%@ mentioned you",
+                "single_name_requested_to_follow_you": "%@ requested to follow you",
+                "single_name_posted": "%@ posted:",
+                "single_name_boosted": "%@ boosted:",
+                "single_name_favourited": "%@ favorited:",
+                "single_name_followed_you": "%@ followed you",
+                "multiple_people_boosted": "%@ boosted:",
+                "multiple_people_favourited": "%@ favorited:",
+                "multiple_people_followed_you": "%@ followed you",
+                "single_name_signed_up": "%@ signed up",
+                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
+                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+            },
             "notification_description": {
                 "followed_you": "vam sledi",
                 "favorited_your_post": "je vzljubil/a vašo objavo",
                 "reblogged_your_post": "je izpostavil/a vašo objavo",
                 "mentioned_you": "vas je omenil/a",
                 "request_to_follow_you": "vas je zaprosil za sledenje",
-                "poll_has_ended": "anketa je zaključena"
+                "poll_has_ended": "anketa je zaključena",
+                "relationship_severance": "An admin from %@ has blocked %@, including %@."
             },
             "keyobard": {
                 "show_everything": "Pokaži vse",
@@ -755,6 +792,31 @@
                 "silence": "Vaš račun je bil omejen.",
                 "suspend": "Vaš račun je bil suspendiran.",
                 "learn_more": "Več o tem"
+            },
+            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "filtered_notification": {
+                "title": "Filtered Notifications",
+                "accept": "Accept",
+                "dismiss": "Dismiss"
+            },
+            "policy": {
+                "title": "Filter Notifications from…",
+                "not_following": {
+                    "title": "People you don't follow",
+                    "subtitle": "Until you manually approve them"
+                },
+                "no_follower": {
+                    "title": "People not following you",
+                    "subtitle": "Including people who have been following you fewer than 3 days"
+                },
+                "new_account": {
+                    "title": "New accounts",
+                    "subtitle": "Created within the past 30 days"
+                },
+                "private_mentions": {
+                    "title": "Unsolicited private mentions",
+                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                }
             }
         },
         "thread": {
@@ -767,7 +829,7 @@
                 "general": "Splošno",
                 "notifications": "Obvestila",
                 "privacy_safety": "Zasebnost in varnost",
-                "support_mastodon": "Podprite Mastodon",
+                "support_mastodon": "Donate to Mastodon",
                 "about_mastodon": "O Mastodonu",
                 "server_details": "Podrobnosti strežnika",
                 "logout": "Odjavi %@"
@@ -846,15 +908,16 @@
                     "custom": "Po meri"
                 },
                 "default_post_visibility": {
-                    "title": "Privzeta vidnost objav",
-                    "public": "Javno",
-                    "followers_only": "Samo sledilci",
-                    "only_people_mentioned": "Samo osebe, ki jih omenjam"
+                    "title": "Privzeta vidnost objav"
                 },
                 "manually_approve_follow_requests": "Ročno odobri prošnje za sledenje",
                 "show_followers_and_following": "Pokaži sledilce in sledene",
                 "suggest_my_account_to_others": "Predlagaj moj račun drugim",
                 "appear_in_search_engines": "Prikaži v iskalnikih"
+            },
+            "donation": {
+                "title": "Donate to Mastodon",
+                "manage": "Manage donations"
             }
         },
         "report": {
@@ -939,6 +1002,22 @@
             "actions": {
                 "follow": "Sledi",
                 "unfollow": "Prenehaj slediti"
+            }
+        },
+        "donation": {
+            "picker": {
+                "once_title": "Just once",
+                "monthly_title": "Monthly",
+                "yearly_title": "Yearly"
+            },
+            "donatebuttontitle": "Donate",
+            "currency": "Currency",
+            "success": {
+                "title": "Thank you for your contribution!",
+                "subtitle": "You should receive an email confirming your donation soon.",
+                "server_error_title": "Payment failed",
+                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
+                "share_button_title": "Spread the word"
             }
         }
     },
