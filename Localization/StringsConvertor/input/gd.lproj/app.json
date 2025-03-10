@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Fàilte air ais",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Clàraich a-steach leis an fhrithealaiche far an do chruthaich thu an cunntas agad.",
             "server_search_field": {
                 "placeholder": "Cuir a-steach URL an fhrithealaiche agad"
             }
@@ -829,7 +829,7 @@
                 "general": "Coitcheann",
                 "notifications": "Brathan",
                 "privacy_safety": "Prìobhaideachd ⁊ sàbhailteachd",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Thoir taic do Mhastodon",
                 "about_mastodon": "Mu Mhastodon",
                 "server_details": "Fiosrachadh mun fhrithealaiche",
                 "logout": "Clàraich a-mach %@"
