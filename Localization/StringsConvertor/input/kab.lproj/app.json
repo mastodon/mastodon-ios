@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Sekcem URL neɣ nadi ɣef uqeddac-ik·im"
             }
@@ -829,7 +829,7 @@
                 "general": "Amatu",
                 "notifications": "Ilɣa",
                 "privacy_safety": "Tabaḍnit akked tɣellist",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Mudd afus i Mastodon",
                 "about_mastodon": "Ɣef Mastodon",
                 "server_details": "Server Details",
                 "logout": "Ffeɣ seg %@"
