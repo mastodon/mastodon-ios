@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Ongi etorri berriro ere",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Hasi saioa kontua sortu zenuen zerbitzariarekin.",
             "server_search_field": {
                 "placeholder": "Sartu URLa edo bilatu zure zerbitzaria"
             }
@@ -829,7 +829,7 @@
                 "general": "Orokorra",
                 "notifications": "Jakinarazpenak",
                 "privacy_safety": "Pribatutasuna eta segurtasuna",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Eman babesa Mastodoni",
                 "about_mastodon": "Mastodoni buruz",
                 "server_details": "Zerbitzariaren xehetasunak",
                 "logout": "Amaitu %@ saioa"
