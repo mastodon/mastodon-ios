@@ -156,6 +156,10 @@
                 }
             },
             "status": {
+                "reply": "Reply",
+                "private_reply": "Private reply",
+                "mention": "Mention",
+                "private_mention": "Private mention",
                 "user_reblogged": "Hybodd %s",
                 "user_replied_to": "Wedi ymateb i %s",
                 "show_post": "Dangos Tŵt",
@@ -240,7 +244,9 @@
             },
             "friendship": {
                 "follow": "Dilyn",
+                "follow_back": "Follow back",
                 "following": "Yn dilyn",
+                "mutual": "Mutual",
                 "request": "Gwneud cais",
                 "pending": "Yn aros",
                 "block": "Blocio",
@@ -312,7 +318,7 @@
         },
         "login": {
             "title": "Croeso nôl",
-            "subtitle": "Mewngofnodwch gyda'r gweinydd lle gwnaethoch chi greu eich cyfrif.",
+            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
             "server_search_field": {
                 "placeholder": "Mewnosod URL neu chwilio am eich gweinydd"
             }
@@ -706,6 +712,7 @@
                     "no_results": "Dim canlyniadau"
                 },
                 "recent_search": "Chwiliadau diweddar",
+                "no_recent_searches": "No recent searches.",
                 "clear_all": "Clirio popeth",
                 "clear": "Clirio"
             }
@@ -728,13 +735,43 @@
                 "Everything": "Popeth",
                 "Mentions": "Crybwylliadau"
             },
+            "headers": {
+                "report": "Report",
+                "sign_up": "Signup",
+                "favourite": "Favorite",
+                "follow": "Follow",
+                "follow_request": "Follow request",
+                "moderation_warning": "Warning",
+                "poll": "Poll",
+                "boost": "Boost",
+                "severed_relationships": "Domain block",
+                "status": "Post",
+                "edit": "Edit"
+            },
+            "grouped_notification_description": {
+                "your_poll_has_ended": "Your poll has ended",
+                "single_name_ran_poll": "%@ ran %@",
+                "single_name_mentioned_you": "%@ mentioned you",
+                "single_name_requested_to_follow_you": "%@ requested to follow you",
+                "single_name_posted": "%@ posted:",
+                "single_name_boosted": "%@ boosted:",
+                "single_name_favourited": "%@ favorited:",
+                "single_name_followed_you": "%@ followed you",
+                "multiple_people_boosted": "%@ boosted:",
+                "multiple_people_favourited": "%@ favorited:",
+                "multiple_people_followed_you": "%@ followed you",
+                "single_name_signed_up": "%@ signed up",
+                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
+                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+            },
             "notification_description": {
                 "followed_you": "wedi eich dilyn",
                 "favorited_your_post": "wedi ffefrynnu eich tŵt",
                 "reblogged_your_post": "wedi hybu eich post",
                 "mentioned_you": "wedi sôn amdanoch",
                 "request_to_follow_you": "wedi gwneud cais i'ch dilyn",
-                "poll_has_ended": "pôl wedi dod i ben"
+                "poll_has_ended": "pôl wedi dod i ben",
+                "relationship_severance": "An admin from %@ has blocked %@, including %@."
             },
             "keyobard": {
                 "show_everything": "Dangos Popeth",
@@ -755,6 +792,31 @@
                 "silence": "Mae eich cyfrif wedi'i gyfyngu.",
                 "suspend": "Mae eich cyfrif wedi'i hatal.",
                 "learn_more": "Dysgu Mwy"
+            },
+            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "filtered_notification": {
+                "title": "Filtered Notifications",
+                "accept": "Accept",
+                "dismiss": "Dismiss"
+            },
+            "policy": {
+                "title": "Filter Notifications from…",
+                "not_following": {
+                    "title": "People you don't follow",
+                    "subtitle": "Until you manually approve them"
+                },
+                "no_follower": {
+                    "title": "People not following you",
+                    "subtitle": "Including people who have been following you fewer than 3 days"
+                },
+                "new_account": {
+                    "title": "New accounts",
+                    "subtitle": "Created within the past 30 days"
+                },
+                "private_mentions": {
+                    "title": "Unsolicited private mentions",
+                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                }
             }
         },
         "thread": {
@@ -767,7 +829,7 @@
                 "general": "Cyffredinol",
                 "notifications": "Hysbysiadau",
                 "privacy_safety": "Preifatrwydd & Diogelwch",
-                "support_mastodon": "Cefnogi Mastodon",
+                "support_mastodon": "Donate to Mastodon",
                 "about_mastodon": "Ynglŷn â Mastodon",
                 "server_details": "Manylion Gweinydd",
                 "logout": "Allgofnodi %@"
@@ -846,15 +908,16 @@
                     "custom": "Addas"
                 },
                 "default_post_visibility": {
-                    "title": "Gwelededd Post Diofyn",
-                    "public": "Cyhoeddus",
-                    "followers_only": "Dilynwyr yn unig",
-                    "only_people_mentioned": "Dim ond pobl rwy'n eu crybwyll"
+                    "title": "Gwelededd Post Diofyn"
                 },
                 "manually_approve_follow_requests": "Cymeradwyo Ceisiadau Dilyn â Llaw",
                 "show_followers_and_following": "Dangos Dilynwyr & Yn Dilyn",
                 "suggest_my_account_to_others": "Awgrymu fy Nghyfrif i Eraill",
                 "appear_in_search_engines": "Ymddangos mewn Peiriannau Chwilio"
+            },
+            "donation": {
+                "title": "Donate to Mastodon",
+                "manage": "Manage donations"
             }
         },
         "report": {
@@ -939,6 +1002,22 @@
             "actions": {
                 "follow": "Dilyn",
                 "unfollow": "Dad-ddilyn"
+            }
+        },
+        "donation": {
+            "picker": {
+                "once_title": "Just once",
+                "monthly_title": "Monthly",
+                "yearly_title": "Yearly"
+            },
+            "donatebuttontitle": "Donate",
+            "currency": "Currency",
+            "success": {
+                "title": "Thank you for your contribution!",
+                "subtitle": "You should receive an email confirming your donation soon.",
+                "server_error_title": "Payment failed",
+                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
+                "share_button_title": "Spread the word"
             }
         }
     },
