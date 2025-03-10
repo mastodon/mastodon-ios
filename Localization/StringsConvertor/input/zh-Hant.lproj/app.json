@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "回嘟",
+                "private_reply": "私訊回嘟",
+                "mention": "提及",
+                "private_mention": "私訊",
                 "user_reblogged": "%s 已轉嘟",
                 "user_replied_to": "回覆給 %s",
                 "show_post": "顯示嘟文",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "跟隨",
-                "follow_back": "Follow back",
+                "follow_back": "跟隨回去",
                 "following": "跟隨中",
-                "mutual": "Mutual",
+                "mutual": "互相跟隨",
                 "request": "請求",
                 "pending": "等待中",
                 "block": "封鎖",
@@ -712,7 +712,7 @@
                     "no_results": "沒有任何結果"
                 },
                 "recent_search": "最近的搜尋",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "尚無最近的搜尋紀錄。",
                 "clear_all": "清除全部",
                 "clear": "清除"
             }
@@ -736,33 +736,33 @@
                 "Mentions": "提及"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "report": "檢舉",
+                "sign_up": "註冊",
+                "favourite": "最愛",
+                "follow": "跟隨",
+                "follow_request": "跟隨請求",
+                "moderation_warning": "警告",
+                "poll": "投票",
+                "boost": "轉嘟",
+                "severed_relationships": "網域封鎖",
+                "status": "發嘟",
+                "edit": "編輯"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
-                "single_name_signed_up": "%@ signed up",
-                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
-                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+                "your_poll_has_ended": "您的投票已結束",
+                "single_name_ran_poll": "%@ 已舉行 %@",
+                "single_name_mentioned_you": "%@ 已提及您",
+                "single_name_requested_to_follow_you": "%@ 要求跟隨您",
+                "single_name_posted": "%@ 發嘟：",
+                "single_name_boosted": "%@ 轉嘟：",
+                "single_name_favourited": "%@ 已加入最愛：",
+                "single_name_followed_you": "%@ 已跟隨您",
+                "multiple_people_boosted": "%@ 轉嘟：",
+                "multiple_people_favourited": "%@ 已加入最愛：",
+                "multiple_people_followed_you": "%@ 已跟隨您",
+                "single_name_signed_up": "%@ 已經註冊",
+                "someone_reported_account_for_rule_violation": "有人檢舉 %@ 違反規則。",
+                "someone_reported_posts_from_account_for_rule_violation": "有人檢舉來自 %@ 的 %@ 違反規則。"
             },
             "notification_description": {
                 "followed_you": "已跟隨您",
@@ -771,7 +771,7 @@
                 "mentioned_you": "提到了您",
                 "request_to_follow_you": "要求跟隨您",
                 "poll_has_ended": "投票已結束",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "relationship_severance": "來自於 %@ 之管理員已經封鎖 %@ ，包含 %@。"
             },
             "keyobard": {
                 "show_everything": "顯示全部",
@@ -793,29 +793,29 @@
                 "suspend": "您的帳號已被停權。",
                 "learn_more": "了解更多"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "了解更多關於伺服器封鎖",
             "filtered_notification": {
-                "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "title": "已過濾之推播通知",
+                "accept": "接受",
+                "dismiss": "關閉"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "過濾通知來自...",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "您未跟隨之使用者",
+                    "subtitle": "直至您手動核准他們"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "未跟隨您之使用者",
+                    "subtitle": "包含近三日內跟隨您的人"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "新帳號",
+                    "subtitle": "三十天內之新帳號"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "不請自來的私訊",
+                    "subtitle": "過濾通知，除非嘟文包含於您的提及，或您跟隨該發嘟帳號"
                 }
             }
         },
@@ -916,8 +916,8 @@
                 "appear_in_search_engines": "顯示於搜尋引擎結果"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "捐款給 Mastodon",
+                "manage": "管理捐款"
             }
         },
         "report": {
@@ -1006,18 +1006,18 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "僅限一次",
+                "monthly_title": "每月",
+                "yearly_title": "每年"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "捐款",
+            "currency": "幣別",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "感謝您的貢獻！",
+                "subtitle": "您稍候應將收到一封 email 確認您的捐款。",
+                "server_error_title": "付款失敗",
+                "server_error_message": "很抱歉，發生錯誤且我們無法處理您的捐款。\n\n請稍候重試。",
+                "share_button_title": "昭告天下！"
             }
         }
     },
