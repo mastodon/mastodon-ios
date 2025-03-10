@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Καλωσόρισες Πάλι",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Συνδέσου με τον διακομιστή όπου δημιούργησες τον λογαριασμό σου.",
             "server_search_field": {
                 "placeholder": "Εισαγωγή URL ή αναζήτησε τον διακομιστή σου"
             }
@@ -829,7 +829,7 @@
                 "general": "Γενικά",
                 "notifications": "Ειδοποιήσεις",
                 "privacy_safety": "Απόρρητο & Ασφάλεια",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Υποστήριξε το Mastodon",
                 "about_mastodon": "Σχετικά με το Mastodon",
                 "server_details": "Λεπτομέρειες Διακομιστή",
                 "logout": "Αποσύνδεση %@"
