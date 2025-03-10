@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "歡迎回來",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "以您建立帳號之伺服器登入。",
             "server_search_field": {
                 "placeholder": "請輸入 URL 或搜尋您的伺服器"
             }
@@ -829,7 +829,7 @@
                 "general": "一般",
                 "notifications": "通知",
                 "privacy_safety": "隱私權與安全性",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "支援 Mastodon",
                 "about_mastodon": "關於 Mastodon",
                 "server_details": "伺服器詳細資料",
                 "logout": "登出 %@"
