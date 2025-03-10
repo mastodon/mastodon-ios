@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Welcome Back",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Log in with the server where you created your account.",
             "server_search_field": {
                 "placeholder": "Girêdanê têxe an jî li rajekarê xwe bigere"
             }
@@ -829,7 +829,7 @@
                 "general": "Giştî",
                 "notifications": "Agahdarî",
                 "privacy_safety": "Privacy & Safety",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Piştgiriya Mastodon bike",
                 "about_mastodon": "Derbarê Mastodon",
                 "server_details": "Server Details",
                 "logout": "Ji %@ derkeve"
