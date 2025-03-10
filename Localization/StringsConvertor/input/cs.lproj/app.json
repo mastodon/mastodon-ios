@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Vítejte zpět",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Přihlaste se pomocí serveru, kde jste si vytvořili svůj účet.",
             "server_search_field": {
                 "placeholder": "Zadejte URL nebo vyhledávejte váš server"
             }
@@ -829,7 +829,7 @@
                 "general": "Obecné",
                 "notifications": "Oznámení",
                 "privacy_safety": "Soukromí a bezpečnost",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Podpořte Mastodon",
                 "about_mastodon": "O Mastodonu",
                 "server_details": "Podrobnosti o serveru",
                 "logout": "Odhlásit %@"
