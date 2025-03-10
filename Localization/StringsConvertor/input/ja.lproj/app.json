@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "アカウントでログイン",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "アカウントがあるサーバーの URL を入力してください。",
             "server_search_field": {
                 "placeholder": "URLを入力またはサーバーを検索"
             }
@@ -829,7 +829,7 @@
                 "general": "一般",
                 "notifications": "通知",
                 "privacy_safety": "プライバシーと安全性",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Mastodonを支援する",
                 "about_mastodon": "Mastodonについて",
                 "server_details": "サーバーの詳細",
                 "logout": "%@ をログアウト"
