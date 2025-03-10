@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "Dobrodošli nazaj",
-            "subtitle": "Log in with the server where you created your account. For example, if your handle is @you@example.social, enter 'example.social'.",
+            "subtitle": "Prijavite se na strežniku, na katerem ste ustvarili svoj račun.",
             "server_search_field": {
                 "placeholder": "Vnesite URL ali poiščite svoj strežnik"
             }
@@ -829,7 +829,7 @@
                 "general": "Splošno",
                 "notifications": "Obvestila",
                 "privacy_safety": "Zasebnost in varnost",
-                "support_mastodon": "Donate to Mastodon",
+                "support_mastodon": "Podprite Mastodon",
                 "about_mastodon": "O Mastodonu",
                 "server_details": "Podrobnosti strežnika",
                 "logout": "Odjavi %@"
