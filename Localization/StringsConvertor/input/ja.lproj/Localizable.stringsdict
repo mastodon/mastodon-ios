@@ -58,29 +58,6 @@
         <string>残り %ld 文字</string>
       </dict>
     </dict>
-    <key>plural.count.followed_by_and_mutual</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@names@%#@count_mutual@</string>
-      <key>names</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>other</key>
-        <string></string>
-      </dict>
-      <key>count_mutual</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>other</key>
-        <string>%1$@および%ld人の相互フォロワーがフォロー</string>
-      </dict>
-    </dict>
     <key>plural.count.others</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -151,20 +128,6 @@
         <string>a poll that you and %ld others voted in</string>
       </dict>
     </dict>
-    <key>plural.count.metric_formatted.post</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%@ %#@post_count@</string>
-      <key>post_count</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>other</key>
-        <string>投稿</string>
-      </dict>
-    </dict>
     <key>plural.count.media</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -190,7 +153,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld image</string>
+        <string>%ld images</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -204,7 +167,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld gif</string>
+        <string>%ld gifs</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -218,7 +181,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld video</string>
+        <string>%ld videos</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -232,7 +195,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld audio</string>
+        <string>%ld audios</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -246,7 +209,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld attachment</string>
+        <string>%ld attachments</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -260,7 +223,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld poll</string>
+        <string>%ld polls</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
