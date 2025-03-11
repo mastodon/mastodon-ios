@@ -916,8 +916,8 @@
                 "appear_in_search_engines": "Apparire nei motori di ricerca"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "Dona a Mastodon",
+                "manage": "Gestisci le donazioni"
             }
         },
         "report": {
@@ -1006,18 +1006,18 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "Solo una volta",
+                "monthly_title": "Mensilmente",
+                "yearly_title": "Annualmente"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "Dona",
+            "currency": "Valuta",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
+                "title": "Grazie per il tuo contributo!",
+                "subtitle": "A breve dovresti ricevere un'e-mail di conferma della tua donazione.",
+                "server_error_title": "Pagamento fallito",
                 "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "share_button_title": "Spargi la voce"
             }
         }
     },
