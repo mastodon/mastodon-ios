@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one other</string>
+        <string>un altro</string>
         <key>other</key>
-        <string>%ld others</string>
+        <string>altri %ld</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person boosted:</string>
+        <string>una persona ha condiviso:</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld persone hanno condiviso:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person favorited:</string>
+        <string>una persona ha aggiunto ai preferiti:</string>
         <key>other</key>
-        <string>%ld people favorited:</string>
+        <string>%ld persone hanno aggiunto ai preferiti:</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person followed you</string>
+        <string>una persona ha iniziato a seguirti</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>%ld persone hanno iniziato a seguirti</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>a poll that you and one other voted in</string>
+        <string>un sondaggio a cui hai votato tu e un'altra persona</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>un sondaggio a cui hai votato tu e altre %ld persone</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 image</string>
+        <string>1 immagine</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld immagini</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -191,7 +191,7 @@
         <key>one</key>
         <string>1 gif</string>
         <key>other</key>
-        <string>%ld gifs</string>
+        <string>%ld gif</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -207,7 +207,7 @@
         <key>one</key>
         <string>1 video</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>%ld video</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -223,7 +223,7 @@
         <key>one</key>
         <string>1 audio</string>
         <key>other</key>
-        <string>%ld audios</string>
+        <string>%ld audio</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 attachment</string>
+        <string>1 allegato</string>
         <key>other</key>
-        <string>%ld attachments</string>
+        <string>%ld allegati</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 poll</string>
+        <string>1 sondaggio</string>
         <key>other</key>
-        <string>%ld polls</string>
+        <string>%ld sondaggi</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -397,7 +397,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>seguendo 1</string>
         <key>other</key>
         <string>%ld stanno seguendo</string>
       </dict>
