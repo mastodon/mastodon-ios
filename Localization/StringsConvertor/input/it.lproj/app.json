@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Risposta",
+                "private_reply": "Risposta in privato",
+                "mention": "Menzione",
+                "private_mention": "Menzione privata",
                 "user_reblogged": "%s ha condiviso",
                 "user_replied_to": "Risposta a %s",
                 "show_post": "Mostra il post",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Segui",
-                "follow_back": "Follow back",
+                "follow_back": "Segui a tua volta",
                 "following": "Stai seguendo",
-                "mutual": "Mutual",
+                "mutual": "In comune",
                 "request": "Richiesta",
                 "pending": "In attesa",
                 "block": "Blocca",
@@ -712,7 +712,7 @@
                     "no_results": "Nessun risultato"
                 },
                 "recent_search": "Ricerche recenti",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Nessuna ricerca recente.",
                 "clear_all": "Cancella tutto",
                 "clear": "Cancella"
             }
@@ -736,8 +736,8 @@
                 "Mentions": "Menzioni"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
+                "report": "Segnala",
+                "sign_up": "Registrati",
                 "favourite": "Favorite",
                 "follow": "Follow",
                 "follow_request": "Follow request",
