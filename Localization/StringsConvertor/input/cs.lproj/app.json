@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Odpověď",
+                "private_reply": "Soukromá odpověď",
+                "mention": "Zmínka",
+                "private_mention": "Soukromá zmínka",
                 "user_reblogged": "%s boostnut",
                 "user_replied_to": "Odpověděl %s",
                 "show_post": "Zobrazit příspěvek",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Sledovat",
-                "follow_back": "Follow back",
+                "follow_back": "Také sledovat",
                 "following": "Sleduji",
-                "mutual": "Mutual",
+                "mutual": "Vzájemné",
                 "request": "Požadavek",
                 "pending": "Čekající",
                 "block": "Blokovat",
@@ -712,7 +712,7 @@
                     "no_results": "Žádné výsledky"
                 },
                 "recent_search": "Nedávná hledání",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Žádná nedávná vyhledávání.",
                 "clear_all": "Vymazat vše",
                 "clear": "Vymazat"
             }
@@ -736,13 +736,13 @@
                 "Mentions": "Zmínky"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
+                "report": "Nahlásit",
+                "sign_up": "Registrace",
+                "favourite": "Oblíbené",
+                "follow": "Sledovat",
+                "follow_request": "Žádost o sledování",
+                "moderation_warning": "Varování",
+                "poll": "Anketa",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
                 "status": "Post",
