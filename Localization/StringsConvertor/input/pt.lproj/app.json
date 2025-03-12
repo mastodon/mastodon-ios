@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Resposta",
+                "private_reply": "Resposta privada",
+                "mention": "Menção",
+                "private_mention": "Menção privada",
                 "user_reblogged": "Impulsado por %s",
                 "user_replied_to": "Respondeu a %s",
                 "show_post": "Mostrar publicação",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Seguir",
-                "follow_back": "Follow back",
+                "follow_back": "Seguir também",
                 "following": "Seguindo",
-                "mutual": "Mutual",
+                "mutual": "Mútuo",
                 "request": "Pedido",
                 "pending": "Pendente",
                 "block": "Bloquear",
@@ -712,7 +712,7 @@
                     "no_results": "Sem resultados"
                 },
                 "recent_search": "Pesquisas recentes",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Nenhuma pesquisa recente.",
                 "clear_all": "Limpar tudo",
                 "clear": "Limpar"
             }
@@ -736,29 +736,29 @@
                 "Mentions": "Menções"
             },
             "headers": {
-                "report": "Report",
+                "report": "Denúncia",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "favourite": "Favorito",
+                "follow": "Seguir",
+                "follow_request": "Solicitação para seguir",
+                "moderation_warning": "Advertência",
+                "poll": "Sondagem",
+                "boost": "Impulsionar",
+                "severed_relationships": "Bloqueio de domínio",
+                "status": "Publicar",
+                "edit": "Editar"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
+                "your_poll_has_ended": "A tua sondagem terminou",
                 "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
+                "single_name_mentioned_you": "%@ mencionou-te",
+                "single_name_requested_to_follow_you": "%@ pediu para seguir-te",
+                "single_name_posted": "%@ publicou:",
+                "single_name_boosted": "%@ impulsionou:",
+                "single_name_favourited": "%@ adicionou aos favoritos:",
                 "single_name_followed_you": "%@ followed you",
                 "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
+                "multiple_people_favourited": "%@ adicionou aos favoritos:",
                 "multiple_people_followed_you": "%@ followed you",
                 "single_name_signed_up": "%@ signed up",
                 "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
@@ -796,26 +796,26 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "accept": "Aceitar",
+                "dismiss": "Descartar"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "Filtrar notificações de…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "Pessoas que não segues",
+                    "subtitle": "Até que os aproves manualmente"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "Pessoas que não te seguem",
+                    "subtitle": "Incluindo pessoas que te seguem há menos de 3 dias"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "Novas contas",
+                    "subtitle": "Criadas nos últimos 30 dias"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "Menções privadas não solicitadas",
+                    "subtitle": "Filtrado, a não ser que seja em resposta à tua própria menção ou se seguires o remetente"
                 }
             }
         },
@@ -916,8 +916,8 @@
                 "appear_in_search_engines": "Aparecer nos motores de busca"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "Doar para o Mastodon",
+                "manage": "Gerir doações"
             }
         },
         "report": {
@@ -1006,8 +1006,8 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
+                "once_title": "Apenas uma vez",
+                "monthly_title": "Mensalmente",
                 "yearly_title": "Yearly"
             },
             "donatebuttontitle": "Donate",
