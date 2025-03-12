@@ -93,13 +93,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one other</string>
+        <string>jeden jiný</string>
         <key>few</key>
-        <string>%ld others</string>
+        <string>%ld jiní</string>
         <key>many</key>
-        <string>%ld others</string>
+        <string>%ld jiných</string>
         <key>other</key>
-        <string>%ld others</string>
+        <string>%ld jiných</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -113,13 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person boosted:</string>
+        <string>jedna osoba boostnula:</string>
         <key>few</key>
-        <string>%ld people boosted:</string>
+        <string>%ld osoby boostnuli:</string>
         <key>many</key>
-        <string>%ld people boosted:</string>
+        <string>%ld osob boostnulo:</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld osob boostnulo:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -133,13 +133,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person favorited:</string>
+        <string>jedna osoba si oblíbila:</string>
         <key>few</key>
-        <string>%ld people favorited:</string>
+        <string>%ld osoby si oblíbili:</string>
         <key>many</key>
-        <string>%ld people favorited:</string>
+        <string>%ld osob si oblíbilo:</string>
         <key>other</key>
-        <string>%ld people favorited:</string>
+        <string>%ld osob si oblíbilo:</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -153,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person followed you</string>
+        <string>jedna osoba vás začala sledovat</string>
         <key>few</key>
-        <string>%ld people followed you</string>
+        <string>%ld osoby vás začali sledovat</string>
         <key>many</key>
-        <string>%ld people followed you</string>
+        <string>%ld osob vás začalo sledovat</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>%ld osob vás začalo sledovat</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -173,13 +173,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>a poll that you and one other voted in</string>
+        <string>anketa, v níž jste vy a jeden další hlasovali</string>
         <key>few</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>anketa, v níž jste vy a %ld další hlasovali</string>
         <key>many</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>anketa, v níž jste vy a %ld dalších hlasovali</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>anketa, v níž jste vy a %ld dalších hlasovali</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -213,13 +213,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 image</string>
+        <string>1 obrázek</string>
         <key>few</key>
-        <string>%ld images</string>
+        <string>%ld obrázky</string>
         <key>many</key>
-        <string>%ld images</string>
+        <string>%ld obrázků</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld obrázků</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -235,11 +235,11 @@
         <key>one</key>
         <string>1 gif</string>
         <key>few</key>
-        <string>%ld gifs</string>
+        <string>%ld gify</string>
         <key>many</key>
-        <string>%ld gifs</string>
+        <string>%ld gifů</string>
         <key>other</key>
-        <string>%ld gifs</string>
+        <string>%ld gifů</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -255,11 +255,11 @@
         <key>one</key>
         <string>1 video</string>
         <key>few</key>
-        <string>%ld videos</string>
+        <string>%ld videa</string>
         <key>many</key>
-        <string>%ld videos</string>
+        <string>%ld videí</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>%ld videí</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -275,11 +275,11 @@
         <key>one</key>
         <string>1 audio</string>
         <key>few</key>
-        <string>%ld audios</string>
+        <string>%ld audia</string>
         <key>many</key>
-        <string>%ld audios</string>
+        <string>%ld audií</string>
         <key>other</key>
-        <string>%ld audios</string>
+        <string>%ld audií</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -293,13 +293,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 attachment</string>
+        <string>1 příloha</string>
         <key>few</key>
-        <string>%ld attachments</string>
+        <string>%ld přílohy</string>
         <key>many</key>
-        <string>%ld attachments</string>
+        <string>%ld příloh</string>
         <key>other</key>
-        <string>%ld attachments</string>
+        <string>%ld příloh</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -313,13 +313,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 poll</string>
+        <string>1 anketa</string>
         <key>few</key>
-        <string>%ld polls</string>
+        <string>%ld ankety</string>
         <key>many</key>
-        <string>%ld polls</string>
+        <string>%ld anket</string>
         <key>other</key>
-        <string>%ld polls</string>
+        <string>%ld anket</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -533,13 +533,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 of your followers</string>
+        <string>1 z vašich sledujících</string>
         <key>few</key>
-        <string>%ld of your followers</string>
+        <string>%ld z vašich sledujících</string>
         <key>many</key>
-        <string>%ld of your followers</string>
+        <string>%ld z vašich sledujících</string>
         <key>other</key>
-        <string>%ld of your followers</string>
+        <string>%ld z vašich sledujících</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -553,13 +553,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 account that you follow</string>
+        <string>1 sledovaný</string>
         <key>few</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld sledovaní</string>
         <key>many</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld sledovaných</string>
         <key>other</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld sledovaných</string>
       </dict>
     </dict>
     <key>date.year.left</key>
