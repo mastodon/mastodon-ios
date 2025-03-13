@@ -431,7 +431,7 @@
         <key>one</key>
         <string>1 of your followers</string>
         <key>other</key>
-        <string>%ld of your followers</string>
+        <string>%ld de tus seguidores</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -447,7 +447,7 @@
         <key>one</key>
         <string>1 account that you follow</string>
         <key>other</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld cuentas que sigues</string>
       </dict>
     </dict>
     <key>date.year.left</key>
