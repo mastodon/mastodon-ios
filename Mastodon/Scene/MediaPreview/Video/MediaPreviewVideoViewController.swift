@@ -18,12 +18,6 @@ final class MediaPreviewVideoViewController: UIViewController {
     let playerViewController = AVPlayerViewController()
     let previewImageView = UIImageView()
     
-    let doubleTapGestureRecognizer: UITapGestureRecognizer = {
-        let tapGestureRecognizer = UITapGestureRecognizer()
-        tapGestureRecognizer.numberOfTapsRequired = 2
-        return tapGestureRecognizer
-    }()
-    
     private let containerView = UIView()
     
     deinit {
