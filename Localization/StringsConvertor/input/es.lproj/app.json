@@ -29,7 +29,7 @@
             },
             "sign_out": {
                 "title": "Cerrar Sesión",
-                "message": "¿Está seguro de que quiere cerrar sesión?",
+                "message": "¿Estás seguro de que quieres cerrar sesión?",
                 "confirm": "Cerrar Sesión"
             },
             "block_domain": {
@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Respuesta",
+                "private_reply": "Respuesta privada",
+                "mention": "Mención",
+                "private_mention": "Mención privada",
                 "user_reblogged": "Impulsado por %s",
                 "user_replied_to": "En respuesta a %s",
                 "show_post": "Mostrar Publicación",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Seguir",
-                "follow_back": "Follow back",
+                "follow_back": "Seguir también",
                 "following": "Siguiendo",
-                "mutual": "Mutual",
+                "mutual": "Mutuo",
                 "request": "Solicitud",
                 "pending": "Pendiente",
                 "block": "Bloquear",
@@ -712,7 +712,7 @@
                     "no_results": "Sin resultados"
                 },
                 "recent_search": "Búsquedas recientes",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "No hay búsquedas recientes.",
                 "clear_all": "Limpiar todo",
                 "clear": "Borrar"
             }
@@ -736,25 +736,25 @@
                 "Mentions": "Menciones"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "report": "Reporte",
+                "sign_up": "Registro",
+                "favourite": "Favorito",
+                "follow": "Seguimiento",
+                "follow_request": "Solicitud de seguimiento",
+                "moderation_warning": "Advertencia",
+                "poll": "Encuesta",
+                "boost": "Impulso",
+                "severed_relationships": "Bloqueo de dominio",
+                "status": "Publicación",
+                "edit": "Editar"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
+                "your_poll_has_ended": "Tu encuesta ha terminado",
                 "single_name_ran_poll": "%@ ran %@",
                 "single_name_mentioned_you": "%@ mentioned you",
                 "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
+                "single_name_posted": "%@ publicó:",
+                "single_name_boosted": "%@ impulsó:",
                 "single_name_favourited": "%@ favorited:",
                 "single_name_followed_you": "%@ followed you",
                 "multiple_people_boosted": "%@ boosted:",
@@ -795,27 +795,27 @@
             },
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
-                "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "title": "Notificaciones filtradas",
+                "accept": "Aceptar",
+                "dismiss": "Descartar"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "Filtrar notificaciones de…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "Personas que no sigues",
+                    "subtitle": "Hasta que los apruebes manualmente"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "Personas que no te siguen",
+                    "subtitle": "Incluidas las personas que te siguen desde hace menos de 3 días"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "Cuentas nuevas",
+                    "subtitle": "Creadas en los últimos 30 días"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "Menciones privadas no solicitadas",
+                    "subtitle": "Filtrado a menos que sea en respuesta a tu propia mención o si sigues al remitente"
                 }
             }
         },
@@ -916,8 +916,8 @@
                 "appear_in_search_engines": "Aparecer en los Motores de Búsqueda"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "Donar a Mastodon",
+                "manage": "Administrar donaciones"
             }
         },
         "report": {
@@ -1006,18 +1006,18 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "Solo una vez",
+                "monthly_title": "Mensual",
+                "yearly_title": "Anual"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "Donación",
+            "currency": "Moneda",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "¡Gracias por tu contribución!",
+                "subtitle": "En breve recibirás un correo electrónico confirmando tu donación.",
+                "server_error_title": "El pago no se ha realizado",
+                "server_error_message": "Lo sentimos, se ha producido un error y no hemos podido procesar tu donación.\n\nVuelve a intentarlo dentro de unos minutos.",
+                "share_button_title": "Corre la voz"
             }
         }
     },
