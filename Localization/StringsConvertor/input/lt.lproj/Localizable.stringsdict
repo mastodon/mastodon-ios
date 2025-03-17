@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>%ld neskaitytas pranešimas</string>
         <key>few</key>
-        <string>%ld unread notifications</string>
+        <string>%ld neskaityti pranešimai</string>
         <key>many</key>
-        <string>%ld unread notifications</string>
+        <string>%ld neskaityto pranešimo</string>
         <key>other</key>
-        <string>%ld unread notifications</string>
+        <string>%ld neskaitytų pranešimų</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
