@@ -2,18 +2,18 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Bandykite dar kartą.",
+                "please_try_again_later": "Bandykite dar kartą vėliau."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Registracijos nesėkmė"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Serverio klaida"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Balsavimo nesėkmė",
+                "poll_ended": "Apklausa baigėsi"
             },
             "publish_post_failure": {
                 "title": "Publish Failure",
@@ -45,7 +45,7 @@
                 "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "Valyti podėlį",
                 "message": "Successfully cleaned %s cache."
             },
             "translation_failed": {
