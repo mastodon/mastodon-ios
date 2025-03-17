@@ -355,11 +355,11 @@
         <key>one</key>
         <string>%ld mėgstamas</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld mėgstami</string>
         <key>many</key>
-        <string>%ld favorites</string>
+        <string>%ld mėgstamo</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld mėgstamų</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -373,13 +373,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>%ld pasidalinimas</string>
         <key>few</key>
-        <string>%ld reblogs</string>
+        <string>%ld pasidalinimai</string>
         <key>many</key>
-        <string>%ld reblogs</string>
+        <string>%ld pasidalinimo</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld pasidalinimų</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -393,13 +393,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 re-blog</string>
+        <string>%ld pasidalinimas</string>
         <key>few</key>
-        <string>%ld re-blogs</string>
+        <string>%ld pasidalinimai</string>
         <key>many</key>
-        <string>%ld re-blogs</string>
+        <string>%ld pasidalinimo</string>
         <key>other</key>
-        <string>%ld re-blogs</string>
+        <string>%ld pasidalinimų</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
