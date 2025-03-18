@@ -33,9 +33,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld simbolis</string>
+        <string>%ld simbolį</string>
         <key>few</key>
-        <string>%ld simboliai</string>
+        <string>%ld simbolius</string>
         <key>many</key>
         <string>%ld simbolio</string>
         <key>other</key>
@@ -433,13 +433,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>%ld balsas</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld balsai</string>
         <key>many</key>
-        <string>%ld votes</string>
+        <string>%ld balso</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld balsų</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -453,13 +453,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>%ld balsuotojas</string>
         <key>few</key>
-        <string>%ld voters</string>
+        <string>%ld balsuotojai</string>
         <key>many</key>
-        <string>%ld voters</string>
+        <string>%ld balsuotojo</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld balsuotojų</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -473,13 +473,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>%ld žmogus kalbasi</string>
         <key>few</key>
-        <string>%ld people talking</string>
+        <string>%ld žmonės kalbasi</string>
         <key>many</key>
-        <string>%ld people talking</string>
+        <string>%ld žmones kalbasi</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld žmonių kalbasi</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -493,13 +493,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>%ld sekimas</string>
         <key>few</key>
-        <string>%ld following</string>
+        <string>%ld sekimai</string>
         <key>many</key>
-        <string>%ld following</string>
+        <string>%ld sekimo</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld sekimų</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -513,13 +513,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>%ld sekėjas</string>
         <key>few</key>
-        <string>%ld followers</string>
+        <string>%ld sekėjai</string>
         <key>many</key>
-        <string>%ld followers</string>
+        <string>%ld sekėjo</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld sekėjų</string>
       </dict>
     </dict>
     <key>plural.count.of_your_followers</key>
@@ -533,13 +533,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 of your followers</string>
+        <string>%ld iš jūsų sekėjų</string>
         <key>few</key>
-        <string>%ld of your followers</string>
+        <string>%ld iš jūsų sekėjų</string>
         <key>many</key>
-        <string>%ld of your followers</string>
+        <string>%ld iš jūsų sekėjų</string>
         <key>other</key>
-        <string>%ld of your followers</string>
+        <string>%ld iš jūsų sekėjų</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -553,13 +553,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 account that you follow</string>
+        <string>%ld paskyra, kurią sekate</string>
         <key>few</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld paskyros, kurias sekate</string>
         <key>many</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld paskyros, kurios sekate</string>
         <key>other</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld paskyrų, kurių sekate</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -573,13 +573,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>Liko %ld metai</string>
         <key>few</key>
-        <string>%ld years left</string>
+        <string>Liko %ld metai</string>
         <key>many</key>
-        <string>%ld years left</string>
+        <string>Liko %ld metų</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>Liko %ld metų</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -593,13 +593,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>Liko %ld mėnesis</string>
         <key>few</key>
-        <string>%ld months left</string>
+        <string>Liko %ld mėnesiai</string>
         <key>many</key>
-        <string>%ld months left</string>
+        <string>Liko %ld mėnesio</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>Liko %ld minučių</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -613,13 +613,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>Liko %ld diena</string>
         <key>few</key>
-        <string>%ld days left</string>
+        <string>Liko %ld dienos</string>
         <key>many</key>
-        <string>%ld days left</string>
+        <string>Liko %ld dienos</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>Liko %ld dienų</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -633,13 +633,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>Liko %ld valanda</string>
         <key>few</key>
-        <string>%ld hours left</string>
+        <string>Liko %ld valandos</string>
         <key>many</key>
-        <string>%ld hours left</string>
+        <string>Liko %ld valandos</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>Liko %ld valandų</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -653,13 +653,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>Liko %ld minutė</string>
         <key>few</key>
-        <string>%ld minutes left</string>
+        <string>Liko %ld minutės</string>
         <key>many</key>
-        <string>%ld minutes left</string>
+        <string>Liko %ld minutes</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>Liko %ld minučių</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -673,13 +673,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>Liko %ld sekundė</string>
         <key>few</key>
-        <string>%ld seconds left</string>
+        <string>Liko %ld sekundės</string>
         <key>many</key>
-        <string>%ld seconds left</string>
+        <string>Liko %ld sekundes</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>Liko %ld sekundžių</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -693,13 +693,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>prieš %ld m.</string>
         <key>few</key>
-        <string>%ldy ago</string>
+        <string>prieš %ld m.</string>
         <key>many</key>
-        <string>%ldy ago</string>
+        <string>prieš %ld m.</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>prieš %ld m.</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -713,13 +713,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>prieš %ld mėn.</string>
         <key>few</key>
-        <string>%ldM ago</string>
+        <string>prieš %ld mėn.</string>
         <key>many</key>
-        <string>%ldM ago</string>
+        <string>prieš %ld mėn.</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>prieš %ld mėn.</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -733,13 +733,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>prieš %ld d.</string>
         <key>few</key>
-        <string>%ldd ago</string>
+        <string>prieš %ld d.</string>
         <key>many</key>
-        <string>%ldd ago</string>
+        <string>prieš %ld d.</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>prieš %ld d.</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -753,13 +753,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>prieš %ld val.</string>
         <key>few</key>
-        <string>%ldh ago</string>
+        <string>prieš %ld val.</string>
         <key>many</key>
-        <string>%ldh ago</string>
+        <string>prieš %ld val.</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>prieš %ld val.</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -773,13 +773,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>prieš %ld min.</string>
         <key>few</key>
-        <string>%ldm ago</string>
+        <string>prieš %ld min.</string>
         <key>many</key>
-        <string>%ldm ago</string>
+        <string>prieš %ld min.</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>prieš %ld min.</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
