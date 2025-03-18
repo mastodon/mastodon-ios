@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Skelbti platformoje „Mastodon“";
 
-"751xkl" = "Text Content";
+"751xkl" = "Teksto turinys";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Skelbti platformoje „Mastodon“";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Kokį turinį skelbti?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Paskelbimas nepavyko";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Nesėkmės priežastis";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Siųsti įrašą su teksto turiniu";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Skelbimas";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Skelbti ${content} platformoje „Mastodon“";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Skelbimas";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Matomumas";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Įrašo matomumas";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Yra ${count} parinkčių, atitinkančių „Viešas“.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Yra ${count} parinkčių, atitinkančių „Tik sekėjai“.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, viešas";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, tik sekėjai";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Skelbti platformoje „Mastodon“";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Viešas";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Tik sekėjai";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Paskelbimas nepavyko. ${failureReason}.";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Įrašas buvo sėkmingai išsiųstas.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Norint patvirtinti, ar norėjote „Viešas“?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Norint patvirtinti, ar norėjote „Tik sekėjai“?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Įrašas buvo sėkmingai išsiųstas. ";
