@@ -16,7 +16,7 @@
                 "poll_ended": "Apklausa baigėsi"
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
+                "title": "Skelbimo nesėkmė",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
@@ -944,31 +944,31 @@
                 "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
                 "it_violates_server_rules": "It violates server rules",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "its_something_else": "Tai kažkas kita",
+                "the_issue_does_not_fit_into_other_categories": "Problema netinka kitoms kategorijoms"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "2 žingsnis iš 4",
+                "which_rules_are_being_violated": "Kokios taisyklės pažeidžiamos?",
+                "select_all_that_apply": "Pasirinkite viską, kas tinka",
+                "i_just_don’t_like_it": "Man tai tiesiog nepatinka"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "3 žingsnis iš 4",
+                "are_there_any_posts_that_back_up_this_report": "Ar yra kokių nors įrašų, patvirtinančių šį ataskaitą?",
+                "select_all_that_apply": "Pasirinkite viską, kas tinka"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "4 žingsnis iš 4",
+                "is_there_anything_else_we_should_know": "Ar yra dar kas nors, ką turėtume žinoti?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "dont_want_to_see_this": "Nenorite to matyti?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Kai „Mastodon“ platformoje pamatote kažką, kas jums nepatinka, galite pašalinti žmogų iš savo patirties.",
+                "unfollow": "Nebesekti",
+                "unfollowed": "Nebesekama",
+                "unfollow_user": "Nebesekti %s",
+                "mute_user": "Nutildyti %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Block %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
@@ -1033,21 +1033,21 @@
         },
         "followers_count": {
             "configuration_display_name": "Followers",
-            "configuration_description": "Show number of followers.",
-            "title": "FOLLOWERS",
-            "followers_today": "%s followers today"
+            "configuration_description": "Rodyti sekėjų skaičių.",
+            "title": "SEKĖJAI",
+            "followers_today": "%s sekėjai (-ų) šiandien"
         },
         "multiple_followers": {
-            "configuration_display_name": "Multiple followers",
-            "configuration_description": "Show number of followers for multiple accounts.",
+            "configuration_display_name": "Keli sekėjai",
+            "configuration_description": "Rodyti sekėjų skaičių kelioms paskyroms.",
             "mock_user": {
-                "display_name": "Another follower",
-                "account_name": "another@follower.social"
+                "display_name": "Dar vienas sekėjas",
+                "account_name": "darvienas@sekejas.socialinis"
             }
         },
         "latest_followers": {
             "configuration_display_name": "Naujausi sekėjai",
-            "configuration_description": "Rodykite naujausius sekėjus.",
+            "configuration_description": "Rodyti naujausius sekėjus.",
             "title": "Naujausi sekėjai",
             "last_update": "Paskutinį kartą atnaujinta: %s"
         },
@@ -1057,13 +1057,13 @@
                 "description": "Rodo naujausią įrašą su pasirinktu saitažodžiu."
             },
             "not_found": {
-                "account_name": "Jonas Mastodonas",
-                "account": "@johnMastodon@no-such.account",
-                "content": "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
+                "account_name": "Jonas Mastodon",
+                "account": "@jonasMastodon@nera-tokios.paskyros",
+                "content": "Atsiprašome, neradome įrašų su saitažodžiu <a>#%@</a>. Bandykite <a>#KitokiąSaitažodį</a> arba patikrinkite valdiklio nustatymus."
             },
             "placeholder": {
                 "account_name": "Jonas Mastodonas",
-                "account": "@johnMastodon@no-such.account",
+                "account": "@jonasMastodon@nera-tokios.paskyros",
                 "content": "Štai kaip atrodytų įrašas su <a>#saitažodžiu</a>. Valdiklio nustatymuose pasirinkite bet kurią norimą <a>#saitažodį</a>."
             }
         }
