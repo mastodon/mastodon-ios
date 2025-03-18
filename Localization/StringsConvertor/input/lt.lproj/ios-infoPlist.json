@@ -1,6 +1,6 @@
 {
-    "NSCameraUsageDescription": "Used to take photo for post status",
-    "NSPhotoLibraryAddUsageDescription": "Used to save photo into the Photo Library",
-    "NewPostShortcutItemTitle": "New Post",
-    "SearchShortcutItemTitle": "Search"
+    "NSCameraUsageDescription": "Naudojamas daryti nuotrauką įrašo būsenai",
+    "NSPhotoLibraryAddUsageDescription": "Naudojamas išsaugoti nuotrauką į nuotraukų biblioteką",
+    "NewPostShortcutItemTitle": "Naujas įrašas",
+    "SearchShortcutItemTitle": "Paieška"
 }
