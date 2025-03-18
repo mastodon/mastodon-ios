@@ -17,24 +17,24 @@
             },
             "publish_post_failure": {
                 "title": "Skelbimo nesėkmė",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "message": "Nepavyko paskelbti įrašo.\nPatikrinkite savo interneto ryšį.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Negalima pridėti vaizdo įrašo prie įrašo, kuriame jau yra vaizdų.",
+                    "more_than_one_video": "Negalima pridėti daugiau nei vieno vaizdo įrašo."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Profilio redagavimo klaida",
+                "message": "Negalima redaguoti profilio. Bandykite dar kartą."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Atsijungti",
+                "message": "Ar tikrai norite atsijungti?",
+                "confirm": "Atsijungti"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Ar tikrai, tikrai norite užblokuoti visą %s? Daugeliu atvejų užtenka kelių tikslinių blokavimų arba nutildymų. Nematysite to domeno turinio ir bus pašalinti visi jūsų sekėjai iš to domeno.",
+                "block_entire_domain": "Blokuoti domeną"
             },
             "save_photo_failure": {
                 "title": "Save Photo Failure",
@@ -49,12 +49,12 @@
                 "message": "Successfully cleaned %s cache."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Pastaba",
+                "message": "Vertimas nepavyko. Galbūt administratorius šiame serveryje neįjungė vertimų arba šiame serveryje veikia senesnė „Mastodon“ versija, kurioje vertimai dar nepalaikomi.",
+                "button": "Gerai"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
+                "title": "Medijoje trūksta alternatyvaus teksto",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
                 "cancel": "Cancel",
                 "post": "Post"
@@ -86,12 +86,12 @@
                 "done": "Done",
                 "confirm": "Confirm",
                 "continue": "Continue",
-                "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
+                "compose": "Sukurti",
+                "cancel": "Atšaukti",
+                "discard": "Atmesti",
+                "try_again": "Bandyti dar kartą",
+                "take_photo": "Fotografuoti",
+                "save_photo": "Išsaugoti nuotrauką",
                 "copy_photo": "Copy Photo",
                 "sign_in": "Log in",
                 "see_more": "See More",
@@ -144,7 +144,7 @@
                     "open_status": "Open Post",
                     "open_author_profile": "Open Author's Profile",
                     "open_reblogger_profile": "Open Booster's Profile",
-                    "reply_status": "Reply to Post",
+                    "reply_status": "Atsakyti į įrašą",
                     "toggle_reblog": "Toggle Boost on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
@@ -158,10 +158,10 @@
             "status": {
                 "reply": "Reply",
                 "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
-                "user_reblogged": "%s boosted",
-                "user_replied_to": "Replied to %s",
+                "mention": "Paminėjimas",
+                "private_mention": "Privatus paminėjimas",
+                "user_reblogged": "%s pasidalino",
+                "user_replied_to": "Atsakė į %s",
                 "show_post": "Show Post",
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
@@ -204,12 +204,12 @@
                     "mention": "Mention",
                     "link": "Link",
                     "hashtag": "Hashtag",
-                    "email": "Email",
-                    "emoji": "Emoji"
+                    "email": "El. paštas",
+                    "emoji": "Jaustukas"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
+                    "unlisted": "Šį įrašą matyti gali visi, bet jis nerodomas viešojoje laiko skalėje.",
+                    "private": "Šį įrašą matyti gali tik jų sekėjai.",
                     "private_from_me": "Only my followers can see this post.",
                     "direct": "Only mentioned user can see this post."
                 },
@@ -298,15 +298,15 @@
             "join_default_server": "Join %@",
             "pick_server": "Pick another server",
             "separator": {
-                "or": "or"
+                "or": "arba"
             },
             "education": {
                 "mastodon": {
-                    "title": "Welcome to Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "title": "Sveiki atvykę į „Mastodon“",
+                    "description": "„Mastodon“ – tai decentralizuotas socialinis tinklas ir tai reiškia, kad jo nevaldo nė viena įmonė. Jį sudaro daugybė nepriklausomai veikiančių serverių, sujungtų tarpusavyje."
                 },
                 "servers": {
-                    "title": "What are servers?",
+                    "title": "Kas yra serveriai?",
                     "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
                 },
                 "a11y": {
