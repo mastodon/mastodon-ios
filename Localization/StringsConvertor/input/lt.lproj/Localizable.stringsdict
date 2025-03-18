@@ -413,13 +413,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>%ld atsakymas</string>
         <key>few</key>
-        <string>%ld replies</string>
+        <string>%ld atsakymai</string>
         <key>many</key>
-        <string>%ld replies</string>
+        <string>%ld atsakymo</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld atsakymų</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
