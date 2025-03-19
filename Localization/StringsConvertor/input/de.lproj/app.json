@@ -156,8 +156,8 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
+                "reply": "Antwort",
+                "private_reply": "Private Antwort",
                 "mention": "Mention",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s geboostet",
