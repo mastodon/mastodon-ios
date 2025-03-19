@@ -17,7 +17,7 @@
             },
             "publish_post_failure": {
                 "title": "发布失败",
-                "message": "嘟文发布失败。\n请检查你的网络连接。",
+                "message": "嘟文发布失败。\n请检查您的网络连接。",
                 "attachments_message": {
                     "video_attach_with_photo": "无法在嘟文中同时插入视频和图片。",
                     "more_than_one_video": "不能附加多个视频。"
@@ -33,7 +33,7 @@
                 "confirm": "登出"
             },
             "block_domain": {
-                "title": "您真的确定要完全屏蔽 %s 吗？多数情况下，屏蔽或隐藏某些用户就已经足够了。屏蔽后，你将不会在任何公共时间轴或通知列表里看到来自该域名的内容；来自该域名的关注者也将被移除。",
+                "title": "您真的确定要完全屏蔽 %s 吗？多数情况下，屏蔽或隐藏某些用户就已经足够了。屏蔽后，您将不会在任何公共时间轴或通知列表里看到来自该域名的内容；来自该域名的关注者也将被移除。",
                 "block_entire_domain": "屏蔽域名"
             },
             "save_photo_failure": {
@@ -590,7 +590,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "关注了你"
+                "follows_you": "关注了您"
             },
             "dashboard": {
                 "my_posts": "嘟文",
@@ -670,7 +670,7 @@
             "footer": "不会显示来自其它实例的关注者。"
         },
         "familiarFollowers": {
-            "title": "你熟悉的关注者",
+            "title": "您熟悉的关注者",
             "followed_by_names": "%s 关注了您"
         },
         "favorited_by": {
@@ -693,8 +693,8 @@
                     "people_talking": "%s 人正在讨论"
                 },
                 "accounts": {
-                    "title": "你可能感兴趣的用户",
-                    "description": "你可能会想关注这些用户",
+                    "title": "您可能感兴趣的用户",
+                    "description": "您可能会想关注这些用户",
                     "follow": "关注"
                 }
             },
@@ -723,9 +723,9 @@
                 "hashtags": "话题",
                 "news": "最近",
                 "community": "社区",
-                "for_you": "为你推荐"
+                "for_you": "为您推荐"
             },
-            "intro": "这些是在你的Mastodon角落备受关注的嘟文。"
+            "intro": "这些是在您的Mastodon角落备受关注的嘟文。"
         },
         "favorite": {
             "title": "收藏"
@@ -749,26 +749,26 @@
                 "edit": "编辑"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "你的投票已结束",
+                "your_poll_has_ended": "您的投票已结束",
                 "single_name_ran_poll": "%@ 发起了 %@",
-                "single_name_mentioned_you": "%@ 提及了你",
-                "single_name_requested_to_follow_you": "%@ 向你发送了关注请求",
+                "single_name_mentioned_you": "%@ 提及了您",
+                "single_name_requested_to_follow_you": "%@ 向您发送了关注请求",
                 "single_name_posted": "%@ 条嘟文：",
                 "single_name_boosted": "%@ 转嘟了：",
                 "single_name_favourited": "%@ 收藏了：",
-                "single_name_followed_you": "%@ 关注了你",
+                "single_name_followed_you": "%@ 关注了您",
                 "multiple_people_boosted": "%@ 转嘟了：",
                 "multiple_people_favourited": "%@ 收藏了：",
-                "multiple_people_followed_you": "%@ 关注了你",
+                "multiple_people_followed_you": "%@ 关注了您",
                 "single_name_signed_up": "%@ 注册了",
                 "someone_reported_account_for_rule_violation": "某人报告 %@ 违反条例。",
                 "someone_reported_posts_from_account_for_rule_violation": "来自 %@ 的某人报告 %@ 违反条例。"
             },
             "notification_description": {
-                "followed_you": "关注了你",
-                "favorited_your_post": "收藏了你的嘟文",
-                "reblogged_your_post": "转发了你的嘟文",
-                "mentioned_you": "提及了你",
+                "followed_you": "关注了您",
+                "favorited_your_post": "收藏了您的嘟文",
+                "reblogged_your_post": "转发了您的嘟文",
+                "mentioned_you": "提及了您",
                 "request_to_follow_you": "关注请求",
                 "poll_has_ended": "投票已结束",
                 "relationship_severance": "来自 %@ 的管理员已经屏蔽了 %@，包括 %@。"
@@ -802,20 +802,20 @@
             "policy": {
                 "title": "过滤来自…的通知",
                 "not_following": {
-                    "title": "你未关注的人",
-                    "subtitle": "直到你手动批准"
+                    "title": "您未关注的人",
+                    "subtitle": "直到您手动批准"
                 },
                 "no_follower": {
-                    "title": "未关注你的人",
-                    "subtitle": "包括关注你不到三天的人"
+                    "title": "未关注您的人",
+                    "subtitle": "包括关注您不到3天的人"
                 },
                 "new_account": {
                     "title": "新账号",
-                    "subtitle": "在过去三十天内创建"
+                    "subtitle": "在过去30天内创建"
                 },
                 "private_mentions": {
                     "title": "不请自来的私信提及",
-                    "subtitle": "过滤通知，除非对应嘟文是在回复你的私信提及，或来自你关注的人"
+                    "subtitle": "过滤通知，除非对应嘟文是在回复您的私信提及，或来自您关注的人"
                 }
             }
         },
@@ -904,7 +904,7 @@
                 "preset": {
                     "title": "预设",
                     "open_and_public": "开放并公开",
-                    "private_and_restricted": "私密与受限",
+                    "private_and_restricted": "私密且受限",
                     "custom": "定制"
                 },
                 "default_post_visibility": {
@@ -943,7 +943,7 @@
                 "its_spam": "它是垃圾信息",
                 "malicious_links_fake_engagement_or_repetetive_replies": "恶意链接、虚假参与或重复性回复",
                 "it_violates_server_rules": "它违反了实例条例",
-                "you_are_aware_that_it_breaks_specific_rules": "你发现它违反了某条条例",
+                "you_are_aware_that_it_breaks_specific_rules": "您发现它违反了某条条例",
                 "its_something_else": "其他原因",
                 "the_issue_does_not_fit_into_other_categories": "该问题属于其他类别"
             },
@@ -964,15 +964,15 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "不想看到这个内容？",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "当你在Mastodon看到不喜欢的东西时，可以尝试移除它。",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "当您在Mastodon看到不喜欢的东西时，可以尝试移除它。",
                 "unfollow": "取关",
                 "unfollowed": "已取关",
                 "unfollow_user": "取消关注 %s",
                 "mute_user": "静音 %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "你不会在主页里看到他们的嘟文和转发。他们不会知道被静音了。",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "您不会在主页里看到他们的嘟文和转发。他们不会知道被静音了。",
                 "block_user": "屏蔽 %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他们将不再能够关注或看到你的嘟文，但他们可以知道他们是否被屏蔽。",
-                "while_we_review_this_you_can_take_action_against_user": "当我们审核这个报告时，你可以对 %s 采取行动。"
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他们将不再能够关注或看到您的嘟文，但他们可以知道他们是否被屏蔽。",
+                "while_we_review_this_you_can_take_action_against_user": "当我们审核这个报告时，您可以对 %s 采取行动"
             }
         },
         "preview": {
@@ -1023,23 +1023,23 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "这似乎不是一个有效的 Mastodon 链接。"
+            "invalid_link_error": "这似乎不是一个有效的Mastodon链接。"
         }
     },
     "widget": {
         "common": {
             "unsupported_widget_family": "抱歉，不支持此类小组件。",
-            "user_not_logged_in": "请打开 Mastodon 来登录账户。"
+            "user_not_logged_in": "请打开Mastodon来登录账户。"
         },
         "followers_count": {
             "configuration_display_name": "关注者",
             "configuration_description": "显示关注数。",
             "title": "关注者",
-            "followers_today": "今天有%s 个关注者"
+            "followers_today": "今天有 %s 个关注者"
         },
         "multiple_followers": {
             "configuration_display_name": "多个关注者",
-            "configuration_description": "显示多个账户的关注者数量。",
+            "configuration_description": "显示多个账户的关注数。",
             "mock_user": {
                 "display_name": "另一个关注者",
                 "account_name": "another@follower.social"
