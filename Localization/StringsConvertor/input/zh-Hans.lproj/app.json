@@ -750,19 +750,19 @@
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "你的投票已结束",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
-                "single_name_signed_up": "%@ signed up",
-                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
-                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+                "single_name_ran_poll": "%@ 发起了 %@",
+                "single_name_mentioned_you": "%@ 提及了你",
+                "single_name_requested_to_follow_you": "%@ 向你发送了关注请求",
+                "single_name_posted": "%@ 条嘟文：",
+                "single_name_boosted": "%@ 转嘟了：",
+                "single_name_favourited": "%@ 喜欢了：",
+                "single_name_followed_you": "%@ 关注了你",
+                "multiple_people_boosted": "%@ 转嘟了：",
+                "multiple_people_favourited": "%@ 喜欢了：",
+                "multiple_people_followed_you": "%@ 关注了你",
+                "single_name_signed_up": "%@ 注册了",
+                "someone_reported_account_for_rule_violation": "某人报告了违反条例的用户 %@。",
+                "someone_reported_posts_from_account_for_rule_violation": "来自 %@ 的某人报告了违反条例的用户 %@。"
             },
             "notification_description": {
                 "followed_you": "关注了你",
@@ -771,7 +771,7 @@
                 "mentioned_you": "提及了你",
                 "request_to_follow_you": "关注请求",
                 "poll_has_ended": "投票已结束",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "relationship_severance": "来自 %@ 的管理员已经屏蔽了 %@，包括 %@。"
             },
             "keyobard": {
                 "show_everything": "显示全部",
@@ -815,7 +815,7 @@
                 },
                 "private_mentions": {
                     "title": "不请自来的私下提及",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "subtitle": "过滤通知，除非对应嘟文是在回复你的私下提及，或来自你关注的人"
                 }
             }
         },
@@ -916,8 +916,8 @@
                 "appear_in_search_engines": "允许搜索引擎收录"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "支持 Mastodon",
+                "manage": "管理捐赠"
             }
         },
         "report": {
@@ -1006,18 +1006,18 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "仅一次",
+                "monthly_title": "每月",
+                "yearly_title": "每年"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "捐助",
+            "currency": "货币",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "感谢您的贡献！",
+                "subtitle": "您应该很快收到一封确认您捐赠的电子邮件。",
+                "server_error_title": "支付失败",
+                "server_error_message": "我们很抱歉，发生了一个错误，我们无法处理您的捐赠。\n\n请几分钟后再试。",
+                "share_button_title": "捐赠寄语"
             }
         }
     },
