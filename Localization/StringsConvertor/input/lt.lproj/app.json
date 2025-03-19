@@ -109,17 +109,17 @@
                 "report_user": "Pranešti apie %s",
                 "block_domain": "Blokuoti %s",
                 "unblock_domain": "Atblokuoti %s",
-                "settings": "Settings",
-                "delete": "Delete",
+                "settings": "Nustatymai",
+                "delete": "Ištrinti",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Versti iš %s",
+                    "unknown_language": "Nežinoma"
                 },
-                "edit_post": "Edit",
-                "bookmark": "Bookmark",
-                "remove_bookmark": "Remove Bookmark",
-                "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "edit_post": "Redaguoti",
+                "bookmark": "Pridėti prie žymių",
+                "remove_bookmark": "Šalinti žymę",
+                "follow": "Sekti %s",
+                "unfollow": "Nebesekti %s"
             },
             "tabs": {
                 "home": "Home",
