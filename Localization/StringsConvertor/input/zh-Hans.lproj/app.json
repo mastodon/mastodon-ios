@@ -17,24 +17,24 @@
             },
             "publish_post_failure": {
                 "title": "发布失败",
-                "message": "帖子发送失败。\n请检查你的网络连接。",
+                "message": "嘟文发布失败。\n请检查你的网络连接。",
                 "attachments_message": {
-                    "video_attach_with_photo": "无法在帖子中同时插入视频和图片。",
+                    "video_attach_with_photo": "无法在嘟文中同时插入视频和图片。",
                     "more_than_one_video": "最多添加一个视频。"
                 }
             },
             "edit_profile_failure": {
-                "title": "编辑个人资料出现错误",
+                "title": "编辑个人资料错误",
                 "message": "无法编辑个人资料，请重试。"
             },
             "sign_out": {
-                "title": "退出账户",
-                "message": "确定要退出账户吗？",
-                "confirm": "退出账户"
+                "title": "登出",
+                "message": "确定要登出吗？",
+                "confirm": "登出"
             },
             "block_domain": {
-                "title": "你真的确定要屏蔽所有来自 %s 的内容吗？多数情况下，屏蔽或隐藏几个特定的用户就已经足够了。屏蔽 %s 后，来自该域名的内容将不再出现在你的任何公共时间轴或通知列表里；来自该域名的关注者也将被移除。",
-                "block_entire_domain": "屏蔽域名"
+                "title": "你真的确定要完全屏蔽%s吗？多数情况下，屏蔽或隐藏某些用户就已经足够了。屏蔽后，你将不会在任何公共时间轴或通知列表里看到来自该实例的内容；来自该实例的关注者也将被移除。",
+                "block_entire_domain": "屏蔽实例"
             },
             "save_photo_failure": {
                 "title": "保存照片失败",
@@ -42,20 +42,20 @@
             },
             "delete_post": {
                 "title": "删除嘟文",
-                "message": "确定要删除这个帖子吗？"
+                "message": "确定要删除这个嘟文吗？"
             },
             "clean_cache": {
-                "title": "清除缓存",
-                "message": "成功清除 %s 缓存。"
+                "title": "清理缓存",
+                "message": "成功清理%s缓存。"
             },
             "translation_failed": {
                 "title": "备注",
-                "message": "翻译失败。此服务器运行的 Mastodon 版本不支持翻译功能，或管理员未将翻译功能开启。",
+                "message": "翻译失败。此实例的Mastodon版本尚未支持翻译功能，或管理员未启用翻译。",
                 "button": "确定"
             },
             "media_missing_alt_text": {
                 "title": "媒体缺少替代文本",
-                "message": "你有 %d 张图像缺少替代文本。\n仍要发布吗？",
+                "message": "你有%d张图像缺少替代文本。\n仍要发布吗？",
                 "cancel": "取消",
                 "post": "发布"
             },
@@ -67,9 +67,9 @@
                 "unboost": "取消转嘟"
             },
             "unfollow_user": {
-                "title": "是否要取消关注 %@？",
+                "title": "是否要取关%@？",
                 "cancel": "取消",
-                "unfollow": "取消关注"
+                "unfollow": "取关"
             }
         },
         "controls": {
@@ -82,60 +82,60 @@
                 "remove": "删除",
                 "edit": "编辑",
                 "save": "保存",
-                "ok": "好的",
+                "ok": "确定",
                 "done": "完成",
                 "confirm": "确认",
                 "continue": "继续",
                 "compose": "撰写",
                 "cancel": "取消",
-                "discard": "放弃",
-                "try_again": "再试一次",
-                "take_photo": "拍摄照片",
-                "save_photo": "保存照片",
+                "discard": "丢弃",
+                "try_again": "重试",
+                "take_photo": "拍照",
+                "save_photo": "保存图片",
                 "copy_photo": "复制照片",
                 "sign_in": "登录",
-                "see_more": "查看更多",
+                "see_more": "展开",
                 "preview": "预览",
                 "copy": "复制",
                 "share": "分享",
-                "share_user": "分享 %s",
-                "share_post": "分享帖子",
-                "open_in_safari": "在 Safari 中打开",
+                "share_user": "分享%s",
+                "share_post": "分享嘟文",
+                "open_in_safari": "在Safari中打开",
                 "open_in_browser": "在浏览器中打开",
                 "find_people": "查看推荐关注的用户",
                 "manually_search": "手动搜索用户",
                 "skip": "跳过",
                 "reply": "回复",
-                "report_user": "举报 %s",
-                "block_domain": "屏蔽 %s",
-                "unblock_domain": "解除屏蔽 %s",
+                "report_user": "举报%s",
+                "block_domain": "屏蔽%s",
+                "unblock_domain": "解除屏蔽%s",
                 "settings": "设置",
                 "delete": "删除",
                 "translate_post": {
-                    "title": "翻译自 %s",
-                    "unknown_language": "未知的"
+                    "title": "翻译自%s",
+                    "unknown_language": "未知"
                 },
                 "edit_post": "编辑",
                 "bookmark": "添加书签",
                 "remove_bookmark": "移除书签",
-                "follow": "关注 %s",
-                "unfollow": "不再关注 %s"
+                "follow": "关注%s",
+                "unfollow": "取关%s"
             },
             "tabs": {
                 "home": "主页",
-                "search_and_explore": "搜索和探寻",
+                "search_and_explore": "搜索和浏览",
                 "notifications": "通知",
                 "profile": "个人资料",
                 "a11y": {
                     "search": "搜索",
-                    "explore": "探索"
+                    "explore": "浏览"
                 }
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "切换到 %s",
+                    "switch_to_tab": "切换到%s",
                     "compose_new_post": "撰写新嘟文",
-                    "show_favorites": "显示喜欢",
+                    "show_favorites": "显示收藏夹",
                     "open_settings": "打开设置"
                 },
                 "timeline": {
@@ -145,23 +145,23 @@
                     "open_author_profile": "打开作者的个人资料",
                     "open_reblogger_profile": "打开转嘟者的个人资料",
                     "reply_status": "回复此嘟文",
-                    "toggle_reblog": "转发帖子",
-                    "toggle_favorite": "喜欢此嘟文",
-                    "toggle_content_warning": "启用或关闭内容警告",
-                    "preview_image": "预览照片"
+                    "toggle_reblog": "切换转嘟",
+                    "toggle_favorite": "切换喜欢此嘟文",
+                    "toggle_content_warning": "切换内容警告",
+                    "preview_image": "预览图片"
                 },
                 "segmented_control": {
-                    "previous_section": "上一节",
-                    "next_section": "下一节"
+                    "previous_section": "上一段",
+                    "next_section": "下一段"
                 }
             },
             "status": {
                 "reply": "回复",
-                "private_reply": "私人回复",
+                "private_reply": "私信回复",
                 "mention": "提及",
-                "private_mention": "私下提及",
-                "user_reblogged": "%s 转发了",
-                "user_replied_to": "回复给 %s",
+                "private_mention": "私信提及",
+                "user_reblogged": "%s转嘟了",
+                "user_replied_to": "回复了%s",
                 "show_post": "显示嘟文",
                 "show_user_profile": "查看用户个人资料",
                 "content_warning": "内容警告",
@@ -169,7 +169,7 @@
                 "media_content_warning": "点击任意位置显示",
                 "tap_to_reveal": "点击以显示",
                 "load_embed": "加载嵌入内容",
-                "link_via_user": "%s 通过 %s",
+                "link_via_user": "%s来自%s",
                 "poll": {
                     "vote": "投票",
                     "closed": "已关闭"
@@ -183,19 +183,19 @@
                 "actions": {
                     "reply": "回复",
                     "reblog": "转嘟",
-                    "unreblog": "撤消转嘟",
-                    "favorite": "喜欢",
-                    "unfavorite": "取消喜欢",
+                    "unreblog": "取消转嘟",
+                    "favorite": "收藏",
+                    "unfavorite": "取消收藏",
                     "menu": "菜单",
                     "hide": "隐藏",
                     "show_image": "显示图片",
-                    "show_gif": "显示 GIF",
+                    "show_gif": "显示动图",
                     "show_video_player": "显示视频播放器",
-                    "share_link_in_post": "分享链接到嘟文中",
+                    "share_link_in_post": "分享链接至嘟文",
                     "tap_then_hold_to_show_menu": "长按以显示菜单",
                     "a11y_labels": {
                         "reblog": "转嘟",
-                        "unreblog": "撤消转嘟"
+                        "unreblog": "取消转嘟"
                     },
                     "copy_link": "复制链接"
                 },
@@ -203,7 +203,7 @@
                     "url": "URL",
                     "mention": "提及",
                     "link": "链接",
-                    "hashtag": "标签",
+                    "hashtag": "话题",
                     "email": "电子邮箱",
                     "emoji": "表情"
                 },
@@ -214,28 +214,28 @@
                     "direct": "只有被提及的用户才能看到此嘟文。"
                 },
                 "translation": {
-                    "translated_from": "从 %s 翻译成 %s",
-                    "unknown_language": "未知的",
-                    "unknown_provider": "未知的",
+                    "translated_from": "自%s翻译为%s",
+                    "unknown_language": "未知",
+                    "unknown_provider": "未知",
                     "show_original": "显示原文"
                 },
                 "media": {
                     "accessibility_label": "%s，附件 %d / %d",
                     "expand_image_hint": "展开图像 双击并按住以显示可执行操作",
-                    "expand_gif_hint": "展开GIF 双击并按住以显示可执行操作",
+                    "expand_gif_hint": "展开动图 双击并按住以显示可执行操作",
                     "expand_video_hint": "展开视频 双击并按住以显示可执行操作"
                 },
                 "posted_via_application": "%s 通过 %s 发布",
                 "buttons": {
                     "reblogs_title": "转嘟",
-                    "favorites_title": "喜欢",
+                    "favorites_title": "收藏",
                     "edit_history_title": "编辑历史",
-                    "edit_history_detail": "编辑于：%s"
+                    "edit_history_detail": "最后编辑 %s"
                 },
                 "edited_at_timestamp_prefix": "已编辑 %s",
                 "edit_history": {
                     "title": "编辑历史",
-                    "original_post": "原始嘟文 · %s"
+                    "original_post": "原嘟文・%s"
                 },
                 "card": {
                     "by": "来自",
@@ -251,11 +251,11 @@
                 "pending": "待确认",
                 "block": "屏蔽",
                 "block_user": "屏蔽 %s",
-                "block_domain": "屏蔽域名 %s",
+                "block_domain": "屏蔽 %s 实例",
                 "unblock": "解除屏蔽",
                 "unblock_user": "解除屏蔽 %s",
                 "blocked": "已屏蔽",
-                "domain_blocked": "已屏蔽域名",
+                "domain_blocked": "实例已屏蔽",
                 "mute": "静音",
                 "mute_user": "静音 %s",
                 "unmute": "取消静音",
@@ -272,7 +272,7 @@
                 },
                 "loader": {
                     "load_missing_posts": "加载错过的嘟文",
-                    "loading_missing_posts": "正在加载嘟文...",
+                    "loading_missing_posts": "正在加载嘟文……",
                     "show_more_replies": "显示更多回复"
                 },
                 "header": {
@@ -296,18 +296,18 @@
             "log_in": "登录",
             "learn_more": "了解详情",
             "join_default_server": "加入 %@",
-            "pick_server": "选择另一个服务器",
+            "pick_server": "选择其他实例",
             "separator": {
                 "or": "或"
             },
             "education": {
                 "mastodon": {
                     "title": "欢迎来到 Mastodon",
-                    "description": "Mastodon是去中心化的社交网络，这意味着它不由任何企业独控，而是由众多独立运行的服务器联结而成。"
+                    "description": "Mastodon 是去中心化的社交网络，这意味着它不由任何企业独控，而是由众多独立运行的实例联结而成。"
                 },
                 "servers": {
-                    "title": "服务器是什么？",
-                    "description": "所有的 Mastodon 账号皆托管于各自的服务器上，每个服务器有各自的价值取向、规则与管理员。无论你选择哪个服务器，你都能关注并与其他任何服务器上的用户互动。"
+                    "title": "什么是实例？",
+                    "description": "所有的 Mastodon 账号皆托管于各自的实例上，每个实例有各自的价值取向、条例与管理员。无论你选择哪个实例，你都能关注并与其他任何实例上的用户互动。"
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -318,13 +318,13 @@
         },
         "login": {
             "title": "欢迎回来",
-            "subtitle": "登录到你创建账户的服务器。",
+            "subtitle": "在你创建账户的实例上登录。",
             "server_search_field": {
-                "placeholder": "输入网址或搜索您的服务器"
+                "placeholder": "输入 URL 或搜索您的实例"
             }
         },
         "server_picker": {
-            "title": "选择服务器",
+            "title": "选择实例",
             "button": {
                 "language": "语言",
                 "signup_speed": "注册速度",
@@ -338,14 +338,14 @@
                     "games": "游戏",
                     "general": "通用",
                     "journalism": "新闻",
-                    "lgbt": "lgbt",
+                    "lgbt": "LGBT+",
                     "regional": "地区",
                     "art": "艺术",
                     "music": "音乐",
                     "tech": "科技"
                 },
-                "see_less": "隐藏",
-                "see_more": "更多"
+                "see_less": "折叠",
+                "see_more": "展开"
             },
             "label": {
                 "language": "语言",
@@ -356,8 +356,8 @@
                 "search_servers_or_enter_url": "搜索社区或输入 URL"
             },
             "empty_state": {
-                "finding_servers": "正在查找可用的服务器...",
-                "bad_network": "出了些问题。请检查你的互联网连接",
+                "finding_servers": "正在查找可用的实例……",
+                "bad_network": "载入数据时出了些问题。请检查你的互联网连接。",
                 "no_results": "无结果"
             },
             "signup_speed": {
@@ -371,17 +371,17 @@
             "search": {
                 "placeholder": "搜索用户名或 URL"
             },
-            "no_server_selected_hint": "如果你不做任何选择，我们会根据你的语言来挑选一个服务器。"
+            "no_server_selected_hint": "如果你不做任何选择，我们会根据你的语言为你挑选一个实例。"
         },
         "privacy": {
             "title": "你的隐私",
-            "description": "尽管 Mastodon 客户端本身不采集任何数据，你注册的服务器实例可能会有不同的隐私政策。\n\n如果你不同意 **%s** 的这些政策，请返回并选择其他实例。",
+            "description": "尽管 Mastodon 客户端本身不采集任何数据，你注册的实例可能会有不同的隐私政策。\n\n如果你不同意 **%s** 的这些政策，请返回并选择其他实例。",
             "policy": {
-                "ios": "隐私政策 - Mastodon 苹果应用程序",
+                "ios": "隐私政策 - Mastodon iOS 应用程序",
                 "server": "隐私政策 - %s"
             },
             "button": {
-                "confirm": "同意"
+                "confirm": "我同意"
             }
         },
         "register": {
@@ -392,7 +392,7 @@
                 },
                 "username": {
                     "placeholder": "用户名",
-                    "duplicate_prompt": "此用户名已被使用",
+                    "duplicate_prompt": "此用户名已被使用。",
                     "suggestion": "赞_%@"
                 },
                 "display_name": {
@@ -413,7 +413,7 @@
                     "hint": "密码长度至少为 8 个字符"
                 },
                 "invite": {
-                    "registration_user_invite_request": "加入的理由是？"
+                    "registration_user_invite_request": "你为什么想要加入？"
                 }
             },
             "error": {
@@ -475,7 +475,7 @@
             },
             "didnt_get_link": {
                 "prefix": "没有收到链接？",
-                "resend_in": "重新发送 (%@)",
+                "resend_in": "重新发送（%@）",
                 "resend_now": "重新发送。"
             }
         },
@@ -499,12 +499,12 @@
                 "post_sent": "已发布"
             },
             "empty_state": {
-                "list_empty_message_title": "列表是空的"
+                "list_empty_message_title": "此列表为空"
             }
         },
         "suggestion_account": {
-            "title": "Mastodon上流行的",
-            "follow_all": "一键关注"
+            "title": "在 Mastodon 上流行",
+            "follow_all": "关注全部"
         },
         "compose": {
             "title": {
@@ -524,14 +524,14 @@
                 "photo": "照片",
                 "video": "视频",
                 "attachment_broken": "%s已损坏\n无法上传到 Mastodon",
-                "description_photo": "为视觉障碍人士添加照片的文字说明...",
-                "description_video": "为视觉障碍人士添加视频的文字说明...",
+                "description_photo": "为视觉障碍人士添加照片的文字说明……",
+                "description_video": "为视觉障碍人士添加视频的文字说明……",
                 "load_failed": "加载失败",
                 "upload_failed": "上传失败",
                 "can_not_recognize_this_media_attachment": "无法识别此媒体",
                 "attachment_too_large": "附件太大",
-                "compressing_state": "压缩中...",
-                "server_processing_state": "服务器正在处理..."
+                "compressing_state": "压缩中……",
+                "server_processing_state": "服务器正在处理……"
             },
             "poll": {
                 "title": "投票",
@@ -551,7 +551,7 @@
                 "move_down": "下移"
             },
             "content_warning": {
-                "placeholder": "在这里写下内容的警告消息..."
+                "placeholder": "在这里写下内容的警告消息……"
             },
             "visibility": {
                 "public": "公开",
@@ -663,10 +663,10 @@
         },
         "follower": {
             "title": "关注者",
-            "footer": "不会显示来自其它服务器的关注者"
+            "footer": "不会显示来自其它实例的关注者。"
         },
         "following": {
-            "title": "正在关注",
+            "title": "已关注",
             "footer": "不会显示来自其它服务器的关注"
         },
         "familiarFollowers": {
@@ -706,7 +706,7 @@
                 "hashtag": "转到 #%s",
                 "no_user": {
                     "title": "找不到账户",
-                    "message": "找不到用户 %s（在服务器 %s 上）"
+                    "message": "%s 上找不到用户 %s"
                 },
                 "empty_state": {
                     "no_results": "无结果"
@@ -725,7 +725,7 @@
                 "community": "社区",
                 "for_you": "为你推荐"
             },
-            "intro": "这些嘟文在你的长毛象小宇宙中备受关注。"
+            "intro": "这些是在你的 Mastodon 角落备受关注的嘟文。"
         },
         "favorite": {
             "title": "喜欢"
@@ -983,7 +983,7 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "当前账户：%s。 双击并按住来打开账户切换页面",
+            "tab_bar_hint": "当前账户：%s。双击并按住来打开账户切换页面",
             "dismiss_account_switcher": "关闭账户切换页面",
             "add_account": "添加账户",
             "logout_all_accounts": "登出所有账户",
