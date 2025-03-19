@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "回复",
+                "private_reply": "私人回复",
+                "mention": "提及",
+                "private_mention": "私下提及",
                 "user_reblogged": "%s 转发了",
                 "user_replied_to": "回复给 %s",
                 "show_post": "显示嘟文",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "关注",
-                "follow_back": "Follow back",
+                "follow_back": "回关",
                 "following": "正在关注",
-                "mutual": "Mutual",
+                "mutual": "互相关注",
                 "request": "请求",
                 "pending": "待确认",
                 "block": "屏蔽",
@@ -307,7 +307,7 @@
                 },
                 "servers": {
                     "title": "服务器是什么？",
-                    "description": "所有的 Mastodon 帐号皆托管于各自的服务器上，每个服务器有各自的价值取向、规则与管理员。无论你选择哪个服务器，你都能关注并与其他任何服务器上的用户互动。"
+                    "description": "所有的 Mastodon 账号皆托管于各自的服务器上，每个服务器有各自的价值取向、规则与管理员。无论你选择哪个服务器，你都能关注并与其他任何服务器上的用户互动。"
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -318,7 +318,7 @@
         },
         "login": {
             "title": "欢迎回来",
-            "subtitle": "登陆到你创建账户的服务器。",
+            "subtitle": "登录到你创建账户的服务器。",
             "server_search_field": {
                 "placeholder": "输入网址或搜索您的服务器"
             }
@@ -385,7 +385,7 @@
             }
         },
         "register": {
-            "title": "创建帐号",
+            "title": "创建账号",
             "input": {
                 "avatar": {
                     "delete": "删除"
@@ -630,11 +630,11 @@
                     "message": "确认取消静音 %s"
                 },
                 "confirm_block_user": {
-                    "title": "屏蔽帐户",
+                    "title": "屏蔽账户",
                     "message": "确认屏蔽 %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "解除屏蔽帐户",
+                    "title": "解除屏蔽账户",
                     "message": "确认取消屏蔽 %s"
                 },
                 "confirm_show_reblogs": {
@@ -712,7 +712,7 @@
                     "no_results": "无结果"
                 },
                 "recent_search": "最近搜索",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "无最近搜索。",
                 "clear_all": "清除",
                 "clear": "清除"
             }
@@ -736,20 +736,20 @@
                 "Mentions": "提及"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "report": "举报",
+                "sign_up": "注册",
+                "favourite": "喜欢",
+                "follow": "关注",
+                "follow_request": "关注申请",
+                "moderation_warning": "警告",
+                "poll": "投票",
+                "boost": "转嘟",
+                "severed_relationships": "站点屏蔽",
+                "status": "嘟文",
+                "edit": "编辑"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
+                "your_poll_has_ended": "你的投票已结束",
                 "single_name_ran_poll": "%@ ran %@",
                 "single_name_mentioned_you": "%@ mentioned you",
                 "single_name_requested_to_follow_you": "%@ requested to follow you",
@@ -793,28 +793,28 @@
                 "suspend": "你的账号已被封禁.",
                 "learn_more": "了解更多"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "了解更多关于屏蔽服务器列表的信息",
             "filtered_notification": {
-                "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "title": "被过滤的通知",
+                "accept": "接受",
+                "dismiss": "忽略"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "过滤来自…的通知",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "你未关注的人",
+                    "subtitle": "直到你手动批准"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "未关注你的人",
+                    "subtitle": "包括关注你不到三天的人"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "新账号",
+                    "subtitle": "在过去三十天内创建"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
+                    "title": "不请自来的私下提及",
                     "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
                 }
             }
