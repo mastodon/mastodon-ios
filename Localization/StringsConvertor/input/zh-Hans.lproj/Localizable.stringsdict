@@ -97,7 +97,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 人喜欢了：</string>
+        <string>%ld 人收藏了：</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -111,7 +111,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 人关注了我</string>
+        <string>%ld 人关注了您</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -125,7 +125,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>你与 %ld 人参与过的投票</string>
+        <string>您与 %ld 人参与过的投票</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -167,7 +167,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 张动图</string>
+        <string>%ld 张GIF</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -237,7 +237,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 个帖子</string>
+        <string>%ld 条嘟文</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -265,7 +265,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 条转发</string>
+        <string>%ld 次转发</string>
       </dict>
     </dict>
     <key>plural.count.reblog_a11y</key>
@@ -293,7 +293,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 条回复</string>
+        <string>%ld 次回复</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -377,7 +377,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>你的 %ld 个关注者</string>
+        <string>您的 %ld 个关注者</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -391,7 +391,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>你关注的 %ld 个账号</string>
+        <string>您关注的 %ld 个用户</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -503,7 +503,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 月前</string>
+        <string>%ld 个月前</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -573,7 +573,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>你可能认识的 %ld 人</string>
+        <string>您可能认识的 %ld 个人</string>
       </dict>
     </dict>
   </dict>
