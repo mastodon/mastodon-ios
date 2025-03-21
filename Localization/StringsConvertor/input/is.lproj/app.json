@@ -744,25 +744,25 @@
                 "moderation_warning": "Aðvörun",
                 "poll": "Könnun",
                 "boost": "Endurbirting",
-                "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "severed_relationships": "Útilokun léns",
+                "status": "Birta",
+                "edit": "Breyta"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
-                "single_name_signed_up": "%@ signed up",
-                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
-                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+                "your_poll_has_ended": "Könnuninni þinni er lokið",
+                "single_name_ran_poll": "%@ birti %@",
+                "single_name_mentioned_you": "%@ minntist á þig",
+                "single_name_requested_to_follow_you": "%@ bað um að fylgjast með þér",
+                "single_name_posted": "%@ birti:",
+                "single_name_boosted": "%@ endurbirti:",
+                "single_name_favourited": "%@ setti í eftirlæti:",
+                "single_name_followed_you": "%@ fylgist með þér",
+                "multiple_people_boosted": "%@ endurbirti:",
+                "multiple_people_favourited": "%@ setti í eftirlæti:",
+                "multiple_people_followed_you": "%@ fylgist með þér",
+                "single_name_signed_up": "%@ skráði sig",
+                "someone_reported_account_for_rule_violation": "Einhver kærði %@ fyrir brot á reglum.",
+                "someone_reported_posts_from_account_for_rule_violation": "Einhver kærði %@ frá %@ fyrir brot á reglum."
             },
             "notification_description": {
                 "followed_you": "fylgdi þér",
@@ -771,7 +771,7 @@
                 "mentioned_you": "minntist á þig",
                 "request_to_follow_you": "bað um að fylgjast með þér",
                 "poll_has_ended": "könnun er lokið",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "relationship_severance": "Stjórnandi frá %@ hefur lokað á %@, þar með talið %@."
             },
             "keyobard": {
                 "show_everything": "Sýna allt",
@@ -793,29 +793,29 @@
                 "suspend": "Notandaaðgangurinn þinn hefur verið settur í frysti.",
                 "learn_more": "Kanna nánar"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "Kynntu þér nánar útilokanir á netþjónum",
             "filtered_notification": {
-                "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "title": "Síaðar tilkynningar",
+                "accept": "Samþykkja",
+                "dismiss": "Hafna"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "Sía tilkynningar frá…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "Fólki sem þú fylgist ekki með",
+                    "subtitle": "Fyr en þú samþykkir viðkomandi handvirkt"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "Fólki sem fylgist ekki með þér",
+                    "subtitle": "Að meðtöldum þeim sem hafa verið að fylgjast með þér í minna en 3 daga"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "Nýir notendur",
+                    "subtitle": "Útbúnir síðustu 30 daga"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "Óumbeðið einkaspjall",
+                    "subtitle": "Síað nema það sé í svari við einhverju þar sem þú minntist á viðkomandi eða ef þú fylgist með sendandanum"
                 }
             }
         },
@@ -916,8 +916,8 @@
                 "appear_in_search_engines": "Láta birtast í leitarvélum"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "Styddu við Mastodon",
+                "manage": "Sýsla með fjárframlög"
             }
         },
         "report": {
@@ -1006,18 +1006,18 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "Bara einu sinni",
+                "monthly_title": "Mánaðarlega",
+                "yearly_title": "Árlega"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "Styrkja",
+            "currency": "Gjaldmiðill",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "Takk fyrir þitt framlag!",
+                "subtitle": "Þú ættir að fá fljótlega tölvupóst með staðfestingu á framlginu þínu.",
+                "server_error_title": "Greiðsla mistókst",
+                "server_error_message": "Því miður, villa kom upp og við höfum ekki getað meðhöndlað fjárframlagið þitt.\n\nPrófaðu aftur eftir nokkrar mínútur.",
+                "share_button_title": "Láttu orð út ganga"
             }
         }
     },
