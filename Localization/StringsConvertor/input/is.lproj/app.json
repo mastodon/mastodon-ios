@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Svar",
+                "private_reply": "Einkasvar",
+                "mention": "Minnst á",
+                "private_mention": "Einkaspjall",
                 "user_reblogged": "%s endurbirti",
                 "user_replied_to": "Svaraði %s",
                 "show_post": "Sýna færslu",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Fylgja",
-                "follow_back": "Follow back",
+                "follow_back": "Fylgjast með til baka",
                 "following": "Fylgist með",
-                "mutual": "Mutual",
+                "mutual": "Sameiginlegir",
                 "request": "Beiðni",
                 "pending": "Í bið",
                 "block": "Útilokun",
@@ -712,7 +712,7 @@
                     "no_results": "Engar niðurstöður"
                 },
                 "recent_search": "Nýlegar leitir",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Engar nýlegar leitir.",
                 "clear_all": "Hreinsa allt",
                 "clear": "Hreinsa"
             }
@@ -736,14 +736,14 @@
                 "Mentions": "Minnst á"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "report": "Kæra",
+                "sign_up": "Nýskráning",
+                "favourite": "Eftirlæti",
+                "follow": "Fylgjast með",
+                "follow_request": "Beiðni um að fylgjast með",
+                "moderation_warning": "Aðvörun",
+                "poll": "Könnun",
+                "boost": "Endurbirting",
                 "severed_relationships": "Domain block",
                 "status": "Post",
                 "edit": "Edit"
