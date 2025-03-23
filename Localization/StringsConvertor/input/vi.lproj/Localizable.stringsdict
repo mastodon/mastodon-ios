@@ -69,7 +69,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld others</string>
+        <string>%ld người khác</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -83,7 +83,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld người đăng lại:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -97,7 +97,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people favorited:</string>
+        <string>%ld người thích:</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -111,7 +111,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>%ld người theo dõi bạn</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -125,7 +125,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>cuộc bình chọn có bạn và %ld người khác tham gia</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -153,7 +153,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld ảnh</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -167,7 +167,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld gifs</string>
+        <string>%ld GIF</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -181,7 +181,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>%ld video</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -195,7 +195,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld audios</string>
+        <string>%ld âm thanh</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -209,7 +209,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld attachments</string>
+        <string>%ld đính kèm</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -223,7 +223,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld polls</string>
+        <string>%ld bình chọn</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -377,7 +377,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld of your followers</string>
+        <string>%ld người theo dõi bạn</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -391,7 +391,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld người bạn theo dõi</string>
       </dict>
     </dict>
     <key>date.year.left</key>
