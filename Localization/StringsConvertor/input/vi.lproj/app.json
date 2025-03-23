@@ -737,13 +737,13 @@
             },
             "headers": {
                 "report": "Report",
-                "sign_up": "Signup",
+                "sign_up": "Đăng ký",
                 "favourite": "Favorite",
                 "follow": "Follow",
                 "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "moderation_warning": "Cảnh cáo",
+                "poll": "Bình chọn",
+                "boost": "Đăng lại",
                 "severed_relationships": "Domain block",
                 "status": "Post",
                 "edit": "Edit"
