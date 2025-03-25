@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "การตอบกลับ",
+                "private_reply": "การตอบกลับแบบส่วนตัว",
+                "mention": "การกล่าวถึง",
+                "private_mention": "การกล่าวถึงแบบส่วนตัว",
                 "user_reblogged": "%s ได้ดัน",
                 "user_replied_to": "ตอบกลับ %s",
                 "show_post": "แสดงโพสต์",
@@ -742,7 +742,7 @@
                 "follow": "Follow",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
+                "poll": "การสำรวจความคิดเห็น",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
                 "status": "Post",
@@ -829,7 +829,7 @@
                 "general": "ทั่วไป",
                 "notifications": "การแจ้งเตือน",
                 "privacy_safety": "ความเป็นส่วนตัวและความปลอดภัย",
-                "support_mastodon": "สนับสนุน Mastodon",
+                "support_mastodon": "บริจาคให้ Mastodon",
                 "about_mastodon": "เกี่ยวกับ Mastodon",
                 "server_details": "รายละเอียดเซิร์ฟเวอร์",
                 "logout": "ออกจากระบบ %@"
@@ -917,7 +917,7 @@
             },
             "donation": {
                 "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "manage": "จัดการการบริจาค"
             }
         },
         "report": {
