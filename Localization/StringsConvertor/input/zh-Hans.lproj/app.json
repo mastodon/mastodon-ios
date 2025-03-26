@@ -754,6 +754,7 @@
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "您的投票已结束",
+                "single_name_edited_a_post": "%@ edited a post you interacted with",
                 "single_name_ran_poll": "%@ 发起了 %@",
                 "single_name_mentioned_you": "%@ 提及了您",
                 "single_name_requested_to_follow_you": "%@ 向您发送了关注请求",
