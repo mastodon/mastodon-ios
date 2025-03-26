@@ -388,8 +388,8 @@
             "title": "Crea un account",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Data di nascita",
+                    "explanation_message": "Dobbiamo assicurarci che tu abbia almeno %d anni per unirti a %@. Questo non verrà memorizzato dopo la registrazione."
                 },
                 "avatar": {
                     "delete": "Elimina"
@@ -742,21 +742,21 @@
             "headers": {
                 "report": "Segnala",
                 "sign_up": "Registrati",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "favourite": "Aggiungi ai preferiti",
+                "follow": "Segui",
+                "follow_request": "Richiesta di seguirti",
+                "moderation_warning": "Avviso",
+                "poll": "Sondaggio",
+                "boost": "Condividi",
+                "severed_relationships": "Blocco del dominio",
+                "status": "Posta",
+                "edit": "Modifica"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Il tuo sondaggio è terminato",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
+                "single_name_ran_poll": "%@ ha eseguito %@",
+                "single_name_mentioned_you": "%@ ti ha menzionato",
+                "single_name_requested_to_follow_you": "%@ ha richiesto di seguirti",
                 "single_name_posted": "%@ posted:",
                 "single_name_boosted": "%@ boosted:",
                 "single_name_favourited": "%@ favorited:",
