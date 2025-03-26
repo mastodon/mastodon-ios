@@ -754,6 +754,7 @@
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Könnuninni þinni er lokið",
+                "single_name_edited_a_post": "%@ edited a post you interacted with",
                 "single_name_ran_poll": "%@ birti %@",
                 "single_name_mentioned_you": "%@ minntist á þig",
                 "single_name_requested_to_follow_you": "%@ bað um að fylgjast með þér",
