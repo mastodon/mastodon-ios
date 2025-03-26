@@ -387,6 +387,10 @@
         "register": {
             "title": "Crear cuenta",
             "input": {
+                "birth_date": {
+                    "label": "Date of Birth",
+                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                },
                 "avatar": {
                     "delete": "Eliminar"
                 },
