@@ -388,8 +388,8 @@
             "title": "新增帳號",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "出生日期",
+                    "explanation_message": "我們必須確認您至少年滿 %d 以使用 %@。我們不會儲存此資料。"
                 },
                 "avatar": {
                     "delete": "刪除"
