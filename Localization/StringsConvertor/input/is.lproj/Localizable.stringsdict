@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person boosted:</string>
+        <string>einn aðili endurbirti:</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld aðilar endurbirtu:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person favorited:</string>
+        <string>einn aðili setti í eftirlæti:</string>
         <key>other</key>
-        <string>%ld people favorited:</string>
+        <string>%ld aðilar settu í eftirlæti:</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person followed you</string>
+        <string>einn aðili fylgist með þér</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>%ld aðilar fylgjast með þér</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>a poll that you and one other voted in</string>
+        <string>könnun sem þú og einn til viðbótar tóku þátt í</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>könnun sem þú og %ld til viðbótar tóku þátt í</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
