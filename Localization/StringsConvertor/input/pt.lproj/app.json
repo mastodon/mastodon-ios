@@ -754,6 +754,7 @@
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "A tua sondagem terminou",
+                "single_name_edited_a_post": "%@ edited a post you interacted with",
                 "single_name_ran_poll": "%@ fez uma %@",
                 "single_name_mentioned_you": "%@ mencionou-te",
                 "single_name_requested_to_follow_you": "%@ pediu para seguir-te",
