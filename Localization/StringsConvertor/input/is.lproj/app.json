@@ -388,8 +388,8 @@
             "title": "Búa til notandaaðgang",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Fæðingardagur",
+                    "explanation_message": "Við verðum að ganga úr skugga um að þú hafir náð %d aldri til að nota %@. Við munum ekki geyma þessar upplýsingar eftir nýskráningu."
                 },
                 "avatar": {
                     "delete": "Eyða"
