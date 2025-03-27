@@ -388,8 +388,8 @@
             "title": "Create Account",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Gimimo data",
+                    "explanation_message": "Turime įsitikinti, kad esate bent %d norint jungtis prie %@. Tai nebus išsaugota po registracijos."
                 },
                 "avatar": {
                     "delete": "Delete"
@@ -754,7 +754,7 @@
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
+                "single_name_edited_a_post": "%@ redagavo įrašą, su kuriuo bendravote",
                 "single_name_ran_poll": "%@ ran %@",
                 "single_name_mentioned_you": "%@ mentioned you",
                 "single_name_requested_to_follow_you": "%@ requested to follow you",
