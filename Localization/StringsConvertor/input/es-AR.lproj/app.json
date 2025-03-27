@@ -388,8 +388,8 @@
             "title": "Crear cuenta",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Fecha de nacimiento",
+                    "explanation_message": "Tenemos que asegurarnos de que por lo menos tenés %d años de edad para unirte a %@. Esto no se almacenará después del registro."
                 },
                 "avatar": {
                     "delete": "Eliminar"
@@ -754,7 +754,7 @@
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Tu encuesta finalizó",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
+                "single_name_edited_a_post": "%@ editó un mensaje con el que interactuaste",
                 "single_name_ran_poll": "%@ ejecutó %@",
                 "single_name_mentioned_you": "%@ te mencionó",
                 "single_name_requested_to_follow_you": "%@ solicitó seguirte",
