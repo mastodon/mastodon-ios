@@ -388,8 +388,8 @@
             "title": "Vytvořit účet",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Datum narození",
+                    "explanation_message": "Musíme se ujistit, že je Vám alespoň %d, abyste se mohli připojit k %@. Toto nebude po registraci uloženo."
                 },
                 "avatar": {
                     "delete": "Smazat"
@@ -754,7 +754,7 @@
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Vaše anketa skončila",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
+                "single_name_edited_a_post": "%@ upravil*a příspěvek, se kterým jste interagovali",
                 "single_name_ran_poll": "%@ spustil*a %@",
                 "single_name_mentioned_you": "Uživatel %@ vás zmínil",
                 "single_name_requested_to_follow_you": "Uživatel %@ požádal o sledování",
