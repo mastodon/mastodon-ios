@@ -706,7 +706,7 @@
                 "posts": "匹配 %s 的嘟文",
                 "people": "匹配 %s 的用户",
                 "profile": "转到 @%s@%s",
-                "url": "在Mastodon中打开URL",
+                "url": "在 Mastodon 中打开 URL",
                 "hashtag": "转到 #%s",
                 "no_user": {
                     "title": "找不到用户",
@@ -729,7 +729,7 @@
                 "community": "社区",
                 "for_you": "为您推荐"
             },
-            "intro": "这些是在您的Mastodon角落备受关注的嘟文。"
+            "intro": "这些是在您的 Mastodon 角落备受关注的嘟文。"
         },
         "favorite": {
             "title": "喜欢"
@@ -834,15 +834,15 @@
                 "general": "通用",
                 "notifications": "通知",
                 "privacy_safety": "隐私与安全性",
-                "support_mastodon": "支持Mastodon",
-                "about_mastodon": "关于Mastodon",
+                "support_mastodon": "支持 Mastodon",
+                "about_mastodon": "关于 Mastodon",
                 "server_details": "实例详情",
                 "logout": "登出 %@"
             },
             "about_mastodon": {
                 "title": "关于",
                 "more_settings": "更多设置",
-                "contribute_to_mastodon": "为Mastodon作出贡献",
+                "contribute_to_mastodon": "为 Mastodon 作出贡献",
                 "privacy_policy": "隐私政策",
                 "clear_media_storage": "清除媒体缓存"
             },
@@ -880,7 +880,7 @@
                 },
                 "links": {
                     "section_title": "链接",
-                    "open_in_mastodon": "在Mastodon中打开",
+                    "open_in_mastodon": "在 Mastodon 中打开",
                     "open_in_browser": "在浏览器中打开"
                 }
             },
@@ -921,7 +921,7 @@
                 "appear_in_search_engines": "允许搜索引擎收录"
             },
             "donation": {
-                "title": "支持Mastodon",
+                "title": "支持 Mastodon",
                 "manage": "管理捐赠"
             }
         },
@@ -944,13 +944,13 @@
                 "whats_wrong_with_this_username": "%s 有什么问题？",
                 "select_the_best_match": "选择最佳匹配",
                 "i_dont_like_it": "令人反感",
-                "it_is_not_something_you_want_to_see": "这不是您想看到的东西",
+                "it_is_not_something_you_want_to_see": "您不想看到这个",
                 "its_spam": "它是垃圾信息",
                 "malicious_links_fake_engagement_or_repetetive_replies": "恶意链接、虚假参与或重复性回复",
                 "it_violates_server_rules": "它违反了实例条例",
-                "you_are_aware_that_it_breaks_specific_rules": "您发现它违反了某条条例",
+                "you_are_aware_that_it_breaks_specific_rules": "您清楚它违反了某条条例",
                 "its_something_else": "其他原因",
-                "the_issue_does_not_fit_into_other_categories": "该问题属于其他类别"
+                "the_issue_does_not_fit_into_other_categories": "以上理由都不适用"
             },
             "step_two": {
                 "step_2_of_4": "第2步（共4步）",
@@ -969,7 +969,7 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "不想看到这个内容？",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "当您在Mastodon看到令人反感的东西时，可以尝试移除它。",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "当您在 Mastodon 看到令人反感的东西时，可以尝试移除它。",
                 "unfollow": "取关",
                 "unfollowed": "已取关",
                 "unfollow_user": "取消关注 %s",
@@ -1028,7 +1028,7 @@
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "这似乎不是一个有效的Mastodon链接。"
+            "invalid_link_error": "这似乎不是一个有效的 Mastodon 链接。"
         }
     },
     "widget": {
