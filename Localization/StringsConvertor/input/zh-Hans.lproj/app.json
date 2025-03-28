@@ -50,7 +50,7 @@
             },
             "translation_failed": {
                 "title": "备注",
-                "message": "翻译失败。此实例的Mastodon版本尚未支持翻译功能，或管理员未启用翻译。",
+                "message": "翻译失败。此实例的 Mastodon 版本尚未支持翻译功能，或管理员未启用翻译。",
                 "button": "确定"
             },
             "media_missing_alt_text": {
@@ -100,7 +100,7 @@
                 "share": "分享",
                 "share_user": "分享 %s",
                 "share_post": "分享嘟文",
-                "open_in_safari": "在Safari中打开",
+                "open_in_safari": "在 Safari 中打开",
                 "open_in_browser": "在浏览器中打开",
                 "find_people": "查看推荐关注的用户",
                 "manually_search": "手动搜索用户",
@@ -189,7 +189,7 @@
                     "menu": "菜单",
                     "hide": "隐藏",
                     "show_image": "显示图片",
-                    "show_gif": "显示GIF",
+                    "show_gif": "显示 GIF",
                     "show_video_player": "显示视频播放器",
                     "share_link_in_post": "分享链接至嘟文",
                     "tap_then_hold_to_show_menu": "长按以显示菜单",
@@ -222,7 +222,7 @@
                 "media": {
                     "accessibility_label": "%s，附件 %d/%d",
                     "expand_image_hint": "展开图像 双击并按住以显示可执行操作",
-                    "expand_gif_hint": "展开GIF 双击并按住以显示可执行操作",
+                    "expand_gif_hint": "展开 GIF  双击并按住以显示可执行操作",
                     "expand_video_hint": "展开视频 双击并按住以显示可执行操作"
                 },
                 "posted_via_application": "%s 通过 %s",
@@ -302,25 +302,25 @@
             },
             "education": {
                 "mastodon": {
-                    "title": "欢迎来到Mastodon",
-                    "description": "Mastodon是去中心化的社交网络，这意味着它不由任何企业独控，而是由众多独立运行的实例联结而成。"
+                    "title": "欢迎来到 Mastodon",
+                    "description": "Mastodon 是去中心化的社交网络，这意味着它不由任何企业独控，而是由众多独立运行的实例联结而成。"
                 },
                 "servers": {
                     "title": "什么是实例？",
-                    "description": "所有的Mastodon账号皆托管于各自的实例上，每个实例有各自的价值取向、条例与管理员。无论您选择哪个实例，您都能关注并与其他任何实例上的用户互动。"
+                    "description": "所有的 Mastodon 账号皆托管于各自的实例上，每个实例有各自的价值取向、条例与管理员。无论您选择哪个实例，您都能关注并与其他任何实例上的用户互动。"
                 },
                 "a11y": {
                     "what_is_mastodon": {
-                        "title": "Mastodon是什么？"
+                        "title": "Mastodon 是什么？"
                     }
                 }
             }
         },
         "login": {
             "title": "欢迎回来",
-            "subtitle": "在您创建账户的实例上登录。",
+            "subtitle": "在您注册账号的实例上登录。",
             "server_search_field": {
-                "placeholder": "输入URL或搜索您的实例"
+                "placeholder": "输入 URL 或搜索您的实例"
             }
         },
         "server_picker": {
@@ -353,7 +353,7 @@
                 "category": "类别"
             },
             "input": {
-                "search_servers_or_enter_url": "搜索社区或输入URL"
+                "search_servers_or_enter_url": "搜索社区或输入 URL"
             },
             "empty_state": {
                 "finding_servers": "正在查找可用的实例……",
@@ -369,13 +369,13 @@
                 "all": "全部"
             },
             "search": {
-                "placeholder": "搜索用户名或URL"
+                "placeholder": "搜索用户名或 URL"
             },
             "no_server_selected_hint": "如果您不想选择，我们将会根据您的语言挑选一个实例。"
         },
         "privacy": {
             "title": "您的隐私",
-            "description": "尽管Mastodon客户端本身不采集任何数据，您注册的实例可能会有不同的隐私政策。\n\n如果您不同意**%s**的这些政策，请返回并选择其他实例。",
+            "description": "尽管 Mastodon 客户端本身不采集任何数据，您注册的实例可能会有不同的隐私政策。\n\n如果您不同意**%s**的这些政策，请返回并选择其他实例。",
             "policy": {
                 "ios": "隐私政策 - Mastodon iOS应用程序",
                 "server": "隐私政策 - %s"
@@ -388,8 +388,8 @@
             "title": "创建账号",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "生日",
+                    "explanation_message": "我们必须确认 %d 岁以上的用户才能加入 %@。该信息不会在注册后保留。"
                 },
                 "avatar": {
                     "delete": "删除"
@@ -507,7 +507,7 @@
             }
         },
         "suggestion_account": {
-            "title": "在Mastodon上流行",
+            "title": "流行于 Mastodon",
             "follow_all": "关注全部"
         },
         "compose": {
@@ -527,9 +527,9 @@
             "attachment": {
                 "photo": "图片",
                 "video": "视频",
-                "attachment_broken": "%s 已损坏\n无法上传到Mastodon。",
-                "description_photo": "为照片添加视障人士的文字说明……",
-                "description_video": "为视频添加视障人士的文字说明……",
+                "attachment_broken": "%s 已损坏\n无法上传到 Mastodon。",
+                "description_photo": "为视障人士添加照片的文字说明……",
+                "description_video": "为视障人士添加视频的文字说明……",
                 "load_failed": "加载失败",
                 "upload_failed": "上传失败",
                 "can_not_recognize_this_media_attachment": "无法识别此媒体",
@@ -630,15 +630,15 @@
                     "message": "确认静音 %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "解除静音账户",
+                    "title": "解除静音用户",
                     "message": "确认解除静音 %s"
                 },
                 "confirm_block_user": {
-                    "title": "屏蔽账户",
+                    "title": "屏蔽用户",
                     "message": "确认屏蔽 %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "解除屏蔽账户",
+                    "title": "解除屏蔽用户",
                     "message": "确认解除屏蔽 %s"
                 },
                 "confirm_show_reblogs": {
@@ -692,7 +692,7 @@
             "recommend": {
                 "button_text": "展开",
                 "hash_tag": {
-                    "title": "在Mastodon上的趋势",
+                    "title": "在 Mastodon 上的趋势",
                     "description": "大家感兴趣的话题",
                     "people_talking": "%s 人正在讨论"
                 },
@@ -754,7 +754,7 @@
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "您的投票已结束",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
+                "single_name_edited_a_post": "%@ 编辑了一条你之前互动过的嘟文",
                 "single_name_ran_poll": "%@ 发起了 %@",
                 "single_name_mentioned_you": "%@ 提及了您",
                 "single_name_requested_to_follow_you": "%@ 向您发送了关注请求",
@@ -988,10 +988,10 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "当前账户：%s。双击并按住来打开账户切换页面",
-            "dismiss_account_switcher": "关闭账户切换页面",
-            "add_account": "添加账户",
-            "logout_all_accounts": "登出所有账户",
+            "tab_bar_hint": "当前账号：%s。双击并按住来打开账号切换页面",
+            "dismiss_account_switcher": "关闭账号切换页面",
+            "add_account": "添加账号",
+            "logout_all_accounts": "登出所有账号",
             "logout": "登出"
         },
         "bookmark": {
@@ -1034,7 +1034,7 @@
     "widget": {
         "common": {
             "unsupported_widget_family": "抱歉，不支持此类小组件。",
-            "user_not_logged_in": "请打开Mastodon来登录账户。"
+            "user_not_logged_in": "请打开 Mastodon 来登录账号。"
         },
         "followers_count": {
             "configuration_display_name": "关注者",
@@ -1044,7 +1044,7 @@
         },
         "multiple_followers": {
             "configuration_display_name": "多个关注者",
-            "configuration_description": "显示多个账户的关注数。",
+            "configuration_description": "显示多个账号的关注数。",
             "mock_user": {
                 "display_name": "另一个关注者",
                 "account_name": "another@follower.social"
