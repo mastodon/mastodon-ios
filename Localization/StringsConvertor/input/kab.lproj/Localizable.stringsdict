@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 image</string>
+        <string>1 n tugna</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld n tugniwin</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 video</string>
+        <string>1 n tvidyutt</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>%ld n tvidyutin</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
