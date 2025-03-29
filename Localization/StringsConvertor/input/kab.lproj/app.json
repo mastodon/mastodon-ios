@@ -49,7 +49,7 @@
                 "message": "Yettwasfeḍ %s n tkatut tuffirt akken iwata."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "Tazmilt",
                 "message": "Texṣer tsuqilt. Ahat anedbal ur yermid ara tisuqilin deg uqeddac-a neɣ aqeddac-a yessefrak lqem aqbur n Mastodon anda mazal ur ttwasefrakent ara tsuqilin.",
                 "button": "IH"
             },
@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Err",
+                "private_reply": "Tiririt tusligt",
+                "mention": "Abdar",
+                "private_mention": "Abdar uslig",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "Yerra ɣef %s",
                 "show_post": "Sken-d tasuffeɣt",
@@ -182,8 +182,8 @@
                 },
                 "actions": {
                     "reply": "Err",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Zuzer",
+                    "unreblog": "Kkes azuzer",
                     "favorite": "Anurif",
                     "unfavorite": "Kkes seg yismenyifen",
                     "menu": "Umuɣ",
@@ -194,10 +194,10 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Sit teǧǧeḍ aḍad-ik•im i wakken ad d-iffeɣ wumuɣ",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Zuzer",
+                        "unreblog": "Kkes azuzer"
                     },
-                    "copy_link": "Copy Link"
+                    "copy_link": "Nɣel aseɣwen"
                 },
                 "tag": {
                     "url": "URL",
@@ -217,7 +217,7 @@
                     "translated_from": "Yettwasuqel seg %s s %s",
                     "unknown_language": "Arussin",
                     "unknown_provider": "Arussin",
-                    "show_original": "Show Original"
+                    "show_original": "Sken-d aɣbalu"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -263,7 +263,7 @@
                 "muted": "Yettwasgugem",
                 "edit_info": "Ẓreg talɣut",
                 "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "hide_reblogs": "Ffer izuzar"
             },
             "timeline": {
                 "filtered": "Yettwasizdeg",
@@ -388,7 +388,7 @@
             "title": "Asnulfu n umiḍan",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
+                    "label": "Azemz n tlalit",
                     "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
                 },
                 "avatar": {
@@ -487,7 +487,7 @@
             "title": "Agejdan",
             "timeline_menu": {
                 "following": "Following",
-                "local_community": "Local",
+                "local_community": "Adigan",
                 "lists": {
                     "title": "Tibdarin",
                     "empty_message": "You don't have any Lists"
@@ -498,7 +498,7 @@
                 }
             },
             "timeline_pill": {
-                "offline": "Offline",
+                "offline": "Beṛṛa n tuqqna",
                 "new_posts": "Tisuffaɣ timaynutin",
                 "post_sent": "Post Sent"
             },
@@ -549,10 +549,10 @@
                 "option_number": "Taxtiṛt %ld",
                 "the_poll_is_invalid": "The poll is invalid",
                 "the_poll_has_empty_option": "The poll has empty option",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "add_option": "Rnu taxtiṛt",
+                "remove_option": "Kkes taxtiṛt",
+                "move_up": "Smutti d asawen",
+                "move_down": "Smutti d akessar"
             },
             "content_warning": {
                 "placeholder": "Aru alɣu-inek s telqeyt da..."
@@ -747,10 +747,10 @@
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",
-                "boost": "Boost",
+                "boost": "Azuzer",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Tasuffeɣt",
+                "edit": "Ẓreg"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -849,7 +849,7 @@
             },
             "server_details": {
                 "about": "Ɣef",
-                "rules": "Rules",
+                "rules": "Alugen",
                 "about_instance": {
                     "title": "Anedbal",
                     "message_admin": "Message Admin",
@@ -896,9 +896,9 @@
                 },
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "boosts": "Izuzar",
+                    "favorites": "Imenyafen",
+                    "new_followers": "Imeḍfaṛen imaynuten"
                 },
                 "disabled": {
                     "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Mudd tawsa i Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -992,7 +992,7 @@
             "tab_bar_hint": "Amaɣnu amiran yettwafernen: %s. Sit berdayen syen teǧǧeḍ aḍad-ik·im i uskan abeddel n umiḍan",
             "dismiss_account_switcher": "Sefsex abeddel n umiḍan",
             "add_account": "Rnu amiḍan",
-            "logout_all_accounts": "Log Out Of All Accounts",
+            "logout_all_accounts": "Senser akk imiḍanen uqqinen",
             "logout": "Senser"
         },
         "bookmark": {
@@ -1023,7 +1023,7 @@
                 "subtitle": "You should receive an email confirming your donation soon.",
                 "server_error_title": "Payment failed",
                 "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "share_button_title": "Zuzer awal"
             }
         }
     },
