@@ -564,7 +564,7 @@
                 "direct": "僅限提及者"
             },
             "auto_complete": {
-                "space_to_add": "添加的空白"
+                "space_to_add": "按下空格键键入"
             },
             "accessibility": {
                 "append_attachment": "新增附件",
