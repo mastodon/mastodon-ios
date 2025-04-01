@@ -55,7 +55,7 @@
             },
             "media_missing_alt_text": {
                 "title": "媒体缺少替代文本",
-                "message": "您有 %d 张图像缺少替代文本。\n仍要发嘟吗？",
+                "message": "您有 %d 张图片缺少替代文本。\n仍要发嘟吗？",
                 "cancel": "取消",
                 "post": "发嘟"
             },
@@ -102,7 +102,7 @@
                 "share_post": "分享嘟文",
                 "open_in_safari": "在 Safari 中打开",
                 "open_in_browser": "在浏览器中打开",
-                "find_people": "查找可关注的人",
+                "find_people": "查找可关注者",
                 "manually_search": "改为手动搜索",
                 "skip": "跳过",
                 "reply": "回复",
@@ -163,7 +163,7 @@
                 "user_reblogged": "%s 转嘟了",
                 "user_replied_to": "回复了 %s",
                 "show_post": "显示嘟文",
-                "show_user_profile": "查看用户个人资料",
+                "show_user_profile": "查看用户资料",
                 "content_warning": "内容警告",
                 "sensitive_content": "敏感内容",
                 "media_content_warning": "点击任意位置显示",
@@ -189,7 +189,7 @@
                     "menu": "菜单",
                     "hide": "隐藏",
                     "show_image": "显示图片",
-                    "show_gif": "显示 GIF",
+                    "show_gif": "显示动图",
                     "show_video_player": "显示视频播放器",
                     "share_link_in_post": "分享链接至嘟文",
                     "tap_then_hold_to_show_menu": "长按以显示菜单",
@@ -200,7 +200,7 @@
                     "copy_link": "复制链接"
                 },
                 "tag": {
-                    "url": "URL",
+                    "url": "网址",
                     "mention": "提及",
                     "link": "链接",
                     "hashtag": "话题",
@@ -211,7 +211,7 @@
                     "unlisted": "这篇嘟文对所有人可见，但不会出现在公共时间线中。",
                     "private": "只有作者的关注者才能看到这篇嘟文。",
                     "private_from_me": "只有我的关注者才能看到这篇嘟文。",
-                    "direct": "只有被提及的用户才能看到这篇嘟文。"
+                    "direct": "只有被提及者才能看到这篇嘟文。"
                 },
                 "translation": {
                     "translated_from": "翻译自 %s 使用 %s",
@@ -222,7 +222,7 @@
                 "media": {
                     "accessibility_label": "%s，附件 %d/%d",
                     "expand_image_hint": "展开图片。双击并按住以显示可执行操作",
-                    "expand_gif_hint": "展开 GIF。双击并按住以显示可执行操作",
+                    "expand_gif_hint": "展开动图。双击并按住以显示可执行操作",
                     "expand_video_hint": "展开视频 双击并按住以显示可执行操作"
                 },
                 "posted_via_application": "%s 于 %s",
@@ -320,7 +320,7 @@
             "title": "欢迎回来",
             "subtitle": "在您注册账号的实例上登录。",
             "server_search_field": {
-                "placeholder": "输入 URL 或搜索您的实例"
+                "placeholder": "输入网址或搜索您的实例"
             }
         },
         "server_picker": {
@@ -353,7 +353,7 @@
                 "category": "种类"
             },
             "input": {
-                "search_servers_or_enter_url": "搜索社区或输入 URL"
+                "search_servers_or_enter_url": "搜索社区或输入网址"
             },
             "empty_state": {
                 "finding_servers": "正在查找可用的实例……",
@@ -369,7 +369,7 @@
                 "all": "全部"
             },
             "search": {
-                "placeholder": "搜索用户名或 URL"
+                "placeholder": "搜索用户名或网址"
             },
             "no_server_selected_hint": "如果您不想选择，我们将会根据您的语言为您挑选一个实例。"
         },
@@ -389,7 +389,7 @@
             "input": {
                 "birth_date": {
                     "label": "生日",
-                    "explanation_message": "我们必须确认 %d 岁以上的用户才能加入 %@。这条信息不会在注册后保留。"
+                    "explanation_message": "我们必须确认您年满 %d 周岁以加入 %@。这条信息不会在注册后保留。"
                 },
                 "avatar": {
                     "delete": "删除"
@@ -442,7 +442,7 @@
                     "inclusion": "%s 是不支持的值"
                 },
                 "special": {
-                    "username_invalid": "用户名只能包含英文字母、数字与下划线",
+                    "username_invalid": "用户名只能包含英文字母、阿拉伯数字与下划线",
                     "username_too_long": "用户名太长（不能超过 30 个字符）",
                     "email_invalid": "这不是一个有效的电子邮件地址",
                     "password_too_short": "密码太短（至少需要 8 个字符）"
@@ -697,20 +697,20 @@
                     "people_talking": "%s 人正在讨论"
                 },
                 "accounts": {
-                    "title": "您可能感兴趣的用户",
-                    "description": "您可能会想关注这些用户",
+                    "title": "您可能感兴趣的人",
+                    "description": "您可能会想关注这些人",
                     "follow": "关注"
                 }
             },
             "searching": {
                 "posts": "匹配 %s 的嘟文",
-                "people": "匹配 %s 的用户",
+                "people": "匹配 %s 的人",
                 "profile": "转到 @%s@%s",
-                "url": "在 Mastodon 中打开 URL",
+                "url": "在 Mastodon 中打开网址",
                 "hashtag": "转到 #%s",
                 "no_user": {
                     "title": "找不到用户",
-                    "message": "%s 上找不到用户 %s"
+                    "message": "未在 %s 上找到用户 %s"
                 },
                 "empty_state": {
                     "no_results": "无结果"
@@ -918,7 +918,7 @@
                 },
                 "manually_approve_follow_requests": "手动批准关注请求",
                 "show_followers_and_following": "公开关注者与我关注的",
-                "suggest_my_account_to_others": "向他人推荐我",
+                "suggest_my_account_to_others": "把我推荐给别人",
                 "appear_in_search_engines": "允许搜索引擎收录"
             },
             "donation": {
@@ -989,7 +989,7 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "当前账号：%s。双击并按住来打开账号切换页面",
+            "tab_bar_hint": "当前账号：%s。双击并按住以打开账号切换页面",
             "dismiss_account_switcher": "关闭账号切换页面",
             "add_account": "添加账号",
             "logout_all_accounts": "登出所有账号",
@@ -1001,7 +1001,7 @@
         "followed_tags": {
             "title": "关注的标签",
             "header": {
-                "posts": "个嘟文",
+                "posts": "篇嘟文",
                 "participants": "参与者",
                 "posts_today": "今日嘟文"
             },
@@ -1012,7 +1012,7 @@
         },
         "donation": {
             "picker": {
-                "once_title": "仅一次",
+                "once_title": "单次",
                 "monthly_title": "每月",
                 "yearly_title": "每年"
             },
@@ -1020,22 +1020,22 @@
             "currency": "货币",
             "success": {
                 "title": "感谢您的贡献！",
-                "subtitle": "您应该很快会收到一封确认您的捐赠的邮件。",
+                "subtitle": "您稍后会收到一封邮件以确认您的捐赠。",
                 "server_error_title": "支付失败",
-                "server_error_message": "我们很抱歉，发生了一个错误，我们无法处理您的捐赠。\n\n请几分钟后再试。",
+                "server_error_message": "很抱歉，发生了一个错误，我们无法处理您的捐赠。\n\n请稍后再试。",
                 "share_button_title": "捐赠寄语"
             }
         }
     },
     "extension": {
         "open_in": {
-            "invalid_link_error": "这似乎不是一条有效的 Mastodon 链接。"
+            "invalid_link_error": "这似乎不是有效的 Mastodon 链接。"
         }
     },
     "widget": {
         "common": {
             "unsupported_widget_family": "抱歉，不支持这种小组件。",
-            "user_not_logged_in": "请打开 Mastodon 来登录账号。"
+            "user_not_logged_in": "请打开 Mastodon 以登录账号。"
         },
         "followers_count": {
             "configuration_display_name": "关注者",
@@ -1055,22 +1055,22 @@
             "configuration_display_name": "最新的关注者",
             "configuration_description": "显示最新关注者。",
             "title": "最新的关注者",
-            "last_update": "最近更新：%s"
+            "last_update": "最后更新：%s"
         },
         "hashtag": {
             "configuration": {
                 "display_name": "话题",
-                "description": "显示这个话题最新的嘟文。"
+                "description": "显示这个话题的最新嘟文。"
             },
             "not_found": {
-                "account_name": "John Mastodon",
+                "account_name": "长毛象",
                 "account": "@johnMastodon@no-such.account",
-                "content": "抱歉，我们找不到任何话题为<a>#%@</a>的帖子。请尝试一个<a>#不同的标签</a>或检查组件设置。"
+                "content": "抱歉，我们找不到任何带有<a>#%@</a>话题的嘟文。请尝试一个<a>#不同的话题</a>或检查小组件设置。"
             },
             "placeholder": {
-                "account_name": "John Mastodon",
+                "account_name": "长毛象",
                 "account": "@johnMastodon@no-such.account",
-                "content": "带有<a>#话题</a>的嘟文会显示为这种样式。您可以在组件设置中选择任意<a>#话题</a>。"
+                "content": "带有<a>#话题</a>的嘟文会显示为这种样式。您可以在小组件设置中选择任意<a>#话题</a>。"
             }
         }
     }
