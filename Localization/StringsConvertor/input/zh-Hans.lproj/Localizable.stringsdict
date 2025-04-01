@@ -335,7 +335,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 人正在讨论</string>
+        <string>%ld 位用户正在讨论</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -349,7 +349,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 人正在关注</string>
+        <string>%ld 位用户已关注</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -363,7 +363,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 个关注者</string>
+        <string>%ld 位关注者</string>
       </dict>
     </dict>
     <key>plural.count.of_your_followers</key>
@@ -377,7 +377,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>您的 %ld 个关注者</string>
+        <string>您的 %ld 位关注者</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -391,7 +391,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>您关注的 %ld 个用户</string>
+        <string>您关注的 %ld 位用户</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -545,7 +545,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 分前</string>
+        <string>%ld 分钟前</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -573,7 +573,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>您可能认识的 %ld 个人</string>
+        <string>您可能认识的 %ld 位用户</string>
       </dict>
     </dict>
   </dict>
