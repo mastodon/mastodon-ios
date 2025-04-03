@@ -82,6 +82,22 @@
         <string>%ld aðrir</string>
       </dict>
     </dict>
+    <key>plural.count.new_signups</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_signups@</string>
+      <key>count_signups</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>ein ný skráning</string>
+        <key>other</key>
+        <string>%ld nýjar skráningar</string>
+      </dict>
+    </dict>
     <key>plural.count.people_boosted</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
