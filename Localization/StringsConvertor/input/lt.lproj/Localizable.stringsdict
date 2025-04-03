@@ -102,6 +102,26 @@
         <string>%ld kitų</string>
       </dict>
     </dict>
+    <key>plural.count.new_signups</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_signups@</string>
+      <key>count_signups</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>one new signup</string>
+        <key>few</key>
+        <string>%ld new signups</string>
+        <key>many</key>
+        <string>%ld new signups</string>
+        <key>other</key>
+        <string>%ld new signups</string>
+      </dict>
+    </dict>
     <key>plural.count.people_boosted</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
