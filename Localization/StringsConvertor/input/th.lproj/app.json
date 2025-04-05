@@ -1012,11 +1012,11 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "เพียงครั้งเดียว",
+                "monthly_title": "รายเดือน",
+                "yearly_title": "รายปี"
             },
-            "donatebuttontitle": "Donate",
+            "donatebuttontitle": "บริจาค",
             "currency": "Currency",
             "success": {
                 "title": "Thank you for your contribution!",
