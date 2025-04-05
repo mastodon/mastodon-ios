@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "ติดตาม",
-                "follow_back": "Follow back",
+                "follow_back": "ติดตามกลับ",
                 "following": "กำลังติดตาม",
-                "mutual": "Mutual",
+                "mutual": "คนที่มีร่วมกัน",
                 "request": "ขอ",
                 "pending": "รอดำเนินการ",
                 "block": "ปิดกั้น",
@@ -388,7 +388,7 @@
             "title": "สร้างบัญชี",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
+                    "label": "วันเกิด",
                     "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
                 },
                 "avatar": {
@@ -716,7 +716,7 @@
                     "no_results": "ไม่มีผลลัพธ์"
                 },
                 "recent_search": "การค้นหาล่าสุด",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "ไม่มีการค้นหาล่าสุด",
                 "clear_all": "ล้างทั้งหมด",
                 "clear": "ล้าง"
             }
@@ -744,29 +744,29 @@
                 "sign_up": "Signup",
                 "favourite": "Favorite",
                 "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
+                "follow_request": "คำขอติดตาม",
+                "moderation_warning": "คำเตือน",
                 "poll": "การสำรวจความคิดเห็น",
                 "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
+                "severed_relationships": "การปิดกั้นโดเมน",
+                "status": "โพสต์",
                 "edit": "Edit"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
-                "mulitple_people_signed_up": "%@ new signups",
-                "single_name_signed_up": "%@ signed up",
+                "your_poll_has_ended": "การสำรวจความคิดเห็นของคุณได้สิ้นสุดแล้ว",
+                "single_name_edited_a_post": "%@ ได้แก้ไขโพสต์ที่คุณได้โต้ตอบด้วย",
+                "single_name_ran_poll": "%@ ได้ทำ %@",
+                "single_name_mentioned_you": "%@ ได้กล่าวถึงคุณ",
+                "single_name_requested_to_follow_you": "%@ ได้ขอติดตามคุณ",
+                "single_name_posted": "%@ ได้โพสต์:",
+                "single_name_boosted": "%@ ได้ดัน:",
+                "single_name_favourited": "%@ ได้ชื่นชอบ:",
+                "single_name_followed_you": "%@ ได้ติดตามคุณ",
+                "multiple_people_boosted": "%@ ได้ดัน:",
+                "multiple_people_favourited": "%@ ได้ชื่นชอบ:",
+                "multiple_people_followed_you": "%@ ได้ติดตามคุณ",
+                "mulitple_people_signed_up": "%@ การลงทะเบียนใหม่",
+                "single_name_signed_up": "%@ ได้ลงทะเบียน",
                 "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
                 "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
             },
@@ -799,29 +799,29 @@
                 "suspend": "ระงับบัญชีของคุณแล้ว",
                 "learn_more": "เรียนรู้เพิ่มเติม"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "เรียนรู้เพิ่มเติมเกี่ยวกับการปิดกั้นเซิร์ฟเวอร์",
             "filtered_notification": {
-                "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "title": "การแจ้งเตือนที่กรองอยู่",
+                "accept": "ยอมรับ",
+                "dismiss": "ปิด"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "กรองการแจ้งเตือนจาก…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "ผู้คนที่คุณไม่ได้ติดตาม",
+                    "subtitle": "จนกว่าคุณจะอนุมัติเขาด้วยตนเอง"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "ผู้คนที่ไม่ได้ติดตามคุณ",
+                    "subtitle": "รวมถึงผู้คนที่ได้ติดตามคุณน้อยกว่า 3 วัน"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "บัญชีใหม่",
+                    "subtitle": "สร้างขึ้นภายใน 30 วันที่ผ่านมา"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "การกล่าวถึงแบบส่วนตัวที่ไม่พึงประสงค์",
+                    "subtitle": "กรองไว้เว้นแต่การกล่าวถึงแบบส่วนตัวอยู่ในการตอบกลับการกล่าวถึงของคุณเองหรือหากคุณติดตามผู้ส่ง"
                 }
             }
         },
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "ปรากฏในเครื่องมือค้นหา"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "บริจาคให้ Mastodon",
                 "manage": "จัดการการบริจาค"
             }
         },
@@ -1017,13 +1017,13 @@
                 "yearly_title": "รายปี"
             },
             "donatebuttontitle": "บริจาค",
-            "currency": "Currency",
+            "currency": "สกุลเงิน",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "ขอบคุณสำหรับการมีส่วนร่วมของคุณ!",
+                "subtitle": "คุณควรได้รับอีเมลยืนยันการบริจาคของคุณในเร็ว ๆ นี้",
+                "server_error_title": "การชำระเงินล้มเหลว",
+                "server_error_message": "เราขออภัย เกิดข้อผิดพลาดและเราไม่สามารถประมวลผลการบริจาคของคุณ\n\nโปรดลองใหม่ในไม่กี่นาที",
+                "share_button_title": "กระจายข่าว"
             }
         }
     },
