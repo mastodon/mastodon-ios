@@ -167,7 +167,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld ภาพ</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -181,7 +181,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld gifs</string>
+        <string>%ld GIF</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -195,7 +195,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>%ld วิดีโอ</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
