@@ -411,7 +411,7 @@
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
                     "accessibility": {
-                        "checked": "checked",
+                        "checked": "",
                         "unchecked": "unchecked"
                     },
                     "hint": "Пароль должен содержать не менее восьми символов"
