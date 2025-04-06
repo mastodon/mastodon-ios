@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Απάντηση",
+                "private_reply": "Ιδιωτική απάντηση",
+                "mention": "Επισήμανση",
+                "private_mention": "Ιδιωτική επισήμανση",
                 "user_reblogged": "%s ενισχύθηκε",
                 "user_replied_to": "Απάντησε στον χρήστη %s",
                 "show_post": "Εμφάνιση Ανάρτησης",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Ακολούθησε",
-                "follow_back": "Follow back",
+                "follow_back": "Ακολούθησε και εσύ",
                 "following": "Ακολουθείς",
-                "mutual": "Mutual",
+                "mutual": "Αμοιβαία",
                 "request": "Αίτημα",
                 "pending": "Εκκρεμεί",
                 "block": "Αποκλεισμός",
@@ -388,8 +388,8 @@
             "title": "Δημιουργία Λογαριασμού",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Ημερομηνία γέννησης",
+                    "explanation_message": "Πρέπει να βεβαιωθούμε ότι είσαι τουλάχιστον %d για να συμμετάσχεις στο %@. Αυτό δεν θα αποθηκευτεί μετά την εγγραφή."
                 },
                 "avatar": {
                     "delete": "Διαγραφή"
@@ -716,7 +716,7 @@
                     "no_results": "Κανένα αποτέλεσμα"
                 },
                 "recent_search": "Πρόσφατες αναζητήσεις",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Καμία πρόσφατη αναζήτηση.",
                 "clear_all": "Εκκαθάριση όλων",
                 "clear": "Εκκαθάριση"
             }
@@ -740,26 +740,26 @@
                 "Mentions": "Επισημάνσεις"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "report": "Αναφορά",
+                "sign_up": "Εγγραφή",
+                "favourite": "Αγαπημένο",
+                "follow": "Ακολούθησε",
+                "follow_request": "Αίτημα ακολούθησης",
+                "moderation_warning": "Προειδοποίηση",
+                "poll": "Δημοσκόπηση",
+                "boost": "Ενίσχυση",
+                "severed_relationships": "Αποκλεισμός τομέα",
+                "status": "Ανάρτηση",
+                "edit": "Επεξεργασία"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
+                "your_poll_has_ended": "Η δημοσκόπησή σου έληξε",
+                "single_name_edited_a_post": "Ο χρήστης %@ επεξεργάστηκε μια ανάρτηση με την οποία αλληλεπίδρασες",
+                "single_name_ran_poll": "%@ έτρεξε %@",
+                "single_name_mentioned_you": "Ο χρήστης %@ σε επισήμανε",
+                "single_name_requested_to_follow_you": "Ο χρήστης %@ ζήτησε να σε ακολουθήσει",
+                "single_name_posted": "Ο χρήστης %@ ανάρτησε:",
+                "single_name_boosted": "Ο χρήστης %@ ενίσχυσε:",
                 "single_name_favourited": "%@ favorited:",
                 "single_name_followed_you": "%@ followed you",
                 "multiple_people_boosted": "%@ boosted:",
