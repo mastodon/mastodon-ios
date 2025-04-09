@@ -83,7 +83,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld new signups</string>
+        <string>%ld 位新注册</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
