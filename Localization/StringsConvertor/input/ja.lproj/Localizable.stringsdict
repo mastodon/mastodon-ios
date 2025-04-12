@@ -97,7 +97,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld 人のブースト：</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -111,7 +111,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people favorited:</string>
+        <string>%ld 人のお気に入り：</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -125,7 +125,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>%ld 人にフォローされました</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -167,7 +167,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>画像 %ld 枚</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -181,7 +181,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld gifs</string>
+        <string>gif %ld 枚</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -195,7 +195,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>動画 %ld 本</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -237,7 +237,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld polls</string>
+        <string>%ld 票</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -391,7 +391,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld of your followers</string>
+        <string>%ld 人のフォロワー</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -405,7 +405,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld 人のフォロー</string>
       </dict>
     </dict>
     <key>date.year.left</key>
