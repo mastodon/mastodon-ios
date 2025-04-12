@@ -753,11 +753,11 @@
                 "edit": "Edit"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
+                "your_poll_has_ended": "アンケートが終了しました",
+                "single_name_edited_a_post": "%@ があなたとやり取りした投稿を編集しました",
                 "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
+                "single_name_mentioned_you": "%@ さんにメンションされました",
+                "single_name_requested_to_follow_you": "%@ さんからフォローリクエストが届きました",
                 "single_name_posted": "%@ posted:",
                 "single_name_boosted": "%@ boosted:",
                 "single_name_favourited": "%@ favorited:",
@@ -1012,17 +1012,17 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
+                "once_title": "今回だけ",
+                "monthly_title": "毎月",
                 "yearly_title": "Yearly"
             },
             "donatebuttontitle": "Donate",
             "currency": "Currency",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
+                "title": "ご協力ありがとうございます！",
+                "subtitle": "寄付を確認するメールがすぐに届きます。",
+                "server_error_title": "お支払いに失敗しました",
+                "server_error_message": "申し訳ありません。エラーが発生し、寄付を処理できませんでした。\n\n数分後に再試行してください。",
                 "share_button_title": "Spread the word"
             }
         }
