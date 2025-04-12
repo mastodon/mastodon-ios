@@ -799,10 +799,10 @@
                 "suspend": "あなたのアカウントは停止されました。",
                 "learn_more": "詳細"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "サーバーブロックの詳細",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "同意",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -816,8 +816,8 @@
                     "subtitle": "Including people who have been following you fewer than 3 days"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "新しいアカウント",
+                    "subtitle": "30日以内に作成されたアカウント"
                 },
                 "private_mentions": {
                     "title": "Unsolicited private mentions",
@@ -922,8 +922,8 @@
                 "appear_in_search_engines": "検索エンジンからアクセスできるようにする"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "Mastodonを支援する",
+                "manage": "寄付を管理"
             }
         },
         "report": {
@@ -1016,14 +1016,14 @@
                 "monthly_title": "毎月",
                 "yearly_title": "Yearly"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "寄付する",
+            "currency": "通貨",
             "success": {
                 "title": "ご協力ありがとうございます！",
                 "subtitle": "寄付を確認するメールがすぐに届きます。",
                 "server_error_title": "お支払いに失敗しました",
                 "server_error_message": "申し訳ありません。エラーが発生し、寄付を処理できませんでした。\n\n数分後に再試行してください。",
-                "share_button_title": "Spread the word"
+                "share_button_title": "周りに勧める"
             }
         }
     },
