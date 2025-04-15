@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one new signup</string>
+        <string>una nuova iscrizione</string>
         <key>other</key>
-        <string>%ld new signups</string>
+        <string>%ld nuove iscrizioni</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
