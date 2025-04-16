@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one other</string>
+        <string>ένα ακόμη</string>
         <key>other</key>
-        <string>%ld others</string>
+        <string>%ld ακόμη</string>
       </dict>
     </dict>
     <key>plural.count.new_signups</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one new signup</string>
+        <string>μία νέα εγγραφή</string>
         <key>other</key>
-        <string>%ld new signups</string>
+        <string>%ld νέες εγγραφές</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person boosted:</string>
+        <string>ένα άτομο ενίσχυσε:</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld άτομα ενίσχυσαν:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
