@@ -1022,8 +1022,8 @@
                 "title": "Ευχαριστούμε για τη συνεισφορά σου!",
                 "subtitle": "Θα λάβεις σύντομα ένα email που θα επιβεβαιώνει τη δωρεά σου.",
                 "server_error_title": "Η πληρωμή απέτυχε",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "server_error_message": "Λυπούμαστε, πρόεκυψε ένα σφάλμα και δεν καταφέραμε να διεκπαιρεώσουμε την δωρέα σου.\n\nΔοκίμασε ξανά σε λίγα λεπτά.",
+                "share_button_title": "Διάδωσέ το"
             }
         }
     },
