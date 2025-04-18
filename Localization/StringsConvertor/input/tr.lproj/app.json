@@ -49,22 +49,22 @@
                 "message": "%s boyutunda önbellek temizlendi."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "Not",
+                "message": "Çeviri başarısız oldu. Yönetici bu sunucuda çevirileri etkinleştirmemiş olabilir veya bu sunucu Mastodon'un henüz çevirileri desteklemediği eski bir sürümünü çalıştırıyor olabilir.",
                 "button": "Tamam"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "title": "Medyada alternatif metin yok",
+                "message": "%d resminizde alternatif metin yok.\nYine de paylaşılsın mı?",
                 "cancel": "İptal et",
-                "post": "Post"
+                "post": "Paylaş"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "title_boost": "Yeniden paylaşılsın mı?",
+                "title_unboost": "Yeniden paylaşım geri alınsın mı?",
+                "cancel": "İptal",
+                "boost": "Yeniden Paylaş",
+                "unboost": "Geri Al"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
