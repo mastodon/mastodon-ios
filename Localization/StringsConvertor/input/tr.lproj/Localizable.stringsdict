@@ -669,9 +669,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld</string>
+        <string>Tanıyor olabileceğiniz bir kullanıcı</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>Tanıyor olabileceğiniz %ld kullanıcı</string>
       </dict>
     </dict>
   </dict>
