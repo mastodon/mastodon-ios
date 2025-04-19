@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Oy Verme Başarısız",
-                "poll_ended": "Anket bitti"
+                "poll_ended": "Anket sona erdi"
             },
             "publish_post_failure": {
                 "title": "Paylaşılamadı",
@@ -102,7 +102,7 @@
                 "share_post": "Gönderiyi Paylaş",
                 "open_in_safari": "Safari'de Aç",
                 "open_in_browser": "Tarayıcıda Aç",
-                "find_people": "Takip etmek için birkaç kişi bul",
+                "find_people": "Takip edecek kişileri bulun",
                 "manually_search": "Onun yerine manuel olarak ara",
                 "skip": "Atla",
                 "reply": "Yanıtla",
@@ -594,7 +594,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Seni takip ediyor"
+                "follows_you": "Sizi Takip Ediyor"
             },
             "dashboard": {
                 "my_posts": "gönderiler",
@@ -686,7 +686,7 @@
         "search": {
             "title": "Arama",
             "search_bar": {
-                "placeholder": "Etiketleri ve kullanıcıları ara",
+                "placeholder": "Etiketleri ve kullanıcıları arayın",
                 "cancel": "İptal"
             },
             "recommend": {
@@ -694,7 +694,7 @@
                 "hash_tag": {
                     "title": "Mastodon'da Popüler",
                     "description": "Oldukça ilgi gören etiketler",
-                    "people_talking": "%s kişi konuşuyor"
+                    "people_talking": "%s kişi bunun hakkında konuşuyor"
                 },
                 "accounts": {
                     "title": "Hoşunuza gidebilecek hesaplar",
@@ -827,7 +827,7 @@
         },
         "thread": {
             "back_title": "Gönderi",
-            "title": "%s kullanıcının gönderisi"
+            "title": "%s kullanıcısının gönderisi"
         },
         "settings": {
             "overview": {
@@ -943,9 +943,9 @@
                 "whats_wrong_with_this_post": "Bu gönderi ile ilgili sorun nedir?",
                 "whats_wrong_with_this_account": "Bu hesap ile ilgili sorun nedir?",
                 "whats_wrong_with_this_username": "%s kişisinin sorunu nedir?",
-                "select_the_best_match": "En iyi seçeneceği seçiniz",
-                "i_dont_like_it": "Beğenmedim",
-                "it_is_not_something_you_want_to_see": "Görmek isteyeceğim bir şey değil",
+                "select_the_best_match": "En uygun eşleşmeyi seçin",
+                "i_dont_like_it": "Hoşlanmadım",
+                "it_is_not_something_you_want_to_see": "Görmek isteyeceğiniz bir şey değil",
                 "its_spam": "Spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Kötü niyetli bağlantılar, sahte etkileşim veya tekrarlayan yanıtlar",
                 "it_violates_server_rules": "Sunucu kurallarını ihlal ediyor",
