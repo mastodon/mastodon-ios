@@ -740,15 +740,15 @@
                 "Mentions": "Erwähnungen"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
+                "report": "Melden",
+                "sign_up": "Registrieren",
                 "favourite": "Favorite",
-                "follow": "Follow",
+                "follow": "Folgen",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warnung",
                 "poll": "Umfrage",
                 "boost": "Teilen",
-                "severed_relationships": "Domain block",
+                "severed_relationships": "Domain sperren",
                 "status": "Post",
                 "edit": "Bearbeiten"
             },
@@ -757,13 +757,13 @@
                 "single_name_edited_a_post": "%@ edited a post you interacted with",
                 "single_name_ran_poll": "%@ ran %@",
                 "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
+                "single_name_requested_to_follow_you": "%@ möchte dir folgen",
+                "single_name_posted": "%@ veröffentlichte:",
                 "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
+                "single_name_favourited": "%@ favorisierte:",
                 "single_name_followed_you": "%@ folgt dir jetzt",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
+                "multiple_people_boosted": "%@ teilte:",
+                "multiple_people_favourited": "%@ favorisierte:",
                 "multiple_people_followed_you": "%@ folgt dir jetzt",
                 "mulitple_people_signed_up": "%@ neue Registrierungen",
                 "single_name_signed_up": "%@ signed up",
@@ -777,7 +777,7 @@
                 "mentioned_you": "hat dich erwähnt",
                 "request_to_follow_you": "Folgeanfrage",
                 "poll_has_ended": "Umfrage wurde beendet",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "relationship_severance": "Ein Admin von %@ hat %@ geblockt, einschließlich %@."
             },
             "keyobard": {
                 "show_everything": "Alles anzeigen",
@@ -816,7 +816,7 @@
                     "subtitle": "Including people who have been following you fewer than 3 days"
                 },
                 "new_account": {
-                    "title": "New accounts",
+                    "title": "Neue Benutzerkonten",
                     "subtitle": "Created within the past 30 days"
                 },
                 "private_mentions": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "In Suchmaschinen anzeigen"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "An Mastodon spenden",
                 "manage": "Manage donations"
             }
         },
@@ -1012,16 +1012,16 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
+                "once_title": "Nur einmal",
                 "monthly_title": "Monatlich",
                 "yearly_title": "Jährlich"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "Spenden",
+            "currency": "Währung",
             "success": {
-                "title": "Thank you for your contribution!",
+                "title": "Danke für deinem Beitrag!",
                 "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
+                "server_error_title": "Zahlung fehlgeschlagen",
                 "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
                 "share_button_title": "Spread the word"
             }
