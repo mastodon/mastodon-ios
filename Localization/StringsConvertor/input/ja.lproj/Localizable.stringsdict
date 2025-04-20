@@ -69,7 +69,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld others</string>
+        <string>他%ld人</string>
       </dict>
     </dict>
     <key>plural.count.new_signups</key>
@@ -83,7 +83,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld new signups</string>
+        <string>%ld人が新規登録</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -139,7 +139,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>あなたと他%ld人が参加した投票</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -209,7 +209,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld audios</string>
+        <string>%ld本の音声</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -223,7 +223,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld attachments</string>
+        <string>添付 %ld 件</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -587,7 +587,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people you may know</string>
+        <string>知り合いかもしれない%ld人</string>
       </dict>
     </dict>
   </dict>
