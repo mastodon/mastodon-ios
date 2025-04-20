@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>a poll that you and one other voted in</string>
+        <string>Eine Umfrage, an der du und jemand anderes teilgenommen haben, ist beendet</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>Eine Umfrage, an der du und %ld andere teilgenommen haben, ist beendet</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
