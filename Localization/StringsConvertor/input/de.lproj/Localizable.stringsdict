@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person boosted:</string>
+        <string>eine Person teilte:</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld Personen teilten:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 audio</string>
+        <string>1 Audiodatei</string>
         <key>other</key>
-        <string>%ld audios</string>
+        <string>%ld Audiodateien</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
