@@ -246,7 +246,7 @@
                 "follow": "Folgen",
                 "follow_back": "Ebenfalls folgen",
                 "following": "Gefolgt",
-                "mutual": "Mutual",
+                "mutual": "Gegenseitig",
                 "request": "Anfragen",
                 "pending": "In Warteschlange",
                 "block": "Blockieren",
@@ -716,7 +716,7 @@
                     "no_results": "Keine Ergebnisse"
                 },
                 "recent_search": "Zuletzt gesucht",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Keine früheren Suchanfragen.",
                 "clear_all": "Alles löschen",
                 "clear": "Zurücksetzen"
             }
@@ -744,7 +744,7 @@
                 "sign_up": "Registrieren",
                 "favourite": "Favorite",
                 "follow": "Folgen",
-                "follow_request": "Follow request",
+                "follow_request": "Follower-Anfrage",
                 "moderation_warning": "Warnung",
                 "poll": "Umfrage",
                 "boost": "Teilen",
@@ -753,13 +753,13 @@
                 "edit": "Bearbeiten"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
+                "your_poll_has_ended": "Deine Umfrage ist beendet",
                 "single_name_edited_a_post": "%@ edited a post you interacted with",
                 "single_name_ran_poll": "%@ ran %@",
                 "single_name_mentioned_you": "%@ erwähnte dich",
                 "single_name_requested_to_follow_you": "%@ möchte dir folgen",
                 "single_name_posted": "%@ veröffentlichte:",
-                "single_name_boosted": "%@ boosted:",
+                "single_name_boosted": "%@ teilte:",
                 "single_name_favourited": "%@ favorisierte:",
                 "single_name_followed_you": "%@ folgt dir jetzt",
                 "multiple_people_boosted": "%@ teilte:",
@@ -801,15 +801,15 @@
             },
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
-                "title": "Filtered Notifications",
+                "title": "Gefilterte Benachrichtigungen",
                 "accept": "Akzeptieren",
-                "dismiss": "Dismiss"
+                "dismiss": "Ablehnen"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "Filtere Benachrichtigungen von…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "Profilen, denen du nicht folgst",
+                    "subtitle": "Bis du sie manuell genehmigst"
                 },
                 "no_follower": {
                     "title": "People not following you",
@@ -817,10 +817,10 @@
                 },
                 "new_account": {
                     "title": "Neue Benutzerkonten",
-                    "subtitle": "Created within the past 30 days"
+                    "subtitle": "Innerhalb der letzten 30 Tage erstellt"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
+                    "title": "unerwünschten privaten Erwähnungen",
                     "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
                 }
             }
@@ -1020,7 +1020,7 @@
             "currency": "Währung",
             "success": {
                 "title": "Danke für deinem Beitrag!",
-                "subtitle": "You should receive an email confirming your donation soon.",
+                "subtitle": "Du solltest bald eine E-Mail bekommen, die deine Spende bestätigt.",
                 "server_error_title": "Zahlung fehlgeschlagen",
                 "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
                 "share_button_title": "Spread the word"
