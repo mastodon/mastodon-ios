@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person followed you</string>
+        <string>eine Person, folgte dir</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>%ld Personen folgten dir</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
