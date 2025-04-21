@@ -461,9 +461,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 account that you follow</string>
+        <string>1 Profil, dem du folgst</string>
         <key>other</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld Profilen, denen du folgst</string>
       </dict>
     </dict>
     <key>date.year.left</key>
