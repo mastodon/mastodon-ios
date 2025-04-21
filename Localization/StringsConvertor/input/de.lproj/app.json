@@ -813,7 +813,7 @@
                 },
                 "no_follower": {
                     "title": "Profilen, die mir nicht folgen",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "subtitle": "Einschließlich Profilen, die dir erst seit weniger als 3 Tagen folgen"
                 },
                 "new_account": {
                     "title": "Neue Benutzerkonten",
@@ -821,7 +821,7 @@
                 },
                 "private_mentions": {
                     "title": "unerwünschten privaten Erwähnungen",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "subtitle": "Solange sie keine Antwort auf deine Erwähnung ist oder du dem Profil nicht folgst"
                 }
             }
         },
@@ -1022,7 +1022,7 @@
                 "title": "Danke für deinem Beitrag!",
                 "subtitle": "Du solltest bald eine E-Mail bekommen, die deine Spende bestätigt.",
                 "server_error_title": "Zahlung fehlgeschlagen",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
+                "server_error_message": "Wir bitten um Verzeihung, ein Fehler trat auf und wir konnten deine Spende nicht verarbeiten.\n\nBitte versuche es in ein paar Minuten nochmal.",
                 "share_button_title": "Spread the word"
             }
         }
