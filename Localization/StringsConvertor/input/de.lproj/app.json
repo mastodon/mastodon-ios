@@ -742,14 +742,14 @@
             "headers": {
                 "report": "Melden",
                 "sign_up": "Registrieren",
-                "favourite": "Favorite",
+                "favourite": "Favorisieren",
                 "follow": "Folgen",
                 "follow_request": "Follower-Anfrage",
                 "moderation_warning": "Warnung",
                 "poll": "Umfrage",
                 "boost": "Teilen",
                 "severed_relationships": "Domain sperren",
-                "status": "Post",
+                "status": "Veröffentlichen",
                 "edit": "Bearbeiten"
             },
             "grouped_notification_description": {
