@@ -755,7 +755,7 @@
             "grouped_notification_description": {
                 "your_poll_has_ended": "Deine Umfrage ist beendet",
                 "single_name_edited_a_post": "%@ bearbeitete einen Beitrag, mit dem du interagiert hattest",
-                "single_name_ran_poll": "%@ ran %@",
+                "single_name_ran_poll": "%@ erstellte %@",
                 "single_name_mentioned_you": "%@ erwähnte dich",
                 "single_name_requested_to_follow_you": "%@ möchte dir folgen",
                 "single_name_posted": "%@ veröffentlichte:",
