@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Адказ",
+                "private_reply": "Асабісты адказ",
+                "mention": "Згадванне",
+                "private_mention": "Асабістае згадванне",
                 "user_reblogged": "%s пашырыў(-ла)",
                 "user_replied_to": "Адказаў %s",
                 "show_post": "Паказаць допіс",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Падпісацца",
-                "follow_back": "Follow back",
+                "follow_back": "Падпісацца ў адказ",
                 "following": "Падпісаны",
-                "mutual": "Mutual",
+                "mutual": "Узаемныя",
                 "request": "Запыт",
                 "pending": "Чакаецца",
                 "block": "Заблакіраваць",
@@ -388,7 +388,7 @@
             "title": "Стварыць уліковы запіс",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
+                    "label": "Дата нараджэння",
                     "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
                 },
                 "avatar": {
