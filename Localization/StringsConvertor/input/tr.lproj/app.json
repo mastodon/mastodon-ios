@@ -148,7 +148,7 @@
                     "toggle_reblog": "Gönderinin yeniden paylaşma durumunu değiştir",
                     "toggle_favorite": "Gönderiyi favorileme durumunu değiştir",
                     "toggle_content_warning": "İçerik Uyarısı durumunu değiştir",
-                    "preview_image": "Görseli Önizle"
+                    "preview_image": "Resmi Ön İzle"
                 },
                 "segmented_control": {
                     "previous_section": "Önceki Seçim",
@@ -166,8 +166,8 @@
                 "show_user_profile": "Kullanıcı profilini göster",
                 "content_warning": "İçerik Uyarısı",
                 "sensitive_content": "Hassas İçerik",
-                "media_content_warning": "Göstermek için herhangi bir yere basın",
-                "tap_to_reveal": "Göstermek için basın",
+                "media_content_warning": "Görüntülemek için herhangi bir yere dokunun",
+                "tap_to_reveal": "Görüntülemek için dokunun",
                 "load_embed": "Gömülü içeriği göster",
                 "link_via_user": "%s tarihinde %s aracılığıyla",
                 "poll": {
@@ -257,7 +257,7 @@
                 "blocked": "Engellendi",
                 "domain_blocked": "Alan adı engellendi",
                 "mute": "Sessize al",
-                "mute_user": "Sustur %s",
+                "mute_user": "%s kullanıcısını sustur",
                 "unmute": "Susturmayı kaldır",
                 "unmute_user": "Sesini aç %s",
                 "muted": "Susturuldu",
