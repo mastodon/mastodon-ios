@@ -51,15 +51,28 @@ public struct LanguagePicker: View {
     public static func availableLanguages() -> [Language] {
         let locales = Locale.availableIdentifiers.map(Locale.init(identifier:))
         var languages: [String: Language] = [:]
+
+        // these script and variant codes are supported by the server side and are to be kept in list
+        // see SUPPORTED_LOCALES in Mastodon source for more details
+        let variantMappings = [
+            "ms-Arab": "ms-Arab",
+            "zh_CN": "zh-CN",
+            "zh_HK": "zh-HK",
+            "zh_TW": "zh-TW",
+        ]
+
         for locale in locales {
-            if let code = locale.language.languageCode?.identifier,
-               let endonym = locale.localizedString(forLanguageCode: code),
-               let exonym = Locale.current.localizedString(forLanguageCode: code) {
-                // don’t overwrite the “base” language
-                if let lang = languages[code], !(lang.localeId ?? "").contains("_") { continue }
-                languages[code] = Language(endonym: endonym, exonym: exonym, id: code, localeId: locale.identifier)
+            let code = locale.identifier
+            if let endonym = locale.localizedString(forIdentifier: code),
+               let exonym = Locale.current.localizedString(forIdentifier: code) {
+                if let mappedCode = variantMappings[code] {
+                    languages[mappedCode] = Language(endonym: endonym, exonym: exonym, id: mappedCode, localeId: code)
+                } else if !code.contains(#/[\-_]/#) {   // otherwise, only keep the “base” language
+                    languages[code] = Language(endonym: endonym, exonym: exonym, id: code, localeId: code)
+                }
             }
         }
+
         return languages.values.sorted(using: KeyPathComparator(\.id))
     }
     
