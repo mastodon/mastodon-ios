@@ -93,13 +93,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one other</string>
+        <string>%ld eile</string>
         <key>two</key>
-        <string>%ld others</string>
+        <string>%ld eile</string>
         <key>few</key>
-        <string>%ld others</string>
+        <string>%ld eile</string>
         <key>other</key>
-        <string>%ld others</string>
+        <string>%ld eile</string>
       </dict>
     </dict>
     <key>plural.count.new_signups</key>
@@ -113,13 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one new signup</string>
+        <string>%ld chlàradh ùr</string>
         <key>two</key>
-        <string>%ld new signups</string>
+        <string>%ld chlàradh ùr</string>
         <key>few</key>
-        <string>%ld new signups</string>
+        <string>%ld clàraidhean ùra</string>
         <key>other</key>
-        <string>%ld new signups</string>
+        <string>%ld clàradh ùr</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -133,13 +133,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person boosted:</string>
+        <string>Bhrosnaich %ld seo:</string>
         <key>two</key>
-        <string>%ld people boosted:</string>
+        <string>Bhrosnaich %ld seo:</string>
         <key>few</key>
-        <string>%ld people boosted:</string>
+        <string>Bhrosnaich %ld seo:</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>Bhrosnaich %ld seo:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -153,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person favorited:</string>
+        <string>Is annsa le %ld seo:</string>
         <key>two</key>
-        <string>%ld people favorited:</string>
+        <string>Is annsa le %ld seo:</string>
         <key>few</key>
-        <string>%ld people favorited:</string>
+        <string>Is annsa le %ld seo:</string>
         <key>other</key>
-        <string>%ld people favorited:</string>
+        <string>Is annsa le %ld seo:</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -173,13 +173,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person followed you</string>
+        <string>Tha %ld ’gad leantainn a-nis</string>
         <key>two</key>
-        <string>%ld people followed you</string>
+        <string>Tha %ld ’gad leantainn a-nis</string>
         <key>few</key>
-        <string>%ld people followed you</string>
+        <string>Tha %ld ’gad leantainn a-nis</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>Tha %ld ’gad leantainn a-nis</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -193,13 +193,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>a poll that you and one other voted in</string>
+        <string>cunntas-bheachd sa bhòt thu fhèin ’s %ld eile</string>
         <key>two</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>cunntas-bheachd sa bhòt thu fhèin ’s %ld eile</string>
         <key>few</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>cunntas-bheachd sa bhòt thu fhèin ’s %ld eile</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>cunntas-bheachd sa bhòt thu fhèin ’s %ld eile</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -233,13 +233,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 image</string>
+        <string>%ld dealbh</string>
         <key>two</key>
-        <string>%ld images</string>
+        <string>%ld dhealbh</string>
         <key>few</key>
-        <string>%ld images</string>
+        <string>%ld dealbhan</string>
         <key>other</key>
-        <string>%ld images</string>
+        <string>%ld dealbh</string>
       </dict>
     </dict>
     <key>plural.count.gif</key>
@@ -253,13 +253,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 gif</string>
+        <string>%ld gif</string>
         <key>two</key>
-        <string>%ld gifs</string>
+        <string>%ld gif</string>
         <key>few</key>
-        <string>%ld gifs</string>
+        <string>%ld gifichean</string>
         <key>other</key>
-        <string>%ld gifs</string>
+        <string>%ld gif</string>
       </dict>
     </dict>
     <key>plural.count.video</key>
@@ -273,13 +273,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 video</string>
+        <string>%ld video</string>
         <key>two</key>
-        <string>%ld videos</string>
+        <string>%ld video</string>
         <key>few</key>
-        <string>%ld videos</string>
+        <string>%ld videothan</string>
         <key>other</key>
-        <string>%ld videos</string>
+        <string>%ld videothan</string>
       </dict>
     </dict>
     <key>plural.count.audio</key>
@@ -293,13 +293,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 audio</string>
+        <string>%ld fhuaim</string>
         <key>two</key>
-        <string>%ld audios</string>
+        <string>%ld fhuaim</string>
         <key>few</key>
-        <string>%ld audios</string>
+        <string>%ld fuaimichean</string>
         <key>other</key>
-        <string>%ld audios</string>
+        <string>%ld fuaim</string>
       </dict>
     </dict>
     <key>plural.count.attachment</key>
@@ -313,13 +313,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 attachment</string>
+        <string>%ld cheanglachan</string>
         <key>two</key>
-        <string>%ld attachments</string>
+        <string>%ld cheanglachan</string>
         <key>few</key>
-        <string>%ld attachments</string>
+        <string>%ld ceanglachain</string>
         <key>other</key>
-        <string>%ld attachments</string>
+        <string>%ld ceanglachan</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -333,13 +333,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 poll</string>
+        <string>%ld chunntas-bheachd</string>
         <key>two</key>
-        <string>%ld polls</string>
+        <string>%ld chunntas-bheachd</string>
         <key>few</key>
-        <string>%ld polls</string>
+        <string>%ld cunntasan-bheachd</string>
         <key>other</key>
-        <string>%ld polls</string>
+        <string>%ld cunntas-bheachd</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -553,13 +553,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 of your followers</string>
+        <string>%ld dhen luchd-leantainn agad</string>
         <key>two</key>
-        <string>%ld of your followers</string>
+        <string>%ld dhen luchd-leantainn agad</string>
         <key>few</key>
-        <string>%ld of your followers</string>
+        <string>%ld dhen luchd-leantainn agad</string>
         <key>other</key>
-        <string>%ld of your followers</string>
+        <string>%ld dhen luchd-leantainn agad</string>
       </dict>
     </dict>
     <key>plural.count.accounts_that_you_follow</key>
@@ -573,13 +573,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 account that you follow</string>
+        <string>%ld chunntas a leanas tu</string>
         <key>two</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld chunntas a leanas tu</string>
         <key>few</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld cunntasan a leanas tu</string>
         <key>other</key>
-        <string>%ld accounts that you follow</string>
+        <string>%ld cunntas a leanas tu</string>
       </dict>
     </dict>
     <key>date.year.left</key>
