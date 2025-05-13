@@ -156,10 +156,10 @@
                 }
             },
             "status": {
-                "reply": "Reply",
-                "private_reply": "Private reply",
-                "mention": "Mention",
-                "private_mention": "Private mention",
+                "reply": "Freagairt",
+                "private_reply": "Freagairt phrìobhaideach",
+                "mention": "Iomradh",
+                "private_mention": "Iomradh prìobhaideach",
                 "user_reblogged": "Rinn %s brosnachadh",
                 "user_replied_to": "Air %s fhreagairt",
                 "show_post": "Seall am post",
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Lean",
-                "follow_back": "Follow back",
+                "follow_back": "Lean air ais",
                 "following": "’Ga leantainn",
-                "mutual": "Mutual",
+                "mutual": "Co-dhàimh",
                 "request": "Iarrtas",
                 "pending": "Ri dhèiligeadh",
                 "block": "Bac",
@@ -388,8 +388,8 @@
             "title": "Cruthaich cunntas",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Latha-breith",
+                    "explanation_message": "Feumaidh sinn dèanamh cinnteach gu bheil thu %d bliadhna(ichean) a dh’aois air a char as lugha mus fhaigh thu ballrachd air %@. Cha stòr sinn seo às dèidh do chlàradh."
                 },
                 "avatar": {
                     "delete": "Sguab às"
@@ -716,7 +716,7 @@
                     "no_results": "Gun toradh"
                 },
                 "recent_search": "Na lorg thu o chionn goirid",
-                "no_recent_searches": "No recent searches.",
+                "no_recent_searches": "Cha do rinn thu lorg o chionn goirid.",
                 "clear_all": "Falamhaich na h-uile",
                 "clear": "Falamhaich"
             }
@@ -740,35 +740,35 @@
                 "Mentions": "Iomraidhean"
             },
             "headers": {
-                "report": "Report",
-                "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
-                "follow_request": "Follow request",
-                "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
-                "severed_relationships": "Domain block",
+                "report": "Gearan",
+                "sign_up": "Clàradh",
+                "favourite": "Annsachd",
+                "follow": "Leantainn",
+                "follow_request": "Iarrtas leantainn",
+                "moderation_warning": "Rabhadh",
+                "poll": "Cunntas-bheachd",
+                "boost": "Brosnachadh",
+                "severed_relationships": "Bacadh àrainne",
                 "status": "Post",
-                "edit": "Edit"
+                "edit": "Deasachadh"
             },
             "grouped_notification_description": {
-                "your_poll_has_ended": "Your poll has ended",
-                "single_name_edited_a_post": "%@ edited a post you interacted with",
-                "single_name_ran_poll": "%@ ran %@",
-                "single_name_mentioned_you": "%@ mentioned you",
-                "single_name_requested_to_follow_you": "%@ requested to follow you",
-                "single_name_posted": "%@ posted:",
-                "single_name_boosted": "%@ boosted:",
-                "single_name_favourited": "%@ favorited:",
-                "single_name_followed_you": "%@ followed you",
-                "multiple_people_boosted": "%@ boosted:",
-                "multiple_people_favourited": "%@ favorited:",
-                "multiple_people_followed_you": "%@ followed you",
-                "mulitple_people_signed_up": "%@ new signups",
-                "single_name_signed_up": "%@ signed up",
-                "someone_reported_account_for_rule_violation": "Someone reported %@ for rule violation.",
-                "someone_reported_posts_from_account_for_rule_violation": "Someone reported %@ from %@ for rule violation."
+                "your_poll_has_ended": "Thàinig an cunntas-bheachd agad gu crìoch",
+                "single_name_edited_a_post": "Dheasaich %@ post a dh’eadar-ghabh thu leis",
+                "single_name_ran_poll": "Ruith %@ %@",
+                "single_name_mentioned_you": "Thug %@ iomradh ort",
+                "single_name_requested_to_follow_you": "Dh’iarr %@ leantainn ort",
+                "single_name_posted": "Phostaich %@ seo:",
+                "single_name_boosted": "Bhrosnaich %@ seo:",
+                "single_name_favourited": "Is annsa le %@ seo:",
+                "single_name_followed_you": "Lean %@ thu",
+                "multiple_people_boosted": "Bhrosnaich %@ seo:",
+                "multiple_people_favourited": "Is annsa le %@ seo:",
+                "multiple_people_followed_you": "Lean %@ thu",
+                "mulitple_people_signed_up": "Clàraidhean ùra, %@ dhiubh",
+                "single_name_signed_up": "Chlàraich %@",
+                "someone_reported_account_for_rule_violation": "Rinn cuideigin gearan air %@ air adhbhar briseadh riaghailte.",
+                "someone_reported_posts_from_account_for_rule_violation": "Rinn cuideigin gearan air %@ o %@ air adhbhar briseadh riaghailte."
             },
             "notification_description": {
                 "followed_you": "– ’s iad ’gad leantainn a-nis",
@@ -777,7 +777,7 @@
                 "mentioned_you": "– ’s iad air iomradh a thoirt ort",
                 "request_to_follow_you": "iarrtas leantainn",
                 "poll_has_ended": "thàinig cunntas-bheachd gu crìoch",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "relationship_severance": "Bhac rianaire aig %@ %@, a’ gabhail a-staigh %@."
             },
             "keyobard": {
                 "show_everything": "Seall a h-uile càil",
@@ -799,29 +799,29 @@
                 "suspend": "Chaidh an cunntas agad a chur à rèim.",
                 "learn_more": "Barrachd fiosrachaidh"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "Barrachd fiosrachaidh mu bhacadh fhrithealaichean",
             "filtered_notification": {
-                "title": "Filtered Notifications",
-                "accept": "Accept",
-                "dismiss": "Dismiss"
+                "title": "Brathan criathraichte",
+                "accept": "Gabh ris",
+                "dismiss": "Leig seachad"
             },
             "policy": {
-                "title": "Filter Notifications from…",
+                "title": "Criathraich na brathan o…",
                 "not_following": {
-                    "title": "People you don't follow",
-                    "subtitle": "Until you manually approve them"
+                    "title": "Daoine nach eil thu a’ leantainn",
+                    "subtitle": "Gus an aontaich thu riutha a làimh"
                 },
                 "no_follower": {
-                    "title": "People not following you",
-                    "subtitle": "Including people who have been following you fewer than 3 days"
+                    "title": "Daoine nach eil ’gad leantainn",
+                    "subtitle": "A’ gabhail a-staigh an fheadhainn a lean thu nas lugha na 3 làithean"
                 },
                 "new_account": {
-                    "title": "New accounts",
-                    "subtitle": "Created within the past 30 days"
+                    "title": "Cunntasan ùra",
+                    "subtitle": "Air a chruthachadh am broinn an 30 latha seo chaidh"
                 },
                 "private_mentions": {
-                    "title": "Unsolicited private mentions",
-                    "subtitle": "Filtered unless it’s in reply to your own mention or if you follow the sender"
+                    "title": "Iomraidhean prìobhaideach o choigrich",
+                    "subtitle": "Criathraichte ach ma tha e a’ freagairt do dh’iomradh agad fhèin no ma tha thu a’ leantainn an seòladair"
                 }
             }
         },
@@ -922,8 +922,8 @@
                 "appear_in_search_engines": "Nochd ann an einnseanan-luirg"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "Thoir tabhartas do Mhastodon",
+                "manage": "Stiùirich na tabhartasan"
             }
         },
         "report": {
@@ -1012,18 +1012,18 @@
         },
         "donation": {
             "picker": {
-                "once_title": "Just once",
-                "monthly_title": "Monthly",
-                "yearly_title": "Yearly"
+                "once_title": "Aon turas a-mhàin",
+                "monthly_title": "Gach mìos",
+                "yearly_title": "Gach bliadhna"
             },
-            "donatebuttontitle": "Donate",
-            "currency": "Currency",
+            "donatebuttontitle": "Thoir tabhartas",
+            "currency": "Airgeadra",
             "success": {
-                "title": "Thank you for your contribution!",
-                "subtitle": "You should receive an email confirming your donation soon.",
-                "server_error_title": "Payment failed",
-                "server_error_message": "We are sorry, an error occurred and we have not been able to process your donation.\n\nPlease retry in a few minutes.",
-                "share_button_title": "Spread the word"
+                "title": "Mòran taing airson taic a thoirt dhuinn!",
+                "subtitle": "Bu chòir dhut post-d fhaighinn a dh’aithghearr a dhearbhas an tabhartas agad.",
+                "server_error_title": "Dh’fhàillig am pàigheadh",
+                "server_error_message": "Tha sinn duilich ach thachair mearachd agus cha b’ urrainn dhuinn an tabhartas agad a phròiseasadh.\n\nFeuch ris a-rithist an ceann mionaid no dhà.",
+                "share_button_title": "Sgaoil am facal"
             }
         }
     },
