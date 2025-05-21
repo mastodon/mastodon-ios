@@ -60,11 +60,11 @@
                 "post": "Пост"
             },
             "boost_a_post": {
-                "title_boost": "Увеличить пост?",
+                "title_boost": "Продвинуть пост?",
                 "title_unboost": "Разгрузить пост?",
                 "cancel": "Отмена",
-                "boost": "Увеличить",
-                "unboost": "Разгрузить"
+                "boost": "Продвинуть",
+                "unboost": "Не продвигать"
             },
             "unfollow_user": {
                 "title": "Отказаться от %@?",
@@ -143,9 +143,9 @@
                     "next_status": "Следующий пост",
                     "open_status": "Открыть пост",
                     "open_author_profile": "Открыть профиль автора",
-                    "open_reblogger_profile": "Открыть профиль загрузчика",
+                    "open_reblogger_profile": "Открыть профиль продвинувшего",
                     "reply_status": "Ответить на пост",
-                    "toggle_reblog": "Переключить буст на пост",
+                    "toggle_reblog": "Продвинуть или убрать продвижение",
                     "toggle_favorite": "Добавить или убрать из избранного",
                     "toggle_content_warning": "Раскрыть или спрятать содержимое",
                     "preview_image": "Предпросмотр изображения"
@@ -182,8 +182,8 @@
                 },
                 "actions": {
                     "reply": "Ответить",
-                    "reblog": "Увеличить",
-                    "unreblog": "Отменить повышение",
+                    "reblog": "Продвинуть",
+                    "unreblog": "Отменить продвижение",
                     "favorite": "Добавить в избранное",
                     "unfavorite": "Убрать из избранного",
                     "menu": "Меню",
@@ -194,8 +194,8 @@
                     "share_link_in_post": "Поделиться ссылкой в сообщении",
                     "tap_then_hold_to_show_menu": "Нажмите и удерживайте, чтобы показать меню",
                     "a11y_labels": {
-                        "reblog": "Увеличить",
-                        "unreblog": "Отменить повышение"
+                        "reblog": "Продвинуть",
+                        "unreblog": "Отменить продвижение"
                     },
                     "copy_link": "Копировать ссылку"
                 },
@@ -227,7 +227,7 @@
                 },
                 "posted_via_application": "%s через %s",
                 "buttons": {
-                    "reblogs_title": "Повышает",
+                    "reblogs_title": "Продвижения",
                     "favorites_title": "Избранное",
                     "edit_history_title": "История редактирования",
                     "edit_history_detail": "Последнее редактирование %s"
@@ -244,9 +244,9 @@
             },
             "friendship": {
                 "follow": "Подписаться",
-                "follow_back": "Follow back",
+                "follow_back": "Подписаться в ответ",
                 "following": "В подписках",
-                "mutual": "Mutual",
+                "mutual": "Взаимные",
                 "request": "Отправить запрос",
                 "pending": "Отправлен",
                 "block": "Заблокировать",
@@ -262,8 +262,8 @@
                 "unmute_user": "Убрать %s из игнорируемых",
                 "muted": "В игнорируемых",
                 "edit_info": "Изменить",
-                "show_reblogs": "Показать повышения",
-                "hide_reblogs": "Скрыть повышения"
+                "show_reblogs": "Показывать продвижения",
+                "hide_reblogs": "Скрывать продвижения"
             },
             "timeline": {
                 "filtered": "Отфильтровано",
@@ -369,23 +369,23 @@
                 "all": "Все"
             },
             "search": {
-                "placeholder": "Search name or URL"
+                "placeholder": "Поиск по названию или URL"
             },
             "no_server_selected_hint": "Мы подберем сервер на основе вашего языка, если вы продолжите, не сделав выбор."
         },
         "privacy": {
-            "title": "Your Privacy",
+            "title": "Конфиденциальность",
             "description": "Хотя приложение Mastodon не собирает никаких данных, сервер, через который вы регистрируетесь, может иметь другую политику.\n\nЕсли вы не согласны с политикой **%s**, вы можете вернуться и выбрать другой сервер.",
             "policy": {
                 "ios": "Политика конфиденциальности - Mastodon для iOS",
                 "server": "Политика конфиденциальности - %s"
             },
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Я согласен"
             }
         },
         "register": {
-            "title": "Create Account",
+            "title": "Зарегистрироваться",
             "input": {
                 "birth_date": {
                     "label": "Дата рождения",
@@ -407,7 +407,7 @@
                 },
                 "password": {
                     "placeholder": "пароль",
-                    "confirmation_placeholder": "Confirm Password",
+                    "confirmation_placeholder": "Подтверждение пароля",
                     "require": "Your password needs at least:",
                     "character_limit": "8 символов",
                     "accessibility": {
@@ -456,23 +456,23 @@
             "terms_of_service": "условия использования",
             "privacy_policy": "политика конфиденциальности",
             "button": {
-                "confirm": "I Agree",
-                "disagree": "Disagree"
+                "confirm": "Я согласен",
+                "disagree": "Не согласен"
             }
         },
         "confirm_email": {
-            "title": "Check Your Inbox",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "title": "Проверьте вашу почту",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Нажмите на ссылку, которую мы отправили, чтобы проверить %@. Мы подождем здесь.",
             "button": {
                 "resend": "Отправить заново"
             },
             "dont_receive_email": {
-                "title": "Check your Email",
+                "title": "Проверьте свою почту",
                 "description": "Проверьте, правильно ли указан ваш e-mail адрес, а также папку «спам», если ещё не сделали этого.",
                 "resend_email": "Отправить ещё раз"
             },
             "open_email_app": {
-                "title": "Check your Inbox.",
+                "title": "Проверьте вашу почту.",
                 "description": "Мы только что отправили вам e-mail. Проверьте спам, если не нашли его.",
                 "mail": "Почта",
                 "open_email_client": "Открыть почтовый клиент"
@@ -498,23 +498,23 @@
                 }
             },
             "timeline_pill": {
-                "offline": "Offline",
-                "new_posts": "New Posts",
-                "post_sent": "Post Sent"
+                "offline": "Не в сети",
+                "new_posts": "Новые посты",
+                "post_sent": "Пост отправлен"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Этот список пуст"
             }
         },
         "suggestion_account": {
             "title": "Популярно в Mastodon",
-            "follow_all": "Follow all"
+            "follow_all": "Подписаться на всех"
         },
         "compose": {
             "title": {
                 "new_post": "Новый пост",
                 "new_reply": "Новый ответ",
-                "edit_post": "Edit Post"
+                "edit_post": "Редактировать пост"
             },
             "media_selection": {
                 "camera": "Сделать фото",
@@ -530,12 +530,12 @@
                 "attachment_broken": "Это %s повреждено и не может\nбыть отправлено в Mastodon.",
                 "description_photo": "Опишите фото для людей с нарушениями зрения...",
                 "description_video": "Опишите видео для людей с нарушениями зрения...",
-                "load_failed": "Ошибка загрузки",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "load_failed": "Не удалось загрузить",
+                "upload_failed": "Не удалось загрузить",
+                "can_not_recognize_this_media_attachment": "Невозможно распознать этот медиафайл",
                 "attachment_too_large": "Вложение слишком большое",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "compressing_state": "Сжатие...",
+                "server_processing_state": "Обработка сервером..."
             },
             "poll": {
                 "title": "Опрос",
@@ -548,11 +548,11 @@
                 "seven_days": "7 дней",
                 "option_number": "Вариант %ld",
                 "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option",
-                "add_option": "Add Option",
-                "remove_option": "Remove Option",
-                "move_up": "Move Up",
-                "move_down": "Move Down"
+                "the_poll_has_empty_option": "В опросе есть пустой вариант",
+                "add_option": "Добавить вариант",
+                "remove_option": "Удалить вариант",
+                "move_up": "Переместить выше",
+                "move_down": "Переместить ниже"
             },
             "content_warning": {
                 "placeholder": "Напишите предупреждение здесь..."
@@ -574,8 +574,8 @@
                 "enable_content_warning": "Добавить предупреждение о содержании",
                 "disable_content_warning": "Убрать предупреждение о содержании",
                 "post_visibility_menu": "Меню видимости поста",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Параметры поста",
+                "posting_as": "Опубликовать как %s"
             },
             "keyboard": {
                 "discard_post": "Удалить пост",
@@ -586,9 +586,9 @@
                 "select_visibility_entry": "Выбрать видимость — %s"
             },
             "language": {
-                "title": "Post Language",
-                "suggested": "Suggested",
-                "recent": "Recent",
+                "title": "Язык поста",
+                "suggested": "Предложения",
+                "recent": "Недавние",
                 "other": "Другой язык…"
             }
         },
@@ -597,24 +597,24 @@
                 "follows_you": "Подписан(а) на вас"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers",
-                "familiar_followers": "mutuals"
+                "my_posts": "посты",
+                "my_following": "подписки",
+                "my_followers": "подписчики",
+                "other_posts": "посты",
+                "other_following": "подписки",
+                "other_followers": "подписчики",
+                "familiar_followers": "взаимные"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Дата регистрации",
                 "add_row": "Добавить строку",
                 "placeholder": {
                     "label": "Ярлык",
                     "content": "Содержимое"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Подтверждено %s",
+                    "long": "Владение этой ссылкой было проверено %s"
                 }
             },
             "segmented_control": {
@@ -622,32 +622,32 @@
                 "replies": "Ответы",
                 "posts_and_replies": "Посты и ответы",
                 "media": "Медиа",
-                "about": "About"
+                "about": "О себе"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Игнорировать",
+                    "message": "Игнорировать %s?"
                 },
                 "confirm_unmute_user": {
                     "title": "Убрать из игнорируемых",
                     "message": "Убрать %s из игнорируемых?"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Заблокировать",
+                    "message": "Заблокировать %s?"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Разблокировать",
+                    "message": "Разблокировать %s?"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
-                    "message": "Confirm to show boosts"
+                    "title": "Показать продвижения",
+                    "message": "Подтвердите отображение продвижений"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
-                    "message": "Confirm to hide boosts"
+                    "title": "Скрыть продвижения",
+                    "message": "Подтвердите скрытие продвижений"
                 },
                 "confirm_block_domain": {
                     "title": "Block domain",
@@ -681,7 +681,7 @@
             "title": "Favorited By"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Продвинули"
         },
         "search": {
             "title": "Поиск",
@@ -747,7 +747,7 @@
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",
-                "boost": "Boost",
+                "boost": "Продвижение",
                 "severed_relationships": "Domain block",
                 "status": "Post",
                 "edit": "Edit"
@@ -831,99 +831,99 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
-                "general": "General",
-                "notifications": "Notifications",
-                "privacy_safety": "Privacy & Safety",
-                "support_mastodon": "Support Mastodon",
-                "about_mastodon": "About Mastodon",
-                "server_details": "Server Details",
-                "logout": "Logout %@"
+                "title": "Настройки",
+                "general": "Общие",
+                "notifications": "Уведомления",
+                "privacy_safety": "Приватность и безопасность",
+                "support_mastodon": "Поддержать Mastodon",
+                "about_mastodon": "О Mastodon",
+                "server_details": "Информация о сервере",
+                "logout": "Выйти из %@"
             },
             "about_mastodon": {
-                "title": "About",
-                "more_settings": "Even More Settings",
-                "contribute_to_mastodon": "Contribute to Mastodon",
-                "privacy_policy": "Privacy Policy",
-                "clear_media_storage": "Clear Media Storage"
+                "title": "О программе",
+                "more_settings": "Ещё больше настроек",
+                "contribute_to_mastodon": "Внести вклад в Mastodon",
+                "privacy_policy": "Политика конфиденциальности",
+                "clear_media_storage": "Очистить хранилище медиа"
             },
             "server_details": {
-                "about": "About",
-                "rules": "Rules",
+                "about": "О сервере",
+                "rules": "Правила",
                 "about_instance": {
-                    "title": "Administrator",
-                    "message_admin": "Message Admin",
-                    "legal_notice": "A legal notice"
+                    "title": "Администратор",
+                    "message_admin": "Написать администратору",
+                    "legal_notice": "Правовая информация"
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Общие",
                 "appearance": {
-                    "section_title": "Appearance",
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "Use Device Appearance"
+                    "section_title": "Тема",
+                    "dark": "Тёмная",
+                    "light": "Светлая",
+                    "system": "Как на устройстве"
                 },
                 "ask_before": {
-                    "section_title": "Ask before…",
-                    "posting_without_alt_text": "Posting without Alt Text",
-                    "unfollowing_someone": "Unfollowing Someone",
-                    "boosting_a_post": "Boosting a Post",
-                    "deleting_a_post": "Deleting a Post"
+                    "section_title": "Спрашивать перед…",
+                    "posting_without_alt_text": "Публикацией без альтернативного текста",
+                    "unfollowing_someone": "Отменой подписки на кого-то",
+                    "boosting_a_post": "Продвижением поста",
+                    "deleting_a_post": "Удалением поста"
                 },
                 "design": {
-                    "section_title": "Design",
-                    "show_animations": "Play Animated Avatars and Emoji"
+                    "section_title": "Внешний вид",
+                    "show_animations": "Проигрывать анимированные аватарки и эмодзи"
                 },
                 "language": {
-                    "section_title": "Language",
-                    "default_post_language": "Default Post Language"
+                    "section_title": "Язык",
+                    "default_post_language": "Язык постов по умолчанию"
                 },
                 "links": {
-                    "section_title": "Links",
-                    "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "section_title": "Ссылки",
+                    "open_in_mastodon": "Открывать в Mastodon",
+                    "open_in_browser": "Открывать в браузере"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Уведомления",
                 "policy": {
-                    "title": "Get Notifications from",
-                    "anyone": "Anyone",
-                    "followers": "People who follow you",
-                    "follow": "People you follow",
-                    "noone": "No one"
+                    "title": "Получать уведомления от",
+                    "anyone": "Всех",
+                    "followers": "Людей, подписанных на вас",
+                    "follow": "Людей, на которых вы подписаны",
+                    "noone": "Никого"
                 },
                 "alert": {
-                    "mentions_and_replies": "Mentions & Replies",
-                    "boosts": "Boosts",
-                    "favorites": "Favorites",
-                    "new_followers": "New Followers"
+                    "mentions_and_replies": "Упоминания и ответы",
+                    "boosts": "Продвижения",
+                    "favorites": "Избранные",
+                    "new_followers": "Новые подписчики"
                 },
                 "disabled": {
-                    "notification_hint": "Turn on notifications from your device settings to see updates on your lock screen.",
-                    "go_to_settings": "Go to Notification Settings"
+                    "notification_hint": "Включите уведомления в настройках вашего устройства, чтобы видеть обновления на экране блокировки.",
+                    "go_to_settings": "Перейти к настройкам уведомлений"
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Приватность и безопасность",
                 "preset": {
-                    "title": "Preset",
-                    "open_and_public": "Open & Public",
-                    "private_and_restricted": "Private & Restricted",
-                    "custom": "Custom"
+                    "title": "Шаблон",
+                    "open_and_public": "Открытый и публичный",
+                    "private_and_restricted": "Приватный и ограниченный",
+                    "custom": "Пользовательский"
                 },
                 "default_post_visibility": {
-                    "title": "Default Post Visibility"
+                    "title": "Видимость поста по умолчанию"
                 },
-                "manually_approve_follow_requests": "Manually Approve Follow Requests",
-                "show_followers_and_following": "Show Followers & Following",
-                "suggest_my_account_to_others": "Suggest My Account to Others",
-                "appear_in_search_engines": "Appear in Search Engines"
+                "manually_approve_follow_requests": "Подтверждать запросы на подписку вручную",
+                "show_followers_and_following": "Показывать подписчиков и подписки",
+                "suggest_my_account_to_others": "Рекомендовать учётную запись другим пользователям",
+                "appear_in_search_engines": "Появляться в поисковых системах"
             },
             "donation": {
-                "title": "Donate to Mastodon",
-                "manage": "Manage donations"
+                "title": "Пожертвовать Mastodon",
+                "manage": "Управление пожертвованиями"
             }
         },
         "report": {
@@ -933,51 +933,51 @@
             "step2": "Шаг 2 из 2",
             "content1": "Есть ли другие сообщения, которые вы хотите добавить в отчёт?",
             "content2": "Есть ли что-то, что модераторы должны знать об этом сообщении?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Спасибо за обращение, мы его рассмотрим.",
             "send": "Пожаловаться",
             "skip_to_send": "Отправить без комментария",
             "text_placeholder": "Дополнительные комментарии",
             "reported": "REPORTED",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Шаг 1 из 4",
+                "whats_wrong_with_this_post": "Что не так с этим постом?",
+                "whats_wrong_with_this_account": "Что не так с этой учетной записью?",
+                "whats_wrong_with_this_username": "Что не так с %s?",
+                "select_the_best_match": "Выберите наиболее подходящее",
+                "i_dont_like_it": "Мне это не нравится",
+                "it_is_not_something_you_want_to_see": "Не хотел(а) бы видеть такой контент",
+                "its_spam": "Это спам",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Вредоносные ссылки, поддельные действия или повторяющиеся ответы",
+                "it_violates_server_rules": "Это нарушает правила сервера",
+                "you_are_aware_that_it_breaks_specific_rules": "Вы знаете, что подобное нарушает определенные правила",
+                "its_something_else": "Это что-то другое",
+                "the_issue_does_not_fit_into_other_categories": "Проблема не попадает ни под одну из категорий"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Шаг 2 из 4",
+                "which_rules_are_being_violated": "Какие правила нарушены?",
+                "select_all_that_apply": "Выберите все подходящие варианты",
+                "i_just_don’t_like_it": "Мне это не нравится"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Шаг 3 из 4",
+                "are_there_any_posts_that_back_up_this_report": "Выберите посты, которые относятся к вашей жалобе.",
+                "select_all_that_apply": "Выберите все подходящие варианты"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Шаг 4 из 4",
+                "is_there_anything_else_we_should_know": "Есть ли что-нибудь ещё, что нам стоит знать?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
+                "dont_want_to_see_this": "Не хотите видеть это?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Если кто-то в Mastodon публикует то, что вам не нравится, вы можете скрыть его.",
+                "unfollow": "Отписаться",
+                "unfollowed": "Вы отписались",
+                "unfollow_user": "Отписаться от %s",
+                "mute_user": "Игнорировать %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Вы перестанете видеть посты и продвижения этого пользователя в домашней ленте. Он(а) не узнает, что вы игнорируете его/её.",
+                "block_user": "Заблокировать %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Этот пользователь больше не сможет подписаться на вас или читать ваши посты. Он(а) сможет видеть, что заблокирован(а).",
                 "while_we_review_this_you_can_take_action_against_user": "Пока мы рассматриваем его, вот действия, которые вы можете предпринять лично против %s"
             }
         },
