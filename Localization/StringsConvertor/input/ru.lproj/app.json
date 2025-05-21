@@ -88,7 +88,7 @@
                 "continue": "Продолжить",
                 "compose": "Написать",
                 "cancel": "Отмена",
-                "discard": "Отмена",
+                "discard": "Сбросить",
                 "try_again": "Попробовать снова",
                 "take_photo": "Сделать фото",
                 "save_photo": "Сохранить изображение",
@@ -362,23 +362,23 @@
             },
             "signup_speed": {
                 "all": "Все",
-                "instant": "Instant Sign-up",
-                "manually_reviewed": "Manual Review"
+                "instant": "Мгновенная регистрация",
+                "manually_reviewed": "Ручная проверка"
             },
             "language": {
-                "all": "All"
+                "all": "Все"
             },
             "search": {
                 "placeholder": "Search name or URL"
             },
-            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection."
+            "no_server_selected_hint": "Мы подберем сервер на основе вашего языка, если вы продолжите, не сделав выбор."
         },
         "privacy": {
             "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "description": "Хотя приложение Mastodon не собирает никаких данных, сервер, через который вы регистрируетесь, может иметь другую политику.\n\nЕсли вы не согласны с политикой **%s**, вы можете вернуться и выбрать другой сервер.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
-                "server": "Privacy Policy - %s"
+                "ios": "Политика конфиденциальности - Mastodon для iOS",
+                "server": "Политика конфиденциальности - %s"
             },
             "button": {
                 "confirm": "I Agree"
@@ -388,8 +388,8 @@
             "title": "Create Account",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Дата рождения",
+                    "explanation_message": "Мы должны убедиться, что вам по крайней мере %d, чтобы присоединиться к %@. Это не будет сохранено после регистрации."
                 },
                 "avatar": {
                     "delete": "Удалить"
@@ -409,7 +409,7 @@
                     "placeholder": "пароль",
                     "confirmation_placeholder": "Confirm Password",
                     "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "character_limit": "8 символов",
                     "accessibility": {
                         "checked": "",
                         "unchecked": "unchecked"
@@ -432,7 +432,7 @@
                 "reason": {
                     "blocked": "%s содержит запрещённый e-mail сервис",
                     "unreachable": "%s не существует",
-                    "taken": "%s is already taken. How about:",
+                    "taken": "%s уже занят. Как насчет:",
                     "reserved": "%s является зарезервированным ключевым словом",
                     "accepted": "%s должно быть принято",
                     "blank": "Поле «%s» обязательно",
@@ -450,8 +450,8 @@
             }
         },
         "server_rules": {
-            "title": "Server Rules",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "title": "Правила сервера",
+            "subtitle": "Продолжая, вы соглашаетесь соблюдать следующие правила, установленные модераторами **%s**.",
             "prompt": "Продолжая, вы соглашаетесь с условиям использования и политикой конфиденциальности %s.",
             "terms_of_service": "условия использования",
             "privacy_policy": "политика конфиденциальности",
@@ -478,19 +478,19 @@
                 "open_email_client": "Открыть почтовый клиент"
             },
             "didnt_get_link": {
-                "prefix": "Didn’t get a link?",
-                "resend_in": "Resend (%@)",
-                "resend_now": "Resend now."
+                "prefix": "Не получили ссылку?",
+                "resend_in": "Отправить снова (%@)",
+                "resend_now": "Отправить снова."
             }
         },
         "home_timeline": {
             "title": "Главная",
             "timeline_menu": {
-                "following": "Following",
-                "local_community": "Local",
+                "following": "Подписки",
+                "local_community": "Местные",
                 "lists": {
-                    "title": "Lists",
-                    "empty_message": "You don't have any Lists"
+                    "title": "Списки",
+                    "empty_message": "У вас нет ни одного списка"
                 },
                 "hashtags": {
                     "title": "Followed Hashtags",
@@ -507,7 +507,7 @@
             }
         },
         "suggestion_account": {
-            "title": "Popular on Mastodon",
+            "title": "Популярно в Mastodon",
             "follow_all": "Follow all"
         },
         "compose": {
@@ -530,15 +530,15 @@
                 "attachment_broken": "Это %s повреждено и не может\nбыть отправлено в Mastodon.",
                 "description_photo": "Опишите фото для людей с нарушениями зрения...",
                 "description_video": "Опишите видео для людей с нарушениями зрения...",
-                "load_failed": "Load Failed",
+                "load_failed": "Ошибка загрузки",
                 "upload_failed": "Upload Failed",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
+                "attachment_too_large": "Вложение слишком большое",
                 "compressing_state": "Compressing...",
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
-                "title": "Poll",
+                "title": "Опрос",
                 "duration_time": "Продолжительность: %s",
                 "thirty_minutes": "30 минут",
                 "one_hour": "1 час",
@@ -589,7 +589,7 @@
                 "title": "Post Language",
                 "suggested": "Suggested",
                 "recent": "Recent",
-                "other": "Other Language…"
+                "other": "Другой язык…"
             }
         },
         "profile": {
