@@ -90,19 +90,14 @@ extension Mastodon.Entity.Account: Codable {
 }
 
 //MARK: - Hashable
-extension Mastodon.Entity.Account: Hashable {
+extension Mastodon.Entity.Account: Hashable, Equatable {
     public func hash(into hasher: inout Hasher) {
-        // The URL seems to be the only thing that doesn't change across instances.
-        hasher.combine(url)
+        hasher.combine(id)
+        hasher.combine(acct)
     }
-
-}
-
-//MARK: - Equatable
-extension Mastodon.Entity.Account: Equatable {
+    
     public static func == (lhs: Mastodon.Entity.Account, rhs: Mastodon.Entity.Account) -> Bool {
-        // The URL seems to be the only thing that doesn't change across instances.
-        return lhs.url == rhs.url
+        return lhs.id == rhs.id && lhs.acct == rhs.acct
     }
 }
 
