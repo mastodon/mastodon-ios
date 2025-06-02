@@ -66,7 +66,7 @@ extension UserView {
             authorVerifiedLabel.textColor = .secondaryLabel
         }
         
-        configureA11y(displayName: account.displayNameWithFallback, userName: "@\(account.username)", followersCountLabel: L10n.Common.UserList.followersCount(count))
+        configureA11y(displayName: account.displayNameWithFallback, userName: "@\(account.username)", followersCountLabel: L10n.Common.UserList.followersCount("\(count)"))
     }
     
     func configureA11y(displayName: String, userName: String, followersCountLabel: String) {

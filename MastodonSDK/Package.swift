@@ -98,7 +98,10 @@ let package = Package(
         ),
         .target(
             name: "MastodonLocalization",
-            dependencies: []
+            dependencies: [],
+            resources: [
+                .process("Resources")
+            ]
         ),
         .target(
             name: "MastodonSDK",

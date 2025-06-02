@@ -168,31 +168,25 @@ extension Mastodon.Entity.Report {
     var summary: AttributedString {
         if let targetedAccountName = targetAccount?.displayNameWithFallback {
             
-            let postCountString: String? = {
-                if let postCount = flaggedStatusIDs?.count {
-                    return L10n.Plural.Count.post(postCount)
-                } else {
-                    return nil
-                }
-            }()
+            let postCount = flaggedStatusIDs?.count
             
             let summaryPlainstring: String = {
                 switch category {
                 case .spam:
-                    if let postCountString {
-                        return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsFromAccountForSpam(postCountString, targetedAccountName)
+                    if let postCount {
+                        return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsFromAccountForSpam(postCount, targetedAccountName)
                     } else {
                         return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedAccountForSpam(targetedAccountName)
                     }
                 case .violation:
-                    if let postCountString {
-                        return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsFromAccountForRuleViolation(postCountString, targetedAccountName)
+                    if let postCount {
+                        return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsFromAccountForRuleViolation(postCount, targetedAccountName)
                     } else {
                         return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedAccountForRuleViolation(targetedAccountName)
                     }
                 case ._other, nil:
-                    if let postCountString {
-                        return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsFromAccount(postCountString, targetedAccountName)
+                    if let postCount {
+                        return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedPostsFromAccount(postCount, targetedAccountName)
                     } else {
                         return L10n.Scene.Notification.GroupedNotificationDescription.someoneReportedAccount(targetedAccountName)
                     }

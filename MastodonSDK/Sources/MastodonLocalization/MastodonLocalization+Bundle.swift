@@ -8,7 +8,7 @@
 import Foundation
 
 public enum MastodonLocalization {
-    public static var bundle: Bundle {
-        Bundle.module
-    }
+    public static let bundle: Bundle = {
+        return Bundle.module
+    }()
 }
