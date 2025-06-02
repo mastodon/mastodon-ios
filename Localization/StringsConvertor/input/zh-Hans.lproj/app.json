@@ -178,7 +178,7 @@
                     "url": "链接：%s",
                     "hashtag": "话题：%s",
                     "mention": "显示用户资料：%s",
-                    "email": "电子邮件地址: %s"
+                    "email": "电子邮件地址：%s"
                 },
                 "actions": {
                     "reply": "回复",
@@ -225,7 +225,7 @@
                     "expand_gif_hint": "展开动图。双击并按住以显示可执行操作",
                     "expand_video_hint": "展开视频 双击并按住以显示可执行操作"
                 },
-                "posted_via_application": "%s 于 %s",
+                "posted_via_application": "%s 来自 %s",
                 "buttons": {
                     "reblogs_title": "转嘟",
                     "favorites_title": "喜欢",
@@ -710,7 +710,7 @@
                 "hashtag": "转到 #%s",
                 "no_user": {
                     "title": "找不到用户",
-                    "message": "未在 %s 上找到用户 %s"
+                    "message": "用户 %s 未在 %s 上找到"
                 },
                 "empty_state": {
                     "no_results": "无结果"
