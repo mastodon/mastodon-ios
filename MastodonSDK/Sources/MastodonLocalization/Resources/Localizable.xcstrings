@@ -38117,540 +38117,6 @@
         }
       }
     },
-    "Common.Controls.Timeline.Header.UserBlockedWarning.%@" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "لا يُمكِنُكَ عَرض ملف %@ التَعريفي\nحتَّى يَرفَعَ الحَظر عَنك."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Вы не можаце праглядаць профіль %@, \nпакуль ён не разблакіруе вас."
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "No pots veure el perfil de %@\nfins que et desbloqui."
-          }
-        },
-        "ckb" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ناتوانیت پرۆفایلی %@ ببینیت\nتا ئەو کاتەی ئاستەنگەکەت لادەبات."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nemůžete zobrazit profil %@, dokud vás neodblokuje."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Du kannst das Profil von %@ nicht sehen \nbis der Benutzer dich entsperrt."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Δεν μπορείς να δεις το προφίλ %@\nμέχρι να σε ξεμπλοκάρουν."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "No puedes ver el perfil de %@\nhasta que te desbloquee."
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ezin duzu %@ erabiltzailearen\nprofila ikusi desblokeatzen zaituen arte."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Et voi tarkastella tilin %@ profiilia\nennen kuin hän poistaa eston."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vous ne pouvez pas voir le profil de %@\ntant qu’il ne vous aura pas débloqué."
-          }
-        },
-        "gd" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Chan fhaic thu a’ phròifil aig %@\n mus dì-bhac iad thu."
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Non podes ver o perfil de %@\nata que te desbloquee."
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "You can’t view %@’s profile\nuntil they unblock you."
-          }
-        },
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "You can’t view %@’s profile\nuntil they unblock you."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Non puoi visualizzare il profilo di %@\nfino a quando non ti sbloccano."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@がブロックを解除しない限りプロフィールをみることはできません。"
-          }
-        },
-        "kab" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ur tezmireḍ ara ad twaliḍ amaɣnu n %@\nAkka i as-d-yettban umaɣnu-inek."
-          }
-        },
-        "ku" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tu nikarî profîla %@ bibînî\nHeta ku astengîya te rakin."
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tu nikarî profîla %@ bibînî\nHeta ku astengîya te rakin."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Je kunt het profiel van %@ niet bekijken zolang je geblokkeerd bent."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Вы не можете просматривать\nпрофиль %@\nпока он(а) не разблокирует вас."
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Profila uporabnika %@ ne morete\nvideti, dokler vas ne odblokirajo."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Du kan inte visa %@s profil\nförrän de avblockerar dig."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "คุณไม่สามารถดูโปรไฟล์ของ %@\nจนกว่าเขาจะเลิกปิดกั้นคุณ"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@ kişisi sizin engelinizi kaldırana\nkadar onun profilini göremezsiniz."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bạn không thể xem trang %@\ncho tới khi họ bỏ chặn bạn."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "您不能查看%@的个人资料\n直到他解除屏蔽。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "您無法瀏覽 %@ 的個人檔案，除非他們取消封鎖您。"
-          }
-        }
-      }
-    },
-    "Common.Controls.Timeline.Header.UserBlockingWarning.%@" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "لا يُمكنك الاطلاع على ملف %@ التَعريفي\nحتَّى تَرفعَ الحَظر عنه.\nملفُّكَ التَعريفي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Вы не можаце праглядаць профіль %@, \nпакуль не разблакіруеце яго.\nВось так для іх выглядае ваш профіль."
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "No pots veure el perfil de %@\nfins que el desbloquis.\nEl teu perfil els sembla així."
-          }
-        },
-        "ckb" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ناتوانیت پرۆفایلی %@ ببینیت\nهەتا ئاستەنگەکەیان لادەبەیت.\nپرۆفایلەکەت ئاوها لایان دەردەکەوێت."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nemůžete zobrazit profil %@, dokud ho neodblokujete.\nVáš profil pro něj vypadá takto."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Du kannst %@s Profil nicht sehen\nsolange du diesen Benutzer nicht entsperrst.\nDein Profil sieht für diesen Benutzer auch so aus."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Δεν μπορείς να δεις το προφίλ του %@\nμέχρι να τον ξεμπλοκάρεις.\nΤο προφίλ σου μοιάζει έτσι κι σ' αυτούς."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "No puedes ver el perfil de %@\n hasta que lo desbloquees.\nTu perfil se ve así para él."
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ezin duzu %@ erabiltzailearen\nprofila ikusi desblokeatzen duzun arte.\nZure profilak itxura hau du berarentzat."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Et voi tarkastella tilin %@ profiilia\nennen kuin poistat sen esto.\nProfiilisi näyttää tältä hänelle."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vous ne pouvez pas voir le profil de %@\ntant que vous ne l’avez pas débloqué\nVotre profil ressemble à ça pour lui."
-          }
-        },
-        "gd" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Chan fhaic thu a’ phròifil aig %@\n gus an dì-bhac thu iad.\nSeo an coltas a th’ air a’ phròifil agad dhaibh-san."
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Non podes ver o perfil de %@\nata que o desbloquees.\nAsí se ve o teu perfil."
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "You can’t view %@’s profile\nuntil you unblock them.\nYour profile looks like this to them."
-          }
-        },
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "You can’t view %@’s profile\nuntil you unblock them.\nYour profile looks like this to them."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Non puoi visualizzare il profilo di %@\nfinché non li sblocchi.\nIl tuo profilo sembra questo per loro."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@がブロックを解除しない限りプロフィールをみることはできません。\nそういうことです。"
-          }
-        },
-        "kab" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ur tezmireḍ ara ad twaliḍ amaɣnu n %@\nalamma tekkseḍ-as asewḥel.\nAkka i as-d-yettban umaɣnu-inek."
-          }
-        },
-        "ku" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tu nikarî profîla %@ bibînî\nHeya ku tu astengiyê li ser wî/ê ranekî.\nProfîla te ji wan ra wiha xuya dike."
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tu nikarî profîla %@ bibînî\nHeya ku tu astengiyê li ser wî/ê ranekî.\nProfîla te ji wan ra wiha xuya dike."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Je kunt het profiel van %@ niet bekijken zolang deze gebruiker geblokkeerd is.\nJouw profiel ziet er zo uit voor hen."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Вы не можете просматривать\nпрофиль %@\nпока не разблокируете его/её.\n\nПримерно так выглядит\nваш профиль для него/неё."
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Profila uporabnika %@ ne morete\nvideti, dokler jih ne odblokirate.\nVaš profil je zanje videti tako."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Du kan inte visa %@s profil\nförrän du avblockerar dem.\nDin profil ser ut så här för dem."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "คุณไม่สามารถดูโปรไฟล์ของ %@\nจนกว่าคุณจะเลิกปิดกั้นเขา\nโปรไฟล์ของคุณมีลักษณะเช่นนี้สำหรับเขา"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@ kişisinin engelini kaldırana kadar\nonun profilini göremezsiniz.\nBu kişiye göre profiliniz böyle gözüküyor."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bạn không thể xem trang %@\ncho tới khi bạn bỏ chặn họ.\nHọ sẽ thấy trang của bạn như thế này."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "您无法查看%@的个人资料\n直到您解除屏蔽。\n您的个人资料对他来说也是这样的。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "您無法瀏覽 %@ 的個人檔案，除非您取消封鎖。\n您的個人檔案看起來像是這樣。"
-          }
-        }
-      }
-    },
-    "Common.Controls.Timeline.Header.UserSuspendedWarning.%@" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "لقد أُوقِفَ حِساب %@."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Уліковы запіс %@ прыпынены."
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "El compte de %@ ha estat suspès."
-          }
-        },
-        "ckb" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "هەژماری %@ ڕاگیراوە."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Účet %@ byl pozastaven."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Das Konto von %@ wurde gesperrt."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ο λογαριασμός του %@ έχει ανασταλεί."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "La cuenta de %@ ha sido suspendida."
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@ kontua kanporatua izan da."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tili %@ on lakkautettu."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Le compte de %@ à été suspendu."
-          }
-        },
-        "gd" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Chaidh an cunntas aig %@ a chur à rèim."
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "A conta de %@ foi suspendida."
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@’s account has been suspended."
-          }
-        },
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@’s account has been suspended."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "L'account di %@ è stato sospeso."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@のアカウントは停止されました。"
-          }
-        },
-        "kab" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Yettwaseḥbes umiḍan n %@."
-          }
-        },
-        "ku" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ajimêra %@ hatiye rawestandin."
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ajimêra %@ hatiye rawestandin."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Account van %@ is opgeschort."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Учётная запись %@ заморожена."
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Račun osebe %@ je suspendiran."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@s konto har blivit avstängt."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "มีการระงับบัญชีของ %@"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@ kişisinin hesabı askıya alındı."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@ đã bị vô hiệu hóa."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@ 已被封禁。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@ 的帳號已經被停權。"
-          }
-        }
-      }
-    },
     "Common.Controls.Timeline.Loader.LoadingMissingPosts" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -39433,6 +38899,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ ακόλουθοι"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ followers"
           }
         },
         "es" : {
@@ -47097,9 +46569,6 @@
         }
       }
     },
-    "Key 1" : {
-      "extractionState" : "manual"
-    },
     "plural.count.accounts_that_you_follow.%lld" : {
       "localizations" : {
         "ar" : {
@@ -52357,65 +51826,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld 則媒體"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "plural.count.metric_formatted.post.%@.%lld" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ %#@post_count@"
-          },
-          "substitutions" : {
-            "post_count" : {
-              "formatSpecifier" : "ld",
-              "variations" : {
-                "plural" : {
-                  "one" : {
-                    "stringUnit" : {
-                      "state" : "translated",
-                      "value" : "post"
-                    }
-                  },
-                  "other" : {
-                    "stringUnit" : {
-                      "state" : "translated",
-                      "value" : "posts"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ %#@post_count@"
-          },
-          "substitutions" : {
-            "post_count" : {
-              "formatSpecifier" : "ld",
-              "variations" : {
-                "plural" : {
-                  "one" : {
-                    "stringUnit" : {
-                      "state" : "translated",
-                      "value" : "şandî"
-                    }
-                  },
-                  "other" : {
-                    "stringUnit" : {
-                      "state" : "translated",
-                      "value" : "şandî"
-                    }
-                  }
                 }
               }
             }
@@ -62415,6 +61825,12 @@
             "value" : "Τρέχον επιλεγμένο προφίλ: %@. Πάτα δύο φορές και κράτησε πατημένο για να εμφανίσεις την εναλλαγή λογαριασμού"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current selected profile: %@. Double tap then hold to show account switcher"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -63697,6 +63113,12 @@
             "value" : "Ανάρτηση ως %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posting as %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -64416,6 +63838,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Το %@ έχει χαλάσει και δεν μπορεί να\nφορτωθεί στο Mastodon."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This %@ is broken and can’t be uploaded to Mastodon."
           }
         },
         "es" : {
@@ -67150,6 +66578,12 @@
             "value" : "Προσθήκη Συνημμένου - %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Attachment - %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -67696,6 +67130,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Επιλογή ορατότητας - %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Visibility - %@"
           }
         },
         "es" : {
@@ -69694,6 +69134,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Διάρκεια: %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duration: %@"
           }
         },
         "es" : {
@@ -72242,6 +71688,12 @@
             "value" : "απάντηση σε %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "replying to %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -73665,17 +73117,6 @@
         }
       }
     },
-    "Scene.ConfirmEmail.Button.OpenEmailApp" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sepana e-nameyê veke"
-          }
-        }
-      }
-    },
     "Scene.ConfirmEmail.Button.Resend" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -74082,6 +73523,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Επαναποστολή (%@)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resend (%@)"
           }
         },
         "es" : {
@@ -75686,18 +75133,7 @@
         }
       }
     },
-    "Scene.ConfirmEmail.Subtitle.%@" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Me tenê e-nameyek ji %@ re şand,\ngirêdanê bitikne da ku ajimêra xwe bidî piştrastkirin."
-          }
-        }
-      }
-    },
-    "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" : {
+    "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount.%@" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
@@ -75875,9 +75311,6 @@
           }
         }
       }
-    },
-    "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount.%@" : {
-
     },
     "Scene.ConfirmEmail.Title" : {
       "extractionState" : "extracted_with_value",
@@ -78912,6 +78345,12 @@
             "value" : "Ακολουθείται από %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Followed by %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -79087,7 +78526,7 @@
         },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "needs_review",
             "value" : "Followers you familiar"
           }
         },
@@ -81554,96 +80993,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "此列表為空"
-          }
-        }
-      }
-    },
-    "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tap to scroll to top and tap again to previous location"
-          }
-        }
-      }
-    },
-    "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mastodon"
-          }
-        }
-      }
-    },
-    "Scene.HomeTimeline.NavigationBarState.NewPosts" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "See new posts"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Şandiyên nû bibîne"
-          }
-        }
-      }
-    },
-    "Scene.HomeTimeline.NavigationBarState.Offline" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Անցանց"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Derhêl"
-          }
-        }
-      }
-    },
-    "Scene.HomeTimeline.NavigationBarState.Published" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Published!"
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hate weşandin!"
-          }
-        }
-      }
-    },
-    "Scene.HomeTimeline.NavigationBarState.Publishing" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "hy-AM" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Publishing post..."
-          }
-        },
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Şandî tê weşandin..."
           }
         }
       }
@@ -85260,6 +84609,12 @@
             "value" : "%@ boosted:"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ boosted:"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -85423,6 +84778,12 @@
         "el" : {
           "stringUnit" : {
             "state" : "needs_review",
+            "value" : "%@ favorited:"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%@ favorited:"
           }
         },
@@ -85592,6 +84953,12 @@
             "value" : "%@ followed you"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ followed you"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -85758,6 +85125,12 @@
             "value" : "%@ boosted:"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ boosted:"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -85881,9 +85254,16 @@
       }
     },
     "Scene.Notification.GroupedNotificationDescription.SingleNameEditedAPost.%@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ edited a post you interacted with"
+          }
+        }
+      }
     },
-    "Scene.Notification.GroupedNotificationDescription.SingleNameFavourited" : {
+    "Scene.Notification.GroupedNotificationDescription.SingleNameFavourited.%@" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
@@ -86056,9 +85436,6 @@
         }
       }
     },
-    "Scene.Notification.GroupedNotificationDescription.SingleNameFavourited.%@" : {
-
-    },
     "Scene.Notification.GroupedNotificationDescription.SingleNameFollowedYou.%@" : {
       "localizations" : {
         "ar" : {
@@ -86100,6 +85477,12 @@
         "el" : {
           "stringUnit" : {
             "state" : "needs_review",
+            "value" : "%@ followed you"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%@ followed you"
           }
         },
@@ -86269,6 +85652,12 @@
             "value" : "%@ mentioned you"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ mentioned you"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -86435,6 +85824,12 @@
             "value" : "%@ posted:"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ posted:"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -86596,6 +85991,12 @@
           }
         },
         "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%@ ran %@"
+          }
+        },
+        "en" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ ran %@"
@@ -86767,6 +86168,12 @@
             "value" : "%@ requested to follow you"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ requested to follow you"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -86930,6 +86337,12 @@
         "el" : {
           "stringUnit" : {
             "state" : "needs_review",
+            "value" : "%@ signed up"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%@ signed up"
           }
         },
@@ -87250,80 +86663,38 @@
     "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccount.%lld.%@" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccount.%1$lld.%2$@"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Someone reported a post from %2$@."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Someone reported %1$lld posts from %2$@."
+                }
+              }
+            }
           }
         }
       }
     },
-    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForRuleViolation.%@.%@" : {
+    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForRuleViolation.%lld.%@" : {
       "extractionState" : "stale",
       "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "ckb" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
         "cs" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Někdo nahlásil %@ z %@ za porušení pravidel."
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone reported %1$@ from %2$@ for rule violation."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
+            "state" : "translated",
+            "value" : "Someone reported %1$lld posts from %2$@ for rule violation."
           }
         },
         "fr" : {
@@ -87332,82 +86703,16 @@
             "value" : "Quelqu'un a signalé %@ de %@ pour violation des règles."
           }
         },
-        "gd" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Qualcuno ha segnalato %@ da %@ per violazione delle regole."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "kab" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "ku" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
         "nl" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Iemand rapporteerde %@ van %@ voor het overtreden van de regels."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Someone reported %@ from %@ for rule violation."
           }
         },
         "vi" : {
@@ -87426,16 +86731,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "有人檢舉來自 %@ 的 %@ 違反規則。"
-          }
-        }
-      }
-    },
-    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForRuleViolation.%lld.%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForRuleViolation.%1$lld.%2$@"
           }
         }
       }
@@ -95948,6 +95243,12 @@
             "value" : "Αν και η εφαρμογή Mastodon δεν συλλέγει δεδομένα, ο διακομιστής που εγγράφεσαι μπορεί να έχει διαφορετική πολιτική.\n\nΕάν διαφωνείς με την πολιτική του **%@**, μπορείς να επιστρέψεις και να επιλέξεις διαφορετικό διακομιστή."
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%@**, you can go back and pick a different server."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -96299,6 +95600,12 @@
             "value" : "Πολιτική Απορρήτου - %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy - %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -96428,10 +95735,24 @@
       }
     },
     "Scene.Privacy.Policy.TermsOfService.%@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Service - %@"
+          }
+        }
+      }
     },
     "Scene.Privacy.TermsOfServiceDescription.%@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please review the terms of service for **%@**. If you disagree, you can go back and pick a different server."
+          }
+        }
+      }
     },
     "Scene.Privacy.TermsOfServiceTitle" : {
       "extractionState" : "extracted_with_value",
@@ -97518,28 +96839,6 @@
         }
       }
     },
-    "Scene.Profile.Dashboard.Followers" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "şopîner"
-          }
-        }
-      }
-    },
-    "Scene.Profile.Dashboard.Following" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "dişopîne"
-          }
-        }
-      }
-    },
     "Scene.Profile.Dashboard.MyFollowers" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -98614,17 +97913,6 @@
         }
       }
     },
-    "Scene.Profile.Dashboard.Posts" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "şandî"
-          }
-        }
-      }
-    },
     "Scene.Profile.Fields.AddRow" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -99403,6 +98691,12 @@
             "value" : "Η ιδιοκτησία αυτού του συνδέσμου ελέχθηκε στις %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ownership of this link was checked on %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -99573,6 +98867,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Επαληθεύτηκε στις %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verified on %@"
           }
         },
         "es" : {
@@ -99926,6 +99226,12 @@
             "value" : "Επιβεβαίωση αποκλεισμού τομέα %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm to block domain %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -100263,6 +99569,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Επιβεβαίωση αποκλεισμού %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm to block %@"
           }
         },
         "es" : {
@@ -100986,6 +100298,12 @@
             "value" : "Επιβεβαίωσε για σίγαση %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm to mute %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -101707,6 +101025,12 @@
             "value" : "Επιβεβαίωση άρσης αποκλεισμού τομέα %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm to unblock domain %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -102044,6 +101368,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Επιβεβαίωση άρσης αποκλεισμού %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm to unblock %@"
           }
         },
         "es" : {
@@ -102407,6 +101737,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Επιβεβαίωσε για άρση σίγασης %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm to unmute %@"
           }
         },
         "es" : {
@@ -104986,6 +104322,12 @@
             "value" : "%@ πρέπει να γίνει αποδεκτό"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ must be accepted"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -105162,6 +104504,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ απαιτείται"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is required"
           }
         },
         "es" : {
@@ -105342,6 +104690,12 @@
             "value" : "%@ περιέχει πάροχο μη επιτρεπόμενων email"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ contains a disallowed email provider"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -105518,6 +104872,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ δεν είναι υποστηριζόμενη τιμή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is not a supported value"
           }
         },
         "es" : {
@@ -105698,6 +105058,12 @@
             "value" : "%@ δεν είναι έγκυρο"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is invalid"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -105874,6 +105240,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ είναι δεσμευμένη λέξη-κλειδί"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is a reserved keyword"
           }
         },
         "es" : {
@@ -106054,6 +105426,12 @@
             "value" : "%@ χρησιμοποιείται ήδη. Τι θα έλεγες για:"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is already taken. How about:"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -106230,6 +105608,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ είναι πολύ μεγάλο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is too long"
           }
         },
         "es" : {
@@ -106410,6 +105794,12 @@
             "value" : "%@ είναι πολύ μικρό"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is too short"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -106586,6 +105976,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ δεν φαίνεται να υπάρχει"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ does not seem to exist"
           }
         },
         "es" : {
@@ -110250,6 +109646,12 @@
             "value" : "εκπληκτικό_%@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "amazing_%@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -112087,6 +111489,12 @@
             "value" : "Αποκλεισμός %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -112436,6 +111844,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Σίγαση %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute %@"
           }
         },
         "es" : {
@@ -113147,6 +112561,12 @@
             "value" : "Άρση ακολούθησης του %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unfollow %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -113496,6 +112916,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Ενώ το εξετάζουμε, μπορείς να δράσεις εναντίον του %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "While we review this, you can take action against %@"
           }
         },
         "es" : {
@@ -116176,6 +115602,12 @@
             "value" : "Τι πάει στραβά με τον/την %@;"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What’s wrong with %@?"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -117965,6 +117397,12 @@
             "value" : "Αναφορά %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -119253,6 +118691,12 @@
             "value" : "%@ άτομα μιλάνε"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ people are talking"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -120535,6 +119979,12 @@
             "value" : "Μετάβαση στο #%@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to #%@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -120878,6 +120328,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Δεν υπάρχει λογαριασμός χρήστη \"%@\" στο %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There's no user account ”%@” on %@"
           }
         },
         "es" : {
@@ -121231,6 +120687,12 @@
             "value" : "Άτομα που ταιριάζουν με «%@»"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "People matching “%@”"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -121403,6 +120865,12 @@
             "value" : "Αναρτήσεις που ταιριάζουν με «%@»"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posts matching “%@”"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -121573,6 +121041,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Μετάβαση στο @%@@%@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to @%@@%@"
           }
         },
         "es" : {
@@ -121884,50 +121358,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "最近的搜尋"
-          }
-        }
-      }
-    },
-    "Scene.Search.Searching.Segment.All" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hemû"
-          }
-        }
-      }
-    },
-    "Scene.Search.Searching.Segment.Hashtags" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hashtag"
-          }
-        }
-      }
-    },
-    "Scene.Search.Searching.Segment.People" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mirov"
-          }
-        }
-      }
-    },
-    "Scene.Search.Searching.Segment.Posts" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Şandî"
           }
         }
       }
@@ -126169,17 +125599,6 @@
         }
       }
     },
-    "Scene.ServerPicker.Input.Placeholder" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rajekarekî bibîne an jî beşdarî ya xwe bibe..."
-          }
-        }
-      }
-    },
     "Scene.ServerPicker.Input.SearchServersOrEnterUrl" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -127988,28 +127407,6 @@
         }
       }
     },
-    "Scene.ServerPicker.Subtitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Li gorî berjewendî, herêm, an jî armancek gelemperî civakekê hilbijêre."
-          }
-        }
-      }
-    },
-    "Scene.ServerPicker.SubtitleExtend" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Li gorî berjewendî, herêm, an jî armancek gelemperî civakekê hilbijêre. Her civakek ji hêla rêxistinek an kesek bi tevahî serbixwe ve tê xebitandin."
-          }
-        }
-      }
-    },
     "Scene.ServerPicker.Title" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -128738,7 +128135,7 @@
         }
       }
     },
-    "Scene.ServerRules.Prompt" : {
+    "Scene.ServerRules.Prompt.%@" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
@@ -128923,10 +128320,7 @@
         }
       }
     },
-    "Scene.ServerRules.Prompt.%@" : {
-
-    },
-    "Scene.ServerRules.Subtitle" : {
+    "Scene.ServerRules.Subtitle.%@" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
@@ -129110,9 +128504,6 @@
           }
         }
       }
-    },
-    "Scene.ServerRules.Subtitle.%@" : {
-
     },
     "Scene.ServerRules.TermsOfService" : {
       "extractionState" : "extracted_with_value",
@@ -130721,17 +130112,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "捐款給 Mastodon"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Footer.MastodonDescription.%@.%@" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mastodon nermalava çavkaniya vekirî ye. Tu dikarî pirsgirêkan li ser GitHub-ê ragihînî di %@ (%@) de"
           }
         }
       }
@@ -133737,17 +133117,6 @@
         }
       }
     },
-    "Scene.Settings.Keyboard.CloseSettingsWindow" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sazkariyên çarçoveyê bigire"
-          }
-        }
-      }
-    },
     "Scene.Settings.Notifications.Alert.Boosts" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -136296,6 +135665,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Αποσύνδεση %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logout %@"
           }
         },
         "es" : {
@@ -139044,336 +138419,6 @@
         }
       }
     },
-    "Scene.Settings.Section.Appearance.Automatic" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Xweber"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Appearance.Dark" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Her dem tarî"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Appearance.Light" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Her dem ronî"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Appearance.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Xuyang"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.BoringZone.AccountSettings" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sazkariyên ajimêr"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.BoringZone.Privacy" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Polîtikaya nihêniyê"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.BoringZone.Terms" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mercên bikaranînê"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.BoringZone.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Devera acizker"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.LookAndFeel.Light" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ron"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.LookAndFeel.ReallyDark" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tarî"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.LookAndFeel.SortaDark" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hinekî tarî"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.LookAndFeel.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Xuyang"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.LookAndFeel.UseSystem" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pergalê bi kar bîne"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Boosts" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Şandiya min ji nû ve nivîsand"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Favorites" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Şandiyên min hez kir"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Follows" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Min dişopîne"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Mentions" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Qale min kir"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Agahdarî"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Trigger.Anyone" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "her kes"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Trigger.Follow" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "her kesê ku dişopînim"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Trigger.Follower" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "şopînerek"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Trigger.Noone" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ne yek"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Notifications.Trigger.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Min agahdar bike gava"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Preference.DisableAvatarAnimation" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avatarên anîmasyonî neçalak bike"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Preference.DisableEmojiAnimation" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Emojiyên anîmasyonî neçalak bike"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Preference.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hilbijarte"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.Preference.UsingDefaultBrowser" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ji bo vekirina girêdanan geroka berdest bi kar bîne"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.SpicyZone.Clear" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pêşbîra medyayê pak bike"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.SpicyZone.Signout" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Derkeve"
-          }
-        }
-      }
-    },
-    "Scene.Settings.Section.SpicyZone.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Devera germ"
-          }
-        }
-      }
-    },
     "Scene.Settings.ServerDetails.About" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -140269,17 +139314,6 @@
         }
       }
     },
-    "Scene.Settings.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sazkarî"
-          }
-        }
-      }
-    },
     "Scene.SuggestionAccount.FollowAll" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -140455,17 +139489,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "跟隨所有"
-          }
-        }
-      }
-    },
-    "Scene.SuggestionAccount.FollowExplain" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gava tu kesekî dişopînî, tu yê şandiyê wan di serrûpelê de bibîne."
           }
         }
       }
@@ -140882,6 +139905,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Ανάρτηση από %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post from %@"
           }
         },
         "es" : {
@@ -141913,18 +140942,7 @@
         }
       }
     },
-    "Scene.Welcome.GetStarted" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dest pê bike"
-          }
-        }
-      }
-    },
-    "Scene.Welcome.JoinDefaultServer" : {
+    "Scene.Welcome.JoinDefaultServer.%@" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
@@ -142102,9 +141120,6 @@
           }
         }
       }
-    },
-    "Scene.Welcome.JoinDefaultServer.%@" : {
-
     },
     "Scene.Welcome.LearnMore" : {
       "extractionState" : "extracted_with_value",
@@ -142824,39 +141839,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "或"
-          }
-        }
-      }
-    },
-    "Scene.Welcome.Slogan" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Torên civakî\ndi destên te de."
-          }
-        }
-      }
-    },
-    "Scene.Wizard.AccessibilityHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Du caran bitikîne da ku çarçoveyahilpekok ji holê rakî"
-          }
-        }
-      }
-    },
-    "Scene.Wizard.MultipleAccountSwitchIntroDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dest bide ser bişkoja profîlê da ku di navbera gelek ajimêrann de biguherînî."
           }
         }
       }
@@ -143619,6 +142601,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ ακόλουθοι σήμερα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ followers today"
           }
         },
         "es" : {
@@ -144686,6 +143674,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Λυπούμαστε, δεν μπορέσαμε να βρούμε αναρτήσεις με την ετικέτα <a>#%@</a>. Παρακαλώ δοκίμασε ένα <a>#DifferentHashtag</a> ή έλεγξε τις ρυθμίσεις widget."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorry, we couldn’t find any posts with the hashtag <a>#%@</a>. Please try a <a>#DifferentHashtag</a> or check the widget settings."
           }
         },
         "es" : {
