@@ -4140,7 +4140,6 @@
       }
     },
     "Common.Alerts.CleanCache.Message.%@" : {
-      "extractionState" : "extracted_with_value",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -29526,7 +29525,6 @@
       }
     },
     "Common.Controls.Status.Media.AccessibilityLabel.%@.attachment%lldof%lld" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -31726,7 +31724,6 @@
       }
     },
     "Common.Controls.Status.PostedViaApplication.%@.%@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -48933,7 +48930,6 @@
       }
     },
     "plural.count.follower.%lld" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "variations" : {
@@ -51856,7 +51852,6 @@
       }
     },
     "plural.count.of_your_followers.%lld" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "variations" : {
@@ -60467,7 +60462,6 @@
       }
     },
     "plural.people_talking.%lld" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "variations" : {
@@ -75134,7 +75128,6 @@
       }
     },
     "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount.%@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -78480,7 +78473,6 @@
       }
     },
     "Scene.Familiarfollowers.Title" : {
-      "extractionState" : "extracted_with_value",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -85264,7 +85256,6 @@
       }
     },
     "Scene.Notification.GroupedNotificationDescription.SingleNameFavourited.%@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -86683,7 +86674,6 @@
       }
     },
     "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForRuleViolation.%lld.%@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "cs" : {
           "stringUnit" : {
@@ -128136,7 +128126,6 @@
       }
     },
     "Scene.ServerRules.Prompt.%@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -128321,7 +128310,6 @@
       }
     },
     "Scene.ServerRules.Subtitle.%@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -140943,7 +140931,6 @@
       }
     },
     "Scene.Welcome.JoinDefaultServer.%@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
