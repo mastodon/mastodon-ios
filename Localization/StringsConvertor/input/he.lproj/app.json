@@ -250,10 +250,10 @@
                 "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
-                "block_user": "Block %s",
+                "block_user": "חסימת %s",
                 "block_domain": "Block domain %s",
                 "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
+                "unblock_user": "הסרת חסימה מ־%s",
                 "blocked": "Blocked",
                 "domain_blocked": "Domain Blocked",
                 "mute": "Mute",
@@ -831,7 +831,7 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "הגדרות",
                 "general": "General",
                 "notifications": "Notifications",
                 "privacy_safety": "Privacy & Safety",
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -976,7 +976,7 @@
                 "unfollow_user": "Unfollow %s",
                 "mute_user": "Mute %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "חסימת %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
