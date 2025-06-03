@@ -2152,7 +2152,7 @@ public enum L10n {
         return L10n.tr(String.LocalizationValue("plural.people_talking.\(placeholder: .int)"), args: [p1])
     }
       public static func followedByAndMutuals(_ names: String, p2: Int) -> String {
-          return L10n.tr(String.LocalizationValue("plural.followed_by_and_mutual.\(placeholder: .object).\(placeholder: .int)"), args: [names, p2])
+          return L10n.tr(String.LocalizationValue("plural.count.followed_by_and_mutual.\(placeholder: .object).\(placeholder: .int)"), args: [names, p2])
       }
       
     public enum Count {
