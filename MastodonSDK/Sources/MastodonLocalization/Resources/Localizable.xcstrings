@@ -5820,175 +5820,175 @@
         }
       }
     },
-    "Common.Alerts.MediaMissingAltText.Message.%d" : {
+    "Common.Alerts.MediaMissingAltText.Message.%lld" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "be" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d выявы не маюць альтэрнатыўны тэкст. Усё роўна апублікаваць?"
+            "value" : "%lld выявы не маюць альтэрнатыўны тэкст. Усё роўна апублікаваць?"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "ckb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d z vašich obrázků nemá alternativní text. \nPřesto odeslat?"
+            "value" : "%lld z vašich obrázků nemá alternativní text. \nPřesto odeslat?"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bei %d Ihrer Bilder fehlt der Alt-Text.\nTrotzdem posten?"
+            "value" : "Bei %lld Ihrer Bilder fehlt der Alt-Text.\nTrotzdem posten?"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d από τις εικόνες σου δεν έχει εναλλακτικό κείμενο. Ανάρτηση ούτως ή άλλως;"
+            "value" : "%lld από τις εικόνες σου δεν έχει εναλλακτικό κείμενο. Ανάρτηση ούτως ή άλλως;"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d de tus imágenes les falta el texto alternativo. ¿Deseas publicar de todos modos?"
+            "value" : "%lld de tus imágenes les falta el texto alternativo. ¿Deseas publicar de todos modos?"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zure %d argazkik ez dute alt testurik. Nolanahi ere, argitaratu?"
+            "value" : "Zure %lld argazkik ez dute alt testurik. Nolanahi ere, argitaratu?"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d de vos images n'ont pas de texte alternatif. Publier quand-même ?"
+            "value" : "%lld de vos images n'ont pas de texte alternatif. Publier quand-même ?"
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tha roghainn teacsa a dhìth air %d dhe na dealbhan agad.\nA bheil thu airson a phostadh co-dhiù?"
+            "value" : "Tha roghainn teacsa a dhìth air %lld dhe na dealbhan agad.\nA bheil thu airson a phostadh co-dhiù?"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d das imaxes non teñen Alt Text. Publicar?"
+            "value" : "%lld das imaxes non teñen Alt Text. Publicar?"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "In %d delle tue immagini manca il testo alternativo. \nPubblicare comunque?"
+            "value" : "In %lld delle tue immagini manca il testo alternativo. \nPubblicare comunque?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d 枚の画像に代替テキストがありません。そのまま投稿しますか？"
+            "value" : "%lld 枚の画像に代替テキストがありません。そのまま投稿しますか？"
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "ku" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d van je afbeeldingen missen alt-tekst. Alsnog plaatsen?"
+            "value" : "%lld van je afbeeldingen missen alt-tekst. Alsnog plaatsen?"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "На %d ваших изображений отсутствует alt-текст.\nОпубликовать все равно?"
+            "value" : "На %lld ваших изображений отсутствует alt-текст.\nОпубликовать все равно?"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Manjka nadomestno besedilo za %d slik.\nAli želite vseeno opraviti objavo?"
+            "value" : "Manjka nadomestno besedilo za %lld slik.\nAli želite vseeno opraviti objavo?"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d ภาพของคุณไม่มีข้อความแสดงแทน\nโพสต์ต่อไป?"
+            "value" : "%lld ภาพของคุณไม่มีข้อความแสดงแทน\nโพสต์ต่อไป?"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d of your images are missing alt text.\nPost Anyway?"
+            "value" : "%lld of your images are missing alt text.\nPost Anyway?"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d hình thiếu văn bản liên kết.\nVẫn cứ đăng?"
+            "value" : "%lld hình thiếu văn bản liên kết.\nVẫn cứ đăng?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "有 %d 张图像缺少替代文本。\n仍要发布吗？"
+            "value" : "有 %lld 张图像缺少替代文本。\n仍要发布吗？"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "您的 %d 則圖片沒有 ALT 說明文字。您仍要發嘟嗎？"
+            "value" : "您的 %lld 則圖片沒有 ALT 說明文字。您仍要發嘟嗎？"
           }
         }
       }
@@ -29450,43 +29450,43 @@
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@، مرفق %d من %d"
+            "value" : "%@، مرفق %lld من %lld"
           }
         },
         "be" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, далучэнне %d з %d"
+            "value" : "%@, далучэнне %lld з %lld"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, adjunt %d de %d"
+            "value" : "%@, adjunt %lld de %lld"
           }
         },
         "ckb" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, attachment %d of %d"
+            "value" : "%@, attachment %lld of %lld"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, příloha %d z %d"
+            "value" : "%@, příloha %lld z %lld"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, Anhang %d von %d"
+            "value" : "%@, Anhang %lld von %lld"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, συνημμένο %d από %d"
+            "value" : "%@, συνημμένο %lld από %lld"
           }
         },
         "en" : {
@@ -29498,127 +29498,127 @@
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, adjunto %d de %d"
+            "value" : "%@, adjunto %lld de %lld"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, %d tik %d garren eranskina"
+            "value" : "%@, %lld tik %lld garren eranskina"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, liite %d/%d"
+            "value" : "%@, liite %lld/%lld"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, pièce jointe %d sur %d"
+            "value" : "%@, pièce jointe %lld sur %lld"
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, ceanglachan %d à %d"
+            "value" : "%@, ceanglachan %lld à %lld"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, adxunto %d de %d"
+            "value" : "%@, adxunto %lld de %lld"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, attachment %d of %d"
+            "value" : "%@, attachment %lld of %lld"
           }
         },
         "hy-AM" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, attachment %d of %d"
+            "value" : "%@, attachment %lld of %lld"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, allegato %d di %d"
+            "value" : "%@, allegato %lld di %lld"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, これは %d 件目の添付メディアです。全部で %d 件の添付メディアがあります。"
+            "value" : "%@, これは %lld 件目の添付メディアです。全部で %lld 件の添付メディアがあります。"
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, attachment %d of %d"
+            "value" : "%@, attachment %lld of %lld"
           }
         },
         "ku" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, pêvek %d ji %d"
+            "value" : "%@, pêvek %lld ji %lld"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, bijlage %d van %d"
+            "value" : "%@, bijlage %lld van %lld"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, вложение %d из %d"
+            "value" : "%@, вложение %lld из %lld"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, priponka %d od %d"
+            "value" : "%@, priponka %lld od %lld"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, bilaga %d av %d"
+            "value" : "%@, bilaga %lld av %lld"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@ ไฟล์แนบ %d จาก %d"
+            "value" : "%@ ไฟล์แนบ %lld จาก %lld"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, attachment %d of %d"
+            "value" : "%@, attachment %lld of %lld"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@, đính kèm %d từ %d"
+            "value" : "%@, đính kèm %lld từ %lld"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@，附件 %d/%d"
+            "value" : "%@，附件 %lld/%lld"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "%@ 附件 %d 之 %d"
+            "value" : "%@ 附件 %lld 之 %lld"
           }
         }
       }
@@ -107536,49 +107536,49 @@
         }
       }
     },
-    "Scene.Register.Input.BirthDate.ExplanationMessage.%d.%@" : {
+    "Scene.Register.Input.BirthDate.ExplanationMessage.%lld.%@" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "be" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "ckb" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Wir müssen sicherstellen, dass Sie mindestens %d sind, um %@ beitreten zu können. Dies wird nach der Anmeldung nicht gespeichert."
+            "value" : "Wir müssen sicherstellen, dass Sie mindestens %lld sind, um %@ beitreten zu können. Dies wird nach der Anmeldung nicht gespeichert."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "en" : {
@@ -107590,121 +107590,121 @@
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "gd" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Dobbiamo assicurarci che tu abbia almeno %d anni per unirti a %@. Questo non verrà memorizzato dopo la registrazione."
+            "value" : "Dobbiamo assicurarci che tu abbia almeno %lld anni per unirti a %@. Questo non verrà memorizzato dopo la registrazione."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "kab" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "ku" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %lld to join %@. This won't get stored after signup."
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "我們必須確認您至少年滿 %d 以使用 %@。我們不會儲存此資料。"
+            "value" : "我們必須確認您至少年滿 %lld 以使用 %@。我們不會儲存此資料。"
           }
         }
       }
