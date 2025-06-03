@@ -12,7 +12,7 @@
 
 "RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "게시물";
 
 "WCIR3D" = "Post ${content} on Mastodon";
 
@@ -32,7 +32,7 @@
 
 "ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Mastodon에 게시하기";
 
 "dYQ5NN" = "공개";
 
