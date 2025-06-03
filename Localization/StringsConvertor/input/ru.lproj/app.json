@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Ответить",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Упоминание",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s продвинул(а)",
                 "user_replied_to": "Ответил(а) %s",
@@ -723,7 +723,7 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
+                "posts": "Посты",
                 "hashtags": "Hashtags",
                 "news": "News",
                 "community": "Сообщество",
@@ -732,7 +732,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Избранное"
         },
         "notification": {
             "title": {
@@ -740,17 +740,17 @@
                 "Mentions": "Упоминания"
             },
             "headers": {
-                "report": "Report",
+                "report": "Жалоба",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Добавить в избранное",
+                "follow": "Подписаться",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
+                "poll": "Опрос",
                 "boost": "Продвижение",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Пост",
+                "edit": "Изменить"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -1006,8 +1006,8 @@
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Подписаться",
+                "unfollow": "Отписаться"
             }
         },
         "donation": {
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Хэштег",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
