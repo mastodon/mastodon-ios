@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Válasz",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Megemlítés",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s megtolta",
                 "user_replied_to": "Válasz neki: %s",
@@ -740,17 +740,17 @@
                 "Mentions": "Említések"
             },
             "headers": {
-                "report": "Report",
+                "report": "Jelentés",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Kedvenc",
+                "follow": "Követés",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "poll": "Szavazás",
+                "boost": "Megtolás",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Bejegyzés",
+                "edit": "Módosítás"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Elfogadás",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "A Mastodon támogatása",
                 "manage": "Manage donations"
             }
         },
