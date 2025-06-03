@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Svar",
                 "private_reply": "Private reply",
                 "mention": "Mention",
                 "private_mention": "Private mention",
@@ -195,7 +195,7 @@
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
                         "reblog": "Fremhæv",
-                        "unreblog": "Undo boost"
+                        "unreblog": "Fortryd fremhævning"
                     },
                     "copy_link": "Kopier link"
                 },
@@ -250,7 +250,7 @@
                 "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
-                "block_user": "Block %s",
+                "block_user": "Bloker %s",
                 "block_domain": "Block domain %s",
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
@@ -345,7 +345,7 @@
                     "tech": "teknologi"
                 },
                 "see_less": "See Less",
-                "see_more": "See More"
+                "see_more": "Se mere"
             },
             "label": {
                 "language": "SPROG",
@@ -361,12 +361,12 @@
                 "no_results": "Ingen resultater"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Alle",
                 "instant": "Hurtig oprettelse",
                 "manually_reviewed": "Manuel godkendelse"
             },
             "language": {
-                "all": "All"
+                "all": "Alle"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -581,7 +581,7 @@
                 "discard_post": "Kassér indlæg",
                 "publish_post": "Offentliggør indlæg",
                 "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "Slå indholdsadvarsel til/fra",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             },
@@ -600,7 +600,7 @@
                 "my_posts": "indlæg",
                 "my_following": "following",
                 "my_followers": "followers",
-                "other_posts": "posts",
+                "other_posts": "indlæg",
                 "other_following": "following",
                 "other_followers": "followers",
                 "familiar_followers": "mutuals"
@@ -642,11 +642,11 @@
                     "message": "Confirm to unblock %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
+                    "title": "Vis fremhævede indlæg",
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
+                    "title": "Skjul fremhævede indlæg",
                     "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
@@ -699,7 +699,7 @@
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "Du vil måske synes om at følge disse konti",
-                    "follow": "Follow"
+                    "follow": "Følg"
                 }
             },
             "searching": {
@@ -723,7 +723,7 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
+                "posts": "Indlæg",
                 "hashtags": "Hashtags",
                 "news": "News",
                 "community": "Community",
@@ -742,15 +742,15 @@
             "headers": {
                 "report": "Report",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Favoritmarkér",
+                "follow": "Følg",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "poll": "Afstemning",
+                "boost": "Fremhæv",
                 "severed_relationships": "Domain block",
                 "status": "Post",
-                "edit": "Edit"
+                "edit": "Rediger"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Accepter",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -906,7 +906,7 @@
                 }
             },
             "privacy_safety": {
-                "title": "Privacy & Safety",
+                "title": "Privatliv og sikkerhed",
                 "preset": {
                     "title": "Preset",
                     "open_and_public": "Open & Public",
@@ -922,13 +922,13 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
         "report": {
             "title_report": "Report",
-            "title": "Report %s",
+            "title": "Anmeld %s",
             "step1": "Trin 1 af 2",
             "step2": "Trin 2 af 2",
             "content1": "Are there any other posts you’d like to add to the report?",
@@ -976,7 +976,7 @@
                 "unfollow_user": "Unfollow %s",
                 "mute_user": "Mute %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "Bloker %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
