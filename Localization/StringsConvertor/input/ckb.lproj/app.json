@@ -51,24 +51,24 @@
             "translation_failed": {
                 "title": "Note",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "باشە"
             },
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "هەڵوەشاندنەوه",
+                "post": "پۆستەکە"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "هەڵوەشاندنەوه",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
+                "cancel": "هەڵوەشاندنەوه",
                 "unfollow": "Unfollow"
             }
         },
@@ -115,7 +115,7 @@
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
+                "edit_post": "دەستکاری",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
@@ -127,7 +127,7 @@
                 "notifications": "Notifications",
                 "profile": "پرۆفایل",
                 "a11y": {
-                    "search": "Search",
+                    "search": "بگەڕێ",
                     "explore": "Explore"
                 }
             },
@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "وەڵامی بدەوە",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "ئاماژە",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "لە وەڵامدا بۆ %s",
@@ -361,12 +361,12 @@
                 "no_results": "ئەنجام نییە"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "هەموو",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "هەموو"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "ماڵەوە",
             "timeline_menu": {
-                "following": "Following",
+                "following": "شوێنی دەکەویت",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lists",
@@ -740,17 +740,17 @@
                 "Mentions": "ئاماژەکان"
             },
             "headers": {
-                "report": "Report",
+                "report": "سکاڵای لێ بکە",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "بەدڵمە",
+                "follow": "شوێنی بکەوە",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "پۆستەکە",
+                "edit": "دەستکاری"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -831,7 +831,7 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "رێکخستنەکان",
                 "general": "General",
                 "notifications": "Notifications",
                 "privacy_safety": "Privacy & Safety",
@@ -841,14 +841,14 @@
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "دەربارە",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
+                "about": "دەربارە",
                 "rules": "Rules",
                 "about_instance": {
                     "title": "Administrator",
@@ -882,7 +882,7 @@
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "لە وێبگەڕ بیکەوە"
                 }
             },
             "notifications": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -974,9 +974,9 @@
                 "unfollow": "Unfollow",
                 "unfollowed": "Unfollowed",
                 "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "mute_user": "%s بێدەنگە",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "%s ئاستەنگ بکە",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
@@ -1006,7 +1006,7 @@
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
+                "follow": "شوێنی بکەوە",
                 "unfollow": "Unfollow"
             }
         },
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "هاشتاگ",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
