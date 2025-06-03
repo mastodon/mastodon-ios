@@ -56,20 +56,20 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "Atcelt",
+                "post": "Ziņa"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Atcelt",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "cancel": "Atcelt",
+                "unfollow": "Atsekot"
             }
         },
         "controls": {
@@ -115,11 +115,11 @@
                     "title": "Tulkot no %s",
                     "unknown_language": "Nezināms"
                 },
-                "edit_post": "Edit",
+                "edit_post": "Rediģēt",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "unfollow": "Atsekot %s"
             },
             "tabs": {
                 "home": "Sākums",
@@ -127,7 +127,7 @@
                 "notifications": "Paziņojumi",
                 "profile": "Profils",
                 "a11y": {
-                    "search": "Search",
+                    "search": "Meklēt",
                     "explore": "Explore"
                 }
             },
@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Atbildēt",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Pieminēt",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "Atbildēja %s",
@@ -225,7 +225,7 @@
                     "expand_gif_hint": "Paplašina GIF. Veic dubultskārienu un turi, lai parādītu darbības",
                     "expand_video_hint": "Parāda video atskaņotāju. Veic dubultskārienu un turi, lai parādītu darbības"
                 },
-                "posted_via_application": "%s via %s",
+                "posted_via_application": "%s caur %s",
                 "buttons": {
                     "reblogs_title": "Boosts",
                     "favorites_title": "Favorites",
@@ -361,12 +361,12 @@
                 "no_results": "Nav rezultātu"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Visi",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "Visi"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "Sākums",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Seko",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lists",
@@ -740,17 +740,17 @@
                 "Mentions": "Pieminējumi"
             },
             "headers": {
-                "report": "Report",
+                "report": "Ziņot",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Izlase",
+                "follow": "Sekot",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Ziņa",
+                "edit": "Rediģēt"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Pieņemt",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -831,9 +831,9 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Iestatījumi",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "Paziņojumi",
                 "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
@@ -841,14 +841,14 @@
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Par",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
+                "about": "Par",
                 "rules": "Rules",
                 "about_instance": {
                     "title": "Administrator",
@@ -882,11 +882,11 @@
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Atvērt Pārlūkprogrammā"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Paziņojumi",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Tēmturis",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
