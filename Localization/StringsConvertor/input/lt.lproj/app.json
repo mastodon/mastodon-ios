@@ -156,7 +156,7 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Atsakyti",
                 "private_reply": "Private reply",
                 "mention": "Paminėjimas",
                 "private_mention": "Privatus paminėjimas",
@@ -181,8 +181,8 @@
                     "email": "Email address: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Boost",
+                    "reply": "Atsakyti",
+                    "reblog": "Pasidalinti",
                     "unreblog": "Undo boost",
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
@@ -194,7 +194,7 @@
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu",
                     "a11y_labels": {
-                        "reblog": "Boost",
+                        "reblog": "Pasidalinti",
                         "unreblog": "Undo boost"
                     },
                     "copy_link": "Copy Link"
@@ -215,8 +215,8 @@
                 },
                 "translation": {
                     "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
+                    "unknown_language": "Nežinoma",
+                    "unknown_provider": "Nežinoma",
                     "show_original": "Show Original"
                 },
                 "media": {
@@ -250,10 +250,10 @@
                 "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
-                "block_user": "Block %s",
+                "block_user": "Blokuoti %s",
                 "block_domain": "Block domain %s",
                 "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
+                "unblock_user": "Atblokuoti %s",
                 "blocked": "Blocked",
                 "domain_blocked": "Domain Blocked",
                 "mute": "Mute",
@@ -345,7 +345,7 @@
                     "tech": "tech"
                 },
                 "see_less": "See Less",
-                "see_more": "See More"
+                "see_more": "Žiūrėti daugiau"
             },
             "label": {
                 "language": "LANGUAGE",
@@ -392,7 +392,7 @@
                     "explanation_message": "Turime įsitikinti, kad esate bent %d norint jungtis prie %@. Tai nebus išsaugota po registracijos."
                 },
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Ištrinti"
                 },
                 "username": {
                     "placeholder": "username",
@@ -423,7 +423,7 @@
             "error": {
                 "item": {
                     "username": "Username",
-                    "email": "Email",
+                    "email": "El. paštas",
                     "password": "Password",
                     "agreement": "Agreement",
                     "locale": "Locale",
@@ -517,7 +517,7 @@
                 "edit_post": "Edit Post"
             },
             "media_selection": {
-                "camera": "Take Photo",
+                "camera": "Fotografuoti",
                 "photo_library": "Photo Library",
                 "browse": "Browse"
             },
@@ -687,7 +687,7 @@
             "title": "Search",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "cancel": "Atšaukti"
             },
             "recommend": {
                 "button_text": "See All",
@@ -747,10 +747,10 @@
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",
-                "boost": "Boost",
+                "boost": "Pasidalinti",
                 "severed_relationships": "Domain block",
                 "status": "Post",
-                "edit": "Edit"
+                "edit": "Redaguoti"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -831,7 +831,7 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Nustatymai",
                 "general": "General",
                 "notifications": "Notifications",
                 "privacy_safety": "Privacy & Safety",
@@ -882,7 +882,7 @@
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Atverti naršyklėje"
                 }
             },
             "notifications": {
@@ -928,7 +928,7 @@
         },
         "report": {
             "title_report": "Report",
-            "title": "Report %s",
+            "title": "Pranešti apie %s",
             "step1": "Step 1 of 2",
             "step2": "Step 2 of 2",
             "content1": "Are there any other posts you’d like to add to the report?",
@@ -976,7 +976,7 @@
                 "unfollow_user": "Nebesekti %s",
                 "mute_user": "Nutildyti %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "Blokuoti %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
@@ -1007,7 +1007,7 @@
             },
             "actions": {
                 "follow": "Follow",
-                "unfollow": "Unfollow"
+                "unfollow": "Nebesekti"
             }
         },
         "donation": {
