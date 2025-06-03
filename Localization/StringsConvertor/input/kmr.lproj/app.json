@@ -119,7 +119,7 @@
                 "bookmark": "Şûnpel",
                 "remove_bookmark": "Şûnpêlê rake",
                 "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "unfollow": "%s neşopîne"
             },
             "tabs": {
                 "home": "Serrûpel",
@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Bersivê bide",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Qalkirin",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "Bersiv da %s",
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "Serrûpel",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Dişopîne",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lists",
@@ -740,17 +740,17 @@
                 "Mentions": "Qalkirin"
             },
             "headers": {
-                "report": "Report",
+                "report": "Ragihandin",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Hez bike",
+                "follow": "Bişopîne",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
+                "poll": "Rapirsî",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Şandî",
+                "edit": "Serrast bike"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Bipejirîne",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -848,7 +848,7 @@
                 "clear_media_storage": "Bîrdanka medya pak bike"
             },
             "server_details": {
-                "about": "About",
+                "about": "Derbar",
                 "rules": "Rules",
                 "about_instance": {
                     "title": "Administrator",
@@ -857,7 +857,7 @@
                 }
             },
             "general": {
-                "title": "General",
+                "title": "Giştî",
                 "appearance": {
                     "section_title": "Appearance",
                     "dark": "Dark",
@@ -876,17 +876,17 @@
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
+                    "section_title": "Ziman",
                     "default_post_language": "Default Post Language"
                 },
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Di gerokê de veke"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Agahdarî",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Her kes",
@@ -897,7 +897,7 @@
                 "alert": {
                     "mentions_and_replies": "Qalkirin & Bersiv",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
+                    "favorites": "Hezkirî",
                     "new_followers": "New Followers"
                 },
                 "disabled": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Piştgiriya Mastodon bike",
                 "manage": "Manage donations"
             }
         },
