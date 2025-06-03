@@ -144749,6 +144749,12 @@
             "value" : "Τελευταία ενημέρωση: %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last update: %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
