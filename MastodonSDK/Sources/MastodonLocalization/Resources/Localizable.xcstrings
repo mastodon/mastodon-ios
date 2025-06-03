@@ -86676,62 +86676,163 @@
     "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForRuleViolation.%lld.%@" : {
       "localizations" : {
         "cs" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Někdo nahlásil %@ z %@ za porušení pravidel."
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Někdo nahlásil %@ z %@ za porušení pravidel."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Někdo nahlásil %@ z %@ za porušení pravidel."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Někdo nahlásil %@ z %@ za porušení pravidel."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Někdo nahlásil %@ z %@ za porušení pravidel."
+                }
+              }
+            }
           }
         },
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Someone reported %1$lld posts from %2$@ for rule violation."
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Someone reported a post from %2$@ for rule violation."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Someone reported %1$lld posts from %2$@ for rule violation."
+                }
+              }
+            }
           }
         },
         "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Quelqu'un a signalé %@ de %@ pour violation des règles."
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Quelqu'un a signalé %@ de %@ pour violation des règles."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Quelqu'un a signalé %@ de %@ pour violation des règles."
+                }
+              }
+            }
           }
         },
         "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Qualcuno ha segnalato %@ da %@ per violazione delle regole."
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Qualcuno ha segnalato %@ da %@ per violazione delle regole."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Qualcuno ha segnalato %@ da %@ per violazione delle regole."
+                }
+              }
+            }
           }
         },
         "nl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Iemand rapporteerde %@ van %@ voor het overtreden van de regels."
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Iemand rapporteerde %@ van %@ voor het overtreden van de regels."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Iemand rapporteerde %@ van %@ voor het overtreden van de regels."
+                }
+              }
+            }
           }
         },
         "vi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Có người từ %@ báo cáo %@ vi phạm nội quy."
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Có người từ %@ báo cáo %@ vi phạm nội quy."
+                }
+              }
+            }
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "来自 %@ 的某人报告 %@ 违反条例。"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "来自 %@ 的某人报告 %@ 违反条例。"
+                }
+              }
+            }
           }
         },
         "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "有人檢舉來自 %@ 的 %@ 違反規則。"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "有人檢舉來自 %@ 的 %@ 違反規則。"
+                }
+              }
+            }
           }
         }
       }
     },
     "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForSpam.%lld.%@" : {
-      "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Someone reported %1$lld from %2$@ for spam."
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Someone reported a post from %@ for spam."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Someone reported %lld posts from %@ for spam."
+                }
+              }
+            }
           }
         }
       }
