@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Odpowiedz",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Wspomnij",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "Odpowiedział na %s",
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "Strona główna",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Obserwowanych",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lists",
@@ -581,7 +581,7 @@
                 "discard_post": "Odrzuć wpis",
                 "publish_post": "Publish Post",
                 "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "Dodaj ostrzeżenie o treści",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             },
@@ -742,15 +742,15 @@
             "headers": {
                 "report": "Report",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Dodaj do ulubionych",
+                "follow": "Obserwuj",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
+                "poll": "Ankieta",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
                 "status": "Post",
-                "edit": "Edit"
+                "edit": "Edytuj"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Zaakceptuj",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -831,9 +831,9 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Ustawienia",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "Powiadomienia",
                 "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
@@ -876,13 +876,13 @@
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
+                    "section_title": "Język",
                     "default_post_language": "Default Post Language"
                 },
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Otwórz w Mastodonie",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Otwórz w przeglądarce"
                 }
             },
             "notifications": {
@@ -897,7 +897,7 @@
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
+                    "favorites": "Ulubione",
                     "new_followers": "New Followers"
                 },
                 "disabled": {
@@ -922,13 +922,13 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
         "report": {
             "title_report": "Report",
-            "title": "Report %s",
+            "title": "Zgłoś %s",
             "step1": "Krok 1 z 2",
             "step2": "Krok 2 z 2",
             "content1": "Are there any other posts you’d like to add to the report?",
@@ -974,9 +974,9 @@
                 "unfollow": "Unfollow",
                 "unfollowed": "Unfollowed",
                 "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "mute_user": "Wycisz %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "Zablokuj %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Hasztag",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
