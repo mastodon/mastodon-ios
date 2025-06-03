@@ -642,11 +642,11 @@
                     "message": "Confirme para desbloquear %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
+                    "title": "Mostrar impulsos",
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
+                    "title": "Ocultar impulsos",
                     "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
@@ -732,7 +732,7 @@
             "intro": "Esses são os posts que estão ganhando força no seu canto do Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Favoritos"
         },
         "notification": {
             "title": {
@@ -740,17 +740,17 @@
                 "Mentions": "Menções"
             },
             "headers": {
-                "report": "Report",
+                "report": "Denunciar",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Favoritar",
+                "follow": "Seguir",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "poll": "Enquete",
+                "boost": "Impulsionar",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Toot",
+                "edit": "Editar"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
