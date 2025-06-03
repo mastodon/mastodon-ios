@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Erantzun",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Aipatu",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s(e)k bultzatu du",
                 "user_replied_to": "%s(r)i erantzuten",
@@ -740,17 +740,17 @@
                 "Mentions": "Aipamenak"
             },
             "headers": {
-                "report": "Report",
+                "report": "Salatu",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Gogokoa",
+                "follow": "Jarraitu",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "poll": "Inkesta",
+                "boost": "Bultzada",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Bidalketa",
+                "edit": "Editatu"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Onartu",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Agertu bilaketa-motoretan"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Eman babesa Mastodoni",
                 "manage": "Manage donations"
             }
         },
