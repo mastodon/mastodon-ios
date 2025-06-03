@@ -3091,9 +3091,6 @@
       }
     },
     "Common.Alerts.BlockDomain.Title.%@" : {
-
-    },
-    "Common.Alerts.BlockDomain.Title.%lld" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -4143,9 +4140,6 @@
       }
     },
     "Common.Alerts.CleanCache.Message.%@" : {
-
-    },
-    "Common.Alerts.CleanCache.Message.%lld" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "ar" : {
@@ -5251,28 +5245,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "刪除嘟文"
-          }
-        }
-      }
-    },
-    "Common.Alerts.DiscardPostContent.Message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bipejrîne ku naveroka şandiyê ya hatiye nivîsandin paşguh bikî."
-          }
-        }
-      }
-    },
-    "Common.Alerts.DiscardPostContent.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reşnivîsê paşguh bike"
           }
         }
       }
@@ -29491,7 +29463,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%1$@, attachment %2$d of %3$d"
+            "value" : "%1$@, attachment %2$lld of %3$lld"
           }
         },
         "es" : {
@@ -52341,6 +52313,28 @@
         }
       }
     },
+    "plural.count.new_signups.%lld" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "one new signup"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld new signups"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "plural.count.of_your_followers.%lld" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -60952,7 +60946,7 @@
         }
       }
     },
-    "plural.people_talking" : {
+    "plural.people_talking.%lld" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
@@ -86951,6 +86945,16 @@
         }
       }
     },
+    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedAccount.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Someone reported %@."
+          }
+        }
+      }
+    },
     "Scene.Notification.GroupedNotificationDescription.SomeoneReportedAccountForRuleViolation.%@" : {
       "localizations" : {
         "ar" : {
@@ -87119,6 +87123,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "有人檢舉 %@ 違反規則。"
+          }
+        }
+      }
+    },
+    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedAccountForSpam.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Someone reported %@ for spam."
           }
         }
       }
@@ -87322,17 +87336,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Someone reported %1$ld from %2$@ for spam."
-          }
-        }
-      }
-    },
-    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForSpam.%lld.%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForSpam.%1$lld.%2$@"
+            "value" : "Someone reported %1$lld from %2$@ for spam."
           }
         }
       }
@@ -107580,7 +107584,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We have to make sure you're at least %1$d to join %2$@. This won't get stored after signup."
+            "value" : "We have to make sure you're at least %1$lld to join %2$@. This won't get stored after signup."
           }
         },
         "es" : {
@@ -107701,16 +107705,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "我們必須確認您至少年滿 %lld 以使用 %@。我們不會儲存此資料。"
-          }
-        }
-      }
-    },
-    "Scene.Register.Input.BirthDate.ExplanationMessage.%lld.%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Scene.Register.Input.BirthDate.ExplanationMessage.%1$lld.%2$@"
           }
         }
       }
@@ -142753,17 +142747,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dest bide ser bişkoja profîlê da ku di navbera gelek ajimêrann de biguherînî."
-          }
-        }
-      }
-    },
-    "Scene.Wizard.NewInMastodon" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nû di Mastodon de"
           }
         }
       }
