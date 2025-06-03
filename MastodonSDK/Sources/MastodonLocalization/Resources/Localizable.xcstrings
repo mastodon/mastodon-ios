@@ -581,9 +581,6 @@
         }
       }
     },
-    "a11y.plural.count.characters_left.%lld" : {
-
-    },
     "a11y.plural.count.input_limit_exceeds.%ld" : {
       "localizations" : {
         "ar" : {
@@ -1452,9 +1449,6 @@
         }
       }
     },
-    "a11y.plural.count.input_limit_exceeds.%lld" : {
-
-    },
     "a11y.plural.count.input_limit_remains.%ld" : {
       "localizations" : {
         "ar" : {
@@ -2314,9 +2308,6 @@
         }
       }
     },
-    "a11y.plural.count.input_limit_remains.%lld" : {
-
-    },
     "a11y.plural.count.unread.notification.%ld" : {
       "localizations" : {
         "ar" : {
@@ -2914,9 +2905,6 @@
           }
         }
       }
-    },
-    "a11y.plural.count.unread.notification.%lld" : {
-
     },
     "Common.Alerts.BlockDomain.BlockEntireDomain" : {
       "localizations" : {
@@ -6004,9 +5992,6 @@
           }
         }
       }
-    },
-    "Common.Alerts.MediaMissingAltText.Message.%lld" : {
-
     },
     "Common.Alerts.MediaMissingAltText.Post" : {
       "extractionState" : "extracted_with_value",
@@ -40274,9 +40259,6 @@
         }
       }
     },
-    "date.day.ago.abbr.%lld" : {
-
-    },
     "date.day.left.%ld" : {
       "localizations" : {
         "ar" : {
@@ -40874,9 +40856,6 @@
           }
         }
       }
-    },
-    "date.day.left.%lld" : {
-
     },
     "date.hour.ago.abbr.%ld" : {
       "localizations" : {
@@ -41476,9 +41455,6 @@
         }
       }
     },
-    "date.hour.ago.abbr.%lld" : {
-
-    },
     "date.hour.left.%ld" : {
       "localizations" : {
         "ar" : {
@@ -42076,9 +42052,6 @@
           }
         }
       }
-    },
-    "date.hour.left.%lld" : {
-
     },
     "date.minute.ago.abbr.%ld" : {
       "localizations" : {
@@ -42678,9 +42651,6 @@
         }
       }
     },
-    "date.minute.ago.abbr.%lld" : {
-
-    },
     "date.minute.left.%ld" : {
       "localizations" : {
         "ar" : {
@@ -43278,9 +43248,6 @@
           }
         }
       }
-    },
-    "date.minute.left.%lld" : {
-
     },
     "date.month.ago.abbr.%ld" : {
       "localizations" : {
@@ -43880,9 +43847,6 @@
         }
       }
     },
-    "date.month.ago.abbr.%lld" : {
-
-    },
     "date.month.left.%ld" : {
       "localizations" : {
         "ar" : {
@@ -44480,9 +44444,6 @@
           }
         }
       }
-    },
-    "date.month.left.%lld" : {
-
     },
     "date.second.ago.abbr.%ld" : {
       "localizations" : {
@@ -45082,9 +45043,6 @@
         }
       }
     },
-    "date.second.ago.abbr.%lld" : {
-
-    },
     "date.second.left.%ld" : {
       "localizations" : {
         "ar" : {
@@ -45682,9 +45640,6 @@
           }
         }
       }
-    },
-    "date.second.left.%lld" : {
-
     },
     "date.year.ago.abbr.%ld" : {
       "localizations" : {
@@ -46284,9 +46239,6 @@
         }
       }
     },
-    "date.year.ago.abbr.%lld" : {
-
-    },
     "date.year.left.%ld" : {
       "localizations" : {
         "ar" : {
@@ -46884,9 +46836,6 @@
           }
         }
       }
-    },
-    "date.year.left.%lld" : {
-
     },
     "Extension.OpenIn.InvalidLinkError" : {
       "extractionState" : "extracted_with_value",
@@ -47632,9 +47581,6 @@
         }
       }
     },
-    "plural.count.accounts_that_you_follow.%lld" : {
-
-    },
     "plural.count.attachment.%ld" : {
       "localizations" : {
         "ar" : {
@@ -48197,9 +48143,6 @@
         }
       }
     },
-    "plural.count.attachment.%lld" : {
-
-    },
     "plural.count.audio.%ld" : {
       "localizations" : {
         "ar" : {
@@ -48761,9 +48704,6 @@
           }
         }
       }
-    },
-    "plural.count.audio.%lld" : {
-
     },
     "plural.count.favorite.%ld" : {
       "localizations" : {
@@ -49362,9 +49302,6 @@
           }
         }
       }
-    },
-    "plural.count.favorite.%lld" : {
-
     },
     "plural.count.followed_by_and_mutual.%@.%@" : {
       "extractionState" : "manual",
@@ -50044,9 +49981,6 @@
         }
       }
     },
-    "plural.count.follower.%lld" : {
-
-    },
     "plural.count.following.%ld" : {
       "localizations" : {
         "ar" : {
@@ -50645,9 +50579,6 @@
         }
       }
     },
-    "plural.count.following.%lld" : {
-
-    },
     "plural.count.gif.%ld" : {
       "localizations" : {
         "ar" : {
@@ -51210,9 +51141,6 @@
         }
       }
     },
-    "plural.count.gif.%lld" : {
-
-    },
     "plural.count.image.%ld" : {
       "localizations" : {
         "ar" : {
@@ -51774,9 +51702,6 @@
           }
         }
       }
-    },
-    "plural.count.image.%lld" : {
-
     },
     "plural.count.media.%ld" : {
       "localizations" : {
@@ -52358,9 +52283,6 @@
         }
       }
     },
-    "plural.count.media.%lld" : {
-
-    },
     "plural.count.metric_formatted.post.%@.%ld" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -52419,9 +52341,6 @@
           }
         }
       }
-    },
-    "plural.count.new_signups.%lld" : {
-
     },
     "plural.count.of_your_followers" : {
       "extractionState" : "stale",
@@ -52986,9 +52905,6 @@
         }
       }
     },
-    "plural.count.of_your_followers.%lld" : {
-
-    },
     "plural.count.others.%ld" : {
       "localizations" : {
         "ar" : {
@@ -53550,9 +53466,6 @@
           }
         }
       }
-    },
-    "plural.count.others.%lld" : {
-
     },
     "plural.count.people_boosted.%ld" : {
       "localizations" : {
@@ -54116,9 +54029,6 @@
         }
       }
     },
-    "plural.count.people_boosted.%lld" : {
-
-    },
     "plural.count.people_favourited.%ld" : {
       "localizations" : {
         "ar" : {
@@ -54680,9 +54590,6 @@
           }
         }
       }
-    },
-    "plural.count.people_favourited.%lld" : {
-
     },
     "plural.count.people_followed_you.%ld" : {
       "localizations" : {
@@ -55246,9 +55153,6 @@
         }
       }
     },
-    "plural.count.people_followed_you.%lld" : {
-
-    },
     "plural.count.poll_that_you_and_others_voted_in.%ld" : {
       "localizations" : {
         "ar" : {
@@ -55810,9 +55714,6 @@
           }
         }
       }
-    },
-    "plural.count.poll_that_you_and_others_voted_in.%lld" : {
-
     },
     "plural.count.poll.%lld.%lld" : {
       "localizations" : {
@@ -56974,9 +56875,6 @@
         }
       }
     },
-    "plural.count.post.%lld" : {
-
-    },
     "plural.count.reblog_a11y.%ld" : {
       "localizations" : {
         "ar" : {
@@ -57556,9 +57454,6 @@
           }
         }
       }
-    },
-    "plural.count.reblog_a11y.%lld" : {
-
     },
     "plural.count.reblog.%ld" : {
       "localizations" : {
@@ -58158,9 +58053,6 @@
         }
       }
     },
-    "plural.count.reblog.%lld" : {
-
-    },
     "plural.count.reply.%ld" : {
       "localizations" : {
         "ar" : {
@@ -58741,9 +58633,6 @@
         }
       }
     },
-    "plural.count.reply.%lld" : {
-
-    },
     "plural.count.video.%ld" : {
       "localizations" : {
         "ar" : {
@@ -59305,9 +59194,6 @@
           }
         }
       }
-    },
-    "plural.count.video.%lld" : {
-
     },
     "plural.count.vote.%ld" : {
       "localizations" : {
@@ -59907,9 +59793,6 @@
         }
       }
     },
-    "plural.count.vote.%lld" : {
-
-    },
     "plural.count.voter.%ld" : {
       "localizations" : {
         "ar" : {
@@ -60508,9 +60391,6 @@
         }
       }
     },
-    "plural.count.voter.%lld" : {
-
-    },
     "plural.filtered_notification_banner.subtitle.%ld" : {
       "localizations" : {
         "ar" : {
@@ -61072,12 +60952,6 @@
           }
         }
       }
-    },
-    "plural.filtered_notification_banner.subtitle.%lld" : {
-
-    },
-    "plural.followed_by_and_mutual.%lld" : {
-
     },
     "plural.people_talking" : {
       "extractionState" : "stale",
@@ -61677,9 +61551,6 @@
           }
         }
       }
-    },
-    "plural.people_talking.%lld" : {
-
     },
     "Scene.AccountList.AddAccount" : {
       "extractionState" : "extracted_with_value",
@@ -70768,9 +70639,6 @@
           }
         }
       }
-    },
-    "Scene.Compose.Poll.OptionNumber.%lld" : {
-
     },
     "Scene.Compose.Poll.RemoveOption" : {
       "extractionState" : "extracted_with_value",
@@ -87085,10 +86953,7 @@
         }
       }
     },
-    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedAccount.%@" : {
-
-    },
-    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedAccountForRuleViolation" : {
+    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedAccountForRuleViolation.%@" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
@@ -87261,12 +87126,6 @@
         }
       }
     },
-    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedAccountForRuleViolation.%@" : {
-
-    },
-    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedAccountForSpam.%@" : {
-
-    },
     "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccount.%lld.%@" : {
       "localizations" : {
         "en" : {
@@ -87277,7 +87136,7 @@
         }
       }
     },
-    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForRuleViolation" : {
+    "Scene.Notification.GroupedNotificationDescription.SomeoneReportedPostsFromAccountForRuleViolation.%@.%@" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
