@@ -56,20 +56,20 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "Չեղարկել",
+                "post": "Գրառում"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Չեղարկել",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "cancel": "Չեղարկել",
+                "unfollow": "Ապահետեւել"
             }
         },
         "controls": {
@@ -158,7 +158,7 @@
             "status": {
                 "reply": "Reply",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Նշել",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "Replied to %s",
@@ -227,7 +227,7 @@
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
-                    "reblogs_title": "Boosts",
+                    "reblogs_title": "Տարածումներ",
                     "favorites_title": "Հաւանածներ",
                     "edit_history_title": "Խմբագրման պատմութիւնը",
                     "edit_history_detail": "Last edit %s"
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "Հիմնական",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Հետեւած",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lists",
@@ -742,15 +742,15 @@
             "headers": {
                 "report": "Report",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Հավանել",
+                "follow": "Հետեւել",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
+                "poll": "Հարցում",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Գրառում",
+                "edit": "Խմբագրել"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Ընդունել",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -876,7 +876,7 @@
                     "show_animations": "Play Animated Avatars and Emoji"
                 },
                 "language": {
-                    "section_title": "Language",
+                    "section_title": "Լեզու",
                     "default_post_language": "Default Post Language"
                 },
                 "links": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -974,7 +974,7 @@
                 "unfollow": "Ապահետեւել",
                 "unfollowed": "Unfollowed",
                 "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "mute_user": "Լռեցնել %s֊ին",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or boosts in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Block %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
