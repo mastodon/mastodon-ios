@@ -56,20 +56,20 @@
             "media_missing_alt_text": {
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
-                "cancel": "Cancel",
-                "post": "Post"
+                "cancel": "Batal",
+                "post": "Postingan"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
                 "title_unboost": "Unboost Post?",
-                "cancel": "Cancel",
+                "cancel": "Batal",
                 "boost": "Boost",
                 "unboost": "Unboost"
             },
             "unfollow_user": {
                 "title": "Unfollow %@?",
-                "cancel": "Cancel",
-                "unfollow": "Unfollow"
+                "cancel": "Batal",
+                "unfollow": "Berhenti ikuti"
             }
         },
         "controls": {
@@ -115,11 +115,11 @@
                     "title": "Terjemahkan dari %s",
                     "unknown_language": "Unknown"
                 },
-                "edit_post": "Edit",
+                "edit_post": "Sunting",
                 "bookmark": "Bookmark",
                 "remove_bookmark": "Remove Bookmark",
                 "follow": "Follow %s",
-                "unfollow": "Unfollow %s"
+                "unfollow": "Berhenti ikuti %s"
             },
             "tabs": {
                 "home": "Beranda",
@@ -127,7 +127,7 @@
                 "notifications": "Notifikasi",
                 "profile": "Profil",
                 "a11y": {
-                    "search": "Search",
+                    "search": "Cari",
                     "explore": "Explore"
                 }
             },
@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Balas",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Sebut",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "Membalas %s",
@@ -361,12 +361,12 @@
                 "no_results": "Tak ada hasil"
             },
             "signup_speed": {
-                "all": "All",
+                "all": "Semua",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"
             },
             "language": {
-                "all": "All"
+                "all": "Semua"
             },
             "search": {
                 "placeholder": "Search name or URL"
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "Beranda",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Mengikuti",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lists",
@@ -581,7 +581,7 @@
                 "discard_post": "Hapus Postingan",
                 "publish_post": "Publikasikan Postingan",
                 "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "Nyalakan Peringatan Konten",
                 "append_attachment_entry": "Tambahkan Lampiran - %s",
                 "select_visibility_entry": "Pilih Visibilitas - %s"
             },
@@ -598,10 +598,10 @@
             },
             "dashboard": {
                 "my_posts": "posts",
-                "my_following": "following",
+                "my_following": "mengikuti",
                 "my_followers": "followers",
                 "other_posts": "posts",
-                "other_following": "following",
+                "other_following": "mengikuti",
                 "other_followers": "followers",
                 "familiar_followers": "mutuals"
             },
@@ -723,7 +723,7 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
+                "posts": "Postingan",
                 "hashtags": "Tagar",
                 "news": "Berita",
                 "community": "Komunitas",
@@ -740,17 +740,17 @@
                 "Mentions": "Sebutan"
             },
             "headers": {
-                "report": "Report",
+                "report": "Laporkan",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Favorit",
+                "follow": "Ikuti",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Poll",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Postingan",
+                "edit": "Sunting"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Menerima",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -831,9 +831,9 @@
         },
         "settings": {
             "overview": {
-                "title": "Settings",
+                "title": "Pengaturan",
                 "general": "General",
-                "notifications": "Notifications",
+                "notifications": "Notifikasi",
                 "privacy_safety": "Privacy & Safety",
                 "support_mastodon": "Support Mastodon",
                 "about_mastodon": "About Mastodon",
@@ -841,14 +841,14 @@
                 "logout": "Logout %@"
             },
             "about_mastodon": {
-                "title": "About",
+                "title": "Tentang",
                 "more_settings": "Even More Settings",
                 "contribute_to_mastodon": "Contribute to Mastodon",
                 "privacy_policy": "Privacy Policy",
                 "clear_media_storage": "Clear Media Storage"
             },
             "server_details": {
-                "about": "About",
+                "about": "Tentang",
                 "rules": "Rules",
                 "about_instance": {
                     "title": "Administrator",
@@ -882,11 +882,11 @@
                 "links": {
                     "section_title": "Links",
                     "open_in_mastodon": "Open in Mastodon",
-                    "open_in_browser": "Open in Browser"
+                    "open_in_browser": "Buka di Peramban"
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notifikasi",
                 "policy": {
                     "title": "Get Notifications from",
                     "anyone": "Anyone",
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Support Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -1006,8 +1006,8 @@
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Ikuti",
+                "unfollow": "Berhenti ikuti"
             }
         },
         "donation": {
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Tagar",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
