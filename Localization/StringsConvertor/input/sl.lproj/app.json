@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Odgovori",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Omeni",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s je izpostavil/a",
                 "user_replied_to": "Odgovarja %s",
@@ -740,17 +740,17 @@
                 "Mentions": "Omembe"
             },
             "headers": {
-                "report": "Report",
+                "report": "Poročaj",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Priljubljen",
+                "follow": "Sledi",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
-                "boost": "Boost",
+                "poll": "Anketa",
+                "boost": "Izpostavi",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Objavi",
+                "edit": "Uredi"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Sprejmi",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Prikaži v iskalnikih"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Podprite Mastodon",
                 "manage": "Manage donations"
             }
         },
