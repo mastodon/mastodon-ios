@@ -560,21 +560,6 @@ public enum L10n {
           public static let noStatusFound = String(localized: "Common.Controls.Timeline.Header.NoStatusFound",  defaultValue: "No Post Found", bundle: MastodonLocalization.bundle)
           /// This user has been suspended.
           public static let suspendedWarning = String(localized: "Common.Controls.Timeline.Header.SuspendedWarning",  defaultValue: "This user has been suspended.", bundle: MastodonLocalization.bundle)
-          /// You can’t view %@’s profile
-          /// until they unblock you.
-          public static func userBlockedWarning(_ p1: Any) -> String {
-              return L10n.tr(String.LocalizationValue("Common.Controls.Timeline.Header.UserBlockedWarning.\(placeholder: .object)"), args: [String(describing: p1)])
-          }
-          /// You can’t view %@’s profile
-          /// until you unblock them.
-          /// Your profile looks like this to them.
-          public static func userBlockingWarning(_ p1: Any) -> String {
-              return L10n.tr(String.LocalizationValue("Common.Controls.Timeline.Header.UserBlockingWarning.\(placeholder: .object)"), args: [String(describing: p1)])
-          }
-          /// %@’s account has been suspended.
-          public static func userSuspendedWarning(_ p1: Any) -> String {
-              return L10n.tr(String.LocalizationValue("Common.Controls.Timeline.Header.UserSuspendedWarning.\(placeholder: .object)"), args: [String(describing: p1)])
-          }
         }
         public enum Loader {
           /// Loading missing posts...
