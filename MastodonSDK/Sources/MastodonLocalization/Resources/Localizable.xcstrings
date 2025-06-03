@@ -4186,7 +4186,7 @@
         },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "needs_review",
             "value" : "Successfully cleaned %@ cache."
           }
         },
@@ -9099,6 +9099,12 @@
             "value" : "Άρση ακολούθησης του %@;"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unfollow %@?"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -10176,6 +10182,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Αποκλεισμός %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block %@"
           }
         },
         "es" : {
@@ -12743,6 +12755,12 @@
             "value" : "Ακολούθησε %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -14944,6 +14962,12 @@
             "value" : "Αναφορά %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report %@ "
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -16232,6 +16256,12 @@
             "value" : "Κοινοποίηση %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -16547,17 +16577,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "登入"
-          }
-        }
-      }
-    },
-    "Common.Controls.Actions.SignUp" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tomar bibe"
           }
         }
       }
@@ -16974,6 +16993,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Μετάφραση από %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Translate from %@"
           }
         },
         "es" : {
@@ -17512,6 +17537,12 @@
             "value" : "Άρση αποκλεισμού %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unblock %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -17688,6 +17719,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Κατάργηση ακολούθησης του %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unfollow %@"
           }
         },
         "es" : {
@@ -18045,6 +18082,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Αποκλεισμός τομέα %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block domain %@"
           }
         },
         "es" : {
@@ -18408,6 +18451,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Αποκλεισμός %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block %$@"
           }
         },
         "es" : {
@@ -20038,6 +20087,12 @@
             "value" : "Σίγαση %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -21123,6 +21178,12 @@
             "value" : "Άρση αποκλεισμού %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unblock %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -21484,6 +21545,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Κατάργηση σίγασης %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unmute %@"
           }
         },
         "es" : {
@@ -22217,6 +22284,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Εναλλαγή σε %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch to %@"
           }
         },
         "es" : {
@@ -27349,6 +27422,12 @@
             "value" : "Τελευταία επεξεργασία %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last edit %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -28231,6 +28310,12 @@
             "value" : "Από %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -28582,6 +28667,12 @@
             "value" : "Επεξεργάστηκε %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edited %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -28752,6 +28843,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Αρχική Ανάρτηση · %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Original Post · %@"
           }
         },
         "es" : {
@@ -29105,6 +29202,12 @@
             "value" : "%@ μέσω %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%@ via %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -29413,9 +29516,16 @@
       }
     },
     "Common.Controls.Status.MatchesFilter.%@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matches filter “%@”"
+          }
+        }
+      }
     },
-    "Common.Controls.Status.Media.AccessibilityLabel" : {
+    "Common.Controls.Status.Media.AccessibilityLabel.%@.attachment%lldof%lld" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
@@ -29590,16 +29700,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ 附件 %lld 之 %lld"
-          }
-        }
-      }
-    },
-    "Common.Controls.Status.Media.AccessibilityLabel.%@.attachment%lldof%lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Common.Controls.Status.Media.AccessibilityLabel.%1$@.attachment%2$lldof%3$lld"
           }
         }
       }
@@ -30543,6 +30643,12 @@
             "value" : "Διεύθυνση email: %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email address: %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -30713,6 +30819,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Ετικέτα: %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hashtag: %@"
           }
         },
         "es" : {
@@ -30887,6 +30999,12 @@
             "value" : "Εμφάνιση Προφίλ: %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Profile: %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -31057,6 +31175,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Σύνδεσμος: %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link: %@"
           }
         },
         "es" : {
@@ -31601,7 +31725,7 @@
         }
       }
     },
-    "Common.Controls.Status.PostedViaApplication" : {
+    "Common.Controls.Status.PostedViaApplication.%@.%@" : {
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
@@ -31776,16 +31900,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "%@ 透過 %@"
-          }
-        }
-      }
-    },
-    "Common.Controls.Status.PostedViaApplication.%@.%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Common.Controls.Status.PostedViaApplication.%1$@.%2$@"
           }
         }
       }
@@ -34392,6 +34506,12 @@
             "value" : "Μεταφράστηκε από %@ χρησιμοποιώντας το %@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Translated from %@ using %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -34922,6 +35042,12 @@
             "value" : "%@ ενισχύθηκε"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ boosted"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -35098,6 +35224,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Απάντησε στον χρήστη %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replied to %@"
           }
         },
         "es" : {
@@ -36517,17 +36649,6 @@
         }
       }
     },
-    "Common.Controls.Tabs.Notification" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Agahdarî"
-          }
-        }
-      }
-    },
     "Common.Controls.Tabs.Notifications" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -36888,17 +37009,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "個人檔案"
-          }
-        }
-      }
-    },
-    "Common.Controls.Tabs.Search" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ku-TR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bigere"
           }
         }
       }
