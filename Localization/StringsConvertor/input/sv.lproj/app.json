@@ -57,7 +57,7 @@
                 "title": "Media Missing Alt Text",
                 "message": "%d of your images are missing alt text.\nPost Anyway?",
                 "cancel": "Avbryt",
-                "post": "Post"
+                "post": "Inlägg"
             },
             "boost_a_post": {
                 "title_boost": "Boost Post?",
@@ -69,7 +69,7 @@
             "unfollow_user": {
                 "title": "Unfollow %@?",
                 "cancel": "Avbryt",
-                "unfollow": "Unfollow"
+                "unfollow": "Avfölj"
             }
         },
         "controls": {
@@ -156,9 +156,9 @@
                 }
             },
             "status": {
-                "reply": "Reply",
+                "reply": "Svara",
                 "private_reply": "Private reply",
-                "mention": "Mention",
+                "mention": "Omnämn",
                 "private_mention": "Private mention",
                 "user_reblogged": "%s boosted",
                 "user_replied_to": "Svarade på %s",
@@ -234,7 +234,7 @@
                 },
                 "edited_at_timestamp_prefix": "Ändrad %s",
                 "edit_history": {
-                    "title": "Edit History",
+                    "title": "Redigeringshistorik",
                     "original_post": "Original Post · %s"
                 },
                 "card": {
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "Hem",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Följer",
                 "local_community": "Local",
                 "lists": {
                     "title": "Listor",
@@ -740,17 +740,17 @@
                 "Mentions": "Omnämningar"
             },
             "headers": {
-                "report": "Report",
+                "report": "Rapportera",
                 "sign_up": "Signup",
-                "favourite": "Favorite",
-                "follow": "Follow",
+                "favourite": "Favorit",
+                "follow": "Följ",
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
-                "poll": "Poll",
+                "poll": "Omröstning",
                 "boost": "Boost",
                 "severed_relationships": "Domain block",
-                "status": "Post",
-                "edit": "Edit"
+                "status": "Inlägg",
+                "edit": "Redigera"
             },
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
@@ -802,7 +802,7 @@
             "learn_more_about_server_blocks": "Learn more about server blocks",
             "filtered_notification": {
                 "title": "Filtered Notifications",
-                "accept": "Accept",
+                "accept": "Godkänn",
                 "dismiss": "Dismiss"
             },
             "policy": {
@@ -886,7 +886,7 @@
                 }
             },
             "notifications": {
-                "title": "Notifications",
+                "title": "Notiser",
                 "policy": {
                     "title": "Få aviseringar från",
                     "anyone": "Anyone",
@@ -922,7 +922,7 @@
                 "appear_in_search_engines": "Appear in Search Engines"
             },
             "donation": {
-                "title": "Donate to Mastodon",
+                "title": "Stöd Mastodon",
                 "manage": "Manage donations"
             }
         },
@@ -1059,7 +1059,7 @@
         },
         "hashtag": {
             "configuration": {
-                "display_name": "Hashtag",
+                "display_name": "Hashtagg",
                 "description": "Shows a recent post with the selected hashtag."
             },
             "not_found": {
