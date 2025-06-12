@@ -631,7 +631,7 @@
                 },
                 "confirm_unmute_user": {
                     "title": "Ton einschalten",
-                    "message": "Bestätige um %s nicht mehr stummzuschalten"
+                    "message": "Bestätige, um %s nicht mehr stummzuschalten"
                 },
                 "confirm_block_user": {
                     "title": "Konto blockieren",
