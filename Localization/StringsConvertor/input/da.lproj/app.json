@@ -12,15 +12,15 @@
                 "title": "Serverfejl"
             },
             "vote_failure": {
-                "title": "Vote Failure",
+                "title": "Afstemningsfejl",
                 "poll_ended": "Afstemningen er slut"
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Fejl ved offentliggørelse",
+                "message": "Kunne ikke publicere indlægget.\nKontroller venligst din internetforbindelse.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "En video kan ikke vedhæftes et indlæg, der allerede inholder billeder.",
+                    "more_than_one_video": "Kan ikke vedhæfte mere end én video."
                 }
             },
             "edit_profile_failure": {
@@ -33,12 +33,12 @@
                 "confirm": "Log ud"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "Er du fuldstændig sikker på, at du vil blokere hele %s? Oftest vil nogle få målrettede blokeringer eller skjulninger være tilstrækkelige og at foretrække. Du vil ikke se indhold fra dette domæne i nogle offentlige tidslinjer eller i dine notifikationer, og dine følgere fra domænet fjernes ligeledes.",
                 "block_entire_domain": "Blokér domæne"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Fejl ved lagring af foto",
+                "message": "Aktivér venligst tilladelsen til adgang til fotobiblioteket for at gemme billedet."
             },
             "delete_post": {
                 "title": "Slet indlæg",
@@ -46,7 +46,7 @@
             },
             "clean_cache": {
                 "title": "Ryd cache",
-                "message": "Successfully cleaned %s cache."
+                "message": "%s cache blev ryddet."
             },
             "translation_failed": {
                 "title": "Note",
@@ -54,8 +54,8 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "title": "Medie mangler Alt-tekst",
+                "message": "%d af dine billeder mangler Alt-tekst. Slå op alligevel?",
                 "cancel": "Annuller",
                 "post": "Fremhæv"
             },
@@ -64,7 +64,7 @@
                 "title_unboost": "Fjern fremhævning?",
                 "cancel": "Annuller",
                 "boost": "Fremhæv",
-                "unboost": "Unboost"
+                "unboost": "Fjern fremhævelse"
             },
             "unfollow_user": {
                 "title": "Følg ikke længere %@?",
@@ -103,7 +103,7 @@
                 "open_in_safari": "Åbn i Safari",
                 "open_in_browser": "Åbn i browser",
                 "find_people": "Find personer, du kan følge",
-                "manually_search": "Manually search instead",
+                "manually_search": "Søg manuelt i stedet",
                 "skip": "Spring over",
                 "reply": "Svar",
                 "report_user": "Anmeld %s",
@@ -221,9 +221,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, vedhæftning %d af %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_image_hint": "Udvider billedet. Dobbelttryk og hold nede for at vise handlinger",
+                    "expand_gif_hint": "Udvider GIF'en. Dobbelttryk og hold nede for at vise handlinger",
+                    "expand_video_hint": "Viser videoafspilleren. Dobbelttryk og hold nede for at vise handlinger"
                 },
                 "posted_via_application": "%s via %s",
                 "buttons": {
@@ -277,7 +277,7 @@
                 },
                 "header": {
                     "no_status_found": "Ingen indlæg fundet",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "blocking_warning": "Du kan ikke se denne brugers profil\nfør du fjerner blokeringen af dem.\nDin profil ser sådan ud for dem.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
