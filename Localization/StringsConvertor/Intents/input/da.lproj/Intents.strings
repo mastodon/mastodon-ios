@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Læg op på Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Tekstindhold";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Læg op på Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Hvilket indhold skal lægges op?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Indlæg mislykkedes";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Årsag til fejl";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Send indlæg med tekstindhold";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Indlæg";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Læg ${content} på Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Indlæg";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Synlighed";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Synlighed af indlæg";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Der er ${count} muligheder, der matcher ‘Offentlig’.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Der er ${count} muligheder, der matcher ‘Kun følgere’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Offentlig";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Kun følgere";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Læg op på Mastodon";
 
 "dYQ5NN" = "Offentlig";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Kun følgere";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Indlæg mislykkedes. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Indlæg blev sendt.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Bare for at bekræfte, du ville have ‘Offentlig’?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Bare for at bekræfte, du ville have ‘Kun følgere’?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Indlæg blev sendt. ";
