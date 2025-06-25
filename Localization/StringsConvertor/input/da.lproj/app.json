@@ -278,9 +278,9 @@
                 "header": {
                     "no_status_found": "Ingen indlæg fundet",
                     "blocking_warning": "Du kan ikke se denne brugers profil\nfør du fjerner blokeringen af dem.\nDin profil ser sådan ud for dem.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "user_blocking_warning": "Du kan ikke se %s's profil\nfør du fjerner blokeringen af dem.\nDin profil ser sådan ud for dem.",
+                    "blocked_warning": "Du kan ikke se denne brugers profil\nfør de fjerner blokeringen af dig.",
+                    "user_blocked_warning": "Du kan ikke se %s's profil,\nfør de fjerner blokeringen af dig.",
                     "suspended_warning": "Denne bruger er blevet suspenderet.",
                     "user_suspended_warning": "%s’s konto er blevet suspenderet."
                 }
@@ -303,11 +303,11 @@
             "education": {
                 "mastodon": {
                     "title": "Velkommen til Mastodon",
-                    "description": "Mastodon is a decentralized social network, meaning no single company controls it. It’s made up of many independently-run servers, all connected together."
+                    "description": "Mastodon er et decentraliseret socialt netværk, hvilket betyder, at ingen enkelt virksomhed kontrollerer det. Det består af mange uafhængigt drevne servere, som alle er forbundet med hinanden."
                 },
                 "servers": {
                     "title": "Hvad er servere?",
-                    "description": "Every Mastodon account is hosted on a server — each with its own values, rules, & admins. No matter which one you pick, you can follow and interact with people on any server."
+                    "description": "Hver Mastodon-konto er hostet på en server - hver med sine egne værdier, regler og administratorer. Uanset hvilken du vælger, kan du følge og interagere med folk på alle servere."
                 },
                 "a11y": {
                     "what_is_mastodon": {
@@ -327,7 +327,7 @@
             "title": "Vælg server",
             "button": {
                 "language": "Sprog",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "Tilmeldingshastighed",
                 "category": {
                     "all": "Alle",
                     "all_accessiblity_description": "Kategori: Alle",
@@ -353,11 +353,11 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Søg fællesskaber eller angiv URL"
             },
             "empty_state": {
                 "finding_servers": "Finder tilgængelige servere...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "bad_network": "Noget gik galt under indlæsning af dataene. Tjek din internetforbindelse.",
                 "no_results": "Ingen resultater"
             },
             "signup_speed": {
@@ -375,9 +375,9 @@
         },
         "privacy": {
             "title": "Dit privatliv",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "description": "Selvom Mastodon-appen ikke indsamler nogen data, kan den server, du tilmelder dig gennem, have en anden politik.\n\nHvis du er uenig i politikken for **%s**, kan du gå tilbage og vælge en anden server.",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS",
+                "ios": "Privatlivspolitik - Mastodon til iOS",
                 "server": "Privatlivspolitik - %s"
             },
             "button": {
@@ -389,7 +389,7 @@
             "input": {
                 "birth_date": {
                     "label": "Fødselsdato",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "explanation_message": "Vi er nødt til at sikre os, at du er mindst %d for at blive medlem af %@. Dette bliver ikke gemt efter tilmelding."
                 },
                 "avatar": {
                     "delete": "Slet"
@@ -443,9 +443,9 @@
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "username_too_long": "Brugernavn er for langt (kan ikke være længere end 30 tegn)",
                     "email_invalid": "Dette er ikke en gyldig e-mailadresse",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "password_too_short": "Adgangskoden er for kort (skal være mindst 8 tegn)"
                 }
             }
         },
