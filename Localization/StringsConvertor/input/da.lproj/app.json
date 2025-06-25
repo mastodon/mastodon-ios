@@ -411,8 +411,8 @@
                     "require": "Din adgangskode skal bestå af mindst:",
                     "character_limit": "8 tegn",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "markeret",
+                        "unchecked": "ikke markeret"
                     },
                     "hint": "Din adgangskode skal bestå af mindst otte tegn"
                 },
@@ -432,17 +432,17 @@
                 "reason": {
                     "blocked": "%s indeholder en blokeret e-mailudbyder",
                     "unreachable": "%s ser ikke ud til at eksistere",
-                    "taken": "%s is already taken. How about:",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
+                    "taken": "%s er allerede taget. Hvad med:",
+                    "reserved": "%s er et reserveret nøgleord",
+                    "accepted": "%s skal accepteres",
+                    "blank": "%s er påkrævet",
                     "invalid": "%s er ugyldig",
                     "too_long": "%s er for lang",
                     "too_short": "%s er for kort",
                     "inclusion": "%s er ikke en understøttet værdi"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_invalid": "Brugernavn må kun indeholde alfanumeriske tegn og understregninger",
                     "username_too_long": "Brugernavn er for langt (kan ikke være længere end 30 tegn)",
                     "email_invalid": "Dette er ikke en gyldig e-mailadresse",
                     "password_too_short": "Adgangskoden er for kort (skal være mindst 8 tegn)"
@@ -451,9 +451,9 @@
         },
         "server_rules": {
             "title": "Serverregler",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
+            "subtitle": "Ved at fortsætte accepterer du at følge følgende regler, der er fastsat og håndhæves af **%s**-moderatorerne.",
+            "prompt": "Ved at fortsætte er du underlagt servicevilkårene og privatlivspolitikken for %s.",
+            "terms_of_service": "vilkår for service",
             "privacy_policy": "privatlivspolitik",
             "button": {
                 "confirm": "Jeg accepterer",
@@ -462,18 +462,18 @@
         },
         "confirm_email": {
             "title": "Tjek din indbakke",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tryk på det link, vi har sendt dig, for at bekræfte %@. Vi venter her så længe.",
             "button": {
                 "resend": "Send igen"
             },
             "dont_receive_email": {
                 "title": "Tjek din email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "description": "Tjek, om din e-mailadresse er korrekt, og tjek din spam-mappe, hvis du ikke har gjort det.",
                 "resend_email": "Send e-mail igen"
             },
             "open_email_app": {
                 "title": "Tjek din indbakke.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "description": "Vi har lige sendt dig en e-mail. Tjek din spam-mappe, hvis du ikke har gjort det.",
                 "mail": "Mail",
                 "open_email_client": "Åbn e-mailklient"
             },
@@ -573,23 +573,23 @@
                 "custom_emoji_picker": "Brugerdefineret Emoji-vælger",
                 "enable_content_warning": "Aktiver indholdsadvarsel",
                 "disable_content_warning": "Deaktiver indholdsadvarsel",
-                "post_visibility_menu": "Post Visibility Menu",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_visibility_menu": "Menu for synlighed af indlæg",
+                "post_options": "Indstillinger for indlæg",
+                "posting_as": "Indlæg som %s"
             },
             "keyboard": {
                 "discard_post": "Kassér indlæg",
                 "publish_post": "Offentliggør indlæg",
-                "toggle_poll": "Toggle Poll",
+                "toggle_poll": "Skift afstemning",
                 "toggle_content_warning": "Slå indholdsadvarsel til/fra",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "append_attachment_entry": "Tilføj vedhæftning - %s",
+                "select_visibility_entry": "Vælg synlighed - %s"
             },
             "language": {
                 "title": "Indlæggets sprog",
                 "suggested": "Foreslået",
                 "recent": "Seneste",
-                "other": "Other Language…"
+                "other": "Andet sprog…"
             }
         },
         "profile": {
@@ -598,10 +598,10 @@
             },
             "dashboard": {
                 "my_posts": "indlæg",
-                "my_following": "following",
+                "my_following": "følger",
                 "my_followers": "følgere",
                 "other_posts": "indlæg",
-                "other_following": "following",
+                "other_following": "følger",
                 "other_followers": "følgere",
                 "familiar_followers": "fælles"
             },
@@ -655,33 +655,33 @@
                 },
                 "confirm_unblock_domain": {
                     "title": "Fjern blokering af domæne",
-                    "message": "Confirm to unblock domain %s"
+                    "message": "Bekræft for at fjerne blokeringen af domæne %s"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Vis avatar-billede",
+                "edit_avatar_image": "Rediger avatar-billede",
+                "show_banner_image": "Vis banner-billede",
+                "double_tap_to_open_the_list": "Dobbelttryk for at åbne listen"
             }
         },
         "follower": {
-            "title": "follower",
-            "footer": "Followers from other servers are not displayed."
+            "title": "følger",
+            "footer": "Følgere fra andre servere vises ikke."
         },
         "following": {
-            "title": "following",
-            "footer": "Follows from other servers are not displayed."
+            "title": "følger",
+            "footer": "Følgere fra andre servere vises ikke."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Følgere du kender",
+            "followed_by_names": "Følges af %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Gjort til favorit af"
         },
         "reblogged_by": {
-            "title": "Boosted By"
+            "title": "Fremhævet af"
         },
         "search": {
             "title": "Søg",
@@ -690,7 +690,7 @@
                 "cancel": "Annuller"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Vis alle",
                 "hash_tag": {
                     "title": "Trending on Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
@@ -909,7 +909,7 @@
                 "title": "Privatliv og sikkerhed",
                 "preset": {
                     "title": "Preset",
-                    "open_and_public": "Open & Public",
+                    "open_and_public": "Åben og offentlig",
                     "private_and_restricted": "Private & Restricted",
                     "custom": "Custom"
                 },
