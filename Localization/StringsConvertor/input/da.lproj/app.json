@@ -24,8 +24,8 @@
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Fejl ved redigering af profil",
+                "message": "Kan ikke redigere profil. Prøv igen."
             },
             "sign_out": {
                 "title": "Log ud",
@@ -34,7 +34,7 @@
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "block_entire_domain": "Blokér domæne"
             },
             "save_photo_failure": {
                 "title": "Save Photo Failure",
@@ -95,7 +95,7 @@
                 "copy_photo": "Kopier foto",
                 "sign_in": "Log ind",
                 "see_more": "Se mere",
-                "preview": "Preview",
+                "preview": "Forhåndsvising",
                 "copy": "Kopier",
                 "share": "Del",
                 "share_user": "Del %s",
@@ -228,7 +228,7 @@
                 "posted_via_application": "%s via %s",
                 "buttons": {
                     "reblogs_title": "Boosts",
-                    "favorites_title": "Favorites",
+                    "favorites_title": "Favoritter",
                     "edit_history_title": "Redigeringshistorik",
                     "edit_history_detail": "Last edit %s"
                 },
@@ -245,16 +245,16 @@
             "friendship": {
                 "follow": "Følg",
                 "follow_back": "Follow back",
-                "following": "Following",
+                "following": "Følger",
                 "mutual": "Mutual",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
+                "request": "Anmod",
+                "pending": "Afventer",
+                "block": "Blokér",
                 "block_user": "Bloker %s",
-                "block_domain": "Block domain %s",
-                "unblock": "Unblock",
+                "block_domain": "Blokér domænet %s",
+                "unblock": "Fjern blokering",
                 "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
+                "blocked": "Blokeret",
                 "domain_blocked": "Domæne blokeret",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
@@ -486,7 +486,7 @@
         "home_timeline": {
             "title": "Hjem",
             "timeline_menu": {
-                "following": "Following",
+                "following": "Følger",
                 "local_community": "Local",
                 "lists": {
                     "title": "Lister",
@@ -732,7 +732,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Favorites"
+            "title": "Favoritter"
         },
         "notification": {
             "title": {
@@ -897,7 +897,7 @@
                 "alert": {
                     "mentions_and_replies": "Mentions & Replies",
                     "boosts": "Boosts",
-                    "favorites": "Favorites",
+                    "favorites": "Favoritter",
                     "new_followers": "New Followers"
                 },
                 "disabled": {
