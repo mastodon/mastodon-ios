@@ -54,7 +54,7 @@
                 "button": "Gerai"
             },
             "media_missing_alt_text": {
-                "title": "Medijoje trūksta alternatyvaus teksto",
+                "title": "Medijos trūksta alternatyvaus teksto",
                 "message": "%d iš jūsų vaizdų trūksta alternatyvių tekstų.\nSkelbti vis tiek?",
                 "cancel": "Atšaukti",
                 "post": "Skelbti"
