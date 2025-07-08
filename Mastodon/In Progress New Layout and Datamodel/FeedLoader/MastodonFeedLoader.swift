@@ -84,8 +84,12 @@ public class MastodonFeedLoader<PublishedType: Identifiable, CachedType: Cacheab
         
         activeFilterBoxSubscription = StatusFilterService.shared
             .$activeFilterBox
-            .sink { _ in
-                // TODO: reload completely
+            .sink { [weak self] _ in
+                guard let self else { return }
+                if let currentResults = cacheManager.currentResults(), currentResults.hasResults {
+                    let refiltered = self.filteredResults(fromCachedType: currentResults)
+                    self.replaceRecords(refiltered, canLoadOlder: records.canLoadOlder)
+                }
             }
     }
     
