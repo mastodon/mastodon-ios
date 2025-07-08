@@ -1104,48 +1104,9 @@ struct AttributedStringDisplayInfo {
             actionHandler?.presentScene(.hashtagTimeline(viewModel: hashtagTimelineViewModel), transition: .show)
             return true
         } else {
-            return false
-        }
-    }
-    
-    func didSelect(meta: Meta?) {
-        switch meta {
-        case .none:
-            openThreadView()
- 
-        case .url(_, _, let url, _),
-                .mention(_, let url, _) where url.lowercased().hasPrefix("http"):
-            // note:
-            // some server mark the normal url as "u-url" class. highlighted content is a URL
-            
             // fix non-ascii character URL link can not open issue
-            guard let url = URL(string: url) ?? URL(string: url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? url) else {
-                assertionFailure()
-                return
-            }
             actionHandler?.presentScene(.safari(url: url), transition: .safariPresent(animated: true, completion: nil))
-            
-        case .hashtag(_, let hashtag, _):
-            guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
-            let hashtagTimelineViewModel = HashtagTimelineViewModel(authenticationBox: currentUser, hashtag: hashtag)
-            actionHandler?.presentScene(.hashtagTimeline(viewModel: hashtagTimelineViewModel), transition: .show)
-            
-        case .mention(_, let mention, let userInfo):
-            guard
-                let href = userInfo?["href"] as? String,
-                let url = URL(string: href)
-            else {
-                return
-            }
-            let mentions = fullPost?.actionablePost?.content.htmlWithEntities?.mentions
-            guard let mention = mentions?.first(where: { $0.url == href }) else {
-                actionHandler?.presentScene(.safari(url: url), transition: .safariPresent(animated: true, completion: nil))
-                return
-            }
-            goToProfile(mention)
-        default:
-            assertionFailure()
-            break
+            return true
         }
     }
     
