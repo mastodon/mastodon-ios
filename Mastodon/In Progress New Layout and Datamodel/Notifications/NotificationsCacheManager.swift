@@ -184,10 +184,10 @@ class GroupedNotificationCacheManager: MastodonFeedCacheManager {
     private let feedKind: MastodonFeedKind
     
     private var staleResults: CachedType?
-    private var staleMarkers: Fetchable<LastReadMarkers> = .initial
+    private var staleMarkers: Fetchable<LastReadMarkers.MarkerPosition> = .initial
     
     internal var mostRecentlyFetchedResults: CachedType?
-    private var mostRecentMarkers: Fetchable<LastReadMarkers> = .initial
+    private var mostRecentMarkers: Fetchable<LastReadMarkers.MarkerPosition> = .initial
     
     init(feedKind: MastodonFeedKind, userIdentifier: MastodonUserIdentifier) {
         
@@ -298,16 +298,28 @@ class GroupedNotificationCacheManager: MastodonFeedCacheManager {
     }
     
     func updateToNewerMarker(_ newMarker: LastReadMarkers.MarkerPosition, enforceForwardProgress: Bool) {
-        let updatable = mostRecentMarkers.value ?? staleMarkers.value ?? LastReadMarkers(userGUID: userIdentifier.globallyUniqueUserIdentifier, home: nil, notifications: nil, mentions: nil)
-        mostRecentMarkers = .known(updatable.bySettingPosition(newMarker, forKind: feedKind, enforceForwardProgress: enforceForwardProgress))
+        Task {
+            let cachedMarkers = await BodegaPersistence.LastRead.lastReadMarkers(for: userIdentifier) ?? LastReadMarkers(userGUID: userIdentifier.globallyUniqueUserIdentifier, home: nil, notifications: nil, mentions: nil)
+            let updated = cachedMarkers.bySettingPosition(newMarker, forKind: feedKind, enforceForwardProgress: enforceForwardProgress)
+            mostRecentMarkers = .known(updated.lastRead(forKind: feedKind))
+        }
     }
     
     func didFetchMarkers(_ updatedMarkers: Mastodon.Entity.Marker) {
-        var updatable = mostRecentMarkers.value ?? staleMarkers.value ?? LastReadMarkers(userGUID: userIdentifier.globallyUniqueUserIdentifier, home: nil, notifications: nil, mentions: nil)
-        if let notifications = updatedMarkers.notifications {
-            updatable = updatable.bySettingPosition(.fromServer(notifications), forKind: .notificationsAll, enforceForwardProgress: true)
+        guard let mostRecent = mostRecentMarkers.value else {
+            if let updatedPosition = updatedMarkers.notifications {
+                mostRecentMarkers = .known(.fromServer(updatedPosition))
+            }
+            return
         }
-        mostRecentMarkers = .known(updatable)
+        Task {
+            let cachedMarkers = await BodegaPersistence.LastRead.lastReadMarkers(for: userIdentifier) ?? LastReadMarkers(userGUID: userIdentifier.globallyUniqueUserIdentifier, home: nil, notifications: nil, mentions: nil)
+            if let currentPosition = mostRecentMarkers.value, let updatedPosition = updatedMarkers.notifications {
+                let current = cachedMarkers.bySettingPosition(currentPosition, forKind: feedKind, enforceForwardProgress: false)
+                let updated = current.bySettingPosition(.fromServer(updatedPosition), forKind: .notificationsAll, enforceForwardProgress: true)
+                mostRecentMarkers = .known(updated.lastRead(forKind: feedKind))
+            }
+        }
     }
     
     func currentResults() -> CachedType? {
@@ -361,7 +373,7 @@ class GroupedNotificationCacheManager: MastodonFeedCacheManager {
             assertionFailure("not implemented")
             return nil
         case .notificationsAll, .notificationsMentionsOnly:
-            return (mostRecentMarkers.value ?? staleMarkers.value)?.lastRead(forKind: feedKind)
+            return mostRecentMarkers.value ?? staleMarkers.value
         case .notificationsWithAccount:
             return nil
         }
@@ -378,15 +390,16 @@ class GroupedNotificationCacheManager: MastodonFeedCacheManager {
         Task { [weak self] in
             guard let self, self.shouldSaveCacheToDisk else { return }
             let fromCache = await BodegaPersistence.LastRead.lastReadMarkers(for: self.userIdentifier)
-            staleMarkers = .known(fromCache)
+            staleMarkers = .known(fromCache?.lastRead(forKind: feedKind))
         }
     }
     
     func commitToCache() async {
         guard shouldSaveCacheToDisk else { return }
-        if let updatedMarkers = mostRecentMarkers.value {
+        if let updatedLastRead = mostRecentMarkers.value {
             Task {
-                try await BodegaPersistence.LastRead.saveLastReadMarkers(updatedMarkers, for: userIdentifier)
+                let cachedMarkers = await BodegaPersistence.LastRead.lastReadMarkers(for: userIdentifier) ?? LastReadMarkers(userGUID: userIdentifier.globallyUniqueUserIdentifier, home: nil, notifications: nil, mentions: nil)
+                try await BodegaPersistence.LastRead.saveLastReadMarkers(cachedMarkers.bySettingPosition(updatedLastRead, forKind: feedKind, enforceForwardProgress: true), for: userIdentifier)
             }
         }
         if let mostRecentlyFetchedResults {
