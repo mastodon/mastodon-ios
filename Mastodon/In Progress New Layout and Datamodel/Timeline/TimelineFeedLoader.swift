@@ -461,6 +461,9 @@ class TimelineCacheManager: MastodonFeedCacheManager {
         self.trackLastRead = trackLastRead
         Task {
             let timeline = BodegaPersistence.cachedTimeline(forUser: currentUser)
+            if trackLastRead {
+                self.currentLastReadMarker = await BodegaPersistence.LastRead.lastReadMarkers(for: currentUser)?.lastRead(forKind: .home)
+            }
             self.staleResults = CacheableTimeline(older: [], newer: timeline)
         }
     }

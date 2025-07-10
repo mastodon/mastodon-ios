@@ -788,10 +788,15 @@ fileprivate class ScrollManager {
     }
     
     func scrollLastReadToTop(cachedLastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy) {
+        guard isAppeared else { return } // the proxy scroll does not behave correctly until the view is on screen
         let topVisibleItemMatch = items.first(where: { visibleItems.contains($0.id) })
         let cachedLastReadMatch = items.first(where: { cachedLastReadID == $0.id })
         guard let anchorItem = topVisibleItemMatch ?? cachedLastReadMatch else { return }
-        proxy.scrollTo(anchorItem, anchor: .top)
+        DispatchQueue.main.async {
+            withAnimation {
+                proxy.scrollTo(anchorItem, anchor: .top)
+            }
+        }
     }
 }
 
