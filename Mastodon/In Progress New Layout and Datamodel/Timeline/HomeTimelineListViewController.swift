@@ -384,8 +384,10 @@ private class HomeTimelineListViewModel: ObservableObject {
         feedLoader = TimelineFeedLoader(currentUser: currentUser, timeline: timeline)
         feedLoaderResultsSubscription = feedLoader?.$records
             .sink{ [weak self] results in
-                self?.tailItemIds = results.allRecords.suffix(5).map { $0.id }
-                self?.timelineItems = results.allRecords + (results.canLoadOlder ? [.loadingIndicator] : [])
+                DispatchQueue.main.async {
+                    self?.tailItemIds = results.allRecords.suffix(5).map { $0.id }
+                    self?.timelineItems = results.allRecords + (results.canLoadOlder ? [.loadingIndicator] : [])
+                }
             }
         // TODO: add feedLoaderErrorSubscription
         feedLoader?.doFirstLoad()
