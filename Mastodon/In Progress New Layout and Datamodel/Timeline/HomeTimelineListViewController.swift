@@ -434,6 +434,14 @@ private class HomeTimelineListViewModel: ObservableObject {
     func contentConcealModel(forActionablePost post: Mastodon.Entity.Status.ID) -> ContentConcealViewModel {
         return feedLoader?.contentConcealViewModel(forContentPost: post) ?? .alwaysShow
     }
+    
+    var lastReadID: String? {
+        feedLoader?.lastRead()
+    }
+    
+    func updateLastReadID(_ lastRead: String) {
+        feedLoader?.markAsRead(lastRead)
+    }
 }
 
 extension HomeTimelineListViewModel {
@@ -552,6 +560,7 @@ extension HomeTimelineListViewModel {
 
 struct HomeTimelineListView: View {
     @ObservedObject private var viewModel: HomeTimelineListViewModel
+    @State private var scrollManager = ScrollManager()
     
     @ScaledMetric private var avatarSize = AvatarSize.large
     
@@ -592,8 +601,17 @@ struct HomeTimelineListView: View {
                                     .environment(postViewModel)
                                     .padding(spacingBetweenGutterAndContent)
                                     .frame(width: usableWidth)
+                                    .background(content: {
+                                        if postViewModel.initialDisplayInfo.id == viewModel.lastReadID {
+                                            Rectangle().fill(.yellow)
+                                        }
+                                    })
                                     .onAppear {
                                         viewModel.didAppear(postViewModel, contentWidth: contentWidth)
+                                        scrollManager.didAppear(postViewModel.initialDisplayInfo.id)
+                                    }
+                                    .onDisappear() {
+                                        scrollManager.didDisappear(postViewModel.initialDisplayInfo.id)
                                     }
 #if DEBUG && false
                                     .background {
@@ -607,6 +625,12 @@ struct HomeTimelineListView: View {
                             }
                         }
                     }
+                    .onChange(of: viewModel.timelineItems, initial: true) { oldValue, newValue in
+                        // keep the first last read item scrolled to the top of the view through reloads
+                        if let lastRead = viewModel.lastReadID {
+                            scrollManager.scrollLastReadToTop(cachedLastReadID: lastRead, items: newValue, proxy: proxy)
+                        }
+                    }
                     .refreshable {
                         await viewModel.refreshFeedFromTop()
                     }
@@ -618,6 +642,13 @@ struct HomeTimelineListView: View {
         }
         .onAppear() {
             viewModel.clearPendingActions()
+            scrollManager.viewDidAppear()
+        }
+        .onDisappear() {
+            if let topVisible = viewModel.timelineItems.first(where: { scrollManager.isVisible($0.id) }) {
+                viewModel.updateLastReadID(topVisible.id)
+            }
+            scrollManager.viewDidDisappear()
         }
         .alert(viewModel.activeAlert.title, isPresented: $viewModel.isPresentingAlert, presenting: viewModel.activeAlert) { alert in
             alertContents(alert)
@@ -722,6 +753,45 @@ struct HomeTimelineListView: View {
         label: {
             Text(L10n.Common.Controls.Actions.cancel)
         }
+    }
+}
+
+fileprivate class ScrollManager {
+    public var isAppeared: Bool = false
+    
+    private var visibleItems = Set<String>()
+    
+    func isVisible(_ id: String) -> Bool {
+        return visibleItems.contains(id)
+    }
+    
+    func reset() {
+        visibleItems.removeAll()
+    }
+    
+    func viewDidAppear() {
+        assert(!isAppeared)
+        isAppeared = true
+    }
+    
+    func viewDidDisappear() {
+        assert(isAppeared)
+        isAppeared = false
+    }
+    
+    func didAppear(_ itemID: String) {
+        visibleItems.insert(itemID)
+    }
+    
+    func didDisappear(_ itemID: String) {
+        visibleItems.remove(itemID)
+    }
+    
+    func scrollLastReadToTop(cachedLastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy) {
+        let topVisibleItemMatch = items.first(where: { visibleItems.contains($0.id) })
+        let cachedLastReadMatch = items.first(where: { cachedLastReadID == $0.id })
+        guard let anchorItem = topVisibleItemMatch ?? cachedLastReadMatch else { return }
+        proxy.scrollTo(anchorItem, anchor: .top)
     }
 }
 

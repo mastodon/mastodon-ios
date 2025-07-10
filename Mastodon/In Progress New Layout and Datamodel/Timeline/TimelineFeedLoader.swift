@@ -94,7 +94,16 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         self.timeline = timeline
         authenticatedUser = currentUser
         myAccountID = authenticatedUser.cachedAccount?.id
-        super.init(TimelineCacheManager(currentUser: currentUser))
+        let trackLastRead = {
+            switch timeline {
+            case .following:
+                true
+            case .hashtag, .local, .list:
+                false
+            }
+        }()
+        let cacheManager = TimelineCacheManager(currentUser: currentUser, trackLastRead: trackLastRead)
+        super.init(cacheManager)
     }
 
     override func fetchResults(for request: MastodonFeedLoaderRequest) async throws -> CacheableTimeline {
@@ -447,8 +456,9 @@ class TimelineCacheManager: MastodonFeedCacheManager {
     
     private let currentUser: MastodonAuthenticationBox
     
-    init(currentUser: MastodonAuthenticationBox) {
+    init(currentUser: MastodonAuthenticationBox, trackLastRead: Bool) {
         self.currentUser = currentUser
+        self.trackLastRead = trackLastRead
         Task {
             let timeline = BodegaPersistence.cachedTimeline(forUser: currentUser)
             self.staleResults = CacheableTimeline(older: [], newer: timeline)
@@ -482,6 +492,7 @@ class TimelineCacheManager: MastodonFeedCacheManager {
         }
     }
     
+    let trackLastRead: Bool
     var currentLastReadMarker: LastReadMarkers.MarkerPosition?
     
     func didFetchMarkers(_ updatedMarkers: MastodonSDK.Mastodon.Entity.Marker) {
@@ -489,12 +500,21 @@ class TimelineCacheManager: MastodonFeedCacheManager {
     }
     
     func updateToNewerMarker(_ newMarker: LastReadMarkers.MarkerPosition, enforceForwardProgress: Bool) {
-        // TODO: implement
+        guard trackLastRead else { return }
+        currentLastReadMarker = newMarker
+        Task {
+            await commitToCache()
+        }
     }
     
     func commitToCache() async {
         if let items = currentResults()?.items {
             BodegaPersistence.cacheTimeline(items, forUser: currentUser)
+            guard trackLastRead, let currentLastReadMarker else { return }
+            Task {
+                let currentMarkers = await BodegaPersistence.LastRead.lastReadMarkers(for: currentUser) ?? LastReadMarkers(userGUID: currentUser.globallyUniqueUserIdentifier, home: nil, notifications: nil, mentions: nil)
+                try await BodegaPersistence.LastRead.saveLastReadMarkers(currentMarkers.bySettingPosition(currentLastReadMarker, forKind: .home, enforceForwardProgress: false), for: currentUser)
+            }
         }
     }
     
