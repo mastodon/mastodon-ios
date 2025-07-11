@@ -559,7 +559,7 @@
             },
             "visibility": {
                 "public": "Offentlig",
-                "unlisted": "Tavsgøre offentligt",
+                "unlisted": "Skjul offentligt",
                 "private": "Følgere",
                 "direct": "Kun personer nævnt i indlægget"
             },
