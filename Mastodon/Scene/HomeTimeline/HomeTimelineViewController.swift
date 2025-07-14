@@ -531,6 +531,7 @@ extension HomeTimelineViewController {
                 // do nothing
             }
         } else {
+            self.viewModel?.lastAutomaticFetchTimestamp = Date()
             self.viewModel?.homeTimelineNeedRefresh.send()
         }
     }
