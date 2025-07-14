@@ -23,10 +23,7 @@ public struct MastodonAuthenticationBox: UserIdentifier {
     public var userAuthorization: Mastodon.API.OAuth.Authorization {
         Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)
     }
-    public var inMemoryCache: MastodonAccountInMemoryCache {
-        .sharedCache(for: authentication.userID) // TODO: make sure this is really unique
-    }
-
+    
     public init(authentication: MastodonAuthentication) {
         self.authentication = authentication
     }
@@ -34,23 +31,5 @@ public struct MastodonAuthenticationBox: UserIdentifier {
     @MainActor
     public var cachedAccount: Mastodon.Entity.Account? {
         return authentication.cachedAccount()
-    }
-}
-
-public class MastodonAccountInMemoryCache {
-    @Published public var followingUserIds: [String] = []
-    @Published public var blockedUserIds: [String] = []
-    @Published public var followRequestedUserIDs: [String] = []
-    
-    static var sharedCaches = [String: MastodonAccountInMemoryCache]()
-    
-    public static func sharedCache(for key: String) -> MastodonAccountInMemoryCache {
-        if let sharedCache = sharedCaches[key] {
-            return sharedCache
-        }
-        
-        let sharedCache = MastodonAccountInMemoryCache()
-        sharedCaches[key] = sharedCache
-        return sharedCache
     }
 }

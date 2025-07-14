@@ -23,20 +23,12 @@ public class AuthenticationServiceProvider: ObservableObject {
     
     public let currentActiveUser = CurrentValueSubject<MastodonAuthenticationBox?, Never>(nil)
     @Published public var mastodonAuthenticationBoxes: [MastodonAuthenticationBox] = []
+    @Published public var didChangeFollowersAndFollowing: String?
+    
     public let updateActiveUserAccountPublisher = PassthroughSubject<Void, Never>()
     
     private init() {
         prepareForUse()
-        
-        $mastodonAuthenticationBoxes
-            .throttle(for: 3, scheduler: DispatchQueue.main, latest: true)
-            .sink { [weak self] boxes in
-                guard let nowActive = boxes.first else { return }
-                Task { [weak self] in
-                    try await self?.fetchFollowedBlockedUserIds(nowActive)
-                }
-            }
-            .store(in: &disposeBag)
 
         // TODO: verify credentials for active authentication
         currentActiveUser
@@ -56,6 +48,10 @@ public class AuthenticationServiceProvider: ObservableObject {
                 )
             }
         }
+    }
+    
+    public func sendDidChangeFollowersAndFollowing(for user: String) {
+        didChangeFollowersAndFollowing = user
     }
     
     private func authenticationBoxes(_ authentications: [MastodonAuthentication]) -> [MastodonAuthenticationBox] {
@@ -147,19 +143,6 @@ public class AuthenticationServiceProvider: ObservableObject {
 public extension AuthenticationServiceProvider {
     func getAuthentication(matching userAccessToken: String) -> MastodonAuthentication? {
         authentications.first(where: { $0.userAccessToken == userAccessToken })
-    }
-
-    
-    
-    func fetchFollowingAndBlockedAsync() {
-        /// We're dispatching this as a separate async call to not block the caller
-        /// Also we'll only be updating the current active user as the state will be refreshed upon user-change anyways
-        Task {
-            if let authBox = currentActiveUser.value {
-                do { try await fetchFollowedBlockedUserIds(authBox) }
-                catch {}
-            }
-        }
     }
     
     func signOutMastodonUser(authentication: MastodonAuthentication) async throws {
@@ -286,33 +269,6 @@ private extension AuthenticationServiceProvider {
                 Self.keychain[authentication.persistenceIdentifier] = try? JSONEncoder().encode(authentication).base64EncodedString()
             }
         }
-    }
-    
-    func fetchFollowedBlockedUserIds(
-        _ authBox: MastodonAuthenticationBox,
-        _ previousFollowingIDs: [String]? = nil,
-        _ maxID: String? = nil
-    ) async throws {
-        let apiService = APIService.shared
-        
-        let followingResponse = try await fetchFollowing(maxID, apiService, authBox)
-        let followingIds = (previousFollowingIDs ?? []) + followingResponse.ids
-        
-        if let nextMaxID = followingResponse.maxID {
-            return try await fetchFollowedBlockedUserIds(authBox, followingIds, nextMaxID)
-        }
-        
-        let blockedIds = try await apiService.getBlocked(
-            authenticationBox: authBox
-        ).value.map { $0.id }
-        
-        let followRequestIds = try await apiService.pendingFollowRequest(userID: authBox.userID,
-                                                                         authenticationBox: authBox)
-            .value.map { $0.id }
-        
-        authBox.inMemoryCache.followRequestedUserIDs = followRequestIds
-        authBox.inMemoryCache.followingUserIds = followingIds
-        authBox.inMemoryCache.blockedUserIds = blockedIds
     }
     
     private func fetchFollowing(

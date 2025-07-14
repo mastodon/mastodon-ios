@@ -331,6 +331,7 @@ private class HomeTimelineListViewModel: ObservableObject {
     @Published var isPerformingAccountAction: (action: MastodonPostMenuAction, account: MastodonAccount)? = nil
     
     @Published var timelineItems = [TimelineItem]()
+    private var followersAndBlockedChangeSubscription: AnyCancellable?
     private var feedLoader: TimelineFeedLoader?
     private var feedLoaderResultsSubscription: AnyCancellable?
     private var feedLoaderErrorSubscription: AnyCancellable?
@@ -391,6 +392,12 @@ private class HomeTimelineListViewModel: ObservableObject {
             }
         // TODO: add feedLoaderErrorSubscription
         feedLoader?.doFirstLoad()
+        
+        followersAndBlockedChangeSubscription = AuthenticationServiceProvider.shared.$didChangeFollowersAndFollowing.sink {
+            [weak self] userID in
+            guard userID == self?.authenticatedUser?.globallyUniqueUserIdentifier else { return }
+            self?.feedLoader?.requestLoad(.reload)
+        }
     }
     
     func requestLoad(_ loadRequest: MastodonFeedLoaderRequest) {
@@ -1552,7 +1559,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
                 let response = try await APIService.shared.unfollow(author.id, authenticationBox: authenticatedUser)
                 let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
                 feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: author.id)
-                AuthenticationServiceProvider.shared.fetchFollowingAndBlockedAsync()
+                AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
             }
         } catch {
             // TODO: make visible to user
@@ -1567,7 +1574,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
             let response = try await APIService.shared.follow(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
-            AuthenticationServiceProvider.shared.fetchFollowingAndBlockedAsync()
+            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             // TODO: make visible to user
         }
@@ -1580,7 +1587,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
             let response = try await APIService.shared.mute(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
-            AuthenticationServiceProvider.shared.fetchFollowingAndBlockedAsync()
+            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             // TODO: make visible to user
         }
@@ -1593,7 +1600,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
             let response = try await APIService.shared.unmute(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
-            AuthenticationServiceProvider.shared.fetchFollowingAndBlockedAsync()
+            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             // TODO: make visible to user
         }
@@ -1608,7 +1615,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
             let response = try await APIService.shared.block(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
-            AuthenticationServiceProvider.shared.fetchFollowingAndBlockedAsync()
+            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             // TODO: make visible to user
         }
@@ -1621,7 +1628,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
             let response = try await APIService.shared.unblock(accountID, authenticationBox: authenticatedUser)
             let newRelationshipInfo = MastodonAccount.RelationshipInfo(response, fetchedAt: .now)
             feedLoader?.updateMyRelationship(.isNotMe(newRelationshipInfo), to: accountID)
-            AuthenticationServiceProvider.shared.fetchFollowingAndBlockedAsync()
+            AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authenticatedUser.globallyUniqueUserIdentifier)
         } catch {
             // TODO: make visible to user
         }

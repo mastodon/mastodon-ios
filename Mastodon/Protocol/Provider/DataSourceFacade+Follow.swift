@@ -33,7 +33,7 @@ extension DataSourceFacade {
                             authenticationBox: dependency.authenticationBox
                         ).value
                         
-                        AuthenticationServiceProvider.shared.fetchFollowingAndBlockedAsync()
+                        AuthenticationServiceProvider.shared.sendDidChangeFollowersAndFollowing(for: authBox.globallyUniqueUserIdentifier)
                         
                         
                         NotificationCenter.default.post(name: .relationshipChanged, object: nil, userInfo: [

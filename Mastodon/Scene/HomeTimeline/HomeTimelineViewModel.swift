@@ -100,7 +100,8 @@ final class HomeTimelineViewModel: NSObject {
             await self.dataController.setRecordsAfterFiltering(initialRecords)
         }
         
-        authenticationBox.inMemoryCache.$followingUserIds.sink { [weak self] _ in
+        AuthenticationServiceProvider.shared.$didChangeFollowersAndFollowing.sink { [weak self] userID in
+            guard self?.authenticationBox.globallyUniqueUserIdentifier == userID else { return }
             self?.homeTimelineNeedRefresh.send()
         }.store(in: &disposeBag)
         
