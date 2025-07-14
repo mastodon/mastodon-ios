@@ -333,6 +333,7 @@ struct ImageGridView: View {
             item: previewItem,
             transitionItem: mediaPreviewTransitionItem)
         viewModel.actionHandler.presentScene(.mediaPreview(viewModel: mediaPreviewViewModel),
+                                             fromPost: nil,
                                              transition: .custom(transitioningDelegate: presentingViewController.mediaPreviewTransitionController)
         )
     }
@@ -554,6 +555,7 @@ struct PlayerView: View {
             item: previewItem,
             transitionItem: mediaPreviewTransitionItem)
         actionHandler.presentScene(.mediaPreview(viewModel: mediaPreviewViewModel),
+                                   fromPost: nil,
                                    transition: .custom(transitioningDelegate: previewableViewController.mediaPreviewTransitionController)
         )
     }

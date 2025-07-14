@@ -14,6 +14,8 @@ class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
     private let viewModel = HomeTimelineListViewModel(timeline: .following)
     private let _mediaPreviewTransitionController = MediaPreviewTransitionController()
     
+    private var scrollToTopUpdateSubscription: AnyCancellable?
+    
     init() {
         let root = HomeTimelineListView(viewModel: viewModel)
         super.init(rootView: root)
@@ -23,6 +25,7 @@ class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
         viewModel.hostingViewController = self
         
         setUpTimelineSelectorButton()
+        setUpScrollToTop()
         showSettingsButton(true)
     }
     
@@ -49,6 +52,32 @@ class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
     
     func setUpTimelineSelectorButton() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: timelineSelectorButton)
+    }
+    
+    var scrollToTopButton: UIButton?
+    
+    func setUpScrollToTop() {
+        let button = UIButton(configuration: .plain())
+        button.addTarget(self, action: #selector(scrollToTop), for: .touchUpInside)
+        self.scrollToTopButton = button
+        self.navigationItem.titleView = button
+        scrollToTopUpdateSubscription = viewModel.$preloadedItems.sink { [weak self] preloaded in
+            self?.updateScrollToTopButton(preloaded.count)
+        }
+    }
+    
+    func updateScrollToTopButton(_ waitingCount: Int) {
+        if waitingCount > 0 {
+            scrollToTopButton?.isHidden = false
+            scrollToTopButton?.configuration?.title = "\(waitingCount)+ Unread ^"
+            scrollToTopButton?.configuration?.baseForegroundColor = Asset.Colors.accent.color
+        } else {
+            scrollToTopButton?.isHidden = true
+        }
+    }
+    
+    @objc func scrollToTop() {
+        viewModel.scrollToTop()
     }
     
     func showSettingsButton(_ show: Bool) {
@@ -330,16 +359,30 @@ private class HomeTimelineListViewModel: ObservableObject {
     @Published var isPerformingPostAction: (action: MastodonPostMenuAction, post: MastodonContentPost)? = nil
     @Published var isPerformingAccountAction: (action: MastodonPostMenuAction, account: MastodonAccount)? = nil
     
+    @Published var preloadedItems = [TimelineItem]()
     @Published var timelineItems = [TimelineItem]()
     private var followersAndBlockedChangeSubscription: AnyCancellable?
     private var feedLoader: TimelineFeedLoader?
     private var feedLoaderResultsSubscription: AnyCancellable?
     private var feedLoaderErrorSubscription: AnyCancellable?
     
+    var scrollManager: ScrollManager?
+    
     private var tailItemIds = [String]()
     private let displayPrepBatchSize = 10
     private var currentlyPreparingForDisplay: [Mastodon.Entity.Status.ID]?
     private var displayPrepRequested: [MastodonPostViewModel]? // only keep the latest batch requested, to avoid getting bogged down while fast scrolling
+    
+    public var lastReadState: LastReadState = .unknown {
+        didSet {
+            switch lastReadState {
+            case .fromCache, .unknown, .hasScrolled:
+                break
+            case .interactedWith(let id), .leftWhileViewing(let id), .requestedReload(let id):
+                feedLoader?.saveLastRead(id)
+            }
+        }
+    }
     
     // Translations
     private var translations = [ Mastodon.Entity.Status.ID : Mastodon.Entity.Translation]()
@@ -376,6 +419,14 @@ private class HomeTimelineListViewModel: ObservableObject {
         }
     }
     
+    private func splitItems(_ items: [TimelineItem], after splitID: Mastodon.Entity.Status.ID?) -> ([TimelineItem], [TimelineItem]) {
+        if let splitIndex = items.firstIndex(where: { $0.id == splitID}) {
+            return (Array(items.prefix(splitIndex)), Array(items.suffix(from: splitIndex)))
+        } else {
+            return ([], items)
+        }
+    }
+    
     func doInitialLoad() async throws {
         guard feedLoader == nil else { return }
         guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { assertionFailure("no active authenticated user, cannot create feed loader"); return }
@@ -385,10 +436,71 @@ private class HomeTimelineListViewModel: ObservableObject {
         feedLoader = TimelineFeedLoader(currentUser: currentUser, timeline: timeline)
         feedLoaderResultsSubscription = feedLoader?.$records
             .sink{ [weak self] results in
-                DispatchQueue.main.async {
-                    self?.tailItemIds = results.allRecords.suffix(5).map { $0.id }
-                    self?.timelineItems = results.allRecords + (results.canLoadOlder ? [.loadingIndicator] : [])
+                switch self?.lastReadState {
+                case .unknown:
+                    if let lastReadMarker = self?.feedLoader?.lastReadMarker {
+                        self?.lastReadState = .fromCache(lastReadMarker.lastReadID)
+                    }
+                default:
+                    break
                 }
+                
+                let needsPrep: [MastodonPostViewModel] = results.allRecords.compactMap { item in
+                    switch item {
+                    case .loadingIndicator, .missingPosts:
+                        return nil
+                    case .post(let viewModel):
+                        switch viewModel.displayPrepStatus {
+                        case .unprepared:
+                            return viewModel
+                        case .donePreparing:
+                            return nil
+                        }
+                    }
+                }
+                self?.doPrepareForDisplay(needsPrep, contentWidth: 0, completion: {
+                    DispatchQueue.main.async {
+                        guard let self else { return }
+                        
+                        let split: ([TimelineItem], [TimelineItem])
+                        let publishNewTimeline: Bool
+                        switch self.lastReadState {
+                        case .unknown, .hasScrolled, .interactedWith, .leftWhileViewing:
+                            if let firstCurrentID = self.timelineItems.first(where: {
+                                switch $0 {
+                                case .post: return true
+                                default: return false
+                                }
+                            })?.id {
+                                // better to leave things alone
+                                split = self.splitItems(results.allRecords, after: self.timelineItems.first?.id)
+                                publishNewTimeline = false
+                            } else {
+                                // current timeline is empty, so take these items
+                                split = self.splitItems(results.allRecords, after: nil)
+                                publishNewTimeline = true
+                            }
+                        case .fromCache(let id):
+                            split = self.splitItems(results.allRecords, after: id) // keep the cached last read item at the top of the feed by keeping newer items in reserve.
+                            publishNewTimeline = true
+                        case .requestedReload(let id):
+                            var (new, old) = self.splitItems(results.allRecords, after: nil)
+                            if new.count > 1 {
+                                let firstNewToShow = new.removeLast()
+                                split = (new, [firstNewToShow] + old)
+                            } else {
+                                split = ([], new + old)
+                            }
+                            publishNewTimeline = true
+                        }
+
+                        self.preloadedItems = split.0
+                        if publishNewTimeline {
+                            self.tailItemIds = split.1.suffix(5).map { $0.id }
+                            self.timelineItems = split.1 + (results.canLoadOlder ? [.loadingIndicator] : [])
+                        }
+                    }
+                })
             }
         // TODO: add feedLoaderErrorSubscription
         feedLoader?.doFirstLoad()
@@ -400,18 +512,42 @@ private class HomeTimelineListViewModel: ObservableObject {
         }
     }
     
+    func forceLastReadToTop(_ lastRead: Mastodon.Entity.Status.ID) {
+        let split = splitItems(timelineItems, after: lastRead)
+        guard !split.0.isEmpty else { return }
+        preloadedItems = preloadedItems + split.0
+        timelineItems = split.1
+    }
+    
     func requestLoad(_ loadRequest: MastodonFeedLoaderRequest) {
         guard let feedLoader else { assertionFailure(); return }
         feedLoader.requestLoad(loadRequest)
     }
     
     func refreshFeedFromTop() async {
-        guard let feedLoader else { assertionFailure(); return }
-        if feedLoader.permissionToLoadImmediately {
-            await feedLoader.loadImmediately(.reload)
-            await feedLoader.clearCache() // reset the cache when user refreshes
-            commitToCache()
+        if !preloadedItems.isEmpty {
+            let nextItem = preloadedItems.removeLast()
+            timelineItems = [nextItem] + timelineItems
+        } else {
+            guard let feedLoader else { assertionFailure(); return }
+            if feedLoader.permissionToLoadImmediately {
+                await feedLoader.loadImmediately(.reload)
+                await feedLoader.clearCache() // reset the cache when user refreshes
+                commitToCache()
+            }
         }
+    }
+    
+    func scrollToTop() {
+        let topItem = (preloadedItems.first ?? timelineItems.first)
+        switch topItem {
+        case nil, .loadingIndicator, .missingPosts:
+            lastReadState = .unknown
+        case .post(let viewModel):
+            lastReadState = .requestedReload(viewModel.initialDisplayInfo.id)
+        }
+        timelineItems = preloadedItems + timelineItems
+        preloadedItems = []
     }
     
     func didAppear(_ postViewModel: MastodonPostViewModel, contentWidth: CGFloat) {
@@ -422,14 +558,36 @@ private class HomeTimelineListViewModel: ObservableObject {
             return
         }
         
+        if let lastRead = lastReadState.id {
+            if postViewModel.initialDisplayInfo.id == lastRead {
+                lastReadRecentlyDisappeared = false
+            } else if lastReadRecentlyDisappeared {
+                lastReadRecentlyDisappeared = false
+                lastReadState = .hasScrolled(from: lastRead)
+            }
+        } else {
+            lastReadRecentlyDisappeared = false
+        }
+        
         if tailItemIds.contains(postViewModel.initialDisplayInfo.id) {
             tailItemIds = []
             requestLoad(.older)
         }
-        
-        prepareForDisplay(including: postViewModel, withContentWidth: contentWidth)
     }
 
+    private var lastReadRecentlyDisappeared: Bool = false
+    func didDisappear(_ postViewModel: MastodonPostViewModel) {
+        if let lastRead = lastReadState.id {
+            if postViewModel.initialDisplayInfo.id == lastRead {
+                lastReadRecentlyDisappeared = true
+            }
+        }
+    }
+    
+    func wholeViewDidDisappear() {
+        lastReadRecentlyDisappeared = false
+    }
+    
     func myRelationship(to account: MastodonAccount?)
         -> MastodonAccount.Relationship
     {
@@ -441,47 +599,9 @@ private class HomeTimelineListViewModel: ObservableObject {
     func contentConcealModel(forActionablePost post: Mastodon.Entity.Status.ID) -> ContentConcealViewModel {
         return feedLoader?.contentConcealViewModel(forContentPost: post) ?? .alwaysShow
     }
-    
-    var lastReadID: String? {
-        feedLoader?.lastRead()
-    }
-    
-    func updateLastReadID(_ lastRead: String) {
-        feedLoader?.markAsRead(lastRead)
-    }
 }
 
 extension HomeTimelineListViewModel {
-    func prepareForDisplay(including anchorItem: MastodonPostViewModel, withContentWidth contentWidth: CGFloat) {
-        let thisItemID = anchorItem.initialDisplayInfo.id
-        
-        let isCurrentlyPreparing = currentlyPreparingForDisplay?.contains(thisItemID) == true
-        let isAlreadyRequested = displayPrepRequested?.contains(where: { $0.initialDisplayInfo.id == thisItemID}) == true
-        guard !isCurrentlyPreparing && !isAlreadyRequested else { return }
-        switch anchorItem.displayPrepStatus {
-        case .unprepared:
-            // prep a new batch (or request it)
-            guard let anchorItemIndex = feedLoader?.records.allRecords.firstIndex(where: { $0.id == thisItemID }) else { return }
-            guard let batch = createPrepBatch(anchoredAt: anchorItemIndex) else { return }
-            if currentlyPreparingForDisplay == nil {
-                doPrepareForDisplay(batch, contentWidth: contentWidth)
-            } else {
-                displayPrepRequested = batch
-            }
-        case .donePreparing:
-            guard displayPrepRequested == nil else { return }
-            guard let thisItemIndex = feedLoader?.records.allRecords.firstIndex(where: { $0.id == thisItemID }) else { return }
-            // check if a neighboring batch could use preparing
-            if let nextBatch = createPrepBatch(anchoredAt: thisItemIndex + displayPrepBatchSize) ?? createPrepBatch(anchoredAt: thisItemIndex - displayPrepBatchSize) {
-                if currentlyPreparingForDisplay == nil {
-                    doPrepareForDisplay(nextBatch, contentWidth: contentWidth)
-                } else {
-                    displayPrepRequested = nextBatch
-                }
-            }
-        }
-    }
-
     private func createPrepBatch(anchoredAt anchorIndex: Int) -> [MastodonPostViewModel]? {
         guard let feedLoaderRecords = feedLoader?.records.allRecords else { return nil }
         let batchStart = max(0, anchorIndex - displayPrepBatchSize / 2)
@@ -501,7 +621,7 @@ extension HomeTimelineListViewModel {
         return batchItems
     }
     
-    private func doPrepareForDisplay(_ batch: [MastodonPostViewModel], contentWidth: CGFloat) {
+    private func doPrepareForDisplay(_ batch: [MastodonPostViewModel], contentWidth: CGFloat, completion: (()->())? = nil) {
         guard let feedLoader else { return }
         guard currentlyPreparingForDisplay == nil else { assertionFailure(); return }
         currentlyPreparingForDisplay = batch.map { $0.initialDisplayInfo.id }
@@ -557,9 +677,27 @@ extension HomeTimelineListViewModel {
             }
             
             currentlyPreparingForDisplay = nil
-            if let displayPrepRequested = self.displayPrepRequested {
-                self.displayPrepRequested = nil
-                doPrepareForDisplay(displayPrepRequested, contentWidth: contentWidth)
+            
+            completion?()
+        }
+    }
+}
+
+extension HomeTimelineListViewModel {
+    enum LastReadState {
+        case unknown
+        case hasScrolled(from: Mastodon.Entity.Status.ID)
+        case fromCache(Mastodon.Entity.Status.ID)
+        case requestedReload(Mastodon.Entity.Status.ID)
+        case interactedWith(Mastodon.Entity.Status.ID)
+        case leftWhileViewing(Mastodon.Entity.Status.ID)
+        
+        var id: String? {
+            switch self {
+            case .fromCache(let id), .requestedReload(let id), .interactedWith(let id), .leftWhileViewing(let id):
+                return id
+            case .unknown, .hasScrolled:
+                return nil
             }
         }
     }
@@ -573,6 +711,7 @@ struct HomeTimelineListView: View {
     
     fileprivate init(viewModel: HomeTimelineListViewModel) {
         self.viewModel = viewModel
+        viewModel.scrollManager = scrollManager
     }
     
     var body: some View {
@@ -609,7 +748,7 @@ struct HomeTimelineListView: View {
                                     .padding(spacingBetweenGutterAndContent)
                                     .frame(width: usableWidth)
                                     .background(content: {
-                                        if postViewModel.initialDisplayInfo.id == viewModel.lastReadID {
+                                        if postViewModel.initialDisplayInfo.id == viewModel.lastReadState.id {
                                             Rectangle().fill(.yellow)
                                         }
                                     })
@@ -618,6 +757,7 @@ struct HomeTimelineListView: View {
                                         scrollManager.didAppear(postViewModel.initialDisplayInfo.id)
                                     }
                                     .onDisappear() {
+                                        viewModel.wholeViewDidDisappear()
                                         scrollManager.didDisappear(postViewModel.initialDisplayInfo.id)
                                     }
 #if DEBUG && false
@@ -633,15 +773,25 @@ struct HomeTimelineListView: View {
                         }
                     }
                     .onChange(of: viewModel.timelineItems, initial: true) { oldValue, newValue in
-                        // keep the first last read item scrolled to the top of the view through reloads
-                        if let lastRead = viewModel.lastReadID {
-                            scrollManager.scrollLastReadToTop(cachedLastReadID: lastRead, items: newValue, proxy: proxy)
+                        guard oldValue != newValue else { return }
+                        switch viewModel.lastReadState {
+                        case .unknown, .hasScrolled:
+                            break
+                        case .fromCache(let id), .requestedReload(let id), .interactedWith(let id), .leftWhileViewing(let id):
+                            // keep the last read item scrolled to the top of the view
+                            scrollManager.scrollTo(lastReadID: id, items: newValue, proxy: proxy)
                         }
                     }
                     .refreshable {
+                        if let topItem = viewModel.timelineItems.first?.id {
+                            viewModel.lastReadState = .requestedReload(topItem)
+                        }
                         await viewModel.refreshFeedFromTop()
                     }
                     .accessibilityAction(named: L10n.Common.Controls.Actions.seeMore) {
+                        if let topItem = viewModel.timelineItems.first?.id {
+                            viewModel.lastReadState = .requestedReload(topItem)
+                        }
                         viewModel.requestLoad(.newer)
                     }
                 }
@@ -650,10 +800,21 @@ struct HomeTimelineListView: View {
         .onAppear() {
             viewModel.clearPendingActions()
             scrollManager.viewDidAppear()
+            switch viewModel.lastReadState {
+            case .unknown, .hasScrolled:
+                break
+            case .fromCache(let id), .requestedReload(let id), .interactedWith(let id), .leftWhileViewing(let id):
+                viewModel.forceLastReadToTop(id)
+            }
         }
         .onDisappear() {
-            if let topVisible = viewModel.timelineItems.first(where: { scrollManager.isVisible($0.id) }) {
-                viewModel.updateLastReadID(topVisible.id)
+            switch viewModel.lastReadState {
+            case .unknown, .hasScrolled:
+                if let topVisible = viewModel.timelineItems.first(where: { scrollManager.isVisible($0.id) }) {
+                    viewModel.lastReadState = .leftWhileViewing(topVisible.id)
+                }
+            case .fromCache, .requestedReload, .interactedWith, .leftWhileViewing:
+                break
             }
             scrollManager.viewDidDisappear()
         }
@@ -794,15 +955,12 @@ fileprivate class ScrollManager {
         visibleItems.remove(itemID)
     }
     
-    func scrollLastReadToTop(cachedLastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy) {
+    func scrollTo(lastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy) {
         guard isAppeared else { return } // the proxy scroll does not behave correctly until the view is on screen
-        let topVisibleItemMatch = items.first(where: { visibleItems.contains($0.id) })
-        let cachedLastReadMatch = items.first(where: { cachedLastReadID == $0.id })
-        guard let anchorItem = topVisibleItemMatch ?? cachedLastReadMatch else { return }
+        let lastReadMatch = items.first(where: { lastReadID == $0.id })
+        guard let anchorItem = lastReadMatch, !visibleItems.contains(anchorItem.id) else { return }
         DispatchQueue.main.async {
-            withAnimation {
-                proxy.scrollTo(anchorItem, anchor: .top)
-            }
+            proxy.scrollTo(anchorItem, anchor: .top)
         }
     }
 }
@@ -880,7 +1038,7 @@ private struct HomeTimelinePostRowView: View {
                                     .frame(width: contentWidth)
                             case .linkPreviewCard(let card):
                                 LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, navigateToScene: { (scene, transition) in
-                                    actionHandler.presentScene(scene, transition: transition)
+                                    actionHandler.presentScene(scene, fromPost: viewModel.initialDisplayInfo.id, transition: transition)
                                 })
                                 .frame(width: contentWidth)
                             }
@@ -909,6 +1067,9 @@ private struct HomeTimelinePostRowView: View {
         .background(.background.opacity(0.01)) // To allow tap in margin to open threadview. Opacity of 0 does not accept taps, nor does .clear.
         .onTapGesture {
             viewModel.openThreadView()
+        }
+        .onAppear() {
+            assert(viewModel.fullPost != nil)
         }
     }
     
@@ -1175,7 +1336,7 @@ struct AttributedStringDisplayInfo {
                             status: MastodonStatus(
                                 entity: actionablePost._legacyEntity,
                                 showDespiteContentWarning:
-                                    false))))), transition: .show)
+                                    false))))), fromPost: initialDisplayInfo.id, transition: .show)
     }
     
     func openURL(_ url: URL) -> Bool {
@@ -1185,11 +1346,11 @@ struct AttributedStringDisplayInfo {
         } else if let hashtag = fullPost?.actionablePost?.content.htmlWithEntities?.tags.first(where: { $0.name.lowercased() == url.lastPathComponent.lowercased() && url.pathComponents.contains("tags") }) {
             guard let currentUser = AuthenticationServiceProvider.shared.currentActiveUser.value else { return false }
             let hashtagTimelineViewModel = HashtagTimelineViewModel(authenticationBox: currentUser, hashtag: hashtag.name)
-            actionHandler?.presentScene(.hashtagTimeline(viewModel: hashtagTimelineViewModel), transition: .show)
+            actionHandler?.presentScene(.hashtagTimeline(viewModel: hashtagTimelineViewModel), fromPost: initialDisplayInfo.id, transition: .show)
             return true
         } else {
             // fix non-ascii character URL link can not open issue
-            actionHandler?.presentScene(.safari(url: url), transition: .safariPresent(animated: true, completion: nil))
+            actionHandler?.presentScene(.safari(url: url), fromPost: initialDisplayInfo.id, transition: .safariPresent(animated: true, completion: nil))
             return true
         }
     }
@@ -1199,11 +1360,11 @@ struct AttributedStringDisplayInfo {
         switch myRelationshipToAuthor {
         case .isMe:
             let profile: ProfileViewController.ProfileType = .me(account._legacyEntity)
-            actionHandler?.presentScene(.profile(profile), transition: .show)
+            actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
         case .isNotMe(let info):
             if let info, let me = AuthenticationServiceProvider.shared.currentActiveUser.value?.cachedAccount {
                 let profile: ProfileViewController.ProfileType = .notMe(me: me, displayAccount: account._legacyEntity, relationship: info._legacyEntity)
-                actionHandler?.presentScene(.profile(profile), transition: .show)
+                actionHandler?.presentScene(.profile(profile), fromPost: initialDisplayInfo.id, transition: .show)
             }
         }
     }
@@ -1278,7 +1439,10 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
         activeOverlay = overlay
     }
     
-    func presentScene(_ scene: SceneCoordinator.Scene, transition: SceneCoordinator.Transition) {
+    func presentScene(_ scene: SceneCoordinator.Scene, fromPost postID: Mastodon.Entity.Status.ID?, transition: SceneCoordinator.Transition) {
+        if let postID {
+            lastReadState = .interactedWith(postID)
+        }
         parentVcPresentScene?(scene, transition)
     }
     
@@ -1322,7 +1486,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
                             }
                         }
                     )
-                    presentScene(.compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil))
+                    presentScene(.compose(viewModel: composeViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
                 case .boost:
                     Task {
                         await boost(actionablePost.id, askFirst: UserDefaults.standard.askBeforeBoostingAPost)
@@ -1392,7 +1556,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
                                 self.refetchAndDisplay(actionablePostID: statusEntityToEdit.id)
                             }
                         })
-                    presentScene(.editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))
+                    presentScene(.editStatus(viewModel: editStatusViewModel), fromPost: nil, transition: .modal(animated: true))
                     
             // MARK: POST ACTIONS
                 case .copyLinkToPost:
@@ -1401,7 +1565,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
                     
                 case .openPostInBrowser:
                     guard let urlString = post.actionablePost?.metaData.url, let url = URL(string: urlString) else { throw PostActionFailure.noActionablePostId }
-                    presentScene(.safari(url: url), transition: .safariPresent(animated: true))
+                    presentScene(.safari(url: url), fromPost: nil, transition: .safariPresent(animated: true))
                     
                 case .sharePost:
                     sharePost(actionablePost)
@@ -1465,7 +1629,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
                         status: statusEntity == nil ? nil : MastodonStatus(entity: statusEntity!, showDespiteContentWarning: true),
                         contentDisplayMode: .neverConceal
                     )
-                    presentScene(.report(viewModel: reportViewModel), transition: .modal(animated: true, completion: nil))
+                    presentScene(.report(viewModel: reportViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
                     
             // MARK: DELETE
                 case .deletePost:
@@ -1674,6 +1838,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
                 sourceView: nil,
                 barButtonItem: nil
             ),
+            fromPost: nil,
             transition: .activityViewControllerPresent(animated: true, completion: nil)
         )
     }

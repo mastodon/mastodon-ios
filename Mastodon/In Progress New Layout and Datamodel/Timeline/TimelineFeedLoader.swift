@@ -225,6 +225,12 @@ extension TimelineFeedLoader {
     }
 }
 
+extension TimelineFeedLoader {
+    func saveLastRead(_ id: Mastodon.Entity.Status.ID) {
+        cacheManager.updateToNewerMarker(.local(lastReadID: id), enforceForwardProgress: false)
+    }
+}
+
 private func polls(_ statuses: [Mastodon.Entity.Status], addedTo existing: [Mastodon.Entity.Poll.ID : Mastodon.Entity.Poll]? = nil) -> [Mastodon.Entity.Poll.ID : Mastodon.Entity.Poll] {
     let starter = existing ?? [Mastodon.Entity.Poll.ID : Mastodon.Entity.Poll]()
     return statuses.reduce(into: starter, { partialResult, status in
