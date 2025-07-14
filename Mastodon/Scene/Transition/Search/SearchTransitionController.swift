@@ -26,6 +26,23 @@ extension SearchTransitionController: UINavigationControllerDelegate {
             return nil
         }
     }
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        
+        // disable animations when transitioning to/from the profile view controller, since it has a transparent background on the nav bar which makes the transition to standard nav bars look broken
+        if viewController is ProfileViewController || navigationController.topViewController is ProfileViewController {
+            if let coordinator = navigationController.topViewController?.transitionCoordinator {
+                let transparentAppearance = UINavigationBarAppearance()
+                transparentAppearance.configureWithTransparentBackground()
+                navigationController.navigationBar.standardAppearance = transparentAppearance
+                navigationController.navigationBar.compactAppearance = transparentAppearance
+                navigationController.navigationBar.scrollEdgeAppearance = transparentAppearance
+                coordinator.animate(alongsideTransition: nil) { _ in
+                    navigationController.setNeedsStatusBarAppearanceUpdate()
+                }
+            }
+        }
+    }
 
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         switch viewController {

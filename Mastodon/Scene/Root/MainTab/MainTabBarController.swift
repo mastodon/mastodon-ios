@@ -82,6 +82,10 @@ class MainTabBarController: UITabBarController {
 
         viewControllers = [homeTimelineViewController, searchViewController, composeViewController, notificationViewController, meProfileViewController].map { AdaptiveStatusBarStyleNavigationController(rootViewController: $0) }
         tabBar.addInteraction(largeContentViewerInteraction)
+        
+        for controller in viewControllers ?? [] {
+            (controller as? UINavigationController)?.delegate = self
+        }
 
         layoutAvatarButton()
     }
@@ -600,5 +604,24 @@ extension MainTabBarController {
 extension MainTabBarController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         true
+    }
+}
+
+extension MainTabBarController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        
+        // disable animations when transitioning to/from the profile view controller, since it has a transparent background on the nav bar which makes the transition to standard nav bars look broken
+        if viewController is ProfileViewController || navigationController.topViewController is ProfileViewController {
+            if let coordinator = navigationController.topViewController?.transitionCoordinator {
+                let transparentAppearance = UINavigationBarAppearance()
+                transparentAppearance.configureWithTransparentBackground()
+                navigationController.navigationBar.standardAppearance = transparentAppearance
+                navigationController.navigationBar.compactAppearance = transparentAppearance
+                navigationController.navigationBar.scrollEdgeAppearance = transparentAppearance
+                coordinator.animate(alongsideTransition: nil) { _ in
+                    navigationController.setNeedsStatusBarAppearanceUpdate()
+                }
+            }
+        }
     }
 }
