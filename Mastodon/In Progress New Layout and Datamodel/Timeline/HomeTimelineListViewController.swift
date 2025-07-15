@@ -61,8 +61,8 @@ class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
         button.addTarget(self, action: #selector(scrollToTop), for: .touchUpInside)
         self.scrollToTopButton = button
         self.navigationItem.titleView = button
-        scrollToTopUpdateSubscription = viewModel.$preloadedItems.sink { [weak self] preloaded in
-            self?.updateScrollToTopButton(preloaded.count)
+        scrollToTopUpdateSubscription = viewModel.$unreadCount.sink { [weak self] unread in
+            self?.updateScrollToTopButton(unread)
         }
     }
     
@@ -361,6 +361,9 @@ private class HomeTimelineListViewModel: ObservableObject {
     
     @Published var preloadedItems = [TimelineItem]()
     @Published var timelineItems = [TimelineItem]()
+    @Published var unreadCount: Int = 0
+    @Published var scrollToTopRequested: Bool = false
+    
     private var followersAndBlockedChangeSubscription: AnyCancellable?
     private var feedLoader: TimelineFeedLoader?
     private var feedLoaderResultsSubscription: AnyCancellable?
@@ -484,13 +487,7 @@ private class HomeTimelineListViewModel: ObservableObject {
                             split = self.splitItems(results.allRecords, after: id) // keep the cached last read item at the top of the feed by keeping newer items in reserve.
                             publishNewTimeline = true
                         case .requestedReload(let id):
-                            var (new, old) = self.splitItems(results.allRecords, after: nil)
-                            if new.count > 1 {
-                                let firstNewToShow = new.removeLast()
-                                split = (new, [firstNewToShow] + old)
-                            } else {
-                                split = ([], new + old)
-                            }
+                            split = ([], results.allRecords)
                             publishNewTimeline = true
                         }
 
@@ -526,8 +523,9 @@ private class HomeTimelineListViewModel: ObservableObject {
     
     func refreshFeedFromTop() async {
         if !preloadedItems.isEmpty {
-            let nextItem = preloadedItems.removeLast()
-            timelineItems = [nextItem] + timelineItems
+            let readyToAdd = preloadedItems
+            preloadedItems = []
+            timelineItems = readyToAdd + timelineItems
         } else {
             guard let feedLoader else { assertionFailure(); return }
             if feedLoader.permissionToLoadImmediately {
@@ -548,6 +546,7 @@ private class HomeTimelineListViewModel: ObservableObject {
         }
         timelineItems = preloadedItems + timelineItems
         preloadedItems = []
+        scrollToTopRequested = true
     }
     
     func didAppear(_ postViewModel: MastodonPostViewModel, contentWidth: CGFloat) {
@@ -572,6 +571,10 @@ private class HomeTimelineListViewModel: ObservableObject {
         if tailItemIds.contains(postViewModel.initialDisplayInfo.id) {
             tailItemIds = []
             requestLoad(.older)
+        }
+        
+        if let scrollManager {
+            unreadCount = scrollManager.topVisibleIndex(in: timelineItems) + preloadedItems.count
         }
     }
 
@@ -754,12 +757,12 @@ struct HomeTimelineListView: View {
                                         }
                                     })
                                     .onAppear {
-                                        viewModel.didAppear(postViewModel, contentWidth: contentWidth)
                                         scrollManager.didAppear(postViewModel.initialDisplayInfo.id)
+                                        viewModel.didAppear(postViewModel, contentWidth: contentWidth)
                                     }
                                     .onDisappear() {
-                                        viewModel.wholeViewDidDisappear()
                                         scrollManager.didDisappear(postViewModel.initialDisplayInfo.id)
+                                        viewModel.didDisappear(postViewModel)
                                     }
 #if DEBUG && false
                                     .background {
@@ -774,15 +777,34 @@ struct HomeTimelineListView: View {
                         }
                     }
                     .onChange(of: viewModel.timelineItems, initial: true) { oldValue, newValue in
-                        guard oldValue != newValue else { return }
+                        if oldValue == newValue {
+                            switch viewModel.lastReadState {
+                            case .requestedReload(let iD):
+                               break  // might need to scroll
+                            default:
+                                return // try not to mess with things
+                            }
+                        }
                         switch viewModel.lastReadState {
                         case .unknown, .hasScrolled:
                             break
                         case .fromCache(let id), .requestedReload(let id), .interactedWith(let id), .leftWhileViewing(let id):
                             // keep the last read item scrolled to the top of the view
-                            scrollManager.scrollTo(lastReadID: id, items: newValue, proxy: proxy)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                                scrollManager.scrollTo(lastReadID: id, items: newValue, proxy: proxy) { success in
+                                    let topVisibleIndex = scrollManager.topVisibleIndex(in: newValue)
+                                    viewModel.unreadCount = topVisibleIndex + viewModel.preloadedItems.count
+                                }
+                            }
                         }
                     }
+                    .onChange(of: viewModel.scrollToTopRequested, { oldValue, newValue in
+                        if newValue == true, let anchorID = viewModel.timelineItems.first?.id {
+                            scrollManager.scrollTo(lastReadID: anchorID, items: viewModel.timelineItems, proxy: proxy, completion: { success in
+                                viewModel.scrollToTopRequested = false
+                            })
+                        }
+                    })
                     .refreshable {
                         if let topItem = viewModel.timelineItems.first?.id {
                             viewModel.lastReadState = .requestedReload(topItem)
@@ -818,6 +840,7 @@ struct HomeTimelineListView: View {
                 break
             }
             scrollManager.viewDidDisappear()
+            viewModel.wholeViewDidDisappear()
         }
         .alert(viewModel.activeAlert.title, isPresented: $viewModel.isPresentingAlert, presenting: viewModel.activeAlert) { alert in
             alertContents(alert)
@@ -925,6 +948,8 @@ struct HomeTimelineListView: View {
     }
 }
 
+
+fileprivate let totalRetryCount: Int = 5
 fileprivate class ScrollManager {
     public var isAppeared: Bool = false
     
@@ -955,21 +980,38 @@ fileprivate class ScrollManager {
     func didDisappear(_ itemID: String) {
         visibleItems.remove(itemID)
     }
-    
-    func scrollTo(lastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy, retryCount: Int = 3) {
-        guard isAppeared else { return } // the proxy scroll does not behave correctly until the view is on screen
+
+    func scrollTo(lastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy, retryCount: Int = totalRetryCount, completion: @escaping (Bool)->()) {
+        guard isAppeared else {
+            // the proxy scroll does not behave correctly until the view is on screen
+            return
+        }
         let lastReadMatch = items.first(where: { lastReadID == $0.id })
-        guard let anchorItem = lastReadMatch, !visibleItems.contains(anchorItem.id) else { return }
+        guard let anchorItem = lastReadMatch else {
+            // there is nothing to scroll to
+            return
+        }
         DispatchQueue.main.async {
+            let firstVisibleItem = items.first(where: { self.visibleItems.contains($0.id) })
             proxy.scrollTo(anchorItem, anchor: .top)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
-                guard let self, retryCount > 0 else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100 * (totalRetryCount - retryCount))) { [weak self] in
+                guard let self, retryCount > 0 else {
+                    completion(false)
+                    return
+                }
                 if let lastReadID, !self.visibleItems.contains(lastReadID) {
-                    scrollTo(lastReadID: lastReadID, items: items, proxy: proxy, retryCount: retryCount - 1)
+                    scrollTo(lastReadID: lastReadID, items: items, proxy: proxy, retryCount: retryCount - 1, completion: completion)
+                } else {
+                    completion(true)
                 }
             }
         }
+    }
+    
+    func topVisibleIndex(in items: [TimelineItem]) -> Int {
+        let index = items.firstIndex(where: { visibleItems.contains($0.id) })
+        return index ?? 0
     }
 }
 
