@@ -955,12 +955,19 @@ fileprivate class ScrollManager {
         visibleItems.remove(itemID)
     }
     
-    func scrollTo(lastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy) {
+    func scrollTo(lastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy, retryCount: Int = 3) {
         guard isAppeared else { return } // the proxy scroll does not behave correctly until the view is on screen
         let lastReadMatch = items.first(where: { lastReadID == $0.id })
         guard let anchorItem = lastReadMatch, !visibleItems.contains(anchorItem.id) else { return }
         DispatchQueue.main.async {
             proxy.scrollTo(anchorItem, anchor: .top)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
+                guard let self, retryCount > 0 else { return }
+                if let lastReadID, !self.visibleItems.contains(lastReadID) {
+                    scrollTo(lastReadID: lastReadID, items: items, proxy: proxy, retryCount: retryCount - 1)
+                }
+            }
         }
     }
 }
