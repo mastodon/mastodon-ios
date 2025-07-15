@@ -9,6 +9,12 @@ import Combine
 import MastodonUI
 import Meta
 
+private func debugScroll(_ message: String) {
+#if DEBUG && true
+    print("SCROLL: \(message)")
+#endif
+}
+
 class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
 {
     private let viewModel = HomeTimelineListViewModel(timeline: .following)
@@ -551,9 +557,7 @@ private class HomeTimelineListViewModel: ObservableObject {
     
     func didAppear(_ postViewModel: MastodonPostViewModel, contentWidth: CGFloat) {
         guard feedLoader?.records.canLoadOlder == true else {
-#if DEBUG
-            print("nothing left to load")
-#endif
+            debugScroll("have loaded as far back as possible")
             return
         }
         
@@ -562,6 +566,7 @@ private class HomeTimelineListViewModel: ObservableObject {
                 lastReadRecentlyDisappeared = false
             } else if lastReadRecentlyDisappeared {
                 lastReadRecentlyDisappeared = false
+                debugScroll("last read has scrolled because the last read disappeared and then something else appeared")
                 lastReadState = .hasScrolled(from: lastRead)
             }
         } else {
@@ -780,15 +785,19 @@ struct HomeTimelineListView: View {
                         if oldValue == newValue {
                             switch viewModel.lastReadState {
                             case .requestedReload(let iD):
+                                debugScroll("need to scroll even though nothing has changed")
                                break  // might need to scroll
                             default:
+                                debugScroll("will not scroll because nothing has changed and last read state is \(viewModel.lastReadState)")
                                 return // try not to mess with things
                             }
                         }
                         switch viewModel.lastReadState {
                         case .unknown, .hasScrolled:
+                            debugScroll("NOTHING TO SCROLL TO")
                             break
                         case .fromCache(let id), .requestedReload(let id), .interactedWith(let id), .leftWhileViewing(let id):
+                            debugScroll("timelineItems have changed; will try to scroll to \(id)")
                             // keep the last read item scrolled to the top of the view
                             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                                 scrollManager.scrollTo(lastReadID: id, items: newValue, proxy: proxy) { success in
@@ -801,13 +810,16 @@ struct HomeTimelineListView: View {
                     .onChange(of: viewModel.scrollToTopRequested, { oldValue, newValue in
                         if newValue == true, let anchorID = viewModel.timelineItems.first?.id {
                             scrollManager.scrollTo(lastReadID: anchorID, items: viewModel.timelineItems, proxy: proxy, completion: { success in
+                                debugScroll("scroll to top completed! \(success)")
                                 viewModel.scrollToTopRequested = false
                             })
                         }
                     })
                     .refreshable {
+                        debugScroll("REFRESHABLE?")
                         if let topItem = viewModel.timelineItems.first?.id {
                             viewModel.lastReadState = .requestedReload(topItem)
+                            debugScroll("REFRESHABLE. Scroll lastread is now .requestedReload(\(topItem))")
                         }
                         await viewModel.refreshFeedFromTop()
                     }
@@ -939,7 +951,6 @@ struct HomeTimelineListView: View {
     
     @ViewBuilder func cancelButton() -> some View {
         Button(role: .cancel) {
-            print("cancelling")
             viewModel.clearPendingActions()
         }
         label: {
@@ -966,43 +977,52 @@ fileprivate class ScrollManager {
     func viewDidAppear() {
         assert(!isAppeared)
         isAppeared = true
+        debugScroll("view appeared +")
     }
     
     func viewDidDisappear() {
         assert(isAppeared)
         isAppeared = false
+        debugScroll("view DISAPPEARED -")
     }
     
     func didAppear(_ itemID: String) {
         visibleItems.insert(itemID)
+        debugScroll("item appeared + \(itemID)")
     }
     
     func didDisappear(_ itemID: String) {
         visibleItems.remove(itemID)
+        debugScroll("item disappeared - \(itemID)")
     }
 
     func scrollTo(lastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy, retryCount: Int = totalRetryCount, completion: @escaping (Bool)->()) {
         guard isAppeared else {
             // the proxy scroll does not behave correctly until the view is on screen
+            debugScroll("cannot scroll! have not appeared!")
             return
         }
         let lastReadMatch = items.first(where: { lastReadID == $0.id })
         guard let anchorItem = lastReadMatch else {
             // there is nothing to scroll to
+            debugScroll("will not scroll because there is no match!")
             return
         }
         DispatchQueue.main.async {
             let firstVisibleItem = items.first(where: { self.visibleItems.contains($0.id) })
+            debugScroll("attempting scroll to \(anchorItem.id) with \(retryCount) retries left. top visible item is \(firstVisibleItem?.id ?? "NIL")")
             proxy.scrollTo(anchorItem, anchor: .top)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100 * (totalRetryCount - retryCount))) { [weak self] in
                 guard let self, retryCount > 0 else {
+                    debugScroll("failed all retries!")
                     completion(false)
                     return
                 }
                 if let lastReadID, !self.visibleItems.contains(lastReadID) {
                     scrollTo(lastReadID: lastReadID, items: items, proxy: proxy, retryCount: retryCount - 1, completion: completion)
                 } else {
+                    debugScroll("Success with \(retryCount) tries left!")
                     completion(true)
                 }
             }
@@ -1011,6 +1031,7 @@ fileprivate class ScrollManager {
     
     func topVisibleIndex(in items: [TimelineItem]) -> Int {
         let index = items.firstIndex(where: { visibleItems.contains($0.id) })
+        debugScroll("top visible index is \(index ?? 0)")
         return index ?? 0
     }
 }
