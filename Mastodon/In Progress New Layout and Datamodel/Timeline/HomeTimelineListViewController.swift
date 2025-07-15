@@ -736,6 +736,7 @@ struct HomeTimelineListView: View {
                                             .progressViewStyle(.circular)
                                         Spacer()
                                     }
+                                    .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
                                 case .post(let postViewModel):
                                     let usableWidth =
                                     geo.size.width - geo.safeAreaInsets.leading
