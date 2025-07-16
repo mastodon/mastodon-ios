@@ -784,7 +784,7 @@ struct HomeTimelineListView: View {
                     .onChange(of: viewModel.timelineItems, initial: true) { oldValue, newValue in
                         if oldValue == newValue {
                             switch viewModel.lastReadState {
-                            case .requestedReload(let iD):
+                            case .requestedReload:
                                 debugScroll("need to scroll even though nothing has changed")
                                break  // might need to scroll
                             default:

@@ -90,7 +90,7 @@ public enum PostViewHeaderStyle {
 extension MastodonContentView: View {
     public var body: some View {
             switch self {
-            case .timelinePost(let id, let html, let emojis, let isInlinePreview):
+            case .timelinePost(_, let html, let emojis, let isInlinePreview):
                 if let blocks = try? getParseBlocks(from: html) {
                     TimelinePostContentView(contentBlocks: blocks, emojis: emojis)
                         .font(isInlinePreview ? Font.subheadline : .body)
