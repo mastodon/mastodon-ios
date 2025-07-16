@@ -595,7 +595,15 @@ extension TimelineFeedLoader {
             
         guard !needToFetch.isEmpty else { return [] }
         
-        let relationships = try await APIService.shared.relationship(forAccountIds: needToFetch, authenticationBox: authenticatedUser).value
+        let chunkSize = 100
+        var relationships = [Mastodon.Entity.Relationship]()
+        for start in stride(from: 0, to: needToFetch.count, by: chunkSize) { // asking for too many at once can cause an API error
+            let end = min(start + chunkSize, needToFetch.count)
+            let chunk = Array(needToFetch[start..<end])
+            let chunkResults = try await APIService.shared.relationship(forAccountIds: chunk, authenticationBox: authenticatedUser).value
+            relationships.append(contentsOf: chunkResults)
+        }
+        
         let currentTimestamp = Date.now
         for relationshipEntity in relationships {
             cachedRelationships[relationshipEntity.id] = MastodonAccount.Relationship.isNotMe(MastodonAccount.RelationshipInfo(relationshipEntity, fetchedAt: currentTimestamp))
