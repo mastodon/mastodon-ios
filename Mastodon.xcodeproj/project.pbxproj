@@ -1309,6 +1309,7 @@
 				Notifications/NotificationRowViewModel.swift,
 				Notifications/NotificationsCacheManager.swift,
 				Timeline/HomeTimelineListViewController.swift,
+				Timeline/HomeTimelineTableViewController.swift,
 				Timeline/TimelineFeedLoader.swift,
 			);
 			target = DB427DD125BAA00100D1B89D /* Mastodon */;
