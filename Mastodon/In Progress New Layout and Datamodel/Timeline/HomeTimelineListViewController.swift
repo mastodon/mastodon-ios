@@ -10,7 +10,7 @@ import MastodonUI
 import Meta
 
 private func debugScroll(_ message: String) {
-#if DEBUG && true
+#if DEBUG && false
     print("SCROLL: \(message)")
 #endif
 }
