@@ -631,7 +631,7 @@ extension HomeTimelineListViewModel {
     
     private func doPrepareForDisplay(_ batch: [MastodonPostViewModel], contentWidth: CGFloat, completion: (()->())? = nil) {
         guard let feedLoader else { return }
-        guard currentlyPreparingForDisplay == nil else { assertionFailure(); return }
+        guard currentlyPreparingForDisplay == nil else { /*assertionFailure();*/ return }
         currentlyPreparingForDisplay = batch.map { $0.initialDisplayInfo.id }
         
         Task {
@@ -727,7 +727,7 @@ struct HomeTimelineListView: View {
             ZStack { // to show ALT text when needed
                 ScrollViewReader { proxy in
                     ScrollView {
-                        LazyVStack {
+                        VStack {
                             ForEach(viewModel.timelineItems, id: \.self) { item in
                                 switch item {
                                 case let .missingPosts(newerThan, olderThan):
