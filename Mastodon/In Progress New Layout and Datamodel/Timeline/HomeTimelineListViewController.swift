@@ -336,7 +336,7 @@ enum MastodonTimelineOverlayView {
 }
 
 @MainActor
-class HomeTimelineListViewModel: ObservableObject {
+private class HomeTimelineListViewModel: ObservableObject {
     public var parentVcPresentScene: ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> ())?
     private var authenticatedUser: MastodonAuthenticationBox?
     private var instanceConfiguration: MastodonAuthentication.InstanceConfiguration?
@@ -375,7 +375,7 @@ class HomeTimelineListViewModel: ObservableObject {
     private var feedLoaderResultsSubscription: AnyCancellable?
     private var feedLoaderErrorSubscription: AnyCancellable?
     
-    fileprivate var scrollManager: ScrollManager?
+    var scrollManager: ScrollManager?
     
     private var tailItemIds = [String]()
     private let displayPrepBatchSize = 10
@@ -1049,8 +1049,8 @@ extension MastodonTimelineOverlayView {
     }
 }
 
-struct HomeTimelinePostRowView: View {
-    
+private struct HomeTimelinePostRowView: View {
+
     @Environment(MastodonPostViewModel.self) private var viewModel
     @ObservedObject var contentConcealModel: ContentConcealViewModel
     let contentWidth: CGFloat
@@ -1066,7 +1066,7 @@ struct HomeTimelinePostRowView: View {
             viewModel.socialContextHeader
             
             HStack(alignment: .top) {
-                
+            
                 AvatarView(size: .large, authorAvatarUrl: author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar, goToProfile: {
                     goToProfile(author)
                 })
@@ -1144,7 +1144,7 @@ struct HomeTimelinePostRowView: View {
         }
     }
     
-    @ViewBuilder fileprivate func componentView(_ component: PostViewComponent) -> some View {
+    @ViewBuilder func componentView(_ component: PostViewComponent) -> some View {
         switch component {
         case .content(let string):
             PostContentView(text: string)
