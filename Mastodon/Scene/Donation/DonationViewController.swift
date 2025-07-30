@@ -151,6 +151,9 @@ struct DonationView: View {
                             self.selectedAmount = amount.unitAmount
                         }) {
                             Text(amount.currencyFormattedString)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.25)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .frame(minWidth: 45)
                         }
                         .buttonStyle(
