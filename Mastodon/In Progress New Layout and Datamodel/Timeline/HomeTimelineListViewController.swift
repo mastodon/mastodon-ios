@@ -365,8 +365,10 @@ private class HomeTimelineListViewModel: ObservableObject {
     @Published var isPerformingPostAction: (action: MastodonPostMenuAction, post: MastodonContentPost)? = nil
     @Published var isPerformingAccountAction: (action: MastodonPostMenuAction, account: MastodonAccount)? = nil
     
-    @Published var preloadedItems = [TimelineItem]()
-    @Published var timelineItems = [TimelineItem]()
+    @Published var currentDisplaySlice = ArraySlice<TimelineItem>()
+    private var fullFeed = MastodonFeedLoaderResult(allRecords: [TimelineItem](), canLoadOlder: false)
+    private let displaySliceLength = 100
+    
     @Published var unreadCount: Int = 0
     @Published var scrollToTopRequested: Bool = false
     
@@ -428,12 +430,16 @@ private class HomeTimelineListViewModel: ObservableObject {
         }
     }
     
-    private func splitItems(_ items: [TimelineItem], after splitID: Mastodon.Entity.Status.ID?) -> ([TimelineItem], [TimelineItem]) {
-        if let splitIndex = items.firstIndex(where: { $0.id == splitID}) {
-            return (Array(items.prefix(splitIndex)), Array(items.suffix(from: splitIndex)))
-        } else {
-            return ([], items)
-        }
+    private func getDisplaySlice(from items: [TimelineItem], startItemID: Mastodon.Entity.Status.ID?, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
+        let startIndex = items.firstIndex(where: { $0.id == startItemID}) ?? 0
+        let endIndex = min(startIndex + displaySliceLength, items.endIndex)
+        return items[startIndex..<endIndex] + (endIndex != items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
+    }
+    
+    private func getDisplaySlice(from items: [TimelineItem], midIndex: Int, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
+        let startIndex = max(0, midIndex - (self.displaySliceLength / 2))
+        let endIndex = min(startIndex + self.displaySliceLength, items.endIndex)
+        return items[startIndex..<endIndex] + (endIndex < items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
     }
     
     func doInitialLoad() async throws {
@@ -471,36 +477,38 @@ private class HomeTimelineListViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         guard let self else { return }
                         
-                        let split: ([TimelineItem], [TimelineItem])
-                        let publishNewTimeline: Bool
+                        let newDisplaySlice: ArraySlice<TimelineItem>?
                         switch self.lastReadState {
                         case .unknown, .hasScrolled, .interactedWith, .leftWhileViewing:
-                            if let firstCurrentID = self.timelineItems.first(where: {
+                            if let firstCurrentID = self.fullFeed.allRecords.first(where: {
                                 switch $0 {
                                 case .post: return true
                                 default: return false
                                 }
                             })?.id {
-                                // better to leave things alone
-                                split = self.splitItems(results.allRecords, after: self.timelineItems.first?.id)
-                                publishNewTimeline = false
+                                // better to leave things alone in these cases rather than risk jumping the scroll unexpectedly
+                                newDisplaySlice = nil
                             } else {
-                                // current timeline is empty, so take these items
-                                split = self.splitItems(results.allRecords, after: nil)
-                                publishNewTimeline = true
+                                // current timeline is empty, so take a slice of these items to display
+                                newDisplaySlice = self.getDisplaySlice(from: results.allRecords, startItemID: nil, canLoadOlder: results.canLoadOlder)
                             }
                         case .fromCache(let id):
-                            split = self.splitItems(results.allRecords, after: id) // keep the cached last read item at the top of the feed by keeping newer items in reserve.
-                            publishNewTimeline = true
-                        case .requestedReload(let id):
-                            split = ([], results.allRecords)
-                            publishNewTimeline = true
+                            newDisplaySlice = self.getDisplaySlice(from: results.allRecords, startItemID: id, canLoadOlder: results.canLoadOlder) // put the cached last read item at the top of the display
+                        case .requestedReload(let anchorID):
+                            let anchorItemIndex = results.allRecords.firstIndex(where: {
+                                switch $0 {
+                                case .post(let postViewModel): return postViewModel.initialDisplayInfo.id == anchorID
+                                default: return false
+                                }
+                            }) ?? 0
+                            
+                            newDisplaySlice = self.getDisplaySlice(from: results.allRecords, midIndex: anchorItemIndex, canLoadOlder: results.canLoadOlder)
                         }
 
-                        self.preloadedItems = split.0
-                        if publishNewTimeline {
-                            self.tailItemIds = split.1.suffix(5).map { $0.id }
-                            self.timelineItems = split.1 + (results.canLoadOlder ? [.loadingIndicator] : [])
+                        if let newDisplaySlice {
+                            self.tailItemIds = newDisplaySlice.suffix(5).map { $0.id }
+                            self.fullFeed = results
+                            self.currentDisplaySlice = newDisplaySlice
                         }
                     }
                 })
@@ -516,22 +524,22 @@ private class HomeTimelineListViewModel: ObservableObject {
     }
     
     func forceLastReadToTop(_ lastRead: Mastodon.Entity.Status.ID) {
-        let split = splitItems(timelineItems, after: lastRead)
-        guard !split.0.isEmpty else { return }
-        preloadedItems = preloadedItems + split.0
-        timelineItems = split.1
+        let newDisplaySlice = getDisplaySlice(from: fullFeed.allRecords, startItemID: lastRead, canLoadOlder: fullFeed.canLoadOlder)
+        currentDisplaySlice = newDisplaySlice
     }
     
     func requestLoad(_ loadRequest: MastodonFeedLoaderRequest) {
-        guard let feedLoader else { assertionFailure(); return }
-        feedLoader.requestLoad(loadRequest)
+        if loadRequest == .older && currentDisplaySlice.endIndex < fullFeed.allRecords.endIndex {
+            currentDisplaySlice = getDisplaySlice(from: fullFeed.allRecords, midIndex: currentDisplaySlice.endIndex, canLoadOlder: fullFeed.canLoadOlder)
+        } else {
+            guard let feedLoader else { assertionFailure(); return }
+            feedLoader.requestLoad(loadRequest)
+        }
     }
     
     func refreshFeedFromTop() async {
-        if !preloadedItems.isEmpty {
-            let readyToAdd = preloadedItems
-            preloadedItems = []
-            timelineItems = readyToAdd + timelineItems
+        if currentDisplaySlice.startIndex > 0 {
+            currentDisplaySlice = getDisplaySlice(from: fullFeed.allRecords, midIndex: currentDisplaySlice.startIndex, canLoadOlder: fullFeed.canLoadOlder)
         } else {
             guard let feedLoader else { assertionFailure(); return }
             if feedLoader.permissionToLoadImmediately {
@@ -543,20 +551,19 @@ private class HomeTimelineListViewModel: ObservableObject {
     }
     
     func scrollToTop() {
-        let topItem = (preloadedItems.first ?? timelineItems.first)
+        let topItem = fullFeed.allRecords.first
         switch topItem {
         case nil, .loadingIndicator, .missingPosts:
             lastReadState = .unknown
         case .post(let viewModel):
             lastReadState = .requestedReload(viewModel.initialDisplayInfo.id)
         }
-        timelineItems = preloadedItems + timelineItems
-        preloadedItems = []
+        currentDisplaySlice = getDisplaySlice(from: fullFeed.allRecords, startItemID: nil, canLoadOlder: fullFeed.canLoadOlder)
         scrollToTopRequested = true
     }
     
     func didAppear(_ postViewModel: MastodonPostViewModel, contentWidth: CGFloat) {
-        guard feedLoader?.records.canLoadOlder == true else {
+        guard currentDisplaySlice.endIndex < fullFeed.allRecords.endIndex || fullFeed.canLoadOlder == true else {
             debugScroll("have loaded as far back as possible")
             return
         }
@@ -575,11 +582,16 @@ private class HomeTimelineListViewModel: ObservableObject {
         
         if tailItemIds.contains(postViewModel.initialDisplayInfo.id) {
             tailItemIds = []
-            requestLoad(.older)
+            lastReadState = .requestedReload(postViewModel.initialDisplayInfo.id)
+            if currentDisplaySlice.endIndex < fullFeed.allRecords.endIndex {
+                currentDisplaySlice = getDisplaySlice(from: fullFeed.allRecords, midIndex: currentDisplaySlice.endIndex, canLoadOlder: fullFeed.canLoadOlder)
+            } else {
+                requestLoad(.older)
+            }
         }
         
         if let scrollManager {
-            unreadCount = scrollManager.topVisibleIndex(in: timelineItems) + preloadedItems.count
+            unreadCount = scrollManager.topVisibleIndex(in: currentDisplaySlice)
         }
     }
 
@@ -711,6 +723,8 @@ extension HomeTimelineListViewModel {
     }
 }
 
+private let scrollViewCoordinateSpace = "ScrollViewCoordinateSpace"
+
 struct HomeTimelineListView: View {
     @ObservedObject private var viewModel: HomeTimelineListViewModel
     @State private var scrollManager = ScrollManager()
@@ -728,7 +742,7 @@ struct HomeTimelineListView: View {
                 ScrollViewReader { proxy in
                     ScrollView {
                         VStack {
-                            ForEach(viewModel.timelineItems, id: \.self) { item in
+                            ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
                                 switch item {
                                 case let .missingPosts(newerThan, olderThan):
                                     GapLoaderView(newerThan: newerThan, olderThan: olderThan, gapDescription: "",
@@ -745,11 +759,30 @@ struct HomeTimelineListView: View {
                                         Spacer()
                                     }
                                     .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
+                                    
                                 case .post(let postViewModel):
                                     let usableWidth =
                                     geo.size.width - geo.safeAreaInsets.leading
                                     - geo.safeAreaInsets.trailing
                                     let contentWidth = max(1, usableWidth - (spacingBetweenGutterAndContent * 3) - avatarSize)
+                                    
+                                    VisibilityTrackingView(visibilityDidChange: { isVisible in
+                                        if isVisible {
+                                            scrollManager.didAppear(postViewModel.initialDisplayInfo.id)
+                                            viewModel.didAppear(postViewModel, contentWidth: contentWidth)
+                                        } else {
+                                            scrollManager.didDisappear(postViewModel.initialDisplayInfo.id)
+                                            viewModel.didDisappear(postViewModel)
+                                        }
+                                    },
+                                                           scrollCoordinateSpace: scrollViewCoordinateSpace,
+                                                           visibleAreaHeight: geo.size.height)
+                                    .frame(width: 10, height: 1)
+#if DEBUG
+                                    Text(postViewModel.initialDisplayInfo.id)
+                                        .foregroundStyle(.red)
+                                        .fontWeight(.bold)
+#endif
                                     
                                     HomeTimelinePostRowView(contentConcealModel: viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID),
                                                             contentWidth: contentWidth)
@@ -761,14 +794,7 @@ struct HomeTimelineListView: View {
                                             Rectangle().fill(.yellow)
                                         }
                                     })
-                                    .onAppear {
-                                        scrollManager.didAppear(postViewModel.initialDisplayInfo.id)
-                                        viewModel.didAppear(postViewModel, contentWidth: contentWidth)
-                                    }
-                                    .onDisappear() {
-                                        scrollManager.didDisappear(postViewModel.initialDisplayInfo.id)
-                                        viewModel.didDisappear(postViewModel)
-                                    }
+                                    
 #if DEBUG && false
                                     .background {
                                         if recentlyInsertedItemIds?.contains(postViewModel.initialDisplayInfo.id) == true {
@@ -781,7 +807,7 @@ struct HomeTimelineListView: View {
                             }
                         }
                     }
-                    .onChange(of: viewModel.timelineItems, initial: true) { oldValue, newValue in
+                    .onChange(of: viewModel.currentDisplaySlice, initial: true) { oldValue, newValue in
                         if oldValue == newValue {
                             switch viewModel.lastReadState {
                             case .requestedReload:
@@ -802,33 +828,36 @@ struct HomeTimelineListView: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                                 scrollManager.scrollTo(lastReadID: id, items: newValue, proxy: proxy) { success in
                                     let topVisibleIndex = scrollManager.topVisibleIndex(in: newValue)
-                                    viewModel.unreadCount = topVisibleIndex + viewModel.preloadedItems.count
+                                    viewModel.unreadCount = topVisibleIndex
                                 }
                             }
                         }
                     }
                     .onChange(of: viewModel.scrollToTopRequested, { oldValue, newValue in
-                        if newValue == true, let anchorID = viewModel.timelineItems.first?.id {
-                            scrollManager.scrollTo(lastReadID: anchorID, items: viewModel.timelineItems, proxy: proxy, completion: { success in
+                        if newValue == true, let anchorID = viewModel.currentDisplaySlice.first?.id {
+                            scrollManager.scrollTo(lastReadID: anchorID, items: viewModel.currentDisplaySlice, proxy: proxy, completion: { success in
                                 debugScroll("scroll to top completed! \(success)")
-                                viewModel.scrollToTopRequested = false
+                                DispatchQueue.main.async {
+                                    viewModel.scrollToTopRequested = false
+                                }
                             })
                         }
                     })
                     .refreshable {
                         debugScroll("REFRESHABLE?")
-                        if let topItem = viewModel.timelineItems.first?.id {
+                        if let topItem = viewModel.currentDisplaySlice.first?.id {
                             viewModel.lastReadState = .requestedReload(topItem)
                             debugScroll("REFRESHABLE. Scroll lastread is now .requestedReload(\(topItem))")
                         }
                         await viewModel.refreshFeedFromTop()
                     }
                     .accessibilityAction(named: L10n.Common.Controls.Actions.seeMore) {
-                        if let topItem = viewModel.timelineItems.first?.id {
+                        if let topItem = viewModel.currentDisplaySlice.first?.id {
                             viewModel.lastReadState = .requestedReload(topItem)
                         }
                         viewModel.requestLoad(.newer)
                     }
+                    .coordinateSpace(name: scrollViewCoordinateSpace)
                 }
             }
         }
@@ -845,7 +874,7 @@ struct HomeTimelineListView: View {
         .onDisappear() {
             switch viewModel.lastReadState {
             case .unknown, .hasScrolled:
-                if let topVisible = viewModel.timelineItems.first(where: { scrollManager.isVisible($0.id) }) {
+                if let topVisible = viewModel.currentDisplaySlice.first(where: { scrollManager.isVisible($0.id) }) {
                     viewModel.lastReadState = .leftWhileViewing(topVisible.id)
                 }
             case .fromCache, .requestedReload, .interactedWith, .leftWhileViewing:
@@ -996,7 +1025,7 @@ fileprivate class ScrollManager {
         debugScroll("item disappeared - \(itemID)")
     }
 
-    func scrollTo(lastReadID: String?, items: [TimelineItem], proxy: ScrollViewProxy, retryCount: Int = totalRetryCount, completion: @escaping (Bool)->()) {
+    func scrollTo(lastReadID: String?, items: ArraySlice<TimelineItem>, proxy: ScrollViewProxy, retryCount: Int = totalRetryCount, completion: @escaping (Bool)->()) {
         guard isAppeared else {
             // the proxy scroll does not behave correctly until the view is on screen
             debugScroll("cannot scroll! have not appeared!")
@@ -1010,7 +1039,10 @@ fileprivate class ScrollManager {
         }
         DispatchQueue.main.async {
             let firstVisibleItem = items.first(where: { self.visibleItems.contains($0.id) })
-            debugScroll("attempting scroll to \(anchorItem.id) with \(retryCount) retries left. top visible item is \(firstVisibleItem?.id ?? "NIL")")
+            debugScroll("attempting scroll to \(anchorItem.id) with \(retryCount) retries left. top visible item is \(firstVisibleItem?.id ?? "NIL").  All \(self.visibleItems.count) visible items:")
+            for itemID in self.visibleItems {
+                debugScroll(itemID)
+            }
             proxy.scrollTo(anchorItem, anchor: .top)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100 * (totalRetryCount - retryCount))) { [weak self] in
@@ -1029,9 +1061,9 @@ fileprivate class ScrollManager {
         }
     }
     
-    func topVisibleIndex(in items: [TimelineItem]) -> Int {
+    func topVisibleIndex(in items: ArraySlice<TimelineItem>) -> Int {
         let index = items.firstIndex(where: { visibleItems.contains($0.id) })
-        debugScroll("top visible index is \(index ?? 0)")
+        debugScroll("top visible index is \(index ?? 0) (with a list of \(visibleItems.count) visible items)")
         return index ?? 0
     }
 }
