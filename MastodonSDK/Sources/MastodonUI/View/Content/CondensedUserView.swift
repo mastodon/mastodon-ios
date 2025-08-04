@@ -30,7 +30,7 @@ public class CondensedUserView: UIView {
 
     public override init(frame: CGRect) {
         avatarImageView = AvatarImageView()
-        avatarImageView.cornerConfiguration = AvatarImageView.CornerConfiguration(corner: .fixed(radius: 8))
+        avatarImageView.avatarCornerConfiguration = AvatarImageView.CornerConfiguration(corner: .fixed(radius: 8))
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
 
         avatarImageWrapperView = UIView()

@@ -12,7 +12,7 @@ import AlamofireImage
 public class AvatarImageView: FLAnimatedImageView {
     public var imageViewSize: CGSize?
     public var url: URL? = nil
-    public var cornerConfiguration = CornerConfiguration()
+    public var avatarCornerConfiguration = CornerConfiguration()
 }
 
 extension AvatarImageView {
@@ -26,7 +26,7 @@ extension AvatarImageView {
     override public func layoutSubviews() {
         super.layoutSubviews()
         
-        setup(corner: cornerConfiguration.corner)
+        setup(corner: avatarCornerConfiguration.corner)
     }
     
     private func setup(corner: CornerConfiguration.Corner) {
@@ -116,7 +116,7 @@ extension AvatarImageView {
     }
     
     public func configure(cornerConfiguration: CornerConfiguration) {
-        self.cornerConfiguration = cornerConfiguration
+        self.avatarCornerConfiguration = cornerConfiguration
         setup(corner: cornerConfiguration.corner)
         setup(border: cornerConfiguration.border)
     }
