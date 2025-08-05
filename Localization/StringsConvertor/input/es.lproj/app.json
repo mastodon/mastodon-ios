@@ -777,7 +777,7 @@
                 "mentioned_you": "te mencionó",
                 "request_to_follow_you": "solicitó seguirte",
                 "poll_has_ended": "encuesta ha terminado",
-                "relationship_severance": "An admin from %@ has blocked %@, including %@."
+                "relationship_severance": "Un administrador de %@ ha bloqueado a %@, incluyendo a %@."
             },
             "keyobard": {
                 "show_everything": "Mostrar Todo",
@@ -799,7 +799,7 @@
                 "suspend": "Tu cuenta ha sido suspendida.",
                 "learn_more": "Saber Más"
             },
-            "learn_more_about_server_blocks": "Learn more about server blocks",
+            "learn_more_about_server_blocks": "Aprender más de bloqueos de servidor",
             "filtered_notification": {
                 "title": "Notificaciones filtradas",
                 "accept": "Aceptar",
