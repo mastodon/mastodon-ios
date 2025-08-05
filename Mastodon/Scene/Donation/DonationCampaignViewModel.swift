@@ -116,17 +116,6 @@ extension Mastodon.Entity.DonationCampaign: DonationCampaignViewModel {
     var defaultFrequency: DonationFrequency {
         return availableFrequencies.last ?? .monthly
     }
-    var defaultCurrency: String {
-        let fallback = "EUR"
-        guard let currencies = availableCurrencies(frequency: defaultFrequency)
-        else { return fallback }
-        if let localCurrency = Locale.current.currency?.identifier,
-            currencies.contains(localCurrency)
-        {
-            return localCurrency
-        }
-        return currencies.first ?? fallback
-    }
     var defaultAmount: Int {
         let least =
             suggestedDonations(
