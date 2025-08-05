@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person favorited:</string>
+        <string>una persona marcó a favoritos:</string>
         <key>other</key>
-        <string>%ld people favorited:</string>
+        <string>%ld personas marcaron a favoritos:</string>
       </dict>
     </dict>
     <key>plural.count.people_followed_you</key>
@@ -445,7 +445,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 of your followers</string>
+        <string>1 de tus seguidores</string>
         <key>other</key>
         <string>%ld de tus seguidores</string>
       </dict>
@@ -461,7 +461,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 account that you follow</string>
+        <string>1 cuenta que sigues</string>
         <key>other</key>
         <string>%ld cuentas que sigues</string>
       </dict>
