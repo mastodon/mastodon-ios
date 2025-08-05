@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one other</string>
+        <string>uno más</string>
         <key>other</key>
-        <string>%ld others</string>
+        <string>%ld más</string>
       </dict>
     </dict>
     <key>plural.count.new_signups</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one new signup</string>
+        <string>un registro nuevo</string>
         <key>other</key>
-        <string>%ld new signups</string>
+        <string>%ld registros nuevos</string>
       </dict>
     </dict>
     <key>plural.count.people_boosted</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person boosted:</string>
+        <string>una persona impulsó:</string>
         <key>other</key>
-        <string>%ld people boosted:</string>
+        <string>%ld personas impulsaron:</string>
       </dict>
     </dict>
     <key>plural.count.people_favourited</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>one person followed you</string>
+        <string>una persona te siguió</string>
         <key>other</key>
-        <string>%ld people followed you</string>
+        <string>%ld personas te siguieron</string>
       </dict>
     </dict>
     <key>plural.count.poll_that_you_and_others_voted_in</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>a poll that you and one other voted in</string>
+        <string>una encuesta en la que tú y otro más votaron</string>
         <key>other</key>
-        <string>a poll that you and %ld others voted in</string>
+        <string>una encuesta en la que tú y %ld otros más votaron</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -173,7 +173,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 archivo multimedia</string>
         <key>other</key>
         <string>%ld archivos multimedia</string>
       </dict>
@@ -189,7 +189,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 image</string>
+        <string>1 imagen</string>
         <key>other</key>
         <string>%ld fotos</string>
       </dict>
@@ -221,7 +221,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 video</string>
+        <string>1 vídeo</string>
         <key>other</key>
         <string>%ld videos</string>
       </dict>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 attachment</string>
+        <string>1 adjunto</string>
         <key>other</key>
-        <string>%ld attachments</string>
+        <string>%ld adjuntos</string>
       </dict>
     </dict>
     <key>plural.count.poll</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 poll</string>
+        <string>1 encuesta</string>
         <key>other</key>
-        <string>%ld polls</string>
+        <string>%ld encuestas</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
