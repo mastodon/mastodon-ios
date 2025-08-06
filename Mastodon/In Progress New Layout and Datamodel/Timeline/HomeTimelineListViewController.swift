@@ -18,6 +18,7 @@ private func debugScroll(_ message: String) {
 class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
 {
     private let viewModel = HomeTimelineListViewModel(timeline: .following)
+    private var navigationFlow: NavigationFlow?
     private let _mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     private var scrollToTopUpdateSubscription: AnyCancellable?
@@ -27,6 +28,14 @@ class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
         super.init(rootView: root)
         viewModel.parentVcPresentScene = { (scene, transition) in
             self.sceneCoordinator?.present(scene: scene, transition: transition)
+        }
+        viewModel.presentDonationDialog = { [weak self] campaign in
+            guard let self else { return }
+            guard let coordinator = self.sceneCoordinator, let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value else { return }
+            self.navigationFlow = NewDonationNavigationFlow(flowPresenter: self, campaign: campaign, authenticationBox: authBox, sceneCoordinator: coordinator)
+            self.navigationFlow?.presentFlow { [weak self] in
+                self?.navigationFlow = nil
+            }
         }
         viewModel.hostingViewController = self
         
@@ -338,6 +347,7 @@ enum MastodonTimelineOverlayView {
 @MainActor
 private class HomeTimelineListViewModel: ObservableObject {
     public var parentVcPresentScene: ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> ())?
+    public var presentDonationDialog: ((Mastodon.Entity.DonationCampaign) -> ())?
     private var authenticatedUser: MastodonAuthenticationBox?
     private var instanceConfiguration: MastodonAuthentication.InstanceConfiguration?
     var hostingViewController: MediaPreviewableViewController?
@@ -361,6 +371,7 @@ private class HomeTimelineListViewModel: ObservableObject {
     
     @Published var isShowingOverlay: Bool = false
     @Published var isPresentingAlert: Bool = false
+    @Published var presentedDonationCampaign: Mastodon.Entity.DonationCampaign?
     
     @Published var isPerformingPostAction: (action: MastodonPostMenuAction, post: MastodonContentPost)? = nil
     @Published var isPerformingAccountAction: (action: MastodonPostMenuAction, account: MastodonAccount)? = nil
@@ -723,6 +734,44 @@ extension HomeTimelineListViewModel {
     }
 }
 
+extension HomeTimelineListViewModel {
+    func askForDonationIfPossible() async {
+        guard let authenticatedUser else { return }
+        guard let accountCreatedAt = authenticatedUser.authentication.accountCreatedAt else {
+            let updated = try? await APIService.shared.verifyAndActivateUser(domain: authenticatedUser.domain,
+                                                                             clientID: authenticatedUser.authentication.clientID,
+                                                                             clientSecret: authenticatedUser.authentication.clientSecret,
+                                                                                    authorization: authenticatedUser.userAuthorization)
+            guard let accountCreatedAt = updated?.1.authentication.createdAt else { return }
+            AuthenticationServiceProvider.shared.updateAccountCreatedAt(accountCreatedAt, forAuthentication: authenticatedUser.authentication)
+            return
+        }
+
+        guard
+            Mastodon.Entity.DonationCampaign.isEligibleForDonationsBanner(
+                domain: authenticatedUser.domain,
+                accountCreationDate: accountCreatedAt)
+        else { return }
+
+        let seed = Mastodon.Entity.DonationCampaign.donationSeed(
+            username: authenticatedUser.authentication.username,
+            domain: authenticatedUser.domain)
+        
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+
+            do {
+                let campaign = try await APIService.shared
+                    .getDonationCampaign(seed: seed, source: .banner).value
+                guard !Mastodon.Entity.DonationCampaign.hasPreviouslyDismissed(campaign.id) && !Mastodon.Entity.DonationCampaign.hasPreviouslyContributed(campaign.id) else { return }
+                presentedDonationCampaign = campaign
+            } catch {
+                // no-op
+            }
+        }
+    }
+}
+
 private let scrollViewCoordinateSpace = "ScrollViewCoordinateSpace"
 
 struct HomeTimelineListView: View {
@@ -738,7 +787,7 @@ struct HomeTimelineListView: View {
     
     var body: some View {
         GeometryReader { geo in
-            ZStack { // to show ALT text when needed
+            ZStack(alignment: .bottom) { // to show ALT text when needed, and donation banner
                 ScrollViewReader { proxy in
                     ScrollView {
                         VStack {
@@ -859,6 +908,23 @@ struct HomeTimelineListView: View {
                     }
                     .coordinateSpace(name: scrollViewCoordinateSpace)
                 }
+                
+                if let campaign = viewModel.presentedDonationCampaign {
+                    DonationPromptBanner(campaign: campaign,
+                    close: {
+                        withAnimation {
+                            viewModel.presentedDonationCampaign = nil
+                        }
+                        Mastodon.Entity.DonationCampaign.didDismiss(campaign.id)
+                    },
+                    showDonationDialog: {
+                        withAnimation {
+                            viewModel.presentedDonationCampaign = nil
+                        }
+                        viewModel.presentDonationDialog?(campaign)
+                    })
+                    .fixedSize(horizontal: false, vertical: true)
+                }
             }
         }
         .onAppear() {
@@ -869,6 +935,9 @@ struct HomeTimelineListView: View {
                 break
             case .fromCache(let id), .requestedReload(let id), .interactedWith(let id), .leftWhileViewing(let id):
                 viewModel.forceLastReadToTop(id)
+            }
+            Task {
+                await viewModel.askForDonationIfPossible()
             }
         }
         .onDisappear() {
