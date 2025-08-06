@@ -428,6 +428,9 @@ private class HomeTimelineListViewModel: ObservableObject {
         didSet {
             guard feedLoader?.timeline != timeline else { return }
             feedLoader = nil
+            lastReadState = .unknown
+            currentDisplaySlice = ArraySlice([.loadingIndicator])
+            fullFeed = MastodonFeedLoaderResult(allRecords: [], canLoadOlder: true)
             Task {
                 try await doInitialLoad()
             }
@@ -464,8 +467,10 @@ private class HomeTimelineListViewModel: ObservableObject {
             .sink{ [weak self] results in
                 switch self?.lastReadState {
                 case .unknown:
-                    if let lastReadMarker = self?.feedLoader?.lastReadMarker {
-                        self?.lastReadState = .fromCache(lastReadMarker.lastReadID)
+                    if self?.feedLoader?.timeline == .following {
+                        if let lastReadMarker = self?.feedLoader?.lastReadMarker {
+                            self?.lastReadState = .fromCache(lastReadMarker.lastReadID)
+                        }
                     }
                 default:
                     break

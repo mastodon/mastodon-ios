@@ -94,15 +94,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         self.timeline = timeline
         authenticatedUser = currentUser
         myAccountID = authenticatedUser.cachedAccount?.id
-        let trackLastRead = {
-            switch timeline {
-            case .following:
-                true
-            case .hashtag, .local, .list:
-                false
-            }
-        }()
-        let cacheManager = TimelineCacheManager(currentUser: currentUser, trackLastRead: trackLastRead)
+        let trackLastRead = timeline == .following
+        let cacheManager = TimelineCacheManager(currentUser: currentUser, trackLastRead: trackLastRead, useDiskCache: timeline == .following)
         super.init(cacheManager)
     }
 
@@ -461,16 +454,21 @@ class TimelineCacheManager: MastodonFeedCacheManager {
     typealias CachedType = CacheableTimeline
     
     private let currentUser: MastodonAuthenticationBox
+    private let useDiskCache: Bool
     
-    init(currentUser: MastodonAuthenticationBox, trackLastRead: Bool) {
+    init(currentUser: MastodonAuthenticationBox, trackLastRead: Bool, useDiskCache: Bool) {
         self.currentUser = currentUser
         self.trackLastRead = trackLastRead
-        Task {
-            let timeline = BodegaPersistence.cachedTimeline(forUser: currentUser)
-            if trackLastRead {
-                self.currentLastReadMarker = await BodegaPersistence.LastRead.lastReadMarkers(for: currentUser)?.lastRead(forKind: .home)
+        self.useDiskCache = useDiskCache
+        
+        if useDiskCache {
+            Task {
+                let timeline = BodegaPersistence.cachedTimeline(forUser: currentUser)
+                if trackLastRead {
+                    self.currentLastReadMarker = await BodegaPersistence.LastRead.lastReadMarkers(for: currentUser)?.lastRead(forKind: .home)
+                }
+                self.staleResults = CacheableTimeline(older: [], newer: timeline)
             }
-            self.staleResults = CacheableTimeline(older: [], newer: timeline)
         }
     }
     
@@ -517,6 +515,7 @@ class TimelineCacheManager: MastodonFeedCacheManager {
     }
     
     func commitToCache() async {
+        guard useDiskCache else { return }
         if let items = currentResults()?.items {
             BodegaPersistence.cacheTimeline(items, forUser: currentUser)
             guard trackLastRead, let currentLastReadMarker else { return }
@@ -528,6 +527,7 @@ class TimelineCacheManager: MastodonFeedCacheManager {
     }
     
     func clearCache() async {
+        guard useDiskCache else { return }
         try? await BodegaPersistence.clearCachedTimeline(forUser: currentUser)
     }
 }
