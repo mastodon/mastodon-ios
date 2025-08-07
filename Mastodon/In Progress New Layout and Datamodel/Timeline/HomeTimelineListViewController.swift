@@ -818,7 +818,7 @@ struct HomeTimelineListView: View {
                                     let usableWidth =
                                     geo.size.width - geo.safeAreaInsets.leading
                                     - geo.safeAreaInsets.trailing
-                                    let contentWidth = max(1, usableWidth - (spacingBetweenGutterAndContent * 3) - avatarSize)
+                                    let contentWidth = max(1, usableWidth - (spacingBetweenGutterAndContent) - (doublePadding * 2) - avatarSize)
                                     
                                     VisibilityTrackingView(visibilityDidChange: { isVisible in
                                         if isVisible {
@@ -841,7 +841,7 @@ struct HomeTimelineListView: View {
                                     HomeTimelinePostRowView(contentConcealModel: viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID),
                                                             contentWidth: contentWidth)
                                     .environment(postViewModel)
-                                    .padding(spacingBetweenGutterAndContent)
+                                    .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
                                     .frame(width: usableWidth)
                                     .background(content: {
                                         if postViewModel.initialDisplayInfo.id == viewModel.lastReadState.id {
