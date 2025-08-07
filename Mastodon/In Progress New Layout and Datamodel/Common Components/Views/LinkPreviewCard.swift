@@ -62,7 +62,7 @@ struct LinkPreviewCard: View {
         .background {
             RoundedRectangle(cornerRadius: CornerRadius.standard)
                 .fill(.clear)
-                .stroke(.secondary)
+                .stroke(.separator, lineWidth: 0.3)
         }
         .accessibilityLabel(accessibilityLabelText)
         .onTapGesture {

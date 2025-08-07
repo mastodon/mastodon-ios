@@ -50,7 +50,7 @@ struct AvatarView: View {
                             .aspectRatio(contentMode: .fit)
                             .clipShape(avatarShape)
                             .overlay {
-                                avatarShape.stroke(.separator)
+                                avatarShape.stroke(.separator, lineWidth: 0.3)
                             }
                     },
                     placeholder: {
