@@ -1234,6 +1234,8 @@ private struct HomeTimelinePostRowView: View {
 #endif
                     
                     if let actionablePost = viewModel.fullPost?.actionablePost, let actionHandler = viewModel.actionHandler, let relationshipToAuthor = viewModel.myRelationshipToAuthor {
+                        Spacer()
+                            .frame(height: 0)  // gives double spacing between bottom of post content and action bar
                         ActionBar()
                             .environment(viewModel)
                             .frame(width: contentWidth, alignment: .leading)
