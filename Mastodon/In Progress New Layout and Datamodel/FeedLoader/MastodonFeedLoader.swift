@@ -199,7 +199,9 @@ extension MastodonFeedLoader {
         
         let canLoadOlder: Bool? = {
             switch insertionPoint {
-            case .start, .asOlderThan, .asNewerThan:
+            case .start:
+                return nil
+            case .asOlderThan, .asNewerThan:
                 return records.canLoadOlder
             case .end:
                 return nil
@@ -221,6 +223,8 @@ extension MastodonFeedLoader {
         let actuallyCanLoadOlder = {
             if let newLast = filtered.last?.id, let oldLast = records.allRecords.last?.id {
                 return canLoadOlder ?? (newLast != oldLast)
+            } else if filtered.isEmpty && records.allRecords.isEmpty {
+                return canLoadOlder ?? false
             } else {
                 return canLoadOlder ?? true
             }

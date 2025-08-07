@@ -376,6 +376,7 @@ private class HomeTimelineListViewModel: ObservableObject {
     @Published var isPerformingPostAction: (action: MastodonPostMenuAction, post: MastodonContentPost)? = nil
     @Published var isPerformingAccountAction: (action: MastodonPostMenuAction, account: MastodonAccount)? = nil
     
+    @Published var feedIsEmpty: Bool = false
     @Published var currentDisplaySlice = ArraySlice<TimelineItem>()
     private var fullFeed = MastodonFeedLoaderResult(allRecords: [TimelineItem](), canLoadOlder: false)
     private let displaySliceLength = 100
@@ -465,6 +466,16 @@ private class HomeTimelineListViewModel: ObservableObject {
         feedLoader = TimelineFeedLoader(currentUser: currentUser, timeline: timeline)
         feedLoaderResultsSubscription = feedLoader?.$records
             .sink{ [weak self] results in
+                
+                guard results.allRecords.count > 0 || results.canLoadOlder else {
+                    self?.feedIsEmpty = true
+                    return
+                }
+                
+                if self?.feedIsEmpty == true {
+                    self?.feedIsEmpty = false
+                }
+                
                 switch self?.lastReadState {
                 case .unknown:
                     if self?.feedLoader?.timeline == .following {
@@ -635,6 +646,12 @@ private class HomeTimelineListViewModel: ObservableObject {
     func contentConcealModel(forActionablePost post: Mastodon.Entity.Status.ID) -> ContentConcealViewModel {
         return feedLoader?.contentConcealViewModel(forContentPost: post) ?? .alwaysShow
     }
+    
+    func suggestAccountsToFollow() {
+        guard let authenticatedUser else { return }
+        let suggestionAccountViewModel = SuggestionAccountViewModel(authenticationBox: authenticatedUser)
+        presentScene(.suggestionAccount(viewModel: suggestionAccountViewModel), fromPost: nil, transition: .modal(animated: true, completion: nil))
+    }
 }
 
 extension HomeTimelineListViewModel {
@@ -793,142 +810,160 @@ struct HomeTimelineListView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottom) { // to show ALT text when needed, and donation banner
-                ScrollViewReader { proxy in
-                    ScrollView {
-                        VStack {
-                            ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
-                                switch item {
-                                case let .missingPosts(newerThan, olderThan):
-                                    GapLoaderView(newerThan: newerThan, olderThan: olderThan, gapDescription: "",
-                                                  loadFromTop: {
-                                        viewModel.requestLoad(.olderThan(olderThan))
-                                    }, loadFromBottom: {
-                                        viewModel.requestLoad(.newerThan(newerThan))
-                                    })
-                                case .loadingIndicator:
-                                    HStack {
-                                        Spacer()
-                                        ProgressView()
-                                            .progressViewStyle(.circular)
-                                        Spacer()
-                                    }
-                                    .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
-                                    
-                                case .post(let postViewModel):
-                                    let usableWidth =
-                                    geo.size.width - geo.safeAreaInsets.leading
-                                    - geo.safeAreaInsets.trailing
-                                    let contentWidth = max(1, usableWidth - (spacingBetweenGutterAndContent) - (doublePadding * 2) - avatarSize)
-                                    
-                                    VisibilityTrackingView(visibilityDidChange: { isVisible in
-                                        if isVisible {
-                                            scrollManager.didAppear(postViewModel.initialDisplayInfo.id)
-                                            viewModel.didAppear(postViewModel, contentWidth: contentWidth)
-                                        } else {
-                                            scrollManager.didDisappear(postViewModel.initialDisplayInfo.id)
-                                            viewModel.didDisappear(postViewModel)
+                if viewModel.feedIsEmpty {
+                    Image(uiImage: Asset.Asset.friends.image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    Button {
+                        viewModel.suggestAccountsToFollow()
+                    } label: {
+                        Text(L10n.Common.Controls.Actions.findPeople)
+                        .bold()
+                        .foregroundStyle(.white)
+                        .padding()
+                        .background(Asset.Colors.accent.swiftUIColor)
+                        .cornerRadius(CornerRadius.standard)
+                    }
+                    .padding(EdgeInsets(top: doublePadding, leading: 0, bottom: doublePadding, trailing: 0))
+                } else {
+                    ScrollViewReader { proxy in
+                        ScrollView {
+                            VStack {
+                                ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
+                                    switch item {
+                                    case let .missingPosts(newerThan, olderThan):
+                                        GapLoaderView(newerThan: newerThan, olderThan: olderThan, gapDescription: "",
+                                                      loadFromTop: {
+                                            viewModel.requestLoad(.olderThan(olderThan))
+                                        }, loadFromBottom: {
+                                            viewModel.requestLoad(.newerThan(newerThan))
+                                        })
+                                    case .loadingIndicator:
+                                        HStack {
+                                            Spacer()
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                            Spacer()
                                         }
-                                    },
-                                                           scrollCoordinateSpace: scrollViewCoordinateSpace,
-                                                           visibleAreaHeight: geo.size.height)
-                                    .frame(width: 10, height: 1)
+                                        .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
+                                        
+                                    case .post(let postViewModel):
+                                        let usableWidth =
+                                        geo.size.width - geo.safeAreaInsets.leading
+                                        - geo.safeAreaInsets.trailing
+                                        let contentWidth = max(1, usableWidth - (spacingBetweenGutterAndContent) - (doublePadding * 2) - avatarSize)
+                                        
+                                        VisibilityTrackingView(visibilityDidChange: { isVisible in
+                                            if isVisible {
+                                                scrollManager.didAppear(postViewModel.initialDisplayInfo.id)
+                                                viewModel.didAppear(postViewModel, contentWidth: contentWidth)
+                                            } else {
+                                                scrollManager.didDisappear(postViewModel.initialDisplayInfo.id)
+                                                viewModel.didDisappear(postViewModel)
+                                            }
+                                        },
+                                                               scrollCoordinateSpace: scrollViewCoordinateSpace,
+                                                               visibleAreaHeight: geo.size.height)
+                                        .frame(width: 10, height: 1)
 #if DEBUG
-                                    Text(postViewModel.initialDisplayInfo.id)
-                                        .foregroundStyle(.red)
-                                        .fontWeight(.bold)
+                                        Text(postViewModel.initialDisplayInfo.id)
+                                            .foregroundStyle(.red)
+                                            .fontWeight(.bold)
 #endif
-                                    
-                                    HomeTimelinePostRowView(contentConcealModel: viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID),
-                                                            contentWidth: contentWidth)
-                                    .environment(postViewModel)
-                                    .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
-                                    .frame(width: usableWidth)
-                                    .background(content: {
-                                        if postViewModel.initialDisplayInfo.id == viewModel.lastReadState.id {
-                                            Rectangle().fill(.yellow)
-                                        }
-                                    })
-                                    
+                                        
+                                        HomeTimelinePostRowView(contentConcealModel: viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID),
+                                                                contentWidth: contentWidth)
+                                        .environment(postViewModel)
+                                        .padding(EdgeInsets(top: standardPadding, leading: doublePadding, bottom: standardPadding, trailing: doublePadding))
+                                        .frame(width: usableWidth)
+                                        .background(content: {
+                                            if postViewModel.initialDisplayInfo.id == viewModel.lastReadState.id {
+                                                Rectangle().fill(.yellow)
+                                            }
+                                        })
+                                        
 #if DEBUG && false
-                                    .background {
-                                        if recentlyInsertedItemIds?.contains(postViewModel.initialDisplayInfo.id) == true {
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .fill(.blue.opacity(0.2))
+                                        .background {
+                                            if recentlyInsertedItemIds?.contains(postViewModel.initialDisplayInfo.id) == true {
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .fill(.blue.opacity(0.2))
+                                            }
                                         }
-                                    }
 #endif
+                                    }
                                 }
                             }
                         }
-                    }
-                    .onChange(of: viewModel.currentDisplaySlice, initial: true) { oldValue, newValue in
-                        if oldValue == newValue {
+                        .onChange(of: viewModel.currentDisplaySlice, initial: true) { oldValue, newValue in
+                            if oldValue == newValue {
+                                switch viewModel.lastReadState {
+                                case .requestedReload:
+                                    debugScroll("need to scroll even though nothing has changed")
+                                    break  // might need to scroll
+                                default:
+                                    debugScroll("will not scroll because nothing has changed and last read state is \(viewModel.lastReadState)")
+                                    return // try not to mess with things
+                                }
+                            }
                             switch viewModel.lastReadState {
-                            case .requestedReload:
-                                debugScroll("need to scroll even though nothing has changed")
-                               break  // might need to scroll
-                            default:
-                                debugScroll("will not scroll because nothing has changed and last read state is \(viewModel.lastReadState)")
-                                return // try not to mess with things
-                            }
-                        }
-                        switch viewModel.lastReadState {
-                        case .unknown, .hasScrolled:
-                            debugScroll("NOTHING TO SCROLL TO")
-                            break
-                        case .fromCache(let id), .requestedReload(let id), .interactedWith(let id), .leftWhileViewing(let id):
-                            debugScroll("timelineItems have changed; will try to scroll to \(id)")
-                            // keep the last read item scrolled to the top of the view
-                            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                                scrollManager.scrollTo(lastReadID: id, items: newValue, proxy: proxy) { success in
-                                    let topVisibleIndex = scrollManager.topVisibleIndex(in: newValue)
-                                    viewModel.unreadCount = topVisibleIndex
+                            case .unknown, .hasScrolled:
+                                debugScroll("NOTHING TO SCROLL TO")
+                                break
+                            case .fromCache(let id), .requestedReload(let id), .interactedWith(let id), .leftWhileViewing(let id):
+                                debugScroll("timelineItems have changed; will try to scroll to \(id)")
+                                // keep the last read item scrolled to the top of the view
+                                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                                    scrollManager.scrollTo(lastReadID: id, items: newValue, proxy: proxy) { success in
+                                        let topVisibleIndex = scrollManager.topVisibleIndex(in: newValue)
+                                        viewModel.unreadCount = topVisibleIndex
+                                    }
                                 }
                             }
                         }
+                        .onChange(of: viewModel.scrollToTopRequested, { oldValue, newValue in
+                            if newValue == true, let anchorID = viewModel.currentDisplaySlice.first?.id {
+                                scrollManager.scrollTo(lastReadID: anchorID, items: viewModel.currentDisplaySlice, proxy: proxy, completion: { success in
+                                    debugScroll("scroll to top completed! \(success)")
+                                    DispatchQueue.main.async {
+                                        viewModel.scrollToTopRequested = false
+                                    }
+                                })
+                            }
+                        })
+                        .refreshable {
+                            debugScroll("REFRESHABLE?")
+                            if let topItem = viewModel.currentDisplaySlice.first?.id {
+                                viewModel.lastReadState = .requestedReload(topItem)
+                                debugScroll("REFRESHABLE. Scroll lastread is now .requestedReload(\(topItem))")
+                            }
+                            await viewModel.refreshFeedFromTop()
+                        }
+                        .accessibilityAction(named: L10n.Common.Controls.Actions.seeMore) {
+                            if let topItem = viewModel.currentDisplaySlice.first?.id {
+                                viewModel.lastReadState = .requestedReload(topItem)
+                            }
+                            viewModel.requestLoad(.newer)
+                        }
+                        .coordinateSpace(name: scrollViewCoordinateSpace)
                     }
-                    .onChange(of: viewModel.scrollToTopRequested, { oldValue, newValue in
-                        if newValue == true, let anchorID = viewModel.currentDisplaySlice.first?.id {
-                            scrollManager.scrollTo(lastReadID: anchorID, items: viewModel.currentDisplaySlice, proxy: proxy, completion: { success in
-                                debugScroll("scroll to top completed! \(success)")
-                                DispatchQueue.main.async {
-                                    viewModel.scrollToTopRequested = false
-                                }
-                            })
-                        }
-                    })
-                    .refreshable {
-                        debugScroll("REFRESHABLE?")
-                        if let topItem = viewModel.currentDisplaySlice.first?.id {
-                            viewModel.lastReadState = .requestedReload(topItem)
-                            debugScroll("REFRESHABLE. Scroll lastread is now .requestedReload(\(topItem))")
-                        }
-                        await viewModel.refreshFeedFromTop()
+                    
+                    if let campaign = viewModel.presentedDonationCampaign {
+                        DonationPromptBanner(campaign: campaign,
+                                             close: {
+                            withAnimation {
+                                viewModel.presentedDonationCampaign = nil
+                            }
+                            Mastodon.Entity.DonationCampaign.didDismiss(campaign.id)
+                        },
+                                             showDonationDialog: {
+                            withAnimation {
+                                viewModel.presentedDonationCampaign = nil
+                            }
+                            viewModel.presentDonationDialog?(campaign)
+                        })
+                        .fixedSize(horizontal: false, vertical: true)
                     }
-                    .accessibilityAction(named: L10n.Common.Controls.Actions.seeMore) {
-                        if let topItem = viewModel.currentDisplaySlice.first?.id {
-                            viewModel.lastReadState = .requestedReload(topItem)
-                        }
-                        viewModel.requestLoad(.newer)
-                    }
-                    .coordinateSpace(name: scrollViewCoordinateSpace)
-                }
-                
-                if let campaign = viewModel.presentedDonationCampaign {
-                    DonationPromptBanner(campaign: campaign,
-                    close: {
-                        withAnimation {
-                            viewModel.presentedDonationCampaign = nil
-                        }
-                        Mastodon.Entity.DonationCampaign.didDismiss(campaign.id)
-                    },
-                    showDonationDialog: {
-                        withAnimation {
-                            viewModel.presentedDonationCampaign = nil
-                        }
-                        viewModel.presentDonationDialog?(campaign)
-                    })
-                    .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }
