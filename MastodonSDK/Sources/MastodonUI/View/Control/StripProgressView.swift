@@ -33,6 +33,7 @@ public final class StripProgressLayer: CALayer {
             
             return presentation()?.progress ?? self.progress
         }()
+        guard bounds.size.width > 0, bounds.size.height > 0 else { return }
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         guard let context = UIGraphicsGetCurrentContext() else {
             assertionFailure()
