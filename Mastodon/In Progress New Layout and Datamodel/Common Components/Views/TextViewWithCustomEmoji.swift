@@ -49,9 +49,9 @@ public enum PostViewHeaderStyle {
     var font: SwiftUI.Font.TextStyle {
         switch self {
         case .author:
-                .body
+                .footnote
         case .socialContext:
-                .subheadline
+                .footnote
         case .linkPreviewCardAuthorButton:
                 .callout
         case .pollOption:

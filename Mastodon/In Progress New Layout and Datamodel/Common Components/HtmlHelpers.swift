@@ -64,12 +64,12 @@ extension MastodonHtmlFormat {
             ]
         case .socialContextHeader:
             [
-                .font : UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: baseFontSize, weight: .bold)),
+                .font : UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: baseFontSize, weight: .bold)),
                 .foregroundColor : UIColor.secondaryLabel,
             ]
         case .socialContextHeaderPrivate:
             [
-                .font : UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: baseFontSize, weight: .bold)),
+                .font : UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: baseFontSize, weight: .bold)),
                 .foregroundColor : Asset.Colors.accent.color,
             ]
         case .linkPreviewCardAuthor:

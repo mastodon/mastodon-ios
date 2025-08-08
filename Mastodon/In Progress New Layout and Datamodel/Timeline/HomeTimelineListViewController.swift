@@ -1218,7 +1218,7 @@ private struct HomeTimelinePostRowView: View {
         let actionablePost = viewModel.fullPost?.actionablePost
         let author = actionablePost?.metaData.author ?? viewModel.fullPost?.metaData.author
         
-        VStack(alignment: .gutterAlign, spacing: spacingBetweenGutterAndContent) {
+        VStack(alignment: .gutterAlign, spacing: tinySpacing) {
             
             viewModel.socialContextHeader
             

@@ -527,10 +527,11 @@ struct FilteredNotificationsRowView: View {
     }
 }
 
-let actionSuperheaderHeight: CGFloat = 20
+let baseActionSuperheaderHeight: CGFloat = 20
 
 struct NotificationRowView: View {
 
+    @ScaledMetric private var actionSuperheaderHeight: CGFloat = baseActionSuperheaderHeight
     @ScaledMetric private var smallAvatarSize = AvatarSize.small
     
     @ObservedObject var viewModel: NotificationRowViewModel
@@ -551,7 +552,7 @@ struct NotificationRowView: View {
                             Spacer()
                             if let iconName = actionSuperheader.iconName {
                                 Image(systemName: iconName)
-                                    .font(.subheadline)
+                                    .font(.footnote)
                                     .bold()
                                     .foregroundStyle(actionSuperheader.color)
                                     .frame(height: actionSuperheaderHeight)
@@ -579,7 +580,7 @@ struct NotificationRowView: View {
             VStack(spacing: 4) {
                 if let actionSuperheader = viewModel.actionSuperheader {
                     componentView(.weightedText(actionSuperheader.text, .bold))
-                        .font(.subheadline)
+                        .font(.footnote)
                         .foregroundColor(actionSuperheader.color)
                         .frame(height: actionSuperheaderHeight)
                 }
@@ -618,7 +619,7 @@ struct NotificationRowView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
         case .timeSinceLabel(let date):
             Text(date.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp))
-                .font(.subheadline)
+                .font(.footnote)
                 .frame(height: actionSuperheaderHeight)
                 .fixedSize(horizontal: true, vertical: false)
                 .foregroundColor(.secondary)
@@ -641,7 +642,7 @@ struct NotificationRowView: View {
                 Text(string)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(date.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp))
-                    .font(.subheadline)
+                    .font(.footnote)
                     .frame(height: actionSuperheaderHeight)
                     .fixedSize(horizontal: true, vertical: false)
                     .foregroundColor(.secondary)

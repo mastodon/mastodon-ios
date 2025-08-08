@@ -18,7 +18,10 @@ struct AuthorHeaderView: View {
                     }
                 VisibilityAndTimestamp(timestamper: timestamper, referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility)
             }
-            textComponent("@\(authorHandle)", fontWeight: .light)
+            Text("@\(authorHandle)")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
     
@@ -28,6 +31,8 @@ struct AuthorHeaderView: View {
             MastodonContentView.header(html: author.displayInfo.displayName, emojis: author.displayInfo.emojis, style: .author)
         } else {
             Text(postViewModel.initialDisplayInfo.actionableAuthorDisplayName)
+                .font(.footnote)
+                .fontWeight(.semibold)
         }
     }
     
@@ -68,6 +73,7 @@ extension MastodonAccount: AccountInfo {
 }
 
 struct VisibilityAndTimestamp: View {
+    @ScaledMetric private var actionSuperheaderHeight = baseActionSuperheaderHeight
     @ObservedObject var timestamper: TimestampUpdater
     let referenceDate: Date
     let visibility: GenericMastodonPost.PrivacyLevel
@@ -80,7 +86,7 @@ struct VisibilityAndTimestamp: View {
             Text(referenceDate.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp))
                 .fixedSize(horizontal: true, vertical: false)
         }
-        .font(.subheadline)
+        .font(.footnote)
         .frame(height: actionSuperheaderHeight)
         .foregroundColor(.secondary)
         .accessibilityLabel(referenceDate.localizedAbbreviatedSlowedTimeAgoSinceNow)

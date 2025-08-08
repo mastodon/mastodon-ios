@@ -84,7 +84,7 @@ extension SocialContextHeader: View {
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: spacingBetweenGutterAndContent) {
             Image(systemName: iconName)
-                .font(.subheadline)
+                .font(.footnote)
                 .bold()
                 .foregroundStyle(color)
                 .frame(height: socialContextHeaderHeight)
