@@ -11,7 +11,7 @@ let doublePadding: CGFloat = _eight * 2
 let tinySpacing: CGFloat = _eight / 2
 
 struct AvatarSize {
-    static var large: CGFloat = 55
+    static var large: CGFloat = 44
     static var small: CGFloat = 32
     static var tiny: CGFloat = 16
 }
