@@ -41,7 +41,7 @@ struct LinkPreviewCard: View {
                         .frame(width: previewFrame.width, height: previewFrame.height)
                     Divider()
                     textContentStack
-                        .frame(width: fittingWidth - previewFrame.width)
+                        .frame(width: max(0, fittingWidth - previewFrame.width))
                 }
             case .noPreviewVisual:
                 textContentStack
