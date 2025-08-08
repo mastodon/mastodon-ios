@@ -100,22 +100,54 @@ struct LinkPreviewCard: View {
     }
     
     @ViewBuilder var previewVisual: some View {
-        ZStack {
             if couldShowImage, let imageUrl = cardEntity.image {
                 AsyncImage(url: URL(string: imageUrl))
                 { phase in
                     switch phase {
                     case .empty:
-                        if let blurhash {
-                            Image(uiImage: blurhash)
-                                .resizable()
-                                .scaledToFill()
+                        ZStack {
+                            if let blurhash {
+                                Image(uiImage: blurhash)
+                                    .resizable()
+                                    .scaledToFill()
+                            }
+                            if cardEntity.html == nil || cardEntity.html?.isEmpty == true {
+                                ProgressView()
+                            }
                         }
-                        ProgressView()
                     case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
+                        ZStack {
+                            image
+                                .resizable()
+                                .scaledToFit()
+                            
+                            if let html = cardEntity.html, !html.isEmpty {
+                                if loadingEmbeddedContent {
+                                    ZStack {
+                                        ProgressView()
+                                            .progressViewStyle(.circular)
+                                        WebContentView(style: .linkPreviewCard, html: html)
+                                    }
+                                } else {
+                                    Button {
+                                        loadingEmbeddedContent = true
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: "play.fill")
+                                                .font(.title2)
+                                            Text(L10n.Common.Controls.Status.loadEmbed)
+                                        }
+                                        .foregroundStyle(.primary)
+                                        .padding(EdgeInsets(top: standardPadding, leading: ButtonPadding.capsuleHorizontal, bottom: standardPadding, trailing: ButtonPadding.capsuleHorizontal))
+                                        .background {
+                                            Capsule()
+                                                .fill(.ultraThinMaterial)
+                                        }
+                                    }
+                                    .buttonStyle(.borderless)
+                                }
+                            }
+                        }
                     case .failure:
                         Color.clear.frame(height: 0)
                             .onAppear {
@@ -130,40 +162,11 @@ struct LinkPreviewCard: View {
                         EmptyView()
                     }
                 }
+                .fixedSize(horizontal: false, vertical: true)
                 .onAppear() {
                     loadBlurhash()
                 }
             }
-            
-            if let html = cardEntity.html, !html.isEmpty {
-
-                if loadingEmbeddedContent {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                    WebContentView(style: .linkPreviewCard, html: html)
-                } else {
-                    Button {
-                        loadingEmbeddedContent = true
-                    } label: {
-                        HStack {
-                            Image(systemName: "play.fill")
-                                .font(.title2)
-                            Text(L10n.Common.Controls.Status.loadEmbed)
-                        }
-                        .foregroundStyle(.primary)
-                        .padding(EdgeInsets(top: standardPadding, leading: ButtonPadding.capsuleHorizontal, bottom: standardPadding, trailing: ButtonPadding.capsuleHorizontal))
-                        .background {
-                            Capsule()
-                                .fill(.ultraThinMaterial)
-                        }
-                    }
-                    .buttonStyle(.borderless)
-                }
-            }
-        }
-        .onAppear() {
-            loadBlurhash()
-        }
     }
     
     func loadBlurhash() {
