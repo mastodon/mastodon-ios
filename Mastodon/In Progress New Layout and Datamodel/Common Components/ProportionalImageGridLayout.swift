@@ -76,15 +76,15 @@ struct ProportionalImageGridLayout: Layout {
     
     private func layoutRow(in rect: CGRect, subviews: [LayoutSubview], aspects: [CGFloat]) {
         let totalAspect = aspects.reduce(0, +)
-        let halfSpacing = spacing / 2.0
-        
     
         var x = rect.minX
         for (index, subview) in subviews.enumerated() {
+            let isFirstOrLast = index == subviews.startIndex || index == subviews.endIndex
+            let widthReductionForSpacing = spacing / (isFirstOrLast ? 2 : 1)
             let width = rect.width * (aspects[index] / totalAspect)
-            let frame = CGRect(x: x, y: rect.minY, width: width - halfSpacing, height: rect.height)
+            let frame = CGRect(x: x, y: rect.minY, width: width - widthReductionForSpacing, height: rect.height)
             subview.place(at: frame.origin, proposal: ProposedViewSize(width: frame.width, height: frame.height))
-            x += width + halfSpacing
+            x += width + spacing
         }
     }
     

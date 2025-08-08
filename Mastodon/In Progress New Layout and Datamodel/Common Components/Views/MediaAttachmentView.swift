@@ -350,7 +350,7 @@ struct BlurhashImageView: View {
             if let blurhash {
                 Image(uiImage: blurhash)
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
             }
             
             if let url {
