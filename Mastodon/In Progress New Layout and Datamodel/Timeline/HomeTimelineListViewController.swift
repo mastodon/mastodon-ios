@@ -1284,7 +1284,7 @@ private struct HomeTimelinePostRowView: View {
                     .font(.footnote)
 #endif
                     
-                    if let actionablePost = viewModel.fullPost?.actionablePost, let actionHandler = viewModel.actionHandler, let relationshipToAuthor = viewModel.myRelationshipToAuthor {
+                    if let actionablePost = viewModel.fullPost?.actionablePost {
                         Spacer()
                             .frame(height: 0)  // gives double spacing between bottom of post content and action bar
                         ActionBar()
@@ -1299,7 +1299,7 @@ private struct HomeTimelinePostRowView: View {
             viewModel.openThreadView()
         }
         .onAppear() {
-            assert(viewModel.fullPost != nil)
+            //assert(viewModel.fullPost != nil)
         }
     }
     
