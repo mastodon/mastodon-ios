@@ -844,7 +844,7 @@ struct HomeTimelineListView: View {
                     .padding(EdgeInsets(top: doublePadding, leading: 0, bottom: doublePadding, trailing: 0))
                 } else {
                     ScrollViewReader { proxy in
-                        ScrollView {
+                        ScrollView(showsIndicators: false) {
                             VStack {
                                 ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
                                     switch item {
