@@ -377,16 +377,6 @@ private class HomeTimelineListViewModel: ObservableObject {
     @Published var isPerformingAccountAction: (action: MastodonPostMenuAction, account: MastodonAccount)? = nil
     
     @Published var feedIsEmpty: Bool = false
-    public var hasPresentedFollowSuggestions: Bool = false
-    public var iFollowNoOne: Bool {
-        if let authBox = authenticatedUser,
-           let me = authBox.cachedAccount {
-            return me.followingCount == 0
-        } else {
-            return true
-        }
-    }
-
     @Published var currentDisplaySlice = ArraySlice<TimelineItem>()
     private var fullFeed = MastodonFeedLoaderResult(allRecords: [TimelineItem](), canLoadOlder: false)
     private let displaySliceLength = 100
@@ -825,12 +815,6 @@ struct HomeTimelineListView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .onAppear() {
-                            if viewModel.iFollowNoOne == true, viewModel.hasPresentedFollowSuggestions == false {
-                                viewModel.suggestAccountsToFollow()
-                                viewModel.hasPresentedFollowSuggestions = true
-                            }
-                        }
                     Button {
                         viewModel.suggestAccountsToFollow()
                     } label: {
