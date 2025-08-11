@@ -16,11 +16,14 @@ struct AuthorHeaderView: View {
                     .alignmentGuide(.gutterAlign) { d in
                         return d[HorizontalAlignment.leading]
                     }
-                VisibilityAndTimestamp(timestamper: timestamper, referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility)
+                //                VisibilityAndTimestamp(timestamper: timestamper, referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility)
+                //            }
+                //            Text("@\(authorHandle)")
+                //                .font(.footnote)
+                //                .foregroundStyle(.secondary)
+                //                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            Text("@\(authorHandle)")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
+            VisibilityAndTimestampWithUserHandle(timestamper: timestamper, referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility, handle: authorHandle)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
@@ -90,6 +93,37 @@ struct VisibilityAndTimestamp: View {
         .frame(height: actionSuperheaderHeight)
         .foregroundColor(.secondary)
         .accessibilityLabel(referenceDate.localizedAbbreviatedSlowedTimeAgoSinceNow)
+    }
+    
+    var shouldShowVisibilityIndicator: Bool {
+        switch visibility {
+        case .loudPublic:
+            return false
+        default:
+            return true
+        }
+    }
+}
+
+struct VisibilityAndTimestampWithUserHandle: View {
+    @ScaledMetric private var actionSuperheaderHeight = baseActionSuperheaderHeight
+    @ObservedObject var timestamper: TimestampUpdater
+    let referenceDate: Date
+    let visibility: GenericMastodonPost.PrivacyLevel
+    let handle: String
+    
+    var body: some View {
+        HStack(spacing: tinySpacing) {
+            if shouldShowVisibilityIndicator {
+                Image(systemName: visibility.iconName)
+            }
+            (Text(referenceDate.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp)) + Text(" · @\(handle)"))
+                .fixedSize(horizontal: true, vertical: false)
+        }
+        .font(.footnote)
+        .frame(height: actionSuperheaderHeight)
+        .foregroundColor(.secondary)
+        .accessibilityLabel(referenceDate.localizedAbbreviatedSlowedTimeAgoSinceNow + ", \(handle)")
     }
     
     var shouldShowVisibilityIndicator: Bool {
