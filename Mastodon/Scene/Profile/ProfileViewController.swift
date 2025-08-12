@@ -573,16 +573,21 @@ extension ProfileViewController {
                 }
             }
         } catch let error {
-            displayError(error, andResetView: reset)
+            switch viewModel.profileType {
+            case .me:
+                    displayError(error, andResetView: reset)
+            default:
+                break
+            }
         }
     }
     
     private func refetchDisplayedAccount() async throws -> Mastodon.Entity.Account {
         switch viewModel.profileType {
-        case .me(let account):
+        case .me:
             let (account, authBox) = try await APIService.shared.verifyAndActivateUser(domain: authenticationBox.domain, clientID: authenticationBox.authentication.clientID, clientSecret: authenticationBox.authentication.clientSecret, authorization: authenticationBox.userAuthorization)
             return account
-        case .notMe(let me, let displayAccount, let relationship):
+        case .notMe(_, let displayAccount, let relationship):
             guard let domain = displayAccount.domain else { throw ProfileViewError.invalidDomain }
             guard let refreshedAccount = try await APIService.shared.fetchNotMeUser(username: displayAccount.acct, domain: domain, authenticationBox: authenticationBox) else { throw ProfileViewError.accountNotFound }
             return refreshedAccount
