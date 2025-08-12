@@ -95,7 +95,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         authenticatedUser = currentUser
         myAccountID = authenticatedUser.cachedAccount?.id
         let trackLastRead = timeline == .following
-        let cacheManager = TimelineCacheManager(currentUser: currentUser, trackLastRead: trackLastRead, useDiskCache: timeline == .following)
+        let cacheManager = TimelineCacheManager(currentUser: currentUser, trackLastRead: trackLastRead, useDiskCache: false)
         super.init(cacheManager)
     }
 
