@@ -46,7 +46,7 @@ public actor BodegaPersistence {
             let timeline: [TimelineItem] = cached.map {
                 switch $0 {
                 case .cachedPost(let info):
-                    let viewModel = MastodonPostViewModel(info)
+                    let viewModel = MastodonPostViewModel(info, context: .home)
                     return .post(viewModel)
                 case .missingPosts(let newerThan, let olderThan):
                     return .missingPosts(newerThan: newerThan, olderThan: olderThan)

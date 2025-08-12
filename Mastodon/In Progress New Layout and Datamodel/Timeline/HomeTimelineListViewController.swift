@@ -690,7 +690,7 @@ extension HomeTimelineListViewModel {
             var needsHtmlProcessing = [MastodonPostViewModel]()
             for postModel in batch {
                 if let cachedPost = cachedPosts[postModel.initialDisplayInfo.id] {
-                    postModel.fullPost = cachedPost
+                    postModel.setFullPost(cachedPost)
                 }
                 
                 if let fullPost = postModel.fullPost {
@@ -870,11 +870,16 @@ struct HomeTimelineListView: View {
                                         Text(postViewModel.initialDisplayInfo.id)
                                             .foregroundStyle(.red)
                                             .fontWeight(.bold)
+                                        if let actionablePostID = postViewModel.fullPost?.actionablePost?.id, actionablePostID != postViewModel.initialDisplayInfo.id {
+                                            Text("actionable: \(actionablePostID)")
+                                                .foregroundStyle(.red)
+                                                .font(.footnote)
+                                        }
 #endif
                                         
-                                        HomeTimelinePostRowView(contentConcealModel: viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID),
-                                                                contentWidth: contentWidth)
+                                        HomeTimelinePostRowView(contentWidth: contentWidth)
                                         .environment(postViewModel)
+                                        .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
                                         .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                                         .frame(width: usableWidth)
                                         .background(content: {
@@ -1178,13 +1183,14 @@ fileprivate class ScrollManager {
 }
 
 extension MastodonTimelineOverlayView {
+    @MainActor
     @ViewBuilder func view(sizedForFrame frameSize: CGSize) -> some View {
         switch self {
         case .altText(let altTextString):
             AltTextView(altTextString: altTextString, frameSize: frameSize)
         case .images(let focusedImage, let viewModel):
             if let img = viewModel.imageAttachments.first(where: { $0.id == focusedImage }) {
-                ZoomableBlurhashImageView(image: img, viewModel: viewModel, frameSize: frameSize)
+                ZoomableBlurhashImageView(image: img, frameSize: frameSize)
             }
         }
     }
@@ -1193,7 +1199,8 @@ extension MastodonTimelineOverlayView {
 private struct HomeTimelinePostRowView: View {
 
     @Environment(MastodonPostViewModel.self) private var viewModel
-    @ObservedObject var contentConcealModel: ContentConcealViewModel
+    @Environment(ContentConcealViewModel.self) private var contentConcealModel
+
     let contentWidth: CGFloat
     
     let distanceFromAvatarLeadingEdgeToContentLeadingEdge: CGFloat = spacingBetweenGutterAndContent + AvatarSize.large
@@ -1214,7 +1221,6 @@ private struct HomeTimelinePostRowView: View {
                 
                 VStack(spacing: spacingBetweenGutterAndContent) {
                     AuthorHeaderView(timestamper: viewModel.timestamper)
-                        .environment(viewModel)
                     
                     contentConcealLozenge
                         .frame(width: contentWidth)
@@ -1242,7 +1248,7 @@ private struct HomeTimelinePostRowView: View {
                         if let attachment = viewModel.fullPost?.actionablePost?.content.attachment {
                             switch attachment {
                             case .media(let array):
-                                MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations).view(withContentConcealModel: contentConcealModel, actionHandler: actionHandler)
+                                MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations).view(actionHandler: actionHandler)
                                     .frame(width: contentWidth)
                             case .poll(let poll):
                                 let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
@@ -1254,6 +1260,11 @@ private struct HomeTimelinePostRowView: View {
                                 })
                                 .frame(width: contentWidth)
                             }
+                        }
+                        
+                        if let quotedPostViewModel = viewModel.quotedPostViewModel {
+                            QuotedPostView()
+                                .environment(quotedPostViewModel)
                         }
                     }
                     
@@ -1272,12 +1283,12 @@ private struct HomeTimelinePostRowView: View {
                         Spacer()
                             .frame(height: 0)  // gives double spacing between bottom of post content and action bar
                         ActionBar()
-                            .environment(viewModel)
                             .frame(width: contentWidth, alignment: .leading)
                     }
                 }
             }
         }
+        .environment(contentConcealModel)
         .background(.background.opacity(0.01)) // To allow tap in margin to open threadview. Opacity of 0 does not accept taps, nor does .clear.
         .onTapGesture {
             viewModel.openThreadView()
@@ -1358,7 +1369,6 @@ private struct ActionBar: View {
                 actionButton(forPost: actionablePost, action: .bookmark)
                 Spacer()
                 ActionBarMenuButton()
-                    .environment(viewModel)
                 Spacer()
             }
         }
@@ -1482,6 +1492,8 @@ struct AttributedStringDisplayInfo {
 @MainActor
 @Observable class MastodonPostViewModel {
     
+    var quotedPostViewModel: QuotedPostViewModel?
+    
     enum DisplayPrepStatus {
         case unprepared
         case donePreparing
@@ -1489,7 +1501,21 @@ struct AttributedStringDisplayInfo {
     
     nonisolated let initialDisplayInfo: GenericMastodonPost.InitialDisplayInfo
     
-    var fullPost: GenericMastodonPost? = nil
+    private(set) var fullPost: GenericMastodonPost? = nil
+    
+    func setFullPost(_ post: GenericMastodonPost?) {
+        fullPost = post
+        updateQuotedPostViewModel()
+    }
+    
+    func updateQuotedPostViewModel() {
+        if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost, let quoted = potentialQuotePost.quotedPost {
+            self.quotedPostViewModel = QuotedPostViewModel(quoted, filterContext: self.filterContext, myAccountID: "", myDomain: "", navigateToStatus: {  // TODO: fill in accountID and domain
+                // TODO: use the actionHandler to accomplish this
+            })
+        }
+    }
+    
     var myRelationshipToAuthor: MastodonAccount.Relationship? = nil
     var originalContentDisplayInfo: AttributedStringDisplayInfo?
     var translatedContentDisplayInfo: AttributedStringDisplayInfo?
@@ -1500,20 +1526,26 @@ struct AttributedStringDisplayInfo {
     
     var actionHandler: MastodonPostMenuActionHandler? = nil
     let timestamper: TimestampUpdater = TimestampUpdater.timestamper(withInterval: 30)
+    let filterContext: Mastodon.Entity.FilterContext
     
     private(set) var translation: Mastodon.Entity.Translation? = nil
     
     nonisolated
-    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo) {
+    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, context: Mastodon.Entity.FilterContext) {
         self.initialDisplayInfo = initialDisplay
+        self.filterContext = context
     }
     
-    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil) {
+    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext) {
         self.initialDisplayInfo = initialDisplay
+        self.fullPost = fullPost
+        self.filterContext = filterContext
+        self.updateQuotedPostViewModel()
     }
     
     func update(from actionablePost: GenericMastodonPost) throws {
         self.fullPost = try fullPost?.byReplacingActionablePost(with: actionablePost)
+        updateQuotedPostViewModel()
     }
     
     func hasCalculatedForWidth(_ width: CGFloat) -> Bool {

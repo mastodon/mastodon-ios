@@ -168,17 +168,19 @@ enum MediaAttachment {
 }
 
 extension MediaAttachment {
-    @ViewBuilder func view(withContentConcealModel contentConceal: ContentConcealViewModel, actionHandler: MastodonPostMenuActionHandler) -> some View {
+    @MainActor
+    @ViewBuilder func view(actionHandler: MastodonPostMenuActionHandler) -> some View {
         switch self {
         case .emptyAttachment:
             Image(systemName: "questionmark.square.dashed")
         case .images(let attachments, let altTextTranslations):
-            ConcealableMediaAttachmentView(contentConcealViewModel: contentConceal) {
-                ImageGridView(viewModel: ImageGalleryViewModel(imageAttachments: attachments, contentConcealViewModel: contentConceal, altTextTranslations: altTextTranslations, actionHandler: actionHandler), mediaPreviewableViewController: actionHandler.mediaPreviewableViewController)
+            ConcealableMediaAttachmentView() {
+                ImageGridView(mediaPreviewableViewController: actionHandler.mediaPreviewableViewController)
+                    .environment(ImageGalleryViewModel(imageAttachments: attachments, altTextTranslations: altTextTranslations, actionHandler: actionHandler))
             }
         case .audio, .gifv, .video:
-            ConcealableMediaAttachmentView(contentConcealViewModel: contentConceal) {
-                PlayerView(media: self, contentConcealViewModel: contentConceal, actionHandler: actionHandler)
+            ConcealableMediaAttachmentView() {
+                PlayerView(media: self, actionHandler: actionHandler)
             }
         case .notYetImplemented(let string):
             Text("Needs Implementation (\(string))")
@@ -189,18 +191,17 @@ extension MediaAttachment {
 }
 
 struct ConcealableMediaAttachmentView<Content: View>: View {
-    @ObservedObject var contentConcealViewModel: ContentConcealViewModel
-    let contentView: Content
+    @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
+    let contentViewBuilder: () -> Content
 
-    init(contentConcealViewModel: ContentConcealViewModel, @ViewBuilder content: () -> Content) {
-        self.contentConcealViewModel = contentConcealViewModel
-        self.contentView = content()
+    init(@ViewBuilder content: @escaping() -> Content) {
+        self.contentViewBuilder = content
     }
     
     var body: some View {
         ZStack(alignment: .topTrailing) { // places the Hide/Show button, if there is one
             
-            contentView
+            contentViewBuilder()
             
             // Hide/Show button
             switch contentConcealViewModel.currentMode {
@@ -232,16 +233,18 @@ struct ConcealableMediaAttachmentView<Content: View>: View {
 }
 
 struct ImageGridView: View {
-    @ObservedObject var viewModel: ImageGalleryViewModel
+    @Environment(ImageGalleryViewModel.self) private var viewModel
+    @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     let mediaPreviewableViewController: MediaPreviewableViewController?
     @State var waitingToShowFullSize: String? = nil
     
     var body: some View {
         // The images
-        ProportionalImageGridLayout(spacing: 1, aspectRatios: viewModel.imageAttachments.compactMap(\.imageDetails.originalSize?.aspectRatio), canUseTwoRows: !viewModel.useRestrictedHeight) {
+        let useRestrictedHeight = viewModel.useRestrictedHeight(inConcealMode: contentConcealViewModel.currentMode)
+        ProportionalImageGridLayout(spacing: 1, aspectRatios: viewModel.imageAttachments.compactMap(\.imageDetails.originalSize?.aspectRatio), canUseTwoRows: !useRestrictedHeight) {
             ForEach(viewModel.imageAttachments) { img in
                 ZStack(alignment: .bottomLeading) { // places the ALT text button
-                    BlurhashImageView(url: img.basicData.fullsizeUrl, imageDetails: img.imageDetails, blurhash: viewModel.blurhashes[img.id], contentConcealViewModel: viewModel.contentConcealViewModel)
+                    BlurhashImageView(url: img.basicData.fullsizeUrl, imageDetails: img.imageDetails, blurhash: viewModel.blurhashes[img.id])
                         .clipped()
                         .accessibilityLabel(viewModel.altTextTranslations?[img.id] ?? img.basicData.altText ?? "")
                         .onTapGesture {
@@ -283,12 +286,12 @@ struct ImageGridView: View {
                         .accessibilityHidden(true)
                     }
                 }
-                .frame(maxHeight: viewModel.useRestrictedHeight ? maxHeightForHiddenMedia : nil)
+                .frame(maxHeight: useRestrictedHeight ? maxHeightForHiddenMedia : nil)
             }
         }
-        .frame(maxHeight: viewModel.useRestrictedHeight ? maxHeightForHiddenMedia : nil)
+        .frame(maxHeight: useRestrictedHeight ? maxHeightForHiddenMedia : nil)
         .cornerRadius(CornerRadius.standard)
-        .animation(.easeInOut, value: viewModel.contentConcealViewModel.currentMode.isShowingMedia)
+        .animation(.easeInOut, value: contentConcealViewModel.currentMode.isShowingMedia)
     }
     
     func showImageGallery(focusing: Mastodon.Entity.Attachment.ID) {
@@ -301,7 +304,7 @@ struct ImageGridView: View {
        
         let previewItem: MediaPreviewViewModel.PreviewItem = .attachments(viewModel.imageAttachments.map{ $0._legacyEntity }, initialIndex: focusedIndex, altTexts: altTexts)
         let mediaPreviewTransitionItem: MediaPreviewTransitionItem = {
-            func clippingFrame(forID id: Mastodon.Entity.Attachment.ID) -> CGRect { viewModel.frame(forID: id) ?? CGRect(x: 50, y: 50, width: 50, height: 50)
+            @MainActor func clippingFrame(forID id: Mastodon.Entity.Attachment.ID) -> CGRect { viewModel.frame(forID: id) ?? CGRect(x: 50, y: 50, width: 50, height: 50)
             }
             let clippingFrames = viewModel.imageAttachments.map { clippingFrame(forID: $0.basicData.id) }
             let item = MediaPreviewTransitionItem(source: .swiftUI(sourceFramesInScreenCoordinates: clippingFrames), previewableViewController: presentingViewController)
@@ -340,10 +343,10 @@ struct ImageGridView: View {
 }
 
 struct BlurhashImageView: View {
+    @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     let url: URL?
     let imageDetails: ImageAttachmentDetails
     let blurhash: UIImage?
-    @ObservedObject var contentConcealViewModel: ContentConcealViewModel
     
     var body: some View {
         ZStack {
@@ -380,17 +383,17 @@ struct BlurhashImageView: View {
     }
 }
 
-class ImageGalleryViewModel: ObservableObject {
+@MainActor
+@Observable
+class ImageGalleryViewModel {
     let imageAttachments: [MastodonImageAttachment]
     private var frames = [Mastodon.Entity.Attachment.ID : CGRect]()
     let altTextTranslations: [String : String]?
-    @Published var blurhashes = [ Mastodon.Entity.Attachment.ID : UIImage ]()
-    @ObservedObject var contentConcealViewModel: ContentConcealViewModel
+    var blurhashes = [ Mastodon.Entity.Attachment.ID : UIImage ]()
     let actionHandler: MastodonPostMenuActionHandler
     
-    init(imageAttachments: [MastodonImageAttachment], contentConcealViewModel: ContentConcealViewModel, altTextTranslations: [String: String]?, actionHandler: MastodonPostMenuActionHandler) {
+    init(imageAttachments: [MastodonImageAttachment], altTextTranslations: [String: String]?, actionHandler: MastodonPostMenuActionHandler) {
         self.imageAttachments = imageAttachments
-        self.contentConcealViewModel = contentConcealViewModel
         self.altTextTranslations = altTextTranslations
         self.actionHandler = actionHandler
         loadBlurhashes()
@@ -410,8 +413,8 @@ class ImageGalleryViewModel: ObservableObject {
         }
     }
     
-    var useRestrictedHeight: Bool {
-        switch contentConcealViewModel.currentMode {
+    func useRestrictedHeight(inConcealMode currentMode: ContentConcealViewModel.ContentDisplayMode) -> Bool {
+        switch currentMode {
         case .neverConceal:
             return false
         case .concealAll(_, let showAnyway), .concealMediaOnly(let showAnyway):
@@ -430,15 +433,14 @@ class ImageGalleryViewModel: ObservableObject {
 
 struct PlayerView: View {
     let media: MediaAttachment
-    @ObservedObject var contentConcealViewModel: ContentConcealViewModel
+    @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @StateObject var playerObserver = VideoPlayerObserver()
     let player: AVPlayer?
     let actionHandler: MastodonPostMenuActionHandler
     @State var waitingToShowFullSize = false
     
-    init(media: MediaAttachment, contentConcealViewModel: ContentConcealViewModel, actionHandler: MastodonPostMenuActionHandler) {
+    init(media: MediaAttachment, actionHandler: MastodonPostMenuActionHandler) {
         self.media = media
-        self.contentConcealViewModel = contentConcealViewModel
         self.actionHandler = actionHandler
         
         if let attachmentInfo = media.attachmentInfo, let url = attachmentInfo.url {

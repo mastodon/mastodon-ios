@@ -21,7 +21,8 @@ extension GenericMastodonPost.PostContent.ContentWarned {
 /// For a post that carries both a content warning and filter hits, we treat this as a layered reveal, with the actual content at the bottom, a layer of contentWarned protection on top of it, and a layer of filtered on top of that.
 /// Revealing content removes the filtered layer first, then the contentWarned layer. Concealing content replaces both layers at once.
 @MainActor
-class ContentConcealViewModel: ObservableObject {
+@Observable
+class ContentConcealViewModel {
     
     static let alwaysShow = ContentConcealViewModel(contentPost: nil, context: nil)
     
@@ -61,17 +62,11 @@ class ContentConcealViewModel: ObservableObject {
     private let filtered: GenericMastodonPost.PostContent.ContentWarned
     private let contentWarned: GenericMastodonPost.PostContent.ContentWarned
     
-    private var showAnyway: (despiteFiltered: Bool?, despiteContentWarning: Bool?) {
-        didSet {
-            let (mode, isFilter) = Self.updatedMode(filtered: filtered, contentWarned: contentWarned, showAnyway: showAnyway)
-            currentModeIsFilter = isFilter
-            currentMode = mode
-        }
-    }
+    private var showAnyway: (despiteFiltered: Bool?, despiteContentWarning: Bool?)
     
     private(set) var currentModeIsFilter: Bool
     
-    @Published var currentMode: ContentDisplayMode
+    var currentMode: ContentDisplayMode
     
     init(contentPost: MastodonContentPost?, context: Mastodon.Entity.FilterContext?) {
         
@@ -98,6 +93,8 @@ class ContentConcealViewModel: ObservableObject {
             filtered = .nothingToWarn
         }
         contentWarned = contentPost.content.contentWarned
+        currentMode = .neverConceal
+        currentModeIsFilter = false
         
         showAnyway = ContentConcealViewModel.hideAll(filtered: filtered, contentWarned: contentWarned)
         let (mode, isFilter) = ContentConcealViewModel.updatedMode(filtered: filtered, contentWarned: contentWarned, showAnyway: showAnyway)
@@ -152,10 +149,18 @@ class ContentConcealViewModel: ObservableObject {
         case (.none, .some(false)): // only a cw, remove it
             newShowAnyway = (nil, true)
         }
-        showAnyway = newShowAnyway
+        setShowAnyway(newShowAnyway)
     }
     
     func hide() {
-        showAnyway = ContentConcealViewModel.hideAll(filtered: filtered, contentWarned: contentWarned)
+        let newShowAnyway = ContentConcealViewModel.hideAll(filtered: filtered, contentWarned: contentWarned)
+        setShowAnyway(newShowAnyway)
+    }
+    
+    func setShowAnyway(_ newValue: (Bool?, Bool?)) {
+        showAnyway = newValue
+        let (mode, isFilter) = Self.updatedMode(filtered: filtered, contentWarned: contentWarned, showAnyway: showAnyway)
+        currentModeIsFilter = isFilter
+        currentMode = mode
     }
 }

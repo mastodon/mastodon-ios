@@ -51,6 +51,7 @@ extension Mastodon.Entity {
         public let inReplyToID: Status.ID?
         public let inReplyToAccountID: Account.ID?
         public let reblog: Status?
+        public let quote: Quote?
         public let poll: Poll?
         public let card: Card?
         public let language: String?        //  (ISO 639 Part 1 two-letter language code)
@@ -92,6 +93,7 @@ extension Mastodon.Entity {
             case inReplyToID = "in_reply_to_id"
             case inReplyToAccountID = "in_reply_to_account_id"
             case reblog
+            case quote
             case poll
             case card
             case language

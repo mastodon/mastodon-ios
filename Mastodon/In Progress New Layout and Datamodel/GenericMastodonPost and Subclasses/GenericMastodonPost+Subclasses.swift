@@ -8,10 +8,14 @@ extension GenericMastodonPost {
         if let reblog = status.reblog {
             return MastodonBoostPost(id: status.id, metaData: PostMetadata.fromStatus(status), boostedPost: GenericMastodonPost.fromStatus(reblog) as! MastodonContentPost, _legacyEntity: status)
         }
-//        else if let quote = status.quote {
-//        }
         else {
-            return MastodonBasicPost(id: status.id, metaData: PostMetadata.fromStatus(status), content: PostContent.fromStatus(status), inReplyTo: InReplyToDetails.fromStatus(status), attachment: PostAttachment.fromStatus(status), _legacyEntity: status)
+            let quoted: MastodonQuotedPost?
+            if let quote = status.quote {
+                quoted = MastodonQuotedPost(quoted: quote)
+            } else {
+                quoted = nil
+            }
+            return MastodonBasicPost(id: status.id, metaData: PostMetadata.fromStatus(status), content: PostContent.fromStatus(status), inReplyTo: InReplyToDetails.fromStatus(status), attachment: PostAttachment.fromStatus(status), quoted: quoted, _legacyEntity: status)
         }
     }
     
@@ -57,24 +61,29 @@ class MastodonContentPost: GenericMastodonPost {
 class MastodonBasicPost: MastodonContentPost {
     let inReplyTo: GenericMastodonPost.InReplyToDetails?
     let attachment: GenericMastodonPost.PostAttachment?
+    let quotedPost: MastodonQuotedPost?
     
-    init(id: Mastodon.Entity.Status.ID, metaData: GenericMastodonPost.PostMetadata, content: GenericMastodonPost.PostContent, inReplyTo: GenericMastodonPost.InReplyToDetails?, attachment: GenericMastodonPost.PostAttachment?, _legacyEntity: Mastodon.Entity.Status) {
+    init(id: Mastodon.Entity.Status.ID, metaData: GenericMastodonPost.PostMetadata, content: GenericMastodonPost.PostContent, inReplyTo: GenericMastodonPost.InReplyToDetails?, attachment: GenericMastodonPost.PostAttachment?, quoted: MastodonQuotedPost?, _legacyEntity: Mastodon.Entity.Status) {
         self.inReplyTo = inReplyTo
         self.attachment = attachment
+        self.quotedPost = quoted
         super.init(id: id, metaData: metaData, content: content, _legacyEntity: _legacyEntity)
     }
     
     enum CodingKeys: String, CodingKey {
         case inReplyTo
         case attachment
+        case quotedPost
     }
     
     required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let inReplyTo = try container.decode(GenericMastodonPost.InReplyToDetails.self, forKey: .inReplyTo)
         let attachment = try container.decode(GenericMastodonPost.PostAttachment.self, forKey: .attachment)
+        let quoted = try container.decode(MastodonQuotedPost.self, forKey: .quotedPost)
         self.inReplyTo = inReplyTo
         self.attachment = attachment
+        self.quotedPost = quoted
         try super.init(from: decoder)
     }
 }
@@ -99,22 +108,34 @@ class MastodonBoostPost: GenericMastodonPost {
     }
 }
 
-class MastodonQuotePost: MastodonContentPost {
-    let quotedPost: MastodonBasicPost
+class MastodonQuotedPost: Codable {
+    let state: Mastodon.Entity.Quote.AcceptanceState
+    let fullPost: MastodonContentPost?
+    let quotedPostID: Mastodon.Entity.Status.ID?
     
-    init(id: Mastodon.Entity.Status.ID, content: GenericMastodonPost.PostContent, metaData: GenericMastodonPost.PostMetadata, quotedPost: MastodonBasicPost, _legacyEntity: Mastodon.Entity.Status) {
-        self.quotedPost = quotedPost
-        super.init(id: id, metaData: metaData, content: content, _legacyEntity: _legacyEntity)
+    init(quoted: Mastodon.Entity.Quote) {
+        self.state = quoted.state
+        if let fullStatus = quoted.quotedStatus, let post = MastodonContentPost.fromStatus(fullStatus) as? MastodonContentPost {
+            self.fullPost = post
+        } else {
+            self.fullPost = nil
+        }
+        self.quotedPostID = quoted.quotedStatus?.id ?? quoted.quotedStatusID
     }
 
     enum CodingKeys: String, CodingKey {
-        case quotedPost
+        case state
+        case fullPost
+        case quotedPostID
     }
     
     required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let quotedPost = try container.decode(MastodonBasicPost.self, forKey: .quotedPost)
-        self.quotedPost = quotedPost
-        try super.init(from: decoder)
+        let state = try container.decode(Mastodon.Entity.Quote.AcceptanceState.self, forKey: .state)
+        let quotedPost = try container.decode(MastodonContentPost.self, forKey: .fullPost)
+        let quotedPostID = try container.decode(String.self, forKey: .quotedPostID)
+        self.state = state
+        self.fullPost = quotedPost
+        self.quotedPostID = quotedPostID
     }
 }

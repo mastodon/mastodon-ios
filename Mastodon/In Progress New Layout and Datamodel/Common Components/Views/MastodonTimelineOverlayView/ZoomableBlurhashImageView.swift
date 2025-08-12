@@ -4,7 +4,7 @@ import SwiftUI
 
 struct ZoomableBlurhashImageView: View {
     let image: MastodonImageAttachment
-    @ObservedObject var viewModel: ImageGalleryViewModel
+    @Environment(ImageGalleryViewModel.self) private var viewModel 
     let frameSize: CGSize
    
     var body: some View {
@@ -13,7 +13,8 @@ struct ZoomableBlurhashImageView: View {
         let baseSize = sizeThatFits(aspectRatio: aspectRatio, in: frameSize)
         GeometryReader { geo in
             ZoomableScrollView {
-                BlurhashImageView(url: image.basicData.fullsizeUrl, imageDetails: image.imageDetails, blurhash: viewModel.blurhashes[image.id], contentConcealViewModel: .alwaysShow)
+                BlurhashImageView(url: image.basicData.fullsizeUrl, imageDetails: image.imageDetails, blurhash: viewModel.blurhashes[image.id])
+                    .environment(ContentConcealViewModel.alwaysShow)
                     .frame(width: baseSize.width, height: baseSize.height)
             }
         }

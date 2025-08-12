@@ -1290,6 +1290,7 @@
 				"Common Components/Views/MastodonTimelineOverlayView/ZoomableBlurhashImageView.swift",
 				"Common Components/Views/MediaAttachmentView.swift",
 				"Common Components/Views/PollView.swift",
+				"Common Components/Views/QuotedPostView.swift",
 				"Common Components/Views/SecondaryBackground.swift",
 				"Common Components/Views/ShowMoreLozenge.swift",
 				"Common Components/Views/SocialContextHeader.swift",
