@@ -157,13 +157,16 @@ extension GenericMastodonPost.PostAttachment: FromStatusEntityDerivableOptional
 extension GenericMastodonPost.PostContent.ContentWarned: FromStatusEntityDerivable {
     static func fromStatus(_ status: Mastodon.Entity.Status) -> Self {
         switch (status.sensitive, status.spoilerText) {
+        case (false, nil):
+            return .nothingToWarn
         case (true, nil):
             return .warnMediaAttachmentOnly
         case (true, _):
             guard let reason = status.spoilerText, !reason.isEmpty else { return .warnMediaAttachmentOnly }
             return .warnAll(reasons: [reason])
-        default:
-            return .nothingToWarn
+        case (_, _):
+            guard let reason = status.spoilerText, !reason.isEmpty else { return .nothingToWarn }
+            return .warnAll(reasons: [reason])
         }
     }
 }
