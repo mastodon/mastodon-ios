@@ -391,7 +391,7 @@ private class HomeTimelineListViewModel: ObservableObject {
     
     var scrollManager: ScrollManager?
     
-    private var tailItemIds = [String]()
+    private(set) var tailItemIds = [String]()
     private let displayPrepBatchSize = 10
     private var currentlyPreparingForDisplay: [Mastodon.Entity.Status.ID]?
     private var displayPrepRequested: [MastodonPostViewModel]? // only keep the latest batch requested, to avoid getting bogged down while fast scrolling
@@ -854,18 +854,20 @@ struct HomeTimelineListView: View {
                                         - geo.safeAreaInsets.trailing
                                         let contentWidth = max(1, usableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize)
                                         
-                                        VisibilityTrackingView(visibilityDidChange: { isVisible in
-                                            if isVisible {
-                                                scrollManager.didAppear(postViewModel.initialDisplayInfo.id)
-                                                viewModel.didAppear(postViewModel, contentWidth: contentWidth)
-                                            } else {
-                                                scrollManager.didDisappear(postViewModel.initialDisplayInfo.id)
-                                                viewModel.didDisappear(postViewModel)
-                                            }
-                                        },
-                                                               scrollCoordinateSpace: scrollViewCoordinateSpace,
-                                                               visibleAreaHeight: geo.size.height)
-                                        .frame(width: 10, height: 1)
+                                        if viewModel.tailItemIds.contains(postViewModel.initialDisplayInfo.id) {
+                                            VisibilityTrackingView(visibilityDidChange: { isVisible in
+                                                if isVisible {
+                                                    scrollManager.didAppear(postViewModel.initialDisplayInfo.id)
+                                                    viewModel.didAppear(postViewModel, contentWidth: contentWidth)
+                                                } else {
+                                                    scrollManager.didDisappear(postViewModel.initialDisplayInfo.id)
+                                                    viewModel.didDisappear(postViewModel)
+                                                }
+                                            },
+                                                                   scrollCoordinateSpace: scrollViewCoordinateSpace,
+                                                                   visibleAreaHeight: geo.size.height)
+                                            .frame(width: 10, height: 1)
+                                        }
 #if DEBUG
                                         Text(postViewModel.initialDisplayInfo.id)
                                             .foregroundStyle(.red)
