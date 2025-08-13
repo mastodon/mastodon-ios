@@ -106,9 +106,9 @@
                 "manually_search": "Handmatig zoeken",
                 "skip": "Overslaan",
                 "reply": "Reageer",
-                "report_user": "%s rapporteren",
-                "block_domain": "%s blokkeren",
-                "unblock_domain": "%s deblokkeren",
+                "report_user": "Rapporteer %s",
+                "block_domain": "Blokkeer %s",
+                "unblock_domain": "Deblokkeer %s",
                 "settings": "Instellingen",
                 "delete": "Verwijder",
                 "translate_post": {
@@ -217,7 +217,7 @@
                     "translated_from": "Vertaald uit het %s door %s",
                     "unknown_language": "Onbekend",
                     "unknown_provider": "Onbekend",
-                    "show_original": "Origineel bekijken"
+                    "show_original": "Toon origineel"
                 },
                 "media": {
                     "accessibility_label": "%s, bijlage %d van %d",
@@ -252,7 +252,7 @@
                 "block": "Blokkeren",
                 "block_user": "%s blokkeren",
                 "block_domain": "Server %s blokkeren",
-                "unblock": "Deblokkeren",
+                "unblock": "Deblokkeer",
                 "unblock_user": "%s deblokkeren",
                 "blocked": "Geblokkeerd",
                 "domain_blocked": "Server geblokkeerd",
