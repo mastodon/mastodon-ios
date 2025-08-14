@@ -481,7 +481,7 @@ private class HomeTimelineListViewModel: ObservableObject {
                 
                 let needsPrep: [MastodonPostViewModel] = results.allRecords.compactMap { item in
                     switch item {
-                    case .loadingIndicator, .missingPosts:
+                    case .loadingIndicator:
                         return nil
                     case .post(let viewModel):
                         switch viewModel.displayPrepStatus {
@@ -652,7 +652,7 @@ extension HomeTimelineListViewModel {
         guard batchStart < feedLoaderRecords.count else { return nil }
         let batchItems = feedLoaderRecords[batchStart...].prefix(displayPrepBatchSize).compactMap { item -> MastodonPostViewModel? in
             switch item {
-            case .loadingIndicator, .missingPosts:
+            case .loadingIndicator:
                 return nil
             case .post(let postViewModel):
                 // not donePreparing, not included in currently preparing (inclusion in requested does not matter, because this batch may replace the current requested batch)
@@ -823,11 +823,6 @@ struct HomeTimelineListView: View {
                             VStack {
                                 ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
                                     switch item {
-                                    case let .missingPosts(newerThan, olderThan):
-                                        GapLoaderView(newerThan: newerThan, olderThan: olderThan, gapDescription: "",
-                                                      loadFromTop: {
-                                        }, loadFromBottom: {
-                                        })
                                     case .loadingIndicator:
                                         HStack {
                                             Spacer()
@@ -1747,7 +1742,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .loadingIndicator, .missingPosts:
+                            case .loadingIndicator:
                                 break
                             case .post(let viewModel):
                                 viewModel.isShowingTranslation = true
@@ -1758,7 +1753,7 @@ extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
                     feedLoader?.updateCachedResults({ timeline in
                         for item in timeline.items {
                             switch item {
-                            case .loadingIndicator, .missingPosts:
+                            case .loadingIndicator:
                                 break
                             case .post(let viewModel):
                                 viewModel.isShowingTranslation = false

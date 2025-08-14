@@ -43,13 +43,14 @@ public actor BodegaPersistence {
 
         do {
             let cached = try JSONDecoder().decode([CacheableTimelineItem].self, from: data)
-            let timeline: [TimelineItem] = cached.map {
+            let timeline: [TimelineItem] = cached.compactMap {
                 switch $0 {
                 case .cachedPost(let info):
                     let viewModel = MastodonPostViewModel(info, context: .home)
                     return .post(viewModel)
                 case .missingPosts(let newerThan, let olderThan):
-                    return .missingPosts(newerThan: newerThan, olderThan: olderThan)
+                    return nil // loading results missing from the middle of a feed is no longer supported
+                    break
                 }
             }
             return timeline
@@ -147,7 +148,7 @@ extension BodegaPersistence {
         var posts = [(CacheKey, Mastodon.Entity.Status)]()
         for item in timeline {
             switch item {
-            case .loadingIndicator, .missingPosts:
+            case .loadingIndicator:
                 break
             case .post(let viewModel):
                 if let fullPost = await viewModel.fullPost {
@@ -164,8 +165,6 @@ extension BodegaPersistence {
             switch item {
             case .post(let viewModel):
                 return .cachedPost(viewModel.initialDisplayInfo)
-            case .missingPosts(let newerThan, let olderThan):
-                return .missingPosts(newerThan: newerThan, olderThan: olderThan)
             case .loadingIndicator:
                 return nil
             }

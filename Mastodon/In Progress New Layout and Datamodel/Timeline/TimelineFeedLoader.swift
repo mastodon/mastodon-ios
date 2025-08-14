@@ -28,15 +28,12 @@ extension GenericMastodonPost {
 
 enum TimelineItem: Identifiable {
     case post(MastodonPostViewModel)
-    case missingPosts(newerThan: Mastodon.Entity.Status.ID, olderThan: Mastodon.Entity.Status.ID)
     case loadingIndicator
     
     var id: String {
         switch self {
         case .post(let postViewModel):
             return postViewModel.initialDisplayInfo.id
-        case .missingPosts(let newerThan, let olderThan):
-            return "\(newerThan)-\(olderThan)"
         case .loadingIndicator:
             return "loading..."
         }
@@ -48,18 +45,6 @@ enum TimelineItem: Identifiable {
             return true
         default:
             return false
-        }
-    }
-    
-    static func gapBetween(_ olderItem: TimelineItem?, newerItem: TimelineItem?) -> TimelineItem? {
-        switch (olderItem, newerItem) {
-        case (.post(let olderViewModel), .post(let newerViewModel)):
-            let olderID = olderViewModel.initialDisplayInfo.id
-            let newerID = newerViewModel.initialDisplayInfo.id
-            assert(olderID < newerID)
-            return .missingPosts(newerThan: olderID, olderThan: newerID)
-        default:
-            return nil
         }
     }
 }
@@ -250,7 +235,7 @@ struct CacheableTimeline: CacheableFeed {
     var filteredPosts: [TimelineItem] {
         return items.filter { item in
             switch item {
-            case .missingPosts, .loadingIndicator:
+            case .loadingIndicator:
                 return true
             case .post(let postViewModel):
                 if let contentPost = postViewModel.fullPost as? MastodonContentPost {
@@ -274,7 +259,7 @@ struct CacheableTimeline: CacheableFeed {
         
         let oldestIdInNewBatch = newer.last(where: { item in
             switch item {
-            case .missingPosts, .loadingIndicator: return false
+            case .loadingIndicator: return false
             case .post: return true
             }
         })?.id
@@ -284,7 +269,7 @@ struct CacheableTimeline: CacheableFeed {
                 switch item {
                 case .post:
                     return item.id == oldestIdInNewBatch
-                case .missingPosts, .loadingIndicator:
+                case .loadingIndicator:
                     return false
                 }
             })
@@ -296,11 +281,8 @@ struct CacheableTimeline: CacheableFeed {
                 } else {
                     combined = newer
                 }
-            } else if let gapItem = TimelineItem.gapBetween(older.first, newerItem: newer.last) {
-                combined = newer + [gapItem] + older
             } else {
-                assert(older.isEmpty, "How else did we get here?")
-                combined = newer + older
+                combined = newer  // do not allow gaps
             }
         } else {
             assert(newer.isEmpty, "How else did we get here?")
@@ -309,131 +291,12 @@ struct CacheableTimeline: CacheableFeed {
         
         items = combined
     }
-    
-    init(inserting: [TimelineItem], into existingItems: [TimelineItem], asOlderThan: String) {
-        // Assume that there should have been a gap item at the requested insertion point.
-        let matchingGapItemIndex = existingItems.firstIndex { item in
-            switch item {
-            case .loadingIndicator, .post:
-                return false
-            case .missingPosts(_, let olderThan):
-                return olderThan == asOlderThan
-            }
-        }
-                
-        guard let matchingGapItemIndex else { assertionFailure(); items = existingItems; return }
-        
-        // start with the exiting items newer than the gap
-        var updatedItems = Array(existingItems.prefix(upTo: matchingGapItemIndex))
- 
-        // add the items being inserted
-        var alreadySeen = Set<String>()
-        for insertingItem in inserting {
-            alreadySeen.insert(insertingItem.id)
-            updatedItems.append(insertingItem)
-        }
-        
-#if DEBUG
-        recentlyInsertedItemIds = alreadySeen
-#endif
-        
-        // Now deal with any remaining gap or overlap
-        
-        let firstIndexAfterGap = matchingGapItemIndex + 1
-        guard firstIndexAfterGap < existingItems.count else {
-            assertionFailure("A gap ought to have items on both sides of it")
-            items = Array(updatedItems)
-            return
-        }
-        
-        guard let lastNewItem = updatedItems.last else {
-            assertionFailure("should have had some existing items before the gap, at least")
-            items = existingItems
-            return
-        }
-        
-        if existingItems.suffix(from: firstIndexAfterGap).firstIndex(where: { alreadySeen.contains($0.id) }) != nil {
-            // There is an overlap, so no need to include a gap, but we also don't want to include duplicates
-            if let firstNonDuplicateIndex = existingItems.suffix(from: firstIndexAfterGap).firstIndex(where: { !alreadySeen.contains($0.id) }) {
-                
-                for item in existingItems.suffix(from: firstNonDuplicateIndex) {
-                    if !alreadySeen.contains(item.id) {
-                        updatedItems.append(item)
-                    }
-                }
-            }
-        } else {
-            // There is a gap
-            if let newGap = TimelineItem.gapBetween(existingItems[firstIndexAfterGap], newerItem: lastNewItem) {
-                updatedItems.append(newGap)
-            } else {
-                assertionFailure("why no new gap item?")
-            }
-            updatedItems.append(contentsOf: existingItems.suffix(from: firstIndexAfterGap))
-        }
-        
-        items = Array(updatedItems)
-    }
-    
-    init(inserting: [TimelineItem], into existingItems: [TimelineItem], asNewerThan: String) {
-        // Assume that there should have been a gap item at the requested insertion point.
-        let matchingGapItemIndex = existingItems.firstIndex { item in
-            switch item {
-            case .loadingIndicator, .post:
-                return false
-            case .missingPosts(let newerThan, _):
-                return newerThan == asNewerThan
-            }
-        }
-        
-        guard let matchingGapItemIndex, let firstInsertingItem = inserting.first else { assertionFailure(); items = existingItems; return }
-        
-        let insertingItemIDs: Set<String> = inserting.reduce(into: Set<String>()) { partialResult, item in
-            partialResult.insert(item.id)
-        }
-#if DEBUG
-        recentlyInsertedItemIds = insertingItemIDs
-#endif
-        
-        var updatedItems: [TimelineItem]
-        
-        // start with the existing items newer than the gap (possibly truncated), and any remaining gap
-        if let firstOverlapIndex = existingItems.prefix(upTo: matchingGapItemIndex).firstIndex(where: { insertingItemIDs.contains($0.id) }) {
-            // The inserting items have overlap with the newer existing items, so no gap. But avoid duplicates, and prefer the inserting items (they are more freshly fetched).
-            _ = existingItems.suffix(from: firstOverlapIndex).firstIndex(where: { !insertingItemIDs.contains($0.id)})
-            updatedItems = Array(existingItems.prefix(upTo: firstOverlapIndex))
-        } else {
-            // There is still a gap.
-            updatedItems = Array(existingItems.prefix(upTo: matchingGapItemIndex))
-            
-            if let lastItemBeforeGap = updatedItems.last, let newGap = TimelineItem.gapBetween(firstInsertingItem, newerItem: lastItemBeforeGap) {
-                updatedItems.append(newGap)
-            } else {
-                assertionFailure("why no new gap item?")
-            }
-        }
-        
-        // add the inserting items
-        updatedItems.append(contentsOf: inserting)
 
-        // add the existing items older than the gap
-        let firstIndexAfterGap = matchingGapItemIndex + 1
-        guard firstIndexAfterGap < existingItems.count else {
-            assertionFailure("a gap should have items on both sides of it")
-            items = updatedItems
-            return
-        }
-
-        updatedItems.append(contentsOf: existingItems.suffix(from: firstIndexAfterGap))
-        
-        items = updatedItems
-    }
-    
     @MainActor
     func update(fromPost updated: GenericMastodonPost) {
         for item in items {
             switch item {
-            case .loadingIndicator, .missingPosts:
+            case .loadingIndicator:
                 break
             case .post(let existingViewModel):
                 do {
@@ -447,7 +310,7 @@ struct CacheableTimeline: CacheableFeed {
     func byDeleting(postId: Mastodon.Entity.Status.ID) -> CacheableTimeline {
         let newItems = items.filter { item in
             switch item {
-            case .loadingIndicator, .missingPosts:
+            case .loadingIndicator:
                 return true
             case .post(let postViewModel):
                 return postViewModel.fullPost?.actionablePost?.id != postId
@@ -502,9 +365,11 @@ class TimelineCacheManager: MastodonFeedCacheManager {
         case .replace:
             mostRecentlyFetchedResults = newlyFetched
         case .asOlderThan(let id):
-            mostRecentlyFetchedResults = CacheableTimeline(inserting: newlyFetched.items, into: currentResults()?.items ?? [], asOlderThan: id)
+            assertionFailure("loading results missing from the middle of a feed is no longer supported")
+            break
         case .asNewerThan(let id):
-            mostRecentlyFetchedResults = CacheableTimeline(inserting: newlyFetched.items, into: currentResults()?.items ?? [], asNewerThan: id)
+            assertionFailure("loading results missing from the middle of a feed is no longer supported")
+            break
         }
     }
     
@@ -639,7 +504,7 @@ extension TimelineFeedLoader {
     private func createContentConcealViewModels(_ cache: CacheableTimeline) {
         for item in cache.items {
             switch item {
-            case .loadingIndicator, .missingPosts:
+            case .loadingIndicator:
                 break
             case .post(let postViewModel):
                 if let contentPost = postViewModel.fullPost?.actionablePost, contentConcealViewModels[contentPost.id] == nil {
