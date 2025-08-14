@@ -133,7 +133,7 @@ struct QuotedPostContentDisplayedView: View {
                         Image(systemName: attachmentInfo.iconName)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: AvatarSize.tiny)
+                            .frame(width: AvatarSize.small)
                         Text(attachmentInfo.labelText)
                     }
                     .foregroundStyle(.secondary)
@@ -168,7 +168,7 @@ struct QuotedPostContentDisplayedView: View {
                                 Color(UIColor.secondarySystemFill))
                     }
                 )
-                .frame(width: AvatarSize.tiny, height: AvatarSize.tiny)
+                .frame(width: AvatarSize.small, height: AvatarSize.small)
             }
             Text(viewModel.accountDisplayName ?? "")
                 .bold()
