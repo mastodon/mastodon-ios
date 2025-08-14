@@ -42,6 +42,15 @@ enum TimelineItem: Identifiable {
         }
     }
     
+    var isPost: Bool {
+        switch self {
+        case .post:
+            return true
+        default:
+            return false
+        }
+    }
+    
     static func gapBetween(_ olderItem: TimelineItem?, newerItem: TimelineItem?) -> TimelineItem? {
         switch (olderItem, newerItem) {
         case (.post(let olderViewModel), .post(let newerViewModel)):
