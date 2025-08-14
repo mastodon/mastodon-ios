@@ -170,11 +170,21 @@ struct QuotedPostContentDisplayedView: View {
                 )
                 .frame(width: AvatarSize.small, height: AvatarSize.small)
             }
-            Text(viewModel.accountDisplayName ?? "")
-                .bold()
-            Text(viewModel.accountFullName ?? "")
-                .foregroundStyle(.secondary)
-            Spacer(minLength: 0)
+            VStack() {
+                HStack(spacing: 0) {
+                    Text(viewModel.accountDisplayName ?? "")
+                        .fontWeight(.semibold)
+                    Spacer(minLength: doublePadding)
+                    Text(viewModel.createdAt.veryAbbreviatedDate)
+                        .foregroundStyle(.secondary)
+                }
+                HStack(spacing: 0) {
+                    Text(viewModel.accountFullName ?? "")
+                        .foregroundStyle(.secondary)
+                    Spacer(minLength: 0)
+                }
+            }
+            .font(.caption)
         }
         .lineLimit(1)
         .font(.subheadline)
