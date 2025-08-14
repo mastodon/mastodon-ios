@@ -124,8 +124,8 @@ struct QuotedPostContentDisplayedView: View {
                 header()
                 if let content = viewModel.content {
                     Text(String(content.characters[...]))
-                        .font(.subheadline)
-                        .lineLimit(9)
+                        .font(.footnote)
+                        .lineLimit(4)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 if let attachmentInfo = viewModel.attachmentInfo {
@@ -143,7 +143,7 @@ struct QuotedPostContentDisplayedView: View {
             }
             Spacer(minLength: 0) // This pushes the VStack all the way to the left.
         }
-        .padding(standardPadding)
+        .padding(12)
         .frame(maxWidth: .infinity)
         .background {
             MastodonSecondaryBackground(fillInDarkModeOnly: true)
