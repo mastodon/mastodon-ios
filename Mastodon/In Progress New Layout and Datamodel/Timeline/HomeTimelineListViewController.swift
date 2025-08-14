@@ -378,14 +378,9 @@ private class HomeTimelineListViewModel: ObservableObject {
     
     @Published var feedIsEmpty: Bool = false
     
-    /// Important: set this value using setCurrentDisplaySlice so that head items are updated properly.
     @Published var currentDisplaySlice = ArraySlice<TimelineItem>()
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>) {
-        if let firstItem = newSlice.first(where: { $0.isPost }) {
-            self.headItemIds = [firstItem.id]
-        } else {
-            self.headItemIds = []
-        }
+        // space to add any necessary bookkeeping before setting the slice
         self.currentDisplaySlice = newSlice
     }
     
@@ -402,7 +397,6 @@ private class HomeTimelineListViewModel: ObservableObject {
     
     var scrollManager: ScrollManager?
     
-    private(set) var headItemIds = [String]()
     private let displayPrepBatchSize = 10
     private var currentlyPreparingForDisplay: [Mastodon.Entity.Status.ID]?
     private var displayPrepRequested: [MastodonPostViewModel]? // only keep the latest batch requested, to avoid getting bogged down while fast scrolling
@@ -580,9 +574,7 @@ private class HomeTimelineListViewModel: ObservableObject {
     func loadNewerSlice() {
         if currentDisplaySlice.startIndex > 0 {
             lastReadState = .requestedReloadFromTop
-            let lastVisibleHeadIndex = currentDisplaySlice.lastIndex(where: { item in
-                return (scrollManager?.isVisible(item.id) == true) && headItemIds.contains(item.id)
-            })
+            let lastVisibleHeadIndex = currentDisplaySlice.firstIndex(where: { $0.isPost })
             guard let lastVisibleHeadIndex else {
                 debugScroll("could not find a head index in the current slice")
                 resetToUntrackedAfterDelay()
@@ -627,10 +619,7 @@ private class HomeTimelineListViewModel: ObservableObject {
         case .initializing:
             resetToUntrackedAfterDelay()
         case .untracked:
-            if headItemIds.contains(postViewModel.initialDisplayInfo.id) {
-                debugScroll("a head item appeared.  will attempt to load newer slice")
-                loadNewerSlice()
-            }
+            break
         case .requestedReloadFromTop, .requestedReloadFromBottom, .pullToRefresh:
             debugScroll("head or tail item appeared.  ignoring because state is \(lastReadState)")
             break
@@ -850,6 +839,8 @@ struct HomeTimelineListView: View {
                                         VisibilityTrackingView(visibilityDidChange: { isVisible in
                                             if isVisible {
                                                 switch viewModel.lastReadState {
+                                                case .initializing:
+                                                    viewModel.resetToUntrackedAfterDelay()
                                                 case .untracked:
                                                     viewModel.loadMoreFromBottom()
                                                 default:
@@ -883,15 +874,6 @@ struct HomeTimelineListView: View {
                                         .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
                                         .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
                                         .frame(width: usableWidth)
-#if DEBUG && false
-                                        .background {
-                                            if viewModel.headItemIds.contains(postViewModel.initialDisplayInfo.id) {
-                                                Color.blue.opacity(0.2)
-                                            } else {
-                                                EmptyView()
-                                            }
-                                        }
-#endif
                                     }
                                 }
                             }
@@ -901,7 +883,7 @@ struct HomeTimelineListView: View {
                             case .untracked, .initializing:
                                 debugScroll("NOTHING TO SCROLL TO")
                                 break
-                            case .pullToRefresh:
+                            case .pullToRefresh, .requestedReloadFromTop:
                                 debugScroll("pull to refresh replaced the current slice, doing nothing should jump to the top")
                                 viewModel.resetToUntrackedAfterDelay()
                             case .requestedReloadFromBottom:
@@ -918,24 +900,6 @@ struct HomeTimelineListView: View {
                                             viewModel.resetToUntrackedAfterDelay()
                                         }
                                     } else {
-                                        viewModel.resetToUntrackedAfterDelay()
-                                    }
-                                }
-                            case .requestedReloadFromTop:
-                                debugScroll("reload from top replaced the current slice, will try to scroll to the last item")
-                                // scroll to the bottom, because that's what you were last looking at
-                                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                                    let bottomItem = newValue.last(where: { $0.isPost })?.id
-                                    guard let bottomItem else {
-                                        debugScroll("no bottom item to scroll to, doing nothing")
-                                        viewModel.resetToUntrackedAfterDelay()
-                                        return
-                                    }
-                                    if let anchorIndex = viewModel.currentDisplaySlice.firstIndex(where: { $0.id == bottomItem }) {
-                                        debugScroll("will try to scroll to \(bottomItem), which is at index \(anchorIndex) in slice \(viewModel.currentDisplaySlice.startIndex)-\(viewModel.currentDisplaySlice.endIndex)")
-                                    }
-                                    scrollManager.scrollTo(lastReadID: bottomItem, anchor: .bottom, items: self.viewModel.currentDisplaySlice, proxy: proxy) { success in
-                                        debugScroll("reload from top done trying to scroll")
                                         viewModel.resetToUntrackedAfterDelay()
                                     }
                                 }
