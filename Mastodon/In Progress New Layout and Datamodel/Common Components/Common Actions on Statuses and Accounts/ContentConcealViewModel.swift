@@ -26,6 +26,8 @@ class ContentConcealViewModel {
     
     static let alwaysShow = ContentConcealViewModel(contentPost: nil, context: nil)
     
+    public var nestedContentConcealModel: ContentConcealViewModel?
+    
     public enum ContentDisplayMode {
         case neverConceal
         case concealAll(reasons: [String], showAnyway: Bool)
@@ -100,6 +102,10 @@ class ContentConcealViewModel {
         let (mode, isFilter) = ContentConcealViewModel.updatedMode(filtered: filtered, contentWarned: contentWarned, showAnyway: showAnyway)
         currentModeIsFilter = isFilter
         currentMode = mode
+        
+        if let post = contentPost as? MastodonBasicPost, let quote = post.quotedPost, let quotedPost = quote.fullPost {
+            self.nestedContentConcealModel = ContentConcealViewModel(contentPost: quotedPost, context: context)
+        }
     }
     
     static func hideAll(filtered: GenericMastodonPost.PostContent.ContentWarned, contentWarned: GenericMastodonPost.PostContent.ContentWarned) -> (Bool?, Bool?) {
@@ -155,6 +161,8 @@ class ContentConcealViewModel {
     func hide() {
         let newShowAnyway = ContentConcealViewModel.hideAll(filtered: filtered, contentWarned: contentWarned)
         setShowAnyway(newShowAnyway)
+        
+        nestedContentConcealModel?.hide()
     }
     
     func setShowAnyway(_ newValue: (Bool?, Bool?)) {
