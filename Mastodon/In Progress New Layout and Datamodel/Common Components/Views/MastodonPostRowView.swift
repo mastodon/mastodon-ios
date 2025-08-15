@@ -27,7 +27,9 @@ import MastodonCore
     func updateQuotedPostViewModel() {
         if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost {
             if let quoted = potentialQuotePost.quotedPost, let quotedFullPost = quoted.fullPost {
-                self.fullQuotedPostViewModel = MastodonPostViewModel(quotedFullPost.initialDisplayInfo, fullPost: quotedFullPost, filterContext: self.filterContext)
+                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo, fullPost: quotedFullPost, filterContext: self.filterContext)
+                updated.actionHandler = actionHandler
+                self.fullQuotedPostViewModel = updated
             } else {
                 placeholderQuotedPost = potentialQuotePost.quotedPost
             }
@@ -40,7 +42,11 @@ import MastodonCore
     var isShowingTranslation: Bool? = nil
     var isDoingAction: MastodonPostMenuAction? = nil
     
-    var actionHandler: MastodonPostMenuActionHandler? = nil
+    var actionHandler: MastodonPostMenuActionHandler? = nil {
+        didSet {
+            fullQuotedPostViewModel?.actionHandler = actionHandler
+        }
+    }
     let timestamper: TimestampUpdater = TimestampUpdater.timestamper(withInterval: 30)
     let filterContext: Mastodon.Entity.FilterContext
     
@@ -240,7 +246,7 @@ struct HomeTimelinePostRowView: View {
                         }
                         
                         if let quotedPostViewModel = viewModel.fullQuotedPostViewModel {
-                            FullQuotedPostView()
+                            FullQuotedPostView(layoutWidth: contentWidth)
                                 .environment(quotedPostViewModel)
                                 .environment(contentConcealModel.nestedContentConcealModel)
                         } else if let quotePlaceholder = viewModel.placeholderQuotedPost {

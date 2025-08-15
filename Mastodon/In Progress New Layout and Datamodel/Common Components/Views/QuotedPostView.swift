@@ -6,13 +6,14 @@ import SwiftUI
 struct FullQuotedPostView: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
+    let layoutWidth: CGFloat
     
     var body: some View {
-        if let fullPost = viewModel.fullPost {
+        if viewModel.fullPost != nil {
             if !contentConcealViewModel.currentMode.isShowingContent {
                 QuotedPostContentConcealedView()
             } else {
-                QuotedPostContentDisplayedView() // TODO: add blur content option for blur filters and hide-media-only CWs
+                QuotedPostContentDisplayedView(layoutWidth: layoutWidth) // TODO: add blur content option for blur filters and hide-media-only CWs
             }
         }
     }
@@ -124,8 +125,12 @@ struct QuotedPostContentDisplayedView: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @Environment(\.colorScheme) private var colorScheme
-
+    let layoutWidth: CGFloat
+    
+    let padding: CGFloat = 12
+    
     var body: some View {
+        let contentWidth = layoutWidth - padding * 2
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 header()
@@ -135,8 +140,21 @@ struct QuotedPostContentDisplayedView: View {
                         .lineLimit(4)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                if let attachmentInfo = viewModel.fullPost?.actionablePost?.content.attachment {
-                   // TODO: include attachments
+                if let attachmentInfo = viewModel.fullPost?.actionablePost?.content.attachment, let actionHandler = viewModel.actionHandler {
+                    switch attachmentInfo {
+                    case .media(let array):
+                        MediaAttachment(array, altTextTranslations: viewModel.altTextTranslations).view(actionHandler: actionHandler)
+                            .frame(width: contentWidth)
+                    case .poll(let poll):
+                        let emojis = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.emojis
+                        PollView(viewModel: PollViewModel(pollEntity: poll, emojis: emojis, optionTranslations: viewModel.isShowingTranslation == true ? viewModel.pollOptionTranslations : nil, containingPostID: viewModel.initialDisplayInfo.actionablePostID, actionHandler: actionHandler), contentWidth: contentWidth)
+                            .frame(width: contentWidth)
+                    case .linkPreviewCard(let card):
+                        LinkPreviewCard(cardEntity: card, fittingWidth: contentWidth, navigateToScene: { (scene, transition) in
+                            actionHandler.presentScene(scene, fromPost: viewModel.initialDisplayInfo.id, transition: transition)
+                        })
+                        .frame(width: contentWidth)
+                    }
                 }
                 if let potentialQuotePost = viewModel.fullPost as? MastodonBasicPost, let furtherNestedQuote = potentialQuotePost.quotedPost {
                     QuotedPostPlaceholderView()
@@ -145,7 +163,8 @@ struct QuotedPostContentDisplayedView: View {
             }
             Spacer(minLength: 0) // This pushes the VStack all the way to the left.
         }
-        .padding(12)
+        .fixedSize(horizontal: false, vertical: true)
+        .padding(padding)
         .frame(maxWidth: .infinity)
         .background {
             MastodonSecondaryBackground(fillInDarkModeOnly: true)
