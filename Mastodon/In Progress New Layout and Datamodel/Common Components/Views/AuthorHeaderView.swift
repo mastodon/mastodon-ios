@@ -31,7 +31,7 @@ struct AuthorHeaderView: View {
     @ViewBuilder var authorDisplayName: some View {
         if let actionablePost = postViewModel.fullPost?.actionablePost {
             let author = actionablePost.metaData.author
-            MastodonContentView.header(html: author.displayInfo.displayName, emojis: author.displayInfo.emojis, style: .author)
+            MastodonContentView.header(html: author.displayInfo.displayName, emojis: author.displayInfo.emojis, style: .author(isInlinePreview: false))
         } else {
             Text(postViewModel.initialDisplayInfo.actionableAuthorDisplayName)
                 .font(.subheadline)

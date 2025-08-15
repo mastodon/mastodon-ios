@@ -41,15 +41,15 @@ public enum MastodonContentView {
 }
 
 public enum PostViewHeaderStyle {
-    case author
+    case author(isInlinePreview: Bool)
     case socialContext(isPrivate: Bool)
     case linkPreviewCardAuthorButton
     case pollOption
     
     var font: SwiftUI.Font.TextStyle {
         switch self {
-        case .author:
-                .subheadline
+        case .author(let isInlinePreview):
+            isInlinePreview ? .caption : .subheadline
         case .socialContext:
                 .footnote
         case .linkPreviewCardAuthorButton:

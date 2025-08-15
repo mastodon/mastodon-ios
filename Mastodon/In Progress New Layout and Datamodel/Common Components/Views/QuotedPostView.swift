@@ -129,9 +129,8 @@ struct QuotedPostContentDisplayedView: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 header()
-                if let content = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.html {
-                    // TODO: make this include emojis and other formatting?
-                    Text(content)
+                if viewModel.fullPost != nil {
+                    viewModel.textContentView(isInlinePreview: true)
                         .font(.footnote)
                         .lineLimit(4)
                         .fixedSize(horizontal: false, vertical: true)
@@ -175,10 +174,9 @@ struct QuotedPostContentDisplayedView: View {
             }
             VStack() {
                 HStack(spacing: 0) {
-                    Text(viewModel.initialDisplayInfo.actionableAuthorDisplayName)
-                        .fontWeight(.semibold)
+                    authorDisplayName
                     Spacer(minLength: doublePadding)
-                    Text(viewModel.initialDisplayInfo.actionableCreatedAt.veryAbbreviatedDate)
+                    Text(viewModel.initialDisplayInfo.actionableCreatedAt.localizedExtremelyAbbreviatedTimeElapsedUntil(now: viewModel.timestamper.timestamp))
                         .foregroundStyle(.secondary)
                 }
                 HStack(spacing: 0) {
@@ -191,6 +189,15 @@ struct QuotedPostContentDisplayedView: View {
         }
         .lineLimit(1)
         .font(.subheadline)
+    }
+    
+    @ViewBuilder var authorDisplayName: some View {
+        if let actionablePost = viewModel.fullPost?.actionablePost {
+            let author = actionablePost.metaData.author
+            MastodonContentView.header(html: author.displayInfo.displayName, emojis: author.displayInfo.emojis, style: .author(isInlinePreview: true))
+        } else {
+            EmptyView()
+        }
     }
 }
 

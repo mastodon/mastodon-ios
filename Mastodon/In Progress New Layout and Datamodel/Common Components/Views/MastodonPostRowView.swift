@@ -138,7 +138,7 @@ import MastodonCore
     }
 }
 
-fileprivate extension MastodonPostViewModel {
+extension MastodonPostViewModel {
     
     var socialContextHeader: SocialContextHeader? {
         guard let fullPost else { return nil }
@@ -159,16 +159,16 @@ fileprivate extension MastodonPostViewModel {
         return nil
     }
 
-    func textContentView() -> MastodonContentView {
+    func textContentView(isInlinePreview: Bool) -> MastodonContentView {
         let emptyTextContent: MastodonContentView = .timelinePost(heightCacheID: "empty", html: "", emojis: MastodonContentView.Emojis(), isInlinePreview: false)
         
         guard let actionablePost = fullPost?.actionablePost, let untranslatedContent = actionablePost.content.htmlWithEntities?.html else { return emptyTextContent }
         let emojis = actionablePost.content.htmlWithEntities?.emojis ?? MastodonContentView.Emojis()
         
         if isShowingTranslation == true, let translation = actionHandler?.translation(forContentPostId: actionablePost.id)?.content {
-            return .timelinePost(heightCacheID: actionablePost.id+"translated", html: translation, emojis: emojis, isInlinePreview: false)
+            return .timelinePost(heightCacheID: actionablePost.id+"translated", html: translation, emojis: emojis, isInlinePreview: isInlinePreview)
         } else {
-            return .timelinePost(heightCacheID: actionablePost.id, html: untranslatedContent, emojis: emojis, isInlinePreview: false)
+            return .timelinePost(heightCacheID: actionablePost.id, html: untranslatedContent, emojis: emojis, isInlinePreview: isInlinePreview)
         }
     }
 }
@@ -209,7 +209,7 @@ struct HomeTimelinePostRowView: View {
                             )
                             .frame(width: contentWidth, alignment: .leading)
                         }
-                        viewModel.textContentView()
+                        viewModel.textContentView(isInlinePreview: false)
                             .frame(width: contentWidth, alignment: .leading)
                             .onTapGesture {
                                 viewModel.openThreadView()
