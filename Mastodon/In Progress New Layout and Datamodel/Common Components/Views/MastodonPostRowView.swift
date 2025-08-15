@@ -7,7 +7,8 @@ import MastodonCore
 @MainActor
 @Observable class MastodonPostViewModel {
     
-    var quotedPostViewModel: QuotedPostViewModel?
+    var fullQuotedPostViewModel: MastodonPostViewModel?
+    var placeholderQuotedPost: MastodonQuotedPost?
     
     enum DisplayPrepStatus {
         case unprepared
@@ -24,10 +25,12 @@ import MastodonCore
     }
     
     func updateQuotedPostViewModel() {
-        if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost, let quoted = potentialQuotePost.quotedPost {
-            self.quotedPostViewModel = QuotedPostViewModel(quoted, filterContext: self.filterContext, myAccountID: "", myDomain: "", navigateToStatus: {  // TODO: fill in accountID and domain
-                // TODO: use the actionHandler to accomplish this
-            })
+        if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost {
+            if let quoted = potentialQuotePost.quotedPost, let quotedFullPost = quoted.fullPost {
+                self.fullQuotedPostViewModel = MastodonPostViewModel(quotedFullPost.initialDisplayInfo, fullPost: quotedFullPost, filterContext: self.filterContext)
+            } else {
+                placeholderQuotedPost = potentialQuotePost.quotedPost
+            }
         }
     }
     
@@ -236,9 +239,13 @@ struct HomeTimelinePostRowView: View {
                             }
                         }
                         
-                        if let quotedPostViewModel = viewModel.quotedPostViewModel {
-                            QuotedPostView()
+                        if let quotedPostViewModel = viewModel.fullQuotedPostViewModel {
+                            FullQuotedPostView()
                                 .environment(quotedPostViewModel)
+                                .environment(contentConcealModel.nestedContentConcealModel)
+                        } else if let quotePlaceholder = viewModel.placeholderQuotedPost {
+                            QuotedPostPlaceholderView()
+                                .environment(QuotedPostPlaceholderViewModel(quotePlaceholder, authorName: nil))  // TODO: include author name if possible (will have to fetch from server)
                         }
                     }
                     

@@ -1286,7 +1286,7 @@
 				"Common Components/Views/AvatarView.swift",
 				"Common Components/Views/DonationPromptBanner.swift",
 				"Common Components/Views/LinkPreviewCard.swift",
-				"Common Components/Views/MastodonPostView.swift",
+				"Common Components/Views/MastodonPostRowView.swift",
 				"Common Components/Views/MastodonTimelineOverlayView/AltTextView.swift",
 				"Common Components/Views/MastodonTimelineOverlayView/ZoomableBlurhashImageView.swift",
 				"Common Components/Views/MediaAttachmentView.swift",

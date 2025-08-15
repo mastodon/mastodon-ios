@@ -3,72 +3,79 @@
 import MastodonSDK
 import SwiftUI
 
-@MainActor
-@Observable
-class QuotedPostViewModel {
-    let quote: MastodonQuotedPost
-    let myAccountID: String
-    let myDomain: String
-    let navigateToStatus: ()->()
-    var contentConcealViewModel: ContentConcealViewModel?
+struct FullQuotedPostView: View {
+    @Environment(MastodonPostViewModel.self) private var viewModel
+    @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     
-    var showOverlayTip: String? = nil
-    
-    init(_ quote: MastodonQuotedPost, filterContext: Mastodon.Entity.FilterContext?, myAccountID: String, myDomain: String, navigateToStatus: @escaping ()->()) {
-        self.quote = quote
-        if let fullPost = quote.fullPost {
-            contentConcealViewModel = ContentConcealViewModel(contentPost: fullPost, context: filterContext)
-        } else {
-            contentConcealViewModel = nil
+    var body: some View {
+        if let fullPost = viewModel.fullPost {
+            if !contentConcealViewModel.currentMode.isShowingContent {
+                QuotedPostContentConcealedView()
+            } else {
+                QuotedPostContentDisplayedView() // TODO: add blur content option for blur filters and hide-media-only CWs
+            }
         }
-        self.myAccountID = myAccountID
-        self.myDomain = myDomain
-        self.navigateToStatus = navigateToStatus
     }
 }
 
-struct QuotedPostView: View {
-    @Environment(QuotedPostViewModel.self) private var viewModel
+@MainActor
+@Observable class QuotedPostPlaceholderViewModel {
+    let quote: MastodonQuotedPost
+    let authorName: String?
+    var showOverlayTip: String? = nil
+    
+    init(_ quote: MastodonQuotedPost, authorName: String?) {
+        self.quote = quote
+        self.authorName = authorName
+    }
+}
+
+struct QuotedPostPlaceholderView: View {
+    @Environment(QuotedPostPlaceholderViewModel.self) var viewModel
     
     var body: some View {
-        if let fullPost = viewModel.quote.fullPost {
-            if let contentConcealModel = viewModel.contentConcealViewModel, !contentConcealModel.currentMode.isShowingContent {
-                QuotedPostContentConcealedView()
-            } else {
-                let postViewModel = fullPost._legacyEntity.viewModel(myAccountID: viewModel.myAccountID, myDomain: viewModel.myDomain, navigateToStatus: viewModel.navigateToStatus)
-                QuotedPostContentDisplayedView(viewModel: postViewModel) // TODO: add blur content option for blur filters and hide-media-only CWs
-            }
-        } else {
-            switch viewModel.quote.state {
-            case .accepted:
-                nestedQuotePlaceholder
-            default:
-                quoteHiddenExplainerView
-            }
+        switch viewModel.quote.state {
+        case .accepted:
+            nestedQuotePlaceholder
+        default:
+            hiddenQuoteExplainerView
         }
-        // TODO: show tip if viewModel.showOverlayTip is not nil
     }
-    
+        
     @ViewBuilder var nestedQuotePlaceholder: some View {
-        Text("Quoted a post by @author")
-            .font(.footnote)
-            .foregroundStyle(.secondary)
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(maxWidth: .infinity)
-            .background {
-                MastodonSecondaryBackground(fillInDarkModeOnly: true)
+        HStack {
+            if let authorName = viewModel.authorName {
+                Text("Quoted a post by \(authorName)")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity)
+                    .background {
+                        MastodonSecondaryBackground(fillInDarkModeOnly: true)
+                    }
+            } else {
+                Text("Quoted a post")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity)
+                    .background {
+                        MastodonSecondaryBackground(fillInDarkModeOnly: true)
+                    }
             }
+            Spacer(minLength: 0)
+        }
     }
-    
-    @ViewBuilder var quoteHiddenExplainerView: some View {
+
+    @ViewBuilder var hiddenQuoteExplainerView: some View {
         if let message = viewModel.quote.state.displayText {
             HStack {
                 Text(message)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
                 if viewModel.quote.state.learnMoreMessage != nil {
-                    Spacer()
                     Text("Learn more")
                         .font(.footnote)
                         .fontWeight(.semibold)
@@ -114,7 +121,7 @@ extension Mastodon.Entity.Quote.AcceptanceState {
 }
 
 struct QuotedPostContentDisplayedView: View {
-    let viewModel: Mastodon.Entity.Status.ViewModel
+    @Environment(MastodonPostViewModel.self) private var viewModel
     @Environment(ContentConcealViewModel.self) private var contentConcealViewModel
     @Environment(\.colorScheme) private var colorScheme
 
@@ -122,23 +129,19 @@ struct QuotedPostContentDisplayedView: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 header()
-                if let content = viewModel.content {
-                    Text(String(content.characters[...]))
+                if let content = viewModel.fullPost?.actionablePost?.content.htmlWithEntities?.html {
+                    // TODO: make this include emojis and other formatting?
+                    Text(content)
                         .font(.footnote)
                         .lineLimit(4)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                if let attachmentInfo = viewModel.attachmentInfo {
-                    HStack {
-                        Image(systemName: attachmentInfo.iconName)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: AvatarSize.small)
-                        Text(attachmentInfo.labelText)
-                    }
-                    .foregroundStyle(.secondary)
-                    .font(.subheadline)
-                    .lineLimit(1)
+                if let attachmentInfo = viewModel.fullPost?.actionablePost?.content.attachment {
+                   // TODO: include attachments
+                }
+                if let potentialQuotePost = viewModel.fullPost as? MastodonBasicPost, let furtherNestedQuote = potentialQuotePost.quotedPost {
+                    QuotedPostPlaceholderView()
+                        .environment(QuotedPostPlaceholderViewModel(furtherNestedQuote, authorName: nil))  // TODO: add author name
                 }
             }
             Spacer(minLength: 0) // This pushes the VStack all the way to the left.
@@ -154,7 +157,7 @@ struct QuotedPostContentDisplayedView: View {
     
     @ViewBuilder func header() -> some View {
         HStack(spacing: 4) {
-            if let url = viewModel.accountAvatarUrl {
+            if let url = viewModel.initialDisplayInfo.actionableAuthorStaticAvatar {
                 AsyncImage(
                     url: url,
                     content: { image in
@@ -172,14 +175,14 @@ struct QuotedPostContentDisplayedView: View {
             }
             VStack() {
                 HStack(spacing: 0) {
-                    Text(viewModel.accountDisplayName ?? "")
+                    Text(viewModel.initialDisplayInfo.actionableAuthorDisplayName)
                         .fontWeight(.semibold)
                     Spacer(minLength: doublePadding)
-                    Text(viewModel.createdAt.veryAbbreviatedDate)
+                    Text(viewModel.initialDisplayInfo.actionableCreatedAt.veryAbbreviatedDate)
                         .foregroundStyle(.secondary)
                 }
                 HStack(spacing: 0) {
-                    Text(viewModel.accountFullName ?? "")
+                    Text(viewModel.initialDisplayInfo.actionableAuthorHandle)
                         .foregroundStyle(.secondary)
                     Spacer(minLength: 0)
                 }
