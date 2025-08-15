@@ -50,21 +50,18 @@ struct QuotedPostPlaceholderView: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .infinity)
-                    .background {
-                        MastodonSecondaryBackground(fillInDarkModeOnly: true)
-                    }
             } else {
                 Text("Quoted a post")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .infinity)
-                    .background {
-                        MastodonSecondaryBackground(fillInDarkModeOnly: true)
-                    }
             }
             Spacer(minLength: 0)
+        }
+        .padding(standardPadding)
+        .frame(maxWidth: .infinity)
+        .background {
+            MastodonSecondaryBackground(fillInDarkModeOnly: true)
         }
     }
 
