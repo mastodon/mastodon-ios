@@ -34,7 +34,7 @@ struct AuthorHeaderView: View {
             MastodonContentView.header(html: author.displayInfo.displayName, emojis: author.displayInfo.emojis, style: .author)
         } else {
             Text(postViewModel.initialDisplayInfo.actionableAuthorDisplayName)
-                .font(.footnote)
+                .font(.subheadline)
                 .fontWeight(.semibold)
         }
     }
@@ -120,7 +120,7 @@ struct VisibilityAndTimestampWithUserHandle: View {
             (Text(referenceDate.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp)) + Text(" · @\(handle)"))
                 .fixedSize(horizontal: true, vertical: false)
         }
-        .font(.footnote)
+        .font(.subheadline)
         .frame(height: actionSuperheaderHeight)
         .foregroundColor(.secondary)
         .accessibilityLabel(referenceDate.localizedAbbreviatedSlowedTimeAgoSinceNow + ", \(handle)")
