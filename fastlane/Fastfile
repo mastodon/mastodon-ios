@@ -50,6 +50,7 @@ platform :ios do
   lane :build_only do
     xcodebuild(
       clean: true,
+      destination: "platform=iOS Simulator,name=iPhone 16 Pro",
       scheme: "#{$appName}"
     )
     xcodebuild(
