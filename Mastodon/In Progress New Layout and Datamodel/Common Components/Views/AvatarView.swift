@@ -5,9 +5,9 @@ import SwiftUI
 private let avatarShape = RoundedRectangle(cornerRadius: 8)
 
 struct AvatarView: View {
-    @ScaledMetric var sizeLarge = AvatarSize.large
-    @ScaledMetric var sizeSmall = AvatarSize.small
-    @ScaledMetric var sizeTiny = AvatarSize.tiny
+    var sizeLarge = AvatarSize.large
+    var sizeSmall = AvatarSize.small
+    var sizeTiny = AvatarSize.tiny
     
     @State var isNavigating: Bool = false
     
