@@ -36,7 +36,7 @@ extension SwiftUI.Font.TextStyle {
 public enum MastodonContentView {
     public typealias Emojis = [Mastodon.Entity.Emoji]
     
-    case timelinePost(heightCacheID: String, html: String, emojis: Emojis, isInlinePreview: Bool)
+    case timelinePost(html: String, emojis: Emojis, isInlinePreview: Bool)
     case header(html: String, emojis: Emojis, style: PostViewHeaderStyle)
 }
 
@@ -90,7 +90,7 @@ public enum PostViewHeaderStyle {
 extension MastodonContentView: View {
     public var body: some View {
             switch self {
-            case .timelinePost(_, let html, let emojis, let isInlinePreview):
+            case .timelinePost(let html, let emojis, let isInlinePreview):
                 if let blocks = try? getParseBlocks(from: html) {
                     TimelinePostContentView(contentBlocks: blocks, emojis: emojis)
                         .font(isInlinePreview ? Font.subheadline : .body)

@@ -166,15 +166,15 @@ extension MastodonPostViewModel {
     }
 
     func textContentView(isInlinePreview: Bool) -> MastodonContentView {
-        let emptyTextContent: MastodonContentView = .timelinePost(heightCacheID: "empty", html: "", emojis: MastodonContentView.Emojis(), isInlinePreview: false)
+        let emptyTextContent: MastodonContentView = .timelinePost(html: "", emojis: MastodonContentView.Emojis(), isInlinePreview: false)
         
         guard let actionablePost = fullPost?.actionablePost, let untranslatedContent = actionablePost.content.htmlWithEntities?.html else { return emptyTextContent }
         let emojis = actionablePost.content.htmlWithEntities?.emojis ?? MastodonContentView.Emojis()
         
         if isShowingTranslation == true, let translation = actionHandler?.translation(forContentPostId: actionablePost.id)?.content {
-            return .timelinePost(heightCacheID: actionablePost.id+"translated", html: translation, emojis: emojis, isInlinePreview: isInlinePreview)
+            return .timelinePost(html: translation, emojis: emojis, isInlinePreview: isInlinePreview)
         } else {
-            return .timelinePost(heightCacheID: actionablePost.id, html: untranslatedContent, emojis: emojis, isInlinePreview: isInlinePreview)
+            return .timelinePost(html: untranslatedContent, emojis: emojis, isInlinePreview: isInlinePreview)
         }
     }
 }
