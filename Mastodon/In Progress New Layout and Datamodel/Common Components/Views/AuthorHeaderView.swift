@@ -12,6 +12,7 @@ struct AuthorHeaderView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack (alignment: .top) {
                 authorDisplayName
+                    .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .alignmentGuide(.gutterAlign) { d in
                         return d[HorizontalAlignment.leading]
@@ -19,6 +20,7 @@ struct AuthorHeaderView: View {
                 //                VisibilityAndTimestamp(timestamper: timestamper, referenceDate: postedDate, visibility: postViewModel.fullPost?.actionablePost?.metaData.privacyLevel ?? postViewModel.initialDisplayInfo.actionableVisibility)
                 //            }
                 //            Text("@\(authorHandle)")
+                //                .lineLimit(1)
                 //                .font(.footnote)
                 //                .foregroundStyle(.secondary)
                 //                .frame(maxWidth: .infinity, alignment: .leading)
@@ -118,7 +120,7 @@ struct VisibilityAndTimestampWithUserHandle: View {
                 Image(systemName: visibility.iconName)
             }
             (Text(referenceDate.localizedExtremelyAbbreviatedTimeElapsedUntil(now: timestamper.timestamp)) + Text(" · @\(handle)"))
-                .fixedSize(horizontal: true, vertical: false)
+                .lineLimit(1)
         }
         .font(.subheadline)
         .frame(height: actionSuperheaderHeight)
