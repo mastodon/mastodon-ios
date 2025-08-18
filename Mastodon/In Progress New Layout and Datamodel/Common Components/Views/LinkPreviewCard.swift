@@ -49,13 +49,8 @@ struct LinkPreviewCard: View {
             }
             
             Divider()
-            
-            HStack {
-                authorMolecule
-                    .fixedSize()
-                Spacer()
-                    .frame(maxWidth: .infinity)
-            }
+            authorMolecule
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .fixedSize(horizontal: false, vertical: true)
         .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard))
@@ -221,12 +216,15 @@ struct LinkPreviewCard: View {
                 // No account, show author label
                 if let author = cardEntity.authors?.first, let authorName = author.name, authorName.isEmpty == false {
                     Text(L10n.Common.Controls.Status.Card.byAuthor(authorName))
+                        .lineLimit(1)
                         .foregroundStyle(.secondary)
                 } else if let authorName = cardEntity.authorName, authorName.isNotEmpty {  // deprecated since 4.3.0
                     Text(L10n.Common.Controls.Status.Card.byAuthor(authorName))
+                        .lineLimit(1)
                         .foregroundStyle(.secondary)
                 } else if let linkHost = URL(string: cardEntity.url)?.host {
                     Text(linkHost)
+                        .lineLimit(1)
                         .foregroundStyle(.secondary)
                 }
             }
