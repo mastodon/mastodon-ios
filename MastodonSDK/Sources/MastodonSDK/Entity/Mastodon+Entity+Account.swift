@@ -101,8 +101,7 @@ extension Mastodon.Entity.Account: Hashable {
 //MARK: - Equatable
 extension Mastodon.Entity.Account: Equatable {
     public static func == (lhs: Mastodon.Entity.Account, rhs: Mastodon.Entity.Account) -> Bool {
-        // The URL seems to be the only thing that doesn't change across instances.
-        return lhs.url == rhs.url
+        return lhs.acctWithDomain == rhs.acctWithDomain
     }
 }
 
