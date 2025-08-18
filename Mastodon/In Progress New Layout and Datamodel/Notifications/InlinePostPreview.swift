@@ -19,8 +19,9 @@ struct InlinePostPreview: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 header()
-                if let content = viewModel.content {
-                    Text(String(content.characters[...]))
+                if let content = viewModel.content, let html = content.htmlWithEntities?.html {
+                    let emojis = content.htmlWithEntities?.emojis ?? []
+                    MastodonContentView.timelinePost(html: html, emojis: emojis, isInlinePreview: true)
                         .font(.subheadline)
                         .lineLimit(showAttributionHeader ? 3 : 9)
                         .fixedSize(horizontal: false, vertical: true)

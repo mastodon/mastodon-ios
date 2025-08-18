@@ -3,7 +3,7 @@
 import Foundation
 import MastodonSDK
 
-class GenericMastodonPost: Codable {
+public class GenericMastodonPost: Codable {
     let id: Mastodon.Entity.Status.ID
     let metaData: PostMetadata
     let _legacyEntity: Mastodon.Entity.Status
@@ -34,7 +34,7 @@ extension GenericMastodonPost {
 }
 
 extension GenericMastodonPost {
-    struct PostContent: Codable {
+    public struct PostContent: Codable {
         let editedAt: Date?
         let language: String?
         let htmlWithEntities: HtmlWithEntities?

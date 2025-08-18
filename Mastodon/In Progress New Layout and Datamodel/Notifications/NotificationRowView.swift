@@ -935,7 +935,7 @@ extension Mastodon.Entity.Status {
 
 extension Mastodon.Entity.Status {
     public struct ViewModel {
-        public let content: AttributedString?
+        public let content: GenericMastodonPost.PostContent?
         public let createdAt: Date
         public let visibility: Mastodon.Entity.Status.Visibility?
         public let isReplyToMe: Bool
@@ -953,14 +953,14 @@ extension Mastodon.Entity.Status {
     public func viewModel(
         myAccountID: String, myDomain: String, navigateToStatus: @escaping () -> Void
     ) -> ViewModel {
-        let createdAt = self.createdAt
-        let displayableContent: AttributedString
-        if let content {
-            displayableContent = attributedString(
-                fromHtml: content, emojis: account.emojis.asDictionary)
+        let content: GenericMastodonPost.PostContent?
+        if let post = GenericMastodonPost.fromStatus(self) as? MastodonContentPost {
+            content = post.content
         } else {
-            displayableContent = AttributedString()
+            content = nil
         }
+        
+        let createdAt = self.createdAt
         let accountFullName =
             account.domain == myDomain ? account.acct : account.acctWithDomain
         let attachmentInfo = mediaAttachments?.reduce(
@@ -980,7 +980,7 @@ extension Mastodon.Entity.Status {
         let pollInfo: AttachmentSummaryInfo? = poll != nil ? .poll : nil
 
         return ViewModel(
-            content: displayableContent,
+            content: content,
             createdAt: createdAt,
             visibility: visibility,
             isReplyToMe: inReplyToAccountID == myAccountID,
