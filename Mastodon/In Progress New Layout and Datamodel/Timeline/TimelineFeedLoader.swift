@@ -73,7 +73,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private var _createArtificialGapForTesting = false
 #endif
     
-    private let filterContext = Mastodon.Entity.FilterContext.home
+    private let filterContext: Mastodon.Entity.FilterContext
     
     private let authenticatedUser: MastodonAuthenticationBox
     private var cachedRelationships = [Mastodon.Entity.Account.ID : MastodonAccount.Relationship]()
@@ -90,6 +90,17 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         myAccountID = authenticatedUser.cachedAccount?.id
         let trackLastRead = timeline == .following
         let cacheManager = TimelineCacheManager(currentUser: currentUser, trackLastRead: trackLastRead, useDiskCache: false)
+        
+        switch timeline {
+        case .following:
+            self.filterContext = .home
+        case .hashtag:
+            self.filterContext = .public
+        case .list:
+            self.filterContext = .home
+        case .local:
+            self.filterContext = .public
+        }
         super.init(cacheManager)
     }
 
