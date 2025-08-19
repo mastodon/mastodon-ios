@@ -18,11 +18,12 @@ final class DiscoveryViewModel {
     // input
     let authenticationBox: MastodonAuthenticationBox
     let discoveryPostsViewController: DiscoveryPostsViewController
+    let newDiscoveryPostsViewController: HomeTimelineListViewController
     let discoveryHashtagsViewController: DiscoveryHashtagsViewController
     let discoveryNewsViewController: DiscoveryNewsViewController
     let discoveryForYouViewController: DiscoveryForYouViewController
     
-    @Published var viewControllers: [ScrollViewContainer]
+    @Published var viewControllers: [UIViewController]
     
     @MainActor
     init(authenticationBox: MastodonAuthenticationBox) {
@@ -32,6 +33,9 @@ final class DiscoveryViewModel {
             let viewController = DiscoveryPostsViewController()
             viewController.viewModel = DiscoveryPostsViewModel(authenticationBox: authenticationBox)
             return viewController
+        }()
+        newDiscoveryPostsViewController = {
+            HomeTimelineListViewController(.trendingPosts)
         }()
         discoveryHashtagsViewController = {
             let viewController = DiscoveryHashtagsViewController()
@@ -49,7 +53,7 @@ final class DiscoveryViewModel {
             return viewController
         }()
         self.viewControllers = [
-            discoveryPostsViewController,
+            (UserDefaults.standard.testNewHomeTimeline ? newDiscoveryPostsViewController : discoveryPostsViewController),
             discoveryHashtagsViewController,
             discoveryNewsViewController,
             discoveryForYouViewController,

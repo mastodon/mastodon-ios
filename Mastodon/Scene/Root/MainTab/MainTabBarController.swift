@@ -53,7 +53,7 @@ class MainTabBarController: UITabBarController {
 
         if UserDefaults.standard.testNewHomeTimeline {
 //            homeTimelineViewController = HomeTimelineTableViewController()
-             homeTimelineViewController = HomeTimelineListViewController()
+            homeTimelineViewController = HomeTimelineListViewController(.home)
         } else {
             homeTimelineViewController = HomeTimelineViewController()
         }

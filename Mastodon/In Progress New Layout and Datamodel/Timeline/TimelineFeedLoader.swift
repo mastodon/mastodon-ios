@@ -10,6 +10,8 @@ public enum MastodonTimelineType: Equatable {
     case local
     case list(String)
     case hashtag(String)
+    case discovery
+    case search(String)
 }
 
 extension GenericMastodonPost {
@@ -73,7 +75,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private var _createArtificialGapForTesting = false
 #endif
     
-    private let filterContext: Mastodon.Entity.FilterContext
+    private let filterContext: Mastodon.Entity.FilterContext?
     
     private let authenticatedUser: MastodonAuthenticationBox
     private var cachedRelationships = [Mastodon.Entity.Account.ID : MastodonAccount.Relationship]()
@@ -100,6 +102,10 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             self.filterContext = .home
         case .local:
             self.filterContext = .public
+        case .discovery:
+            self.filterContext = .public
+        case .search(_):
+            self.filterContext = nil
         }
         super.init(cacheManager)
     }
@@ -111,6 +117,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         let itemsNoOlderThan: String?
         let itemsImmediatelyBefore: String?
         let itemsImmediatelyAfter: String?
+        let fetchOffset: Int?
         
         switch request {
         case .newer:
@@ -125,6 +132,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             itemsNoOlderThan = mostRecentID
             itemsImmediatelyBefore = nil
             itemsImmediatelyAfter = nil
+            fetchOffset = nil
         case .older:
             let olderThan = {
                 let count = records.allRecords.count
@@ -138,45 +146,76 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             itemsImmediatelyBefore = olderThan
             itemsNoOlderThan = nil
             itemsImmediatelyAfter = nil
+            fetchOffset = max(0, records.allRecords.count - 1)  // -1 for overlap so the previous items don't get thrown out
         case .reload:
             itemsNoOlderThan = nil
             itemsImmediatelyBefore = nil
             itemsImmediatelyAfter = nil
+            fetchOffset = nil
         case .newerThan(let id):
             itemsImmediatelyAfter = id
             itemsImmediatelyBefore = nil
             itemsNoOlderThan = nil
+            fetchOffset = nil
         case .olderThan(let id):
             itemsImmediatelyBefore = id
             itemsImmediatelyAfter = nil
             itemsNoOlderThan = nil
+            fetchOffset = nil
         }
 
-        let response: Mastodon.Response.Content<[Mastodon.Entity.Status]>
+        let response: [Mastodon.Entity.Status]
         switch timeline {
         case .following:
-            response = try await APIService.shared.homeTimeline(itemsNoOlderThan: itemsNoOlderThan, itemsImmediatelyAfter: itemsImmediatelyAfter, itemsImmediatelyBefore: itemsImmediatelyBefore, authenticationBox: authenticatedUser)
+            response = try await APIService.shared.homeTimeline(itemsNoOlderThan: itemsNoOlderThan, itemsImmediatelyAfter: itemsImmediatelyAfter, itemsImmediatelyBefore: itemsImmediatelyBefore, authenticationBox: authenticatedUser).value
         case .local:
             response = try await APIService.shared.publicTimeline(
                 query: .init(local: true, maxID: itemsImmediatelyBefore, sinceID: itemsNoOlderThan, minID: itemsImmediatelyAfter),
                 authenticationBox: authenticatedUser
-            )
+            ).value
         case .list(let listId):
             response = try await APIService.shared.listTimeline(
                 id: listId,
                 query: .init(local: true, maxID: itemsImmediatelyBefore, sinceID: itemsNoOlderThan, minID: itemsImmediatelyAfter),
                 authenticationBox: authenticatedUser
-            )
+            ).value
         case .hashtag(let hashtag):
             response = try await APIService.shared.hashtagTimeline(
                 sinceID: itemsNoOlderThan,
                 maxID: itemsImmediatelyBefore,
                 hashtag: hashtag,
                 authenticationBox: authenticatedUser
+            ).value
+        case .discovery:
+            response = try await APIService.shared.trendStatuses(
+                domain: authenticatedUser.domain,
+                query: Mastodon.API.Trends.StatusQuery(
+                    offset: fetchOffset,
+                    limit: nil
+                ),
+                authenticationBox: authenticatedUser
+            ).value
+        case .search(let searchText):
+            let query = Mastodon.API.V2.Search.Query(
+                q: searchText,
+                type: .statuses,
+                accountID: nil,
+                maxID: nil,
+                minID: nil,
+                excludeUnreviewed: nil,
+                resolve: true,
+                limit: nil,
+                offset: fetchOffset,
+                following: nil
             )
+            response = try await APIService.shared.search(
+                        query: query,
+                        authenticationBox: authenticatedUser
+            ).value.statuses
+
         }
         
-        let newBatch = response.value.map { status in
+        let newBatch = response.map { status in
             let post = GenericMastodonPost.fromStatus(status)
             let initialDisplayInfo = post.initialDisplayInfo(inContext: filterContext)
             let viewModel = MastodonPostViewModel(initialDisplayInfo, context: filterContext)
@@ -184,7 +223,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             return TimelineItem.post(viewModel)
         }
         
-        let associatedPolls = polls(response.value)
+        let associatedPolls = polls(response)
         
         let newCache: CacheableTimeline
 #if DEBUG && false
@@ -243,7 +282,7 @@ struct CacheableTimeline: CacheableFeed {
     let items: [TimelineItem]
     
     @MainActor
-    func filteredPosts(inContext context: Mastodon.Entity.FilterContext) -> [TimelineItem] {
+    func filteredPosts(inContext context: Mastodon.Entity.FilterContext?) -> [TimelineItem] {
         return items.filter { item in
             switch item {
             case .loadingIndicator:
@@ -418,7 +457,8 @@ class TimelineCacheManager: MastodonFeedCacheManager {
 }
 
 extension GenericMastodonPost.PostContent {
-    func shouldBeRemovedFromFeed(inContext context: Mastodon.Entity.FilterContext) -> Bool {
+    func shouldBeRemovedFromFeed(inContext context: Mastodon.Entity.FilterContext?) -> Bool {
+        guard let context else { return false }
         guard let filterResults = filtered else { return false }
         for result in filterResults {
             if result.filter.filterAction == .hide {
@@ -536,7 +576,7 @@ extension TimelineFeedLoader {
 }
 
 extension GenericMastodonPost {
-    func initialDisplayInfo(inContext context: Mastodon.Entity.FilterContext) -> GenericMastodonPost.InitialDisplayInfo {
+    func initialDisplayInfo(inContext context: Mastodon.Entity.FilterContext?) -> GenericMastodonPost.InitialDisplayInfo {
         let author = actionablePost?.metaData.author ?? metaData.author
         return GenericMastodonPost.InitialDisplayInfo(id: id, actionablePostID: actionablePost?.id ?? id, shouldFilterOut: actionablePost?.content.shouldBeRemovedFromFeed(inContext: context) ?? false, actionableAuthorId: author.id, actionableAuthorStaticAvatar: author.displayInfo.avatarUrl, actionableAuthorHandle: author.handle, actionableAuthorDisplayName: author.displayName(whenViewedBy: nil)?.plainString ?? "", actionableVisibility: actionablePost?.metaData.privacyLevel ?? metaData.privacyLevel ?? .loudPublic, actionableCreatedAt: actionablePost?.metaData.createdAt ?? metaData.createdAt)
     }

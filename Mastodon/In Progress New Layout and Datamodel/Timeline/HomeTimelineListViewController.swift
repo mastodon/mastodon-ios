@@ -15,15 +15,31 @@ private func debugScroll(_ message: String) {
 #endif
 }
 
+enum TimelineViewType {
+    case home
+    case trendingPosts
+    case searchPosts(String)
+}
+
 class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
 {
-    private let viewModel = HomeTimelineListViewModel(timeline: .following)
+    private let type: TimelineViewType
+    private let viewModel: HomeTimelineListViewModel
     private var navigationFlow: NavigationFlow?
     private let _mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     private var scrollToTopUpdateSubscription: AnyCancellable?
     
-    init() {
+    init(_ type: TimelineViewType) {
+        self.type = type
+        switch type {
+        case .home:
+            viewModel = HomeTimelineListViewModel(timeline: .following)
+        case .trendingPosts:
+            viewModel = HomeTimelineListViewModel(timeline: .discovery)
+        case .searchPosts(let searchText):
+            viewModel = HomeTimelineListViewModel(timeline: .search(searchText))
+        }
         let root = HomeTimelineListView(viewModel: viewModel)
         super.init(rootView: root)
         viewModel.parentVcPresentScene = { (scene, transition) in
@@ -39,9 +55,14 @@ class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
         }
         viewModel.hostingViewController = self
         
-        setUpTimelineSelectorButton()
-        setUpScrollToTop()
-        showSettingsButton(true)
+        switch type {
+        case .home:
+            setUpTimelineSelectorButton()
+            setUpScrollToTop()
+            showSettingsButton(true)
+        default:
+            break
+        }
     }
     
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -171,6 +192,8 @@ class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
+        case .discovery, .search(_):
+            assertionFailure()
         }
         
         let listsSubmenu = UIDeferredMenuElement.uncached { [weak self] callback in

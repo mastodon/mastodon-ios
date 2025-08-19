@@ -422,9 +422,13 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .searchResult(let viewModel):
-            let searchResultViewController = SearchResultViewController()
-            searchResultViewController.viewModel = viewModel
-            viewController = searchResultViewController
+            if viewModel.searchScope == .posts && UserDefaults.standard.testNewHomeTimeline {
+                viewController = HomeTimelineListViewController(.searchPosts(viewModel.searchText))
+            } else {
+                let searchResultViewController = SearchResultViewController()
+                searchResultViewController.viewModel = viewModel
+                viewController = searchResultViewController
+            }
         case .compose(let viewModel):
             let _viewController = ComposeViewController(viewModel: viewModel)
             viewController = _viewController

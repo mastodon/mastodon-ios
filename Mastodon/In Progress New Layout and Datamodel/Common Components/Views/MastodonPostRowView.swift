@@ -48,17 +48,17 @@ import MastodonCore
         }
     }
     let timestamper: TimestampUpdater = TimestampUpdater.timestamper(withInterval: 30)
-    let filterContext: Mastodon.Entity.FilterContext
+    let filterContext: Mastodon.Entity.FilterContext?
     
     private(set) var translation: Mastodon.Entity.Translation? = nil
     
     nonisolated
-    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, context: Mastodon.Entity.FilterContext) {
+    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, context: Mastodon.Entity.FilterContext?) {
         self.initialDisplayInfo = initialDisplay
         self.filterContext = context
     }
     
-    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext) {
+    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext?) {
         self.initialDisplayInfo = initialDisplay
         self.fullPost = fullPost
         self.filterContext = filterContext
