@@ -1311,8 +1311,8 @@
 				Notifications/NotificationRowView.swift,
 				Notifications/NotificationRowViewModel.swift,
 				Notifications/NotificationsCacheManager.swift,
-				Timeline/HomeTimelineListViewController.swift,
 				Timeline/TimelineFeedLoader.swift,
+				Timeline/TimelineListViewController.swift,
 			);
 			target = DB427DD125BAA00100D1B89D /* Mastodon */;
 		};

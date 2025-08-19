@@ -21,10 +21,10 @@ enum TimelineViewType {
     case searchPosts(String)
 }
 
-class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
+class TimelineListViewController: UIHostingController<TimelineListView>
 {
     private let type: TimelineViewType
-    private let viewModel: HomeTimelineListViewModel
+    private let viewModel: TimelineListViewModel
     private var navigationFlow: NavigationFlow?
     private let _mediaPreviewTransitionController = MediaPreviewTransitionController()
     
@@ -34,13 +34,13 @@ class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
         self.type = type
         switch type {
         case .home:
-            viewModel = HomeTimelineListViewModel(timeline: .following)
+            viewModel = TimelineListViewModel(timeline: .following)
         case .trendingPosts:
-            viewModel = HomeTimelineListViewModel(timeline: .discovery)
+            viewModel = TimelineListViewModel(timeline: .discovery)
         case .searchPosts(let searchText):
-            viewModel = HomeTimelineListViewModel(timeline: .search(searchText))
+            viewModel = TimelineListViewModel(timeline: .search(searchText))
         }
-        let root = HomeTimelineListView(viewModel: viewModel)
+        let root = TimelineListView(viewModel: viewModel)
         super.init(rootView: root)
         viewModel.parentVcPresentScene = { (scene, transition) in
             self.sceneCoordinator?.present(scene: scene, transition: transition)
@@ -288,7 +288,7 @@ class HomeTimelineListViewController: UIHostingController<HomeTimelineListView>
     }
 }
 
-extension HomeTimelineListViewController: MediaPreviewableViewController {
+extension TimelineListViewController: MediaPreviewableViewController {
     var mediaPreviewTransitionController: MediaPreviewTransitionController {
         return _mediaPreviewTransitionController
     }
@@ -368,7 +368,7 @@ enum MastodonTimelineOverlayView {
 }
 
 @MainActor
-private class HomeTimelineListViewModel: ObservableObject {
+private class TimelineListViewModel: ObservableObject {
     public var parentVcPresentScene: ((SceneCoordinator.Scene, SceneCoordinator.Transition) -> ())?
     public var presentDonationDialog: ((Mastodon.Entity.DonationCampaign) -> ())?
     private var authenticatedUser: MastodonAuthenticationBox?
@@ -668,7 +668,7 @@ private class HomeTimelineListViewModel: ObservableObject {
     }
 }
 
-extension HomeTimelineListViewModel {
+extension TimelineListViewModel {
     private func createPrepBatch(anchoredAt anchorIndex: Int) -> [MastodonPostViewModel]? {
         guard let feedLoaderRecords = feedLoader?.records.allRecords else { return nil }
         let batchStart = max(0, anchorIndex - displayPrepBatchSize / 2)
@@ -742,7 +742,7 @@ extension HomeTimelineListViewModel {
     }
 }
 
-extension HomeTimelineListViewModel {
+extension TimelineListViewModel {
     enum LastReadState {
         case initializing
         case untracked
@@ -762,7 +762,7 @@ extension HomeTimelineListViewModel {
     }
 }
 
-extension HomeTimelineListViewModel {
+extension TimelineListViewModel {
     func askForDonationIfPossible() async {
         guard let authenticatedUser else { return }
         guard let accountCreatedAt = authenticatedUser.authentication.accountCreatedAt else {
@@ -802,13 +802,13 @@ extension HomeTimelineListViewModel {
 
 private let scrollViewCoordinateSpace = "ScrollViewCoordinateSpace"
 
-struct HomeTimelineListView: View {
-    @ObservedObject private var viewModel: HomeTimelineListViewModel
+struct TimelineListView: View {
+    @ObservedObject private var viewModel: TimelineListViewModel
     @State private var scrollManager = ScrollManager()
     
     @ScaledMetric private var avatarSize = AvatarSize.large
     
-    fileprivate init(viewModel: HomeTimelineListViewModel) {
+    fileprivate init(viewModel: TimelineListViewModel) {
         self.viewModel = viewModel
         viewModel.scrollManager = scrollManager
     }
@@ -1191,7 +1191,7 @@ extension MastodonTimelineOverlayView {
     }
 }
 
-extension HomeTimelineListViewModel: MastodonPostMenuActionHandler {
+extension TimelineListViewModel: MastodonPostMenuActionHandler {
     var mediaPreviewableViewController: (any MediaPreviewableViewController)? {
         return hostingViewController
     }

@@ -18,7 +18,7 @@ final class DiscoveryViewModel {
     // input
     let authenticationBox: MastodonAuthenticationBox
     let discoveryPostsViewController: DiscoveryPostsViewController
-    let newDiscoveryPostsViewController: HomeTimelineListViewController
+    let newDiscoveryPostsViewController: TimelineListViewController
     let discoveryHashtagsViewController: DiscoveryHashtagsViewController
     let discoveryNewsViewController: DiscoveryNewsViewController
     let discoveryForYouViewController: DiscoveryForYouViewController
@@ -35,7 +35,7 @@ final class DiscoveryViewModel {
             return viewController
         }()
         newDiscoveryPostsViewController = {
-            HomeTimelineListViewController(.trendingPosts)
+            TimelineListViewController(.trendingPosts)
         }()
         discoveryHashtagsViewController = {
             let viewController = DiscoveryHashtagsViewController()
