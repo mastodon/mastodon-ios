@@ -167,7 +167,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         
         let newBatch = response.value.map { status in
             let post = GenericMastodonPost.fromStatus(status)
-            let initialDisplayInfo = post.initialDisplayInfo
+            let initialDisplayInfo = post.initialDisplayInfo(inContext: filterContext)
             let viewModel = MastodonPostViewModel(initialDisplayInfo, context: filterContext)
             viewModel.setFullPost(post)
             return TimelineItem.post(viewModel)
@@ -201,7 +201,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     }
     
     override func filteredResults(fromCachedType cached: CacheableTimeline) -> [TimelineItem] {
-        cached.filteredPosts
+        cached.filteredPosts(inContext: filterContext)
     }
     
 }
@@ -232,16 +232,16 @@ struct CacheableTimeline: CacheableFeed {
     let items: [TimelineItem]
     
     @MainActor
-    var filteredPosts: [TimelineItem] {
+    func filteredPosts(inContext context: Mastodon.Entity.FilterContext) -> [TimelineItem] {
         return items.filter { item in
             switch item {
             case .loadingIndicator:
                 return true
             case .post(let postViewModel):
                 if let contentPost = postViewModel.fullPost as? MastodonContentPost {
-                    return !contentPost.content.shouldBeRemovedFromFeed
+                    return !contentPost.content.shouldBeRemovedFromFeed(inContext: context)
                 } else if let boost = postViewModel.fullPost as? MastodonBoostPost {
-                    return !boost.boostedPost.content.shouldBeRemovedFromFeed
+                    return !boost.boostedPost.content.shouldBeRemovedFromFeed(inContext: context)
                 } else {
                     return !postViewModel.initialDisplayInfo.shouldFilterOut
                 }
@@ -407,11 +407,15 @@ class TimelineCacheManager: MastodonFeedCacheManager {
 }
 
 extension GenericMastodonPost.PostContent {
-    var shouldBeRemovedFromFeed: Bool {
+    func shouldBeRemovedFromFeed(inContext context: Mastodon.Entity.FilterContext) -> Bool {
         guard let filterResults = filtered else { return false }
         for result in filterResults {
             if result.filter.filterAction == .hide {
-                return true
+                for filterContext in result.filter.context {
+                    if filterContext == context {
+                        return true
+                    }
+                }
             }
         }
         return false
@@ -450,7 +454,7 @@ extension TimelineFeedLoader {
     func fetchRelationships(_ batch: [GenericMastodonPost]) async throws -> [MastodonAccount.Relationship] {
 
         let needToFetch: [Mastodon.Entity.Account.ID] = batch.compactMap { post -> Mastodon.Entity.Account.ID? in
-            let actionableRelationshipAccountID = post.initialDisplayInfo.actionableAuthorId
+            let actionableRelationshipAccountID = post.initialDisplayInfo(inContext: filterContext).actionableAuthorId
             guard actionableRelationshipAccountID != myAccountID else { return nil }
             switch self.cachedRelationships[actionableRelationshipAccountID] {
             case .isMe:
@@ -521,8 +525,8 @@ extension TimelineFeedLoader {
 }
 
 extension GenericMastodonPost {
-    var initialDisplayInfo: GenericMastodonPost.InitialDisplayInfo {
+    func initialDisplayInfo(inContext context: Mastodon.Entity.FilterContext) -> GenericMastodonPost.InitialDisplayInfo {
         let author = actionablePost?.metaData.author ?? metaData.author
-        return GenericMastodonPost.InitialDisplayInfo(id: id, actionablePostID: actionablePost?.id ?? id, shouldFilterOut: actionablePost?.content.shouldBeRemovedFromFeed ?? false, actionableAuthorId: author.id, actionableAuthorStaticAvatar: author.displayInfo.avatarUrl, actionableAuthorHandle: author.handle, actionableAuthorDisplayName: author.displayName(whenViewedBy: nil)?.plainString ?? "", actionableVisibility: actionablePost?.metaData.privacyLevel ?? metaData.privacyLevel ?? .loudPublic, actionableCreatedAt: actionablePost?.metaData.createdAt ?? metaData.createdAt)
+        return GenericMastodonPost.InitialDisplayInfo(id: id, actionablePostID: actionablePost?.id ?? id, shouldFilterOut: actionablePost?.content.shouldBeRemovedFromFeed(inContext: context) ?? false, actionableAuthorId: author.id, actionableAuthorStaticAvatar: author.displayInfo.avatarUrl, actionableAuthorHandle: author.handle, actionableAuthorDisplayName: author.displayName(whenViewedBy: nil)?.plainString ?? "", actionableVisibility: actionablePost?.metaData.privacyLevel ?? metaData.privacyLevel ?? .loudPublic, actionableCreatedAt: actionablePost?.metaData.createdAt ?? metaData.createdAt)
     }
 }

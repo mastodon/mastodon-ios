@@ -27,7 +27,7 @@ import MastodonCore
     func updateQuotedPostViewModel() {
         if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost {
             if let quoted = potentialQuotePost.quotedPost, let quotedFullPost = quoted.fullPost {
-                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo, fullPost: quotedFullPost, filterContext: self.filterContext)
+                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), fullPost: quotedFullPost, filterContext: filterContext)
                 updated.actionHandler = actionHandler
                 self.fullQuotedPostViewModel = updated
             } else {
