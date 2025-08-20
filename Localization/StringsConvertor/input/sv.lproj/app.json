@@ -54,20 +54,20 @@
                 "button": "OK"
             },
             "media_missing_alt_text": {
-                "title": "Media Missing Alt Text",
-                "message": "%d of your images are missing alt text.\nPost Anyway?",
+                "title": "Media saknar Alt-text",
+                "message": "%d av dina bilder saknar alt-text.\nPublicera ändå?",
                 "cancel": "Avbryt",
                 "post": "Inlägg"
             },
             "boost_a_post": {
-                "title_boost": "Boost Post?",
-                "title_unboost": "Unboost Post?",
+                "title_boost": "Knuffa inlägg?",
+                "title_unboost": "Ta bort knuff på inlägg?",
                 "cancel": "Avbryt",
-                "boost": "Boost",
-                "unboost": "Unboost"
+                "boost": "Knuffa",
+                "unboost": "Ta bort knuff"
             },
             "unfollow_user": {
-                "title": "Unfollow %@?",
+                "title": "Sluta följa %@?",
                 "cancel": "Avbryt",
                 "unfollow": "Avfölj"
             }
@@ -143,9 +143,9 @@
                     "next_status": "Nästa inlägg",
                     "open_status": "Öppna inlägg",
                     "open_author_profile": "Öppna författarens profil",
-                    "open_reblogger_profile": "Open Booster's Profile",
+                    "open_reblogger_profile": "Öppna profil av knuffare",
                     "reply_status": "Svara på inlägg",
-                    "toggle_reblog": "Toggle Boost on Post",
+                    "toggle_reblog": "Aktivera knuff på inlägg",
                     "toggle_favorite": "Växla favorit på inlägg",
                     "toggle_content_warning": "Växla innehållsvarning",
                     "preview_image": "Förhandsgranska bild"
@@ -157,10 +157,10 @@
             },
             "status": {
                 "reply": "Svara",
-                "private_reply": "Private reply",
+                "private_reply": "Privat svar",
                 "mention": "Omnämn",
-                "private_mention": "Private mention",
-                "user_reblogged": "%s boosted",
+                "private_mention": "Privat omnämnande",
+                "user_reblogged": "%s knuffade",
                 "user_replied_to": "Svarade på %s",
                 "show_post": "Visa inlägg",
                 "show_user_profile": "Visa användarprofil",
@@ -182,8 +182,8 @@
                 },
                 "actions": {
                     "reply": "Svara",
-                    "reblog": "Boost",
-                    "unreblog": "Undo boost",
+                    "reblog": "Knuffa",
+                    "unreblog": "Ångra knuff",
                     "favorite": "Favorit",
                     "unfavorite": "Ta bort favorit",
                     "menu": "Meny",
@@ -194,8 +194,8 @@
                     "share_link_in_post": "Dela länk i inlägg",
                     "tap_then_hold_to_show_menu": "Tryck och håll ned för att visa menyn",
                     "a11y_labels": {
-                        "reblog": "Boost",
-                        "unreblog": "Undo boost"
+                        "reblog": "Knuffa",
+                        "unreblog": "Ångra knuff"
                     },
                     "copy_link": "Kopiera länk"
                 },
@@ -235,7 +235,7 @@
                 "edited_at_timestamp_prefix": "Ändrad %s",
                 "edit_history": {
                     "title": "Redigeringshistorik",
-                    "original_post": "Original Post · %s"
+                    "original_post": "Ursprungligt inlägg · %s"
                 },
                 "card": {
                     "by": "Av",
@@ -244,26 +244,26 @@
             },
             "friendship": {
                 "follow": "Följ",
-                "follow_back": "Follow back",
+                "follow_back": "Följ tillbaka",
                 "following": "Följer",
-                "mutual": "Mutual",
+                "mutual": "Ömsesidig",
                 "request": "Följ",
                 "pending": "Väntande",
                 "block": "Blockera",
                 "block_user": "Blockera %s",
-                "block_domain": "Block domain %s",
+                "block_domain": "Blockera domän %s",
                 "unblock": "Avblockera",
                 "unblock_user": "Avblockera %s",
                 "blocked": "Blockerad",
-                "domain_blocked": "Domain Blocked",
+                "domain_blocked": "Domän blockerad",
                 "mute": "Tysta",
                 "mute_user": "Tysta %s",
                 "unmute": "Avtysta",
                 "unmute_user": "Avtysta %s",
                 "muted": "Tystad",
                 "edit_info": "Redigera info",
-                "show_reblogs": "Show Boosts",
-                "hide_reblogs": "Hide Boosts"
+                "show_reblogs": "Visa knuffar",
+                "hide_reblogs": "Dölj knuffar"
             },
             "timeline": {
                 "filtered": "Filtrerat",
@@ -327,7 +327,7 @@
             "title": "Välj server",
             "button": {
                 "language": "Språk",
-                "signup_speed": "Sign-up Speed",
+                "signup_speed": "Registreringshastighet",
                 "category": {
                     "all": "Alla",
                     "all_accessiblity_description": "Kategori: Alla",
@@ -362,7 +362,7 @@
             },
             "signup_speed": {
                 "all": "Allt",
-                "instant": "Instant Sign-up",
+                "instant": "Omedelbar registrering",
                 "manually_reviewed": "Manuell granskning"
             },
             "language": {
@@ -642,11 +642,11 @@
                     "message": "Bekräfta för att avblockera %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Boosts",
+                    "title": "Visa knuffar",
                     "message": "Confirm to show boosts"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Boosts",
+                    "title": "Dölj knuffar",
                     "message": "Confirm to hide boosts"
                 },
                 "confirm_block_domain": {
@@ -747,7 +747,7 @@
                 "follow_request": "Follow request",
                 "moderation_warning": "Warning",
                 "poll": "Omröstning",
-                "boost": "Boost",
+                "boost": "Knuffa",
                 "severed_relationships": "Domain block",
                 "status": "Inlägg",
                 "edit": "Redigera"
