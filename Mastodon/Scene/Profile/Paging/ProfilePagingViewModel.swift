@@ -12,9 +12,9 @@ import TabBarPager
 
 final class ProfilePagingViewModel: NSObject {
     
-    let postUserTimelineViewController = UserTimelineViewController()
-    let repliesUserTimelineViewController = UserTimelineViewController()
-    let mediaUserTimelineViewController = UserTimelineViewController()
+    let postUserTimelineViewController: UIViewController & TabBarPage
+    let repliesUserTimelineViewController: UIViewController & TabBarPage
+    let mediaUserTimelineViewController: UIViewController & TabBarPage
     let profileAboutViewController = ProfileAboutViewController()
     
     // input
@@ -26,9 +26,18 @@ final class ProfilePagingViewModel: NSObject {
         mediaUserTimelineViewModel: UserTimelineViewModel,
         profileAboutViewModel: ProfileAboutViewModel
     ) {
-        postUserTimelineViewController.viewModel = postsUserTimelineViewModel
-        repliesUserTimelineViewController.viewModel = repliesUserTimelineViewModel
-        mediaUserTimelineViewController.viewModel = mediaUserTimelineViewModel
+        if UserDefaults.standard.testNewHomeTimeline, let user = postsUserTimelineViewModel.userIdentifier?.userID {
+            postUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.posts, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: true)))
+            repliesUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.postsAndReplies, userID: user, queryFilter: TimelineQueryFilter(excludeReplies: false, excludeReblogs: true)))
+            mediaUserTimelineViewController = TimelineListViewController(.profilePosts(tabTitle: L10n.Scene.Profile.SegmentedControl.media, userID: user, queryFilter: TimelineQueryFilter(onlyMedia: true)))
+        } else {
+            postUserTimelineViewController = UserTimelineViewController()
+            (postUserTimelineViewController as! UserTimelineViewController).viewModel = postsUserTimelineViewModel
+            repliesUserTimelineViewController = UserTimelineViewController()
+            (repliesUserTimelineViewController as! UserTimelineViewController).viewModel = repliesUserTimelineViewModel
+            mediaUserTimelineViewController = UserTimelineViewController()
+            (mediaUserTimelineViewController as! UserTimelineViewController).viewModel = mediaUserTimelineViewModel
+        }
         profileAboutViewController.viewModel = profileAboutViewModel
         super.init()
     }
@@ -43,4 +52,12 @@ final class ProfilePagingViewModel: NSObject {
     }
     
     
+}
+
+// MARK: Temporary Hack (until we replace profile view)
+
+extension TimelineListViewController: TabBarPage {
+    var pageScrollView: UIScrollView {
+        return UIScrollView()
+    }
 }

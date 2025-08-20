@@ -12,6 +12,23 @@ public enum MastodonTimelineType: Equatable {
     case hashtag(String)
     case discovery
     case search(String)
+    case userPosts(userID: String, queryFilter: TimelineQueryFilter)
+}
+
+public struct TimelineQueryFilter: Equatable {
+    let excludeReplies: Bool?
+    let excludeReblogs: Bool?
+    let onlyMedia: Bool?
+    
+    init(
+        excludeReplies: Bool? = nil,
+        excludeReblogs: Bool? = nil,
+        onlyMedia: Bool? = nil
+    ) {
+        self.excludeReplies = excludeReplies
+        self.excludeReblogs = excludeReblogs
+        self.onlyMedia = onlyMedia
+    }
 }
 
 extension GenericMastodonPost {
@@ -106,6 +123,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             self.filterContext = .public
         case .search(_):
             self.filterContext = nil
+        case .userPosts:
+            self.filterContext = .account
         }
         super.init(cacheManager)
     }
@@ -212,7 +231,16 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                         query: query,
                         authenticationBox: authenticatedUser
             ).value.statuses
-
+        case .userPosts(let userID, let queryFilter):
+            response = try await APIService.shared.userTimeline(
+                accountID: userID,
+                maxID: itemsImmediatelyBefore,
+                sinceID: nil,
+                excludeReplies: queryFilter.excludeReplies,
+                excludeReblogs: queryFilter.excludeReblogs,
+                onlyMedia: queryFilter.onlyMedia,
+                authenticationBox: authenticatedUser
+            ).value
         }
         
         let newBatch = response.map { status in

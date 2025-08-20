@@ -210,9 +210,9 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
         guard let relationship else { return }
         
         for userTimeLineViewModel in [
-            profilePagingViewController?.viewModel?.postUserTimelineViewController.viewModel,
-            profilePagingViewController?.viewModel?.repliesUserTimelineViewController.viewModel,
-            profilePagingViewController?.viewModel?.mediaUserTimelineViewController.viewModel,
+            (profilePagingViewController?.viewModel?.postUserTimelineViewController as? UserTimelineViewController)?.viewModel,
+            (profilePagingViewController?.viewModel?.repliesUserTimelineViewController as? UserTimelineViewController)?.viewModel,
+            (profilePagingViewController?.viewModel?.mediaUserTimelineViewController as? UserTimelineViewController)?.viewModel,
         ] {
             userTimeLineViewModel?.isBlocking = relationship.blocking
             userTimeLineViewModel?.isBlockedBy = relationship.blockedBy
@@ -474,16 +474,21 @@ class ProfileViewController: UIViewController, MediaPreviewableViewController, A
     private func createProfilePagingViewController() -> ProfilePagingViewController {
         let profilePagingViewController = ProfilePagingViewController()
         let timelineUserIdentifier = viewModel.profileType
+        
+        let posts = userTimelineViewModel(.posts)
+        let postsAndReplies = userTimelineViewModel(.postsAndReplies)
+        let media = userTimelineViewModel(.media)
+        posts.userIdentifier = timelineUserIdentifier
+        postsAndReplies.userIdentifier = timelineUserIdentifier
+        media.userIdentifier = timelineUserIdentifier
+        
         profilePagingViewController.viewModel = {
             let profilePagingViewModel = ProfilePagingViewModel(
-                postsUserTimelineViewModel: userTimelineViewModel(.posts),
-                repliesUserTimelineViewModel: userTimelineViewModel(.postsAndReplies),
-                mediaUserTimelineViewModel: userTimelineViewModel(.media),
+                postsUserTimelineViewModel: posts,
+                repliesUserTimelineViewModel: postsAndReplies,
+                mediaUserTimelineViewModel: media,
                 profileAboutViewModel: profileAboutViewModel
             )
-            profilePagingViewModel.postUserTimelineViewController.viewModel.userIdentifier = timelineUserIdentifier
-            profilePagingViewModel.repliesUserTimelineViewController.viewModel.userIdentifier = timelineUserIdentifier
-            profilePagingViewModel.mediaUserTimelineViewController.viewModel.userIdentifier = timelineUserIdentifier
             return profilePagingViewModel
         }()
         return profilePagingViewController
@@ -1041,9 +1046,9 @@ extension ProfileViewController: DataSourceProvider {
     
     func updateViewModelsWithDataControllers(status: MastodonStatus, intent: MastodonStatus.UpdateIntent) {
         
-        profilePagingViewController?.viewModel?.postUserTimelineViewController.update(contentStatus: status, intent: intent)
-        profilePagingViewController?.viewModel?.repliesUserTimelineViewController.update(contentStatus: status, intent: intent)
-        profilePagingViewController?.viewModel?.mediaUserTimelineViewController.update(contentStatus: status, intent: intent)
+        (profilePagingViewController?.viewModel?.postUserTimelineViewController as? UserTimelineViewController)?.update(contentStatus: status, intent: intent)
+        (profilePagingViewController?.viewModel?.repliesUserTimelineViewController as? UserTimelineViewController)?.update(contentStatus: status, intent: intent)
+        (profilePagingViewController?.viewModel?.mediaUserTimelineViewController as? UserTimelineViewController)?.update(contentStatus: status, intent: intent)
     }
 }
 
@@ -1152,5 +1157,11 @@ extension ProfileViewController {
         @unknown default:
             return 16
         }
+    }
+}
+
+extension TimelineListViewController: IndicatorInfoProvider {
+    func indicatorInfo(for pagerTabStripController: XLPagerTabStrip.PagerTabStripViewController) -> XLPagerTabStrip.IndicatorInfo {
+        return IndicatorInfo(title: type.tabTitle ?? "No Title")
     }
 }

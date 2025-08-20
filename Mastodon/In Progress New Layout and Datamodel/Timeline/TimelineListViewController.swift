@@ -19,11 +19,21 @@ enum TimelineViewType {
     case home
     case trendingPosts
     case searchPosts(String)
+    case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
+    
+    var tabTitle: String? {
+        switch self {
+        case .profilePosts(let tabTitle, _, _):
+            return tabTitle
+        default:
+            return nil
+        }
+    }
 }
 
 class TimelineListViewController: UIHostingController<TimelineListView>
 {
-    private let type: TimelineViewType
+    public let type: TimelineViewType
     private let viewModel: TimelineListViewModel
     private var navigationFlow: NavigationFlow?
     private let _mediaPreviewTransitionController = MediaPreviewTransitionController()
@@ -39,6 +49,8 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             viewModel = TimelineListViewModel(timeline: .discovery)
         case .searchPosts(let searchText):
             viewModel = TimelineListViewModel(timeline: .search(searchText))
+        case .profilePosts(_, let user, let queryFilter):
+            viewModel = TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter))
         }
         let root = TimelineListView(viewModel: viewModel)
         super.init(rootView: root)
@@ -192,7 +204,7 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discovery, .search(_):
+        case .discovery, .search, .userPosts:
             assertionFailure()
         }
         
