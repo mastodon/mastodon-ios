@@ -441,6 +441,11 @@ private class TimelineListViewModel: ObservableObject {
     
     public var lastReadState: LastReadState = .initializing
     
+    public var hasScrolledToRoot = false
+    public var threadRoot: Mastodon.Entity.Status.ID? {
+        return feedLoader?.threadRoot
+    }
+    
     // Translations
     private var translations = [ Mastodon.Entity.Status.ID : Mastodon.Entity.Translation]()
     
@@ -480,18 +485,21 @@ private class TimelineListViewModel: ObservableObject {
     }
     
     private func getDisplaySlice(from items: [TimelineItem], startItemID: Mastodon.Entity.Status.ID?, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
+        guard feedLoader?.threadModel == nil else { return items[items.startIndex..<items.endIndex] }
         let startIndex = items.firstIndex(where: { $0.id == startItemID}) ?? 0
         let endIndex = min(startIndex + displaySliceLength, items.endIndex)
         return items[startIndex..<endIndex] + (endIndex != items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
     }
     
     private func getDisplaySlice(from items: [TimelineItem], midIndex: Int, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
+        guard feedLoader?.threadModel == nil else { return items[items.startIndex..<items.endIndex] }
         let startIndex = max(0, midIndex - (self.displaySliceLength / 2))
         let endIndex = min(startIndex + self.displaySliceLength, items.endIndex)
         return items[startIndex..<endIndex] + (endIndex < items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
     }
     
     private func getDisplaySlice(from items: [TimelineItem], endIndex: Int, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
+        guard feedLoader?.threadModel == nil else { return items[items.startIndex..<items.endIndex] }
         let startIndex = max(0, endIndex - self.displaySliceLength)
         let endIndex = min(startIndex + self.displaySliceLength, items.endIndex)
         return items[startIndex..<endIndex] + (endIndex < items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
@@ -904,28 +912,36 @@ struct TimelineListView: View {
                             }
                         }
                         .onChange(of: viewModel.currentDisplaySlice, initial: true) { oldValue, newValue in
-                            switch viewModel.lastReadState {
-                            case .untracked, .initializing:
-                                debugScroll("NOTHING TO SCROLL TO")
-                                break
-                            case .pullToRefresh, .requestedReloadFromTop:
-                                debugScroll("pull to refresh replaced the current slice, doing nothing should jump to the top")
-                                viewModel.resetToUntrackedAfterDelay()
-                            case .requestedReloadFromBottom:
-                                debugScroll("reload from bottom replaced the current slice")
+                            if !viewModel.hasScrolledToRoot, let root = viewModel.threadRoot {
+                                viewModel.hasScrolledToRoot = true
+                                scrollManager.scrollTo(lastReadID: root, anchor: .top, items: newValue, proxy: proxy) { success in
+                                    viewModel.resetToUntrackedAfterDelay()
+                                }
+                            } else {
                                 
-                                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                                    if let topItemID = newValue.first(where: { $0.isPost })?.id {
-                                        // without requesting scroll, the view seems to automatically peg the loading indicator as the thing that shouldn't move, so you're stuck at the end
-                                        debugScroll("scrolling to the top item in the new lower slice")
-                                        if let anchorIndex = viewModel.currentDisplaySlice.firstIndex(where: { $0.id == topItemID }) {
-                                            debugScroll("will try to scroll to \(topItemID), which is at index \(anchorIndex) in slice \(viewModel.currentDisplaySlice.startIndex)-\(viewModel.currentDisplaySlice.endIndex)")
-                                        }
-                                        scrollManager.scrollTo(lastReadID: topItemID, anchor: .bottom, items: self.viewModel.currentDisplaySlice, proxy: proxy) { success in
+                                switch viewModel.lastReadState {
+                                case .untracked, .initializing:
+                                    debugScroll("NOTHING TO SCROLL TO")
+                                    break
+                                case .pullToRefresh, .requestedReloadFromTop:
+                                    debugScroll("pull to refresh replaced the current slice, doing nothing should jump to the top")
+                                    viewModel.resetToUntrackedAfterDelay()
+                                case .requestedReloadFromBottom:
+                                    debugScroll("reload from bottom replaced the current slice")
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                                        if let topItemID = newValue.first(where: { $0.isPost })?.id {
+                                            // without requesting scroll, the view seems to automatically peg the loading indicator as the thing that shouldn't move, so you're stuck at the end
+                                            debugScroll("scrolling to the top item in the new lower slice")
+                                            if let anchorIndex = viewModel.currentDisplaySlice.firstIndex(where: { $0.id == topItemID }) {
+                                                debugScroll("will try to scroll to \(topItemID), which is at index \(anchorIndex) in slice \(viewModel.currentDisplaySlice.startIndex)-\(viewModel.currentDisplaySlice.endIndex)")
+                                            }
+                                            scrollManager.scrollTo(lastReadID: topItemID, anchor: .bottom, items: self.viewModel.currentDisplaySlice, proxy: proxy) { success in
+                                                viewModel.resetToUntrackedAfterDelay()
+                                            }
+                                        } else {
                                             viewModel.resetToUntrackedAfterDelay()
                                         }
-                                    } else {
-                                        viewModel.resetToUntrackedAfterDelay()
                                     }
                                 }
                             }
