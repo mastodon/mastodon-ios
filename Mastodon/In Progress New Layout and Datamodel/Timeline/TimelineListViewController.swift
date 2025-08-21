@@ -20,6 +20,7 @@ enum TimelineViewType {
     case trendingPosts
     case searchPosts(String)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
+    case thread(root: MastodonContentPost)
     
     var tabTitle: String? {
         switch self {
@@ -51,6 +52,8 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             viewModel = TimelineListViewModel(timeline: .search(searchText))
         case .profilePosts(_, let user, let queryFilter):
             viewModel = TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter))
+        case .thread(let root):
+            viewModel = TimelineListViewModel(timeline: .thread(root: root))
         }
         let root = TimelineListView(viewModel: viewModel)
         super.init(rootView: root)
@@ -204,7 +207,7 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discovery, .search, .userPosts:
+        case .discovery, .search, .userPosts, .thread:
             assertionFailure()
         }
         

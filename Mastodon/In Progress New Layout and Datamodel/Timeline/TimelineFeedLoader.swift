@@ -13,6 +13,21 @@ public enum MastodonTimelineType: Equatable {
     case discovery
     case search(String)
     case userPosts(userID: String, queryFilter: TimelineQueryFilter)
+    case thread(root: MastodonContentPost)
+
+    public static func == (lhs: MastodonTimelineType, rhs: MastodonTimelineType) -> Bool {
+        switch (lhs, rhs) {
+        case (.following, .following): return true
+        case (.local, .local): return true
+        case (.list(let first), .list(let second)): return first == second
+        case (.hashtag(let first), .hashtag(let second)): return first == second
+        case (.discovery, .discovery): return true
+        case (.search(let first), .search(let second)): return first == second
+        case (.userPosts(let firstID, let firstFilter), .userPosts(let secondID, let secondFilter)): return firstID == secondID && firstFilter == secondFilter
+        case (.thread(let first), .thread(let second)): return first.id == second.id
+        default: return false
+        }
+    }
 }
 
 public struct TimelineQueryFilter: Equatable {
@@ -102,6 +117,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private let myAccountID: Mastodon.Entity.Account.ID?
     
     let timeline: MastodonTimelineType
+    var threadModel: MastodonStatusThreadViewModel?
+    var threadRoot: Mastodon.Entity.Status.ID?
     
     init(currentUser: MastodonAuthenticationBox, timeline: MastodonTimelineType) {
         self.timeline = timeline
@@ -124,6 +141,8 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         case .search(_):
             self.filterContext = nil
         case .userPosts:
+            self.filterContext = .account
+        case .thread:
             self.filterContext = .account
         }
         super.init(cacheManager)
@@ -241,6 +260,50 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 onlyMedia: queryFilter.onlyMedia,
                 authenticationBox: authenticatedUser
             ).value
+        case .thread(let root):
+            let threadModel = MastodonStatusThreadViewModel(filterContext: .thread)
+            self.threadModel = threadModel
+            self.threadRoot = root.id
+            
+            let context = try await APIService.shared.statusContext(
+                statusID: root.id,
+                authenticationBox: authenticatedUser
+            ).value
+            
+            threadModel.appendAncestor(
+                nodes: MastodonStatusThreadViewModel.Node.replyToThread(
+                    for: (root as? MastodonBasicPost)?.inReplyTo?.postID,
+                    from: context.ancestors
+                )
+            )
+
+            threadModel.appendDescendant(
+                nodes: context.descendants.map { status in
+                    return .init(status: .fromEntity(status), children: [])
+                }
+            )
+            
+            let anscestorStatuses = threadModel.ancestors.compactMap {
+                switch $0 {
+                case .thread(let context):
+                    return context.record.entity
+                default:
+                    assertionFailure()
+                    return nil
+                }
+            }
+            
+            let descendentStatuses = threadModel.descendants.compactMap {
+                switch $0 {
+                case .thread(let context):
+                    return context.record.entity
+                default:
+                    assertionFailure()
+                    return nil
+                }
+            }
+            
+            response = anscestorStatuses + [root._legacyEntity] + descendentStatuses
         }
         
         let newBatch = response.map { status in

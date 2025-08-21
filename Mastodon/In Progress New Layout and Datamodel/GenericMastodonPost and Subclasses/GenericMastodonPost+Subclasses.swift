@@ -38,7 +38,7 @@ extension GenericMastodonPost {
     }
 }
 
-class MastodonContentPost: GenericMastodonPost {
+public class MastodonContentPost: GenericMastodonPost {
     let content: GenericMastodonPost.PostContent
     
     init(id: Mastodon.Entity.Status.ID, metaData: GenericMastodonPost.PostMetadata, content: GenericMastodonPost.PostContent, _legacyEntity: Mastodon.Entity.Status) {
