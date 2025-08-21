@@ -7,6 +7,8 @@ import MastodonCore
 @MainActor
 @Observable class MastodonPostViewModel {
     
+    let threadedContext: ThreadedConversationModel.ThreadContext?
+    
     var fullQuotedPostViewModel: MastodonPostViewModel?
     var placeholderQuotedPost: MastodonQuotedPost?
     
@@ -27,7 +29,7 @@ import MastodonCore
     func updateQuotedPostViewModel() {
         if let potentialQuotePost = fullPost?.actionablePost as? MastodonBasicPost {
             if let quoted = potentialQuotePost.quotedPost, let quotedFullPost = quoted.fullPost {
-                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), fullPost: quotedFullPost, filterContext: filterContext)
+                let updated = MastodonPostViewModel(quotedFullPost.initialDisplayInfo(inContext: filterContext), fullPost: quotedFullPost, filterContext: filterContext, threadedConversationContext: nil)
                 updated.actionHandler = actionHandler
                 self.fullQuotedPostViewModel = updated
             } else {
@@ -53,15 +55,17 @@ import MastodonCore
     private(set) var translation: Mastodon.Entity.Translation? = nil
     
     nonisolated
-    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, context: Mastodon.Entity.FilterContext?) {
+    init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
         self.initialDisplayInfo = initialDisplay
-        self.filterContext = context
+        self.filterContext = filterContext
+        self.threadedContext = threadedConversationContext
     }
     
-    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext?) {
+    private init(_ initialDisplay: GenericMastodonPost.InitialDisplayInfo, fullPost: GenericMastodonPost? = nil, isShowingTranslation: Bool? = nil, isDoingAction: MastodonPostMenuAction? = nil, myRelationshipToAuthor: MastodonAccount.Relationship? = nil, actionHandler: MastodonPostMenuActionHandler? = nil, translation: Mastodon.Entity.Translation? = nil, filterContext: Mastodon.Entity.FilterContext?, threadedConversationContext: ThreadedConversationModel.ThreadContext?) {
         self.initialDisplayInfo = initialDisplay
         self.fullPost = fullPost
         self.filterContext = filterContext
+        self.threadedContext = threadedConversationContext
         self.updateQuotedPostViewModel()
     }
     
@@ -146,23 +150,29 @@ import MastodonCore
 
 extension MastodonPostViewModel {
     
-    var socialContextHeader: SocialContextHeader? {
-        guard let fullPost else { return nil }
-        if fullPost is MastodonBoostPost {
-            // BOOSTED BY
-            return .boosted(by: fullPost.metaData.author.displayInfo.displayName, emojis: fullPost.metaData.author.displayInfo.emojis)
-        } else if let basicPost = fullPost as? MastodonBasicPost {
-            // REPLIED and/or PRIVATE MENTION
-            let isPrivate = basicPost.metaData.privacyLevel == .mentionedOnly
-            let replyInfo = basicPost.inReplyTo
-            if let replyInfo {
-                let replyToAccount = actionHandler?.account(replyInfo.accountID)
-                return .reply(to: replyToAccount?.displayInfo.displayName ?? "unknown", isPrivate: isPrivate, isNotification: false, emojis: replyToAccount?.displayInfo.emojis ?? [])
-            } else if isPrivate {
-                return .mention(isPrivate: true)
+    @ViewBuilder var socialContextHeader: some View {
+        if let fullPost {
+            if fullPost is MastodonBoostPost {
+                // BOOSTED BY
+                SocialContextHeader.boosted(by: fullPost.metaData.author.displayInfo.displayName, emojis: fullPost.metaData.author.displayInfo.emojis)
+            } else if let basicPost = fullPost as? MastodonBasicPost {
+                // REPLIED and/or PRIVATE MENTION
+                let isPrivate = basicPost.metaData.privacyLevel == .mentionedOnly
+                if isPrivate || threadedContext == nil {
+                    let replyInfo = basicPost.inReplyTo
+                    if let replyInfo {
+                        let replyToAccount = actionHandler?.account(replyInfo.accountID)
+                        SocialContextHeader.reply(to: replyToAccount?.displayInfo.displayName ?? "unknown", isPrivate: isPrivate, isNotification: false, emojis: replyToAccount?.displayInfo.emojis ?? [])
+                    } else if isPrivate {
+                        SocialContextHeader.mention(isPrivate: true)
+                    }
+                } else {
+                   EmptyView()
+                }
             }
+        } else {
+            EmptyView()
         }
-        return nil
     }
 
     func textContentView(isInlinePreview: Bool) -> MastodonContentView {
@@ -192,15 +202,40 @@ struct HomeTimelinePostRowView: View {
         let actionablePost = viewModel.fullPost?.actionablePost
         let author = actionablePost?.metaData.author ?? viewModel.fullPost?.metaData.author
         
-        VStack(alignment: .gutterAlign, spacing: tinySpacing) {
-            
-            viewModel.socialContextHeader
+        VStack(alignment: .gutterAlign, spacing: 0) {
+            if let threadedContext = viewModel.threadedContext {
+                ZStack() {
+                    if threadedContext.drawsLineAbove {
+                        threadingDecoration(withSpacerAtTop: false, withSpacerAtBottom: !threadedContext.isContiguous)
+                            .frame(width: AvatarSize.large)
+                            .alignmentGuide(.gutterAlign) { d in
+                                return d[.trailing] + spacingBetweenGutterAndContent
+                            }
+                    }
+                    VStack(spacing: 0) {
+                        Spacer()
+                            .frame(height: standardPadding)
+                        viewModel.socialContextHeader
+                    }
+                }
+            } else {
+                VStack(spacing: 0) {
+                    Spacer()
+                        .frame(height: standardPadding)
+                    viewModel.socialContextHeader
+                }
+            }
             
             HStack(alignment: .top) {
-            
-                AvatarView(size: .large, authorAvatarUrl: author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar, goToProfile: {
-                    goToProfile(author)
-                })
+                VStack(spacing: 0) {
+                    AvatarView(size: .large, authorAvatarUrl: author?.avatarURL ?? viewModel.initialDisplayInfo.actionableAuthorStaticAvatar, goToProfile: {
+                        goToProfile(author)
+                    })
+                    if let threadedContext = viewModel.threadedContext, threadedContext.drawsLineBelow {
+                        threadingDecoration(withSpacerAtTop: !threadedContext.isContiguous, withSpacerAtBottom: false)
+                            .frame(width: AvatarSize.large)
+                    }
+                }
                 
                 VStack(spacing: spacingBetweenGutterAndContent) {
                     AuthorHeaderView(timestamper: viewModel.timestamper)
@@ -272,6 +307,8 @@ struct HomeTimelinePostRowView: View {
                         ActionBar()
                             .frame(width: contentWidth, alignment: .leading)
                     }
+                    Spacer()
+                        .frame(height: standardPadding)
                 }
             }
         }
@@ -292,6 +329,22 @@ struct HomeTimelinePostRowView: View {
 }
 
 extension HomeTimelinePostRowView {
+    @ViewBuilder func threadingDecoration(withSpacerAtTop topSpacer: Bool, withSpacerAtBottom bottomSpacer: Bool) -> some View {
+        VStack(alignment: .center, spacing: 0) {
+            if topSpacer {
+                Spacer()
+                    .frame(height: tinySpacing)
+            }
+            Rectangle()
+                .fill(.separator)
+                .frame(width: 3)
+            if bottomSpacer {
+                Spacer()
+                    .frame(height: tinySpacing)
+            }
+        }
+    }
+    
     @ViewBuilder var contentConcealLozenge: some View {
         if let whenHiding = contentConcealModel.buttonText(whenHiding: true), let whenShowing = contentConcealModel.buttonText(whenHiding: false) {
             ShowMoreLozenge(buttonTextWhenHiding: whenHiding, buttonTextWhenShowing: whenShowing, viewModel: ShowMoreViewModel(isShowing: contentConcealModel.currentMode.isShowingContent, isFilter: contentConcealModel.currentModeIsFilter, reasons: contentConcealModel.currentMode.reasons ?? [], showMore: {
@@ -426,4 +479,43 @@ private struct ActionBar: View {
             })
         }
      }
+}
+
+extension ThreadedConversationModel.ThreadContext {
+    var drawsLineAbove: Bool {
+        switch self {
+        case .focused(let connectedAbove, _):
+            return connectedAbove
+        case .rootWithChildBelow:
+            return false
+        case .fragmentStart, .fragmentEnd, .fragmentContinuation:
+            return true
+        }
+    }
+    
+    var drawsLineBelow: Bool {
+        switch self {
+        case .focused(_, let connectedBelow):
+            return connectedBelow
+        case .rootWithChildBelow, .fragmentStart, .fragmentContinuation:
+            return true
+        case .fragmentEnd:
+            return false
+        }
+    }
+    
+    var isContiguous: Bool {
+        switch self {
+        case .focused(let connectedAbove, let connectedBelow):
+            return connectedAbove && connectedBelow
+        case .rootWithChildBelow:
+            return false
+        case .fragmentStart:
+            return true
+        case .fragmentEnd:
+            return false
+        case .fragmentContinuation:
+            return true
+        }
+    }
 }

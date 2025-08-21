@@ -49,8 +49,8 @@ class ThreadedConversationModel {
                 }
             default:
                 let previous = allNonFocusedItems[index - 1]
-                let connectedAbove = previous.id == item.inReplyToID
                 let connectedBelow = index != finalIndex && allNonFocusedItems[index + 1].inReplyToID == item.id
+                let connectedAbove = previous.id == item.inReplyToID || !connectedBelow // this isn't the focused item, so if it isn't connected to something here and it isn't the root of the thread, then it must be a single disconnected reply to the focused post and should show the broken off connecting line to indicate that it is a reply
                 switch (connectedAbove, connectedBelow) {
                 case (true, true):
                     contextInfos[item.id] = .fragmentContinuation
@@ -64,6 +64,10 @@ class ThreadedConversationModel {
             }
         }
         threadContextInfos = contextInfos
+    }
+    
+    func context(for postID: Mastodon.Entity.Status.ID) -> ThreadContext? {
+        return threadContextInfos[postID]
     }
 }
 

@@ -272,7 +272,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         let newBatch = response.map { status in
             let post = GenericMastodonPost.fromStatus(status)
             let initialDisplayInfo = post.initialDisplayInfo(inContext: filterContext)
-            let viewModel = MastodonPostViewModel(initialDisplayInfo, context: filterContext)
+            let viewModel = MastodonPostViewModel(initialDisplayInfo, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
             viewModel.setFullPost(post)
             return TimelineItem.post(viewModel)
         }

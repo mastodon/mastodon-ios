@@ -904,7 +904,7 @@ struct TimelineListView: View {
                                         HomeTimelinePostRowView(contentWidth: contentWidth)
                                         .environment(postViewModel)
                                         .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
-                                        .padding(EdgeInsets(top: standardPadding, leading: standardPadding, bottom: standardPadding, trailing: doublePadding))
+                                        .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
                                         .frame(width: usableWidth)
                                     }
                                 }
