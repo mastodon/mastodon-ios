@@ -117,8 +117,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
     private let myAccountID: Mastodon.Entity.Account.ID?
     
     let timeline: MastodonTimelineType
-    var threadModel: MastodonStatusThreadViewModel?
-    var threadRoot: Mastodon.Entity.Status.ID?
+    var threadedConversationModel: ThreadedConversationModel?
     
     init(currentUser: MastodonAuthenticationBox, timeline: MastodonTimelineType) {
         self.timeline = timeline
@@ -261,49 +260,13 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 authenticationBox: authenticatedUser
             ).value
         case .thread(let root):
-            let threadModel = MastodonStatusThreadViewModel(filterContext: .thread)
-            self.threadModel = threadModel
-            self.threadRoot = root.id
-            
             let context = try await APIService.shared.statusContext(
                 statusID: root.id,
                 authenticationBox: authenticatedUser
             ).value
-            
-            threadModel.appendAncestor(
-                nodes: MastodonStatusThreadViewModel.Node.replyToThread(
-                    for: (root as? MastodonBasicPost)?.inReplyTo?.postID,
-                    from: context.ancestors
-                )
-            )
-
-            threadModel.appendDescendant(
-                nodes: context.descendants.map { status in
-                    return .init(status: .fromEntity(status), children: [])
-                }
-            )
-            
-            let anscestorStatuses = threadModel.ancestors.compactMap {
-                switch $0 {
-                case .thread(let context):
-                    return context.record.entity
-                default:
-                    assertionFailure()
-                    return nil
-                }
-            }
-            
-            let descendentStatuses = threadModel.descendants.compactMap {
-                switch $0 {
-                case .thread(let context):
-                    return context.record.entity
-                default:
-                    assertionFailure()
-                    return nil
-                }
-            }
-            
-            response = anscestorStatuses + [root._legacyEntity] + descendentStatuses
+            let threadModel = ThreadedConversationModel(threadContext: context, focusedPost: root)
+            threadedConversationModel = threadModel
+            response = threadModel.fullThread
         }
         
         let newBatch = response.map { status in

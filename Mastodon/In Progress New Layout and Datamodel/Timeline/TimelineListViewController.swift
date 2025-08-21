@@ -441,9 +441,8 @@ private class TimelineListViewModel: ObservableObject {
     
     public var lastReadState: LastReadState = .initializing
     
-    public var hasScrolledToRoot = false
-    public var threadRoot: Mastodon.Entity.Status.ID? {
-        return feedLoader?.threadRoot
+    public var threadedConversationModel: ThreadedConversationModel? {
+        return feedLoader?.threadedConversationModel
     }
     
     // Translations
@@ -485,21 +484,21 @@ private class TimelineListViewModel: ObservableObject {
     }
     
     private func getDisplaySlice(from items: [TimelineItem], startItemID: Mastodon.Entity.Status.ID?, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
-        guard feedLoader?.threadModel == nil else { return items[items.startIndex..<items.endIndex] }
+        guard feedLoader?.threadedConversationModel == nil else { return items[items.startIndex..<items.endIndex] }
         let startIndex = items.firstIndex(where: { $0.id == startItemID}) ?? 0
         let endIndex = min(startIndex + displaySliceLength, items.endIndex)
         return items[startIndex..<endIndex] + (endIndex != items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
     }
     
     private func getDisplaySlice(from items: [TimelineItem], midIndex: Int, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
-        guard feedLoader?.threadModel == nil else { return items[items.startIndex..<items.endIndex] }
+        guard feedLoader?.threadedConversationModel == nil else { return items[items.startIndex..<items.endIndex] }
         let startIndex = max(0, midIndex - (self.displaySliceLength / 2))
         let endIndex = min(startIndex + self.displaySliceLength, items.endIndex)
         return items[startIndex..<endIndex] + (endIndex < items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
     }
     
     private func getDisplaySlice(from items: [TimelineItem], endIndex: Int, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
-        guard feedLoader?.threadModel == nil else { return items[items.startIndex..<items.endIndex] }
+        guard feedLoader?.threadedConversationModel == nil else { return items[items.startIndex..<items.endIndex] }
         let startIndex = max(0, endIndex - self.displaySliceLength)
         let endIndex = min(startIndex + self.displaySliceLength, items.endIndex)
         return items[startIndex..<endIndex] + (endIndex < items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
@@ -909,12 +908,17 @@ struct TimelineListView: View {
                                         .frame(width: usableWidth)
                                     }
                                 }
+                                if viewModel.threadedConversationModel != nil {
+                                    // include a spacer to indicate the end of the conversation and provide scrolling space so that if the focused post is at the end of the conversation it can still be scrolled to the top (or something near it)
+                                    Color.secondary.opacity(0.2)
+                                        .frame(height: geo.size.height * 0.5)
+                                }
                             }
                         }
                         .onChange(of: viewModel.currentDisplaySlice, initial: true) { oldValue, newValue in
-                            if !viewModel.hasScrolledToRoot, let root = viewModel.threadRoot {
-                                viewModel.hasScrolledToRoot = true
-                                scrollManager.scrollTo(lastReadID: root, anchor: .top, items: newValue, proxy: proxy) { success in
+                            if let threadedModel = viewModel.threadedConversationModel, !threadedModel.hasScrolledToFocusedPost {
+                                threadedModel.hasScrolledToFocusedPost = true
+                                scrollManager.scrollTo(lastReadID: threadedModel.focusedID, anchor: .top, items: newValue, proxy: proxy) { success in
                                     viewModel.resetToUntrackedAfterDelay()
                                 }
                             } else {

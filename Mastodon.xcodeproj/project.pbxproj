@@ -1311,6 +1311,7 @@
 				Notifications/NotificationRowView.swift,
 				Notifications/NotificationRowViewModel.swift,
 				Notifications/NotificationsCacheManager.swift,
+				Timeline/ThreadedConversationModel.swift,
 				Timeline/TimelineFeedLoader.swift,
 				Timeline/TimelineListViewController.swift,
 			);
