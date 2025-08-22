@@ -44,10 +44,10 @@ class StatusEditHistoryViewController: UIViewController {
             }
 
             viewModel.prepareCell(cell, in: tableView)
-            let contentWarning = ContentWarning(statusEdit: statusEdit)
-            let contentDisplayModel = StatusView.ContentConcealViewModel(status: viewModel.status, filterBox: nil, filterContext: nil)
+            let bridgingStatus = MastodonStatus(entity: viewModel.status, showDespiteContentWarning: false)
+            let contentDisplayModel = StatusView.ContentConcealViewModel(status: bridgingStatus, filterBox: nil, filterContext: nil)
             let displayMode = contentDisplayModel.byShowingAll().effectiveDisplayMode
-            cell.configure(status: viewModel.status, statusEdit: statusEdit, dateText: dateText, contentDisplayMode: displayMode)
+            cell.configure(status: bridgingStatus, statusEdit: statusEdit, dateText: dateText, contentDisplayMode: displayMode)
 
             return cell
         }

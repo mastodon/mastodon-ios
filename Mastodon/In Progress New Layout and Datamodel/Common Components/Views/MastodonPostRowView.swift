@@ -3,6 +3,7 @@
 import SwiftUI
 import MastodonSDK
 import MastodonCore
+import MastodonLocalization
 
 @MainActor
 @Observable class MastodonPostViewModel {
@@ -307,6 +308,14 @@ struct HomeTimelinePostRowView: View {
                         ActionBar()
                             .frame(width: contentWidth, alignment: .leading)
                     }
+                    
+                    switch viewModel.threadedContext {
+                    case .focused:
+                        threadFocusDetailFooter
+                    default:
+                        EmptyView()
+                    }
+                    
                     Spacer()
                         .frame(height: standardPadding)
                 }
@@ -328,6 +337,13 @@ struct HomeTimelinePostRowView: View {
     }
 }
 
+var staticTimestampFormatter = {
+   let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .short
+    return formatter
+}()
+
 extension HomeTimelinePostRowView {
     @ViewBuilder func threadingDecoration(withSpacerAtTop topSpacer: Bool, withSpacerAtBottom bottomSpacer: Bool) -> some View {
         VStack(alignment: .center, spacing: 0) {
@@ -343,6 +359,92 @@ extension HomeTimelinePostRowView {
                     .frame(height: tinySpacing)
             }
         }
+    }
+    
+    @ViewBuilder var threadFocusDetailFooter: some View {
+        VStack(alignment: .trailing, spacing: doublePadding) {
+            if let fullPost = viewModel.fullPost as? MastodonContentPost {
+                // date posted and application used
+                let dateString = staticTimestampFormatter.string(from: viewModel.initialDisplayInfo.actionableCreatedAt)
+                if let applicationName = fullPost.metaData.application?.name {
+                    Text(L10n.Common.Controls.Status.postedViaApplication(dateString, applicationName))
+                        .lineLimit(1)
+                        .foregroundStyle(.secondary)
+                } else {
+                    Text(dateString)
+                        .foregroundStyle(.secondary)
+                }
+                
+                if let authBox = AuthenticationServiceProvider.shared.currentActiveUser.value {
+                    
+                    // edit history
+                    if let lastEditDate = fullPost.content.editedAt {
+                        let lastEditString = staticTimestampFormatter.string(from: lastEditDate)
+                        Button {
+                            Task {
+                                do {
+                                    let edits = try await APIService.shared.getHistory(forStatusID: fullPost.id, authenticationBox: authBox).value
+                                    let editsViewModel = StatusEditHistoryViewModel(status: fullPost._legacyEntity, edits: edits, appContext: AppContext.shared, authenticationBox: authBox)
+                                    viewModel.actionHandler?.presentScene(.editHistory(viewModel: editsViewModel), fromPost: nil, transition: .show)
+                                } catch {
+                                }
+                            }
+                        } label: {
+                            HStack {
+                                Text(L10n.Common.Controls.Status.Buttons.editHistoryDetail(lastEditString))
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.primary)
+                                Image(systemName: "chevron.right")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .buttonStyle(.borderless)
+                    }
+                    
+                    // boosts and favorites
+                    let boostCount = fullPost.content.metrics.boostCount
+                    let favoriteCount = fullPost.content.metrics.favoriteCount
+                    if boostCount > 0 {
+                        Button {
+                            let userListViewModel = UserListViewModel(
+                                context: AppContext.shared,
+                                authenticationBox: authBox,
+                                kind: .rebloggedBy(status: MastodonStatus(entity: fullPost._legacyEntity, showDespiteContentWarning: false))
+                            )
+                            viewModel.actionHandler?.presentScene(.rebloggedBy(viewModel: userListViewModel), fromPost: nil, transition: .show)
+                        } label: {
+                            HStack {
+                                Text(L10n.Plural.Count.reblog(boostCount))
+                                    .foregroundStyle(.primary)
+                                Image(systemName: "chevron.right")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .buttonStyle(.borderless)
+                    }
+                    if favoriteCount > 0 {
+                        Button {
+                            let userListViewModel = UserListViewModel(
+                                context: AppContext.shared,
+                                authenticationBox: authBox,
+                                kind: .favoritedBy(status: MastodonStatus(entity: fullPost._legacyEntity, showDespiteContentWarning: false))
+                            )
+                            viewModel.actionHandler?.presentScene(.favoritedBy(viewModel: userListViewModel), fromPost: nil, transition: .show)
+                        } label: {
+                            HStack {
+                                Text(L10n.Plural.Count.favorite(favoriteCount))
+                                    .foregroundStyle(.primary)
+                                Image(systemName: "chevron.right")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .buttonStyle(.borderless)
+                    }
+                }
+            }
+        }
+        .font(.footnote)
+        .frame(maxWidth: .infinity, alignment: .trailing)
     }
     
     @ViewBuilder var contentConcealLozenge: some View {

@@ -590,7 +590,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
                 await self.sceneCoordinator?.hideLoading()
 
-                let viewModel = await StatusEditHistoryViewModel(status: status, edits: edits, appContext: AppContext.shared, authenticationBox: authenticationBox)
+                let viewModel = await StatusEditHistoryViewModel(status: status.entity, edits: edits, appContext: AppContext.shared, authenticationBox: authenticationBox)
                 _ = await self.sceneCoordinator?.present(scene: .editHistory(viewModel: viewModel), from: self, transition: .show)
             } catch {
                 await self.sceneCoordinator?.hideLoading()
