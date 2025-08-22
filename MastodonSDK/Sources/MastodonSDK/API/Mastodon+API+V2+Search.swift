@@ -66,7 +66,11 @@ extension Mastodon.API.V2.Search {
             self.accountID = accountID
             self.maxID = maxID
             self.minID = minID
-            self.type = type
+            if let typeRaw = type?.rawValue, !typeRaw.isEmpty {
+                self.type = type
+            } else {
+                self.type = nil
+            }
             self.excludeUnreviewed = excludeUnreviewed
             self.q = q
             self.resolve = resolve
