@@ -48,7 +48,7 @@ extension UserDefaults {
     
     @objc public dynamic var testNewHomeTimeline: Bool {
         get {
-            register(defaults: [#function: false])
+            register(defaults: [#function: true])
             return bool(forKey: #function) && UserDefaults.isDebugOrTestflightOrSimulator
         }
         set { self[#function] = newValue }
