@@ -32,34 +32,32 @@ class ThreadedConversationModel {
         
         contextInfos[focusedPost.id] = .focused(connectedAbove: !ancestors.isEmpty, connectedBelow: !descendants.isEmpty)
         
-        let allNonFocusedItems = ancestors + descendants
-        let finalIndex = allNonFocusedItems.endIndex - 1
-        for (index, item) in allNonFocusedItems.enumerated() {
+        let finalIndex = fullThread.endIndex - 1
+        for (index, item) in fullThread.enumerated() {
+            guard item.id != focusedPost.id else { continue } // the focused item has special logic and has already been handled
             switch index {
             case 0:
                 if ancestors.isEmpty {
                     // we are starting with a direct reply to the focused post
                     let nextIndex = index + 1
-                    if allNonFocusedItems.endIndex > nextIndex {
-                        let connectedBelow = index != finalIndex && allNonFocusedItems[nextIndex].inReplyToID == item.id
+                    if fullThread.endIndex > nextIndex {
+                        let connectedBelow = index != finalIndex && fullThread[nextIndex].inReplyToID == item.id
                         contextInfos[item.id] = connectedBelow ? .fragmentContinuation : .fragmentEnd
                     }
                 } else {
                     contextInfos[item.id] = .rootWithChildBelow
                 }
             default:
-                let previous = allNonFocusedItems[index - 1]
-                let connectedBelow = index != finalIndex && allNonFocusedItems[index + 1].inReplyToID == item.id
-                let connectedAbove = previous.id == item.inReplyToID || !connectedBelow // this isn't the focused item, so if it isn't connected to something here and it isn't the root of the thread, then it must be a single disconnected reply to the focused post and should show the broken off connecting line to indicate that it is a reply
+                let previous = fullThread[index - 1]
+                let connectedBelow = index != finalIndex && fullThread[index + 1].inReplyToID == item.id
+                let connectedAbove = previous.id == item.inReplyToID
                 switch (connectedAbove, connectedBelow) {
                 case (true, true):
                     contextInfos[item.id] = .fragmentContinuation
-                case (false, true):
-                    contextInfos[item.id] = .fragmentStart
                 case (true, false):
                     contextInfos[item.id] = .fragmentEnd
-                case (false, false):
-                    assertionFailure("only the focused item in a thread should have the possibility of being completely unconnected")
+                case (false, _):
+                    contextInfos[item.id] = .fragmentStart
                 }
             }
         }
