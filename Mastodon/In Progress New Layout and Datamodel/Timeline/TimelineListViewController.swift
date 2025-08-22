@@ -890,7 +890,7 @@ struct TimelineListView: View {
                                         - geo.safeAreaInsets.trailing
                                         let contentWidth = max(1, usableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize)
                                         
-#if DEBUG
+#if DEBUG && false
                                         Text(postViewModel.initialDisplayInfo.id)
                                             .foregroundStyle(.red)
                                             .fontWeight(.bold)
