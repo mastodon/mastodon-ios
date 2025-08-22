@@ -204,7 +204,7 @@ struct HomeTimelinePostRowView: View {
         
         VStack(alignment: .gutterAlign, spacing: 0) {
             if let threadedContext = viewModel.threadedContext {
-                ZStack() {
+                ZStack(alignment: Alignment(horizontal: .gutterAlign, vertical: .center)) {
                     if threadedContext.drawsLineAbove {
                         threadingDecoration(withSpacerAtTop: false, withSpacerAtBottom: !threadedContext.isContiguous)
                             .frame(width: AvatarSize.large)
