@@ -21,23 +21,23 @@ class ThreadedConversationModel {
         focusedID = focusedPost.id
         
         // Ancestors form a single reply chain
-        let anscestors = replyToThread(chainingUpFrom: focusedPost, from: threadContext.ancestors)
+        let ancestors = replyToThread(chainingUpFrom: focusedPost, from: threadContext.ancestors)
         
         // Descendants can form a multiply branching tree. We rely on the server to have given the descendents to us in an appropriate display order
         let descendants = threadContext.descendants
         
-        fullThread = anscestors + [focusedPost._legacyEntity] + descendants
+        fullThread = ancestors + [focusedPost._legacyEntity] + descendants
 
         var contextInfos = [ Mastodon.Entity.Status.ID : ThreadContext]()
         
-        contextInfos[focusedPost.id] = .focused(connectedAbove: !anscestors.isEmpty, connectedBelow: !descendants.isEmpty)
+        contextInfos[focusedPost.id] = .focused(connectedAbove: !ancestors.isEmpty, connectedBelow: !descendants.isEmpty)
         
-        let allNonFocusedItems = anscestors + descendants
+        let allNonFocusedItems = ancestors + descendants
         let finalIndex = allNonFocusedItems.endIndex - 1
         for (index, item) in allNonFocusedItems.enumerated() {
             switch index {
             case 0:
-                if anscestors.isEmpty {
+                if ancestors.isEmpty {
                     // we are starting with a direct reply to the focused post
                     let nextIndex = index + 1
                     if allNonFocusedItems.endIndex > nextIndex {
