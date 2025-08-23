@@ -503,7 +503,7 @@
                 "post_sent": "Inlägg skickat"
             },
             "empty_state": {
-                "list_empty_message_title": "This list is empty"
+                "list_empty_message_title": "Den här listan är tom"
             }
         },
         "suggestion_account": {
@@ -587,7 +587,7 @@
             },
             "language": {
                 "title": "Inläggsspråk",
-                "suggested": "Suggested",
+                "suggested": "Föreslagen",
                 "recent": "Senaste",
                 "other": "Andra språk…"
             }
@@ -603,7 +603,7 @@
                 "other_posts": "inlägg",
                 "other_following": "följer",
                 "other_followers": "följare",
-                "familiar_followers": "mutuals"
+                "familiar_followers": "följer varandra"
             },
             "fields": {
                 "joined": "Gick med",
@@ -643,18 +643,18 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "Visa knuffar",
-                    "message": "Confirm to show boosts"
+                    "message": "Bekräfta för att visa knuffar"
                 },
                 "confirm_hide_reblogs": {
                     "title": "Dölj knuffar",
-                    "message": "Confirm to hide boosts"
+                    "message": "Bekräfta för att dölja knuffar"
                 },
                 "confirm_block_domain": {
                     "title": "Blockera domän",
-                    "message": "Confirm to block domain %s"
+                    "message": "Bekräfta att blockera domän %s"
                 },
                 "confirm_unblock_domain": {
-                    "title": "Unblock domain",
+                    "title": "Avblockera domän",
                     "message": "Confirm to unblock domain %s"
                 }
             },
