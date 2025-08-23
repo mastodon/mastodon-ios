@@ -374,8 +374,8 @@
             "no_server_selected_hint": "Vi kommer att välja en server baserat på ditt språk om du fortsätter utan att göra ett val."
         },
         "privacy": {
-            "title": "Your Privacy",
-            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%s**, you can go back and pick a different server.",
+            "title": "Din integritet",
+            "description": "Även om Mastodon-appen inte samlar in några data, kan servern du registrerar dig genom ha en annan policy.\n\nOm du inte håller med policyn för **%s**, kan du gå tillbaka och välja en annan server.",
             "policy": {
                 "ios": "Integritetspolicy - Mastodon för iOS",
                 "server": "Integritetspolicy - %s"
@@ -388,8 +388,8 @@
             "title": "Skapa konto",
             "input": {
                 "birth_date": {
-                    "label": "Date of Birth",
-                    "explanation_message": "We have to make sure you're at least %d to join %@. This won't get stored after signup."
+                    "label": "Födelsedatum",
+                    "explanation_message": "Vi måste se till att du är minst %d för att ansluta till %@. Detta kommer inte att lagras efter registreringen."
                 },
                 "avatar": {
                     "delete": "Radera"
@@ -397,7 +397,7 @@
                 "username": {
                     "placeholder": "användarnamn",
                     "duplicate_prompt": "Det här användarnamnet är redan taget.",
-                    "suggestion": "amazing_%@"
+                    "suggestion": "fantastiskt_%@"
                 },
                 "display_name": {
                     "placeholder": "visningsnamn"
@@ -451,13 +451,13 @@
         },
         "server_rules": {
             "title": "Serverregler",
-            "subtitle": "By continuing, you agree to follow by the following rules set and enforced by the **%s** moderators.",
+            "subtitle": "Genom att fortsätta, samtycker du till att följa följande regler som fastställts och verkställs av **%s** moderatorer.",
             "prompt": "Genom att fortsätta omfattas du av villkoren för tjänsten och sekretesspolicyn för %s.",
             "terms_of_service": "användarvillkor",
             "privacy_policy": "integritetspolicy",
             "button": {
                 "confirm": "Jag godkänner",
-                "disagree": "Disagree"
+                "disagree": "Stämmer ej"
             }
         },
         "confirm_email": {
@@ -480,27 +480,27 @@
             "didnt_get_link": {
                 "prefix": "Fick du ingen länk?",
                 "resend_in": "Skicka igen (%@)",
-                "resend_now": "Resend now."
+                "resend_now": "Skicka om nu."
             }
         },
         "home_timeline": {
             "title": "Hem",
             "timeline_menu": {
                 "following": "Följer",
-                "local_community": "Local",
+                "local_community": "Lokal",
                 "lists": {
                     "title": "Listor",
                     "empty_message": "Du har inga listor"
                 },
                 "hashtags": {
-                    "title": "Followed Hashtags",
-                    "empty_message": "You don't follow any Hashtags"
+                    "title": "Följda hashtaggar",
+                    "empty_message": "Du följer inga hashtaggar"
                 }
             },
             "timeline_pill": {
                 "offline": "Offline",
                 "new_posts": "Nya inlägg",
-                "post_sent": "Post Sent"
+                "post_sent": "Inlägg skickat"
             },
             "empty_state": {
                 "list_empty_message_title": "This list is empty"
