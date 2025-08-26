@@ -623,6 +623,19 @@ extension MainTabBarController: UINavigationControllerDelegate {
                     navigationController.setNeedsStatusBarAppearanceUpdate()
                 }
             }
+        } else {
+            let nonTransparentAppearance = UINavigationBarAppearance()
+            nonTransparentAppearance.configureWithDefaultBackground()
+            navigationController.navigationBar.standardAppearance = nonTransparentAppearance
+            navigationController.navigationBar.compactAppearance = nonTransparentAppearance
+            navigationController.navigationBar.scrollEdgeAppearance = nonTransparentAppearance
+            if let coordinator = navigationController.topViewController?.transitionCoordinator {
+                coordinator.animate(alongsideTransition: nil) { _ in
+                    navigationController.setNeedsStatusBarAppearanceUpdate()
+                }
+            } else {
+                navigationController.setNeedsStatusBarAppearanceUpdate()
+            }
         }
     }
 }
