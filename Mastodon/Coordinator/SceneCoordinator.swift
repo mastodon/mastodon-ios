@@ -456,17 +456,25 @@ private extension SceneCoordinator {
             let _viewController = ProfileViewController(profileType, authenticationBox: AuthenticationServiceProvider.shared.currentActiveUser.value!)
             viewController = _viewController
         case .bookmark(let viewModel):
-            let _viewController = BookmarkViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
+            if UserDefaults.standard.testNewHomeTimeline {
+                viewController = TimelineListViewController(.myBookmarks)
+            } else {
+                let _viewController = BookmarkViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            }
         case .followedTags(let viewModel):
             guard let authenticationBox else { return nil }
 
             viewController = FollowedTagsViewController(authenticationBox: authenticationBox, viewModel: viewModel)
         case .favorite(let viewModel):
-            let _viewController = FavoriteViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
+            if UserDefaults.standard.testNewHomeTimeline {
+                viewController = TimelineListViewController(.myFavorites)
+            } else {
+                let _viewController = FavoriteViewController()
+                _viewController.viewModel = viewModel
+                viewController = _viewController
+            }
         case .follower(let viewModel):
             let followerListViewController = FollowerListViewController(viewModel: viewModel)
             viewController = followerListViewController

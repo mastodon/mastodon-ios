@@ -7,6 +7,8 @@ import MastodonSDK
 
 public enum MastodonTimelineType: Equatable {
     case following
+    case myBookmarks
+    case myFavorites
     case local
     case list(String)
     case hashtag(String)
@@ -143,6 +145,10 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             self.filterContext = .account
         case .thread:
             self.filterContext = .account
+        case .myBookmarks:
+            self.filterContext = nil
+        case .myFavorites:
+            self.filterContext = nil
         }
         super.init(cacheManager)
     }
@@ -267,6 +273,16 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             let threadModel = ThreadedConversationModel(threadContext: context, focusedPost: root)
             threadedConversationModel = threadModel
             response = threadModel.fullThread
+        case .myBookmarks:
+            response = try await APIService.shared.bookmarkedStatuses(
+                maxID: itemsImmediatelyBefore,
+                authenticationBox: authenticatedUser
+            ).value
+        case .myFavorites:
+            response = try await APIService.shared.favoritedStatuses(
+                maxID: itemsImmediatelyBefore,
+                authenticationBox: authenticatedUser
+            ).value
         }
         
         let newBatch = response.map { status in

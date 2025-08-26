@@ -18,6 +18,8 @@ private func debugScroll(_ message: String) {
 enum TimelineViewType {
     case home
     case trendingPosts
+    case myBookmarks
+    case myFavorites
     case searchPosts(String)
     case profilePosts(tabTitle: String?, userID: String, queryFilter: TimelineQueryFilter)
     case thread(root: MastodonContentPost)
@@ -54,6 +56,10 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             viewModel = TimelineListViewModel(timeline: .userPosts(userID: user, queryFilter: queryFilter))
         case .thread(let root):
             viewModel = TimelineListViewModel(timeline: .thread(root: root))
+        case .myBookmarks:
+            viewModel = TimelineListViewModel(timeline: .myBookmarks)
+        case .myFavorites:
+            viewModel = TimelineListViewModel(timeline: .myFavorites)
         }
         let root = TimelineListView(viewModel: viewModel)
         super.init(rootView: root)
@@ -207,7 +213,7 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         case .hashtag:
             showLocalTimelineAction.state = .off
             showFollowingAction.state = .off
-        case .discovery, .search, .userPosts, .thread:
+        case .discovery, .search, .userPosts, .thread, .myBookmarks, .myFavorites:
             assertionFailure()
         }
         
