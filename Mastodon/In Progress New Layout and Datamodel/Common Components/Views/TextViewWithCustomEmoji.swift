@@ -117,7 +117,7 @@ struct TimelinePostContentView: View {
     let emojis: MastodonContentView.Emojis
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: doublePadding) { // the large spacing creates the expected separation between paragraphs
             ForEach(contentBlocks) { block in
                 if let blockquote = block as? MastoParseBlockquote {
                     BlockquoteView(block: blockquote, emojis: emojis)
