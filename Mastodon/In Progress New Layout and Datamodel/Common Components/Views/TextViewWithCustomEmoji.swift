@@ -97,7 +97,7 @@ extension MastodonContentView: View {
                 }
             case .header(let html, let emojis, let style):
                 let block = MastoParseInlineElement(type: .text, contents: html)
-                let row = MastoParseContentRow(contents: [block], style: .paragraph, nestedFormatting: [])
+                let row = MastoParseContentRow(contents: [block], style: .paragraph, listItemPrefix: nil, nestedFormatting: [])
                 RowView(row: row, emojis: emojis, font: style.font)
                     .font(Font.system(style.font))
                     .fontWeight(style.fontWeight)
@@ -322,8 +322,15 @@ struct RowView: View {
                         Spacer()
                             .frame(maxWidth: indicatorToBlockQuoteSpacing)
                     case .listLevel:
-                        Spacer()
-                            .frame(width: indent)
+                        ZStack(alignment: .topLeading) {
+                            Spacer()
+                                .frame(width: indent)
+                                .frame(maxHeight: .infinity)
+                            if let prefix = row.listItemPrefix, idx == row.nestedFormatting.count - 1 {
+                                Text(prefix)
+                                    .font(Font.system(font))
+                            }
+                        }
                     }
                 }
                 Spacer()
