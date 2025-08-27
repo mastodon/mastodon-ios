@@ -163,6 +163,74 @@ extension Mastodon.Entity.Status {
     }
 }
 
+extension Mastodon.Entity.Status {
+    public final class QuoteApprovalInfo: Codable, Sendable {
+        public let automatic: [QuotePermissionUserCategory]? // the API also includes `manual`, but we do not implement that option
+        public let currentUser: CurrentUserQuotePermission?
+        
+        enum CodingKeys: String, CodingKey {
+            case automatic
+            case currentUser = "current_user"
+        }
+    }
+}
+
+extension Mastodon.Entity.Status {
+    public enum QuotePermissionUserCategory: RawRepresentable, Codable, Hashable, Sendable {
+        case anyone
+        case followersOnly
+        
+        case _other(String)
+        
+        public init?(rawValue: String) {
+            switch rawValue {
+            case "public":              self = .anyone
+            case "followers":           self = .followersOnly
+                
+            default:                    self = ._other(rawValue)
+            }
+        }
+        
+        public var rawValue: String {
+            switch self {
+            case .anyone:               "public"
+            case .followersOnly:        "followers"
+            case ._other(let raw):      raw
+            }
+        }
+    }
+    
+    public enum CurrentUserQuotePermission: RawRepresentable, Codable, Hashable, Sendable {
+        case automatic
+        case manual
+        case unknown
+        case denied
+
+        case _other(String)
+
+        public init?(rawValue: String) {
+            switch rawValue {
+            case "automatic":           self = .automatic
+            case "manual":              self = .manual
+            case "unknown":             self = .unknown
+            case "denied":              self = .denied
+                
+            default:                    self = ._other(rawValue)
+            }
+        }
+
+        public var rawValue: String {
+            switch self {
+            case .automatic:             return "automatic"
+            case .manual:                return "manual"
+            case .unknown:               return "unknown"
+            case .denied:                return "denied"
+            case ._other(let value):     return value
+            }
+        }
+    }
+}
+
 extension Mastodon.Entity.Status: Hashable {
     public static func == (lhs: Mastodon.Entity.Status, rhs: Mastodon.Entity.Status) -> Bool {
         lhs.uri == rhs.uri &&
