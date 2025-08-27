@@ -621,6 +621,21 @@ extension TimelineFeedLoader {
     }
     
     private func fetchReplyTos(_ timeline: CacheableTimeline) async throws {
+        let accountsToFetch = timeline.items.compactMap { item in
+            switch item {
+            case .post(let postViewModel):
+                return (postViewModel.fullPost as? MastodonBasicPost)?.inReplyTo?.accountID
+            default:
+                return nil
+            }
+        }
+        
+        let accounts = try await APIService.shared.accountsInfo(userIDs: accountsToFetch, authenticationBox: authenticatedUser)
+        
+        accountsCache.removeAll(keepingCapacity: true)
+        for account in accounts {
+            accountsCache[account.id] = MastodonAccount.fromEntity(account)
+        }
     }
 }
 
