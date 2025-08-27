@@ -113,8 +113,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var isLoadingCustomEmoji = false
     
     // visibility
-    @Published public var visibility: Mastodon.Entity.Status.Visibility
-    @Published public var isVisibilityButtonEnabled = false
+    @Published public var canEditVisibility = false
+    @Published public var interactionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy)
 
     // language
     @Published public var language: String
@@ -153,7 +153,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.destination = destination
         self.composeContext = composeContext
         self.completion = completion
-        self.visibility = {
+        let defaultVisibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
                 guard let author = authenticationBox.cachedAccount else {
@@ -187,6 +187,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             }
             return visibility
         }()
+        
+        let defaultQuotability = defaultQuotePolicy(forVisibility: defaultVisibility)
+        
+        self.interactionSettings = (defaultVisibility, defaultQuotability)
         
         self.customEmojiViewModel = EmojiService.shared.dequeueCustomEmojiViewModel(
             for: authenticationBox.domain
@@ -258,12 +262,19 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         
         switch composeContext {
         case .composeStatus:
-            self.isVisibilityButtonEnabled = true
+            self.canEditVisibility = true
         case let .editStatus(status, _):
             if let visibility = status.entity.visibility {
-                self.visibility = visibility
+                let quotability = {
+                    if let specified = status.entity.quoteApproval?.automatic {
+                        return Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy(specified)
+                    } else {
+                        return defaultQuotePolicy(forVisibility: visibility)
+                    }
+                }()
+                self.interactionSettings = (visibility, quotability)
             }
-            self.isVisibilityButtonEnabled = false
+            self.canEditVisibility = false
             self.attachmentViewModels = status.entity.mastodonAttachments.compactMap {
                 guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
 
@@ -306,7 +317,79 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         bind()
     }
     
+    public func setInteractionSettings(visibility: Mastodon.Entity.Status.Visibility?, quotability: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy?) {
+        guard visibility != interactionSettings.visibility || quotability != interactionSettings.quotability else { return }
+        
+        let newVisibility = visibility ?? interactionSettings.visibility
+        let requestedQuotability = quotability ?? interactionSettings.quotability
+        if newVisibility.allowableQuotePolicies.contains(requestedQuotability) {
+            interactionSettings = (newVisibility, requestedQuotability)
+        } else {
+            interactionSettings = (newVisibility, .onlyMe)
+        }
+    }
+    
+    var interactionSettingsButtonText: String {
+        // TODO: Localizations
+        switch interactionSettings {
+        case (.public, .anyone):
+            return "Public, anyone can quote"
+        case (.public, .followers):
+            return "Public, quotes limited"
+        case (.public, .onlyMe):
+            return "Public, quotes disabled"
+        case (.unlisted, .anyone):
+            return "Quiet public, anyone can quote"
+        case (.unlisted, .followers):
+            return "Quiet public, quotes limited"
+        case (.unlisted, .onlyMe):
+            return "Quiet public, quotes disabled"
+        case (.private, .onlyMe):
+            return "Followers"
+        case (.direct, .onlyMe):
+            return "p"
+        default:
+            return ""
+        }
+    }
+}
 
+extension Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy {
+    init(_ automaticallyApproved: [Mastodon.Entity.Status.QuotePermissionUserCategory]) {
+        if automaticallyApproved.contains(.anyone) {
+            self = .anyone
+        } else if automaticallyApproved.contains(.followersOnly) {
+            self = .followers
+        } else {
+            self = .onlyMe
+        }
+    }
+}
+
+extension Mastodon.Entity.Status.Visibility {
+    var allowableQuotePolicies: [Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy] {
+        switch self {
+        case .public, .unlisted:
+            return [.anyone, .followers, .onlyMe]
+        default:
+            return [.onlyMe]
+        }
+    }
+}
+
+func defaultQuotePolicy(forVisibility visibility: Mastodon.Entity.Status.Visibility) -> Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy {
+    switch visibility {
+    case .public:
+        return .anyone
+    case .unlisted:
+        return .followers
+    case .direct:
+        return .onlyMe
+    case .private:
+        return .onlyMe
+    default:
+        return .anyone
+    }
 }
 
 extension ComposeContentViewModel {
@@ -622,7 +705,8 @@ extension ComposeContentViewModel {
             pollOptions: pollOptions,
             pollExpireConfigurationOption: pollExpireConfigurationOption,
             pollMultipleConfigurationOption: pollMultipleConfigurationOption,
-            visibility: visibility,
+            visibility: interactionSettings.visibility,
+            quotePolicy: interactionSettings.quotability,
             language: language
         )
     }
@@ -666,7 +750,7 @@ extension ComposeContentViewModel {
                                            pollOptions: pollOptions,
                                            pollExpireConfigurationOption: pollExpireConfigurationOption,
                                            pollMultipleConfigurationOption: pollMultipleConfigurationOption,
-                                           visibility: visibility,
+                                           visibility: interactionSettings.visibility,
                                            language: language)
     }
 

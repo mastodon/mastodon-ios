@@ -310,8 +310,7 @@ extension ComposeContentViewController {
         viewModel.$isPollActive.assign(to: &composeContentToolbarViewModel.$isPollActive)
         viewModel.$isEmojiActive.assign(to: &composeContentToolbarViewModel.$isEmojiActive)
         viewModel.$isContentWarningActive.assign(to: &composeContentToolbarViewModel.$isContentWarningActive)
-        viewModel.$visibility.assign(to: &composeContentToolbarViewModel.$visibility)
-        viewModel.$isVisibilityButtonEnabled.assign(to: &composeContentToolbarViewModel.$isVisibilityButtonEnabled)
+        viewModel.$interactionSettings.assign(to: &composeContentToolbarViewModel.$interactionSettings)
         viewModel.$maxTextInputLimit.assign(to: &composeContentToolbarViewModel.$maxTextInputLimit)
         viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
         viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)
@@ -362,14 +361,14 @@ extension ComposeContentViewController {
         viewModel.$recentLanguages.assign(to: &composeContentToolbarViewModel.$recentLanguages)
         
         // bind back to source due to visibility not update via delegate
-        composeContentToolbarViewModel.visibility = viewModel.visibility
-        composeContentToolbarViewModel.$visibility
+        composeContentToolbarViewModel.interactionSettings = viewModel.interactionSettings
+        composeContentToolbarViewModel.$interactionSettings
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] visibility in
+            .sink { [weak self] interactionSettings in
                 guard let self = self else { return }
-                if self.viewModel.visibility != visibility {
-                    self.viewModel.visibility = visibility
+                if self.viewModel.interactionSettings != interactionSettings {
+                    self.viewModel.interactionSettings = interactionSettings
                 }
             }
             .store(in: &disposeBag)

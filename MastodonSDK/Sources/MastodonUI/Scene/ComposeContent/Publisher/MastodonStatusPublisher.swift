@@ -30,6 +30,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public let pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option
     // visibility
     public let visibility: Mastodon.Entity.Status.Visibility
+    public let quotePolicy: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy
     // language
     public let language: String
     
@@ -53,6 +54,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         pollExpireConfigurationOption: PollComposeItem.ExpireConfiguration.Option,
         pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option,
         visibility: Mastodon.Entity.Status.Visibility,
+        quotePolicy: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy,
         language: String
     ) {
         self.replyTo = replyTo
@@ -66,6 +68,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         self.pollExpireConfigurationOption = pollExpireConfigurationOption
         self.pollMultipleConfigurationOption = pollMultipleConfigurationOption
         self.visibility = visibility
+        self.quotePolicy = quotePolicy
         self.language = language
     }
     
@@ -167,6 +170,7 @@ extension MastodonStatusPublisher: StatusPublisher {
                 sensitive: isMediaSensitive,
                 spoilerText: isContentWarningComposing ? contentWarning : nil,
                 visibility: visibility,
+                quotePolicy: quotePolicy,
                 language: language
             )
             

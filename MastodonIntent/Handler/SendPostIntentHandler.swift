@@ -72,6 +72,7 @@ extension SendPostIntentHandler: SendPostIntentHandling {
                         sensitive: nil,
                         spoilerText: nil,
                         visibility: visibility,
+                        quotePolicy: .onlyMe,  // TODO: update intents to include quotability
                         language: nil
                     ),
                     authenticationBox: authenticationBox

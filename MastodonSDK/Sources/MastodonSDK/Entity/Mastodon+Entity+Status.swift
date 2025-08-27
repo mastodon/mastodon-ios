@@ -31,11 +31,14 @@ extension Mastodon.Entity {
         public let account: Account
         public let content: String? // will be optional when delete status
         
-        public let visibility: Visibility?
         public let sensitive: Bool?
         public let spoilerText: String?
         public let mediaAttachments: [Attachment]?
         public let application: Application?
+        
+        // Permissions
+        public let visibility: Visibility?
+        public let quoteApproval: QuoteApprovalInfo?
         
         // Rendering
         public let mentions: [Mention]
@@ -75,11 +78,13 @@ extension Mastodon.Entity {
             case account
             case content
             
-            case visibility
             case sensitive
             case spoilerText = "spoiler_text"
             case mediaAttachments = "media_attachments"
             case application
+            
+            case visibility
+            case quoteApproval = "quote_approval"
             
             case mentions
             case tags

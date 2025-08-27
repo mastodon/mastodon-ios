@@ -10,6 +10,8 @@ import Combine
 
 extension Mastodon.API.Statuses {
     
+    public static let _allowComposingQuotePosts = UserDefaults.isDebugOrTestflightOrSimulator && UserDefaults.standard.testNewHomeTimeline
+    
     static func statusEndpointURL(domain: String, statusID: Mastodon.Entity.Status.ID) -> URL {
         let pathComponent = "statuses/" + statusID
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent(pathComponent)
@@ -106,6 +108,7 @@ extension Mastodon.API.Statuses {
         public let sensitive: Bool?
         public let spoilerText: String?
         public let visibility: Mastodon.Entity.Status.Visibility?
+        public let quotePolicy: QuotePermissionPolicy?
         public let language: String?
         
         public init(
@@ -117,6 +120,7 @@ extension Mastodon.API.Statuses {
             sensitive: Bool?,
             spoilerText: String?,
             visibility: Mastodon.Entity.Status.Visibility?,
+            quotePolicy: QuotePermissionPolicy?,
             language: String?
         ) {
             self.status = status
@@ -127,6 +131,7 @@ extension Mastodon.API.Statuses {
             self.sensitive = sensitive
             self.spoilerText = spoilerText
             self.visibility = visibility
+            self.quotePolicy = quotePolicy
             self.language = language
         }
         
@@ -149,8 +154,11 @@ extension Mastodon.API.Statuses {
             sensitive.flatMap { data.append(Data.multipart(key: "sensitive", value: $0)) }
             spoilerText.flatMap { data.append(Data.multipart(key: "spoiler_text", value: $0)) }
             visibility.flatMap { data.append(Data.multipart(key: "visibility", value: $0.rawValue)) }
+            if Mastodon.API.Statuses._allowComposingQuotePosts {
+                quotePolicy.flatMap { data.append(Data.multipart(key: "quote_approval_policy", value: $0.rawValue)) }
+            }
             language.flatMap { data.append(Data.multipart(key: "language", value: $0)) }
-
+            
             data.append(Data.multipartEnd())
             return data
         }

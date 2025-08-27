@@ -565,13 +565,13 @@ extension ComposeViewController {
         case .toggleContentWarning:
             composeContentViewModel.isContentWarningActive.toggle()
         case .selectVisibilityPublic:
-            composeContentViewModel.visibility = .public
+            composeContentViewModel.setInteractionSettings(visibility: .public, quotability: nil)
         // case .selectVisibilityUnlisted:
         //     viewModel.selectedStatusVisibility.value = .unlisted
         case .selectVisibilityPrivate:
-            composeContentViewModel.visibility = .private
+            composeContentViewModel.setInteractionSettings(visibility: .private, quotability: nil)
         case .selectVisibilityDirect:
-            composeContentViewModel.visibility = .direct
+            composeContentViewModel.setInteractionSettings(visibility: .direct, quotability: nil)
         }
     }
     

@@ -23,12 +23,24 @@ public struct ComposeContentView: View {
     public var body: some View {
         VStack(spacing: .zero) {
             Group {
-                // visibility
+                Spacer()
+                    .frame(height: 13)
+                
+                // visibility and quotability
                 HStack {
-                    Spacer().frame(maxWidth: .infinity)
-                    visibilityPicker()
-                        .fixedSize(horizontal: true, vertical: false)
+                    if Mastodon.API.Statuses._allowComposingQuotePosts {
+                        interactionSettingsButton
+                            .fixedSize(horizontal: true, vertical: false)
+                        Spacer().frame(maxWidth: .infinity)
+                    } else {
+                        Spacer().frame(maxWidth: .infinity)
+                        visibilityPicker()
+                    }
                 }
+                .padding(.horizontal, ComposeContentView.margin)
+                
+                Spacer()
+                    .frame(height: ComposeContentView.margin)
                 
                 // content warning
                 if viewModel.isContentWarningActive {
@@ -85,7 +97,6 @@ public struct ComposeContentView: View {
                 } // end if viewModel.isContentWarningActive
                 // author
                 authorView
-                    .padding(.top, 14)
                     .padding(.horizontal, ComposeContentView.margin)
                 // content editor
                 MetaTextViewRepresentable(
@@ -147,8 +158,28 @@ public struct ComposeContentView: View {
     }   // end body
     
     @ViewBuilder
+    var interactionSettingsButton: some View {
+        Button() {
+            
+        } label: {
+            HStack {
+                Text(Image(uiImage: viewModel.interactionSettings.visibility.image))
+                Text(viewModel.interactionSettingsButtonText)
+            }
+            .font(.subheadline)
+            .foregroundStyle(Asset.Colors.Brand.darkBlurple.swiftUIColor)
+            .padding(EdgeInsets(top: 7, leading: 14, bottom: 7, trailing: 14))
+            .background() {
+                Capsule()
+                    .fill(Asset.Colors.Brand.lightBlurple.swiftUIColor).opacity(0.15)
+                // intended: #007AFF26
+            }
+        }
+    }
+    
+    @ViewBuilder
     func visibilityPicker() -> some View {
-        Picker(selection: $viewModel.visibility) {
+        Picker(selection: $viewModel.interactionSettings.visibility) {
             ForEach([Mastodon.Entity.Status.Visibility.public, .unlisted, .private, .direct], id: \.self) { visibility in
                 Label {
                     Text(visibility.title)
@@ -157,20 +188,19 @@ public struct ComposeContentView: View {
                 }
             }
         } label: {
-            Text(viewModel.visibility.title)
-        }.disabled(!viewModel.isVisibilityButtonEnabled)
+            Text(viewModel.interactionSettings.visibility.title)
+        }.disabled(!viewModel.canEditVisibility)
     }
 }
 
 extension ComposeContentView {
     var authorView: some View {
-        HStack(spacing: 8) {
+        HStack(alignment: .top, spacing: 8) {
             AnimatedImage(imageURL: viewModel.avatarURL)
                 .frame(width: 46, height: 46)
                 .background(Color(UIColor.systemFill))
                 .cornerRadius(12)
-            VStack(alignment: .leading, spacing: 4) {
-                Spacer()
+            VStack(alignment: .leading, spacing: 0) {
                 MetaLabelRepresentable(
                     textStyle: .statusName,
                     metaContent: viewModel.name
