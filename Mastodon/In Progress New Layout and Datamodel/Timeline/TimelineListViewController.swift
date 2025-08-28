@@ -614,8 +614,8 @@ private class TimelineListViewModel: ObservableObject {
             setCurrentDisplaySlice(getDisplaySlice(from: fullFeed.allRecords, startItemID: scrollToTop.id, canLoadOlder: fullFeed.canLoadOlder))
         } else {
             guard let feedLoader else {
+                // this is a valid state when switching between timelines
                 resetToUntrackedAfterDelay()
-                assertionFailure()
                 return
             }
             feedLoader.requestLoad(.older)
