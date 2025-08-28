@@ -18,7 +18,24 @@ public struct ComposeContentView: View {
     static var margin: CGFloat = 16
     
     @ObservedObject var viewModel: ComposeContentViewModel
+    @State private var isPresentingInteractionSettings = false
+    @State private var visibilitySelection: Mastodon.Entity.Status.Visibility
+    @State private var quotabilitySelection: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy
+    private func updateVisibilitySelection(_ newValue: Mastodon.Entity.Status.Visibility) {
+        viewModel.setInteractionSettings(visibility: visibilitySelection, quotability: nil)
+        if quotabilitySelection != viewModel.interactionSettings.quotability {
+            quotabilitySelection = viewModel.interactionSettings.quotability
+        }
+    }
+    private func updateQuotabilitySelection(_ newValue: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy) {
+        viewModel.setInteractionSettings(visibility: nil, quotability: quotabilitySelection)
+    }
     
+    init(viewModel: ComposeContentViewModel) {
+        self.viewModel = viewModel
+        self.visibilitySelection = viewModel.interactionSettings.visibility
+        self.quotabilitySelection = viewModel.interactionSettings.quotability
+    }
 
     public var body: some View {
         VStack(spacing: .zero) {
@@ -155,12 +172,24 @@ public struct ComposeContentView: View {
             Spacer()
         }   // end VStack
         .coordinateSpace(name: ComposeContentView.contentViewCoordinateSpace)
+        .sheet(isPresented: $isPresentingInteractionSettings) {
+            interactionSettingsView
+                .presentationDetents([.fraction(0.3), .medium, .large])
+                .presentationDragIndicator(.visible)
+                .onAppear() {
+                    viewModel.previousInteractionSettings = viewModel.interactionSettings
+                }
+                .onDisappear() {
+                    viewModel.previousInteractionSettings = nil
+                }
+        }
+        
     }   // end body
     
     @ViewBuilder
     var interactionSettingsButton: some View {
         Button() {
-            
+            isPresentingInteractionSettings = true
         } label: {
             HStack {
                 Text(Image(uiImage: viewModel.interactionSettings.visibility.image))
@@ -190,6 +219,125 @@ public struct ComposeContentView: View {
         } label: {
             Text(viewModel.interactionSettings.visibility.title)
         }.disabled(!viewModel.canEditVisibility)
+    }
+    
+    @ViewBuilder
+    func validatingVisibilityPicker() -> some View {
+        Picker(selection: $visibilitySelection) {
+            ForEach([Mastodon.Entity.Status.Visibility.public, .unlisted, .private, .direct], id: \.self) { visibility in
+                Text(visibility.title)
+            }
+        } label: {
+            Text(viewModel.interactionSettings.visibility.title)
+        }
+        .disabled(!viewModel.canEditVisibility)
+        .tint(.secondary)
+        .onChange(of: visibilitySelection) { newValue in
+            updateVisibilitySelection(newValue)
+        }
+    }
+    
+    @ViewBuilder
+    func quotabilityPicker(_ options: [Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy]) -> some View {
+        Picker(selection: $quotabilitySelection) {
+            ForEach(options, id: \.self) { quotability in
+                Label {
+                    Text(quotability.title)
+                } icon: {
+                    EmptyView()
+                }
+            }
+        } label: {
+            Text(viewModel.interactionSettings.quotability.title)
+        }
+        .disabled(options.count < 2)
+        .tint(.secondary)
+        .onChange(of: quotabilitySelection) { newValue in
+            updateQuotabilitySelection(newValue)
+        }
+    }
+    
+    @ViewBuilder
+    var interactionSettingsView: some View {
+        ScrollView {
+            VStack {
+                
+                // header and buttons
+                HStack {
+                    Button("Cancel", role: .cancel) {
+                        if let restoreSettings = viewModel.previousInteractionSettings {
+                            viewModel.interactionSettings = restoreSettings
+                        }
+                        isPresentingInteractionSettings = false
+                    }
+                    .tint(.blue)
+                    Spacer()
+                    Text("Visibility and Interaction") // TODO: L10n
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Button("Save", role: .none) {
+                        isPresentingInteractionSettings = false
+                    }
+                    .fontWeight(.semibold)
+                    .tint(.blue)
+                }
+                Spacer()
+                    .frame(height: 4)
+                Text("Control who can interact with this post. Global settings can be found under Preferences > Other.")
+                    .font(.caption)
+                
+                Spacer()
+                
+                // visibility
+                HStack {
+                    Text("Visibility")  // TODO: L10n
+                    Spacer()
+                    validatingVisibilityPicker()
+                }
+                .padding(19)
+                .background {
+                    RoundedRectangle(cornerRadius: 24)
+                        .fill(.white)
+                }
+                
+                Spacer()
+                
+                // quotability
+                HStack {
+                    Text("Who can quote") // TODO: L10n
+                    Spacer()
+                    quotabilityPicker(visibilitySelection.allowableQuotePolicies)
+                }
+                .padding(19)
+                .background {
+                    RoundedRectangle(cornerRadius: 24)
+                        .fill(.white)
+                }
+            }
+        }
+        .padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
+        .background(Color(.secondarySystemBackground))
+        .ignoresSafeArea(edges: .bottom)
+        .onAppear() {
+            visibilitySelection = viewModel.interactionSettings.visibility
+            quotabilitySelection = viewModel.interactionSettings.quotability
+        }
+    }
+}
+
+extension Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy {
+    var title: String {
+    // TODO: L10n
+        switch self {
+        case .anyone:
+            return "Anyone"
+        case .followers:
+            return "Followers only"
+        case .onlyMe:
+            return "Just me"
+        case ._other(let string):
+            return string
+        }
     }
 }
 

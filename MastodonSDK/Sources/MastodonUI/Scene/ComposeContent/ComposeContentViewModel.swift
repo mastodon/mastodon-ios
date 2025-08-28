@@ -115,6 +115,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // visibility
     @Published public var canEditVisibility = false
     @Published public var interactionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy)
+    public var previousInteractionSettings: (visibility: Mastodon.Entity.Status.Visibility, quotability: Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy)?
 
     // language
     @Published public var language: String
@@ -330,7 +331,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     }
     
     var interactionSettingsButtonText: String {
-        // TODO: Localizations
+        // TODO: L10n
         switch interactionSettings {
         case (.public, .anyone):
             return "Public, anyone can quote"
@@ -347,7 +348,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         case (.private, .onlyMe):
             return "Followers"
         case (.direct, .onlyMe):
-            return "p"
+            return "Private mention"
         default:
             return ""
         }
