@@ -331,26 +331,25 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     }
     
     var interactionSettingsButtonText: String {
-        // TODO: L10n
         switch interactionSettings {
         case (.public, .anyone):
-            return "Public, anyone can quote"
+            L10n.Scene.Compose.VisibilityAndQuotability.publicAnyone
         case (.public, .followers):
-            return "Public, quotes limited"
+            L10n.Scene.Compose.VisibilityAndQuotability.publicFollowers
         case (.public, .onlyMe):
-            return "Public, quotes disabled"
+            L10n.Scene.Compose.VisibilityAndQuotability.publicOnlyMe
         case (.unlisted, .anyone):
-            return "Quiet public, anyone can quote"
+            L10n.Scene.Compose.VisibilityAndQuotability.unlistedAnyone
         case (.unlisted, .followers):
-            return "Quiet public, quotes limited"
+            L10n.Scene.Compose.VisibilityAndQuotability.unlistedFollowers
         case (.unlisted, .onlyMe):
-            return "Quiet public, quotes disabled"
+            L10n.Scene.Compose.VisibilityAndQuotability.unlistedOnlyMe
         case (.private, .onlyMe):
-            return "Followers"
+            L10n.Scene.Compose.VisibilityAndQuotability.privateOnlyMe
         case (.direct, .onlyMe):
-            return "Private mention"
+            L10n.Scene.Compose.VisibilityAndQuotability.directOnlyMe
         default:
-            return ""
+            ""
         }
     }
 }

@@ -264,7 +264,7 @@ public struct ComposeContentView: View {
                 
                 // header and buttons
                 HStack {
-                    Button("Cancel", role: .cancel) {
+                    Button(L10n.Common.Controls.Actions.cancel, role: .cancel) {
                         if let restoreSettings = viewModel.previousInteractionSettings {
                             viewModel.interactionSettings = restoreSettings
                         }
@@ -272,10 +272,10 @@ public struct ComposeContentView: View {
                     }
                     .tint(.blue)
                     Spacer()
-                    Text("Visibility and Interaction") // TODO: L10n
+                    Text(L10n.Scene.Compose.VisibilityAndQuotability.title)
                         .fontWeight(.semibold)
                     Spacer()
-                    Button("Save", role: .none) {
+                    Button(L10n.Common.Controls.Actions.save, role: .none) {
                         isPresentingInteractionSettings = false
                     }
                     .fontWeight(.semibold)
@@ -283,14 +283,14 @@ public struct ComposeContentView: View {
                 }
                 Spacer()
                     .frame(height: 4)
-                Text("Control who can interact with this post. Global settings can be found under Preferences > Other.")
+                Text(L10n.Scene.Compose.VisibilityAndQuotability.subtitle)
                     .font(.caption)
                 
                 Spacer()
                 
                 // visibility
                 HStack {
-                    Text("Visibility")  // TODO: L10n
+                    Text(L10n.Scene.Compose.Visibility.title)
                     Spacer()
                     validatingVisibilityPicker()
                 }
@@ -304,7 +304,7 @@ public struct ComposeContentView: View {
                 
                 // quotability
                 HStack {
-                    Text("Who can quote") // TODO: L10n
+                    Text(L10n.Scene.Compose.QuotePermissionPolicy.title)
                     Spacer()
                     quotabilityPicker(visibilitySelection.allowableQuotePolicies)
                 }
@@ -327,16 +327,15 @@ public struct ComposeContentView: View {
 
 extension Mastodon.API.Statuses.PublishStatusQuery.QuotePermissionPolicy {
     var title: String {
-    // TODO: L10n
         switch self {
         case .anyone:
-            return "Anyone"
+            L10n.Scene.Compose.QuotePermissionPolicy.anyone
         case .followers:
-            return "Followers only"
+            L10n.Scene.Compose.QuotePermissionPolicy.followers
         case .onlyMe:
-            return "Just me"
+            L10n.Scene.Compose.QuotePermissionPolicy.onlyMe
         case ._other(let string):
-            return string
+            string
         }
     }
 }

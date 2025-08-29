@@ -570,10 +570,29 @@
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
+                "title": "Visibility",
                 "public": "Public",
                 "unlisted": "Unlisted",
                 "private": "Followers only",
                 "direct": "Only people I mention"
+            },
+            "visibility_and_quotability": {
+                "title": "Visibility and Interaction",
+                "subtitle": "Control who can interact with this post. Global settings can be found under Preferences > Other.",
+                "public_anyone": "Public, anyone can quote",
+                "public_followers": "Public, quotes limited",
+                "public_only_me": "Public, quotes disabled",
+                "unlisted_anyone": "Quiet public, anyone can quote",
+                "unlisted_followers": "Quiet public, quotes limited",
+                "unlisted_only_me": "Quiet public, quotes disabled",
+                "private_only_me": "Followers",
+                "direct_only_me": "Private mention"
+            },
+            "quote_permission_policy": {
+                "title": "Who can quote",
+                "anyone": "Anyone",
+                "followers": "Followers only",
+                "only_me": "Just me"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"

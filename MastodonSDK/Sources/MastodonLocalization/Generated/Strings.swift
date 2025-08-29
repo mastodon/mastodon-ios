@@ -763,6 +763,16 @@ public enum L10n {
         /// Poll
         public static let title = L10n.tr("Localizable", "Scene.Compose.Poll.Title", fallback: "Poll")
       }
+      public enum QuotePermissionPolicy {
+        /// Anyone
+        public static let anyone = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.anyone", fallback: "Anyone")
+        /// Followers only
+        public static let followers = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.followers", fallback: "Followers only")
+        /// Just me
+        public static let onlyMe = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.onlyMe", fallback: "Just me")
+        /// Who can quote
+        public static let title = L10n.tr("Localizable", "Scene.Compose.QuotePermissionPolicy.title", fallback: "Who can quote")
+      }
       public enum Title {
         /// Edit Post
         public static let editPost = L10n.tr("Localizable", "Scene.Compose.Title.EditPost", fallback: "Edit Post")
@@ -778,8 +788,32 @@ public enum L10n {
         public static let `private` = L10n.tr("Localizable", "Scene.Compose.Visibility.Private", fallback: "Followers only")
         /// Public
         public static let `public` = L10n.tr("Localizable", "Scene.Compose.Visibility.Public", fallback: "Public")
+        /// Visibility
+        public static let title = L10n.tr("Localizable", "Scene.Compose.Visibility.Title", fallback: "Visibility")
         /// Unlisted
         public static let unlisted = L10n.tr("Localizable", "Scene.Compose.Visibility.Unlisted", fallback: "Unlisted")
+      }
+      public enum VisibilityAndQuotability {
+        /// Private mention
+        public static let directOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.directOnlyMe", fallback: "Private mention")
+        /// Followers
+        public static let privateOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.privateOnlyMe", fallback: "Followers")
+        /// Public, anyone can quote
+        public static let publicAnyone = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.publicAnyone", fallback: "Public, anyone can quote")
+        /// Public, quotes limited
+        public static let publicFollowers = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.publicFollowers", fallback: "Public, quotes limited")
+        /// Public, quotes disabled
+        public static let publicOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.publicOnlyMe", fallback: "Public, quotes disabled")
+        /// Control who can interact with this post. Global settings can be found under Preferences > Other.
+        public static let subtitle = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.subtitle", fallback: "Control who can interact with this post. Global settings can be found under Preferences > Other.")
+        /// Visibility and Interaction
+        public static let title = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.title", fallback: "Visibility and Interaction")
+        /// Quiet public, anyone can quote
+        public static let unlistedAnyone = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.unlistedAnyone", fallback: "Quiet public, anyone can quote")
+        /// Quiet public, quotes limited
+        public static let unlistedFollowers = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.unlistedFollowers", fallback: "Quiet public, quotes limited")
+        /// Quiet public, quotes disabled
+        public static let unlistedOnlyMe = L10n.tr("Localizable", "Scene.Compose.VisibilityAndQuotability.unlistedOnlyMe", fallback: "Quiet public, quotes disabled")
       }
     }
     public enum ConfirmEmail {
