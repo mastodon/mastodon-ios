@@ -173,6 +173,21 @@ class TimelineListViewController: UIHostingController<TimelineListView>
     }()
     
     private func generateTimelineSelectorMenu() -> UIMenu {
+        let useLazyVStackAction: UIAction
+        if viewModel.useLazyVStack {
+            useLazyVStackAction = UIAction(title: "Using LazyVStack") { [weak self] _ in
+                guard let self else { return }
+                viewModel.useLazyVStack = false
+                timelineSelectorButton.menu = generateTimelineSelectorMenu()
+            }
+        } else {
+            useLazyVStackAction = UIAction(title: "Using VStack") { [weak self] _ in
+                guard let self else { return }
+                viewModel.useLazyVStack = true
+                timelineSelectorButton.menu = generateTimelineSelectorMenu()
+            }
+        }
+        
         let showFollowingAction = UIAction(title: L10n.Scene.HomeTimeline.TimelineMenu.following, image: .init(systemName: "house")) { [weak self] _ in
             guard let self else { return }
             
@@ -305,7 +320,12 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         
         let listsDivider = UIMenu(title: "", options: .displayInline, children: [listsMenu, hashtagsMenu])
         
-        return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])
+        if UserDefaults.standard.testNewHomeTimeline {
+            return UIMenu(children: [useLazyVStackAction, showFollowingAction, showLocalTimelineAction, listsDivider])
+        } else {
+            return UIMenu(children: [showFollowingAction, showLocalTimelineAction, listsDivider])
+        }
+
     }
 }
 
@@ -422,6 +442,8 @@ private class TimelineListViewModel: ObservableObject {
     
     @Published var feedIsEmpty: Bool = false
     
+    @Published var useLazyVStack: Bool = false
+    
     @Published var currentDisplaySlice = ArraySlice<TimelineItem>()
     func setCurrentDisplaySlice(_ newSlice: ArraySlice<TimelineItem>) {
         // space to add any necessary bookkeeping before setting the slice
@@ -489,25 +511,38 @@ private class TimelineListViewModel: ObservableObject {
         }
     }
     
+    var isThreadView: Bool {
+        return feedLoader?.threadedConversationModel != nil
+    }
+    
     private func getDisplaySlice(from items: [TimelineItem], startItemID: Mastodon.Entity.Status.ID?, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
-        guard feedLoader?.threadedConversationModel == nil else { return items[items.startIndex..<items.endIndex] }
-        let startIndex = items.firstIndex(where: { $0.id == startItemID}) ?? 0
-        let endIndex = min(startIndex + displaySliceLength, items.endIndex)
-        return items[startIndex..<endIndex] + (endIndex != items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
+        if useLazyVStack || isThreadView {
+            return items[items.startIndex..<items.endIndex]
+        } else {
+            let startIndex = items.firstIndex(where: { $0.id == startItemID}) ?? 0
+            let endIndex = min(startIndex + displaySliceLength, items.endIndex)
+            return items[startIndex..<endIndex] + (endIndex != items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
+        }
     }
     
     private func getDisplaySlice(from items: [TimelineItem], midIndex: Int, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
-        guard feedLoader?.threadedConversationModel == nil else { return items[items.startIndex..<items.endIndex] }
-        let startIndex = max(0, midIndex - (self.displaySliceLength / 2))
-        let endIndex = min(startIndex + self.displaySliceLength, items.endIndex)
-        return items[startIndex..<endIndex] + (endIndex < items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
+        if useLazyVStack || isThreadView {
+            return items[items.startIndex..<items.endIndex]
+        } else {
+            let startIndex = max(0, midIndex - (self.displaySliceLength / 2))
+            let endIndex = min(startIndex + self.displaySliceLength, items.endIndex)
+            return items[startIndex..<endIndex] + (endIndex < items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
+        }
     }
     
     private func getDisplaySlice(from items: [TimelineItem], endIndex: Int, canLoadOlder: Bool) -> ArraySlice<TimelineItem> {
-        guard feedLoader?.threadedConversationModel == nil else { return items[items.startIndex..<items.endIndex] }
-        let startIndex = max(0, endIndex - self.displaySliceLength)
-        let endIndex = min(startIndex + self.displaySliceLength, items.endIndex)
-        return items[startIndex..<endIndex] + (endIndex < items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
+        if useLazyVStack || isThreadView {
+            return items[items.startIndex..<items.endIndex]
+        } else {
+            let startIndex = max(0, endIndex - self.displaySliceLength)
+            let endIndex = min(startIndex + self.displaySliceLength, items.endIndex)
+            return items[startIndex..<endIndex] + (endIndex < items.endIndex || canLoadOlder ? [.loadingIndicator] : [])
+        }
     }
     
     func doInitialLoad() async throws {
@@ -863,61 +898,13 @@ struct TimelineListView: View {
                 } else {
                     ScrollViewReader { proxy in
                         ScrollView(showsIndicators: false) {
-                            VStack {
-                                ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
-                                    switch item {
-                                    case .loadingIndicator:
-                                        HStack {
-                                            Spacer()
-                                            ProgressView()
-                                                .progressViewStyle(.circular)
-                                            Spacer()
-                                        }
-                                        .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
-                                        VisibilityTrackingView(visibilityDidChange: { isVisible in
-                                            if isVisible {
-                                                switch viewModel.lastReadState {
-                                                case .initializing:
-                                                    viewModel.resetToUntrackedAfterDelay()
-                                                case .untracked:
-                                                    viewModel.loadMoreFromBottom()
-                                                default:
-                                                    break
-                                                }
-                                            }
-                                        },
-                                                               scrollCoordinateSpace: scrollViewCoordinateSpace,
-                                                               visibleAreaHeight: geo.size.height)
-                                        .frame(width: 10, height: 1)
-                                        
-                                    case .post(let postViewModel):
-                                        let usableWidth =
-                                        geo.size.width - geo.safeAreaInsets.leading
-                                        - geo.safeAreaInsets.trailing
-                                        let contentWidth = max(1, usableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize)
-                                        
-#if DEBUG && false
-                                        Text(postViewModel.initialDisplayInfo.id)
-                                            .foregroundStyle(.red)
-                                            .fontWeight(.bold)
-                                        if let actionablePostID = postViewModel.fullPost?.actionablePost?.id, actionablePostID != postViewModel.initialDisplayInfo.id {
-                                            Text("actionable: \(actionablePostID)")
-                                                .foregroundStyle(.red)
-                                                .font(.footnote)
-                                        }
-#endif
-                                        
-                                        HomeTimelinePostRowView(contentWidth: contentWidth)
-                                        .environment(postViewModel)
-                                        .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
-                                        .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
-                                        .frame(width: usableWidth)
-                                    }
+                            if viewModel.useLazyVStack {
+                                LazyVStack {
+                                    feedContents(geo)
                                 }
-                                if viewModel.threadedConversationModel != nil {
-                                    // include a spacer to indicate the end of the conversation and provide scrolling space so that if the focused post is at the end of the conversation it can still be scrolled to the top (or something near it)
-                                    Color.secondary.opacity(0.2)
-                                        .frame(height: geo.size.height * 0.5)
+                            } else {
+                                VStack {
+                                    feedContents(geo)
                                 }
                             }
                         }
@@ -1065,6 +1052,64 @@ struct TimelineListView: View {
                     }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder func feedContents(_ geo: GeometryProxy) -> some View {
+        ForEach(viewModel.currentDisplaySlice, id: \.self) { item in
+            switch item {
+            case .loadingIndicator:
+                HStack {
+                    Spacer()
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                    Spacer()
+                }
+                .padding(EdgeInsets(top: 100, leading: 0, bottom: 100, trailing: 0))
+                VisibilityTrackingView(visibilityDidChange: { isVisible in
+                    if isVisible {
+                        switch viewModel.lastReadState {
+                        case .initializing:
+                            viewModel.resetToUntrackedAfterDelay()
+                        case .untracked:
+                            viewModel.loadMoreFromBottom()
+                        default:
+                            break
+                        }
+                    }
+                },
+                                       scrollCoordinateSpace: scrollViewCoordinateSpace,
+                                       visibleAreaHeight: geo.size.height)
+                .frame(width: 10, height: 1)
+                
+            case .post(let postViewModel):
+                let usableWidth =
+                geo.size.width - geo.safeAreaInsets.leading
+                - geo.safeAreaInsets.trailing
+                let contentWidth = max(1, usableWidth - (standardPadding /*left margin*/ + spacingBetweenGutterAndContent /*avatar trailing to content leading*/ + doublePadding /*right margin*/) - avatarSize)
+                
+#if DEBUG && false
+                Text(postViewModel.initialDisplayInfo.id)
+                    .foregroundStyle(.red)
+                    .fontWeight(.bold)
+                if let actionablePostID = postViewModel.fullPost?.actionablePost?.id, actionablePostID != postViewModel.initialDisplayInfo.id {
+                    Text("actionable: \(actionablePostID)")
+                        .foregroundStyle(.red)
+                        .font(.footnote)
+                }
+#endif
+                
+                HomeTimelinePostRowView(contentWidth: contentWidth)
+                .environment(postViewModel)
+                .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
+                .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
+                .frame(width: usableWidth)
+            }
+        }
+        if viewModel.threadedConversationModel != nil {
+            // include a spacer to indicate the end of the conversation and provide scrolling space so that if the focused post is at the end of the conversation it can still be scrolled to the top (or something near it)
+            Color.secondary.opacity(0.2)
+                .frame(height: geo.size.height * 0.5)
         }
     }
     
