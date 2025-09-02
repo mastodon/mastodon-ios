@@ -786,11 +786,13 @@
             "grouped_notification_description": {
                 "your_poll_has_ended": "Your poll has ended",
                 "single_name_edited_a_post": "%@ edited a post you interacted with",
+                "single_name_edited_a_post_you_quoted": "%@ edited a post you quoted",
                 "single_name_ran_poll": "%@ ran %@",
                 "single_name_mentioned_you": "%@ mentioned you",
                 "single_name_requested_to_follow_you": "%@ requested to follow you",
                 "single_name_posted": "%@ posted:",
                 "single_name_boosted": "%@ boosted:",
+                "single_name_quoted": "%@ quoted you",
                 "single_name_favourited": "%@ favorited:",
                 "single_name_followed_you": "%@ followed you",
                 "multiple_people_boosted": "%@ boosted:",

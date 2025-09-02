@@ -1050,6 +1050,10 @@ public enum L10n {
         public static func singleNameEditedAPost(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameEditedAPost", String(describing: p1), fallback: "%@ edited a post you interacted with")
         }
+        /// %@ edited a post you quoted
+        public static func singleNameEditedAPostYouQuoted(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameEditedAPostYouQuoted", String(describing: p1), fallback: "%@ edited a post you quoted")
+        }
         /// %@ favorited:
         public static func singleNameFavourited(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameFavourited", String(describing: p1), fallback: "%@ favorited:")
@@ -1065,6 +1069,10 @@ public enum L10n {
         /// %@ posted:
         public static func singleNamePosted(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNamePosted", String(describing: p1), fallback: "%@ posted:")
+        }
+        /// %@ quoted you
+        public static func singleNameQuoted(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Notification.GroupedNotificationDescription.SingleNameQuoted", String(describing: p1), fallback: "%@ quoted you")
         }
         /// %@ ran %@
         public static func singleNameRanPoll(_ p1: Any, _ p2: Any) -> String {
