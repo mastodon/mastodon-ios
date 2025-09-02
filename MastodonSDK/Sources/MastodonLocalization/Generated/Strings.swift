@@ -497,6 +497,16 @@ public enum L10n {
           /// Voted
           public static let voted = L10n.tr("Localizable", "Common.Controls.Status.Poll.Voted", fallback: "Voted")
         }
+        public enum Quote {
+          /// Post pending
+          public static let pending = L10n.tr("Localizable", "Common.Controls.Status.Quote.Pending", fallback: "Post pending")
+          /// On Mastodon, you can control whether someone can quote you. This post is pending while we’re getting the original author’s approval.
+          public static let pendingExplanationMessage = L10n.tr("Localizable", "Common.Controls.Status.Quote.PendingExplanationMessage", fallback: "On Mastodon, you can control whether someone can quote you. This post is pending while we’re getting the original author’s approval.")
+          /// Post removed by author
+          public static let removedByAuthor = L10n.tr("Localizable", "Common.Controls.Status.Quote.RemovedByAuthor", fallback: "Post removed by author")
+          /// Post unavailable
+          public static let unavailable = L10n.tr("Localizable", "Common.Controls.Status.Quote.Unavailable", fallback: "Post unavailable")
+        }
         public enum Tag {
           /// Email
           public static let email = L10n.tr("Localizable", "Common.Controls.Status.Tag.Email", fallback: "Email")

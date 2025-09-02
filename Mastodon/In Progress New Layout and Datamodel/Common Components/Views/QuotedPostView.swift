@@ -2,6 +2,7 @@
 
 import MastodonSDK
 import SwiftUI
+import MastodonLocalization
 
 struct FullQuotedPostView: View {
     @Environment(MastodonPostViewModel.self) private var viewModel
@@ -100,18 +101,18 @@ extension Mastodon.Entity.Quote.AcceptanceState {
         case .accepted:
             return nil
         case .pending:
-            return "Post pending"
+            return L10n.Common.Controls.Status.Quote.pending
         case .revoked:
-            return "Post removed by author"
+            return L10n.Common.Controls.Status.Quote.removedByAuthor
         default:
-            return "Post unavailable"
+            return L10n.Common.Controls.Status.Quote.unavailable
         }
     }
     
     var learnMoreMessage: String? {
         switch self {
         case .pending:
-            "On Mastodon, you can control whether someone can quote you. This post is pending while we’re getting the original author’s approval."
+            L10n.Common.Controls.Status.Quote.pendingExplanationMessage
         default:
             nil
         }
