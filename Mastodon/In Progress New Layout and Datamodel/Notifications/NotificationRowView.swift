@@ -631,7 +631,7 @@ struct NotificationRowView: View {
         case .weightedText(let string, let weight):
             textComponent(string, fontWeight: weight)
         case .status(let statusViewModel):
-            InlinePostPreview(viewModel: statusViewModel, showAttributionHeader: !viewModel.notification.type.wantsFullStatusLayout)
+            InlinePostPreview(viewModel: statusViewModel)
                 .onTapGesture {
                     statusViewModel.navigateToStatus()
                 }
