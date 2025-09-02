@@ -31,7 +31,7 @@ extension GroupedNotificationType {
     
     var mainIconStyle: MainIconStyle? {
         switch self {
-        case .mention, .status:
+        case .mention, .status, .quote:
             return .avatar
         default:
             if let iconName = iconSystemName {
@@ -94,7 +94,7 @@ extension GroupedNotificationType {
     
     var wantsFullStatusLayout: Bool {
         switch self {
-        case .status, .mention:
+        case .status, .mention, .quote:
             return true
         default:
             return false
@@ -123,9 +123,7 @@ extension GroupedNotificationType {
                     plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameRequestedToFollowYou(firstAuthorName)
                 case .reblog:
                     plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameBoosted(firstAuthorName)
-                case .quote:
-                    plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameQuoted(firstAuthorName)
-                case .mention:
+                case .mention, .quote:
                     plainString = firstAuthorName
                 case .poll(let status):
                     let votersCount = status?.poll?.votersCount ?? 0

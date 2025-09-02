@@ -87,7 +87,7 @@ class NotificationRowViewModel: ObservableObject {
         switch notificationInfo.groupedNotificationType {
 
         case .follow, .followRequest:
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false)
+            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
             let avatarRowAdditionalElement: RelationshipElement
             if notificationInfo.sourceAccounts
                 .primaryAuthorAccount != nil
@@ -120,12 +120,12 @@ class NotificationRowViewModel: ObservableObject {
                     ]
                 }
             }
-        case .mention(let status), .status(let status):
+        case .mention(let status), .status(let status), .quote(let status):
             // TODO: eventually make this full status style, not inline
             if let status
             {
                 let statusViewModel = newStatusViewModel(status)
-                actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: statusViewModel.isReplyToMe, isPrivateStatus: statusViewModel.visibility == .direct)
+                actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: statusViewModel.isReplyToMe, isPrivateStatus: statusViewModel.visibility == .direct, myAccountID: myAccountID)
                 if let timestamp = notificationInfo.timestamp {
                     headerTextComponents = [
                         .textAndTimeLabel(
@@ -147,8 +147,8 @@ class NotificationRowViewModel: ObservableObject {
                 actionSuperheader = nil
                 headerTextComponents = [._other("POST BY UNKNOWN ACCOUNT")]
             }
-        case .reblog(let status), .favourite(let status), .quote(let status):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: status?.visibility == .direct)
+        case .reblog(let status), .favourite(let status):
+            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: status?.visibility == .direct, myAccountID: myAccountID)
             if let status {
                 let statusViewModel = newStatusViewModel(status)
                 avatarRow = .avatarRow(
@@ -177,7 +177,7 @@ class NotificationRowViewModel: ObservableObject {
                 ]
             }
         case .poll(let status), .update(let status), .quotedUpdate(let status):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: status?.visibility == .direct)
+            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: status?.visibility == .direct, myAccountID: myAccountID)
             if let status {
                 let statusViewModel = newStatusViewModel(status)
                 if let timestamp = notificationInfo.timestamp {
@@ -203,7 +203,7 @@ class NotificationRowViewModel: ObservableObject {
                 ]
             }
         case .adminSignUp:
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false)
+            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
             avatarRow = .avatarRow(
                 notificationInfo.sourceAccounts,
                 .noneNeeded)
@@ -223,7 +223,7 @@ class NotificationRowViewModel: ObservableObject {
                 ]
             }
         case .adminReport(let report, _):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false)
+            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
             if let summary = report?.summary {
                 if let timestamp = notificationInfo.timestamp {
                     headerTextComponents = [
@@ -241,7 +241,7 @@ class NotificationRowViewModel: ObservableObject {
                 contentComponents = [.text(comment)]
             }
         case .severedRelationships(let severanceEvent, let url):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false)
+            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
             if let summary = severanceEvent?.summary(myDomain: myAccountDomain)
             {
                 if let timestamp = notificationInfo.timestamp {
@@ -266,7 +266,7 @@ class NotificationRowViewModel: ObservableObject {
                     url)
             ]
         case .moderationWarning(let accountWarning, let url):
-            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false)
+            actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: false, myAccountID: myAccountID)
             if let timestamp = notificationInfo.timestamp {
                 headerTextComponents = [
                     .textAndTimeLabel(
@@ -306,7 +306,7 @@ class NotificationRowViewModel: ObservableObject {
         resetHeaderComponents()
     }
     
-    static func actionSuperheader(_ notificationType: GroupedNotificationType, isReply: Bool, isPrivateStatus: Bool?) -> (iconName: String?, text: String, color: Color)? {
+    static func actionSuperheader(_ notificationType: GroupedNotificationType, isReply: Bool, isPrivateStatus: Bool?, myAccountID: String?) -> (iconName: String?, text: String, color: Color)? {
         let isPrivateStatus = isPrivateStatus ?? false
         let color = isPrivateStatus ? Asset.Colors.accent.swiftUIColor : .secondary
         switch notificationType {
@@ -321,6 +321,9 @@ class NotificationRowViewModel: ObservableObject {
             case (false, true):
                 return (iconName: "at", text: L10n.Common.Controls.Status.privateMention, color: color)
             }
+        case .quote(let status):
+            let author = status?.account.displayName(whenViewedBy: myAccountID)
+            return (iconName: "quote.opening", text: L10n.Scene.Notification.GroupedNotificationDescription.singleNameQuoted(author?.plainString ?? ""), color: .secondary)
         default:
             return nil
         }
