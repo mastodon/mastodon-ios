@@ -208,7 +208,7 @@ extension Mastodon.Entity.Status {
     public enum CurrentUserQuotePermission: RawRepresentable, Codable, Hashable, Sendable {
         case automatic
         case manual
-        case unknown
+        case unsupportedPolicy
         case denied
 
         case _other(String)
@@ -217,7 +217,7 @@ extension Mastodon.Entity.Status {
             switch rawValue {
             case "automatic":           self = .automatic
             case "manual":              self = .manual
-            case "unknown":             self = .unknown
+            case "unsupported_policy":  self = .unsupportedPolicy
             case "denied":              self = .denied
                 
             default:                    self = ._other(rawValue)
@@ -228,7 +228,7 @@ extension Mastodon.Entity.Status {
             switch self {
             case .automatic:             return "automatic"
             case .manual:                return "manual"
-            case .unknown:               return "unknown"
+            case .unsupportedPolicy:     return "unsupported_policy"
             case .denied:                return "denied"
             case ._other(let value):     return value
             }
