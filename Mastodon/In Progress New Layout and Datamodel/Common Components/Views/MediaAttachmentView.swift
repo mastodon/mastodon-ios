@@ -6,6 +6,7 @@ import MastodonSDK
 import MastodonCore
 import MastodonLocalization
 import Combine
+import MastodonAsset
 
 let buttonBackgroundColor = Color.black.opacity(0.6)
 let maxHeightForHiddenMedia: CGFloat = 100
@@ -125,6 +126,7 @@ enum MediaAttachment {
     case gifv(MastodonPlayableAttachment, altTextTranslation: String?)
     case video(MastodonPlayableAttachment, altTextTranslation: String?)
     case audio(MastodonPlayableAttachment, altTextTranslation: String?)
+    case openInBrowser(URL)
     case notYetImplemented(String)
     case emptyAttachment
     
@@ -159,10 +161,14 @@ enum MediaAttachment {
             } else {
                 self = .emptyAttachment
             }
+        case .unknown:
+            if let entity = media.first, let urlString = entity.url ?? entity.remoteURL, let url = URL(string: urlString) {
+                self = .openInBrowser(url)
+            } else {
+                self = .emptyAttachment
+            }
         case ._other(let string):
             self = .notYetImplemented(string)
-        case .unknown:
-            self = .notYetImplemented("UNKNOWN")
         }
     }
 }
@@ -182,6 +188,29 @@ extension MediaAttachment {
             ConcealableMediaAttachmentView() {
                 PlayerView(media: self, actionHandler: actionHandler)
             }
+        case .openInBrowser(let url):
+            Button {
+                actionHandler.presentScene(.safari(url: url), fromPost: nil, transition: .show)
+            } label: {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(L10n.Common.Controls.Status.Media.previewNotAvailable)
+                            .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Text(L10n.Common.Controls.Status.Media.tapToOpenInBrowser)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Asset.Colors.Brand.blurple.swiftUIColor)
+                    }
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
+                .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                .background {
+                    MastodonSecondaryBackground(fillInDarkModeOnly: false)
+                }
+            }
+            .buttonStyle(.borderless)
         case .notYetImplemented(let string):
             Text("Needs Implementation (\(string))")
                 .font(.footnote)
@@ -569,6 +598,8 @@ extension MediaAttachment {
         case .gifv(let info, _), .video(let info, _), .audio(let info, _):
             return info
         case .images, .notYetImplemented, .emptyAttachment:
+            return nil
+        case .openInBrowser:
             return nil
         }
     }

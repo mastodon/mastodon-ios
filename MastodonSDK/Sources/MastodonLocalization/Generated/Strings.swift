@@ -460,6 +460,10 @@ public enum L10n {
           public static let expandImageHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandImageHint", fallback: "Expands the image. Double-tap and hold to show actions")
           /// Shows the video player. Double-tap and hold to show actions
           public static let expandVideoHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandVideoHint", fallback: "Shows the video player. Double-tap and hold to show actions")
+          /// Preview not available
+          public static let previewNotAvailable = L10n.tr("Localizable", "Common.Controls.Status.Media.PreviewNotAvailable", fallback: "Preview not available")
+          /// Tap to open in browser
+          public static let tapToOpenInBrowser = L10n.tr("Localizable", "Common.Controls.Status.Media.TapToOpenInBrowser", fallback: "Tap to open in browser")
         }
         public enum MetaEntity {
           /// Email address: %@
