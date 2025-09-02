@@ -260,8 +260,6 @@ extension Mastodon.Entity.RelationshipSeveranceEvent {
 }
 
 struct NotificationIconView: View {
-    @ScaledMetric private var largeAvatarSize = AvatarSize.large
-    
     let systemName: String
     let color: Color
     
@@ -271,7 +269,7 @@ struct NotificationIconView: View {
                 .foregroundStyle(color)
         }
         .font(.system(size: 25))
-        .frame(width: largeAvatarSize)
+        .frame(width: AvatarSize.large)
         .fontWeight(.semibold)
     }
 }
@@ -456,7 +454,7 @@ fileprivate let avatarSpacing: CGFloat = 8
 
 struct FilteredNotificationsRowView: View {
     
-    @ScaledMetric var disclosureIndicatorSize = AvatarSize.large
+    let disclosureIndicatorSize = AvatarSize.large
     
     class ViewModel: ObservableObject {
         var policy: Mastodon.Entity.NotificationPolicy? = nil {
@@ -540,7 +538,7 @@ let baseActionSuperheaderHeight: CGFloat = 20
 struct NotificationRowView: View {
 
     @ScaledMetric private var actionSuperheaderHeight: CGFloat = baseActionSuperheaderHeight
-    @ScaledMetric private var smallAvatarSize = AvatarSize.small
+    private let smallAvatarSize = AvatarSize.small
     
     @ObservedObject var viewModel: NotificationRowViewModel
     @ObservedObject var timestamper: TimestampUpdater
