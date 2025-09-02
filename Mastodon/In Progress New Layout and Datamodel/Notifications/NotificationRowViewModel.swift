@@ -147,7 +147,7 @@ class NotificationRowViewModel: ObservableObject {
                 actionSuperheader = nil
                 headerTextComponents = [._other("POST BY UNKNOWN ACCOUNT")]
             }
-        case .reblog(let status), .favourite(let status):
+        case .reblog(let status), .favourite(let status), .quote(let status):
             actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: status?.visibility == .direct)
             if let status {
                 let statusViewModel = newStatusViewModel(status)
@@ -173,10 +173,10 @@ class NotificationRowViewModel: ObservableObject {
                 needsPrivateBackground = statusViewModel.visibility == .direct
             } else {
                 headerTextComponents = [
-                    ._other("REBLOGGED/FAVOURITED BY UNKNOWN ACCOUNT")
+                    ._other("REBLOGGED/FAVOURITED/QUOTED BY UNKNOWN ACCOUNT")
                 ]
             }
-        case .poll(let status), .update(let status):
+        case .poll(let status), .update(let status), .quotedUpdate(let status):
             actionSuperheader = NotificationRowViewModel.actionSuperheader(notificationInfo.groupedNotificationType, isReply: false, isPrivateStatus: status?.visibility == .direct)
             if let status {
                 let statusViewModel = newStatusViewModel(status)
@@ -712,7 +712,7 @@ extension NotificationRowViewModel {
     ) -> NotificationNavigation? {
 
         switch notificationType {
-        case .favourite, .mention, .reblog, .poll, .status, .update:
+        case .favourite, .mention, .reblog, .poll, .status, .update, .quote, .quotedUpdate:
             break  // The status will go to the status. The actor, if only one, will go to their profile.
         case .follow:
             if isGrouped {
@@ -764,6 +764,10 @@ extension GroupedNotificationType {
             self = .mention(notification.status)
         case .reblog:
             self = .reblog(notification.status)
+        case .quote:
+            self = .quote(notification.status)
+        case .quotedUpdate:
+            self = .quotedUpdate(notification.status)
         case .favourite:
             self = .favourite(notification.status)
         case .poll:
@@ -816,6 +820,8 @@ extension GroupedNotificationType {
             self = .mention(status)
         case .reblog:
             self = .reblog(status)
+        case .quote:
+            self = .quote(status)
         case .favourite:
             self = .favourite(status)
         case .poll:
@@ -824,6 +830,8 @@ extension GroupedNotificationType {
             self = .status(status)
         case .update:
             self = .update(status)
+        case .quotedUpdate:
+            self = .quotedUpdate(status)
         case .adminSignUp:
             self = .adminSignUp
         case .adminReport:

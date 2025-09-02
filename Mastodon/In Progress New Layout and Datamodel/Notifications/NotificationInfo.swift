@@ -27,6 +27,8 @@ enum GroupedNotificationType {
     case followRequest(from: Mastodon.Entity.Account)  // Someone requested to follow you
     case mention(Mastodon.Entity.Status?)  // Someone mentioned you in their status
     case reblog(Mastodon.Entity.Status?)  // Someone boosted one of your statuses
+    case quote(Mastodon.Entity.Status?)  // Someone quoted one of your statuses
+    case quotedUpdate(Mastodon.Entity.Status?)  // Someone edited a post that you quoted
     case favourite(Mastodon.Entity.Status?)  // Someone favourited one of your statuses
     case poll(Mastodon.Entity.Status?)  // A poll you have voted in or created has ended
     case status(Mastodon.Entity.Status?)  // Someone you enabled notifications for has posted a status

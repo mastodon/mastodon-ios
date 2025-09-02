@@ -47,6 +47,8 @@ extension GroupedNotificationType {
             return PostAction.favourite.systemIconName(filled: true)
         case .reblog:
             return PostAction.boost.systemIconName(filled: false)
+        case .quote:
+            return "quote.opening"
         case .follow:
             return "person.fill.badge.plus"
         case .poll:
@@ -65,7 +67,7 @@ extension GroupedNotificationType {
             return nil  // should show avatar
         case .followRequest:
             return "person.fill.badge.plus"
-        case .update:
+        case .update, .quotedUpdate:
             return "pencil"
         case .adminSignUp:
             return "person.fill.badge.plus"
@@ -78,7 +80,9 @@ extension GroupedNotificationType {
             return .orange
         case .reblog:
             return .green
-        case .follow, .followRequest, .status, .mention, .update:
+        case .quote:
+            return Asset.Colors.accent.swiftUIColor
+        case .follow, .followRequest, .status, .mention, .update, .quotedUpdate:
             return Color(asset: Asset.Colors.accent)
         case .poll, .severedRelationships, .moderationWarning, .adminReport,
             .adminSignUp:
@@ -119,6 +123,8 @@ extension GroupedNotificationType {
                     plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameRequestedToFollowYou(firstAuthorName)
                 case .reblog:
                     plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameBoosted(firstAuthorName)
+                case .quote:
+                    plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameQuoted(firstAuthorName)
                 case .mention:
                     plainString = firstAuthorName
                 case .poll(let status):
@@ -131,6 +137,8 @@ extension GroupedNotificationType {
                     plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameSignedUp(firstAuthorName)
                 case .update:
                     plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameEditedAPost(firstAuthorName)
+                case .quotedUpdate:
+                    plainString = L10n.Scene.Notification.GroupedNotificationDescription.singleNameEditedAPostYouQuoted(firstAuthorName)
                 case .adminReport, .severedRelationships, .moderationWarning, ._other:
                     plainString = firstAuthorName
                 }

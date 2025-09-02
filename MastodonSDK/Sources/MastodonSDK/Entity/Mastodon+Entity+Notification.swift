@@ -242,6 +242,8 @@ extension Mastodon.Entity {
         case followRequest // Someone requested to follow you
         case mention // Someone mentioned you in their status
         case reblog // Someone boosted one of your statuses
+        case quote // Someone quoted one of your statuses
+        case quotedUpdate  // Someone edited a post that you quoted
         case favourite // Someone favourited one of your statuses
         case poll // A poll you have voted in or created has ended
         case status // Someone you enabled notifications for has posted a status
@@ -259,6 +261,8 @@ extension Mastodon.Entity {
             case "follow_request":      self = .followRequest
             case "mention":             self = .mention
             case "reblog":              self = .reblog
+            case "quote":               self = .quote
+            case "quoted_update":       self = .quotedUpdate
             case "favourite":           self = .favourite
             case "poll":                self = .poll
             case "status":              self = .status
@@ -277,6 +281,8 @@ extension Mastodon.Entity {
             case .followRequest:                return "follow_request"
             case .mention:                      return "mention"
             case .reblog:                       return "reblog"
+            case .quote:                        return "quote"
+            case .quotedUpdate:                 return "quoted_update"
             case .favourite:                    return "favourite"
             case .poll:                         return "poll"
             case .status:                       return "status"
