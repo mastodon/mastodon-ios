@@ -720,7 +720,10 @@ private class TimelineListViewModel: ObservableObject {
                         return nil
                     }
                 }
-                self?.doPrepareForDisplay(needsPrep, contentWidth: 0, completion: {
+                
+                let quotedModels: [MastodonPostViewModel] = needsPrep.compactMap { $0.fullQuotedPostViewModel }
+                
+                self?.doPrepareForDisplay(needsPrep + quotedModels, contentWidth: 0, completion: {
                     DispatchQueue.main.async {
                         guard let self else { return }
                         

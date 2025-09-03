@@ -157,8 +157,20 @@ extension MastodonPostViewModel {
                 // BOOSTED BY
                 SocialContextHeader.boosted(by: fullPost.metaData.author.displayInfo.displayName, emojis: fullPost.metaData.author.displayInfo.emojis)
             } else if let basicPost = fullPost as? MastodonBasicPost {
-                // REPLIED and/or PRIVATE MENTION
+                // REPLIED and/or PRIVATE MENTION or QUOTES ME
                 let isPrivate = basicPost.metaData.privacyLevel == .mentionedOnly
+                let quotesMe = {
+                    if let quotedPost = fullQuotedPostViewModel {
+                        switch quotedPost.myRelationshipToAuthor {
+                        case .isMe:
+                            return true
+                        default:
+                            return false
+                        }
+                    } else {
+                        return false
+                    }
+                }()
                 if isPrivate || threadedContext == nil {
                     let replyInfo = basicPost.inReplyTo
                     if let replyInfo {
@@ -166,6 +178,8 @@ extension MastodonPostViewModel {
                         SocialContextHeader.reply(to: replyToAccount?.displayInfo.displayName ?? "unknown", isPrivate: isPrivate, isNotification: false, emojis: replyToAccount?.displayInfo.emojis ?? [])
                     } else if isPrivate {
                         SocialContextHeader.mention(isPrivate: true)
+                    } else if quotesMe {
+                         SocialContextHeader.quoted(by: fullPost.metaData.author.displayInfo.displayName, emojis: fullPost.metaData.author.displayInfo.emojis)
                     }
                 } else {
                    EmptyView()

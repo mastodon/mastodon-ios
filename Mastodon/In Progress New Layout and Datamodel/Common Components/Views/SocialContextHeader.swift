@@ -8,6 +8,7 @@ enum SocialContextHeader {
     case mention(isPrivate: Bool)
     case reply(to: String, isPrivate: Bool, isNotification: Bool, emojis: MastodonContentView.Emojis)
     case boosted(by: String, emojis: MastodonContentView.Emojis)
+    case quoted(by: String, emojis: MastodonContentView.Emojis)
     //case pinned
     
     var isPrivate: Bool {
@@ -27,6 +28,8 @@ enum SocialContextHeader {
             return PostAction.reply.systemIconName(filled: false)
         case .boosted:
             return PostAction.boost.systemIconName(filled: false)
+        case .quoted:
+            return "quote.opening"
         }
     }
     
@@ -45,6 +48,8 @@ enum SocialContextHeader {
             }
         case .boosted(let booster, _):
             return L10n.Common.Controls.Status.userReblogged(booster)
+        case .quoted(let quoter, _):
+                   return L10n.Scene.Notification.GroupedNotificationDescription.singleNameQuoted(quoter)
         }
     }
     
@@ -56,6 +61,9 @@ enum SocialContextHeader {
             return MastodonContentView.Emojis()
         case .reply(_, _, _, let emojis):
             return emojis
+        case .quoted(_, let emojis):
+             return emojis
+
         }
     }
     
