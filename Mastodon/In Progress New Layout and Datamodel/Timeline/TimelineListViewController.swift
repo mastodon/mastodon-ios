@@ -17,6 +17,7 @@ private func debugScroll(_ message: String) {
 
 enum TimelineViewType {
     case home
+    case notifications(NotificationsScope)
     case trendingPosts
     case myBookmarks
     case myFavorites
@@ -48,6 +49,8 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         switch type {
         case .home:
             viewModel = TimelineListViewModel(timeline: .following)
+        case .notifications(let scope):
+            viewModel = TimelineListViewModel(timeline: .notifications(scope: scope))
         case .trendingPosts:
             viewModel = TimelineListViewModel(timeline: .discovery)
         case .searchPosts(let searchText):

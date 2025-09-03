@@ -65,7 +65,11 @@ class MainTabBarController: UITabBarController {
         composeViewController = UIViewController()
         composeViewController.configureTabBarItem(with: .compose)
         
-        notificationViewController = NotificationListViewController()
+        if UserDefaults.standard.testNewHomeTimeline {
+            notificationViewController = TimelineListViewController(.notifications(.everything))
+        } else {
+            notificationViewController = NotificationListViewController()
+        }
         notificationViewController.configureTabBarItem(with: .notifications)
 
 
