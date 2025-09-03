@@ -84,15 +84,13 @@ class TimelineListViewController: UIHostingController<TimelineListView>
             setUpTimelineSelectorButton()
             setUpScrollToTop()
             showSettingsButton(true)
+        case .notifications(.everything), .notifications(.mentions):
+            fetchFilteredNotificationsPolicy()
+            setUpNotificationsNavBarControls()
+            NotificationCenter.default.addObserver(self, selector: #selector(notificationFilteringPolicyDidChange), name: .notificationFilteringChanged, object: nil)
         default:
             break
         }
-    }
-    
-    @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        guard let setting = SettingService.shared.currentSetting.value else { return }
-        
-        _ = self.sceneCoordinator?.present(scene: .settings(setting: setting), from: self, transition: .none)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -110,43 +108,9 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         return barButtonItem
     }()
     
-    func setUpTimelineSelectorButton() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: timelineSelectorButton)
-    }
+    lazy var picker = { UISegmentedControl(items: [ NotificationsScope.everything.pickerLabel, NotificationsScope.mentions.pickerLabel ]) }()
     
     var scrollToTopButton: UIButton?
-    
-    func setUpScrollToTop() {
-        let button = UIButton(configuration: .plain())
-        button.addTarget(self, action: #selector(scrollToTop), for: .touchUpInside)
-        self.scrollToTopButton = button
-        self.navigationItem.titleView = button
-        scrollToTopUpdateSubscription = viewModel.$unreadCount.sink { [weak self] unread in
-            self?.updateScrollToTopButton(unread)
-        }
-    }
-    
-    func updateScrollToTopButton(_ waitingCount: Int) {
-        if waitingCount > 0 {
-            scrollToTopButton?.isHidden = false
-            scrollToTopButton?.configuration?.title = "\(waitingCount)+ Unread ^"
-            scrollToTopButton?.configuration?.baseForegroundColor = Asset.Colors.accent.color
-        } else {
-            scrollToTopButton?.isHidden = true
-        }
-    }
-    
-    @objc func scrollToTop() {
-        viewModel.scrollToTop()
-    }
-    
-    func showSettingsButton(_ show: Bool) {
-        if show {
-            self.navigationItem.rightBarButtonItem = settingBarButtonItem
-        } else {
-            self.navigationItem.rightBarButtonItem = nil
-        }
-    }
     
     lazy var timelineSelectorButton = {
         let button = UIButton(type: .custom)
@@ -174,6 +138,51 @@ class TimelineListViewController: UIHostingController<TimelineListView>
         button.menu = generateTimelineSelectorMenu()
         return button
     }()
+}
+
+extension TimelineListViewController {
+    // MARK: HomeTimeline Nav Bar controls
+    func setUpScrollToTop() {
+        let button = UIButton(configuration: .plain())
+        button.addTarget(self, action: #selector(scrollToTop), for: .touchUpInside)
+        self.scrollToTopButton = button
+        self.navigationItem.titleView = button
+        scrollToTopUpdateSubscription = viewModel.$unreadCount.sink { [weak self] unread in
+            self?.updateScrollToTopButton(unread)
+        }
+    }
+    
+    func updateScrollToTopButton(_ waitingCount: Int) {
+        if waitingCount > 0 {
+            scrollToTopButton?.isHidden = false
+            scrollToTopButton?.configuration?.title = "\(waitingCount)+ Unread ^"
+            scrollToTopButton?.configuration?.baseForegroundColor = Asset.Colors.accent.color
+        } else {
+            scrollToTopButton?.isHidden = true
+        }
+    }
+    
+    @objc func scrollToTop() {
+        viewModel.scrollToTop()
+    }
+    
+    @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        guard let setting = SettingService.shared.currentSetting.value else { return }
+        
+        _ = self.sceneCoordinator?.present(scene: .settings(setting: setting), from: self, transition: .none)
+    }
+    
+    func showSettingsButton(_ show: Bool) {
+        if show {
+            self.navigationItem.rightBarButtonItem = settingBarButtonItem
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
+    func setUpTimelineSelectorButton() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: timelineSelectorButton)
+    }
     
     private func generateTimelineSelectorMenu() -> UIMenu {
         let useLazyVStackAction: UIAction
@@ -332,6 +341,121 @@ class TimelineListViewController: UIHostingController<TimelineListView>
     }
 }
 
+extension NotificationsScope {
+    var pickerLabel: String {
+        switch self {
+        case .everything:
+            L10n.Scene.Notification.Title.everything
+        case .mentions:
+            L10n.Scene.Notification.Title.mentions
+        case .fromAccount:
+            ""
+        }
+    }
+}
+
+extension TimelineListViewController {
+    // MARK: Notifications Nav Bar controls
+    
+    func setUpNotificationsNavBarControls() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(showNotificationPolicySettings))
+        
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.selectedSegmentIndex = 0
+        navigationItem.titleView = picker
+        NSLayoutConstraint.activate([
+            picker.widthAnchor.constraint(greaterThanOrEqualToConstant: 287)
+        ])
+        picker.addTarget(self, action: #selector(pickerValueChanged(_:)), for: .valueChanged)
+    }
+    
+    @objc private func pickerValueChanged(_ sender: UISegmentedControl) {
+        let newScope: NotificationsScope
+        switch sender.selectedSegmentIndex {
+        case 0:
+            newScope = .everything
+        case 1:
+            newScope = .mentions
+        default:
+            newScope = .everything
+        }
+        switch viewModel.timeline {
+        case .notifications(let scope):
+            if scope != newScope {
+                viewModel.resetToUntrackedAfterDelay()
+                viewModel.timeline = .notifications(scope: newScope)
+            }
+        default:
+            break
+        }
+    }
+    
+    @objc private func showNotificationPolicySettings(_ sender: Any) {
+        guard let policy = viewModel.filteredNotificationsViewModel.policy else { return }
+        Task {
+            let adminSettings: AdminNotificationFilterSettings? = await {
+                guard let user = AuthenticationServiceProvider.shared.currentActiveUser.value, let role = user.cachedAccount?.role else { print("no role"); return nil }
+                let permissions = role.rolePermissions()
+                let hasAdminPermissions = permissions.contains(.administrator) || permissions.contains(.manageReports) || permissions.contains(.manageUsers)
+                guard hasAdminPermissions else { print("no permissions"); return nil }
+                if let existingPreferences = await BodegaPersistence.Notifications.currentPreferences(for: user.authentication) {
+                    return existingPreferences
+                } else {
+                    return AdminNotificationFilterSettings(forReports: .accept, forSignups: .accept)
+                }
+            }()
+            
+            let policyViewModel = await NotificationPolicyViewModel(
+                NotificationFilterSettings(
+                    forNotFollowing: policy.forNotFollowing,
+                    forNotFollowers: policy.forNotFollowers,
+                    forNewAccounts: policy.forNewAccounts,
+                    forPrivateMentions: policy.forPrivateMentions,
+                    forLimitedAccounts: policy.forLimitedAccounts
+                ),
+                adminSettings: adminSettings
+            )
+            
+            guard let policyViewController = self.sceneCoordinator?.present(scene: .notificationPolicy(viewModel: policyViewModel), transition: .formSheet(policyViewModel.adminFilterSettings != nil ? [.large()] : nil)) as? NotificationPolicyViewController else { return }
+            
+            policyViewController.delegate = self
+        }
+    }
+}
+
+extension TimelineListViewController: NotificationPolicyViewControllerDelegate {
+    func policyUpdated(_ viewController: NotificationPolicyViewController, newPolicy: MastodonSDK.Mastodon.Entity.NotificationPolicy) {
+        updateFilteredNotificationsPolicy(newPolicy)
+    }
+    
+    @objc func notificationFilteringPolicyDidChange(_ notification: Notification) {
+        fetchFilteredNotificationsPolicy()
+    }
+
+    private func fetchFilteredNotificationsPolicy() {
+        guard
+            let authBox = AuthenticationServiceProvider.shared.currentActiveUser
+                .value
+        else { return }
+        Task {
+            let policy = try? await APIService.shared.notificationPolicy(
+                authenticationBox: authBox)
+            updateFilteredNotificationsPolicy(policy?.value)
+        }
+    }
+
+    func updateFilteredNotificationsPolicy(
+        _ policy: Mastodon.Entity.NotificationPolicy?
+    ) {
+
+        viewModel.filteredNotificationsViewModel.policy = policy
+        Task {
+            try await viewModel.doInitialLoad()
+        }
+    }
+
+}
+
 extension TimelineListViewController: MediaPreviewableViewController {
     var mediaPreviewTransitionController: MediaPreviewTransitionController {
         return _mediaPreviewTransitionController
@@ -418,6 +542,19 @@ private class TimelineListViewModel: ObservableObject {
     private var authenticatedUser: MastodonAuthenticationBox?
     private var instanceConfiguration: MastodonAuthentication.InstanceConfiguration?
     var hostingViewController: MediaPreviewableViewController?
+    
+    var filteredNotificationsViewModel =
+        FilteredNotificationsRowView.ViewModel(policy: nil)
+    private var notificationPolicyBannerRow: [NotificationListItem] {
+        if filteredNotificationsViewModel.shouldShow {
+            return [
+                NotificationListItem.filteredNotificationsInfo(
+                    nil, filteredNotificationsViewModel)
+            ]
+        } else {
+            return []
+        }
+    }
     
     var activeAlert: MastodonPostMenuAction.AlertType = .noAlert {
         didSet {
