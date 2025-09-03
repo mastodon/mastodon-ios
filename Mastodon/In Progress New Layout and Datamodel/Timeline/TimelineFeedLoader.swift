@@ -181,7 +181,7 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
             self.filterContext = nil
         case .myFavorites:
             self.filterContext = nil
-        case .notifications(scope: let scope):
+        case .notifications:
             self.filterContext = .notifications
         }
         super.init(cacheManager)
@@ -243,6 +243,9 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
         
         func timelineItem(fromStatus status: Mastodon.Entity.Status) -> TimelineItem {
             let post = GenericMastodonPost.fromStatus(status)
+            return timelineItem(fromPost: post)
+        }
+        func timelineItem(fromPost post: GenericMastodonPost) -> TimelineItem {
             let initialDisplayInfo = post.initialDisplayInfo(inContext: filterContext)
             let viewModel = MastodonPostViewModel(initialDisplayInfo, filterContext: filterContext, threadedConversationContext: threadedConversationModel?.context(for: initialDisplayInfo.id))
             viewModel.setFullPost(post)
@@ -326,8 +329,14 @@ final class TimelineFeedLoader: MastodonFeedLoader<TimelineItem, CacheableTimeli
                 authenticationBox: authenticatedUser
             ).value.map { timelineItem(fromStatus: $0) }
         case .notifications(scope: let scope):
-            newBatch = []
-            // TODO: actually fetch and process the notifications, including filtered notifications
+            // TODO: include filtered notifications banner
+            newBatch = try await NotificationsLoader.getNotifications(withScope: scope, olderThan: itemsImmediatelyAfter, newerThan: itemsImmediatelyBefore).map { groupedNotificationInfo in
+                if groupedNotificationInfo.groupedNotificationType.wantsFullStatusLayout, let post = groupedNotificationInfo.post {
+                    return timelineItem(fromPost: post)
+                } else {
+                    return TimelineItem.notification(groupedNotificationInfo)
+                }
+            }
         }
         
         let newCache: CacheableTimeline
@@ -715,4 +724,138 @@ extension GenericMastodonPost {
         let author = actionablePost?.metaData.author ?? metaData.author
         return GenericMastodonPost.InitialDisplayInfo(id: id, actionablePostID: actionablePost?.id ?? id, shouldFilterOut: actionablePost?.content.shouldBeRemovedFromFeed(inContext: context) ?? false, actionableAuthorId: author.id, actionableAuthorStaticAvatar: author.displayInfo.avatarUrl, actionableAuthorHandle: author.handle, actionableAuthorDisplayName: author.displayName(whenViewedBy: nil)?.plainString ?? "", actionableVisibility: actionablePost?.metaData.privacyLevel ?? metaData.privacyLevel ?? .loudPublic, actionableCreatedAt: actionablePost?.metaData.createdAt ?? metaData.createdAt)
     }
+}
+
+@MainActor
+struct NotificationsLoader {
+    
+    static func getNotifications(withScope scope: NotificationsScope, olderThan: String? = nil, newerThan: String?) async throws -> [GroupedNotificationInfo] {
+        guard let currentInstance = AuthenticationServiceProvider.shared.currentActiveUser.value?.authentication.instanceConfiguration else {
+            throw(APIService.APIError.implicit(.authenticationMissing))
+        }
+        
+        let results: [GroupedNotificationInfo]
+        if currentInstance.canGroupNotifications {
+            results = try await getGroupedNotifications(withScope: scope, olderThan: olderThan, newerThan: newerThan)
+        } else {
+            results = try await getUngroupedNotifications(withScope: scope, olderThan: olderThan, newerThan: newerThan)
+        }
+        return results
+    }
+    
+    static private func currentUser() throws -> MastodonAuthenticationBox {
+        guard
+            let authenticationBox = AuthenticationServiceProvider.shared
+                .currentActiveUser.value
+        else { throw APIService.APIError.implicit(.authenticationMissing) }
+        return authenticationBox
+    }
+    
+    static private func getUngroupedNotifications(
+        withScope scope: NotificationsScope, olderThan maxID: String? = nil, newerThan minID: String?
+    ) async throws -> [GroupedNotificationInfo] {
+        let authenticationBox = try currentUser()
+        
+        let ungrouped: [Mastodon.Entity.Notification]
+        switch scope {
+        case .everything:
+            ungrouped = try await APIService.shared.notifications(
+                olderThan: maxID, fromAccount: nil, scope: .everything,
+                authenticationBox: authenticationBox
+            ).value
+        case .mentions:
+            ungrouped = try await APIService.shared.notifications(
+                olderThan: maxID, fromAccount: nil, scope: .mentions,
+                authenticationBox: authenticationBox
+            ).value
+        case .fromAccount(let account):
+            ungrouped = try await APIService.shared.notifications(
+                olderThan: maxID, fromAccount: account.id, scope: nil,
+                authenticationBox: authenticationBox
+            ).value
+        }
+        
+        return ungrouped.map { notification in
+            let sourceAccounts = NotificationSourceAccounts(myAccountID: authenticationBox.domain, accounts: [notification.account], totalActorCount: 1)
+            let notificationType = GroupedNotificationType(notification, myAccountDomain: authenticationBox.domain, sourceAccounts: sourceAccounts, adminReportID: nil)
+            let navigation = NotificationRowViewModel.defaultNavigation(notificationType, isGrouped: false, primaryAccount: notification.account)
+            let post = notification.status == nil ? nil : GenericMastodonPost.fromStatus(notification.status!)
+            let info = GroupedNotificationInfo(id: notification.id, timestamp: notification.createdAt, oldestNotificationID: notification.id, newestNotificationID: notification.id, groupedNotificationType: notificationType, sourceAccounts: sourceAccounts, post:  post, primaryNavigation: navigation)
+            return info
+        }
+    }
+    
+    static private func getGroupedNotifications(
+        withScope scope: NotificationsScope, olderThan maxID: String? = nil, newerThan minID: String?
+    ) async throws -> [GroupedNotificationInfo] {
+        let authenticationBox = try currentUser()
+        
+        let adminFilterPreferences = await BodegaPersistence.Notifications.currentPreferences(for: authenticationBox)
+        let results: Mastodon.Entity.GroupedNotificationsResults
+        switch scope {
+        case .everything:
+            results = try await APIService.shared.groupedNotifications(
+                olderThan: maxID, newerThan: minID, fromAccount: nil, scope: .everything, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
+                authenticationBox: authenticationBox
+            )
+        case .mentions:
+            results = try await APIService.shared.groupedNotifications(
+                olderThan: maxID, newerThan: minID, fromAccount: nil, scope: .mentions, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
+                authenticationBox: authenticationBox
+            )
+        case .fromAccount(let account):
+            results = try await APIService.shared.groupedNotifications(
+                olderThan: maxID, newerThan: minID, fromAccount: account.id, scope: nil, excludingAdminTypes: adminFilterPreferences?.excludedNotificationTypes,
+                authenticationBox: authenticationBox
+            )
+        }
+        
+        let fullAccounts = results.accounts.reduce(
+            into: [String: Mastodon.Entity.Account]()
+        ) { partialResult, account in
+            partialResult[account.id] = account
+        }
+        let partialAccounts = results.partialAccounts?.reduce(
+            into: [String: Mastodon.Entity.PartialAccountWithAvatar]()
+        ) { partialResult, account in
+            partialResult[account.id] = account
+        }
+        
+        let statuses = results.statuses.reduce(
+            into: [String: Mastodon.Entity.Status](),
+            { partialResult, status in
+                partialResult[status.id] = status
+            })
+        
+        return results.notificationGroups.map { group in
+            let accounts: [AccountInfo] = group.sampleAccountIDs.compactMap { accountID in
+                return fullAccounts[accountID] ?? partialAccounts?[accountID]
+            }
+            
+            let sourceAccounts = NotificationSourceAccounts(
+                myAccountID: authenticationBox.userID, accounts: accounts,
+                totalActorCount: group.notificationsCount)
+            
+            let status = group.statusID == nil ? nil : statuses[group.statusID!]
+            
+            let type = GroupedNotificationType(
+                group, myAccountDomain: authenticationBox.domain, sourceAccounts: sourceAccounts, status: status, adminReportID: group.adminReport?.id)
+            
+            let post = status == nil ? nil : GenericMastodonPost.fromStatus(status!)
+            
+            return GroupedNotificationInfo(
+                id: group.id,
+                timestamp: group.latestPageNotificationAt,
+                oldestNotificationID: group.pageNewestID ?? "",
+                newestNotificationID: group.pageOldestID ?? "",
+                groupedNotificationType: type,
+                sourceAccounts: sourceAccounts,
+                post: post,
+                primaryNavigation: NotificationRowViewModel.defaultNavigation(
+                    type, isGrouped: group.notificationsCount > 1,
+                    primaryAccount: sourceAccounts.primaryAuthorAccount)
+            )
+        }
+    }
+    
 }
