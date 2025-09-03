@@ -1249,6 +1249,19 @@ struct TimelineListView: View {
                 .environment(viewModel.contentConcealModel(forActionablePost: postViewModel.initialDisplayInfo.actionablePostID))
                 .padding(EdgeInsets(top: 0, leading: standardPadding, bottom: 0, trailing: doublePadding))
                 .frame(width: usableWidth)
+                .background() {
+                    switch viewModel.timeline {
+                    case .notifications:
+                        switch postViewModel.initialDisplayInfo.actionableVisibility {
+                        case .mentionedOnly:
+                            backgroundView(isPrivate: true, isUnread: false) // TODO: implement unread for notifications
+                        default:
+                            EmptyView()
+                        }
+                    default:
+                        EmptyView()
+                    }
+                }
             case .notification(let groupedInfo):
 //                NotificationRowView()
                 Text("A NOTIFICATION")
@@ -1258,6 +1271,20 @@ struct TimelineListView: View {
             // include a spacer to indicate the end of the conversation and provide scrolling space so that if the focused post is at the end of the conversation it can still be scrolled to the top (or something near it)
             Color.secondary.opacity(0.2)
                 .frame(height: geo.size.height * 0.5)
+        }
+    }
+    
+    @ViewBuilder func backgroundView(isPrivate: Bool, isUnread: Bool) -> some View {
+        HStack(spacing: 0) {
+            if isUnread && UserDefaults.standard.testUnreadMarkersForNotifications {
+                Rectangle()
+                    .fill(Asset.Colors.accent.swiftUIColor)
+                    .frame(width: 8)
+            }
+            Rectangle()
+                .fill(isPrivate ?  Asset.Colors.accent.swiftUIColor : .clear)
+                .padding(EdgeInsets(top: 1, leading: 0, bottom: 1, trailing: 0))
+                .opacity(0.1)
         }
     }
     
